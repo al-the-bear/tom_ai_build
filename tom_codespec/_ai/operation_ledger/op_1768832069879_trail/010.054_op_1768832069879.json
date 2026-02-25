@@ -1,0 +1,21 @@
+{
+  "operationId": "op_1768832069879",
+  "status": "running",
+  "aborted": false,
+  "lastHeartbeat": "2026-01-19T15:14:39.849154",
+  "stack": [
+    {
+      "participantId": "initiator",
+      "callId": "root",
+      "pid": 111,
+      "startTime": "2026-01-19T15:14:29.901829"
+    },
+    {
+      "participantId": "cli",
+      "callId": "cli-invoke-1",
+      "pid": 111,
+      "startTime": "2026-01-19T15:14:34.920258"
+    }
+  ],
+  "tempResources": []
+}

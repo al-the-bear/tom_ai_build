@@ -1,0 +1,33 @@
+{
+  "operationId": "op_1768829751804",
+  "status": "running",
+  "aborted": false,
+  "lastHeartbeat": "2026-01-19T14:36:33.598130",
+  "stack": [
+    {
+      "participantId": "initiator",
+      "callId": "root",
+      "pid": 111,
+      "startTime": "2026-01-19T14:35:51.806026"
+    },
+    {
+      "participantId": "cli",
+      "callId": "cli-invoke-1",
+      "pid": 111,
+      "startTime": "2026-01-19T14:35:56.836804"
+    },
+    {
+      "participantId": "bridge",
+      "callId": "bridge-handle-1",
+      "pid": 222,
+      "startTime": "2026-01-19T14:36:01.842397"
+    }
+  ],
+  "tempResources": [
+    {
+      "path": "/tmp/dpl_work.tmp",
+      "owner": 222,
+      "registeredAt": "2026-01-19T14:36:06.848553"
+    }
+  ]
+}

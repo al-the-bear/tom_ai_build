@@ -1,0 +1,15 @@
+{
+  "operationId": "op_1768832123644",
+  "status": "running",
+  "aborted": false,
+  "lastHeartbeat": "2026-01-19T15:15:23.654326",
+  "stack": [
+    {
+      "participantId": "initiator",
+      "callId": "root",
+      "pid": 111,
+      "startTime": "2026-01-19T15:15:23.654326"
+    }
+  ],
+  "tempResources": []
+}
