@@ -1,0 +1,22 @@
+name: tom_doc_specs
+description: Document schema validation for structured markdown, extending DocScanner with typed sections.
+version: 1.0.0
+publish_to: none
+
+repository: https://github.com/al-the-bear/tom_ai_build
+
+environment:
+  sdk: ^3.10.4
+
+dependencies:
+  path: ^1.9.0
+  yaml: ^3.1.2
+  tom_doc_scanner:
+    path: ../tom_doc_scanner
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.25.6
+
+executables:
+  docspecs: docspecs

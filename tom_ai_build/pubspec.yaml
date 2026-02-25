@@ -1,6 +1,7 @@
 name: tom_ai_build
 description: AI-powered build and code generation tools.
 version: 1.0.0
+publish_to: none
 # repository: https://github.com/my_org/my_repo
 
 environment:
