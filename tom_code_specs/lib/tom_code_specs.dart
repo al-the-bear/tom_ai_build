@@ -3,6 +3,6 @@
 /// More dartdocs go here.
 library;
 
-export 'src/tom_codespec_base.dart';
+export 'src/tom_code_specs_base.dart';
 
 // TODO: Export any libraries intended for clients of this package.

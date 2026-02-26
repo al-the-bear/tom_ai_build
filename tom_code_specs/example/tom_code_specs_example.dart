@@ -1,4 +1,4 @@
-import 'package:tom_codespec/tom_codespec.dart';
+import 'package:tom_code_specs/tom_code_specs.dart';
 
 void main() {
   var awesome = Awesome();
