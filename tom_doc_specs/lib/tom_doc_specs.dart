@@ -37,6 +37,9 @@ export 'src/models/schema/schema_info.dart';
 // Schema loading
 export 'src/schema/schema_loader.dart';
 
+// Skeleton generation
+export 'src/skeleton/skeleton_generator.dart';
+
 // Validation
 export 'src/validation/validation_error.dart';
 export 'src/validation/validator.dart';
