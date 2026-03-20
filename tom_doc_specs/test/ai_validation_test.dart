@@ -236,5 +236,129 @@ void main() {
 
       expect(mockAi.calls, isEmpty);
     });
+
+    test('SectionDef.validationPrompt overrides type validationPrompt', () async {
+      // The type has a default prompt, but the document section def overrides it
+      schema = DocSpecSchema(
+        id: 'test',
+        version: '1.0',
+        sectionTypes: {
+          'requirement': SectionTypeDef(
+            name: 'requirement',
+            prefix: 'req',
+            validationPrompt: r'Type prompt for ${id}.',
+          ),
+        },
+        document: DocumentStructure(sections: {
+          'req-010': SectionDef(
+            sectionType: 'requirement',
+            validationPrompt: r'Override prompt for ${id}.',
+          ),
+        }),
+      );
+
+      final section = makeSection(id: 'req-010', type: 'requirement');
+      final doc = makeDocument(sections: [section]);
+
+      final mockAi = MockAiValidator(results: {'req-010': null});
+      final validator = DocSpecsValidator(schema: schema, aiValidator: mockAi);
+
+      await validator.validateAsync(doc);
+
+      expect(mockAi.calls, hasLength(1));
+      // Should use the SectionDef override, not the type's prompt
+      expect(mockAi.calls.first.expandedPrompt, 'Override prompt for req-010.');
+    });
+
+    test('subsectionValidationPrompt validates all children', () async {
+      schema = DocSpecSchema(
+        id: 'test',
+        version: '1.0',
+        sectionTypes: {
+          'container': SectionTypeDef(
+            name: 'container',
+            prefix: 'cont',
+          ),
+          'item': SectionTypeDef(
+            name: 'item',
+            prefix: 'item',
+          ),
+        },
+        document: DocumentStructure(sections: {
+          'cont-001': SectionDef(
+            sectionType: 'container',
+            subsectionValidationPrompt: r'Validate child ${id}.',
+          ),
+        }),
+      );
+
+      final child1 = makeSection(id: 'item-001', type: 'item');
+      final child2 = makeSection(id: 'item-002', type: 'item');
+      final parent = SpecSection(
+        index: 0,
+        lineNumber: 5,
+        rawHeadline: 'Container',
+        name: 'Container',
+        id: 'cont-001',
+        text: '',
+        type: 'container',
+        sections: [child1, child2],
+      );
+      final doc = makeDocument(sections: [parent]);
+
+      final mockAi = MockAiValidator(results: {
+        'item-001': null,
+        'item-002': 'Missing description',
+      });
+      final validator = DocSpecsValidator(schema: schema, aiValidator: mockAi);
+
+      final errors = await validator.validateAsync(doc);
+
+      // Should have been called for both children
+      final subsectionCalls = mockAi.calls
+          .where((c) => c.sectionId == 'item-001' || c.sectionId == 'item-002')
+          .toList();
+      expect(subsectionCalls, hasLength(2));
+      expect(subsectionCalls[0].expandedPrompt, 'Validate child item-001.');
+      expect(subsectionCalls[1].expandedPrompt, 'Validate child item-002.');
+
+      // One child failed AI validation
+      final aiErrors = errors
+          .where((e) => e.category == ValidationErrorCategory.aiValidation)
+          .toList();
+      expect(aiErrors, hasLength(1));
+      expect(aiErrors.first.sectionId, 'item-002');
+    });
+
+    test('falls back to type validationPrompt when SectionDef has none', () async {
+      schema = DocSpecSchema(
+        id: 'test',
+        version: '1.0',
+        sectionTypes: {
+          'requirement': SectionTypeDef(
+            name: 'requirement',
+            prefix: 'req',
+            validationPrompt: r'Type prompt for ${id}.',
+          ),
+        },
+        document: DocumentStructure(sections: {
+          'req-020': SectionDef(
+            sectionType: 'requirement',
+            // No validationPrompt override — should fall back to type's
+          ),
+        }),
+      );
+
+      final section = makeSection(id: 'req-020', type: 'requirement');
+      final doc = makeDocument(sections: [section]);
+
+      final mockAi = MockAiValidator(results: {'req-020': null});
+      final validator = DocSpecsValidator(schema: schema, aiValidator: mockAi);
+
+      await validator.validateAsync(doc);
+
+      expect(mockAi.calls, hasLength(1));
+      expect(mockAi.calls.first.expandedPrompt, 'Type prompt for req-020.');
+    });
   });
 }

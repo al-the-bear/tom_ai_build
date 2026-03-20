@@ -18,9 +18,11 @@ class SchemaFilenameParser {
     r'\.docspecs-schema\.ya?ml$',
   );
 
-  /// Optional version suffix in the name part (e.g., `name-1.0`).
+  /// Optional version suffix in the name part.
+  /// Matches both dash and dot separators:
+  ///   `name-1.0`, `name.1.0`, `name-1.0.0`, `name.1.0.0`
   static final _versionPattern = RegExp(
-    r'^(.+)-(\d+\.\d+)$',
+    r'^(.+?)[.-](\d+\.\d+(?:\.\d+)?)$',
   );
 
   /// Checks whether a filename has a valid schema extension.
@@ -131,8 +133,8 @@ class SchemaResolver {
   /// Resolves a schema by ID.
   ///
   /// Search order:
-  /// 1. Local `.docspecs-schemas/` folders (walk up from [documentPath])
-  /// 2. User schemas in `~/.tom/docspecs-schemas/`
+  /// 1. Local `.tom/docspecs-schema/` folders (walk up from [documentPath])
+  /// 2. User schemas in `~/.tom/docspecs-schema/`
   /// 3. Built-in schemas (placeholder)
   ///
   /// The [schemaId] can be:
@@ -195,7 +197,7 @@ class SchemaResolver {
     return schemaId.replaceAll('/', '-');
   }
 
-  /// Searches local `.docspecs-schemas/` folders walking up from document path.
+  /// Searches local `.tom/docspecs-schema/` folders walking up from document path.
   static Future<DocSpecSchema?> _searchLocalFolders(
     String schemaId,
     String documentPath,
@@ -206,7 +208,7 @@ class SchemaResolver {
 
     while (currentDir.length >= stopAt.length) {
       final schemaPath = await _findSchemaInFolder(
-        path.join(currentDir, '.docspecs-schemas'),
+        path.join(currentDir, '.tom', 'docspecs-schema'),
         schemaId,
       );
       if (schemaPath != null) {
@@ -232,7 +234,7 @@ class SchemaResolver {
 
     while (currentDir.length >= stopAt.length) {
       final schemaPath = _findSchemaInFolderSync(
-        path.join(currentDir, '.docspecs-schemas'),
+        path.join(currentDir, '.tom', 'docspecs-schema'),
         schemaId,
       );
       if (schemaPath != null) {
@@ -252,7 +254,7 @@ class SchemaResolver {
     final home = Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
     if (home == null) return null;
 
-    final userSchemaDir = path.join(home, '.tom', 'docspecs-schemas');
+    final userSchemaDir = path.join(home, '.tom', 'docspecs-schema');
     final schemaPath = await _findSchemaInFolder(userSchemaDir, schemaId);
     if (schemaPath != null) {
       return SchemaLoader.load(schemaPath);
@@ -266,7 +268,7 @@ class SchemaResolver {
     final home = Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
     if (home == null) return null;
 
-    final userSchemaDir = path.join(home, '.tom', 'docspecs-schemas');
+    final userSchemaDir = path.join(home, '.tom', 'docspecs-schema');
     final schemaPath = _findSchemaInFolderSync(userSchemaDir, schemaId);
     if (schemaPath != null) {
       return SchemaLoader.loadSync(schemaPath);
@@ -284,23 +286,31 @@ class SchemaResolver {
     if (!await dir.exists()) return null;
 
     // Extract schema name (without version) for subfolder check
-    final parts = schemaId.split('-');
-    final versionIdx = parts.lastIndexWhere(
-      (p) => RegExp(r'^\d+\.\d+$').hasMatch(p),
-    );
-    final schemaName = versionIdx > 0 ? parts.sublist(0, versionIdx).join('-') : schemaId;
+    final parsed = SchemaFilenameParser._versionPattern.firstMatch(schemaId);
+    final schemaName = parsed?.group(1) ?? schemaId;
+    final version = parsed?.group(2);
 
-    // Check in subfolder first (e.g., .docspecs-schemas/quest-overview/)
+    // Build candidate filenames: both dash and dot separators
+    final candidates = <String>[];
     for (final ext in schemaExtensions) {
-      final subfolderPath = path.join(folderPath, schemaName, '$schemaId$ext');
+      candidates.add('$schemaId$ext');
+      if (version != null) {
+        // Also try dot-separated version: name.version.ext
+        candidates.add('$schemaName.$version$ext');
+      }
+    }
+
+    // Check in subfolder first (e.g., .tom/docspecs-schema/quest-overview/)
+    for (final candidate in candidates) {
+      final subfolderPath = path.join(folderPath, schemaName, candidate);
       if (await File(subfolderPath).exists()) {
         return subfolderPath;
       }
     }
 
     // Check directly in folder
-    for (final ext in schemaExtensions) {
-      final directPath = path.join(folderPath, '$schemaId$ext');
+    for (final candidate in candidates) {
+      final directPath = path.join(folderPath, candidate);
       if (await File(directPath).exists()) {
         return directPath;
       }
@@ -318,23 +328,30 @@ class SchemaResolver {
     if (!dir.existsSync()) return null;
 
     // Extract schema name (without version) for subfolder check
-    final parts = schemaId.split('-');
-    final versionIdx = parts.lastIndexWhere(
-      (p) => RegExp(r'^\d+\.\d+$').hasMatch(p),
-    );
-    final schemaName = versionIdx > 0 ? parts.sublist(0, versionIdx).join('-') : schemaId;
+    final parsed = SchemaFilenameParser._versionPattern.firstMatch(schemaId);
+    final schemaName = parsed?.group(1) ?? schemaId;
+    final version = parsed?.group(2);
+
+    // Build candidate filenames: both dash and dot separators
+    final candidates = <String>[];
+    for (final ext in schemaExtensions) {
+      candidates.add('$schemaId$ext');
+      if (version != null) {
+        candidates.add('$schemaName.$version$ext');
+      }
+    }
 
     // Check in subfolder first
-    for (final ext in schemaExtensions) {
-      final subfolderPath = path.join(folderPath, schemaName, '$schemaId$ext');
+    for (final candidate in candidates) {
+      final subfolderPath = path.join(folderPath, schemaName, candidate);
       if (File(subfolderPath).existsSync()) {
         return subfolderPath;
       }
     }
 
     // Check directly in folder
-    for (final ext in schemaExtensions) {
-      final directPath = path.join(folderPath, '$schemaId$ext');
+    for (final candidate in candidates) {
+      final directPath = path.join(folderPath, candidate);
       if (File(directPath).existsSync()) {
         return directPath;
       }
@@ -412,7 +429,7 @@ class SchemaDiscovery {
     final stopAt = workspaceRoot ?? path.rootPrefix(documentPath);
 
     while (currentDir.length >= stopAt.length) {
-      final schemaDir = path.join(currentDir, '.docspecs-schemas');
+      final schemaDir = path.join(currentDir, '.tom', 'docspecs-schema');
       final temp = <SchemaInfo>[];
       await _discoverInFolder(temp, schemaDir, SchemaSource.local);
 
@@ -435,7 +452,7 @@ class SchemaDiscovery {
     final stopAt = workspaceRoot ?? path.rootPrefix(documentPath);
 
     while (currentDir.length >= stopAt.length) {
-      final schemaDir = path.join(currentDir, '.docspecs-schemas');
+      final schemaDir = path.join(currentDir, '.tom', 'docspecs-schema');
       final temp = <SchemaInfo>[];
       _discoverInFolderSync(temp, schemaDir, SchemaSource.local);
 
@@ -455,7 +472,7 @@ class SchemaDiscovery {
     final home = Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
     if (home == null) return;
 
-    final userSchemaDir = path.join(home, '.tom', 'docspecs-schemas');
+    final userSchemaDir = path.join(home, '.tom', 'docspecs-schema');
     final temp = <SchemaInfo>[];
     await _discoverInFolder(temp, userSchemaDir, SchemaSource.user);
 
@@ -468,7 +485,7 @@ class SchemaDiscovery {
     final home = Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
     if (home == null) return;
 
-    final userSchemaDir = path.join(home, '.tom', 'docspecs-schemas');
+    final userSchemaDir = path.join(home, '.tom', 'docspecs-schema');
     final temp = <SchemaInfo>[];
     _discoverInFolderSync(temp, userSchemaDir, SchemaSource.user);
 

@@ -199,6 +199,62 @@ void main() {
           'Parent: ',
         );
       });
+
+      test('expands \${parent.parent.id} for grandparent access', () {
+        final grandchild = makeSection(id: 'grandchild-001', type: 'detail');
+        final child = makeSection(
+          id: 'child-001',
+          type: 'component',
+          sections: [grandchild],
+        );
+        final grandparent = makeSection(
+          id: 'grandparent-001',
+          type: 'module',
+          sections: [child],
+        );
+        document = makeDocument(sections: [grandparent]);
+        expect(
+          expander.expand(
+            r'Grandparent: ${parent.parent.id}',
+            section: grandchild,
+            document: document,
+          ),
+          'Grandparent: grandparent-001',
+        );
+      });
+
+      test('expands \${parent.parent.type} for grandparent type', () {
+        final grandchild = makeSection(id: 'gc-001');
+        final child = makeSection(id: 'c-001', sections: [grandchild]);
+        final grandparent = makeSection(
+          id: 'gp-001',
+          type: 'module',
+          sections: [child],
+        );
+        document = makeDocument(sections: [grandparent]);
+        expect(
+          expander.expand(
+            r'GP type: ${parent.parent.type}',
+            section: grandchild,
+            document: document,
+          ),
+          'GP type: module',
+        );
+      });
+
+      test('returns empty for grandparent when only one level deep', () {
+        final child = makeSection(id: 'child-001');
+        final parent = makeSection(id: 'parent-001', sections: [child]);
+        document = makeDocument(sections: [parent]);
+        expect(
+          expander.expand(
+            r'GP: ${parent.parent.id}',
+            section: child,
+            document: document,
+          ),
+          'GP: ',
+        );
+      });
     });
 
     test('preserves unknown placeholders', () {

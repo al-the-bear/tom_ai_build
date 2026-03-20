@@ -48,12 +48,21 @@ class PromptExpander {
   }
 
   String _resolve(String key, SpecSection section, SpecDoc document) {
-    // Parent access
+    // Parent access (supports chained: parent.parent.parent.*)
     if (key.startsWith('parent.')) {
-      final parentKey = key.substring('parent.'.length);
-      final parent = _findParent(section, document);
-      if (parent == null) return '';
-      return _resolveForSection(parentKey, parent);
+      var remaining = key;
+      Section? current = section;
+
+      while (remaining.startsWith('parent.')) {
+        remaining = remaining.substring('parent.'.length);
+        current = current != null
+            ? _findParent(
+                current is SpecSection ? current : null, document)
+            : null;
+        if (current == null) return '';
+      }
+
+      return _resolveForSection(remaining, current!);
     }
 
     return _resolveForSection(key, section);
@@ -99,11 +108,12 @@ class PromptExpander {
   }
 
   /// Finds the parent section of [target] in the document tree.
-  SpecSection? _findParent(SpecSection target, SpecDoc document) {
+  Section? _findParent(SpecSection? target, SpecDoc document) {
+    if (target == null) return null;
     return _findParentInChildren(target, document.sections);
   }
 
-  SpecSection? _findParentInChildren(
+  Section? _findParentInChildren(
     SpecSection target,
     List<Section>? children,
   ) {
@@ -114,7 +124,7 @@ class PromptExpander {
       if (child.sections != null) {
         for (final grandchild in child.sections!) {
           if (identical(grandchild, target)) {
-            return child is SpecSection ? child : null;
+            return child;
           }
         }
       }

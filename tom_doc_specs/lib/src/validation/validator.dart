@@ -1,6 +1,8 @@
 import 'package:tom_doc_scanner/src/models/document.dart';
 import 'package:tom_doc_scanner/src/models/section.dart';
 import '../models/schema/doc_spec_schema.dart';
+import '../models/schema/document_structure.dart';
+import '../models/schema/section_type_def.dart';
 import '../models/spec_doc.dart';
 import '../models/spec_section.dart';
 import 'ai_validator.dart';
@@ -108,6 +110,12 @@ class DocSpecsValidator {
     final allSections = _collectAllSections(doc);
     final promptExpander = PromptExpander();
 
+    // Build a lookup of document-level SectionDef by section id
+    final sectionDefById = <String, SectionDef>{};
+    for (final entry in schema.document.sections.entries) {
+      sectionDefById[entry.key] = entry.value;
+    }
+
     for (final info in allSections) {
       if (info.section is! SpecSection) continue;
       final specSection = info.section as SpecSection;
@@ -117,44 +125,88 @@ class DocSpecsValidator {
           ? schema.sectionTypes[specSection.type]
           : null;
 
-      final rawPrompt = typeDef?.validationPrompt;
-      if (rawPrompt == null || rawPrompt.isEmpty) continue;
+      // Determine the raw prompt: SectionDef.validationPrompt overrides type's
+      final sectionDef = sectionDefById[specSection.id];
+      final rawPrompt = sectionDef?.validationPrompt ??
+          typeDef?.validationPrompt;
 
-      final expandedPrompt = promptExpander.expand(
-        rawPrompt,
+      if (rawPrompt != null && rawPrompt.isNotEmpty) {
+        await _runAiValidation(
+          errors: errors,
+          rawPrompt: rawPrompt,
+          specSection: specSection,
+          specDoc: specDoc,
+          typeDef: typeDef,
+          promptExpander: promptExpander,
+        );
+      }
+
+      // subsection-validation-prompt: validate all children of this section
+      final subsectionPrompt = sectionDef?.subsectionValidationPrompt;
+      if (subsectionPrompt != null && subsectionPrompt.isNotEmpty) {
+        if (specSection.sections != null) {
+          for (final child in specSection.sections!) {
+            if (child is! SpecSection) continue;
+            final childTypeDef = child.type != null
+                ? schema.sectionTypes[child.type]
+                : null;
+            await _runAiValidation(
+              errors: errors,
+              rawPrompt: subsectionPrompt,
+              specSection: child,
+              specDoc: specDoc,
+              typeDef: childTypeDef,
+              promptExpander: promptExpander,
+            );
+          }
+        }
+      }
+    }
+
+    return errors;
+  }
+
+  /// Runs AI validation for a single section with the given prompt.
+  Future<void> _runAiValidation({
+    required List<ValidationError> errors,
+    required String rawPrompt,
+    required SpecSection specSection,
+    required SpecDoc specDoc,
+    required SectionTypeDef? typeDef,
+    required PromptExpander promptExpander,
+  }) async {
+    final expandedPrompt = promptExpander.expand(
+      rawPrompt,
+      section: specSection,
+      document: specDoc,
+    );
+
+    try {
+      final result = await aiValidator!.validate(
+        rawPrompt: rawPrompt,
+        expandedPrompt: expandedPrompt,
         section: specSection,
         document: specDoc,
+        sectionTypeDef: typeDef,
+        schema: schema,
       );
 
-      try {
-        final result = await aiValidator!.validate(
-          rawPrompt: rawPrompt,
-          expandedPrompt: expandedPrompt,
-          section: specSection,
-          document: specDoc,
-          sectionTypeDef: typeDef,
-          schema: schema,
-        );
-
-        if (result != null) {
-          errors.add(ValidationError(
-            message: 'AI validation: $result',
-            lineNumber: specSection.lineNumber,
-            sectionId: specSection.id,
-            category: ValidationErrorCategory.aiValidation,
-          ));
-        }
-      } catch (e) {
+      if (result != null) {
         errors.add(ValidationError(
-          message: 'AI validation failed: $e',
+          message: 'AI validation: $result',
           lineNumber: specSection.lineNumber,
           sectionId: specSection.id,
           category: ValidationErrorCategory.aiValidation,
         ));
       }
+    } catch (e) {
+      errors.add(ValidationError(
+        message: 'AI validation failed: $e',
+        lineNumber: specSection.lineNumber,
+        sectionId: specSection.id,
+        category: ValidationErrorCategory.aiValidation,
+      ));
     }
-
-    return errors;
   }
 
   /// Validates schema declaration.
