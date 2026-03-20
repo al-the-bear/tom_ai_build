@@ -1,7 +1,10 @@
 import 'package:tom_doc_scanner/src/models/document.dart';
 import 'package:tom_doc_scanner/src/models/section.dart';
 import '../models/schema/doc_spec_schema.dart';
+import '../models/spec_doc.dart';
 import '../models/spec_section.dart';
+import 'ai_validator.dart';
+import 'prompt_expander.dart';
 import 'validation_error.dart';
 
 /// Main validation engine for DocSpecs documents.
@@ -18,12 +21,18 @@ import 'validation_error.dart';
 /// - Text requirements
 /// - Format validation
 /// - For-each validation
+/// - AI validation (async only, requires [aiValidator])
 class DocSpecsValidator {
   /// The schema to validate against.
   final DocSpecSchema schema;
 
+  /// Optional AI validator for LLM-based section validation.
+  ///
+  /// Only used by [validateAsync]. The sync [validate] method never calls AI.
+  final AiValidator? aiValidator;
+
   /// Creates a new validator with the given schema.
-  const DocSpecsValidator({required this.schema});
+  const DocSpecsValidator({required this.schema, this.aiValidator});
 
   /// Validates a document and returns all errors.
   List<ValidationError> validate(Document doc) {
@@ -79,6 +88,71 @@ class DocSpecsValidator {
 
     // 17. Validate subsection positions
     errors.addAll(_validateSubsectionPositions(doc));
+
+    return errors;
+  }
+
+  /// Validates a document asynchronously, including AI validation.
+  ///
+  /// Runs all sync validations first, then invokes [aiValidator] for each
+  /// section that has a `validationPrompt` in its type definition.
+  /// If no [aiValidator] is set, this is identical to [validate].
+  Future<List<ValidationError>> validateAsync(Document doc) async {
+    // Run all sync validations
+    final errors = validate(doc);
+
+    // AI validation requires aiValidator and a SpecDoc
+    if (aiValidator == null || doc is! SpecDoc) return errors;
+
+    final specDoc = doc;
+    final allSections = _collectAllSections(doc);
+    final promptExpander = PromptExpander();
+
+    for (final info in allSections) {
+      if (info.section is! SpecSection) continue;
+      final specSection = info.section as SpecSection;
+
+      // Find the section type definition
+      final typeDef = specSection.type != null
+          ? schema.sectionTypes[specSection.type]
+          : null;
+
+      final rawPrompt = typeDef?.validationPrompt;
+      if (rawPrompt == null || rawPrompt.isEmpty) continue;
+
+      final expandedPrompt = promptExpander.expand(
+        rawPrompt,
+        section: specSection,
+        document: specDoc,
+      );
+
+      try {
+        final result = await aiValidator!.validate(
+          rawPrompt: rawPrompt,
+          expandedPrompt: expandedPrompt,
+          section: specSection,
+          document: specDoc,
+          sectionTypeDef: typeDef,
+          schema: schema,
+        );
+
+        if (result != null) {
+          errors.add(ValidationError(
+            message: 'AI validation: $result',
+            lineNumber: specSection.lineNumber,
+            sectionId: specSection.id,
+            category: ValidationErrorCategory.aiValidation,
+          ));
+        }
+      } catch (e) {
+        errors.add(ValidationError(
+          message: 'AI validation failed: $e',
+          lineNumber: specSection.lineNumber,
+          sectionId: specSection.id,
+          category: ValidationErrorCategory.aiValidation,
+        ));
+      }
+    }
 
     return errors;
   }

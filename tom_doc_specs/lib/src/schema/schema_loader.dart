@@ -5,6 +5,7 @@ import 'package:yaml/yaml.dart';
 
 import '../models/schema/doc_spec_schema.dart';
 import '../models/schema/schema_info.dart';
+import 'schema_expander.dart';
 
 /// Parses schema filenames to extract id and version.
 ///
@@ -94,8 +95,12 @@ class SchemaLoader {
     final yaml = loadYaml(content);
     final yamlMap = _deepConvertYaml(yaml) as Map<String, dynamic>;
 
+    // Expand [[...]] placeholders/generators before model construction
+    final expander = SchemaExpander(yamlMap);
+    final expandedMap = expander.expand(yamlMap);
+
     return DocSpecSchema.fromYaml(
-      yamlMap,
+      expandedMap,
       id: parsed.id,
       version: parsed.version,
     );

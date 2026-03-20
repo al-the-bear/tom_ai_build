@@ -36,10 +36,16 @@ export 'src/models/schema/schema_info.dart';
 
 // Schema loading
 export 'src/schema/schema_loader.dart';
+export 'src/schema/schema_expander.dart';
 
 // Skeleton generation
 export 'src/skeleton/skeleton_generator.dart';
 
 // Validation
+export 'src/validation/ai_validator.dart';
+export 'src/validation/prompt_expander.dart';
 export 'src/validation/validation_error.dart';
 export 'src/validation/validator.dart';
+
+// Insert markers
+export 'src/markers/insert_markers.dart';

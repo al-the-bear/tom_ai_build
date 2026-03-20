@@ -9,6 +9,7 @@ import 'models/schema/doc_spec_schema.dart';
 import 'models/schema/schema_info.dart';
 import 'models/spec_doc.dart';
 import 'schema/schema_loader.dart';
+import 'validation/ai_validator.dart';
 import 'validation/validator.dart';
 
 /// DocSpecs - Document schema validation system.
@@ -317,6 +318,28 @@ class DocSpecs {
 
     final validator = DocSpecsValidator(schema: schema);
     final errors = validator.validate(doc);
+    return errors.map((e) => e.toString()).toList();
+  }
+
+  /// Validate a document asynchronously, including AI validation.
+  ///
+  /// If [aiValidator] is provided, sections with `validationPrompt` in their
+  /// type definition will be validated using the AI. Otherwise, this is
+  /// identical to [validate].
+  static Future<List<String>> validateAsync(
+    SpecDoc doc, {
+    DocSpecSchema? schema,
+    AiValidator? aiValidator,
+  }) async {
+    if (schema == null) {
+      return ['No schema provided for validation'];
+    }
+
+    final validator = DocSpecsValidator(
+      schema: schema,
+      aiValidator: aiValidator,
+    );
+    final errors = await validator.validateAsync(doc);
     return errors.map((e) => e.toString()).toList();
   }
 
