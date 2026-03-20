@@ -65,10 +65,19 @@ class DocSpecsValidator {
     // 12. Validate format (code blocks, forms)
     errors.addAll(_validateFormat(allSections));
 
-    // 13. Validate for-each
+    // 13. Validate required fields
+    errors.addAll(_validateRequiredFields(allSections));
+
+    // 14. Validate child type enforcement (strict)
+    errors.addAll(_validateChildTypes(allSections));
+
+    // 15. Validate section-type matching in document structure
+    errors.addAll(_validateDocumentSectionTypes(doc));
+
+    // 16. Validate for-each
     errors.addAll(_validateForEach(doc));
 
-    // 14. Validate subsection positions
+    // 17. Validate subsection positions
     errors.addAll(_validateSubsectionPositions(doc));
 
     return errors;
@@ -613,23 +622,315 @@ class DocSpecsValidator {
     return errors;
   }
 
+  /// Validates required fields on sections.
+  List<ValidationError> _validateRequiredFields(List<_SectionInfo> sections) {
+    final errors = <ValidationError>[];
+
+    for (final info in sections) {
+      if (info.section is SpecSection) {
+        final section = info.section as SpecSection;
+        if (section.type != null) {
+          final typeDef = schema.sectionTypes[section.type];
+          if (typeDef?.requiredFields != null) {
+            for (final fieldName in typeDef!.requiredFields!) {
+              final value = section.getFormField(fieldName) ??
+                  section.fields[fieldName];
+              if (value == null || value.isEmpty) {
+                errors.add(ValidationError(
+                  message:
+                      "Required field '$fieldName' is missing in section '${section.id}' (type '${section.type}')",
+                  lineNumber: section.lineNumber,
+                  sectionId: section.id,
+                  category: ValidationErrorCategory.format,
+                ));
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return errors;
+  }
+
+  /// Validates that child section types match allowed subsection-types (strict).
+  List<ValidationError> _validateChildTypes(List<_SectionInfo> sections) {
+    final errors = <ValidationError>[];
+
+    for (final info in sections) {
+      if (info.section is SpecSection) {
+        final section = info.section as SpecSection;
+        if (section.type != null && section.sections != null && section.sections!.isNotEmpty) {
+          final typeDef = schema.sectionTypes[section.type];
+          if (typeDef?.subsectionTypes != null) {
+            final allowedTypes = typeDef!.subsectionTypes!.keys.toSet();
+
+            for (final child in section.sections!) {
+              if (child is SpecSection && child.type != null) {
+                if (!allowedTypes.contains(child.type)) {
+                  errors.add(ValidationError(
+                    message:
+                        "Section '${section.id}' (type '${section.type}') does not allow child type '${child.type}'. Allowed: ${allowedTypes.join(', ')}",
+                    lineNumber: child.lineNumber,
+                    sectionId: child.id,
+                    category: ValidationErrorCategory.sectionType,
+                  ));
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return errors;
+  }
+
+  /// Validates that document sections match their declared section-type.
+  List<ValidationError> _validateDocumentSectionTypes(Document doc) {
+    final errors = <ValidationError>[];
+
+    if (doc.sections == null) return errors;
+
+    for (final section in doc.sections!) {
+      if (section is SpecSection) {
+        // Find if this section is declared in document.sections
+        final sectionDef = schema.document.sections[section.id];
+        if (sectionDef != null && section.type != null) {
+          if (section.type != sectionDef.sectionType) {
+            errors.add(ValidationError(
+              message:
+                  "Section '${section.id}' has type '${section.type}' but document structure declares it as type '${sectionDef.sectionType}'",
+              lineNumber: section.lineNumber,
+              sectionId: section.id,
+              category: ValidationErrorCategory.structure,
+            ));
+          }
+        }
+      }
+    }
+
+    return errors;
+  }
+
   /// Validates for-each patterns.
   List<ValidationError> _validateForEach(Document doc) {
     final errors = <ValidationError>[];
-    
-    // TODO: Implement for-each validation
-    // This requires tracking registry sections and matching them with subsections
-    
+
+    // For-each is declared on document sections
+    for (final entry in schema.document.sections.entries) {
+      final sectionDef = entry.value;
+      final forEach = sectionDef.forEach;
+      if (forEach == null) continue;
+
+      // Find the target section in the document
+      Section? targetSection;
+      if (doc.sections != null) {
+        for (final s in doc.sections!) {
+          if (s.id == entry.key) {
+            targetSection = s;
+            break;
+          }
+        }
+      }
+
+      if (targetSection == null) continue;
+
+      // Find all registry entries of the specified type
+      final registryType = forEach.sectionType;
+      final keyField = forEach.key;
+
+      // Collect registry entries (sections of registryType across the whole document)
+      final registryKeys = <String>{};
+      void collectRegistryEntries(Section section) {
+        if (section is SpecSection && section.type == registryType) {
+          final keyValue = section.fields[keyField] ?? section.getFormField(keyField);
+          if (keyValue != null && keyValue.isNotEmpty) {
+            registryKeys.add(keyValue);
+          }
+        }
+        if (section.sections != null) {
+          for (final child in section.sections!) {
+            collectRegistryEntries(child);
+          }
+        }
+      }
+
+      if (doc.sections != null) {
+        for (final s in doc.sections!) {
+          collectRegistryEntries(s);
+        }
+      }
+
+      // Collect subsection keys from the target section
+      final subsectionKeys = <String>{};
+      if (targetSection.sections != null) {
+        for (final child in targetSection.sections!) {
+          if (child is SpecSection) {
+            final keyValue = child.fields[keyField] ?? child.getFormField(keyField);
+            if (keyValue != null && keyValue.isNotEmpty) {
+              subsectionKeys.add(keyValue);
+            }
+          }
+        }
+      }
+
+      // Check: every registry entry should have a corresponding subsection
+      for (final key in registryKeys) {
+        if (!subsectionKeys.contains(key)) {
+          errors.add(ValidationError(
+            message:
+                "Registry entry '$key' (type '$registryType') has no corresponding subsection in '${entry.key}'",
+            sectionId: entry.key,
+            category: ValidationErrorCategory.forEach,
+          ));
+        }
+      }
+
+      // Check: every subsection should have a corresponding registry entry
+      for (final key in subsectionKeys) {
+        if (!registryKeys.contains(key)) {
+          errors.add(ValidationError(
+            message:
+                "Subsection with $keyField='$key' in '${entry.key}' has no corresponding registry entry of type '$registryType'",
+            sectionId: entry.key,
+            category: ValidationErrorCategory.forEach,
+          ));
+        }
+      }
+    }
+
     return errors;
   }
 
   /// Validates subsection positions.
   List<ValidationError> _validateSubsectionPositions(Document doc) {
     final errors = <ValidationError>[];
-    
-    // TODO: Implement subsection position validation
-    // This requires checking first, last, relative, any positions
-    
+
+    // Check subsection declarations (top-level block)
+    if (schema.subsectionDeclarations != null) {
+      for (final declEntry in schema.subsectionDeclarations!.entries) {
+        final parentSectionName = declEntry.key;
+        final subsectionDefs = declEntry.value;
+
+        // Find the parent section in the document
+        Section? parentSection;
+        if (doc.sections != null) {
+          for (final s in doc.sections!) {
+            if (s.id == parentSectionName) {
+              parentSection = s;
+              break;
+            }
+          }
+        }
+
+        if (parentSection == null || parentSection.sections == null) continue;
+
+        final children = parentSection.sections!;
+
+        for (final subEntry in subsectionDefs.entries) {
+          final subDef = subEntry.value;
+          final position = subDef.position ?? 'relative';
+          final subType = subDef.sectionType;
+
+          // Check required subsections
+          if (subDef.required == true) {
+            final hasType = children.any(
+              (c) => c is SpecSection && c.type == subType,
+            );
+            if (!hasType) {
+              errors.add(ValidationError(
+                message:
+                    "Required subsection of type '$subType' is missing in section '$parentSectionName'",
+                sectionId: parentSectionName,
+                category: ValidationErrorCategory.structure,
+              ));
+            }
+          }
+
+          // Check position constraints
+          errors.addAll(
+            _checkPositionConstraint(children, subType, position, parentSectionName),
+          );
+        }
+      }
+    }
+
+    return errors;
+  }
+
+  /// Checks position constraints for children of a given type.
+  List<ValidationError> _checkPositionConstraint(
+    List<Section> children,
+    String subType,
+    String position,
+    String parentId,
+  ) {
+    final errors = <ValidationError>[];
+    if (children.isEmpty || position == 'any') return errors;
+
+    final typedIndices = <int>[];
+    for (var i = 0; i < children.length; i++) {
+      if (children[i] is SpecSection &&
+          (children[i] as SpecSection).type == subType) {
+        typedIndices.add(i);
+      }
+    }
+
+    if (typedIndices.isEmpty) return errors;
+
+    switch (position) {
+      case 'first':
+        // All instances of this type must come before all other types
+        if (typedIndices.isNotEmpty) {
+          final lastTypedIdx = typedIndices.last;
+          // Check that no non-typed section appears before the last typed one
+          for (var i = 0; i < lastTypedIdx; i++) {
+            if (!typedIndices.contains(i)) {
+              errors.add(ValidationError(
+                message:
+                    "Subsection of type '$subType' must appear first in '$parentId', but non-'$subType' section found before it",
+                lineNumber: children[typedIndices.last].lineNumber,
+                sectionId: parentId,
+                category: ValidationErrorCategory.structure,
+              ));
+              break;
+            }
+          }
+        }
+      case 'last':
+        // All instances of this type must come after all other types
+        if (typedIndices.isNotEmpty) {
+          final firstTypedIdx = typedIndices.first;
+          for (var i = firstTypedIdx + 1; i < children.length; i++) {
+            if (!typedIndices.contains(i)) {
+              errors.add(ValidationError(
+                message:
+                    "Subsection of type '$subType' must appear last in '$parentId', but non-'$subType' section found after it",
+                lineNumber: children[firstTypedIdx].lineNumber,
+                sectionId: parentId,
+                category: ValidationErrorCategory.structure,
+              ));
+              break;
+            }
+          }
+        }
+      case 'relative':
+        // All instances of this type must be contiguous (together)
+        for (var i = 1; i < typedIndices.length; i++) {
+          if (typedIndices[i] != typedIndices[i - 1] + 1) {
+            errors.add(ValidationError(
+              message:
+                  "Subsections of type '$subType' must be contiguous in '$parentId', but they are separated by other sections",
+              lineNumber: children[typedIndices[i]].lineNumber,
+              sectionId: parentId,
+              category: ValidationErrorCategory.structure,
+            ));
+            break;
+          }
+        }
+    }
+
     return errors;
   }
 }

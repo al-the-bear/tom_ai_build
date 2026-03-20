@@ -180,19 +180,25 @@ class DocSpecs {
   /// Scan a directory tree (async).
   ///
   /// Returns a [DocumentFolder] with [SpecDoc] instances.
+  /// Each document found is re-scanned with a [DocSpecsFactory] so
+  /// sections are created as [SpecSection] with type resolution.
   static Future<DocumentFolder> scanTree({
     required String dirPath,
     String? workspaceRoot,
   }) async {
-    // Note: DocScanner.scanTree creates Documents, not SpecDocs
-    // We need to re-scan each .docspec.md file with our factory
     final absolutePath = _toAbsolutePath(dirPath);
     final wsRoot = workspaceRoot ?? Directory.current.path;
 
-    return DocScanner.scanTree(
+    // First scan tree to discover documents
+    final folder = await DocScanner.scanTree(
       path: absolutePath,
       workspaceRoot: wsRoot,
     );
+
+    // Re-scan each document with our factory
+    await _rescanFolderDocuments(folder, wsRoot);
+
+    return folder;
   }
 
   /// Scan a directory tree (sync).
@@ -203,10 +209,60 @@ class DocSpecs {
     final absolutePath = _toAbsolutePath(dirPath);
     final wsRoot = workspaceRoot ?? Directory.current.path;
 
-    return DocScanner.scanTreeSync(
+    final folder = DocScanner.scanTreeSync(
       path: absolutePath,
       workspaceRoot: wsRoot,
     );
+
+    _rescanFolderDocumentsSync(folder, wsRoot);
+
+    return folder;
+  }
+
+  /// Re-scans all documents in a folder tree with DocSpecsFactory.
+  static Future<void> _rescanFolderDocuments(
+    DocumentFolder folder,
+    String wsRoot,
+  ) async {
+    for (var i = 0; i < folder.documents.length; i++) {
+      final doc = folder.documents[i];
+      try {
+        final specDoc = await scanDocument(
+          filePath: doc.fullPath,
+          workspaceRoot: wsRoot,
+        );
+        folder.documents[i] = specDoc;
+      } catch (_) {
+        // Keep original document on error
+      }
+    }
+
+    for (final subFolder in folder.folders) {
+      await _rescanFolderDocuments(subFolder, wsRoot);
+    }
+  }
+
+  /// Re-scans all documents in a folder tree synchronously.
+  static void _rescanFolderDocumentsSync(
+    DocumentFolder folder,
+    String wsRoot,
+  ) {
+    for (var i = 0; i < folder.documents.length; i++) {
+      final doc = folder.documents[i];
+      try {
+        final specDoc = scanDocumentSync(
+          filePath: doc.fullPath,
+          workspaceRoot: wsRoot,
+        );
+        folder.documents[i] = specDoc;
+      } catch (_) {
+        // Keep original document on error
+      }
+    }
+
+    for (final subFolder in folder.folders) {
+      _rescanFolderDocumentsSync(subFolder, wsRoot);
+    }
   }
 
   /// Load a schema definition by ID.
