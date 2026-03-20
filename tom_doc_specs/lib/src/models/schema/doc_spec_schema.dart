@@ -4,7 +4,7 @@ import 'section_type_def.dart';
 
 /// A DocSpecs schema definition.
 ///
-/// Represents a parsed `.docspec-schema.yaml` file containing section type
+/// Represents a parsed `.docspecs-schema.yaml` file containing section type
 /// definitions, document structure, form types, and custom tags.
 ///
 /// ## Example

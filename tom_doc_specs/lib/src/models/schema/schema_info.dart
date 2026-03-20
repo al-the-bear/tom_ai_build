@@ -1,9 +1,9 @@
 /// Source location type for schemas.
 enum SchemaSource {
-  /// Schema found in local `.docspec-schemas/` folder.
+  /// Schema found in local `.docspecs-schemas/` folder.
   local,
 
-  /// Schema found in user's `~/.tom/docspec-schemas/` folder.
+  /// Schema found in user's `~/.tom/docspecs-schemas/` folder.
   user,
 
   /// Built-in schema shipped with the package.
