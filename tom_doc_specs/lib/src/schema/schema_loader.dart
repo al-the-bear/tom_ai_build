@@ -197,6 +197,308 @@ class SchemaResolver {
     return schemaId.replaceAll('/', '-');
   }
 
+  /// Pattern to detect `*.ds.md` document filenames.
+  ///
+  /// Captures `<type>` from `<title>.<type>.ds.md`.
+  static final _dsFilenamePattern = RegExp(r'^.+\.([^.]+)\.ds\.md$');
+
+  /// Pattern to detect `<!-- docspec: id/version -->` in document text.
+  static final _docspecCommentPattern = RegExp(
+    r'<!--\s*docspec:\s*(\S+)\s*-->',
+  );
+
+  /// Resolves a schema by document filename convention.
+  ///
+  /// For a document named `<title>.<type>.ds.md`, searches for a schema
+  /// folder matching `*.<type>/` in `.tom/docspecs-schema/` and loads the
+  /// most recent schema version found (or the version specified in
+  /// the document's `<!-- docspec: id/version -->` comment).
+  ///
+  /// Returns `null` if the filename doesn't match the convention or no
+  /// matching schema folder is found.
+  static Future<DocSpecSchema?> resolveByDocumentFilename({
+    required String documentFilename,
+    String? documentText,
+    String? documentPath,
+    String? workspaceRoot,
+  }) async {
+    final typeMatch = _dsFilenamePattern.firstMatch(documentFilename);
+    if (typeMatch == null) return null;
+    final type = typeMatch.group(1)!;
+
+    // Extract version from document text if present.
+    String? requestedVersion;
+    if (documentText != null) {
+      final commentMatch = _docspecCommentPattern.firstMatch(documentText);
+      if (commentMatch != null) {
+        final schemaRef = commentMatch.group(1)!;
+        final parts = schemaRef.split('/');
+        if (parts.length == 2) {
+          requestedVersion = parts[1];
+        }
+      }
+    }
+
+    // Search local folders walking up from document path.
+    if (documentPath != null) {
+      final result = await _findSchemaByType(
+        type,
+        documentPath,
+        workspaceRoot,
+        requestedVersion,
+      );
+      if (result != null) return result;
+    }
+
+    // Search user folder.
+    final home =
+        Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
+    if (home != null) {
+      final userSchemaDir = path.join(home, '.tom', 'docspecs-schema');
+      final result = await _findSchemaByTypeInFolder(
+        userSchemaDir,
+        type,
+        requestedVersion,
+      );
+      if (result != null) return result;
+    }
+
+    return null;
+  }
+
+  /// Synchronous version of [resolveByDocumentFilename].
+  static DocSpecSchema? resolveByDocumentFilenameSync({
+    required String documentFilename,
+    String? documentText,
+    String? documentPath,
+    String? workspaceRoot,
+  }) {
+    final typeMatch = _dsFilenamePattern.firstMatch(documentFilename);
+    if (typeMatch == null) return null;
+    final type = typeMatch.group(1)!;
+
+    String? requestedVersion;
+    if (documentText != null) {
+      final commentMatch = _docspecCommentPattern.firstMatch(documentText);
+      if (commentMatch != null) {
+        final schemaRef = commentMatch.group(1)!;
+        final parts = schemaRef.split('/');
+        if (parts.length == 2) {
+          requestedVersion = parts[1];
+        }
+      }
+    }
+
+    if (documentPath != null) {
+      final result = _findSchemaByTypeSync(
+        type,
+        documentPath,
+        workspaceRoot,
+        requestedVersion,
+      );
+      if (result != null) return result;
+    }
+
+    final home =
+        Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
+    if (home != null) {
+      final userSchemaDir = path.join(home, '.tom', 'docspecs-schema');
+      final result = _findSchemaByTypeInFolderSync(
+        userSchemaDir,
+        type,
+        requestedVersion,
+      );
+      if (result != null) return result;
+    }
+
+    return null;
+  }
+
+  /// Extracts the document type from a `.ds.md` filename.
+  ///
+  /// Returns `null` if the filename doesn't match `<title>.<type>.ds.md`.
+  static String? extractDocumentType(String filename) {
+    final match = _dsFilenamePattern.firstMatch(filename);
+    return match?.group(1);
+  }
+
+  /// Checks whether a filename matches the `<title>.<type>.ds.md` pattern.
+  static bool isDocSpecDocument(String filename) {
+    return _dsFilenamePattern.hasMatch(filename);
+  }
+
+  static Future<DocSpecSchema?> _findSchemaByType(
+    String type,
+    String documentPath,
+    String? workspaceRoot,
+    String? requestedVersion,
+  ) async {
+    var currentDir = path.dirname(documentPath);
+    final stopAt = workspaceRoot ?? path.rootPrefix(documentPath);
+
+    while (currentDir.length >= stopAt.length) {
+      final schemaDir = path.join(currentDir, '.tom', 'docspecs-schema');
+      final result = await _findSchemaByTypeInFolder(
+        schemaDir,
+        type,
+        requestedVersion,
+      );
+      if (result != null) return result;
+
+      final parent = path.dirname(currentDir);
+      if (parent == currentDir) break;
+      currentDir = parent;
+    }
+    return null;
+  }
+
+  static DocSpecSchema? _findSchemaByTypeSync(
+    String type,
+    String documentPath,
+    String? workspaceRoot,
+    String? requestedVersion,
+  ) {
+    var currentDir = path.dirname(documentPath);
+    final stopAt = workspaceRoot ?? path.rootPrefix(documentPath);
+
+    while (currentDir.length >= stopAt.length) {
+      final schemaDir = path.join(currentDir, '.tom', 'docspecs-schema');
+      final result = _findSchemaByTypeInFolderSync(
+        schemaDir,
+        type,
+        requestedVersion,
+      );
+      if (result != null) return result;
+
+      final parent = path.dirname(currentDir);
+      if (parent == currentDir) break;
+      currentDir = parent;
+    }
+    return null;
+  }
+
+  /// Find a schema folder ending with `.<type>` and load the best version.
+  static Future<DocSpecSchema?> _findSchemaByTypeInFolder(
+    String schemaDir,
+    String type,
+    String? requestedVersion,
+  ) async {
+    final dir = Directory(schemaDir);
+    if (!await dir.exists()) return null;
+
+    // Find subdirectory matching *.<type>
+    await for (final entity in dir.list()) {
+      if (entity is Directory) {
+        final dirName = path.basename(entity.path);
+        if (dirName.endsWith('.$type')) {
+          return _loadBestSchemaFromFolder(entity, requestedVersion);
+        }
+      }
+    }
+    return null;
+  }
+
+  static DocSpecSchema? _findSchemaByTypeInFolderSync(
+    String schemaDir,
+    String type,
+    String? requestedVersion,
+  ) {
+    final dir = Directory(schemaDir);
+    if (!dir.existsSync()) return null;
+
+    for (final entity in dir.listSync()) {
+      if (entity is Directory) {
+        final dirName = path.basename(entity.path);
+        if (dirName.endsWith('.$type')) {
+          return _loadBestSchemaFromFolderSync(entity, requestedVersion);
+        }
+      }
+    }
+    return null;
+  }
+
+  /// Load the best schema from a folder — requested version or most recent.
+  static Future<DocSpecSchema?> _loadBestSchemaFromFolder(
+    Directory folder,
+    String? requestedVersion,
+  ) async {
+    final candidates = <({String path, String id, String version})>[];
+
+    await for (final entity in folder.list()) {
+      if (entity is File) {
+        final filename = path.basename(entity.path);
+        final parsed = SchemaFilenameParser.parse(filename);
+        if (parsed != null) {
+          candidates.add((
+            path: entity.path,
+            id: parsed.id,
+            version: parsed.version,
+          ));
+        }
+      }
+    }
+
+    if (candidates.isEmpty) return null;
+
+    // If a specific version was requested, try to find it.
+    if (requestedVersion != null) {
+      final match = candidates
+          .where((c) => c.version == requestedVersion)
+          .firstOrNull;
+      if (match != null) return SchemaLoader.load(match.path);
+    }
+
+    // Otherwise load the most recent version (highest version string).
+    candidates.sort((a, b) => _compareVersions(b.version, a.version));
+    return SchemaLoader.load(candidates.first.path);
+  }
+
+  static DocSpecSchema? _loadBestSchemaFromFolderSync(
+    Directory folder,
+    String? requestedVersion,
+  ) {
+    final candidates = <({String path, String id, String version})>[];
+
+    for (final entity in folder.listSync()) {
+      if (entity is File) {
+        final filename = path.basename(entity.path);
+        final parsed = SchemaFilenameParser.parse(filename);
+        if (parsed != null) {
+          candidates.add((
+            path: entity.path,
+            id: parsed.id,
+            version: parsed.version,
+          ));
+        }
+      }
+    }
+
+    if (candidates.isEmpty) return null;
+
+    if (requestedVersion != null) {
+      final match = candidates
+          .where((c) => c.version == requestedVersion)
+          .firstOrNull;
+      if (match != null) return SchemaLoader.loadSync(match.path);
+    }
+
+    candidates.sort((a, b) => _compareVersions(b.version, a.version));
+    return SchemaLoader.loadSync(candidates.first.path);
+  }
+
+  /// Compare semver-style version strings (e.g., "1.0", "2.1.0").
+  static int _compareVersions(String a, String b) {
+    final partsA = a.split('.').map(int.tryParse).toList();
+    final partsB = b.split('.').map(int.tryParse).toList();
+    final len = partsA.length > partsB.length ? partsA.length : partsB.length;
+    for (var i = 0; i < len; i++) {
+      final va = i < partsA.length ? (partsA[i] ?? 0) : 0;
+      final vb = i < partsB.length ? (partsB[i] ?? 0) : 0;
+      if (va != vb) return va.compareTo(vb);
+    }
+    return 0;
+  }
+
   /// Searches local `.tom/docspecs-schema/` folders walking up from document path.
   static Future<DocSpecSchema?> _searchLocalFolders(
     String schemaId,
