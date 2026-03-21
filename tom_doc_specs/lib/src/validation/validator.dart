@@ -327,52 +327,15 @@ class DocSpecsValidator {
       return errors;
     }
 
-    // Resolve each top-level section to its matching document section key.
-    // A section matches a document key if:
-    // 1. Its section type (from prefix match) matches the expected sectionType
-    // 2. Its headline matches the document key name
-    // 3. Its ID exactly matches the document key
-    String? resolveDocSectionKey(Section section) {
-      for (final entry in docSections.entries) {
-        final expectedType = entry.value.sectionType;
-        final typeDef = schema.sectionTypes[expectedType];
-
-        // Match by prefix (most reliable when IDs exist).
-        if (typeDef?.prefix != null &&
-            section.id
-                .toLowerCase()
-                .startsWith(typeDef!.prefix!.toLowerCase())) {
-          return entry.key;
-        }
-
-        // Match by headline against document section name.
-        final sectionName = entry.key.toLowerCase().replaceAll('-', ' ');
-        final headline = section.name.toLowerCase().trim();
-        if (sectionName == headline || entry.key.toLowerCase() == headline) {
-          return entry.key;
-        }
-
-        // Match by exact ID.
-        if (section.id == entry.key) {
-          return entry.key;
-        }
-      }
-      return null;
-    }
-
-    // Check required sections exist.
-    final presentDocKeys = <String>{};
+    // Check required sections exist
+    final presentSections = <String>{};
     for (final section in doc.sections!) {
-      final docKey = resolveDocSectionKey(section);
-      if (docKey != null) {
-        presentDocKeys.add(docKey);
-      }
+      presentSections.add(section.id);
     }
 
     for (final entry in docSections.entries) {
       final sectionDef = entry.value;
-      if (sectionDef.optional != true &&
-          !presentDocKeys.contains(entry.key)) {
+      if (sectionDef.optional != true && !presentSections.contains(entry.key)) {
         errors.add(ValidationError(
           message: "Required section '${entry.key}' is missing",
           category: ValidationErrorCategory.structure,
@@ -380,25 +343,22 @@ class DocSpecsValidator {
       }
     }
 
-    // Check section order.
+    // Check section order
     final expectedOrder = docSections.keys.toList();
     var lastIndex = -1;
 
     for (final section in doc.sections!) {
-      final docKey = resolveDocSectionKey(section);
-      if (docKey != null) {
-        final expectedIdx = expectedOrder.indexOf(docKey);
-        if (expectedIdx != -1) {
-          if (expectedIdx < lastIndex) {
-            errors.add(ValidationError(
-              message: "Section '${section.id}' appears out of order",
-              lineNumber: section.lineNumber,
-              sectionId: section.id,
-              category: ValidationErrorCategory.structure,
-            ));
-          } else {
-            lastIndex = expectedIdx;
-          }
+      final expectedIdx = expectedOrder.indexOf(section.id);
+      if (expectedIdx != -1) {
+        if (expectedIdx < lastIndex) {
+          errors.add(ValidationError(
+            message: "Section '${section.id}' appears out of order",
+            lineNumber: section.lineNumber,
+            sectionId: section.id,
+            category: ValidationErrorCategory.structure,
+          ));
+        } else {
+          lastIndex = expectedIdx;
         }
       }
     }
