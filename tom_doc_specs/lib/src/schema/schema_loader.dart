@@ -248,6 +248,15 @@ class SchemaResolver {
         requestedVersion,
       );
       if (result != null) return result;
+    } else if (workspaceRoot != null) {
+      // No document path, but workspace root is known — search there.
+      final schemaDir = path.join(workspaceRoot, '.tom', 'docspecs-schema');
+      final result = await _findSchemaByTypeInFolder(
+        schemaDir,
+        type,
+        requestedVersion,
+      );
+      if (result != null) return result;
     }
 
     // Search user folder.
@@ -294,6 +303,15 @@ class SchemaResolver {
         type,
         documentPath,
         workspaceRoot,
+        requestedVersion,
+      );
+      if (result != null) return result;
+    } else if (workspaceRoot != null) {
+      // No document path, but workspace root is known — search there.
+      final schemaDir = path.join(workspaceRoot, '.tom', 'docspecs-schema');
+      final result = _findSchemaByTypeInFolderSync(
+        schemaDir,
+        type,
         requestedVersion,
       );
       if (result != null) return result;
