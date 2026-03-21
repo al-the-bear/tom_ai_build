@@ -1,0 +1,408 @@
+{
+  "index": 0,
+  "lineNumber": 1,
+  "rawHeadline": "# <!-- schema=schema-test-1.0 --> Schema Test Document",
+  "name": "Schema Test Document",
+  "id": "schema_test_document",
+  "text": "This is a comprehensive test document that exercises all features of the\nschema-test DocSpecs schema. It serves as a reference for md editor testing,\ndemonstrating every section type, form format, tag, code block, and validation\nconstraint defined in the schema.",
+  "fields": {
+    "schema": "schema-test-1.0"
+  },
+  "sections": [
+    {
+      "index": 0,
+      "lineNumber": 8,
+      "rawHeadline": "## <!--[overview] --> Project Overview",
+      "name": "Project Overview",
+      "id": "overview",
+      "text": "This is the project overview section for the Schema Test Document. The purpose\nof this document is to provide a comprehensive test fixture that exercises every\nfeature of the DocSpecs schema system.\n\nGoals:\n- Validate all section types are recognized by the editor\n- Test form field extraction and inline editing\n- Verify code block language detection\n- Exercise tag validation and autocompletion\n- Test nested subsection structure and position constraints\n\nScope: This document covers a fictional \"TaskFlow\" project with two components\n(auth and api) to demonstrate the registry pattern, for-each linking, and\nsubsection declarations."
+    },
+    {
+      "index": 1,
+      "lineNumber": 25,
+      "rawHeadline": "## <!--[config-001] --> Configuration",
+      "name": "Configuration",
+      "id": "config-001",
+      "text": "Environment: production\nVersion: 2.1.0\nOwner: Tom Framework Team"
+    },
+    {
+      "index": 2,
+      "lineNumber": 31,
+      "rawHeadline": "## <!--[components-001] --> Component Registry",
+      "name": "Component Registry",
+      "id": "components-001",
+      "text": "This section defines all components in the TaskFlow project.",
+      "sections": [
+        {
+          "index": 0,
+          "lineNumber": 35,
+          "rawHeadline": "### <!--[comp-auth] component-id=auth, targets=web,server --> Authentication",
+          "name": "Authentication",
+          "id": "comp-auth",
+          "text": "Handles user authentication, session management, and token validation.\nSupports OAuth2 and API key authentication methods.",
+          "fields": {
+            "id": "auth,",
+            "targets": "web,server"
+          }
+        },
+        {
+          "index": 1,
+          "lineNumber": 40,
+          "rawHeadline": "### <!--[comp-api] component-id=api, targets=web,server,mobile --> API Gateway",
+          "name": "API Gateway",
+          "id": "comp-api",
+          "text": "Central API gateway that routes requests, applies rate limiting, and\nmanages endpoint versioning across all client platforms.",
+          "fields": {
+            "id": "api,",
+            "targets": "web,server,mobile"
+          }
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "lineNumber": 45,
+      "rawHeadline": "## <!--[detail-auth] component-id=auth --> Authentication Component",
+      "name": "Authentication Component",
+      "id": "detail-auth",
+      "text": "Detailed specification for the authentication component.",
+      "fields": {
+        "id": "auth"
+      },
+      "sections": [
+        {
+          "index": 0,
+          "lineNumber": 49,
+          "rawHeadline": "### <!--[api-auth] --> Auth API Endpoints",
+          "name": "Auth API Endpoints",
+          "id": "api-auth",
+          "text": "API endpoints for the authentication component.",
+          "sections": [
+            {
+              "index": 0,
+              "lineNumber": 53,
+              "rawHeadline": "#### <!--[endpoint-login] --> Login",
+              "name": "Login",
+              "id": "endpoint-login",
+              "text": "Description: Authenticates a user with credentials and returns a session token.\nSupports both email/password and OAuth2 flows.\nMethod: POST\nPath: /api/v1/auth/login\nAuth: none"
+            },
+            {
+              "index": 1,
+              "lineNumber": 61,
+              "rawHeadline": "#### <!--[endpoint-logout] --> Logout",
+              "name": "Logout",
+              "id": "endpoint-logout",
+              "text": "Description: Invalidates the current session token and clears server-side\nsession data.\nMethod: POST\nPath: /api/v1/auth/logout\nAuth: token"
+            },
+            {
+              "index": 2,
+              "lineNumber": 69,
+              "rawHeadline": "#### <!--[endpoint-refresh] --> Refresh Token",
+              "name": "Refresh Token",
+              "id": "endpoint-refresh",
+              "text": "Description: Exchanges a valid refresh token for a new access token without\nrequiring re-authentication.\nMethod: POST\nPath: /api/v1/auth/refresh\nAuth: token"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "lineNumber": 77,
+          "rawHeadline": "### <!--[model-auth] --> Auth Data Model",
+          "name": "Auth Data Model",
+          "id": "model-auth",
+          "text": "The authentication component uses the following data structures for managing\nuser sessions and credentials.",
+          "sections": [
+            {
+              "index": 0,
+              "lineNumber": 82,
+              "rawHeadline": "#### <!--[code-user-class] --> User Class",
+              "name": "User Class",
+              "id": "code-user-class",
+              "text": "```dart\nclass User {\n  final String id;\n  final String email;\n  final String passwordHash;\n  final DateTime createdAt;\n  final DateTime? lastLogin;\n  final bool isActive;\n\n  User({\n    required this.id,\n    required this.email,\n    required this.passwordHash,\n    required this.createdAt,\n    this.lastLogin,\n    this.isActive = true,\n  });\n}\n```"
+            },
+            {
+              "index": 1,
+              "lineNumber": 104,
+              "rawHeadline": "#### <!--[code-session-class] --> Session Class",
+              "name": "Session Class",
+              "id": "code-session-class",
+              "text": "```typescript\ninterface Session {\n  id: string;\n  userId: string;\n  token: string;\n  refreshToken: string;\n  expiresAt: Date;\n  createdAt: Date;\n}\n```"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "lineNumber": 117,
+          "rawHeadline": "### <!--[tasks-auth] --> Auth Tasks",
+          "name": "Auth Tasks",
+          "id": "tasks-auth",
+          "text": "Tasks for the authentication component.",
+          "sections": [
+            {
+              "index": 0,
+              "lineNumber": 121,
+              "rawHeadline": "#### <!--[TASK-001] tags=critical --> Implement Login Flow",
+              "name": "Implement Login Flow",
+              "id": "TASK-001",
+              "text": "Assignee: Alice\nPriority: critical\nStatus: approved\nDue-date: 2026-04-15\n\nImplement the full login flow including credential validation,\ntoken generation, and session creation.",
+              "fields": {
+                "tags": "critical"
+              },
+              "tags": [
+                "critical"
+              ]
+            },
+            {
+              "index": 1,
+              "lineNumber": 131,
+              "rawHeadline": "#### <!--[TASK-002] tags=high --> Add OAuth2 Support",
+              "name": "Add OAuth2 Support",
+              "id": "TASK-002",
+              "text": "Assignee: Bob\nPriority: high\nStatus: draft\n\nAdd OAuth2 provider integration for Google and GitHub login.",
+              "fields": {
+                "tags": "high"
+              },
+              "tags": [
+                "high"
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "lineNumber": 139,
+          "rawHeadline": "### <!--[impl-auth] --> Auth Implementation Notes",
+          "name": "Auth Implementation Notes",
+          "id": "impl-auth",
+          "text": "The authentication system should use bcrypt for password hashing with a\ncost factor of 12. JWT tokens should have a 15-minute expiry for access\ntokens and 7-day expiry for refresh tokens. Rate limiting should be applied\nto the login endpoint: max 5 attempts per minute per IP address.\n\nSession storage should use Redis for fast lookups with automatic TTL-based\ncleanup. All authentication events must be logged for audit purposes."
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "lineNumber": 149,
+      "rawHeadline": "## <!--[detail-api] component-id=api --> API Gateway Component",
+      "name": "API Gateway Component",
+      "id": "detail-api",
+      "text": "Detailed specification for the API gateway component.",
+      "fields": {
+        "id": "api"
+      },
+      "sections": [
+        {
+          "index": 0,
+          "lineNumber": 153,
+          "rawHeadline": "### <!--[api-gateway] --> Gateway API Endpoints",
+          "name": "Gateway API Endpoints",
+          "id": "api-gateway",
+          "text": "API endpoints managed by the API gateway.",
+          "sections": [
+            {
+              "index": 0,
+              "lineNumber": 157,
+              "rawHeadline": "#### <!--[endpoint-health] --> Health Check",
+              "name": "Health Check",
+              "id": "endpoint-health",
+              "text": "Description: Returns the health status of the API gateway and all downstream\nservices it manages.\nMethod: GET\nPath: /api/v1/health\nAuth: none"
+            },
+            {
+              "index": 1,
+              "lineNumber": 165,
+              "rawHeadline": "#### <!--[endpoint-users] --> List Users",
+              "name": "List Users",
+              "id": "endpoint-users",
+              "text": "Description: Returns a paginated list of users. Supports filtering by status\nand sorting by creation date.\nMethod: GET\nPath: /api/v1/users\nAuth: api-key"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "lineNumber": 173,
+          "rawHeadline": "### <!--[model-api] --> Gateway Data Model",
+          "name": "Gateway Data Model",
+          "id": "model-api",
+          "text": "The API gateway uses route configuration and rate limit structures to\nmanage request routing and throttling.",
+          "sections": [
+            {
+              "index": 0,
+              "lineNumber": 178,
+              "rawHeadline": "#### <!--[code-route-config] --> Route Configuration",
+              "name": "Route Configuration",
+              "id": "code-route-config",
+              "text": "```dart\nclass RouteConfig {\n  final String path;\n  final String method;\n  final String upstream;\n  final bool requiresAuth;\n  final int? rateLimitPerMinute;\n\n  RouteConfig({\n    required this.path,\n    required this.method,\n    required this.upstream,\n    this.requiresAuth = true,\n    this.rateLimitPerMinute,\n  });\n}\n```"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "lineNumber": 198,
+          "rawHeadline": "### <!--[tasks-api] --> Gateway Tasks",
+          "name": "Gateway Tasks",
+          "id": "tasks-api",
+          "text": "Tasks for the API gateway component.",
+          "sections": [
+            {
+              "index": 0,
+              "lineNumber": 202,
+              "rawHeadline": "#### <!--[TASK-003] tags=medium --> Implement Rate Limiting",
+              "name": "Implement Rate Limiting",
+              "id": "TASK-003",
+              "text": "Assignee: Charlie\nPriority: medium\nStatus: review\n\nImplement sliding-window rate limiting per API key with configurable\nthresholds per endpoint.",
+              "fields": {
+                "tags": "medium"
+              },
+              "tags": [
+                "medium"
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "lineNumber": 211,
+          "rawHeadline": "### <!--[impl-api] --> Gateway Implementation Notes",
+          "name": "Gateway Implementation Notes",
+          "id": "impl-api",
+          "text": "The API gateway should use a reverse proxy pattern with configurable\nrouting rules stored in YAML configuration files. Rate limiting should\nuse a sliding window algorithm backed by Redis sorted sets.\n\nHealth checks should ping all registered upstream services and aggregate\ntheir status into a single response. Circuit breaker pattern should be\nimplemented for upstream calls with configurable timeout thresholds."
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "lineNumber": 221,
+      "rawHeadline": "## <!--[requirements-001] --> Requirements",
+      "name": "Requirements",
+      "id": "requirements-001",
+      "text": "All functional and non-functional requirements for the TaskFlow project.",
+      "sections": [
+        {
+          "index": 0,
+          "lineNumber": 225,
+          "rawHeadline": "### <!--[REQ-001] tags=critical --> Secure Authentication",
+          "name": "Secure Authentication",
+          "id": "REQ-001",
+          "text": "The system must implement secure authentication using industry-standard\npractices including bcrypt password hashing, JWT tokens with appropriate\nexpiry, and protection against brute force attacks via rate limiting.",
+          "fields": {
+            "tags": "critical"
+          },
+          "tags": [
+            "critical"
+          ]
+        },
+        {
+          "index": 1,
+          "lineNumber": 231,
+          "rawHeadline": "### <!--[REQ-002] tags=high --> API Rate Limiting",
+          "name": "API Rate Limiting",
+          "id": "REQ-002",
+          "text": "The API gateway must enforce rate limiting per client with configurable\nthresholds. Default rate limit: 100 requests per minute per API key.\nExceeded limits must return HTTP 429 with a Retry-After header.",
+          "fields": {
+            "tags": "high"
+          },
+          "tags": [
+            "high"
+          ]
+        },
+        {
+          "index": 2,
+          "lineNumber": 237,
+          "rawHeadline": "### <!--[REQ-003] tags=medium --> Health Monitoring",
+          "name": "Health Monitoring",
+          "id": "REQ-003",
+          "text": "All services must expose a health check endpoint that reports service\nstatus, uptime, and dependency health. The gateway aggregates these\ninto a single dashboard-friendly response.",
+          "fields": {
+            "tags": "medium"
+          },
+          "tags": [
+            "medium"
+          ]
+        },
+        {
+          "index": 3,
+          "lineNumber": 243,
+          "rawHeadline": "### <!--[REQ-004] tags=low --> API Versioning",
+          "name": "API Versioning",
+          "id": "REQ-004",
+          "text": "The API gateway must support URL-based versioning (e.g., /api/v1/, /api/v2/)\nwith graceful deprecation notices for old versions via response headers.",
+          "fields": {
+            "tags": "low"
+          },
+          "tags": [
+            "low"
+          ]
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "lineNumber": 248,
+      "rawHeadline": "## <!--[glossary-001] --> Glossary",
+      "name": "Glossary",
+      "id": "glossary-001",
+      "text": "",
+      "sections": [
+        {
+          "index": 0,
+          "lineNumber": 250,
+          "rawHeadline": "### <!--[term-jwt] --> JWT",
+          "name": "JWT",
+          "id": "term-jwt",
+          "text": "JSON Web Token — a compact, URL-safe token format used for authentication\nand information exchange between parties."
+        },
+        {
+          "index": 1,
+          "lineNumber": 255,
+          "rawHeadline": "### <!--[term-oauth2] --> OAuth2",
+          "name": "OAuth2",
+          "id": "term-oauth2",
+          "text": "Open Authorization 2.0 — an industry-standard protocol for authorization\nthat enables third-party applications to obtain limited access."
+        },
+        {
+          "index": 2,
+          "lineNumber": 260,
+          "rawHeadline": "### <!--[term-rate-limit] --> Rate Limiting",
+          "name": "Rate Limiting",
+          "id": "term-rate-limit",
+          "text": "A technique to control the rate of requests a client can make to an API\nwithin a specified time window to prevent abuse."
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "lineNumber": 265,
+      "rawHeadline": "## <!--[appendix-001] --> Appendix",
+      "name": "Appendix",
+      "id": "appendix-001",
+      "text": "",
+      "sections": [
+        {
+          "index": 0,
+          "lineNumber": 267,
+          "rawHeadline": "### Reference Architecture",
+          "name": "Reference Architecture",
+          "id": "appendix-001.0",
+          "text": "The TaskFlow system follows a microservices architecture with the API\ngateway as the single entry point for all client requests."
+        },
+        {
+          "index": 1,
+          "lineNumber": 272,
+          "rawHeadline": "### Technology Stack",
+          "name": "Technology Stack",
+          "id": "appendix-001.1",
+          "text": "- **Runtime:** Dart 3.x with Shelf for HTTP\n- **Database:** PostgreSQL 15 with Redis for caching\n- **Auth:** JWT with RS256 signing\n- **Deployment:** Docker containers on Kubernetes"
+        }
+      ]
+    }
+  ],
+  "filenameWithPath": "/Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/.tom/docspecs-schema/schema-test/schema-test-document.md",
+  "loadTimestamp": "2026-03-20T19:42:15.640800",
+  "filename": "schema-test-document.md",
+  "fullPath": "/Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/.tom/docspecs-schema/schema-test",
+  "workspacePath": "../../../.tom/docspecs-schema/schema-test/schema-test-document.md",
+  "project": "..",
+  "projectPath": "../../.tom/docspecs-schema/schema-test/schema-test-document.md",
+  "workspaceRoot": "/Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/ai_build/tom_doc_specs",
+  "projectRoot": "/Users/alexiskyaw/Desktop/Code/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/ai_build/tom_doc_specs/..",
+  "hierarchyDepth": 4,
+  "schemaId": "schema-test-1.0"
+}
