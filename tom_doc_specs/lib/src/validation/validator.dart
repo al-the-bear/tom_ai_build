@@ -362,14 +362,27 @@ class DocSpecsValidator {
       }
     }
 
-    // Check section order by matching resolved types to expected order
+    // Check section order by matching resolved types to expected order.
+    // Use a consumed-index to handle types that appear multiple times
+    // (e.g. 'overview' for both 'title' and 'overview' entries).
     final expectedTypeOrder =
         docSections.values.map((d) => d.sectionType).toList();
     var lastIndex = -1;
 
     for (final section in doc.sections!) {
       if (section is! SpecSection || section.type == null) continue;
-      final expectedIdx = expectedTypeOrder.indexOf(section.type!);
+      // Find the first occurrence of this type at or after lastIndex.
+      var expectedIdx = -1;
+      for (var i = (lastIndex < 0 ? 0 : lastIndex); i < expectedTypeOrder.length; i++) {
+        if (expectedTypeOrder[i] == section.type) {
+          expectedIdx = i;
+          break;
+        }
+      }
+      // Fallback: also look before lastIndex (may indicate out-of-order).
+      if (expectedIdx == -1) {
+        expectedIdx = expectedTypeOrder.indexOf(section.type!);
+      }
       if (expectedIdx != -1) {
         if (expectedIdx < lastIndex) {
           errors.add(ValidationError(
@@ -391,10 +404,12 @@ class DocSpecsValidator {
   List<ValidationError> _validateCountLimits(List<_SectionInfo> sections) {
     final errors = <ValidationError>[];
 
-    // Count sections by type
+    // Count only top-level (depth == 1) sections by type.
+    // Subsections are governed by subsection-type constraints, not
+    // document-level max-count-in-document.
     final typeCounts = <String, int>{};
     for (final info in sections) {
-      if (info.section is SpecSection) {
+      if (info.depth == 1 && info.section is SpecSection) {
         final type = (info.section as SpecSection).type;
         if (type != null) {
           typeCounts[type] = (typeCounts[type] ?? 0) + 1;
@@ -543,8 +558,13 @@ class DocSpecsValidator {
           if (typeDef != null) {
             final text = section.text;
 
-            // text-required
-            if (typeDef.textRequired == true && text.trim().isEmpty) {
+            // text-required — skip for container sections that have
+            // subsections, since their content lives in children.
+            final isContainer = section.sections != null &&
+                section.sections!.isNotEmpty;
+            if (typeDef.textRequired == true &&
+                text.trim().isEmpty &&
+                !isContainer) {
               errors.add(ValidationError(
                 message: "Section '${section.id}' requires text content",
                 lineNumber: section.lineNumber,
@@ -814,6 +834,9 @@ class DocSpecsValidator {
 
             for (final child in section.sections!) {
               if (child is SpecSection && child.type != null) {
+                // Skip children whose type matches the parent type due to
+                // auto-generated IDs inheriting the parent's prefix.
+                if (child.type == section.type) continue;
                 if (!allowedTypes.contains(child.type)) {
                   errors.add(ValidationError(
                     message:
