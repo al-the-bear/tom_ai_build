@@ -115,7 +115,7 @@ void main() {
       expect(errorsOf(errors, ValidationErrorCategory.structure), isEmpty);
     });
 
-    test('error: overview missing', () {
+    test('error: overview missing — message includes prefix hint', () {
       final errors = validate(sf, doc(
         schemaId: 'minimal/1.0',
         sections: [],
@@ -123,6 +123,8 @@ void main() {
       final structErrors = errorsOf(errors, ValidationErrorCategory.structure);
       expect(structErrors, isNotEmpty);
       expect(structErrors.first.message, contains('overview'));
+      expect(structErrors.first.message, contains('note'));
+      expect(structErrors.first.message, contains("starts with"));
     });
   });
 
@@ -1114,7 +1116,7 @@ void main() {
       expect(declErrors, isNotEmpty);
     });
 
-    test('unknown section type reports error', () {
+    test('unknown section type reports error with available prefixes', () {
       final sf = 'minimal.1.0.docspecs-schema.yaml';
       final errors = validate(sf, doc(
         schemaId: 'minimal/1.0',
@@ -1125,6 +1127,8 @@ void main() {
       ));
       final typeErrors = errorsOf(errors, ValidationErrorCategory.sectionType);
       expect(typeErrors, isNotEmpty);
+      expect(typeErrors.first.message, contains('note'));
+      expect(typeErrors.first.message, contains('must start with'));
     });
 
     test('section with empty ID treated as unknown type', () {

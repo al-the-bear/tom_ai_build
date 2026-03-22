@@ -250,6 +250,17 @@ class DocSpecsValidator {
     return result;
   }
 
+  /// Builds a descriptive error message for a missing required section.
+  String _missingRequiredSectionMessage(String sectionKey, String sectionType) {
+    final typeDef = schema.sectionTypes[sectionType];
+    final prefix = typeDef?.prefix;
+    if (prefix != null) {
+      return "Required section '$sectionKey' (type '$sectionType') is missing. "
+          "Add a section whose ID starts with '$prefix' (e.g. '$prefix-001' or '$prefix-$sectionKey').";
+    }
+    return "Required section '$sectionKey' (type '$sectionType') is missing.";
+  }
+
   /// Validates that all sections have resolved types.
   List<ValidationError> _validateSectionTypes(List<_SectionInfo> sections) {
     final errors = <ValidationError>[];
@@ -272,8 +283,13 @@ class DocSpecsValidator {
         }
 
         if (!matched) {
+          final prefixes = schema.sectionTypes.entries
+              .where((e) => e.value.prefix != null)
+              .map((e) => "'${e.value.prefix}' (${e.key})")
+              .join(', ');
           errors.add(ValidationError(
-            message: "Unknown section-type, id '$id' doesn't match the prefix for any of the section-types in the schema",
+            message: "Unknown section type: section '$id' does not match any known prefix. "
+                "The section ID must start with one of: $prefixes",
             lineNumber: section.lineNumber,
             sectionId: id,
             category: ValidationErrorCategory.sectionType,
@@ -319,7 +335,7 @@ class DocSpecsValidator {
       for (final entry in docSections.entries) {
         if (entry.value.optional != true) {
           errors.add(ValidationError(
-            message: "Required section '${entry.key}' is missing",
+            message: _missingRequiredSectionMessage(entry.key, entry.value.sectionType),
             category: ValidationErrorCategory.structure,
           ));
         }
@@ -340,7 +356,7 @@ class DocSpecsValidator {
       if (sectionDef.optional != true &&
           !presentTypes.contains(sectionDef.sectionType)) {
         errors.add(ValidationError(
-          message: "Required section '${entry.key}' is missing",
+          message: _missingRequiredSectionMessage(entry.key, sectionDef.sectionType),
           category: ValidationErrorCategory.structure,
         ));
       }

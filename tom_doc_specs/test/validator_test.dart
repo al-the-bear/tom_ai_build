@@ -137,7 +137,8 @@ void main() {
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       final structErrors = errorsOf(errors, ValidationErrorCategory.structure);
       expect(structErrors, hasLength(1));
-      expect(structErrors.first.message, contains("'requirements' is missing"));
+      expect(structErrors.first.message,
+          contains("Required section 'requirements'"));
     });
 
     test('does not report missing optional sections', () {
