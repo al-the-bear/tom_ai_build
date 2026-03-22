@@ -1,0 +1,52 @@
+# Comprehensive schema using many features
+section-types:
+  overview:
+    prefix: overview
+    text-required: true
+    min-text-length: 20
+    max-text-length: 2000
+  requirement:
+    prefix: req
+    text-required: true
+    pattern-check-id:
+      pattern: "^REQ-\\d{{3}}$"
+      error-message: "ID must match REQ-NNN"
+    max-count-in-document: 50
+    allowed-tags:
+      - priority
+      - status
+    required-fields:
+      - title
+      - status
+    subsection-types:
+      detail:
+        min-count: 0
+        max-count: 10
+    validation-prompt: "Each requirement must be clear and testable"
+  detail:
+    prefix: det
+    max-subsection-levels: 1
+  contact:
+    prefix: con
+    format: contact-form
+
+form-types:
+  contact-form:
+    fields:
+      - fieldname: name
+        required: true
+      - fieldname: email
+        required: true
+        pattern-check:
+          pattern: "^[^@]+@[^@]+$"
+          error-message: "Must be a valid email"
+
+document:
+  sections:
+    overview:
+      section-type: overview
+    requirements:
+      section-type: requirement
+    contacts:
+      section-type: contact
+      optional: true

@@ -1,0 +1,16 @@
+# Section count limits
+section-types:
+  note:
+    prefix: note
+    max-count-in-document: 3
+  warning:
+    prefix: warn
+    max-count-in-document: 1
+
+document:
+  sections:
+    notes:
+      section-type: note
+    warnings:
+      section-type: warning
+      optional: true

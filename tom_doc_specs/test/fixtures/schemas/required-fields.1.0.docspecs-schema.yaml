@@ -1,0 +1,13 @@
+# Required fields validation
+section-types:
+  record:
+    prefix: rec
+    required-fields:
+      - title
+      - status
+      - owner
+
+document:
+  sections:
+    records:
+      section-type: record

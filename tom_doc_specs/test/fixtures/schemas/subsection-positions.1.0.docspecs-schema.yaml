@@ -1,0 +1,20 @@
+# Subsection position constraints
+section-types:
+  container:
+    prefix: cont
+  summary:
+    prefix: sum
+  detail:
+    prefix: det
+
+subsection-positions:
+  container:
+    summary:
+      position: first
+    detail:
+      position: last
+
+document:
+  sections:
+    main:
+      section-type: container

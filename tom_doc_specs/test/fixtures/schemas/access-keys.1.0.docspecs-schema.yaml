@@ -1,0 +1,13 @@
+# Access key overrides
+section-types:
+  note:
+    prefix: note
+
+document:
+  sections:
+    project-overview:
+      section-type: note
+      access-key: overview
+    project-details:
+      section-type: note
+      access-key: details

@@ -1,0 +1,10 @@
+# Code block format validation
+section-types:
+  code-example:
+    prefix: code
+    format: dart
+
+document:
+  sections:
+    examples:
+      section-type: code-example

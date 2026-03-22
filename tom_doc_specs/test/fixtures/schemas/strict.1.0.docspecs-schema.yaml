@@ -1,0 +1,27 @@
+# Strict document - all required, strict patterns, format enforcement
+section-types:
+  title:
+    prefix: title
+    text-required: true
+    min-text-length: 5
+    max-text-length: 100
+    max-count-in-document: 1
+  body:
+    prefix: body
+    text-required: true
+    min-text-length: 50
+    pattern-check-text:
+      pattern: "[A-Z]"
+      error-message: "Body must contain at least one uppercase letter"
+  code:
+    prefix: code
+    format: dart
+
+document:
+  sections:
+    title:
+      section-type: title
+    body:
+      section-type: body
+    code:
+      section-type: code
