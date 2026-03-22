@@ -327,15 +327,18 @@ class DocSpecsValidator {
       return errors;
     }
 
-    // Check required sections exist
-    final presentSections = <String>{};
+    // Check required sections exist by matching resolved type against sectionType
+    final presentTypes = <String>{};
     for (final section in doc.sections!) {
-      presentSections.add(section.id);
+      if (section is SpecSection && section.type != null) {
+        presentTypes.add(section.type!);
+      }
     }
 
     for (final entry in docSections.entries) {
       final sectionDef = entry.value;
-      if (sectionDef.optional != true && !presentSections.contains(entry.key)) {
+      if (sectionDef.optional != true &&
+          !presentTypes.contains(sectionDef.sectionType)) {
         errors.add(ValidationError(
           message: "Required section '${entry.key}' is missing",
           category: ValidationErrorCategory.structure,
@@ -343,12 +346,14 @@ class DocSpecsValidator {
       }
     }
 
-    // Check section order
-    final expectedOrder = docSections.keys.toList();
+    // Check section order by matching resolved types to expected order
+    final expectedTypeOrder =
+        docSections.values.map((d) => d.sectionType).toList();
     var lastIndex = -1;
 
     for (final section in doc.sections!) {
-      final expectedIdx = expectedOrder.indexOf(section.id);
+      if (section is! SpecSection || section.type == null) continue;
+      final expectedIdx = expectedTypeOrder.indexOf(section.type!);
       if (expectedIdx != -1) {
         if (expectedIdx < lastIndex) {
           errors.add(ValidationError(
@@ -819,19 +824,23 @@ class DocSpecsValidator {
     if (doc.sections == null) return errors;
 
     for (final section in doc.sections!) {
-      if (section is SpecSection) {
-        // Find if this section is declared in document.sections
-        final sectionDef = schema.document.sections[section.id];
-        if (sectionDef != null && section.type != null) {
-          if (section.type != sectionDef.sectionType) {
-            errors.add(ValidationError(
-              message:
-                  "Section '${section.id}' has type '${section.type}' but document structure declares it as type '${sectionDef.sectionType}'",
-              lineNumber: section.lineNumber,
-              sectionId: section.id,
-              category: ValidationErrorCategory.structure,
-            ));
+      if (section is SpecSection && section.type != null) {
+        // Find the SectionDef whose sectionType matches this section's type
+        SectionDef? sectionDef;
+        for (final entry in schema.document.sections.entries) {
+          if (entry.value.sectionType == section.type) {
+            sectionDef = entry.value;
+            break;
           }
+        }
+        if (sectionDef != null && section.type != sectionDef.sectionType) {
+          errors.add(ValidationError(
+            message:
+                "Section '${section.id}' has type '${section.type}' but document structure declares it as type '${sectionDef.sectionType}'",
+            lineNumber: section.lineNumber,
+            sectionId: section.id,
+            category: ValidationErrorCategory.structure,
+          ));
         }
       }
     }
@@ -849,11 +858,11 @@ class DocSpecsValidator {
       final forEach = sectionDef.forEach;
       if (forEach == null) continue;
 
-      // Find the target section in the document
+      // Find the target section in the document by matching resolved type
       Section? targetSection;
       if (doc.sections != null) {
         for (final s in doc.sections!) {
-          if (s.id == entry.key) {
+          if (s is SpecSection && s.type == sectionDef.sectionType) {
             targetSection = s;
             break;
           }
@@ -939,11 +948,13 @@ class DocSpecsValidator {
         final parentSectionName = declEntry.key;
         final subsectionDefs = declEntry.value;
 
-        // Find the parent section in the document
+        // Find the parent section in the document by matching resolved type
+        final parentSectionDef = schema.document.sections[parentSectionName];
+        final parentType = parentSectionDef?.sectionType;
         Section? parentSection;
-        if (doc.sections != null) {
+        if (doc.sections != null && parentType != null) {
           for (final s in doc.sections!) {
-            if (s.id == parentSectionName) {
+            if (s is SpecSection && s.type == parentType) {
               parentSection = s;
               break;
             }
