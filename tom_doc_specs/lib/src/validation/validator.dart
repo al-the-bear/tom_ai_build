@@ -271,10 +271,6 @@ class DocSpecsValidator {
       final section = info.section;
       final id = section.id;
 
-      // Skip sections without an ID — these are title/wrapper sections
-      // or sections without explicit ID markers in the document.
-      if (id.isEmpty) continue;
-
       // Check if section has a type (for SpecSection)
       if (section is SpecSection && section.type == null) {
         // Try to match against prefixes
@@ -315,9 +311,6 @@ class DocSpecsValidator {
     for (final info in sections) {
       final id = info.section.id;
       final lineNumber = info.section.lineNumber;
-
-      // Skip empty IDs — these are title/wrapper sections without explicit IDs
-      if (id.isEmpty) continue;
 
       if (seenIds.containsKey(id)) {
         errors.add(ValidationError(
