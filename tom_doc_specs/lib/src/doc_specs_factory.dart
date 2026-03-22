@@ -135,7 +135,7 @@ class DocSpecsFactory extends DocScannerFactory {
       workspaceRoot: workspaceRoot,
       projectRoot: projectRoot,
       hierarchyDepth: hierarchyDepth,
-      schemaId: fields['schema'] ?? '',
+      schemaId: fields['schema'] ?? (schema != null ? '${schema!.id}/${schema!.version}' : ''),
       accessKeys: _accessKeys,
     );
   }

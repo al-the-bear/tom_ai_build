@@ -212,15 +212,17 @@ class DocSpecsValidator {
   /// Validates schema declaration.
   List<ValidationError> _validateSchemaDeclaration(Document doc) {
     final schemaField = doc.fields['schema'];
-    if (schemaField == null || schemaField.isEmpty) {
-      return [
-        const ValidationError(
-          message: 'Document must declare a schema using <!-- schema=<schema-id> --> in the first headline',
-          category: ValidationErrorCategory.schemaDeclaration,
-        ),
-      ];
-    }
-    return [];
+    if (schemaField != null && schemaField.isNotEmpty) return [];
+
+    // Also accept SpecDoc with schemaId set (e.g. from <!-- docspec: ... --> format)
+    if (doc is SpecDoc && doc.schemaId.isNotEmpty) return [];
+
+    return [
+      const ValidationError(
+        message: 'Document must declare a schema using <!-- schema=<schema-id> --> or <!-- docspec: <id>/<version> -->',
+        category: ValidationErrorCategory.schemaDeclaration,
+      ),
+    ];
   }
 
   /// Collects all sections from the document tree.
@@ -725,9 +727,10 @@ class DocSpecsValidator {
     String format,
   ) {
     final errors = <ValidationError>[];
-    final formTypeName = format.substring(0, format.length - 5); // Remove '-form'
-
-    final formType = schema.formTypes?[formTypeName];
+    // Look up by full format name first, then without '-form' suffix for compatibility
+    final formTypeName = format;
+    final formType = schema.formTypes?[formTypeName] ??
+        schema.formTypes?[format.substring(0, format.length - 5)];
     if (formType == null) {
       errors.add(ValidationError(
         message: "Form type '$formTypeName' not found in schema",
@@ -897,18 +900,17 @@ class DocSpecsValidator {
       final forEach = sectionDef.forEach;
       if (forEach == null) continue;
 
-      // Find the target section in the document by matching resolved type
-      Section? targetSection;
+      // Find all target sections in the document by matching resolved type
+      final targetSections = <SpecSection>[];
       if (doc.sections != null) {
         for (final s in doc.sections!) {
           if (s is SpecSection && s.type == sectionDef.sectionType) {
-            targetSection = s;
-            break;
+            targetSections.add(s);
           }
         }
       }
 
-      if (targetSection == null) continue;
+      if (targetSections.isEmpty) continue;
 
       // Find all registry entries of the specified type
       final registryType = forEach.sectionType;
@@ -936,14 +938,22 @@ class DocSpecsValidator {
         }
       }
 
-      // Collect subsection keys from the target section
+      // Collect keys from target sections and their children
       final subsectionKeys = <String>{};
-      if (targetSection.sections != null) {
-        for (final child in targetSection.sections!) {
-          if (child is SpecSection) {
-            final keyValue = child.fields[keyField] ?? child.getFormField(keyField);
-            if (keyValue != null && keyValue.isNotEmpty) {
-              subsectionKeys.add(keyValue);
+      for (final targetSection in targetSections) {
+        // Check the target section itself
+        final keyValue = targetSection.fields[keyField] ?? targetSection.getFormField(keyField);
+        if (keyValue != null && keyValue.isNotEmpty) {
+          subsectionKeys.add(keyValue);
+        }
+        // Also check direct children of the target section
+        if (targetSection.sections != null) {
+          for (final child in targetSection.sections!) {
+            if (child is SpecSection) {
+              final childKey = child.fields[keyField] ?? child.getFormField(keyField);
+              if (childKey != null && childKey.isNotEmpty) {
+                subsectionKeys.add(childKey);
+              }
             }
           }
         }

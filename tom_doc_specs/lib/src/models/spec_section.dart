@@ -189,11 +189,18 @@ class SpecSection extends Section {
         currentField = match.group(1)!.toLowerCase();
         currentValue.write(match.group(2));
       } else if (foundFirstField && currentField != null) {
-        // Continue current field value
-        if (currentValue.isNotEmpty) {
-          currentValue.write('\n');
+        // A blank line terminates the current field value
+        if (line.trim().isEmpty) {
+          fields[currentField] = currentValue.toString().trim();
+          currentValue.clear();
+          currentField = null;
+        } else {
+          // Continue current field value
+          if (currentValue.isNotEmpty) {
+            currentValue.write('\n');
+          }
+          currentValue.write(line);
         }
-        currentValue.write(line);
       } else {
         // Preamble text (before first field)
         if (preambleBuffer.isNotEmpty) {

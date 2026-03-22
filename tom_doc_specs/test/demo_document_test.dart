@@ -56,4 +56,34 @@ void main() {
     expect(errors, isEmpty,
         reason: 'Demo document should validate without errors');
   });
+
+  test('schema test document validates without errors', () {
+    final schemaPath =
+        p.join(fixturesPath, 'schemas', 'schema-test.1.0.docspecs-schema.yaml');
+    final docPath =
+        p.join(fixturesPath, 'documents', 'schema-test-document.md');
+
+    final schema = SchemaLoader.loadSync(schemaPath);
+    final factory = DocSpecsFactory(schema: schema);
+
+    final doc = DocScanner.scanDocumentSync(
+      filepath: docPath,
+      workspaceRoot: Directory.current.path,
+      factory: factory,
+    );
+
+    final specDoc = doc as SpecDoc;
+    final errors = DocSpecsValidator(schema: schema).validate(specDoc);
+
+    // Print errors for debugging
+    if (errors.isNotEmpty) {
+      print('--- ${errors.length} validation errors ---');
+      for (final e in errors) {
+        print('  [${e.category}] ${e.message} (line ${e.lineNumber}, section: ${e.sectionId})');
+      }
+    }
+
+    expect(errors, isEmpty,
+        reason: 'Schema test document should validate without errors');
+  });
 }

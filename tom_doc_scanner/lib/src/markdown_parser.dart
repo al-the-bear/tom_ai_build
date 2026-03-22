@@ -50,7 +50,8 @@ class MarkdownParser {
 
   /// Pattern to parse key=value pairs (supports quoted values)
   /// Matches: key=value, key="quoted value", key='quoted value'
-  static final _keyValuePattern = RegExp(r'(\w+)=(?:"([^"]+)"|' r"'([^']+)'" r'|(\S+))');
+  /// Unquoted values stop at commas, spaces, and HTML comment closing brackets.
+  static final _keyValuePattern = RegExp(r'([\w-]+)=(?:"([^"]+)"|' r"'([^']+)'" r'|([^,\s>]+))');
 
   /// Parses a markdown string and returns parsed headlines with their positions.
   static List<(ParsedHeadline, int startLine, int endLine)> parseHeadlines(
