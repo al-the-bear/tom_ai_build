@@ -1131,7 +1131,7 @@ void main() {
       expect(typeErrors.first.message, contains('must start with'));
     });
 
-    test('section with empty ID treated as unknown type', () {
+    test('section with empty ID is skipped (no type error)', () {
       final sf = 'minimal.1.0.docspecs-schema.yaml';
       final errors = validate(sf, doc(
         schemaId: 'minimal/1.0',
@@ -1141,7 +1141,7 @@ void main() {
         ],
       ));
       final typeErrors = errorsOf(errors, ValidationErrorCategory.sectionType);
-      expect(typeErrors, isNotEmpty);
+      expect(typeErrors, isEmpty);
     });
 
     test('valid document with only optional sections omitted', () {
