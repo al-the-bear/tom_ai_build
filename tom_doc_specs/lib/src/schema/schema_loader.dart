@@ -133,9 +133,10 @@ class SchemaResolver {
   /// Resolves a schema by ID.
   ///
   /// Search order:
-  /// 1. Local `.tom/docspecs-schema/` folders (walk up from [documentPath])
-  /// 2. User schemas in `~/.tom/docspecs-schema/`
-  /// 3. Built-in schemas (placeholder)
+  /// 1. [schemaFolder] if provided (direct path to a docspecs-schema folder)
+  /// 2. Local `.tom/docspecs-schema/` folders (walk up from [documentPath])
+  /// 3. User schemas in `~/.tom/docspecs-schema/`
+  /// 4. Built-in schemas (placeholder)
   ///
   /// The [schemaId] can be:
   /// - Full ID with version: `quest-overview-1.0`
@@ -144,8 +145,15 @@ class SchemaResolver {
     required String schemaId,
     String? documentPath,
     String? workspaceRoot,
+    String? schemaFolder,
   }) async {
     final normalized = _normalizeSchemaId(schemaId);
+
+    // Search explicit schema folder first
+    if (schemaFolder != null) {
+      final schemaPath = await _findSchemaInFolder(schemaFolder, normalized);
+      if (schemaPath != null) return SchemaLoader.load(schemaPath);
+    }
 
     // Search local folders
     if (documentPath != null) {
@@ -170,8 +178,15 @@ class SchemaResolver {
     required String schemaId,
     String? documentPath,
     String? workspaceRoot,
+    String? schemaFolder,
   }) {
     final normalized = _normalizeSchemaId(schemaId);
+
+    // Search explicit schema folder first
+    if (schemaFolder != null) {
+      final schemaPath = _findSchemaInFolderSync(schemaFolder, normalized);
+      if (schemaPath != null) return SchemaLoader.loadSync(schemaPath);
+    }
 
     // Search local folders
     if (documentPath != null) {
@@ -214,6 +229,12 @@ class SchemaResolver {
   /// most recent schema version found (or the version specified in
   /// the document's `<!-- docspec: id/version -->` comment).
   ///
+  /// Search order:
+  /// 1. [schemaFolder] if provided (direct path to a docspecs-schema folder)
+  /// 2. Local `.tom/docspecs-schema/` folders (walk up from [documentPath])
+  /// 3. Workspace root `.tom/docspecs-schema/`
+  /// 4. User folder `~/.tom/docspecs-schema/`
+  ///
   /// Returns `null` if the filename doesn't match the convention or no
   /// matching schema folder is found.
   static Future<DocSpecSchema?> resolveByDocumentFilename({
@@ -221,6 +242,7 @@ class SchemaResolver {
     String? documentText,
     String? documentPath,
     String? workspaceRoot,
+    String? schemaFolder,
   }) async {
     final typeMatch = _dsFilenamePattern.firstMatch(documentFilename);
     if (typeMatch == null) return null;
@@ -237,6 +259,16 @@ class SchemaResolver {
           requestedVersion = parts[1];
         }
       }
+    }
+
+    // Search explicit schema folder first.
+    if (schemaFolder != null) {
+      final result = await _findSchemaByTypeInFolder(
+        schemaFolder,
+        type,
+        requestedVersion,
+      );
+      if (result != null) return result;
     }
 
     // Search local folders walking up from document path.
@@ -281,6 +313,7 @@ class SchemaResolver {
     String? documentText,
     String? documentPath,
     String? workspaceRoot,
+    String? schemaFolder,
   }) {
     final typeMatch = _dsFilenamePattern.firstMatch(documentFilename);
     if (typeMatch == null) return null;
@@ -296,6 +329,16 @@ class SchemaResolver {
           requestedVersion = parts[1];
         }
       }
+    }
+
+    // Search explicit schema folder first.
+    if (schemaFolder != null) {
+      final result = _findSchemaByTypeInFolderSync(
+        schemaFolder,
+        type,
+        requestedVersion,
+      );
+      if (result != null) return result;
     }
 
     if (documentPath != null) {
