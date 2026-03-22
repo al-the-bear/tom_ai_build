@@ -5,7 +5,7 @@ section-types:
     format: contact-form
 
 form-types:
-  contact-form:
+  contact:
     fields:
       - fieldname: name
         required: true

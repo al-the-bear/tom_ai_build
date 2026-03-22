@@ -9,7 +9,7 @@ section-types:
     prefix: req
     text-required: true
     pattern-check-id:
-      pattern: "^REQ-\\d{{3}}$"
+      pattern: "^REQ-\\d{3}$"
       error-message: "ID must match REQ-NNN"
     max-count-in-document: 50
     allowed-tags:
@@ -31,7 +31,7 @@ section-types:
     format: contact-form
 
 form-types:
-  contact-form:
+  contact:
     fields:
       - fieldname: name
         required: true

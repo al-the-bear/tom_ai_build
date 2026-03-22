@@ -4,4 +4,4 @@ section-types:
     prefix: note
 
 document:
-  sections: {{}}
+  sections: {}

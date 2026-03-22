@@ -11,4 +11,6 @@ document:
       section-type: item
     registry:
       section-type: registry-entry
-      for-each: items
+      for-each:
+        section-type: item
+        key: name

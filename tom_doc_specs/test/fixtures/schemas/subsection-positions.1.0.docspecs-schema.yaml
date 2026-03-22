@@ -7,14 +7,15 @@ section-types:
   detail:
     prefix: det
 
-subsection-positions:
-  container:
-    summary:
-      position: first
-    detail:
-      position: last
-
 document:
   sections:
     main:
       section-type: container
+
+main:
+  summary:
+    section-type: summary
+    position: first
+  detail:
+    section-type: detail
+    position: last
