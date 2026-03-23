@@ -741,14 +741,12 @@ class DocSpecsValidator {
       return errors;
     }
 
-    // Check required fields
+    // Check required fields (from form text only)
     for (final field in formType.fields) {
       if (field.required == true) {
         final value = section.getFormField(field.fieldname);
-        final commentValue = section.fields[field.fieldname];
 
-        if ((value == null || value.isEmpty) &&
-            (commentValue == null || commentValue.isEmpty)) {
+        if (value == null || value.isEmpty) {
           errors.add(ValidationError(
             message: "Required field '${field.fieldname}' is missing in section '${section.id}'",
             lineNumber: section.lineNumber,
@@ -756,25 +754,11 @@ class DocSpecsValidator {
             category: ValidationErrorCategory.format,
           ));
         }
-
-        // Check for duplicates
-        if (value != null &&
-            value.isNotEmpty &&
-            commentValue != null &&
-            commentValue.isNotEmpty) {
-          errors.add(ValidationError(
-            message: "Field '${field.fieldname}' appears in both comment and form text in section '${section.id}'",
-            lineNumber: section.lineNumber,
-            sectionId: section.id,
-            category: ValidationErrorCategory.format,
-          ));
-        }
       }
 
-      // Validate field pattern
+      // Validate field pattern (from form text only)
       if (field.patternCheck != null) {
-        final value = section.getFormField(field.fieldname) ??
-            section.fields[field.fieldname];
+        final value = section.getFormField(field.fieldname);
         if (value != null && value.isNotEmpty) {
           final regex = RegExp(field.patternCheck!.pattern);
           if (!regex.hasMatch(value)) {
@@ -803,8 +787,7 @@ class DocSpecsValidator {
           final typeDef = schema.sectionTypes[section.type];
           if (typeDef?.requiredFields != null) {
             for (final fieldName in typeDef!.requiredFields!) {
-              final value = section.getFormField(fieldName) ??
-                  section.fields[fieldName];
+              final value = section.fields[fieldName];
               if (value == null || value.isEmpty) {
                 errors.add(ValidationError(
                   message:

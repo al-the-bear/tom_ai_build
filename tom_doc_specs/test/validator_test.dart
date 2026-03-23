@@ -1038,7 +1038,8 @@ void main() {
         makeSection(
           id: 'config-001',
           type: 'config',
-          text: 'Environment: production\nVersion: 2.0',
+          text: 'Some configuration content.',
+          fields: {'environment': 'production', 'version': '2.0'},
         ),
       ]);
 

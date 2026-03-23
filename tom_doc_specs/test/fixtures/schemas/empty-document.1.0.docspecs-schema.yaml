@@ -1,7 +1,0 @@
-# Empty document structure - no required sections
-section-types:
-  note:
-    prefix: note
-
-document:
-  sections: {}

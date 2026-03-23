@@ -21,14 +21,18 @@ import '../models/spec_section.dart';
 /// | `${lineNumber}` | Line number in source file |
 /// | `${type}` | Section type name from schema |
 /// | `${tags}` | Comma-separated list of tags |
-/// | `${fields}` | JSON object of field key-value pairs |
-/// | `${fields.fieldName}` | Value of a specific field |
+/// | `${fields}` | JSON object of headline comment field key-value pairs |
+/// | `${fields.fieldName}` | Value of a specific headline comment field |
+/// | `${formfields}` | JSON object of form text field key-value pairs |
+/// | `${formfields.fieldName}` | Value of a specific form text field |
 /// | `${parent.id}` | Parent section's ID |
 /// | `${parent.text}` | Parent section's text content |
 /// | `${parent.text[fieldname]}` | Extract form field from parent's text |
 /// | `${parent.type}` | Parent section's type name |
-/// | `${parent.fields}` | Parent section's fields as JSON |
-/// | `${parent.fields.fieldName}` | Specific field from parent section |
+/// | `${parent.fields}` | Parent section's headline comment fields as JSON |
+/// | `${parent.fields.fieldName}` | Specific headline comment field from parent section |
+/// | `${parent.formfields}` | Parent section's form text fields as JSON |
+/// | `${parent.formfields.fieldName}` | Specific form text field from parent section |
 class PromptExpander {
   static final _placeholderPattern = RegExp(r'\$\{([^}]+)\}');
 
@@ -84,6 +88,11 @@ class PromptExpander {
         return section is SpecSection ? section.tags.join(', ') : '';
       case 'fields':
         return jsonEncode(section.fields);
+      case 'formfields':
+        if (section is SpecSection) {
+          return jsonEncode(section.formFields);
+        }
+        return '{}';
       default:
         // ${text[fieldname]} or ${text[]}
         if (key.startsWith('text[') && key.endsWith(']')) {
@@ -101,6 +110,15 @@ class PromptExpander {
         if (key.startsWith('fields.')) {
           final fieldName = key.substring('fields.'.length);
           return section.fields[fieldName] ?? '';
+        }
+
+        // ${formfields.fieldName}
+        if (key.startsWith('formfields.')) {
+          final fieldName = key.substring('formfields.'.length);
+          if (section is SpecSection) {
+            return section.getFormField(fieldName) ?? '';
+          }
+          return '';
         }
 
         return '\${$key}';

@@ -20,6 +20,15 @@ class FormFieldDef {
 
   /// Creates a FormFieldDef from a YAML map.
   factory FormFieldDef.fromYaml(Map<String, dynamic> yaml) {
+    // Validate fieldname characters (letters, digits, dashes only)
+    final fieldname = yaml['fieldname'] as String;
+    if (!RegExp(r'^[a-zA-Z0-9-]+$').hasMatch(fieldname)) {
+      throw FormatException(
+        "Form field '$fieldname' contains invalid characters. "
+        'Only letters, digits, and dashes are allowed.',
+      );
+    }
+
     PatternCheckDef? patternCheck;
     if (yaml['pattern-check'] != null) {
       patternCheck =
@@ -27,7 +36,7 @@ class FormFieldDef {
     }
 
     return FormFieldDef(
-      fieldname: yaml['fieldname'] as String,
+      fieldname: fieldname,
       required: yaml['required'] as bool?,
       patternCheck: patternCheck,
     );

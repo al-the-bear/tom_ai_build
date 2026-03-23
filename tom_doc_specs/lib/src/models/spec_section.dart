@@ -102,23 +102,17 @@ class SpecSection extends Section {
   ///
   /// Returns null if field not found.
   /// Equivalent to `${text[fieldname]}` placeholder syntax.
-  ///
-  /// ## Example
-  ///
-  /// Given section text:
-  /// ```
-  /// Description: This is the description.
-  /// Method: POST
-  /// Path: /api/v1/users
-  /// ```
-  ///
-  /// ```dart
-  /// section.getFormField('method'); // Returns 'POST'
-  /// section.getFormField('path');   // Returns '/api/v1/users'
-  /// ```
   String? getFormField(String fieldname) {
     _parseFormFields();
     return _formFields?[fieldname.toLowerCase()];
+  }
+
+  /// Get all form fields extracted from section text as a map.
+  ///
+  /// Keys are lowercase field names, values are the extracted text.
+  Map<String, String> get formFields {
+    _parseFormFields();
+    return Map.unmodifiable(_formFields ?? const {});
   }
 
   /// Get the preamble text (text before first field).
