@@ -1,19 +1,7 @@
-import '../common/common.dart';
-
-import 'access_authorization.dart';
-import 'administrative.dart';
-import 'business_data_model.dart';
-import 'components.dart';
-import 'current_state_analysis.dart';
-import 'delivery_acceptance.dart';
-import 'organizational_framework.dart';
-import 'project_organization_process.dart';
-import 'system_overview.dart';
-import 'system_quality_goals.dart';
-import 'system_stage_plan.dart';
-import 'target_business_process.dart';
-import 'technical_framework.dart';
-import 'user_interface_design.dart';
+/// Top-level Project Definition document model.
+///
+/// Aggregates all 14 PD sections plus the document header.
+library;
 
 export 'access_authorization.dart';
 export 'administrative.dart';
@@ -30,20 +18,35 @@ export 'target_business_process.dart';
 export 'technical_framework.dart';
 export 'user_interface_design.dart';
 
-/// PD00 Project Definition — the central TomSpecs document.
+import 'package:tom_specs_model/src/common/document_header.dart';
+
+import 'access_authorization.dart';
+import 'administrative.dart';
+import 'business_data_model.dart';
+import 'components.dart';
+import 'current_state_analysis.dart';
+import 'delivery_acceptance.dart';
+import 'organizational_framework.dart';
+import 'project_organization_process.dart';
+import 'system_overview.dart';
+import 'system_quality_goals.dart';
+import 'system_stage_plan.dart';
+import 'target_business_process.dart';
+import 'technical_framework.dart';
+import 'user_interface_design.dart';
+
+/// The complete Project Definition (PD) document.
 ///
-/// Contains 14 major sections covering all aspects of a software project
-/// from current state analysis through delivery acceptance. Each section
-/// maps to specific Phase 3 DocSpec documents via seed references.
+/// Contains a [DocumentHeader] and all 14 PD sections.
 class ProjectDefinition {
-  /// Document header (ID, project, version, date, author, status).
+  /// Document header (form fields at top of document).
   final DocumentHeader header;
 
   /// 1. Current State Analysis [PD00-CUR].
   final CurrentStateAnalysis currentStateAnalysis;
 
   /// 2. Project Organization and Process [PD00-POP].
-  final ProjectOrganizationAndProcess projectOrganization;
+  final ProjectOrganizationAndProcess projectOrganizationProcess;
 
   /// 3. Administrative [PD00-ADM].
   final Administrative administrative;
@@ -57,34 +60,34 @@ class ProjectDefinition {
   /// 6. Target Business Process Model [PD00-TAR].
   final TargetBusinessProcessModel targetBusinessProcess;
 
-  /// 7. Business Object and Data Model [PD00-BUS]. Seeds → BDM.
+  /// 7. Business Object and Data Model [PD00-BUS].
   final BusinessObjectAndDataModel businessDataModel;
 
-  /// 8. Technical Framework Concept [PD00-TEC]. Seeds → TR.
+  /// 8. Technical Framework Concept [PD00-TEC].
   final TechnicalFrameworkConcept technicalFramework;
 
-  /// 9. Access and Authorization Concept [PD00-ACC]. Seeds → AC.
+  /// 9. Access and Authorization Concept [PD00-ACC].
   final AccessAndAuthorizationConcept accessAuthorization;
 
-  /// 10. User Interface Design and Prototype [PD00-USE]. Seeds → UP, SR, TR.
+  /// 10. User Interface Design [PD00-USE].
   final UserInterfaceDesign userInterfaceDesign;
 
-  /// 11. System Quality Goals [PD00-SYQ]. Seeds → BQP.
+  /// 11. System Quality Goals [PD00-SYQ].
   final SystemQualityGoals systemQualityGoals;
 
-  /// 12. Components to Use [PD00-COM]. Seeds → TR.
-  final ComponentsToUse components;
+  /// 12. Components to Use [PD00-COM].
+  final ComponentsToUse componentsToUse;
 
-  /// 13. System Stage Plan [PD00-SSP]. Seeds → PPP.
+  /// 13. System Stage Plan [PD00-SSP].
   final SystemStagePlan systemStagePlan;
 
-  /// 14. Delivery Scope and Acceptance [PD00-DEL]. Seeds → BQP (partial).
+  /// 14. Delivery Scope and Acceptance [PD00-DEL].
   final DeliveryScopeAndAcceptance deliveryAcceptance;
 
   const ProjectDefinition({
-    required this.header,
+    this.header = const DocumentHeader(),
     this.currentStateAnalysis = const CurrentStateAnalysis(),
-    this.projectOrganization = const ProjectOrganizationAndProcess(),
+    this.projectOrganizationProcess = const ProjectOrganizationAndProcess(),
     this.administrative = const Administrative(),
     this.systemOverview = const SystemOverview(),
     this.organizationalFramework = const OrganizationalFramework(),
@@ -94,7 +97,7 @@ class ProjectDefinition {
     this.accessAuthorization = const AccessAndAuthorizationConcept(),
     this.userInterfaceDesign = const UserInterfaceDesign(),
     this.systemQualityGoals = const SystemQualityGoals(),
-    this.components = const ComponentsToUse(),
+    this.componentsToUse = const ComponentsToUse(),
     this.systemStagePlan = const SystemStagePlan(),
     this.deliveryAcceptance = const DeliveryScopeAndAcceptance(),
   });

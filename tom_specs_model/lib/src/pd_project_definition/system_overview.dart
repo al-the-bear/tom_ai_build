@@ -1,10 +1,14 @@
-import '../common/common.dart';
-
 /// Section 4: System Overview [PD00-SYO].
 ///
 /// High-level overview of the system: purpose, goals, scope, requirements,
-/// boundaries, and environment. This is the largest PD section.
+/// boundaries, and environment.
+library;
+
+
+/// 4. System Overview [PD00-SYO].
 class SystemOverview {
+  final String? content;
+
   /// 4.1. System Description [PD00-SYO-SYD].
   final SystemDescription systemDescription;
 
@@ -27,6 +31,7 @@ class SystemOverview {
   final RisksAndAssumptions risksAndAssumptions;
 
   const SystemOverview({
+    this.content,
     this.systemDescription = const SystemDescription(),
     this.goals = const Goals(),
     this.requirements = const RequirementsOverview(),
@@ -43,6 +48,8 @@ class SystemOverview {
 
 /// 4.1. System Description [PD00-SYO-SYD].
 class SystemDescription {
+  final String? content;
+
   /// 4.1.1. System Purpose [PD00-SYO-SYD-PUR].
   final String? systemPurpose;
 
@@ -52,13 +59,14 @@ class SystemDescription {
   /// 4.1.3. Description of Task Area [PD00-SYO-SYD-DES].
   final String? taskArea;
 
-  /// 4.1.4. User Categories [PD00-SYO-SYD-USR] — contains 1+× UserCategory.
-  final List<UserCategory> userCategories;
+  /// 4.1.4. User Categories [PD00-SYO-SYD-USR] — contains 1+× User Category.
+  final List<UserCategoryEntry> userCategories;
 
   /// 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
   final String? userInteractionModel;
 
   const SystemDescription({
+    this.content,
     this.systemPurpose,
     this.systemContext,
     this.taskArea,
@@ -67,58 +75,64 @@ class SystemDescription {
   });
 }
 
-/// A user category with its roles and tasks [PD00-SYO-SYD-USR-nn].
-class UserCategory {
-  final String categoryName;
-  final String description;
-  final TechnicalProficiency? technicalProficiency;
+/// A user category entry [PD00-SYO-SYD-USR-nn] (form).
+class UserCategoryEntry {
+  final String? content;
+  final String? categoryName;
+  final String? description;
+  final String? technicalProficiency;
   final String? frequencyOfUse;
-  final AccessChannel? accessChannel;
-  final int? estimatedUserCount;
+  final String? accessChannel;
+  final String? estimatedUserCount;
 
-  /// Roles within this user category.
-  final List<UserRole> roles;
+  /// Role subsection [PD00-SYO-SYD-USR-nn-ROL] (form, singular).
+  final UserCategoryRoleEntry? role;
 
-  /// System tasks this category performs.
-  final List<SystemTask> systemTasks;
+  /// System Tasks [PD00-SYO-SYD-USR-nn-TSK] — contains 1+× System Task.
+  final List<SystemTaskEntry> systemTasks;
 
-  const UserCategory({
-    required this.categoryName,
-    required this.description,
+  const UserCategoryEntry({
+    this.content,
+    this.categoryName,
+    this.description,
     this.technicalProficiency,
     this.frequencyOfUse,
     this.accessChannel,
     this.estimatedUserCount,
-    this.roles = const [],
+    this.role,
     this.systemTasks = const [],
   });
 }
 
-/// A role within a user category [PD00-SYO-SYD-USR-nn-ROL].
-class UserRole {
-  final String roleName;
-  final String roleDescription;
+/// Role within a user category [PD00-SYO-SYD-USR-nn-ROL] (form).
+class UserCategoryRoleEntry {
+  final String? content;
+  final String? roleName;
+  final String? roleDescription;
   final String? organizationUnit;
   final String? reportsTo;
 
-  const UserRole({
-    required this.roleName,
-    required this.roleDescription,
+  const UserCategoryRoleEntry({
+    this.content,
+    this.roleName,
+    this.roleDescription,
     this.organizationUnit,
     this.reportsTo,
   });
 }
 
-/// A system task performed by a user category [PD00-SYO-SYD-USR-nn-TSK].
-class SystemTask {
-  final String taskName;
-  final String description;
+/// A system task entry [PD00-SYO-SYD-USR-nn-TSK] (form, repeatable).
+class SystemTaskEntry {
+  final String? content;
+  final String? taskName;
+  final String? description;
   final String? frequency;
   final String? relatedUseCase;
 
-  const SystemTask({
-    required this.taskName,
-    required this.description,
+  const SystemTaskEntry({
+    this.content,
+    this.taskName,
+    this.description,
     this.frequency,
     this.relatedUseCase,
   });
@@ -130,61 +144,68 @@ class SystemTask {
 
 /// 4.2. Goals [PD00-SYO-GOA].
 class Goals {
-  /// 4.2.1. Business Goals [PD00-SYO-GOA-BUS] — contains 1+× BusinessGoal.
-  final List<BusinessGoal> businessGoals;
+  final String? content;
 
-  /// 4.2.2. Technical Goals [PD00-SYO-GOA-TEC] — contains 1+× TechnicalGoal.
-  final List<TechnicalGoal> technicalGoals;
+  /// 4.2.1. Business Goals [PD00-SYO-GOA-BUS] — contains 1+× Business Goal.
+  final List<BusinessGoalEntry> businessGoals;
+
+  /// 4.2.2. Technical Goals [PD00-SYO-GOA-TEC] — contains 1+× Technical Goal.
+  final List<TechnicalGoalEntry> technicalGoals;
 
   /// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
   final String? successCriteria;
 
   const Goals({
+    this.content,
     this.businessGoals = const [],
     this.technicalGoals = const [],
     this.successCriteria,
   });
 }
 
-/// A business goal [PD00-SYO-GOA-BUS-nn].
-class BusinessGoal {
-  final String goalId;
-  final String goalName;
-  final String description;
-  final String successMetric;
+/// A business goal entry [PD00-SYO-GOA-BUS-nn] (form).
+class BusinessGoalEntry {
+  final String? content;
+  final String? goalId;
+  final String? goalName;
+  final String? description;
+  final String? successMetric;
   final String? currentValue;
-  final String targetValue;
+  final String? targetValue;
   final String? measurementMethod;
   final String? targetDate;
 
-  const BusinessGoal({
-    required this.goalId,
-    required this.goalName,
-    required this.description,
-    required this.successMetric,
+  const BusinessGoalEntry({
+    this.content,
+    this.goalId,
+    this.goalName,
+    this.description,
+    this.successMetric,
     this.currentValue,
-    required this.targetValue,
+    this.targetValue,
     this.measurementMethod,
     this.targetDate,
   });
 }
 
-/// A technical goal [PD00-SYO-GOA-TEC-nn].
-class TechnicalGoal {
-  final String goalId;
-  final String goalName;
-  final String description;
-  final String successMetric;
-  final String targetValue;
+/// A technical goal entry [PD00-SYO-GOA-TEC-nn] (form).
+class TechnicalGoalEntry {
+  final String? content;
+  final String? goalId;
+  final String? goalName;
+  final String? description;
+  final String? successMetric;
+  final String? targetValue;
   final String? measurementMethod;
   final String? verificationPoint;
 
-  const TechnicalGoal({
-    required this.goalId,
-    required this.goalName,
-    required this.description,
-    required this.successMetric,
-    required this.targetValue,
+  const TechnicalGoalEntry({
+    this.content,
+    this.goalId,
+    this.goalName,
+    this.description,
+    this.successMetric,
+    this.targetValue,
     this.measurementMethod,
     this.verificationPoint,
   });
@@ -196,78 +217,136 @@ class TechnicalGoal {
 
 /// 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
 class RequirementsOverview {
-  /// 4.3.1. Functional Requirements — contains 1+× FunctionalRequirement.
-  final List<FunctionalRequirement> functional;
+  final String? content;
 
-  /// 4.3.2. Technical Requirements — contains 0+× TechnicalRequirement.
-  final List<TechnicalRequirement> technical;
+  /// 4.3.1. Functional Requirements [PD00-SYO-REQ-FUN] — contains 1+×.
+  final List<FunctionalRequirementEntry> functionalRequirements;
 
-  /// 4.3.3. Security Requirements — contains 0+× SecurityRequirement.
-  final List<SecurityRequirement> security;
+  /// 4.3.2. Technical Requirements [PD00-SYO-REQ-TEC] — contains 0+×.
+  final List<TechnicalRequirementEntry> technicalRequirements;
 
-  /// 4.3.4. Organizational Requirements — contains 0+× OrganizationalRequirement.
-  final List<Requirement> organizational;
+  /// 4.3.3. Security Requirements [PD00-SYO-REQ-SEC] — contains 0+×.
+  final List<SecurityRequirementEntry> securityRequirements;
+
+  /// 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG] — contains 0+×.
+  final List<OrganizationalRequirementEntry> organizationalRequirements;
 
   const RequirementsOverview({
-    this.functional = const [],
-    this.technical = const [],
-    this.security = const [],
-    this.organizational = const [],
+    this.content,
+    this.functionalRequirements = const [],
+    this.technicalRequirements = const [],
+    this.securityRequirements = const [],
+    this.organizationalRequirements = const [],
   });
 }
 
-/// Functional requirement with use-case and data entity references.
-class FunctionalRequirement extends Requirement {
+/// A functional requirement entry [PD00-SYO-REQ-FUN-nn] (form).
+class FunctionalRequirementEntry {
+  final String? content;
+  final String? requirementId;
+  final String? title;
+  final String? description;
+  final String? priority;
+  final String? source;
+  final String? rationale;
+  final String? acceptanceCriteria;
   final String? relatedUseCase;
   final String? relatedBusinessProcess;
   final String? affectedDataEntities;
+  final String? status;
 
-  const FunctionalRequirement({
-    required super.requirementId,
-    required super.title,
-    required super.description,
-    required super.priority,
-    required super.source,
-    super.rationale,
-    required super.acceptanceCriteria,
-    super.status,
+  const FunctionalRequirementEntry({
+    this.content,
+    this.requirementId,
+    this.title,
+    this.description,
+    this.priority,
+    this.source,
+    this.rationale,
+    this.acceptanceCriteria,
     this.relatedUseCase,
     this.relatedBusinessProcess,
     this.affectedDataEntities,
+    this.status,
   });
 }
 
-/// Technical requirement with verification approach.
-class TechnicalRequirement extends Requirement {
+/// A technical requirement entry [PD00-SYO-REQ-TEC-nn] (form).
+class TechnicalRequirementEntry {
+  final String? content;
+  final String? requirementId;
+  final String? title;
+  final String? description;
+  final String? priority;
+  final String? source;
+  final String? rationale;
+  final String? acceptanceCriteria;
   final String? verificationApproach;
+  final String? status;
 
-  const TechnicalRequirement({
-    required super.requirementId,
-    required super.title,
-    required super.description,
-    required super.priority,
-    required super.source,
-    super.rationale,
-    required super.acceptanceCriteria,
-    super.status,
+  const TechnicalRequirementEntry({
+    this.content,
+    this.requirementId,
+    this.title,
+    this.description,
+    this.priority,
+    this.source,
+    this.rationale,
+    this.acceptanceCriteria,
     this.verificationApproach,
+    this.status,
   });
 }
 
-/// Security requirement with compliance reference.
-class SecurityRequirement extends Requirement {
+/// A security requirement entry [PD00-SYO-REQ-SEC-nn] (form).
+class SecurityRequirementEntry {
+  final String? content;
+  final String? requirementId;
+  final String? title;
+  final String? description;
+  final String? priority;
+  final String? source;
+  final String? rationale;
   final String? complianceReference;
+  final String? acceptanceCriteria;
+  final String? status;
 
-  const SecurityRequirement({
-    required super.requirementId,
-    required super.title,
-    required super.description,
-    required super.priority,
-    required super.source,
-    super.rationale,
-    required super.acceptanceCriteria,
-    super.status,
+  const SecurityRequirementEntry({
+    this.content,
+    this.requirementId,
+    this.title,
+    this.description,
+    this.priority,
+    this.source,
+    this.rationale,
     this.complianceReference,
+    this.acceptanceCriteria,
+    this.status,
+  });
+}
+
+/// An organizational requirement entry [PD00-SYO-REQ-ORG-nn] (form).
+class OrganizationalRequirementEntry {
+  final String? content;
+  final String? requirementId;
+  final String? title;
+  final String? description;
+  final String? priority;
+  final String? source;
+  final String? rationale;
+  final String? acceptanceCriteria;
+  final String? status;
+
+  const OrganizationalRequirementEntry({
+    this.content,
+    this.requirementId,
+    this.title,
+    this.description,
+    this.priority,
+    this.source,
+    this.rationale,
+    this.acceptanceCriteria,
+    this.status,
   });
 }
 
@@ -277,32 +356,37 @@ class SecurityRequirement extends Requirement {
 
 /// 4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
 class SystemsToReplace {
-  /// 4.4.1. Replacement Inventory — contains 0+× SystemToReplace.
-  final List<SystemToReplace> inventory;
+  final String? content;
+
+  /// 4.4.1. Replacement Inventory [PD00-SYO-SYR-INV] — contains 0+×.
+  final List<SystemToReplaceEntry> replacementInventory;
 
   /// 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG].
   final String? migrationConsiderations;
 
   const SystemsToReplace({
-    this.inventory = const [],
+    this.content,
+    this.replacementInventory = const [],
     this.migrationConsiderations,
   });
 }
 
-/// A system to be replaced [PD00-SYO-SYR-INV-nn].
-class SystemToReplace {
-  final String systemName;
-  final String currentTechnology;
-  final ReplacementStrategy replacementStrategy;
+/// A system to replace entry [PD00-SYO-SYR-INV-nn] (form).
+class SystemToReplaceEntry {
+  final String? content;
+  final String? systemName;
+  final String? currentTechnology;
+  final String? replacementStrategy;
   final String? dataMigrationScope;
   final String? migrationComplexity;
   final String? decommissionDate;
   final String? dependencies;
 
-  const SystemToReplace({
-    required this.systemName,
-    required this.currentTechnology,
-    required this.replacementStrategy,
+  const SystemToReplaceEntry({
+    this.content,
+    this.systemName,
+    this.currentTechnology,
+    this.replacementStrategy,
     this.dataMigrationScope,
     this.migrationComplexity,
     this.decommissionDate,
@@ -316,8 +400,10 @@ class SystemToReplace {
 
 /// 4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
 class SystemBoundaries {
-  /// 4.5.1. Interfaces to External Systems — contains 0+× ExternalInterface.
-  final List<ExternalInterface> externalInterfaces;
+  final String? content;
+
+  /// 4.5.1. Interfaces to External Systems [PD00-SYO-SYB-INT] — contains 0+×.
+  final List<ExternalInterfaceEntry> externalInterfaces;
 
   /// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT].
   final String? outOfScope;
@@ -326,29 +412,32 @@ class SystemBoundaries {
   final String? assumptions;
 
   const SystemBoundaries({
+    this.content,
     this.externalInterfaces = const [],
     this.outOfScope,
     this.assumptions,
   });
 }
 
-/// An external system interface [PD00-SYO-SYB-INT-nn].
-class ExternalInterface {
-  final String interfaceId;
-  final String externalSystem;
-  final InterfaceDirection direction;
-  final String purpose;
+/// An external interface entry [PD00-SYO-SYB-INT-nn] (form).
+class ExternalInterfaceEntry {
+  final String? content;
+  final String? interfaceId;
+  final String? externalSystem;
+  final String? direction;
+  final String? purpose;
   final String? dataExchanged;
   final String? protocol;
   final String? frequency;
   final String? volume;
   final String? authentication;
 
-  const ExternalInterface({
-    required this.interfaceId,
-    required this.externalSystem,
-    required this.direction,
-    required this.purpose,
+  const ExternalInterfaceEntry({
+    this.content,
+    this.interfaceId,
+    this.externalSystem,
+    this.direction,
+    this.purpose,
     this.dataExchanged,
     this.protocol,
     this.frequency,
@@ -363,6 +452,8 @@ class ExternalInterface {
 
 /// 4.6. Framework Conditions [PD00-SYO-RES].
 class FrameworkConditions {
+  final String? content;
+
   /// 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
   final String? organizationalEnvironment;
 
@@ -376,6 +467,7 @@ class FrameworkConditions {
   final String? constraintsAndDependencies;
 
   const FrameworkConditions({
+    this.content,
     this.organizationalEnvironment,
     this.functionalResponsibilities,
     this.technicalFrameworkConditions,
@@ -389,14 +481,42 @@ class FrameworkConditions {
 
 /// 4.7. Risks and Assumptions [PD00-SYO-RIS].
 class RisksAndAssumptions {
-  /// 4.7.1. Key Risks — contains 0+× Risk.
-  final List<Risk> keyRisks;
+  final String? content;
+
+  /// 4.7.1. Key Risks [PD00-SYO-RIS-RIS] — contains 0+× Risk.
+  final List<RiskEntry> keyRisks;
 
   /// 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS].
   final String? keyAssumptions;
 
   const RisksAndAssumptions({
+    this.content,
     this.keyRisks = const [],
     this.keyAssumptions,
+  });
+}
+
+/// A risk entry [PD00-SYO-RIS-RIS-nn] (form).
+class RiskEntry {
+  final String? content;
+  final String? riskId;
+  final String? riskName;
+  final String? description;
+  final String? probability;
+  final String? impact;
+  final String? mitigation;
+  final String? riskOwner;
+  final String? reviewFrequency;
+
+  const RiskEntry({
+    this.content,
+    this.riskId,
+    this.riskName,
+    this.description,
+    this.probability,
+    this.impact,
+    this.mitigation,
+    this.riskOwner,
+    this.reviewFrequency,
   });
 }

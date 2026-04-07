@@ -1,9 +1,13 @@
-import '../common/common.dart';
-
 /// Section 12: Components to Use [PD00-COM]. Seeds → TR.
 ///
 /// External and standard components planned for use.
+library;
+
+
+/// 12. Components to Use [PD00-COM]. Seeds → TR.
 class ComponentsToUse {
+  final String? content;
+
   /// 12.1. Component Strategy [PD00-COM-STR].
   final ComponentStrategy strategy;
 
@@ -23,6 +27,7 @@ class ComponentsToUse {
   final ComponentRiskAssessment riskAssessment;
 
   const ComponentsToUse({
+    this.content,
     this.strategy = const ComponentStrategy(),
     this.componentCatalog = const [],
     this.componentRoleInSystem,
@@ -34,40 +39,52 @@ class ComponentsToUse {
 
 /// 12.1. Component Strategy [PD00-COM-STR].
 class ComponentStrategy {
+  final String? content;
+
+  /// 12.1.1. Reuse Goals [PD00-COM-STR-GOA].
   final String? reuseGoals;
+
+  /// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
   final String? evaluationCriteria;
 
   const ComponentStrategy({
+    this.content,
     this.reuseGoals,
     this.evaluationCriteria,
   });
 }
 
-/// A component entry with its sub-entries [PD00-COM-COM-nn].
+// ---------------------------------------------------------------------------
+// Component catalog entries
+// ---------------------------------------------------------------------------
+
+/// A component entry [PD00-COM-COM-nn] (form) with sub-entries.
 class ComponentEntry {
-  final String componentName;
-  final String version;
-  final ComponentCategory category;
-  final String purpose;
+  final String? content;
+  final String? componentName;
+  final String? version;
+  final String? category;
+  final String? purpose;
   final String? documentation;
 
-  /// Interfaces description [PD00-COM-COM-nn-INT].
+  /// Interfaces [PD00-COM-COM-nn-INT] (description).
   final String? interfaces;
 
-  /// Licensing [PD00-COM-COM-nn-LIC].
-  final ComponentLicensing? licensing;
+  /// Licensing [PD00-COM-COM-nn-LIC] (form).
+  final ComponentLicensingEntry? licensing;
 
-  /// Usage rights [PD00-COM-COM-nn-USE].
+  /// Usage Rights [PD00-COM-COM-nn-USE] (description).
   final String? usageRights;
 
-  /// Responsibilities [PD00-COM-COM-nn-RES].
-  final ComponentResponsibilities? responsibilities;
+  /// Responsibilities [PD00-COM-COM-nn-RES] (form).
+  final ComponentResponsibilitiesEntry? responsibilities;
 
   const ComponentEntry({
-    required this.componentName,
-    required this.version,
-    required this.category,
-    required this.purpose,
+    this.content,
+    this.componentName,
+    this.version,
+    this.category,
+    this.purpose,
     this.documentation,
     this.interfaces,
     this.licensing,
@@ -76,67 +93,80 @@ class ComponentEntry {
   });
 }
 
-/// Component licensing information [PD00-COM-COM-nn-LIC].
-class ComponentLicensing {
-  final String licenseModel;
-  final String annualCost;
+/// Component licensing sub-entry [PD00-COM-COM-nn-LIC] (form).
+class ComponentLicensingEntry {
+  final String? content;
+  final String? licenseModel;
+  final String? annualCost;
   final String? renewal;
   final String? redistribution;
 
-  const ComponentLicensing({
-    required this.licenseModel,
-    required this.annualCost,
+  const ComponentLicensingEntry({
+    this.content,
+    this.licenseModel,
+    this.annualCost,
     this.renewal,
     this.redistribution,
   });
 }
 
-/// Component responsibilities [PD00-COM-COM-nn-RES].
-class ComponentResponsibilities {
-  final String technicalContact;
-  final String supportModel;
+/// Component responsibilities sub-entry [PD00-COM-COM-nn-RES] (form).
+class ComponentResponsibilitiesEntry {
+  final String? content;
+  final String? technicalContact;
+  final String? supportModel;
   final String? escalation;
   final String? updateCadence;
 
-  const ComponentResponsibilities({
-    required this.technicalContact,
-    required this.supportModel,
+  const ComponentResponsibilitiesEntry({
+    this.content,
+    this.technicalContact,
+    this.supportModel,
     this.escalation,
     this.updateCadence,
   });
 }
 
+// ---------------------------------------------------------------------------
+// Risk assessment
+// ---------------------------------------------------------------------------
+
 /// 12.6. Risk Assessment [PD00-COM-RIS].
 class ComponentRiskAssessment {
-  /// 12.6.1. Component Risks — contains 0+× ComponentRisk.
-  final List<ComponentRisk> risks;
+  final String? content;
+
+  /// 12.6.1. Component Risks [PD00-COM-RIS-RIS] — contains 0+× Risk.
+  final List<ComponentRiskEntry> risks;
 
   /// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
   final String? contingencyPlans;
 
   const ComponentRiskAssessment({
+    this.content,
     this.risks = const [],
     this.contingencyPlans,
   });
 }
 
-/// A component risk [PD00-COM-RIS-RIS-nn].
-class ComponentRisk {
-  final String riskId;
-  final String component;
-  final String risk;
-  final Probability probability;
-  final Impact impact;
-  final String mitigation;
+/// A component risk entry [PD00-COM-RIS-RIS-nn] (form).
+class ComponentRiskEntry {
+  final String? content;
+  final String? riskId;
+  final String? component;
+  final String? risk;
+  final String? probability;
+  final String? impact;
+  final String? mitigation;
   final String? contingencyTrigger;
 
-  const ComponentRisk({
-    required this.riskId,
-    required this.component,
-    required this.risk,
-    required this.probability,
-    required this.impact,
-    required this.mitigation,
+  const ComponentRiskEntry({
+    this.content,
+    this.riskId,
+    this.component,
+    this.risk,
+    this.probability,
+    this.impact,
+    this.mitigation,
     this.contingencyTrigger,
   });
 }

@@ -1,11 +1,14 @@
-import '../common/enums.dart';
-
 /// Section 6: Target Business Process Model [PD00-TAR].
 ///
-/// Target business processes the system will support.
-/// Splits into process descriptions (seeds → BP) and
-/// actor interactions (seeds → UC).
+/// Target business processes the system will support. Splits into process
+/// descriptions (seeds → BP) and actor interactions (seeds → UC).
+library;
+
+
+/// 6. Target Business Process Model [PD00-TAR].
 class TargetBusinessProcessModel {
+  final String? content;
+
   /// 6.1. Business Process Descriptions [PD00-TAR-PRO]. Seeds → BP.
   final BusinessProcessDescriptions processDescriptions;
 
@@ -13,6 +16,7 @@ class TargetBusinessProcessModel {
   final ProcessStepsAndActorInteractions processSteps;
 
   const TargetBusinessProcessModel({
+    this.content,
     this.processDescriptions = const BusinessProcessDescriptions(),
     this.processSteps = const ProcessStepsAndActorInteractions(),
   });
@@ -24,14 +28,16 @@ class TargetBusinessProcessModel {
 
 /// 6.1. Business Process Descriptions [PD00-TAR-PRO]. Seeds → BP.
 class BusinessProcessDescriptions {
+  final String? content;
+
   /// 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
   final String? processVision;
 
   /// 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
   final String? designPrinciples;
 
-  /// 6.1.3. Process Catalog [PD00-TAR-PRO-CAT] — contains 1+× BusinessProcess.
-  final List<BusinessProcess> processCatalog;
+  /// 6.1.3. Process Catalog [PD00-TAR-PRO-CAT] — contains 1+× Business Process.
+  final List<BusinessProcessEntry> processCatalog;
 
   /// 6.1.4. Process Overview Diagram [PD00-TAR-PRO-FLO] (mermaid).
   final String? processOverviewDiagram;
@@ -40,6 +46,7 @@ class BusinessProcessDescriptions {
   final String? improvementSummary;
 
   const BusinessProcessDescriptions({
+    this.content,
     this.processVision,
     this.designPrinciples,
     this.processCatalog = const [],
@@ -48,24 +55,26 @@ class BusinessProcessDescriptions {
   });
 }
 
-/// A target business process [PD00-TAR-PRO-CAT-nn].
-class BusinessProcess {
-  final String processId;
-  final String processName;
-  final String trigger;
-  final String primaryActor;
-  final String description;
-  final String expectedOutcome;
+/// A business process entry [PD00-TAR-PRO-CAT-nn] (form).
+class BusinessProcessEntry {
+  final String? content;
+  final String? processId;
+  final String? processName;
+  final String? trigger;
+  final String? primaryActor;
+  final String? description;
+  final String? expectedOutcome;
   final String? estimatedFrequency;
   final String? estimatedDuration;
 
-  const BusinessProcess({
-    required this.processId,
-    required this.processName,
-    required this.trigger,
-    required this.primaryActor,
-    required this.description,
-    required this.expectedOutcome,
+  const BusinessProcessEntry({
+    this.content,
+    this.processId,
+    this.processName,
+    this.trigger,
+    this.primaryActor,
+    this.description,
+    this.expectedOutcome,
     this.estimatedFrequency,
     this.estimatedDuration,
   });
@@ -77,75 +86,84 @@ class BusinessProcess {
 
 /// 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
 class ProcessStepsAndActorInteractions {
+  final String? content;
+
   /// 6.2.1. Actor Overview [PD00-TAR-STP-ACT] — contains 1+× Actor.
-  final List<Actor> actors;
+  final List<ActorEntry> actors;
 
   /// 6.2.2. Interaction Catalog [PD00-TAR-STP-INT] — contains 1+× Interaction.
-  final List<Interaction> interactions;
+  final List<InteractionEntry> interactions;
 
   /// 6.2.3. Key Scenarios [PD00-TAR-STP-SCE] — contains 1+× Scenario.
-  final List<Scenario> scenarios;
+  final List<ScenarioEntry> scenarios;
 
   const ProcessStepsAndActorInteractions({
+    this.content,
     this.actors = const [],
     this.interactions = const [],
     this.scenarios = const [],
   });
 }
 
-/// An actor in the system [PD00-TAR-STP-ACT-nn].
-class Actor {
-  final String actorName;
-  final ActorType actorType;
-  final String description;
+/// An actor entry [PD00-TAR-STP-ACT-nn] (form).
+class ActorEntry {
+  final String? content;
+  final String? actorName;
+  final String? actorType;
+  final String? description;
   final String? primaryInteractions;
-  final AccessChannel? accessChannel;
+  final String? accessChannel;
 
-  const Actor({
-    required this.actorName,
-    required this.actorType,
-    required this.description,
+  const ActorEntry({
+    this.content,
+    this.actorName,
+    this.actorType,
+    this.description,
     this.primaryInteractions,
     this.accessChannel,
   });
 }
 
-/// An actor–system interaction [PD00-TAR-STP-INT-nn].
-class Interaction {
-  final String interactionId;
-  final String processReference;
-  final String actor;
-  final String action;
-  final String systemResponse;
-  final String expectedOutcome;
+/// An interaction entry [PD00-TAR-STP-INT-nn] (form).
+class InteractionEntry {
+  final String? content;
+  final String? interactionId;
+  final String? processReference;
+  final String? actor;
+  final String? action;
+  final String? systemResponse;
+  final String? expectedOutcome;
   final String? precondition;
   final String? postcondition;
   final String? relatedUseCase;
 
-  const Interaction({
-    required this.interactionId,
-    required this.processReference,
-    required this.actor,
-    required this.action,
-    required this.systemResponse,
-    required this.expectedOutcome,
+  const InteractionEntry({
+    this.content,
+    this.interactionId,
+    this.processReference,
+    this.actor,
+    this.action,
+    this.systemResponse,
+    this.expectedOutcome,
     this.precondition,
     this.postcondition,
     this.relatedUseCase,
   });
 }
 
-/// An end-to-end scenario [PD00-TAR-STP-SCE-nn].
-class Scenario {
-  final String scenarioName;
-  final String description;
+/// A scenario entry [PD00-TAR-STP-SCE-nn] (description).
+class ScenarioEntry {
+  final String? content;
+  final String? scenarioName;
+  final String? description;
   final List<String> steps;
-  final String successCondition;
+  final String? successCondition;
 
-  const Scenario({
-    required this.scenarioName,
-    required this.description,
+  const ScenarioEntry({
+    this.content,
+    this.scenarioName,
+    this.description,
     this.steps = const [],
-    required this.successCondition,
+    this.successCondition,
   });
 }

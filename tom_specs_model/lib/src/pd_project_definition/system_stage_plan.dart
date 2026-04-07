@@ -1,9 +1,13 @@
-import '../common/enums.dart';
-
 /// Section 13: System Stage Plan [PD00-SSP]. Seeds → PPP.
 ///
 /// System stages are meaningful subsets of the functional system.
+library;
+
+
+/// 13. System Stage Plan [PD00-SSP]. Seeds → PPP.
 class SystemStagePlan {
+  final String? content;
+
   /// 13.1. Staging Strategy [PD00-SSP-STR].
   final StagingStrategy strategy;
 
@@ -11,7 +15,7 @@ class SystemStagePlan {
   final StageOverview stageOverview;
 
   /// 13.3. Stages [PD00-SSP-STG] — contains 1+× Stage.
-  final List<Stage> stages;
+  final List<StageEntry> stages;
 
   /// 13.4. Feature Prioritization [PD00-SSP-FEA].
   final FeaturePrioritization featurePrioritization;
@@ -23,6 +27,7 @@ class SystemStagePlan {
   final StageGovernance governance;
 
   const SystemStagePlan({
+    this.content,
     this.strategy = const StagingStrategy(),
     this.stageOverview = const StageOverview(),
     this.stages = const [],
@@ -34,24 +39,25 @@ class SystemStagePlan {
 
 /// 13.1. Staging Strategy [PD00-SSP-STR].
 class StagingStrategy {
-  /// 13.1.1. Staging Approach [PD00-SSP-STR-APP].
-  final StagingApproach? approach;
+  final String? content;
 
-  /// Approach description text.
-  final String? approachDescription;
+  /// 13.1.1. Staging Approach [PD00-SSP-STR-APP].
+  final String? stagingApproach;
 
   /// 13.1.2. Rationale [PD00-SSP-STR-RAT].
   final String? rationale;
 
   const StagingStrategy({
-    this.approach,
-    this.approachDescription,
+    this.content,
+    this.stagingApproach,
     this.rationale,
   });
 }
 
 /// 13.2. Stage Overview [PD00-SSP-STA].
 class StageOverview {
+  final String? content;
+
   /// 13.2.1. Stage Summary [PD00-SSP-STA-SUM].
   final String? stageSummary;
 
@@ -59,38 +65,41 @@ class StageOverview {
   final String? timelineDiagram;
 
   const StageOverview({
+    this.content,
     this.stageSummary,
     this.timelineDiagram,
   });
 }
 
-/// A system stage [PD00-SSP-STG-nn].
-class Stage {
-  final int stageNumber;
-  final String stageName;
+/// A stage entry [PD00-SSP-STG-nn] (form) with description subsections.
+class StageEntry {
+  final String? content;
+  final String? stageNumber;
+  final String? stageName;
   final String? targetGoLive;
-  final String scopeSummary;
+  final String? scopeSummary;
 
-  /// Feature scope description [PD00-SSP-STG-nn-FEA].
+  /// Feature Scope [PD00-SSP-STG-nn-FEA] (description).
   final String? featureScope;
 
-  /// Sub-stages and milestones [PD00-SSP-STG-nn-SUB].
+  /// Sub-stages and Milestones [PD00-SSP-STG-nn-SUB] (description).
   final String? subStagesAndMilestones;
 
-  /// Timeline [PD00-SSP-STG-nn-TIM].
+  /// Timeline [PD00-SSP-STG-nn-TIM] (description).
   final String? timeline;
 
-  /// Success criteria [PD00-SSP-STG-nn-SUC].
+  /// Success Criteria [PD00-SSP-STG-nn-SUC] (description).
   final String? successCriteria;
 
-  /// Rollout plan [PD00-SSP-STG-nn-ROL].
+  /// Rollout Plan [PD00-SSP-STG-nn-ROL] (description).
   final String? rolloutPlan;
 
-  const Stage({
-    required this.stageNumber,
-    required this.stageName,
+  const StageEntry({
+    this.content,
+    this.stageNumber,
+    this.stageName,
     this.targetGoLive,
-    required this.scopeSummary,
+    this.scopeSummary,
     this.featureScope,
     this.subStagesAndMilestones,
     this.timeline,
@@ -101,6 +110,8 @@ class Stage {
 
 /// 13.4. Feature Prioritization [PD00-SSP-FEA].
 class FeaturePrioritization {
+  final String? content;
+
   /// 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
   final String? moscowAnalysis;
 
@@ -108,6 +119,7 @@ class FeaturePrioritization {
   final String? featureStageMatrix;
 
   const FeaturePrioritization({
+    this.content,
     this.moscowAnalysis,
     this.featureStageMatrix,
   });
@@ -115,6 +127,8 @@ class FeaturePrioritization {
 
 /// 13.5. Data Migration Strategy [PD00-SSP-MIG].
 class DataMigrationStrategy {
+  final String? content;
+
   /// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
   final String? migrationPhases;
 
@@ -122,6 +136,7 @@ class DataMigrationStrategy {
   final String? migrationRisks;
 
   const DataMigrationStrategy({
+    this.content,
     this.migrationPhases,
     this.migrationRisks,
   });
@@ -129,6 +144,8 @@ class DataMigrationStrategy {
 
 /// 13.6. Governance [PD00-SSP-GOV].
 class StageGovernance {
+  final String? content;
+
   /// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
   final String? phaseGateReviews;
 
@@ -136,6 +153,7 @@ class StageGovernance {
   final String? decisionPoints;
 
   const StageGovernance({
+    this.content,
     this.phaseGateReviews,
     this.decisionPoints,
   });

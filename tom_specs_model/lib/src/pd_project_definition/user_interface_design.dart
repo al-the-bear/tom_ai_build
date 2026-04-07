@@ -1,9 +1,13 @@
-import '../common/enums.dart';
-
 /// Section 10: User Interface Design and Prototype [PD00-USE].
 ///
 /// Seeds → UP, SR, TR depending on subsection.
+library;
+
+
+/// 10. User Interface Design and Prototype [PD00-USE].
 class UserInterfaceDesign {
+  final String? content;
+
   /// 10.1. Design Vision [PD00-USE-VIS]. Seeds → UP.
   final DesignVision designVision;
 
@@ -44,6 +48,7 @@ class UserInterfaceDesign {
   final Prototype prototype;
 
   const UserInterfaceDesign({
+    this.content,
     this.designVision = const DesignVision(),
     this.screens = const ScreenDescriptions(),
     this.screenFlow = const ScreenFlowStructure(),
@@ -66,6 +71,8 @@ class UserInterfaceDesign {
 
 /// 10.1. Design Vision [PD00-USE-VIS].
 class DesignVision {
+  final String? content;
+
   /// 10.1.1. Design Goals [PD00-USE-VIS-GOA].
   final String? designGoals;
 
@@ -73,31 +80,34 @@ class DesignVision {
   final String? designPrinciples;
 
   /// 10.1.3. User Personas [PD00-USE-VIS-PER] — contains 1+× Persona.
-  final List<Persona> personas;
+  final List<PersonaEntry> personas;
 
   const DesignVision({
+    this.content,
     this.designGoals,
     this.designPrinciples,
     this.personas = const [],
   });
 }
 
-/// A user persona [PD00-USE-VIS-PER-nn].
-class Persona {
-  final String personaName;
-  final int? age;
-  final String role;
-  final String goals;
+/// A user persona entry [PD00-USE-VIS-PER-nn] (form).
+class PersonaEntry {
+  final String? content;
+  final String? personaName;
+  final String? age;
+  final String? role;
+  final String? goals;
   final String? painPoints;
-  final TechnicalProficiency? technicalProficiency;
+  final String? technicalProficiency;
   final String? typicalUsage;
   final String? device;
 
-  const Persona({
-    required this.personaName,
+  const PersonaEntry({
+    this.content,
+    this.personaName,
     this.age,
-    required this.role,
-    required this.goals,
+    this.role,
+    this.goals,
     this.painPoints,
     this.technicalProficiency,
     this.typicalUsage,
@@ -111,33 +121,38 @@ class Persona {
 
 /// 10.2. Screen Descriptions [PD00-USE-SCR].
 class ScreenDescriptions {
+  final String? content;
+
   /// 10.2.1. Screen Inventory [PD00-USE-SCR-INV] — contains 1+× Screen.
-  final List<Screen> screenInventory;
+  final List<ScreenEntry> screenInventory;
 
   /// 10.2.2. Information Architecture [PD00-USE-SCR-INF].
   final String? informationArchitecture;
 
   const ScreenDescriptions({
+    this.content,
     this.screenInventory = const [],
     this.informationArchitecture,
   });
 }
 
-/// An application screen [PD00-USE-SCR-INV-nn].
-class Screen {
-  final String screenId;
-  final String screenName;
-  final String purpose;
+/// A screen entry [PD00-USE-SCR-INV-nn] (form).
+class ScreenEntry {
+  final String? content;
+  final String? screenId;
+  final String? screenName;
+  final String? purpose;
   final String? keyElements;
   final String? userCategories;
   final String? accessLevel;
   final String? entryPoints;
   final String? layout;
 
-  const Screen({
-    required this.screenId,
-    required this.screenName,
-    required this.purpose,
+  const ScreenEntry({
+    this.content,
+    this.screenId,
+    this.screenName,
+    this.purpose,
     this.keyElements,
     this.userCategories,
     this.accessLevel,
@@ -152,6 +167,8 @@ class Screen {
 
 /// 10.3. Screen Flow Structure [PD00-USE-SCF].
 class ScreenFlowStructure {
+  final String? content;
+
   /// 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
   final String? navigationModel;
 
@@ -159,6 +176,7 @@ class ScreenFlowStructure {
   final String? screenFlowDiagram;
 
   const ScreenFlowStructure({
+    this.content,
     this.navigationModel,
     this.screenFlowDiagram,
   });
@@ -170,32 +188,37 @@ class ScreenFlowStructure {
 
 /// 10.4. Print Layout [PD00-USE-PRI].
 class PrintLayout {
+  final String? content;
+
   /// 10.4.1. Reports [PD00-USE-PRI-REP] — contains 0+× Report.
-  final List<Report> reports;
+  final List<ReportEntry> reports;
 
   /// 10.4.2. Export Formats [PD00-USE-PRI-EXP].
   final String? exportFormats;
 
   const PrintLayout({
+    this.content,
     this.reports = const [],
     this.exportFormats,
   });
 }
 
-/// A report definition [PD00-USE-PRI-REP-nn].
-class Report {
-  final String reportName;
-  final String purpose;
+/// A report entry [PD00-USE-PRI-REP-nn] (form).
+class ReportEntry {
   final String? content;
+  final String? reportName;
+  final String? purpose;
+  final String? reportContent;
   final String? format;
   final String? generationTrigger;
   final String? recipients;
   final String? customization;
 
-  const Report({
-    required this.reportName,
-    required this.purpose,
+  const ReportEntry({
     this.content,
+    this.reportName,
+    this.purpose,
+    this.reportContent,
     this.format,
     this.generationTrigger,
     this.recipients,
@@ -209,11 +232,19 @@ class Report {
 
 /// 10.7. Error Handling Concept [PD00-USE-ERR].
 class ErrorHandlingConcept {
+  final String? content;
+
+  /// 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
   final String? validationFeedback;
+
+  /// 10.7.2. System Error Display [PD00-USE-ERR-SYS].
   final String? systemErrorDisplay;
+
+  /// 10.7.3. Error Recovery [PD00-USE-ERR-REC].
   final String? errorRecovery;
 
   const ErrorHandlingConcept({
+    this.content,
     this.validationFeedback,
     this.systemErrorDisplay,
     this.errorRecovery,
@@ -226,11 +257,19 @@ class ErrorHandlingConcept {
 
 /// 10.8. Help Concept [PD00-USE-HLP].
 class HelpConcept {
+  final String? content;
+
+  /// 10.8.1. Contextual Help [PD00-USE-HLP-CON].
   final String? contextualHelp;
+
+  /// 10.8.2. Onboarding [PD00-USE-HLP-ONB].
   final String? onboarding;
+
+  /// 10.8.3. Support Access [PD00-USE-HLP-SUP].
   final String? supportAccess;
 
   const HelpConcept({
+    this.content,
     this.contextualHelp,
     this.onboarding,
     this.supportAccess,
@@ -243,10 +282,16 @@ class HelpConcept {
 
 /// 10.9. Accessibility [PD00-USE-ACC].
 class Accessibility {
+  final String? content;
+
+  /// 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
   final String? wcagComplianceLevel;
+
+  /// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
   final String? accessibilityChecklist;
 
   const Accessibility({
+    this.content,
     this.wcagComplianceLevel,
     this.accessibilityChecklist,
   });
@@ -258,10 +303,16 @@ class Accessibility {
 
 /// 10.10. Responsive Design [PD00-USE-RES].
 class ResponsiveDesign {
+  final String? content;
+
+  /// 10.10.1. Breakpoints [PD00-USE-RES-BRE].
   final String? breakpoints;
+
+  /// 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
   final String? responsiveBehavior;
 
   const ResponsiveDesign({
+    this.content,
     this.breakpoints,
     this.responsiveBehavior,
   });
@@ -273,30 +324,35 @@ class ResponsiveDesign {
 
 /// 10.11. UI Components [PD00-USE-COM].
 class UiComponents {
+  final String? content;
+
   /// 10.11.1. Component Library [PD00-USE-COM-LIB].
   final String? componentLibrary;
 
-  /// 10.11.2. Component Specifications — contains 0+× UiComponentSpec.
-  final List<UiComponentSpec> componentSpecs;
+  /// 10.11.2. Component Specifications [PD00-USE-COM-SPE] — contains 0+×.
+  final List<UiComponentEntry> componentSpecs;
 
   const UiComponents({
+    this.content,
     this.componentLibrary,
     this.componentSpecs = const [],
   });
 }
 
-/// A UI component specification [PD00-USE-COM-SPE-nn].
-class UiComponentSpec {
-  final String componentName;
-  final String purpose;
+/// A UI component entry [PD00-USE-COM-SPE-nn] (form).
+class UiComponentEntry {
+  final String? content;
+  final String? componentName;
+  final String? purpose;
   final String? behavior;
   final String? states;
   final String? variants;
   final String? responsive;
 
-  const UiComponentSpec({
-    required this.componentName,
-    required this.purpose,
+  const UiComponentEntry({
+    this.content,
+    this.componentName,
+    this.purpose,
     this.behavior,
     this.states,
     this.variants,
@@ -310,6 +366,8 @@ class UiComponentSpec {
 
 /// 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
 class MultiLanguageAndRollout {
+  final String? content;
+
   /// 10.12.1. Localization Process [PD00-USE-MUL-LOC]. Seeds → SR.
   final String? localizationProcess;
 
@@ -326,6 +384,7 @@ class MultiLanguageAndRollout {
   final String? translationHandlingRequirements;
 
   const MultiLanguageAndRollout({
+    this.content,
     this.localizationProcess,
     this.translationProcess,
     this.userDocumentationAndTraining,
@@ -340,6 +399,8 @@ class MultiLanguageAndRollout {
 
 /// 10.13. Prototype [PD00-USE-PRO].
 class Prototype {
+  final String? content;
+
   /// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
   final String? prototypeGoals;
 
@@ -347,15 +408,33 @@ class Prototype {
   final String? selectedFeatureSubset;
 
   /// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
-  final PrototypeType? prototypeType;
-
-  /// Description for the chosen prototype type.
-  final String? prototypeTypeDescription;
+  final PrototypeTypeSection prototypeType;
 
   const Prototype({
+    this.content,
     this.prototypeGoals,
     this.selectedFeatureSubset,
-    this.prototypeType,
-    this.prototypeTypeDescription,
+    this.prototypeType = const PrototypeTypeSection(),
+  });
+}
+
+/// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+class PrototypeTypeSection {
+  final String? content;
+
+  /// 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
+  final String? reusablePrototype;
+
+  /// 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
+  final String? trainingPrototype;
+
+  /// 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
+  final String? throwawayPrototype;
+
+  const PrototypeTypeSection({
+    this.content,
+    this.reusablePrototype,
+    this.trainingPrototype,
+    this.throwawayPrototype,
   });
 }

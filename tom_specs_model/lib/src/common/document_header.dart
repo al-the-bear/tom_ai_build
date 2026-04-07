@@ -1,18 +1,22 @@
-/// Standard document header present in all TomSpecs documents.
+/// Standard document header present at the top of every TomSpecs document.
+///
+/// All fields are optional strings representing the document's form fields.
 class DocumentHeader {
-  final String documentId;
-  final String project;
-  final String version;
-  final DateTime date;
-  final String author;
-  final String status;
+  final String? content;
+  final String? documentId;
+  final String? project;
+  final String? version;
+  final String? date;
+  final String? author;
+  final String? status;
 
   const DocumentHeader({
-    required this.documentId,
-    required this.project,
-    required this.version,
-    required this.date,
-    required this.author,
-    required this.status,
+    this.content,
+    this.documentId,
+    this.project,
+    this.version,
+    this.date,
+    this.author,
+    this.status,
   });
 }

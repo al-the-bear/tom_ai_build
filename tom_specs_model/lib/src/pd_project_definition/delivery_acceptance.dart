@@ -1,8 +1,13 @@
 /// Section 14: Delivery Scope and Acceptance [PD00-DEL].
 ///
 /// Agreements regarding delivery scope and acceptance for the system.
-/// Subsection 14.2 seeds → BQP (Business Quality Plan).
+library;
+
+
+/// 14. Delivery Scope and Acceptance [PD00-DEL].
 class DeliveryScopeAndAcceptance {
+  final String? content;
+
   /// 14.1. Delivery and Service Scope [PD00-DEL-DEL].
   final DeliveryScope deliveryScope;
 
@@ -10,6 +15,7 @@ class DeliveryScopeAndAcceptance {
   final AcceptancePlan acceptancePlan;
 
   const DeliveryScopeAndAcceptance({
+    this.content,
     this.deliveryScope = const DeliveryScope(),
     this.acceptancePlan = const AcceptancePlan(),
   });
@@ -17,6 +23,8 @@ class DeliveryScopeAndAcceptance {
 
 /// 14.1. Delivery and Service Scope [PD00-DEL-DEL].
 class DeliveryScope {
+  final String? content;
+
   /// 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
   final String? softwareDeliverables;
 
@@ -30,6 +38,7 @@ class DeliveryScope {
   final String? supportDeliverables;
 
   const DeliveryScope({
+    this.content,
     this.softwareDeliverables,
     this.documentationDeliverables,
     this.trainingDeliverables,
@@ -39,6 +48,8 @@ class DeliveryScope {
 
 /// 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
 class AcceptancePlan {
+  final String? content;
+
   /// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
   final String? acceptanceCriteria;
 
@@ -58,6 +69,7 @@ class AcceptancePlan {
   final String? warranty;
 
   const AcceptancePlan({
+    this.content,
     this.acceptanceCriteria,
     this.acceptanceProcess,
     this.userAcceptanceTesting,

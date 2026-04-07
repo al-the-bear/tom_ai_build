@@ -3,46 +3,54 @@ import 'package:test/test.dart';
 
 void main() {
   group('ProjectDefinition', () {
-    test('can be constructed with defaults', () {
-      final pd = ProjectDefinition(
-        header: DocumentHeader(
-          documentId: 'PD00',
-          project: 'Test Project',
-          version: '0.1',
-          date: DateTime(2026, 4, 7),
-          author: 'Test',
-          status: 'Draft',
+    test('can be constructed with all defaults', () {
+      const pd = ProjectDefinition();
+      expect(pd.header.documentId, isNull);
+      expect(pd.currentStateAnalysis.content, isNull);
+      expect(pd.systemOverview.content, isNull);
+    });
+
+    test('header fields are all String?', () {
+      const header = DocumentHeader(
+        documentId: 'PD00',
+        project: 'Test Project',
+        version: '0.1',
+        date: '2026-04-07',
+        author: 'Test',
+        status: 'Draft',
+      );
+      expect(header.documentId, 'PD00');
+      expect(header.date, '2026-04-07');
+    });
+
+    test('section classes have content field', () {
+      const section = CurrentStateAnalysis(
+        content: 'Overview of current state.',
+      );
+      expect(section.content, 'Overview of current state.');
+      expect(section.existingSystemsLandscape.content, isNull);
+    });
+
+    test('plural fields are lists of entry types', () {
+      const overview = SystemOverview(
+        goals: Goals(
+          businessGoals: [
+            BusinessGoalEntry(goalId: 'BG-001', goalName: 'Increase revenue'),
+          ],
         ),
       );
-      expect(pd.header.documentId, 'PD00');
-      expect(pd.currentStateAnalysis.systemInventory, isEmpty);
-      expect(pd.systemOverview.requirements.functional, isEmpty);
+      expect(overview.goals.businessGoals, hasLength(1));
+      expect(overview.goals.businessGoals.first.goalId, 'BG-001');
     });
 
-    test('FunctionalRequirement extends Requirement', () {
-      const req = FunctionalRequirement(
-        requirementId: 'REQ-F001',
-        title: 'User Registration',
-        description: 'System shall allow registration',
-        priority: Priority.must,
-        source: 'Workshop',
-        acceptanceCriteria: 'User can register',
-        relatedUseCase: 'UC-001',
-        affectedDataEntities: 'User',
-      );
-      expect(req.requirementId, 'REQ-F001');
-      expect(req.relatedUseCase, 'UC-001');
-      expect(req.status, Status.draft);
-    });
-
-    test('Stage model captures all fields', () {
-      const stage = Stage(
-        stageNumber: 1,
+    test('stage entry uses String? fields', () {
+      const stage = StageEntry(
+        stageNumber: '1',
         stageName: 'Foundation',
         scopeSummary: 'Core infrastructure',
         featureScope: 'Login, CRUD, orders',
       );
-      expect(stage.stageNumber, 1);
+      expect(stage.stageNumber, '1');
       expect(stage.featureScope, isNotNull);
     });
   });

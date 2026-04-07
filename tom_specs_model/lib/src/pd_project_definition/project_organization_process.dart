@@ -1,7 +1,13 @@
 /// Section 2: Project Organization and Process [PD00-POP].
 ///
 /// Project-specific deviations from the standard TomSpecs methodology.
+library;
+
+
+/// 2. Project Organization and Process [PD00-POP].
 class ProjectOrganizationAndProcess {
+  final String? content;
+
   /// 2.1. Role Adjustments [PD00-POP-ROL].
   final String? roleAdjustments;
 
@@ -15,6 +21,7 @@ class ProjectOrganizationAndProcess {
   final String? toolingAndEnvironments;
 
   const ProjectOrganizationAndProcess({
+    this.content,
     this.roleAdjustments,
     this.qualityGateAdjustments,
     this.processAdjustments,

@@ -1,7 +1,13 @@
 /// Section 9: Access and Authorization Concept [PD00-ACC]. Seeds → AC.
 ///
 /// Application security for data and functions.
+library;
+
+
+/// 9. Access and Authorization Concept [PD00-ACC]. Seeds → AC.
 class AccessAndAuthorizationConcept {
+  final String? content;
+
   /// 9.1. User Management [PD00-ACC-USE].
   final UserManagement userManagement;
 
@@ -21,6 +27,7 @@ class AccessAndAuthorizationConcept {
   final AuditAndLogging auditAndLogging;
 
   const AccessAndAuthorizationConcept({
+    this.content,
     this.userManagement = const UserManagement(),
     this.authentication = const IdentificationAndAuthentication(),
     this.resourceProtection = const ResourceProtection(),
@@ -32,6 +39,8 @@ class AccessAndAuthorizationConcept {
 
 /// 9.1. User Management [PD00-ACC-USE].
 class UserManagement {
+  final String? content;
+
   /// 9.1.1. User Categories [PD00-ACC-USE-CAT].
   final String? userCategories;
 
@@ -42,6 +51,7 @@ class UserManagement {
   final String? userAttributes;
 
   const UserManagement({
+    this.content,
     this.userCategories,
     this.userLifecycle,
     this.userAttributes,
@@ -50,6 +60,8 @@ class UserManagement {
 
 /// 9.2. Identification and Authentication [PD00-ACC-IDE].
 class IdentificationAndAuthentication {
+  final String? content;
+
   /// 9.2.1. Authentication Methods [PD00-ACC-IDE-MET].
   final String? authenticationMethods;
 
@@ -63,6 +75,7 @@ class IdentificationAndAuthentication {
   final String? sessionManagement;
 
   const IdentificationAndAuthentication({
+    this.content,
     this.authenticationMethods,
     this.authenticationFlow,
     this.passwordPolicy,
@@ -72,6 +85,8 @@ class IdentificationAndAuthentication {
 
 /// 9.3. Resource Protection [PD00-ACC-RES].
 class ResourceProtection {
+  final String? content;
+
   /// 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
   final String? dataLevelSecurity;
 
@@ -82,6 +97,7 @@ class ResourceProtection {
   final String? fileAndStorageSecurity;
 
   const ResourceProtection({
+    this.content,
     this.dataLevelSecurity,
     this.apiSecurity,
     this.fileAndStorageSecurity,
@@ -90,11 +106,13 @@ class ResourceProtection {
 
 /// 9.4. User Authorization [PD00-ACC-USA].
 class UserAuthorization {
+  final String? content;
+
   /// 9.4.1. Authorization Model [PD00-ACC-USA-MOD].
   final String? authorizationModel;
 
-  /// 9.4.2. Role Definitions [PD00-ACC-USA-ROL] — contains 1+× AuthorizationRole.
-  final List<AuthorizationRole> roleDefinitions;
+  /// 9.4.2. Role Definitions [PD00-ACC-USA-ROL] — contains 1+× Role.
+  final List<AuthorizationRoleEntry> roleDefinitions;
 
   /// 9.4.3. Role Hierarchy [PD00-ACC-USA-ROH].
   final String? roleHierarchy;
@@ -103,6 +121,7 @@ class UserAuthorization {
   final String? tenantIsolation;
 
   const UserAuthorization({
+    this.content,
     this.authorizationModel,
     this.roleDefinitions = const [],
     this.roleHierarchy,
@@ -110,21 +129,23 @@ class UserAuthorization {
   });
 }
 
-/// An authorization role [PD00-ACC-USA-ROL-nn].
-class AuthorizationRole {
-  final String roleName;
-  final String description;
-  final String responsibilities;
-  final String permissionSet;
+/// An authorization role entry [PD00-ACC-USA-ROL-nn] (form).
+class AuthorizationRoleEntry {
+  final String? content;
+  final String? roleName;
+  final String? description;
+  final String? responsibilities;
+  final String? permissionSet;
   final String? inheritsFrom;
   final String? mutualExclusions;
   final String? typicalHolders;
 
-  const AuthorizationRole({
-    required this.roleName,
-    required this.description,
-    required this.responsibilities,
-    required this.permissionSet,
+  const AuthorizationRoleEntry({
+    this.content,
+    this.roleName,
+    this.description,
+    this.responsibilities,
+    this.permissionSet,
     this.inheritsFrom,
     this.mutualExclusions,
     this.typicalHolders,
@@ -133,6 +154,8 @@ class AuthorizationRole {
 
 /// 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
 class SensitiveDataEncryption {
+  final String? content;
+
   /// 9.5.1. Encryption at Rest [PD00-ACC-SEN-RES].
   final String? encryptionAtRest;
 
@@ -143,6 +166,7 @@ class SensitiveDataEncryption {
   final String? keyManagement;
 
   const SensitiveDataEncryption({
+    this.content,
     this.encryptionAtRest,
     this.encryptionInTransit,
     this.keyManagement,
@@ -151,6 +175,8 @@ class SensitiveDataEncryption {
 
 /// 9.6. Audit and Logging [PD00-ACC-AUD].
 class AuditAndLogging {
+  final String? content;
+
   /// 9.6.1. Security Events [PD00-ACC-AUD-EVE].
   final String? securityEvents;
 
@@ -161,6 +187,7 @@ class AuditAndLogging {
   final String? complianceReporting;
 
   const AuditAndLogging({
+    this.content,
     this.securityEvents,
     this.auditLogFormat,
     this.complianceReporting,
