@@ -41,7 +41,7 @@ class DataModel {
   final List<DataEntityEntry> entities;
 
   /// 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
-  final String? entityRelationships;
+  final EntityRelationships entityRelationships;
 
   /// 7.1.3. Entity-Relationship Diagram [PD00-BUS-DAT-DIA] (mermaid).
   final String? erDiagram;
@@ -52,7 +52,7 @@ class DataModel {
   const DataModel({
     this.content,
     this.entities = const [],
-    this.entityRelationships,
+    this.entityRelationships = const EntityRelationships(),
     this.erDiagram,
     this.dataClassification = const DataClassification(),
   });
@@ -65,7 +65,7 @@ class DataEntityEntry {
   final String? entityName;
   final String? description;
   final String? category;
-  final String? keyAttributes;
+  final List<String> keyAttributes;
   final String? estimatedRecordCount;
   final String? growthRate;
   final String? retentionPolicy;
@@ -75,10 +75,39 @@ class DataEntityEntry {
     this.entityName,
     this.description,
     this.category,
-    this.keyAttributes,
+    this.keyAttributes = const [],
     this.estimatedRecordCount,
     this.growthRate,
     this.retentionPolicy,
+  });
+}
+
+/// 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
+@tomReflector
+class EntityRelationships {
+  final String? content;
+  final List<EntityRelationshipEntry> items;
+
+  const EntityRelationships({this.content, this.items = const []});
+}
+
+/// An entity relationship entry (form).
+@tomReflector
+class EntityRelationshipEntry {
+  final String? content;
+  final String? sourceEntity;
+  final String? targetEntity;
+  final String? relationshipType;
+  final String? cardinality;
+  final String? description;
+
+  const EntityRelationshipEntry({
+    this.content,
+    this.sourceEntity,
+    this.targetEntity,
+    this.relationshipType,
+    this.cardinality,
+    this.description,
   });
 }
 
@@ -97,17 +126,17 @@ class DataClassificationEntry {
   final String? content;
   final String? classification;
   final String? description;
-  final String? handlingRequirements;
+  final List<String> handlingRequirements;
   final String? retentionPolicy;
-  final String? accessRestrictions;
+  final List<String> accessRestrictions;
 
   const DataClassificationEntry({
     this.content,
     this.classification,
     this.description,
-    this.handlingRequirements,
+    this.handlingRequirements = const [],
     this.retentionPolicy,
-    this.accessRestrictions,
+    this.accessRestrictions = const [],
   });
 }
 
@@ -145,8 +174,8 @@ class BusinessObjectEntry {
   final List<String> keyStates;
   final List<String> keyBusinessRules;
 
-  /// Lifecycle State Transitions [PD00-BUS-BUS-CAT-nn-LIF] (description).
-  final String? lifecycleTransitions;
+  /// Lifecycle State Transitions [PD00-BUS-BUS-CAT-nn-LIF].
+  final List<String> lifecycleTransitions;
 
   const BusinessObjectEntry({
     this.content,
@@ -155,7 +184,7 @@ class BusinessObjectEntry {
     this.description,
     this.keyStates = const [],
     this.keyBusinessRules = const [],
-    this.lifecycleTransitions,
+    this.lifecycleTransitions = const [],
   });
 }
 
@@ -192,8 +221,8 @@ class BusinessRuleEntry {
   final String? ruleId;
   final String? ruleName;
   final String? description;
-  final String? affectedObjects;
-  final String? affectedFunctions;
+  final List<String> affectedObjects;
+  final List<String> affectedFunctions;
   final String? enforcement;
   final String? exceptionHandling;
 
@@ -202,8 +231,8 @@ class BusinessRuleEntry {
     this.ruleId,
     this.ruleName,
     this.description,
-    this.affectedObjects,
-    this.affectedFunctions,
+    this.affectedObjects = const [],
+    this.affectedFunctions = const [],
     this.enforcement,
     this.exceptionHandling,
   });

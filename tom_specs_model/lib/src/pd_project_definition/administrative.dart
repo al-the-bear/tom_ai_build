@@ -228,17 +228,52 @@ class ChangeProcedure {
 @tomReflector
 class ChangeProcess {
   final String? content;
-  final String? steps;
-  final String? roles;
+
+  /// Overview diagram (e.g. Mermaid or image reference).
+  final String? overviewDiagram;
+
+  /// Process steps — ordered list of change process steps.
+  final List<ChangeStepEntry> steps;
+
+  /// Roles involved in the change process.
+  final List<String> roles;
+
   final String? approvalAuthority;
   final String? escalationPath;
 
   const ChangeProcess({
     this.content,
-    this.steps,
-    this.roles,
+    this.overviewDiagram,
+    this.steps = const [],
+    this.roles = const [],
     this.approvalAuthority,
     this.escalationPath,
+  });
+}
+
+/// A change process step entry (form).
+@tomReflector
+class ChangeStepEntry {
+  final String? content;
+  final String? stepName;
+  final String? description;
+  final String? responsibleRole;
+  final String? inputArtifacts;
+  final String? outputArtifacts;
+  final String? approvalCriteria;
+
+  /// Subflow diagram for this step (e.g. Mermaid or image reference).
+  final String? subflowDiagram;
+
+  const ChangeStepEntry({
+    this.content,
+    this.stepName,
+    this.description,
+    this.responsibleRole,
+    this.inputArtifacts,
+    this.outputArtifacts,
+    this.approvalCriteria,
+    this.subflowDiagram,
   });
 }
 

@@ -88,14 +88,14 @@ class StageEntry {
   /// Feature Scope [PD00-SSP-STG-nn-FEA] (description).
   final String? featureScope;
 
-  /// Sub-stages and Milestones [PD00-SSP-STG-nn-SUB] (description).
-  final String? subStagesAndMilestones;
+  /// Sub-stages and Milestones [PD00-SSP-STG-nn-SUB].
+  final List<String> subStagesAndMilestones;
 
   /// Timeline [PD00-SSP-STG-nn-TIM] (description).
   final String? timeline;
 
-  /// Success Criteria [PD00-SSP-STG-nn-SUC] (description).
-  final String? successCriteria;
+  /// Success Criteria [PD00-SSP-STG-nn-SUC].
+  final List<String> successCriteria;
 
   /// Rollout Plan [PD00-SSP-STG-nn-ROL] (description).
   final String? rolloutPlan;
@@ -107,9 +107,9 @@ class StageEntry {
     this.targetGoLive,
     this.scopeSummary,
     this.featureScope,
-    this.subStagesAndMilestones,
+    this.subStagesAndMilestones = const [],
     this.timeline,
-    this.successCriteria,
+    this.successCriteria = const [],
     this.rolloutPlan,
   });
 }
@@ -138,15 +138,71 @@ class DataMigrationStrategy {
   final String? content;
 
   /// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
-  final String? migrationPhases;
+  final MigrationPhases migrationPhases;
 
   /// 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
-  final String? migrationRisks;
+  final StageMigrationRisks migrationRisks;
 
   const DataMigrationStrategy({
     this.content,
-    this.migrationPhases,
-    this.migrationRisks,
+    this.migrationPhases = const MigrationPhases(),
+    this.migrationRisks = const StageMigrationRisks(),
+  });
+}
+
+/// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
+@tomReflector
+class MigrationPhases {
+  final String? content;
+  final List<MigrationPhaseEntry> items;
+
+  const MigrationPhases({this.content, this.items = const []});
+}
+
+/// A migration phase entry (form).
+@tomReflector
+class MigrationPhaseEntry {
+  final String? content;
+  final String? phaseName;
+  final String? description;
+  final String? dataScope;
+  final String? targetStage;
+  final String? verificationApproach;
+
+  const MigrationPhaseEntry({
+    this.content,
+    this.phaseName,
+    this.description,
+    this.dataScope,
+    this.targetStage,
+    this.verificationApproach,
+  });
+}
+
+/// 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
+@tomReflector
+class StageMigrationRisks {
+  final String? content;
+  final List<StageMigrationRiskEntry> items;
+
+  const StageMigrationRisks({this.content, this.items = const []});
+}
+
+/// A stage migration risk entry (form).
+@tomReflector
+class StageMigrationRiskEntry {
+  final String? content;
+  final String? risk;
+  final String? probability;
+  final String? impact;
+  final String? mitigation;
+
+  const StageMigrationRiskEntry({
+    this.content,
+    this.risk,
+    this.probability,
+    this.impact,
+    this.mitigation,
   });
 }
 
@@ -156,14 +212,70 @@ class StageGovernance {
   final String? content;
 
   /// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
-  final String? phaseGateReviews;
+  final PhaseGateReviews phaseGateReviews;
 
   /// 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
-  final String? decisionPoints;
+  final DecisionPoints decisionPoints;
 
   const StageGovernance({
     this.content,
-    this.phaseGateReviews,
-    this.decisionPoints,
+    this.phaseGateReviews = const PhaseGateReviews(),
+    this.decisionPoints = const DecisionPoints(),
+  });
+}
+
+/// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
+@tomReflector
+class PhaseGateReviews {
+  final String? content;
+  final List<PhaseGateReviewEntry> items;
+
+  const PhaseGateReviews({this.content, this.items = const []});
+}
+
+/// A phase gate review entry (form).
+@tomReflector
+class PhaseGateReviewEntry {
+  final String? content;
+  final String? gateName;
+  final String? stage;
+  final List<String> reviewCriteria;
+  final String? decisionAuthority;
+
+  const PhaseGateReviewEntry({
+    this.content,
+    this.gateName,
+    this.stage,
+    this.reviewCriteria = const [],
+    this.decisionAuthority,
+  });
+}
+
+/// 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
+@tomReflector
+class DecisionPoints {
+  final String? content;
+  final List<DecisionPointEntry> items;
+
+  const DecisionPoints({this.content, this.items = const []});
+}
+
+/// A decision point entry (form).
+@tomReflector
+class DecisionPointEntry {
+  final String? content;
+  final String? decisionPoint;
+  final String? timing;
+  final String? criteria;
+  final String? decisionAuthority;
+  final List<String> options;
+
+  const DecisionPointEntry({
+    this.content,
+    this.decisionPoint,
+    this.timing,
+    this.criteria,
+    this.decisionAuthority,
+    this.options = const [],
   });
 }

@@ -67,7 +67,7 @@ class SystemDescription {
   final List<UserCategoryEntry> userCategories;
 
   /// 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
-  final String? userInteractionModel;
+  final UserInteractionModel userInteractionModel;
 
   const SystemDescription({
     this.content,
@@ -75,7 +75,53 @@ class SystemDescription {
     this.systemContext,
     this.taskArea,
     this.userCategories = const [],
-    this.userInteractionModel,
+    this.userInteractionModel = const UserInteractionModel(),
+  });
+}
+
+/// 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
+@tomReflector
+class UserInteractionModel {
+  final String? content;
+
+  /// Interaction channels (web, mobile, API, CLI, etc.).
+  final List<InteractionChannelEntry> channels;
+
+  /// Interaction patterns (workflow, self-service, batch, etc.).
+  final List<String> interactionPatterns;
+
+  /// Session model (stateful/stateless, session duration, etc.).
+  final String? sessionModel;
+
+  /// Concurrency model (single-user, multi-user, collaborative).
+  final String? concurrencyModel;
+
+  const UserInteractionModel({
+    this.content,
+    this.channels = const [],
+    this.interactionPatterns = const [],
+    this.sessionModel,
+    this.concurrencyModel,
+  });
+}
+
+/// An interaction channel entry (form).
+@tomReflector
+class InteractionChannelEntry {
+  final String? content;
+  final String? channelName;
+  final String? channelType;
+  final String? targetUserCategories;
+  final String? description;
+  final String? availabilityRequirement;
+
+  const InteractionChannelEntry({
+    this.content,
+    this.channelName,
+    this.channelType,
+    this.targetUserCategories,
+    this.description,
+    this.availabilityRequirement,
   });
 }
 
@@ -293,7 +339,7 @@ class FunctionalRequirementEntry {
   final List<String> acceptanceCriteria;
   final String? relatedUseCase;
   final String? relatedBusinessProcess;
-  final String? affectedDataEntities;
+  final List<String> affectedDataEntities;
   final String? status;
 
   const FunctionalRequirementEntry({
@@ -307,7 +353,7 @@ class FunctionalRequirementEntry {
     this.acceptanceCriteria = const [],
     this.relatedUseCase,
     this.relatedBusinessProcess,
-    this.affectedDataEntities,
+    this.affectedDataEntities = const [],
     this.status,
   });
 }
@@ -426,7 +472,10 @@ class SystemToReplaceEntry {
   final String? dataMigrationScope;
   final String? migrationComplexity;
   final String? decommissionDate;
-  final String? dependencies;
+  final List<String> dependencies;
+
+  /// Per-system migration considerations.
+  final SystemMigrationConsiderations systemMigration;
 
   const SystemToReplaceEntry({
     this.content,
@@ -436,11 +485,32 @@ class SystemToReplaceEntry {
     this.dataMigrationScope,
     this.migrationComplexity,
     this.decommissionDate,
-    this.dependencies,
+    this.dependencies = const [],
+    this.systemMigration = const SystemMigrationConsiderations(),
   });
 }
 
-/// 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG].
+/// Per-system migration considerations.
+@tomReflector
+class SystemMigrationConsiderations {
+  final String? content;
+  final String? migrationApproach;
+  final String? dataTransformationNeeds;
+  final List<String> risks;
+  final String? estimatedEffort;
+  final String? rollbackStrategy;
+
+  const SystemMigrationConsiderations({
+    this.content,
+    this.migrationApproach,
+    this.dataTransformationNeeds,
+    this.risks = const [],
+    this.estimatedEffort,
+    this.rollbackStrategy,
+  });
+}
+
+/// 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG] (global).
 @tomReflector
 class MigrationConsiderations {
   final String? content;
@@ -449,7 +519,7 @@ class MigrationConsiderations {
   final String? strategy;
 
   /// Migration risks [PD00-SYO-SYR-MIG-RIS].
-  final String? risks;
+  final MigrationRisks migrationRisks;
 
   /// Migration timeline [PD00-SYO-SYR-MIG-TIM].
   final String? timeline;
@@ -457,12 +527,43 @@ class MigrationConsiderations {
   /// Data mapping [PD00-SYO-SYR-MIG-DAT].
   final String? dataMapping;
 
+  /// Rollback strategy [PD00-SYO-SYR-MIG-ROL].
+  final String? rollbackStrategy;
+
   const MigrationConsiderations({
     this.content,
     this.strategy,
-    this.risks,
+    this.migrationRisks = const MigrationRisks(),
     this.timeline,
     this.dataMapping,
+    this.rollbackStrategy,
+  });
+}
+
+/// Migration risks [PD00-SYO-SYR-MIG-RIS].
+@tomReflector
+class MigrationRisks {
+  final String? content;
+  final List<MigrationRiskEntry> items;
+
+  const MigrationRisks({this.content, this.items = const []});
+}
+
+/// A migration risk entry (form).
+@tomReflector
+class MigrationRiskEntry {
+  final String? content;
+  final String? riskDescription;
+  final String? probability;
+  final String? impact;
+  final String? mitigation;
+
+  const MigrationRiskEntry({
+    this.content,
+    this.riskDescription,
+    this.probability,
+    this.impact,
+    this.mitigation,
   });
 }
 
@@ -660,16 +761,16 @@ class TechnicalFrameworkConditions {
   final String? existingInfrastructure;
 
   /// Technology standards [PD00-SYO-RES-TEC-STD].
-  final String? technologyStandards;
+  final List<String> technologyStandards;
 
   /// Integration constraints [PD00-SYO-RES-TEC-INT].
-  final String? integrationConstraints;
+  final List<String> integrationConstraints;
 
   const TechnicalFrameworkConditions({
     this.content,
     this.existingInfrastructure,
-    this.technologyStandards,
-    this.integrationConstraints,
+    this.technologyStandards = const [],
+    this.integrationConstraints = const [],
   });
 }
 

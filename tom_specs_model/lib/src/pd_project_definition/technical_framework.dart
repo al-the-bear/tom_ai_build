@@ -60,13 +60,13 @@ class BasicTechnicalRequirements {
   final String? architectureStyle;
 
   /// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
-  final String? designPatternsAndStandards;
+  final List<String> designPatternsAndStandards;
 
   const BasicTechnicalRequirements({
     this.content,
     this.platformAndLanguage,
     this.architectureStyle,
-    this.designPatternsAndStandards,
+    this.designPatternsAndStandards = const [],
   });
 }
 
@@ -82,13 +82,13 @@ class SoftwareDesignRequirements {
   final String? developmentEnvironment;
 
   /// 8.2.3. Reusable Components [PD00-TEC-SOF-REU].
-  final String? reusableComponents;
+  final List<String> reusableComponents;
 
   const SoftwareDesignRequirements({
     this.content,
     this.layeringAndModuleStructure,
     this.developmentEnvironment,
-    this.reusableComponents,
+    this.reusableComponents = const [],
   });
 }
 
@@ -98,14 +98,14 @@ class StandardSoftwareRequirements {
   final String? content;
 
   /// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
-  final String? compatibilityRequirements;
+  final List<String> compatibilityRequirements;
 
   /// 8.3.2. Standards Compliance [PD00-TEC-STA-STD].
   final String? standardsCompliance;
 
   const StandardSoftwareRequirements({
     this.content,
-    this.compatibilityRequirements,
+    this.compatibilityRequirements = const [],
     this.standardsCompliance,
   });
 }
@@ -164,14 +164,14 @@ class CommunicationRequirements {
   final String? content;
 
   /// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
-  final String? protocolsAndStandards;
+  final List<String> protocolsAndStandards;
 
   /// 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
   final String? externalConnectivity;
 
   const CommunicationRequirements({
     this.content,
-    this.protocolsAndStandards,
+    this.protocolsAndStandards = const [],
     this.externalConnectivity,
   });
 }
@@ -204,18 +204,18 @@ class TechnicalSecurityRequirements {
   final String? content;
 
   /// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
-  final String? itSecurityStandards;
+  final List<String> itSecurityStandards;
 
   /// 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
   final String? dataProtectionAndPrivacy;
 
   /// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
-  final String? securityAuditRequirements;
+  final List<String> securityAuditRequirements;
 
   const TechnicalSecurityRequirements({
     this.content,
-    this.itSecurityStandards,
+    this.itSecurityStandards = const [],
     this.dataProtectionAndPrivacy,
-    this.securityAuditRequirements,
+    this.securityAuditRequirements = const [],
   });
 }

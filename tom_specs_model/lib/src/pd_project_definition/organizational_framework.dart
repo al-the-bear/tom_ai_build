@@ -17,14 +17,14 @@ class OrganizationalFramework {
   /// 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
   final JobDescriptionsAndStaffing jobDescriptions;
 
-  /// 5.3. Workplace Description [PD00-ORG-WOR].
-  final WorkplaceDescription workplaceDescription;
+  /// 5.3. Workplace Descriptions [PD00-ORG-WOR] — contains 1+× per user category.
+  final List<WorkplaceDescriptionEntry> workplaceDescriptions;
 
   const OrganizationalFramework({
     this.content,
     this.organizationStructure = const NewOrganizationStructure(),
     this.jobDescriptions = const JobDescriptionsAndStaffing(),
-    this.workplaceDescription = const WorkplaceDescription(),
+    this.workplaceDescriptions = const [],
   });
 }
 
@@ -107,8 +107,8 @@ class NewRoleEntry {
   final String? content;
   final String? roleTitle;
   final String? department;
-  final String? responsibilities;
-  final String? requiredSkills;
+  final List<String> responsibilities;
+  final List<String> requiredSkills;
   final String? reportingLine;
   final String? fteAllocation;
   final String? startDate;
@@ -117,8 +117,8 @@ class NewRoleEntry {
     this.content,
     this.roleTitle,
     this.department,
-    this.responsibilities,
-    this.requiredSkills,
+    this.responsibilities = const [],
+    this.requiredSkills = const [],
     this.reportingLine,
     this.fteAllocation,
     this.startDate,
@@ -131,9 +131,9 @@ class ChangedRoleEntry {
   final String? content;
   final String? roleTitle;
   final String? currentDepartment;
-  final String? addedResponsibilities;
-  final String? removedResponsibilities;
-  final String? newSkillRequirements;
+  final List<String> addedResponsibilities;
+  final List<String> removedResponsibilities;
+  final List<String> newSkillRequirements;
   final String? changedReportingLine;
   final String? trainingRequired;
 
@@ -141,22 +141,25 @@ class ChangedRoleEntry {
     this.content,
     this.roleTitle,
     this.currentDepartment,
-    this.addedResponsibilities,
-    this.removedResponsibilities,
-    this.newSkillRequirements,
+    this.addedResponsibilities = const [],
+    this.removedResponsibilities = const [],
+    this.newSkillRequirements = const [],
     this.changedReportingLine,
     this.trainingRequired,
   });
 }
 
 // ---------------------------------------------------------------------------
-// 5.3 Workplace Description
+// 5.3 Workplace Descriptions
 // ---------------------------------------------------------------------------
 
-/// 5.3. Workplace Description [PD00-ORG-WOR].
+/// A workplace description entry [PD00-ORG-WOR-nn] (form, per user category).
 @tomReflector
-class WorkplaceDescription {
+class WorkplaceDescriptionEntry {
   final String? content;
+
+  /// Target user category this workplace description applies to.
+  final String? userCategory;
 
   /// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
   final EquipmentRequirements equipmentRequirements;
@@ -164,8 +167,9 @@ class WorkplaceDescription {
   /// 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
   final TrainingRequirements trainingRequirements;
 
-  const WorkplaceDescription({
+  const WorkplaceDescriptionEntry({
     this.content,
+    this.userCategory,
     this.equipmentRequirements = const EquipmentRequirements(),
     this.trainingRequirements = const TrainingRequirements(),
   });

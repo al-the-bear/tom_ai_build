@@ -49,13 +49,13 @@ class ExistingSystemsLandscape {
   final String? currentArchitecture;
 
   /// 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
-  final String? dependenciesAndIntegrations;
+  final DependenciesAndIntegrations dependenciesAndIntegrations;
 
   const ExistingSystemsLandscape({
     this.content,
     this.systems = const [],
     this.currentArchitecture,
-    this.dependenciesAndIntegrations,
+    this.dependenciesAndIntegrations = const DependenciesAndIntegrations(),
   });
 }
 
@@ -70,7 +70,7 @@ class ExistingSystemEntry {
   final String? dataVolume;
   final String? operationalSince;
   final String? supportStatus;
-  final String? knownLimitations;
+  final List<String> knownLimitations;
 
   const ExistingSystemEntry({
     this.content,
@@ -81,7 +81,38 @@ class ExistingSystemEntry {
     this.dataVolume,
     this.operationalSince,
     this.supportStatus,
-    this.knownLimitations,
+    this.knownLimitations = const [],
+  });
+}
+
+/// 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
+@tomReflector
+class DependenciesAndIntegrations {
+  final String? content;
+  final List<SystemDependencyEntry> items;
+
+  const DependenciesAndIntegrations({this.content, this.items = const []});
+}
+
+/// A system dependency or integration entry (form).
+@tomReflector
+class SystemDependencyEntry {
+  final String? content;
+  final String? sourceSystem;
+  final String? targetSystem;
+  final String? dependencyType;
+  final String? protocol;
+  final String? dataExchanged;
+  final String? criticality;
+
+  const SystemDependencyEntry({
+    this.content,
+    this.sourceSystem,
+    this.targetSystem,
+    this.dependencyType,
+    this.protocol,
+    this.dataExchanged,
+    this.criticality,
   });
 }
 
@@ -98,12 +129,12 @@ class CurrentBusinessProcesses {
   final List<CurrentWorkflowEntry> workflows;
 
   /// 1.2.2. Process Metrics [PD00-CUR-PRO-MET].
-  final String? processMetrics;
+  final ProcessMetrics processMetrics;
 
   const CurrentBusinessProcesses({
     this.content,
     this.workflows = const [],
-    this.processMetrics,
+    this.processMetrics = const ProcessMetrics(),
   });
 }
 
@@ -113,23 +144,54 @@ class CurrentWorkflowEntry {
   final String? content;
   final String? processName;
   final String? trigger;
-  final String? steps;
-  final String? actors;
+  final List<String> steps;
+  final List<String> actors;
   final String? output;
   final String? cycleTime;
-  final String? manualSteps;
-  final String? errorProneSteps;
+  final List<String> manualSteps;
+  final List<String> errorProneSteps;
 
   const CurrentWorkflowEntry({
     this.content,
     this.processName,
     this.trigger,
-    this.steps,
-    this.actors,
+    this.steps = const [],
+    this.actors = const [],
     this.output,
     this.cycleTime,
-    this.manualSteps,
-    this.errorProneSteps,
+    this.manualSteps = const [],
+    this.errorProneSteps = const [],
+  });
+}
+
+/// 1.2.2. Process Metrics [PD00-CUR-PRO-MET].
+@tomReflector
+class ProcessMetrics {
+  final String? content;
+  final List<ProcessMetricEntry> items;
+
+  const ProcessMetrics({this.content, this.items = const []});
+}
+
+/// A process metric entry (form).
+@tomReflector
+class ProcessMetricEntry {
+  final String? content;
+  final String? metricName;
+  final String? processReference;
+  final String? currentValue;
+  final String? unit;
+  final String? measurementMethod;
+  final String? frequency;
+
+  const ProcessMetricEntry({
+    this.content,
+    this.metricName,
+    this.processReference,
+    this.currentValue,
+    this.unit,
+    this.measurementMethod,
+    this.frequency,
   });
 }
 
@@ -217,23 +279,43 @@ class PainPointEntry {
 class CurrentDataLandscape {
   final String? content;
 
-  /// 1.4.1. Data Stores [PD00-CUR-DAT-STO].
-  final String? dataStores;
+  /// 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC].
+  final List<DataSourceEntry> dataSources;
 
-  /// 1.4.2. Data Formats [PD00-CUR-DAT-FOR].
-  final String? dataFormats;
-
-  /// 1.4.3. Data Volumes [PD00-CUR-DAT-VOL].
-  final String? dataVolumes;
-
-  /// 1.4.4. Data Quality [PD00-CUR-DAT-QUA].
-  final String? dataQuality;
+  /// 1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA].
+  final String? dataQualityAssessment;
 
   const CurrentDataLandscape({
     this.content,
-    this.dataStores,
-    this.dataFormats,
-    this.dataVolumes,
-    this.dataQuality,
+    this.dataSources = const [],
+    this.dataQualityAssessment,
+  });
+}
+
+/// A data source entry combining store, format, volume, and quality (form).
+@tomReflector
+class DataSourceEntry {
+  final String? content;
+  final String? dataStoreName;
+  final String? storeType;
+  final String? technology;
+  final String? dataFormat;
+  final String? estimatedVolume;
+  final String? growthRate;
+  final String? qualityLevel;
+  final String? owner;
+  final String? retentionPolicy;
+
+  const DataSourceEntry({
+    this.content,
+    this.dataStoreName,
+    this.storeType,
+    this.technology,
+    this.dataFormat,
+    this.estimatedVolume,
+    this.growthRate,
+    this.qualityLevel,
+    this.owner,
+    this.retentionPolicy,
   });
 }

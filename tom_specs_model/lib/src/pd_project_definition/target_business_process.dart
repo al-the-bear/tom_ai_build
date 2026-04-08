@@ -143,7 +143,10 @@ class ActorEntry {
   final String? actorName;
   final String? actorType;
   final String? description;
-  final String? primaryInteractions;
+
+  /// Primary interactions — contains 1+× interaction reference.
+  final PrimaryInteractions primaryInteractions;
+
   final String? accessChannel;
 
   const ActorEntry({
@@ -151,8 +154,35 @@ class ActorEntry {
     this.actorName,
     this.actorType,
     this.description,
-    this.primaryInteractions,
+    this.primaryInteractions = const PrimaryInteractions(),
     this.accessChannel,
+  });
+}
+
+/// Primary interactions for an actor.
+@tomReflector
+class PrimaryInteractions {
+  final String? content;
+  final List<PrimaryInteractionEntry> items;
+
+  const PrimaryInteractions({this.content, this.items = const []});
+}
+
+/// A primary interaction entry (form).
+@tomReflector
+class PrimaryInteractionEntry {
+  final String? content;
+  final String? useCaseReference;
+  final String? description;
+  final String? frequency;
+  final String? criticality;
+
+  const PrimaryInteractionEntry({
+    this.content,
+    this.useCaseReference,
+    this.description,
+    this.frequency,
+    this.criticality,
   });
 }
 
@@ -193,11 +223,35 @@ class ScenarioEntry {
   final List<String> steps;
   final String? successCondition;
 
+  /// Alternative flows for this scenario.
+  final List<AlternativeFlowEntry> alternativeFlows;
+
   const ScenarioEntry({
     this.content,
     this.scenarioName,
     this.description,
     this.steps = const [],
     this.successCondition,
+    this.alternativeFlows = const [],
+  });
+}
+
+/// An alternative flow entry (form).
+@tomReflector
+class AlternativeFlowEntry {
+  final String? content;
+  final String? flowName;
+  final String? triggerCondition;
+  final List<String> steps;
+  final String? outcome;
+  final String? returnPoint;
+
+  const AlternativeFlowEntry({
+    this.content,
+    this.flowName,
+    this.triggerCondition,
+    this.steps = const [],
+    this.outcome,
+    this.returnPoint,
   });
 }

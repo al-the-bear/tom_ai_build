@@ -2,8 +2,8 @@
 
 Class diagrams for the `tom_specs_model` package. All classes are annotated with
 `@tomReflector`. Every class carries a `content: String?` field for free-form
-narrative text and all form-entry fields are `String?` (document model, not
-application model).
+narrative text. Scalar form-entry fields are `String?`, plural fields are
+`List<String>` or wrapper classes (content + `List<EntryType>` items).
 
 ---
 
@@ -92,7 +92,7 @@ classDiagram
         String? content
         List~ExistingSystemEntry~ systems
         String? currentArchitecture
-        String? dependenciesAndIntegrations
+        DependenciesAndIntegrations dependenciesAndIntegrations
     }
 
     class ExistingSystemEntry {
@@ -104,25 +104,55 @@ classDiagram
         String? dataVolume
         String? operationalSince
         String? supportStatus
-        String? knownLimitations
+        List~String~ knownLimitations
+    }
+
+    class DependenciesAndIntegrations {
+        String? content
+        List~SystemDependencyEntry~ items
+    }
+
+    class SystemDependencyEntry {
+        String? content
+        String? sourceSystem
+        String? targetSystem
+        String? dependencyType
+        String? protocol
+        String? dataExchanged
+        String? criticality
     }
 
     class CurrentBusinessProcesses {
         String? content
         List~CurrentWorkflowEntry~ workflows
-        String? processMetrics
+        ProcessMetrics processMetrics
     }
 
     class CurrentWorkflowEntry {
         String? content
         String? processName
         String? trigger
-        String? steps
-        String? actors
+        List~String~ steps
+        List~String~ actors
         String? output
         String? cycleTime
-        String? manualSteps
-        String? errorProneSteps
+        List~String~ manualSteps
+        List~String~ errorProneSteps
+    }
+
+    class ProcessMetrics {
+        String? content
+        List~ProcessMetricEntry~ items
+    }
+
+    class ProcessMetricEntry {
+        String? content
+        String? metricName
+        String? processReference
+        String? currentValue
+        String? unit
+        String? measurementMethod
+        String? frequency
     }
 
     class PainPointsAndGaps {
@@ -159,10 +189,21 @@ classDiagram
 
     class CurrentDataLandscape {
         String? content
-        String? dataStores
-        String? dataFormats
-        String? dataVolumes
-        String? dataQuality
+        List~DataSourceEntry~ dataSources
+        String? dataQualityAssessment
+    }
+
+    class DataSourceEntry {
+        String? content
+        String? dataStoreName
+        String? storeType
+        String? technology
+        String? dataFormat
+        String? estimatedVolume
+        String? growthRate
+        String? qualityLevel
+        String? owner
+        String? retentionPolicy
     }
 
     CurrentStateAnalysis --> ExistingSystemsLandscape
@@ -170,13 +211,18 @@ classDiagram
     CurrentStateAnalysis --> PainPointsAndGaps
     CurrentStateAnalysis --> CurrentDataLandscape
     ExistingSystemsLandscape --> "0..*" ExistingSystemEntry
+    ExistingSystemsLandscape --> DependenciesAndIntegrations
+    DependenciesAndIntegrations --> "0..*" SystemDependencyEntry
     CurrentBusinessProcesses --> "0..*" CurrentWorkflowEntry
+    CurrentBusinessProcesses --> ProcessMetrics
+    ProcessMetrics --> "0..*" ProcessMetricEntry
     PainPointsAndGaps --> OperationalPainPoints
     PainPointsAndGaps --> BusinessPainPoints
     PainPointsAndGaps --> TechnicalPainPoints
     OperationalPainPoints --> "0..*" PainPointEntry
     BusinessPainPoints --> "0..*" PainPointEntry
     TechnicalPainPoints --> "0..*" PainPointEntry
+    CurrentDataLandscape --> "0..*" DataSourceEntry
 ```
 
 ## 4. Section 2 — Project Organization and Process [PD00-POP]
@@ -334,10 +380,22 @@ classDiagram
 
     class ChangeProcess {
         String? content
-        String? steps
-        String? roles
+        String? overviewDiagram
+        List~ChangeStepEntry~ steps
+        List~String~ roles
         String? approvalAuthority
         String? escalationPath
+    }
+
+    class ChangeStepEntry {
+        String? content
+        String? stepName
+        String? description
+        String? responsibleRole
+        String? inputArtifacts
+        String? outputArtifacts
+        String? approvalCriteria
+        String? subflowDiagram
     }
 
     class ChangeImpactCriteria {
@@ -382,6 +440,7 @@ classDiagram
     ExecutiveSummaryDistribution --> "0..*" DistributionRecipientEntry
     ChangeProcedure --> ChangeProcess
     ChangeProcedure --> ChangeImpactCriteria
+    ChangeProcess --> "0..*" ChangeStepEntry
     ChangeImpactCriteria --> "0..*" ChangeImpactCriterionEntry
     ReferenceDocuments --> "0..*" ReferenceDocumentEntry
 ```
@@ -407,7 +466,24 @@ classDiagram
         String? systemContext
         String? taskArea
         List~UserCategoryEntry~ userCategories
-        String? userInteractionModel
+        UserInteractionModel userInteractionModel
+    }
+
+    class UserInteractionModel {
+        String? content
+        List~InteractionChannelEntry~ channels
+        List~String~ interactionPatterns
+        String? sessionModel
+        String? concurrencyModel
+    }
+
+    class InteractionChannelEntry {
+        String? content
+        String? channelName
+        String? channelType
+        String? targetUserCategories
+        String? description
+        String? availabilityRequirement
     }
 
     class UserCategoryEntry {
@@ -446,6 +522,8 @@ classDiagram
     SystemOverview --> FrameworkConditions
     SystemOverview --> RisksAndAssumptions
     SystemDescription --> "0..*" UserCategoryEntry
+    SystemDescription --> UserInteractionModel
+    UserInteractionModel --> "0..*" InteractionChannelEntry
     UserCategoryEntry --> "0..1" UserCategoryRoleEntry
     UserCategoryEntry --> "0..*" SystemTaskEntry
 ```
@@ -458,7 +536,7 @@ classDiagram
         String? content
         List~BusinessGoalEntry~ businessGoals
         List~TechnicalGoalEntry~ technicalGoals
-        String? successCriteria
+        SuccessCriteria successCriteria
     }
 
     class BusinessGoalEntry {
@@ -484,8 +562,24 @@ classDiagram
         String? verificationPoint
     }
 
+    class SuccessCriteria {
+        String? content
+        List~SuccessCriterionEntry~ items
+    }
+
+    class SuccessCriterionEntry {
+        String? content
+        String? criterion
+        String? metric
+        String? targetValue
+        String? measurementMethod
+        String? verificationPoint
+    }
+
     Goals --> "0..*" BusinessGoalEntry
     Goals --> "0..*" TechnicalGoalEntry
+    Goals --> SuccessCriteria
+    SuccessCriteria --> "0..*" SuccessCriterionEntry
 ```
 
 ### 6b. Requirements Overview
@@ -508,10 +602,10 @@ classDiagram
         String? priority
         String? source
         String? rationale
-        String? acceptanceCriteria
+        List~String~ acceptanceCriteria
         String? relatedUseCase
         String? relatedBusinessProcess
-        String? affectedDataEntities
+        List~String~ affectedDataEntities
         String? status
     }
 
@@ -523,7 +617,7 @@ classDiagram
         String? priority
         String? source
         String? rationale
-        String? acceptanceCriteria
+        List~String~ acceptanceCriteria
         String? verificationApproach
         String? status
     }
@@ -537,7 +631,7 @@ classDiagram
         String? source
         String? rationale
         String? complianceReference
-        String? acceptanceCriteria
+        List~String~ acceptanceCriteria
         String? status
     }
 
@@ -549,7 +643,7 @@ classDiagram
         String? priority
         String? source
         String? rationale
-        String? acceptanceCriteria
+        List~String~ acceptanceCriteria
         String? status
     }
 
@@ -559,14 +653,14 @@ classDiagram
     RequirementsOverview --> "0..*" OrganizationalRequirementEntry
 ```
 
-### 6c. Systems to Replace, Boundaries, Framework Conditions, Risks
+### 6c. Systems to Replace & Migration
 
 ```mermaid
 classDiagram
     class SystemsToReplace {
         String? content
         List~SystemToReplaceEntry~ replacementInventory
-        String? migrationConsiderations
+        MigrationConsiderations migrationConsiderations
     }
 
     class SystemToReplaceEntry {
@@ -577,14 +671,57 @@ classDiagram
         String? dataMigrationScope
         String? migrationComplexity
         String? decommissionDate
-        String? dependencies
+        List~String~ dependencies
+        SystemMigrationConsiderations systemMigration
     }
 
+    class SystemMigrationConsiderations {
+        String? content
+        String? migrationApproach
+        String? dataTransformationNeeds
+        List~String~ risks
+        String? estimatedEffort
+        String? rollbackStrategy
+    }
+
+    class MigrationConsiderations {
+        String? content
+        String? strategy
+        MigrationRisks migrationRisks
+        String? timeline
+        String? dataMapping
+        String? rollbackStrategy
+    }
+
+    class MigrationRisks {
+        String? content
+        List~MigrationRiskEntry~ items
+    }
+
+    class MigrationRiskEntry {
+        String? content
+        String? riskDescription
+        String? probability
+        String? impact
+        String? mitigation
+    }
+
+    SystemsToReplace --> "0..*" SystemToReplaceEntry
+    SystemsToReplace --> MigrationConsiderations
+    SystemToReplaceEntry --> SystemMigrationConsiderations
+    MigrationConsiderations --> MigrationRisks
+    MigrationRisks --> "0..*" MigrationRiskEntry
+```
+
+### 6d. System Boundaries
+
+```mermaid
+classDiagram
     class SystemBoundaries {
         String? content
         List~ExternalInterfaceEntry~ externalInterfaces
-        String? outOfScope
-        String? assumptions
+        OutOfScope outOfScope
+        BoundaryAssumptions assumptions
     }
 
     class ExternalInterfaceEntry {
@@ -600,18 +737,106 @@ classDiagram
         String? authentication
     }
 
-    class FrameworkConditions {
+    class OutOfScope {
         String? content
-        String? organizationalEnvironment
-        String? functionalResponsibilities
-        String? technicalFrameworkConditions
-        String? constraintsAndDependencies
+        List~OutOfScopeEntry~ items
     }
 
+    class OutOfScopeEntry {
+        String? content
+        String? item
+        String? rationale
+        String? futureConsideration
+    }
+
+    class BoundaryAssumptions {
+        String? content
+        List~AssumptionEntry~ items
+    }
+
+    class AssumptionEntry {
+        String? content
+        String? assumption
+        String? rationale
+        String? riskIfWrong
+        String? validationApproach
+    }
+
+    SystemBoundaries --> "0..*" ExternalInterfaceEntry
+    SystemBoundaries --> OutOfScope
+    SystemBoundaries --> BoundaryAssumptions
+    OutOfScope --> "0..*" OutOfScopeEntry
+    BoundaryAssumptions --> "0..*" AssumptionEntry
+```
+
+### 6e. Framework Conditions
+
+```mermaid
+classDiagram
+    class FrameworkConditions {
+        String? content
+        OrganizationalEnvironment organizationalEnvironment
+        FunctionalResponsibilities functionalResponsibilities
+        TechnicalFrameworkConditions technicalFrameworkConditions
+        ConstraintsAndDependencies constraintsAndDependencies
+    }
+
+    class OrganizationalEnvironment {
+        String? content
+        String? structure
+        String? decisionMaking
+        String? culturalConsiderations
+    }
+
+    class FunctionalResponsibilities {
+        String? content
+        List~ResponsibilityEntry~ items
+    }
+
+    class ResponsibilityEntry {
+        String? content
+        String? area
+        String? owner
+        String? description
+        String? scope
+    }
+
+    class TechnicalFrameworkConditions {
+        String? content
+        String? existingInfrastructure
+        List~String~ technologyStandards
+        List~String~ integrationConstraints
+    }
+
+    class ConstraintsAndDependencies {
+        String? content
+        List~ConstraintEntry~ items
+    }
+
+    class ConstraintEntry {
+        String? content
+        String? constraint
+        String? type
+        String? impact
+        String? mitigation
+    }
+
+    FrameworkConditions --> OrganizationalEnvironment
+    FrameworkConditions --> FunctionalResponsibilities
+    FrameworkConditions --> TechnicalFrameworkConditions
+    FrameworkConditions --> ConstraintsAndDependencies
+    FunctionalResponsibilities --> "0..*" ResponsibilityEntry
+    ConstraintsAndDependencies --> "0..*" ConstraintEntry
+```
+
+### 6f. Risks and Assumptions
+
+```mermaid
+classDiagram
     class RisksAndAssumptions {
         String? content
         List~RiskEntry~ keyRisks
-        String? keyAssumptions
+        KeyAssumptions keyAssumptions
     }
 
     class RiskEntry {
@@ -626,9 +851,14 @@ classDiagram
         String? reviewFrequency
     }
 
-    SystemsToReplace --> "0..*" SystemToReplaceEntry
-    SystemBoundaries --> "0..*" ExternalInterfaceEntry
+    class KeyAssumptions {
+        String? content
+        List~AssumptionEntry~ items
+    }
+
     RisksAndAssumptions --> "0..*" RiskEntry
+    RisksAndAssumptions --> KeyAssumptions
+    KeyAssumptions --> "0..*" AssumptionEntry
 ```
 
 ## 7. Section 5 — Organizational Framework [PD00-ORG]
@@ -639,7 +869,7 @@ classDiagram
         String? content
         NewOrganizationStructure organizationStructure
         JobDescriptionsAndStaffing jobDescriptions
-        WorkplaceDescription workplaceDescription
+        List~WorkplaceDescriptionEntry~ workplaceDescriptions
     }
 
     class NewOrganizationStructure {
@@ -672,8 +902,8 @@ classDiagram
         String? content
         String? roleTitle
         String? department
-        String? responsibilities
-        String? requiredSkills
+        List~String~ responsibilities
+        List~String~ requiredSkills
         String? reportingLine
         String? fteAllocation
         String? startDate
@@ -683,15 +913,16 @@ classDiagram
         String? content
         String? roleTitle
         String? currentDepartment
-        String? addedResponsibilities
-        String? removedResponsibilities
-        String? newSkillRequirements
+        List~String~ addedResponsibilities
+        List~String~ removedResponsibilities
+        List~String~ newSkillRequirements
         String? changedReportingLine
         String? trainingRequired
     }
 
-    class WorkplaceDescription {
+    class WorkplaceDescriptionEntry {
         String? content
+        String? userCategory
         EquipmentRequirements equipmentRequirements
         TrainingRequirements trainingRequirements
     }
@@ -725,13 +956,13 @@ classDiagram
 
     OrganizationalFramework --> NewOrganizationStructure
     OrganizationalFramework --> JobDescriptionsAndStaffing
-    OrganizationalFramework --> WorkplaceDescription
+    OrganizationalFramework --> "0..*" WorkplaceDescriptionEntry
     NewOrganizationStructure --> ChangesFromCurrentStructure
     ChangesFromCurrentStructure --> "0..*" OrganizationalChangeEntry
     JobDescriptionsAndStaffing --> "0..*" NewRoleEntry
     JobDescriptionsAndStaffing --> "0..*" ChangedRoleEntry
-    WorkplaceDescription --> EquipmentRequirements
-    WorkplaceDescription --> TrainingRequirements
+    WorkplaceDescriptionEntry --> EquipmentRequirements
+    WorkplaceDescriptionEntry --> TrainingRequirements
     EquipmentRequirements --> "0..*" EquipmentRequirementEntry
     TrainingRequirements --> "0..*" TrainingRequirementEntry
 ```
@@ -791,32 +1022,52 @@ classDiagram
         String? actorName
         String? actorType
         String? description
-        String? primaryInteractions
+        PrimaryInteractions primaryInteractions
         String? accessChannel
+    }
+
+    class PrimaryInteractions {
+        String? content
+        List~PrimaryInteractionEntry~ items
+    }
+
+    class PrimaryInteractionEntry {
+        String? content
+        String? useCaseReference
+        String? description
+        String? frequency
+        String? criticality
     }
 
     class InteractionEntry {
         String? content
         String? interactionId
+        String? processReference
         String? actor
         String? action
         String? systemResponse
+        String? expectedOutcome
         String? precondition
         String? postcondition
-        String? frequency
-        String? errorHandling
+        String? relatedUseCase
     }
 
     class ScenarioEntry {
         String? content
-        String? scenarioId
         String? scenarioName
         String? description
-        String? actors
-        String? preconditions
-        String? steps
-        String? expectedOutcome
-        String? alternativeFlows
+        List~String~ steps
+        String? successCondition
+        List~AlternativeFlowEntry~ alternativeFlows
+    }
+
+    class AlternativeFlowEntry {
+        String? content
+        String? flowName
+        String? triggerCondition
+        List~String~ steps
+        String? outcome
+        String? returnPoint
     }
 
     TargetBusinessProcessModel --> BusinessProcessDescriptions
@@ -827,6 +1078,9 @@ classDiagram
     ProcessStepsAndActorInteractions --> "0..*" ActorEntry
     ProcessStepsAndActorInteractions --> "0..*" InteractionEntry
     ProcessStepsAndActorInteractions --> "0..*" ScenarioEntry
+    ActorEntry --> PrimaryInteractions
+    PrimaryInteractions --> "0..*" PrimaryInteractionEntry
+    ScenarioEntry --> "0..*" AlternativeFlowEntry
 ```
 
 ## 9. Section 7 — Business Object and Data Model [PD00-BUS]
@@ -843,7 +1097,7 @@ classDiagram
     class DataModel {
         String? content
         List~DataEntityEntry~ entities
-        String? entityRelationships
+        EntityRelationships entityRelationships
         String? erDiagram
         DataClassification dataClassification
     }
@@ -853,10 +1107,24 @@ classDiagram
         String? entityName
         String? description
         String? category
-        String? keyAttributes
+        List~String~ keyAttributes
         String? estimatedRecordCount
         String? growthRate
         String? retentionPolicy
+    }
+
+    class EntityRelationships {
+        String? content
+        List~EntityRelationshipEntry~ items
+    }
+
+    class EntityRelationshipEntry {
+        String? content
+        String? sourceEntity
+        String? targetEntity
+        String? relationshipType
+        String? cardinality
+        String? description
     }
 
     class DataClassification {
@@ -868,9 +1136,9 @@ classDiagram
         String? content
         String? classification
         String? description
-        String? handlingRequirements
+        List~String~ handlingRequirements
         String? retentionPolicy
-        String? accessRestrictions
+        List~String~ accessRestrictions
     }
 
     class BusinessObjectModel {
@@ -886,7 +1154,7 @@ classDiagram
         String? description
         List~String~ keyStates
         List~String~ keyBusinessRules
-        String? lifecycleTransitions
+        List~String~ lifecycleTransitions
     }
 
     class FunctionModel {
@@ -901,8 +1169,8 @@ classDiagram
         String? ruleId
         String? ruleName
         String? description
-        String? affectedObjects
-        String? affectedFunctions
+        List~String~ affectedObjects
+        List~String~ affectedFunctions
         String? enforcement
         String? exceptionHandling
     }
@@ -911,165 +1179,222 @@ classDiagram
     BusinessObjectAndDataModel --> BusinessObjectModel
     BusinessObjectAndDataModel --> FunctionModel
     DataModel --> "0..*" DataEntityEntry
+    DataModel --> EntityRelationships
     DataModel --> DataClassification
+    EntityRelationships --> "0..*" EntityRelationshipEntry
     DataClassification --> "0..*" DataClassificationEntry
     BusinessObjectModel --> "0..*" BusinessObjectEntry
     FunctionModel --> "0..*" BusinessRuleEntry
 ```
 
-## 10. Section 8 — Technical Framework Concept [PD00-TEC]
+## 10. Section 8 — Technical Framework [PD00-TEC]
 
 ```mermaid
 classDiagram
-    class TechnicalFrameworkConcept {
+    class TechnicalFramework {
         String? content
-        BasicTechnicalRequirements basicRequirements
-        SoftwareDesignRequirements softwareDesign
-        StandardSoftwareRequirements standardSoftware
-        HardwareRequirements hardware
-        OperationsRequirements operations
-        CommunicationRequirements communication
-        SystemOperationAndMonitoring systemOperation
-        TechnicalSecurityRequirements security
+        SoftwareArchitecture softwareArchitecture
+        TechnologyStack technologyStack
+        InfrastructureRequirements infrastructureRequirements
     }
 
-    class BasicTechnicalRequirements {
+    class SoftwareArchitecture {
         String? content
-        String? platformAndLanguage
-        String? architectureStyle
-        String? designPatternsAndStandards
+        String? architecturalStyle
+        String? architectureOverviewDiagram
+        List~String~ designPatternsAndStandards
+        List~String~ reusableComponents
     }
 
-    class SoftwareDesignRequirements {
+    class TechnologyStack {
         String? content
-        String? layeringAndModuleStructure
-        String? developmentEnvironment
-        String? reusableComponents
+        String? frontendTechnology
+        String? backendTechnology
+        String? databaseTechnology
+        String? messagingTechnology
+        String? apiTechnology
+        List~String~ compatibilityRequirements
     }
 
-    class StandardSoftwareRequirements {
+    class InfrastructureRequirements {
         String? content
-        String? compatibilityRequirements
-        String? standardsCompliance
+        String? hostingEnvironment
+        String? scalingStrategy
+        String? disasterRecoveryPlan
+        List~String~ protocolsAndStandards
+        SecurityRequirements securityRequirements
     }
 
-    class HardwareRequirements {
+    class SecurityRequirements {
         String? content
-        String? serverRequirements
-        String? clientRequirements
-        String? networkRequirements
+        List~String~ itSecurityStandards
+        String? dataProtection
+        List~String~ securityAuditRequirements
     }
 
-    class OperationsRequirements {
-        String? content
-        String? backupAndRecovery
-        String? deploymentStrategy
-        String? monitoringAndAlerting
-        String? maintenanceWindows
-    }
-
-    class CommunicationRequirements {
-        String? content
-        String? protocolsAndStandards
-        String? externalConnectivity
-    }
-
-    class SystemOperationAndMonitoring {
-        String? content
-        String? administrationRequirements
-        String? healthChecksAndDiagnostics
-        String? capacityPlanning
-    }
-
-    class TechnicalSecurityRequirements {
-        String? content
-        String? itSecurityStandards
-        String? dataProtectionAndPrivacy
-        String? securityAuditRequirements
-    }
-
-    TechnicalFrameworkConcept --> BasicTechnicalRequirements
-    TechnicalFrameworkConcept --> SoftwareDesignRequirements
-    TechnicalFrameworkConcept --> StandardSoftwareRequirements
-    TechnicalFrameworkConcept --> HardwareRequirements
-    TechnicalFrameworkConcept --> OperationsRequirements
-    TechnicalFrameworkConcept --> CommunicationRequirements
-    TechnicalFrameworkConcept --> SystemOperationAndMonitoring
-    TechnicalFrameworkConcept --> TechnicalSecurityRequirements
+    TechnicalFramework --> SoftwareArchitecture
+    TechnicalFramework --> TechnologyStack
+    TechnicalFramework --> InfrastructureRequirements
+    InfrastructureRequirements --> SecurityRequirements
 ```
 
-## 11. Section 9 — Access and Authorization Concept [PD00-ACC]
+## 11. Section 9 — Access and Authorization [PD00-ACC]
 
 ```mermaid
 classDiagram
-    class AccessAndAuthorizationConcept {
+    class AccessAndAuthorization {
         String? content
         UserManagement userManagement
         IdentificationAndAuthentication identification
-        ResourceProtection resourceProtection
         UserAuthorization authorization
-        DataProtection dataProtection
-        AuditAndCompliance auditAndCompliance
+        AuditAndLogging audit
     }
 
     class UserManagement {
         String? content
-        String? userLifecycle
-        String? selfServiceCapabilities
-        String? directoryIntegration
+        UserCategories userCategories
+        UserAttributes userAttributes
+        String? provisioningProcess
+        String? deprovisioningProcess
+    }
+
+    class UserCategories {
+        String? content
+        List~UserCategoryDefinition~ items
+    }
+
+    class UserCategoryDefinition {
+        String? content
+        String? categoryName
+        String? description
+        String? estimatedUserCount
+        String? accessLevel
+        String? typicalUsagePattern
+    }
+
+    class UserAttributes {
+        String? content
+        List~UserAttributeEntry~ items
+    }
+
+    class UserAttributeEntry {
+        String? content
+        String? attributeName
+        String? attributeType
+        String? description
+        String? source
+        String? validationRules
     }
 
     class IdentificationAndAuthentication {
         String? content
-        String? authenticationMethods
+        AuthenticationMethods authenticationMethods
+        String? identityProvider
         String? passwordPolicy
-        String? multiFactorAuthentication
+        String? mfaRequirements
         String? sessionManagement
-        String? singleSignOn
     }
 
-    class ResourceProtection {
+    class AuthenticationMethods {
         String? content
-        String? protectedResources
-        String? accessControlModel
-        String? encryptionRequirements
+        List~AuthenticationMethodEntry~ items
+    }
+
+    class AuthenticationMethodEntry {
+        String? content
+        String? methodName
+        String? methodType
+        String? applicableUserCategories
+        String? securityLevel
+        String? fallbackMethod
     }
 
     class UserAuthorization {
         String? content
-        List~AuthorizationRoleEntry~ roles
-        String? permissionModel
+        String? authorizationModel
+        List~AuthorizationGroupEntry~ groups
+        List~RoleDefinition~ roleDefinitions
+        List~EntitlementEntry~ entitlements
+        List~ResourceKeyEntry~ resourceKeys
+        String? delegationRules
     }
 
-    class AuthorizationRoleEntry {
+    class AuthorizationGroupEntry {
+        String? content
+        String? groupName
+        String? description
+        String? purpose
+        List~String~ containedRoles
+    }
+
+    class RoleDefinition {
         String? content
         String? roleName
         String? description
-        String? permissions
-        String? assignmentCriteria
+        String? scope
+        List~String~ responsibilities
+        List~String~ entitlementReferences
+        List~String~ mutualExclusions
+        List~String~ typicalHolders
     }
 
-    class DataProtection {
+    class EntitlementEntry {
         String? content
-        String? personalDataHandling
-        String? dataClassification
-        String? retentionAndDeletion
+        String? entitlementName
+        String? description
+        String? entitlementType
+        List~String~ resourceKeyReferences
+        String? grantCondition
+        String? revokeCondition
     }
 
-    class AuditAndCompliance {
+    class ResourceKeyEntry {
         String? content
-        String? auditTrailRequirements
-        String? complianceStandards
-        String? reportingRequirements
+        String? resourceKeyName
+        String? description
+        String? resourceType
+        String? granularity
+        String? protectedResource
     }
 
-    AccessAndAuthorizationConcept --> UserManagement
-    AccessAndAuthorizationConcept --> IdentificationAndAuthentication
-    AccessAndAuthorizationConcept --> ResourceProtection
-    AccessAndAuthorizationConcept --> UserAuthorization
-    AccessAndAuthorizationConcept --> DataProtection
-    AccessAndAuthorizationConcept --> AuditAndCompliance
-    UserAuthorization --> "0..*" AuthorizationRoleEntry
+    class AuditAndLogging {
+        String? content
+        String? loggingRequirements
+        String? auditTrailRetention
+        SecurityEvents securityEvents
+        String? complianceReporting
+    }
+
+    class SecurityEvents {
+        String? content
+        List~SecurityEventEntry~ items
+    }
+
+    class SecurityEventEntry {
+        String? content
+        String? eventType
+        String? description
+        String? severity
+        String? responseAction
+        String? notificationTarget
+    }
+
+    AccessAndAuthorization --> UserManagement
+    AccessAndAuthorization --> IdentificationAndAuthentication
+    AccessAndAuthorization --> UserAuthorization
+    AccessAndAuthorization --> AuditAndLogging
+    UserManagement --> UserCategories
+    UserManagement --> UserAttributes
+    UserCategories --> "0..*" UserCategoryDefinition
+    UserAttributes --> "0..*" UserAttributeEntry
+    IdentificationAndAuthentication --> AuthenticationMethods
+    AuthenticationMethods --> "0..*" AuthenticationMethodEntry
+    UserAuthorization --> "0..*" AuthorizationGroupEntry
+    UserAuthorization --> "0..*" RoleDefinition
+    UserAuthorization --> "0..*" EntitlementEntry
+    UserAuthorization --> "0..*" ResourceKeyEntry
+    AuditAndLogging --> SecurityEvents
+    SecurityEvents --> "0..*" SecurityEventEntry
 ```
 
 ## 12. Section 10 — User Interface Design [PD00-USE]
@@ -1079,37 +1404,48 @@ classDiagram
     class UserInterfaceDesign {
         String? content
         DesignVision designVision
-        ScreenDescriptions screenDescriptions
-        ScreenFlowStructure screenFlowStructure
-        PrintLayout printLayout
-        ErrorHandlingConcept errorHandling
-        HelpConcept helpConcept
+        UserResearch userResearch
+        InformationArchitecture informationArchitecture
+        ScreenDesigns screenDesigns
+        OutputDesign outputDesign
         Accessibility accessibility
         ResponsiveDesign responsiveDesign
-        UiComponents uiComponents
-        MultiLanguageAndRollout multiLanguage
+        UiComponentLibrary componentLibrary
         Prototype prototype
     }
 
     class DesignVision {
         String? content
-        String? designPrinciples
-        String? brandGuidelines
+        String? overallDesignPhilosophy
+        List~String~ designGoals
+        List~String~ designPrinciples
+        String? brandAlignment
+    }
+
+    class UserResearch {
+        String? content
         List~PersonaEntry~ personas
+        String? userJourneyMaps
     }
 
     class PersonaEntry {
         String? content
         String? personaName
         String? role
-        String? goals
-        String? painPoints
-        String? technicalProficiency
-        String? preferredDevices
-        String? keyScenarios
+        String? description
+        List~String~ goals
+        List~String~ painPoints
+        String? technologyComfort
     }
 
-    class ScreenDescriptions {
+    class InformationArchitecture {
+        String? content
+        String? siteMap
+        String? navigationModel
+        String? searchStrategy
+    }
+
+    class ScreenDesigns {
         String? content
         List~ScreenEntry~ screens
     }
@@ -1119,201 +1455,211 @@ classDiagram
         String? screenId
         String? screenName
         String? purpose
-        String? primaryActor
-        String? layout
-        String? dataDisplayed
-        String? userActions
-        String? navigationTargets
-        String? validationRules
+        List~String~ keyElements
+        List~String~ userCategories
+        List~String~ entryPoints
+        String? wireframeReference
+        String? mockupReference
     }
 
-    class ScreenFlowStructure {
+    class OutputDesign {
         String? content
-        String? navigationModel
-        String? informationArchitecture
-        String? flowDiagram
+        PrintLayout printLayout
+        List~ReportEntry~ reports
     }
 
-    UserInterfaceDesign --> DesignVision
-    UserInterfaceDesign --> ScreenDescriptions
-    UserInterfaceDesign --> ScreenFlowStructure
-    UserInterfaceDesign --> PrintLayout
-    UserInterfaceDesign --> ErrorHandlingConcept
-    UserInterfaceDesign --> HelpConcept
-    UserInterfaceDesign --> Accessibility
-    UserInterfaceDesign --> ResponsiveDesign
-    UserInterfaceDesign --> UiComponents
-    UserInterfaceDesign --> MultiLanguageAndRollout
-    UserInterfaceDesign --> Prototype
-    DesignVision --> "0..*" PersonaEntry
-    ScreenDescriptions --> "0..*" ScreenEntry
-```
-
-### 12a. UI subsections (continued)
-
-```mermaid
-classDiagram
     class PrintLayout {
         String? content
-        List~ReportEntry~ reports
+        List~String~ exportFormats
+        String? pageSetup
     }
 
     class ReportEntry {
         String? content
-        String? reportId
         String? reportName
-        String? purpose
-        String? dataSource
-        String? format
+        String? description
         String? frequency
-        String? distribution
-    }
-
-    class ErrorHandlingConcept {
-        String? content
-        String? userNotifications
-        String? errorRecovery
-        String? loggingAndReporting
-        String? gracefulDegradation
-    }
-
-    class HelpConcept {
-        String? content
-        String? contextualHelp
-        String? onboardingAndTutorials
-        String? documentationAccess
-        String? supportIntegration
+        List~String~ recipients
+        String? format
     }
 
     class Accessibility {
         String? content
-        String? complianceLevel
-        String? keyboardNavigation
+        String? complianceTarget
         String? screenReaderSupport
+        String? keyboardNavigation
+        String? colorContrastRequirements
+        AccessibilityChecklist accessibilityChecklist
+    }
+
+    class AccessibilityChecklist {
+        String? content
+        List~AccessibilityCheckEntry~ items
+    }
+
+    class AccessibilityCheckEntry {
+        String? content
+        String? checkItem
+        String? wcagCriterion
+        String? priority
+        String? verificationMethod
     }
 
     class ResponsiveDesign {
         String? content
-        String? targetDevices
-        String? breakpointStrategy
-        String? mobileSpecificBehavior
+        List~String~ breakpoints
+        String? mobileFirstStrategy
+        String? touchInteractionGuidelines
     }
 
-    class UiComponents {
+    class UiComponentLibrary {
         String? content
+        String? designSystem
         List~UiComponentEntry~ components
     }
 
     class UiComponentEntry {
         String? content
         String? componentName
-        String? purpose
-        String? behavior
-        String? variants
-        String? accessibilityNotes
-    }
-
-    class MultiLanguageAndRollout {
-        String? content
-        String? supportedLanguages
-        String? translationProcess
-        String? localizationScope
-        String? rolloutPhasing
-        String? regionSpecificAdaptations
+        String? category
+        String? description
+        String? usage
+        List~String~ states
+        List~String~ variants
     }
 
     class Prototype {
         String? content
+        String? prototypeType
+        String? prototypeTooling
+        List~String~ prototypeGoals
         String? prototypeScope
-        String? prototypeGoals
-        PrototypeTypeSection prototypeType
+        String? prototypeTimeline
     }
 
-    class PrototypeTypeSection {
-        String? content
-        String? paperPrototype
-        String? interactiveWireframe
-        String? functionalPrototype
-    }
-
-    PrintLayout --> "0..*" ReportEntry
-    UiComponents --> "0..*" UiComponentEntry
-    Prototype --> PrototypeTypeSection
+    UserInterfaceDesign --> DesignVision
+    UserInterfaceDesign --> UserResearch
+    UserInterfaceDesign --> InformationArchitecture
+    UserInterfaceDesign --> ScreenDesigns
+    UserInterfaceDesign --> OutputDesign
+    UserInterfaceDesign --> Accessibility
+    UserInterfaceDesign --> ResponsiveDesign
+    UserInterfaceDesign --> UiComponentLibrary
+    UserInterfaceDesign --> Prototype
+    UserResearch --> "0..*" PersonaEntry
+    ScreenDesigns --> "0..*" ScreenEntry
+    OutputDesign --> PrintLayout
+    OutputDesign --> "0..*" ReportEntry
+    Accessibility --> AccessibilityChecklist
+    AccessibilityChecklist --> "0..*" AccessibilityCheckEntry
+    UiComponentLibrary --> "0..*" UiComponentEntry
 ```
 
-## 13. Section 11 — System Quality Goals [PD00-SYQ]
+## 13. Section 11 — System Quality Goals [PD00-SYS-Q]
 
 ```mermaid
 classDiagram
     class SystemQualityGoals {
         String? content
-        QualityFramework framework
-        UserQualityCriteria userQuality
-        TechnicalQualityCriteria technicalQuality
-        OperationsQualityCriteria operationsQuality
-        DocumentationQualityCriteria documentationQuality
-        QualityPrioritization prioritization
+        QualityFramework qualityFramework
+        QualityMetrics qualityMetrics
+        QualityPrioritization qualityPrioritization
         AcceptanceCriteriaSummary acceptanceCriteria
     }
 
     class QualityFramework {
         String? content
-        String? qualityObjectivesOverview
-        String? qualityCategories
+        String? qualityModel
+        List~String~ qualityCategories
     }
 
-    class UserQualityCriteria {
+    class QualityMetrics {
         String? content
-        String? usability
-        String? functionalCompleteness
-        String? correctness
+        List~QualityMetricEntry~ items
     }
 
-    class TechnicalQualityCriteria {
+    class QualityMetricEntry {
         String? content
-        String? efficiency
-        String? portability
-        String? flexibility
-        String? security
-        String? maintainability
-        String? reliability
-    }
-
-    class OperationsQualityCriteria {
-        String? content
-        String? availability
-        String? serviceLevelRequirements
-        String? monitoringAndPrevention
-        String? itSecurityOperations
-    }
-
-    class DocumentationQualityCriteria {
-        String? content
-        String? readability
-        String? completeness
-        String? correctness
-        String? changeability
+        String? metricId
+        String? metricName
+        String? qualityAttribute
+        String? description
+        String? targetValue
+        String? measurementMethod
+        String? measurementFrequency
     }
 
     class QualityPrioritization {
         String? content
-        String? weightedQualityMatrix
-        String? tradeOffDecisions
+        List~QualityPriorityEntry~ priorities
+        TradeOffDecisions tradeOffDecisions
+    }
+
+    class QualityPriorityEntry {
+        String? content
+        String? qualityAttribute
+        String? priority
+        String? justification
+    }
+
+    class TradeOffDecisions {
+        String? content
+        List~TradeOffDecisionEntry~ items
+    }
+
+    class TradeOffDecisionEntry {
+        String? content
+        String? decision
+        String? favoredAttribute
+        String? compromisedAttribute
+        String? rationale
+        String? impact
     }
 
     class AcceptanceCriteriaSummary {
         String? content
-        String? mustPassCriteria
-        String? qualityGateChecklist
+        MustPassCriteria mustPassCriteria
+        QualityGateChecklist qualityGateChecklist
+    }
+
+    class MustPassCriteria {
+        String? content
+        List~MustPassCriterionEntry~ items
+    }
+
+    class MustPassCriterionEntry {
+        String? content
+        String? criterion
+        String? qualityAttribute
+        String? threshold
+        String? verificationMethod
+    }
+
+    class QualityGateChecklist {
+        String? content
+        List~QualityGateCheckEntry~ items
+    }
+
+    class QualityGateCheckEntry {
+        String? content
+        String? checkItem
+        String? stage
+        String? responsibleRole
+        String? passCriteria
     }
 
     SystemQualityGoals --> QualityFramework
-    SystemQualityGoals --> UserQualityCriteria
-    SystemQualityGoals --> TechnicalQualityCriteria
-    SystemQualityGoals --> OperationsQualityCriteria
-    SystemQualityGoals --> DocumentationQualityCriteria
+    SystemQualityGoals --> QualityMetrics
     SystemQualityGoals --> QualityPrioritization
     SystemQualityGoals --> AcceptanceCriteriaSummary
+    QualityMetrics --> "0..*" QualityMetricEntry
+    QualityPrioritization --> "0..*" QualityPriorityEntry
+    QualityPrioritization --> TradeOffDecisions
+    TradeOffDecisions --> "0..*" TradeOffDecisionEntry
+    AcceptanceCriteriaSummary --> MustPassCriteria
+    AcceptanceCriteriaSummary --> QualityGateChecklist
+    MustPassCriteria --> "0..*" MustPassCriterionEntry
+    QualityGateChecklist --> "0..*" QualityGateCheckEntry
 ```
 
 ## 14. Section 12 — Components to Use [PD00-COM]
@@ -1322,137 +1668,239 @@ classDiagram
 classDiagram
     class ComponentsToUse {
         String? content
-        ComponentStrategy strategy
-        List~ComponentEntry~ componentCatalog
-        String? componentRoleInSystem
-        String? runtimeDependencies
-        String? maintenanceDependencies
+        ComponentStrategy componentStrategy
+        List~ComponentEntry~ components
+        RuntimeDependencies runtimeDependencies
+        MaintenanceDependencies maintenanceDependencies
         ComponentRiskAssessment riskAssessment
     }
 
     class ComponentStrategy {
         String? content
-        String? reuseGoals
-        String? evaluationCriteria
+        String? makeVsBuyDecision
+        List~String~ reuseGoals
+        EvaluationCriteria evaluationCriteria
+    }
+
+    class EvaluationCriteria {
+        String? content
+        List~EvaluationCriterionEntry~ items
+    }
+
+    class EvaluationCriterionEntry {
+        String? content
+        String? criterion
+        String? weight
+        String? description
+        String? measurementMethod
     }
 
     class ComponentEntry {
         String? content
         String? componentName
+        String? componentType
+        String? vendor
         String? version
-        String? category
+        String? license
         String? purpose
-        String? documentation
-        String? interfaces
-        ComponentLicensingEntry? licensing
-        String? usageRights
-        ComponentResponsibilitiesEntry? responsibilities
+        String? integrationMethod
+        List~String~ interfaces
+        String? supportStatus
     }
 
-    class ComponentLicensingEntry {
+    class RuntimeDependencies {
         String? content
-        String? licenseModel
-        String? annualCost
-        String? renewal
-        String? redistribution
+        List~DependencyEntry~ items
     }
 
-    class ComponentResponsibilitiesEntry {
+    class MaintenanceDependencies {
         String? content
-        String? technicalContact
-        String? supportModel
-        String? escalation
-        String? updateCadence
+        List~DependencyEntry~ items
+    }
+
+    class DependencyEntry {
+        String? content
+        String? dependencyName
+        String? version
+        String? purpose
+        String? criticality
+        String? alternative
     }
 
     class ComponentRiskAssessment {
         String? content
         List~ComponentRiskEntry~ risks
-        String? contingencyPlans
+        ContingencyPlans contingencyPlans
     }
 
     class ComponentRiskEntry {
         String? content
-        String? riskId
         String? component
-        String? risk
+        String? riskDescription
         String? probability
         String? impact
         String? mitigation
-        String? contingencyTrigger
+    }
+
+    class ContingencyPlans {
+        String? content
+        List~ContingencyPlanEntry~ items
+    }
+
+    class ContingencyPlanEntry {
+        String? content
+        String? component
+        String? scenario
+        String? plan
+        String? switchoverTime
+        String? responsibleRole
     }
 
     ComponentsToUse --> ComponentStrategy
     ComponentsToUse --> "0..*" ComponentEntry
+    ComponentsToUse --> RuntimeDependencies
+    ComponentsToUse --> MaintenanceDependencies
     ComponentsToUse --> ComponentRiskAssessment
-    ComponentEntry --> "0..1" ComponentLicensingEntry
-    ComponentEntry --> "0..1" ComponentResponsibilitiesEntry
+    ComponentStrategy --> EvaluationCriteria
+    EvaluationCriteria --> "0..*" EvaluationCriterionEntry
+    RuntimeDependencies --> "0..*" DependencyEntry
+    MaintenanceDependencies --> "0..*" DependencyEntry
     ComponentRiskAssessment --> "0..*" ComponentRiskEntry
+    ComponentRiskAssessment --> ContingencyPlans
+    ContingencyPlans --> "0..*" ContingencyPlanEntry
 ```
 
-## 15. Section 13 — System Stage Plan [PD00-SSP]
+## 15. Section 13 — System Stage Plan [PD00-STA]
 
 ```mermaid
 classDiagram
     class SystemStagePlan {
         String? content
-        StagingStrategy strategy
-        StageOverview stageOverview
+        StagePlanOverview stagePlanOverview
         List~StageEntry~ stages
-        FeaturePrioritization featurePrioritization
-        DataMigrationStrategy dataMigration
+        DataMigrationStrategy dataMigrationStrategy
         StageGovernance governance
     }
 
-    class StagingStrategy {
+    class StagePlanOverview {
         String? content
-        String? stagingApproach
-        String? rationale
-    }
-
-    class StageOverview {
-        String? content
-        String? stageSummary
-        String? timelineDiagram
+        String? stagingRationale
+        String? overallTimeline
+        String? stagingCriteria
     }
 
     class StageEntry {
         String? content
-        String? stageNumber
+        String? stageId
         String? stageName
-        String? targetGoLive
-        String? scopeSummary
-        String? featureScope
-        String? subStagesAndMilestones
-        String? timeline
-        String? successCriteria
-        String? rolloutPlan
+        String? description
+        String? startCondition
+        String? endCondition
+        String? duration
+        List~String~ successCriteria
+        ScopeDefinition scope
+        List~String~ subStagesAndMilestones
     }
 
-    class FeaturePrioritization {
+    class ScopeDefinition {
         String? content
-        String? moscowAnalysis
-        String? featureStageMatrix
+        List~ScopeItemEntry~ includedItems
+        List~ScopeItemEntry~ excludedItems
+    }
+
+    class ScopeItemEntry {
+        String? content
+        String? item
+        String? category
+        String? rationale
     }
 
     class DataMigrationStrategy {
         String? content
-        String? migrationPhases
-        String? migrationRisks
+        String? migrationApproach
+        MigrationPhases migrationPhases
+        StageMigrationRisks migrationRisks
+        String? rollbackPlan
+    }
+
+    class MigrationPhases {
+        String? content
+        List~MigrationPhaseEntry~ items
+    }
+
+    class MigrationPhaseEntry {
+        String? content
+        String? phaseName
+        String? description
+        String? duration
+        String? dataScope
+        String? validationApproach
+    }
+
+    class StageMigrationRisks {
+        String? content
+        List~StageMigrationRiskEntry~ items
+    }
+
+    class StageMigrationRiskEntry {
+        String? content
+        String? riskDescription
+        String? probability
+        String? impact
+        String? mitigation
+        String? contingency
     }
 
     class StageGovernance {
         String? content
-        String? phaseGateReviews
-        String? decisionPoints
+        PhaseGateReviews phaseGateReviews
+        DecisionPoints decisionPoints
+        String? escalationProcess
     }
 
-    SystemStagePlan --> StagingStrategy
-    SystemStagePlan --> StageOverview
-    SystemStagePlan --> "1..*" StageEntry
-    SystemStagePlan --> FeaturePrioritization
+    class PhaseGateReviews {
+        String? content
+        List~PhaseGateReviewEntry~ items
+    }
+
+    class PhaseGateReviewEntry {
+        String? content
+        String? gateName
+        String? stage
+        List~String~ reviewCriteria
+        String? approvalAuthority
+        String? reviewSchedule
+    }
+
+    class DecisionPoints {
+        String? content
+        List~DecisionPointEntry~ items
+    }
+
+    class DecisionPointEntry {
+        String? content
+        String? decisionName
+        String? stage
+        String? description
+        List~String~ options
+        String? decisionMaker
+        String? deadline
+    }
+
+    SystemStagePlan --> StagePlanOverview
+    SystemStagePlan --> "0..*" StageEntry
     SystemStagePlan --> DataMigrationStrategy
     SystemStagePlan --> StageGovernance
+    StageEntry --> ScopeDefinition
+    ScopeDefinition --> "0..*" ScopeItemEntry
+    DataMigrationStrategy --> MigrationPhases
+    DataMigrationStrategy --> StageMigrationRisks
+    MigrationPhases --> "0..*" MigrationPhaseEntry
+    StageMigrationRisks --> "0..*" StageMigrationRiskEntry
+    StageGovernance --> PhaseGateReviews
+    StageGovernance --> DecisionPoints
+    PhaseGateReviews --> "0..*" PhaseGateReviewEntry
+    DecisionPoints --> "0..*" DecisionPointEntry
 ```
 
 ## 16. Section 14 — Delivery Scope and Acceptance [PD00-DEL]
@@ -1467,35 +1915,121 @@ classDiagram
 
     class DeliveryScope {
         String? content
-        String? softwareDeliverables
-        String? documentationDeliverables
-        String? trainingDeliverables
-        String? supportDeliverables
+        SoftwareDeliverables softwareDeliverables
+        DocumentationDeliverables documentationDeliverables
+        TrainingDeliverables trainingDeliverables
+        SupportDeliverables supportDeliverables
+    }
+
+    class SoftwareDeliverables {
+        String? content
+        List~DeliverableEntry~ items
+    }
+
+    class DocumentationDeliverables {
+        String? content
+        List~DeliverableEntry~ items
+    }
+
+    class TrainingDeliverables {
+        String? content
+        List~DeliverableEntry~ items
+    }
+
+    class SupportDeliverables {
+        String? content
+        List~DeliverableEntry~ items
+    }
+
+    class DeliverableEntry {
+        String? content
+        String? deliverableName
+        String? description
+        String? format
+        String? deliveryDate
+        String? responsibleRole
+        String? acceptanceCriteria
     }
 
     class AcceptancePlan {
         String? content
-        String? acceptanceCriteria
-        String? acceptanceProcess
-        String? userAcceptanceTesting
-        String? defectResolution
-        String? signOffProcess
-        String? warranty
+        AcceptanceCriteriaList acceptanceCriteria
+        AcceptanceProcess acceptanceProcess
+        UserAcceptanceTesting userAcceptanceTesting
+    }
+
+    class AcceptanceCriteriaList {
+        String? content
+        List~AcceptanceCriterionEntry~ items
+    }
+
+    class AcceptanceCriterionEntry {
+        String? content
+        String? criterionId
+        String? criterion
+        String? category
+        String? verificationMethod
+        String? threshold
+        String? responsibleRole
+    }
+
+    class AcceptanceProcess {
+        String? content
+        List~String~ steps
+        String? timeline
+        String? participants
+        String? escalationProcess
+    }
+
+    class UserAcceptanceTesting {
+        String? content
+        String? scope
+        String? environment
+        String? participants
+        String? schedule
+        List~String~ testScenarios
+        String? exitCriteria
     }
 
     DeliveryScopeAndAcceptance --> DeliveryScope
     DeliveryScopeAndAcceptance --> AcceptancePlan
+    DeliveryScope --> SoftwareDeliverables
+    DeliveryScope --> DocumentationDeliverables
+    DeliveryScope --> TrainingDeliverables
+    DeliveryScope --> SupportDeliverables
+    SoftwareDeliverables --> "0..*" DeliverableEntry
+    DocumentationDeliverables --> "0..*" DeliverableEntry
+    TrainingDeliverables --> "0..*" DeliverableEntry
+    SupportDeliverables --> "0..*" DeliverableEntry
+    AcceptancePlan --> AcceptanceCriteriaList
+    AcceptancePlan --> AcceptanceProcess
+    AcceptancePlan --> UserAcceptanceTesting
+    AcceptanceCriteriaList --> "0..*" AcceptanceCriterionEntry
 ```
 
 ---
 
-## Model Statistics
+## Summary
 
-| Metric | Count |
-|--------|-------|
-| Total classes | 162 |
-| Total enums | 1 (`SectionType`) |
-| Entry types (repeatable) | ~30 |
-| Section files | 14 |
-| Common files | 3 |
-| All annotated with `@tomReflector` | Yes |
+**Total classes: ~184** (including enums and shared entry types)
+
+| Section | Classes | Notable Patterns |
+|---------|---------|-----------------|
+| Top-level | 1 | PdProjectDefinition aggregator |
+| Common types | 4+ | Requirement, Risk, Glossary (shared) |
+| Current State Analysis | ~15 | DataSourceEntry (combined), ProcessMetrics, DependenciesAndIntegrations |
+| Project Organization | ~12 | Unchanged from v1 |
+| Administrative | ~8 | ChangeStepEntry with subflowDiagram |
+| System Overview | ~25 | UserInteractionModel, SystemMigrationConsiderations, MigrationRisks |
+| Organizational Framework | ~12 | WorkplaceDescriptionEntry per user category |
+| Target Business Process | ~14 | PrimaryInteractions wrapper, AlternativeFlowEntry |
+| Business Data Model | ~12 | EntityRelationships, List<String> patterns |
+| Technical Framework | ~5 | List<String> design patterns + standards |
+| Access & Authorization | ~18 | Tom Core auth model (groups→roles→entitlements→resourceKeys) |
+| User Interface Design | ~16 | AccessibilityChecklist, List<String> patterns |
+| System Quality Goals | ~12 | TradeOffDecisions, MustPassCriteria, QualityGateChecklist |
+| Components | ~12 | RuntimeDependencies, ContingencyPlans wrappers |
+| System Stage Plan | ~14 | MigrationPhases, PhaseGateReviews, DecisionPoints |
+| Delivery & Acceptance | ~13 | 4 deliverable wrappers, AcceptanceProcess, UAT |
+
+All classes annotated with `@tomReflector`. Every class has `String? content` for section-level prose.

@@ -30,23 +30,79 @@ class DeliveryScope {
   final String? content;
 
   /// 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
-  final String? softwareDeliverables;
+  final SoftwareDeliverables softwareDeliverables;
 
   /// 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
-  final String? documentationDeliverables;
+  final DocumentationDeliverables documentationDeliverables;
 
   /// 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
-  final String? trainingDeliverables;
+  final TrainingDeliverables trainingDeliverables;
 
   /// 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
-  final String? supportDeliverables;
+  final SupportDeliverables supportDeliverables;
 
   const DeliveryScope({
     this.content,
-    this.softwareDeliverables,
-    this.documentationDeliverables,
-    this.trainingDeliverables,
-    this.supportDeliverables,
+    this.softwareDeliverables = const SoftwareDeliverables(),
+    this.documentationDeliverables = const DocumentationDeliverables(),
+    this.trainingDeliverables = const TrainingDeliverables(),
+    this.supportDeliverables = const SupportDeliverables(),
+  });
+}
+
+/// 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
+@tomReflector
+class SoftwareDeliverables {
+  final String? content;
+  final List<DeliverableEntry> items;
+
+  const SoftwareDeliverables({this.content, this.items = const []});
+}
+
+/// 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
+@tomReflector
+class DocumentationDeliverables {
+  final String? content;
+  final List<DeliverableEntry> items;
+
+  const DocumentationDeliverables({this.content, this.items = const []});
+}
+
+/// 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
+@tomReflector
+class TrainingDeliverables {
+  final String? content;
+  final List<DeliverableEntry> items;
+
+  const TrainingDeliverables({this.content, this.items = const []});
+}
+
+/// 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
+@tomReflector
+class SupportDeliverables {
+  final String? content;
+  final List<DeliverableEntry> items;
+
+  const SupportDeliverables({this.content, this.items = const []});
+}
+
+/// A deliverable entry (form).
+@tomReflector
+class DeliverableEntry {
+  final String? content;
+  final String? deliverableName;
+  final String? description;
+  final String? deliveryDate;
+  final String? format;
+  final String? acceptanceCriteria;
+
+  const DeliverableEntry({
+    this.content,
+    this.deliverableName,
+    this.description,
+    this.deliveryDate,
+    this.format,
+    this.acceptanceCriteria,
   });
 }
 
@@ -56,13 +112,13 @@ class AcceptancePlan {
   final String? content;
 
   /// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
-  final String? acceptanceCriteria;
+  final AcceptanceCriteriaList acceptanceCriteria;
 
   /// 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
-  final String? acceptanceProcess;
+  final AcceptanceProcess acceptanceProcess;
 
   /// 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
-  final String? userAcceptanceTesting;
+  final UserAcceptanceTesting userAcceptanceTesting;
 
   /// 14.2.4. Defect Resolution [PD00-DEL-ACC-DEF].
   final String? defectResolution;
@@ -75,11 +131,78 @@ class AcceptancePlan {
 
   const AcceptancePlan({
     this.content,
-    this.acceptanceCriteria,
-    this.acceptanceProcess,
-    this.userAcceptanceTesting,
+    this.acceptanceCriteria = const AcceptanceCriteriaList(),
+    this.acceptanceProcess = const AcceptanceProcess(),
+    this.userAcceptanceTesting = const UserAcceptanceTesting(),
     this.defectResolution,
     this.signOffProcess,
     this.warranty,
+  });
+}
+
+/// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
+@tomReflector
+class AcceptanceCriteriaList {
+  final String? content;
+  final List<AcceptanceCriterionEntry> items;
+
+  const AcceptanceCriteriaList({this.content, this.items = const []});
+}
+
+/// An acceptance criterion entry (form).
+@tomReflector
+class AcceptanceCriterionEntry {
+  final String? content;
+  final String? criterion;
+  final String? category;
+  final String? verificationMethod;
+  final String? acceptanceThreshold;
+
+  const AcceptanceCriterionEntry({
+    this.content,
+    this.criterion,
+    this.category,
+    this.verificationMethod,
+    this.acceptanceThreshold,
+  });
+}
+
+/// 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
+@tomReflector
+class AcceptanceProcess {
+  final String? content;
+  final List<String> steps;
+  final String? timeline;
+  final String? participants;
+  final String? escalationProcess;
+
+  const AcceptanceProcess({
+    this.content,
+    this.steps = const [],
+    this.timeline,
+    this.participants,
+    this.escalationProcess,
+  });
+}
+
+/// 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
+@tomReflector
+class UserAcceptanceTesting {
+  final String? content;
+  final String? scope;
+  final String? environment;
+  final String? participants;
+  final String? schedule;
+  final List<String> testScenarios;
+  final String? exitCriteria;
+
+  const UserAcceptanceTesting({
+    this.content,
+    this.scope,
+    this.environment,
+    this.participants,
+    this.schedule,
+    this.testScenarios = const [],
+    this.exitCriteria,
   });
 }

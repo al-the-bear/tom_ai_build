@@ -53,12 +53,12 @@ class QualityFramework {
   final String? qualityObjectivesOverview;
 
   /// 11.1.2. Quality Categories [PD00-SYQ-FRA-CAT].
-  final String? qualityCategories;
+  final List<String> qualityCategories;
 
   const QualityFramework({
     this.content,
     this.qualityObjectivesOverview,
-    this.qualityCategories,
+    this.qualityCategories = const [],
   });
 }
 
@@ -179,12 +179,39 @@ class QualityPrioritization {
   final String? weightedQualityMatrix;
 
   /// 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
-  final String? tradeOffDecisions;
+  final TradeOffDecisions tradeOffDecisions;
 
   const QualityPrioritization({
     this.content,
     this.weightedQualityMatrix,
-    this.tradeOffDecisions,
+    this.tradeOffDecisions = const TradeOffDecisions(),
+  });
+}
+
+/// 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
+@tomReflector
+class TradeOffDecisions {
+  final String? content;
+  final List<TradeOffDecisionEntry> items;
+
+  const TradeOffDecisions({this.content, this.items = const []});
+}
+
+/// A trade-off decision entry (form).
+@tomReflector
+class TradeOffDecisionEntry {
+  final String? content;
+  final String? decision;
+  final String? qualitiesInConflict;
+  final String? rationale;
+  final String? impact;
+
+  const TradeOffDecisionEntry({
+    this.content,
+    this.decision,
+    this.qualitiesInConflict,
+    this.rationale,
+    this.impact,
   });
 }
 
@@ -194,14 +221,66 @@ class AcceptanceCriteriaSummary {
   final String? content;
 
   /// 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
-  final String? mustPassCriteria;
+  final MustPassCriteria mustPassCriteria;
 
   /// 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
-  final String? qualityGateChecklist;
+  final QualityGateChecklist qualityGateChecklist;
 
   const AcceptanceCriteriaSummary({
     this.content,
-    this.mustPassCriteria,
-    this.qualityGateChecklist,
+    this.mustPassCriteria = const MustPassCriteria(),
+    this.qualityGateChecklist = const QualityGateChecklist(),
+  });
+}
+
+/// 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
+@tomReflector
+class MustPassCriteria {
+  final String? content;
+  final List<MustPassCriterionEntry> items;
+
+  const MustPassCriteria({this.content, this.items = const []});
+}
+
+/// A must-pass criterion entry (form).
+@tomReflector
+class MustPassCriterionEntry {
+  final String? content;
+  final String? criterion;
+  final String? verificationMethod;
+  final String? acceptanceThreshold;
+
+  const MustPassCriterionEntry({
+    this.content,
+    this.criterion,
+    this.verificationMethod,
+    this.acceptanceThreshold,
+  });
+}
+
+/// 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
+@tomReflector
+class QualityGateChecklist {
+  final String? content;
+  final List<QualityGateCheckEntry> items;
+
+  const QualityGateChecklist({this.content, this.items = const []});
+}
+
+/// A quality gate check entry (form).
+@tomReflector
+class QualityGateCheckEntry {
+  final String? content;
+  final String? checkItem;
+  final String? qualityCategory;
+  final String? verificationMethod;
+  final String? responsibleParty;
+
+  const QualityGateCheckEntry({
+    this.content,
+    this.checkItem,
+    this.qualityCategory,
+    this.verificationMethod,
+    this.responsibleParty,
   });
 }

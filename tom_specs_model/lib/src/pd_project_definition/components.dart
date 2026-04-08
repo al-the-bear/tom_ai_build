@@ -21,10 +21,10 @@ class ComponentsToUse {
   final String? componentRoleInSystem;
 
   /// 12.4. Runtime Dependencies [PD00-COM-RUN].
-  final String? runtimeDependencies;
+  final RuntimeDependencies runtimeDependencies;
 
   /// 12.5. Maintenance Dependencies [PD00-COM-MAI].
-  final String? maintenanceDependencies;
+  final MaintenanceDependencies maintenanceDependencies;
 
   /// 12.6. Risk Assessment [PD00-COM-RIS].
   final ComponentRiskAssessment riskAssessment;
@@ -34,8 +34,8 @@ class ComponentsToUse {
     this.strategy = const ComponentStrategy(),
     this.componentCatalog = const [],
     this.componentRoleInSystem,
-    this.runtimeDependencies,
-    this.maintenanceDependencies,
+    this.runtimeDependencies = const RuntimeDependencies(),
+    this.maintenanceDependencies = const MaintenanceDependencies(),
     this.riskAssessment = const ComponentRiskAssessment(),
   });
 }
@@ -46,15 +46,78 @@ class ComponentStrategy {
   final String? content;
 
   /// 12.1.1. Reuse Goals [PD00-COM-STR-GOA].
-  final String? reuseGoals;
+  final List<String> reuseGoals;
 
   /// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
-  final String? evaluationCriteria;
+  final EvaluationCriteria evaluationCriteria;
 
   const ComponentStrategy({
     this.content,
-    this.reuseGoals,
-    this.evaluationCriteria,
+    this.reuseGoals = const [],
+    this.evaluationCriteria = const EvaluationCriteria(),
+  });
+}
+
+/// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
+@tomReflector
+class EvaluationCriteria {
+  final String? content;
+  final List<EvaluationCriterionEntry> items;
+
+  const EvaluationCriteria({this.content, this.items = const []});
+}
+
+/// An evaluation criterion entry (form).
+@tomReflector
+class EvaluationCriterionEntry {
+  final String? content;
+  final String? criterion;
+  final String? weight;
+  final String? description;
+
+  const EvaluationCriterionEntry({
+    this.content,
+    this.criterion,
+    this.weight,
+    this.description,
+  });
+}
+
+/// 12.4. Runtime Dependencies [PD00-COM-RUN].
+@tomReflector
+class RuntimeDependencies {
+  final String? content;
+  final List<DependencyEntry> items;
+
+  const RuntimeDependencies({this.content, this.items = const []});
+}
+
+/// 12.5. Maintenance Dependencies [PD00-COM-MAI].
+@tomReflector
+class MaintenanceDependencies {
+  final String? content;
+  final List<DependencyEntry> items;
+
+  const MaintenanceDependencies({this.content, this.items = const []});
+}
+
+/// A dependency entry (form).
+@tomReflector
+class DependencyEntry {
+  final String? content;
+  final String? dependencyName;
+  final String? version;
+  final String? purpose;
+  final String? criticality;
+  final String? alternative;
+
+  const DependencyEntry({
+    this.content,
+    this.dependencyName,
+    this.version,
+    this.purpose,
+    this.criticality,
+    this.alternative,
   });
 }
 
@@ -72,8 +135,8 @@ class ComponentEntry {
   final String? purpose;
   final String? documentation;
 
-  /// Interfaces [PD00-COM-COM-nn-INT] (description).
-  final String? interfaces;
+  /// Interfaces [PD00-COM-COM-nn-INT].
+  final List<String> interfaces;
 
   /// Licensing [PD00-COM-COM-nn-LIC] (form).
   final ComponentLicensingEntry? licensing;
@@ -91,7 +154,7 @@ class ComponentEntry {
     this.category,
     this.purpose,
     this.documentation,
-    this.interfaces,
+    this.interfaces = const [],
     this.licensing,
     this.usageRights,
     this.responsibilities,
@@ -147,12 +210,39 @@ class ComponentRiskAssessment {
   final List<ComponentRiskEntry> risks;
 
   /// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
-  final String? contingencyPlans;
+  final ContingencyPlans contingencyPlans;
 
   const ComponentRiskAssessment({
     this.content,
     this.risks = const [],
-    this.contingencyPlans,
+    this.contingencyPlans = const ContingencyPlans(),
+  });
+}
+
+/// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
+@tomReflector
+class ContingencyPlans {
+  final String? content;
+  final List<ContingencyPlanEntry> items;
+
+  const ContingencyPlans({this.content, this.items = const []});
+}
+
+/// A contingency plan entry (form).
+@tomReflector
+class ContingencyPlanEntry {
+  final String? content;
+  final String? component;
+  final String? triggerCondition;
+  final String? action;
+  final String? responsibleParty;
+
+  const ContingencyPlanEntry({
+    this.content,
+    this.component,
+    this.triggerCondition,
+    this.action,
+    this.responsibleParty,
   });
 }
 

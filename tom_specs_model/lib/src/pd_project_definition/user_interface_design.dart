@@ -78,18 +78,18 @@ class DesignVision {
   final String? content;
 
   /// 10.1.1. Design Goals [PD00-USE-VIS-GOA].
-  final String? designGoals;
+  final List<String> designGoals;
 
   /// 10.1.2. Design Principles [PD00-USE-VIS-PRI].
-  final String? designPrinciples;
+  final List<String> designPrinciples;
 
   /// 10.1.3. User Personas [PD00-USE-VIS-PER] — contains 1+× Persona.
   final List<PersonaEntry> personas;
 
   const DesignVision({
     this.content,
-    this.designGoals,
-    this.designPrinciples,
+    this.designGoals = const [],
+    this.designPrinciples = const [],
     this.personas = const [],
   });
 }
@@ -101,8 +101,8 @@ class PersonaEntry {
   final String? personaName;
   final String? age;
   final String? role;
-  final String? goals;
-  final String? painPoints;
+  final List<String> goals;
+  final List<String> painPoints;
   final String? technicalProficiency;
   final String? typicalUsage;
   final String? device;
@@ -112,8 +112,8 @@ class PersonaEntry {
     this.personaName,
     this.age,
     this.role,
-    this.goals,
-    this.painPoints,
+    this.goals = const [],
+    this.painPoints = const [],
     this.technicalProficiency,
     this.typicalUsage,
     this.device,
@@ -149,10 +149,10 @@ class ScreenEntry {
   final String? screenId;
   final String? screenName;
   final String? purpose;
-  final String? keyElements;
-  final String? userCategories;
+  final List<String> keyElements;
+  final List<String> userCategories;
   final String? accessLevel;
-  final String? entryPoints;
+  final List<String> entryPoints;
   final String? layout;
 
   const ScreenEntry({
@@ -160,10 +160,10 @@ class ScreenEntry {
     this.screenId,
     this.screenName,
     this.purpose,
-    this.keyElements,
-    this.userCategories,
+    this.keyElements = const [],
+    this.userCategories = const [],
     this.accessLevel,
-    this.entryPoints,
+    this.entryPoints = const [],
     this.layout,
   });
 }
@@ -203,12 +203,12 @@ class PrintLayout {
   final List<ReportEntry> reports;
 
   /// 10.4.2. Export Formats [PD00-USE-PRI-EXP].
-  final String? exportFormats;
+  final List<String> exportFormats;
 
   const PrintLayout({
     this.content,
     this.reports = const [],
-    this.exportFormats,
+    this.exportFormats = const [],
   });
 }
 
@@ -221,7 +221,7 @@ class ReportEntry {
   final String? reportContent;
   final String? format;
   final String? generationTrigger;
-  final String? recipients;
+  final List<String> recipients;
   final String? customization;
 
   const ReportEntry({
@@ -231,7 +231,7 @@ class ReportEntry {
     this.reportContent,
     this.format,
     this.generationTrigger,
-    this.recipients,
+    this.recipients = const [],
     this.customization,
   });
 }
@@ -301,12 +301,39 @@ class Accessibility {
   final String? wcagComplianceLevel;
 
   /// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
-  final String? accessibilityChecklist;
+  final AccessibilityChecklist accessibilityChecklist;
 
   const Accessibility({
     this.content,
     this.wcagComplianceLevel,
-    this.accessibilityChecklist,
+    this.accessibilityChecklist = const AccessibilityChecklist(),
+  });
+}
+
+/// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
+@tomReflector
+class AccessibilityChecklist {
+  final String? content;
+  final List<AccessibilityCheckEntry> items;
+
+  const AccessibilityChecklist({this.content, this.items = const []});
+}
+
+/// An accessibility check entry (form).
+@tomReflector
+class AccessibilityCheckEntry {
+  final String? content;
+  final String? checkItem;
+  final String? wcagCriterion;
+  final String? complianceLevel;
+  final String? verificationMethod;
+
+  const AccessibilityCheckEntry({
+    this.content,
+    this.checkItem,
+    this.wcagCriterion,
+    this.complianceLevel,
+    this.verificationMethod,
   });
 }
 
@@ -320,14 +347,14 @@ class ResponsiveDesign {
   final String? content;
 
   /// 10.10.1. Breakpoints [PD00-USE-RES-BRE].
-  final String? breakpoints;
+  final List<String> breakpoints;
 
   /// 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
   final String? responsiveBehavior;
 
   const ResponsiveDesign({
     this.content,
-    this.breakpoints,
+    this.breakpoints = const [],
     this.responsiveBehavior,
   });
 }
@@ -361,8 +388,8 @@ class UiComponentEntry {
   final String? componentName;
   final String? purpose;
   final String? behavior;
-  final String? states;
-  final String? variants;
+  final List<String> states;
+  final List<String> variants;
   final String? responsive;
 
   const UiComponentEntry({
@@ -370,8 +397,8 @@ class UiComponentEntry {
     this.componentName,
     this.purpose,
     this.behavior,
-    this.states,
-    this.variants,
+    this.states = const [],
+    this.variants = const [],
     this.responsive,
   });
 }
@@ -420,7 +447,7 @@ class Prototype {
   final String? content;
 
   /// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
-  final String? prototypeGoals;
+  final List<String> prototypeGoals;
 
   /// 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
   final String? selectedFeatureSubset;
@@ -430,7 +457,7 @@ class Prototype {
 
   const Prototype({
     this.content,
-    this.prototypeGoals,
+    this.prototypeGoals = const [],
     this.selectedFeatureSubset,
     this.prototypeType = const PrototypeTypeSection(),
   });
