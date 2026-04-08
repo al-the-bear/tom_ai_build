@@ -3,8 +3,11 @@
 /// Application security for data and functions.
 library;
 
+import 'package:tom_core_kernel/tom_core_kernel.dart';
+
 
 /// 9. Access and Authorization Concept [PD00-ACC]. Seeds → AC.
+@tomReflector
 class AccessAndAuthorizationConcept {
   final String? content;
 
@@ -38,6 +41,7 @@ class AccessAndAuthorizationConcept {
 }
 
 /// 9.1. User Management [PD00-ACC-USE].
+@tomReflector
 class UserManagement {
   final String? content;
 
@@ -59,6 +63,7 @@ class UserManagement {
 }
 
 /// 9.2. Identification and Authentication [PD00-ACC-IDE].
+@tomReflector
 class IdentificationAndAuthentication {
   final String? content;
 
@@ -84,6 +89,7 @@ class IdentificationAndAuthentication {
 }
 
 /// 9.3. Resource Protection [PD00-ACC-RES].
+@tomReflector
 class ResourceProtection {
   final String? content;
 
@@ -105,6 +111,7 @@ class ResourceProtection {
 }
 
 /// 9.4. User Authorization [PD00-ACC-USA].
+@tomReflector
 class UserAuthorization {
   final String? content;
 
@@ -130,6 +137,7 @@ class UserAuthorization {
 }
 
 /// An authorization role entry [PD00-ACC-USA-ROL-nn] (form).
+@tomReflector
 class AuthorizationRoleEntry {
   final String? content;
   final String? roleName;
@@ -153,6 +161,7 @@ class AuthorizationRoleEntry {
 }
 
 /// 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
+@tomReflector
 class SensitiveDataEncryption {
   final String? content;
 
@@ -174,6 +183,7 @@ class SensitiveDataEncryption {
 }
 
 /// 9.6. Audit and Logging [PD00-ACC-AUD].
+@tomReflector
 class AuditAndLogging {
   final String? content;
 

@@ -3,8 +3,11 @@
 /// Project-specific deviations from the standard TomSpecs methodology.
 library;
 
+import 'package:tom_core_kernel/tom_core_kernel.dart';
+
 
 /// 2. Project Organization and Process [PD00-POP].
+@tomReflector
 class ProjectOrganizationAndProcess {
   final String? content;
 

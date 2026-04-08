@@ -3,8 +3,11 @@
 /// Agreements regarding delivery scope and acceptance for the system.
 library;
 
+import 'package:tom_core_kernel/tom_core_kernel.dart';
+
 
 /// 14. Delivery Scope and Acceptance [PD00-DEL].
+@tomReflector
 class DeliveryScopeAndAcceptance {
   final String? content;
 
@@ -22,6 +25,7 @@ class DeliveryScopeAndAcceptance {
 }
 
 /// 14.1. Delivery and Service Scope [PD00-DEL-DEL].
+@tomReflector
 class DeliveryScope {
   final String? content;
 
@@ -47,6 +51,7 @@ class DeliveryScope {
 }
 
 /// 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
+@tomReflector
 class AcceptancePlan {
   final String? content;
 

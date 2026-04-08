@@ -3,8 +3,11 @@
 /// Seeds → UP, SR, TR depending on subsection.
 library;
 
+import 'package:tom_core_kernel/tom_core_kernel.dart';
+
 
 /// 10. User Interface Design and Prototype [PD00-USE].
+@tomReflector
 class UserInterfaceDesign {
   final String? content;
 
@@ -70,6 +73,7 @@ class UserInterfaceDesign {
 // ---------------------------------------------------------------------------
 
 /// 10.1. Design Vision [PD00-USE-VIS].
+@tomReflector
 class DesignVision {
   final String? content;
 
@@ -91,6 +95,7 @@ class DesignVision {
 }
 
 /// A user persona entry [PD00-USE-VIS-PER-nn] (form).
+@tomReflector
 class PersonaEntry {
   final String? content;
   final String? personaName;
@@ -120,6 +125,7 @@ class PersonaEntry {
 // ---------------------------------------------------------------------------
 
 /// 10.2. Screen Descriptions [PD00-USE-SCR].
+@tomReflector
 class ScreenDescriptions {
   final String? content;
 
@@ -137,6 +143,7 @@ class ScreenDescriptions {
 }
 
 /// A screen entry [PD00-USE-SCR-INV-nn] (form).
+@tomReflector
 class ScreenEntry {
   final String? content;
   final String? screenId;
@@ -166,6 +173,7 @@ class ScreenEntry {
 // ---------------------------------------------------------------------------
 
 /// 10.3. Screen Flow Structure [PD00-USE-SCF].
+@tomReflector
 class ScreenFlowStructure {
   final String? content;
 
@@ -187,6 +195,7 @@ class ScreenFlowStructure {
 // ---------------------------------------------------------------------------
 
 /// 10.4. Print Layout [PD00-USE-PRI].
+@tomReflector
 class PrintLayout {
   final String? content;
 
@@ -204,6 +213,7 @@ class PrintLayout {
 }
 
 /// A report entry [PD00-USE-PRI-REP-nn] (form).
+@tomReflector
 class ReportEntry {
   final String? content;
   final String? reportName;
@@ -231,6 +241,7 @@ class ReportEntry {
 // ---------------------------------------------------------------------------
 
 /// 10.7. Error Handling Concept [PD00-USE-ERR].
+@tomReflector
 class ErrorHandlingConcept {
   final String? content;
 
@@ -256,6 +267,7 @@ class ErrorHandlingConcept {
 // ---------------------------------------------------------------------------
 
 /// 10.8. Help Concept [PD00-USE-HLP].
+@tomReflector
 class HelpConcept {
   final String? content;
 
@@ -281,6 +293,7 @@ class HelpConcept {
 // ---------------------------------------------------------------------------
 
 /// 10.9. Accessibility [PD00-USE-ACC].
+@tomReflector
 class Accessibility {
   final String? content;
 
@@ -302,6 +315,7 @@ class Accessibility {
 // ---------------------------------------------------------------------------
 
 /// 10.10. Responsive Design [PD00-USE-RES].
+@tomReflector
 class ResponsiveDesign {
   final String? content;
 
@@ -323,6 +337,7 @@ class ResponsiveDesign {
 // ---------------------------------------------------------------------------
 
 /// 10.11. UI Components [PD00-USE-COM].
+@tomReflector
 class UiComponents {
   final String? content;
 
@@ -340,6 +355,7 @@ class UiComponents {
 }
 
 /// A UI component entry [PD00-USE-COM-SPE-nn] (form).
+@tomReflector
 class UiComponentEntry {
   final String? content;
   final String? componentName;
@@ -365,6 +381,7 @@ class UiComponentEntry {
 // ---------------------------------------------------------------------------
 
 /// 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
+@tomReflector
 class MultiLanguageAndRollout {
   final String? content;
 
@@ -398,6 +415,7 @@ class MultiLanguageAndRollout {
 // ---------------------------------------------------------------------------
 
 /// 10.13. Prototype [PD00-USE-PRO].
+@tomReflector
 class Prototype {
   final String? content;
 
@@ -419,6 +437,7 @@ class Prototype {
 }
 
 /// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+@tomReflector
 class PrototypeTypeSection {
   final String? content;
 

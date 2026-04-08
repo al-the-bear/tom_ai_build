@@ -4,8 +4,11 @@
 /// this project.
 library;
 
+import 'package:tom_core_kernel/tom_core_kernel.dart';
+
 
 /// 1. Current State Analysis [PD00-CUR].
+@tomReflector
 class CurrentStateAnalysis {
   final String? content;
 
@@ -35,6 +38,7 @@ class CurrentStateAnalysis {
 // ---------------------------------------------------------------------------
 
 /// 1.1. Existing Systems Landscape [PD00-CUR-SYS].
+@tomReflector
 class ExistingSystemsLandscape {
   final String? content;
 
@@ -56,6 +60,7 @@ class ExistingSystemsLandscape {
 }
 
 /// An existing system entry [PD00-CUR-SYS-INV-nn] (form).
+@tomReflector
 class ExistingSystemEntry {
   final String? content;
   final String? systemName;
@@ -85,6 +90,7 @@ class ExistingSystemEntry {
 // ---------------------------------------------------------------------------
 
 /// 1.2. Current Business Processes [PD00-CUR-PRO].
+@tomReflector
 class CurrentBusinessProcesses {
   final String? content;
 
@@ -102,6 +108,7 @@ class CurrentBusinessProcesses {
 }
 
 /// A current workflow entry [PD00-CUR-PRO-WOR-nn] (form).
+@tomReflector
 class CurrentWorkflowEntry {
   final String? content;
   final String? processName;
@@ -131,6 +138,7 @@ class CurrentWorkflowEntry {
 // ---------------------------------------------------------------------------
 
 /// 1.3. Pain Points and Gaps [PD00-CUR-PAI].
+@tomReflector
 class PainPointsAndGaps {
   final String? content;
 

@@ -3,8 +3,11 @@
 /// Technical framework requirements and constraints.
 library;
 
+import 'package:tom_core_kernel/tom_core_kernel.dart';
+
 
 /// 8. Technical Framework Concept [PD00-TEC]. Seeds → TR.
+@tomReflector
 class TechnicalFrameworkConcept {
   final String? content;
 
@@ -46,6 +49,7 @@ class TechnicalFrameworkConcept {
 }
 
 /// 8.1. Basic Technical Requirements [PD00-TEC-BAS].
+@tomReflector
 class BasicTechnicalRequirements {
   final String? content;
 
@@ -67,6 +71,7 @@ class BasicTechnicalRequirements {
 }
 
 /// 8.2. Software Design Requirements [PD00-TEC-SOF].
+@tomReflector
 class SoftwareDesignRequirements {
   final String? content;
 
@@ -88,6 +93,7 @@ class SoftwareDesignRequirements {
 }
 
 /// 8.3. Standard Application Software Requirements [PD00-TEC-STA].
+@tomReflector
 class StandardSoftwareRequirements {
   final String? content;
 
@@ -105,6 +111,7 @@ class StandardSoftwareRequirements {
 }
 
 /// 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
+@tomReflector
 class HardwareRequirements {
   final String? content;
 
@@ -126,6 +133,7 @@ class HardwareRequirements {
 }
 
 /// 8.5. Operations Requirements [PD00-TEC-OPE].
+@tomReflector
 class OperationsRequirements {
   final String? content;
 
@@ -151,6 +159,7 @@ class OperationsRequirements {
 }
 
 /// 8.6. Communication Requirements [PD00-TEC-COM].
+@tomReflector
 class CommunicationRequirements {
   final String? content;
 
@@ -168,6 +177,7 @@ class CommunicationRequirements {
 }
 
 /// 8.7. System Operation and Monitoring [PD00-TEC-SYS].
+@tomReflector
 class SystemOperationAndMonitoring {
   final String? content;
 
@@ -189,6 +199,7 @@ class SystemOperationAndMonitoring {
 }
 
 /// 8.8. Security Requirements [PD00-TEC-SEC].
+@tomReflector
 class TechnicalSecurityRequirements {
   final String? content;
 

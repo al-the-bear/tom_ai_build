@@ -3,8 +3,11 @@
 /// Project administration: team, distribution, change procedure, references.
 library;
 
+import 'package:tom_core_kernel/tom_core_kernel.dart';
+
 
 /// 3. Administrative [PD00-ADM].
+@tomReflector
 class Administrative {
   final String? content;
 
@@ -42,6 +45,7 @@ class Administrative {
 // ---------------------------------------------------------------------------
 
 /// 3.1. Project Organization [PD00-ADM-PRO].
+@tomReflector
 class ProjectOrganization {
   final String? content;
 
@@ -59,6 +63,7 @@ class ProjectOrganization {
 }
 
 /// A steering committee member entry [PD00-ADM-PRO-STE-nn] (form).
+@tomReflector
 class CommitteeMemberEntry {
   final String? content;
   final String? name;
@@ -82,6 +87,7 @@ class CommitteeMemberEntry {
 // ---------------------------------------------------------------------------
 
 /// 3.2. Project Team Staffing [PD00-ADM-TEA].
+@tomReflector
 class ProjectTeamStaffing {
   final String? content;
 
@@ -95,6 +101,7 @@ class ProjectTeamStaffing {
 }
 
 /// A team member entry [PD00-ADM-TEA-nn] (form).
+@tomReflector
 class TeamMemberEntry {
   final String? content;
   final String? name;
@@ -124,6 +131,7 @@ class TeamMemberEntry {
 // ---------------------------------------------------------------------------
 
 /// 3.3. Distribution List [PD00-ADM-DIS].
+@tomReflector
 class DistributionList {
   final String? content;
 
@@ -145,6 +153,7 @@ class DistributionList {
 // ---------------------------------------------------------------------------
 
 /// 3.4. Change Procedure [PD00-ADM-CHA].
+@tomReflector
 class ChangeProcedure {
   final String? content;
 
@@ -166,6 +175,7 @@ class ChangeProcedure {
 // ---------------------------------------------------------------------------
 
 /// 3.5. Reference Documents [PD00-ADM-REF].
+@tomReflector
 class ReferenceDocuments {
   final String? content;
 
@@ -179,6 +189,7 @@ class ReferenceDocuments {
 }
 
 /// A reference document entry [PD00-ADM-REF-nn] (form).
+@tomReflector
 class ReferenceDocumentEntry {
   final String? content;
   final String? documentTitle;

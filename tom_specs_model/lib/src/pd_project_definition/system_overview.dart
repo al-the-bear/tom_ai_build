@@ -4,8 +4,11 @@
 /// boundaries, and environment.
 library;
 
+import 'package:tom_core_kernel/tom_core_kernel.dart';
+
 
 /// 4. System Overview [PD00-SYO].
+@tomReflector
 class SystemOverview {
   final String? content;
 
@@ -47,6 +50,7 @@ class SystemOverview {
 // ---------------------------------------------------------------------------
 
 /// 4.1. System Description [PD00-SYO-SYD].
+@tomReflector
 class SystemDescription {
   final String? content;
 
@@ -76,6 +80,7 @@ class SystemDescription {
 }
 
 /// A user category entry [PD00-SYO-SYD-USR-nn] (form).
+@tomReflector
 class UserCategoryEntry {
   final String? content;
   final String? categoryName;
@@ -105,6 +110,7 @@ class UserCategoryEntry {
 }
 
 /// Role within a user category [PD00-SYO-SYD-USR-nn-ROL] (form).
+@tomReflector
 class UserCategoryRoleEntry {
   final String? content;
   final String? roleName;
@@ -122,6 +128,7 @@ class UserCategoryRoleEntry {
 }
 
 /// A system task entry [PD00-SYO-SYD-USR-nn-TSK] (form, repeatable).
+@tomReflector
 class SystemTaskEntry {
   final String? content;
   final String? taskName;
@@ -143,6 +150,7 @@ class SystemTaskEntry {
 // ---------------------------------------------------------------------------
 
 /// 4.2. Goals [PD00-SYO-GOA].
+@tomReflector
 class Goals {
   final String? content;
 
@@ -164,6 +172,7 @@ class Goals {
 }
 
 /// A business goal entry [PD00-SYO-GOA-BUS-nn] (form).
+@tomReflector
 class BusinessGoalEntry {
   final String? content;
   final String? goalId;
@@ -189,6 +198,7 @@ class BusinessGoalEntry {
 }
 
 /// A technical goal entry [PD00-SYO-GOA-TEC-nn] (form).
+@tomReflector
 class TechnicalGoalEntry {
   final String? content;
   final String? goalId;
@@ -216,6 +226,7 @@ class TechnicalGoalEntry {
 // ---------------------------------------------------------------------------
 
 /// 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
+@tomReflector
 class RequirementsOverview {
   final String? content;
 
@@ -241,6 +252,7 @@ class RequirementsOverview {
 }
 
 /// A functional requirement entry [PD00-SYO-REQ-FUN-nn] (form).
+@tomReflector
 class FunctionalRequirementEntry {
   final String? content;
   final String? requirementId;
@@ -272,6 +284,7 @@ class FunctionalRequirementEntry {
 }
 
 /// A technical requirement entry [PD00-SYO-REQ-TEC-nn] (form).
+@tomReflector
 class TechnicalRequirementEntry {
   final String? content;
   final String? requirementId;
@@ -299,6 +312,7 @@ class TechnicalRequirementEntry {
 }
 
 /// A security requirement entry [PD00-SYO-REQ-SEC-nn] (form).
+@tomReflector
 class SecurityRequirementEntry {
   final String? content;
   final String? requirementId;
@@ -326,6 +340,7 @@ class SecurityRequirementEntry {
 }
 
 /// An organizational requirement entry [PD00-SYO-REQ-ORG-nn] (form).
+@tomReflector
 class OrganizationalRequirementEntry {
   final String? content;
   final String? requirementId;
@@ -355,6 +370,7 @@ class OrganizationalRequirementEntry {
 // ---------------------------------------------------------------------------
 
 /// 4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
+@tomReflector
 class SystemsToReplace {
   final String? content;
 
@@ -372,6 +388,7 @@ class SystemsToReplace {
 }
 
 /// A system to replace entry [PD00-SYO-SYR-INV-nn] (form).
+@tomReflector
 class SystemToReplaceEntry {
   final String? content;
   final String? systemName;
@@ -399,6 +416,7 @@ class SystemToReplaceEntry {
 // ---------------------------------------------------------------------------
 
 /// 4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
+@tomReflector
 class SystemBoundaries {
   final String? content;
 
@@ -420,6 +438,7 @@ class SystemBoundaries {
 }
 
 /// An external interface entry [PD00-SYO-SYB-INT-nn] (form).
+@tomReflector
 class ExternalInterfaceEntry {
   final String? content;
   final String? interfaceId;
@@ -451,6 +470,7 @@ class ExternalInterfaceEntry {
 // ---------------------------------------------------------------------------
 
 /// 4.6. Framework Conditions [PD00-SYO-RES].
+@tomReflector
 class FrameworkConditions {
   final String? content;
 
@@ -480,6 +500,7 @@ class FrameworkConditions {
 // ---------------------------------------------------------------------------
 
 /// 4.7. Risks and Assumptions [PD00-SYO-RIS].
+@tomReflector
 class RisksAndAssumptions {
   final String? content;
 
@@ -497,6 +518,7 @@ class RisksAndAssumptions {
 }
 
 /// A risk entry [PD00-SYO-RIS-RIS-nn] (form).
+@tomReflector
 class RiskEntry {
   final String? content;
   final String? riskId;

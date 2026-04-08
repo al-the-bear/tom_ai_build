@@ -4,8 +4,11 @@
 /// descriptions (seeds → BP) and actor interactions (seeds → UC).
 library;
 
+import 'package:tom_core_kernel/tom_core_kernel.dart';
+
 
 /// 6. Target Business Process Model [PD00-TAR].
+@tomReflector
 class TargetBusinessProcessModel {
   final String? content;
 
@@ -27,6 +30,7 @@ class TargetBusinessProcessModel {
 // ---------------------------------------------------------------------------
 
 /// 6.1. Business Process Descriptions [PD00-TAR-PRO]. Seeds → BP.
+@tomReflector
 class BusinessProcessDescriptions {
   final String? content;
 
@@ -56,6 +60,7 @@ class BusinessProcessDescriptions {
 }
 
 /// A business process entry [PD00-TAR-PRO-CAT-nn] (form).
+@tomReflector
 class BusinessProcessEntry {
   final String? content;
   final String? processId;
@@ -85,6 +90,7 @@ class BusinessProcessEntry {
 // ---------------------------------------------------------------------------
 
 /// 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
+@tomReflector
 class ProcessStepsAndActorInteractions {
   final String? content;
 
@@ -106,6 +112,7 @@ class ProcessStepsAndActorInteractions {
 }
 
 /// An actor entry [PD00-TAR-STP-ACT-nn] (form).
+@tomReflector
 class ActorEntry {
   final String? content;
   final String? actorName;
@@ -125,6 +132,7 @@ class ActorEntry {
 }
 
 /// An interaction entry [PD00-TAR-STP-INT-nn] (form).
+@tomReflector
 class InteractionEntry {
   final String? content;
   final String? interactionId;
@@ -152,6 +160,7 @@ class InteractionEntry {
 }
 
 /// A scenario entry [PD00-TAR-STP-SCE-nn] (description).
+@tomReflector
 class ScenarioEntry {
   final String? content;
   final String? scenarioName;

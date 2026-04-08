@@ -3,6 +3,8 @@
 /// Aggregates all 14 PD sections plus the document header.
 library;
 
+import 'package:tom_core_kernel/tom_core_kernel.dart';
+
 export 'access_authorization.dart';
 export 'administrative.dart';
 export 'business_data_model.dart';
@@ -38,6 +40,7 @@ import 'user_interface_design.dart';
 /// The complete Project Definition (PD) document.
 ///
 /// Contains a [DocumentHeader] and all 14 PD sections.
+@tomReflector
 class ProjectDefinition {
   /// Document header (form fields at top of document).
   final DocumentHeader header;

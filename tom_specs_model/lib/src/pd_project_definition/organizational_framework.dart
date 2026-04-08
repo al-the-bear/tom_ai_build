@@ -3,8 +3,11 @@
 /// Organizational changes and structures required for the new system.
 library;
 
+import 'package:tom_core_kernel/tom_core_kernel.dart';
+
 
 /// 5. Organizational Framework [PD00-ORG].
+@tomReflector
 class OrganizationalFramework {
   final String? content;
 
@@ -30,6 +33,7 @@ class OrganizationalFramework {
 // ---------------------------------------------------------------------------
 
 /// 5.1. New Organization Structure [PD00-ORG-STR].
+@tomReflector
 class NewOrganizationStructure {
   final String? content;
 
@@ -51,6 +55,7 @@ class NewOrganizationStructure {
 // ---------------------------------------------------------------------------
 
 /// 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
+@tomReflector
 class JobDescriptionsAndStaffing {
   final String? content;
 
@@ -68,6 +73,7 @@ class JobDescriptionsAndStaffing {
 }
 
 /// A new role entry [PD00-ORG-JOB-NEW-nn] (form).
+@tomReflector
 class NewRoleEntry {
   final String? content;
   final String? roleTitle;
@@ -91,6 +97,7 @@ class NewRoleEntry {
 }
 
 /// A changed role entry [PD00-ORG-JOB-CHA-nn] (form).
+@tomReflector
 class ChangedRoleEntry {
   final String? content;
   final String? roleTitle;
@@ -118,6 +125,7 @@ class ChangedRoleEntry {
 // ---------------------------------------------------------------------------
 
 /// 5.3. Workplace Description [PD00-ORG-WOR].
+@tomReflector
 class WorkplaceDescription {
   final String? content;
 

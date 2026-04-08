@@ -3,8 +3,11 @@
 /// External and standard components planned for use.
 library;
 
+import 'package:tom_core_kernel/tom_core_kernel.dart';
+
 
 /// 12. Components to Use [PD00-COM]. Seeds → TR.
+@tomReflector
 class ComponentsToUse {
   final String? content;
 
@@ -38,6 +41,7 @@ class ComponentsToUse {
 }
 
 /// 12.1. Component Strategy [PD00-COM-STR].
+@tomReflector
 class ComponentStrategy {
   final String? content;
 
@@ -59,6 +63,7 @@ class ComponentStrategy {
 // ---------------------------------------------------------------------------
 
 /// A component entry [PD00-COM-COM-nn] (form) with sub-entries.
+@tomReflector
 class ComponentEntry {
   final String? content;
   final String? componentName;
@@ -94,6 +99,7 @@ class ComponentEntry {
 }
 
 /// Component licensing sub-entry [PD00-COM-COM-nn-LIC] (form).
+@tomReflector
 class ComponentLicensingEntry {
   final String? content;
   final String? licenseModel;
@@ -111,6 +117,7 @@ class ComponentLicensingEntry {
 }
 
 /// Component responsibilities sub-entry [PD00-COM-COM-nn-RES] (form).
+@tomReflector
 class ComponentResponsibilitiesEntry {
   final String? content;
   final String? technicalContact;
@@ -132,6 +139,7 @@ class ComponentResponsibilitiesEntry {
 // ---------------------------------------------------------------------------
 
 /// 12.6. Risk Assessment [PD00-COM-RIS].
+@tomReflector
 class ComponentRiskAssessment {
   final String? content;
 
@@ -149,6 +157,7 @@ class ComponentRiskAssessment {
 }
 
 /// A component risk entry [PD00-COM-RIS-RIS-nn] (form).
+@tomReflector
 class ComponentRiskEntry {
   final String? content;
   final String? riskId;

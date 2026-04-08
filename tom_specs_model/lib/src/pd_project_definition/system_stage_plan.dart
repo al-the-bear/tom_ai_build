@@ -3,8 +3,11 @@
 /// System stages are meaningful subsets of the functional system.
 library;
 
+import 'package:tom_core_kernel/tom_core_kernel.dart';
+
 
 /// 13. System Stage Plan [PD00-SSP]. Seeds → PPP.
+@tomReflector
 class SystemStagePlan {
   final String? content;
 
@@ -38,6 +41,7 @@ class SystemStagePlan {
 }
 
 /// 13.1. Staging Strategy [PD00-SSP-STR].
+@tomReflector
 class StagingStrategy {
   final String? content;
 
@@ -55,6 +59,7 @@ class StagingStrategy {
 }
 
 /// 13.2. Stage Overview [PD00-SSP-STA].
+@tomReflector
 class StageOverview {
   final String? content;
 
@@ -72,6 +77,7 @@ class StageOverview {
 }
 
 /// A stage entry [PD00-SSP-STG-nn] (form) with description subsections.
+@tomReflector
 class StageEntry {
   final String? content;
   final String? stageNumber;
@@ -109,6 +115,7 @@ class StageEntry {
 }
 
 /// 13.4. Feature Prioritization [PD00-SSP-FEA].
+@tomReflector
 class FeaturePrioritization {
   final String? content;
 
@@ -126,6 +133,7 @@ class FeaturePrioritization {
 }
 
 /// 13.5. Data Migration Strategy [PD00-SSP-MIG].
+@tomReflector
 class DataMigrationStrategy {
   final String? content;
 
@@ -143,6 +151,7 @@ class DataMigrationStrategy {
 }
 
 /// 13.6. Governance [PD00-SSP-GOV].
+@tomReflector
 class StageGovernance {
   final String? content;
 

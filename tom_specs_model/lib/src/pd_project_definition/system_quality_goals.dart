@@ -3,8 +3,11 @@
 /// Quality goals for acceptance testing, organized by quality category.
 library;
 
+import 'package:tom_core_kernel/tom_core_kernel.dart';
+
 
 /// 11. System Quality Goals [PD00-SYQ]. Seeds → BQP.
+@tomReflector
 class SystemQualityGoals {
   final String? content;
 
@@ -42,6 +45,7 @@ class SystemQualityGoals {
 }
 
 /// 11.1. Quality Framework [PD00-SYQ-FRA].
+@tomReflector
 class QualityFramework {
   final String? content;
 
@@ -59,6 +63,7 @@ class QualityFramework {
 }
 
 /// 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
+@tomReflector
 class UserQualityCriteria {
   final String? content;
 
@@ -80,6 +85,7 @@ class UserQualityCriteria {
 }
 
 /// 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
+@tomReflector
 class TechnicalQualityCriteria {
   final String? content;
 
@@ -113,6 +119,7 @@ class TechnicalQualityCriteria {
 }
 
 /// 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
+@tomReflector
 class OperationsQualityCriteria {
   final String? content;
 
@@ -138,6 +145,7 @@ class OperationsQualityCriteria {
 }
 
 /// 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
+@tomReflector
 class DocumentationQualityCriteria {
   final String? content;
 
@@ -163,6 +171,7 @@ class DocumentationQualityCriteria {
 }
 
 /// 11.6. Quality Prioritization [PD00-SYQ-PRI].
+@tomReflector
 class QualityPrioritization {
   final String? content;
 
@@ -180,6 +189,7 @@ class QualityPrioritization {
 }
 
 /// 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
+@tomReflector
 class AcceptanceCriteriaSummary {
   final String? content;
 

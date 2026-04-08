@@ -3,8 +3,11 @@
 /// Conceptual overview of the business data the system manages.
 library;
 
+import 'package:tom_core_kernel/tom_core_kernel.dart';
+
 
 /// 7. Business Object and Data Model [PD00-BUS]. Seeds → BDM.
+@tomReflector
 class BusinessObjectAndDataModel {
   final String? content;
 
@@ -30,6 +33,7 @@ class BusinessObjectAndDataModel {
 // ---------------------------------------------------------------------------
 
 /// 7.1. Data Model [PD00-BUS-DAT].
+@tomReflector
 class DataModel {
   final String? content;
 
@@ -55,6 +59,7 @@ class DataModel {
 }
 
 /// A data entity entry [PD00-BUS-DAT-ENT-nn] (form).
+@tomReflector
 class DataEntityEntry {
   final String? content;
   final String? entityName;
@@ -82,6 +87,7 @@ class DataEntityEntry {
 // ---------------------------------------------------------------------------
 
 /// 7.2. Business Object Model [PD00-BUS-BUS].
+@tomReflector
 class BusinessObjectModel {
   final String? content;
 
@@ -101,6 +107,7 @@ class BusinessObjectModel {
 /// A business object entry [PD00-BUS-BUS-CAT-nn] (form).
 ///
 /// Includes optional lifecycle state transitions subsection.
+@tomReflector
 class BusinessObjectEntry {
   final String? content;
   final String? objectName;
@@ -128,6 +135,7 @@ class BusinessObjectEntry {
 // ---------------------------------------------------------------------------
 
 /// 7.3. Function Model [PD00-BUS-FUN].
+@tomReflector
 class FunctionModel {
   final String? content;
 
@@ -149,6 +157,7 @@ class FunctionModel {
 }
 
 /// A business rule entry [PD00-BUS-FUN-RUL-nn] (form).
+@tomReflector
 class BusinessRuleEntry {
   final String? content;
   final String? ruleId;
