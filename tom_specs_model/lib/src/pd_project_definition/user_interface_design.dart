@@ -78,10 +78,10 @@ class DesignVision {
   final String? content;
 
   /// 10.1.1. Design Goals [PD00-USE-VIS-GOA].
-  final List<String> designGoals;
+  final List<DesignGoalEntry> designGoals;
 
   /// 10.1.2. Design Principles [PD00-USE-VIS-PRI].
-  final List<String> designPrinciples;
+  final List<UiDesignPrincipleEntry> designPrinciples;
 
   /// 10.1.3. User Personas [PD00-USE-VIS-PER] — contains 1+× Persona.
   final List<PersonaEntry> personas;
@@ -94,6 +94,26 @@ class DesignVision {
   });
 }
 
+/// A design goal entry (form).
+@tomReflector
+class DesignGoalEntry {
+  final String? content;
+  final String? goal;
+  final String? description;
+
+  const DesignGoalEntry({this.content, this.goal, this.description});
+}
+
+/// A design principle entry (form).
+@tomReflector
+class UiDesignPrincipleEntry {
+  final String? content;
+  final String? principle;
+  final String? rationale;
+
+  const UiDesignPrincipleEntry({this.content, this.principle, this.rationale});
+}
+
 /// A user persona entry [PD00-USE-VIS-PER-nn] (form).
 @tomReflector
 class PersonaEntry {
@@ -101,8 +121,8 @@ class PersonaEntry {
   final String? personaName;
   final String? age;
   final String? role;
-  final List<String> goals;
-  final List<String> painPoints;
+  final List<PersonaGoalEntry> goals;
+  final List<PersonaPainPointEntry> painPoints;
   final String? technicalProficiency;
   final String? typicalUsage;
   final String? device;
@@ -118,6 +138,26 @@ class PersonaEntry {
     this.typicalUsage,
     this.device,
   });
+}
+
+/// A persona goal entry (form).
+@tomReflector
+class PersonaGoalEntry {
+  final String? content;
+  final String? goal;
+  final String? priority;
+
+  const PersonaGoalEntry({this.content, this.goal, this.priority});
+}
+
+/// A pain point entry (form).
+@tomReflector
+class PersonaPainPointEntry {
+  final String? content;
+  final String? painPoint;
+  final String? impact;
+
+  const PersonaPainPointEntry({this.content, this.painPoint, this.impact});
 }
 
 // ---------------------------------------------------------------------------
@@ -149,10 +189,10 @@ class ScreenEntry {
   final String? screenId;
   final String? screenName;
   final String? purpose;
-  final List<String> keyElements;
-  final List<String> userCategories;
+  final List<ScreenElementEntry> keyElements;
+  final List<ScreenUserCategoryEntry> userCategories;
   final String? accessLevel;
-  final List<String> entryPoints;
+  final List<EntryPointEntry> entryPoints;
   final String? layout;
 
   const ScreenEntry({
@@ -166,6 +206,44 @@ class ScreenEntry {
     this.entryPoints = const [],
     this.layout,
   });
+}
+
+/// A screen element entry (form).
+@tomReflector
+class ScreenElementEntry {
+  final String? content;
+  final String? elementName;
+  final String? elementType;
+
+  const ScreenElementEntry({
+    this.content,
+    this.elementName,
+    this.elementType,
+  });
+}
+
+/// A user category entry (form).
+@tomReflector
+class ScreenUserCategoryEntry {
+  final String? content;
+  final String? categoryName;
+  final String? description;
+
+  const ScreenUserCategoryEntry({
+    this.content,
+    this.categoryName,
+    this.description,
+  });
+}
+
+/// An entry point entry (form).
+@tomReflector
+class EntryPointEntry {
+  final String? content;
+  final String? entryPoint;
+  final String? source;
+
+  const EntryPointEntry({this.content, this.entryPoint, this.source});
 }
 
 // ---------------------------------------------------------------------------
@@ -203,13 +281,23 @@ class PrintLayout {
   final List<ReportEntry> reports;
 
   /// 10.4.2. Export Formats [PD00-USE-PRI-EXP].
-  final List<String> exportFormats;
+  final List<ExportFormatEntry> exportFormats;
 
   const PrintLayout({
     this.content,
     this.reports = const [],
     this.exportFormats = const [],
   });
+}
+
+/// An export format entry (form).
+@tomReflector
+class ExportFormatEntry {
+  final String? content;
+  final String? formatName;
+  final String? description;
+
+  const ExportFormatEntry({this.content, this.formatName, this.description});
 }
 
 /// A report entry [PD00-USE-PRI-REP-nn] (form).
@@ -221,7 +309,7 @@ class ReportEntry {
   final String? reportContent;
   final String? format;
   final String? generationTrigger;
-  final List<String> recipients;
+  final List<RecipientEntry> recipients;
   final String? customization;
 
   const ReportEntry({
@@ -234,6 +322,16 @@ class ReportEntry {
     this.recipients = const [],
     this.customization,
   });
+}
+
+/// A recipient entry (form).
+@tomReflector
+class RecipientEntry {
+  final String? content;
+  final String? recipientName;
+  final String? role;
+
+  const RecipientEntry({this.content, this.recipientName, this.role});
 }
 
 // ---------------------------------------------------------------------------
@@ -347,7 +445,7 @@ class ResponsiveDesign {
   final String? content;
 
   /// 10.10.1. Breakpoints [PD00-USE-RES-BRE].
-  final List<String> breakpoints;
+  final List<BreakpointEntry> breakpoints;
 
   /// 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
   final String? responsiveBehavior;
@@ -356,6 +454,22 @@ class ResponsiveDesign {
     this.content,
     this.breakpoints = const [],
     this.responsiveBehavior,
+  });
+}
+
+/// A breakpoint entry (form).
+@tomReflector
+class BreakpointEntry {
+  final String? content;
+  final String? breakpointName;
+  final String? minWidth;
+  final String? layoutBehavior;
+
+  const BreakpointEntry({
+    this.content,
+    this.breakpointName,
+    this.minWidth,
+    this.layoutBehavior,
   });
 }
 
@@ -388,8 +502,8 @@ class UiComponentEntry {
   final String? componentName;
   final String? purpose;
   final String? behavior;
-  final List<String> states;
-  final List<String> variants;
+  final List<ComponentStateEntry> states;
+  final List<ComponentVariantEntry> variants;
   final String? responsive;
 
   const UiComponentEntry({
@@ -400,6 +514,34 @@ class UiComponentEntry {
     this.states = const [],
     this.variants = const [],
     this.responsive,
+  });
+}
+
+/// A component state entry (form).
+@tomReflector
+class ComponentStateEntry {
+  final String? content;
+  final String? stateName;
+  final String? description;
+
+  const ComponentStateEntry({
+    this.content,
+    this.stateName,
+    this.description,
+  });
+}
+
+/// A component variant entry (form).
+@tomReflector
+class ComponentVariantEntry {
+  final String? content;
+  final String? variantName;
+  final String? description;
+
+  const ComponentVariantEntry({
+    this.content,
+    this.variantName,
+    this.description,
   });
 }
 
@@ -447,7 +589,7 @@ class Prototype {
   final String? content;
 
   /// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
-  final List<String> prototypeGoals;
+  final List<PrototypeGoalEntry> prototypeGoals;
 
   /// 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
   final String? selectedFeatureSubset;
@@ -483,4 +625,14 @@ class PrototypeTypeSection {
     this.trainingPrototype,
     this.throwawayPrototype,
   });
+}
+
+/// A prototype goal entry (form).
+@tomReflector
+class PrototypeGoalEntry {
+  final String? content;
+  final String? goal;
+  final String? description;
+
+  const PrototypeGoalEntry({this.content, this.goal, this.description});
 }

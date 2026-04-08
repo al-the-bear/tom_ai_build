@@ -88,7 +88,7 @@ class UserInteractionModel {
   final List<InteractionChannelEntry> channels;
 
   /// Interaction patterns (workflow, self-service, batch, etc.).
-  final List<String> interactionPatterns;
+  final List<InteractionPatternEntry> interactionPatterns;
 
   /// Session model (stateful/stateless, session duration, etc.).
   final String? sessionModel;
@@ -102,6 +102,20 @@ class UserInteractionModel {
     this.interactionPatterns = const [],
     this.sessionModel,
     this.concurrencyModel,
+  });
+}
+
+/// An interaction pattern entry (form).
+@tomReflector
+class InteractionPatternEntry {
+  final String? content;
+  final String? patternName;
+  final String? description;
+
+  const InteractionPatternEntry({
+    this.content,
+    this.patternName,
+    this.description,
   });
 }
 
@@ -336,10 +350,10 @@ class FunctionalRequirementEntry {
   final String? priority;
   final String? source;
   final String? rationale;
-  final List<String> acceptanceCriteria;
+  final List<AcceptanceCriterionEntry> acceptanceCriteria;
   final String? relatedUseCase;
   final String? relatedBusinessProcess;
-  final List<String> affectedDataEntities;
+  final List<DataEntityReferenceEntry> affectedDataEntities;
   final String? status;
 
   const FunctionalRequirementEntry({
@@ -358,6 +372,34 @@ class FunctionalRequirementEntry {
   });
 }
 
+/// An acceptance criterion entry (form). Shared across requirement types.
+@tomReflector
+class AcceptanceCriterionEntry {
+  final String? content;
+  final String? criterion;
+  final String? verificationMethod;
+
+  const AcceptanceCriterionEntry({
+    this.content,
+    this.criterion,
+    this.verificationMethod,
+  });
+}
+
+/// A reference to a data entity (form).
+@tomReflector
+class DataEntityReferenceEntry {
+  final String? content;
+  final String? entityName;
+  final String? relationship;
+
+  const DataEntityReferenceEntry({
+    this.content,
+    this.entityName,
+    this.relationship,
+  });
+}
+
 /// A technical requirement entry [PD00-SYO-REQ-TEC-nn] (form).
 @tomReflector
 class TechnicalRequirementEntry {
@@ -368,7 +410,7 @@ class TechnicalRequirementEntry {
   final String? priority;
   final String? source;
   final String? rationale;
-  final List<String> acceptanceCriteria;
+  final List<AcceptanceCriterionEntry> acceptanceCriteria;
   final String? verificationApproach;
   final String? status;
 
@@ -397,7 +439,7 @@ class SecurityRequirementEntry {
   final String? source;
   final String? rationale;
   final String? complianceReference;
-  final List<String> acceptanceCriteria;
+  final List<AcceptanceCriterionEntry> acceptanceCriteria;
   final String? status;
 
   const SecurityRequirementEntry({
@@ -424,7 +466,7 @@ class OrganizationalRequirementEntry {
   final String? priority;
   final String? source;
   final String? rationale;
-  final List<String> acceptanceCriteria;
+  final List<AcceptanceCriterionEntry> acceptanceCriteria;
   final String? status;
 
   const OrganizationalRequirementEntry({
@@ -472,7 +514,7 @@ class SystemToReplaceEntry {
   final String? dataMigrationScope;
   final String? migrationComplexity;
   final String? decommissionDate;
-  final List<String> dependencies;
+  final List<SystemDependencyReferenceEntry> dependencies;
 
   /// Per-system migration considerations.
   final SystemMigrationConsiderations systemMigration;
@@ -490,13 +532,27 @@ class SystemToReplaceEntry {
   });
 }
 
+/// A system dependency reference entry (form).
+@tomReflector
+class SystemDependencyReferenceEntry {
+  final String? content;
+  final String? dependencyName;
+  final String? dependencyType;
+
+  const SystemDependencyReferenceEntry({
+    this.content,
+    this.dependencyName,
+    this.dependencyType,
+  });
+}
+
 /// Per-system migration considerations.
 @tomReflector
 class SystemMigrationConsiderations {
   final String? content;
   final String? migrationApproach;
   final String? dataTransformationNeeds;
-  final List<String> risks;
+  final List<MigrationRiskReferenceEntry> risks;
   final String? estimatedEffort;
   final String? rollbackStrategy;
 
@@ -507,6 +563,20 @@ class SystemMigrationConsiderations {
     this.risks = const [],
     this.estimatedEffort,
     this.rollbackStrategy,
+  });
+}
+
+/// A migration risk reference entry (form).
+@tomReflector
+class MigrationRiskReferenceEntry {
+  final String? content;
+  final String? riskDescription;
+  final String? mitigation;
+
+  const MigrationRiskReferenceEntry({
+    this.content,
+    this.riskDescription,
+    this.mitigation,
   });
 }
 
@@ -761,16 +831,44 @@ class TechnicalFrameworkConditions {
   final String? existingInfrastructure;
 
   /// Technology standards [PD00-SYO-RES-TEC-STD].
-  final List<String> technologyStandards;
+  final List<TechnologyStandardEntry> technologyStandards;
 
   /// Integration constraints [PD00-SYO-RES-TEC-INT].
-  final List<String> integrationConstraints;
+  final List<IntegrationConstraintEntry> integrationConstraints;
 
   const TechnicalFrameworkConditions({
     this.content,
     this.existingInfrastructure,
     this.technologyStandards = const [],
     this.integrationConstraints = const [],
+  });
+}
+
+/// A technology standard entry (form).
+@tomReflector
+class TechnologyStandardEntry {
+  final String? content;
+  final String? standard;
+  final String? description;
+
+  const TechnologyStandardEntry({
+    this.content,
+    this.standard,
+    this.description,
+  });
+}
+
+/// An integration constraint entry (form).
+@tomReflector
+class IntegrationConstraintEntry {
+  final String? content;
+  final String? constraint;
+  final String? impactedSystem;
+
+  const IntegrationConstraintEntry({
+    this.content,
+    this.constraint,
+    this.impactedSystem,
   });
 }
 

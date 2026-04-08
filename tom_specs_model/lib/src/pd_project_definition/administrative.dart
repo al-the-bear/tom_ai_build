@@ -236,7 +236,7 @@ class ChangeProcess {
   final List<ChangeStepEntry> steps;
 
   /// Roles involved in the change process.
-  final List<String> roles;
+  final List<ChangeRoleEntry> roles;
 
   final String? approvalAuthority;
   final String? escalationPath;
@@ -249,6 +249,16 @@ class ChangeProcess {
     this.approvalAuthority,
     this.escalationPath,
   });
+}
+
+/// A role involved in the change process (form).
+@tomReflector
+class ChangeRoleEntry {
+  final String? content;
+  final String? roleName;
+  final String? responsibility;
+
+  const ChangeRoleEntry({this.content, this.roleName, this.responsibility});
 }
 
 /// A change process step entry (form).

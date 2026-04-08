@@ -46,7 +46,7 @@ class ComponentStrategy {
   final String? content;
 
   /// 12.1.1. Reuse Goals [PD00-COM-STR-GOA].
-  final List<String> reuseGoals;
+  final List<ReuseGoalEntry> reuseGoals;
 
   /// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
   final EvaluationCriteria evaluationCriteria;
@@ -56,6 +56,16 @@ class ComponentStrategy {
     this.reuseGoals = const [],
     this.evaluationCriteria = const EvaluationCriteria(),
   });
+}
+
+/// A reuse goal entry (form).
+@tomReflector
+class ReuseGoalEntry {
+  final String? content;
+  final String? goal;
+  final String? rationale;
+
+  const ReuseGoalEntry({this.content, this.goal, this.rationale});
 }
 
 /// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
@@ -136,7 +146,7 @@ class ComponentEntry {
   final String? documentation;
 
   /// Interfaces [PD00-COM-COM-nn-INT].
-  final List<String> interfaces;
+  final List<ComponentInterfaceEntry> interfaces;
 
   /// Licensing [PD00-COM-COM-nn-LIC] (form).
   final ComponentLicensingEntry? licensing;
@@ -158,6 +168,22 @@ class ComponentEntry {
     this.licensing,
     this.usageRights,
     this.responsibilities,
+  });
+}
+
+/// A component interface entry (form).
+@tomReflector
+class ComponentInterfaceEntry {
+  final String? content;
+  final String? interfaceName;
+  final String? interfaceType;
+  final String? description;
+
+  const ComponentInterfaceEntry({
+    this.content,
+    this.interfaceName,
+    this.interfaceType,
+    this.description,
   });
 }
 

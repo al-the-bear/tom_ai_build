@@ -60,7 +60,7 @@ class BasicTechnicalRequirements {
   final String? architectureStyle;
 
   /// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
-  final List<String> designPatternsAndStandards;
+  final List<DesignPatternEntry> designPatternsAndStandards;
 
   const BasicTechnicalRequirements({
     this.content,
@@ -68,6 +68,16 @@ class BasicTechnicalRequirements {
     this.architectureStyle,
     this.designPatternsAndStandards = const [],
   });
+}
+
+/// A design pattern or standard entry (form).
+@tomReflector
+class DesignPatternEntry {
+  final String? content;
+  final String? patternName;
+  final String? purpose;
+
+  const DesignPatternEntry({this.content, this.patternName, this.purpose});
 }
 
 /// 8.2. Software Design Requirements [PD00-TEC-SOF].
@@ -82,7 +92,7 @@ class SoftwareDesignRequirements {
   final String? developmentEnvironment;
 
   /// 8.2.3. Reusable Components [PD00-TEC-SOF-REU].
-  final List<String> reusableComponents;
+  final List<ReusableComponentEntry> reusableComponents;
 
   const SoftwareDesignRequirements({
     this.content,
@@ -92,13 +102,29 @@ class SoftwareDesignRequirements {
   });
 }
 
+/// A reusable component entry (form).
+@tomReflector
+class ReusableComponentEntry {
+  final String? content;
+  final String? componentName;
+  final String? source;
+  final String? purpose;
+
+  const ReusableComponentEntry({
+    this.content,
+    this.componentName,
+    this.source,
+    this.purpose,
+  });
+}
+
 /// 8.3. Standard Application Software Requirements [PD00-TEC-STA].
 @tomReflector
 class StandardSoftwareRequirements {
   final String? content;
 
   /// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
-  final List<String> compatibilityRequirements;
+  final List<CompatibilityRequirementEntry> compatibilityRequirements;
 
   /// 8.3.2. Standards Compliance [PD00-TEC-STA-STD].
   final String? standardsCompliance;
@@ -107,6 +133,20 @@ class StandardSoftwareRequirements {
     this.content,
     this.compatibilityRequirements = const [],
     this.standardsCompliance,
+  });
+}
+
+/// A compatibility requirement entry (form).
+@tomReflector
+class CompatibilityRequirementEntry {
+  final String? content;
+  final String? requirement;
+  final String? system;
+
+  const CompatibilityRequirementEntry({
+    this.content,
+    this.requirement,
+    this.system,
   });
 }
 
@@ -164,7 +204,7 @@ class CommunicationRequirements {
   final String? content;
 
   /// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
-  final List<String> protocolsAndStandards;
+  final List<ProtocolEntry> protocolsAndStandards;
 
   /// 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
   final String? externalConnectivity;
@@ -174,6 +214,16 @@ class CommunicationRequirements {
     this.protocolsAndStandards = const [],
     this.externalConnectivity,
   });
+}
+
+/// A protocol or standard entry (form).
+@tomReflector
+class ProtocolEntry {
+  final String? content;
+  final String? protocolName;
+  final String? purpose;
+
+  const ProtocolEntry({this.content, this.protocolName, this.purpose});
 }
 
 /// 8.7. System Operation and Monitoring [PD00-TEC-SYS].
@@ -204,18 +254,48 @@ class TechnicalSecurityRequirements {
   final String? content;
 
   /// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
-  final List<String> itSecurityStandards;
+  final List<SecurityStandardEntry> itSecurityStandards;
 
   /// 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
   final String? dataProtectionAndPrivacy;
 
   /// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
-  final List<String> securityAuditRequirements;
+  final List<SecurityAuditEntry> securityAuditRequirements;
 
   const TechnicalSecurityRequirements({
     this.content,
     this.itSecurityStandards = const [],
     this.dataProtectionAndPrivacy,
     this.securityAuditRequirements = const [],
+  });
+}
+
+/// A security standard entry (form).
+@tomReflector
+class SecurityStandardEntry {
+  final String? content;
+  final String? standardName;
+  final String? version;
+  final String? scope;
+
+  const SecurityStandardEntry({
+    this.content,
+    this.standardName,
+    this.version,
+    this.scope,
+  });
+}
+
+/// A security audit requirement entry (form).
+@tomReflector
+class SecurityAuditEntry {
+  final String? content;
+  final String? requirement;
+  final String? frequency;
+
+  const SecurityAuditEntry({
+    this.content,
+    this.requirement,
+    this.frequency,
   });
 }

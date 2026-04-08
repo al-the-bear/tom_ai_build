@@ -220,7 +220,7 @@ class ScenarioEntry {
   final String? content;
   final String? scenarioName;
   final String? description;
-  final List<String> steps;
+  final List<ScenarioStepEntry> steps;
   final String? successCondition;
 
   /// Alternative flows for this scenario.
@@ -236,13 +236,29 @@ class ScenarioEntry {
   });
 }
 
+/// A scenario step entry (form).
+@tomReflector
+class ScenarioStepEntry {
+  final String? content;
+  final String? stepNumber;
+  final String? description;
+  final String? expectedResult;
+
+  const ScenarioStepEntry({
+    this.content,
+    this.stepNumber,
+    this.description,
+    this.expectedResult,
+  });
+}
+
 /// An alternative flow entry (form).
 @tomReflector
 class AlternativeFlowEntry {
   final String? content;
   final String? flowName;
   final String? triggerCondition;
-  final List<String> steps;
+  final List<ScenarioStepEntry> steps;
   final String? outcome;
   final String? returnPoint;
 

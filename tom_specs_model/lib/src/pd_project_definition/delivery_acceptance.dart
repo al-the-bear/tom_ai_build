@@ -144,21 +144,21 @@ class AcceptancePlan {
 @tomReflector
 class AcceptanceCriteriaList {
   final String? content;
-  final List<AcceptanceCriterionEntry> items;
+  final List<DeliveryAcceptanceCriterionEntry> items;
 
   const AcceptanceCriteriaList({this.content, this.items = const []});
 }
 
 /// An acceptance criterion entry (form).
 @tomReflector
-class AcceptanceCriterionEntry {
+class DeliveryAcceptanceCriterionEntry {
   final String? content;
   final String? criterion;
   final String? category;
   final String? verificationMethod;
   final String? acceptanceThreshold;
 
-  const AcceptanceCriterionEntry({
+  const DeliveryAcceptanceCriterionEntry({
     this.content,
     this.criterion,
     this.category,
@@ -171,7 +171,7 @@ class AcceptanceCriterionEntry {
 @tomReflector
 class AcceptanceProcess {
   final String? content;
-  final List<String> steps;
+  final List<AcceptanceStepEntry> steps;
   final String? timeline;
   final String? participants;
   final String? escalationProcess;
@@ -185,6 +185,20 @@ class AcceptanceProcess {
   });
 }
 
+/// An acceptance step entry (form).
+@tomReflector
+class AcceptanceStepEntry {
+  final String? content;
+  final String? stepName;
+  final String? description;
+
+  const AcceptanceStepEntry({
+    this.content,
+    this.stepName,
+    this.description,
+  });
+}
+
 /// 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
 @tomReflector
 class UserAcceptanceTesting {
@@ -193,7 +207,7 @@ class UserAcceptanceTesting {
   final String? environment;
   final String? participants;
   final String? schedule;
-  final List<String> testScenarios;
+  final List<TestScenarioEntry> testScenarios;
   final String? exitCriteria;
 
   const UserAcceptanceTesting({
@@ -204,5 +218,21 @@ class UserAcceptanceTesting {
     this.schedule,
     this.testScenarios = const [],
     this.exitCriteria,
+  });
+}
+
+/// A test scenario entry (form).
+@tomReflector
+class TestScenarioEntry {
+  final String? content;
+  final String? scenarioName;
+  final String? description;
+  final String? expectedResult;
+
+  const TestScenarioEntry({
+    this.content,
+    this.scenarioName,
+    this.description,
+    this.expectedResult,
   });
 }

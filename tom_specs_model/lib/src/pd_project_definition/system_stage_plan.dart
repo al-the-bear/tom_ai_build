@@ -89,13 +89,13 @@ class StageEntry {
   final String? featureScope;
 
   /// Sub-stages and Milestones [PD00-SSP-STG-nn-SUB].
-  final List<String> subStagesAndMilestones;
+  final List<SubStageEntry> subStagesAndMilestones;
 
   /// Timeline [PD00-SSP-STG-nn-TIM] (description).
   final String? timeline;
 
   /// Success Criteria [PD00-SSP-STG-nn-SUC].
-  final List<String> successCriteria;
+  final List<StageSuccessCriterionEntry> successCriteria;
 
   /// Rollout Plan [PD00-SSP-STG-nn-ROL] (description).
   final String? rolloutPlan;
@@ -111,6 +111,36 @@ class StageEntry {
     this.timeline,
     this.successCriteria = const [],
     this.rolloutPlan,
+  });
+}
+
+/// A sub-stage or milestone entry (form).
+@tomReflector
+class SubStageEntry {
+  final String? content;
+  final String? name;
+  final String? description;
+  final String? targetDate;
+
+  const SubStageEntry({
+    this.content,
+    this.name,
+    this.description,
+    this.targetDate,
+  });
+}
+
+/// A success criterion entry (form).
+@tomReflector
+class StageSuccessCriterionEntry {
+  final String? content;
+  final String? criterion;
+  final String? measurementMethod;
+
+  const StageSuccessCriterionEntry({
+    this.content,
+    this.criterion,
+    this.measurementMethod,
   });
 }
 
@@ -239,7 +269,7 @@ class PhaseGateReviewEntry {
   final String? content;
   final String? gateName;
   final String? stage;
-  final List<String> reviewCriteria;
+  final List<ReviewCriterionEntry> reviewCriteria;
   final String? decisionAuthority;
 
   const PhaseGateReviewEntry({
@@ -248,6 +278,20 @@ class PhaseGateReviewEntry {
     this.stage,
     this.reviewCriteria = const [],
     this.decisionAuthority,
+  });
+}
+
+/// A review criterion entry (form).
+@tomReflector
+class ReviewCriterionEntry {
+  final String? content;
+  final String? criterion;
+  final String? description;
+
+  const ReviewCriterionEntry({
+    this.content,
+    this.criterion,
+    this.description,
   });
 }
 
@@ -268,7 +312,7 @@ class DecisionPointEntry {
   final String? timing;
   final String? criteria;
   final String? decisionAuthority;
-  final List<String> options;
+  final List<DecisionOptionEntry> options;
 
   const DecisionPointEntry({
     this.content,
@@ -277,5 +321,21 @@ class DecisionPointEntry {
     this.criteria,
     this.decisionAuthority,
     this.options = const [],
+  });
+}
+
+/// A decision option entry (form).
+@tomReflector
+class DecisionOptionEntry {
+  final String? content;
+  final String? option;
+  final String? description;
+  final String? implications;
+
+  const DecisionOptionEntry({
+    this.content,
+    this.option,
+    this.description,
+    this.implications,
   });
 }

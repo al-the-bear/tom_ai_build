@@ -239,7 +239,7 @@ class AuthorizationGroupEntry {
   final String? content;
   final String? groupName;
   final String? description;
-  final List<String> containedRoles;
+  final List<RoleReferenceEntry> containedRoles;
   final String? membershipCriteria;
 
   const AuthorizationGroupEntry({
@@ -251,17 +251,26 @@ class AuthorizationGroupEntry {
   });
 }
 
+/// A role reference entry (form).
+@tomReflector
+class RoleReferenceEntry {
+  final String? content;
+  final String? roleName;
+
+  const RoleReferenceEntry({this.content, this.roleName});
+}
+
 /// An authorization role entry [PD00-ACC-USA-ROL-nn] (form).
 @tomReflector
 class AuthorizationRoleEntry {
   final String? content;
   final String? roleName;
   final String? description;
-  final List<String> responsibilities;
-  final List<String> entitlementReferences;
+  final List<ResponsibilityReferenceEntry> responsibilities;
+  final List<EntitlementReferenceEntry> entitlementReferences;
   final String? inheritsFrom;
-  final List<String> mutualExclusions;
-  final List<String> typicalHolders;
+  final List<RoleExclusionEntry> mutualExclusions;
+  final List<RoleHolderEntry> typicalHolders;
 
   const AuthorizationRoleEntry({
     this.content,
@@ -275,13 +284,60 @@ class AuthorizationRoleEntry {
   });
 }
 
+/// A responsibility reference entry (form).
+@tomReflector
+class ResponsibilityReferenceEntry {
+  final String? content;
+  final String? responsibility;
+  final String? description;
+
+  const ResponsibilityReferenceEntry({
+    this.content,
+    this.responsibility,
+    this.description,
+  });
+}
+
+/// An entitlement reference entry (form).
+@tomReflector
+class EntitlementReferenceEntry {
+  final String? content;
+  final String? entitlementName;
+
+  const EntitlementReferenceEntry({this.content, this.entitlementName});
+}
+
+/// A role exclusion entry (form).
+@tomReflector
+class RoleExclusionEntry {
+  final String? content;
+  final String? excludedRole;
+  final String? reason;
+
+  const RoleExclusionEntry({this.content, this.excludedRole, this.reason});
+}
+
+/// A role holder entry (form).
+@tomReflector
+class RoleHolderEntry {
+  final String? content;
+  final String? holderDescription;
+  final String? department;
+
+  const RoleHolderEntry({
+    this.content,
+    this.holderDescription,
+    this.department,
+  });
+}
+
 /// An entitlement entry [PD00-ACC-USA-ENT-nn] (form).
 @tomReflector
 class EntitlementEntry {
   final String? content;
   final String? entitlementName;
   final String? description;
-  final List<String> resourceKeyReferences;
+  final List<ResourceKeyReferenceEntry> resourceKeyReferences;
   final String? accessType;
   final String? conditions;
 
@@ -293,6 +349,15 @@ class EntitlementEntry {
     this.accessType,
     this.conditions,
   });
+}
+
+/// A resource key reference entry (form).
+@tomReflector
+class ResourceKeyReferenceEntry {
+  final String? content;
+  final String? resourceKey;
+
+  const ResourceKeyReferenceEntry({this.content, this.resourceKey});
 }
 
 /// A resource key entry [PD00-ACC-USA-RES-nn] (form).

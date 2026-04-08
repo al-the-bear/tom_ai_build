@@ -70,7 +70,7 @@ class ExistingSystemEntry {
   final String? dataVolume;
   final String? operationalSince;
   final String? supportStatus;
-  final List<String> knownLimitations;
+  final List<LimitationEntry> knownLimitations;
 
   const ExistingSystemEntry({
     this.content,
@@ -83,6 +83,16 @@ class ExistingSystemEntry {
     this.supportStatus,
     this.knownLimitations = const [],
   });
+}
+
+/// A known limitation of an existing system (form).
+@tomReflector
+class LimitationEntry {
+  final String? content;
+  final String? limitation;
+  final String? impact;
+
+  const LimitationEntry({this.content, this.limitation, this.impact});
 }
 
 /// 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
@@ -144,12 +154,12 @@ class CurrentWorkflowEntry {
   final String? content;
   final String? processName;
   final String? trigger;
-  final List<String> steps;
-  final List<String> actors;
+  final List<WorkflowStepEntry> steps;
+  final List<WorkflowActorEntry> actors;
   final String? output;
   final String? cycleTime;
-  final List<String> manualSteps;
-  final List<String> errorProneSteps;
+  final List<WorkflowStepEntry> manualSteps;
+  final List<WorkflowStepEntry> errorProneSteps;
 
   const CurrentWorkflowEntry({
     this.content,
@@ -162,6 +172,26 @@ class CurrentWorkflowEntry {
     this.manualSteps = const [],
     this.errorProneSteps = const [],
   });
+}
+
+/// A workflow step entry (form).
+@tomReflector
+class WorkflowStepEntry {
+  final String? content;
+  final String? stepName;
+  final String? description;
+
+  const WorkflowStepEntry({this.content, this.stepName, this.description});
+}
+
+/// A workflow actor entry (form).
+@tomReflector
+class WorkflowActorEntry {
+  final String? content;
+  final String? actorName;
+  final String? role;
+
+  const WorkflowActorEntry({this.content, this.actorName, this.role});
 }
 
 /// 1.2.2. Process Metrics [PD00-CUR-PRO-MET].

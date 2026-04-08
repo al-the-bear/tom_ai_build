@@ -53,12 +53,26 @@ class QualityFramework {
   final String? qualityObjectivesOverview;
 
   /// 11.1.2. Quality Categories [PD00-SYQ-FRA-CAT].
-  final List<String> qualityCategories;
+  final List<QualityCategoryEntry> qualityCategories;
 
   const QualityFramework({
     this.content,
     this.qualityObjectivesOverview,
     this.qualityCategories = const [],
+  });
+}
+
+/// A quality category entry (form).
+@tomReflector
+class QualityCategoryEntry {
+  final String? content;
+  final String? categoryName;
+  final String? description;
+
+  const QualityCategoryEntry({
+    this.content,
+    this.categoryName,
+    this.description,
   });
 }
 

@@ -65,7 +65,7 @@ class DataEntityEntry {
   final String? entityName;
   final String? description;
   final String? category;
-  final List<String> keyAttributes;
+  final List<DataAttributeEntry> keyAttributes;
   final String? estimatedRecordCount;
   final String? growthRate;
   final String? retentionPolicy;
@@ -79,6 +79,22 @@ class DataEntityEntry {
     this.estimatedRecordCount,
     this.growthRate,
     this.retentionPolicy,
+  });
+}
+
+/// A data attribute entry (form).
+@tomReflector
+class DataAttributeEntry {
+  final String? content;
+  final String? attributeName;
+  final String? dataType;
+  final String? description;
+
+  const DataAttributeEntry({
+    this.content,
+    this.attributeName,
+    this.dataType,
+    this.description,
   });
 }
 
@@ -126,9 +142,9 @@ class DataClassificationEntry {
   final String? content;
   final String? classification;
   final String? description;
-  final List<String> handlingRequirements;
+  final List<HandlingRequirementEntry> handlingRequirements;
   final String? retentionPolicy;
-  final List<String> accessRestrictions;
+  final List<AccessRestrictionEntry> accessRestrictions;
 
   const DataClassificationEntry({
     this.content,
@@ -137,6 +153,34 @@ class DataClassificationEntry {
     this.handlingRequirements = const [],
     this.retentionPolicy,
     this.accessRestrictions = const [],
+  });
+}
+
+/// A data handling requirement entry (form).
+@tomReflector
+class HandlingRequirementEntry {
+  final String? content;
+  final String? requirement;
+  final String? description;
+
+  const HandlingRequirementEntry({
+    this.content,
+    this.requirement,
+    this.description,
+  });
+}
+
+/// An access restriction entry (form).
+@tomReflector
+class AccessRestrictionEntry {
+  final String? content;
+  final String? restriction;
+  final String? enforcement;
+
+  const AccessRestrictionEntry({
+    this.content,
+    this.restriction,
+    this.enforcement,
   });
 }
 
@@ -171,11 +215,11 @@ class BusinessObjectEntry {
   final String? objectName;
   final String? category;
   final String? description;
-  final List<String> keyStates;
-  final List<String> keyBusinessRules;
+  final List<ObjectStateEntry> keyStates;
+  final List<BusinessRuleReferenceEntry> keyBusinessRules;
 
   /// Lifecycle State Transitions [PD00-BUS-BUS-CAT-nn-LIF].
-  final List<String> lifecycleTransitions;
+  final List<LifecycleTransitionEntry> lifecycleTransitions;
 
   const BusinessObjectEntry({
     this.content,
@@ -185,6 +229,46 @@ class BusinessObjectEntry {
     this.keyStates = const [],
     this.keyBusinessRules = const [],
     this.lifecycleTransitions = const [],
+  });
+}
+
+/// An object state entry (form).
+@tomReflector
+class ObjectStateEntry {
+  final String? content;
+  final String? stateName;
+  final String? description;
+
+  const ObjectStateEntry({this.content, this.stateName, this.description});
+}
+
+/// A business rule reference entry (form).
+@tomReflector
+class BusinessRuleReferenceEntry {
+  final String? content;
+  final String? ruleName;
+  final String? description;
+
+  const BusinessRuleReferenceEntry({
+    this.content,
+    this.ruleName,
+    this.description,
+  });
+}
+
+/// A lifecycle transition entry (form).
+@tomReflector
+class LifecycleTransitionEntry {
+  final String? content;
+  final String? fromState;
+  final String? toState;
+  final String? trigger;
+
+  const LifecycleTransitionEntry({
+    this.content,
+    this.fromState,
+    this.toState,
+    this.trigger,
   });
 }
 
@@ -221,8 +305,8 @@ class BusinessRuleEntry {
   final String? ruleId;
   final String? ruleName;
   final String? description;
-  final List<String> affectedObjects;
-  final List<String> affectedFunctions;
+  final List<AffectedObjectEntry> affectedObjects;
+  final List<AffectedFunctionEntry> affectedFunctions;
   final String? enforcement;
   final String? exceptionHandling;
 
@@ -235,5 +319,29 @@ class BusinessRuleEntry {
     this.affectedFunctions = const [],
     this.enforcement,
     this.exceptionHandling,
+  });
+}
+
+/// An affected object reference entry (form).
+@tomReflector
+class AffectedObjectEntry {
+  final String? content;
+  final String? objectName;
+  final String? impact;
+
+  const AffectedObjectEntry({this.content, this.objectName, this.impact});
+}
+
+/// An affected function reference entry (form).
+@tomReflector
+class AffectedFunctionEntry {
+  final String? content;
+  final String? functionName;
+  final String? impact;
+
+  const AffectedFunctionEntry({
+    this.content,
+    this.functionName,
+    this.impact,
   });
 }

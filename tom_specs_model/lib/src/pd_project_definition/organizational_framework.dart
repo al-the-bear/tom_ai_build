@@ -107,8 +107,8 @@ class NewRoleEntry {
   final String? content;
   final String? roleTitle;
   final String? department;
-  final List<String> responsibilities;
-  final List<String> requiredSkills;
+  final List<RoleResponsibilityEntry> responsibilities;
+  final List<SkillEntry> requiredSkills;
   final String? reportingLine;
   final String? fteAllocation;
   final String? startDate;
@@ -125,15 +125,39 @@ class NewRoleEntry {
   });
 }
 
+/// A responsibility entry (form).
+@tomReflector
+class RoleResponsibilityEntry {
+  final String? content;
+  final String? responsibility;
+  final String? description;
+
+  const RoleResponsibilityEntry({
+    this.content,
+    this.responsibility,
+    this.description,
+  });
+}
+
+/// A skill entry (form).
+@tomReflector
+class SkillEntry {
+  final String? content;
+  final String? skillName;
+  final String? proficiencyLevel;
+
+  const SkillEntry({this.content, this.skillName, this.proficiencyLevel});
+}
+
 /// A changed role entry [PD00-ORG-JOB-CHA-nn] (form).
 @tomReflector
 class ChangedRoleEntry {
   final String? content;
   final String? roleTitle;
   final String? currentDepartment;
-  final List<String> addedResponsibilities;
-  final List<String> removedResponsibilities;
-  final List<String> newSkillRequirements;
+  final List<RoleResponsibilityEntry> addedResponsibilities;
+  final List<RoleResponsibilityEntry> removedResponsibilities;
+  final List<SkillEntry> newSkillRequirements;
   final String? changedReportingLine;
   final String? trainingRequired;
 
