@@ -85,7 +85,7 @@ classDiagram
         ExistingSystemsLandscape existingSystemsLandscape
         CurrentBusinessProcesses currentBusinessProcesses
         PainPointsAndGaps painPointsAndGaps
-        String? currentDataLandscape
+        CurrentDataLandscape currentDataLandscape
     }
 
     class ExistingSystemsLandscape {
@@ -127,16 +127,56 @@ classDiagram
 
     class PainPointsAndGaps {
         String? content
-        String? operationalPainPoints
-        String? businessPainPoints
-        String? technicalPainPoints
+        OperationalPainPoints operationalPainPoints
+        BusinessPainPoints businessPainPoints
+        TechnicalPainPoints technicalPainPoints
+    }
+
+    class OperationalPainPoints {
+        String? content
+        List~PainPointEntry~ items
+    }
+
+    class BusinessPainPoints {
+        String? content
+        List~PainPointEntry~ items
+    }
+
+    class TechnicalPainPoints {
+        String? content
+        List~PainPointEntry~ items
+    }
+
+    class PainPointEntry {
+        String? content
+        String? painPoint
+        String? description
+        String? impact
+        String? affectedProcess
+        String? severity
+        String? workaround
+    }
+
+    class CurrentDataLandscape {
+        String? content
+        String? dataStores
+        String? dataFormats
+        String? dataVolumes
+        String? dataQuality
     }
 
     CurrentStateAnalysis --> ExistingSystemsLandscape
     CurrentStateAnalysis --> CurrentBusinessProcesses
     CurrentStateAnalysis --> PainPointsAndGaps
+    CurrentStateAnalysis --> CurrentDataLandscape
     ExistingSystemsLandscape --> "0..*" ExistingSystemEntry
     CurrentBusinessProcesses --> "0..*" CurrentWorkflowEntry
+    PainPointsAndGaps --> OperationalPainPoints
+    PainPointsAndGaps --> BusinessPainPoints
+    PainPointsAndGaps --> TechnicalPainPoints
+    OperationalPainPoints --> "0..*" PainPointEntry
+    BusinessPainPoints --> "0..*" PainPointEntry
+    TechnicalPainPoints --> "0..*" PainPointEntry
 ```
 
 ## 4. Section 2 — Project Organization and Process [PD00-POP]
@@ -145,11 +185,69 @@ classDiagram
 classDiagram
     class ProjectOrganizationAndProcess {
         String? content
-        String? roleAdjustments
-        String? qualityGateAdjustments
-        String? processAdjustments
-        String? toolingAndEnvironments
+        RoleAdjustments roleAdjustments
+        QualityGateAdjustments qualityGateAdjustments
+        ProcessAdjustments processAdjustments
+        ToolingAndEnvironments toolingAndEnvironments
     }
+
+    class RoleAdjustments {
+        String? content
+        List~RoleAdjustmentEntry~ items
+    }
+
+    class RoleAdjustmentEntry {
+        String? content
+        String? roleName
+        String? adjustment
+        String? rationale
+    }
+
+    class QualityGateAdjustments {
+        String? content
+        List~QualityGateAdjustmentEntry~ items
+    }
+
+    class QualityGateAdjustmentEntry {
+        String? content
+        String? gateName
+        String? adjustment
+        String? rationale
+    }
+
+    class ProcessAdjustments {
+        String? content
+        List~ProcessAdjustmentEntry~ items
+    }
+
+    class ProcessAdjustmentEntry {
+        String? content
+        String? processName
+        String? adjustment
+        String? rationale
+    }
+
+    class ToolingAndEnvironments {
+        String? content
+        List~ToolingEntry~ items
+    }
+
+    class ToolingEntry {
+        String? content
+        String? toolName
+        String? purpose
+        String? environment
+        String? version
+    }
+
+    ProjectOrganizationAndProcess --> RoleAdjustments
+    ProjectOrganizationAndProcess --> QualityGateAdjustments
+    ProjectOrganizationAndProcess --> ProcessAdjustments
+    ProjectOrganizationAndProcess --> ToolingAndEnvironments
+    RoleAdjustments --> "0..*" RoleAdjustmentEntry
+    QualityGateAdjustments --> "0..*" QualityGateAdjustmentEntry
+    ProcessAdjustments --> "0..*" ProcessAdjustmentEntry
+    ToolingAndEnvironments --> "0..*" ToolingEntry
 ```
 
 ## 5. Section 3 — Administrative [PD00-ADM]
@@ -168,8 +266,14 @@ classDiagram
 
     class ProjectOrganization {
         String? content
-        String? organizationStructure
+        OrganizationStructure organizationStructure
         List~CommitteeMemberEntry~ steeringCommittee
+    }
+
+    class OrganizationStructure {
+        String? content
+        String? orgChartExplanation
+        String? orgChartDiagram
     }
 
     class CommitteeMemberEntry {
@@ -200,14 +304,53 @@ classDiagram
 
     class DistributionList {
         String? content
-        String? fullDistribution
-        String? executiveSummary
+        FullDistribution fullDistribution
+        ExecutiveSummaryDistribution executiveSummary
+    }
+
+    class FullDistribution {
+        String? content
+        List~DistributionRecipientEntry~ items
+    }
+
+    class ExecutiveSummaryDistribution {
+        String? content
+        List~DistributionRecipientEntry~ items
+    }
+
+    class DistributionRecipientEntry {
+        String? content
+        String? name
+        String? role
+        String? organization
+        String? distributionMethod
     }
 
     class ChangeProcedure {
         String? content
-        String? changeProcess
-        String? changeImpactCriteria
+        ChangeProcess changeProcess
+        ChangeImpactCriteria changeImpactCriteria
+    }
+
+    class ChangeProcess {
+        String? content
+        String? steps
+        String? roles
+        String? approvalAuthority
+        String? escalationPath
+    }
+
+    class ChangeImpactCriteria {
+        String? content
+        List~ChangeImpactCriterionEntry~ items
+    }
+
+    class ChangeImpactCriterionEntry {
+        String? content
+        String? criterion
+        String? impactLevel
+        String? description
+        String? approvalRequired
     }
 
     class ReferenceDocuments {
@@ -230,8 +373,16 @@ classDiagram
     Administrative --> DistributionList
     Administrative --> ChangeProcedure
     Administrative --> ReferenceDocuments
+    ProjectOrganization --> OrganizationStructure
     ProjectOrganization --> "0..*" CommitteeMemberEntry
     ProjectTeamStaffing --> "0..*" TeamMemberEntry
+    DistributionList --> FullDistribution
+    DistributionList --> ExecutiveSummaryDistribution
+    FullDistribution --> "0..*" DistributionRecipientEntry
+    ExecutiveSummaryDistribution --> "0..*" DistributionRecipientEntry
+    ChangeProcedure --> ChangeProcess
+    ChangeProcedure --> ChangeImpactCriteria
+    ChangeImpactCriteria --> "0..*" ChangeImpactCriterionEntry
     ReferenceDocuments --> "0..*" ReferenceDocumentEntry
 ```
 
@@ -493,8 +644,22 @@ classDiagram
 
     class NewOrganizationStructure {
         String? content
-        String? changesFromCurrentStructure
+        ChangesFromCurrentStructure changesFromCurrentStructure
         String? transitionTimeline
+    }
+
+    class ChangesFromCurrentStructure {
+        String? content
+        List~OrganizationalChangeEntry~ items
+    }
+
+    class OrganizationalChangeEntry {
+        String? content
+        String? area
+        String? currentState
+        String? targetState
+        String? rationale
+        String? impact
     }
 
     class JobDescriptionsAndStaffing {
@@ -527,15 +692,48 @@ classDiagram
 
     class WorkplaceDescription {
         String? content
-        String? equipmentRequirements
-        String? trainingRequirements
+        EquipmentRequirements equipmentRequirements
+        TrainingRequirements trainingRequirements
+    }
+
+    class EquipmentRequirements {
+        String? content
+        List~EquipmentRequirementEntry~ items
+    }
+
+    class EquipmentRequirementEntry {
+        String? content
+        String? equipmentType
+        String? specification
+        String? quantity
+        String? purpose
+    }
+
+    class TrainingRequirements {
+        String? content
+        List~TrainingRequirementEntry~ items
+    }
+
+    class TrainingRequirementEntry {
+        String? content
+        String? trainingTopic
+        String? targetAudience
+        String? format
+        String? duration
+        String? schedule
     }
 
     OrganizationalFramework --> NewOrganizationStructure
     OrganizationalFramework --> JobDescriptionsAndStaffing
     OrganizationalFramework --> WorkplaceDescription
+    NewOrganizationStructure --> ChangesFromCurrentStructure
+    ChangesFromCurrentStructure --> "0..*" OrganizationalChangeEntry
     JobDescriptionsAndStaffing --> "0..*" NewRoleEntry
     JobDescriptionsAndStaffing --> "0..*" ChangedRoleEntry
+    WorkplaceDescription --> EquipmentRequirements
+    WorkplaceDescription --> TrainingRequirements
+    EquipmentRequirements --> "0..*" EquipmentRequirementEntry
+    TrainingRequirements --> "0..*" TrainingRequirementEntry
 ```
 
 ## 8. Section 6 — Target Business Process Model [PD00-TAR]
@@ -551,10 +749,22 @@ classDiagram
     class BusinessProcessDescriptions {
         String? content
         String? processVision
-        String? designPrinciples
+        DesignPrinciples designPrinciples
         List~BusinessProcessEntry~ processCatalog
         String? processOverviewDiagram
         String? improvementSummary
+    }
+
+    class DesignPrinciples {
+        String? content
+        List~DesignPrincipleEntry~ items
+    }
+
+    class DesignPrincipleEntry {
+        String? content
+        String? principle
+        String? description
+        String? rationale
     }
 
     class BusinessProcessEntry {
@@ -611,7 +821,9 @@ classDiagram
 
     TargetBusinessProcessModel --> BusinessProcessDescriptions
     TargetBusinessProcessModel --> ProcessStepsAndActorInteractions
+    BusinessProcessDescriptions --> DesignPrinciples
     BusinessProcessDescriptions --> "0..*" BusinessProcessEntry
+    DesignPrinciples --> "0..*" DesignPrincipleEntry
     ProcessStepsAndActorInteractions --> "0..*" ActorEntry
     ProcessStepsAndActorInteractions --> "0..*" InteractionEntry
     ProcessStepsAndActorInteractions --> "0..*" ScenarioEntry
@@ -630,42 +842,57 @@ classDiagram
 
     class DataModel {
         String? content
-        String? conceptualOverview
         List~DataEntityEntry~ entities
-        String? entityRelationshipDiagram
+        String? entityRelationships
+        String? erDiagram
+        DataClassification dataClassification
     }
 
     class DataEntityEntry {
         String? content
         String? entityName
         String? description
+        String? category
         String? keyAttributes
-        String? dataClassification
-        String? dataCategory
-        String? estimatedVolume
+        String? estimatedRecordCount
         String? growthRate
         String? retentionPolicy
     }
 
+    class DataClassification {
+        String? content
+        List~DataClassificationEntry~ items
+    }
+
+    class DataClassificationEntry {
+        String? content
+        String? classification
+        String? description
+        String? handlingRequirements
+        String? retentionPolicy
+        String? accessRestrictions
+    }
+
     class BusinessObjectModel {
         String? content
-        String? objectModelDiagram
-        List~BusinessObjectEntry~ businessObjects
+        List~BusinessObjectEntry~ objects
+        String? objectDiagram
     }
 
     class BusinessObjectEntry {
         String? content
         String? objectName
+        String? category
         String? description
-        String? attributes
-        String? behaviors
-        String? relationships
-        String? lifecycleStates
+        List~String~ keyStates
+        List~String~ keyBusinessRules
+        String? lifecycleTransitions
     }
 
     class FunctionModel {
         String? content
-        String? functionOverview
+        String? functionDecomposition
+        String? functionToDataMatrix
         List~BusinessRuleEntry~ businessRules
     }
 
@@ -674,14 +901,18 @@ classDiagram
         String? ruleId
         String? ruleName
         String? description
-        String? trigger
-        String? affectedEntities
+        String? affectedObjects
+        String? affectedFunctions
+        String? enforcement
+        String? exceptionHandling
     }
 
     BusinessObjectAndDataModel --> DataModel
     BusinessObjectAndDataModel --> BusinessObjectModel
     BusinessObjectAndDataModel --> FunctionModel
     DataModel --> "0..*" DataEntityEntry
+    DataModel --> DataClassification
+    DataClassification --> "0..*" DataClassificationEntry
     BusinessObjectModel --> "0..*" BusinessObjectEntry
     FunctionModel --> "0..*" BusinessRuleEntry
 ```
@@ -1262,7 +1493,7 @@ classDiagram
 
 | Metric | Count |
 |--------|-------|
-| Total classes | 117 |
+| Total classes | 162 |
 | Total enums | 1 (`SectionType`) |
 | Entry types (repeatable) | ~30 |
 | Section files | 14 |

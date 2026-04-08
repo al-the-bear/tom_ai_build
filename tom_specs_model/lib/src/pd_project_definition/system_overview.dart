@@ -160,14 +160,14 @@ class Goals {
   /// 4.2.2. Technical Goals [PD00-SYO-GOA-TEC] — contains 1+× Technical Goal.
   final List<TechnicalGoalEntry> technicalGoals;
 
-  /// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
-  final String? successCriteria;
+  /// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC] — contains 1+×.
+  final SuccessCriteria successCriteria;
 
   const Goals({
     this.content,
     this.businessGoals = const [],
     this.technicalGoals = const [],
-    this.successCriteria,
+    this.successCriteria = const SuccessCriteria(),
   });
 }
 
@@ -221,6 +221,35 @@ class TechnicalGoalEntry {
   });
 }
 
+/// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
+@tomReflector
+class SuccessCriteria {
+  final String? content;
+  final List<SuccessCriterionEntry> items;
+
+  const SuccessCriteria({this.content, this.items = const []});
+}
+
+/// A success criterion entry [PD00-SYO-GOA-SUC-nn] (form).
+@tomReflector
+class SuccessCriterionEntry {
+  final String? content;
+  final String? criterion;
+  final String? metric;
+  final String? targetValue;
+  final String? measurementMethod;
+  final String? verificationPoint;
+
+  const SuccessCriterionEntry({
+    this.content,
+    this.criterion,
+    this.metric,
+    this.targetValue,
+    this.measurementMethod,
+    this.verificationPoint,
+  });
+}
+
 // ---------------------------------------------------------------------------
 // 4.3 Requirements Overview (seeds → RC)
 // ---------------------------------------------------------------------------
@@ -261,7 +290,7 @@ class FunctionalRequirementEntry {
   final String? priority;
   final String? source;
   final String? rationale;
-  final String? acceptanceCriteria;
+  final List<String> acceptanceCriteria;
   final String? relatedUseCase;
   final String? relatedBusinessProcess;
   final String? affectedDataEntities;
@@ -275,7 +304,7 @@ class FunctionalRequirementEntry {
     this.priority,
     this.source,
     this.rationale,
-    this.acceptanceCriteria,
+    this.acceptanceCriteria = const [],
     this.relatedUseCase,
     this.relatedBusinessProcess,
     this.affectedDataEntities,
@@ -293,7 +322,7 @@ class TechnicalRequirementEntry {
   final String? priority;
   final String? source;
   final String? rationale;
-  final String? acceptanceCriteria;
+  final List<String> acceptanceCriteria;
   final String? verificationApproach;
   final String? status;
 
@@ -305,7 +334,7 @@ class TechnicalRequirementEntry {
     this.priority,
     this.source,
     this.rationale,
-    this.acceptanceCriteria,
+    this.acceptanceCriteria = const [],
     this.verificationApproach,
     this.status,
   });
@@ -322,7 +351,7 @@ class SecurityRequirementEntry {
   final String? source;
   final String? rationale;
   final String? complianceReference;
-  final String? acceptanceCriteria;
+  final List<String> acceptanceCriteria;
   final String? status;
 
   const SecurityRequirementEntry({
@@ -334,7 +363,7 @@ class SecurityRequirementEntry {
     this.source,
     this.rationale,
     this.complianceReference,
-    this.acceptanceCriteria,
+    this.acceptanceCriteria = const [],
     this.status,
   });
 }
@@ -349,7 +378,7 @@ class OrganizationalRequirementEntry {
   final String? priority;
   final String? source;
   final String? rationale;
-  final String? acceptanceCriteria;
+  final List<String> acceptanceCriteria;
   final String? status;
 
   const OrganizationalRequirementEntry({
@@ -360,7 +389,7 @@ class OrganizationalRequirementEntry {
     this.priority,
     this.source,
     this.rationale,
-    this.acceptanceCriteria,
+    this.acceptanceCriteria = const [],
     this.status,
   });
 }
@@ -378,12 +407,12 @@ class SystemsToReplace {
   final List<SystemToReplaceEntry> replacementInventory;
 
   /// 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG].
-  final String? migrationConsiderations;
+  final MigrationConsiderations migrationConsiderations;
 
   const SystemsToReplace({
     this.content,
     this.replacementInventory = const [],
-    this.migrationConsiderations,
+    this.migrationConsiderations = const MigrationConsiderations(),
   });
 }
 
@@ -411,6 +440,32 @@ class SystemToReplaceEntry {
   });
 }
 
+/// 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG].
+@tomReflector
+class MigrationConsiderations {
+  final String? content;
+
+  /// Migration strategy [PD00-SYO-SYR-MIG-STR].
+  final String? strategy;
+
+  /// Migration risks [PD00-SYO-SYR-MIG-RIS].
+  final String? risks;
+
+  /// Migration timeline [PD00-SYO-SYR-MIG-TIM].
+  final String? timeline;
+
+  /// Data mapping [PD00-SYO-SYR-MIG-DAT].
+  final String? dataMapping;
+
+  const MigrationConsiderations({
+    this.content,
+    this.strategy,
+    this.risks,
+    this.timeline,
+    this.dataMapping,
+  });
+}
+
 // ---------------------------------------------------------------------------
 // 4.5 System Boundaries (seeds → BSI)
 // ---------------------------------------------------------------------------
@@ -423,17 +478,17 @@ class SystemBoundaries {
   /// 4.5.1. Interfaces to External Systems [PD00-SYO-SYB-INT] — contains 0+×.
   final List<ExternalInterfaceEntry> externalInterfaces;
 
-  /// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT].
-  final String? outOfScope;
+  /// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT] — contains 0+×.
+  final OutOfScope outOfScope;
 
-  /// 4.5.3. Assumptions [PD00-SYO-SYB-ASS].
-  final String? assumptions;
+  /// 4.5.3. Assumptions [PD00-SYO-SYB-ASS] — contains 0+×.
+  final BoundaryAssumptions assumptions;
 
   const SystemBoundaries({
     this.content,
     this.externalInterfaces = const [],
-    this.outOfScope,
-    this.assumptions,
+    this.outOfScope = const OutOfScope(),
+    this.assumptions = const BoundaryAssumptions(),
   });
 }
 
@@ -465,6 +520,58 @@ class ExternalInterfaceEntry {
   });
 }
 
+/// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT].
+@tomReflector
+class OutOfScope {
+  final String? content;
+  final List<OutOfScopeEntry> items;
+
+  const OutOfScope({this.content, this.items = const []});
+}
+
+/// An out-of-scope entry [PD00-SYO-SYB-OUT-nn] (form).
+@tomReflector
+class OutOfScopeEntry {
+  final String? content;
+  final String? item;
+  final String? rationale;
+  final String? futureConsideration;
+
+  const OutOfScopeEntry({
+    this.content,
+    this.item,
+    this.rationale,
+    this.futureConsideration,
+  });
+}
+
+/// 4.5.3. Assumptions [PD00-SYO-SYB-ASS].
+@tomReflector
+class BoundaryAssumptions {
+  final String? content;
+  final List<AssumptionEntry> items;
+
+  const BoundaryAssumptions({this.content, this.items = const []});
+}
+
+/// An assumption entry [PD00-SYO-SYB-ASS-nn] (form).
+@tomReflector
+class AssumptionEntry {
+  final String? content;
+  final String? assumption;
+  final String? rationale;
+  final String? riskIfWrong;
+  final String? validationApproach;
+
+  const AssumptionEntry({
+    this.content,
+    this.assumption,
+    this.rationale,
+    this.riskIfWrong,
+    this.validationApproach,
+  });
+}
+
 // ---------------------------------------------------------------------------
 // 4.6 Framework Conditions
 // ---------------------------------------------------------------------------
@@ -475,23 +582,121 @@ class FrameworkConditions {
   final String? content;
 
   /// 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
-  final String? organizationalEnvironment;
+  final OrganizationalEnvironment organizationalEnvironment;
 
-  /// 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN].
-  final String? functionalResponsibilities;
+  /// 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN] — contains 0+×.
+  final FunctionalResponsibilities functionalResponsibilities;
 
   /// 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
-  final String? technicalFrameworkConditions;
+  final TechnicalFrameworkConditions technicalFrameworkConditions;
 
-  /// 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON].
-  final String? constraintsAndDependencies;
+  /// 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON] — contains 0+×.
+  final ConstraintsAndDependencies constraintsAndDependencies;
 
   const FrameworkConditions({
     this.content,
-    this.organizationalEnvironment,
-    this.functionalResponsibilities,
-    this.technicalFrameworkConditions,
-    this.constraintsAndDependencies,
+    this.organizationalEnvironment = const OrganizationalEnvironment(),
+    this.functionalResponsibilities = const FunctionalResponsibilities(),
+    this.technicalFrameworkConditions = const TechnicalFrameworkConditions(),
+    this.constraintsAndDependencies = const ConstraintsAndDependencies(),
+  });
+}
+
+/// 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
+@tomReflector
+class OrganizationalEnvironment {
+  final String? content;
+
+  /// Organizational structure [PD00-SYO-RES-ORG-STR].
+  final String? structure;
+
+  /// Decision-making processes [PD00-SYO-RES-ORG-DEC].
+  final String? decisionMaking;
+
+  /// Cultural considerations [PD00-SYO-RES-ORG-CUL].
+  final String? culturalConsiderations;
+
+  const OrganizationalEnvironment({
+    this.content,
+    this.structure,
+    this.decisionMaking,
+    this.culturalConsiderations,
+  });
+}
+
+/// 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN].
+@tomReflector
+class FunctionalResponsibilities {
+  final String? content;
+  final List<ResponsibilityEntry> items;
+
+  const FunctionalResponsibilities({this.content, this.items = const []});
+}
+
+/// A responsibility entry [PD00-SYO-RES-FUN-nn] (form).
+@tomReflector
+class ResponsibilityEntry {
+  final String? content;
+  final String? area;
+  final String? owner;
+  final String? description;
+  final String? scope;
+
+  const ResponsibilityEntry({
+    this.content,
+    this.area,
+    this.owner,
+    this.description,
+    this.scope,
+  });
+}
+
+/// 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+@tomReflector
+class TechnicalFrameworkConditions {
+  final String? content;
+
+  /// Existing infrastructure [PD00-SYO-RES-TEC-INF].
+  final String? existingInfrastructure;
+
+  /// Technology standards [PD00-SYO-RES-TEC-STD].
+  final String? technologyStandards;
+
+  /// Integration constraints [PD00-SYO-RES-TEC-INT].
+  final String? integrationConstraints;
+
+  const TechnicalFrameworkConditions({
+    this.content,
+    this.existingInfrastructure,
+    this.technologyStandards,
+    this.integrationConstraints,
+  });
+}
+
+/// 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON].
+@tomReflector
+class ConstraintsAndDependencies {
+  final String? content;
+  final List<ConstraintEntry> items;
+
+  const ConstraintsAndDependencies({this.content, this.items = const []});
+}
+
+/// A constraint or dependency entry [PD00-SYO-RES-CON-nn] (form).
+@tomReflector
+class ConstraintEntry {
+  final String? content;
+  final String? constraint;
+  final String? type;
+  final String? impact;
+  final String? mitigation;
+
+  const ConstraintEntry({
+    this.content,
+    this.constraint,
+    this.type,
+    this.impact,
+    this.mitigation,
   });
 }
 
@@ -507,13 +712,13 @@ class RisksAndAssumptions {
   /// 4.7.1. Key Risks [PD00-SYO-RIS-RIS] — contains 0+× Risk.
   final List<RiskEntry> keyRisks;
 
-  /// 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS].
-  final String? keyAssumptions;
+  /// 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS] — contains 0+×.
+  final KeyAssumptions keyAssumptions;
 
   const RisksAndAssumptions({
     this.content,
     this.keyRisks = const [],
-    this.keyAssumptions,
+    this.keyAssumptions = const KeyAssumptions(),
   });
 }
 
@@ -541,4 +746,13 @@ class RiskEntry {
     this.riskOwner,
     this.reviewFrequency,
   });
+}
+
+/// 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS].
+@tomReflector
+class KeyAssumptions {
+  final String? content;
+  final List<AssumptionEntry> items;
+
+  const KeyAssumptions({this.content, this.items = const []});
 }

@@ -50,15 +50,33 @@ class ProjectOrganization {
   final String? content;
 
   /// 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
-  final String? organizationStructure;
+  final OrganizationStructure organizationStructure;
 
   /// 3.1.2. Steering Committee [PD00-ADM-PRO-STE] — contains 1+× Member.
   final List<CommitteeMemberEntry> steeringCommittee;
 
   const ProjectOrganization({
     this.content,
-    this.organizationStructure,
+    this.organizationStructure = const OrganizationStructure(),
     this.steeringCommittee = const [],
+  });
+}
+
+/// 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
+@tomReflector
+class OrganizationStructure {
+  final String? content;
+
+  /// Explanation of the organization chart.
+  final String? orgChartExplanation;
+
+  /// Organization chart diagram (e.g. Mermaid or image reference).
+  final String? orgChartDiagram;
+
+  const OrganizationStructure({
+    this.content,
+    this.orgChartExplanation,
+    this.orgChartDiagram,
   });
 }
 
@@ -136,15 +154,51 @@ class DistributionList {
   final String? content;
 
   /// 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
-  final String? fullDistribution;
+  final FullDistribution fullDistribution;
 
   /// 3.3.2. Executive Summary [PD00-ADM-DIS-EXE].
-  final String? executiveSummary;
+  final ExecutiveSummaryDistribution executiveSummary;
 
   const DistributionList({
     this.content,
-    this.fullDistribution,
-    this.executiveSummary,
+    this.fullDistribution = const FullDistribution(),
+    this.executiveSummary = const ExecutiveSummaryDistribution(),
+  });
+}
+
+/// 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
+@tomReflector
+class FullDistribution {
+  final String? content;
+  final List<DistributionRecipientEntry> items;
+
+  const FullDistribution({this.content, this.items = const []});
+}
+
+/// 3.3.2. Executive Summary Distribution [PD00-ADM-DIS-EXE].
+@tomReflector
+class ExecutiveSummaryDistribution {
+  final String? content;
+  final List<DistributionRecipientEntry> items;
+
+  const ExecutiveSummaryDistribution({this.content, this.items = const []});
+}
+
+/// A distribution recipient entry (form).
+@tomReflector
+class DistributionRecipientEntry {
+  final String? content;
+  final String? name;
+  final String? role;
+  final String? organization;
+  final String? distributionMethod;
+
+  const DistributionRecipientEntry({
+    this.content,
+    this.name,
+    this.role,
+    this.organization,
+    this.distributionMethod,
   });
 }
 
@@ -158,15 +212,60 @@ class ChangeProcedure {
   final String? content;
 
   /// 3.4.1. Change Process [PD00-ADM-CHA-PRO].
-  final String? changeProcess;
+  final ChangeProcess changeProcess;
 
   /// 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
-  final String? changeImpactCriteria;
+  final ChangeImpactCriteria changeImpactCriteria;
 
   const ChangeProcedure({
     this.content,
-    this.changeProcess,
-    this.changeImpactCriteria,
+    this.changeProcess = const ChangeProcess(),
+    this.changeImpactCriteria = const ChangeImpactCriteria(),
+  });
+}
+
+/// 3.4.1. Change Process [PD00-ADM-CHA-PRO].
+@tomReflector
+class ChangeProcess {
+  final String? content;
+  final String? steps;
+  final String? roles;
+  final String? approvalAuthority;
+  final String? escalationPath;
+
+  const ChangeProcess({
+    this.content,
+    this.steps,
+    this.roles,
+    this.approvalAuthority,
+    this.escalationPath,
+  });
+}
+
+/// 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
+@tomReflector
+class ChangeImpactCriteria {
+  final String? content;
+  final List<ChangeImpactCriterionEntry> items;
+
+  const ChangeImpactCriteria({this.content, this.items = const []});
+}
+
+/// A change impact criterion entry (form).
+@tomReflector
+class ChangeImpactCriterionEntry {
+  final String? content;
+  final String? criterion;
+  final String? impactLevel;
+  final String? description;
+  final String? approvalRequired;
+
+  const ChangeImpactCriterionEntry({
+    this.content,
+    this.criterion,
+    this.impactLevel,
+    this.description,
+    this.approvalRequired,
   });
 }
 

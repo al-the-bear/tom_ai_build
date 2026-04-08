@@ -38,15 +38,44 @@ class NewOrganizationStructure {
   final String? content;
 
   /// 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
-  final String? changesFromCurrentStructure;
+  final ChangesFromCurrentStructure changesFromCurrentStructure;
 
   /// 5.1.2. Organizational Transition Timeline [PD00-ORG-STR-TIM].
   final String? transitionTimeline;
 
   const NewOrganizationStructure({
     this.content,
-    this.changesFromCurrentStructure,
+    this.changesFromCurrentStructure = const ChangesFromCurrentStructure(),
     this.transitionTimeline,
+  });
+}
+
+/// 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
+@tomReflector
+class ChangesFromCurrentStructure {
+  final String? content;
+  final List<OrganizationalChangeEntry> items;
+
+  const ChangesFromCurrentStructure({this.content, this.items = const []});
+}
+
+/// An organizational change entry (form).
+@tomReflector
+class OrganizationalChangeEntry {
+  final String? content;
+  final String? area;
+  final String? currentState;
+  final String? targetState;
+  final String? rationale;
+  final String? impact;
+
+  const OrganizationalChangeEntry({
+    this.content,
+    this.area,
+    this.currentState,
+    this.targetState,
+    this.rationale,
+    this.impact,
   });
 }
 
@@ -130,14 +159,70 @@ class WorkplaceDescription {
   final String? content;
 
   /// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
-  final String? equipmentRequirements;
+  final EquipmentRequirements equipmentRequirements;
 
   /// 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
-  final String? trainingRequirements;
+  final TrainingRequirements trainingRequirements;
 
   const WorkplaceDescription({
     this.content,
-    this.equipmentRequirements,
-    this.trainingRequirements,
+    this.equipmentRequirements = const EquipmentRequirements(),
+    this.trainingRequirements = const TrainingRequirements(),
+  });
+}
+
+/// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
+@tomReflector
+class EquipmentRequirements {
+  final String? content;
+  final List<EquipmentRequirementEntry> items;
+
+  const EquipmentRequirements({this.content, this.items = const []});
+}
+
+/// An equipment requirement entry (form).
+@tomReflector
+class EquipmentRequirementEntry {
+  final String? content;
+  final String? equipmentType;
+  final String? specification;
+  final String? quantity;
+  final String? purpose;
+
+  const EquipmentRequirementEntry({
+    this.content,
+    this.equipmentType,
+    this.specification,
+    this.quantity,
+    this.purpose,
+  });
+}
+
+/// 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
+@tomReflector
+class TrainingRequirements {
+  final String? content;
+  final List<TrainingRequirementEntry> items;
+
+  const TrainingRequirements({this.content, this.items = const []});
+}
+
+/// A training requirement entry (form).
+@tomReflector
+class TrainingRequirementEntry {
+  final String? content;
+  final String? trainingTopic;
+  final String? targetAudience;
+  final String? format;
+  final String? duration;
+  final String? schedule;
+
+  const TrainingRequirementEntry({
+    this.content,
+    this.trainingTopic,
+    this.targetAudience,
+    this.format,
+    this.duration,
+    this.schedule,
   });
 }

@@ -47,14 +47,14 @@ class DataModel {
   final String? erDiagram;
 
   /// 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
-  final String? dataClassification;
+  final DataClassification dataClassification;
 
   const DataModel({
     this.content,
     this.entities = const [],
     this.entityRelationships,
     this.erDiagram,
-    this.dataClassification,
+    this.dataClassification = const DataClassification(),
   });
 }
 
@@ -79,6 +79,35 @@ class DataEntityEntry {
     this.estimatedRecordCount,
     this.growthRate,
     this.retentionPolicy,
+  });
+}
+
+/// 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
+@tomReflector
+class DataClassification {
+  final String? content;
+  final List<DataClassificationEntry> items;
+
+  const DataClassification({this.content, this.items = const []});
+}
+
+/// A data classification entry (form).
+@tomReflector
+class DataClassificationEntry {
+  final String? content;
+  final String? classification;
+  final String? description;
+  final String? handlingRequirements;
+  final String? retentionPolicy;
+  final String? accessRestrictions;
+
+  const DataClassificationEntry({
+    this.content,
+    this.classification,
+    this.description,
+    this.handlingRequirements,
+    this.retentionPolicy,
+    this.accessRestrictions,
   });
 }
 
@@ -113,8 +142,8 @@ class BusinessObjectEntry {
   final String? objectName;
   final String? category;
   final String? description;
-  final String? keyStates;
-  final String? keyBusinessRules;
+  final List<String> keyStates;
+  final List<String> keyBusinessRules;
 
   /// Lifecycle State Transitions [PD00-BUS-BUS-CAT-nn-LIF] (description).
   final String? lifecycleTransitions;
@@ -124,8 +153,8 @@ class BusinessObjectEntry {
     this.objectName,
     this.category,
     this.description,
-    this.keyStates,
-    this.keyBusinessRules,
+    this.keyStates = const [],
+    this.keyBusinessRules = const [],
     this.lifecycleTransitions,
   });
 }

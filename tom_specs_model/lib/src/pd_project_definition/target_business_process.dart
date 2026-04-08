@@ -38,7 +38,7 @@ class BusinessProcessDescriptions {
   final String? processVision;
 
   /// 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
-  final String? designPrinciples;
+  final DesignPrinciples designPrinciples;
 
   /// 6.1.3. Process Catalog [PD00-TAR-PRO-CAT] — contains 1+× Business Process.
   final List<BusinessProcessEntry> processCatalog;
@@ -52,10 +52,35 @@ class BusinessProcessDescriptions {
   const BusinessProcessDescriptions({
     this.content,
     this.processVision,
-    this.designPrinciples,
+    this.designPrinciples = const DesignPrinciples(),
     this.processCatalog = const [],
     this.processOverviewDiagram,
     this.improvementSummary,
+  });
+}
+
+/// 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
+@tomReflector
+class DesignPrinciples {
+  final String? content;
+  final List<DesignPrincipleEntry> items;
+
+  const DesignPrinciples({this.content, this.items = const []});
+}
+
+/// A design principle entry (form).
+@tomReflector
+class DesignPrincipleEntry {
+  final String? content;
+  final String? principle;
+  final String? description;
+  final String? rationale;
+
+  const DesignPrincipleEntry({
+    this.content,
+    this.principle,
+    this.description,
+    this.rationale,
   });
 }
 

@@ -22,14 +22,14 @@ class CurrentStateAnalysis {
   final PainPointsAndGaps painPointsAndGaps;
 
   /// 1.4. Current Data Landscape [PD00-CUR-DAT].
-  final String? currentDataLandscape;
+  final CurrentDataLandscape currentDataLandscape;
 
   const CurrentStateAnalysis({
     this.content,
     this.existingSystemsLandscape = const ExistingSystemsLandscape(),
     this.currentBusinessProcesses = const CurrentBusinessProcesses(),
     this.painPointsAndGaps = const PainPointsAndGaps(),
-    this.currentDataLandscape,
+    this.currentDataLandscape = const CurrentDataLandscape(),
   });
 }
 
@@ -143,18 +143,97 @@ class PainPointsAndGaps {
   final String? content;
 
   /// 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
-  final String? operationalPainPoints;
+  final OperationalPainPoints operationalPainPoints;
 
   /// 1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
-  final String? businessPainPoints;
+  final BusinessPainPoints businessPainPoints;
 
   /// 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
-  final String? technicalPainPoints;
+  final TechnicalPainPoints technicalPainPoints;
 
   const PainPointsAndGaps({
     this.content,
-    this.operationalPainPoints,
-    this.businessPainPoints,
-    this.technicalPainPoints,
+    this.operationalPainPoints = const OperationalPainPoints(),
+    this.businessPainPoints = const BusinessPainPoints(),
+    this.technicalPainPoints = const TechnicalPainPoints(),
+  });
+}
+
+/// 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
+@tomReflector
+class OperationalPainPoints {
+  final String? content;
+  final List<PainPointEntry> items;
+
+  const OperationalPainPoints({this.content, this.items = const []});
+}
+
+/// 1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
+@tomReflector
+class BusinessPainPoints {
+  final String? content;
+  final List<PainPointEntry> items;
+
+  const BusinessPainPoints({this.content, this.items = const []});
+}
+
+/// 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
+@tomReflector
+class TechnicalPainPoints {
+  final String? content;
+  final List<PainPointEntry> items;
+
+  const TechnicalPainPoints({this.content, this.items = const []});
+}
+
+/// A pain point entry (form).
+@tomReflector
+class PainPointEntry {
+  final String? content;
+  final String? painPoint;
+  final String? description;
+  final String? impact;
+  final String? affectedProcess;
+  final String? severity;
+  final String? workaround;
+
+  const PainPointEntry({
+    this.content,
+    this.painPoint,
+    this.description,
+    this.impact,
+    this.affectedProcess,
+    this.severity,
+    this.workaround,
+  });
+}
+
+// ---------------------------------------------------------------------------
+// 1.4 Current Data Landscape
+// ---------------------------------------------------------------------------
+
+/// 1.4. Current Data Landscape [PD00-CUR-DAT].
+@tomReflector
+class CurrentDataLandscape {
+  final String? content;
+
+  /// 1.4.1. Data Stores [PD00-CUR-DAT-STO].
+  final String? dataStores;
+
+  /// 1.4.2. Data Formats [PD00-CUR-DAT-FOR].
+  final String? dataFormats;
+
+  /// 1.4.3. Data Volumes [PD00-CUR-DAT-VOL].
+  final String? dataVolumes;
+
+  /// 1.4.4. Data Quality [PD00-CUR-DAT-QUA].
+  final String? dataQuality;
+
+  const CurrentDataLandscape({
+    this.content,
+    this.dataStores,
+    this.dataFormats,
+    this.dataVolumes,
+    this.dataQuality,
   });
 }
