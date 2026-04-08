@@ -1,6 +1,9 @@
+import 'package:tom_core_kernel/tom_core_kernel.dart';
+
 import 'enums.dart';
 
 /// Risk entry shared across documents.
+@tomReflector
 class Risk {
   final String riskId;
   final String name;
