@@ -9,230 +9,148 @@ import 'package:tom_core_kernel/tom_core_kernel.dart';
 /// 14. Delivery Scope and Acceptance [PD00-DEL].
 @tomReflector
 class DeliveryScopeAndAcceptance {
-  final String? content;
+  String? content;
 
   /// 14.1. Delivery and Service Scope [PD00-DEL-DEL].
-  final DeliveryScope deliveryScope;
+  DeliveryScope deliveryScope = DeliveryScope();
 
   /// 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
-  final AcceptancePlan acceptancePlan;
-
-  const DeliveryScopeAndAcceptance({
-    this.content,
-    this.deliveryScope = const DeliveryScope(),
-    this.acceptancePlan = const AcceptancePlan(),
-  });
+  AcceptancePlan acceptancePlan = AcceptancePlan();
 }
 
 /// 14.1. Delivery and Service Scope [PD00-DEL-DEL].
 @tomReflector
 class DeliveryScope {
-  final String? content;
+  String? content;
 
   /// 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
-  final SoftwareDeliverables softwareDeliverables;
+  SoftwareDeliverables softwareDeliverables = SoftwareDeliverables();
 
   /// 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
-  final DocumentationDeliverables documentationDeliverables;
+  DocumentationDeliverables documentationDeliverables = DocumentationDeliverables();
 
   /// 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
-  final TrainingDeliverables trainingDeliverables;
+  TrainingDeliverables trainingDeliverables = TrainingDeliverables();
 
   /// 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
-  final SupportDeliverables supportDeliverables;
-
-  const DeliveryScope({
-    this.content,
-    this.softwareDeliverables = const SoftwareDeliverables(),
-    this.documentationDeliverables = const DocumentationDeliverables(),
-    this.trainingDeliverables = const TrainingDeliverables(),
-    this.supportDeliverables = const SupportDeliverables(),
-  });
+  SupportDeliverables supportDeliverables = SupportDeliverables();
 }
 
 /// 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
 @tomReflector
 class SoftwareDeliverables {
-  final String? content;
-  final List<DeliverableEntry> items;
-
-  const SoftwareDeliverables({this.content, this.items = const []});
+  String? content;
+  List<DeliverableEntry> items = [];
 }
 
 /// 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
 @tomReflector
 class DocumentationDeliverables {
-  final String? content;
-  final List<DeliverableEntry> items;
-
-  const DocumentationDeliverables({this.content, this.items = const []});
+  String? content;
+  List<DeliverableEntry> items = [];
 }
 
 /// 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
 @tomReflector
 class TrainingDeliverables {
-  final String? content;
-  final List<DeliverableEntry> items;
-
-  const TrainingDeliverables({this.content, this.items = const []});
+  String? content;
+  List<DeliverableEntry> items = [];
 }
 
 /// 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
 @tomReflector
 class SupportDeliverables {
-  final String? content;
-  final List<DeliverableEntry> items;
-
-  const SupportDeliverables({this.content, this.items = const []});
+  String? content;
+  List<DeliverableEntry> items = [];
 }
 
 /// A deliverable entry (form).
 @tomReflector
 class DeliverableEntry {
-  final String? content;
-  final String? deliverableName;
-  final String? description;
-  final String? deliveryDate;
-  final String? format;
-  final String? acceptanceCriteria;
-
-  const DeliverableEntry({
-    this.content,
-    this.deliverableName,
-    this.description,
-    this.deliveryDate,
-    this.format,
-    this.acceptanceCriteria,
-  });
+  String? content;
+  String? deliverableName;
+  String? description;
+  String? deliveryDate;
+  String? format;
+  String? acceptanceCriteria;
 }
 
 /// 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
 @tomReflector
 class AcceptancePlan {
-  final String? content;
+  String? content;
 
   /// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
-  final AcceptanceCriteriaList acceptanceCriteria;
+  AcceptanceCriteriaList acceptanceCriteria = AcceptanceCriteriaList();
 
   /// 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
-  final AcceptanceProcess acceptanceProcess;
+  AcceptanceProcess acceptanceProcess = AcceptanceProcess();
 
   /// 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
-  final UserAcceptanceTesting userAcceptanceTesting;
+  UserAcceptanceTesting userAcceptanceTesting = UserAcceptanceTesting();
 
   /// 14.2.4. Defect Resolution [PD00-DEL-ACC-DEF].
-  final String? defectResolution;
+  String? defectResolution;
 
   /// 14.2.5. Sign-off Process [PD00-DEL-ACC-SIG].
-  final String? signOffProcess;
+  String? signOffProcess;
 
   /// 14.2.6. Warranty [PD00-DEL-ACC-WAR].
-  final String? warranty;
-
-  const AcceptancePlan({
-    this.content,
-    this.acceptanceCriteria = const AcceptanceCriteriaList(),
-    this.acceptanceProcess = const AcceptanceProcess(),
-    this.userAcceptanceTesting = const UserAcceptanceTesting(),
-    this.defectResolution,
-    this.signOffProcess,
-    this.warranty,
-  });
+  String? warranty;
 }
 
 /// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
 @tomReflector
 class AcceptanceCriteriaList {
-  final String? content;
-  final List<DeliveryAcceptanceCriterionEntry> items;
-
-  const AcceptanceCriteriaList({this.content, this.items = const []});
+  String? content;
+  List<DeliveryAcceptanceCriterionEntry> items = [];
 }
 
 /// An acceptance criterion entry (form).
 @tomReflector
 class DeliveryAcceptanceCriterionEntry {
-  final String? content;
-  final String? criterion;
-  final String? category;
-  final String? verificationMethod;
-  final String? acceptanceThreshold;
-
-  const DeliveryAcceptanceCriterionEntry({
-    this.content,
-    this.criterion,
-    this.category,
-    this.verificationMethod,
-    this.acceptanceThreshold,
-  });
+  String? content;
+  String? criterion;
+  String? category;
+  String? verificationMethod;
+  String? acceptanceThreshold;
 }
 
 /// 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
 @tomReflector
 class AcceptanceProcess {
-  final String? content;
-  final List<AcceptanceStepEntry> steps;
-  final String? timeline;
-  final String? participants;
-  final String? escalationProcess;
-
-  const AcceptanceProcess({
-    this.content,
-    this.steps = const [],
-    this.timeline,
-    this.participants,
-    this.escalationProcess,
-  });
+  String? content;
+  List<AcceptanceStepEntry> steps = [];
+  String? timeline;
+  String? participants;
+  String? escalationProcess;
 }
 
 /// An acceptance step entry (form).
 @tomReflector
 class AcceptanceStepEntry {
-  final String? content;
-  final String? stepName;
-  final String? description;
-
-  const AcceptanceStepEntry({
-    this.content,
-    this.stepName,
-    this.description,
-  });
+  String? content;
+  String? stepName;
+  String? description;
 }
 
 /// 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
 @tomReflector
 class UserAcceptanceTesting {
-  final String? content;
-  final String? scope;
-  final String? environment;
-  final String? participants;
-  final String? schedule;
-  final List<TestScenarioEntry> testScenarios;
-  final String? exitCriteria;
-
-  const UserAcceptanceTesting({
-    this.content,
-    this.scope,
-    this.environment,
-    this.participants,
-    this.schedule,
-    this.testScenarios = const [],
-    this.exitCriteria,
-  });
+  String? content;
+  String? scope;
+  String? environment;
+  String? participants;
+  String? schedule;
+  List<TestScenarioEntry> testScenarios = [];
+  String? exitCriteria;
 }
 
 /// A test scenario entry (form).
 @tomReflector
 class TestScenarioEntry {
-  final String? content;
-  final String? scenarioName;
-  final String? description;
-  final String? expectedResult;
-
-  const TestScenarioEntry({
-    this.content,
-    this.scenarioName,
-    this.description,
-    this.expectedResult,
-  });
+  String? content;
+  String? scenarioName;
+  String? description;
+  String? expectedResult;
 }

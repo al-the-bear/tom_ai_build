@@ -7,15 +7,9 @@ import 'package:tom_core_kernel/tom_core_kernel.dart';
 /// reference to the Phase 3 document this section expands into.
 @tomReflector
 class SectionMeta {
-  final String sectionId;
-  final SectionType type;
+  String? sectionId;
+  SectionType? type;
 
   /// Phase 3 document this section seeds, e.g. 'RC', 'BP', 'BDM'.
-  final String? seeds;
-
-  const SectionMeta({
-    required this.sectionId,
-    required this.type,
-    this.seeds,
-  });
+  String? seeds;
 }

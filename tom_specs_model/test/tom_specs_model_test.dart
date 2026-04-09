@@ -4,52 +4,47 @@ import 'package:test/test.dart';
 void main() {
   group('ProjectDefinition', () {
     test('can be constructed with all defaults', () {
-      const pd = ProjectDefinition();
+      final pd = ProjectDefinition();
       expect(pd.header.documentId, isNull);
       expect(pd.currentStateAnalysis.content, isNull);
       expect(pd.systemOverview.content, isNull);
     });
 
     test('header fields are all String?', () {
-      const header = DocumentHeader(
-        documentId: 'PD00',
-        project: 'Test Project',
-        version: '0.1',
-        date: '2026-04-07',
-        author: 'Test',
-        status: 'Draft',
-      );
+      final header = DocumentHeader()
+        ..documentId = 'PD00'
+        ..project = 'Test Project'
+        ..version = '0.1'
+        ..date = '2026-04-07'
+        ..author = 'Test'
+        ..status = 'Draft';
       expect(header.documentId, 'PD00');
       expect(header.date, '2026-04-07');
     });
 
     test('section classes have content field', () {
-      const section = CurrentStateAnalysis(
-        content: 'Overview of current state.',
-      );
+      final section = CurrentStateAnalysis()
+        ..content = 'Overview of current state.';
       expect(section.content, 'Overview of current state.');
       expect(section.existingSystemsLandscape.content, isNull);
     });
 
     test('plural fields are lists of entry types', () {
-      const overview = SystemOverview(
-        goals: Goals(
-          businessGoals: [
-            BusinessGoalEntry(goalId: 'BG-001', goalName: 'Increase revenue'),
-          ],
-        ),
-      );
+      final goal = BusinessGoalEntry()
+        ..goalId = 'BG-001'
+        ..goalName = 'Increase revenue';
+      final goals = Goals()..businessGoals = [goal];
+      final overview = SystemOverview()..goals = goals;
       expect(overview.goals.businessGoals, hasLength(1));
       expect(overview.goals.businessGoals.first.goalId, 'BG-001');
     });
 
     test('stage entry uses String? fields', () {
-      const stage = StageEntry(
-        stageNumber: '1',
-        stageName: 'Foundation',
-        scopeSummary: 'Core infrastructure',
-        featureScope: 'Login, CRUD, orders',
-      );
+      final stage = StageEntry()
+        ..stageNumber = '1'
+        ..stageName = 'Foundation'
+        ..scopeSummary = 'Core infrastructure'
+        ..featureScope = 'Login, CRUD, orders';
       expect(stage.stageNumber, '1');
       expect(stage.featureScope, isNotNull);
     });

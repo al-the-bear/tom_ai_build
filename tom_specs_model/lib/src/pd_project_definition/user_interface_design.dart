@@ -9,63 +9,46 @@ import 'package:tom_core_kernel/tom_core_kernel.dart';
 /// 10. User Interface Design and Prototype [PD00-USE].
 @tomReflector
 class UserInterfaceDesign {
-  final String? content;
+  String? content;
 
   /// 10.1. Design Vision [PD00-USE-VIS]. Seeds → UP.
-  final DesignVision designVision;
+  DesignVision designVision = DesignVision();
 
   /// 10.2. Screen Descriptions [PD00-USE-SCR]. Seeds → UP.
-  final ScreenDescriptions screens;
+  ScreenDescriptions screens = ScreenDescriptions();
 
   /// 10.3. Screen Flow Structure [PD00-USE-SCF]. Seeds → UP.
-  final ScreenFlowStructure screenFlow;
+  ScreenFlowStructure screenFlow = ScreenFlowStructure();
 
   /// 10.4. Print Layout [PD00-USE-PRI]. Seeds → UP.
-  final PrintLayout printLayout;
+  PrintLayout printLayout = PrintLayout();
 
   /// 10.5. Data Structure Alignment [PD00-USE-DAT]. Seeds → UP.
-  final String? dataStructureAlignment;
+  String? dataStructureAlignment;
 
   /// 10.6. Authorization Concept Compliance [PD00-USE-AUT]. Seeds → UP.
-  final String? authorizationCompliance;
+  String? authorizationCompliance;
 
   /// 10.7. Error Handling Concept [PD00-USE-ERR]. Seeds → UP.
-  final ErrorHandlingConcept errorHandling;
+  ErrorHandlingConcept errorHandling = ErrorHandlingConcept();
 
   /// 10.8. Help Concept [PD00-USE-HLP]. Seeds → UP.
-  final HelpConcept helpConcept;
+  HelpConcept helpConcept = HelpConcept();
 
   /// 10.9. Accessibility [PD00-USE-ACC]. Seeds → UP.
-  final Accessibility accessibility;
+  Accessibility accessibility = Accessibility();
 
   /// 10.10. Responsive Design [PD00-USE-RES]. Seeds → UP.
-  final ResponsiveDesign responsiveDesign;
+  ResponsiveDesign responsiveDesign = ResponsiveDesign();
 
   /// 10.11. UI Components [PD00-USE-COM]. Seeds → UP.
-  final UiComponents uiComponents;
+  UiComponents uiComponents = UiComponents();
 
   /// 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
-  final MultiLanguageAndRollout multiLanguage;
+  MultiLanguageAndRollout multiLanguage = MultiLanguageAndRollout();
 
   /// 10.13. Prototype [PD00-USE-PRO]. Seeds → UP.
-  final Prototype prototype;
-
-  const UserInterfaceDesign({
-    this.content,
-    this.designVision = const DesignVision(),
-    this.screens = const ScreenDescriptions(),
-    this.screenFlow = const ScreenFlowStructure(),
-    this.printLayout = const PrintLayout(),
-    this.dataStructureAlignment,
-    this.authorizationCompliance,
-    this.errorHandling = const ErrorHandlingConcept(),
-    this.helpConcept = const HelpConcept(),
-    this.accessibility = const Accessibility(),
-    this.responsiveDesign = const ResponsiveDesign(),
-    this.uiComponents = const UiComponents(),
-    this.multiLanguage = const MultiLanguageAndRollout(),
-    this.prototype = const Prototype(),
-  });
+  Prototype prototype = Prototype();
 }
 
 // ---------------------------------------------------------------------------
@@ -75,89 +58,62 @@ class UserInterfaceDesign {
 /// 10.1. Design Vision [PD00-USE-VIS].
 @tomReflector
 class DesignVision {
-  final String? content;
+  String? content;
 
   /// 10.1.1. Design Goals [PD00-USE-VIS-GOA].
-  final List<DesignGoalEntry> designGoals;
+  List<DesignGoalEntry> designGoals = [];
 
   /// 10.1.2. Design Principles [PD00-USE-VIS-PRI].
-  final List<UiDesignPrincipleEntry> designPrinciples;
+  List<UiDesignPrincipleEntry> designPrinciples = [];
 
   /// 10.1.3. User Personas [PD00-USE-VIS-PER] — contains 1+× Persona.
-  final List<PersonaEntry> personas;
-
-  const DesignVision({
-    this.content,
-    this.designGoals = const [],
-    this.designPrinciples = const [],
-    this.personas = const [],
-  });
+  List<PersonaEntry> personas = [];
 }
 
 /// A design goal entry (form).
 @tomReflector
 class DesignGoalEntry {
-  final String? content;
-  final String? goal;
-  final String? description;
-
-  const DesignGoalEntry({this.content, this.goal, this.description});
+  String? content;
+  String? goal;
+  String? description;
 }
 
 /// A design principle entry (form).
 @tomReflector
 class UiDesignPrincipleEntry {
-  final String? content;
-  final String? principle;
-  final String? rationale;
-
-  const UiDesignPrincipleEntry({this.content, this.principle, this.rationale});
+  String? content;
+  String? principle;
+  String? rationale;
 }
 
 /// A user persona entry [PD00-USE-VIS-PER-nn] (form).
 @tomReflector
 class PersonaEntry {
-  final String? content;
-  final String? personaName;
-  final String? age;
-  final String? role;
-  final List<PersonaGoalEntry> goals;
-  final List<PersonaPainPointEntry> painPoints;
-  final String? technicalProficiency;
-  final String? typicalUsage;
-  final String? device;
-
-  const PersonaEntry({
-    this.content,
-    this.personaName,
-    this.age,
-    this.role,
-    this.goals = const [],
-    this.painPoints = const [],
-    this.technicalProficiency,
-    this.typicalUsage,
-    this.device,
-  });
+  String? content;
+  String? personaName;
+  String? age;
+  String? role;
+  List<PersonaGoalEntry> goals = [];
+  List<PersonaPainPointEntry> painPoints = [];
+  String? technicalProficiency;
+  String? typicalUsage;
+  String? device;
 }
 
 /// A persona goal entry (form).
 @tomReflector
 class PersonaGoalEntry {
-  final String? content;
-  final String? goal;
-  final String? priority;
-
-  const PersonaGoalEntry({this.content, this.goal, this.priority});
+  String? content;
+  String? goal;
+  String? priority;
 }
 
 /// A pain point entry (form).
 @tomReflector
 class PersonaPainPointEntry {
-  final String? content;
-  final String? painPoint;
-  final String? impact;
-
-  const PersonaPainPointEntry({this.content, this.painPoint, this.impact});
+  String? content;
+  String? painPoint;
+  String? impact;
 }
 
 // ---------------------------------------------------------------------------
@@ -167,83 +123,51 @@ class PersonaPainPointEntry {
 /// 10.2. Screen Descriptions [PD00-USE-SCR].
 @tomReflector
 class ScreenDescriptions {
-  final String? content;
+  String? content;
 
   /// 10.2.1. Screen Inventory [PD00-USE-SCR-INV] — contains 1+× Screen.
-  final List<ScreenEntry> screenInventory;
+  List<ScreenEntry> screenInventory = [];
 
   /// 10.2.2. Information Architecture [PD00-USE-SCR-INF].
-  final String? informationArchitecture;
-
-  const ScreenDescriptions({
-    this.content,
-    this.screenInventory = const [],
-    this.informationArchitecture,
-  });
+  String? informationArchitecture;
 }
 
 /// A screen entry [PD00-USE-SCR-INV-nn] (form).
 @tomReflector
 class ScreenEntry {
-  final String? content;
-  final String? screenId;
-  final String? screenName;
-  final String? purpose;
-  final List<ScreenElementEntry> keyElements;
-  final List<ScreenUserCategoryEntry> userCategories;
-  final String? accessLevel;
-  final List<EntryPointEntry> entryPoints;
-  final String? layout;
-
-  const ScreenEntry({
-    this.content,
-    this.screenId,
-    this.screenName,
-    this.purpose,
-    this.keyElements = const [],
-    this.userCategories = const [],
-    this.accessLevel,
-    this.entryPoints = const [],
-    this.layout,
-  });
+  String? content;
+  String? screenId;
+  String? screenName;
+  String? purpose;
+  List<ScreenElementEntry> keyElements = [];
+  List<ScreenUserCategoryEntry> userCategories = [];
+  String? accessLevel;
+  List<EntryPointEntry> entryPoints = [];
+  String? layout;
 }
 
 /// A screen element entry (form).
 @tomReflector
 class ScreenElementEntry {
-  final String? content;
-  final String? elementName;
-  final String? elementType;
-
-  const ScreenElementEntry({
-    this.content,
-    this.elementName,
-    this.elementType,
-  });
+  String? content;
+  String? elementName;
+  String? elementType;
 }
 
 /// A user category entry (form).
 @tomReflector
 class ScreenUserCategoryEntry {
-  final String? content;
-  final String? categoryName;
-  final String? description;
-
-  const ScreenUserCategoryEntry({
-    this.content,
-    this.categoryName,
-    this.description,
-  });
+  String? content;
+  String? categoryName;
+  String? description;
 }
 
 /// An entry point entry (form).
 @tomReflector
 class EntryPointEntry {
-  final String? content;
-  final String? entryPoint;
-  final String? source;
-
-  const EntryPointEntry({this.content, this.entryPoint, this.source});
+  String? content;
+  String? entryPoint;
+  String? source;
 }
 
 // ---------------------------------------------------------------------------
@@ -253,19 +177,13 @@ class EntryPointEntry {
 /// 10.3. Screen Flow Structure [PD00-USE-SCF].
 @tomReflector
 class ScreenFlowStructure {
-  final String? content;
+  String? content;
 
   /// 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
-  final String? navigationModel;
+  String? navigationModel;
 
   /// 10.3.2. Screen Flow Diagram [PD00-USE-SCF-DIA] (mermaid).
-  final String? screenFlowDiagram;
-
-  const ScreenFlowStructure({
-    this.content,
-    this.navigationModel,
-    this.screenFlowDiagram,
-  });
+  String? screenFlowDiagram;
 }
 
 // ---------------------------------------------------------------------------
@@ -275,63 +193,42 @@ class ScreenFlowStructure {
 /// 10.4. Print Layout [PD00-USE-PRI].
 @tomReflector
 class PrintLayout {
-  final String? content;
+  String? content;
 
   /// 10.4.1. Reports [PD00-USE-PRI-REP] — contains 0+× Report.
-  final List<ReportEntry> reports;
+  List<ReportEntry> reports = [];
 
   /// 10.4.2. Export Formats [PD00-USE-PRI-EXP].
-  final List<ExportFormatEntry> exportFormats;
-
-  const PrintLayout({
-    this.content,
-    this.reports = const [],
-    this.exportFormats = const [],
-  });
+  List<ExportFormatEntry> exportFormats = [];
 }
 
 /// An export format entry (form).
 @tomReflector
 class ExportFormatEntry {
-  final String? content;
-  final String? formatName;
-  final String? description;
-
-  const ExportFormatEntry({this.content, this.formatName, this.description});
+  String? content;
+  String? formatName;
+  String? description;
 }
 
 /// A report entry [PD00-USE-PRI-REP-nn] (form).
 @tomReflector
 class ReportEntry {
-  final String? content;
-  final String? reportName;
-  final String? purpose;
-  final String? reportContent;
-  final String? format;
-  final String? generationTrigger;
-  final List<RecipientEntry> recipients;
-  final String? customization;
-
-  const ReportEntry({
-    this.content,
-    this.reportName,
-    this.purpose,
-    this.reportContent,
-    this.format,
-    this.generationTrigger,
-    this.recipients = const [],
-    this.customization,
-  });
+  String? content;
+  String? reportName;
+  String? purpose;
+  String? reportContent;
+  String? format;
+  String? generationTrigger;
+  List<RecipientEntry> recipients = [];
+  String? customization;
 }
 
 /// A recipient entry (form).
 @tomReflector
 class RecipientEntry {
-  final String? content;
-  final String? recipientName;
-  final String? role;
-
-  const RecipientEntry({this.content, this.recipientName, this.role});
+  String? content;
+  String? recipientName;
+  String? role;
 }
 
 // ---------------------------------------------------------------------------
@@ -341,23 +238,16 @@ class RecipientEntry {
 /// 10.7. Error Handling Concept [PD00-USE-ERR].
 @tomReflector
 class ErrorHandlingConcept {
-  final String? content;
+  String? content;
 
   /// 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
-  final String? validationFeedback;
+  String? validationFeedback;
 
   /// 10.7.2. System Error Display [PD00-USE-ERR-SYS].
-  final String? systemErrorDisplay;
+  String? systemErrorDisplay;
 
   /// 10.7.3. Error Recovery [PD00-USE-ERR-REC].
-  final String? errorRecovery;
-
-  const ErrorHandlingConcept({
-    this.content,
-    this.validationFeedback,
-    this.systemErrorDisplay,
-    this.errorRecovery,
-  });
+  String? errorRecovery;
 }
 
 // ---------------------------------------------------------------------------
@@ -367,23 +257,16 @@ class ErrorHandlingConcept {
 /// 10.8. Help Concept [PD00-USE-HLP].
 @tomReflector
 class HelpConcept {
-  final String? content;
+  String? content;
 
   /// 10.8.1. Contextual Help [PD00-USE-HLP-CON].
-  final String? contextualHelp;
+  String? contextualHelp;
 
   /// 10.8.2. Onboarding [PD00-USE-HLP-ONB].
-  final String? onboarding;
+  String? onboarding;
 
   /// 10.8.3. Support Access [PD00-USE-HLP-SUP].
-  final String? supportAccess;
-
-  const HelpConcept({
-    this.content,
-    this.contextualHelp,
-    this.onboarding,
-    this.supportAccess,
-  });
+  String? supportAccess;
 }
 
 // ---------------------------------------------------------------------------
@@ -393,46 +276,30 @@ class HelpConcept {
 /// 10.9. Accessibility [PD00-USE-ACC].
 @tomReflector
 class Accessibility {
-  final String? content;
+  String? content;
 
   /// 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
-  final String? wcagComplianceLevel;
+  String? wcagComplianceLevel;
 
   /// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
-  final AccessibilityChecklist accessibilityChecklist;
-
-  const Accessibility({
-    this.content,
-    this.wcagComplianceLevel,
-    this.accessibilityChecklist = const AccessibilityChecklist(),
-  });
+  AccessibilityChecklist accessibilityChecklist = AccessibilityChecklist();
 }
 
 /// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
 @tomReflector
 class AccessibilityChecklist {
-  final String? content;
-  final List<AccessibilityCheckEntry> items;
-
-  const AccessibilityChecklist({this.content, this.items = const []});
+  String? content;
+  List<AccessibilityCheckEntry> items = [];
 }
 
 /// An accessibility check entry (form).
 @tomReflector
 class AccessibilityCheckEntry {
-  final String? content;
-  final String? checkItem;
-  final String? wcagCriterion;
-  final String? complianceLevel;
-  final String? verificationMethod;
-
-  const AccessibilityCheckEntry({
-    this.content,
-    this.checkItem,
-    this.wcagCriterion,
-    this.complianceLevel,
-    this.verificationMethod,
-  });
+  String? content;
+  String? checkItem;
+  String? wcagCriterion;
+  String? complianceLevel;
+  String? verificationMethod;
 }
 
 // ---------------------------------------------------------------------------
@@ -442,35 +309,22 @@ class AccessibilityCheckEntry {
 /// 10.10. Responsive Design [PD00-USE-RES].
 @tomReflector
 class ResponsiveDesign {
-  final String? content;
+  String? content;
 
   /// 10.10.1. Breakpoints [PD00-USE-RES-BRE].
-  final List<BreakpointEntry> breakpoints;
+  List<BreakpointEntry> breakpoints = [];
 
   /// 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
-  final String? responsiveBehavior;
-
-  const ResponsiveDesign({
-    this.content,
-    this.breakpoints = const [],
-    this.responsiveBehavior,
-  });
+  String? responsiveBehavior;
 }
 
 /// A breakpoint entry (form).
 @tomReflector
 class BreakpointEntry {
-  final String? content;
-  final String? breakpointName;
-  final String? minWidth;
-  final String? layoutBehavior;
-
-  const BreakpointEntry({
-    this.content,
-    this.breakpointName,
-    this.minWidth,
-    this.layoutBehavior,
-  });
+  String? content;
+  String? breakpointName;
+  String? minWidth;
+  String? layoutBehavior;
 }
 
 // ---------------------------------------------------------------------------
@@ -480,69 +334,41 @@ class BreakpointEntry {
 /// 10.11. UI Components [PD00-USE-COM].
 @tomReflector
 class UiComponents {
-  final String? content;
+  String? content;
 
   /// 10.11.1. Component Library [PD00-USE-COM-LIB].
-  final String? componentLibrary;
+  String? componentLibrary;
 
   /// 10.11.2. Component Specifications [PD00-USE-COM-SPE] — contains 0+×.
-  final List<UiComponentEntry> componentSpecs;
-
-  const UiComponents({
-    this.content,
-    this.componentLibrary,
-    this.componentSpecs = const [],
-  });
+  List<UiComponentEntry> componentSpecs = [];
 }
 
 /// A UI component entry [PD00-USE-COM-SPE-nn] (form).
 @tomReflector
 class UiComponentEntry {
-  final String? content;
-  final String? componentName;
-  final String? purpose;
-  final String? behavior;
-  final List<ComponentStateEntry> states;
-  final List<ComponentVariantEntry> variants;
-  final String? responsive;
-
-  const UiComponentEntry({
-    this.content,
-    this.componentName,
-    this.purpose,
-    this.behavior,
-    this.states = const [],
-    this.variants = const [],
-    this.responsive,
-  });
+  String? content;
+  String? componentName;
+  String? purpose;
+  String? behavior;
+  List<ComponentStateEntry> states = [];
+  List<ComponentVariantEntry> variants = [];
+  String? responsive;
 }
 
 /// A component state entry (form).
 @tomReflector
 class ComponentStateEntry {
-  final String? content;
-  final String? stateName;
-  final String? description;
-
-  const ComponentStateEntry({
-    this.content,
-    this.stateName,
-    this.description,
-  });
+  String? content;
+  String? stateName;
+  String? description;
 }
 
 /// A component variant entry (form).
 @tomReflector
 class ComponentVariantEntry {
-  final String? content;
-  final String? variantName;
-  final String? description;
-
-  const ComponentVariantEntry({
-    this.content,
-    this.variantName,
-    this.description,
-  });
+  String? content;
+  String? variantName;
+  String? description;
 }
 
 // ---------------------------------------------------------------------------
@@ -552,31 +378,22 @@ class ComponentVariantEntry {
 /// 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
 @tomReflector
 class MultiLanguageAndRollout {
-  final String? content;
+  String? content;
 
   /// 10.12.1. Localization Process [PD00-USE-MUL-LOC]. Seeds → SR.
-  final String? localizationProcess;
+  String? localizationProcess;
 
   /// 10.12.2. Translation Process [PD00-USE-MUL-TRA]. Seeds → SR.
-  final String? translationProcess;
+  String? translationProcess;
 
   /// 10.12.3. System User Documentation and Training [PD00-USE-MUL-DOC]. Seeds → SR.
-  final String? userDocumentationAndTraining;
+  String? userDocumentationAndTraining;
 
   /// 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS]. Seeds → UP.
-  final String? languageAndCountrySelection;
+  String? languageAndCountrySelection;
 
   /// 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ]. Seeds → TR.
-  final String? translationHandlingRequirements;
-
-  const MultiLanguageAndRollout({
-    this.content,
-    this.localizationProcess,
-    this.translationProcess,
-    this.userDocumentationAndTraining,
-    this.languageAndCountrySelection,
-    this.translationHandlingRequirements,
-  });
+  String? translationHandlingRequirements;
 }
 
 // ---------------------------------------------------------------------------
@@ -586,53 +403,37 @@ class MultiLanguageAndRollout {
 /// 10.13. Prototype [PD00-USE-PRO].
 @tomReflector
 class Prototype {
-  final String? content;
+  String? content;
 
   /// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
-  final List<PrototypeGoalEntry> prototypeGoals;
+  List<PrototypeGoalEntry> prototypeGoals = [];
 
   /// 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
-  final String? selectedFeatureSubset;
+  String? selectedFeatureSubset;
 
   /// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
-  final PrototypeTypeSection prototypeType;
-
-  const Prototype({
-    this.content,
-    this.prototypeGoals = const [],
-    this.selectedFeatureSubset,
-    this.prototypeType = const PrototypeTypeSection(),
-  });
+  PrototypeTypeSection prototypeType = PrototypeTypeSection();
 }
 
 /// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
 @tomReflector
 class PrototypeTypeSection {
-  final String? content;
+  String? content;
 
   /// 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
-  final String? reusablePrototype;
+  String? reusablePrototype;
 
   /// 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
-  final String? trainingPrototype;
+  String? trainingPrototype;
 
   /// 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
-  final String? throwawayPrototype;
-
-  const PrototypeTypeSection({
-    this.content,
-    this.reusablePrototype,
-    this.trainingPrototype,
-    this.throwawayPrototype,
-  });
+  String? throwawayPrototype;
 }
 
 /// A prototype goal entry (form).
 @tomReflector
 class PrototypeGoalEntry {
-  final String? content;
-  final String? goal;
-  final String? description;
-
-  const PrototypeGoalEntry({this.content, this.goal, this.description});
+  String? content;
+  String? goal;
+  String? description;
 }

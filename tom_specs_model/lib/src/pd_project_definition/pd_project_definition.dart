@@ -43,65 +43,47 @@ import 'user_interface_design.dart';
 @tomReflector
 class ProjectDefinition {
   /// Document header (form fields at top of document).
-  final DocumentHeader header;
+  DocumentHeader header = DocumentHeader();
 
   /// 1. Current State Analysis [PD00-CUR].
-  final CurrentStateAnalysis currentStateAnalysis;
+  CurrentStateAnalysis currentStateAnalysis = CurrentStateAnalysis();
 
   /// 2. Project Organization and Process [PD00-POP].
-  final ProjectOrganizationAndProcess projectOrganizationProcess;
+  ProjectOrganizationAndProcess projectOrganizationProcess = ProjectOrganizationAndProcess();
 
   /// 3. Administrative [PD00-ADM].
-  final Administrative administrative;
+  Administrative administrative = Administrative();
 
   /// 4. System Overview [PD00-SYO].
-  final SystemOverview systemOverview;
+  SystemOverview systemOverview = SystemOverview();
 
   /// 5. Organizational Framework [PD00-ORG].
-  final OrganizationalFramework organizationalFramework;
+  OrganizationalFramework organizationalFramework = OrganizationalFramework();
 
   /// 6. Target Business Process Model [PD00-TAR].
-  final TargetBusinessProcessModel targetBusinessProcess;
+  TargetBusinessProcessModel targetBusinessProcess = TargetBusinessProcessModel();
 
   /// 7. Business Object and Data Model [PD00-BUS].
-  final BusinessObjectAndDataModel businessDataModel;
+  BusinessObjectAndDataModel businessDataModel = BusinessObjectAndDataModel();
 
   /// 8. Technical Framework Concept [PD00-TEC].
-  final TechnicalFrameworkConcept technicalFramework;
+  TechnicalFrameworkConcept technicalFramework = TechnicalFrameworkConcept();
 
   /// 9. Access and Authorization Concept [PD00-ACC].
-  final AccessAndAuthorizationConcept accessAuthorization;
+  AccessAndAuthorizationConcept accessAuthorization = AccessAndAuthorizationConcept();
 
   /// 10. User Interface Design [PD00-USE].
-  final UserInterfaceDesign userInterfaceDesign;
+  UserInterfaceDesign userInterfaceDesign = UserInterfaceDesign();
 
   /// 11. System Quality Goals [PD00-SYQ].
-  final SystemQualityGoals systemQualityGoals;
+  SystemQualityGoals systemQualityGoals = SystemQualityGoals();
 
   /// 12. Components to Use [PD00-COM].
-  final ComponentsToUse componentsToUse;
+  ComponentsToUse componentsToUse = ComponentsToUse();
 
   /// 13. System Stage Plan [PD00-SSP].
-  final SystemStagePlan systemStagePlan;
+  SystemStagePlan systemStagePlan = SystemStagePlan();
 
   /// 14. Delivery Scope and Acceptance [PD00-DEL].
-  final DeliveryScopeAndAcceptance deliveryAcceptance;
-
-  const ProjectDefinition({
-    this.header = const DocumentHeader(),
-    this.currentStateAnalysis = const CurrentStateAnalysis(),
-    this.projectOrganizationProcess = const ProjectOrganizationAndProcess(),
-    this.administrative = const Administrative(),
-    this.systemOverview = const SystemOverview(),
-    this.organizationalFramework = const OrganizationalFramework(),
-    this.targetBusinessProcess = const TargetBusinessProcessModel(),
-    this.businessDataModel = const BusinessObjectAndDataModel(),
-    this.technicalFramework = const TechnicalFrameworkConcept(),
-    this.accessAuthorization = const AccessAndAuthorizationConcept(),
-    this.userInterfaceDesign = const UserInterfaceDesign(),
-    this.systemQualityGoals = const SystemQualityGoals(),
-    this.componentsToUse = const ComponentsToUse(),
-    this.systemStagePlan = const SystemStagePlan(),
-    this.deliveryAcceptance = const DeliveryScopeAndAcceptance(),
-  });
+  DeliveryScopeAndAcceptance deliveryAcceptance = DeliveryScopeAndAcceptance();
 }

@@ -5,21 +5,11 @@ import 'package:tom_core_kernel/tom_core_kernel.dart';
 /// All fields are optional strings representing the document's form fields.
 @tomReflector
 class DocumentHeader {
-  final String? content;
-  final String? documentId;
-  final String? project;
-  final String? version;
-  final String? date;
-  final String? author;
-  final String? status;
-
-  const DocumentHeader({
-    this.content,
-    this.documentId,
-    this.project,
-    this.version,
-    this.date,
-    this.author,
-    this.status,
-  });
+  String? content;
+  String? documentId;
+  String? project;
+  String? version;
+  String? date;
+  String? author;
+  String? status;
 }

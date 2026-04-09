@@ -10,19 +10,13 @@ import 'package:tom_core_kernel/tom_core_kernel.dart';
 /// 6. Target Business Process Model [PD00-TAR].
 @tomReflector
 class TargetBusinessProcessModel {
-  final String? content;
+  String? content;
 
   /// 6.1. Business Process Descriptions [PD00-TAR-PRO]. Seeds → BP.
-  final BusinessProcessDescriptions processDescriptions;
+  BusinessProcessDescriptions processDescriptions = BusinessProcessDescriptions();
 
   /// 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
-  final ProcessStepsAndActorInteractions processSteps;
-
-  const TargetBusinessProcessModel({
-    this.content,
-    this.processDescriptions = const BusinessProcessDescriptions(),
-    this.processSteps = const ProcessStepsAndActorInteractions(),
-  });
+  ProcessStepsAndActorInteractions processSteps = ProcessStepsAndActorInteractions();
 }
 
 // ---------------------------------------------------------------------------
@@ -32,82 +26,52 @@ class TargetBusinessProcessModel {
 /// 6.1. Business Process Descriptions [PD00-TAR-PRO]. Seeds → BP.
 @tomReflector
 class BusinessProcessDescriptions {
-  final String? content;
+  String? content;
 
   /// 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
-  final String? processVision;
+  String? processVision;
 
   /// 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
-  final DesignPrinciples designPrinciples;
+  DesignPrinciples designPrinciples = DesignPrinciples();
 
   /// 6.1.3. Process Catalog [PD00-TAR-PRO-CAT] — contains 1+× Business Process.
-  final List<BusinessProcessEntry> processCatalog;
+  List<BusinessProcessEntry> processCatalog = [];
 
   /// 6.1.4. Process Overview Diagram [PD00-TAR-PRO-FLO] (mermaid).
-  final String? processOverviewDiagram;
+  String? processOverviewDiagram;
 
   /// 6.1.5. Improvement Summary [PD00-TAR-PRO-IMP].
-  final String? improvementSummary;
-
-  const BusinessProcessDescriptions({
-    this.content,
-    this.processVision,
-    this.designPrinciples = const DesignPrinciples(),
-    this.processCatalog = const [],
-    this.processOverviewDiagram,
-    this.improvementSummary,
-  });
+  String? improvementSummary;
 }
 
 /// 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
 @tomReflector
 class DesignPrinciples {
-  final String? content;
-  final List<DesignPrincipleEntry> items;
-
-  const DesignPrinciples({this.content, this.items = const []});
+  String? content;
+  List<DesignPrincipleEntry> items = [];
 }
 
 /// A design principle entry (form).
 @tomReflector
 class DesignPrincipleEntry {
-  final String? content;
-  final String? principle;
-  final String? description;
-  final String? rationale;
-
-  const DesignPrincipleEntry({
-    this.content,
-    this.principle,
-    this.description,
-    this.rationale,
-  });
+  String? content;
+  String? principle;
+  String? description;
+  String? rationale;
 }
 
 /// A business process entry [PD00-TAR-PRO-CAT-nn] (form).
 @tomReflector
 class BusinessProcessEntry {
-  final String? content;
-  final String? processId;
-  final String? processName;
-  final String? trigger;
-  final String? primaryActor;
-  final String? description;
-  final String? expectedOutcome;
-  final String? estimatedFrequency;
-  final String? estimatedDuration;
-
-  const BusinessProcessEntry({
-    this.content,
-    this.processId,
-    this.processName,
-    this.trigger,
-    this.primaryActor,
-    this.description,
-    this.expectedOutcome,
-    this.estimatedFrequency,
-    this.estimatedDuration,
-  });
+  String? content;
+  String? processId;
+  String? processName;
+  String? trigger;
+  String? primaryActor;
+  String? description;
+  String? expectedOutcome;
+  String? estimatedFrequency;
+  String? estimatedDuration;
 }
 
 // ---------------------------------------------------------------------------
@@ -117,157 +81,93 @@ class BusinessProcessEntry {
 /// 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
 @tomReflector
 class ProcessStepsAndActorInteractions {
-  final String? content;
+  String? content;
 
   /// 6.2.1. Actor Overview [PD00-TAR-STP-ACT] — contains 1+× Actor.
-  final List<ActorEntry> actors;
+  List<ActorEntry> actors = [];
 
   /// 6.2.2. Interaction Catalog [PD00-TAR-STP-INT] — contains 1+× Interaction.
-  final List<InteractionEntry> interactions;
+  List<InteractionEntry> interactions = [];
 
   /// 6.2.3. Key Scenarios [PD00-TAR-STP-SCE] — contains 1+× Scenario.
-  final List<ScenarioEntry> scenarios;
-
-  const ProcessStepsAndActorInteractions({
-    this.content,
-    this.actors = const [],
-    this.interactions = const [],
-    this.scenarios = const [],
-  });
+  List<ScenarioEntry> scenarios = [];
 }
 
 /// An actor entry [PD00-TAR-STP-ACT-nn] (form).
 @tomReflector
 class ActorEntry {
-  final String? content;
-  final String? actorName;
-  final String? actorType;
-  final String? description;
+  String? content;
+  String? actorName;
+  String? actorType;
+  String? description;
 
   /// Primary interactions — contains 1+× interaction reference.
-  final PrimaryInteractions primaryInteractions;
+  PrimaryInteractions primaryInteractions = PrimaryInteractions();
 
-  final String? accessChannel;
-
-  const ActorEntry({
-    this.content,
-    this.actorName,
-    this.actorType,
-    this.description,
-    this.primaryInteractions = const PrimaryInteractions(),
-    this.accessChannel,
-  });
+  String? accessChannel;
 }
 
 /// Primary interactions for an actor.
 @tomReflector
 class PrimaryInteractions {
-  final String? content;
-  final List<PrimaryInteractionEntry> items;
-
-  const PrimaryInteractions({this.content, this.items = const []});
+  String? content;
+  List<PrimaryInteractionEntry> items = [];
 }
 
 /// A primary interaction entry (form).
 @tomReflector
 class PrimaryInteractionEntry {
-  final String? content;
-  final String? useCaseReference;
-  final String? description;
-  final String? frequency;
-  final String? criticality;
-
-  const PrimaryInteractionEntry({
-    this.content,
-    this.useCaseReference,
-    this.description,
-    this.frequency,
-    this.criticality,
-  });
+  String? content;
+  String? useCaseReference;
+  String? description;
+  String? frequency;
+  String? criticality;
 }
 
 /// An interaction entry [PD00-TAR-STP-INT-nn] (form).
 @tomReflector
 class InteractionEntry {
-  final String? content;
-  final String? interactionId;
-  final String? processReference;
-  final String? actor;
-  final String? action;
-  final String? systemResponse;
-  final String? expectedOutcome;
-  final String? precondition;
-  final String? postcondition;
-  final String? relatedUseCase;
-
-  const InteractionEntry({
-    this.content,
-    this.interactionId,
-    this.processReference,
-    this.actor,
-    this.action,
-    this.systemResponse,
-    this.expectedOutcome,
-    this.precondition,
-    this.postcondition,
-    this.relatedUseCase,
-  });
+  String? content;
+  String? interactionId;
+  String? processReference;
+  String? actor;
+  String? action;
+  String? systemResponse;
+  String? expectedOutcome;
+  String? precondition;
+  String? postcondition;
+  String? relatedUseCase;
 }
 
 /// A scenario entry [PD00-TAR-STP-SCE-nn] (description).
 @tomReflector
 class ScenarioEntry {
-  final String? content;
-  final String? scenarioName;
-  final String? description;
-  final List<ScenarioStepEntry> steps;
-  final String? successCondition;
+  String? content;
+  String? scenarioName;
+  String? description;
+  List<ScenarioStepEntry> steps = [];
+  String? successCondition;
 
   /// Alternative flows for this scenario.
-  final List<AlternativeFlowEntry> alternativeFlows;
-
-  const ScenarioEntry({
-    this.content,
-    this.scenarioName,
-    this.description,
-    this.steps = const [],
-    this.successCondition,
-    this.alternativeFlows = const [],
-  });
+  List<AlternativeFlowEntry> alternativeFlows = [];
 }
 
 /// A scenario step entry (form).
 @tomReflector
 class ScenarioStepEntry {
-  final String? content;
-  final String? stepNumber;
-  final String? description;
-  final String? expectedResult;
-
-  const ScenarioStepEntry({
-    this.content,
-    this.stepNumber,
-    this.description,
-    this.expectedResult,
-  });
+  String? content;
+  String? stepNumber;
+  String? description;
+  String? expectedResult;
 }
 
 /// An alternative flow entry (form).
 @tomReflector
 class AlternativeFlowEntry {
-  final String? content;
-  final String? flowName;
-  final String? triggerCondition;
-  final List<ScenarioStepEntry> steps;
-  final String? outcome;
-  final String? returnPoint;
-
-  const AlternativeFlowEntry({
-    this.content,
-    this.flowName,
-    this.triggerCondition,
-    this.steps = const [],
-    this.outcome,
-    this.returnPoint,
-  });
+  String? content;
+  String? flowName;
+  String? triggerCondition;
+  List<ScenarioStepEntry> steps = [];
+  String? outcome;
+  String? returnPoint;
 }

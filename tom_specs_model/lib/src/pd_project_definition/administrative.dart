@@ -9,35 +9,25 @@ import 'package:tom_core_kernel/tom_core_kernel.dart';
 /// 3. Administrative [PD00-ADM].
 @tomReflector
 class Administrative {
-  final String? content;
+  String? content;
 
   /// 3.1. Project Organization [PD00-ADM-PRO].
-  final ProjectOrganization projectOrganization;
+  ProjectOrganization projectOrganization = ProjectOrganization();
 
   /// 3.2. Project Team Staffing [PD00-ADM-TEA] — contains 1+× Team Member.
-  final ProjectTeamStaffing projectTeamStaffing;
+  ProjectTeamStaffing projectTeamStaffing = ProjectTeamStaffing();
 
   /// 3.3. Distribution List [PD00-ADM-DIS].
-  final DistributionList distributionList;
+  DistributionList distributionList = DistributionList();
 
   /// 3.4. Change Procedure [PD00-ADM-CHA].
-  final ChangeProcedure changeProcedure;
+  ChangeProcedure changeProcedure = ChangeProcedure();
 
   /// 3.5. Reference Documents [PD00-ADM-REF] — contains 0+× Reference Document.
-  final ReferenceDocuments referenceDocuments;
+  ReferenceDocuments referenceDocuments = ReferenceDocuments();
 
   /// 3.6. Other Administrative Requirements [PD00-ADM-OTH].
-  final String? otherAdministrative;
-
-  const Administrative({
-    this.content,
-    this.projectOrganization = const ProjectOrganization(),
-    this.projectTeamStaffing = const ProjectTeamStaffing(),
-    this.distributionList = const DistributionList(),
-    this.changeProcedure = const ChangeProcedure(),
-    this.referenceDocuments = const ReferenceDocuments(),
-    this.otherAdministrative,
-  });
+  String? otherAdministrative;
 }
 
 // ---------------------------------------------------------------------------
@@ -47,57 +37,36 @@ class Administrative {
 /// 3.1. Project Organization [PD00-ADM-PRO].
 @tomReflector
 class ProjectOrganization {
-  final String? content;
+  String? content;
 
   /// 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
-  final OrganizationStructure organizationStructure;
+  OrganizationStructure organizationStructure = OrganizationStructure();
 
   /// 3.1.2. Steering Committee [PD00-ADM-PRO-STE] — contains 1+× Member.
-  final List<CommitteeMemberEntry> steeringCommittee;
-
-  const ProjectOrganization({
-    this.content,
-    this.organizationStructure = const OrganizationStructure(),
-    this.steeringCommittee = const [],
-  });
+  List<CommitteeMemberEntry> steeringCommittee = [];
 }
 
 /// 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
 @tomReflector
 class OrganizationStructure {
-  final String? content;
+  String? content;
 
   /// Explanation of the organization chart.
-  final String? orgChartExplanation;
+  String? orgChartExplanation;
 
   /// Organization chart diagram (e.g. Mermaid or image reference).
-  final String? orgChartDiagram;
-
-  const OrganizationStructure({
-    this.content,
-    this.orgChartExplanation,
-    this.orgChartDiagram,
-  });
+  String? orgChartDiagram;
 }
 
 /// A steering committee member entry [PD00-ADM-PRO-STE-nn] (form).
 @tomReflector
 class CommitteeMemberEntry {
-  final String? content;
-  final String? name;
-  final String? organizationRole;
-  final String? committeeRole;
-  final String? decisionAuthority;
-  final String? meetingAttendance;
-
-  const CommitteeMemberEntry({
-    this.content,
-    this.name,
-    this.organizationRole,
-    this.committeeRole,
-    this.decisionAuthority,
-    this.meetingAttendance,
-  });
+  String? content;
+  String? name;
+  String? organizationRole;
+  String? committeeRole;
+  String? decisionAuthority;
+  String? meetingAttendance;
 }
 
 // ---------------------------------------------------------------------------
@@ -107,41 +76,24 @@ class CommitteeMemberEntry {
 /// 3.2. Project Team Staffing [PD00-ADM-TEA].
 @tomReflector
 class ProjectTeamStaffing {
-  final String? content;
+  String? content;
 
   /// Team members — contains 1+× Team Member.
-  final List<TeamMemberEntry> members;
-
-  const ProjectTeamStaffing({
-    this.content,
-    this.members = const [],
-  });
+  List<TeamMemberEntry> members = [];
 }
 
 /// A team member entry [PD00-ADM-TEA-nn] (form).
 @tomReflector
 class TeamMemberEntry {
-  final String? content;
-  final String? name;
-  final String? projectRole;
-  final String? organization;
-  final String? allocation;
-  final String? startDate;
-  final String? endDate;
-  final String? specialSkills;
-  final String? reportingTo;
-
-  const TeamMemberEntry({
-    this.content,
-    this.name,
-    this.projectRole,
-    this.organization,
-    this.allocation,
-    this.startDate,
-    this.endDate,
-    this.specialSkills,
-    this.reportingTo,
-  });
+  String? content;
+  String? name;
+  String? projectRole;
+  String? organization;
+  String? allocation;
+  String? startDate;
+  String? endDate;
+  String? specialSkills;
+  String? reportingTo;
 }
 
 // ---------------------------------------------------------------------------
@@ -151,55 +103,37 @@ class TeamMemberEntry {
 /// 3.3. Distribution List [PD00-ADM-DIS].
 @tomReflector
 class DistributionList {
-  final String? content;
+  String? content;
 
   /// 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
-  final FullDistribution fullDistribution;
+  FullDistribution fullDistribution = FullDistribution();
 
   /// 3.3.2. Executive Summary [PD00-ADM-DIS-EXE].
-  final ExecutiveSummaryDistribution executiveSummary;
-
-  const DistributionList({
-    this.content,
-    this.fullDistribution = const FullDistribution(),
-    this.executiveSummary = const ExecutiveSummaryDistribution(),
-  });
+  ExecutiveSummaryDistribution executiveSummary = ExecutiveSummaryDistribution();
 }
 
 /// 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
 @tomReflector
 class FullDistribution {
-  final String? content;
-  final List<DistributionRecipientEntry> items;
-
-  const FullDistribution({this.content, this.items = const []});
+  String? content;
+  List<DistributionRecipientEntry> items = [];
 }
 
 /// 3.3.2. Executive Summary Distribution [PD00-ADM-DIS-EXE].
 @tomReflector
 class ExecutiveSummaryDistribution {
-  final String? content;
-  final List<DistributionRecipientEntry> items;
-
-  const ExecutiveSummaryDistribution({this.content, this.items = const []});
+  String? content;
+  List<DistributionRecipientEntry> items = [];
 }
 
 /// A distribution recipient entry (form).
 @tomReflector
 class DistributionRecipientEntry {
-  final String? content;
-  final String? name;
-  final String? role;
-  final String? organization;
-  final String? distributionMethod;
-
-  const DistributionRecipientEntry({
-    this.content,
-    this.name,
-    this.role,
-    this.organization,
-    this.distributionMethod,
-  });
+  String? content;
+  String? name;
+  String? role;
+  String? organization;
+  String? distributionMethod;
 }
 
 // ---------------------------------------------------------------------------
@@ -209,109 +143,71 @@ class DistributionRecipientEntry {
 /// 3.4. Change Procedure [PD00-ADM-CHA].
 @tomReflector
 class ChangeProcedure {
-  final String? content;
+  String? content;
 
   /// 3.4.1. Change Process [PD00-ADM-CHA-PRO].
-  final ChangeProcess changeProcess;
+  ChangeProcess changeProcess = ChangeProcess();
 
   /// 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
-  final ChangeImpactCriteria changeImpactCriteria;
-
-  const ChangeProcedure({
-    this.content,
-    this.changeProcess = const ChangeProcess(),
-    this.changeImpactCriteria = const ChangeImpactCriteria(),
-  });
+  ChangeImpactCriteria changeImpactCriteria = ChangeImpactCriteria();
 }
 
 /// 3.4.1. Change Process [PD00-ADM-CHA-PRO].
 @tomReflector
 class ChangeProcess {
-  final String? content;
+  String? content;
 
   /// Overview diagram (e.g. Mermaid or image reference).
-  final String? overviewDiagram;
+  String? overviewDiagram;
 
   /// Process steps — ordered list of change process steps.
-  final List<ChangeStepEntry> steps;
+  List<ChangeStepEntry> steps = [];
 
   /// Roles involved in the change process.
-  final List<ChangeRoleEntry> roles;
+  List<ChangeRoleEntry> roles = [];
 
-  final String? approvalAuthority;
-  final String? escalationPath;
-
-  const ChangeProcess({
-    this.content,
-    this.overviewDiagram,
-    this.steps = const [],
-    this.roles = const [],
-    this.approvalAuthority,
-    this.escalationPath,
-  });
+  String? approvalAuthority;
+  String? escalationPath;
 }
 
 /// A role involved in the change process (form).
 @tomReflector
 class ChangeRoleEntry {
-  final String? content;
-  final String? roleName;
-  final String? responsibility;
-
-  const ChangeRoleEntry({this.content, this.roleName, this.responsibility});
+  String? content;
+  String? roleName;
+  String? responsibility;
 }
 
 /// A change process step entry (form).
 @tomReflector
 class ChangeStepEntry {
-  final String? content;
-  final String? stepName;
-  final String? description;
-  final String? responsibleRole;
-  final String? inputArtifacts;
-  final String? outputArtifacts;
-  final String? approvalCriteria;
+  String? content;
+  String? stepName;
+  String? description;
+  String? responsibleRole;
+  String? inputArtifacts;
+  String? outputArtifacts;
+  String? approvalCriteria;
 
   /// Subflow diagram for this step (e.g. Mermaid or image reference).
-  final String? subflowDiagram;
-
-  const ChangeStepEntry({
-    this.content,
-    this.stepName,
-    this.description,
-    this.responsibleRole,
-    this.inputArtifacts,
-    this.outputArtifacts,
-    this.approvalCriteria,
-    this.subflowDiagram,
-  });
+  String? subflowDiagram;
 }
 
 /// 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
 @tomReflector
 class ChangeImpactCriteria {
-  final String? content;
-  final List<ChangeImpactCriterionEntry> items;
-
-  const ChangeImpactCriteria({this.content, this.items = const []});
+  String? content;
+  List<ChangeImpactCriterionEntry> items = [];
 }
 
 /// A change impact criterion entry (form).
 @tomReflector
 class ChangeImpactCriterionEntry {
-  final String? content;
-  final String? criterion;
-  final String? impactLevel;
-  final String? description;
-  final String? approvalRequired;
-
-  const ChangeImpactCriterionEntry({
-    this.content,
-    this.criterion,
-    this.impactLevel,
-    this.description,
-    this.approvalRequired,
-  });
+  String? content;
+  String? criterion;
+  String? impactLevel;
+  String? description;
+  String? approvalRequired;
 }
 
 // ---------------------------------------------------------------------------
@@ -321,35 +217,20 @@ class ChangeImpactCriterionEntry {
 /// 3.5. Reference Documents [PD00-ADM-REF].
 @tomReflector
 class ReferenceDocuments {
-  final String? content;
+  String? content;
 
   /// Reference document entries — contains 0+× Reference Document.
-  final List<ReferenceDocumentEntry> documents;
-
-  const ReferenceDocuments({
-    this.content,
-    this.documents = const [],
-  });
+  List<ReferenceDocumentEntry> documents = [];
 }
 
 /// A reference document entry [PD00-ADM-REF-nn] (form).
 @tomReflector
 class ReferenceDocumentEntry {
-  final String? content;
-  final String? documentTitle;
-  final String? version;
-  final String? author;
-  final String? date;
-  final String? purpose;
-  final String? location;
-
-  const ReferenceDocumentEntry({
-    this.content,
-    this.documentTitle,
-    this.version,
-    this.author,
-    this.date,
-    this.purpose,
-    this.location,
-  });
+  String? content;
+  String? documentTitle;
+  String? version;
+  String? author;
+  String? date;
+  String? purpose;
+  String? location;
 }

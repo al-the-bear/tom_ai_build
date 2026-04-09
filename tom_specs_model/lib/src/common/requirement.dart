@@ -9,23 +9,12 @@ import 'enums.dart';
 /// [relatedBusinessProcess], and [affectedDataEntities].
 @tomReflector
 class Requirement {
-  final String requirementId;
-  final String title;
-  final String description;
-  final Priority priority;
-  final String source;
-  final String? rationale;
-  final String acceptanceCriteria;
-  final Status status;
-
-  const Requirement({
-    required this.requirementId,
-    required this.title,
-    required this.description,
-    required this.priority,
-    required this.source,
-    this.rationale,
-    required this.acceptanceCriteria,
-    this.status = Status.draft,
-  });
+  String? requirementId;
+  String? title;
+  String? description;
+  Priority? priority;
+  String? source;
+  String? rationale;
+  String? acceptanceCriteria;
+  Status status = Status.draft;
 }

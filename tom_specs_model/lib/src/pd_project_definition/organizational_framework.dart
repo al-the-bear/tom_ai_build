@@ -9,23 +9,16 @@ import 'package:tom_core_kernel/tom_core_kernel.dart';
 /// 5. Organizational Framework [PD00-ORG].
 @tomReflector
 class OrganizationalFramework {
-  final String? content;
+  String? content;
 
   /// 5.1. New Organization Structure [PD00-ORG-STR].
-  final NewOrganizationStructure organizationStructure;
+  NewOrganizationStructure organizationStructure = NewOrganizationStructure();
 
   /// 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
-  final JobDescriptionsAndStaffing jobDescriptions;
+  JobDescriptionsAndStaffing jobDescriptions = JobDescriptionsAndStaffing();
 
   /// 5.3. Workplace Descriptions [PD00-ORG-WOR] — contains 1+× per user category.
-  final List<WorkplaceDescriptionEntry> workplaceDescriptions;
-
-  const OrganizationalFramework({
-    this.content,
-    this.organizationStructure = const NewOrganizationStructure(),
-    this.jobDescriptions = const JobDescriptionsAndStaffing(),
-    this.workplaceDescriptions = const [],
-  });
+  List<WorkplaceDescriptionEntry> workplaceDescriptions = [];
 }
 
 // ---------------------------------------------------------------------------
@@ -35,48 +28,31 @@ class OrganizationalFramework {
 /// 5.1. New Organization Structure [PD00-ORG-STR].
 @tomReflector
 class NewOrganizationStructure {
-  final String? content;
+  String? content;
 
   /// 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
-  final ChangesFromCurrentStructure changesFromCurrentStructure;
+  ChangesFromCurrentStructure changesFromCurrentStructure = ChangesFromCurrentStructure();
 
   /// 5.1.2. Organizational Transition Timeline [PD00-ORG-STR-TIM].
-  final String? transitionTimeline;
-
-  const NewOrganizationStructure({
-    this.content,
-    this.changesFromCurrentStructure = const ChangesFromCurrentStructure(),
-    this.transitionTimeline,
-  });
+  String? transitionTimeline;
 }
 
 /// 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
 @tomReflector
 class ChangesFromCurrentStructure {
-  final String? content;
-  final List<OrganizationalChangeEntry> items;
-
-  const ChangesFromCurrentStructure({this.content, this.items = const []});
+  String? content;
+  List<OrganizationalChangeEntry> items = [];
 }
 
 /// An organizational change entry (form).
 @tomReflector
 class OrganizationalChangeEntry {
-  final String? content;
-  final String? area;
-  final String? currentState;
-  final String? targetState;
-  final String? rationale;
-  final String? impact;
-
-  const OrganizationalChangeEntry({
-    this.content,
-    this.area,
-    this.currentState,
-    this.targetState,
-    this.rationale,
-    this.impact,
-  });
+  String? content;
+  String? area;
+  String? currentState;
+  String? targetState;
+  String? rationale;
+  String? impact;
 }
 
 // ---------------------------------------------------------------------------
@@ -86,91 +62,55 @@ class OrganizationalChangeEntry {
 /// 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
 @tomReflector
 class JobDescriptionsAndStaffing {
-  final String? content;
+  String? content;
 
   /// 5.2.1. New Roles [PD00-ORG-JOB-NEW] — contains 0+× New Role.
-  final List<NewRoleEntry> newRoles;
+  List<NewRoleEntry> newRoles = [];
 
   /// 5.2.2. Changed Roles [PD00-ORG-JOB-CHA] — contains 0+× Changed Role.
-  final List<ChangedRoleEntry> changedRoles;
-
-  const JobDescriptionsAndStaffing({
-    this.content,
-    this.newRoles = const [],
-    this.changedRoles = const [],
-  });
+  List<ChangedRoleEntry> changedRoles = [];
 }
 
 /// A new role entry [PD00-ORG-JOB-NEW-nn] (form).
 @tomReflector
 class NewRoleEntry {
-  final String? content;
-  final String? roleTitle;
-  final String? department;
-  final List<RoleResponsibilityEntry> responsibilities;
-  final List<SkillEntry> requiredSkills;
-  final String? reportingLine;
-  final String? fteAllocation;
-  final String? startDate;
-
-  const NewRoleEntry({
-    this.content,
-    this.roleTitle,
-    this.department,
-    this.responsibilities = const [],
-    this.requiredSkills = const [],
-    this.reportingLine,
-    this.fteAllocation,
-    this.startDate,
-  });
+  String? content;
+  String? roleTitle;
+  String? department;
+  List<RoleResponsibilityEntry> responsibilities = [];
+  List<SkillEntry> requiredSkills = [];
+  String? reportingLine;
+  String? fteAllocation;
+  String? startDate;
 }
 
 /// A responsibility entry (form).
 @tomReflector
 class RoleResponsibilityEntry {
-  final String? content;
-  final String? responsibility;
-  final String? description;
-
-  const RoleResponsibilityEntry({
-    this.content,
-    this.responsibility,
-    this.description,
-  });
+  String? content;
+  String? responsibility;
+  String? description;
 }
 
 /// A skill entry (form).
 @tomReflector
 class SkillEntry {
-  final String? content;
-  final String? skillName;
-  final String? proficiencyLevel;
-
-  const SkillEntry({this.content, this.skillName, this.proficiencyLevel});
+  String? content;
+  String? skillName;
+  String? proficiencyLevel;
 }
 
 /// A changed role entry [PD00-ORG-JOB-CHA-nn] (form).
 @tomReflector
 class ChangedRoleEntry {
-  final String? content;
-  final String? roleTitle;
-  final String? currentDepartment;
-  final List<RoleResponsibilityEntry> addedResponsibilities;
-  final List<RoleResponsibilityEntry> removedResponsibilities;
-  final List<SkillEntry> newSkillRequirements;
-  final String? changedReportingLine;
-  final String? trainingRequired;
-
-  const ChangedRoleEntry({
-    this.content,
-    this.roleTitle,
-    this.currentDepartment,
-    this.addedResponsibilities = const [],
-    this.removedResponsibilities = const [],
-    this.newSkillRequirements = const [],
-    this.changedReportingLine,
-    this.trainingRequired,
-  });
+  String? content;
+  String? roleTitle;
+  String? currentDepartment;
+  List<RoleResponsibilityEntry> addedResponsibilities = [];
+  List<RoleResponsibilityEntry> removedResponsibilities = [];
+  List<SkillEntry> newSkillRequirements = [];
+  String? changedReportingLine;
+  String? trainingRequired;
 }
 
 // ---------------------------------------------------------------------------
@@ -180,77 +120,49 @@ class ChangedRoleEntry {
 /// A workplace description entry [PD00-ORG-WOR-nn] (form, per user category).
 @tomReflector
 class WorkplaceDescriptionEntry {
-  final String? content;
+  String? content;
 
   /// Target user category this workplace description applies to.
-  final String? userCategory;
+  String? userCategory;
 
   /// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
-  final EquipmentRequirements equipmentRequirements;
+  EquipmentRequirements equipmentRequirements = EquipmentRequirements();
 
   /// 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
-  final TrainingRequirements trainingRequirements;
-
-  const WorkplaceDescriptionEntry({
-    this.content,
-    this.userCategory,
-    this.equipmentRequirements = const EquipmentRequirements(),
-    this.trainingRequirements = const TrainingRequirements(),
-  });
+  TrainingRequirements trainingRequirements = TrainingRequirements();
 }
 
 /// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
 @tomReflector
 class EquipmentRequirements {
-  final String? content;
-  final List<EquipmentRequirementEntry> items;
-
-  const EquipmentRequirements({this.content, this.items = const []});
+  String? content;
+  List<EquipmentRequirementEntry> items = [];
 }
 
 /// An equipment requirement entry (form).
 @tomReflector
 class EquipmentRequirementEntry {
-  final String? content;
-  final String? equipmentType;
-  final String? specification;
-  final String? quantity;
-  final String? purpose;
-
-  const EquipmentRequirementEntry({
-    this.content,
-    this.equipmentType,
-    this.specification,
-    this.quantity,
-    this.purpose,
-  });
+  String? content;
+  String? equipmentType;
+  String? specification;
+  String? quantity;
+  String? purpose;
 }
 
 /// 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
 @tomReflector
 class TrainingRequirements {
-  final String? content;
-  final List<TrainingRequirementEntry> items;
-
-  const TrainingRequirements({this.content, this.items = const []});
+  String? content;
+  List<TrainingRequirementEntry> items = [];
 }
 
 /// A training requirement entry (form).
 @tomReflector
 class TrainingRequirementEntry {
-  final String? content;
-  final String? trainingTopic;
-  final String? targetAudience;
-  final String? format;
-  final String? duration;
-  final String? schedule;
-
-  const TrainingRequirementEntry({
-    this.content,
-    this.trainingTopic,
-    this.targetAudience,
-    this.format,
-    this.duration,
-    this.schedule,
-  });
+  String? content;
+  String? trainingTopic;
+  String? targetAudience;
+  String? format;
+  String? duration;
+  String? schedule;
 }

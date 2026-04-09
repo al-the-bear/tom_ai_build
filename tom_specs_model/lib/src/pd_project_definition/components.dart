@@ -9,126 +9,86 @@ import 'package:tom_core_kernel/tom_core_kernel.dart';
 /// 12. Components to Use [PD00-COM]. Seeds → TR.
 @tomReflector
 class ComponentsToUse {
-  final String? content;
+  String? content;
 
   /// 12.1. Component Strategy [PD00-COM-STR].
-  final ComponentStrategy strategy;
+  ComponentStrategy strategy = ComponentStrategy();
 
   /// 12.2. Component Catalog [PD00-COM-COM] — contains 0+× Component.
-  final List<ComponentEntry> componentCatalog;
+  List<ComponentEntry> componentCatalog = [];
 
   /// 12.3. Component Role in System [PD00-COM-ROL].
-  final String? componentRoleInSystem;
+  String? componentRoleInSystem;
 
   /// 12.4. Runtime Dependencies [PD00-COM-RUN].
-  final RuntimeDependencies runtimeDependencies;
+  RuntimeDependencies runtimeDependencies = RuntimeDependencies();
 
   /// 12.5. Maintenance Dependencies [PD00-COM-MAI].
-  final MaintenanceDependencies maintenanceDependencies;
+  MaintenanceDependencies maintenanceDependencies = MaintenanceDependencies();
 
   /// 12.6. Risk Assessment [PD00-COM-RIS].
-  final ComponentRiskAssessment riskAssessment;
-
-  const ComponentsToUse({
-    this.content,
-    this.strategy = const ComponentStrategy(),
-    this.componentCatalog = const [],
-    this.componentRoleInSystem,
-    this.runtimeDependencies = const RuntimeDependencies(),
-    this.maintenanceDependencies = const MaintenanceDependencies(),
-    this.riskAssessment = const ComponentRiskAssessment(),
-  });
+  ComponentRiskAssessment riskAssessment = ComponentRiskAssessment();
 }
 
 /// 12.1. Component Strategy [PD00-COM-STR].
 @tomReflector
 class ComponentStrategy {
-  final String? content;
+  String? content;
 
   /// 12.1.1. Reuse Goals [PD00-COM-STR-GOA].
-  final List<ReuseGoalEntry> reuseGoals;
+  List<ReuseGoalEntry> reuseGoals = [];
 
   /// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
-  final EvaluationCriteria evaluationCriteria;
-
-  const ComponentStrategy({
-    this.content,
-    this.reuseGoals = const [],
-    this.evaluationCriteria = const EvaluationCriteria(),
-  });
+  EvaluationCriteria evaluationCriteria = EvaluationCriteria();
 }
 
 /// A reuse goal entry (form).
 @tomReflector
 class ReuseGoalEntry {
-  final String? content;
-  final String? goal;
-  final String? rationale;
-
-  const ReuseGoalEntry({this.content, this.goal, this.rationale});
+  String? content;
+  String? goal;
+  String? rationale;
 }
 
 /// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
 @tomReflector
 class EvaluationCriteria {
-  final String? content;
-  final List<EvaluationCriterionEntry> items;
-
-  const EvaluationCriteria({this.content, this.items = const []});
+  String? content;
+  List<EvaluationCriterionEntry> items = [];
 }
 
 /// An evaluation criterion entry (form).
 @tomReflector
 class EvaluationCriterionEntry {
-  final String? content;
-  final String? criterion;
-  final String? weight;
-  final String? description;
-
-  const EvaluationCriterionEntry({
-    this.content,
-    this.criterion,
-    this.weight,
-    this.description,
-  });
+  String? content;
+  String? criterion;
+  String? weight;
+  String? description;
 }
 
 /// 12.4. Runtime Dependencies [PD00-COM-RUN].
 @tomReflector
 class RuntimeDependencies {
-  final String? content;
-  final List<DependencyEntry> items;
-
-  const RuntimeDependencies({this.content, this.items = const []});
+  String? content;
+  List<DependencyEntry> items = [];
 }
 
 /// 12.5. Maintenance Dependencies [PD00-COM-MAI].
 @tomReflector
 class MaintenanceDependencies {
-  final String? content;
-  final List<DependencyEntry> items;
-
-  const MaintenanceDependencies({this.content, this.items = const []});
+  String? content;
+  List<DependencyEntry> items = [];
 }
 
 /// A dependency entry (form).
 @tomReflector
 class DependencyEntry {
-  final String? content;
-  final String? dependencyName;
-  final String? version;
-  final String? purpose;
-  final String? criticality;
-  final String? alternative;
-
-  const DependencyEntry({
-    this.content,
-    this.dependencyName,
-    this.version,
-    this.purpose,
-    this.criticality,
-    this.alternative,
-  });
+  String? content;
+  String? dependencyName;
+  String? version;
+  String? purpose;
+  String? criticality;
+  String? alternative;
 }
 
 // ---------------------------------------------------------------------------
@@ -138,89 +98,53 @@ class DependencyEntry {
 /// A component entry [PD00-COM-COM-nn] (form) with sub-entries.
 @tomReflector
 class ComponentEntry {
-  final String? content;
-  final String? componentName;
-  final String? version;
-  final String? category;
-  final String? purpose;
-  final String? documentation;
+  String? content;
+  String? componentName;
+  String? version;
+  String? category;
+  String? purpose;
+  String? documentation;
 
   /// Interfaces [PD00-COM-COM-nn-INT].
-  final List<ComponentInterfaceEntry> interfaces;
+  List<ComponentInterfaceEntry> interfaces = [];
 
   /// Licensing [PD00-COM-COM-nn-LIC] (form).
-  final ComponentLicensingEntry? licensing;
+  ComponentLicensingEntry? licensing;
 
   /// Usage Rights [PD00-COM-COM-nn-USE] (description).
-  final String? usageRights;
+  String? usageRights;
 
   /// Responsibilities [PD00-COM-COM-nn-RES] (form).
-  final ComponentResponsibilitiesEntry? responsibilities;
-
-  const ComponentEntry({
-    this.content,
-    this.componentName,
-    this.version,
-    this.category,
-    this.purpose,
-    this.documentation,
-    this.interfaces = const [],
-    this.licensing,
-    this.usageRights,
-    this.responsibilities,
-  });
+  ComponentResponsibilitiesEntry? responsibilities;
 }
 
 /// A component interface entry (form).
 @tomReflector
 class ComponentInterfaceEntry {
-  final String? content;
-  final String? interfaceName;
-  final String? interfaceType;
-  final String? description;
-
-  const ComponentInterfaceEntry({
-    this.content,
-    this.interfaceName,
-    this.interfaceType,
-    this.description,
-  });
+  String? content;
+  String? interfaceName;
+  String? interfaceType;
+  String? description;
 }
 
 /// Component licensing sub-entry [PD00-COM-COM-nn-LIC] (form).
 @tomReflector
 class ComponentLicensingEntry {
-  final String? content;
-  final String? licenseModel;
-  final String? annualCost;
-  final String? renewal;
-  final String? redistribution;
-
-  const ComponentLicensingEntry({
-    this.content,
-    this.licenseModel,
-    this.annualCost,
-    this.renewal,
-    this.redistribution,
-  });
+  String? content;
+  String? licenseModel;
+  String? annualCost;
+  String? renewal;
+  String? redistribution;
 }
 
 /// Component responsibilities sub-entry [PD00-COM-COM-nn-RES] (form).
 @tomReflector
 class ComponentResponsibilitiesEntry {
-  final String? content;
-  final String? technicalContact;
-  final String? supportModel;
-  final String? escalation;
-  final String? updateCadence;
-
-  const ComponentResponsibilitiesEntry({
-    this.content,
-    this.technicalContact,
-    this.supportModel,
-    this.escalation,
-    this.updateCadence,
-  });
+  String? content;
+  String? technicalContact;
+  String? supportModel;
+  String? escalation;
+  String? updateCadence;
 }
 
 // ---------------------------------------------------------------------------
@@ -230,68 +154,41 @@ class ComponentResponsibilitiesEntry {
 /// 12.6. Risk Assessment [PD00-COM-RIS].
 @tomReflector
 class ComponentRiskAssessment {
-  final String? content;
+  String? content;
 
   /// 12.6.1. Component Risks [PD00-COM-RIS-RIS] — contains 0+× Risk.
-  final List<ComponentRiskEntry> risks;
+  List<ComponentRiskEntry> risks = [];
 
   /// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
-  final ContingencyPlans contingencyPlans;
-
-  const ComponentRiskAssessment({
-    this.content,
-    this.risks = const [],
-    this.contingencyPlans = const ContingencyPlans(),
-  });
+  ContingencyPlans contingencyPlans = ContingencyPlans();
 }
 
 /// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
 @tomReflector
 class ContingencyPlans {
-  final String? content;
-  final List<ContingencyPlanEntry> items;
-
-  const ContingencyPlans({this.content, this.items = const []});
+  String? content;
+  List<ContingencyPlanEntry> items = [];
 }
 
 /// A contingency plan entry (form).
 @tomReflector
 class ContingencyPlanEntry {
-  final String? content;
-  final String? component;
-  final String? triggerCondition;
-  final String? action;
-  final String? responsibleParty;
-
-  const ContingencyPlanEntry({
-    this.content,
-    this.component,
-    this.triggerCondition,
-    this.action,
-    this.responsibleParty,
-  });
+  String? content;
+  String? component;
+  String? triggerCondition;
+  String? action;
+  String? responsibleParty;
 }
 
 /// A component risk entry [PD00-COM-RIS-RIS-nn] (form).
 @tomReflector
 class ComponentRiskEntry {
-  final String? content;
-  final String? riskId;
-  final String? component;
-  final String? risk;
-  final String? probability;
-  final String? impact;
-  final String? mitigation;
-  final String? contingencyTrigger;
-
-  const ComponentRiskEntry({
-    this.content,
-    this.riskId,
-    this.component,
-    this.risk,
-    this.probability,
-    this.impact,
-    this.mitigation,
-    this.contingencyTrigger,
-  });
+  String? content;
+  String? riskId;
+  String? component;
+  String? risk;
+  String? probability;
+  String? impact;
+  String? mitigation;
+  String? contingencyTrigger;
 }

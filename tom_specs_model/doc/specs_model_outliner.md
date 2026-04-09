@@ -7,8 +7,7 @@ The **Specs Model Outliner** is a Dart-based generator that reads the `tom_specs
 ## 2. Input
 
 - **Source**: All Dart files under `lib/src/` of the `tom_specs_model` package.
-- **Marker**: Only classes and enums annotated with `@tomReflector` are included.
-- **Root type**: `ProjectDefinition` (the single top-level aggregator class).
+- **Root type**: `ProjectDefinition` (the single top-level aggregator class). The root class name is the key parameter of the generator besides the dart project name it is in. All classes in the dependency tree of the root class are included. For large projects these could even be in other dart projects.
 - **Analyzer**: Use `package:analyzer` to resolve types, enumerate fields, and inspect annotations.
 
 ## 3. Output
