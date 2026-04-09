@@ -45,7 +45,7 @@ A field whose type is `List<ComplexType>` (zero-or-many relationship):
 
 ### 4.4 Leaf Fields
 
-All scalar fields (`String?`, `String`) of the same class are collected on a **single line**, comma-separated, prefixed with `->`:
+All scalar fields (`String?`, `String`, enum classes) are collected on a **single line**, comma-separated, prefixed with `->`:
 
 ```
 -> content, systemName, technology, purpose
@@ -91,9 +91,9 @@ In the rare case where a field refers to an instance defined elsewhere in the tr
 -> basedOnRequirement: ProjectDefinition-SystemOverview-RequirementsOverview:functionalRequirements
 ```
 
-**Notation:**
-- `-` separates path segments (type names along the tree).
-- `:` separates the path from the field name at the target.
+**Path-Separator Notation:**
+- `-` for 1:1 and 1:0? relationships.
+- `:` for 1:n (List<...>) relationships
 
 **Heuristic for detection:** A cross-reference is identified when a field has a complex type but the field name does not semantically correspond to the type (e.g., `basedOnRequirement: FunctionalRequirementEntry` — the field name suggests a reference, not ownership).
 
@@ -109,6 +109,7 @@ These rules define constraints that the **generator should validate** and report
 | **No primitive non-String scalars** | Leaf fields must be `String`, `String?`, or an enum type. No `int`, `double`, `bool`, `num`, `DateTime`. Dates and numbers are represented as `String`. |
 | **`@tomReflector` required** | Only annotated classes/enums are part of the model. Any field referencing a non-annotated type is an error. |
 | **`content: String?` expected** | Every model class should have a `content: String?` field. The generator should warn (not error) if missing. |
+| ** Variablename matches Typename for complext types, unless reference ** | a field of type `Type` must be name `type`, unless this variable is meant to reference data of the type defined somewhere else in the object model |
 
 ## 7. Output Example
 
