@@ -39,14 +39,23 @@ In the first line, the field name `existingSystemsLandscape` matches type `Exist
 
 If the field is a `@Reference`, both field name and type name are always shown (see §4.9).
 
-### 4.3 List Fields (`-:`)
+### 4.3 List Fields (`-:`) and Count Constraints
 
-A field whose type is `List<ComplexType>` (zero-or-many relationship). Both the **field name** and the **type name** are always shown as `fieldName:TypeName`, because the field name (typically plural) differs from the type name (typically singular). The field name is structurally significant — it represents a **section level** in the target document, with each list item as a subsection:
+A field whose type is `List<ComplexType>` (zero-or-many relationship). Both the **field name** and the **type name** are always shown as `fieldName:TypeName`, because the field name (typically plural) differs from the type name (typically singular). The field name is structurally significant — it represents a **section level** in the target document, with each list item as a subsection.
+
+When a list has `@Min` or `@Max` constraints, the bounds are shown as a `(min,max)` prefix before the `-:`. If there are no constraints, just `-:` is used. Omitted values mean "no constraint" (min defaults to 0, max defaults to ∞):
+
+| Notation | Meaning |
+|----------|---------|
+| `-:` | Default: 0..∞ (no constraints) |
+| `(1,)-:` | At least 1, no upper limit |
+| `(,5)-:` | At most 5, min 0 |
+| `(1,5)-:` | Between 1 and 5 items |
 
 ```
 -: systems:ExistingSystemEntry
     -> content, systemName, technology, purpose
-    -: knownLimitations:LimitationEntry
+    (1,)-: knownLimitations:LimitationEntry
         -> content, limitation, impact
 ```
 
@@ -126,6 +135,53 @@ Fields or classes annotated with `@Comment("text")` display the comment as a tra
 ```
 
 **Comment placement:** The `← (...)` marker starts at column **50** of the line (counting from the beginning PLUS indentation), or immediately after the line content plus one space if the content is longer than 50 characters.
+
+### 4.11 Position Markers
+
+The default position is **relative** — subsections appear in the order they are declared in the class. When a field has a non-default `@Position` annotation, it is shown as a trailing marker in square brackets:
+
+```
+-: preamble:PreambleEntry                [first]
+-: items:ItemEntry                       [any]
+-: appendices:AppendixEntry              [last]
+```
+
+Position markers are aligned at column 50 (same as comments). The `[relative]` marker is never shown as it is the default.
+
+### 4.12 ForEach Constraints
+
+A list field annotated with `@ForEach` has a bidirectional relationship with a registry section type. This is shown with a `⟷` marker:
+
+```
+-: implementations:ImplementationEntry   ⟷ RequirementEntry.requirementId
+```
+
+This means: for every entry of type `RequirementEntry` (matched by its `requirementId` field), there must be a corresponding item in the `implementations` list, and vice versa.
+
+### 4.13 Outline Visibility
+
+Not all annotations appear in the outline. Annotations are categorized as **visible** (affect the outline rendering) or **schema-only** (used for schema generation and validation but not shown in the outline):
+
+| Annotation | Visible | Outline rendering |
+|------------|---------|-------------------|
+| `@Min`, `@Max` | Yes | `(min,max)-:` prefix on list lines |
+| `@Position` | Yes | `[first]`, `[last]`, `[any]` marker (non-default only) |
+| `@ForEach` | Yes | `⟷ Type.key` marker |
+| `@TextRequired` | Yes | `!` suffix on `content` field |
+| `@FieldType` | Yes | `@type` suffix on field |
+| `@ContentType` | Yes | `@type` suffix on content |
+| `@Comment` | Yes | `← (text)` marker |
+| `@Reference` | Yes | Reference path notation (see §4.9) |
+| `@SectionId` | Yes | Can be shown alongside type name |
+| `@SectionIdPattern` | Yes | Can be shown alongside list field |
+| `@Prefix` | No | Schema constraint only |
+| `@PatternCheckId` | No | Schema constraint only |
+| `@PatternCheck` | No | Schema constraint only |
+| `@MaxDepth` | No | Schema constraint only |
+| `@AllowedTags` | No | Schema constraint only |
+| `@ValidationPrompt` | No | Schema constraint only |
+| `@AccessKey` | No | Schema constraint only |
+| `@MinLength`, `@MaxLength` | No | Schema constraint only |
 
 ## 5. Type Expansion
 
@@ -235,11 +291,123 @@ Annotates the `content` field to declare the **format** of the content text.
 - Effect: `Form` means scalar fields are form fields within the content. Non-Form types prohibit other scalar fields (see §6.4).
 - Shown in outline: `-> content @Form` or `-> content @DDL`.
 
+### 7.7 `@Prefix(String prefix)`
+
+Declares the section-type prefix used for two-stage ID matching.
+
+- Applied to: classes.
+- Effect: When the schema resolver encounters a section heading, it first matches the prefix (case-insensitive, declaration order, first match wins) to determine the section type.
+- Example: `@Prefix('REQ')` → headings starting with "REQ" resolve to this section type.
+
+### 7.8 `@PatternCheckId(String pattern, {String? errorMessage})`
+
+Declares a regex pattern that section IDs must match after prefix resolution.
+
+- Applied to: classes.
+- Effect: Stage two of the two-stage ID matching — after `@Prefix` resolves the section type, this pattern validates the full ID format.
+- Example: `@PatternCheckId(r'^REQ-\d{3}$', errorMessage: 'Must be REQ-NNN')`.
+
+### 7.9 `@TextRequired()`
+
+Marks that the content text of a section must not be empty.
+
+- Applied to: classes.
+- Effect: The validator ensures the section has non-empty text content.
+- Shown in outline: `!` suffix on the `content` field: `-> content!`.
+
+### 7.10 `@MaxDepth(int levels)`
+
+Limits the maximum nesting depth of subsections.
+
+- Applied to: classes.
+- Effect: 0 = no subsections allowed; 1 = direct children only; etc.
+- Example: `@MaxDepth(2)` → allows two levels of nesting.
+
+### 7.11 `@AllowedTags(List<String> tags)`
+
+Restricts the set of tags that may be applied to sections of this type.
+
+- Applied to: classes.
+- Effect: Only the listed tag values are valid for this section type.
+- Example: `@AllowedTags(['critical', 'optional', 'deferred'])`.
+
+### 7.12 `@ValidationPrompt(String prompt)`
+
+Provides an AI validation prompt for section content.
+
+- Applied to: classes.
+- Effect: Used by AI-assisted validators to check content quality.
+- Example: `@ValidationPrompt('Each requirement must have a measurable acceptance criterion.')`.
+
+### 7.13 `@Min(int count)`
+
+Declares the minimum number of items required in a list field.
+
+- Applied to: `List<T>` fields.
+- Effect: `@Min(1)` means at least one item required. Default (no annotation): 0.
+- Shown in outline: Part of `(min,max)-:` prefix — e.g., `(1,)-:`.
+
+### 7.14 `@Max(int count)`
+
+Declares the maximum number of items allowed in a list field.
+
+- Applied to: `List<T>` fields.
+- Effect: Limits the number of list items. Default (no annotation): ∞.
+- Shown in outline: Part of `(min,max)-:` prefix — e.g., `(,5)-:`.
+
+### 7.15 `@Position(String position)`
+
+Declares the ordering position of a subsection field within its parent.
+
+- Applied to: singular or list fields (subsection fields).
+- Default (no annotation): `'relative'` — sections appear in class declaration order.
+- Values: `'first'` (before all others), `'last'` (after all others), `'any'` (no ordering constraint).
+- Shown in outline: `[first]`, `[last]`, `[any]` trailing marker. `[relative]` is never shown.
+
+### 7.16 `@ForEach(String registryType, String key)`
+
+Declares a bidirectional for-each constraint between a list and a registry.
+
+- Applied to: `List<T>` fields.
+- Effect: For every entry registered under `registryType`, there must be a corresponding item in this list (matched by `key`), and vice versa.
+- Shown in outline: `⟷ RegistryType.key` trailing marker.
+- Example: `@ForEach('FunctionalRequirementEntry', 'requirementId')`.
+
+### 7.17 `@AccessKey(String key)`
+
+Marks a field as the key used for registry access and for-each matching.
+
+- Applied to: `String?` fields.
+- Effect: Identifies which field on the target class provides the key value for matching against registry entries in `@ForEach` relationships.
+- Example: `@AccessKey('requirementId')` on a `requirementId` field.
+
+### 7.18 `@PatternCheck(String pattern, {String? errorMessage})`
+
+Declares a regex pattern that a field value must match.
+
+- Applied to: `String?` fields.
+- Effect: Validates the field content against the pattern.
+- Example: `@PatternCheck(r'^\d{4}-\d{2}-\d{2}$', errorMessage: 'Must be YYYY-MM-DD')`.
+
+### 7.19 `@MinLength(int length)`
+
+Declares the minimum text length for a string field.
+
+- Applied to: `String?` or `content` fields.
+- Effect: Validates that the text has at least `length` characters.
+
+### 7.20 `@MaxLength(int length)`
+
+Declares the maximum text length for a string field.
+
+- Applied to: `String?` or `content` fields.
+- Effect: Validates that the text does not exceed `length` characters.
+
 ## 8. Output Example
 
 The example below shows the actual `tom_specs_model` tree with all notation
-features. Hypothetical `@Type`, `@Comment`, and `@ContentType` annotations are
-included to demonstrate the notation — they are not yet applied to the model.
+features. Hypothetical annotations are included to demonstrate the notation —
+they are not yet all applied to the model.
 
 ```
 # Project Definition Outline
@@ -251,12 +419,12 @@ ProjectDefinition
     -> CurrentStateAnalysis
         -> content
         -> ExistingSystemsLandscape
-            -> content, currentArchitecture
+            -> content!, currentArchitecture
             -: systems:ExistingSystemEntry
                 -> content, systemName, technology, purpose,
                     activeUsers @int, dataVolume,
                     operationalSince @date, supportStatus
-                -: knownLimitations:LimitationEntry
+                (1,)-: knownLimitations:LimitationEntry
                     -> content, limitation, impact
             -> DependenciesAndIntegrations
                 -> content
@@ -266,10 +434,10 @@ ProjectDefinition
                         criticality
         -> CurrentBusinessProcesses
             -> content
-            -: workflows:CurrentWorkflowEntry
+            (1,)-: workflows:CurrentWorkflowEntry
                 -> content, processName, trigger, output,
                     cycleTime
-                -: steps:WorkflowStepEntry
+                (1,)-: steps:WorkflowStepEntry
                     -> content, stepName, description
                 -: actors:WorkflowActorEntry
                     -> content, actorName, role
@@ -287,7 +455,7 @@ ProjectDefinition
             -> content
             -> OperationalPainPoints
                 -> content
-                -: items:PainPointEntry
+                (1,)-: items:PainPointEntry
                     -> content, painPoint, description, impact,
                         affectedProcess, severity, workaround
             -> BusinessPainPoints
@@ -313,8 +481,8 @@ ProjectDefinition
     -> SystemOverview
         -> content
         -> SystemDescription
-            -> content, systemPurpose, systemContext, taskArea
-            -: userCategories:UserCategoryEntry
+            -> content!, systemPurpose, systemContext, taskArea
+            (1,)-: userCategories:UserCategoryEntry
                 -> content, categoryName, description,
                     typicalTasks, accessLevel, estimatedCount @int
             -> UserInteractionModel
@@ -325,15 +493,15 @@ ProjectDefinition
                     -> content, patternName, description
         -> Goals
             -> content
-            -: businessGoals:BusinessGoalEntry
+            (1,)-: businessGoals:BusinessGoalEntry
                 -> content, goalId, goalName, description,
                     measurableTarget, targetDate @date
-            -: projectGoals:ProjectGoalEntry
+            (1,)-: projectGoals:ProjectGoalEntry
                 -> content, goalId, goalName, description,
                     successCriteria
         -> requirements:RequirementsOverview  ← (Seeds → RC)
             -> content
-            -: functionalRequirements:FunctionalRequirementEntry
+            (1,)-: functionalRequirements:FunctionalRequirementEntry
                 -> content, requirementId, title, description,
                     priority: Priority (must, should, could, wontThisTime),
                     source, rationale, acceptanceCriteria,
@@ -375,15 +543,18 @@ ProjectDefinition
     -> SystemStagePlan
         ...
     -> deliveryAcceptance:DeliveryScopeAndAcceptance
-        ...
+        ...                                      [last]
 ```
 
 **Features demonstrated:**
 
-- **Name-match rule**: `CurrentStateAnalysis` (field matches type) vs `header:DocumentHeader` (field \u2260 type).
-- **`@Type` hints**: `date @date`, `activeUsers @int`, `estimatedCount @int`.
+- **Name-match rule**: `CurrentStateAnalysis` (field matches type) vs `header:DocumentHeader` (field ≠ type).
+- **`@FieldType` hints**: `date @date`, `activeUsers @int`, `estimatedCount @int`.
 - **Enum inline values**: `priority: Priority (must, should, could, wontThisTime)`.
-- **`@Comment`**: `\u2190 (Seeds \u2192 RC)` on the requirements section.
+- **`@Comment`**: `← (Seeds → RC)` on the requirements section.
+- **`@Min`/`@Max` count constraints**: `(1,)-:` on lists requiring at least one item (knownLimitations, workflows, steps, businessGoals, functionalRequirements, etc.).
+- **`@TextRequired`**: `content!` suffix on ExistingSystemsLandscape and SystemDescription.
+- **`@Position`**: `[last]` on deliveryAcceptance (must appear after all other sibling sections).
 - **Line wrapping**: Long leaf lines wrap at 120 chars, continuation indented one level deeper.
 - **Inline expansion**: `PainPointEntry` is expanded identically under all three pain-point subsections.
 - **List fields**: Always `fieldName:TypeName` (e.g., `-: items:SystemDependencyEntry`).
@@ -393,11 +564,11 @@ ProjectDefinition
 
 1. **Entry point**: A Dart CLI tool in `tom_specs_model/tool/generate_outline.dart`.
 2. **Analyzer setup**: Use `AnalysisContextCollection` to resolve the package and all its source files.
-3. **Annotation reading**: Read `@tomReflector`, `@Reference`, `@SectionId`, `@SectionIdPattern`, `@Comment`, `@Type`, `@ContentType` from the analyzer's element model.
+3. **Annotation reading**: Read `@tomReflector`, `@Reference`, `@SectionId`, `@SectionIdPattern`, `@Comment`, `@FieldType`, `@ContentType`, `@Prefix`, `@PatternCheckId`, `@TextRequired`, `@MaxDepth`, `@AllowedTags`, `@ValidationPrompt`, `@Min`, `@Max`, `@Position`, `@ForEach`, `@AccessKey`, `@PatternCheck`, `@MinLength`, `@MaxLength` from the analyzer's element model.
 4. **Tree walk**: Start from `ProjectDefinition`, recursively visit each field:
-   - If `String` / `String?` → collect as leaf (include `@Type` hint if present).
+   - If `String` / `String?` → collect as leaf (include `@FieldType` hint if present).
    - If enum → format with values inline.
-   - If `List<T>` → emit `-: fieldName:TypeName` and recurse into `T`.
+   - If `List<T>` → emit `(min,max)-: fieldName:TypeName` (with constraints from `@Min`/`@Max`) and recurse into `T`.
    - If complex type → emit `-> TypeName` and recurse.
    - If `@Reference` → emit with reference notation.
 5. **Validation pass** (before output): Run all rules from §6 — type constraints, naming, class style, content type, cycle detection. Fail on first error with clear message.
