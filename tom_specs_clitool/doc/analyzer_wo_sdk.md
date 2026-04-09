@@ -1,6 +1,6 @@
-# Using the Dart Analyzer for Type and Annotation Reading
+# Using the Dart Analyzer Without an Installed SDK
 
-This guide explains how to use `package:analyzer` for Dart type resolution, annotation reading, and element model traversal in `tom_specs_clitool`. Two approaches are covered: the standard `AnalysisContextCollection` (primary) and the summary-based approach for SDK-free environments (fallback).
+This guide explains how to use `package:analyzer` for Dart type resolution, annotation reading, and element model traversal in `tom_specs_clitool` **without requiring a Dart SDK on the target machine**. The approach uses pre-serialized summary bundles (`.sum` files) and is based on the `tom_dart_editor` implementation.
 
 ## Dependencies
 
@@ -9,81 +9,83 @@ dependencies:
   analyzer: ^10.0.0
 ```
 
----
-
-## Approach 1: AnalysisContextCollection (Primary)
-
-On any machine with a Dart SDK installed (typical dev environment), the simplest approach is `AnalysisContextCollection`. The SDK is auto-detected from `Platform.resolvedExecutable` — no configuration needed, no `.sum` files required.
-
-### Setup
-
-```dart
-import 'dart:io';
-import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
-import 'package:analyzer/file_system/physical_file_system.dart';
-
-Future<void> analyzePackage(String packagePath) async {
-  final collection = AnalysisContextCollection(
-    includedPaths: [packagePath],
-    resourceProvider: PhysicalResourceProvider.INSTANCE,
-  );
-
-  for (final context in collection.contexts) {
-    final analyzedFiles = context.contextRoot.analyzedFiles();
-    for (final filePath in analyzedFiles) {
-      if (!filePath.endsWith('.dart')) continue;
-      final result = await context.currentSession.getResolvedUnit(filePath);
-      // Traverse element model, read annotations, inspect types
-      final unit = result.unit;
-      for (final declaration in unit.declarations) {
-        // ... inspect classes, fields, annotations
-      }
-    }
-  }
-}
-```
-
-### Prerequisites
-
-1. Run `dart pub get` in the target package so `.dart_tool/package_config.json` exists.
-2. The Dart SDK must be installed (but this is always the case on a dev machine).
-
-### Characteristics
-
-- **Full type resolution** — all types, generics, and imports are resolved.
-- **Full annotation reading** — annotation constructors, arguments, and constant values are available.
-- **Full error reporting** — the analyzer produces the same diagnostics as `dart analyze`.
-- **No build step** — no `.sum` files to generate or maintain.
-- **Note on errors**: For the outliner's purposes (reading types and annotations), analyzer errors in the target code do not prevent traversal. The element model is still constructed even if some expressions fail to resolve.
-
-### For tom_specs_clitool
-
-The outliner generator will:
-
-1. Accept the `tom_specs_model` package path as input.
-2. Create an `AnalysisContextCollection` with that path.
-3. Iterate over analyzed files and use `getResolvedUnit()` to read class declarations, field types, and annotations.
-
-This is the recommended approach for all development-time use.
+The analyzer's internal summary APIs are used. These are not public API, so pin the version carefully.
 
 ---
 
-## Approach 2: Summary Bundles (SDK-Free Fallback)
+## Summary Files
 
-For environments where no Dart SDK is installed (compiled CLI binaries, CI containers, mobile/web), the analyzer can load **pre-serialized summary bundles** (`.sum` files) instead.
-
-This approach is based on the `tom_dart_editor` implementation.
-
-### Two Summary Files
+The analyzer loads element models from binary `.sum` files instead of reading SDK/package source files.
 
 | File | Contents | Typical size |
 |------|----------|-------------|
 | `sdk_summary.sum` | Dart SDK core libraries (`dart:core`, `dart:async`, etc.) | ~3 MB |
-| `packages.sum` | All pub packages the target code depends on | ~31 MB |
+| `packages.sum` | All pub packages the target code depends on (optional — may not be needed if the model has no external dependencies beyond the SDK) | ~31 MB |
 
 Reference copies exist in `tom_forge/tom_dart_editor_test/assets/`.
 
-### Step 1: Build the SDK Summary
+For `tom_specs_clitool`, only the SDK summary is strictly required. The model classes (`tom_specs_model`) are analyzed from source files directly — the `.sum` file provides type resolution for SDK types (`String`, `List`, `int`, etc.) and annotations.
+
+## Bundling the SDK Summary Into the Application
+
+The `sdk_summary.sum` file (~3 MB) is embedded directly in the compiled application so no external files are needed at runtime. The binary is split into chunks and stored as base64-encoded string constants across multiple Dart source files.
+
+### Build-Time Splitting
+
+A build tool (`tool/split_sdk_summary.dart`) performs:
+
+1. Read `sdk_summary.sum` as bytes.
+2. Base64-encode the full byte array.
+3. Split the base64 string into chunks of ~60 KB each (~50 files for a 3 MB summary).
+4. Generate one Dart file per chunk in `lib/src/sdk_summary/`:
+
+```dart
+// lib/src/sdk_summary/chunk_001.dart
+const sdkSummaryChunk001 =
+    'UEsDBBQAAAAIAIRzY1kA... (base64 data) ...AAAA==';
+```
+
+5. Generate a barrel file `lib/src/sdk_summary/sdk_summary_chunks.dart`:
+
+```dart
+import 'chunk_001.dart';
+import 'chunk_002.dart';
+// ... all chunks
+
+const sdkSummaryChunks = [
+  sdkSummaryChunk001,
+  sdkSummaryChunk002,
+  // ...
+];
+```
+
+### Runtime Reassembly
+
+```dart
+import 'dart:convert';
+import 'dart:typed_data';
+import 'sdk_summary/sdk_summary_chunks.dart';
+
+Uint8List loadSdkSummary() {
+  final base64String = sdkSummaryChunks.join();
+  return base64Decode(base64String);
+}
+```
+
+### Regeneration
+
+Whenever the Dart SDK version changes, regenerate the chunks:
+
+```bash
+dart run tool/build_sdk_summary.dart assets/sdk_summary.sum
+dart run tool/split_sdk_summary.dart assets/sdk_summary.sum lib/src/sdk_summary/
+```
+
+The chunk files are checked into version control.
+
+---
+
+## Step 1: Build the SDK Summary
 
 Create a build tool (e.g., `tool/build_sdk_summary.dart`):
 
@@ -111,65 +113,69 @@ Future<void> main(List<String> args) async {
 }
 ```
 
-Run once on a machine with the SDK:
+Run once on a dev machine with the SDK:
 
 ```bash
 dart run tool/build_sdk_summary.dart assets/sdk_summary.sum
 ```
 
-### Step 2: Build the Packages Summary
+## Step 2: Split the Summary Into Dart Chunks
 
-Create `tool/build_packages_summary.dart`:
+Create `tool/split_sdk_summary.dart`:
 
 ```dart
+import 'dart:convert';
 import 'dart:io';
 import 'package:path/path.dart' as p;
 
-Future<void> main(List<String> args) async {
-  final targetPackagePath = args.isNotEmpty ? args.first : '.';
-  final outputPath = args.length > 1 ? args[1] : 'assets/packages.sum';
+void main(List<String> args) {
+  final inputPath = args.isNotEmpty ? args.first : 'assets/sdk_summary.sum';
+  final outputDir = args.length > 1 ? args[1] : 'lib/src/sdk_summary';
 
-  // Read package_config.json to discover all dependencies
-  // ... parse packages, collect all library URIs recursively ...
+  final bytes = File(inputPath).readAsBytesSync();
+  final base64String = base64Encode(bytes);
 
-  // List ALL .dart files under each package's lib/ (recursive!)
-  final libraryUris = <Uri>[];
-  for (final pkg in packages) {
-    final libDir = Directory(p.join(pkg.rootPath, 'lib'));
-    for (final entity in libDir.listSync(recursive: true)) {
-      if (entity is File && entity.path.endsWith('.dart')) {
-        final relativePath = p.relative(entity.path, from: libDir.path);
-        libraryUris.add(Uri.parse(
-          'package:${pkg.name}/${relativePath.replaceAll('\\', '/')}',
-        ));
-      }
-    }
+  const chunkSize = 60000; // ~60 KB per chunk
+  final chunks = <String>[];
+  for (var i = 0; i < base64String.length; i += chunkSize) {
+    final end = (i + chunkSize).clamp(0, base64String.length);
+    chunks.add(base64String.substring(i, end));
   }
 
-  final bytes = await analysisDriver.buildPackageBundle(uriList: libraryUris);
-  File(outputPath)
-    ..createSync(recursive: true)
-    ..writeAsBytesSync(bytes);
+  final dir = Directory(outputDir);
+  if (dir.existsSync()) dir.deleteSync(recursive: true);
+  dir.createSync(recursive: true);
 
-  print('Package summary written to $outputPath (${bytes.length} bytes)');
+  final imports = StringBuffer();
+  final list = StringBuffer();
+
+  for (var i = 0; i < chunks.length; i++) {
+    final index = (i + 1).toString().padLeft(3, '0');
+    final fileName = 'chunk_$index.dart';
+    final constName = 'sdkSummaryChunk$index';
+
+    File(p.join(outputDir, fileName)).writeAsStringSync(
+      "const $constName =\n    '${chunks[i]}';\n",
+    );
+
+    imports.writeln("import '$fileName';");
+    list.writeln('  $constName,');
+  }
+
+  File(p.join(outputDir, 'sdk_summary_chunks.dart')).writeAsStringSync(
+    '${imports}\n'
+    'const sdkSummaryChunks = [\n'
+    '$list];\n',
+  );
+
+  print('Split ${bytes.length} bytes into ${chunks.length} chunks in $outputDir');
 }
 ```
 
-Run once after `dart pub get`:
-
-```bash
-dart pub get
-dart run tool/build_packages_summary.dart . assets/packages.sum
-```
-
-**Critical**: Use `recursive: true` when listing files. If internal `src/` files are missing, deserialization will fail.
-
-### Step 3: Load Summaries at Runtime
-
-The core setup uses `SummaryBasedDartSdk` and `SummaryDataStore` instead of the real SDK:
+## Step 3: Load Summary and Create the Analysis Driver
 
 ```dart
-import 'dart:io';
+import 'dart:convert';
 import 'dart:typed_data';
 import 'package:analyzer/file_system/physical_file_system.dart';
 import 'package:analyzer/src/context/packages.dart';
@@ -180,37 +186,27 @@ import 'package:analyzer/src/source/source.dart';
 import 'package:analyzer/src/summary/package_bundle_reader.dart';
 import 'package:analyzer/src/summary2/package_bundle_format.dart';
 
-AnalysisDriver createDriverFromSummaries({
-  required Uint8List sdkSummaryBytes,
-  required Uint8List packageSummaryBytes,
-}) {
+import 'sdk_summary/sdk_summary_chunks.dart';
+
+AnalysisDriver createDriver() {
+  // 1. Reassemble SDK summary from embedded chunks
+  final base64String = sdkSummaryChunks.join();
+  final sdkSummaryBytes = base64Decode(base64String) as Uint8List;
+
   final resourceProvider = PhysicalResourceProvider.INSTANCE;
 
-  // 1. Load SDK from summary
+  // 2. Load SDK from summary
   final sdkBundle = PackageBundleReader(sdkSummaryBytes);
   final sdk = SummaryBasedDartSdk.forBundle(sdkBundle);
 
-  // 2. Create data store and register bundles
+  // 3. Create data store and register SDK bundle
   final dataStore = SummaryDataStore();
   dataStore.addBundle('sdk', sdkBundle);
-
-  final packageBundle = PackageBundleReader(packageSummaryBytes);
-  dataStore.addBundle('packages', packageBundle);
-
-  // 3. WORKAROUND: Manually register package: URIs
-  //    addBundle() registers file URIs, not package: URIs
-  for (final library in packageBundle.libraries) {
-    final uriStr = library.uriStr;
-    if (!dataStore.uriToSummaryPath.containsKey(uriStr)) {
-      dataStore.uriToSummaryPath[uriStr] = 'packages';
-    }
-  }
 
   // 4. Set up source resolution
   final sourceFactory = SourceFactory([
     DartUriResolver(sdk),
     ResourceUriResolver(resourceProvider),
-    PackageSummaryUriResolver(dataStore),  // Custom fallback (see below)
   ]);
 
   // 5. Create analysis driver
@@ -226,9 +222,55 @@ AnalysisDriver createDriverFromSummaries({
 }
 ```
 
+### Using the Driver
+
+```dart
+void main() async {
+  final driver = createDriver();
+
+  // Add source files to analyze
+  driver.addFile('/path/to/tom_specs_model/lib/src/some_model.dart');
+  final result = await driver.currentSession.getResolvedUnit(
+    '/path/to/tom_specs_model/lib/src/some_model.dart',
+  );
+
+  // Traverse element model, read annotations, etc.
+  final unit = result.unit;
+  for (final declaration in unit.declarations) {
+    // ... inspect classes, fields, annotations
+  }
+}
+```
+
+## Optional: Adding a Packages Summary
+
+If the model depends on external packages beyond the SDK, add a `packages.sum` bundle. This can be bundled the same way (split into base64 chunks), or loaded from disk.
+
+```dart
+AnalysisDriver createDriverWithPackages({
+  required Uint8List packageSummaryBytes,
+}) {
+  // ... same SDK setup as above ...
+
+  final packageBundle = PackageBundleReader(packageSummaryBytes);
+  dataStore.addBundle('packages', packageBundle);
+
+  // Register package: URIs (workaround)
+  for (final library in packageBundle.libraries) {
+    final uriStr = library.uriStr;
+    if (!dataStore.uriToSummaryPath.containsKey(uriStr)) {
+      dataStore.uriToSummaryPath[uriStr] = 'packages';
+    }
+  }
+
+  // Add PackageSummaryUriResolver to source factory (see below)
+  // ...
+}
+```
+
 ### The PackageSummaryUriResolver (Required Workaround)
 
-The standard `InSummaryUriResolver` only resolves URIs explicitly registered in `uriToSummaryPath`. Without a fallback resolver, deserialization of internal `src/` files fails.
+Only needed when loading a `packages.sum`. The standard `InSummaryUriResolver` only resolves URIs explicitly registered in `uriToSummaryPath`. Without a fallback resolver, deserialization of internal `src/` files fails.
 
 ```dart
 class PackageSummaryUriResolver extends UriResolver {
@@ -275,7 +317,7 @@ class PackageSummaryUriResolver extends UriResolver {
 }
 ```
 
-### Key Gotchas
+## Key Gotchas
 
 | Issue | Cause | Solution |
 |-------|-------|----------|
@@ -283,6 +325,7 @@ class PackageSummaryUriResolver extends UriResolver {
 | Null check error on deserialization | Internal `src/` files missing from bundle | List files **recursively** with `listSync(recursive: true)` |
 | Unresolved `package:X/src/...` at runtime | Standard resolver doesn't know internal files | Use `PackageSummaryUriResolver` fallback for known packages |
 | SDK path needed | Only for building the summary, not at runtime | Use `Platform.resolvedExecutable` parent to find SDK during build |
+| Base64 overhead | ~33% size increase over raw binary | Acceptable for ~3 MB SDK summary; consider gzip if needed |
 
 ---
 

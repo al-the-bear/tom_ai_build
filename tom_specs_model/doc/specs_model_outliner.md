@@ -598,7 +598,7 @@ ProjectDefinition
 ## 9. Generator Implementation Notes
 
 1. **Entry point**: A Dart CLI tool in `tom_specs_model/tool/generate_outline.dart`.
-2. **Analyzer setup**: Use `AnalysisContextCollection` to resolve the package and all its source files.
+2. **Analyzer setup**: Use `SummaryBasedDartSdk` with an embedded SDK summary bundle (no installed SDK required). The `sdk_summary.sum` file (~3 MB) is split into ~50 base64-encoded Dart source files in `lib/src/sdk_summary/`, reassembled at runtime. Model source files are analyzed directly from disk. See `tom_specs_clitool/doc/analyzer_wo_sdk.md` for full details.
 3. **Annotation reading**: Read `@Reference`, `@SectionId`, `@SectionIdPattern`, `@Comment`, `@FieldType`, `@ContentType`, `@Prefix`, `@PatternCheckId`, `@TextRequired`, `@MaxDepth`, `@AllowedTags`, `@ValidationPrompt`, `@Min`, `@Max`, `@Position`, `@ForEach`, `@AccessKey`, `@PatternCheck`, `@MinLength`, `@MaxLength` from the analyzer's element model. All model classes in the package are scanned — no marker annotation is required.
 4. **Tree walk**: Start from `ProjectDefinition`, recursively visit each field:
    - If `String` / `String?` → collect as leaf (include `@FieldType` hint if present).
@@ -629,7 +629,7 @@ Create the annotation classes in `tom_specs_core/lib/src/annotations/`:
 
 Create `tom_specs_clitool/bin/generate_outline.dart`:
 
-1. **Analyzer bootstrap** — set up `AnalysisContextCollection` for the package.
+1. **Analyzer bootstrap** — load embedded SDK summary from base64 chunks and create `AnalysisDriver` with `SummaryBasedDartSdk` (see `tom_specs_clitool/doc/analyzer_wo_sdk.md`).
 
 USER: check in tom_dart_editor/tom_dart_editor_test how instantiate the analyzer so it doesn't require an installed SDK. I want it to be instantiated this way. Write short tutorial how to do this in tom_spec_clitool/doc/analyzer_wo_sdk.md
 
