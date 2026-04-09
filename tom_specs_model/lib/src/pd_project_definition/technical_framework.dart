@@ -148,14 +148,36 @@ class ProtocolEntry {
 class SystemOperationAndMonitoring {
   String? content;
 
-  /// 8.7.1. Administration Requirements [PD00-TEC-SYS-ADM].
+  /// 8.7.1. System Operation [PD00-TEC-SYS-OPE].
+  SystemOperation systemOperation = SystemOperation();
+
+  /// 8.7.2. Monitoring [PD00-TEC-SYS-MON].
+  Monitoring monitoring = Monitoring();
+}
+
+/// 8.7.1. System Operation [PD00-TEC-SYS-OPE].
+class SystemOperation {
+  String? content;
+
+  /// 8.7.1.1. Administration Requirements [PD00-TEC-SYS-OPE-ADM].
   String? administrationRequirements;
 
-  /// 8.7.2. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].
+  /// 8.7.1.2. Maintenance Procedures [PD00-TEC-SYS-OPE-MAI].
+  String? maintenanceProcedures;
+}
+
+/// 8.7.2. Monitoring [PD00-TEC-SYS-MON].
+class Monitoring {
+  String? content;
+
+  /// 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-MON-HEA].
   String? healthChecksAndDiagnostics;
 
-  /// 8.7.3. Capacity Planning [PD00-TEC-SYS-CAP].
+  /// 8.7.2.2. Capacity Planning [PD00-TEC-SYS-MON-CAP].
   String? capacityPlanning;
+
+  /// 8.7.2.3. Alerting [PD00-TEC-SYS-MON-ALE].
+  String? alerting;
 }
 
 /// 8.8. Security Requirements [PD00-TEC-SEC].

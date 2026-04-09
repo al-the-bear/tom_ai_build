@@ -350,20 +350,45 @@ class ComponentVariantEntry {
 class MultiLanguageAndRollout {
   String? content;
 
-  /// 10.12.1. Localization Process [PD00-USE-MUL-LOC]. Seeds → SR.
+  /// 10.12.1. Multi-language Support [PD00-USE-MUL-LAN].
+  MultiLanguageSupport multiLanguageSupport = MultiLanguageSupport();
+
+  /// 10.12.2. Rollout Support [PD00-USE-MUL-ROL].
+  RolloutSupport rolloutSupport = RolloutSupport();
+}
+
+/// 10.12.1. Multi-language Support [PD00-USE-MUL-LAN].
+class MultiLanguageSupport {
+  String? content;
+
+  /// 10.12.1.1. Localization Process [PD00-USE-MUL-LAN-LOC]. Seeds → SR.
   String? localizationProcess;
 
-  /// 10.12.2. Translation Process [PD00-USE-MUL-TRA]. Seeds → SR.
+  /// 10.12.1.2. Translation Process [PD00-USE-MUL-LAN-TRA]. Seeds → SR.
   String? translationProcess;
 
-  /// 10.12.3. System User Documentation and Training [PD00-USE-MUL-DOC]. Seeds → SR.
-  String? userDocumentationAndTraining;
-
-  /// 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS]. Seeds → UP.
+  /// 10.12.1.3. Language and Country Selection [PD00-USE-MUL-LAN-LCS]. Seeds → UP.
   String? languageAndCountrySelection;
 
-  /// 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ]. Seeds → TR.
+  /// 10.12.1.4. Translation Handling Requirements [PD00-USE-MUL-LAN-REQ]. Seeds → TR.
   String? translationHandlingRequirements;
+}
+
+/// 10.12.2. Rollout Support [PD00-USE-MUL-ROL].
+class RolloutSupport {
+  String? content;
+
+  /// 10.12.2.1. User Documentation [PD00-USE-MUL-ROL-DOC]. Seeds → SR.
+  String? userDocumentation;
+
+  /// 10.12.2.2. Training Plan [PD00-USE-MUL-ROL-TRA]. Seeds → SR.
+  String? trainingPlan;
+
+  /// 10.12.2.3. Phased Deployment Strategy [PD00-USE-MUL-ROL-DEP].
+  String? phasedDeploymentStrategy;
+
+  /// 10.12.2.4. Communication Plan [PD00-USE-MUL-ROL-COM].
+  String? communicationPlan;
 }
 
 // ---------------------------------------------------------------------------

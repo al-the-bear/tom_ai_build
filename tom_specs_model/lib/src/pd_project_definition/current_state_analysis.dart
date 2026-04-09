@@ -13,8 +13,8 @@ class CurrentStateAnalysis {
   /// 1.1. Existing Systems Landscape [PD00-CUR-SYS].
   ExistingSystemsLandscape existingSystemsLandscape = ExistingSystemsLandscape();
 
-  /// 1.2. Current Business Processes [PD00-CUR-PRO].
-  CurrentBusinessProcesses currentBusinessProcesses = CurrentBusinessProcesses();
+  /// 1.2. Current Business Processes [PD00-CUR-PRO] — contains 1+× Business Process.
+  List<CurrentBusinessProcess> currentBusinessProcesses = [];
 
   /// 1.3. Pain Points and Gaps [PD00-CUR-PAI].
   PainPointsAndGaps painPointsAndGaps = PainPointsAndGaps();
@@ -64,32 +64,61 @@ class LimitationEntry {
 /// 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
 class DependenciesAndIntegrations {
   String? content;
+
+  /// 1.1.3.1. Dependencies [PD00-CUR-SYS-DEP-DEP].
+  Dependencies dependencies = Dependencies();
+
+  /// 1.1.3.2. Integrations [PD00-CUR-SYS-DEP-INT].
+  Integrations integrations = Integrations();
+}
+
+/// 1.1.3.1. Dependencies [PD00-CUR-SYS-DEP-DEP].
+class Dependencies {
+  String? content;
   List<SystemDependencyEntry> items = [];
 }
 
-/// A system dependency or integration entry (form).
+/// 1.1.3.2. Integrations [PD00-CUR-SYS-DEP-INT].
+class Integrations {
+  String? content;
+  List<SystemIntegrationEntry> items = [];
+}
+
+/// A system dependency entry (form).
 class SystemDependencyEntry {
   String? content;
   String? sourceSystem;
   String? targetSystem;
   String? dependencyType;
+  String? criticality;
+}
+
+/// A system integration entry (form).
+class SystemIntegrationEntry {
+  String? content;
+  String? sourceSystem;
+  String? targetSystem;
   String? protocol;
   String? dataExchanged;
-  String? criticality;
+  String? direction;
+  String? frequency;
 }
 
 // ---------------------------------------------------------------------------
 // 1.2 Current Business Processes
 // ---------------------------------------------------------------------------
 
-/// 1.2. Current Business Processes [PD00-CUR-PRO].
-class CurrentBusinessProcesses {
+/// A current business process [PD00-CUR-PRO-nn].
+class CurrentBusinessProcess {
   String? content;
 
-  /// 1.2.1. Workflow Descriptions [PD00-CUR-PRO-WOR] — contains 1+× Workflow.
+  /// Process name.
+  String? processName;
+
+  /// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR] — contains 1+× Workflow.
   List<CurrentWorkflowEntry> workflows = [];
 
-  /// 1.2.2. Process Metrics [PD00-CUR-PRO-MET].
+  /// 1.2.nn.2. Process Metrics [PD00-CUR-PRO-MET].
   ProcessMetrics processMetrics = ProcessMetrics();
 }
 
@@ -153,6 +182,9 @@ class PainPointsAndGaps {
 
   /// 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
   TechnicalPainPoints technicalPainPoints = TechnicalPainPoints();
+
+  /// 1.3.4. Gaps [PD00-CUR-PAI-GAP].
+  Gaps gaps = Gaps();
 }
 
 /// 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
@@ -182,6 +214,23 @@ class PainPointEntry {
   String? affectedProcess;
   String? severity;
   String? workaround;
+}
+
+/// 1.3.4. Gaps [PD00-CUR-PAI-GAP].
+class Gaps {
+  String? content;
+  List<GapEntry> items = [];
+}
+
+/// A gap entry (form) — a missing capability or feature.
+class GapEntry {
+  String? content;
+  String? gapName;
+  String? description;
+  String? businessImpact;
+  String? affectedProcess;
+  String? priority;
+  String? proposedResolution;
 }
 
 // ---------------------------------------------------------------------------

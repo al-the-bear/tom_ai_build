@@ -76,20 +76,48 @@ class UserAttributeEntry {
 class IdentificationAndAuthentication {
   String? content;
 
-  /// 9.2.1. Authentication Methods [PD00-ACC-IDE-MET].
+  /// 9.2.1. Identification [PD00-ACC-IDE-IDN].
+  Identification identification = Identification();
+
+  /// 9.2.2. Authentication [PD00-ACC-IDE-AUT].
+  Authentication authentication = Authentication();
+}
+
+/// 9.2.1. Identification [PD00-ACC-IDE-IDN].
+class Identification {
+  String? content;
+
+  /// 9.2.1.1. Identity Sources [PD00-ACC-IDE-IDN-SRC].
+  String? identitySources;
+
+  /// 9.2.1.2. Identity Verification [PD00-ACC-IDE-IDN-VER].
+  String? identityVerification;
+
+  /// 9.2.1.3. Identity Providers [PD00-ACC-IDE-IDN-PRO].
+  String? identityProviders;
+
+  /// 9.2.1.4. Single Sign-On [PD00-ACC-IDE-IDN-SSO].
+  String? singleSignOn;
+}
+
+/// 9.2.2. Authentication [PD00-ACC-IDE-AUT].
+class Authentication {
+  String? content;
+
+  /// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
   AuthenticationMethods authenticationMethods = AuthenticationMethods();
 
-  /// 9.2.2. Authentication Flow [PD00-ACC-IDE-FLO].
+  /// 9.2.2.2. Authentication Flow [PD00-ACC-IDE-AUT-FLO].
   String? authenticationFlow;
 
-  /// 9.2.3. Password and Credential Policy [PD00-ACC-IDE-POL].
+  /// 9.2.2.3. Password and Credential Policy [PD00-ACC-IDE-AUT-POL].
   String? passwordPolicy;
 
-  /// 9.2.4. Session Management [PD00-ACC-IDE-SES].
+  /// 9.2.2.4. Session Management [PD00-ACC-IDE-AUT-SES].
   String? sessionManagement;
 }
 
-/// 9.2.1. Authentication Methods [PD00-ACC-IDE-MET].
+/// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
 class AuthenticationMethods {
   String? content;
   List<AuthenticationMethodEntry> items = [];
@@ -244,17 +272,42 @@ class SensitiveDataEncryption {
 class AuditAndLogging {
   String? content;
 
-  /// 9.6.1. Security Events [PD00-ACC-AUD-EVE].
-  SecurityEvents securityEvents = SecurityEvents();
+  /// 9.6.1. Audit [PD00-ACC-AUD-AUD].
+  Audit audit = Audit();
 
-  /// 9.6.2. Audit Log Format [PD00-ACC-AUD-FMT].
-  String? auditLogFormat;
-
-  /// 9.6.3. Compliance Reporting [PD00-ACC-AUD-COM].
-  String? complianceReporting;
+  /// 9.6.2. Logging [PD00-ACC-AUD-LOG].
+  Logging logging = Logging();
 }
 
-/// 9.6.1. Security Events [PD00-ACC-AUD-EVE].
+/// 9.6.1. Audit [PD00-ACC-AUD-AUD].
+class Audit {
+  String? content;
+
+  /// 9.6.1.1. Audit Trail [PD00-ACC-AUD-AUD-TRA].
+  String? auditTrail;
+
+  /// 9.6.1.2. Compliance Reporting [PD00-ACC-AUD-AUD-COM].
+  String? complianceReporting;
+
+  /// 9.6.1.3. Retention Policy [PD00-ACC-AUD-AUD-RET].
+  String? retentionPolicy;
+}
+
+/// 9.6.2. Logging [PD00-ACC-AUD-LOG].
+class Logging {
+  String? content;
+
+  /// 9.6.2.1. Log Format [PD00-ACC-AUD-LOG-FMT].
+  String? logFormat;
+
+  /// 9.6.2.2. Log Levels [PD00-ACC-AUD-LOG-LEV].
+  String? logLevels;
+
+  /// 9.6.2.3. Security Events [PD00-ACC-AUD-LOG-EVE].
+  SecurityEvents securityEvents = SecurityEvents();
+}
+
+/// 9.6.2.3. Security Events [PD00-ACC-AUD-LOG-EVE].
 class SecurityEvents {
   String? content;
   List<SecurityEventEntry> items = [];

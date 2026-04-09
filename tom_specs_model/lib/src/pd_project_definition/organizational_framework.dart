@@ -63,6 +63,28 @@ class JobDescriptionsAndStaffing {
 
   /// 5.2.2. Changed Roles [PD00-ORG-JOB-CHA] — contains 0+× Changed Role.
   List<ChangedRoleEntry> changedRoles = [];
+
+  /// 5.2.3. Staffing Plan [PD00-ORG-JOB-STA].
+  StaffingPlan staffingPlan = StaffingPlan();
+}
+
+/// 5.2.3. Staffing Plan [PD00-ORG-JOB-STA].
+class StaffingPlan {
+  String? content;
+  String? headcountSummary;
+  String? recruitmentTimeline;
+  String? budget;
+  List<StaffingEntry> items = [];
+}
+
+/// A staffing entry (form).
+class StaffingEntry {
+  String? content;
+  String? roleTitle;
+  String? department;
+  String? fteCount;
+  String? recruitmentStatus;
+  String? targetStartDate;
 }
 
 /// A new role entry [PD00-ORG-JOB-NEW-nn] (form).

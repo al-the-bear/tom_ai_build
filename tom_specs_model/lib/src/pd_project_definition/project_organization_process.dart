@@ -83,14 +83,41 @@ class ProcessAdjustmentEntry {
 /// 2.4. Tooling and Environments [PD00-POP-TOO].
 class ToolingAndEnvironments {
   String? content;
-  List<ToolingEntry> items = [];
+
+  /// 2.4.1. Tooling [PD00-POP-TOO-TOO].
+  Tooling tooling = Tooling();
+
+  /// 2.4.2. Environments [PD00-POP-TOO-ENV].
+  Environments environments = Environments();
 }
 
-/// A tooling entry (form).
-class ToolingEntry {
+/// 2.4.1. Tooling [PD00-POP-TOO-TOO].
+class Tooling {
+  String? content;
+  List<ToolEntry> items = [];
+}
+
+/// A tool entry (form).
+class ToolEntry {
   String? content;
   String? toolName;
   String? purpose;
-  String? environment;
   String? version;
+  String? category;
+}
+
+/// 2.4.2. Environments [PD00-POP-TOO-ENV].
+class Environments {
+  String? content;
+  List<EnvironmentEntry> items = [];
+}
+
+/// An environment entry (form).
+class EnvironmentEntry {
+  String? content;
+  String? environmentName;
+  String? purpose;
+  String? infrastructure;
+  String? accessPolicy;
+  String? dataPolicy;
 }

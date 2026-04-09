@@ -507,13 +507,39 @@ class IntegrationConstraintEntry {
 /// 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON].
 class ConstraintsAndDependencies {
   String? content;
+
+  /// 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
+  Constraints constraints = Constraints();
+
+  /// 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
+  FrameworkDependencies frameworkDependencies = FrameworkDependencies();
+}
+
+/// 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
+class Constraints {
+  String? content;
   List<ConstraintEntry> items = [];
 }
 
-/// A constraint or dependency entry [PD00-SYO-RES-CON-nn] (form).
+/// A constraint entry [PD00-SYO-RES-CON-CON-nn] (form).
 class ConstraintEntry {
   String? content;
   String? constraint;
+  String? type;
+  String? impact;
+  String? mitigation;
+}
+
+/// 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
+class FrameworkDependencies {
+  String? content;
+  List<FrameworkDependencyEntry> items = [];
+}
+
+/// A framework dependency entry [PD00-SYO-RES-CON-DEP-nn] (form).
+class FrameworkDependencyEntry {
+  String? content;
+  String? dependency;
   String? type;
   String? impact;
   String? mitigation;
