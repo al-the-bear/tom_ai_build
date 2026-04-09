@@ -12,7 +12,7 @@ The **Specs Model Outliner** is a Dart-based generator that reads the `tom_specs
 
 ## 3. Output
 
-A single Markdown file (e.g., `doc/pd_project_definition_outline.md`) containing the full model tree in the outliner notation described below.
+A single text file (e.g., `doc/pd_project_definition_outline.txt`) containing the full model tree in the outliner notation described below.
 
 ## 4. Notation
 
@@ -22,16 +22,22 @@ Each nesting level adds **4 spaces** of indentation.
 
 ### 4.2 Singular Complex Fields (`->`)
 
-A field whose type is a single complex object (zero-or-one / exactly-one relationship). Only the **type name** is shown because the field name must match the type name (see §6 naming rule):
+A field whose type is a single complex object (zero-or-one / exactly-one relationship).
+
+**Name-match rule:** If the field name matches the type name (equal except for the first character being lowercase), only the **type name** is shown — the field name would be redundant. If they do **not** match, both are shown as `fieldName:TypeName`:
 
 ```
 -> ExistingSystemsLandscape
     -> content, currentArchitecture
     -> DependenciesAndIntegrations
         ...
+-> header:DocumentHeader
+    -> content, documentId, project, version, date, author, status
 ```
 
-If the field is a `@Reference`, both field name and type name are shown (see §4.9).
+In the first line, the field name `existingSystemsLandscape` matches type `ExistingSystemsLandscape` → only the type is shown. In the last line, the field name `header` does not match type `DocumentHeader` → both are shown.
+
+If the field is a `@Reference`, both field name and type name are always shown (see §4.9).
 
 ### 4.3 List Fields (`-:`)
 
@@ -77,11 +83,11 @@ Enum values are shown at **every occurrence** — keeps the outline self-contain
 
 ### 4.6 Content Field
 
-The `content: String?` field is present on nearly every class. It is shown as a regular leaf field (first in the comma list by convention) — **not** hidden or implicit.
+The `content: String?` field is present on nearly every class, it represents the section content of a document section, the text between the section headline and the next headline. It is shown as a regular leaf field (first in the comma list by convention) — **not** hidden or implicit. Other scalar fields will be inside this section text in the actual document. If a class has additional scalar fields, the @ContentType must be "form", which indicates this is the container for the data fields. If @ContentType is not scalar (like SQL, DDL, dart etc.) the class cannot have other scalar fields.
 
 ### 4.7 Nullable vs Non-Nullable
 
-The outliner does **not** distinguish `String?` from `String` or `Type?` from `Type`. Nullability is an implementation detail not relevant to the document structure.
+The outliner does distinguish `String?` from `String` or `Type?` from `Type`. The types (or field names) are simply suffixed with a question mark, just as they are in Dart.
 
 ### 4.8 Field Ordering
 
@@ -119,7 +125,7 @@ Fields or classes annotated with `@Comment("text")` display the comment as a tra
 -: systems:ExistingSystemEntry          ← (text from @Comment)
 ```
 
-**Comment placement:** The `← (...)` marker starts at column **50** of the line (counting from the beginning including indentation), or immediately after the line content plus one space if the content is longer than 50 characters.
+**Comment placement:** The `← (...)` marker starts at column **50** of the line (counting from the beginning PLUS indentation), or immediately after the line content plus one space if the content is longer than 50 characters.
 
 ## 5. Type Expansion
 
@@ -129,7 +135,7 @@ When a complex type is used, its full subtree is shown **inline at every usage p
 
 ### 5.2 Cycle Detection
 
-Cycles **must not exist** in the model. If a cycle is detected during tree walking, the generator **fails with a clear error message** naming the types involved in the cycle. There is no soft handling (no `[circular — see above]`).
+Cycles **must not exist** in the model. If a cycle is detected during tree walking, the generator **fails with a clear error message** naming the types involved in the cycle. There is no soft handling (no `[circular — see above]`). Note that @Reference-marked link are not considered cycles, as the annotation clearly indicates that the link should be shown, but not followed in traversal.
 
 ## 6. Model Design Rules
 
@@ -141,17 +147,9 @@ These are the rules for how model classes must be designed. The generator **vali
 |------|-------------|
 | **No `List<String>`** | All list fields must use complex types. `List<String>` or `List<basicType>` is an error. |
 | **No primitive non-String scalars** | Leaf fields must be `String`, `String?`, or an enum type. No `int`, `double`, `bool`, `num`, `DateTime`. Dates and numbers are represented as `String?` and annotated with `@Type()`. |
-| **`@tomReflector` required** | Only annotated classes/enums are part of the model. Any field referencing a non-annotated type is an error. |
 | **`content: String?` expected** | Every model class must have a `content: String?` field. Missing = error. |
 
-### 6.2 Naming Constraints
-
-| Rule | Description |
-|------|-------------|
-| **Singular field name = type name** | A field of type `MyType` must be named `myType` (camelCase of the type name). Mismatch = error, unless the field has `@Reference`. |
-| **List field names are free** | List fields (`List<T>`) are exempt from name matching since the field name is typically a plural or a semantic label for the list's role. |
-
-### 6.3 Class Style
+### 6.2 Class Style
 
 | Rule | Description |
 |------|-------------|
@@ -159,6 +157,14 @@ These are the rules for how model classes must be designed. The generator **vali
 | **No `final` or `const`** | Fields are declared without keywords — plain mutable instance fields, like nested records. |
 | **Non-nullable defaults** | Non-nullable fields are assigned a valid default value. Nullable fields are left null. |
 | **No computed properties** | Only concrete instance fields are part of the model. Getters, static fields, and computed properties are excluded. |
+
+### 6.3 Naming Convention
+
+| Rule | Description |
+|------|-------------|
+| **Singular match preferred** | Singular complex field names should match their type name (lowercase first letter). E.g., `SystemOverview systemOverview`. |
+| **Mismatch allowed** | If a field name does not match (e.g., `header` for type `DocumentHeader`), it is not an error — the outliner shows both names as `fieldName:TypeName`. |
+| **List names always shown** | List field names (typically plural) always differ from the singular type name, so both are always shown as `fieldName:TypeName`. |
 
 ### 6.4 ContentType Constraints
 
@@ -177,14 +183,14 @@ When a class extends another model class, all fields declared on the subclass ar
 
 ## 7. Annotations
 
-Annotations are defined in the `tom_specs_model` package and applied to model classes and fields. The generator reads annotations via the analyzer.
+Annotations are defined in the `tom_specs_core` package and applied to model classes and fields. The generator reads annotations via the analyzer.
 
 ### 7.1 `@Reference(String description, Symbol field)`
 
 Declares that a field is a **reference** to data owned elsewhere in the tree, not an ownership relationship.
 
 - Applied to: singular or list fields.
-- Effect: The field is shown with reference notation (see §4.9). The naming rule (§6.2) is relaxed — field name need not match type name.
+- Effect: The field is shown with reference notation (see §4.9).
 - `description`: Human-readable label for the reference.
 - `field`: The target field symbol being referenced.
 
@@ -231,32 +237,38 @@ Annotates the `content` field to declare the **format** of the content text.
 
 ## 8. Output Example
 
-```markdown
+The example below shows the actual `tom_specs_model` tree with all notation
+features. Hypothetical `@Type`, `@Comment`, and `@ContentType` annotations are
+included to demonstrate the notation — they are not yet applied to the model.
+
+```
 # Project Definition Outline
 
 ProjectDefinition
-    -> DocumentHeader
-        -> content, documentId, project, version, date, author, status
+    -> header:DocumentHeader
+        -> content, documentId, project, version,
+            date @date, author, status
     -> CurrentStateAnalysis
         -> content
         -> ExistingSystemsLandscape
             -> content, currentArchitecture
             -: systems:ExistingSystemEntry
                 -> content, systemName, technology, purpose,
-                    activeUsers, dataVolume, operationalSince,
-                    supportStatus
+                    activeUsers @int, dataVolume,
+                    operationalSince @date, supportStatus
                 -: knownLimitations:LimitationEntry
                     -> content, limitation, impact
             -> DependenciesAndIntegrations
                 -> content
-                -: dependencies:SystemDependencyEntry
+                -: items:SystemDependencyEntry
                     -> content, sourceSystem, targetSystem,
                         dependencyType, protocol, dataExchanged,
                         criticality
         -> CurrentBusinessProcesses
             -> content
             -: workflows:CurrentWorkflowEntry
-                -> content, processName, trigger, output, cycleTime
+                -> content, processName, trigger, output,
+                    cycleTime
                 -: steps:WorkflowStepEntry
                     -> content, stepName, description
                 -: actors:WorkflowActorEntry
@@ -265,22 +277,117 @@ ProjectDefinition
                     -> content, stepName, description
                 -: errorProneSteps:WorkflowStepEntry
                     -> content, stepName, description
+            -> ProcessMetrics
+                -> content
+                -: items:ProcessMetricEntry
+                    -> content, metricName, processReference,
+                        currentValue, unit, measurementMethod,
+                        frequency
         -> PainPointsAndGaps
             -> content
-            -: painPoints:PainPointEntry
-                -> content, area, description, impact, currentWorkaround
-            -: gaps:GapEntry
-                -> content, gapDescription, businessImpact, priority
+            -> OperationalPainPoints
+                -> content
+                -: items:PainPointEntry
+                    -> content, painPoint, description, impact,
+                        affectedProcess, severity, workaround
+            -> BusinessPainPoints
+                -> content
+                -: items:PainPointEntry
+                    -> content, painPoint, description, impact,
+                        affectedProcess, severity, workaround
+            -> TechnicalPainPoints
+                -> content
+                -: items:PainPointEntry
+                    -> content, painPoint, description, impact,
+                        affectedProcess, severity, workaround
         -> CurrentDataLandscape
-            ...
-    -> ProjectOrganizationAndProcess
+            -> content, dataQualityAssessment
+            -: dataSources:DataSourceEntry
+                -> content, dataStoreName, storeType, technology,
+                    dataFormat, estimatedVolume, growthRate,
+                    qualityLevel, owner, retentionPolicy
+    -> projectOrganizationProcess:ProjectOrganizationAndProcess
         ...
     -> Administrative
         ...
     -> SystemOverview
+        -> content
+        -> SystemDescription
+            -> content, systemPurpose, systemContext, taskArea
+            -: userCategories:UserCategoryEntry
+                -> content, categoryName, description,
+                    typicalTasks, accessLevel, estimatedCount @int
+            -> UserInteractionModel
+                -> content, sessionModel, concurrencyModel
+                -: channels:InteractionChannelEntry
+                    -> content, channelName, description
+                -: interactionPatterns:InteractionPatternEntry
+                    -> content, patternName, description
+        -> Goals
+            -> content
+            -: businessGoals:BusinessGoalEntry
+                -> content, goalId, goalName, description,
+                    measurableTarget, targetDate @date
+            -: projectGoals:ProjectGoalEntry
+                -> content, goalId, goalName, description,
+                    successCriteria
+        -> requirements:RequirementsOverview  ← (Seeds → RC)
+            -> content
+            -: functionalRequirements:FunctionalRequirementEntry
+                -> content, requirementId, title, description,
+                    priority: Priority (must, should, could, wontThisTime),
+                    source, rationale, acceptanceCriteria,
+                    status: Status (draft, proposed, approved,
+                        implemented, verified, deferred, rejected),
+                    relatedUseCase, relatedBusinessProcess,
+                    affectedDataEntities
+            -: nonFunctionalRequirements:NonFunctionalRequirementEntry
+                -> content, requirementId, title, description,
+                    priority: Priority (must, should, could, wontThisTime),
+                    source, rationale, acceptanceCriteria,
+                    status: Status (draft, proposed, approved,
+                        implemented, verified, deferred, rejected),
+                    qualityAttribute, measurableTarget
+        -> systemsToReplace:SystemsToReplace  ← (Seeds → CS)
+            ...
+        -> SystemBoundaries
+            ...
+        -> FrameworkConditions
+            ...
+        -> RisksAndAssumptions
+            ...
+    -> OrganizationalFramework
         ...
-    ...
+    -> targetBusinessProcess:TargetBusinessProcessModel
+        ...
+    -> businessDataModel:BusinessObjectAndDataModel
+        ...
+    -> technicalFramework:TechnicalFrameworkConcept
+        ...
+    -> accessAuthorization:AccessAndAuthorizationConcept
+        ...
+    -> UserInterfaceDesign
+        ...
+    -> SystemQualityGoals
+        ...
+    -> ComponentsToUse
+        ...
+    -> SystemStagePlan
+        ...
+    -> deliveryAcceptance:DeliveryScopeAndAcceptance
+        ...
 ```
+
+**Features demonstrated:**
+
+- **Name-match rule**: `CurrentStateAnalysis` (field matches type) vs `header:DocumentHeader` (field \u2260 type).
+- **`@Type` hints**: `date @date`, `activeUsers @int`, `estimatedCount @int`.
+- **Enum inline values**: `priority: Priority (must, should, could, wontThisTime)`.
+- **`@Comment`**: `\u2190 (Seeds \u2192 RC)` on the requirements section.
+- **Line wrapping**: Long leaf lines wrap at 120 chars, continuation indented one level deeper.
+- **Inline expansion**: `PainPointEntry` is expanded identically under all three pain-point subsections.
+- **List fields**: Always `fieldName:TypeName` (e.g., `-: items:SystemDependencyEntry`).
+- **Mismatched section names**: `projectOrganizationProcess:ProjectOrganizationAndProcess`, `targetBusinessProcess:TargetBusinessProcessModel`, etc.
 
 ## 9. Generator Implementation Notes
 
@@ -301,7 +408,7 @@ ProjectDefinition
 
 ### Phase 1: Define Annotations
 
-Create the annotation classes in `tom_specs_model/lib/src/annotations/`:
+Create the annotation classes in `tom_specs_core/lib/src/annotations/`:
 
 1. `reference.dart` — `@Reference(String description, Symbol field)`
 2. `section_id.dart` — `@SectionId(String id)`
@@ -313,34 +420,39 @@ Create the annotation classes in `tom_specs_model/lib/src/annotations/`:
 
 ### Phase 2: Build the Outline Generator
 
-Create `tom_specs_model/tool/generate_outline.dart`:
+Create `tom_specs_clitool/bin/generate_outline.dart`:
 
 1. **Analyzer bootstrap** — set up `AnalysisContextCollection` for the package.
-2. **Model discovery** — find all `@tomReflector` classes and enums; locate the root `ProjectDefinition` class.
-3. **Validation engine** — implement all §6 rules as a validation pass:
+
+USER: check in tom_dart_editor/tom_dart_editor_test how instantiate the analyzer so it doesn't require an installed SDK. I want it to be instantiated this way. Write short tutorial how to do this in tom_spec_clitool/doc/analyzer_wo_sdk.md
+
+1. **Model discovery** — locate the root `ProjectDefinition` class, collect all fields/types reachable from there.
+2. **Validation engine** — implement all §6 rules as a validation pass:
    - Iterate all discovered types.
    - Check type constraints (no `List<String>`, no primitive non-String, etc.).
-   - Check naming constraints (singular field name = camelCase of type name, unless `@Reference`).
    - Check class style (no constructors, no `final`/`const`).
    - Check `@ContentType` constraints (non-Form ↔ no other scalars).
    - Check `content: String?` presence.
    - Cycle detection via DFS from root.
    - Collect all errors; report all at once; exit non-zero.
-4. **Tree walker** — recursive visitor starting from `ProjectDefinition`:
+
+USER: double check the document for additional rules again
+
+3. **Tree walker** — recursive visitor starting from `ProjectDefinition`:
    - Classify each field: leaf, enum, complex singular, complex list, reference.
    - Collect leaf fields into comma-separated `->` lines with wrapping.
-   - Emit complex singular as `-> TypeName` and recurse.
+   - Emit complex singular as `-> TypeName` or `-> fieldName:TypeName` and recurse.
    - Emit complex list as `-: fieldName:TypeName` and recurse.
    - Emit references with `:<reference-path>`.
-   - Append `@Comment` annotations aligned to column 50.
+   - Append `@Comment` annotations aligned to column 50+indent.
    - Append `@Type` hints after field names.
    - Append `@ContentType` hints after `content` field.
-5. **Output writer** — write the indented tree to the output Markdown file.
-6. **CLI** — accept arguments: `--output` (file path), `--max-line-length` (default 120), `--root-type` (default `ProjectDefinition`).
+4. **Output writer** — write the indented tree to the output text file.
+5. **CLI** — accept arguments: `--output` (file path, default is <root-type>_outline.txt), `--max-line-length` (default 120), `--root-type` (default `ProjectDefinition`).
 
 ### Phase 3: Integration
 
-1. Add a `tool/` entry in the package for running the generator.
+1. Add a `tool/` entry in the package for running the generator. USER: is this so? We have a separate project for the tool now.
 2. Document the generator command in the package README.
 3. Generate the initial outline document and verify it against the model.
 
