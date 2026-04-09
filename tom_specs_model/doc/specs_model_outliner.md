@@ -21,49 +21,60 @@ A single Markdown file (e.g., `doc/pd_project_definition_outline.md`) containing
 
 Each nesting level adds **4 spaces** of indentation.
 
-### 4.2 Singular Fields (`->`)
+### 4.2 Singular Complex Fields (`->`)
 
-A field whose type is a single complex object (zero-or-one / exactly-one relationship):
+A field whose type is a single complex object (zero-or-one / exactly-one relationship). Only the **type name** is shown because the field name must match the type name (see §6 naming rule):
 
 ```
--> TypeName
-    -> childField1, childField2
-    -> NestedType
+-> ExistingSystemsLandscape
+    -> content, currentArchitecture
+    -> DependenciesAndIntegrations
         ...
 ```
+
+If the field is a `@Reference`, both field name and type name are shown (see §4.9).
 
 ### 4.3 List Fields (`-:`)
 
-A field whose type is `List<ComplexType>` (zero-or-many relationship):
+A field whose type is `List<ComplexType>` (zero-or-many relationship). Both the **field name** and the **type name** are always shown as `fieldName:TypeName`, because the field name (typically plural) differs from the type name (typically singular). The field name is structurally significant — it represents a **section level** in the target document, with each list item as a subsection:
 
 ```
--: TypeName
-    -> field1, field2, field3
-    -> NestedType
-        ...
+-: systems:ExistingSystemEntry
+    -> content, systemName, technology, purpose
+    -: knownLimitations:LimitationEntry
+        -> content, limitation, impact
 ```
 
 ### 4.4 Leaf Fields
 
-All scalar fields (`String?`, `String`, enum classes) are collected on a **single line**, comma-separated, prefixed with `->`:
+All scalar fields (`String?`, `String`, enum types) of a class are collected on a **single line**, comma-separated, prefixed with `->`:
 
 ```
 -> content, systemName, technology, purpose
 ```
 
+**Line wrapping:** If the leaf line exceeds the configured max line length (default **120 characters**, including indentation), it wraps to continuation lines indented **one level deeper** than the original:
+
+```
+-> content, systemName, technology, purpose, activeUsers,
+    dataVolume, operationalSince, supportStatus
+```
+
 ### 4.5 Enum Fields
 
-Enums are shown inline with their values:
+Enums are shown inline with their values in parentheses:
 
 ```
 -> Priority (must, should, could, wontThisTime)
 ```
 
-If an enum field is among other leaf fields on the same line, it appears in-place:
+If an enum field is among other leaf fields on the same line, it appears in-place with the field name as prefix:
 
 ```
 -> content, priority: Priority (must, should, could, wontThisTime), status
 ```
+
+Enum values are shown at **every occurrence** — keeps the outline self-contained.
 
 ### 4.6 Content Field
 
@@ -77,142 +88,343 @@ The outliner does **not** distinguish `String?` from `String` or `Type?` from `T
 
 Fields are listed in **declaration order** as they appear in the source class.
 
+### 4.9 References
+
+Fields annotated with `@Reference` are shown with both field name and type name, plus reference information:
+
+**Singular reference:**
+
+```
+-> fieldName:TypeName:<reference-path>
+```
+
+**List reference:**
+
+```
+-: fieldName:TypeName:<reference-path>
+```
+
+The reference path uses `-` to separate 1:1 relationships and `:` to separate 1:n (List) relationships:
+
+```
+-> basedOnRequirement:FunctionalRequirementEntry:ProjectDefinition-SystemOverview-RequirementsOverview:functionalRequirements
+```
+
+> **Note:** The current model has no cross-references. This notation is defined for future use.
+
+### 4.10 Inline Comments
+
+Fields or classes annotated with `@Comment("text")` display the comment as a trailing annotation:
+
+```
+-: systems:ExistingSystemEntry          ← (text from @Comment)
+```
+
+**Comment placement:** The `← (...)` marker starts at column **50** of the line (counting from the beginning including indentation), or immediately after the line content plus one space if the content is longer than 50 characters.
+
 ## 5. Type Expansion
 
 ### 5.1 Inline Expansion
 
 When a complex type is used, its full subtree is shown **inline at every usage point**. There is no separate "type definitions" section — duplication is intentional so the reader can see the full structure at each location without jumping around.
 
-### 5.2 Cross-References
+### 5.2 Cycle Detection
 
-In the rare case where a field refers to an instance defined elsewhere in the tree (i.e., the field's type name does **not** match the field name's expected type), it is shown as a **cross-reference** using path notation:
+Cycles **must not exist** in the model. If a cycle is detected during tree walking, the generator **fails with a clear error message** naming the types involved in the cycle. There is no soft handling (no `[circular — see above]`).
 
-```
--> basedOnRequirement: ProjectDefinition-SystemOverview-RequirementsOverview:functionalRequirements
-```
+## 6. Model Design Rules
 
-**Path-Separator Notation:**
-- `-` for 1:1 and 1:0? relationships.
-- `:` for 1:n (List<...>) relationships
+These are the rules for how model classes must be designed. The generator **validates** all of them and **fails with a clear error message** for any violation. There are no warnings — every violation is a hard error.
 
-**Heuristic for detection:** A cross-reference is identified when a field has a complex type but the field name does not semantically correspond to the type (e.g., `basedOnRequirement: FunctionalRequirementEntry` — the field name suggests a reference, not ownership).
-
-> **Note:** The current model has no cross-references. This notation is defined for future use.
-
-## 6. Type Rules (Model Constraints)
-
-These rules define constraints that the **generator should validate** and report violations for:
+### 6.1 Type Constraints
 
 | Rule | Description |
 |------|-------------|
 | **No `List<String>`** | All list fields must use complex types. `List<String>` or `List<basicType>` is an error. |
-| **No primitive non-String scalars** | Leaf fields must be `String`, `String?`, or an enum type. No `int`, `double`, `bool`, `num`, `DateTime`. Dates and numbers are represented as `String`. |
+| **No primitive non-String scalars** | Leaf fields must be `String`, `String?`, or an enum type. No `int`, `double`, `bool`, `num`, `DateTime`. Dates and numbers are represented as `String?` and annotated with `@Type()`. |
 | **`@tomReflector` required** | Only annotated classes/enums are part of the model. Any field referencing a non-annotated type is an error. |
-| **`content: String?` expected** | Every model class should have a `content: String?` field. The generator should warn (not error) if missing. |
-| ** Variablename matches Typename for complext types, unless reference ** | a field of type `Type` must be name `type`, unless this variable is meant to reference data of the type defined somewhere else in the object model |
+| **`content: String?` expected** | Every model class must have a `content: String?` field. Missing = error. |
 
-## 7. Output Example
+### 6.2 Naming Constraints
+
+| Rule | Description |
+|------|-------------|
+| **Singular field name = type name** | A field of type `MyType` must be named `myType` (camelCase of the type name). Mismatch = error, unless the field has `@Reference`. |
+| **List field names are free** | List fields (`List<T>`) are exempt from name matching since the field name is typically a plural or a semantic label for the list's role. |
+
+### 6.3 Class Style
+
+| Rule | Description |
+|------|-------------|
+| **No constructors** | Classes must not declare constructors. A default constructor is implied. |
+| **No `final` or `const`** | Fields are declared without keywords — plain mutable instance fields, like nested records. |
+| **Non-nullable defaults** | Non-nullable fields are assigned a valid default value. Nullable fields are left null. |
+| **No computed properties** | Only concrete instance fields are part of the model. Getters, static fields, and computed properties are excluded. |
+
+### 6.4 ContentType Constraints
+
+| Rule | Description |
+|------|-------------|
+| **`@ContentType(Form)` (default)** | The content field is a form — the class's other scalar fields represent the form fields within the content. This is the usual case. |
+| **Non-Form `@ContentType`** | If `content` has a non-Form `@ContentType` (e.g., `DDL`, `SQL`, `Dart`, `ER-Diagram`), the class **must not have other scalar fields**. The content occupies the full text. Subsections (complex children) are still allowed but uncommon — diagrams and code are typically leaf nodes. |
+
+### 6.5 Reachability
+
+Only types reachable from the root type (`ProjectDefinition`) are included in the outline. Unreachable types (e.g., common utility types not referenced by any reachable class) are silently omitted.
+
+### 6.6 Inheritance
+
+When a class extends another model class, all fields declared on the subclass are shown (including any re-declared fields). Inherited fields that are **not** re-declared on the subclass are shown as well — the outline represents the full document structure. In the planned two-step model split, subclasses fully re-declare their fields (replacement, not augmentation), so the outliner simply shows what each class declares.
+
+## 7. Annotations
+
+Annotations are defined in the `tom_specs_model` package and applied to model classes and fields. The generator reads annotations via the analyzer.
+
+### 7.1 `@Reference(String description, Symbol field)`
+
+Declares that a field is a **reference** to data owned elsewhere in the tree, not an ownership relationship.
+
+- Applied to: singular or list fields.
+- Effect: The field is shown with reference notation (see §4.9). The naming rule (§6.2) is relaxed — field name need not match type name.
+- `description`: Human-readable label for the reference.
+- `field`: The target field symbol being referenced.
+
+### 7.2 `@SectionId(String id)`
+
+Declares the **section ID** that the annotated class has in the target specification document.
+
+- Applied to: classes.
+- Effect: The generator can emit the section ID alongside the type name if desired.
+- Example: `@SectionId("PD00-CSA")` → class maps to section PD00-CSA.
+
+### 7.3 `@SectionIdPattern(String pattern)`
+
+Declares the **section ID pattern** for items in a `List<T>` field. The pattern uses a suffix (e.g., `-xx`) indicating that each list item gets a unique numbered section.
+
+- Applied to: list fields.
+- Effect: Implies a section level in the document — the field is a section, each list item is a subsection.
+- Example: `@SectionIdPattern("PD00-CSA-SYS-xx")` → first item is `PD00-CSA-SYS-01`, second `PD00-CSA-SYS-02`, etc.
+
+### 7.4 `@Comment(String text)`
+
+Provides a short inline comment that appears in the outline output.
+
+- Applied to: fields or classes.
+- Effect: Shown as `← (text)` in the outline (see §4.10).
+- Example: `@Comment("same type reused")`.
+
+### 7.5 `@Type(String type)`
+
+Annotates a `String?` field with its **semantic type** — what the string actually represents.
+
+- Applied to: `String?` leaf fields.
+- Allowed values: `int`, `double`, `date`, `time`, `datetime`.
+- Effect: The generator shows the type hint in the outline: `-> operationalSince @date, activeUsers @int`.
+
+### 7.6 `@ContentType(String type)`
+
+Annotates the `content` field to declare the **format** of the content text.
+
+- Applied to: `content` fields only.
+- Allowed values: `Form` (default), `DDL`, `SQL`, `Dart`, `ER-Diagram`, `Mermaid`, and other format identifiers.
+- Effect: `Form` means scalar fields are form fields within the content. Non-Form types prohibit other scalar fields (see §6.4).
+- Shown in outline: `-> content @Form` or `-> content @DDL`.
+
+## 8. Output Example
 
 ```markdown
 # Project Definition Outline
 
 ProjectDefinition
-    -> content
     -> DocumentHeader
         -> content, documentId, project, version, date, author, status
     -> CurrentStateAnalysis
         -> content
         -> ExistingSystemsLandscape
             -> content, currentArchitecture
-            -: ExistingSystemEntry
-                -> content, systemName, technology, purpose, activeUsers, dataVolume, operationalSince, supportStatus
-                -: LimitationEntry
+            -: systems:ExistingSystemEntry
+                -> content, systemName, technology, purpose,
+                    activeUsers, dataVolume, operationalSince,
+                    supportStatus
+                -: knownLimitations:LimitationEntry
                     -> content, limitation, impact
             -> DependenciesAndIntegrations
                 -> content
-                -: SystemDependencyEntry
-                    -> content, sourceSystem, targetSystem, dependencyType, protocol, dataExchanged, criticality
+                -: dependencies:SystemDependencyEntry
+                    -> content, sourceSystem, targetSystem,
+                        dependencyType, protocol, dataExchanged,
+                        criticality
         -> CurrentBusinessProcesses
             -> content
-            -: CurrentWorkflowEntry
+            -: workflows:CurrentWorkflowEntry
                 -> content, processName, trigger, output, cycleTime
-                -: WorkflowStepEntry
+                -: steps:WorkflowStepEntry
                     -> content, stepName, description
-                -: WorkflowActorEntry
+                -: actors:WorkflowActorEntry
                     -> content, actorName, role
-                -: WorkflowStepEntry              ← (manualSteps — same type reused)
+                -: manualSteps:WorkflowStepEntry
                     -> content, stepName, description
-                -: WorkflowStepEntry              ← (errorProneSteps — same type reused)
+                -: errorProneSteps:WorkflowStepEntry
                     -> content, stepName, description
-            -> ProcessMetrics
-                -> content
-                -: ProcessMetricEntry
-                    -> content, metricName, processReference, currentValue, unit, measurementMethod, frequency
+        -> PainPointsAndGaps
+            -> content
+            -: painPoints:PainPointEntry
+                -> content, area, description, impact, currentWorkaround
+            -: gaps:GapEntry
+                -> content, gapDescription, businessImpact, priority
+        -> CurrentDataLandscape
+            ...
+    -> ProjectOrganizationAndProcess
+        ...
+    -> Administrative
+        ...
+    -> SystemOverview
+        ...
     ...
 ```
 
-## 8. Generator Implementation Notes
+## 9. Generator Implementation Notes
 
-1. **Entry point**: A Dart CLI tool in `tom_specs_model/tool/` or a build step.
-2. **Analyzer setup**: Use `AnalysisContextCollection` to resolve the package.
-3. **Tree walk**: Start from `ProjectDefinition`, recursively visit each field:
-   - If `String` / `String?` → collect as leaf.
-   - If enum → format with values.
-   - If `List<T>` → emit `-:` with `T`'s subtree.
-   - If complex type → emit `->` with type's subtree.
-4. **Comment annotation**: After the type name on `-:` lines, optionally show the field name in a comment when the field name differs from the type name: `-: WorkflowStepEntry  ← (manualSteps)`.
-5. **Cycle detection**: Maintain a visited-path stack. If a type appears in its own ancestry, emit `-> TypeName [circular — see above]` to prevent infinite recursion.
+1. **Entry point**: A Dart CLI tool in `tom_specs_model/tool/generate_outline.dart`.
+2. **Analyzer setup**: Use `AnalysisContextCollection` to resolve the package and all its source files.
+3. **Annotation reading**: Read `@tomReflector`, `@Reference`, `@SectionId`, `@SectionIdPattern`, `@Comment`, `@Type`, `@ContentType` from the analyzer's element model.
+4. **Tree walk**: Start from `ProjectDefinition`, recursively visit each field:
+   - If `String` / `String?` → collect as leaf (include `@Type` hint if present).
+   - If enum → format with values inline.
+   - If `List<T>` → emit `-: fieldName:TypeName` and recurse into `T`.
+   - If complex type → emit `-> TypeName` and recurse.
+   - If `@Reference` → emit with reference notation.
+5. **Validation pass** (before output): Run all rules from §6 — type constraints, naming, class style, content type, cycle detection. Fail on first error with clear message.
+6. **Line wrapping**: Track current line length. When a leaf line exceeds the max (default 120), wrap at a comma boundary and indent the continuation one level deeper.
+7. **Comment alignment**: Pad `← (...)` annotations to start at column 50, or one space after content if content exceeds 50 chars.
 
-## 9. Open Questions / Clarifications / Ambiguities
+## 10. Implementation Plan
 
-### 9.1 Field-Name Annotation on Reused Types
+### Phase 1: Define Annotations
 
-When the same type is used for multiple fields in one class (e.g., `manualSteps: List<WorkflowStepEntry>` and `errorProneSteps: List<WorkflowStepEntry>`), the **field name** is lost in the outline since only the type is shown. Should we:
-- **(a)** Always annotate with the field name as a trailing comment: `-: WorkflowStepEntry  ← (manualSteps)`?
-- **(b)** Only annotate when the field name differs from the type name?
-- **(c)** Show as `manualSteps -: WorkflowStepEntry`?
+Create the annotation classes in `tom_specs_model/lib/src/annotations/`:
 
-**Current assumption:** Option (a) — always show field name as comment when it adds clarity.
+1. `reference.dart` — `@Reference(String description, Symbol field)`
+2. `section_id.dart` — `@SectionId(String id)`
+3. `section_id_pattern.dart` — `@SectionIdPattern(String pattern)`
+4. `comment.dart` — `@Comment(String text)`
+5. `type_hint.dart` — `@Type(String type)`
+6. `content_type.dart` — `@ContentType(String type)`
+7. Barrel export from `annotations.dart`.
 
-### 9.2 Top-Level Field Name vs Type Name
+### Phase 2: Build the Outline Generator
 
-For singular complex fields, the outline shows the **type name** (e.g., `-> ExistingSystemsLandscape`). But the field name might differ (e.g., `existingSystemsLandscape`). Should the field name be shown when it diverges from the type? For example:
+Create `tom_specs_model/tool/generate_outline.dart`:
 
+1. **Analyzer bootstrap** — set up `AnalysisContextCollection` for the package.
+2. **Model discovery** — find all `@tomReflector` classes and enums; locate the root `ProjectDefinition` class.
+3. **Validation engine** — implement all §6 rules as a validation pass:
+   - Iterate all discovered types.
+   - Check type constraints (no `List<String>`, no primitive non-String, etc.).
+   - Check naming constraints (singular field name = camelCase of type name, unless `@Reference`).
+   - Check class style (no constructors, no `final`/`const`).
+   - Check `@ContentType` constraints (non-Form ↔ no other scalars).
+   - Check `content: String?` presence.
+   - Cycle detection via DFS from root.
+   - Collect all errors; report all at once; exit non-zero.
+4. **Tree walker** — recursive visitor starting from `ProjectDefinition`:
+   - Classify each field: leaf, enum, complex singular, complex list, reference.
+   - Collect leaf fields into comma-separated `->` lines with wrapping.
+   - Emit complex singular as `-> TypeName` and recurse.
+   - Emit complex list as `-: fieldName:TypeName` and recurse.
+   - Emit references with `:<reference-path>`.
+   - Append `@Comment` annotations aligned to column 50.
+   - Append `@Type` hints after field names.
+   - Append `@ContentType` hints after `content` field.
+5. **Output writer** — write the indented tree to the output Markdown file.
+6. **CLI** — accept arguments: `--output` (file path), `--max-line-length` (default 120), `--root-type` (default `ProjectDefinition`).
+
+### Phase 3: Integration
+
+1. Add a `tool/` entry in the package for running the generator.
+2. Document the generator command in the package README.
+3. Generate the initial outline document and verify it against the model.
+
+## 11. Migration Plan
+
+The current `tom_specs_model` codebase uses `final` fields with `const` constructors. The new model design rules (§6.3) require plain mutable fields with no constructors. This migration also includes adding annotation support.
+
+### Step 1: Create Annotation Classes
+
+- Define all six annotation classes (§7) in `lib/src/annotations/`.
+- Export from the package barrel.
+- This is a non-breaking addition — no existing code changes.
+
+### Step 2: Remove `final`, `const`, and Constructors
+
+For every `@tomReflector` model class (approximately 150+ classes across 15 files):
+
+**Before:**
+```dart
+@tomReflector
+class ExistingSystemEntry {
+  final String? content;
+  final String? systemName;
+  final String? technology;
+  final List<LimitationEntry> knownLimitations;
+
+  const ExistingSystemEntry({
+    this.content,
+    this.systemName,
+    this.technology,
+    this.knownLimitations = const [],
+  });
+}
 ```
--> authentication: IdentificationAndAuthentication    ← field name ≠ type name
-    ...
+
+**After:**
+```dart
+@tomReflector
+class ExistingSystemEntry {
+  String? content;
+  String? systemName;
+  String? technology;
+  List<LimitationEntry> knownLimitations = [];
+}
 ```
 
-**Current assumption:** Show both when they differ.
+**Migration rules per class:**
+1. Remove `final` from all field declarations.
+2. Remove `const` constructors entirely.
+3. For `List<T>` fields: change `final List<T> x;` → `List<T> x = [];`.
+4. For complex type fields with defaults: change `final T x;` with `this.x = const T()` → `T x = T();`. (Requires `T` to also have dropped its `const` constructor, so process leaf types first.)
+5. For `String?` and nullable complex types: simply remove `final` (they default to `null`).
 
-### 9.3 Common Base Types (Requirement, Risk)
+**Processing order:** Process files bottom-up in the dependency tree — leaf entry types first (they have no complex children), then container types, then section types, then `ProjectDefinition` last.
 
-`Requirement` and `Risk` in `common/` are not currently used by any PD section class but are exported from the package. Should the outliner:
-- **(a)** Only show what's reachable from the root type?
-- **(b)** Append unreachable common types in a separate section?
+### Step 3: Verify Naming Rule Compliance
 
-**Current assumption:** Option (a) — only show the reachable tree. Unreachable types can be listed in a footer section for reference.
+Run the outliner generator's validation pass to check:
+- All singular complex field names match their type names (camelCase).
+- Current known violations to investigate: `header` (type `DocumentHeader`), `systemOverview` (type `SystemOverview` — OK), `componentsToUse` (type `ComponentsToUse` — OK).
+- Fix any field/type name mismatches by renaming the field or the type.
 
-### 9.4 The `final` Keyword and Constructors
+### Step 4: Add Annotations to Model Classes
 
-The generator reads **field declarations**, not constructor parameters. If a class uses getters or computed properties, should those be included?
+Incrementally add annotations as needed:
+- `@SectionId` on section classes that have known document IDs.
+- `@SectionIdPattern` on list fields with numbered subsections.
+- `@Comment` where inline documentation is helpful.
+- `@Type` on `String?` fields that represent dates, numbers, etc.
+- `@ContentType` on `content` fields that are not `Form`.
+- `@Reference` when cross-references are introduced.
 
-**Current assumption:** Only concrete `final` instance fields. Computed properties and static fields are excluded.
+This step is gradual — annotations can be added over time as the model matures.
 
-### 9.5 Enum Fields Among Leaf Fields
+### Step 5: Run Generator and Validate
 
-When a class has both String and enum fields, they all appear on one leaf line. Should enum values always be shown inline, or only shown once (first occurrence) with subsequent uses just showing the enum name?
+1. Run `dart analyze` — must show zero issues.
+2. Run the outline generator — must produce output with no validation errors.
+3. Review the generated outline for correctness.
+4. Commit the migrated model and generated outline together.
 
-**Current assumption:** Show enum values inline at every occurrence — keeps the outline self-contained.
+### Migration Risk Notes
 
-### 9.6 Classes Not Extending or Mixing In
-
-The current model uses composition only (no inheritance between model classes). If inheritance is introduced later, should inherited fields be shown at the subclass level or suppressed?
-
-**Current assumption:** Show all fields including inherited ones, since the outline represents the full document structure.
-
-### 9.7 Multi-Line Leaf Threshold
-
-Some classes may have 15+ leaf fields. Should there be a line-length limit that splits leaf fields across multiple `->` lines?
-
-**Current assumption:** No limit. All leaf fields on one line. Readability at extreme widths is acceptable for a generated reference document.
+- **Breaking change**: Removing `const` constructors breaks any external code that constructs model instances with `const`. Since this package is internal and the classes are data containers (not constructed by external consumers), the risk is low.
+- **List defaults**: Changing from `const []` to `[]` means each instance gets its own mutable list. This is intentional — the model is record-like, not immutable value objects.
+- **Processing order matters**: A class cannot use `T()` as a default until `T` has been migrated to have a default (no-arg) constructor. Process leaf types first.
