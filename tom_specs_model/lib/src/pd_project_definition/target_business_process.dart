@@ -4,11 +4,9 @@
 /// descriptions (seeds → BP) and actor interactions (seeds → UC).
 library;
 
-import 'package:tom_core_kernel/tom_core_kernel.dart';
 
 
 /// 6. Target Business Process Model [PD00-TAR].
-@tomReflector
 class TargetBusinessProcessModel {
   String? content;
 
@@ -24,7 +22,6 @@ class TargetBusinessProcessModel {
 // ---------------------------------------------------------------------------
 
 /// 6.1. Business Process Descriptions [PD00-TAR-PRO]. Seeds → BP.
-@tomReflector
 class BusinessProcessDescriptions {
   String? content;
 
@@ -45,14 +42,12 @@ class BusinessProcessDescriptions {
 }
 
 /// 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
-@tomReflector
 class DesignPrinciples {
   String? content;
   List<DesignPrincipleEntry> items = [];
 }
 
 /// A design principle entry (form).
-@tomReflector
 class DesignPrincipleEntry {
   String? content;
   String? principle;
@@ -61,7 +56,6 @@ class DesignPrincipleEntry {
 }
 
 /// A business process entry [PD00-TAR-PRO-CAT-nn] (form).
-@tomReflector
 class BusinessProcessEntry {
   String? content;
   String? processId;
@@ -79,7 +73,6 @@ class BusinessProcessEntry {
 // ---------------------------------------------------------------------------
 
 /// 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
-@tomReflector
 class ProcessStepsAndActorInteractions {
   String? content;
 
@@ -94,7 +87,6 @@ class ProcessStepsAndActorInteractions {
 }
 
 /// An actor entry [PD00-TAR-STP-ACT-nn] (form).
-@tomReflector
 class ActorEntry {
   String? content;
   String? actorName;
@@ -108,14 +100,12 @@ class ActorEntry {
 }
 
 /// Primary interactions for an actor.
-@tomReflector
 class PrimaryInteractions {
   String? content;
   List<PrimaryInteractionEntry> items = [];
 }
 
 /// A primary interaction entry (form).
-@tomReflector
 class PrimaryInteractionEntry {
   String? content;
   String? useCaseReference;
@@ -125,7 +115,6 @@ class PrimaryInteractionEntry {
 }
 
 /// An interaction entry [PD00-TAR-STP-INT-nn] (form).
-@tomReflector
 class InteractionEntry {
   String? content;
   String? interactionId;
@@ -140,7 +129,6 @@ class InteractionEntry {
 }
 
 /// A scenario entry [PD00-TAR-STP-SCE-nn] (description).
-@tomReflector
 class ScenarioEntry {
   String? content;
   String? scenarioName;
@@ -153,7 +141,6 @@ class ScenarioEntry {
 }
 
 /// A scenario step entry (form).
-@tomReflector
 class ScenarioStepEntry {
   String? content;
   String? stepNumber;
@@ -162,7 +149,6 @@ class ScenarioStepEntry {
 }
 
 /// An alternative flow entry (form).
-@tomReflector
 class AlternativeFlowEntry {
   String? content;
   String? flowName;

@@ -3,11 +3,9 @@
 /// Conceptual overview of the business data the system manages.
 library;
 
-import 'package:tom_core_kernel/tom_core_kernel.dart';
 
 
 /// 7. Business Object and Data Model [PD00-BUS]. Seeds → BDM.
-@tomReflector
 class BusinessObjectAndDataModel {
   String? content;
 
@@ -26,7 +24,6 @@ class BusinessObjectAndDataModel {
 // ---------------------------------------------------------------------------
 
 /// 7.1. Data Model [PD00-BUS-DAT].
-@tomReflector
 class DataModel {
   String? content;
 
@@ -44,7 +41,6 @@ class DataModel {
 }
 
 /// A data entity entry [PD00-BUS-DAT-ENT-nn] (form).
-@tomReflector
 class DataEntityEntry {
   String? content;
   String? entityName;
@@ -57,7 +53,6 @@ class DataEntityEntry {
 }
 
 /// A data attribute entry (form).
-@tomReflector
 class DataAttributeEntry {
   String? content;
   String? attributeName;
@@ -66,14 +61,12 @@ class DataAttributeEntry {
 }
 
 /// 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
-@tomReflector
 class EntityRelationships {
   String? content;
   List<EntityRelationshipEntry> items = [];
 }
 
 /// An entity relationship entry (form).
-@tomReflector
 class EntityRelationshipEntry {
   String? content;
   String? sourceEntity;
@@ -84,14 +77,12 @@ class EntityRelationshipEntry {
 }
 
 /// 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
-@tomReflector
 class DataClassification {
   String? content;
   List<DataClassificationEntry> items = [];
 }
 
 /// A data classification entry (form).
-@tomReflector
 class DataClassificationEntry {
   String? content;
   String? classification;
@@ -102,7 +93,6 @@ class DataClassificationEntry {
 }
 
 /// A data handling requirement entry (form).
-@tomReflector
 class HandlingRequirementEntry {
   String? content;
   String? requirement;
@@ -110,7 +100,6 @@ class HandlingRequirementEntry {
 }
 
 /// An access restriction entry (form).
-@tomReflector
 class AccessRestrictionEntry {
   String? content;
   String? restriction;
@@ -122,7 +111,6 @@ class AccessRestrictionEntry {
 // ---------------------------------------------------------------------------
 
 /// 7.2. Business Object Model [PD00-BUS-BUS].
-@tomReflector
 class BusinessObjectModel {
   String? content;
 
@@ -136,7 +124,6 @@ class BusinessObjectModel {
 /// A business object entry [PD00-BUS-BUS-CAT-nn] (form).
 ///
 /// Includes optional lifecycle state transitions subsection.
-@tomReflector
 class BusinessObjectEntry {
   String? content;
   String? objectName;
@@ -150,7 +137,6 @@ class BusinessObjectEntry {
 }
 
 /// An object state entry (form).
-@tomReflector
 class ObjectStateEntry {
   String? content;
   String? stateName;
@@ -158,7 +144,6 @@ class ObjectStateEntry {
 }
 
 /// A business rule reference entry (form).
-@tomReflector
 class BusinessRuleReferenceEntry {
   String? content;
   String? ruleName;
@@ -166,7 +151,6 @@ class BusinessRuleReferenceEntry {
 }
 
 /// A lifecycle transition entry (form).
-@tomReflector
 class LifecycleTransitionEntry {
   String? content;
   String? fromState;
@@ -179,7 +163,6 @@ class LifecycleTransitionEntry {
 // ---------------------------------------------------------------------------
 
 /// 7.3. Function Model [PD00-BUS-FUN].
-@tomReflector
 class FunctionModel {
   String? content;
 
@@ -194,7 +177,6 @@ class FunctionModel {
 }
 
 /// A business rule entry [PD00-BUS-FUN-RUL-nn] (form).
-@tomReflector
 class BusinessRuleEntry {
   String? content;
   String? ruleId;
@@ -207,7 +189,6 @@ class BusinessRuleEntry {
 }
 
 /// An affected object reference entry (form).
-@tomReflector
 class AffectedObjectEntry {
   String? content;
   String? objectName;
@@ -215,7 +196,6 @@ class AffectedObjectEntry {
 }
 
 /// An affected function reference entry (form).
-@tomReflector
 class AffectedFunctionEntry {
   String? content;
   String? functionName;

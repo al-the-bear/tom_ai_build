@@ -599,7 +599,7 @@ ProjectDefinition
 
 1. **Entry point**: A Dart CLI tool in `tom_specs_model/tool/generate_outline.dart`.
 2. **Analyzer setup**: Use `AnalysisContextCollection` to resolve the package and all its source files.
-3. **Annotation reading**: Read `@tomReflector`, `@Reference`, `@SectionId`, `@SectionIdPattern`, `@Comment`, `@FieldType`, `@ContentType`, `@Prefix`, `@PatternCheckId`, `@TextRequired`, `@MaxDepth`, `@AllowedTags`, `@ValidationPrompt`, `@Min`, `@Max`, `@Position`, `@ForEach`, `@AccessKey`, `@PatternCheck`, `@MinLength`, `@MaxLength` from the analyzer's element model.
+3. **Annotation reading**: Read `@Reference`, `@SectionId`, `@SectionIdPattern`, `@Comment`, `@FieldType`, `@ContentType`, `@Prefix`, `@PatternCheckId`, `@TextRequired`, `@MaxDepth`, `@AllowedTags`, `@ValidationPrompt`, `@Min`, `@Max`, `@Position`, `@ForEach`, `@AccessKey`, `@PatternCheck`, `@MinLength`, `@MaxLength` from the analyzer's element model. All model classes in the package are scanned — no marker annotation is required.
 4. **Tree walk**: Start from `ProjectDefinition`, recursively visit each field:
    - If `String` / `String?` → collect as leaf (include `@FieldType` hint if present).
    - If enum → format with values inline.
@@ -675,11 +675,10 @@ The current `tom_specs_model` codebase uses `final` fields with `const` construc
 
 ### Step 2: Remove `final`, `const`, and Constructors
 
-For every `@tomReflector` model class (approximately 150+ classes across 15 files):
+For every model class (approximately 150+ classes across 15 files):
 
 **Before:**
 ```dart
-@tomReflector
 class ExistingSystemEntry {
   final String? content;
   final String? systemName;
@@ -697,7 +696,6 @@ class ExistingSystemEntry {
 
 **After:**
 ```dart
-@tomReflector
 class ExistingSystemEntry {
   String? content;
   String? systemName;

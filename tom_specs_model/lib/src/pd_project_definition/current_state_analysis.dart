@@ -4,11 +4,9 @@
 /// this project.
 library;
 
-import 'package:tom_core_kernel/tom_core_kernel.dart';
 
 
 /// 1. Current State Analysis [PD00-CUR].
-@tomReflector
 class CurrentStateAnalysis {
   String? content;
 
@@ -30,7 +28,6 @@ class CurrentStateAnalysis {
 // ---------------------------------------------------------------------------
 
 /// 1.1. Existing Systems Landscape [PD00-CUR-SYS].
-@tomReflector
 class ExistingSystemsLandscape {
   String? content;
 
@@ -45,7 +42,6 @@ class ExistingSystemsLandscape {
 }
 
 /// An existing system entry [PD00-CUR-SYS-INV-nn] (form).
-@tomReflector
 class ExistingSystemEntry {
   String? content;
   String? systemName;
@@ -59,7 +55,6 @@ class ExistingSystemEntry {
 }
 
 /// A known limitation of an existing system (form).
-@tomReflector
 class LimitationEntry {
   String? content;
   String? limitation;
@@ -67,14 +62,12 @@ class LimitationEntry {
 }
 
 /// 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
-@tomReflector
 class DependenciesAndIntegrations {
   String? content;
   List<SystemDependencyEntry> items = [];
 }
 
 /// A system dependency or integration entry (form).
-@tomReflector
 class SystemDependencyEntry {
   String? content;
   String? sourceSystem;
@@ -90,7 +83,6 @@ class SystemDependencyEntry {
 // ---------------------------------------------------------------------------
 
 /// 1.2. Current Business Processes [PD00-CUR-PRO].
-@tomReflector
 class CurrentBusinessProcesses {
   String? content;
 
@@ -102,7 +94,6 @@ class CurrentBusinessProcesses {
 }
 
 /// A current workflow entry [PD00-CUR-PRO-WOR-nn] (form).
-@tomReflector
 class CurrentWorkflowEntry {
   String? content;
   String? processName;
@@ -116,7 +107,6 @@ class CurrentWorkflowEntry {
 }
 
 /// A workflow step entry (form).
-@tomReflector
 class WorkflowStepEntry {
   String? content;
   String? stepName;
@@ -124,7 +114,6 @@ class WorkflowStepEntry {
 }
 
 /// A workflow actor entry (form).
-@tomReflector
 class WorkflowActorEntry {
   String? content;
   String? actorName;
@@ -132,14 +121,12 @@ class WorkflowActorEntry {
 }
 
 /// 1.2.2. Process Metrics [PD00-CUR-PRO-MET].
-@tomReflector
 class ProcessMetrics {
   String? content;
   List<ProcessMetricEntry> items = [];
 }
 
 /// A process metric entry (form).
-@tomReflector
 class ProcessMetricEntry {
   String? content;
   String? metricName;
@@ -155,7 +142,6 @@ class ProcessMetricEntry {
 // ---------------------------------------------------------------------------
 
 /// 1.3. Pain Points and Gaps [PD00-CUR-PAI].
-@tomReflector
 class PainPointsAndGaps {
   String? content;
 
@@ -170,28 +156,24 @@ class PainPointsAndGaps {
 }
 
 /// 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
-@tomReflector
 class OperationalPainPoints {
   String? content;
   List<PainPointEntry> items = [];
 }
 
 /// 1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
-@tomReflector
 class BusinessPainPoints {
   String? content;
   List<PainPointEntry> items = [];
 }
 
 /// 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
-@tomReflector
 class TechnicalPainPoints {
   String? content;
   List<PainPointEntry> items = [];
 }
 
 /// A pain point entry (form).
-@tomReflector
 class PainPointEntry {
   String? content;
   String? painPoint;
@@ -207,7 +189,6 @@ class PainPointEntry {
 // ---------------------------------------------------------------------------
 
 /// 1.4. Current Data Landscape [PD00-CUR-DAT].
-@tomReflector
 class CurrentDataLandscape {
   String? content;
 
@@ -219,7 +200,6 @@ class CurrentDataLandscape {
 }
 
 /// A data source entry combining store, format, volume, and quality (form).
-@tomReflector
 class DataSourceEntry {
   String? content;
   String? dataStoreName;

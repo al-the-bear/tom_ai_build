@@ -3,11 +3,9 @@
 /// System stages are meaningful subsets of the functional system.
 library;
 
-import 'package:tom_core_kernel/tom_core_kernel.dart';
 
 
 /// 13. System Stage Plan [PD00-SSP]. Seeds → PPP.
-@tomReflector
 class SystemStagePlan {
   String? content;
 
@@ -31,7 +29,6 @@ class SystemStagePlan {
 }
 
 /// 13.1. Staging Strategy [PD00-SSP-STR].
-@tomReflector
 class StagingStrategy {
   String? content;
 
@@ -43,7 +40,6 @@ class StagingStrategy {
 }
 
 /// 13.2. Stage Overview [PD00-SSP-STA].
-@tomReflector
 class StageOverview {
   String? content;
 
@@ -55,7 +51,6 @@ class StageOverview {
 }
 
 /// A stage entry [PD00-SSP-STG-nn] (form) with description subsections.
-@tomReflector
 class StageEntry {
   String? content;
   String? stageNumber;
@@ -80,7 +75,6 @@ class StageEntry {
 }
 
 /// A sub-stage or milestone entry (form).
-@tomReflector
 class SubStageEntry {
   String? content;
   String? name;
@@ -89,7 +83,6 @@ class SubStageEntry {
 }
 
 /// A success criterion entry (form).
-@tomReflector
 class StageSuccessCriterionEntry {
   String? content;
   String? criterion;
@@ -97,7 +90,6 @@ class StageSuccessCriterionEntry {
 }
 
 /// 13.4. Feature Prioritization [PD00-SSP-FEA].
-@tomReflector
 class FeaturePrioritization {
   String? content;
 
@@ -109,7 +101,6 @@ class FeaturePrioritization {
 }
 
 /// 13.5. Data Migration Strategy [PD00-SSP-MIG].
-@tomReflector
 class DataMigrationStrategy {
   String? content;
 
@@ -121,14 +112,12 @@ class DataMigrationStrategy {
 }
 
 /// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
-@tomReflector
 class MigrationPhases {
   String? content;
   List<MigrationPhaseEntry> items = [];
 }
 
 /// A migration phase entry (form).
-@tomReflector
 class MigrationPhaseEntry {
   String? content;
   String? phaseName;
@@ -139,14 +128,12 @@ class MigrationPhaseEntry {
 }
 
 /// 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
-@tomReflector
 class StageMigrationRisks {
   String? content;
   List<StageMigrationRiskEntry> items = [];
 }
 
 /// A stage migration risk entry (form).
-@tomReflector
 class StageMigrationRiskEntry {
   String? content;
   String? risk;
@@ -156,7 +143,6 @@ class StageMigrationRiskEntry {
 }
 
 /// 13.6. Governance [PD00-SSP-GOV].
-@tomReflector
 class StageGovernance {
   String? content;
 
@@ -168,14 +154,12 @@ class StageGovernance {
 }
 
 /// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
-@tomReflector
 class PhaseGateReviews {
   String? content;
   List<PhaseGateReviewEntry> items = [];
 }
 
 /// A phase gate review entry (form).
-@tomReflector
 class PhaseGateReviewEntry {
   String? content;
   String? gateName;
@@ -185,7 +169,6 @@ class PhaseGateReviewEntry {
 }
 
 /// A review criterion entry (form).
-@tomReflector
 class ReviewCriterionEntry {
   String? content;
   String? criterion;
@@ -193,14 +176,12 @@ class ReviewCriterionEntry {
 }
 
 /// 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
-@tomReflector
 class DecisionPoints {
   String? content;
   List<DecisionPointEntry> items = [];
 }
 
 /// A decision point entry (form).
-@tomReflector
 class DecisionPointEntry {
   String? content;
   String? decisionPoint;
@@ -211,7 +192,6 @@ class DecisionPointEntry {
 }
 
 /// A decision option entry (form).
-@tomReflector
 class DecisionOptionEntry {
   String? content;
   String? option;

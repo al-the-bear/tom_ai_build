@@ -3,11 +3,9 @@
 /// Quality goals for acceptance testing, organized by quality category.
 library;
 
-import 'package:tom_core_kernel/tom_core_kernel.dart';
 
 
 /// 11. System Quality Goals [PD00-SYQ]. Seeds → BQP.
-@tomReflector
 class SystemQualityGoals {
   String? content;
 
@@ -34,7 +32,6 @@ class SystemQualityGoals {
 }
 
 /// 11.1. Quality Framework [PD00-SYQ-FRA].
-@tomReflector
 class QualityFramework {
   String? content;
 
@@ -46,7 +43,6 @@ class QualityFramework {
 }
 
 /// A quality category entry (form).
-@tomReflector
 class QualityCategoryEntry {
   String? content;
   String? categoryName;
@@ -54,7 +50,6 @@ class QualityCategoryEntry {
 }
 
 /// 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
-@tomReflector
 class UserQualityCriteria {
   String? content;
 
@@ -69,7 +64,6 @@ class UserQualityCriteria {
 }
 
 /// 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
-@tomReflector
 class TechnicalQualityCriteria {
   String? content;
 
@@ -93,7 +87,6 @@ class TechnicalQualityCriteria {
 }
 
 /// 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
-@tomReflector
 class OperationsQualityCriteria {
   String? content;
 
@@ -111,7 +104,6 @@ class OperationsQualityCriteria {
 }
 
 /// 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
-@tomReflector
 class DocumentationQualityCriteria {
   String? content;
 
@@ -129,7 +121,6 @@ class DocumentationQualityCriteria {
 }
 
 /// 11.6. Quality Prioritization [PD00-SYQ-PRI].
-@tomReflector
 class QualityPrioritization {
   String? content;
 
@@ -141,14 +132,12 @@ class QualityPrioritization {
 }
 
 /// 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
-@tomReflector
 class TradeOffDecisions {
   String? content;
   List<TradeOffDecisionEntry> items = [];
 }
 
 /// A trade-off decision entry (form).
-@tomReflector
 class TradeOffDecisionEntry {
   String? content;
   String? decision;
@@ -158,7 +147,6 @@ class TradeOffDecisionEntry {
 }
 
 /// 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
-@tomReflector
 class AcceptanceCriteriaSummary {
   String? content;
 
@@ -170,14 +158,12 @@ class AcceptanceCriteriaSummary {
 }
 
 /// 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
-@tomReflector
 class MustPassCriteria {
   String? content;
   List<MustPassCriterionEntry> items = [];
 }
 
 /// A must-pass criterion entry (form).
-@tomReflector
 class MustPassCriterionEntry {
   String? content;
   String? criterion;
@@ -186,14 +172,12 @@ class MustPassCriterionEntry {
 }
 
 /// 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
-@tomReflector
 class QualityGateChecklist {
   String? content;
   List<QualityGateCheckEntry> items = [];
 }
 
 /// A quality gate check entry (form).
-@tomReflector
 class QualityGateCheckEntry {
   String? content;
   String? checkItem;

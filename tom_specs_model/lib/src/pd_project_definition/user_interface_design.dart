@@ -3,11 +3,9 @@
 /// Seeds → UP, SR, TR depending on subsection.
 library;
 
-import 'package:tom_core_kernel/tom_core_kernel.dart';
 
 
 /// 10. User Interface Design and Prototype [PD00-USE].
-@tomReflector
 class UserInterfaceDesign {
   String? content;
 
@@ -56,7 +54,6 @@ class UserInterfaceDesign {
 // ---------------------------------------------------------------------------
 
 /// 10.1. Design Vision [PD00-USE-VIS].
-@tomReflector
 class DesignVision {
   String? content;
 
@@ -71,7 +68,6 @@ class DesignVision {
 }
 
 /// A design goal entry (form).
-@tomReflector
 class DesignGoalEntry {
   String? content;
   String? goal;
@@ -79,7 +75,6 @@ class DesignGoalEntry {
 }
 
 /// A design principle entry (form).
-@tomReflector
 class UiDesignPrincipleEntry {
   String? content;
   String? principle;
@@ -87,7 +82,6 @@ class UiDesignPrincipleEntry {
 }
 
 /// A user persona entry [PD00-USE-VIS-PER-nn] (form).
-@tomReflector
 class PersonaEntry {
   String? content;
   String? personaName;
@@ -101,7 +95,6 @@ class PersonaEntry {
 }
 
 /// A persona goal entry (form).
-@tomReflector
 class PersonaGoalEntry {
   String? content;
   String? goal;
@@ -109,7 +102,6 @@ class PersonaGoalEntry {
 }
 
 /// A pain point entry (form).
-@tomReflector
 class PersonaPainPointEntry {
   String? content;
   String? painPoint;
@@ -121,7 +113,6 @@ class PersonaPainPointEntry {
 // ---------------------------------------------------------------------------
 
 /// 10.2. Screen Descriptions [PD00-USE-SCR].
-@tomReflector
 class ScreenDescriptions {
   String? content;
 
@@ -133,7 +124,6 @@ class ScreenDescriptions {
 }
 
 /// A screen entry [PD00-USE-SCR-INV-nn] (form).
-@tomReflector
 class ScreenEntry {
   String? content;
   String? screenId;
@@ -147,7 +137,6 @@ class ScreenEntry {
 }
 
 /// A screen element entry (form).
-@tomReflector
 class ScreenElementEntry {
   String? content;
   String? elementName;
@@ -155,7 +144,6 @@ class ScreenElementEntry {
 }
 
 /// A user category entry (form).
-@tomReflector
 class ScreenUserCategoryEntry {
   String? content;
   String? categoryName;
@@ -163,7 +151,6 @@ class ScreenUserCategoryEntry {
 }
 
 /// An entry point entry (form).
-@tomReflector
 class EntryPointEntry {
   String? content;
   String? entryPoint;
@@ -175,7 +162,6 @@ class EntryPointEntry {
 // ---------------------------------------------------------------------------
 
 /// 10.3. Screen Flow Structure [PD00-USE-SCF].
-@tomReflector
 class ScreenFlowStructure {
   String? content;
 
@@ -191,7 +177,6 @@ class ScreenFlowStructure {
 // ---------------------------------------------------------------------------
 
 /// 10.4. Print Layout [PD00-USE-PRI].
-@tomReflector
 class PrintLayout {
   String? content;
 
@@ -203,7 +188,6 @@ class PrintLayout {
 }
 
 /// An export format entry (form).
-@tomReflector
 class ExportFormatEntry {
   String? content;
   String? formatName;
@@ -211,7 +195,6 @@ class ExportFormatEntry {
 }
 
 /// A report entry [PD00-USE-PRI-REP-nn] (form).
-@tomReflector
 class ReportEntry {
   String? content;
   String? reportName;
@@ -224,7 +207,6 @@ class ReportEntry {
 }
 
 /// A recipient entry (form).
-@tomReflector
 class RecipientEntry {
   String? content;
   String? recipientName;
@@ -236,7 +218,6 @@ class RecipientEntry {
 // ---------------------------------------------------------------------------
 
 /// 10.7. Error Handling Concept [PD00-USE-ERR].
-@tomReflector
 class ErrorHandlingConcept {
   String? content;
 
@@ -255,7 +236,6 @@ class ErrorHandlingConcept {
 // ---------------------------------------------------------------------------
 
 /// 10.8. Help Concept [PD00-USE-HLP].
-@tomReflector
 class HelpConcept {
   String? content;
 
@@ -274,7 +254,6 @@ class HelpConcept {
 // ---------------------------------------------------------------------------
 
 /// 10.9. Accessibility [PD00-USE-ACC].
-@tomReflector
 class Accessibility {
   String? content;
 
@@ -286,14 +265,12 @@ class Accessibility {
 }
 
 /// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
-@tomReflector
 class AccessibilityChecklist {
   String? content;
   List<AccessibilityCheckEntry> items = [];
 }
 
 /// An accessibility check entry (form).
-@tomReflector
 class AccessibilityCheckEntry {
   String? content;
   String? checkItem;
@@ -307,7 +284,6 @@ class AccessibilityCheckEntry {
 // ---------------------------------------------------------------------------
 
 /// 10.10. Responsive Design [PD00-USE-RES].
-@tomReflector
 class ResponsiveDesign {
   String? content;
 
@@ -319,7 +295,6 @@ class ResponsiveDesign {
 }
 
 /// A breakpoint entry (form).
-@tomReflector
 class BreakpointEntry {
   String? content;
   String? breakpointName;
@@ -332,7 +307,6 @@ class BreakpointEntry {
 // ---------------------------------------------------------------------------
 
 /// 10.11. UI Components [PD00-USE-COM].
-@tomReflector
 class UiComponents {
   String? content;
 
@@ -344,7 +318,6 @@ class UiComponents {
 }
 
 /// A UI component entry [PD00-USE-COM-SPE-nn] (form).
-@tomReflector
 class UiComponentEntry {
   String? content;
   String? componentName;
@@ -356,7 +329,6 @@ class UiComponentEntry {
 }
 
 /// A component state entry (form).
-@tomReflector
 class ComponentStateEntry {
   String? content;
   String? stateName;
@@ -364,7 +336,6 @@ class ComponentStateEntry {
 }
 
 /// A component variant entry (form).
-@tomReflector
 class ComponentVariantEntry {
   String? content;
   String? variantName;
@@ -376,7 +347,6 @@ class ComponentVariantEntry {
 // ---------------------------------------------------------------------------
 
 /// 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
-@tomReflector
 class MultiLanguageAndRollout {
   String? content;
 
@@ -401,7 +371,6 @@ class MultiLanguageAndRollout {
 // ---------------------------------------------------------------------------
 
 /// 10.13. Prototype [PD00-USE-PRO].
-@tomReflector
 class Prototype {
   String? content;
 
@@ -416,7 +385,6 @@ class Prototype {
 }
 
 /// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
-@tomReflector
 class PrototypeTypeSection {
   String? content;
 
@@ -431,7 +399,6 @@ class PrototypeTypeSection {
 }
 
 /// A prototype goal entry (form).
-@tomReflector
 class PrototypeGoalEntry {
   String? content;
   String? goal;

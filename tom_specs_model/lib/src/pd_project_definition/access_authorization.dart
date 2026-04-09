@@ -3,11 +3,9 @@
 /// Application security for data and functions.
 library;
 
-import 'package:tom_core_kernel/tom_core_kernel.dart';
 
 
 /// 9. Access and Authorization Concept [PD00-ACC]. Seeds → AC.
-@tomReflector
 class AccessAndAuthorizationConcept {
   String? content;
 
@@ -31,7 +29,6 @@ class AccessAndAuthorizationConcept {
 }
 
 /// 9.1. User Management [PD00-ACC-USE].
-@tomReflector
 class UserManagement {
   String? content;
 
@@ -46,14 +43,12 @@ class UserManagement {
 }
 
 /// 9.1.1. User Categories [PD00-ACC-USE-CAT].
-@tomReflector
 class UserCategories {
   String? content;
   List<UserCategoryDefinition> items = [];
 }
 
 /// A user category definition (form).
-@tomReflector
 class UserCategoryDefinition {
   String? content;
   String? categoryName;
@@ -63,14 +58,12 @@ class UserCategoryDefinition {
 }
 
 /// 9.1.3. User Attributes [PD00-ACC-USE-ATT].
-@tomReflector
 class UserAttributes {
   String? content;
   List<UserAttributeEntry> items = [];
 }
 
 /// A user attribute entry (form).
-@tomReflector
 class UserAttributeEntry {
   String? content;
   String? attributeName;
@@ -80,7 +73,6 @@ class UserAttributeEntry {
 }
 
 /// 9.2. Identification and Authentication [PD00-ACC-IDE].
-@tomReflector
 class IdentificationAndAuthentication {
   String? content;
 
@@ -98,14 +90,12 @@ class IdentificationAndAuthentication {
 }
 
 /// 9.2.1. Authentication Methods [PD00-ACC-IDE-MET].
-@tomReflector
 class AuthenticationMethods {
   String? content;
   List<AuthenticationMethodEntry> items = [];
 }
 
 /// An authentication method entry (form).
-@tomReflector
 class AuthenticationMethodEntry {
   String? content;
   String? methodName;
@@ -116,7 +106,6 @@ class AuthenticationMethodEntry {
 }
 
 /// 9.3. Resource Protection [PD00-ACC-RES].
-@tomReflector
 class ResourceProtection {
   String? content;
 
@@ -133,7 +122,6 @@ class ResourceProtection {
 /// 9.4. User Authorization [PD00-ACC-USA].
 ///
 /// Aligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.
-@tomReflector
 class UserAuthorization {
   String? content;
 
@@ -160,7 +148,6 @@ class UserAuthorization {
 }
 
 /// An authorization group entry [PD00-ACC-USA-GRP-nn] (form).
-@tomReflector
 class AuthorizationGroupEntry {
   String? content;
   String? groupName;
@@ -170,14 +157,12 @@ class AuthorizationGroupEntry {
 }
 
 /// A role reference entry (form).
-@tomReflector
 class RoleReferenceEntry {
   String? content;
   String? roleName;
 }
 
 /// An authorization role entry [PD00-ACC-USA-ROL-nn] (form).
-@tomReflector
 class AuthorizationRoleEntry {
   String? content;
   String? roleName;
@@ -190,7 +175,6 @@ class AuthorizationRoleEntry {
 }
 
 /// A responsibility reference entry (form).
-@tomReflector
 class ResponsibilityReferenceEntry {
   String? content;
   String? responsibility;
@@ -198,14 +182,12 @@ class ResponsibilityReferenceEntry {
 }
 
 /// An entitlement reference entry (form).
-@tomReflector
 class EntitlementReferenceEntry {
   String? content;
   String? entitlementName;
 }
 
 /// A role exclusion entry (form).
-@tomReflector
 class RoleExclusionEntry {
   String? content;
   String? excludedRole;
@@ -213,7 +195,6 @@ class RoleExclusionEntry {
 }
 
 /// A role holder entry (form).
-@tomReflector
 class RoleHolderEntry {
   String? content;
   String? holderDescription;
@@ -221,7 +202,6 @@ class RoleHolderEntry {
 }
 
 /// An entitlement entry [PD00-ACC-USA-ENT-nn] (form).
-@tomReflector
 class EntitlementEntry {
   String? content;
   String? entitlementName;
@@ -232,14 +212,12 @@ class EntitlementEntry {
 }
 
 /// A resource key reference entry (form).
-@tomReflector
 class ResourceKeyReferenceEntry {
   String? content;
   String? resourceKey;
 }
 
 /// A resource key entry [PD00-ACC-USA-RES-nn] (form).
-@tomReflector
 class ResourceKeyEntry {
   String? content;
   String? resourceKey;
@@ -249,7 +227,6 @@ class ResourceKeyEntry {
 }
 
 /// 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
-@tomReflector
 class SensitiveDataEncryption {
   String? content;
 
@@ -264,7 +241,6 @@ class SensitiveDataEncryption {
 }
 
 /// 9.6. Audit and Logging [PD00-ACC-AUD].
-@tomReflector
 class AuditAndLogging {
   String? content;
 
@@ -279,14 +255,12 @@ class AuditAndLogging {
 }
 
 /// 9.6.1. Security Events [PD00-ACC-AUD-EVE].
-@tomReflector
 class SecurityEvents {
   String? content;
   List<SecurityEventEntry> items = [];
 }
 
 /// A security event entry (form).
-@tomReflector
 class SecurityEventEntry {
   String? content;
   String? eventName;

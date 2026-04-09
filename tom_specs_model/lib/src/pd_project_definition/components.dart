@@ -3,11 +3,9 @@
 /// External and standard components planned for use.
 library;
 
-import 'package:tom_core_kernel/tom_core_kernel.dart';
 
 
 /// 12. Components to Use [PD00-COM]. Seeds → TR.
-@tomReflector
 class ComponentsToUse {
   String? content;
 
@@ -31,7 +29,6 @@ class ComponentsToUse {
 }
 
 /// 12.1. Component Strategy [PD00-COM-STR].
-@tomReflector
 class ComponentStrategy {
   String? content;
 
@@ -43,7 +40,6 @@ class ComponentStrategy {
 }
 
 /// A reuse goal entry (form).
-@tomReflector
 class ReuseGoalEntry {
   String? content;
   String? goal;
@@ -51,14 +47,12 @@ class ReuseGoalEntry {
 }
 
 /// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
-@tomReflector
 class EvaluationCriteria {
   String? content;
   List<EvaluationCriterionEntry> items = [];
 }
 
 /// An evaluation criterion entry (form).
-@tomReflector
 class EvaluationCriterionEntry {
   String? content;
   String? criterion;
@@ -67,21 +61,18 @@ class EvaluationCriterionEntry {
 }
 
 /// 12.4. Runtime Dependencies [PD00-COM-RUN].
-@tomReflector
 class RuntimeDependencies {
   String? content;
   List<DependencyEntry> items = [];
 }
 
 /// 12.5. Maintenance Dependencies [PD00-COM-MAI].
-@tomReflector
 class MaintenanceDependencies {
   String? content;
   List<DependencyEntry> items = [];
 }
 
 /// A dependency entry (form).
-@tomReflector
 class DependencyEntry {
   String? content;
   String? dependencyName;
@@ -96,7 +87,6 @@ class DependencyEntry {
 // ---------------------------------------------------------------------------
 
 /// A component entry [PD00-COM-COM-nn] (form) with sub-entries.
-@tomReflector
 class ComponentEntry {
   String? content;
   String? componentName;
@@ -119,7 +109,6 @@ class ComponentEntry {
 }
 
 /// A component interface entry (form).
-@tomReflector
 class ComponentInterfaceEntry {
   String? content;
   String? interfaceName;
@@ -128,7 +117,6 @@ class ComponentInterfaceEntry {
 }
 
 /// Component licensing sub-entry [PD00-COM-COM-nn-LIC] (form).
-@tomReflector
 class ComponentLicensingEntry {
   String? content;
   String? licenseModel;
@@ -138,7 +126,6 @@ class ComponentLicensingEntry {
 }
 
 /// Component responsibilities sub-entry [PD00-COM-COM-nn-RES] (form).
-@tomReflector
 class ComponentResponsibilitiesEntry {
   String? content;
   String? technicalContact;
@@ -152,7 +139,6 @@ class ComponentResponsibilitiesEntry {
 // ---------------------------------------------------------------------------
 
 /// 12.6. Risk Assessment [PD00-COM-RIS].
-@tomReflector
 class ComponentRiskAssessment {
   String? content;
 
@@ -164,14 +150,12 @@ class ComponentRiskAssessment {
 }
 
 /// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
-@tomReflector
 class ContingencyPlans {
   String? content;
   List<ContingencyPlanEntry> items = [];
 }
 
 /// A contingency plan entry (form).
-@tomReflector
 class ContingencyPlanEntry {
   String? content;
   String? component;
@@ -181,7 +165,6 @@ class ContingencyPlanEntry {
 }
 
 /// A component risk entry [PD00-COM-RIS-RIS-nn] (form).
-@tomReflector
 class ComponentRiskEntry {
   String? content;
   String? riskId;

@@ -3,11 +3,9 @@
 /// Agreements regarding delivery scope and acceptance for the system.
 library;
 
-import 'package:tom_core_kernel/tom_core_kernel.dart';
 
 
 /// 14. Delivery Scope and Acceptance [PD00-DEL].
-@tomReflector
 class DeliveryScopeAndAcceptance {
   String? content;
 
@@ -19,7 +17,6 @@ class DeliveryScopeAndAcceptance {
 }
 
 /// 14.1. Delivery and Service Scope [PD00-DEL-DEL].
-@tomReflector
 class DeliveryScope {
   String? content;
 
@@ -37,35 +34,30 @@ class DeliveryScope {
 }
 
 /// 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
-@tomReflector
 class SoftwareDeliverables {
   String? content;
   List<DeliverableEntry> items = [];
 }
 
 /// 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
-@tomReflector
 class DocumentationDeliverables {
   String? content;
   List<DeliverableEntry> items = [];
 }
 
 /// 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
-@tomReflector
 class TrainingDeliverables {
   String? content;
   List<DeliverableEntry> items = [];
 }
 
 /// 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
-@tomReflector
 class SupportDeliverables {
   String? content;
   List<DeliverableEntry> items = [];
 }
 
 /// A deliverable entry (form).
-@tomReflector
 class DeliverableEntry {
   String? content;
   String? deliverableName;
@@ -76,7 +68,6 @@ class DeliverableEntry {
 }
 
 /// 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
-@tomReflector
 class AcceptancePlan {
   String? content;
 
@@ -100,14 +91,12 @@ class AcceptancePlan {
 }
 
 /// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
-@tomReflector
 class AcceptanceCriteriaList {
   String? content;
   List<DeliveryAcceptanceCriterionEntry> items = [];
 }
 
 /// An acceptance criterion entry (form).
-@tomReflector
 class DeliveryAcceptanceCriterionEntry {
   String? content;
   String? criterion;
@@ -117,7 +106,6 @@ class DeliveryAcceptanceCriterionEntry {
 }
 
 /// 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
-@tomReflector
 class AcceptanceProcess {
   String? content;
   List<AcceptanceStepEntry> steps = [];
@@ -127,7 +115,6 @@ class AcceptanceProcess {
 }
 
 /// An acceptance step entry (form).
-@tomReflector
 class AcceptanceStepEntry {
   String? content;
   String? stepName;
@@ -135,7 +122,6 @@ class AcceptanceStepEntry {
 }
 
 /// 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
-@tomReflector
 class UserAcceptanceTesting {
   String? content;
   String? scope;
@@ -147,7 +133,6 @@ class UserAcceptanceTesting {
 }
 
 /// A test scenario entry (form).
-@tomReflector
 class TestScenarioEntry {
   String? content;
   String? scenarioName;

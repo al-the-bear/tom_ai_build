@@ -3,11 +3,9 @@
 /// Organizational changes and structures required for the new system.
 library;
 
-import 'package:tom_core_kernel/tom_core_kernel.dart';
 
 
 /// 5. Organizational Framework [PD00-ORG].
-@tomReflector
 class OrganizationalFramework {
   String? content;
 
@@ -26,7 +24,6 @@ class OrganizationalFramework {
 // ---------------------------------------------------------------------------
 
 /// 5.1. New Organization Structure [PD00-ORG-STR].
-@tomReflector
 class NewOrganizationStructure {
   String? content;
 
@@ -38,14 +35,12 @@ class NewOrganizationStructure {
 }
 
 /// 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
-@tomReflector
 class ChangesFromCurrentStructure {
   String? content;
   List<OrganizationalChangeEntry> items = [];
 }
 
 /// An organizational change entry (form).
-@tomReflector
 class OrganizationalChangeEntry {
   String? content;
   String? area;
@@ -60,7 +55,6 @@ class OrganizationalChangeEntry {
 // ---------------------------------------------------------------------------
 
 /// 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
-@tomReflector
 class JobDescriptionsAndStaffing {
   String? content;
 
@@ -72,7 +66,6 @@ class JobDescriptionsAndStaffing {
 }
 
 /// A new role entry [PD00-ORG-JOB-NEW-nn] (form).
-@tomReflector
 class NewRoleEntry {
   String? content;
   String? roleTitle;
@@ -85,7 +78,6 @@ class NewRoleEntry {
 }
 
 /// A responsibility entry (form).
-@tomReflector
 class RoleResponsibilityEntry {
   String? content;
   String? responsibility;
@@ -93,7 +85,6 @@ class RoleResponsibilityEntry {
 }
 
 /// A skill entry (form).
-@tomReflector
 class SkillEntry {
   String? content;
   String? skillName;
@@ -101,7 +92,6 @@ class SkillEntry {
 }
 
 /// A changed role entry [PD00-ORG-JOB-CHA-nn] (form).
-@tomReflector
 class ChangedRoleEntry {
   String? content;
   String? roleTitle;
@@ -118,7 +108,6 @@ class ChangedRoleEntry {
 // ---------------------------------------------------------------------------
 
 /// A workplace description entry [PD00-ORG-WOR-nn] (form, per user category).
-@tomReflector
 class WorkplaceDescriptionEntry {
   String? content;
 
@@ -133,14 +122,12 @@ class WorkplaceDescriptionEntry {
 }
 
 /// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
-@tomReflector
 class EquipmentRequirements {
   String? content;
   List<EquipmentRequirementEntry> items = [];
 }
 
 /// An equipment requirement entry (form).
-@tomReflector
 class EquipmentRequirementEntry {
   String? content;
   String? equipmentType;
@@ -150,14 +137,12 @@ class EquipmentRequirementEntry {
 }
 
 /// 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
-@tomReflector
 class TrainingRequirements {
   String? content;
   List<TrainingRequirementEntry> items = [];
 }
 
 /// A training requirement entry (form).
-@tomReflector
 class TrainingRequirementEntry {
   String? content;
   String? trainingTopic;

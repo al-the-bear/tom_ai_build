@@ -3,11 +3,9 @@
 /// Project administration: team, distribution, change procedure, references.
 library;
 
-import 'package:tom_core_kernel/tom_core_kernel.dart';
 
 
 /// 3. Administrative [PD00-ADM].
-@tomReflector
 class Administrative {
   String? content;
 
@@ -35,7 +33,6 @@ class Administrative {
 // ---------------------------------------------------------------------------
 
 /// 3.1. Project Organization [PD00-ADM-PRO].
-@tomReflector
 class ProjectOrganization {
   String? content;
 
@@ -47,7 +44,6 @@ class ProjectOrganization {
 }
 
 /// 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
-@tomReflector
 class OrganizationStructure {
   String? content;
 
@@ -59,7 +55,6 @@ class OrganizationStructure {
 }
 
 /// A steering committee member entry [PD00-ADM-PRO-STE-nn] (form).
-@tomReflector
 class CommitteeMemberEntry {
   String? content;
   String? name;
@@ -74,7 +69,6 @@ class CommitteeMemberEntry {
 // ---------------------------------------------------------------------------
 
 /// 3.2. Project Team Staffing [PD00-ADM-TEA].
-@tomReflector
 class ProjectTeamStaffing {
   String? content;
 
@@ -83,7 +77,6 @@ class ProjectTeamStaffing {
 }
 
 /// A team member entry [PD00-ADM-TEA-nn] (form).
-@tomReflector
 class TeamMemberEntry {
   String? content;
   String? name;
@@ -101,7 +94,6 @@ class TeamMemberEntry {
 // ---------------------------------------------------------------------------
 
 /// 3.3. Distribution List [PD00-ADM-DIS].
-@tomReflector
 class DistributionList {
   String? content;
 
@@ -113,21 +105,18 @@ class DistributionList {
 }
 
 /// 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
-@tomReflector
 class FullDistribution {
   String? content;
   List<DistributionRecipientEntry> items = [];
 }
 
 /// 3.3.2. Executive Summary Distribution [PD00-ADM-DIS-EXE].
-@tomReflector
 class ExecutiveSummaryDistribution {
   String? content;
   List<DistributionRecipientEntry> items = [];
 }
 
 /// A distribution recipient entry (form).
-@tomReflector
 class DistributionRecipientEntry {
   String? content;
   String? name;
@@ -141,7 +130,6 @@ class DistributionRecipientEntry {
 // ---------------------------------------------------------------------------
 
 /// 3.4. Change Procedure [PD00-ADM-CHA].
-@tomReflector
 class ChangeProcedure {
   String? content;
 
@@ -153,7 +141,6 @@ class ChangeProcedure {
 }
 
 /// 3.4.1. Change Process [PD00-ADM-CHA-PRO].
-@tomReflector
 class ChangeProcess {
   String? content;
 
@@ -171,7 +158,6 @@ class ChangeProcess {
 }
 
 /// A role involved in the change process (form).
-@tomReflector
 class ChangeRoleEntry {
   String? content;
   String? roleName;
@@ -179,7 +165,6 @@ class ChangeRoleEntry {
 }
 
 /// A change process step entry (form).
-@tomReflector
 class ChangeStepEntry {
   String? content;
   String? stepName;
@@ -194,14 +179,12 @@ class ChangeStepEntry {
 }
 
 /// 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
-@tomReflector
 class ChangeImpactCriteria {
   String? content;
   List<ChangeImpactCriterionEntry> items = [];
 }
 
 /// A change impact criterion entry (form).
-@tomReflector
 class ChangeImpactCriterionEntry {
   String? content;
   String? criterion;
@@ -215,7 +198,6 @@ class ChangeImpactCriterionEntry {
 // ---------------------------------------------------------------------------
 
 /// 3.5. Reference Documents [PD00-ADM-REF].
-@tomReflector
 class ReferenceDocuments {
   String? content;
 
@@ -224,7 +206,6 @@ class ReferenceDocuments {
 }
 
 /// A reference document entry [PD00-ADM-REF-nn] (form).
-@tomReflector
 class ReferenceDocumentEntry {
   String? content;
   String? documentTitle;
