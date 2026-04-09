@@ -1,14 +1,15 @@
 name: tom_specs_clitool
-description: A sample command-line application.
+description: CLI tools for TomSpecs model analysis and outline generation.
 version: 1.0.0
-# repository: https://github.com/my_org/my_repo
 
 environment:
   sdk: ^3.11.4
 
-# Add regular dependencies here.
 dependencies:
+  analyzer: ^10.0.0
+  args: ^2.6.0
   path: ^1.9.0
+  pub_semver: ^2.2.0
 
 dev_dependencies:
   lints: ^6.0.0
