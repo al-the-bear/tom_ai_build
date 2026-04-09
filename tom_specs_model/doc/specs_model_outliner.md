@@ -183,52 +183,40 @@ Not all annotations appear in the outline. Annotations are categorized as **visi
 | `@AccessKey` | No | Schema constraint only |
 | `@MinLength`, `@MaxLength` | No | Schema constraint only |
 
-### 4.14 Schema Annotations Header (`--show-schema-annotations`)
+### 4.14 Inline Schema Annotations (`--show-schema-annotations`)
 
-When the `--show-schema-annotations` flag is set, the outliner prepends an **annotations header** before the normal outline tree. This header lists all schema-only annotations (those marked "No" in §4.13) grouped by class/field, so the reader can see the full schema constraints without cluttering the tree.
+When the `--show-schema-annotations` flag is set, schema-only annotations (those marked "No" in §4.13) are shown **inline** in the tree, directly above the line they annotate. Each annotation appears on its own line, at the same indentation as the annotated line, prefixed with `#` to distinguish it from structural lines.
 
-The header is separated from the tree by a blank line and a `---` divider.
+Without the flag, the outline is generated as before — schema annotations are omitted.
 
-**Format:**
+**Class-level annotations** appear above the class/type line:
 
 ```
-# Schema Annotations
+        -> ExistingSystemsLandscape
+            # @Prefix("CSA-SYS")
+            # @PatternCheckId(r'^CSA-SYS-\d{2}$', "Must be CSA-SYS-NN")
+            # @MaxDepth(2)
+            -> content!, currentArchitecture
+            -: systems:ExistingSystemEntry
+```
 
-ExistingSystemsLandscape
-    @Prefix("CSA-SYS")
-    @PatternCheckId(r'^CSA-SYS-\d{2}$', "Must be CSA-SYS-NN")
-    @MaxDepth(2)
-    @AllowedTags(["critical", "legacy"])
-    @ValidationPrompt("Describe the system purpose and current state.")
-    content
-        @MinLength(50)
-        @MaxLength(5000)
-    systemName
-        @PatternCheck(r'^[A-Z][a-zA-Z0-9_]+$', "PascalCase identifier")
-        @AccessKey("systemName")
+**Field-level annotations** appear above the field they annotate. For leaf fields on a comma-separated `->` line, the annotation is placed above the entire leaf line:
 
-FunctionalRequirementEntry
-    @Prefix("REQ")
-    @PatternCheckId(r'^REQ-\d{3}$', "Must be REQ-NNN")
-    requirementId
-        @AccessKey("requirementId")
-
----
-
-# Project Definition Outline
-
-ProjectDefinition
-    ...
+```
+            -: systems:ExistingSystemEntry
+                # @MinLength(50) content
+                # @PatternCheck(r'^[A-Z]\w+$') systemName
+                # @AccessKey("systemName") systemName
+                -> content, systemName, technology, purpose
 ```
 
 **Rules:**
 
-- Only classes/fields that **have** schema-only annotations are listed — classes without them are omitted.
-- Class-level annotations appear directly under the class name (indented 4 spaces).
-- Field-level annotations appear under the field name (indented 8 spaces), with the field name at 4 spaces.
-- Classes are listed in the same order as they appear in the outline tree (depth-first).
-- If a class appears multiple times in the tree (inline expansion), its annotations are listed **once** in the header.
-- Without the flag, the outline is generated as before — no header.
+- Only classes/fields that **have** schema-only annotations get `#` lines — no clutter when no schema annotations exist.
+- Annotation lines use `#` prefix to visually separate them from structural `->` and `-:` lines.
+- Class-level annotations appear after the class type line, before the class's children.
+- Field-level annotations appear before the leaf/child line they belong to, with the field name after the annotation to identify the target.
+- When a class appears multiple times (inline expansion), its schema annotations are shown at **every** occurrence for self-containedness.
 
 ## 5. Type Expansion
 
@@ -621,7 +609,7 @@ ProjectDefinition
 5. **Validation pass** (before output): Run all rules from §6 — type constraints, naming, class style, content type, cycle detection. Fail on first error with clear message.
 6. **Line wrapping**: Track current line length. When a leaf line exceeds the max (default 120), wrap at a comma boundary and indent the continuation one level deeper.
 7. **Comment alignment**: Pad `← (...)` annotations to start at column 50, or one space after content if content exceeds 50 chars.
-8. **Schema annotations header**: When `--show-schema-annotations` is set, collect all schema-only annotations during the tree walk, then emit a `# Schema Annotations` header before the tree (see §4.14).
+8. **Inline schema annotations**: When `--show-schema-annotations` is set, emit `# @Annotation(...)` lines inline during the tree walk — class-level after the type line, field-level before the field line (see §4.14).
 
 ## 10. Implementation Plan
 
