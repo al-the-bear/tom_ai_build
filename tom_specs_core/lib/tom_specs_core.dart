@@ -1,8 +1,4 @@
-/// Support for doing something awesome.
-///
-/// More dartdocs go here.
+/// Core annotations and shared types for TomSpecs document model families.
 library;
 
-export 'src/tom_specs_core_base.dart';
-
-// TODO: Export any libraries intended for clients of this package.
+export 'src/annotations/annotations.dart';

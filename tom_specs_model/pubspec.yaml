@@ -10,6 +10,8 @@ environment:
 dependencies:
   tom_core_kernel:
     path: ../../core/tom_core_kernel
+  tom_specs_core:
+    path: ../tom_specs_core
 
 dev_dependencies:
   lints: ^6.0.0

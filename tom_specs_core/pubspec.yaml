@@ -1,14 +1,12 @@
 name: tom_specs_core
-description: A starting point for Dart libraries or applications.
-version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+description: Core annotations and shared types for TomSpecs document model families.
+version: 0.1.0
+publish_to: none
 
 environment:
   sdk: ^3.11.4
 
-# Add regular dependencies here.
-dependencies:
-  # path: ^1.9.0
+dependencies: {}
 
 dev_dependencies:
   lints: ^6.0.0
