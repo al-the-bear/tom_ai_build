@@ -8,7 +8,9 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 
 /// 3. Administrative [PD00-ADM].
+@SectionId('PD00-ADM')
 class Administrative {
+  @Unused()
   String? content;
 
   /// 3.1. Project Organization [PD00-ADM-PRO].
@@ -35,18 +37,24 @@ class Administrative {
 // ---------------------------------------------------------------------------
 
 /// 3.1. Project Organization [PD00-ADM-PRO].
+@SectionId('PD00-ADM-PRO')
 class ProjectOrganization {
+  @Unused()
   String? content;
 
   /// 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
   OrganizationStructure organizationStructure = OrganizationStructure();
 
   /// 3.1.2. Steering Committee [PD00-ADM-PRO-STE] — contains 1+× Member.
+  @SectionIdPattern('PD00-ADM-PRO-STE-xx')
+  @Min(1)
   List<CommitteeMemberEntry> steeringCommittee = [];
 }
 
 /// 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
+@SectionId('PD00-ADM-PRO-STR')
 class OrganizationStructure {
+  @Unused()
   String? content;
 
   /// Org Chart Explanation.
@@ -73,10 +81,14 @@ class CommitteeMemberEntry {
 // ---------------------------------------------------------------------------
 
 /// 3.2. Project Team Staffing [PD00-ADM-TEA].
+@SectionId('PD00-ADM-TEA')
 class ProjectTeamStaffing {
+  @Unused()
   String? content;
 
   /// Team members — contains 1+× Team Member.
+  @SectionIdPattern('PD00-ADM-TEA-xx')
+  @Min(1)
   List<TeamMemberEntry> members = [];
 }
 
@@ -100,7 +112,9 @@ class TeamMemberEntry {
 // ---------------------------------------------------------------------------
 
 /// 3.3. Distribution List [PD00-ADM-DIS].
+@SectionId('PD00-ADM-DIS')
 class DistributionList {
+  @Unused()
   String? content;
 
   /// 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
@@ -111,16 +125,24 @@ class DistributionList {
 }
 
 /// 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
+@SectionId('PD00-ADM-DIS-FUL')
 class FullDistribution {
+  @Unused()
   String? content;
+
   /// Contains 0+× DistributionRecipient.
+  @SectionIdPattern('PD00-ADM-DIS-FUL-xx')
   List<DistributionRecipientEntry> items = [];
 }
 
 /// 3.3.2. Executive Summary Distribution [PD00-ADM-DIS-EXE].
+@SectionId('PD00-ADM-DIS-EXE')
 class ExecutiveSummaryDistribution {
+  @Unused()
   String? content;
+
   /// Contains 0+× DistributionRecipient.
+  @SectionIdPattern('PD00-ADM-DIS-EXE-xx')
   List<DistributionRecipientEntry> items = [];
 }
 
@@ -140,7 +162,9 @@ class DistributionRecipientEntry {
 // ---------------------------------------------------------------------------
 
 /// 3.4. Change Procedure [PD00-ADM-CHA].
+@SectionId('PD00-ADM-CHA')
 class ChangeProcedure {
+  @Unused()
   String? content;
 
   /// 3.4.1. Change Process [PD00-ADM-CHA-PRO].
@@ -151,6 +175,7 @@ class ChangeProcedure {
 }
 
 /// 3.4.1. Change Process [PD00-ADM-CHA-PRO].
+@SectionId('PD00-ADM-CHA-PRO')
 class ChangeProcess {
   @Form([
     Field('approvalAuthority', String, 'Approval Authority'),
@@ -162,9 +187,11 @@ class ChangeProcess {
   FlowDiagramSection overviewDiagram = FlowDiagramSection();
 
   /// Process steps — ordered list of change process steps — contains 0+× ChangeStep.
+  @SectionIdPattern('PD00-ADM-CHA-PRO-STP-xx')
   List<ChangeStepEntry> steps = [];
 
   /// Roles involved in the change process — contains 0+× ChangeRole.
+  @SectionIdPattern('PD00-ADM-CHA-PRO-ROL-xx')
   List<ChangeRoleEntry> roles = [];
 
 }
@@ -189,14 +216,19 @@ class ChangeStepEntry {
     Field('approvalCriteria', String, 'Approval Criteria'),
   ])
   String? content;
+
   /// Subflow diagram for this step (e.g. Mermaid or image reference).
   FlowDiagramSection? subflowDiagram;
 }
 
 /// 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
+@SectionId('PD00-ADM-CHA-CRI')
 class ChangeImpactCriteria {
+  @Unused()
   String? content;
+
   /// Contains 0+× ChangeImpactCriterion.
+  @SectionIdPattern('PD00-ADM-CHA-CRI-xx')
   List<ChangeImpactCriterionEntry> items = [];
 }
 
@@ -216,10 +248,13 @@ class ChangeImpactCriterionEntry {
 // ---------------------------------------------------------------------------
 
 /// 3.5. Reference Documents [PD00-ADM-REF].
+@SectionId('PD00-ADM-REF')
 class ReferenceDocuments {
+  @Unused()
   String? content;
 
   /// Reference document entries — contains 0+× Reference Document.
+  @SectionIdPattern('PD00-ADM-REF-xx')
   List<ReferenceDocumentEntry> documents = [];
 }
 

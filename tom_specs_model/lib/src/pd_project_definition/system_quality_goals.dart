@@ -8,7 +8,10 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 
 /// 11. System Quality Goals [PD00-SYQ]. Seeds → BQP.
+@SectionId('PD00-SYQ')
+@Comment('Seeds → BQP')
 class SystemQualityGoals {
+  @Unused()
   String? content;
 
   /// 11.1. Quality Framework [PD00-SYQ-FRA].
@@ -34,13 +37,16 @@ class SystemQualityGoals {
 }
 
 /// 11.1. Quality Framework [PD00-SYQ-FRA].
+@SectionId('PD00-SYQ-FRA')
 class QualityFramework {
+  @Unused()
   String? content;
 
   /// Quality Objectives Overview.
   TextSection qualityObjectivesOverview = TextSection();
 
   /// 11.1.2. Quality Categories [PD00-SYQ-FRA-CAT] — contains 0+× QualityCategory.
+  @SectionIdPattern('PD00-SYQ-FRA-CAT-xx')
   List<QualityCategoryEntry> qualityCategories = [];
 }
 
@@ -54,7 +60,9 @@ class QualityCategoryEntry {
 }
 
 /// 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
+@SectionId('PD00-SYQ-USE')
 class UserQualityCriteria {
+  @Unused()
   String? content;
 
   /// Usability.
@@ -68,7 +76,9 @@ class UserQualityCriteria {
 }
 
 /// 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
+@SectionId('PD00-SYQ-TEC')
 class TechnicalQualityCriteria {
+  @Unused()
   String? content;
 
   /// Efficiency.
@@ -91,7 +101,9 @@ class TechnicalQualityCriteria {
 }
 
 /// 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
+@SectionId('PD00-SYQ-OPE')
 class OperationsQualityCriteria {
+  @Unused()
   String? content;
 
   /// Availability.
@@ -108,7 +120,9 @@ class OperationsQualityCriteria {
 }
 
 /// 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
+@SectionId('PD00-SYQ-DOC')
 class DocumentationQualityCriteria {
+  @Unused()
   String? content;
 
   /// Readability.
@@ -125,7 +139,9 @@ class DocumentationQualityCriteria {
 }
 
 /// 11.6. Quality Prioritization [PD00-SYQ-PRI].
+@SectionId('PD00-SYQ-PRI')
 class QualityPrioritization {
+  @Unused()
   String? content;
 
   /// Weighted Quality Matrix.
@@ -136,9 +152,13 @@ class QualityPrioritization {
 }
 
 /// 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
+@SectionId('PD00-SYQ-PRI-TRA')
 class TradeOffDecisions {
+  @Unused()
   String? content;
+
   /// Contains 0+× TradeOffDecision.
+  @SectionIdPattern('PD00-SYQ-PRI-TRA-xx')
   List<TradeOffDecisionEntry> items = [];
 }
 
@@ -154,7 +174,9 @@ class TradeOffDecisionEntry {
 }
 
 /// 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
+@SectionId('PD00-SYQ-ACC')
 class AcceptanceCriteriaSummary {
+  @Unused()
   String? content;
 
   /// 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
@@ -165,9 +187,13 @@ class AcceptanceCriteriaSummary {
 }
 
 /// 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
+@SectionId('PD00-SYQ-ACC-MUS')
 class MustPassCriteria {
+  @Unused()
   String? content;
+
   /// Contains 0+× MustPassCriterion.
+  @SectionIdPattern('PD00-SYQ-ACC-MUS-xx')
   List<MustPassCriterionEntry> items = [];
 }
 
@@ -182,9 +208,13 @@ class MustPassCriterionEntry {
 }
 
 /// 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
+@SectionId('PD00-SYQ-ACC-GAT')
 class QualityGateChecklist {
+  @Unused()
   String? content;
+
   /// Contains 0+× QualityGateCheck.
+  @SectionIdPattern('PD00-SYQ-ACC-GAT-xx')
   List<QualityGateCheckEntry> items = [];
 }
 

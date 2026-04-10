@@ -9,7 +9,10 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 
 /// 6. Target Business Process Model [PD00-TAR].
+@SectionId('PD00-TAR')
+@Comment('Seeds → BP, UC')
 class TargetBusinessProcessModel {
+  @Unused()
   String? content;
 
   /// Process Vision.
@@ -28,13 +31,19 @@ class TargetBusinessProcessModel {
   TextSection improvementSummary = TextSection();
 
   /// 6.6. Process Catalog [PD00-TAR-CAT] — contains 1+× Target Business Process.
+  @SectionIdPattern('PD00-TAR-CAT-xx')
+  @Min(1)
   List<TargetBusinessProcess> processCatalog = [];
 }
 
 /// 6.2. Design Principles [PD00-TAR-PRI].
+@SectionId('PD00-TAR-PRI')
 class DesignPrinciples {
+  @Unused()
   String? content;
+
   /// Contains 0+× DesignPrinciple.
+  @SectionIdPattern('PD00-TAR-PRI-xx')
   List<DesignPrincipleEntry> items = [];
 }
 
@@ -49,9 +58,13 @@ class DesignPrincipleEntry {
 }
 
 /// 6.4. Relationships Between Processes [PD00-TAR-REL].
+@SectionId('PD00-TAR-REL')
 class ProcessRelationships {
+  @Unused()
   String? content;
+
   /// Contains 0+× ProcessRelationship.
+  @SectionIdPattern('PD00-TAR-REL-xx')
   List<ProcessRelationshipEntry> items = [];
 }
 
@@ -62,8 +75,10 @@ class ProcessRelationshipEntry {
     Field('description', String, 'Short description'),
   ])
   String? content;
+
   @Reference('Source Process')
   BusinessProcessDescription? sourceProcess;
+
   @Reference('Target Process')
   BusinessProcessDescription? targetProcess;
 }
@@ -77,16 +92,19 @@ class ProcessRelationshipEntry {
 /// Combines a single business process description with its process steps
 /// and actor interactions.
 class TargetBusinessProcess {
+  @Unused()
   String? content;
 
   /// Process Description [PD00-TAR-CAT-nn-DES].
   BusinessProcessDescription processDescription = BusinessProcessDescription();
 
   /// Process Steps and Actor Interactions [PD00-TAR-CAT-nn-STP]. Seeds → UC.
+  @Comment('Seeds → UC')
   ProcessStepsAndActorInteractions processSteps = ProcessStepsAndActorInteractions();
 }
 
 /// A business process description [PD00-TAR-CAT-nn-DES] (form).
+@SectionId('PD00-TAR-CAT-DES')
 class BusinessProcessDescription {
   @Form([
     Field('processId', String, 'Process Id', required: true),
@@ -106,16 +124,25 @@ class BusinessProcessDescription {
 // ---------------------------------------------------------------------------
 
 /// Process Steps and Actor Interactions [PD00-TAR-CAT-nn-STP]. Seeds → UC.
+@SectionId('PD00-TAR-CAT-STP')
+@Comment('Seeds → UC')
 class ProcessStepsAndActorInteractions {
+  @Unused()
   String? content;
 
   /// Actor Overview — contains 1+× Actor.
+  @SectionIdPattern('PD00-TAR-CAT-xx-ACT-xx')
+  @Min(1)
   List<ActorEntry> actors = [];
 
   /// Interaction Catalog — contains 1+× Interaction.
+  @SectionIdPattern('PD00-TAR-CAT-xx-INT-xx')
+  @Min(1)
   List<InteractionEntry> interactions = [];
 
   /// Key Scenarios — contains 1+× Scenario.
+  @SectionIdPattern('PD00-TAR-CAT-xx-SCE-xx')
+  @Min(1)
   List<ScenarioEntry> scenarios = [];
 }
 
@@ -128,15 +155,19 @@ class ActorEntry {
     Field('accessChannel', String, 'Access Channel'),
   ])
   String? content;
+
   /// Primary interactions — contains 1+× interaction reference.
   PrimaryInteractions primaryInteractions = PrimaryInteractions();
-
 }
 
 /// Primary interactions for an actor [PD00-TAR-CAT-nn-ACT-nn-PRI].
+@SectionId('PD00-TAR-CAT-ACT-PRI')
 class PrimaryInteractions {
+  @Unused()
   String? content;
+
   /// Contains 0+× PrimaryInteraction.
+  @SectionIdPattern('PD00-TAR-CAT-xx-ACT-xx-PRI-xx')
   List<PrimaryInteractionEntry> items = [];
 }
 
@@ -146,10 +177,9 @@ class PrimaryInteractionEntry {
     Field('description', String, 'Short description'),
     Field('frequency', String, 'Frequency'),
     Field('criticality', String, 'Criticality'),
+    Field('useCaseReference', String, 'Use Case Reference'),
   ])
   String? content;
-  @Reference('Use Case Reference')
-  String? useCaseReference;
 }
 
 /// An interaction entry (form) [PD00-TAR-CAT-nn-INT-nn].
@@ -162,12 +192,12 @@ class InteractionEntry {
     Field('expectedOutcome', String, 'Expected Outcome'),
     Field('precondition', String, 'Precondition'),
     Field('postcondition', String, 'Postcondition'),
+    Field('relatedUseCase', String, 'Related Use Case'),
   ])
   String? content;
+
   @Reference('Process Reference')
   BusinessProcessDescription? processReference;
-  @Reference('Related Use Case')
-  String? relatedUseCase;
 }
 
 /// A scenario entry (description) [PD00-TAR-CAT-nn-SCE-nn].
@@ -178,9 +208,13 @@ class ScenarioEntry {
     Field('successCondition', String, 'Success Condition'),
   ])
   String? content;
+
   /// Contains 0+× ScenarioStep.
+  @SectionIdPattern('PD00-TAR-CAT-xx-SCE-xx-SST-xx')
   List<ScenarioStepEntry> steps = [];
+
   /// Alternative flows for this scenario — contains 0+× AlternativeFlow.
+  @SectionIdPattern('PD00-TAR-CAT-xx-SCE-xx-AFL-xx')
   List<AlternativeFlowEntry> alternativeFlows = [];
 }
 
@@ -203,6 +237,7 @@ class AlternativeFlowEntry {
     Field('returnPoint', String, 'Return Point'),
   ])
   String? content;
+
   /// Contains 0+× ScenarioStep.
   List<ScenarioStepEntry> steps = [];
 }

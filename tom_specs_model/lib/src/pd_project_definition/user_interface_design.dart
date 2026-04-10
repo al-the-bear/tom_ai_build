@@ -7,8 +7,11 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 
 
-/// 10. User Interface Design and Prototype [PD00-USE].
+/// 10. User Interface Design and Prototype [PD00-USE]. Seeds → UP.
+@SectionId('PD00-USE')
+@Comment('Seeds → UP')
 class UserInterfaceDesign {
+  @Unused()
   String? content;
 
   /// 10.1. Design Vision [PD00-USE-VIS]. Seeds → UP.
@@ -56,16 +59,22 @@ class UserInterfaceDesign {
 // ---------------------------------------------------------------------------
 
 /// 10.1. Design Vision [PD00-USE-VIS].
+@SectionId('PD00-USE-VIS')
 class DesignVision {
+  @Unused()
   String? content;
 
   /// 10.1.1. Design Goals [PD00-USE-VIS-GOA] — contains 0+× DesignGoal.
+  @SectionIdPattern('PD00-USE-VIS-GOA-xx')
   List<DesignGoalEntry> designGoals = [];
 
   /// 10.1.2. Design Principles [PD00-USE-VIS-PRI] — contains 0+× UiDesignPrinciple.
+  @SectionIdPattern('PD00-USE-VIS-PRI-xx')
   List<UiDesignPrincipleEntry> designPrinciples = [];
 
   /// 10.1.3. User Personas [PD00-USE-VIS-PER] — contains 1+× Persona.
+  @SectionIdPattern('PD00-USE-VIS-PER-xx')
+  @Min(1)
   List<PersonaEntry> personas = [];
 }
 
@@ -98,9 +107,13 @@ class PersonaEntry {
     Field('device', String, 'Device'),
   ])
   String? content;
+
   /// Contains 0+× PersonaGoal.
+  @SectionIdPattern('PD00-USE-VIS-PER-xx-GOA-xx')
   List<PersonaGoalEntry> goals = [];
+
   /// Contains 0+× PersonaPainPoint.
+  @SectionIdPattern('PD00-USE-VIS-PER-xx-PAI-xx')
   List<PersonaPainPointEntry> painPoints = [];
 }
 
@@ -127,10 +140,14 @@ class PersonaPainPointEntry {
 // ---------------------------------------------------------------------------
 
 /// 10.2. Screen Descriptions [PD00-USE-SCR].
+@SectionId('PD00-USE-SCR')
 class ScreenDescriptions {
+  @Unused()
   String? content;
 
   /// 10.2.1. Screen Inventory [PD00-USE-SCR-INV] — contains 1+× Screen.
+  @SectionIdPattern('PD00-USE-SCR-INV-xx')
+  @Min(1)
   List<ScreenEntry> screenInventory = [];
 
   /// Information Architecture.
@@ -147,11 +164,17 @@ class ScreenEntry {
     Field('layout', String, 'Layout'),
   ])
   String? content;
+
   /// Contains 0+× ScreenElement.
+  @SectionIdPattern('PD00-USE-SCR-INV-xx-ELE-xx')
   List<ScreenElementEntry> keyElements = [];
+
   /// Contains 0+× ScreenUserCategory.
+  @SectionIdPattern('PD00-USE-SCR-INV-xx-UCT-xx')
   List<ScreenUserCategoryEntry> userCategories = [];
+
   /// Contains 0+× Point.
+  @SectionIdPattern('PD00-USE-SCR-INV-xx-EPT-xx')
   List<EntryPointEntry> entryPoints = [];
 }
 
@@ -187,7 +210,9 @@ class EntryPointEntry {
 // ---------------------------------------------------------------------------
 
 /// 10.3. Screen Flow Structure [PD00-USE-SCF].
+@SectionId('PD00-USE-SCF')
 class ScreenFlowStructure {
+  @Unused()
   String? content;
 
   /// Navigation Model.
@@ -202,13 +227,17 @@ class ScreenFlowStructure {
 // ---------------------------------------------------------------------------
 
 /// 10.4. Print Layout [PD00-USE-PRI].
+@SectionId('PD00-USE-PRI')
 class PrintLayout {
+  @Unused()
   String? content;
 
   /// 10.4.1. Reports [PD00-USE-PRI-REP] — contains 0+× Report.
+  @SectionIdPattern('PD00-USE-PRI-REP-xx')
   List<ReportEntry> reports = [];
 
   /// 10.4.2. Export Formats [PD00-USE-PRI-EXP] — contains 0+× ExportFormat.
+  @SectionIdPattern('PD00-USE-PRI-EXP-xx')
   List<ExportFormatEntry> exportFormats = [];
 }
 
@@ -232,7 +261,9 @@ class ReportEntry {
     Field('customization', String, 'Customization'),
   ])
   String? content;
+
   /// Contains 0+× Recipient.
+  @SectionIdPattern('PD00-USE-PRI-REP-xx-REC-xx')
   List<RecipientEntry> recipients = [];
 }
 
@@ -250,7 +281,9 @@ class RecipientEntry {
 // ---------------------------------------------------------------------------
 
 /// 10.7. Error Handling Concept [PD00-USE-ERR].
+@SectionId('PD00-USE-ERR')
 class ErrorHandlingConcept {
+  @Unused()
   String? content;
 
   /// Validation Feedback.
@@ -268,7 +301,9 @@ class ErrorHandlingConcept {
 // ---------------------------------------------------------------------------
 
 /// 10.8. Help Concept [PD00-USE-HLP].
+@SectionId('PD00-USE-HLP')
 class HelpConcept {
+  @Unused()
   String? content;
 
   /// Contextual Help.
@@ -286,7 +321,9 @@ class HelpConcept {
 // ---------------------------------------------------------------------------
 
 /// 10.9. Accessibility [PD00-USE-ACC].
+@SectionId('PD00-USE-ACC')
 class Accessibility {
+  @Unused()
   String? content;
 
   /// Wcag Compliance Level.
@@ -297,9 +334,13 @@ class Accessibility {
 }
 
 /// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
+@SectionId('PD00-USE-ACC-CHK')
 class AccessibilityChecklist {
+  @Unused()
   String? content;
+
   /// Contains 0+× AccessibilityCheck.
+  @SectionIdPattern('PD00-USE-ACC-CHK-xx')
   List<AccessibilityCheckEntry> items = [];
 }
 
@@ -319,10 +360,13 @@ class AccessibilityCheckEntry {
 // ---------------------------------------------------------------------------
 
 /// 10.10. Responsive Design [PD00-USE-RES].
+@SectionId('PD00-USE-RES')
 class ResponsiveDesign {
+  @Unused()
   String? content;
 
   /// 10.10.1. Breakpoints [PD00-USE-RES-BRE] — contains 0+× Breakpoint.
+  @SectionIdPattern('PD00-USE-RES-BRE-xx')
   List<BreakpointEntry> breakpoints = [];
 
   /// Responsive Behavior.
@@ -344,13 +388,16 @@ class BreakpointEntry {
 // ---------------------------------------------------------------------------
 
 /// 10.11. UI Components [PD00-USE-COM].
+@SectionId('PD00-USE-COM')
 class UiComponents {
+  @Unused()
   String? content;
 
   /// Component Library.
   TextSection componentLibrary = TextSection();
 
   /// 10.11.2. Component Specifications [PD00-USE-COM-SPE] — contains 0+×.
+  @SectionIdPattern('PD00-USE-COM-SPE-xx')
   List<UiComponentEntry> componentSpecs = [];
 }
 
@@ -363,9 +410,13 @@ class UiComponentEntry {
     Field('responsive', String, 'Responsive'),
   ])
   String? content;
+
   /// Contains 0+× ComponentState.
+  @SectionIdPattern('PD00-USE-COM-SPE-xx-STA-xx')
   List<ComponentStateEntry> states = [];
+
   /// Contains 0+× ComponentVariant.
+  @SectionIdPattern('PD00-USE-COM-SPE-xx-VAR-xx')
   List<ComponentVariantEntry> variants = [];
 }
 
@@ -392,7 +443,9 @@ class ComponentVariantEntry {
 // ---------------------------------------------------------------------------
 
 /// 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
+@SectionId('PD00-USE-MUL')
 class MultiLanguageAndRollout {
+  @Unused()
   String? content;
 
   /// 10.12.1. Multi-language Support [PD00-USE-MUL-LAN].
@@ -403,7 +456,9 @@ class MultiLanguageAndRollout {
 }
 
 /// 10.12.1. Multi-language Support [PD00-USE-MUL-LAN].
+@SectionId('PD00-USE-MUL-LAN')
 class MultiLanguageSupport {
+  @Unused()
   String? content;
 
   /// Localization Process.
@@ -420,7 +475,9 @@ class MultiLanguageSupport {
 }
 
 /// 10.12.2. Rollout Support [PD00-USE-MUL-ROL].
+@SectionId('PD00-USE-MUL-ROL')
 class RolloutSupport {
+  @Unused()
   String? content;
 
   /// User Documentation.
@@ -441,10 +498,13 @@ class RolloutSupport {
 // ---------------------------------------------------------------------------
 
 /// 10.13. Prototype [PD00-USE-PRO].
+@SectionId('PD00-USE-PRO')
 class Prototype {
+  @Unused()
   String? content;
 
   /// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA] — contains 0+× PrototypeGoal.
+  @SectionIdPattern('PD00-USE-PRO-GOA-xx')
   List<PrototypeGoalEntry> prototypeGoals = [];
 
   /// Selected Feature Subset.
@@ -455,7 +515,9 @@ class Prototype {
 }
 
 /// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+@SectionId('PD00-USE-PRO-TYP')
 class PrototypeTypeSection {
+  @Unused()
   String? content;
 
   /// Reusable Prototype.

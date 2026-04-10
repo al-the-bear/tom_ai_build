@@ -8,7 +8,10 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 
 /// 9. Access and Authorization Concept [PD00-ACC]. Seeds → AC.
+@SectionId('PD00-ACC')
+@Comment('Seeds → AC')
 class AccessAndAuthorizationConcept {
+  @Unused()
   String? content;
 
   /// 9.1. User Management [PD00-ACC-USE].
@@ -31,7 +34,9 @@ class AccessAndAuthorizationConcept {
 }
 
 /// 9.1. User Management [PD00-ACC-USE].
+@SectionId('PD00-ACC-USE')
 class UserManagement {
+  @Unused()
   String? content;
 
   /// 9.1.1. User Categories [PD00-ACC-USE-CAT].
@@ -45,9 +50,13 @@ class UserManagement {
 }
 
 /// 9.1.1. User Categories [PD00-ACC-USE-CAT].
+@SectionId('PD00-ACC-USE-CAT')
 class UserCategories {
+  @Unused()
   String? content;
+
   /// Contains 0+× UserCategoryDefinition.
+  @SectionIdPattern('PD00-ACC-USE-CAT-xx')
   List<UserCategoryDefinition> items = [];
 }
 
@@ -63,9 +72,13 @@ class UserCategoryDefinition {
 }
 
 /// 9.1.3. User Attributes [PD00-ACC-USE-ATT].
+@SectionId('PD00-ACC-USE-ATT')
 class UserAttributes {
+  @Unused()
   String? content;
+
   /// Contains 0+× UserAttribute.
+  @SectionIdPattern('PD00-ACC-USE-ATT-xx')
   List<UserAttributeEntry> items = [];
 }
 
@@ -81,7 +94,9 @@ class UserAttributeEntry {
 }
 
 /// 9.2. Identification and Authentication [PD00-ACC-IDE].
+@SectionId('PD00-ACC-IDE')
 class IdentificationAndAuthentication {
+  @Unused()
   String? content;
 
   /// 9.2.1. Identification [PD00-ACC-IDE-IDN].
@@ -92,7 +107,9 @@ class IdentificationAndAuthentication {
 }
 
 /// 9.2.1. Identification [PD00-ACC-IDE-IDN].
+@SectionId('PD00-ACC-IDE-IDN')
 class Identification {
+  @Unused()
   String? content;
 
   /// Identity Sources.
@@ -109,7 +126,9 @@ class Identification {
 }
 
 /// 9.2.2. Authentication [PD00-ACC-IDE-AUT].
+@SectionId('PD00-ACC-IDE-AUT')
 class Authentication {
+  @Unused()
   String? content;
 
   /// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
@@ -126,9 +145,13 @@ class Authentication {
 }
 
 /// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
+@SectionId('PD00-ACC-IDE-AUT-MET')
 class AuthenticationMethods {
+  @Unused()
   String? content;
+
   /// Contains 0+× AuthenticationMethod.
+  @SectionIdPattern('PD00-ACC-IDE-AUT-MET-xx')
   List<AuthenticationMethodEntry> items = [];
 }
 
@@ -145,7 +168,9 @@ class AuthenticationMethodEntry {
 }
 
 /// 9.3. Resource Protection [PD00-ACC-RES].
+@SectionId('PD00-ACC-RES')
 class ResourceProtection {
+  @Unused()
   String? content;
 
   /// Data Level Security.
@@ -161,22 +186,30 @@ class ResourceProtection {
 /// 9.4. User Authorization [PD00-ACC-USA].
 ///
 /// Aligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.
+@SectionId('PD00-ACC-USA')
 class UserAuthorization {
+  @Unused()
   String? content;
 
   /// Authorization Model.
   TextSection authorizationModel = TextSection();
 
   /// 9.4.2. Authorization Groups [PD00-ACC-USA-GRP] — contains 0+× Group.
+  @SectionIdPattern('PD00-ACC-USA-GRP-xx')
   List<AuthorizationGroupEntry> groups = [];
 
   /// 9.4.3. Role Definitions [PD00-ACC-USA-ROL] — contains 1+× Role.
+  @SectionIdPattern('PD00-ACC-USA-ROL-xx')
+  @Min(1)
   List<AuthorizationRoleEntry> roleDefinitions = [];
 
   /// 9.4.4. Entitlements [PD00-ACC-USA-ENT] — contains 1+× Entitlement.
+  @SectionIdPattern('PD00-ACC-USA-ENT-xx')
+  @Min(1)
   List<EntitlementEntry> entitlements = [];
 
   /// 9.4.5. Resource Keys [PD00-ACC-USA-RES] — contains 0+× Resource Key.
+  @SectionIdPattern('PD00-ACC-USA-RES-xx')
   List<ResourceKeyEntry> resourceKeys = [];
 
   /// Role Hierarchy.
@@ -194,7 +227,9 @@ class AuthorizationGroupEntry {
     Field('membershipCriteria', String, 'Membership Criteria'),
   ])
   String? content;
+
   /// Contains 0+× RoleReference.
+  @SectionIdPattern('PD00-ACC-USA-GRP-xx-ROL-xx')
   List<RoleReferenceEntry> containedRoles = [];
 }
 
@@ -214,13 +249,21 @@ class AuthorizationRoleEntry {
     Field('inheritsFrom', String, 'Inherits From'),
   ])
   String? content;
+
   /// Contains 0+× ResponsibilityReference.
+  @SectionIdPattern('PD00-ACC-USA-ROL-xx-RSP-xx')
   List<ResponsibilityReferenceEntry> responsibilities = [];
+
   /// Contains 0+× EntitlementReference.
+  @SectionIdPattern('PD00-ACC-USA-ROL-xx-ENT-xx')
   List<EntitlementReferenceEntry> entitlementReferences = [];
+
   /// Contains 0+× RoleExclusion.
+  @SectionIdPattern('PD00-ACC-USA-ROL-xx-EXC-xx')
   List<RoleExclusionEntry> mutualExclusions = [];
+
   /// Contains 0+× RoleHolder.
+  @SectionIdPattern('PD00-ACC-USA-ROL-xx-HOL-xx')
   List<RoleHolderEntry> typicalHolders = [];
 }
 
@@ -268,7 +311,9 @@ class EntitlementEntry {
     Field('conditions', String, 'Conditions'),
   ])
   String? content;
+
   /// Contains 0+× ResourceKeyReference.
+  @SectionIdPattern('PD00-ACC-USA-ENT-xx-RKR-xx')
   List<ResourceKeyReferenceEntry> resourceKeyReferences = [];
 }
 
@@ -292,7 +337,9 @@ class ResourceKeyEntry {
 }
 
 /// 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
+@SectionId('PD00-ACC-SEN')
 class SensitiveDataEncryption {
+  @Unused()
   String? content;
 
   /// Encryption At Rest.
@@ -306,7 +353,9 @@ class SensitiveDataEncryption {
 }
 
 /// 9.6. Audit and Logging [PD00-ACC-AUD].
+@SectionId('PD00-ACC-AUD')
 class AuditAndLogging {
+  @Unused()
   String? content;
 
   /// 9.6.1. Audit [PD00-ACC-AUD-AUD].
@@ -317,7 +366,9 @@ class AuditAndLogging {
 }
 
 /// 9.6.1. Audit [PD00-ACC-AUD-AUD].
+@SectionId('PD00-ACC-AUD-AUD')
 class Audit {
+  @Unused()
   String? content;
 
   /// Audit Trail.
@@ -331,7 +382,9 @@ class Audit {
 }
 
 /// 9.6.2. Logging [PD00-ACC-AUD-LOG].
+@SectionId('PD00-ACC-AUD-LOG')
 class Logging {
+  @Unused()
   String? content;
 
   /// Log Format.
@@ -345,9 +398,13 @@ class Logging {
 }
 
 /// 9.6.2.3. Security Events [PD00-ACC-AUD-LOG-EVE].
+@SectionId('PD00-ACC-AUD-LOG-EVE')
 class SecurityEvents {
+  @Unused()
   String? content;
+
   /// Contains 0+× SecurityEvent.
+  @SectionIdPattern('PD00-ACC-AUD-LOG-EVE-xx')
   List<SecurityEventEntry> items = [];
 }
 

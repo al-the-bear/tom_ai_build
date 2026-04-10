@@ -8,7 +8,10 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 
 /// 8. Technical Framework Concept [PD00-TEC]. Seeds → TR.
+@SectionId('PD00-TEC')
+@Comment('Seeds → TR')
 class TechnicalFrameworkConcept {
+  @Unused()
   String? content;
 
   /// 8.1. Basic Technical Requirements [PD00-TEC-BAS].
@@ -37,7 +40,9 @@ class TechnicalFrameworkConcept {
 }
 
 /// 8.1. Basic Technical Requirements [PD00-TEC-BAS].
+@SectionId('PD00-TEC-BAS')
 class BasicTechnicalRequirements {
+  @Unused()
   String? content;
 
   /// Platform And Language.
@@ -47,6 +52,7 @@ class BasicTechnicalRequirements {
   TextSection architectureStyle = TextSection();
 
   /// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT] — contains 0+× DesignPattern.
+  @SectionIdPattern('PD00-TEC-BAS-PAT-xx')
   List<DesignPatternEntry> designPatternsAndStandards = [];
 }
 
@@ -60,7 +66,9 @@ class DesignPatternEntry {
 }
 
 /// 8.2. Software Design Requirements [PD00-TEC-SOF].
+@SectionId('PD00-TEC-SOF')
 class SoftwareDesignRequirements {
+  @Unused()
   String? content;
 
   /// Layering And Module Structure.
@@ -70,6 +78,7 @@ class SoftwareDesignRequirements {
   TextSection developmentEnvironment = TextSection();
 
   /// 8.2.3. Reusable Components [PD00-TEC-SOF-REU] — contains 0+× ReusableComponent.
+  @SectionIdPattern('PD00-TEC-SOF-REU-xx')
   List<ReusableComponentEntry> reusableComponents = [];
 }
 
@@ -84,10 +93,13 @@ class ReusableComponentEntry {
 }
 
 /// 8.3. Standard Application Software Requirements [PD00-TEC-STA].
+@SectionId('PD00-TEC-STA')
 class StandardSoftwareRequirements {
+  @Unused()
   String? content;
 
   /// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM] — contains 0+× CompatibilityRequirement.
+  @SectionIdPattern('PD00-TEC-STA-COM-xx')
   List<CompatibilityRequirementEntry> compatibilityRequirements = [];
 
   /// Standards Compliance.
@@ -104,7 +116,9 @@ class CompatibilityRequirementEntry {
 }
 
 /// 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
+@SectionId('PD00-TEC-HAR')
 class HardwareRequirements {
+  @Unused()
   String? content;
 
   /// Server Requirements.
@@ -118,7 +132,9 @@ class HardwareRequirements {
 }
 
 /// 8.5. Operations Requirements [PD00-TEC-OPE].
+@SectionId('PD00-TEC-OPE')
 class OperationsRequirements {
+  @Unused()
   String? content;
 
   /// Backup And Recovery.
@@ -135,10 +151,13 @@ class OperationsRequirements {
 }
 
 /// 8.6. Communication Requirements [PD00-TEC-COM].
+@SectionId('PD00-TEC-COM')
 class CommunicationRequirements {
+  @Unused()
   String? content;
 
   /// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO] — contains 0+× Protocol.
+  @SectionIdPattern('PD00-TEC-COM-PRO-xx')
   List<ProtocolEntry> protocolsAndStandards = [];
 
   /// External Connectivity.
@@ -155,7 +174,9 @@ class ProtocolEntry {
 }
 
 /// 8.7. System Operation and Monitoring [PD00-TEC-SYS].
+@SectionId('PD00-TEC-SYS')
 class SystemOperationAndMonitoring {
+  @Unused()
   String? content;
 
   /// 8.7.1. System Operation [PD00-TEC-SYS-OPE].
@@ -166,7 +187,9 @@ class SystemOperationAndMonitoring {
 }
 
 /// 8.7.1. System Operation [PD00-TEC-SYS-OPE].
+@SectionId('PD00-TEC-SYS-OPE')
 class SystemOperation {
+  @Unused()
   String? content;
 
   /// Administration Requirements.
@@ -177,7 +200,9 @@ class SystemOperation {
 }
 
 /// 8.7.2. Monitoring [PD00-TEC-SYS-MON].
+@SectionId('PD00-TEC-SYS-MON')
 class Monitoring {
+  @Unused()
   String? content;
 
   /// Health Checks And Diagnostics.
@@ -191,16 +216,20 @@ class Monitoring {
 }
 
 /// 8.8. Security Requirements [PD00-TEC-SEC].
+@SectionId('PD00-TEC-SEC')
 class TechnicalSecurityRequirements {
+  @Unused()
   String? content;
 
   /// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS] — contains 0+× SecurityStandard.
+  @SectionIdPattern('PD00-TEC-SEC-ITS-xx')
   List<SecurityStandardEntry> itSecurityStandards = [];
 
   /// Data Protection And Privacy.
   TextSection dataProtectionAndPrivacy = TextSection();
 
   /// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD] — contains 0+× SecurityAudit.
+  @SectionIdPattern('PD00-TEC-SEC-AUD-xx')
   List<SecurityAuditEntry> securityAuditRequirements = [];
 }
 

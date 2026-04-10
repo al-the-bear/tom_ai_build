@@ -21,6 +21,8 @@ export 'user_interface_design.dart';
 
 import 'package:tom_specs_model/src/common/document_header.dart';
 
+import 'package:tom_specs_core/tom_specs_core.dart';
+
 import 'access_authorization.dart';
 import 'administrative.dart';
 import 'business_data_model.dart';
@@ -39,7 +41,9 @@ import 'user_interface_design.dart';
 /// The complete Project Definition (PD) document.
 ///
 /// Contains a [DocumentHeader] and all 14 PD sections [PD00].
+@SectionId('PD00')
 class ProjectDefinition {
+  @Unused()
   String? content;
 
   /// Document header (form fields at top of document).

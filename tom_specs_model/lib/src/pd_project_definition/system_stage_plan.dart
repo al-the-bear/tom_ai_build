@@ -8,7 +8,10 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 
 /// 13. System Stage Plan [PD00-SSP]. Seeds → PPP.
+@SectionId('PD00-SSP')
+@Comment('Seeds → PPP')
 class SystemStagePlan {
+  @Unused()
   String? content;
 
   /// 13.1. Staging Strategy [PD00-SSP-STR].
@@ -18,6 +21,8 @@ class SystemStagePlan {
   StageOverview stageOverview = StageOverview();
 
   /// 13.3. Stages [PD00-SSP-STG] — contains 1+× Stage.
+  @SectionIdPattern('PD00-SSP-STG-xx')
+  @Min(1)
   List<StageEntry> stages = [];
 
   /// 13.4. Feature Prioritization [PD00-SSP-FEA].
@@ -31,6 +36,7 @@ class SystemStagePlan {
 }
 
 /// 13.1. Staging Strategy [PD00-SSP-STR].
+@SectionId('PD00-SSP-STR')
 class StagingStrategy {
   @Form([
     Field('rationale', String, 'Rationale'),
@@ -39,11 +45,12 @@ class StagingStrategy {
 
   /// Staging Approach.
   TextSection stagingApproach = TextSection();
-
 }
 
 /// 13.2. Stage Overview [PD00-SSP-STA].
+@SectionId('PD00-SSP-STA')
 class StageOverview {
+  @Unused()
   String? content;
 
   /// Stage Summary.
@@ -62,16 +69,19 @@ class StageEntry {
     Field('scopeSummary', String, 'Scope Summary'),
   ])
   String? content;
+
   /// Feature Scope.
   TextSection featureScope = TextSection();
 
   /// Sub-stages and Milestones [PD00-SSP-STG-nn-SUB] — contains 0+× SubStage.
+  @SectionIdPattern('PD00-SSP-STG-xx-SUB-xx')
   List<SubStageEntry> subStagesAndMilestones = [];
 
   /// Timeline.
   TextSection timeline = TextSection();
 
   /// Success Criteria [PD00-SSP-STG-nn-SUC] — contains 0+× StageSuccessCriterion.
+  @SectionIdPattern('PD00-SSP-STG-xx-SUC-xx')
   List<StageSuccessCriterionEntry> successCriteria = [];
 
   /// Rollout Plan.
@@ -98,7 +108,9 @@ class StageSuccessCriterionEntry {
 }
 
 /// 13.4. Feature Prioritization [PD00-SSP-FEA].
+@SectionId('PD00-SSP-FEA')
 class FeaturePrioritization {
+  @Unused()
   String? content;
 
   /// Moscow Analysis.
@@ -109,7 +121,9 @@ class FeaturePrioritization {
 }
 
 /// 13.5. Data Migration Strategy [PD00-SSP-MIG].
+@SectionId('PD00-SSP-MIG')
 class DataMigrationStrategy {
+  @Unused()
   String? content;
 
   /// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
@@ -120,9 +134,13 @@ class DataMigrationStrategy {
 }
 
 /// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
+@SectionId('PD00-SSP-MIG-PHA')
 class MigrationPhases {
+  @Unused()
   String? content;
+
   /// Contains 0+× MigrationPhase.
+  @SectionIdPattern('PD00-SSP-MIG-PHA-xx')
   List<MigrationPhaseEntry> items = [];
 }
 
@@ -139,9 +157,13 @@ class MigrationPhaseEntry {
 }
 
 /// 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
+@SectionId('PD00-SSP-MIG-RIS')
 class StageMigrationRisks {
+  @Unused()
   String? content;
+
   /// Contains 0+× StageMigrationRisk.
+  @SectionIdPattern('PD00-SSP-MIG-RIS-xx')
   List<StageMigrationRiskEntry> items = [];
 }
 
@@ -157,7 +179,9 @@ class StageMigrationRiskEntry {
 }
 
 /// 13.6. Governance [PD00-SSP-GOV].
+@SectionId('PD00-SSP-GOV')
 class StageGovernance {
+  @Unused()
   String? content;
 
   /// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
@@ -168,9 +192,13 @@ class StageGovernance {
 }
 
 /// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
+@SectionId('PD00-SSP-GOV-GAT')
 class PhaseGateReviews {
+  @Unused()
   String? content;
+
   /// Contains 0+× PhaseGateReview.
+  @SectionIdPattern('PD00-SSP-GOV-GAT-xx')
   List<PhaseGateReviewEntry> items = [];
 }
 
@@ -182,7 +210,9 @@ class PhaseGateReviewEntry {
     Field('decisionAuthority', String, 'Decision Authority'),
   ])
   String? content;
+
   /// Contains 0+× ReviewCriterion.
+  @SectionIdPattern('PD00-SSP-GOV-GAT-xx-RCR-xx')
   List<ReviewCriterionEntry> reviewCriteria = [];
 }
 
@@ -196,9 +226,13 @@ class ReviewCriterionEntry {
 }
 
 /// 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
+@SectionId('PD00-SSP-GOV-DEC')
 class DecisionPoints {
+  @Unused()
   String? content;
+
   /// Contains 0+× DecisionPoint.
+  @SectionIdPattern('PD00-SSP-GOV-DEC-xx')
   List<DecisionPointEntry> items = [];
 }
 
@@ -211,7 +245,9 @@ class DecisionPointEntry {
     Field('decisionAuthority', String, 'Decision Authority'),
   ])
   String? content;
+
   /// Contains 0+× DecisionOption.
+  @SectionIdPattern('PD00-SSP-GOV-DEC-xx-OPT-xx')
   List<DecisionOptionEntry> options = [];
 }
 

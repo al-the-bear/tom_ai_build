@@ -8,7 +8,9 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 
 /// 5. Organizational Framework [PD00-ORG].
+@SectionId('PD00-ORG')
 class OrganizationalFramework {
+  @Unused()
   String? content;
 
   /// 5.1. New Organization Structure [PD00-ORG-STR].
@@ -18,6 +20,9 @@ class OrganizationalFramework {
   JobDescriptionsAndStaffing jobDescriptions = JobDescriptionsAndStaffing();
 
   /// 5.3. Workplace Descriptions [PD00-ORG-WOR] — contains 1+× per user category.
+  @SectionIdPattern('PD00-ORG-WOR-xx')
+  @Min(1)
+  @Comment('per user category')
   List<WorkplaceDescriptionEntry> workplaceDescriptions = [];
 }
 
@@ -26,7 +31,9 @@ class OrganizationalFramework {
 // ---------------------------------------------------------------------------
 
 /// 5.1. New Organization Structure [PD00-ORG-STR].
+@SectionId('PD00-ORG-STR')
 class NewOrganizationStructure {
+  @Unused()
   String? content;
 
   /// 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
@@ -37,9 +44,13 @@ class NewOrganizationStructure {
 }
 
 /// 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
+@SectionId('PD00-ORG-STR-CHA')
 class ChangesFromCurrentStructure {
+  @Unused()
   String? content;
+
   /// Contains 0+× OrganizationalChange.
+  @SectionIdPattern('PD00-ORG-STR-CHA-xx')
   List<OrganizationalChangeEntry> items = [];
 }
 
@@ -60,13 +71,17 @@ class OrganizationalChangeEntry {
 // ---------------------------------------------------------------------------
 
 /// 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
+@SectionId('PD00-ORG-JOB')
 class JobDescriptionsAndStaffing {
+  @Unused()
   String? content;
 
   /// 5.2.1. New Roles [PD00-ORG-JOB-NEW] — contains 0+× New Role.
+  @SectionIdPattern('PD00-ORG-JOB-NEW-xx')
   List<NewRoleEntry> newRoles = [];
 
   /// 5.2.2. Changed Roles [PD00-ORG-JOB-CHA] — contains 0+× Changed Role.
+  @SectionIdPattern('PD00-ORG-JOB-CHA-xx')
   List<ChangedRoleEntry> changedRoles = [];
 
   /// 5.2.3. Staffing Plan [PD00-ORG-JOB-STA].
@@ -74,11 +89,16 @@ class JobDescriptionsAndStaffing {
 }
 
 /// 5.2.3. Staffing Plan [PD00-ORG-JOB-STA].
+@SectionId('PD00-ORG-JOB-STA')
 class StaffingPlan {
+  @Unused()
   String? content;
+
   /// Budget.
   TextSection budget = TextSection();
+
   /// Contains 0+× Staffing.
+  @SectionIdPattern('PD00-ORG-JOB-STA-xx')
   List<StaffingEntry> items = [];
 }
 
@@ -104,9 +124,13 @@ class NewRoleEntry {
     Field('startDate', String, 'Start Date'),
   ])
   String? content;
+
   /// Contains 0+× RoleResponsibility.
+  @SectionIdPattern('PD00-ORG-JOB-NEW-xx-RSP-xx')
   List<RoleResponsibilityEntry> responsibilities = [];
+
   /// Contains 0+× Skill.
+  @SectionIdPattern('PD00-ORG-JOB-NEW-xx-SKL-xx')
   List<SkillEntry> requiredSkills = [];
 }
 
@@ -137,11 +161,16 @@ class ChangedRoleEntry {
     Field('trainingRequired', String, 'Training Required'),
   ])
   String? content;
+
   /// Contains 0+× RoleResponsibility.
+  @SectionIdPattern('PD00-ORG-JOB-CHA-xx-RSP-xx')
   List<RoleResponsibilityEntry> addedResponsibilities = [];
+
   /// Contains 0+× RoleResponsibility.
   List<RoleResponsibilityEntry> removedResponsibilities = [];
+
   /// Contains 0+× Skill.
+  @SectionIdPattern('PD00-ORG-JOB-CHA-xx-SKL-xx')
   List<SkillEntry> newSkillRequirements = [];
 }
 
@@ -150,6 +179,7 @@ class ChangedRoleEntry {
 // ---------------------------------------------------------------------------
 
 /// A workplace description entry [PD00-ORG-WOR-nn] (form, per user category).
+@Comment('per user category')
 class WorkplaceDescriptionEntry {
   @Form([
     Field('userCategory', String, 'User Category'),
@@ -164,9 +194,13 @@ class WorkplaceDescriptionEntry {
 }
 
 /// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
+@SectionId('PD00-ORG-WOR-EQU')
 class EquipmentRequirements {
+  @Unused()
   String? content;
+
   /// Contains 0+× EquipmentRequirement.
+  @SectionIdPattern('PD00-ORG-WOR-xx-EQU-xx')
   List<EquipmentRequirementEntry> items = [];
 }
 
@@ -182,9 +216,13 @@ class EquipmentRequirementEntry {
 }
 
 /// 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
+@SectionId('PD00-ORG-WOR-TRA')
 class TrainingRequirements {
+  @Unused()
   String? content;
+
   /// Contains 0+× TrainingRequirement.
+  @SectionIdPattern('PD00-ORG-WOR-xx-TRA-xx')
   List<TrainingRequirementEntry> items = [];
 }
 

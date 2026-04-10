@@ -8,13 +8,17 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 
 /// 12. Components to Use [PD00-COM]. Seeds → TR.
+@SectionId('PD00-COM')
+@Comment('Seeds → TR')
 class ComponentsToUse {
+  @Unused()
   String? content;
 
   /// 12.1. Component Strategy [PD00-COM-STR].
   ComponentStrategy strategy = ComponentStrategy();
 
   /// 12.2. Component Catalog [PD00-COM-COM] — contains 0+× Component.
+  @SectionIdPattern('PD00-COM-COM-xx')
   List<ComponentEntry> componentCatalog = [];
 
   /// Component Role In System.
@@ -31,10 +35,13 @@ class ComponentsToUse {
 }
 
 /// 12.1. Component Strategy [PD00-COM-STR].
+@SectionId('PD00-COM-STR')
 class ComponentStrategy {
+  @Unused()
   String? content;
 
   /// 12.1.1. Reuse Goals [PD00-COM-STR-GOA] — contains 0+× ReuseGoal.
+  @SectionIdPattern('PD00-COM-STR-GOA-xx')
   List<ReuseGoalEntry> reuseGoals = [];
 
   /// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
@@ -51,9 +58,13 @@ class ReuseGoalEntry {
 }
 
 /// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
+@SectionId('PD00-COM-STR-EVA')
 class EvaluationCriteria {
+  @Unused()
   String? content;
+
   /// Contains 0+× EvaluationCriterion.
+  @SectionIdPattern('PD00-COM-STR-EVA-xx')
   List<EvaluationCriterionEntry> items = [];
 }
 
@@ -68,30 +79,37 @@ class EvaluationCriterionEntry {
 }
 
 /// 12.4. Runtime Dependencies [PD00-COM-RUN].
+@SectionId('PD00-COM-RUN')
 class RuntimeDependencies {
+  @Unused()
   String? content;
+
   /// Contains 0+× Dependency.
+  @SectionIdPattern('PD00-COM-RUN-xx')
   List<DependencyEntry> items = [];
 }
 
 /// 12.5. Maintenance Dependencies [PD00-COM-MAI].
+@SectionId('PD00-COM-MAI')
 class MaintenanceDependencies {
+  @Unused()
   String? content;
+
   /// Contains 0+× Dependency.
+  @SectionIdPattern('PD00-COM-MAI-xx')
   List<DependencyEntry> items = [];
 }
 
 /// A dependency entry (form) [PD00-COM-RUN-nn].
 class DependencyEntry {
   @Form([
+    Field('dependencyName', String, 'Dependency Name', required: true),
     Field('version', String, 'Version'),
     Field('purpose', String, 'Purpose'),
     Field('criticality', String, 'Criticality'),
     Field('alternative', String, 'Alternative'),
   ])
   String? content;
-  @Reference('Dependency Name')
-  String? dependencyName;
 }
 
 // ---------------------------------------------------------------------------
@@ -108,7 +126,9 @@ class ComponentEntry {
     Field('documentation', String, 'Documentation'),
   ])
   String? content;
+
   /// Interfaces [PD00-COM-COM-nn-INT] — contains 0+× ComponentInterface.
+  @SectionIdPattern('PD00-COM-COM-xx-INT-xx')
   List<ComponentInterfaceEntry> interfaces = [];
 
   /// Licensing [PD00-COM-COM-nn-LIC] (form).
@@ -158,10 +178,13 @@ class ComponentResponsibilitiesEntry {
 // ---------------------------------------------------------------------------
 
 /// 12.6. Risk Assessment [PD00-COM-RIS].
+@SectionId('PD00-COM-RIS')
 class ComponentRiskAssessment {
+  @Unused()
   String? content;
 
   /// 12.6.1. Component Risks [PD00-COM-RIS-RIS] — contains 0+× Risk.
+  @SectionIdPattern('PD00-COM-RIS-RIS-xx')
   List<ComponentRiskEntry> risks = [];
 
   /// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
@@ -169,9 +192,13 @@ class ComponentRiskAssessment {
 }
 
 /// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
+@SectionId('PD00-COM-RIS-CON')
 class ContingencyPlans {
+  @Unused()
   String? content;
+
   /// Contains 0+× ContingencyPlan.
+  @SectionIdPattern('PD00-COM-RIS-CON-xx')
   List<ContingencyPlanEntry> items = [];
 }
 

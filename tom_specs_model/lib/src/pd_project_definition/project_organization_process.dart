@@ -8,7 +8,9 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 
 /// 2. Project Organization and Process [PD00-POP].
+@SectionId('PD00-POP')
 class ProjectOrganizationAndProcess {
+  @Unused()
   String? content;
 
   /// 2.1. Role Adjustments [PD00-POP-ROL].
@@ -29,9 +31,13 @@ class ProjectOrganizationAndProcess {
 // ---------------------------------------------------------------------------
 
 /// 2.1. Role Adjustments [PD00-POP-ROL].
+@SectionId('PD00-POP-ROL')
 class RoleAdjustments {
+  @Unused()
   String? content;
+
   /// Contains 0+× RoleAdjustment.
+  @SectionIdPattern('PD00-POP-ROL-xx')
   List<RoleAdjustmentEntry> items = [];
 }
 
@@ -50,9 +56,13 @@ class RoleAdjustmentEntry {
 // ---------------------------------------------------------------------------
 
 /// 2.2. Quality Gate Adjustments [PD00-POP-QGA].
+@SectionId('PD00-POP-QGA')
 class QualityGateAdjustments {
+  @Unused()
   String? content;
+
   /// Contains 0+× QualityGateAdjustment.
+  @SectionIdPattern('PD00-POP-QGA-xx')
   List<QualityGateAdjustmentEntry> items = [];
 }
 
@@ -71,9 +81,13 @@ class QualityGateAdjustmentEntry {
 // ---------------------------------------------------------------------------
 
 /// 2.3. Process Adjustments [PD00-POP-PRC].
+@SectionId('PD00-POP-PRC')
 class ProcessAdjustments {
+  @Unused()
   String? content;
+
   /// Contains 0+× ProcessAdjustment.
+  @SectionIdPattern('PD00-POP-PRC-xx')
   List<ProcessAdjustmentEntry> items = [];
 }
 
@@ -92,7 +106,9 @@ class ProcessAdjustmentEntry {
 // ---------------------------------------------------------------------------
 
 /// 2.4. Tooling and Environments [PD00-POP-TOO].
+@SectionId('PD00-POP-TOO')
 class ToolingAndEnvironments {
+  @Unused()
   String? content;
 
   /// 2.4.1. Tooling [PD00-POP-TOO-TOO].
@@ -103,9 +119,13 @@ class ToolingAndEnvironments {
 }
 
 /// 2.4.1. Tooling [PD00-POP-TOO-TOO].
+@SectionId('PD00-POP-TOO-TOO')
 class Tooling {
+  @Unused()
   String? content;
+
   /// Contains 0+× Tool.
+  @SectionIdPattern('PD00-POP-TOO-TOO-xx')
   List<ToolEntry> items = [];
 }
 
@@ -121,9 +141,13 @@ class ToolEntry {
 }
 
 /// 2.4.2. Environments [PD00-POP-TOO-ENV].
+@SectionId('PD00-POP-TOO-ENV')
 class Environments {
+  @Unused()
   String? content;
+
   /// Contains 0+× Environment.
+  @SectionIdPattern('PD00-POP-TOO-ENV-xx')
   List<EnvironmentEntry> items = [];
 }
 

@@ -8,18 +8,23 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 
 /// 14. Delivery Scope and Acceptance [PD00-DEL].
+@SectionId('PD00-DEL')
 class DeliveryScopeAndAcceptance {
+  @Unused()
   String? content;
 
   /// 14.1. Delivery and Service Scope [PD00-DEL-DEL].
   DeliveryScope deliveryScope = DeliveryScope();
 
   /// 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
+  @Comment('Seeds → BQP')
   AcceptancePlan acceptancePlan = AcceptancePlan();
 }
 
 /// 14.1. Delivery and Service Scope [PD00-DEL-DEL].
+@SectionId('PD00-DEL-DEL')
 class DeliveryScope {
+  @Unused()
   String? content;
 
   /// 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
@@ -36,30 +41,46 @@ class DeliveryScope {
 }
 
 /// 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
+@SectionId('PD00-DEL-DEL-SOF')
 class SoftwareDeliverables {
+  @Unused()
   String? content;
+
   /// Contains 0+× Deliverable.
+  @SectionIdPattern('PD00-DEL-DEL-SOF-xx')
   List<DeliverableEntry> items = [];
 }
 
 /// 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
+@SectionId('PD00-DEL-DEL-DOC')
 class DocumentationDeliverables {
+  @Unused()
   String? content;
+
   /// Contains 0+× Deliverable.
+  @SectionIdPattern('PD00-DEL-DEL-DOC-xx')
   List<DeliverableEntry> items = [];
 }
 
 /// 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
+@SectionId('PD00-DEL-DEL-TRA')
 class TrainingDeliverables {
+  @Unused()
   String? content;
+
   /// Contains 0+× Deliverable.
+  @SectionIdPattern('PD00-DEL-DEL-TRA-xx')
   List<DeliverableEntry> items = [];
 }
 
 /// 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
+@SectionId('PD00-DEL-DEL-SUP')
 class SupportDeliverables {
+  @Unused()
   String? content;
+
   /// Contains 0+× Deliverable.
+  @SectionIdPattern('PD00-DEL-DEL-SUP-xx')
   List<DeliverableEntry> items = [];
 }
 
@@ -76,7 +97,10 @@ class DeliverableEntry {
 }
 
 /// 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
+@SectionId('PD00-DEL-ACC')
+@Comment('Seeds → BQP')
 class AcceptancePlan {
+  @Unused()
   String? content;
 
   /// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
@@ -99,9 +123,13 @@ class AcceptancePlan {
 }
 
 /// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
+@SectionId('PD00-DEL-ACC-CRI')
 class AcceptanceCriteriaList {
+  @Unused()
   String? content;
+
   /// Contains 0+× DeliveryAcceptanceCriterion.
+  @SectionIdPattern('PD00-DEL-ACC-CRI-xx')
   List<DeliveryAcceptanceCriterionEntry> items = [];
 }
 
@@ -117,13 +145,16 @@ class DeliveryAcceptanceCriterionEntry {
 }
 
 /// 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
+@SectionId('PD00-DEL-ACC-PRO')
 class AcceptanceProcess {
   @Form([
     Field('participants', String, 'Participants'),
     Field('escalationProcess', String, 'Escalation Process'),
   ])
   String? content;
+
   /// Contains 0+× AcceptanceStep.
+  @SectionIdPattern('PD00-DEL-ACC-PRO-xx')
   List<AcceptanceStepEntry> steps = [];
 }
 
@@ -137,6 +168,7 @@ class AcceptanceStepEntry {
 }
 
 /// 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
+@SectionId('PD00-DEL-ACC-UAT')
 class UserAcceptanceTesting {
   @Form([
     Field('scope', String, 'Scope'),
@@ -146,7 +178,9 @@ class UserAcceptanceTesting {
     Field('exitCriteria', String, 'Exit Criteria'),
   ])
   String? content;
+
   /// Contains 0+× TestScenario.
+  @SectionIdPattern('PD00-DEL-ACC-UAT-xx')
   List<TestScenarioEntry> testScenarios = [];
 }
 

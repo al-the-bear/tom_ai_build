@@ -9,7 +9,9 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 
 /// 4. System Overview [PD00-SYO].
+@SectionId('PD00-SYO')
 class SystemOverview {
+  @Unused()
   String? content;
 
   /// 4.1. System Description [PD00-SYO-SYD].
@@ -19,12 +21,15 @@ class SystemOverview {
   Goals goals = Goals();
 
   /// 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
+  @Comment('Seeds → RC')
   RequirementsOverview requirements = RequirementsOverview();
 
   /// 4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
+  @Comment('Seeds → CS')
   SystemsToReplace systemsToReplace = SystemsToReplace();
 
   /// 4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
+  @Comment('Seeds → BSI')
   SystemBoundaries systemBoundaries = SystemBoundaries();
 
   /// 4.6. Framework Conditions [PD00-SYO-RES].
@@ -39,7 +44,9 @@ class SystemOverview {
 // ---------------------------------------------------------------------------
 
 /// 4.1. System Description [PD00-SYO-SYD].
+@SectionId('PD00-SYO-SYD')
 class SystemDescription {
+  @Unused()
   String? content;
 
   /// System Purpose.
@@ -52,6 +59,8 @@ class SystemDescription {
   TextSection taskArea = TextSection();
 
   /// 4.1.4. User Categories [PD00-SYO-SYD-USR] — contains 1+× User Category.
+  @SectionIdPattern('PD00-SYO-SYD-USR-xx')
+  @Min(1)
   List<UserCategoryEntry> userCategories = [];
 
   /// 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
@@ -59,13 +68,17 @@ class SystemDescription {
 }
 
 /// 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
+@SectionId('PD00-SYO-SYD-USI')
 class UserInteractionModel {
+  @Unused()
   String? content;
 
   /// Interaction channels (web, mobile, API, CLI, etc.) — contains 0+× InteractionChannel.
+  @SectionIdPattern('PD00-SYO-SYD-USI-CHA-xx')
   List<InteractionChannelEntry> channels = [];
 
   /// Interaction patterns (workflow, self-service, batch, etc.) — contains 0+× InteractionPattern.
+  @SectionIdPattern('PD00-SYO-SYD-USI-PAT-xx')
   List<InteractionPatternEntry> interactionPatterns = [];
 
   /// Session Model.
@@ -107,10 +120,13 @@ class UserCategoryEntry {
     Field('estimatedUserCount', String, 'Estimated User Count'),
   ])
   String? content;
+
   /// Role subsection [PD00-SYO-SYD-USR-nn-ROL] (form, singular).
   UserCategoryRoleEntry? role;
 
   /// System Tasks [PD00-SYO-SYD-USR-nn-TSK] — contains 1+× System Task.
+  @SectionIdPattern('PD00-SYO-SYD-USR-xx-TSK-xx')
+  @Min(1)
   List<SystemTaskEntry> systemTasks = [];
 }
 
@@ -133,6 +149,7 @@ class SystemTaskEntry {
     Field('frequency', String, 'Frequency'),
   ])
   String? content;
+
   @Reference('Related Use Case')
   String? relatedUseCase;
 }
@@ -142,13 +159,19 @@ class SystemTaskEntry {
 // ---------------------------------------------------------------------------
 
 /// 4.2. Goals [PD00-SYO-GOA].
+@SectionId('PD00-SYO-GOA')
 class Goals {
+  @Unused()
   String? content;
 
   /// 4.2.1. Business Goals [PD00-SYO-GOA-BUS] — contains 1+× Business Goal.
+  @SectionIdPattern('PD00-SYO-GOA-BUS-xx')
+  @Min(1)
   List<BusinessGoalEntry> businessGoals = [];
 
   /// 4.2.2. Technical Goals [PD00-SYO-GOA-TEC] — contains 1+× Technical Goal.
+  @SectionIdPattern('PD00-SYO-GOA-TEC-xx')
+  @Min(1)
   List<TechnicalGoalEntry> technicalGoals = [];
 
   /// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC] — contains 1+×.
@@ -185,9 +208,13 @@ class TechnicalGoalEntry {
 }
 
 /// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
+@SectionId('PD00-SYO-GOA-SUC')
 class SuccessCriteria {
+  @Unused()
   String? content;
+
   /// Contains 0+× SuccessCriterion.
+  @SectionIdPattern('PD00-SYO-GOA-SUC-xx')
   List<SuccessCriterionEntry> items = [];
 }
 
@@ -208,19 +235,27 @@ class SuccessCriterionEntry {
 // ---------------------------------------------------------------------------
 
 /// 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
+@SectionId('PD00-SYO-REQ')
+@Comment('Seeds → RC')
 class RequirementsOverview {
+  @Unused()
   String? content;
 
   /// 4.3.1. Functional Requirements [PD00-SYO-REQ-FUN] — contains 1+×.
+  @SectionIdPattern('PD00-SYO-REQ-FUN-xx')
+  @Min(1)
   List<FunctionalRequirementEntry> functionalRequirements = [];
 
   /// 4.3.2. Technical Requirements [PD00-SYO-REQ-TEC] — contains 0+×.
+  @SectionIdPattern('PD00-SYO-REQ-TEC-xx')
   List<TechnicalRequirementEntry> technicalRequirements = [];
 
   /// 4.3.3. Security Requirements [PD00-SYO-REQ-SEC] — contains 0+×.
+  @SectionIdPattern('PD00-SYO-REQ-SEC-xx')
   List<SecurityRequirementEntry> securityRequirements = [];
 
   /// 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG] — contains 0+×.
+  @SectionIdPattern('PD00-SYO-REQ-ORG-xx')
   List<OrganizationalRequirementEntry> organizationalRequirements = [];
 }
 
@@ -236,13 +271,19 @@ class FunctionalRequirementEntry {
     Field('status', String, 'Current status'),
   ])
   String? content;
+
   /// Contains 0+× AcceptanceCriterion.
+  @SectionIdPattern('PD00-SYO-REQ-FUN-xx-ACR-xx')
   List<AcceptanceCriterionEntry> acceptanceCriteria = [];
+
   @Reference('Related Use Case')
   String? relatedUseCase;
+
   @Reference('Related Business Process')
   String? relatedBusinessProcess;
+
   /// Contains 0+× DataEntityReference.
+  @SectionIdPattern('PD00-SYO-REQ-FUN-xx-DER-xx')
   List<DataEntityReferenceEntry> affectedDataEntities = [];
 }
 
@@ -277,7 +318,9 @@ class TechnicalRequirementEntry {
     Field('status', String, 'Current status'),
   ])
   String? content;
+
   /// Contains 0+× AcceptanceCriterion.
+  @SectionIdPattern('PD00-SYO-REQ-TEC-xx-ACR-xx')
   List<AcceptanceCriterionEntry> acceptanceCriteria = [];
 }
 
@@ -293,9 +336,12 @@ class SecurityRequirementEntry {
     Field('status', String, 'Current status'),
   ])
   String? content;
+
   @Reference('Compliance Reference')
   String? complianceReference;
+
   /// Contains 0+× AcceptanceCriterion.
+  @SectionIdPattern('PD00-SYO-REQ-SEC-xx-ACR-xx')
   List<AcceptanceCriterionEntry> acceptanceCriteria = [];
 }
 
@@ -311,7 +357,9 @@ class OrganizationalRequirementEntry {
     Field('status', String, 'Current status'),
   ])
   String? content;
+
   /// Contains 0+× AcceptanceCriterion.
+  @SectionIdPattern('PD00-SYO-REQ-ORG-xx-ACR-xx')
   List<AcceptanceCriterionEntry> acceptanceCriteria = [];
 }
 
@@ -320,10 +368,14 @@ class OrganizationalRequirementEntry {
 // ---------------------------------------------------------------------------
 
 /// 4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
+@SectionId('PD00-SYO-SYR')
+@Comment('Seeds → CS')
 class SystemsToReplace {
+  @Unused()
   String? content;
 
   /// 4.4.1. Replacement Inventory [PD00-SYO-SYR-INV] — contains 0+×.
+  @SectionIdPattern('PD00-SYO-SYR-INV-xx')
   List<SystemToReplaceEntry> replacementInventory = [];
 
   /// 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG].
@@ -341,7 +393,9 @@ class SystemToReplaceEntry {
     Field('decommissionDate', String, 'Decommission Date'),
   ])
   String? content;
+
   /// Contains 0+× SystemDependencyReference.
+  @SectionIdPattern('PD00-SYO-SYR-INV-xx-DEP-xx')
   List<SystemDependencyReferenceEntry> dependencies = [];
 
   /// Per-system migration considerations.
@@ -354,6 +408,7 @@ class SystemDependencyReferenceEntry {
     Field('dependencyType', String, 'Dependency Type'),
   ])
   String? content;
+
   @Reference('Dependency Name')
   String? dependencyName;
 }
@@ -366,8 +421,11 @@ class SystemMigrationConsiderations {
     Field('estimatedEffort', String, 'Estimated Effort'),
   ])
   String? content;
+
   /// Contains 0+× MigrationRiskReference.
+  @SectionIdPattern('PD00-SYO-SYR-INV-xx-MRR-xx')
   List<MigrationRiskReferenceEntry> risks = [];
+
   /// Rollback Strategy.
   TextSection rollbackStrategy = TextSection();
 }
@@ -382,7 +440,9 @@ class MigrationRiskReferenceEntry {
 }
 
 /// 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG] (global).
+@SectionId('PD00-SYO-SYR-MIG')
 class MigrationConsiderations {
+  @Unused()
   String? content;
 
   /// Strategy.
@@ -402,9 +462,13 @@ class MigrationConsiderations {
 }
 
 /// Migration risks [PD00-SYO-SYR-MIG-RIS].
+@SectionId('PD00-SYO-SYR-MIG-RIS')
 class MigrationRisks {
+  @Unused()
   String? content;
+
   /// Contains 0+× MigrationRisk.
+  @SectionIdPattern('PD00-SYO-SYR-MIG-RIS-xx')
   List<MigrationRiskEntry> items = [];
 }
 
@@ -424,10 +488,14 @@ class MigrationRiskEntry {
 // ---------------------------------------------------------------------------
 
 /// 4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
+@SectionId('PD00-SYO-SYB')
+@Comment('Seeds → BSI')
 class SystemBoundaries {
+  @Unused()
   String? content;
 
   /// 4.5.1. Interfaces to External Systems [PD00-SYO-SYB-INT] — contains 0+×.
+  @SectionIdPattern('PD00-SYO-SYB-INT-xx')
   List<ExternalInterfaceEntry> externalInterfaces = [];
 
   /// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT] — contains 0+×.
@@ -454,9 +522,13 @@ class ExternalInterfaceEntry {
 }
 
 /// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT].
+@SectionId('PD00-SYO-SYB-OUT')
 class OutOfScope {
+  @Unused()
   String? content;
+
   /// Contains 0+× OutOfScope.
+  @SectionIdPattern('PD00-SYO-SYB-OUT-xx')
   List<OutOfScopeEntry> items = [];
 }
 
@@ -471,9 +543,13 @@ class OutOfScopeEntry {
 }
 
 /// 4.5.3. Assumptions [PD00-SYO-SYB-ASS].
+@SectionId('PD00-SYO-SYB-ASS')
 class BoundaryAssumptions {
+  @Unused()
   String? content;
+
   /// Contains 0+× Assumption.
+  @SectionIdPattern('PD00-SYO-SYB-ASS-xx')
   List<AssumptionEntry> items = [];
 }
 
@@ -493,7 +569,9 @@ class AssumptionEntry {
 // ---------------------------------------------------------------------------
 
 /// 4.6. Framework Conditions [PD00-SYO-RES].
+@SectionId('PD00-SYO-RES')
 class FrameworkConditions {
+  @Unused()
   String? content;
 
   /// 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
@@ -503,6 +581,7 @@ class FrameworkConditions {
   FunctionalResponsibilities functionalResponsibilities = FunctionalResponsibilities();
 
   /// 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+  @Comment('Seeds → TR')
   TechnicalFrameworkConditions technicalFrameworkConditions = TechnicalFrameworkConditions();
 
   /// 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON] — contains 0+×.
@@ -510,7 +589,9 @@ class FrameworkConditions {
 }
 
 /// 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
+@SectionId('PD00-SYO-RES-ORG')
 class OrganizationalEnvironment {
+  @Unused()
   String? content;
 
   /// Structure.
@@ -524,9 +605,13 @@ class OrganizationalEnvironment {
 }
 
 /// 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN].
+@SectionId('PD00-SYO-RES-FUN')
 class FunctionalResponsibilities {
+  @Unused()
   String? content;
+
   /// Contains 0+× Responsibility.
+  @SectionIdPattern('PD00-SYO-RES-FUN-xx')
   List<ResponsibilityEntry> items = [];
 }
 
@@ -542,16 +627,21 @@ class ResponsibilityEntry {
 }
 
 /// 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+@SectionId('PD00-SYO-RES-TEC')
+@Comment('Seeds → TR')
 class TechnicalFrameworkConditions {
+  @Unused()
   String? content;
 
   /// Existing Infrastructure.
   TextSection existingInfrastructure = TextSection();
 
   /// Technology standards [PD00-SYO-RES-TEC-STD] — contains 0+× TechnologyStandard.
+  @SectionIdPattern('PD00-SYO-RES-TEC-STD-xx')
   List<TechnologyStandardEntry> technologyStandards = [];
 
   /// Integration constraints [PD00-SYO-RES-TEC-INT] — contains 0+× IntegrationConstraint.
+  @SectionIdPattern('PD00-SYO-RES-TEC-INT-xx')
   List<IntegrationConstraintEntry> integrationConstraints = [];
 }
 
@@ -574,7 +664,9 @@ class IntegrationConstraintEntry {
 }
 
 /// 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON].
+@SectionId('PD00-SYO-RES-CON')
 class ConstraintsAndDependencies {
+  @Unused()
   String? content;
 
   /// 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
@@ -585,9 +677,13 @@ class ConstraintsAndDependencies {
 }
 
 /// 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
+@SectionId('PD00-SYO-RES-CON-CON')
 class Constraints {
+  @Unused()
   String? content;
+
   /// Contains 0+× Constraint.
+  @SectionIdPattern('PD00-SYO-RES-CON-CON-xx')
   List<ConstraintEntry> items = [];
 }
 
@@ -603,9 +699,13 @@ class ConstraintEntry {
 }
 
 /// 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
+@SectionId('PD00-SYO-RES-CON-DEP')
 class FrameworkDependencies {
+  @Unused()
   String? content;
+
   /// Contains 0+× FrameworkDependency.
+  @SectionIdPattern('PD00-SYO-RES-CON-DEP-xx')
   List<FrameworkDependencyEntry> items = [];
 }
 
@@ -625,10 +725,13 @@ class FrameworkDependencyEntry {
 // ---------------------------------------------------------------------------
 
 /// 4.7. Risks and Assumptions [PD00-SYO-RIS].
+@SectionId('PD00-SYO-RIS')
 class RisksAndAssumptions {
+  @Unused()
   String? content;
 
   /// 4.7.1. Key Risks [PD00-SYO-RIS-RIS] — contains 0+× Risk.
+  @SectionIdPattern('PD00-SYO-RIS-RIS-xx')
   List<RiskEntry> keyRisks = [];
 
   /// 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS] — contains 0+×.
@@ -651,8 +754,12 @@ class RiskEntry {
 }
 
 /// 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS].
+@SectionId('PD00-SYO-RIS-ASS')
 class KeyAssumptions {
+  @Unused()
   String? content;
+
   /// Contains 0+× Assumption.
+  @SectionIdPattern('PD00-SYO-RIS-ASS-xx')
   List<AssumptionEntry> items = [];
 }
