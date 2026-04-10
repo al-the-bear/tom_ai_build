@@ -19,6 +19,21 @@ class AnnotationData {
   String toString() => '@$name${arguments.isEmpty ? '' : '($arguments)'}';
 }
 
+/// A form field extracted from a `@Form([Field(...)])` annotation.
+class FormFieldInfo {
+  final String name;
+  final String typeName;
+  final String description;
+  final bool required;
+
+  FormFieldInfo({
+    required this.name,
+    required this.typeName,
+    this.description = '',
+    this.required = false,
+  });
+}
+
 /// A resolved field from a model class.
 class ModelField {
   final String name;
@@ -35,6 +50,15 @@ class ModelField {
   /// Whether the inner type of a list is a complex (class) type.
   final bool listElementIsComplex;
 
+  /// Whether this field's type is a known section type (TextSection, etc.).
+  final bool isSectionType;
+
+  /// The content type marker for section types (e.g., 'text', 'mermaid-er').
+  final String? sectionContentType;
+
+  /// Form fields extracted from a `@Form` annotation on this field.
+  final List<FormFieldInfo> formFields;
+
   ModelField({
     required this.name,
     required this.typeName,
@@ -45,6 +69,9 @@ class ModelField {
     this.annotations = const [],
     this.listElementTypeName,
     this.listElementIsComplex = false,
+    this.isSectionType = false,
+    this.sectionContentType,
+    this.formFields = const [],
   });
 
   bool get isComplex =>
@@ -113,6 +140,20 @@ class ModelReader {
   final Map<String, ModelClass> classes = {};
   final Map<String, ModelEnum> enums = {};
 
+  /// Known section types and their content type markers.
+  static const _sectionTypes = {
+    'TextSection': 'text',
+    'DiagramSection': 'mermaid',
+    'ErDiagramSection': 'mermaid-er',
+    'FlowDiagramSection': 'mermaid-flow',
+    'GanttDiagramSection': 'mermaid-gantt',
+    'SequenceDiagramSection': 'mermaid-sequence',
+    'CodeSection': 'code',
+    'DartCodeSection': 'code-dart',
+    'SqlCodeSection': 'code-sql',
+    'DdlCodeSection': 'code-ddl',
+  };
+
   ModelReader(this._driver);
 
   /// Analyzes all .dart files under [packageLibPath] and collects
@@ -173,7 +214,14 @@ class ModelReader {
       final fieldType = field.type;
       final fieldAnnotations = _readAnnotations(field.metadata);
 
-      fields.add(_buildModelField(fieldName, fieldType, fieldAnnotations));
+      // Extract @Form fields if present
+      final formFields = fieldAnnotations.any((a) => a.name == 'Form')
+          ? _extractFormFields(field.metadata)
+          : const <FormFieldInfo>[];
+
+      fields.add(
+        _buildModelField(fieldName, fieldType, fieldAnnotations, formFields),
+      );
     }
 
     classes[className] = ModelClass(
@@ -203,8 +251,9 @@ class ModelReader {
   ModelField _buildModelField(
     String name,
     DartType type,
-    List<AnnotationData> annotations,
-  ) {
+    List<AnnotationData> annotations, [
+    List<FormFieldInfo> formFields = const [],
+  ]) {
     final isNullable = type.nullabilitySuffix == NullabilitySuffix.question;
 
     // Check for List<T>
@@ -244,12 +293,22 @@ class ModelReader {
       );
     }
 
+    // Check for known section types (TextSection, DiagramSection, etc.)
+    final displayName = _typeDisplayName(type);
+    final baseName = displayName.endsWith('?')
+        ? displayName.substring(0, displayName.length - 1)
+        : displayName;
+    final sectionType = _sectionTypes[baseName];
+
     // Scalar or complex
     return ModelField(
       name: name,
-      typeName: _typeDisplayName(type),
+      typeName: displayName,
       isNullable: isNullable,
       annotations: annotations,
+      isSectionType: sectionType != null,
+      sectionContentType: sectionType,
+      formFields: formFields,
     );
   }
 
@@ -349,5 +408,49 @@ class ModelReader {
     }
 
     return null;
+  }
+
+  /// Extracts [FormFieldInfo] entries from a `@Form([Field(...)])` annotation.
+  List<FormFieldInfo> _extractFormFields(Metadata metadata) {
+    for (final annotation in metadata.annotations) {
+      final element = annotation.element;
+      if (element is! ConstructorElement) continue;
+      if (element.enclosingElement.name != 'Form') continue;
+
+      final value = annotation.computeConstantValue();
+      if (value == null) continue;
+
+      final fieldsList = value.getField('fields');
+      if (fieldsList == null) continue;
+
+      final items = fieldsList.toListValue();
+      if (items == null) continue;
+
+      final result = <FormFieldInfo>[];
+      for (final item in items) {
+        final name = item.getField('name')?.toStringValue();
+        if (name == null) continue;
+
+        final description =
+            item.getField('description')?.toStringValue() ?? '';
+        final required = item.getField('required')?.toBoolValue() ?? false;
+
+        // Extract type name from the Type literal
+        String typeName = 'String';
+        final typeVal = item.getField('type')?.toTypeValue();
+        if (typeVal is InterfaceType) {
+          typeName = typeVal.element.name ?? 'String';
+        }
+
+        result.add(FormFieldInfo(
+          name: name,
+          typeName: typeName,
+          description: description,
+          required: required,
+        ));
+      }
+      return result;
+    }
+    return const [];
   }
 }

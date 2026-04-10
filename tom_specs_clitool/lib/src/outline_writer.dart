@@ -61,6 +61,8 @@ class OutlineWriter {
     for (final field in cls.fields) {
       if (field.isList) {
         complexFields.add(field);
+      } else if (field.isSectionType) {
+        leafFields.add(field);
       } else if (field.isLeaf || field.isEnum) {
         leafFields.add(field);
       } else if (field.isComplex) {
@@ -105,7 +107,8 @@ class OutlineWriter {
     final joined = parts.join(', ');
     final fullLine = '$prefix$joined';
 
-    if (fullLine.length <= maxLineLength) {
+    if (fullLine.length <= maxLineLength || parts.length <= 1) {
+      // Single field: never wrap (even if long); short lines: no wrap needed
       _buffer.writeln(fullLine);
     } else {
       _writeWrappedLeafLine(prefix, parts, depth);
@@ -124,8 +127,12 @@ class OutlineWriter {
       buf.write(field.name);
     }
 
+    // Section type field — show @contentType marker (§4.6 section types)
+    if (field.isSectionType && field.sectionContentType != null) {
+      buf.write(' @${field.sectionContentType}');
+    }
     // Enum inline (§4.5)
-    if (field.isEnum && field.enumValues.isNotEmpty) {
+    else if (field.isEnum && field.enumValues.isNotEmpty) {
       buf.write(': ${field.typeName} (${field.enumValues.join(', ')})');
     }
 
@@ -136,12 +143,17 @@ class OutlineWriter {
       if (type != null) buf.write(' @$type');
     }
 
-    // @ContentType hint (§7.6) — only on content field
+    // @Form or @ContentType hint on content field (§7.6)
     if (field.name == 'content') {
-      final contentType = field.getAnnotation('ContentType');
-      if (contentType != null) {
-        final type = contentType.arguments['type'];
-        if (type != null) buf.write(' @$type');
+      if (field.formFields.isNotEmpty) {
+        final names = field.formFields.map((f) => f.name).join(', ');
+        buf.write(' @Form($names)');
+      } else {
+        final contentType = field.getAnnotation('ContentType');
+        if (contentType != null) {
+          final type = contentType.arguments['type'];
+          if (type != null) buf.write(' @$type');
+        }
       }
     }
 
@@ -166,6 +178,9 @@ class OutlineWriter {
         currentLine.write(continuationIndent);
         currentLine.write(candidate);
       } else if (currentLine.length + candidate.length <= maxLineLength) {
+        currentLine.write(candidate);
+      } else if (currentLine.toString().trimRight() == prefix.trimRight()) {
+        // First part doesn't fit with prefix — keep on same line anyway
         currentLine.write(candidate);
       } else {
         // Current line is full, start wrap
@@ -242,8 +257,8 @@ class OutlineWriter {
 
     _buffer.writeln(line);
 
-    // Recurse into child class
-    if (childClass != null) {
+    // Recurse into child class — skip @Reference fields (§5.2)
+    if (childClass != null && !isReference && !ancestors.contains(typeName)) {
       final newAncestors = {...ancestors, typeName};
       _writeClass(typeName, childClass, depth + 1, newAncestors);
     }

@@ -1,617 +1,631 @@
 # Project Definition Outline
 
+    -> content
     -> header:DocumentHeader
-        -> content, documentId, project, version, date, author, status
+        -> content @Form(documentId, project, version, date, author, status)
     -> CurrentStateAnalysis
         -> content
         -> ExistingSystemsLandscape
-            -> content, currentArchitecture
+            -> content, currentArchitecture @text
             -: systems:ExistingSystemEntry
-                -> content, systemName, technology, purpose, activeUsers, dataVolume, operationalSince, supportStatus
+                -> content @Form(systemName, technology, purpose, activeUsers, dataVolume, operationalSince, supportStatus)
                 -: knownLimitations:LimitationEntry
-                    -> content, limitation, impact
+                    -> content @Form(limitation, impact)
             -> DependenciesAndIntegrations
                 -> content
                 -> Dependencies
                     -> content
                     -: items:SystemDependencyEntry
-                        -> content, sourceSystem, targetSystem, dependencyType, criticality
+                        -> content @Form(dependencyType, criticality)
+                        -> sourceSystem:ExistingSystemEntry:Source System
+                        -> targetSystem:ExistingSystemEntry:Target System
                 -> Integrations
                     -> content
                     -: items:SystemIntegrationEntry
-                        -> content, sourceSystem, targetSystem, protocol, dataExchanged, direction, frequency
+                        -> content @Form(protocol, dataExchanged, direction, frequency)
+                        -> sourceSystem:ExistingSystemEntry:Source System
+                        -> targetSystem:ExistingSystemEntry:Target System
         -: currentBusinessProcesses:CurrentBusinessProcess
-            -> content, processName
+            -> content @Form(processName)
             -: workflows:CurrentWorkflowEntry
-                -> content, processName, trigger, output, cycleTime
+                -> content @Form(processName, trigger, output, cycleTime)
                 -: steps:WorkflowStepEntry
-                    -> content, stepName, description
+                    -> content @Form(stepName, description)
                 -: actors:WorkflowActorEntry
-                    -> content, actorName, role
+                    -> content @Form(actorName, role)
                 -: manualSteps:WorkflowStepEntry
-                    -> content, stepName, description
+                    -> content @Form(stepName, description)
                 -: errorProneSteps:WorkflowStepEntry
-                    -> content, stepName, description
+                    -> content @Form(stepName, description)
             -> ProcessMetrics
                 -> content
                 -: items:ProcessMetricEntry
-                    -> content, metricName, processReference, currentValue, unit, measurementMethod, frequency
+                    -> content @Form(metricName, currentValue, unit, measurementMethod, frequency)
+                    -> processReference:CurrentBusinessProcess:Process Reference
         -> PainPointsAndGaps
             -> content
             -> OperationalPainPoints
                 -> content
                 -: items:PainPointEntry
-                    -> content, painPoint, description, impact, affectedProcess, severity, workaround
+                    -> content @Form(painPoint, description, impact, affectedProcess, severity, workaround)
             -> BusinessPainPoints
                 -> content
                 -: items:PainPointEntry
-                    -> content, painPoint, description, impact, affectedProcess, severity, workaround
+                    -> content @Form(painPoint, description, impact, affectedProcess, severity, workaround)
             -> TechnicalPainPoints
                 -> content
                 -: items:PainPointEntry
-                    -> content, painPoint, description, impact, affectedProcess, severity, workaround
+                    -> content @Form(painPoint, description, impact, affectedProcess, severity, workaround)
             -> Gaps
                 -> content
                 -: items:GapEntry
-                    -> content, gapName, description, businessImpact, affectedProcess, priority, proposedResolution
+                    -> content @Form(gapName, description, businessImpact, affectedProcess, priority, proposedResolution)
         -> CurrentDataLandscape
-            -> content, dataQualityAssessment
+            -> content, dataQualityAssessment @text
             -: dataSources:DataSourceEntry
-                -> content, dataStoreName, storeType, technology, dataFormat, estimatedVolume, growthRate,
-                    qualityLevel, owner, retentionPolicy
+                -> content @Form(dataStoreName, storeType, technology, dataFormat, estimatedVolume, growthRate, qualityLevel, owner),
+                    retentionPolicy @text
     -> projectOrganizationProcess:ProjectOrganizationAndProcess
         -> content
         -> RoleAdjustments
             -> content
             -: items:RoleAdjustmentEntry
-                -> content, roleName, adjustment, rationale
+                -> content @Form(roleName, adjustment, rationale)
         -> QualityGateAdjustments
             -> content
             -: items:QualityGateAdjustmentEntry
-                -> content, gateName, adjustment, rationale
+                -> content @Form(gateName, adjustment, rationale)
         -> ProcessAdjustments
             -> content
             -: items:ProcessAdjustmentEntry
-                -> content, processName, adjustment, rationale
+                -> content @Form(processName, adjustment, rationale)
         -> ToolingAndEnvironments
             -> content
             -> Tooling
                 -> content
                 -: items:ToolEntry
-                    -> content, toolName, purpose, version, category
+                    -> content @Form(toolName, purpose, version, category)
             -> Environments
                 -> content
                 -: items:EnvironmentEntry
-                    -> content, environmentName, purpose, infrastructure, accessPolicy, dataPolicy
+                    -> content @Form(environmentName, purpose, infrastructure, accessPolicy, dataPolicy)
     -> Administrative
-        -> content, otherAdministrative
+        -> content, otherAdministrative @text
         -> ProjectOrganization
             -> content
             -> OrganizationStructure
-                -> content, orgChartExplanation, orgChartDiagram
+                -> content, orgChartExplanation @text, orgChartDiagram @mermaid
             -: steeringCommittee:CommitteeMemberEntry
-                -> content, name, organizationRole, committeeRole, decisionAuthority, meetingAttendance
+                -> content @Form(name, organizationRole, committeeRole, decisionAuthority, meetingAttendance)
         -> ProjectTeamStaffing
             -> content
             -: members:TeamMemberEntry
-                -> content, name, projectRole, organization, allocation, startDate, endDate, specialSkills, reportingTo
+                -> content @Form(name, projectRole, organization, allocation, startDate, endDate, specialSkills, reportingTo)
         -> DistributionList
             -> content
             -> FullDistribution
                 -> content
                 -: items:DistributionRecipientEntry
-                    -> content, name, role, organization, distributionMethod
+                    -> content @Form(name, role, organization, distributionMethod)
             -> executiveSummary:ExecutiveSummaryDistribution
                 -> content
                 -: items:DistributionRecipientEntry
-                    -> content, name, role, organization, distributionMethod
+                    -> content @Form(name, role, organization, distributionMethod)
         -> ChangeProcedure
             -> content
             -> ChangeProcess
-                -> content, overviewDiagram, approvalAuthority, escalationPath
+                -> content @Form(approvalAuthority, escalationPath), overviewDiagram @mermaid-flow
                 -: steps:ChangeStepEntry
-                    -> content, stepName, description, responsibleRole, inputArtifacts, outputArtifacts,
-                        approvalCriteria, subflowDiagram
+                    -> content @Form(stepName, description, responsibleRole, inputArtifacts, outputArtifacts, approvalCriteria),
+                        subflowDiagram @mermaid-flow
                 -: roles:ChangeRoleEntry
-                    -> content, roleName, responsibility
+                    -> content @Form(roleName, responsibility)
             -> ChangeImpactCriteria
                 -> content
                 -: items:ChangeImpactCriterionEntry
-                    -> content, criterion, impactLevel, description, approvalRequired
+                    -> content @Form(criterion, impactLevel, description, approvalRequired)
         -> ReferenceDocuments
             -> content
             -: documents:ReferenceDocumentEntry
-                -> content, documentTitle, version, author, date, purpose, location
+                -> content @Form(documentTitle, version, author, date, purpose, location)
     -> SystemOverview
         -> content
         -> SystemDescription
-            -> content, systemPurpose, systemContext, taskArea
+            -> content, systemPurpose @text, systemContext @text, taskArea @text
             -: userCategories:UserCategoryEntry
-                -> content, categoryName, description, technicalProficiency, frequencyOfUse, accessChannel,
-                    estimatedUserCount
+                -> content @Form(categoryName, description, technicalProficiency, frequencyOfUse, accessChannel, estimatedUserCount)
                 -> role:UserCategoryRoleEntry
-                    -> content, roleName, roleDescription, organizationUnit, reportsTo
+                    -> content @Form(roleName, roleDescription, organizationUnit, reportsTo)
                 -: systemTasks:SystemTaskEntry
-                    -> content, taskName, description, frequency, relatedUseCase
+                    -> content @Form(taskName, description, frequency), relatedUseCase
             -> UserInteractionModel
-                -> content, sessionModel, concurrencyModel
+                -> content, sessionModel @text, concurrencyModel @text
                 -: channels:InteractionChannelEntry
-                    -> content, channelName, channelType, targetUserCategories, description, availabilityRequirement
+                    -> content @Form(channelName, channelType, targetUserCategories, description, availabilityRequirement)
                 -: interactionPatterns:InteractionPatternEntry
-                    -> content, patternName, description
+                    -> content @Form(patternName, description)
         -> Goals
             -> content
             -: businessGoals:BusinessGoalEntry
-                -> content, goalId, goalName, description, successMetric, currentValue, targetValue, measurementMethod,
-                    targetDate
+                -> content @Form(goalId, goalName, description, successMetric, currentValue, targetValue, measurementMethod, targetDate)
             -: technicalGoals:TechnicalGoalEntry
-                -> content, goalId, goalName, description, successMetric, targetValue, measurementMethod,
-                    verificationPoint
+                -> content @Form(goalId, goalName, description, successMetric, targetValue, measurementMethod, verificationPoint)
             -> SuccessCriteria
                 -> content
                 -: items:SuccessCriterionEntry
-                    -> content, criterion, metric, targetValue, measurementMethod, verificationPoint
+                    -> content @Form(criterion, metric, targetValue, measurementMethod, verificationPoint)
         -> requirements:RequirementsOverview
             -> content
             -: functionalRequirements:FunctionalRequirementEntry
-                -> content, requirementId, title, description, priority, source, rationale, relatedUseCase,
-                    relatedBusinessProcess, status
+                -> content @Form(requirementId, title, description, priority, source, rationale, status),
+                    relatedUseCase, relatedBusinessProcess
                 -: acceptanceCriteria:AcceptanceCriterionEntry
-                    -> content, criterion, verificationMethod
+                    -> content @Form(criterion, verificationMethod)
                 -: affectedDataEntities:DataEntityReferenceEntry
-                    -> content, entityName, relationship
+                    -> content @Form(entityName, relationship)
             -: technicalRequirements:TechnicalRequirementEntry
-                -> content, requirementId, title, description, priority, source, rationale, verificationApproach, status
+                -> content @Form(requirementId, title, description, priority, source, rationale, verificationApproach, status)
                 -: acceptanceCriteria:AcceptanceCriterionEntry
-                    -> content, criterion, verificationMethod
+                    -> content @Form(criterion, verificationMethod)
             -: securityRequirements:SecurityRequirementEntry
-                -> content, requirementId, title, description, priority, source, rationale, complianceReference, status
+                -> content @Form(requirementId, title, description, priority, source, rationale, status),
+                    complianceReference
                 -: acceptanceCriteria:AcceptanceCriterionEntry
-                    -> content, criterion, verificationMethod
+                    -> content @Form(criterion, verificationMethod)
             -: organizationalRequirements:OrganizationalRequirementEntry
-                -> content, requirementId, title, description, priority, source, rationale, status
+                -> content @Form(requirementId, title, description, priority, source, rationale, status)
                 -: acceptanceCriteria:AcceptanceCriterionEntry
-                    -> content, criterion, verificationMethod
+                    -> content @Form(criterion, verificationMethod)
         -> SystemsToReplace
             -> content
             -: replacementInventory:SystemToReplaceEntry
-                -> content, systemName, currentTechnology, replacementStrategy, dataMigrationScope,
-                    migrationComplexity, decommissionDate
+                -> content @Form(systemName, currentTechnology, replacementStrategy, dataMigrationScope, migrationComplexity, decommissionDate)
                 -: dependencies:SystemDependencyReferenceEntry
-                    -> content, dependencyName, dependencyType
+                    -> content @Form(dependencyType), dependencyName
                 -> systemMigration:SystemMigrationConsiderations
-                    -> content, migrationApproach, dataTransformationNeeds, estimatedEffort, rollbackStrategy
+                    -> content @Form(migrationApproach, dataTransformationNeeds, estimatedEffort),
+                        rollbackStrategy @text
                     -: risks:MigrationRiskReferenceEntry
-                        -> content, riskDescription, mitigation
+                        -> content @Form(riskDescription, mitigation)
             -> MigrationConsiderations
-                -> content, strategy, timeline, dataMapping, rollbackStrategy
+                -> content, strategy @text, timeline @text, dataMapping @text, rollbackStrategy @text
                 -> MigrationRisks
                     -> content
                     -: items:MigrationRiskEntry
-                        -> content, riskDescription, probability, impact, mitigation
+                        -> content @Form(riskDescription, probability, impact, mitigation)
         -> SystemBoundaries
             -> content
             -: externalInterfaces:ExternalInterfaceEntry
-                -> content, interfaceId, externalSystem, direction, purpose, dataExchanged, protocol, frequency,
-                    volume, authentication
+                -> content @Form(interfaceId, externalSystem, direction, purpose, dataExchanged, protocol, frequency, volume, authentication)
             -> OutOfScope
                 -> content
                 -: items:OutOfScopeEntry
-                    -> content, item, rationale, futureConsideration
+                    -> content @Form(item, rationale, futureConsideration)
             -> assumptions:BoundaryAssumptions
                 -> content
                 -: items:AssumptionEntry
-                    -> content, assumption, rationale, riskIfWrong, validationApproach
+                    -> content @Form(assumption, rationale, riskIfWrong, validationApproach)
         -> FrameworkConditions
             -> content
             -> OrganizationalEnvironment
-                -> content, structure, decisionMaking, culturalConsiderations
+                -> content, structure @text, decisionMaking @text, culturalConsiderations @text
             -> FunctionalResponsibilities
                 -> content
                 -: items:ResponsibilityEntry
-                    -> content, area, owner, description, scope
+                    -> content @Form(area, owner, description, scope)
             -> TechnicalFrameworkConditions
-                -> content, existingInfrastructure
+                -> content, existingInfrastructure @text
                 -: technologyStandards:TechnologyStandardEntry
-                    -> content, standard, description
+                    -> content @Form(standard, description)
                 -: integrationConstraints:IntegrationConstraintEntry
-                    -> content, constraint, impactedSystem
+                    -> content @Form(constraint, impactedSystem)
             -> ConstraintsAndDependencies
                 -> content
                 -> Constraints
                     -> content
                     -: items:ConstraintEntry
-                        -> content, constraint, type, impact, mitigation
+                        -> content @Form(constraint, type, impact, mitigation)
                 -> FrameworkDependencies
                     -> content
                     -: items:FrameworkDependencyEntry
-                        -> content, dependency, type, impact, mitigation
+                        -> content @Form(dependency, type, impact, mitigation)
         -> RisksAndAssumptions
             -> content
             -: keyRisks:RiskEntry
-                -> content, riskId, riskName, description, probability, impact, mitigation, riskOwner, reviewFrequency
+                -> content @Form(riskId, riskName, description, probability, impact, mitigation, riskOwner, reviewFrequency)
             -> KeyAssumptions
                 -> content
                 -: items:AssumptionEntry
-                    -> content, assumption, rationale, riskIfWrong, validationApproach
+                    -> content @Form(assumption, rationale, riskIfWrong, validationApproach)
     -> OrganizationalFramework
         -> content
         -> organizationStructure:NewOrganizationStructure
-            -> content, transitionTimeline
+            -> content, transitionTimeline @text
             -> ChangesFromCurrentStructure
                 -> content
                 -: items:OrganizationalChangeEntry
-                    -> content, area, currentState, targetState, rationale, impact
+                    -> content @Form(area, currentState, targetState, rationale, impact)
         -> jobDescriptions:JobDescriptionsAndStaffing
             -> content
             -: newRoles:NewRoleEntry
-                -> content, roleTitle, department, reportingLine, fteAllocation, startDate
+                -> content @Form(roleTitle, department, reportingLine, fteAllocation, startDate)
                 -: responsibilities:RoleResponsibilityEntry
-                    -> content, responsibility, description
+                    -> content @Form(responsibility, description)
                 -: requiredSkills:SkillEntry
-                    -> content, skillName, proficiencyLevel
+                    -> content @Form(skillName, proficiencyLevel)
             -: changedRoles:ChangedRoleEntry
-                -> content, roleTitle, currentDepartment, changedReportingLine, trainingRequired
+                -> content @Form(roleTitle, currentDepartment, changedReportingLine, trainingRequired)
                 -: addedResponsibilities:RoleResponsibilityEntry
-                    -> content, responsibility, description
+                    -> content @Form(responsibility, description)
                 -: removedResponsibilities:RoleResponsibilityEntry
-                    -> content, responsibility, description
+                    -> content @Form(responsibility, description)
                 -: newSkillRequirements:SkillEntry
-                    -> content, skillName, proficiencyLevel
+                    -> content @Form(skillName, proficiencyLevel)
             -> StaffingPlan
-                -> content, headcountSummary, recruitmentTimeline, budget
+                -> content, budget @text
                 -: items:StaffingEntry
-                    -> content, roleTitle, department, fteCount, recruitmentStatus, targetStartDate
+                    -> content @Form(roleTitle, department, fteCount, recruitmentStatus, targetStartDate)
         -: workplaceDescriptions:WorkplaceDescriptionEntry
-            -> content, userCategory
+            -> content @Form(userCategory)
             -> EquipmentRequirements
                 -> content
                 -: items:EquipmentRequirementEntry
-                    -> content, equipmentType, specification, quantity, purpose
+                    -> content @Form(equipmentType, specification, quantity, purpose)
             -> TrainingRequirements
                 -> content
                 -: items:TrainingRequirementEntry
-                    -> content, trainingTopic, targetAudience, format, duration, schedule
+                    -> content @Form(trainingTopic, targetAudience, format, duration, schedule)
     -> targetBusinessProcess:TargetBusinessProcessModel
-        -> content, processVision, processOverviewDiagram, improvementSummary
+        -> content, processVision @text, processOverviewDiagram @mermaid-flow, improvementSummary @text
         -> DesignPrinciples
             -> content
             -: items:DesignPrincipleEntry
-                -> content, principle, description, rationale
+                -> content @Form(principle, description, rationale)
         -> relationshipsBetweenProcesses:ProcessRelationships
             -> content
             -: items:ProcessRelationshipEntry
-                -> content, sourceProcess, targetProcess, relationshipType, description
+                -> content @Form(relationshipType, description)
+                -> sourceProcess:BusinessProcessDescription:Source Process
+                -> targetProcess:BusinessProcessDescription:Target Process
         -: processCatalog:TargetBusinessProcess
             -> content
             -> processDescription:BusinessProcessDescription
-                -> content, processId, processName, trigger, primaryActor, description, expectedOutcome,
-                    estimatedFrequency, estimatedDuration
+                -> content @Form(processId, processName, trigger, primaryActor, description, expectedOutcome, estimatedFrequency, estimatedDuration)
             -> processSteps:ProcessStepsAndActorInteractions
                 -> content
                 -: actors:ActorEntry
-                    -> content, actorName, actorType, description, accessChannel
+                    -> content @Form(actorName, actorType, description, accessChannel)
                     -> PrimaryInteractions
                         -> content
                         -: items:PrimaryInteractionEntry
-                            -> content, useCaseReference, description, frequency, criticality
+                            -> content @Form(description, frequency, criticality), useCaseReference
                 -: interactions:InteractionEntry
-                    -> content, interactionId, processReference, actor, action, systemResponse, expectedOutcome,
-                        precondition, postcondition, relatedUseCase
+                    -> content @Form(interactionId, actor, action, systemResponse, expectedOutcome, precondition, postcondition),
+                        relatedUseCase
+                    -> processReference:BusinessProcessDescription:Process Reference
                 -: scenarios:ScenarioEntry
-                    -> content, scenarioName, description, successCondition
+                    -> content @Form(scenarioName, description, successCondition)
                     -: steps:ScenarioStepEntry
-                        -> content, stepNumber, description, expectedResult
+                        -> content @Form(stepNumber, description, expectedResult)
                     -: alternativeFlows:AlternativeFlowEntry
-                        -> content, flowName, triggerCondition, outcome, returnPoint
+                        -> content @Form(flowName, triggerCondition, outcome, returnPoint)
                         -: steps:ScenarioStepEntry
-                            -> content, stepNumber, description, expectedResult
+                            -> content @Form(stepNumber, description, expectedResult)
     -> businessDataModel:BusinessObjectAndDataModel
         -> content
         -> DataModel
-            -> content, erDiagram
+            -> content, erDiagram @mermaid-er
             -: entities:DataEntityEntry
-                -> content, entityName, description, category, estimatedRecordCount, growthRate, retentionPolicy
+                -> content @Form(entityName, description, category, estimatedRecordCount, growthRate),
+                    retentionPolicy @text
                 -: attributes:DataAttributeEntry
-                    -> content, attributeName, dataType, length, format, mandatory, description
+                    -> content @Form(attributeName, dataType, length, format, mandatory, description)
                 -: keyAttributes:KeyAttributeEntry
-                    -> content, attributeName, keyType, referencedEntity, description
+                    -> content @Form(attributeName, keyType, description)
+                    -> referencedEntity:DataEntityEntry:Referenced Entity
             -> EntityRelationships
                 -> content
                 -: items:EntityRelationshipEntry
-                    -> content, sourceEntity, targetEntity, relationshipType, cardinality, description
+                    -> content @Form(relationshipType, cardinality, description)
+                    -> sourceEntity:DataEntityEntry:Source Entity
+                    -> targetEntity:DataEntityEntry:Target Entity
             -> DataClassification
                 -> content
                 -: items:DataClassificationEntry
-                    -> content, classification, description, retentionPolicy
+                    -> content @Form(classification, description), retentionPolicy @text
                     -: handlingRequirements:HandlingRequirementEntry
-                        -> content, requirement, description
+                        -> content @Form(requirement, description)
                     -: accessRestrictions:AccessRestrictionEntry
-                        -> content, restriction, enforcement
+                        -> content @Form(restriction, enforcement)
         -> BusinessObjectModel
-            -> content, objectDiagram
+            -> content, objectDiagram @mermaid
             -: objects:BusinessObjectEntry
-                -> content, objectName, category, description
+                -> content @Form(objectName, category, description)
                 -: attributes:BusinessObjectAttributeEntry
-                    -> content, attributeName, type, length, format, description, mandatory, defaultValue,
-                        validationRules
+                    -> content @Form(attributeName, type, length, format, description, mandatory, defaultValue, validationRules)
                 -: keyStates:ObjectStateEntry
-                    -> content, stateName, description
+                    -> content @Form(stateName, description)
                 -: keyBusinessRules:BusinessRuleReferenceEntry
-                    -> content, ruleName, description
+                    -> content @Form(ruleName, description)
                 -: lifecycleTransitions:LifecycleTransitionEntry
-                    -> content, fromState, toState, trigger
+                    -> content @Form(fromState, toState, trigger)
         -> FunctionModel
-            -> content, functionDecomposition, functionToDataMatrix
+            -> content @Form(functionDecomposition, functionToDataMatrix)
             -: businessRules:BusinessRuleEntry
-                -> content, ruleId, ruleName, description, enforcement, exceptionHandling
+                -> content @Form(ruleId, ruleName, description, enforcement, exceptionHandling)
                 -: affectedObjects:AffectedObjectEntry
-                    -> content, objectName, impact
+                    -> content @Form(objectName, impact)
                 -: affectedFunctions:AffectedFunctionEntry
-                    -> content, functionName, impact
+                    -> content @Form(functionName, impact)
     -> technicalFramework:TechnicalFrameworkConcept
         -> content
         -> basicRequirements:BasicTechnicalRequirements
-            -> content, platformAndLanguage, architectureStyle
+            -> content, platformAndLanguage @text, architectureStyle @text
             -: designPatternsAndStandards:DesignPatternEntry
-                -> content, patternName, purpose
+                -> content @Form(patternName, purpose)
         -> softwareDesign:SoftwareDesignRequirements
-            -> content, layeringAndModuleStructure, developmentEnvironment
+            -> content, layeringAndModuleStructure @text, developmentEnvironment @text
             -: reusableComponents:ReusableComponentEntry
-                -> content, componentName, source, purpose
+                -> content @Form(componentName, source, purpose)
         -> standardSoftware:StandardSoftwareRequirements
-            -> content, standardsCompliance
+            -> content, standardsCompliance @text
             -: compatibilityRequirements:CompatibilityRequirementEntry
-                -> content, requirement, system
+                -> content @Form(requirement, system)
         -> hardware:HardwareRequirements
-            -> content, serverRequirements, clientRequirements, networkRequirements
+            -> content, serverRequirements @text, clientRequirements @text, networkRequirements @text
         -> operations:OperationsRequirements
-            -> content, backupAndRecovery, deploymentStrategy, monitoringAndAlerting, maintenanceWindows
+            -> content, backupAndRecovery @text, deploymentStrategy @text, monitoringAndAlerting @text,
+                maintenanceWindows @text
         -> communication:CommunicationRequirements
-            -> content, externalConnectivity
+            -> content, externalConnectivity @text
             -: protocolsAndStandards:ProtocolEntry
-                -> content, protocolName, purpose
+                -> content @Form(protocolName, purpose)
         -> systemOperation:SystemOperationAndMonitoring
             -> content
             -> SystemOperation
-                -> content, administrationRequirements, maintenanceProcedures
+                -> content, administrationRequirements @text, maintenanceProcedures @text
             -> Monitoring
-                -> content, healthChecksAndDiagnostics, capacityPlanning, alerting
+                -> content, healthChecksAndDiagnostics @text, capacityPlanning @text, alerting @text
         -> security:TechnicalSecurityRequirements
-            -> content, dataProtectionAndPrivacy
+            -> content, dataProtectionAndPrivacy @text
             -: itSecurityStandards:SecurityStandardEntry
-                -> content, standardName, version, scope
+                -> content @Form(standardName, version, scope)
             -: securityAuditRequirements:SecurityAuditEntry
-                -> content, requirement, frequency
+                -> content @Form(requirement, frequency)
     -> accessAuthorization:AccessAndAuthorizationConcept
         -> content
         -> UserManagement
-            -> content, userLifecycle
+            -> content, userLifecycle @text
             -> UserCategories
                 -> content
                 -: items:UserCategoryDefinition
-                    -> content, categoryName, description, accessLevel, estimatedCount
+                    -> content @Form(categoryName, description, accessLevel, estimatedCount)
             -> UserAttributes
                 -> content
                 -: items:UserAttributeEntry
-                    -> content, attributeName, dataType, source, required
+                    -> content @Form(attributeName, dataType, source, required)
         -> authentication:IdentificationAndAuthentication
             -> content
             -> Identification
-                -> content, identitySources, identityVerification, identityProviders, singleSignOn
+                -> content, identitySources @text, identityVerification @text, identityProviders @text,
+                    singleSignOn @text
             -> Authentication
-                -> content, authenticationFlow, passwordPolicy, sessionManagement
+                -> content, authenticationFlow @text, passwordPolicy @text, sessionManagement @text
                 -> AuthenticationMethods
                     -> content
                     -: items:AuthenticationMethodEntry
-                        -> content, methodName, methodType, applicableUserCategories, securityLevel, description
+                        -> content @Form(methodName, methodType, applicableUserCategories, securityLevel, description)
         -> ResourceProtection
-            -> content, dataLevelSecurity, apiSecurity, fileAndStorageSecurity
+            -> content, dataLevelSecurity @text, apiSecurity @text, fileAndStorageSecurity @text
         -> authorization:UserAuthorization
-            -> content, authorizationModel, roleHierarchy, tenantIsolation
+            -> content, authorizationModel @text, roleHierarchy @text, tenantIsolation @text
             -: groups:AuthorizationGroupEntry
-                -> content, groupName, description, membershipCriteria
+                -> content @Form(groupName, description, membershipCriteria)
                 -: containedRoles:RoleReferenceEntry
-                    -> content, roleName
+                    -> content @Form(roleName)
             -: roleDefinitions:AuthorizationRoleEntry
-                -> content, roleName, description, inheritsFrom
+                -> content @Form(roleName, description, inheritsFrom)
                 -: responsibilities:ResponsibilityReferenceEntry
-                    -> content, responsibility, description
+                    -> content @Form(responsibility, description)
                 -: entitlementReferences:EntitlementReferenceEntry
-                    -> content, entitlementName
+                    -> content @Form(entitlementName)
                 -: mutualExclusions:RoleExclusionEntry
-                    -> content, excludedRole, reason
+                    -> content @Form(excludedRole, reason)
                 -: typicalHolders:RoleHolderEntry
-                    -> content, holderDescription, department
+                    -> content @Form(holderDescription, department)
             -: entitlements:EntitlementEntry
-                -> content, entitlementName, description, accessType, conditions
+                -> content @Form(entitlementName, description, accessType, conditions)
                 -: resourceKeyReferences:ResourceKeyReferenceEntry
-                    -> content, resourceKey
+                    -> content @Form(resourceKey)
             -: resourceKeys:ResourceKeyEntry
-                -> content, resourceKey, resourceType, description, protectionLevel
+                -> content @Form(resourceKey, resourceType, description, protectionLevel)
         -> encryption:SensitiveDataEncryption
-            -> content, encryptionAtRest, encryptionInTransit, keyManagement
+            -> content, encryptionAtRest @text, encryptionInTransit @text, keyManagement @text
         -> AuditAndLogging
             -> content
             -> Audit
-                -> content, auditTrail, complianceReporting, retentionPolicy
+                -> content, auditTrail @text, complianceReporting @text, retentionPolicy @text
             -> Logging
-                -> content, logFormat, logLevels
+                -> content, logFormat @text, logLevels @text
                 -> SecurityEvents
                     -> content
                     -: items:SecurityEventEntry
-                        -> content, eventName, eventType, description, severity, responseAction
+                        -> content @Form(eventName, eventType, description, severity, responseAction)
     -> UserInterfaceDesign
-        -> content, dataStructureAlignment, authorizationCompliance
+        -> content, dataStructureAlignment @text, authorizationCompliance @text
         -> DesignVision
             -> content
             -: designGoals:DesignGoalEntry
-                -> content, goal, description
+                -> content @Form(goal, description)
             -: designPrinciples:UiDesignPrincipleEntry
-                -> content, principle, rationale
+                -> content @Form(principle, rationale)
             -: personas:PersonaEntry
-                -> content, personaName, age, role, technicalProficiency, typicalUsage, device
+                -> content @Form(personaName, age, role, technicalProficiency, typicalUsage, device)
                 -: goals:PersonaGoalEntry
-                    -> content, goal, priority
+                    -> content @Form(goal, priority)
                 -: painPoints:PersonaPainPointEntry
-                    -> content, painPoint, impact
+                    -> content @Form(painPoint, impact)
         -> screens:ScreenDescriptions
-            -> content, informationArchitecture
+            -> content, informationArchitecture @text
             -: screenInventory:ScreenEntry
-                -> content, screenId, screenName, purpose, accessLevel, layout
+                -> content @Form(screenId, screenName, purpose, accessLevel, layout)
                 -: keyElements:ScreenElementEntry
-                    -> content, elementName, elementType
+                    -> content @Form(elementName, elementType)
                 -: userCategories:ScreenUserCategoryEntry
-                    -> content, categoryName, description
+                    -> content @Form(categoryName, description)
                 -: entryPoints:EntryPointEntry
-                    -> content, entryPoint, source
+                    -> content @Form(entryPoint, source)
         -> screenFlow:ScreenFlowStructure
-            -> content, navigationModel, screenFlowDiagram
+            -> content, navigationModel @text, screenFlowDiagram @mermaid-flow
         -> PrintLayout
             -> content
             -: reports:ReportEntry
-                -> content, reportName, purpose, reportContent, format, generationTrigger, customization
+                -> content @Form(reportName, purpose, reportContent, format, generationTrigger, customization)
                 -: recipients:RecipientEntry
-                    -> content, recipientName, role
+                    -> content @Form(recipientName, role)
             -: exportFormats:ExportFormatEntry
-                -> content, formatName, description
+                -> content @Form(formatName, description)
         -> errorHandling:ErrorHandlingConcept
-            -> content, validationFeedback, systemErrorDisplay, errorRecovery
+            -> content, validationFeedback @text, systemErrorDisplay @text, errorRecovery @text
         -> HelpConcept
-            -> content, contextualHelp, onboarding, supportAccess
+            -> content, contextualHelp @text, onboarding @text, supportAccess @text
         -> Accessibility
-            -> content, wcagComplianceLevel
+            -> content, wcagComplianceLevel @text
             -> AccessibilityChecklist
                 -> content
                 -: items:AccessibilityCheckEntry
-                    -> content, checkItem, wcagCriterion, complianceLevel, verificationMethod
+                    -> content @Form(checkItem, wcagCriterion, complianceLevel, verificationMethod)
         -> ResponsiveDesign
-            -> content, responsiveBehavior
+            -> content, responsiveBehavior @text
             -: breakpoints:BreakpointEntry
-                -> content, breakpointName, minWidth, layoutBehavior
+                -> content @Form(breakpointName, minWidth, layoutBehavior)
         -> UiComponents
-            -> content, componentLibrary
+            -> content, componentLibrary @text
             -: componentSpecs:UiComponentEntry
-                -> content, componentName, purpose, behavior, responsive
+                -> content @Form(componentName, purpose, behavior, responsive)
                 -: states:ComponentStateEntry
-                    -> content, stateName, description
+                    -> content @Form(stateName, description)
                 -: variants:ComponentVariantEntry
-                    -> content, variantName, description
+                    -> content @Form(variantName, description)
         -> multiLanguage:MultiLanguageAndRollout
             -> content
             -> MultiLanguageSupport
-                -> content, localizationProcess, translationProcess, languageAndCountrySelection,
-                    translationHandlingRequirements
+                -> content, localizationProcess @text, translationProcess @text, languageAndCountrySelection @text,
+                    translationHandlingRequirements @text
             -> RolloutSupport
-                -> content, userDocumentation, trainingPlan, phasedDeploymentStrategy, communicationPlan
+                -> content, userDocumentation @text, trainingPlan @text, phasedDeploymentStrategy @text,
+                    communicationPlan @text
         -> Prototype
-            -> content, selectedFeatureSubset
+            -> content, selectedFeatureSubset @text
             -: prototypeGoals:PrototypeGoalEntry
-                -> content, goal, description
+                -> content @Form(goal, description)
             -> prototypeType:PrototypeTypeSection
-                -> content, reusablePrototype, trainingPrototype, throwawayPrototype
+                -> content, reusablePrototype @text, trainingPrototype @text, throwawayPrototype @text
     -> SystemQualityGoals
         -> content
         -> framework:QualityFramework
-            -> content, qualityObjectivesOverview
+            -> content, qualityObjectivesOverview @text
             -: qualityCategories:QualityCategoryEntry
-                -> content, categoryName, description
+                -> content @Form(categoryName, description)
         -> userQuality:UserQualityCriteria
-            -> content, usability, functionalCompleteness, correctness
+            -> content, usability @text, functionalCompleteness @text, correctness @text
         -> technicalQuality:TechnicalQualityCriteria
-            -> content, efficiency, portability, flexibility, security, maintainability, reliability
+            -> content, efficiency @text, portability @text, flexibility @text, security @text, maintainability @text,
+                reliability @text
         -> operationsQuality:OperationsQualityCriteria
-            -> content, availability, serviceLevelRequirements, monitoringAndPrevention, itSecurityOperations
+            -> content, availability @text, serviceLevelRequirements @text, monitoringAndPrevention @text,
+                itSecurityOperations @text
         -> documentationQuality:DocumentationQualityCriteria
-            -> content, readability, completeness, correctness, changeability
+            -> content, readability @text, completeness @text, correctness @text, changeability @text
         -> prioritization:QualityPrioritization
-            -> content, weightedQualityMatrix
+            -> content, weightedQualityMatrix @text
             -> TradeOffDecisions
                 -> content
                 -: items:TradeOffDecisionEntry
-                    -> content, decision, qualitiesInConflict, rationale, impact
+                    -> content @Form(decision, qualitiesInConflict, rationale, impact)
         -> acceptanceCriteria:AcceptanceCriteriaSummary
             -> content
             -> MustPassCriteria
                 -> content
                 -: items:MustPassCriterionEntry
-                    -> content, criterion, verificationMethod, acceptanceThreshold
+                    -> content @Form(criterion, verificationMethod, acceptanceThreshold)
             -> QualityGateChecklist
                 -> content
                 -: items:QualityGateCheckEntry
-                    -> content, checkItem, qualityCategory, verificationMethod, responsibleParty
+                    -> content @Form(checkItem, qualityCategory, verificationMethod, responsibleParty)
     -> ComponentsToUse
-        -> content, componentRoleInSystem
+        -> content, componentRoleInSystem @text
         -> strategy:ComponentStrategy
             -> content
             -: reuseGoals:ReuseGoalEntry
-                -> content, goal, rationale
+                -> content @Form(goal, rationale)
             -> EvaluationCriteria
                 -> content
                 -: items:EvaluationCriterionEntry
-                    -> content, criterion, weight, description
+                    -> content @Form(criterion, weight, description)
         -: componentCatalog:ComponentEntry
-            -> content, componentName, version, category, purpose, documentation, usageRights
+            -> content @Form(componentName, version, category, purpose, documentation), usageRights @text
             -: interfaces:ComponentInterfaceEntry
-                -> content, interfaceName, interfaceType, description
+                -> content @Form(interfaceName, interfaceType, description)
             -> licensing:ComponentLicensingEntry
-                -> content, licenseModel, annualCost, renewal, redistribution
+                -> content @Form(licenseModel, annualCost, renewal, redistribution)
             -> responsibilities:ComponentResponsibilitiesEntry
-                -> content, technicalContact, supportModel, escalation, updateCadence
+                -> content @Form(technicalContact, supportModel, escalation, updateCadence)
         -> RuntimeDependencies
             -> content
             -: items:DependencyEntry
-                -> content, dependencyName, version, purpose, criticality, alternative
+                -> content @Form(version, purpose, criticality, alternative), dependencyName
         -> MaintenanceDependencies
             -> content
             -: items:DependencyEntry
-                -> content, dependencyName, version, purpose, criticality, alternative
+                -> content @Form(version, purpose, criticality, alternative), dependencyName
         -> riskAssessment:ComponentRiskAssessment
             -> content
             -: risks:ComponentRiskEntry
-                -> content, riskId, component, risk, probability, impact, mitigation, contingencyTrigger
+                -> content @Form(riskId, component, risk, probability, impact, mitigation, contingencyTrigger)
             -> ContingencyPlans
                 -> content
                 -: items:ContingencyPlanEntry
-                    -> content, component, triggerCondition, action, responsibleParty
+                    -> content @Form(component, triggerCondition, action, responsibleParty)
     -> SystemStagePlan
         -> content
         -> strategy:StagingStrategy
-            -> content, stagingApproach, rationale
+            -> content @Form(rationale), stagingApproach @text
         -> StageOverview
-            -> content, stageSummary, timelineDiagram
+            -> content, stageSummary @text, timelineDiagram @mermaid-gantt
         -: stages:StageEntry
-            -> content, stageNumber, stageName, targetGoLive, scopeSummary, featureScope, timeline, rolloutPlan
+            -> content @Form(stageNumber, stageName, targetGoLive, scopeSummary), featureScope @text, timeline @text,
+                rolloutPlan @text
             -: subStagesAndMilestones:SubStageEntry
-                -> content, name, description, targetDate
+                -> content @Form(name, description, targetDate)
             -: successCriteria:StageSuccessCriterionEntry
-                -> content, criterion, measurementMethod
+                -> content @Form(criterion, measurementMethod)
         -> FeaturePrioritization
-            -> content, moscowAnalysis, featureStageMatrix
+            -> content, moscowAnalysis @text, featureStageMatrix @text
         -> dataMigration:DataMigrationStrategy
             -> content
             -> MigrationPhases
                 -> content
                 -: items:MigrationPhaseEntry
-                    -> content, phaseName, description, dataScope, targetStage, verificationApproach
+                    -> content @Form(phaseName, description, dataScope, targetStage, verificationApproach)
             -> migrationRisks:StageMigrationRisks
                 -> content
                 -: items:StageMigrationRiskEntry
-                    -> content, risk, probability, impact, mitigation
+                    -> content @Form(risk, probability, impact, mitigation)
         -> governance:StageGovernance
             -> content
             -> PhaseGateReviews
                 -> content
                 -: items:PhaseGateReviewEntry
-                    -> content, gateName, stage, decisionAuthority
+                    -> content @Form(gateName, stage, decisionAuthority)
                     -: reviewCriteria:ReviewCriterionEntry
-                        -> content, criterion, description
+                        -> content @Form(criterion, description)
             -> DecisionPoints
                 -> content
                 -: items:DecisionPointEntry
-                    -> content, decisionPoint, timing, criteria, decisionAuthority
+                    -> content @Form(decisionPoint, timing, criteria, decisionAuthority)
                     -: options:DecisionOptionEntry
-                        -> content, option, description, implications
+                        -> content @Form(option, description, implications)
     -> deliveryAcceptance:DeliveryScopeAndAcceptance
         -> content
         -> DeliveryScope
@@ -619,30 +633,30 @@
             -> SoftwareDeliverables
                 -> content
                 -: items:DeliverableEntry
-                    -> content, deliverableName, description, deliveryDate, format, acceptanceCriteria
+                    -> content @Form(deliverableName, description, deliveryDate, format, acceptanceCriteria)
             -> DocumentationDeliverables
                 -> content
                 -: items:DeliverableEntry
-                    -> content, deliverableName, description, deliveryDate, format, acceptanceCriteria
+                    -> content @Form(deliverableName, description, deliveryDate, format, acceptanceCriteria)
             -> TrainingDeliverables
                 -> content
                 -: items:DeliverableEntry
-                    -> content, deliverableName, description, deliveryDate, format, acceptanceCriteria
+                    -> content @Form(deliverableName, description, deliveryDate, format, acceptanceCriteria)
             -> SupportDeliverables
                 -> content
                 -: items:DeliverableEntry
-                    -> content, deliverableName, description, deliveryDate, format, acceptanceCriteria
+                    -> content @Form(deliverableName, description, deliveryDate, format, acceptanceCriteria)
         -> AcceptancePlan
-            -> content, defectResolution, signOffProcess, warranty
+            -> content, defectResolution @text, signOffProcess @text, warranty @text
             -> acceptanceCriteria:AcceptanceCriteriaList
                 -> content
                 -: items:DeliveryAcceptanceCriterionEntry
-                    -> content, criterion, category, verificationMethod, acceptanceThreshold
+                    -> content @Form(criterion, category, verificationMethod, acceptanceThreshold)
             -> AcceptanceProcess
-                -> content, timeline, participants, escalationProcess
+                -> content @Form(participants, escalationProcess)
                 -: steps:AcceptanceStepEntry
-                    -> content, stepName, description
+                    -> content @Form(stepName, description)
             -> UserAcceptanceTesting
-                -> content, scope, environment, participants, schedule, exitCriteria
+                -> content @Form(scope, environment, participants, schedule, exitCriteria)
                 -: testScenarios:TestScenarioEntry
-                    -> content, scenarioName, description, expectedResult
+                    -> content @Form(scenarioName, description, expectedResult)
