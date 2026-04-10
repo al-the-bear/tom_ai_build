@@ -320,7 +320,7 @@ ignored by tooling.
 - Example: Applied to container sections like `ProjectDefinition` that exist
   only to hold child sections.
 
-### 7.6 `@ContentType(String type, [String description])`
+### 7.6 `@ContentType(String type, String description)`
 
 Annotates the `content` field to declare the **format** of the content text.
 
@@ -328,9 +328,8 @@ Annotates the `content` field to declare the **format** of the content text.
 - Allowed values for `type`: `Form` (default), `DDL`, `SQL`, `Dart`,
   `ER-Diagram`, `Mermaid`, and other format identifiers.
 - `description`: Explains what should be described in the content field.
-  Required for classes with `String? content` that are not *Section types.
-  For *Section classes, the description comes from the doc-comment on the field
-  in the class that uses the section variable (see §7.6a).
+  Always required. For *Section classes, use: `'The description for the content
+  is provided by the doc-comment on the field declaration of this type'`.
 - Effect: `Form` means scalar fields are form fields within the content.
   Non-Form types prohibit other scalar fields (see §6.4).
 - Shown in outline: `-> content @Form` or `-> content @DDL`.

@@ -8,12 +8,11 @@
 /// must not have other scalar fields — the content occupies the full text.
 ///
 /// [description] explains what should be described in the content field.
-/// Required for classes with a `String? content` field that are not *Section
-/// types. For *Section classes, the description comes from the doc-comment on
-/// the field in the class that uses the section variable.
+/// For *Section classes, use: 'The description for the content is provided
+/// by the doc-comment on the field declaration of this type'.
 class ContentType {
   final String type;
   final String description;
 
-  const ContentType(this.type, [this.description = '']);
+  const ContentType(this.type, this.description);
 }
