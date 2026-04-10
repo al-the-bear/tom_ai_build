@@ -36,28 +36,32 @@ class DeliveryScope {
 /// 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
 class SoftwareDeliverables {
   String? content;
+  /// Contains 0+× Deliverable.
   List<DeliverableEntry> items = [];
 }
 
 /// 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
 class DocumentationDeliverables {
   String? content;
+  /// Contains 0+× Deliverable.
   List<DeliverableEntry> items = [];
 }
 
 /// 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
 class TrainingDeliverables {
   String? content;
+  /// Contains 0+× Deliverable.
   List<DeliverableEntry> items = [];
 }
 
 /// 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
 class SupportDeliverables {
   String? content;
+  /// Contains 0+× Deliverable.
   List<DeliverableEntry> items = [];
 }
 
-/// A deliverable entry (form).
+/// A deliverable entry (form) [PD00-DEL-DEL-nn].
 class DeliverableEntry {
   String? content;
   String? deliverableName;
@@ -93,10 +97,11 @@ class AcceptancePlan {
 /// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
 class AcceptanceCriteriaList {
   String? content;
+  /// Contains 0+× DeliveryAcceptanceCriterion.
   List<DeliveryAcceptanceCriterionEntry> items = [];
 }
 
-/// An acceptance criterion entry (form).
+/// An acceptance criterion entry (form) [PD00-DEL-ACC-CRI-nn].
 class DeliveryAcceptanceCriterionEntry {
   String? content;
   String? criterion;
@@ -108,13 +113,14 @@ class DeliveryAcceptanceCriterionEntry {
 /// 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
 class AcceptanceProcess {
   String? content;
+  /// Contains 0+× AcceptanceStep.
   List<AcceptanceStepEntry> steps = [];
   String? timeline;
   String? participants;
   String? escalationProcess;
 }
 
-/// An acceptance step entry (form).
+/// An acceptance step entry (form) [PD00-DEL-ACC-PRO-nn].
 class AcceptanceStepEntry {
   String? content;
   String? stepName;
@@ -128,11 +134,12 @@ class UserAcceptanceTesting {
   String? environment;
   String? participants;
   String? schedule;
+  /// Contains 0+× TestScenario.
   List<TestScenarioEntry> testScenarios = [];
   String? exitCriteria;
 }
 
-/// A test scenario entry (form).
+/// A test scenario entry (form) [PD00-DEL-ACC-UAT-nn].
 class TestScenarioEntry {
   String? content;
   String? scenarioName;

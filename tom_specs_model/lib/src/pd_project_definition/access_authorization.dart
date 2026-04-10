@@ -45,10 +45,11 @@ class UserManagement {
 /// 9.1.1. User Categories [PD00-ACC-USE-CAT].
 class UserCategories {
   String? content;
+  /// Contains 0+× UserCategoryDefinition.
   List<UserCategoryDefinition> items = [];
 }
 
-/// A user category definition (form).
+/// A user category definition (form) [PD00-ACC-USE-CAT-nn].
 class UserCategoryDefinition {
   String? content;
   String? categoryName;
@@ -60,10 +61,11 @@ class UserCategoryDefinition {
 /// 9.1.3. User Attributes [PD00-ACC-USE-ATT].
 class UserAttributes {
   String? content;
+  /// Contains 0+× UserAttribute.
   List<UserAttributeEntry> items = [];
 }
 
-/// A user attribute entry (form).
+/// A user attribute entry (form) [PD00-ACC-USE-ATT-nn].
 class UserAttributeEntry {
   String? content;
   String? attributeName;
@@ -120,10 +122,11 @@ class Authentication {
 /// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
 class AuthenticationMethods {
   String? content;
+  /// Contains 0+× AuthenticationMethod.
   List<AuthenticationMethodEntry> items = [];
 }
 
-/// An authentication method entry (form).
+/// An authentication method entry (form) [PD00-ACC-IDE-AUT-MET-nn].
 class AuthenticationMethodEntry {
   String? content;
   String? methodName;
@@ -180,11 +183,12 @@ class AuthorizationGroupEntry {
   String? content;
   String? groupName;
   String? description;
+  /// Contains 0+× RoleReference.
   List<RoleReferenceEntry> containedRoles = [];
   String? membershipCriteria;
 }
 
-/// A role reference entry (form).
+/// A role reference entry (form) [PD00-ACC-USA-GRP-nn-ROL-nn].
 class RoleReferenceEntry {
   String? content;
   String? roleName;
@@ -195,34 +199,38 @@ class AuthorizationRoleEntry {
   String? content;
   String? roleName;
   String? description;
+  /// Contains 0+× ResponsibilityReference.
   List<ResponsibilityReferenceEntry> responsibilities = [];
+  /// Contains 0+× EntitlementReference.
   List<EntitlementReferenceEntry> entitlementReferences = [];
   String? inheritsFrom;
+  /// Contains 0+× RoleExclusion.
   List<RoleExclusionEntry> mutualExclusions = [];
+  /// Contains 0+× RoleHolder.
   List<RoleHolderEntry> typicalHolders = [];
 }
 
-/// A responsibility reference entry (form).
+/// A responsibility reference entry (form) [PD00-ACC-USA-ROL-nn-RSP-nn].
 class ResponsibilityReferenceEntry {
   String? content;
   String? responsibility;
   String? description;
 }
 
-/// An entitlement reference entry (form).
+/// An entitlement reference entry (form) [PD00-ACC-USA-ROL-nn-ENT-nn].
 class EntitlementReferenceEntry {
   String? content;
   String? entitlementName;
 }
 
-/// A role exclusion entry (form).
+/// A role exclusion entry (form) [PD00-ACC-USA-ROL-nn-EXC-nn].
 class RoleExclusionEntry {
   String? content;
   String? excludedRole;
   String? reason;
 }
 
-/// A role holder entry (form).
+/// A role holder entry (form) [PD00-ACC-USA-ROL-nn-HOL-nn].
 class RoleHolderEntry {
   String? content;
   String? holderDescription;
@@ -234,12 +242,13 @@ class EntitlementEntry {
   String? content;
   String? entitlementName;
   String? description;
+  /// Contains 0+× ResourceKeyReference.
   List<ResourceKeyReferenceEntry> resourceKeyReferences = [];
   String? accessType;
   String? conditions;
 }
 
-/// A resource key reference entry (form).
+/// A resource key reference entry (form) [PD00-ACC-USA-ENT-nn-RKR-nn].
 class ResourceKeyReferenceEntry {
   String? content;
   String? resourceKey;
@@ -310,10 +319,11 @@ class Logging {
 /// 9.6.2.3. Security Events [PD00-ACC-AUD-LOG-EVE].
 class SecurityEvents {
   String? content;
+  /// Contains 0+× SecurityEvent.
   List<SecurityEventEntry> items = [];
 }
 
-/// A security event entry (form).
+/// A security event entry (form) [PD00-ACC-AUD-LOG-EVE-nn].
 class SecurityEventEntry {
   String? content;
   String? eventName;

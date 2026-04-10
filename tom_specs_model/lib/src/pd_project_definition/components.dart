@@ -32,14 +32,14 @@ class ComponentsToUse {
 class ComponentStrategy {
   String? content;
 
-  /// 12.1.1. Reuse Goals [PD00-COM-STR-GOA].
+  /// 12.1.1. Reuse Goals [PD00-COM-STR-GOA] — contains 0+× ReuseGoal.
   List<ReuseGoalEntry> reuseGoals = [];
 
   /// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
   EvaluationCriteria evaluationCriteria = EvaluationCriteria();
 }
 
-/// A reuse goal entry (form).
+/// A reuse goal entry (form) [PD00-COM-STR-GOA-nn].
 class ReuseGoalEntry {
   String? content;
   String? goal;
@@ -49,10 +49,11 @@ class ReuseGoalEntry {
 /// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
 class EvaluationCriteria {
   String? content;
+  /// Contains 0+× EvaluationCriterion.
   List<EvaluationCriterionEntry> items = [];
 }
 
-/// An evaluation criterion entry (form).
+/// An evaluation criterion entry (form) [PD00-COM-STR-EVA-nn].
 class EvaluationCriterionEntry {
   String? content;
   String? criterion;
@@ -63,16 +64,18 @@ class EvaluationCriterionEntry {
 /// 12.4. Runtime Dependencies [PD00-COM-RUN].
 class RuntimeDependencies {
   String? content;
+  /// Contains 0+× Dependency.
   List<DependencyEntry> items = [];
 }
 
 /// 12.5. Maintenance Dependencies [PD00-COM-MAI].
 class MaintenanceDependencies {
   String? content;
+  /// Contains 0+× Dependency.
   List<DependencyEntry> items = [];
 }
 
-/// A dependency entry (form).
+/// A dependency entry (form) [PD00-COM-RUN-nn].
 class DependencyEntry {
   String? content;
   String? dependencyName;
@@ -95,7 +98,7 @@ class ComponentEntry {
   String? purpose;
   String? documentation;
 
-  /// Interfaces [PD00-COM-COM-nn-INT].
+  /// Interfaces [PD00-COM-COM-nn-INT] — contains 0+× ComponentInterface.
   List<ComponentInterfaceEntry> interfaces = [];
 
   /// Licensing [PD00-COM-COM-nn-LIC] (form).
@@ -108,7 +111,7 @@ class ComponentEntry {
   ComponentResponsibilitiesEntry? responsibilities;
 }
 
-/// A component interface entry (form).
+/// A component interface entry (form) [PD00-COM-COM-nn-INT-nn].
 class ComponentInterfaceEntry {
   String? content;
   String? interfaceName;
@@ -152,10 +155,11 @@ class ComponentRiskAssessment {
 /// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
 class ContingencyPlans {
   String? content;
+  /// Contains 0+× ContingencyPlan.
   List<ContingencyPlanEntry> items = [];
 }
 
-/// A contingency plan entry (form).
+/// A contingency plan entry (form) [PD00-COM-RIS-CON-nn].
 class ContingencyPlanEntry {
   String? content;
   String? component;

@@ -3,6 +3,8 @@
 /// System stages are meaningful subsets of the functional system.
 library;
 
+import 'package:tom_specs_core/tom_specs_core.dart';
+
 
 
 /// 13. System Stage Plan [PD00-SSP]. Seeds → PPP.
@@ -47,7 +49,7 @@ class StageOverview {
   String? stageSummary;
 
   /// 13.2.2. Stage Timeline Diagram [PD00-SSP-STA-DIA] (mermaid).
-  String? timelineDiagram;
+  GanttDiagramSection timelineDiagram = GanttDiagramSection();
 }
 
 /// A stage entry [PD00-SSP-STG-nn] (form) with description subsections.
@@ -61,20 +63,20 @@ class StageEntry {
   /// Feature Scope [PD00-SSP-STG-nn-FEA] (description).
   String? featureScope;
 
-  /// Sub-stages and Milestones [PD00-SSP-STG-nn-SUB].
+  /// Sub-stages and Milestones [PD00-SSP-STG-nn-SUB] — contains 0+× SubStage.
   List<SubStageEntry> subStagesAndMilestones = [];
 
   /// Timeline [PD00-SSP-STG-nn-TIM] (description).
   String? timeline;
 
-  /// Success Criteria [PD00-SSP-STG-nn-SUC].
+  /// Success Criteria [PD00-SSP-STG-nn-SUC] — contains 0+× StageSuccessCriterion.
   List<StageSuccessCriterionEntry> successCriteria = [];
 
   /// Rollout Plan [PD00-SSP-STG-nn-ROL] (description).
   String? rolloutPlan;
 }
 
-/// A sub-stage or milestone entry (form).
+/// A sub-stage or milestone entry (form) [PD00-SSP-STG-nn-SUB-nn].
 class SubStageEntry {
   String? content;
   String? name;
@@ -82,7 +84,7 @@ class SubStageEntry {
   String? targetDate;
 }
 
-/// A success criterion entry (form).
+/// A success criterion entry (form) [PD00-SSP-STG-nn-SUC-nn].
 class StageSuccessCriterionEntry {
   String? content;
   String? criterion;
@@ -114,10 +116,11 @@ class DataMigrationStrategy {
 /// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
 class MigrationPhases {
   String? content;
+  /// Contains 0+× MigrationPhase.
   List<MigrationPhaseEntry> items = [];
 }
 
-/// A migration phase entry (form).
+/// A migration phase entry (form) [PD00-SSP-MIG-PHA-nn].
 class MigrationPhaseEntry {
   String? content;
   String? phaseName;
@@ -130,10 +133,11 @@ class MigrationPhaseEntry {
 /// 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
 class StageMigrationRisks {
   String? content;
+  /// Contains 0+× StageMigrationRisk.
   List<StageMigrationRiskEntry> items = [];
 }
 
-/// A stage migration risk entry (form).
+/// A stage migration risk entry (form) [PD00-SSP-MIG-RIS-nn].
 class StageMigrationRiskEntry {
   String? content;
   String? risk;
@@ -156,19 +160,21 @@ class StageGovernance {
 /// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
 class PhaseGateReviews {
   String? content;
+  /// Contains 0+× PhaseGateReview.
   List<PhaseGateReviewEntry> items = [];
 }
 
-/// A phase gate review entry (form).
+/// A phase gate review entry (form) [PD00-SSP-GOV-GAT-nn].
 class PhaseGateReviewEntry {
   String? content;
   String? gateName;
   String? stage;
+  /// Contains 0+× ReviewCriterion.
   List<ReviewCriterionEntry> reviewCriteria = [];
   String? decisionAuthority;
 }
 
-/// A review criterion entry (form).
+/// A review criterion entry (form) [PD00-SSP-GOV-GAT-nn-RCR-nn].
 class ReviewCriterionEntry {
   String? content;
   String? criterion;
@@ -178,20 +184,22 @@ class ReviewCriterionEntry {
 /// 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
 class DecisionPoints {
   String? content;
+  /// Contains 0+× DecisionPoint.
   List<DecisionPointEntry> items = [];
 }
 
-/// A decision point entry (form).
+/// A decision point entry (form) [PD00-SSP-GOV-DEC-nn].
 class DecisionPointEntry {
   String? content;
   String? decisionPoint;
   String? timing;
   String? criteria;
   String? decisionAuthority;
+  /// Contains 0+× DecisionOption.
   List<DecisionOptionEntry> options = [];
 }
 
-/// A decision option entry (form).
+/// A decision option entry (form) [PD00-SSP-GOV-DEC-nn-OPT-nn].
 class DecisionOptionEntry {
   String? content;
   String? option;

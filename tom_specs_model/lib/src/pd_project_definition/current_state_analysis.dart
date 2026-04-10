@@ -51,10 +51,11 @@ class ExistingSystemEntry {
   String? dataVolume;
   String? operationalSince;
   String? supportStatus;
+  /// Contains 0+× Limitation.
   List<LimitationEntry> knownLimitations = [];
 }
 
-/// A known limitation of an existing system (form).
+/// A known limitation of an existing system (form) [PD00-CUR-SYS-INV-nn-LIM-nn].
 class LimitationEntry {
   String? content;
   String? limitation;
@@ -75,16 +76,18 @@ class DependenciesAndIntegrations {
 /// 1.1.3.1. Dependencies [PD00-CUR-SYS-DEP-DEP].
 class Dependencies {
   String? content;
+  /// Contains 0+× SystemDependency.
   List<SystemDependencyEntry> items = [];
 }
 
 /// 1.1.3.2. Integrations [PD00-CUR-SYS-DEP-INT].
 class Integrations {
   String? content;
+  /// Contains 0+× SystemIntegration.
   List<SystemIntegrationEntry> items = [];
 }
 
-/// A system dependency entry (form).
+/// A system dependency entry (form) [PD00-CUR-SYS-DEP-DEP-nn].
 class SystemDependencyEntry {
   String? content;
   String? sourceSystem;
@@ -93,7 +96,7 @@ class SystemDependencyEntry {
   String? criticality;
 }
 
-/// A system integration entry (form).
+/// A system integration entry (form) [PD00-CUR-SYS-DEP-INT-nn].
 class SystemIntegrationEntry {
   String? content;
   String? sourceSystem;
@@ -127,22 +130,26 @@ class CurrentWorkflowEntry {
   String? content;
   String? processName;
   String? trigger;
+  /// Contains 0+× WorkflowStep.
   List<WorkflowStepEntry> steps = [];
+  /// Contains 0+× WorkflowActor.
   List<WorkflowActorEntry> actors = [];
   String? output;
   String? cycleTime;
+  /// Contains 0+× WorkflowStep.
   List<WorkflowStepEntry> manualSteps = [];
+  /// Contains 0+× WorkflowStep.
   List<WorkflowStepEntry> errorProneSteps = [];
 }
 
-/// A workflow step entry (form).
+/// A workflow step entry (form) [PD00-CUR-PRO-nn-WOR-nn-STP-nn].
 class WorkflowStepEntry {
   String? content;
   String? stepName;
   String? description;
 }
 
-/// A workflow actor entry (form).
+/// A workflow actor entry (form) [PD00-CUR-PRO-nn-WOR-nn-ACT-nn].
 class WorkflowActorEntry {
   String? content;
   String? actorName;
@@ -152,10 +159,11 @@ class WorkflowActorEntry {
 /// 1.2.2. Process Metrics [PD00-CUR-PRO-MET].
 class ProcessMetrics {
   String? content;
+  /// Contains 0+× ProcessMetric.
   List<ProcessMetricEntry> items = [];
 }
 
-/// A process metric entry (form).
+/// A process metric entry (form) [PD00-CUR-PRO-nn-MET-nn].
 class ProcessMetricEntry {
   String? content;
   String? metricName;
@@ -190,22 +198,25 @@ class PainPointsAndGaps {
 /// 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
 class OperationalPainPoints {
   String? content;
+  /// Contains 0+× PainPoint.
   List<PainPointEntry> items = [];
 }
 
 /// 1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
 class BusinessPainPoints {
   String? content;
+  /// Contains 0+× PainPoint.
   List<PainPointEntry> items = [];
 }
 
 /// 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
 class TechnicalPainPoints {
   String? content;
+  /// Contains 0+× PainPoint.
   List<PainPointEntry> items = [];
 }
 
-/// A pain point entry (form).
+/// A pain point entry (form) [PD00-CUR-PAI-nn].
 class PainPointEntry {
   String? content;
   String? painPoint;
@@ -219,10 +230,11 @@ class PainPointEntry {
 /// 1.3.4. Gaps [PD00-CUR-PAI-GAP].
 class Gaps {
   String? content;
+  /// Contains 0+× Gap.
   List<GapEntry> items = [];
 }
 
-/// A gap entry (form) — a missing capability or feature.
+/// A gap entry (form) — a missing capability or feature [PD00-CUR-PAI-GAP-nn].
 class GapEntry {
   String? content;
   String? gapName;
@@ -241,14 +253,14 @@ class GapEntry {
 class CurrentDataLandscape {
   String? content;
 
-  /// 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC].
+  /// 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC] — contains 0+× DataSource.
   List<DataSourceEntry> dataSources = [];
 
   /// 1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA].
   String? dataQualityAssessment;
 }
 
-/// A data source entry combining store, format, volume, and quality (form).
+/// A data source entry combining store, format, volume, and quality (form) [PD00-CUR-DAT-SRC-nn].
 class DataSourceEntry {
   String? content;
   String? dataStoreName;

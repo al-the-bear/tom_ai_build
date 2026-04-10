@@ -44,11 +44,11 @@ class BasicTechnicalRequirements {
   /// 8.1.2. Architecture Style [PD00-TEC-BAS-ARC].
   String? architectureStyle;
 
-  /// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
+  /// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT] — contains 0+× DesignPattern.
   List<DesignPatternEntry> designPatternsAndStandards = [];
 }
 
-/// A design pattern or standard entry (form).
+/// A design pattern or standard entry (form) [PD00-TEC-BAS-PAT-nn].
 class DesignPatternEntry {
   String? content;
   String? patternName;
@@ -65,11 +65,11 @@ class SoftwareDesignRequirements {
   /// 8.2.2. Development Environment [PD00-TEC-SOF-DEV].
   String? developmentEnvironment;
 
-  /// 8.2.3. Reusable Components [PD00-TEC-SOF-REU].
+  /// 8.2.3. Reusable Components [PD00-TEC-SOF-REU] — contains 0+× ReusableComponent.
   List<ReusableComponentEntry> reusableComponents = [];
 }
 
-/// A reusable component entry (form).
+/// A reusable component entry (form) [PD00-TEC-SOF-REU-nn].
 class ReusableComponentEntry {
   String? content;
   String? componentName;
@@ -81,14 +81,14 @@ class ReusableComponentEntry {
 class StandardSoftwareRequirements {
   String? content;
 
-  /// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
+  /// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM] — contains 0+× CompatibilityRequirement.
   List<CompatibilityRequirementEntry> compatibilityRequirements = [];
 
   /// 8.3.2. Standards Compliance [PD00-TEC-STA-STD].
   String? standardsCompliance;
 }
 
-/// A compatibility requirement entry (form).
+/// A compatibility requirement entry (form) [PD00-TEC-STA-COM-nn].
 class CompatibilityRequirementEntry {
   String? content;
   String? requirement;
@@ -130,14 +130,14 @@ class OperationsRequirements {
 class CommunicationRequirements {
   String? content;
 
-  /// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
+  /// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO] — contains 0+× Protocol.
   List<ProtocolEntry> protocolsAndStandards = [];
 
   /// 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
   String? externalConnectivity;
 }
 
-/// A protocol or standard entry (form).
+/// A protocol or standard entry (form) [PD00-TEC-COM-PRO-nn].
 class ProtocolEntry {
   String? content;
   String? protocolName;
@@ -184,17 +184,17 @@ class Monitoring {
 class TechnicalSecurityRequirements {
   String? content;
 
-  /// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
+  /// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS] — contains 0+× SecurityStandard.
   List<SecurityStandardEntry> itSecurityStandards = [];
 
   /// 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
   String? dataProtectionAndPrivacy;
 
-  /// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
+  /// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD] — contains 0+× SecurityAudit.
   List<SecurityAuditEntry> securityAuditRequirements = [];
 }
 
-/// A security standard entry (form).
+/// A security standard entry (form) [PD00-TEC-SEC-ITS-nn].
 class SecurityStandardEntry {
   String? content;
   String? standardName;
@@ -202,7 +202,7 @@ class SecurityStandardEntry {
   String? scope;
 }
 
-/// A security audit requirement entry (form).
+/// A security audit requirement entry (form) [PD00-TEC-SEC-AUD-nn].
 class SecurityAuditEntry {
   String? content;
   String? requirement;

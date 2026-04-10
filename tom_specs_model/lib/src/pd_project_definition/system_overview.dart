@@ -60,10 +60,10 @@ class SystemDescription {
 class UserInteractionModel {
   String? content;
 
-  /// Interaction channels (web, mobile, API, CLI, etc.).
+  /// Interaction channels (web, mobile, API, CLI, etc.) — contains 0+× InteractionChannel.
   List<InteractionChannelEntry> channels = [];
 
-  /// Interaction patterns (workflow, self-service, batch, etc.).
+  /// Interaction patterns (workflow, self-service, batch, etc.) — contains 0+× InteractionPattern.
   List<InteractionPatternEntry> interactionPatterns = [];
 
   /// Session model (stateful/stateless, session duration, etc.).
@@ -73,14 +73,14 @@ class UserInteractionModel {
   String? concurrencyModel;
 }
 
-/// An interaction pattern entry (form).
+/// An interaction pattern entry (form) [PD00-SYO-SYD-USI-PAT-nn].
 class InteractionPatternEntry {
   String? content;
   String? patternName;
   String? description;
 }
 
-/// An interaction channel entry (form).
+/// An interaction channel entry (form) [PD00-SYO-SYD-USI-CHA-nn].
 class InteractionChannelEntry {
   String? content;
   String? channelName;
@@ -171,6 +171,7 @@ class TechnicalGoalEntry {
 /// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
 class SuccessCriteria {
   String? content;
+  /// Contains 0+× SuccessCriterion.
   List<SuccessCriterionEntry> items = [];
 }
 
@@ -214,21 +215,23 @@ class FunctionalRequirementEntry {
   String? priority;
   String? source;
   String? rationale;
+  /// Contains 0+× AcceptanceCriterion.
   List<AcceptanceCriterionEntry> acceptanceCriteria = [];
   String? relatedUseCase;
   String? relatedBusinessProcess;
+  /// Contains 0+× DataEntityReference.
   List<DataEntityReferenceEntry> affectedDataEntities = [];
   String? status;
 }
 
-/// An acceptance criterion entry (form). Shared across requirement types.
+/// An acceptance criterion entry (form). Shared across requirement types [PD00-SYO-REQ-FUN-nn-ACR-nn].
 class AcceptanceCriterionEntry {
   String? content;
   String? criterion;
   String? verificationMethod;
 }
 
-/// A reference to a data entity (form).
+/// A reference to a data entity (form) [PD00-SYO-REQ-FUN-nn-DER-nn].
 class DataEntityReferenceEntry {
   String? content;
   String? entityName;
@@ -244,6 +247,7 @@ class TechnicalRequirementEntry {
   String? priority;
   String? source;
   String? rationale;
+  /// Contains 0+× AcceptanceCriterion.
   List<AcceptanceCriterionEntry> acceptanceCriteria = [];
   String? verificationApproach;
   String? status;
@@ -259,6 +263,7 @@ class SecurityRequirementEntry {
   String? source;
   String? rationale;
   String? complianceReference;
+  /// Contains 0+× AcceptanceCriterion.
   List<AcceptanceCriterionEntry> acceptanceCriteria = [];
   String? status;
 }
@@ -272,6 +277,7 @@ class OrganizationalRequirementEntry {
   String? priority;
   String? source;
   String? rationale;
+  /// Contains 0+× AcceptanceCriterion.
   List<AcceptanceCriterionEntry> acceptanceCriteria = [];
   String? status;
 }
@@ -300,30 +306,32 @@ class SystemToReplaceEntry {
   String? dataMigrationScope;
   String? migrationComplexity;
   String? decommissionDate;
+  /// Contains 0+× SystemDependencyReference.
   List<SystemDependencyReferenceEntry> dependencies = [];
 
   /// Per-system migration considerations.
   SystemMigrationConsiderations systemMigration = SystemMigrationConsiderations();
 }
 
-/// A system dependency reference entry (form).
+/// A system dependency reference entry (form) [PD00-SYO-SYR-INV-nn-DEP-nn].
 class SystemDependencyReferenceEntry {
   String? content;
   String? dependencyName;
   String? dependencyType;
 }
 
-/// Per-system migration considerations.
+/// Per-system migration considerations [PD00-SYO-SYR-INV-nn-MIG].
 class SystemMigrationConsiderations {
   String? content;
   String? migrationApproach;
   String? dataTransformationNeeds;
+  /// Contains 0+× MigrationRiskReference.
   List<MigrationRiskReferenceEntry> risks = [];
   String? estimatedEffort;
   String? rollbackStrategy;
 }
 
-/// A migration risk reference entry (form).
+/// A migration risk reference entry (form) [PD00-SYO-SYR-INV-nn-MRR-nn].
 class MigrationRiskReferenceEntry {
   String? content;
   String? riskDescription;
@@ -353,10 +361,11 @@ class MigrationConsiderations {
 /// Migration risks [PD00-SYO-SYR-MIG-RIS].
 class MigrationRisks {
   String? content;
+  /// Contains 0+× MigrationRisk.
   List<MigrationRiskEntry> items = [];
 }
 
-/// A migration risk entry (form).
+/// A migration risk entry (form) [PD00-SYO-SYR-MIG-RIS-nn].
 class MigrationRiskEntry {
   String? content;
   String? riskDescription;
@@ -400,6 +409,7 @@ class ExternalInterfaceEntry {
 /// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT].
 class OutOfScope {
   String? content;
+  /// Contains 0+× OutOfScope.
   List<OutOfScopeEntry> items = [];
 }
 
@@ -414,6 +424,7 @@ class OutOfScopeEntry {
 /// 4.5.3. Assumptions [PD00-SYO-SYB-ASS].
 class BoundaryAssumptions {
   String? content;
+  /// Contains 0+× Assumption.
   List<AssumptionEntry> items = [];
 }
 
@@ -464,6 +475,7 @@ class OrganizationalEnvironment {
 /// 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN].
 class FunctionalResponsibilities {
   String? content;
+  /// Contains 0+× Responsibility.
   List<ResponsibilityEntry> items = [];
 }
 
@@ -483,21 +495,21 @@ class TechnicalFrameworkConditions {
   /// Existing infrastructure [PD00-SYO-RES-TEC-INF].
   String? existingInfrastructure;
 
-  /// Technology standards [PD00-SYO-RES-TEC-STD].
+  /// Technology standards [PD00-SYO-RES-TEC-STD] — contains 0+× TechnologyStandard.
   List<TechnologyStandardEntry> technologyStandards = [];
 
-  /// Integration constraints [PD00-SYO-RES-TEC-INT].
+  /// Integration constraints [PD00-SYO-RES-TEC-INT] — contains 0+× IntegrationConstraint.
   List<IntegrationConstraintEntry> integrationConstraints = [];
 }
 
-/// A technology standard entry (form).
+/// A technology standard entry (form) [PD00-SYO-RES-TEC-STD-nn].
 class TechnologyStandardEntry {
   String? content;
   String? standard;
   String? description;
 }
 
-/// An integration constraint entry (form).
+/// An integration constraint entry (form) [PD00-SYO-RES-TEC-INT-nn].
 class IntegrationConstraintEntry {
   String? content;
   String? constraint;
@@ -518,6 +530,7 @@ class ConstraintsAndDependencies {
 /// 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
 class Constraints {
   String? content;
+  /// Contains 0+× Constraint.
   List<ConstraintEntry> items = [];
 }
 
@@ -533,6 +546,7 @@ class ConstraintEntry {
 /// 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
 class FrameworkDependencies {
   String? content;
+  /// Contains 0+× FrameworkDependency.
   List<FrameworkDependencyEntry> items = [];
 }
 
@@ -576,5 +590,6 @@ class RiskEntry {
 /// 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS].
 class KeyAssumptions {
   String? content;
+  /// Contains 0+× Assumption.
   List<AssumptionEntry> items = [];
 }

@@ -4,6 +4,8 @@
 /// descriptions (seeds → BP) and actor interactions (seeds → UC).
 library;
 
+import 'package:tom_specs_core/tom_specs_core.dart';
+
 
 
 /// 6. Target Business Process Model [PD00-TAR].
@@ -17,7 +19,7 @@ class TargetBusinessProcessModel {
   DesignPrinciples designPrinciples = DesignPrinciples();
 
   /// 6.3. Process Overview Diagram [PD00-TAR-FLO] (mermaid).
-  String? processOverviewDiagram;
+  FlowDiagramSection processOverviewDiagram = FlowDiagramSection();
 
   /// 6.4. Relationships Between Processes [PD00-TAR-REL].
   ProcessRelationships relationshipsBetweenProcesses = ProcessRelationships();
@@ -32,10 +34,11 @@ class TargetBusinessProcessModel {
 /// 6.2. Design Principles [PD00-TAR-PRI].
 class DesignPrinciples {
   String? content;
+  /// Contains 0+× DesignPrinciple.
   List<DesignPrincipleEntry> items = [];
 }
 
-/// A design principle entry (form).
+/// A design principle entry (form) [PD00-TAR-PRI-nn].
 class DesignPrincipleEntry {
   String? content;
   String? principle;
@@ -46,10 +49,11 @@ class DesignPrincipleEntry {
 /// 6.4. Relationships Between Processes [PD00-TAR-REL].
 class ProcessRelationships {
   String? content;
+  /// Contains 0+× ProcessRelationship.
   List<ProcessRelationshipEntry> items = [];
 }
 
-/// A process relationship entry (form).
+/// A process relationship entry (form) [PD00-TAR-REL-nn].
 class ProcessRelationshipEntry {
   String? content;
   String? sourceProcess;
@@ -107,7 +111,7 @@ class ProcessStepsAndActorInteractions {
   List<ScenarioEntry> scenarios = [];
 }
 
-/// An actor entry (form).
+/// An actor entry (form) [PD00-TAR-CAT-nn-ACT-nn].
 class ActorEntry {
   String? content;
   String? actorName;
@@ -120,13 +124,14 @@ class ActorEntry {
   String? accessChannel;
 }
 
-/// Primary interactions for an actor.
+/// Primary interactions for an actor [PD00-TAR-CAT-nn-ACT-nn-PRI].
 class PrimaryInteractions {
   String? content;
+  /// Contains 0+× PrimaryInteraction.
   List<PrimaryInteractionEntry> items = [];
 }
 
-/// A primary interaction entry (form).
+/// A primary interaction entry (form) [PD00-TAR-CAT-nn-ACT-nn-PRI-nn].
 class PrimaryInteractionEntry {
   String? content;
   String? useCaseReference;
@@ -135,7 +140,7 @@ class PrimaryInteractionEntry {
   String? criticality;
 }
 
-/// An interaction entry (form).
+/// An interaction entry (form) [PD00-TAR-CAT-nn-INT-nn].
 class InteractionEntry {
   String? content;
   String? interactionId;
@@ -149,19 +154,20 @@ class InteractionEntry {
   String? relatedUseCase;
 }
 
-/// A scenario entry (description).
+/// A scenario entry (description) [PD00-TAR-CAT-nn-SCE-nn].
 class ScenarioEntry {
   String? content;
   String? scenarioName;
   String? description;
+  /// Contains 0+× ScenarioStep.
   List<ScenarioStepEntry> steps = [];
   String? successCondition;
 
-  /// Alternative flows for this scenario.
+  /// Alternative flows for this scenario — contains 0+× AlternativeFlow.
   List<AlternativeFlowEntry> alternativeFlows = [];
 }
 
-/// A scenario step entry (form).
+/// A scenario step entry (form) [PD00-TAR-CAT-nn-SCE-nn-SST-nn].
 class ScenarioStepEntry {
   String? content;
   String? stepNumber;
@@ -169,11 +175,12 @@ class ScenarioStepEntry {
   String? expectedResult;
 }
 
-/// An alternative flow entry (form).
+/// An alternative flow entry (form) [PD00-TAR-CAT-nn-SCE-nn-AFL-nn].
 class AlternativeFlowEntry {
   String? content;
   String? flowName;
   String? triggerCondition;
+  /// Contains 0+× ScenarioStep.
   List<ScenarioStepEntry> steps = [];
   String? outcome;
   String? returnPoint;

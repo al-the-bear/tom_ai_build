@@ -37,10 +37,11 @@ class NewOrganizationStructure {
 /// 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
 class ChangesFromCurrentStructure {
   String? content;
+  /// Contains 0+× OrganizationalChange.
   List<OrganizationalChangeEntry> items = [];
 }
 
-/// An organizational change entry (form).
+/// An organizational change entry (form) [PD00-ORG-STR-CHA-nn].
 class OrganizationalChangeEntry {
   String? content;
   String? area;
@@ -74,10 +75,11 @@ class StaffingPlan {
   String? headcountSummary;
   String? recruitmentTimeline;
   String? budget;
+  /// Contains 0+× Staffing.
   List<StaffingEntry> items = [];
 }
 
-/// A staffing entry (form).
+/// A staffing entry (form) [PD00-ORG-JOB-STA-nn].
 class StaffingEntry {
   String? content;
   String? roleTitle;
@@ -92,21 +94,23 @@ class NewRoleEntry {
   String? content;
   String? roleTitle;
   String? department;
+  /// Contains 0+× RoleResponsibility.
   List<RoleResponsibilityEntry> responsibilities = [];
+  /// Contains 0+× Skill.
   List<SkillEntry> requiredSkills = [];
   String? reportingLine;
   String? fteAllocation;
   String? startDate;
 }
 
-/// A responsibility entry (form).
+/// A responsibility entry (form) [PD00-ORG-JOB-nn-RSP-nn].
 class RoleResponsibilityEntry {
   String? content;
   String? responsibility;
   String? description;
 }
 
-/// A skill entry (form).
+/// A skill entry (form) [PD00-ORG-JOB-nn-SKL-nn].
 class SkillEntry {
   String? content;
   String? skillName;
@@ -118,8 +122,11 @@ class ChangedRoleEntry {
   String? content;
   String? roleTitle;
   String? currentDepartment;
+  /// Contains 0+× RoleResponsibility.
   List<RoleResponsibilityEntry> addedResponsibilities = [];
+  /// Contains 0+× RoleResponsibility.
   List<RoleResponsibilityEntry> removedResponsibilities = [];
+  /// Contains 0+× Skill.
   List<SkillEntry> newSkillRequirements = [];
   String? changedReportingLine;
   String? trainingRequired;
@@ -146,10 +153,11 @@ class WorkplaceDescriptionEntry {
 /// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
 class EquipmentRequirements {
   String? content;
+  /// Contains 0+× EquipmentRequirement.
   List<EquipmentRequirementEntry> items = [];
 }
 
-/// An equipment requirement entry (form).
+/// An equipment requirement entry (form) [PD00-ORG-WOR-nn-EQU-nn].
 class EquipmentRequirementEntry {
   String? content;
   String? equipmentType;
@@ -161,10 +169,11 @@ class EquipmentRequirementEntry {
 /// 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
 class TrainingRequirements {
   String? content;
+  /// Contains 0+× TrainingRequirement.
   List<TrainingRequirementEntry> items = [];
 }
 
-/// A training requirement entry (form).
+/// A training requirement entry (form) [PD00-ORG-WOR-nn-TRA-nn].
 class TrainingRequirementEntry {
   String? content;
   String? trainingTopic;

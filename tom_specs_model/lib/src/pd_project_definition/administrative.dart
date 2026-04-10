@@ -3,6 +3,8 @@
 /// Project administration: team, distribution, change procedure, references.
 library;
 
+import 'package:tom_specs_core/tom_specs_core.dart';
+
 
 
 /// 3. Administrative [PD00-ADM].
@@ -51,7 +53,7 @@ class OrganizationStructure {
   String? orgChartExplanation;
 
   /// Organization chart diagram (e.g. Mermaid or image reference).
-  String? orgChartDiagram;
+  DiagramSection orgChartDiagram = DiagramSection();
 }
 
 /// A steering committee member entry [PD00-ADM-PRO-STE-nn] (form).
@@ -107,16 +109,18 @@ class DistributionList {
 /// 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
 class FullDistribution {
   String? content;
+  /// Contains 0+× DistributionRecipient.
   List<DistributionRecipientEntry> items = [];
 }
 
 /// 3.3.2. Executive Summary Distribution [PD00-ADM-DIS-EXE].
 class ExecutiveSummaryDistribution {
   String? content;
+  /// Contains 0+× DistributionRecipient.
   List<DistributionRecipientEntry> items = [];
 }
 
-/// A distribution recipient entry (form).
+/// A distribution recipient entry (form) [PD00-ADM-DIS-nn].
 class DistributionRecipientEntry {
   String? content;
   String? name;
@@ -145,26 +149,26 @@ class ChangeProcess {
   String? content;
 
   /// Overview diagram (e.g. Mermaid or image reference).
-  String? overviewDiagram;
+  FlowDiagramSection overviewDiagram = FlowDiagramSection();
 
-  /// Process steps — ordered list of change process steps.
+  /// Process steps — ordered list of change process steps — contains 0+× ChangeStep.
   List<ChangeStepEntry> steps = [];
 
-  /// Roles involved in the change process.
+  /// Roles involved in the change process — contains 0+× ChangeRole.
   List<ChangeRoleEntry> roles = [];
 
   String? approvalAuthority;
   String? escalationPath;
 }
 
-/// A role involved in the change process (form).
+/// A role involved in the change process (form) [PD00-ADM-CHA-PRO-ROL-nn].
 class ChangeRoleEntry {
   String? content;
   String? roleName;
   String? responsibility;
 }
 
-/// A change process step entry (form).
+/// A change process step entry (form) [PD00-ADM-CHA-PRO-STP-nn].
 class ChangeStepEntry {
   String? content;
   String? stepName;
@@ -175,16 +179,17 @@ class ChangeStepEntry {
   String? approvalCriteria;
 
   /// Subflow diagram for this step (e.g. Mermaid or image reference).
-  String? subflowDiagram;
+  FlowDiagramSection? subflowDiagram;
 }
 
 /// 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
 class ChangeImpactCriteria {
   String? content;
+  /// Contains 0+× ChangeImpactCriterion.
   List<ChangeImpactCriterionEntry> items = [];
 }
 
-/// A change impact criterion entry (form).
+/// A change impact criterion entry (form) [PD00-ADM-CHA-CRI-nn].
 class ChangeImpactCriterionEntry {
   String? content;
   String? criterion;

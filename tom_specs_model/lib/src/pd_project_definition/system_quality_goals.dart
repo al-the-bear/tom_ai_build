@@ -38,11 +38,11 @@ class QualityFramework {
   /// 11.1.1. Quality Objectives Overview [PD00-SYQ-FRA-OBJ].
   String? qualityObjectivesOverview;
 
-  /// 11.1.2. Quality Categories [PD00-SYQ-FRA-CAT].
+  /// 11.1.2. Quality Categories [PD00-SYQ-FRA-CAT] — contains 0+× QualityCategory.
   List<QualityCategoryEntry> qualityCategories = [];
 }
 
-/// A quality category entry (form).
+/// A quality category entry (form) [PD00-SYQ-FRA-CAT-nn].
 class QualityCategoryEntry {
   String? content;
   String? categoryName;
@@ -134,10 +134,11 @@ class QualityPrioritization {
 /// 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
 class TradeOffDecisions {
   String? content;
+  /// Contains 0+× TradeOffDecision.
   List<TradeOffDecisionEntry> items = [];
 }
 
-/// A trade-off decision entry (form).
+/// A trade-off decision entry (form) [PD00-SYQ-PRI-TRA-nn].
 class TradeOffDecisionEntry {
   String? content;
   String? decision;
@@ -160,10 +161,11 @@ class AcceptanceCriteriaSummary {
 /// 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
 class MustPassCriteria {
   String? content;
+  /// Contains 0+× MustPassCriterion.
   List<MustPassCriterionEntry> items = [];
 }
 
-/// A must-pass criterion entry (form).
+/// A must-pass criterion entry (form) [PD00-SYQ-ACC-MUS-nn].
 class MustPassCriterionEntry {
   String? content;
   String? criterion;
@@ -174,10 +176,11 @@ class MustPassCriterionEntry {
 /// 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
 class QualityGateChecklist {
   String? content;
+  /// Contains 0+× QualityGateCheck.
   List<QualityGateCheckEntry> items = [];
 }
 
-/// A quality gate check entry (form).
+/// A quality gate check entry (form) [PD00-SYQ-ACC-GAT-nn].
 class QualityGateCheckEntry {
   String? content;
   String? checkItem;

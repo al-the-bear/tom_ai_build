@@ -29,10 +29,11 @@ class ProjectOrganizationAndProcess {
 /// 2.1. Role Adjustments [PD00-POP-ROL].
 class RoleAdjustments {
   String? content;
+  /// Contains 0+× RoleAdjustment.
   List<RoleAdjustmentEntry> items = [];
 }
 
-/// A role adjustment entry (form).
+/// A role adjustment entry (form) [PD00-POP-ROL-nn].
 class RoleAdjustmentEntry {
   String? content;
   String? roleName;
@@ -47,10 +48,11 @@ class RoleAdjustmentEntry {
 /// 2.2. Quality Gate Adjustments [PD00-POP-QGA].
 class QualityGateAdjustments {
   String? content;
+  /// Contains 0+× QualityGateAdjustment.
   List<QualityGateAdjustmentEntry> items = [];
 }
 
-/// A quality gate adjustment entry (form).
+/// A quality gate adjustment entry (form) [PD00-POP-QGA-nn].
 class QualityGateAdjustmentEntry {
   String? content;
   String? gateName;
@@ -65,10 +67,11 @@ class QualityGateAdjustmentEntry {
 /// 2.3. Process Adjustments [PD00-POP-PRC].
 class ProcessAdjustments {
   String? content;
+  /// Contains 0+× ProcessAdjustment.
   List<ProcessAdjustmentEntry> items = [];
 }
 
-/// A process adjustment entry (form).
+/// A process adjustment entry (form) [PD00-POP-PRC-nn].
 class ProcessAdjustmentEntry {
   String? content;
   String? processName;
@@ -94,10 +97,11 @@ class ToolingAndEnvironments {
 /// 2.4.1. Tooling [PD00-POP-TOO-TOO].
 class Tooling {
   String? content;
+  /// Contains 0+× Tool.
   List<ToolEntry> items = [];
 }
 
-/// A tool entry (form).
+/// A tool entry (form) [PD00-POP-TOO-TOO-nn].
 class ToolEntry {
   String? content;
   String? toolName;
@@ -109,10 +113,11 @@ class ToolEntry {
 /// 2.4.2. Environments [PD00-POP-TOO-ENV].
 class Environments {
   String? content;
+  /// Contains 0+× Environment.
   List<EnvironmentEntry> items = [];
 }
 
-/// An environment entry (form).
+/// An environment entry (form) [PD00-POP-TOO-ENV-nn].
 class EnvironmentEntry {
   String? content;
   String? environmentName;

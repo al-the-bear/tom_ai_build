@@ -38,7 +38,7 @@ import 'user_interface_design.dart';
 
 /// The complete Project Definition (PD) document.
 ///
-/// Contains a [DocumentHeader] and all 14 PD sections.
+/// Contains a [DocumentHeader] and all 14 PD sections [PD00].
 class ProjectDefinition {
   /// Document header (form fields at top of document).
   DocumentHeader header = DocumentHeader();

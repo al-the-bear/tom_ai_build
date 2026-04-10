@@ -3,6 +3,8 @@
 /// Seeds → UP, SR, TR depending on subsection.
 library;
 
+import 'package:tom_specs_core/tom_specs_core.dart';
+
 
 
 /// 10. User Interface Design and Prototype [PD00-USE].
@@ -57,24 +59,24 @@ class UserInterfaceDesign {
 class DesignVision {
   String? content;
 
-  /// 10.1.1. Design Goals [PD00-USE-VIS-GOA].
+  /// 10.1.1. Design Goals [PD00-USE-VIS-GOA] — contains 0+× DesignGoal.
   List<DesignGoalEntry> designGoals = [];
 
-  /// 10.1.2. Design Principles [PD00-USE-VIS-PRI].
+  /// 10.1.2. Design Principles [PD00-USE-VIS-PRI] — contains 0+× UiDesignPrinciple.
   List<UiDesignPrincipleEntry> designPrinciples = [];
 
   /// 10.1.3. User Personas [PD00-USE-VIS-PER] — contains 1+× Persona.
   List<PersonaEntry> personas = [];
 }
 
-/// A design goal entry (form).
+/// A design goal entry (form) [PD00-USE-VIS-GOA-nn].
 class DesignGoalEntry {
   String? content;
   String? goal;
   String? description;
 }
 
-/// A design principle entry (form).
+/// A design principle entry (form) [PD00-USE-VIS-PRI-nn].
 class UiDesignPrincipleEntry {
   String? content;
   String? principle;
@@ -87,21 +89,23 @@ class PersonaEntry {
   String? personaName;
   String? age;
   String? role;
+  /// Contains 0+× PersonaGoal.
   List<PersonaGoalEntry> goals = [];
+  /// Contains 0+× PersonaPainPoint.
   List<PersonaPainPointEntry> painPoints = [];
   String? technicalProficiency;
   String? typicalUsage;
   String? device;
 }
 
-/// A persona goal entry (form).
+/// A persona goal entry (form) [PD00-USE-VIS-PER-nn-GOA-nn].
 class PersonaGoalEntry {
   String? content;
   String? goal;
   String? priority;
 }
 
-/// A pain point entry (form).
+/// A pain point entry (form) [PD00-USE-VIS-PER-nn-PAI-nn].
 class PersonaPainPointEntry {
   String? content;
   String? painPoint;
@@ -129,28 +133,31 @@ class ScreenEntry {
   String? screenId;
   String? screenName;
   String? purpose;
+  /// Contains 0+× ScreenElement.
   List<ScreenElementEntry> keyElements = [];
+  /// Contains 0+× ScreenUserCategory.
   List<ScreenUserCategoryEntry> userCategories = [];
   String? accessLevel;
+  /// Contains 0+× Point.
   List<EntryPointEntry> entryPoints = [];
   String? layout;
 }
 
-/// A screen element entry (form).
+/// A screen element entry (form) [PD00-USE-SCR-INV-nn-ELE-nn].
 class ScreenElementEntry {
   String? content;
   String? elementName;
   String? elementType;
 }
 
-/// A user category entry (form).
+/// A user category entry (form) [PD00-USE-SCR-INV-nn-UCT-nn].
 class ScreenUserCategoryEntry {
   String? content;
   String? categoryName;
   String? description;
 }
 
-/// An entry point entry (form).
+/// An entry point entry (form) [PD00-USE-SCR-INV-nn-EPT-nn].
 class EntryPointEntry {
   String? content;
   String? entryPoint;
@@ -169,7 +176,7 @@ class ScreenFlowStructure {
   String? navigationModel;
 
   /// 10.3.2. Screen Flow Diagram [PD00-USE-SCF-DIA] (mermaid).
-  String? screenFlowDiagram;
+  FlowDiagramSection screenFlowDiagram = FlowDiagramSection();
 }
 
 // ---------------------------------------------------------------------------
@@ -183,11 +190,11 @@ class PrintLayout {
   /// 10.4.1. Reports [PD00-USE-PRI-REP] — contains 0+× Report.
   List<ReportEntry> reports = [];
 
-  /// 10.4.2. Export Formats [PD00-USE-PRI-EXP].
+  /// 10.4.2. Export Formats [PD00-USE-PRI-EXP] — contains 0+× ExportFormat.
   List<ExportFormatEntry> exportFormats = [];
 }
 
-/// An export format entry (form).
+/// An export format entry (form) [PD00-USE-PRI-EXP-nn].
 class ExportFormatEntry {
   String? content;
   String? formatName;
@@ -202,11 +209,12 @@ class ReportEntry {
   String? reportContent;
   String? format;
   String? generationTrigger;
+  /// Contains 0+× Recipient.
   List<RecipientEntry> recipients = [];
   String? customization;
 }
 
-/// A recipient entry (form).
+/// A recipient entry (form) [PD00-USE-PRI-REP-nn-REC-nn].
 class RecipientEntry {
   String? content;
   String? recipientName;
@@ -267,10 +275,11 @@ class Accessibility {
 /// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
 class AccessibilityChecklist {
   String? content;
+  /// Contains 0+× AccessibilityCheck.
   List<AccessibilityCheckEntry> items = [];
 }
 
-/// An accessibility check entry (form).
+/// An accessibility check entry (form) [PD00-USE-ACC-CHK-nn].
 class AccessibilityCheckEntry {
   String? content;
   String? checkItem;
@@ -287,14 +296,14 @@ class AccessibilityCheckEntry {
 class ResponsiveDesign {
   String? content;
 
-  /// 10.10.1. Breakpoints [PD00-USE-RES-BRE].
+  /// 10.10.1. Breakpoints [PD00-USE-RES-BRE] — contains 0+× Breakpoint.
   List<BreakpointEntry> breakpoints = [];
 
   /// 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
   String? responsiveBehavior;
 }
 
-/// A breakpoint entry (form).
+/// A breakpoint entry (form) [PD00-USE-RES-BRE-nn].
 class BreakpointEntry {
   String? content;
   String? breakpointName;
@@ -323,19 +332,21 @@ class UiComponentEntry {
   String? componentName;
   String? purpose;
   String? behavior;
+  /// Contains 0+× ComponentState.
   List<ComponentStateEntry> states = [];
+  /// Contains 0+× ComponentVariant.
   List<ComponentVariantEntry> variants = [];
   String? responsive;
 }
 
-/// A component state entry (form).
+/// A component state entry (form) [PD00-USE-COM-SPE-nn-STA-nn].
 class ComponentStateEntry {
   String? content;
   String? stateName;
   String? description;
 }
 
-/// A component variant entry (form).
+/// A component variant entry (form) [PD00-USE-COM-SPE-nn-VAR-nn].
 class ComponentVariantEntry {
   String? content;
   String? variantName;
@@ -399,7 +410,7 @@ class RolloutSupport {
 class Prototype {
   String? content;
 
-  /// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
+  /// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA] — contains 0+× PrototypeGoal.
   List<PrototypeGoalEntry> prototypeGoals = [];
 
   /// 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
@@ -423,7 +434,7 @@ class PrototypeTypeSection {
   String? throwawayPrototype;
 }
 
-/// A prototype goal entry (form).
+/// A prototype goal entry (form) [PD00-USE-PRO-GOA-nn].
 class PrototypeGoalEntry {
   String? content;
   String? goal;

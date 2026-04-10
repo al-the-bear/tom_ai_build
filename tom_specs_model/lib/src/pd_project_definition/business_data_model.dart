@@ -3,6 +3,8 @@
 /// Conceptual overview of the business data the system manages.
 library;
 
+import 'package:tom_specs_core/tom_specs_core.dart';
+
 
 
 /// 7. Business Object and Data Model [PD00-BUS]. Seeds → BDM.
@@ -34,7 +36,7 @@ class DataModel {
   EntityRelationships entityRelationships = EntityRelationships();
 
   /// 7.1.3. Entity-Relationship Diagram [PD00-BUS-DAT-DIA] (mermaid).
-  String? erDiagram;
+  ErDiagramSection erDiagram = ErDiagramSection();
 
   /// 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
   DataClassification dataClassification = DataClassification();
@@ -46,14 +48,16 @@ class DataEntityEntry {
   String? entityName;
   String? description;
   String? category;
+  /// Contains 0+× DataAttribute.
   List<DataAttributeEntry> attributes = [];
+  /// Contains 0+× KeyAttribute.
   List<KeyAttributeEntry> keyAttributes = [];
   String? estimatedRecordCount;
   String? growthRate;
   String? retentionPolicy;
 }
 
-/// A data attribute entry (form).
+/// A data attribute entry (form) [PD00-BUS-DAT-ENT-nn-ATT-nn].
 class DataAttributeEntry {
   String? content;
   String? attributeName;
@@ -64,7 +68,7 @@ class DataAttributeEntry {
   String? description;
 }
 
-/// A key attribute entry (form) — primary, unique, or foreign key.
+/// A key attribute entry (form) — primary, unique, or foreign key [PD00-BUS-DAT-ENT-nn-KEY-nn].
 class KeyAttributeEntry {
   String? content;
   String? attributeName;
@@ -76,10 +80,11 @@ class KeyAttributeEntry {
 /// 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
 class EntityRelationships {
   String? content;
+  /// Contains 0+× EntityRelationship.
   List<EntityRelationshipEntry> items = [];
 }
 
-/// An entity relationship entry (form).
+/// An entity relationship entry (form) [PD00-BUS-DAT-REL-nn].
 class EntityRelationshipEntry {
   String? content;
   String? sourceEntity;
@@ -92,27 +97,30 @@ class EntityRelationshipEntry {
 /// 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
 class DataClassification {
   String? content;
+  /// Contains 0+× DataClassification.
   List<DataClassificationEntry> items = [];
 }
 
-/// A data classification entry (form).
+/// A data classification entry (form) [PD00-BUS-DAT-CLA-nn].
 class DataClassificationEntry {
   String? content;
   String? classification;
   String? description;
+  /// Contains 0+× HandlingRequirement.
   List<HandlingRequirementEntry> handlingRequirements = [];
   String? retentionPolicy;
+  /// Contains 0+× AccessRestriction.
   List<AccessRestrictionEntry> accessRestrictions = [];
 }
 
-/// A data handling requirement entry (form).
+/// A data handling requirement entry (form) [PD00-BUS-DAT-CLA-nn-HAN-nn].
 class HandlingRequirementEntry {
   String? content;
   String? requirement;
   String? description;
 }
 
-/// An access restriction entry (form).
+/// An access restriction entry (form) [PD00-BUS-DAT-CLA-nn-ARE-nn].
 class AccessRestrictionEntry {
   String? content;
   String? restriction;
@@ -131,7 +139,7 @@ class BusinessObjectModel {
   List<BusinessObjectEntry> objects = [];
 
   /// 7.2.2. Business Object Diagram [PD00-BUS-BUS-DIA] (mermaid).
-  String? objectDiagram;
+  DiagramSection objectDiagram = DiagramSection();
 }
 
 /// A business object entry [PD00-BUS-BUS-CAT-nn] (form).
@@ -142,15 +150,18 @@ class BusinessObjectEntry {
   String? objectName;
   String? category;
   String? description;
+  /// Contains 0+× BusinessObjectAttribute.
   List<BusinessObjectAttributeEntry> attributes = [];
+  /// Contains 0+× ObjectState.
   List<ObjectStateEntry> keyStates = [];
+  /// Contains 0+× BusinessRuleReference.
   List<BusinessRuleReferenceEntry> keyBusinessRules = [];
 
-  /// Lifecycle State Transitions [PD00-BUS-BUS-CAT-nn-LIF].
+  /// Lifecycle State Transitions [PD00-BUS-BUS-CAT-nn-LIF] — contains 0+× LifecycleTransition.
   List<LifecycleTransitionEntry> lifecycleTransitions = [];
 }
 
-/// A business object attribute entry (form).
+/// A business object attribute entry (form) [PD00-BUS-BUS-CAT-nn-BOA-nn].
 class BusinessObjectAttributeEntry {
   String? content;
   String? attributeName;
@@ -163,21 +174,21 @@ class BusinessObjectAttributeEntry {
   String? validationRules;
 }
 
-/// An object state entry (form).
+/// An object state entry (form) [PD00-BUS-BUS-CAT-nn-STA-nn].
 class ObjectStateEntry {
   String? content;
   String? stateName;
   String? description;
 }
 
-/// A business rule reference entry (form).
+/// A business rule reference entry (form) [PD00-BUS-BUS-CAT-nn-BRR-nn].
 class BusinessRuleReferenceEntry {
   String? content;
   String? ruleName;
   String? description;
 }
 
-/// A lifecycle transition entry (form).
+/// A lifecycle transition entry (form) [PD00-BUS-BUS-CAT-nn-LIF-nn].
 class LifecycleTransitionEntry {
   String? content;
   String? fromState;
@@ -209,20 +220,22 @@ class BusinessRuleEntry {
   String? ruleId;
   String? ruleName;
   String? description;
+  /// Contains 0+× AffectedObject.
   List<AffectedObjectEntry> affectedObjects = [];
+  /// Contains 0+× AffectedFunction.
   List<AffectedFunctionEntry> affectedFunctions = [];
   String? enforcement;
   String? exceptionHandling;
 }
 
-/// An affected object reference entry (form).
+/// An affected object reference entry (form) [PD00-BUS-FUN-RUL-nn-AOB-nn].
 class AffectedObjectEntry {
   String? content;
   String? objectName;
   String? impact;
 }
 
-/// An affected function reference entry (form).
+/// An affected function reference entry (form) [PD00-BUS-FUN-RUL-nn-AFU-nn].
 class AffectedFunctionEntry {
   String? content;
   String? functionName;
