@@ -472,6 +472,35 @@ format.
 
 ---
 
+## 17. `@SeedFor` — single-document seed reference
+
+**Pattern:** Comment says `Seeds → XX` where `XX` is a single document type.
+
+```dart
+/// 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
+class RequirementsOverview { … }
+
+/// 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+TechnicalFrameworkConditions technicalFrameworkConditions = ...;
+```
+
+**Rule:** When the comment lists exactly ONE document type it seeds, apply
+`@SeedFor(DocumentRootClass)` to establish a compile-time link to the target
+document. The `@Comment('Seeds → XX')` annotation remains as-is for human
+readability and outliner output.
+
+```dart
+@SeedFor(TechnicalRequirements)
+@Comment('Seeds → TR')
+TechnicalFrameworkConditions technicalFrameworkConditions = ...;
+```
+
+**Multi-document seeds:** When the comment references multiple documents
+(e.g., `Seeds → BP, UC`), use `@Comment('Seeds → BP, UC')` alone — `@SeedFor`
+cannot express multiple targets.
+
+---
+
 ## Summary of Confidence Levels
 
 | Rule | Annotation / Pattern | Confidence | Source signal |
@@ -494,3 +523,4 @@ format.
 | 14 | `@ForEach` | **Low** | `per XYZ` heuristic |
 | 15 | `@ValidationPrompt` | **None** | No comment convention |
 | 16 | `@PatternCheckId` | **Medium** | ID format conventions |
+| 17 | `@SeedFor` | **High** | Single `Seeds → XX` in comment → typed link |

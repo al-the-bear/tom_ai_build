@@ -19,6 +19,7 @@ export 'prefix.dart';
 export 'reference.dart';
 export 'section_id.dart';
 export 'section_id_pattern.dart';
+export 'seed_for.dart';
 export 'text_required.dart';
 export 'unused.dart';
 export 'validation_prompt.dart';

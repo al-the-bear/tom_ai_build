@@ -182,6 +182,7 @@ Not all annotations appear in the outline. Annotations are categorized as **visi
 | `@ValidationPrompt` | No | Schema constraint only |
 | `@AccessKey` | No | Schema constraint only |
 | `@MinLength`, `@MaxLength` | No | Schema constraint only |
+| `@SeedFor` | No | Schema constraint only (compile-time document link) |
 
 ### 4.14 Inline Schema Annotations (`--show-schema-annotations`)
 
@@ -482,6 +483,20 @@ Declares the maximum text length for a string field.
 - Applied to: `String?` or `content` fields.
 - Effect: Validates that the text does not exceed `length` characters.
 
+### 7.21 `@SeedFor(Type documentRootClass)`
+
+Marks a section or field as seeding a single downstream document.
+
+- Applied to: classes or fields whose content seeds exactly one document type.
+- Effect: Establishes a compile-time link to the target document root class.
+  Used when the comment says `Seeds → XX` with a single target. The
+  `@Comment('Seeds → XX')` annotation remains for human readability.
+- Example: `@SeedFor(TechnicalRequirements)` on a field that seeds the TR document.
+
+**Multi-document seeds:** When content seeds multiple documents (e.g.,
+`Seeds → BP, UC`), use only `@Comment('Seeds → …')` — `@SeedFor` cannot express
+multiple targets.
+
 ## 8. Output Example
 
 The example below shows the actual `tom_specs_model` tree with all notation
@@ -643,7 +658,7 @@ ProjectDefinition
 
 1. **Entry point**: A Dart CLI tool in `tom_specs_model/tool/generate_outline.dart`.
 2. **Analyzer setup**: Use `SummaryBasedDartSdk` with an embedded SDK summary bundle (no installed SDK required). The `sdk_summary.sum` file (~3 MB) is split into ~50 base64-encoded Dart source files in `lib/src/sdk_summary/`, reassembled at runtime. Model source files are analyzed directly from disk. See `tom_specs_clitool/doc/analyzer_wo_sdk.md` for full details.
-3. **Annotation reading**: Read `@Reference`, `@SectionId`, `@SectionIdPattern`, `@Comment`, `@ContentType`, `@Form`, `@Unused`, `@Prefix`, `@PatternCheckId`, `@TextRequired`, `@MaxDepth`, `@AllowedTags`, `@ValidationPrompt`, `@Min`, `@Max`, `@Position`, `@ForEach`, `@AccessKey`, `@PatternCheck`, `@MinLength`, `@MaxLength` from the analyzer's element model. All model classes in the package are scanned — no marker annotation is required.
+3. **Annotation reading**: Read `@Reference`, `@SectionId`, `@SectionIdPattern`, `@Comment`, `@ContentType`, `@Form`, `@Unused`, `@Prefix`, `@PatternCheckId`, `@TextRequired`, `@MaxDepth`, `@AllowedTags`, `@ValidationPrompt`, `@Min`, `@Max`, `@Position`, `@ForEach`, `@AccessKey`, `@PatternCheck`, `@MinLength`, `@MaxLength`, `@SeedFor` from the analyzer's element model. All model classes in the package are scanned — no marker annotation is required.
 4. **Tree walk**: Start from `ProjectDefinition`, recursively visit each field:
    - If `String` / `String?` → collect as leaf.
    - If enum → format with values inline.
@@ -667,7 +682,8 @@ Create the annotation classes in `tom_specs_core/lib/src/annotations/`:
 4. `comment.dart` — `@Comment(String text)`
 5. `type_hint.dart` — `@Type(String type)`
 6. `content_type.dart` — `@ContentType(String type)`
-7. Barrel export from `annotations.dart`.
+7. `seed_for.dart` — `@SeedFor(Type documentRootClass)`
+8. Barrel export from `annotations.dart`.
 
 ### Phase 2: Build the Outline Generator
 
