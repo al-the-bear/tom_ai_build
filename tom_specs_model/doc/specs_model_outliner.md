@@ -168,8 +168,8 @@ Not all annotations appear in the outline. Annotations are categorized as **visi
 | `@Position` | Yes | `[first]`, `[last]`, `[any]` marker (non-default only) |
 | `@ForEach` | Yes | `⟷ Type.key` marker |
 | `@TextRequired` | Yes | `!` suffix on `content` field |
-| `@FieldType` | Yes | `@type` suffix on field |
 | `@ContentType` | Yes | `@type` suffix on content |
+| `@Unused` | Yes | Marks content as unused (no section text expected) |
 | `@Comment` | Yes | `← (text)` marker |
 | `@Reference` | Yes | Reference path notation (see §4.9) |
 | `@SectionId` | Yes | Can be shown alongside type name |
@@ -309,22 +309,67 @@ Provides a short inline comment that appears in the outline output.
 - Effect: Shown as `← (text)` in the outline (see §4.10).
 - Example: `@Comment("same type reused")`.
 
-### 7.5 `@Type(String type)`
+### 7.5 `@Unused()`
 
-Annotates a `String?` field with its **semantic type** — what the string actually represents.
+Marks a `content` field as unused — section text is not expected and will be
+ignored by tooling.
 
-- Applied to: `String?` leaf fields.
-- Allowed values: `int`, `double`, `date`, `time`, `datetime`.
-- Effect: The generator shows the type hint in the outline: `-> operationalSince @date, activeUsers @int`.
+- Applied to: `content` fields.
+- Effect: The section serves only as a structural container for subsections.
+  No narrative text is expected, and any text present will be ignored.
+- Example: Applied to container sections like `ProjectDefinition` that exist
+  only to hold child sections.
 
-### 7.6 `@ContentType(String type)`
+### 7.6 `@ContentType(String type, [String description])`
 
 Annotates the `content` field to declare the **format** of the content text.
 
 - Applied to: `content` fields only.
-- Allowed values: `Form` (default), `DDL`, `SQL`, `Dart`, `ER-Diagram`, `Mermaid`, and other format identifiers.
-- Effect: `Form` means scalar fields are form fields within the content. Non-Form types prohibit other scalar fields (see §6.4).
+- Allowed values for `type`: `Form` (default), `DDL`, `SQL`, `Dart`,
+  `ER-Diagram`, `Mermaid`, and other format identifiers.
+- `description`: Explains what should be described in the content field.
+  Required for classes with `String? content` that are not *Section types.
+  For *Section classes, the description comes from the doc-comment on the field
+  in the class that uses the section variable (see §7.6a).
+- Effect: `Form` means scalar fields are form fields within the content.
+  Non-Form types prohibit other scalar fields (see §6.4).
 - Shown in outline: `-> content @Form` or `-> content @DDL`.
+
+### 7.6a Content Documentation Rules
+
+Every `String? content` field must have documentation about what it contains.
+The rules differ by class type:
+
+| Class type | Documentation source |
+|------------|---------------------|
+| *Section class (`TextSection`, `DiagramSection`, etc.) | Doc-comment on the **field** in the class that uses the section variable. The section class itself only has `@ContentType` for the format. |
+| Regular class with `String? content` | `@ContentType(type, 'description')` annotation on the content field. The `description` parameter is mandatory. |
+| Container class (content unused) | `@Unused()` annotation on the content field. Section text is not expected. |
+
+**Example — Section class (comment on using field):**
+```dart
+class DataModel {
+  /// Overview of the data model including all entity relationships.
+  TextSection dataModelOverview = TextSection();
+}
+```
+Here `TextSection.content` is described by the field comment on `dataModelOverview`.
+
+**Example — Regular class with @ContentType:**
+```dart
+class DataModel {
+  @ContentType('text', 'Overview over the data model, including diagram')
+  String? content;
+}
+```
+
+**Example — Unused content:**
+```dart
+class ProjectDefinition {
+  @Unused()
+  String? content;
+}
+```
 
 ### 7.7 `@Prefix(String prefix)`
 
@@ -584,7 +629,7 @@ ProjectDefinition
 **Features demonstrated:**
 
 - **Name-match rule**: `CurrentStateAnalysis` (field matches type) vs `header:DocumentHeader` (field ≠ type).
-- **`@FieldType` hints**: `date @date`, `activeUsers @int`, `estimatedCount @int`.
+- **`@Form` field display**: `content @Form(attributeName, dataType, length, mandatory, description)`.
 - **Enum inline values**: `priority: Priority (must, should, could, wontThisTime)`.
 - **`@Comment`**: `← (Seeds → RC)` on the requirements section.
 - **`@Min`/`@Max` count constraints**: `(1,)-:` on lists requiring at least one item (knownLimitations, workflows, steps, businessGoals, functionalRequirements, etc.).
@@ -599,9 +644,9 @@ ProjectDefinition
 
 1. **Entry point**: A Dart CLI tool in `tom_specs_model/tool/generate_outline.dart`.
 2. **Analyzer setup**: Use `SummaryBasedDartSdk` with an embedded SDK summary bundle (no installed SDK required). The `sdk_summary.sum` file (~3 MB) is split into ~50 base64-encoded Dart source files in `lib/src/sdk_summary/`, reassembled at runtime. Model source files are analyzed directly from disk. See `tom_specs_clitool/doc/analyzer_wo_sdk.md` for full details.
-3. **Annotation reading**: Read `@Reference`, `@SectionId`, `@SectionIdPattern`, `@Comment`, `@FieldType`, `@ContentType`, `@Prefix`, `@PatternCheckId`, `@TextRequired`, `@MaxDepth`, `@AllowedTags`, `@ValidationPrompt`, `@Min`, `@Max`, `@Position`, `@ForEach`, `@AccessKey`, `@PatternCheck`, `@MinLength`, `@MaxLength` from the analyzer's element model. All model classes in the package are scanned — no marker annotation is required.
+3. **Annotation reading**: Read `@Reference`, `@SectionId`, `@SectionIdPattern`, `@Comment`, `@ContentType`, `@Form`, `@Unused`, `@Prefix`, `@PatternCheckId`, `@TextRequired`, `@MaxDepth`, `@AllowedTags`, `@ValidationPrompt`, `@Min`, `@Max`, `@Position`, `@ForEach`, `@AccessKey`, `@PatternCheck`, `@MinLength`, `@MaxLength` from the analyzer's element model. All model classes in the package are scanned — no marker annotation is required.
 4. **Tree walk**: Start from `ProjectDefinition`, recursively visit each field:
-   - If `String` / `String?` → collect as leaf (include `@FieldType` hint if present).
+   - If `String` / `String?` → collect as leaf.
    - If enum → format with values inline.
    - If `List<T>` → emit `(min,max)-: fieldName:TypeName` (with constraints from `@Min`/`@Max`) and recurse into `T`.
    - If complex type → emit `-> TypeName` and recurse.

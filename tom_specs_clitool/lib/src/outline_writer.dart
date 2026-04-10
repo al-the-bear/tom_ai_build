@@ -136,13 +136,6 @@ class OutlineWriter {
       buf.write(': ${field.typeName} (${field.enumValues.join(', ')})');
     }
 
-    // @FieldType hint (§7.5)
-    final fieldType = field.getAnnotation('FieldType');
-    if (fieldType != null) {
-      final type = fieldType.arguments['type'];
-      if (type != null) buf.write(' @$type');
-    }
-
     // @Form or @ContentType hint on content field (§7.6)
     if (field.name == 'content') {
       if (field.formFields.isNotEmpty) {

@@ -40,7 +40,7 @@ import 'model_reader.dart';
       if (!field.isList && !field.isEnum && _isNonStringPrimitive(field.typeName)) {
         errors.add(
           '$className.${field.name}: type "${field.typeName}" not allowed — '
-          'use String? with @FieldType annotation instead',
+          'use String? with @Form Field type parameter instead',
         );
       }
     }

@@ -291,43 +291,67 @@ fields, and the comment says `(description)`, it needs `@TextRequired`.
 
 ---
 
-## 9. Field Types — from field semantics in name or comment
+## 9. Content Documentation Rules
 
-**Pattern:** Field names or comments that imply a non-string type.
+Every `String? content` field must have documentation about what it contains.
+There are no standalone non-form scalar `String?` fields — every scalar value
+is either inside `@Form([Field(...)])` (see Rule 4a) or in a separate section
+class.
 
-Since the restructuring, most scalar fields have moved into `@Form([Field(...)])`
-annotations (see Rule 4a). The type is now expressed as the `Field` type
-parameter rather than a standalone `@FieldType` annotation:
+### 9.1 *Section classes
+
+For `TextSection`, `DiagramSection`, `CodeSection` and their subtypes, the
+content description comes from the **doc-comment on the field** in the class
+that uses the section variable. The section class itself only has `@ContentType`
+for the format type.
 
 ```dart
-// Before (standalone @FieldType on String? fields):
-String? estimatedRecordCount;   // → @FieldType('int')
-String? growthRate;             // → @FieldType('double')
-
-// After (type expressed in @Form Field):
-@Form([
-  Field('estimatedRecordCount', int, 'Estimated number of records'),
-  Field('growthRate', double, 'Expected growth rate'),
-])
-String? content;
+class DataModel {
+  /// Overview of the data model including all entity relationships.
+  TextSection dataModelOverview = TextSection();
+}
 ```
 
-The `@FieldType` annotation **still applies** to standalone `String?` fields
-that remain outside `@Form` (e.g., rare non-form scalar fields).
+Here `TextSection.content` is described by the field comment on
+`dataModelOverview`.
 
-**Name → type mapping** (applies to both `Field` type parameter and
-standalone `@FieldType`):
+### 9.2 Regular classes with `String? content`
 
-| Field name pattern              | Type / Annotation         |
-|---------------------------------|---------------------------|
-| `*Count`, `*Number`, `step*`    | `int` / `@FieldType('int')` |
-| `*Rate`, `*Fte*`, `*Allocation` | `double` / `@FieldType('double')` |
-| `*Date`                         | `date` / `@FieldType('date')` |
-| `*Duration`                     | `duration` / `@FieldType('duration')` |
-| `*Budget`, `*Cost`              | `currency` / `@FieldType('currency')` |
+Classes that have a `String? content` field (not a *Section class) must have a
+`@ContentType(type, 'description')` annotation. The `description` parameter
+explains what should be described in the content.
 
-**Note:** The `*Diagram`, `*Chart` row is removed — diagram fields are now
-typed section classes (see Rule 4).
+```dart
+class DataModel {
+  @ContentType('text', 'Overview over the data model, including diagram')
+  String? content;
+}
+```
+
+### 9.3 `@Unused` — content not expected
+
+When a class serves only as a structural container for subsections, with no
+narrative text of its own, apply `@Unused()` to the content field. Section text
+is not expected and will be ignored.
+
+```dart
+class ProjectDefinition {
+  @Unused()
+  String? content;
+}
+```
+
+### 9.4 Field type mapping in `@Form`
+
+The `@FieldType` annotation has been **removed**. Scalar field types are now
+expressed exclusively through the `Field` type parameter inside `@Form`:
+
+| Field name pattern              | `Field` type parameter |
+|---------------------------------|------------------------|
+| Short text (name, category)     | `String`               |
+| `*Count`, `*Number`, `step*`    | `int`                  |
+| `*Rate`, `*Fte*`, `*Allocation` | `double`               |
+| Constrained choice              | enum type              |
 
 ---
 
@@ -460,7 +484,8 @@ format.
 | 6 | `@Prefix` | **Medium** | Derived from SectionId hierarchy |
 | 7 | `@Position` | **Low** | Declaration order already correct |
 | 8 | `@TextRequired` | **Medium** | From `(description)` + class shape |
-| 9 | Field types | **High** | Name heuristics; type in `Field()` param or standalone `@FieldType` |
+| 9 | Content documentation | **High** | `@ContentType(type, desc)`, `@Unused()`, or field comment on *Section |
+| 9a | `@Unused` | **High** | Container-only classes with no content text |
 | 10 | `@AccessKey` | **Medium** | `*Id` / `*Name` field patterns |
 | 11 | `@Reference` | **High** | `*Reference` / `*Related*` fields → typed `@Reference` pointers |
 | 12 | `@MaxDepth` | **Medium** | Class shape (no subsection lists) |
