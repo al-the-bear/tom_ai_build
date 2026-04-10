@@ -72,7 +72,6 @@ class DeliverableEntry {
     Field('format', String, 'Format'),
     Field('acceptanceCriteria', String, 'Acceptance Criteria'),
   ])
-
   String? content;
 }
 
@@ -114,7 +113,6 @@ class DeliveryAcceptanceCriterionEntry {
     Field('verificationMethod', String, 'Verification Method'),
     Field('acceptanceThreshold', String, 'Acceptance Threshold'),
   ])
-
   String? content;
 }
 
@@ -124,7 +122,6 @@ class AcceptanceProcess {
     Field('participants', String, 'Participants'),
     Field('escalationProcess', String, 'Escalation Process'),
   ])
-
   String? content;
   /// Contains 0+× AcceptanceStep.
   List<AcceptanceStepEntry> steps = [];
@@ -136,7 +133,6 @@ class AcceptanceStepEntry {
     Field('stepName', String, 'Step Name', required: true),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
 }
 
@@ -149,7 +145,6 @@ class UserAcceptanceTesting {
     Field('schedule', String, 'Schedule'),
     Field('exitCriteria', String, 'Exit Criteria'),
   ])
-
   String? content;
   /// Contains 0+× TestScenario.
   List<TestScenarioEntry> testScenarios = [];
@@ -162,6 +157,5 @@ class TestScenarioEntry {
     Field('description', String, 'Short description'),
     Field('expectedResult', String, 'Expected Result'),
   ])
-
   String? content;
 }

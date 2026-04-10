@@ -50,7 +50,6 @@ class QualityCategoryEntry {
     Field('categoryName', String, 'Category Name', required: true),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
 }
 
@@ -151,7 +150,6 @@ class TradeOffDecisionEntry {
     Field('rationale', String, 'Rationale'),
     Field('impact', String, 'Impact assessment'),
   ])
-
   String? content;
 }
 
@@ -180,7 +178,6 @@ class MustPassCriterionEntry {
     Field('verificationMethod', String, 'Verification Method'),
     Field('acceptanceThreshold', String, 'Acceptance Threshold'),
   ])
-
   String? content;
 }
 
@@ -199,6 +196,5 @@ class QualityGateCheckEntry {
     Field('verificationMethod', String, 'Verification Method'),
     Field('responsibleParty', String, 'Responsible Party'),
   ])
-
   String? content;
 }

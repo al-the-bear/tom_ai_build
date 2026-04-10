@@ -42,7 +42,6 @@ class RoleAdjustmentEntry {
     Field('adjustment', String, 'Adjustment'),
     Field('rationale', String, 'Rationale'),
   ])
-
   String? content;
 }
 
@@ -64,7 +63,6 @@ class QualityGateAdjustmentEntry {
     Field('adjustment', String, 'Adjustment'),
     Field('rationale', String, 'Rationale'),
   ])
-
   String? content;
 }
 
@@ -86,7 +84,6 @@ class ProcessAdjustmentEntry {
     Field('adjustment', String, 'Adjustment'),
     Field('rationale', String, 'Rationale'),
   ])
-
   String? content;
 }
 
@@ -120,7 +117,6 @@ class ToolEntry {
     Field('version', String, 'Version'),
     Field('category', String, 'Category'),
   ])
-
   String? content;
 }
 
@@ -140,6 +136,5 @@ class EnvironmentEntry {
     Field('accessPolicy', String, 'Access Policy'),
     Field('dataPolicy', String, 'Data Policy'),
   ])
-
   String? content;
 }

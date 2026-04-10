@@ -56,7 +56,6 @@ class DesignPatternEntry {
     Field('patternName', String, 'Pattern Name', required: true),
     Field('purpose', String, 'Purpose'),
   ])
-
   String? content;
 }
 
@@ -81,7 +80,6 @@ class ReusableComponentEntry {
     Field('source', String, 'Source'),
     Field('purpose', String, 'Purpose'),
   ])
-
   String? content;
 }
 
@@ -102,7 +100,6 @@ class CompatibilityRequirementEntry {
     Field('requirement', String, 'Requirement'),
     Field('system', String, 'System'),
   ])
-
   String? content;
 }
 
@@ -154,7 +151,6 @@ class ProtocolEntry {
     Field('protocolName', String, 'Protocol Name', required: true),
     Field('purpose', String, 'Purpose'),
   ])
-
   String? content;
 }
 
@@ -215,7 +211,6 @@ class SecurityStandardEntry {
     Field('version', String, 'Version'),
     Field('scope', String, 'Scope'),
   ])
-
   String? content;
 }
 
@@ -225,6 +220,5 @@ class SecurityAuditEntry {
     Field('requirement', String, 'Requirement'),
     Field('frequency', String, 'Frequency'),
   ])
-
   String? content;
 }

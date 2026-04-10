@@ -15,6 +15,5 @@ class Risk {
     Field('riskOwner', String, 'Risk Owner'),
     Field('reviewFrequency', String, 'Review Frequency'),
   ])
-
   String? content;
 }

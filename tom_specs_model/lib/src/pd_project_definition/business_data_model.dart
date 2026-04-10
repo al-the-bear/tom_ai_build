@@ -51,7 +51,6 @@ class DataEntityEntry {
     Field('estimatedRecordCount', String, 'Estimated Record Count'),
     Field('growthRate', String, 'Growth Rate'),
   ])
-
   String? content;
   /// Contains 0+× DataAttribute.
   List<DataAttributeEntry> attributes = [];
@@ -71,7 +70,6 @@ class DataAttributeEntry {
     Field('mandatory', String, 'Mandatory'),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
 }
 
@@ -82,7 +80,6 @@ class KeyAttributeEntry {
     Field('keyType', String, 'Key Type'),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
   @Reference('Referenced Entity')
   DataEntityEntry? referencedEntity;
@@ -102,7 +99,6 @@ class EntityRelationshipEntry {
     Field('cardinality', String, 'Cardinality'),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
   @Reference('Source Entity')
   DataEntityEntry? sourceEntity;
@@ -123,7 +119,6 @@ class DataClassificationEntry {
     Field('classification', String, 'Classification'),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
   /// Contains 0+× HandlingRequirement.
   List<HandlingRequirementEntry> handlingRequirements = [];
@@ -139,7 +134,6 @@ class HandlingRequirementEntry {
     Field('requirement', String, 'Requirement'),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
 }
 
@@ -149,7 +143,6 @@ class AccessRestrictionEntry {
     Field('restriction', String, 'Restriction'),
     Field('enforcement', String, 'Enforcement'),
   ])
-
   String? content;
 }
 
@@ -177,7 +170,6 @@ class BusinessObjectEntry {
     Field('category', String, 'Category'),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
   /// Contains 0+× BusinessObjectAttribute.
   List<BusinessObjectAttributeEntry> attributes = [];
@@ -202,7 +194,6 @@ class BusinessObjectAttributeEntry {
     Field('defaultValue', String, 'Default Value'),
     Field('validationRules', String, 'Validation Rules'),
   ])
-
   String? content;
 }
 
@@ -212,7 +203,6 @@ class ObjectStateEntry {
     Field('stateName', String, 'State Name'),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
 }
 
@@ -222,7 +212,6 @@ class BusinessRuleReferenceEntry {
     Field('ruleName', String, 'Rule Name', required: true),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
 }
 
@@ -233,7 +222,6 @@ class LifecycleTransitionEntry {
     Field('toState', String, 'To State'),
     Field('trigger', String, 'Trigger'),
   ])
-
   String? content;
 }
 
@@ -247,7 +235,6 @@ class FunctionModel {
     Field('functionDecomposition', String, 'Function Decomposition'),
     Field('functionToDataMatrix', String, 'Function To Data Matrix'),
   ])
-
   String? content;
 
   /// 7.3.3. Business Rules [PD00-BUS-FUN-RUL] — contains 1+× Business Rule.
@@ -263,7 +250,6 @@ class BusinessRuleEntry {
     Field('enforcement', String, 'Enforcement'),
     Field('exceptionHandling', String, 'Exception Handling'),
   ])
-
   String? content;
   /// Contains 0+× AffectedObject.
   List<AffectedObjectEntry> affectedObjects = [];
@@ -277,7 +263,6 @@ class AffectedObjectEntry {
     Field('objectName', String, 'Object Name', required: true),
     Field('impact', String, 'Impact assessment'),
   ])
-
   String? content;
 }
 
@@ -287,6 +272,5 @@ class AffectedFunctionEntry {
     Field('functionName', String, 'Function Name'),
     Field('impact', String, 'Impact assessment'),
   ])
-
   String? content;
 }

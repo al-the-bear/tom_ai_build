@@ -47,7 +47,6 @@ class ReuseGoalEntry {
     Field('goal', String, 'Goal', required: true),
     Field('rationale', String, 'Rationale'),
   ])
-
   String? content;
 }
 
@@ -65,7 +64,6 @@ class EvaluationCriterionEntry {
     Field('weight', String, 'Weight'),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
 }
 
@@ -91,7 +89,6 @@ class DependencyEntry {
     Field('criticality', String, 'Criticality'),
     Field('alternative', String, 'Alternative'),
   ])
-
   String? content;
   @Reference('Dependency Name')
   String? dependencyName;
@@ -110,7 +107,6 @@ class ComponentEntry {
     Field('purpose', String, 'Purpose'),
     Field('documentation', String, 'Documentation'),
   ])
-
   String? content;
   /// Interfaces [PD00-COM-COM-nn-INT] — contains 0+× ComponentInterface.
   List<ComponentInterfaceEntry> interfaces = [];
@@ -132,7 +128,6 @@ class ComponentInterfaceEntry {
     Field('interfaceType', String, 'Interface Type'),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
 }
 
@@ -144,7 +139,6 @@ class ComponentLicensingEntry {
     Field('renewal', String, 'Renewal'),
     Field('redistribution', String, 'Redistribution'),
   ])
-
   String? content;
 }
 
@@ -156,7 +150,6 @@ class ComponentResponsibilitiesEntry {
     Field('escalation', String, 'Escalation'),
     Field('updateCadence', String, 'Update Cadence'),
   ])
-
   String? content;
 }
 
@@ -190,7 +183,6 @@ class ContingencyPlanEntry {
     Field('action', String, 'Action'),
     Field('responsibleParty', String, 'Responsible Party'),
   ])
-
   String? content;
 }
 
@@ -205,6 +197,5 @@ class ComponentRiskEntry {
     Field('mitigation', String, 'Mitigation strategy'),
     Field('contingencyTrigger', String, 'Contingency Trigger'),
   ])
-
   String? content;
 }

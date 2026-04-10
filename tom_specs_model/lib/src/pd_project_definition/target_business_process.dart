@@ -45,7 +45,6 @@ class DesignPrincipleEntry {
     Field('description', String, 'Short description'),
     Field('rationale', String, 'Rationale'),
   ])
-
   String? content;
 }
 
@@ -62,7 +61,6 @@ class ProcessRelationshipEntry {
     Field('relationshipType', String, 'Relationship Type'),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
   @Reference('Source Process')
   BusinessProcessDescription? sourceProcess;
@@ -100,7 +98,6 @@ class BusinessProcessDescription {
     Field('estimatedFrequency', String, 'Estimated Frequency'),
     Field('estimatedDuration', String, 'Estimated Duration'),
   ])
-
   String? content;
 }
 
@@ -130,7 +127,6 @@ class ActorEntry {
     Field('description', String, 'Short description'),
     Field('accessChannel', String, 'Access Channel'),
   ])
-
   String? content;
   /// Primary interactions — contains 1+× interaction reference.
   PrimaryInteractions primaryInteractions = PrimaryInteractions();
@@ -151,7 +147,6 @@ class PrimaryInteractionEntry {
     Field('frequency', String, 'Frequency'),
     Field('criticality', String, 'Criticality'),
   ])
-
   String? content;
   @Reference('Use Case Reference')
   String? useCaseReference;
@@ -168,7 +163,6 @@ class InteractionEntry {
     Field('precondition', String, 'Precondition'),
     Field('postcondition', String, 'Postcondition'),
   ])
-
   String? content;
   @Reference('Process Reference')
   BusinessProcessDescription? processReference;
@@ -183,7 +177,6 @@ class ScenarioEntry {
     Field('description', String, 'Short description'),
     Field('successCondition', String, 'Success Condition'),
   ])
-
   String? content;
   /// Contains 0+× ScenarioStep.
   List<ScenarioStepEntry> steps = [];
@@ -198,7 +191,6 @@ class ScenarioStepEntry {
     Field('description', String, 'Short description'),
     Field('expectedResult', String, 'Expected Result'),
   ])
-
   String? content;
 }
 
@@ -210,7 +202,6 @@ class AlternativeFlowEntry {
     Field('outcome', String, 'Outcome'),
     Field('returnPoint', String, 'Return Point'),
   ])
-
   String? content;
   /// Contains 0+× ScenarioStep.
   List<ScenarioStepEntry> steps = [];

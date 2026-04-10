@@ -75,7 +75,6 @@ class DesignGoalEntry {
     Field('goal', String, 'Goal', required: true),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
 }
 
@@ -85,7 +84,6 @@ class UiDesignPrincipleEntry {
     Field('principle', String, 'Principle', required: true),
     Field('rationale', String, 'Rationale'),
   ])
-
   String? content;
 }
 
@@ -99,7 +97,6 @@ class PersonaEntry {
     Field('typicalUsage', String, 'Typical Usage'),
     Field('device', String, 'Device'),
   ])
-
   String? content;
   /// Contains 0+× PersonaGoal.
   List<PersonaGoalEntry> goals = [];
@@ -113,7 +110,6 @@ class PersonaGoalEntry {
     Field('goal', String, 'Goal', required: true),
     Field('priority', String, 'Priority level'),
   ])
-
   String? content;
 }
 
@@ -123,7 +119,6 @@ class PersonaPainPointEntry {
     Field('painPoint', String, 'Pain Point', required: true),
     Field('impact', String, 'Impact assessment'),
   ])
-
   String? content;
 }
 
@@ -151,7 +146,6 @@ class ScreenEntry {
     Field('accessLevel', String, 'Access Level'),
     Field('layout', String, 'Layout'),
   ])
-
   String? content;
   /// Contains 0+× ScreenElement.
   List<ScreenElementEntry> keyElements = [];
@@ -167,7 +161,6 @@ class ScreenElementEntry {
     Field('elementName', String, 'Element Name'),
     Field('elementType', String, 'Element Type'),
   ])
-
   String? content;
 }
 
@@ -177,7 +170,6 @@ class ScreenUserCategoryEntry {
     Field('categoryName', String, 'Category Name', required: true),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
 }
 
@@ -187,7 +179,6 @@ class EntryPointEntry {
     Field('entryPoint', String, 'Entry Point'),
     Field('source', String, 'Source'),
   ])
-
   String? content;
 }
 
@@ -227,7 +218,6 @@ class ExportFormatEntry {
     Field('formatName', String, 'Format Name'),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
 }
 
@@ -241,7 +231,6 @@ class ReportEntry {
     Field('generationTrigger', String, 'Generation Trigger'),
     Field('customization', String, 'Customization'),
   ])
-
   String? content;
   /// Contains 0+× Recipient.
   List<RecipientEntry> recipients = [];
@@ -253,7 +242,6 @@ class RecipientEntry {
     Field('recipientName', String, 'Recipient Name'),
     Field('role', String, 'Role'),
   ])
-
   String? content;
 }
 
@@ -323,7 +311,6 @@ class AccessibilityCheckEntry {
     Field('complianceLevel', String, 'Compliance Level'),
     Field('verificationMethod', String, 'Verification Method'),
   ])
-
   String? content;
 }
 
@@ -349,7 +336,6 @@ class BreakpointEntry {
     Field('minWidth', String, 'Min Width'),
     Field('layoutBehavior', String, 'Layout Behavior'),
   ])
-
   String? content;
 }
 
@@ -376,7 +362,6 @@ class UiComponentEntry {
     Field('behavior', String, 'Behavior'),
     Field('responsive', String, 'Responsive'),
   ])
-
   String? content;
   /// Contains 0+× ComponentState.
   List<ComponentStateEntry> states = [];
@@ -390,7 +375,6 @@ class ComponentStateEntry {
     Field('stateName', String, 'State Name'),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
 }
 
@@ -400,7 +384,6 @@ class ComponentVariantEntry {
     Field('variantName', String, 'Variant Name'),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
 }
 
@@ -491,6 +474,5 @@ class PrototypeGoalEntry {
     Field('goal', String, 'Goal', required: true),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
 }

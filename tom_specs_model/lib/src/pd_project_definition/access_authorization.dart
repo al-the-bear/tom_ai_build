@@ -59,7 +59,6 @@ class UserCategoryDefinition {
     Field('accessLevel', String, 'Access Level'),
     Field('estimatedCount', String, 'Estimated Count'),
   ])
-
   String? content;
 }
 
@@ -78,7 +77,6 @@ class UserAttributeEntry {
     Field('source', String, 'Source'),
     Field('required', String, 'Required'),
   ])
-
   String? content;
 }
 
@@ -143,7 +141,6 @@ class AuthenticationMethodEntry {
     Field('securityLevel', String, 'Security Level'),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
 }
 
@@ -196,7 +193,6 @@ class AuthorizationGroupEntry {
     Field('description', String, 'Short description'),
     Field('membershipCriteria', String, 'Membership Criteria'),
   ])
-
   String? content;
   /// Contains 0+× RoleReference.
   List<RoleReferenceEntry> containedRoles = [];
@@ -207,7 +203,6 @@ class RoleReferenceEntry {
   @Form([
     Field('roleName', String, 'Role Name', required: true),
   ])
-
   String? content;
 }
 
@@ -218,7 +213,6 @@ class AuthorizationRoleEntry {
     Field('description', String, 'Short description'),
     Field('inheritsFrom', String, 'Inherits From'),
   ])
-
   String? content;
   /// Contains 0+× ResponsibilityReference.
   List<ResponsibilityReferenceEntry> responsibilities = [];
@@ -236,7 +230,6 @@ class ResponsibilityReferenceEntry {
     Field('responsibility', String, 'Responsibility'),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
 }
 
@@ -245,7 +238,6 @@ class EntitlementReferenceEntry {
   @Form([
     Field('entitlementName', String, 'Entitlement Name', required: true),
   ])
-
   String? content;
 }
 
@@ -255,7 +247,6 @@ class RoleExclusionEntry {
     Field('excludedRole', String, 'Excluded Role'),
     Field('reason', String, 'Reason'),
   ])
-
   String? content;
 }
 
@@ -265,7 +256,6 @@ class RoleHolderEntry {
     Field('holderDescription', String, 'Holder Description'),
     Field('department', String, 'Department'),
   ])
-
   String? content;
 }
 
@@ -277,7 +267,6 @@ class EntitlementEntry {
     Field('accessType', String, 'Access Type'),
     Field('conditions', String, 'Conditions'),
   ])
-
   String? content;
   /// Contains 0+× ResourceKeyReference.
   List<ResourceKeyReferenceEntry> resourceKeyReferences = [];
@@ -288,7 +277,6 @@ class ResourceKeyReferenceEntry {
   @Form([
     Field('resourceKey', String, 'Resource Key', required: true),
   ])
-
   String? content;
 }
 
@@ -300,7 +288,6 @@ class ResourceKeyEntry {
     Field('description', String, 'Short description'),
     Field('protectionLevel', String, 'Protection Level'),
   ])
-
   String? content;
 }
 
@@ -373,6 +360,5 @@ class SecurityEventEntry {
     Field('severity', String, 'Severity level'),
     Field('responseAction', String, 'Response Action'),
   ])
-
   String? content;
 }

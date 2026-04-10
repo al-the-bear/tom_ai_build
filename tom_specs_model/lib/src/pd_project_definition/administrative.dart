@@ -65,7 +65,6 @@ class CommitteeMemberEntry {
     Field('decisionAuthority', String, 'Decision Authority'),
     Field('meetingAttendance', String, 'Meeting Attendance'),
   ])
-
   String? content;
 }
 
@@ -93,7 +92,6 @@ class TeamMemberEntry {
     Field('specialSkills', String, 'Special Skills'),
     Field('reportingTo', String, 'Reporting To'),
   ])
-
   String? content;
 }
 
@@ -134,7 +132,6 @@ class DistributionRecipientEntry {
     Field('organization', String, 'Organization'),
     Field('distributionMethod', String, 'Distribution Method'),
   ])
-
   String? content;
 }
 
@@ -159,7 +156,6 @@ class ChangeProcess {
     Field('approvalAuthority', String, 'Approval Authority'),
     Field('escalationPath', String, 'Escalation Path'),
   ])
-
   String? content;
 
   /// Overview diagram (e.g. Mermaid or image reference).
@@ -179,7 +175,6 @@ class ChangeRoleEntry {
     Field('roleName', String, 'Role Name', required: true),
     Field('responsibility', String, 'Responsibility'),
   ])
-
   String? content;
 }
 
@@ -193,7 +188,6 @@ class ChangeStepEntry {
     Field('outputArtifacts', String, 'Output Artifacts'),
     Field('approvalCriteria', String, 'Approval Criteria'),
   ])
-
   String? content;
   /// Subflow diagram for this step (e.g. Mermaid or image reference).
   FlowDiagramSection? subflowDiagram;
@@ -214,7 +208,6 @@ class ChangeImpactCriterionEntry {
     Field('description', String, 'Short description'),
     Field('approvalRequired', String, 'Approval Required'),
   ])
-
   String? content;
 }
 
@@ -240,6 +233,5 @@ class ReferenceDocumentEntry {
     Field('purpose', String, 'Purpose'),
     Field('location', String, 'Location'),
   ])
-
   String? content;
 }

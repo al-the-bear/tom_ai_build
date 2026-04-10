@@ -81,7 +81,6 @@ class InteractionPatternEntry {
     Field('patternName', String, 'Pattern Name', required: true),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
 }
 
@@ -94,7 +93,6 @@ class InteractionChannelEntry {
     Field('description', String, 'Short description'),
     Field('availabilityRequirement', String, 'Availability Requirement'),
   ])
-
   String? content;
 }
 
@@ -108,7 +106,6 @@ class UserCategoryEntry {
     Field('accessChannel', String, 'Access Channel'),
     Field('estimatedUserCount', String, 'Estimated User Count'),
   ])
-
   String? content;
   /// Role subsection [PD00-SYO-SYD-USR-nn-ROL] (form, singular).
   UserCategoryRoleEntry? role;
@@ -125,7 +122,6 @@ class UserCategoryRoleEntry {
     Field('organizationUnit', String, 'Organization Unit'),
     Field('reportsTo', String, 'Reports To'),
   ])
-
   String? content;
 }
 
@@ -136,7 +132,6 @@ class SystemTaskEntry {
     Field('description', String, 'Short description'),
     Field('frequency', String, 'Frequency'),
   ])
-
   String? content;
   @Reference('Related Use Case')
   String? relatedUseCase;
@@ -172,7 +167,6 @@ class BusinessGoalEntry {
     Field('measurementMethod', String, 'Measurement Method'),
     Field('targetDate', String, 'Target Date'),
   ])
-
   String? content;
 }
 
@@ -187,7 +181,6 @@ class TechnicalGoalEntry {
     Field('measurementMethod', String, 'Measurement Method'),
     Field('verificationPoint', String, 'Verification Point'),
   ])
-
   String? content;
 }
 
@@ -207,7 +200,6 @@ class SuccessCriterionEntry {
     Field('measurementMethod', String, 'Measurement Method'),
     Field('verificationPoint', String, 'Verification Point'),
   ])
-
   String? content;
 }
 
@@ -243,7 +235,6 @@ class FunctionalRequirementEntry {
     Field('rationale', String, 'Rationale'),
     Field('status', String, 'Current status'),
   ])
-
   String? content;
   /// Contains 0+× AcceptanceCriterion.
   List<AcceptanceCriterionEntry> acceptanceCriteria = [];
@@ -261,7 +252,6 @@ class AcceptanceCriterionEntry {
     Field('criterion', String, 'Criterion', required: true),
     Field('verificationMethod', String, 'Verification Method'),
   ])
-
   String? content;
 }
 
@@ -271,7 +261,6 @@ class DataEntityReferenceEntry {
     Field('entityName', String, 'Entity Name', required: true),
     Field('relationship', String, 'Relationship'),
   ])
-
   String? content;
 }
 
@@ -287,7 +276,6 @@ class TechnicalRequirementEntry {
     Field('verificationApproach', String, 'Verification Approach'),
     Field('status', String, 'Current status'),
   ])
-
   String? content;
   /// Contains 0+× AcceptanceCriterion.
   List<AcceptanceCriterionEntry> acceptanceCriteria = [];
@@ -304,7 +292,6 @@ class SecurityRequirementEntry {
     Field('rationale', String, 'Rationale'),
     Field('status', String, 'Current status'),
   ])
-
   String? content;
   @Reference('Compliance Reference')
   String? complianceReference;
@@ -323,7 +310,6 @@ class OrganizationalRequirementEntry {
     Field('rationale', String, 'Rationale'),
     Field('status', String, 'Current status'),
   ])
-
   String? content;
   /// Contains 0+× AcceptanceCriterion.
   List<AcceptanceCriterionEntry> acceptanceCriteria = [];
@@ -354,7 +340,6 @@ class SystemToReplaceEntry {
     Field('migrationComplexity', String, 'Migration Complexity'),
     Field('decommissionDate', String, 'Decommission Date'),
   ])
-
   String? content;
   /// Contains 0+× SystemDependencyReference.
   List<SystemDependencyReferenceEntry> dependencies = [];
@@ -368,7 +353,6 @@ class SystemDependencyReferenceEntry {
   @Form([
     Field('dependencyType', String, 'Dependency Type'),
   ])
-
   String? content;
   @Reference('Dependency Name')
   String? dependencyName;
@@ -381,7 +365,6 @@ class SystemMigrationConsiderations {
     Field('dataTransformationNeeds', String, 'Data Transformation Needs'),
     Field('estimatedEffort', String, 'Estimated Effort'),
   ])
-
   String? content;
   /// Contains 0+× MigrationRiskReference.
   List<MigrationRiskReferenceEntry> risks = [];
@@ -395,7 +378,6 @@ class MigrationRiskReferenceEntry {
     Field('riskDescription', String, 'Risk Description'),
     Field('mitigation', String, 'Mitigation strategy'),
   ])
-
   String? content;
 }
 
@@ -434,7 +416,6 @@ class MigrationRiskEntry {
     Field('impact', String, 'Impact assessment'),
     Field('mitigation', String, 'Mitigation strategy'),
   ])
-
   String? content;
 }
 
@@ -469,7 +450,6 @@ class ExternalInterfaceEntry {
     Field('volume', String, 'Volume'),
     Field('authentication', String, 'Authentication'),
   ])
-
   String? content;
 }
 
@@ -487,7 +467,6 @@ class OutOfScopeEntry {
     Field('rationale', String, 'Rationale'),
     Field('futureConsideration', String, 'Future Consideration'),
   ])
-
   String? content;
 }
 
@@ -506,7 +485,6 @@ class AssumptionEntry {
     Field('riskIfWrong', String, 'Risk If Wrong'),
     Field('validationApproach', String, 'Validation Approach'),
   ])
-
   String? content;
 }
 
@@ -560,7 +538,6 @@ class ResponsibilityEntry {
     Field('description', String, 'Short description'),
     Field('scope', String, 'Scope'),
   ])
-
   String? content;
 }
 
@@ -584,7 +561,6 @@ class TechnologyStandardEntry {
     Field('standard', String, 'Standard'),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
 }
 
@@ -594,7 +570,6 @@ class IntegrationConstraintEntry {
     Field('constraint', String, 'Constraint'),
     Field('impactedSystem', String, 'Impacted System'),
   ])
-
   String? content;
 }
 
@@ -624,7 +599,6 @@ class ConstraintEntry {
     Field('impact', String, 'Impact assessment'),
     Field('mitigation', String, 'Mitigation strategy'),
   ])
-
   String? content;
 }
 
@@ -643,7 +617,6 @@ class FrameworkDependencyEntry {
     Field('impact', String, 'Impact assessment'),
     Field('mitigation', String, 'Mitigation strategy'),
   ])
-
   String? content;
 }
 
@@ -674,7 +647,6 @@ class RiskEntry {
     Field('riskOwner', String, 'Risk Owner'),
     Field('reviewFrequency', String, 'Review Frequency'),
   ])
-
   String? content;
 }
 

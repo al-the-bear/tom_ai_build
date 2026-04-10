@@ -35,7 +35,6 @@ class StagingStrategy {
   @Form([
     Field('rationale', String, 'Rationale'),
   ])
-
   String? content;
 
   /// Staging Approach.
@@ -62,7 +61,6 @@ class StageEntry {
     Field('targetGoLive', String, 'Target Go Live'),
     Field('scopeSummary', String, 'Scope Summary'),
   ])
-
   String? content;
   /// Feature Scope.
   TextSection featureScope = TextSection();
@@ -87,7 +85,6 @@ class SubStageEntry {
     Field('description', String, 'Short description'),
     Field('targetDate', String, 'Target Date'),
   ])
-
   String? content;
 }
 
@@ -97,7 +94,6 @@ class StageSuccessCriterionEntry {
     Field('criterion', String, 'Criterion', required: true),
     Field('measurementMethod', String, 'Measurement Method'),
   ])
-
   String? content;
 }
 
@@ -139,7 +135,6 @@ class MigrationPhaseEntry {
     Field('targetStage', String, 'Target Stage'),
     Field('verificationApproach', String, 'Verification Approach'),
   ])
-
   String? content;
 }
 
@@ -158,7 +153,6 @@ class StageMigrationRiskEntry {
     Field('impact', String, 'Impact assessment'),
     Field('mitigation', String, 'Mitigation strategy'),
   ])
-
   String? content;
 }
 
@@ -187,7 +181,6 @@ class PhaseGateReviewEntry {
     Field('stage', String, 'Stage'),
     Field('decisionAuthority', String, 'Decision Authority'),
   ])
-
   String? content;
   /// Contains 0+× ReviewCriterion.
   List<ReviewCriterionEntry> reviewCriteria = [];
@@ -199,7 +192,6 @@ class ReviewCriterionEntry {
     Field('criterion', String, 'Criterion', required: true),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
 }
 
@@ -218,7 +210,6 @@ class DecisionPointEntry {
     Field('criteria', String, 'Criteria'),
     Field('decisionAuthority', String, 'Decision Authority'),
   ])
-
   String? content;
   /// Contains 0+× DecisionOption.
   List<DecisionOptionEntry> options = [];
@@ -231,6 +222,5 @@ class DecisionOptionEntry {
     Field('description', String, 'Short description'),
     Field('implications', String, 'Implications'),
   ])
-
   String? content;
 }

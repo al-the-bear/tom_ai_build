@@ -52,7 +52,6 @@ class OrganizationalChangeEntry {
     Field('rationale', String, 'Rationale'),
     Field('impact', String, 'Impact assessment'),
   ])
-
   String? content;
 }
 
@@ -92,7 +91,6 @@ class StaffingEntry {
     Field('recruitmentStatus', String, 'Recruitment Status'),
     Field('targetStartDate', String, 'Target Start Date'),
   ])
-
   String? content;
 }
 
@@ -105,7 +103,6 @@ class NewRoleEntry {
     Field('fteAllocation', String, 'Fte Allocation'),
     Field('startDate', String, 'Start Date'),
   ])
-
   String? content;
   /// Contains 0+× RoleResponsibility.
   List<RoleResponsibilityEntry> responsibilities = [];
@@ -119,7 +116,6 @@ class RoleResponsibilityEntry {
     Field('responsibility', String, 'Responsibility'),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
 }
 
@@ -129,7 +125,6 @@ class SkillEntry {
     Field('skillName', String, 'Skill Name'),
     Field('proficiencyLevel', String, 'Proficiency Level'),
   ])
-
   String? content;
 }
 
@@ -141,7 +136,6 @@ class ChangedRoleEntry {
     Field('changedReportingLine', String, 'Changed Reporting Line'),
     Field('trainingRequired', String, 'Training Required'),
   ])
-
   String? content;
   /// Contains 0+× RoleResponsibility.
   List<RoleResponsibilityEntry> addedResponsibilities = [];
@@ -160,7 +154,6 @@ class WorkplaceDescriptionEntry {
   @Form([
     Field('userCategory', String, 'User Category'),
   ])
-
   String? content;
 
   /// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
@@ -185,7 +178,6 @@ class EquipmentRequirementEntry {
     Field('quantity', String, 'Quantity'),
     Field('purpose', String, 'Purpose'),
   ])
-
   String? content;
 }
 
@@ -205,6 +197,5 @@ class TrainingRequirementEntry {
     Field('duration', String, 'Duration'),
     Field('schedule', String, 'Schedule'),
   ])
-
   String? content;
 }

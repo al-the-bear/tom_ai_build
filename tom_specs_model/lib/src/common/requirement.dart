@@ -17,8 +17,7 @@ class Requirement {
     Field('source', String, 'Source'),
     Field('rationale', String, 'Rationale'),
     Field('acceptanceCriteria', String, 'Acceptance Criteria'),
+    Field('status', Status, 'Current status'),
   ])
-
   String? content;
-  Status status = Status.draft;
 }

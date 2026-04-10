@@ -13,6 +13,5 @@ class DocumentHeader {
     Field('author', String, 'Author'),
     Field('status', String, 'Current status'),
   ])
-
   String? content;
 }

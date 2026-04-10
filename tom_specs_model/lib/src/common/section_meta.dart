@@ -12,6 +12,5 @@ class SectionMeta {
     Field('type', SectionType, 'Type'),
     Field('seeds', String, 'Seeds'),
   ])
-
   String? content;
 }

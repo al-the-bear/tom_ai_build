@@ -54,7 +54,6 @@ class ExistingSystemEntry {
     Field('operationalSince', String, 'Operational Since'),
     Field('supportStatus', String, 'Support Status'),
   ])
-
   String? content;
   /// Contains 0+× Limitation.
   List<LimitationEntry> knownLimitations = [];
@@ -66,7 +65,6 @@ class LimitationEntry {
     Field('limitation', String, 'Limitation', required: true),
     Field('impact', String, 'Impact assessment'),
   ])
-
   String? content;
 }
 
@@ -101,7 +99,6 @@ class SystemDependencyEntry {
     Field('dependencyType', String, 'Dependency Type'),
     Field('criticality', String, 'Criticality'),
   ])
-
   String? content;
   @Reference('Source System')
   ExistingSystemEntry? sourceSystem;
@@ -117,7 +114,6 @@ class SystemIntegrationEntry {
     Field('direction', String, 'Direction'),
     Field('frequency', String, 'Frequency'),
   ])
-
   String? content;
   @Reference('Source System')
   ExistingSystemEntry? sourceSystem;
@@ -134,7 +130,6 @@ class CurrentBusinessProcess {
   @Form([
     Field('processName', String, 'Process Name', required: true),
   ])
-
   String? content;
 
   /// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR] — contains 1+× Workflow.
@@ -152,7 +147,6 @@ class CurrentWorkflowEntry {
     Field('output', String, 'Output'),
     Field('cycleTime', String, 'Cycle Time'),
   ])
-
   String? content;
   /// Contains 0+× WorkflowStep.
   List<WorkflowStepEntry> steps = [];
@@ -170,7 +164,6 @@ class WorkflowStepEntry {
     Field('stepName', String, 'Step Name', required: true),
     Field('description', String, 'Short description'),
   ])
-
   String? content;
 }
 
@@ -180,7 +173,6 @@ class WorkflowActorEntry {
     Field('actorName', String, 'Actor Name', required: true),
     Field('role', String, 'Role'),
   ])
-
   String? content;
 }
 
@@ -200,7 +192,6 @@ class ProcessMetricEntry {
     Field('measurementMethod', String, 'Measurement Method'),
     Field('frequency', String, 'Frequency'),
   ])
-
   String? content;
   @Reference('Process Reference')
   CurrentBusinessProcess? processReference;
@@ -258,7 +249,6 @@ class PainPointEntry {
     Field('severity', String, 'Severity level'),
     Field('workaround', String, 'Current workaround'),
   ])
-
   String? content;
 }
 
@@ -279,7 +269,6 @@ class GapEntry {
     Field('priority', String, 'Priority level'),
     Field('proposedResolution', String, 'Proposed Resolution'),
   ])
-
   String? content;
 }
 
@@ -310,7 +299,6 @@ class DataSourceEntry {
     Field('qualityLevel', String, 'Quality Level'),
     Field('owner', String, 'Owner'),
   ])
-
   String? content;
   /// Retention Policy.
   TextSection retentionPolicy = TextSection();
