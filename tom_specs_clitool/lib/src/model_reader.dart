@@ -75,7 +75,7 @@ class ModelField {
   });
 
   bool get isComplex =>
-      !isLeaf && !isList;
+      !isLeaf && !isList && !isSectionType;
 
   bool get isLeaf =>
       !isList &&
