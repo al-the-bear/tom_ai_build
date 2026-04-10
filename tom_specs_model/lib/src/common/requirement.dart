@@ -7,6 +7,7 @@ import 'enums.dart';
 /// For example, PD functional requirements add [relatedUseCase],
 /// [relatedBusinessProcess], and [affectedDataEntities].
 class Requirement {
+  String? content;
   String? requirementId;
   String? title;
   String? description;

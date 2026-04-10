@@ -5,6 +5,7 @@ import 'enums.dart';
 /// Captures the DocSpecs section type, section ID, and optional seed
 /// reference to the Phase 3 document this section expands into.
 class SectionMeta {
+  String? content;
   String? sectionId;
   SectionType? type;
 

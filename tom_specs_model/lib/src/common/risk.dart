@@ -3,6 +3,7 @@ import 'enums.dart';
 
 /// Risk entry shared across documents.
 class Risk {
+  String? content;
   String? riskId;
   String? name;
   String? description;
