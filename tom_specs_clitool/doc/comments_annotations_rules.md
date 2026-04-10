@@ -67,36 +67,148 @@ List<TeamMemberEntry> members = [];
 
 ---
 
-## 4. `@ContentType` — from `(form)`, `(description)`, `(mermaid)` in comment
+## 4. Content Type — from `(form)`, `(text)`, `(mermaid)` in comment
 
-**Pattern:** Parenthetical suffix at end of class doc-comment.
+**Pattern:** Parenthetical suffix at end of class or field doc-comment.
+
+Content type is now expressed through **section base types** defined in
+`tom_specs_core`, not through direct `@ContentType` annotations. Each section
+base type has `@ContentType` baked in at the class level. The comment suffix
+determines which section type to use.
+
+### 4.1 Section base type mapping
+
+| Comment suffix       | Field type                   | Baked-in `@ContentType`  |
+|----------------------|------------------------------|--------------------------|
+| `(text)`, `(description)` | `TextSection`           | `text`                   |
+| `(mermaid)`          | `DiagramSection`             | `mermaid`                |
+| `(mermaid-er)`       | `ErDiagramSection`           | `mermaid-er`             |
+| `(mermaid-flow)`     | `FlowDiagramSection`         | `mermaid-flow`           |
+| `(mermaid-sequence)` | `SequenceDiagramSection`     | `mermaid-sequence`       |
+| `(mermaid-gantt)`    | `GanttDiagramSection`        | `mermaid-gantt`          |
+| `(code)`             | `CodeSection`                | `code`                   |
+| `(code-dart)`        | `DartCodeSection`            | `code-dart`              |
+| `(code-sql)`         | `SqlCodeSection`             | `code-sql`               |
+| `(code-ddl)`         | `DdlCodeSection`             | `code-ddl`               |
+| `(form)`             | *(no type change — see §4a)* | `Form` (default)         |
+
+### 4.2 Long-text fields → `TextSection`
+
+Fields that were `String?` with long narrative content (multi-paragraph
+descriptions, explanations, overviews) become typed `TextSection` children:
 
 ```dart
-/// A team member entry [PD00-ADM-TEA-nn] (form).
-class TeamMemberEntry { … }
+// Before:
+String? detailedDescription;
 
-/// A scenario entry (description).
-class ScenarioEntry { … }
-
-/// 7.1.3. Entity-Relationship Diagram [PD00-BUS-DAT-DIA] (mermaid).
-String? erDiagram;
+// After:
+/// N.M.K. Detailed Description [PD00-XXX-DES].
+TextSection detailedDescription = TextSection();
 ```
 
-**Rules:**
+### 4.3 Diagram fields → typed diagram sections
 
-| Comment suffix    | Annotation                 | Applies to     |
-|-------------------|----------------------------|----------------|
-| `(form)`          | `@ContentType('Form')`     | Entry classes   |
-| `(description)`   | `@ContentType('Description')` | Classes / fields |
-| `(mermaid)`       | `@ContentType('Mermaid')`  | `String?` fields |
+Fields that were `String?` with `(mermaid)` or diagram-related names become
+typed diagram section instances:
 
-**Form variant suffixes** — additional qualifiers map to `@Comment`:
+```dart
+// Before:
+/// 7.1.3. ER Diagram [PD00-BUS-DAT-DIA] (mermaid).
+String? erDiagram;
 
-| Variant                | ContentType          | Additional annotation     |
-|------------------------|----------------------|---------------------------|
-| `(form, singular)`     | `@ContentType('Form')` | `@Comment('singular')`  |
-| `(form, repeatable)`   | `@ContentType('Form')` | `@Comment('repeatable')` |
-| `(form, per user category)` | `@ContentType('Form')` | `@Comment('per user category')` |
+// After:
+/// 7.1.3. ER Diagram [PD00-BUS-DAT-DIA].
+ErDiagramSection erDiagram = ErDiagramSection();
+```
+
+Diagram subtypes extend `DiagramSection`; code subtypes extend `CodeSection`.
+
+### 4.4 Form variant suffixes
+
+Additional qualifiers on `(form)` map to `@Comment`:
+
+| Variant                      | Additional annotation            |
+|------------------------------|----------------------------------|
+| `(form, singular)`           | `@Comment('singular')`           |
+| `(form, repeatable)`         | `@Comment('repeatable')`         |
+| `(form, per user category)`  | `@Comment('per user category')`  |
+
+---
+
+## 4a. `@Form` / `Field` — from form classes with scalar fields
+
+**Pattern:** Entry/form classes that have multiple scalar `String?` fields
+representing one-line values (names, IDs, categories, statuses, etc.).
+
+All scalar form fields are collected into a single `@Form([Field(...)])`
+annotation on the `content` field. The individual `String?` fields are removed.
+
+### Before (explicit fields):
+```dart
+/// A data attribute entry [PD00-BUS-DAT-ENT-nn-ATT-nn] (form).
+class DataAttributeEntry {
+  String? content;
+  String? attributeName;
+  String? dataType;
+  String? length;
+  String? mandatory;
+  String? description;
+}
+```
+
+### After (`@Form` annotation):
+```dart
+/// A data attribute entry [PD00-BUS-DAT-ENT-nn-ATT-nn] (form).
+class DataAttributeEntry {
+  @Form([
+    Field('attributeName', String, 'Name of the attribute'),
+    Field('dataType', String, 'Data type (e.g., VARCHAR, INTEGER)'),
+    Field('length', int, 'Maximum length or precision'),
+    Field('mandatory', String, 'Whether the attribute is required'),
+    Field('description', String, 'Short description of the attribute'),
+  ])
+  String? content;
+}
+```
+
+### Rules:
+
+| Original field type | `Field` type parameter | Example |
+|---------------------|------------------------|---------|
+| Short text (name, category, status) | `String` | `Field('name', String, 'desc')` |
+| Count / number | `int` | `Field('count', int, 'desc')` |
+| Rate / allocation | `double` | `Field('rate', double, 'desc')` |
+| Constrained choice | enum type | `Field('priority', Priority, 'desc')` |
+| Short description (1–3 sentences) | `String` | `Field('description', String, 'desc')` |
+
+### Mixed form + text section classes:
+
+When a class has both short form fields AND long-text children, the short
+fields go into `@Form` while the long text becomes `TextSection` children:
+
+```dart
+class DataEntityEntry {
+  @Form([
+    Field('entityName', String, 'Name of the data entity', required: true),
+    Field('category', String, 'Entity category'),
+    Field('estimatedRecordCount', int, 'Estimated number of records'),
+  ])
+  String? content;
+
+  /// Description.
+  TextSection description = TextSection();
+
+  /// Attributes — contains 0+× Data Attribute.
+  List<DataAttributeEntry> attributes = [];
+}
+```
+
+### Outline rendering:
+
+The outliner shows `@Form` fields inline:
+```
+-> content @Form(attributeName, dataType, length, mandatory, description)
+```
 
 ---
 
@@ -179,31 +291,43 @@ fields, and the comment says `(description)`, it needs `@TextRequired`.
 
 ---
 
-## 9. `@FieldType` — from field semantics in name or comment
+## 9. Field Types — from field semantics in name or comment
 
 **Pattern:** Field names or comments that imply a non-string type.
 
+Since the restructuring, most scalar fields have moved into `@Form([Field(...)])`
+annotations (see Rule 4a). The type is now expressed as the `Field` type
+parameter rather than a standalone `@FieldType` annotation:
+
 ```dart
+// Before (standalone @FieldType on String? fields):
 String? estimatedRecordCount;   // → @FieldType('int')
 String? growthRate;             // → @FieldType('double')
-String? targetStartDate;        // → @FieldType('date')
-String? estimatedDuration;      // → @FieldType('duration')
-String? fteAllocation;          // → @FieldType('double')
-String? fteCount;               // → @FieldType('double')
-String? budget;                 // → @FieldType('currency')
-String? stepNumber;             // → @FieldType('int')
+
+// After (type expressed in @Form Field):
+@Form([
+  Field('estimatedRecordCount', int, 'Estimated number of records'),
+  Field('growthRate', double, 'Expected growth rate'),
+])
+String? content;
 ```
 
-**Rules by name suffix/keyword:**
+The `@FieldType` annotation **still applies** to standalone `String?` fields
+that remain outside `@Form` (e.g., rare non-form scalar fields).
 
-| Field name pattern            | Annotation              |
-|-------------------------------|-------------------------|
-| `*Count`, `*Number`, `step*`  | `@FieldType('int')`     |
-| `*Rate`, `*Fte*`, `*Allocation` | `@FieldType('double')` |
-| `*Date`                       | `@FieldType('date')`    |
-| `*Duration`                   | `@FieldType('duration')`|
-| `*Budget`, `*Cost`            | `@FieldType('currency')`|
-| `*Diagram`, `*Chart`          | `@FieldType('mermaid')` |
+**Name → type mapping** (applies to both `Field` type parameter and
+standalone `@FieldType`):
+
+| Field name pattern              | Type / Annotation         |
+|---------------------------------|---------------------------|
+| `*Count`, `*Number`, `step*`    | `int` / `@FieldType('int')` |
+| `*Rate`, `*Fte*`, `*Allocation` | `double` / `@FieldType('double')` |
+| `*Date`                         | `date` / `@FieldType('date')` |
+| `*Duration`                     | `duration` / `@FieldType('duration')` |
+| `*Budget`, `*Cost`              | `currency` / `@FieldType('currency')` |
+
+**Note:** The `*Diagram`, `*Chart` row is removed — diagram fields are now
+typed section classes (see Rule 4).
 
 ---
 
@@ -233,31 +357,34 @@ access key. Otherwise, prefer the field ending in `Name`.
 **Pattern:** Fields that reference data owned by another section in the model.
 
 References are **typed Dart fields** pointing to the referenced section class,
-not strings. The field type IS the target section type. The outliner does NOT
-follow references (no tree recursion). The schema generator uses them for
-cross-reference validation.
+not strings. The field type IS the target section type. The outliner shows
+references but does **NOT** follow them (no tree recursion — see outliner spec
+§5.2). The schema generator uses them for cross-reference validation.
 
 ```dart
-// Before (current model — string references):
-String? processReference;   // references TargetBusinessProcess
-String? sourceEntity;       // references DataEntityEntry
-
-// After (restructured — typed references):
 @Reference('Process this interaction belongs to')
 TargetBusinessProcess? processReference;
 
 @Reference('Source entity in this relationship')
 DataEntityEntry? sourceEntity;
+
+@Reference('Target entity in this relationship')
+DataEntityEntry? targetEntity;
 ```
 
 **Rule:** Fields containing `*Reference`, `*Related*`, or that clearly point to
 another section become `@Reference('description') TargetType? fieldName`.
+
+The `@Reference` annotation takes a single `String description` parameter.
 
 **Identification heuristics:**
 - Field name ends in `Reference` → definitely a reference
 - Field name is `source*` / `target*` and the context is a relationship → reference
 - Field name is `related*` → likely a reference
 - Field value would be an ID or name that matches another section type → reference
+
+**Outline rendering:** References are shown with `fieldName:TypeName:path`
+notation (see outliner spec §4.9) and are never recursed into.
 
 ---
 
@@ -322,19 +449,20 @@ format.
 
 ## Summary of Confidence Levels
 
-| Rule | Annotation | Confidence | Source signal |
-|------|-----------|------------|--------------|
+| Rule | Annotation / Pattern | Confidence | Source signal |
+|------|---------------------|------------|--------------|
 | 1 | `@SectionId` | **High** | Explicit `[PD00-XXX]` in comment |
 | 2 | `@SectionIdPattern` | **High** | Explicit `[PD00-XXX-nn]` in comment |
 | 3 | `@Min` | **High** | Explicit `contains N+×` in comment |
-| 4 | `@ContentType` | **High** | Explicit `(form)` / `(description)` / `(mermaid)` |
+| 4 | Section base types | **High** | Explicit `(text)` / `(mermaid-*)` / `(code-*)` → typed fields |
+| 4a | `@Form` / `Field` | **High** | Form classes with scalar `String?` fields → `@Form` on content |
 | 5 | `@Comment` (Seeds) | **High** | Explicit `Seeds → XX` text |
 | 6 | `@Prefix` | **Medium** | Derived from SectionId hierarchy |
 | 7 | `@Position` | **Low** | Declaration order already correct |
 | 8 | `@TextRequired` | **Medium** | From `(description)` + class shape |
-| 9 | `@FieldType` | **Medium** | Field name heuristics |
+| 9 | Field types | **High** | Name heuristics; type in `Field()` param or standalone `@FieldType` |
 | 10 | `@AccessKey` | **Medium** | `*Id` / `*Name` field patterns |
-| 11 | `@Reference` | **Medium** | `*Reference` / `*Related*` fields → typed section pointers |
+| 11 | `@Reference` | **High** | `*Reference` / `*Related*` fields → typed `@Reference` pointers |
 | 12 | `@MaxDepth` | **Medium** | Class shape (no subsection lists) |
 | 13 | `@AllowedTags` | **None** | No comment convention |
 | 14 | `@ForEach` | **Low** | `per XYZ` heuristic |
