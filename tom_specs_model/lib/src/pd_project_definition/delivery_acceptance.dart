@@ -3,6 +3,8 @@
 /// Agreements regarding delivery scope and acceptance for the system.
 library;
 
+import 'package:tom_specs_core/tom_specs_core.dart';
+
 
 
 /// 14. Delivery Scope and Acceptance [PD00-DEL].
@@ -63,12 +65,15 @@ class SupportDeliverables {
 
 /// A deliverable entry (form) [PD00-DEL-DEL-nn].
 class DeliverableEntry {
+  @Form([
+    Field('deliverableName', String, 'Deliverable Name', required: true),
+    Field('description', String, 'Short description'),
+    Field('deliveryDate', String, 'Delivery Date'),
+    Field('format', String, 'Format'),
+    Field('acceptanceCriteria', String, 'Acceptance Criteria'),
+  ])
+
   String? content;
-  String? deliverableName;
-  String? description;
-  String? deliveryDate;
-  String? format;
-  String? acceptanceCriteria;
 }
 
 /// 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
@@ -84,14 +89,14 @@ class AcceptancePlan {
   /// 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
   UserAcceptanceTesting userAcceptanceTesting = UserAcceptanceTesting();
 
-  /// 14.2.4. Defect Resolution [PD00-DEL-ACC-DEF].
-  String? defectResolution;
+  /// Defect Resolution.
+  TextSection defectResolution = TextSection();
 
-  /// 14.2.5. Sign-off Process [PD00-DEL-ACC-SIG].
-  String? signOffProcess;
+  /// Sign Off Process.
+  TextSection signOffProcess = TextSection();
 
-  /// 14.2.6. Warranty [PD00-DEL-ACC-WAR].
-  String? warranty;
+  /// Warranty.
+  TextSection warranty = TextSection();
 }
 
 /// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
@@ -103,46 +108,60 @@ class AcceptanceCriteriaList {
 
 /// An acceptance criterion entry (form) [PD00-DEL-ACC-CRI-nn].
 class DeliveryAcceptanceCriterionEntry {
+  @Form([
+    Field('criterion', String, 'Criterion', required: true),
+    Field('category', String, 'Category'),
+    Field('verificationMethod', String, 'Verification Method'),
+    Field('acceptanceThreshold', String, 'Acceptance Threshold'),
+  ])
+
   String? content;
-  String? criterion;
-  String? category;
-  String? verificationMethod;
-  String? acceptanceThreshold;
 }
 
 /// 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
 class AcceptanceProcess {
+  @Form([
+    Field('participants', String, 'Participants'),
+    Field('escalationProcess', String, 'Escalation Process'),
+  ])
+
   String? content;
   /// Contains 0+× AcceptanceStep.
   List<AcceptanceStepEntry> steps = [];
-  String? timeline;
-  String? participants;
-  String? escalationProcess;
 }
 
 /// An acceptance step entry (form) [PD00-DEL-ACC-PRO-nn].
 class AcceptanceStepEntry {
+  @Form([
+    Field('stepName', String, 'Step Name', required: true),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? stepName;
-  String? description;
 }
 
 /// 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
 class UserAcceptanceTesting {
+  @Form([
+    Field('scope', String, 'Scope'),
+    Field('environment', String, 'Environment'),
+    Field('participants', String, 'Participants'),
+    Field('schedule', String, 'Schedule'),
+    Field('exitCriteria', String, 'Exit Criteria'),
+  ])
+
   String? content;
-  String? scope;
-  String? environment;
-  String? participants;
-  String? schedule;
   /// Contains 0+× TestScenario.
   List<TestScenarioEntry> testScenarios = [];
-  String? exitCriteria;
 }
 
 /// A test scenario entry (form) [PD00-DEL-ACC-UAT-nn].
 class TestScenarioEntry {
+  @Form([
+    Field('scenarioName', String, 'Scenario Name', required: true),
+    Field('description', String, 'Short description'),
+    Field('expectedResult', String, 'Expected Result'),
+  ])
+
   String? content;
-  String? scenarioName;
-  String? description;
-  String? expectedResult;
 }

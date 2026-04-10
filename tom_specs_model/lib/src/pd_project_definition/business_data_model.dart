@@ -44,37 +44,48 @@ class DataModel {
 
 /// A data entity entry [PD00-BUS-DAT-ENT-nn] (form).
 class DataEntityEntry {
+  @Form([
+    Field('entityName', String, 'Entity Name', required: true),
+    Field('description', String, 'Short description'),
+    Field('category', String, 'Category'),
+    Field('estimatedRecordCount', String, 'Estimated Record Count'),
+    Field('growthRate', String, 'Growth Rate'),
+  ])
+
   String? content;
-  String? entityName;
-  String? description;
-  String? category;
   /// Contains 0+× DataAttribute.
   List<DataAttributeEntry> attributes = [];
   /// Contains 0+× KeyAttribute.
   List<KeyAttributeEntry> keyAttributes = [];
-  String? estimatedRecordCount;
-  String? growthRate;
-  String? retentionPolicy;
+  /// Retention Policy.
+  TextSection retentionPolicy = TextSection();
 }
 
 /// A data attribute entry (form) [PD00-BUS-DAT-ENT-nn-ATT-nn].
 class DataAttributeEntry {
+  @Form([
+    Field('attributeName', String, 'Attribute Name', required: true),
+    Field('dataType', String, 'Data Type'),
+    Field('length', String, 'Length'),
+    Field('format', String, 'Format'),
+    Field('mandatory', String, 'Mandatory'),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? attributeName;
-  String? dataType;
-  String? length;
-  String? format;
-  String? mandatory;
-  String? description;
 }
 
 /// A key attribute entry (form) — primary, unique, or foreign key [PD00-BUS-DAT-ENT-nn-KEY-nn].
 class KeyAttributeEntry {
+  @Form([
+    Field('attributeName', String, 'Attribute Name', required: true),
+    Field('keyType', String, 'Key Type'),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? attributeName;
-  String? keyType;
-  String? referencedEntity;
-  String? description;
+  @Reference('Referenced Entity')
+  DataEntityEntry? referencedEntity;
 }
 
 /// 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
@@ -86,12 +97,17 @@ class EntityRelationships {
 
 /// An entity relationship entry (form) [PD00-BUS-DAT-REL-nn].
 class EntityRelationshipEntry {
+  @Form([
+    Field('relationshipType', String, 'Relationship Type'),
+    Field('cardinality', String, 'Cardinality'),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? sourceEntity;
-  String? targetEntity;
-  String? relationshipType;
-  String? cardinality;
-  String? description;
+  @Reference('Source Entity')
+  DataEntityEntry? sourceEntity;
+  @Reference('Target Entity')
+  DataEntityEntry? targetEntity;
 }
 
 /// 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
@@ -103,28 +119,38 @@ class DataClassification {
 
 /// A data classification entry (form) [PD00-BUS-DAT-CLA-nn].
 class DataClassificationEntry {
+  @Form([
+    Field('classification', String, 'Classification'),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? classification;
-  String? description;
   /// Contains 0+× HandlingRequirement.
   List<HandlingRequirementEntry> handlingRequirements = [];
-  String? retentionPolicy;
+  /// Retention Policy.
+  TextSection retentionPolicy = TextSection();
   /// Contains 0+× AccessRestriction.
   List<AccessRestrictionEntry> accessRestrictions = [];
 }
 
 /// A data handling requirement entry (form) [PD00-BUS-DAT-CLA-nn-HAN-nn].
 class HandlingRequirementEntry {
+  @Form([
+    Field('requirement', String, 'Requirement'),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? requirement;
-  String? description;
 }
 
 /// An access restriction entry (form) [PD00-BUS-DAT-CLA-nn-ARE-nn].
 class AccessRestrictionEntry {
+  @Form([
+    Field('restriction', String, 'Restriction'),
+    Field('enforcement', String, 'Enforcement'),
+  ])
+
   String? content;
-  String? restriction;
-  String? enforcement;
 }
 
 // ---------------------------------------------------------------------------
@@ -146,10 +172,13 @@ class BusinessObjectModel {
 ///
 /// Includes optional lifecycle state transitions subsection.
 class BusinessObjectEntry {
+  @Form([
+    Field('objectName', String, 'Object Name', required: true),
+    Field('category', String, 'Category'),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? objectName;
-  String? category;
-  String? description;
   /// Contains 0+× BusinessObjectAttribute.
   List<BusinessObjectAttributeEntry> attributes = [];
   /// Contains 0+× ObjectState.
@@ -163,37 +192,49 @@ class BusinessObjectEntry {
 
 /// A business object attribute entry (form) [PD00-BUS-BUS-CAT-nn-BOA-nn].
 class BusinessObjectAttributeEntry {
+  @Form([
+    Field('attributeName', String, 'Attribute Name', required: true),
+    Field('type', String, 'Type'),
+    Field('length', String, 'Length'),
+    Field('format', String, 'Format'),
+    Field('description', String, 'Short description'),
+    Field('mandatory', String, 'Mandatory'),
+    Field('defaultValue', String, 'Default Value'),
+    Field('validationRules', String, 'Validation Rules'),
+  ])
+
   String? content;
-  String? attributeName;
-  String? type;
-  String? length;
-  String? format;
-  String? description;
-  String? mandatory;
-  String? defaultValue;
-  String? validationRules;
 }
 
 /// An object state entry (form) [PD00-BUS-BUS-CAT-nn-STA-nn].
 class ObjectStateEntry {
+  @Form([
+    Field('stateName', String, 'State Name'),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? stateName;
-  String? description;
 }
 
 /// A business rule reference entry (form) [PD00-BUS-BUS-CAT-nn-BRR-nn].
 class BusinessRuleReferenceEntry {
+  @Form([
+    Field('ruleName', String, 'Rule Name', required: true),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? ruleName;
-  String? description;
 }
 
 /// A lifecycle transition entry (form) [PD00-BUS-BUS-CAT-nn-LIF-nn].
 class LifecycleTransitionEntry {
+  @Form([
+    Field('fromState', String, 'From State'),
+    Field('toState', String, 'To State'),
+    Field('trigger', String, 'Trigger'),
+  ])
+
   String? content;
-  String? fromState;
-  String? toState;
-  String? trigger;
 }
 
 // ---------------------------------------------------------------------------
@@ -202,13 +243,12 @@ class LifecycleTransitionEntry {
 
 /// 7.3. Function Model [PD00-BUS-FUN].
 class FunctionModel {
+  @Form([
+    Field('functionDecomposition', String, 'Function Decomposition'),
+    Field('functionToDataMatrix', String, 'Function To Data Matrix'),
+  ])
+
   String? content;
-
-  /// 7.3.1. Function Decomposition [PD00-BUS-FUN-DEC].
-  String? functionDecomposition;
-
-  /// 7.3.2. Function-to-Data Matrix [PD00-BUS-FUN-MAT].
-  String? functionToDataMatrix;
 
   /// 7.3.3. Business Rules [PD00-BUS-FUN-RUL] — contains 1+× Business Rule.
   List<BusinessRuleEntry> businessRules = [];
@@ -216,28 +256,37 @@ class FunctionModel {
 
 /// A business rule entry [PD00-BUS-FUN-RUL-nn] (form).
 class BusinessRuleEntry {
+  @Form([
+    Field('ruleId', String, 'Rule Id', required: true),
+    Field('ruleName', String, 'Rule Name', required: true),
+    Field('description', String, 'Short description'),
+    Field('enforcement', String, 'Enforcement'),
+    Field('exceptionHandling', String, 'Exception Handling'),
+  ])
+
   String? content;
-  String? ruleId;
-  String? ruleName;
-  String? description;
   /// Contains 0+× AffectedObject.
   List<AffectedObjectEntry> affectedObjects = [];
   /// Contains 0+× AffectedFunction.
   List<AffectedFunctionEntry> affectedFunctions = [];
-  String? enforcement;
-  String? exceptionHandling;
 }
 
 /// An affected object reference entry (form) [PD00-BUS-FUN-RUL-nn-AOB-nn].
 class AffectedObjectEntry {
+  @Form([
+    Field('objectName', String, 'Object Name', required: true),
+    Field('impact', String, 'Impact assessment'),
+  ])
+
   String? content;
-  String? objectName;
-  String? impact;
 }
 
 /// An affected function reference entry (form) [PD00-BUS-FUN-RUL-nn-AFU-nn].
 class AffectedFunctionEntry {
+  @Form([
+    Field('functionName', String, 'Function Name'),
+    Field('impact', String, 'Impact assessment'),
+  ])
+
   String? content;
-  String? functionName;
-  String? impact;
 }

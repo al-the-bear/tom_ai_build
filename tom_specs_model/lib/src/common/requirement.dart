@@ -1,3 +1,5 @@
+import 'package:tom_specs_core/tom_specs_core.dart';
+
 
 import 'enums.dart';
 
@@ -7,13 +9,16 @@ import 'enums.dart';
 /// For example, PD functional requirements add [relatedUseCase],
 /// [relatedBusinessProcess], and [affectedDataEntities].
 class Requirement {
+  @Form([
+    Field('requirementId', String, 'Requirement Id', required: true),
+    Field('title', String, 'Title', required: true),
+    Field('description', String, 'Short description'),
+    Field('priority', Priority, 'Priority level'),
+    Field('source', String, 'Source'),
+    Field('rationale', String, 'Rationale'),
+    Field('acceptanceCriteria', String, 'Acceptance Criteria'),
+  ])
+
   String? content;
-  String? requirementId;
-  String? title;
-  String? description;
-  Priority? priority;
-  String? source;
-  String? rationale;
-  String? acceptanceCriteria;
   Status status = Status.draft;
 }

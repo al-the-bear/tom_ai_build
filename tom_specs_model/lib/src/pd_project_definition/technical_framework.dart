@@ -3,6 +3,8 @@
 /// Technical framework requirements and constraints.
 library;
 
+import 'package:tom_specs_core/tom_specs_core.dart';
+
 
 
 /// 8. Technical Framework Concept [PD00-TEC]. Seeds → TR.
@@ -38,11 +40,11 @@ class TechnicalFrameworkConcept {
 class BasicTechnicalRequirements {
   String? content;
 
-  /// 8.1.1. Platform and Language [PD00-TEC-BAS-PLA].
-  String? platformAndLanguage;
+  /// Platform And Language.
+  TextSection platformAndLanguage = TextSection();
 
-  /// 8.1.2. Architecture Style [PD00-TEC-BAS-ARC].
-  String? architectureStyle;
+  /// Architecture Style.
+  TextSection architectureStyle = TextSection();
 
   /// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT] — contains 0+× DesignPattern.
   List<DesignPatternEntry> designPatternsAndStandards = [];
@@ -50,20 +52,23 @@ class BasicTechnicalRequirements {
 
 /// A design pattern or standard entry (form) [PD00-TEC-BAS-PAT-nn].
 class DesignPatternEntry {
+  @Form([
+    Field('patternName', String, 'Pattern Name', required: true),
+    Field('purpose', String, 'Purpose'),
+  ])
+
   String? content;
-  String? patternName;
-  String? purpose;
 }
 
 /// 8.2. Software Design Requirements [PD00-TEC-SOF].
 class SoftwareDesignRequirements {
   String? content;
 
-  /// 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY].
-  String? layeringAndModuleStructure;
+  /// Layering And Module Structure.
+  TextSection layeringAndModuleStructure = TextSection();
 
-  /// 8.2.2. Development Environment [PD00-TEC-SOF-DEV].
-  String? developmentEnvironment;
+  /// Development Environment.
+  TextSection developmentEnvironment = TextSection();
 
   /// 8.2.3. Reusable Components [PD00-TEC-SOF-REU] — contains 0+× ReusableComponent.
   List<ReusableComponentEntry> reusableComponents = [];
@@ -71,10 +76,13 @@ class SoftwareDesignRequirements {
 
 /// A reusable component entry (form) [PD00-TEC-SOF-REU-nn].
 class ReusableComponentEntry {
+  @Form([
+    Field('componentName', String, 'Component Name', required: true),
+    Field('source', String, 'Source'),
+    Field('purpose', String, 'Purpose'),
+  ])
+
   String? content;
-  String? componentName;
-  String? source;
-  String? purpose;
 }
 
 /// 8.3. Standard Application Software Requirements [PD00-TEC-STA].
@@ -84,46 +92,49 @@ class StandardSoftwareRequirements {
   /// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM] — contains 0+× CompatibilityRequirement.
   List<CompatibilityRequirementEntry> compatibilityRequirements = [];
 
-  /// 8.3.2. Standards Compliance [PD00-TEC-STA-STD].
-  String? standardsCompliance;
+  /// Standards Compliance.
+  TextSection standardsCompliance = TextSection();
 }
 
 /// A compatibility requirement entry (form) [PD00-TEC-STA-COM-nn].
 class CompatibilityRequirementEntry {
+  @Form([
+    Field('requirement', String, 'Requirement'),
+    Field('system', String, 'System'),
+  ])
+
   String? content;
-  String? requirement;
-  String? system;
 }
 
 /// 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
 class HardwareRequirements {
   String? content;
 
-  /// 8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
-  String? serverRequirements;
+  /// Server Requirements.
+  TextSection serverRequirements = TextSection();
 
-  /// 8.4.2. Client Requirements [PD00-TEC-HAR-CLI].
-  String? clientRequirements;
+  /// Client Requirements.
+  TextSection clientRequirements = TextSection();
 
-  /// 8.4.3. Network Requirements [PD00-TEC-HAR-NET].
-  String? networkRequirements;
+  /// Network Requirements.
+  TextSection networkRequirements = TextSection();
 }
 
 /// 8.5. Operations Requirements [PD00-TEC-OPE].
 class OperationsRequirements {
   String? content;
 
-  /// 8.5.1. Backup and Recovery [PD00-TEC-OPE-BAC].
-  String? backupAndRecovery;
+  /// Backup And Recovery.
+  TextSection backupAndRecovery = TextSection();
 
-  /// 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP].
-  String? deploymentStrategy;
+  /// Deployment Strategy.
+  TextSection deploymentStrategy = TextSection();
 
-  /// 8.5.3. Monitoring and Alerting [PD00-TEC-OPE-MON].
-  String? monitoringAndAlerting;
+  /// Monitoring And Alerting.
+  TextSection monitoringAndAlerting = TextSection();
 
-  /// 8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI].
-  String? maintenanceWindows;
+  /// Maintenance Windows.
+  TextSection maintenanceWindows = TextSection();
 }
 
 /// 8.6. Communication Requirements [PD00-TEC-COM].
@@ -133,15 +144,18 @@ class CommunicationRequirements {
   /// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO] — contains 0+× Protocol.
   List<ProtocolEntry> protocolsAndStandards = [];
 
-  /// 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
-  String? externalConnectivity;
+  /// External Connectivity.
+  TextSection externalConnectivity = TextSection();
 }
 
 /// A protocol or standard entry (form) [PD00-TEC-COM-PRO-nn].
 class ProtocolEntry {
+  @Form([
+    Field('protocolName', String, 'Protocol Name', required: true),
+    Field('purpose', String, 'Purpose'),
+  ])
+
   String? content;
-  String? protocolName;
-  String? purpose;
 }
 
 /// 8.7. System Operation and Monitoring [PD00-TEC-SYS].
@@ -159,25 +173,25 @@ class SystemOperationAndMonitoring {
 class SystemOperation {
   String? content;
 
-  /// 8.7.1.1. Administration Requirements [PD00-TEC-SYS-OPE-ADM].
-  String? administrationRequirements;
+  /// Administration Requirements.
+  TextSection administrationRequirements = TextSection();
 
-  /// 8.7.1.2. Maintenance Procedures [PD00-TEC-SYS-OPE-MAI].
-  String? maintenanceProcedures;
+  /// Maintenance Procedures.
+  TextSection maintenanceProcedures = TextSection();
 }
 
 /// 8.7.2. Monitoring [PD00-TEC-SYS-MON].
 class Monitoring {
   String? content;
 
-  /// 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-MON-HEA].
-  String? healthChecksAndDiagnostics;
+  /// Health Checks And Diagnostics.
+  TextSection healthChecksAndDiagnostics = TextSection();
 
-  /// 8.7.2.2. Capacity Planning [PD00-TEC-SYS-MON-CAP].
-  String? capacityPlanning;
+  /// Capacity Planning.
+  TextSection capacityPlanning = TextSection();
 
-  /// 8.7.2.3. Alerting [PD00-TEC-SYS-MON-ALE].
-  String? alerting;
+  /// Alerting.
+  TextSection alerting = TextSection();
 }
 
 /// 8.8. Security Requirements [PD00-TEC-SEC].
@@ -187,8 +201,8 @@ class TechnicalSecurityRequirements {
   /// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS] — contains 0+× SecurityStandard.
   List<SecurityStandardEntry> itSecurityStandards = [];
 
-  /// 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
-  String? dataProtectionAndPrivacy;
+  /// Data Protection And Privacy.
+  TextSection dataProtectionAndPrivacy = TextSection();
 
   /// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD] — contains 0+× SecurityAudit.
   List<SecurityAuditEntry> securityAuditRequirements = [];
@@ -196,15 +210,21 @@ class TechnicalSecurityRequirements {
 
 /// A security standard entry (form) [PD00-TEC-SEC-ITS-nn].
 class SecurityStandardEntry {
+  @Form([
+    Field('standardName', String, 'Standard Name', required: true),
+    Field('version', String, 'Version'),
+    Field('scope', String, 'Scope'),
+  ])
+
   String? content;
-  String? standardName;
-  String? version;
-  String? scope;
 }
 
 /// A security audit requirement entry (form) [PD00-TEC-SEC-AUD-nn].
 class SecurityAuditEntry {
+  @Form([
+    Field('requirement', String, 'Requirement'),
+    Field('frequency', String, 'Frequency'),
+  ])
+
   String? content;
-  String? requirement;
-  String? frequency;
 }

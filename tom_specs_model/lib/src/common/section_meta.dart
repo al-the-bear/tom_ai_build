@@ -1,3 +1,5 @@
+import 'package:tom_specs_core/tom_specs_core.dart';
+
 import 'enums.dart';
 
 /// Metadata annotation for a document section.
@@ -5,10 +7,11 @@ import 'enums.dart';
 /// Captures the DocSpecs section type, section ID, and optional seed
 /// reference to the Phase 3 document this section expands into.
 class SectionMeta {
-  String? content;
-  String? sectionId;
-  SectionType? type;
+  @Form([
+    Field('sectionId', String, 'Section Id'),
+    Field('type', SectionType, 'Type'),
+    Field('seeds', String, 'Seeds'),
+  ])
 
-  /// Phase 3 document this section seeds, e.g. 'RC', 'BP', 'BDM'.
-  String? seeds;
+  String? content;
 }

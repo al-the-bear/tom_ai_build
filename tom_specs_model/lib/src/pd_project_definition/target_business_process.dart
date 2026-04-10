@@ -12,8 +12,8 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 class TargetBusinessProcessModel {
   String? content;
 
-  /// 6.1. Process Vision [PD00-TAR-VIS].
-  String? processVision;
+  /// Process Vision.
+  TextSection processVision = TextSection();
 
   /// 6.2. Design Principles [PD00-TAR-PRI].
   DesignPrinciples designPrinciples = DesignPrinciples();
@@ -24,8 +24,8 @@ class TargetBusinessProcessModel {
   /// 6.4. Relationships Between Processes [PD00-TAR-REL].
   ProcessRelationships relationshipsBetweenProcesses = ProcessRelationships();
 
-  /// 6.5. Improvement Summary [PD00-TAR-IMP].
-  String? improvementSummary;
+  /// Improvement Summary.
+  TextSection improvementSummary = TextSection();
 
   /// 6.6. Process Catalog [PD00-TAR-CAT] — contains 1+× Target Business Process.
   List<TargetBusinessProcess> processCatalog = [];
@@ -40,10 +40,13 @@ class DesignPrinciples {
 
 /// A design principle entry (form) [PD00-TAR-PRI-nn].
 class DesignPrincipleEntry {
+  @Form([
+    Field('principle', String, 'Principle', required: true),
+    Field('description', String, 'Short description'),
+    Field('rationale', String, 'Rationale'),
+  ])
+
   String? content;
-  String? principle;
-  String? description;
-  String? rationale;
 }
 
 /// 6.4. Relationships Between Processes [PD00-TAR-REL].
@@ -55,11 +58,16 @@ class ProcessRelationships {
 
 /// A process relationship entry (form) [PD00-TAR-REL-nn].
 class ProcessRelationshipEntry {
+  @Form([
+    Field('relationshipType', String, 'Relationship Type'),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? sourceProcess;
-  String? targetProcess;
-  String? relationshipType;
-  String? description;
+  @Reference('Source Process')
+  BusinessProcessDescription? sourceProcess;
+  @Reference('Target Process')
+  BusinessProcessDescription? targetProcess;
 }
 
 // ---------------------------------------------------------------------------
@@ -82,15 +90,18 @@ class TargetBusinessProcess {
 
 /// A business process description [PD00-TAR-CAT-nn-DES] (form).
 class BusinessProcessDescription {
+  @Form([
+    Field('processId', String, 'Process Id', required: true),
+    Field('processName', String, 'Process Name', required: true),
+    Field('trigger', String, 'Trigger'),
+    Field('primaryActor', String, 'Primary Actor'),
+    Field('description', String, 'Short description'),
+    Field('expectedOutcome', String, 'Expected Outcome'),
+    Field('estimatedFrequency', String, 'Estimated Frequency'),
+    Field('estimatedDuration', String, 'Estimated Duration'),
+  ])
+
   String? content;
-  String? processId;
-  String? processName;
-  String? trigger;
-  String? primaryActor;
-  String? description;
-  String? expectedOutcome;
-  String? estimatedFrequency;
-  String? estimatedDuration;
 }
 
 // ---------------------------------------------------------------------------
@@ -113,15 +124,17 @@ class ProcessStepsAndActorInteractions {
 
 /// An actor entry (form) [PD00-TAR-CAT-nn-ACT-nn].
 class ActorEntry {
-  String? content;
-  String? actorName;
-  String? actorType;
-  String? description;
+  @Form([
+    Field('actorName', String, 'Actor Name', required: true),
+    Field('actorType', String, 'Actor Type'),
+    Field('description', String, 'Short description'),
+    Field('accessChannel', String, 'Access Channel'),
+  ])
 
+  String? content;
   /// Primary interactions — contains 1+× interaction reference.
   PrimaryInteractions primaryInteractions = PrimaryInteractions();
 
-  String? accessChannel;
 }
 
 /// Primary interactions for an actor [PD00-TAR-CAT-nn-ACT-nn-PRI].
@@ -133,55 +146,72 @@ class PrimaryInteractions {
 
 /// A primary interaction entry (form) [PD00-TAR-CAT-nn-ACT-nn-PRI-nn].
 class PrimaryInteractionEntry {
+  @Form([
+    Field('description', String, 'Short description'),
+    Field('frequency', String, 'Frequency'),
+    Field('criticality', String, 'Criticality'),
+  ])
+
   String? content;
+  @Reference('Use Case Reference')
   String? useCaseReference;
-  String? description;
-  String? frequency;
-  String? criticality;
 }
 
 /// An interaction entry (form) [PD00-TAR-CAT-nn-INT-nn].
 class InteractionEntry {
+  @Form([
+    Field('interactionId', String, 'Interaction Id', required: true),
+    Field('actor', String, 'Actor'),
+    Field('action', String, 'Action'),
+    Field('systemResponse', String, 'System Response'),
+    Field('expectedOutcome', String, 'Expected Outcome'),
+    Field('precondition', String, 'Precondition'),
+    Field('postcondition', String, 'Postcondition'),
+  ])
+
   String? content;
-  String? interactionId;
-  String? processReference;
-  String? actor;
-  String? action;
-  String? systemResponse;
-  String? expectedOutcome;
-  String? precondition;
-  String? postcondition;
+  @Reference('Process Reference')
+  BusinessProcessDescription? processReference;
+  @Reference('Related Use Case')
   String? relatedUseCase;
 }
 
 /// A scenario entry (description) [PD00-TAR-CAT-nn-SCE-nn].
 class ScenarioEntry {
+  @Form([
+    Field('scenarioName', String, 'Scenario Name', required: true),
+    Field('description', String, 'Short description'),
+    Field('successCondition', String, 'Success Condition'),
+  ])
+
   String? content;
-  String? scenarioName;
-  String? description;
   /// Contains 0+× ScenarioStep.
   List<ScenarioStepEntry> steps = [];
-  String? successCondition;
-
   /// Alternative flows for this scenario — contains 0+× AlternativeFlow.
   List<AlternativeFlowEntry> alternativeFlows = [];
 }
 
 /// A scenario step entry (form) [PD00-TAR-CAT-nn-SCE-nn-SST-nn].
 class ScenarioStepEntry {
+  @Form([
+    Field('stepNumber', String, 'Step Number'),
+    Field('description', String, 'Short description'),
+    Field('expectedResult', String, 'Expected Result'),
+  ])
+
   String? content;
-  String? stepNumber;
-  String? description;
-  String? expectedResult;
 }
 
 /// An alternative flow entry (form) [PD00-TAR-CAT-nn-SCE-nn-AFL-nn].
 class AlternativeFlowEntry {
+  @Form([
+    Field('flowName', String, 'Flow Name', required: true),
+    Field('triggerCondition', String, 'Trigger Condition'),
+    Field('outcome', String, 'Outcome'),
+    Field('returnPoint', String, 'Return Point'),
+  ])
+
   String? content;
-  String? flowName;
-  String? triggerCondition;
   /// Contains 0+× ScenarioStep.
   List<ScenarioStepEntry> steps = [];
-  String? outcome;
-  String? returnPoint;
 }

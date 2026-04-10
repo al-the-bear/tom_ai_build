@@ -3,6 +3,8 @@
 /// External and standard components planned for use.
 library;
 
+import 'package:tom_specs_core/tom_specs_core.dart';
+
 
 
 /// 12. Components to Use [PD00-COM]. Seeds → TR.
@@ -15,8 +17,8 @@ class ComponentsToUse {
   /// 12.2. Component Catalog [PD00-COM-COM] — contains 0+× Component.
   List<ComponentEntry> componentCatalog = [];
 
-  /// 12.3. Component Role in System [PD00-COM-ROL].
-  String? componentRoleInSystem;
+  /// Component Role In System.
+  TextSection componentRoleInSystem = TextSection();
 
   /// 12.4. Runtime Dependencies [PD00-COM-RUN].
   RuntimeDependencies runtimeDependencies = RuntimeDependencies();
@@ -41,9 +43,12 @@ class ComponentStrategy {
 
 /// A reuse goal entry (form) [PD00-COM-STR-GOA-nn].
 class ReuseGoalEntry {
+  @Form([
+    Field('goal', String, 'Goal', required: true),
+    Field('rationale', String, 'Rationale'),
+  ])
+
   String? content;
-  String? goal;
-  String? rationale;
 }
 
 /// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
@@ -55,10 +60,13 @@ class EvaluationCriteria {
 
 /// An evaluation criterion entry (form) [PD00-COM-STR-EVA-nn].
 class EvaluationCriterionEntry {
+  @Form([
+    Field('criterion', String, 'Criterion', required: true),
+    Field('weight', String, 'Weight'),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? criterion;
-  String? weight;
-  String? description;
 }
 
 /// 12.4. Runtime Dependencies [PD00-COM-RUN].
@@ -77,12 +85,16 @@ class MaintenanceDependencies {
 
 /// A dependency entry (form) [PD00-COM-RUN-nn].
 class DependencyEntry {
+  @Form([
+    Field('version', String, 'Version'),
+    Field('purpose', String, 'Purpose'),
+    Field('criticality', String, 'Criticality'),
+    Field('alternative', String, 'Alternative'),
+  ])
+
   String? content;
+  @Reference('Dependency Name')
   String? dependencyName;
-  String? version;
-  String? purpose;
-  String? criticality;
-  String? alternative;
 }
 
 // ---------------------------------------------------------------------------
@@ -91,21 +103,23 @@ class DependencyEntry {
 
 /// A component entry [PD00-COM-COM-nn] (form) with sub-entries.
 class ComponentEntry {
-  String? content;
-  String? componentName;
-  String? version;
-  String? category;
-  String? purpose;
-  String? documentation;
+  @Form([
+    Field('componentName', String, 'Component Name', required: true),
+    Field('version', String, 'Version'),
+    Field('category', String, 'Category'),
+    Field('purpose', String, 'Purpose'),
+    Field('documentation', String, 'Documentation'),
+  ])
 
+  String? content;
   /// Interfaces [PD00-COM-COM-nn-INT] — contains 0+× ComponentInterface.
   List<ComponentInterfaceEntry> interfaces = [];
 
   /// Licensing [PD00-COM-COM-nn-LIC] (form).
   ComponentLicensingEntry? licensing;
 
-  /// Usage Rights [PD00-COM-COM-nn-USE] (description).
-  String? usageRights;
+  /// Usage Rights.
+  TextSection usageRights = TextSection();
 
   /// Responsibilities [PD00-COM-COM-nn-RES] (form).
   ComponentResponsibilitiesEntry? responsibilities;
@@ -113,28 +127,37 @@ class ComponentEntry {
 
 /// A component interface entry (form) [PD00-COM-COM-nn-INT-nn].
 class ComponentInterfaceEntry {
+  @Form([
+    Field('interfaceName', String, 'Interface Name'),
+    Field('interfaceType', String, 'Interface Type'),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? interfaceName;
-  String? interfaceType;
-  String? description;
 }
 
 /// Component licensing sub-entry [PD00-COM-COM-nn-LIC] (form).
 class ComponentLicensingEntry {
+  @Form([
+    Field('licenseModel', String, 'License Model'),
+    Field('annualCost', String, 'Annual Cost'),
+    Field('renewal', String, 'Renewal'),
+    Field('redistribution', String, 'Redistribution'),
+  ])
+
   String? content;
-  String? licenseModel;
-  String? annualCost;
-  String? renewal;
-  String? redistribution;
 }
 
 /// Component responsibilities sub-entry [PD00-COM-COM-nn-RES] (form).
 class ComponentResponsibilitiesEntry {
+  @Form([
+    Field('technicalContact', String, 'Technical Contact'),
+    Field('supportModel', String, 'Support Model'),
+    Field('escalation', String, 'Escalation'),
+    Field('updateCadence', String, 'Update Cadence'),
+  ])
+
   String? content;
-  String? technicalContact;
-  String? supportModel;
-  String? escalation;
-  String? updateCadence;
 }
 
 // ---------------------------------------------------------------------------
@@ -161,21 +184,27 @@ class ContingencyPlans {
 
 /// A contingency plan entry (form) [PD00-COM-RIS-CON-nn].
 class ContingencyPlanEntry {
+  @Form([
+    Field('component', String, 'Component'),
+    Field('triggerCondition', String, 'Trigger Condition'),
+    Field('action', String, 'Action'),
+    Field('responsibleParty', String, 'Responsible Party'),
+  ])
+
   String? content;
-  String? component;
-  String? triggerCondition;
-  String? action;
-  String? responsibleParty;
 }
 
 /// A component risk entry [PD00-COM-RIS-RIS-nn] (form).
 class ComponentRiskEntry {
+  @Form([
+    Field('riskId', String, 'Risk Id', required: true),
+    Field('component', String, 'Component'),
+    Field('risk', String, 'Risk'),
+    Field('probability', String, 'Probability'),
+    Field('impact', String, 'Impact assessment'),
+    Field('mitigation', String, 'Mitigation strategy'),
+    Field('contingencyTrigger', String, 'Contingency Trigger'),
+  ])
+
   String? content;
-  String? riskId;
-  String? component;
-  String? risk;
-  String? probability;
-  String? impact;
-  String? mitigation;
-  String? contingencyTrigger;
 }

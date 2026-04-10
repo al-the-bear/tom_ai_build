@@ -3,6 +3,8 @@
 /// Application security for data and functions.
 library;
 
+import 'package:tom_specs_core/tom_specs_core.dart';
+
 
 
 /// 9. Access and Authorization Concept [PD00-ACC]. Seeds → AC.
@@ -35,8 +37,8 @@ class UserManagement {
   /// 9.1.1. User Categories [PD00-ACC-USE-CAT].
   UserCategories userCategories = UserCategories();
 
-  /// 9.1.2. User Lifecycle [PD00-ACC-USE-LIF].
-  String? userLifecycle;
+  /// User Lifecycle.
+  TextSection userLifecycle = TextSection();
 
   /// 9.1.3. User Attributes [PD00-ACC-USE-ATT].
   UserAttributes userAttributes = UserAttributes();
@@ -51,11 +53,14 @@ class UserCategories {
 
 /// A user category definition (form) [PD00-ACC-USE-CAT-nn].
 class UserCategoryDefinition {
+  @Form([
+    Field('categoryName', String, 'Category Name', required: true),
+    Field('description', String, 'Short description'),
+    Field('accessLevel', String, 'Access Level'),
+    Field('estimatedCount', String, 'Estimated Count'),
+  ])
+
   String? content;
-  String? categoryName;
-  String? description;
-  String? accessLevel;
-  String? estimatedCount;
 }
 
 /// 9.1.3. User Attributes [PD00-ACC-USE-ATT].
@@ -67,11 +72,14 @@ class UserAttributes {
 
 /// A user attribute entry (form) [PD00-ACC-USE-ATT-nn].
 class UserAttributeEntry {
+  @Form([
+    Field('attributeName', String, 'Attribute Name', required: true),
+    Field('dataType', String, 'Data Type'),
+    Field('source', String, 'Source'),
+    Field('required', String, 'Required'),
+  ])
+
   String? content;
-  String? attributeName;
-  String? dataType;
-  String? source;
-  String? required;
 }
 
 /// 9.2. Identification and Authentication [PD00-ACC-IDE].
@@ -89,17 +97,17 @@ class IdentificationAndAuthentication {
 class Identification {
   String? content;
 
-  /// 9.2.1.1. Identity Sources [PD00-ACC-IDE-IDN-SRC].
-  String? identitySources;
+  /// Identity Sources.
+  TextSection identitySources = TextSection();
 
-  /// 9.2.1.2. Identity Verification [PD00-ACC-IDE-IDN-VER].
-  String? identityVerification;
+  /// Identity Verification.
+  TextSection identityVerification = TextSection();
 
-  /// 9.2.1.3. Identity Providers [PD00-ACC-IDE-IDN-PRO].
-  String? identityProviders;
+  /// Identity Providers.
+  TextSection identityProviders = TextSection();
 
-  /// 9.2.1.4. Single Sign-On [PD00-ACC-IDE-IDN-SSO].
-  String? singleSignOn;
+  /// Single Sign On.
+  TextSection singleSignOn = TextSection();
 }
 
 /// 9.2.2. Authentication [PD00-ACC-IDE-AUT].
@@ -109,14 +117,14 @@ class Authentication {
   /// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
   AuthenticationMethods authenticationMethods = AuthenticationMethods();
 
-  /// 9.2.2.2. Authentication Flow [PD00-ACC-IDE-AUT-FLO].
-  String? authenticationFlow;
+  /// Authentication Flow.
+  TextSection authenticationFlow = TextSection();
 
-  /// 9.2.2.3. Password and Credential Policy [PD00-ACC-IDE-AUT-POL].
-  String? passwordPolicy;
+  /// Password Policy.
+  TextSection passwordPolicy = TextSection();
 
-  /// 9.2.2.4. Session Management [PD00-ACC-IDE-AUT-SES].
-  String? sessionManagement;
+  /// Session Management.
+  TextSection sessionManagement = TextSection();
 }
 
 /// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
@@ -128,26 +136,29 @@ class AuthenticationMethods {
 
 /// An authentication method entry (form) [PD00-ACC-IDE-AUT-MET-nn].
 class AuthenticationMethodEntry {
+  @Form([
+    Field('methodName', String, 'Method Name', required: true),
+    Field('methodType', String, 'Method Type'),
+    Field('applicableUserCategories', String, 'Applicable User Categories'),
+    Field('securityLevel', String, 'Security Level'),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? methodName;
-  String? methodType;
-  String? applicableUserCategories;
-  String? securityLevel;
-  String? description;
 }
 
 /// 9.3. Resource Protection [PD00-ACC-RES].
 class ResourceProtection {
   String? content;
 
-  /// 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
-  String? dataLevelSecurity;
+  /// Data Level Security.
+  TextSection dataLevelSecurity = TextSection();
 
-  /// 9.3.2. API Security [PD00-ACC-RES-API].
-  String? apiSecurity;
+  /// Api Security.
+  TextSection apiSecurity = TextSection();
 
-  /// 9.3.3. File and Storage Security [PD00-ACC-RES-FIL].
-  String? fileAndStorageSecurity;
+  /// File And Storage Security.
+  TextSection fileAndStorageSecurity = TextSection();
 }
 
 /// 9.4. User Authorization [PD00-ACC-USA].
@@ -156,8 +167,8 @@ class ResourceProtection {
 class UserAuthorization {
   String? content;
 
-  /// 9.4.1. Authorization Model [PD00-ACC-USA-MOD].
-  String? authorizationModel;
+  /// Authorization Model.
+  TextSection authorizationModel = TextSection();
 
   /// 9.4.2. Authorization Groups [PD00-ACC-USA-GRP] — contains 0+× Group.
   List<AuthorizationGroupEntry> groups = [];
@@ -171,39 +182,48 @@ class UserAuthorization {
   /// 9.4.5. Resource Keys [PD00-ACC-USA-RES] — contains 0+× Resource Key.
   List<ResourceKeyEntry> resourceKeys = [];
 
-  /// 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH].
-  String? roleHierarchy;
+  /// Role Hierarchy.
+  TextSection roleHierarchy = TextSection();
 
-  /// 9.4.7. Tenant Isolation [PD00-ACC-USA-TEN].
-  String? tenantIsolation;
+  /// Tenant Isolation.
+  TextSection tenantIsolation = TextSection();
 }
 
 /// An authorization group entry [PD00-ACC-USA-GRP-nn] (form).
 class AuthorizationGroupEntry {
+  @Form([
+    Field('groupName', String, 'Group Name', required: true),
+    Field('description', String, 'Short description'),
+    Field('membershipCriteria', String, 'Membership Criteria'),
+  ])
+
   String? content;
-  String? groupName;
-  String? description;
   /// Contains 0+× RoleReference.
   List<RoleReferenceEntry> containedRoles = [];
-  String? membershipCriteria;
 }
 
 /// A role reference entry (form) [PD00-ACC-USA-GRP-nn-ROL-nn].
 class RoleReferenceEntry {
+  @Form([
+    Field('roleName', String, 'Role Name', required: true),
+  ])
+
   String? content;
-  String? roleName;
 }
 
 /// An authorization role entry [PD00-ACC-USA-ROL-nn] (form).
 class AuthorizationRoleEntry {
+  @Form([
+    Field('roleName', String, 'Role Name', required: true),
+    Field('description', String, 'Short description'),
+    Field('inheritsFrom', String, 'Inherits From'),
+  ])
+
   String? content;
-  String? roleName;
-  String? description;
   /// Contains 0+× ResponsibilityReference.
   List<ResponsibilityReferenceEntry> responsibilities = [];
   /// Contains 0+× EntitlementReference.
   List<EntitlementReferenceEntry> entitlementReferences = [];
-  String? inheritsFrom;
   /// Contains 0+× RoleExclusion.
   List<RoleExclusionEntry> mutualExclusions = [];
   /// Contains 0+× RoleHolder.
@@ -212,69 +232,90 @@ class AuthorizationRoleEntry {
 
 /// A responsibility reference entry (form) [PD00-ACC-USA-ROL-nn-RSP-nn].
 class ResponsibilityReferenceEntry {
+  @Form([
+    Field('responsibility', String, 'Responsibility'),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? responsibility;
-  String? description;
 }
 
 /// An entitlement reference entry (form) [PD00-ACC-USA-ROL-nn-ENT-nn].
 class EntitlementReferenceEntry {
+  @Form([
+    Field('entitlementName', String, 'Entitlement Name', required: true),
+  ])
+
   String? content;
-  String? entitlementName;
 }
 
 /// A role exclusion entry (form) [PD00-ACC-USA-ROL-nn-EXC-nn].
 class RoleExclusionEntry {
+  @Form([
+    Field('excludedRole', String, 'Excluded Role'),
+    Field('reason', String, 'Reason'),
+  ])
+
   String? content;
-  String? excludedRole;
-  String? reason;
 }
 
 /// A role holder entry (form) [PD00-ACC-USA-ROL-nn-HOL-nn].
 class RoleHolderEntry {
+  @Form([
+    Field('holderDescription', String, 'Holder Description'),
+    Field('department', String, 'Department'),
+  ])
+
   String? content;
-  String? holderDescription;
-  String? department;
 }
 
 /// An entitlement entry [PD00-ACC-USA-ENT-nn] (form).
 class EntitlementEntry {
+  @Form([
+    Field('entitlementName', String, 'Entitlement Name', required: true),
+    Field('description', String, 'Short description'),
+    Field('accessType', String, 'Access Type'),
+    Field('conditions', String, 'Conditions'),
+  ])
+
   String? content;
-  String? entitlementName;
-  String? description;
   /// Contains 0+× ResourceKeyReference.
   List<ResourceKeyReferenceEntry> resourceKeyReferences = [];
-  String? accessType;
-  String? conditions;
 }
 
 /// A resource key reference entry (form) [PD00-ACC-USA-ENT-nn-RKR-nn].
 class ResourceKeyReferenceEntry {
+  @Form([
+    Field('resourceKey', String, 'Resource Key', required: true),
+  ])
+
   String? content;
-  String? resourceKey;
 }
 
 /// A resource key entry [PD00-ACC-USA-RES-nn] (form).
 class ResourceKeyEntry {
+  @Form([
+    Field('resourceKey', String, 'Resource Key', required: true),
+    Field('resourceType', String, 'Resource Type'),
+    Field('description', String, 'Short description'),
+    Field('protectionLevel', String, 'Protection Level'),
+  ])
+
   String? content;
-  String? resourceKey;
-  String? resourceType;
-  String? description;
-  String? protectionLevel;
 }
 
 /// 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
 class SensitiveDataEncryption {
   String? content;
 
-  /// 9.5.1. Encryption at Rest [PD00-ACC-SEN-RES].
-  String? encryptionAtRest;
+  /// Encryption At Rest.
+  TextSection encryptionAtRest = TextSection();
 
-  /// 9.5.2. Encryption in Transit [PD00-ACC-SEN-TRA].
-  String? encryptionInTransit;
+  /// Encryption In Transit.
+  TextSection encryptionInTransit = TextSection();
 
-  /// 9.5.3. Key Management [PD00-ACC-SEN-KEY].
-  String? keyManagement;
+  /// Key Management.
+  TextSection keyManagement = TextSection();
 }
 
 /// 9.6. Audit and Logging [PD00-ACC-AUD].
@@ -292,25 +333,25 @@ class AuditAndLogging {
 class Audit {
   String? content;
 
-  /// 9.6.1.1. Audit Trail [PD00-ACC-AUD-AUD-TRA].
-  String? auditTrail;
+  /// Audit Trail.
+  TextSection auditTrail = TextSection();
 
-  /// 9.6.1.2. Compliance Reporting [PD00-ACC-AUD-AUD-COM].
-  String? complianceReporting;
+  /// Compliance Reporting.
+  TextSection complianceReporting = TextSection();
 
-  /// 9.6.1.3. Retention Policy [PD00-ACC-AUD-AUD-RET].
-  String? retentionPolicy;
+  /// Retention Policy.
+  TextSection retentionPolicy = TextSection();
 }
 
 /// 9.6.2. Logging [PD00-ACC-AUD-LOG].
 class Logging {
   String? content;
 
-  /// 9.6.2.1. Log Format [PD00-ACC-AUD-LOG-FMT].
-  String? logFormat;
+  /// Log Format.
+  TextSection logFormat = TextSection();
 
-  /// 9.6.2.2. Log Levels [PD00-ACC-AUD-LOG-LEV].
-  String? logLevels;
+  /// Log Levels.
+  TextSection logLevels = TextSection();
 
   /// 9.6.2.3. Security Events [PD00-ACC-AUD-LOG-EVE].
   SecurityEvents securityEvents = SecurityEvents();
@@ -325,10 +366,13 @@ class SecurityEvents {
 
 /// A security event entry (form) [PD00-ACC-AUD-LOG-EVE-nn].
 class SecurityEventEntry {
+  @Form([
+    Field('eventName', String, 'Event Name', required: true),
+    Field('eventType', String, 'Event Type'),
+    Field('description', String, 'Short description'),
+    Field('severity', String, 'Severity level'),
+    Field('responseAction', String, 'Response Action'),
+  ])
+
   String? content;
-  String? eventName;
-  String? eventType;
-  String? description;
-  String? severity;
-  String? responseAction;
 }

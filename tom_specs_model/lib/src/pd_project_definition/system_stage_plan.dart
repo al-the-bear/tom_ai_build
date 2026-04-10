@@ -32,21 +32,23 @@ class SystemStagePlan {
 
 /// 13.1. Staging Strategy [PD00-SSP-STR].
 class StagingStrategy {
+  @Form([
+    Field('rationale', String, 'Rationale'),
+  ])
+
   String? content;
 
-  /// 13.1.1. Staging Approach [PD00-SSP-STR-APP].
-  String? stagingApproach;
+  /// Staging Approach.
+  TextSection stagingApproach = TextSection();
 
-  /// 13.1.2. Rationale [PD00-SSP-STR-RAT].
-  String? rationale;
 }
 
 /// 13.2. Stage Overview [PD00-SSP-STA].
 class StageOverview {
   String? content;
 
-  /// 13.2.1. Stage Summary [PD00-SSP-STA-SUM].
-  String? stageSummary;
+  /// Stage Summary.
+  TextSection stageSummary = TextSection();
 
   /// 13.2.2. Stage Timeline Diagram [PD00-SSP-STA-DIA] (mermaid).
   GanttDiagramSection timelineDiagram = GanttDiagramSection();
@@ -54,52 +56,60 @@ class StageOverview {
 
 /// A stage entry [PD00-SSP-STG-nn] (form) with description subsections.
 class StageEntry {
-  String? content;
-  String? stageNumber;
-  String? stageName;
-  String? targetGoLive;
-  String? scopeSummary;
+  @Form([
+    Field('stageNumber', String, 'Stage Number', required: true),
+    Field('stageName', String, 'Stage Name', required: true),
+    Field('targetGoLive', String, 'Target Go Live'),
+    Field('scopeSummary', String, 'Scope Summary'),
+  ])
 
-  /// Feature Scope [PD00-SSP-STG-nn-FEA] (description).
-  String? featureScope;
+  String? content;
+  /// Feature Scope.
+  TextSection featureScope = TextSection();
 
   /// Sub-stages and Milestones [PD00-SSP-STG-nn-SUB] — contains 0+× SubStage.
   List<SubStageEntry> subStagesAndMilestones = [];
 
-  /// Timeline [PD00-SSP-STG-nn-TIM] (description).
-  String? timeline;
+  /// Timeline.
+  TextSection timeline = TextSection();
 
   /// Success Criteria [PD00-SSP-STG-nn-SUC] — contains 0+× StageSuccessCriterion.
   List<StageSuccessCriterionEntry> successCriteria = [];
 
-  /// Rollout Plan [PD00-SSP-STG-nn-ROL] (description).
-  String? rolloutPlan;
+  /// Rollout Plan.
+  TextSection rolloutPlan = TextSection();
 }
 
 /// A sub-stage or milestone entry (form) [PD00-SSP-STG-nn-SUB-nn].
 class SubStageEntry {
+  @Form([
+    Field('name', String, 'Name', required: true),
+    Field('description', String, 'Short description'),
+    Field('targetDate', String, 'Target Date'),
+  ])
+
   String? content;
-  String? name;
-  String? description;
-  String? targetDate;
 }
 
 /// A success criterion entry (form) [PD00-SSP-STG-nn-SUC-nn].
 class StageSuccessCriterionEntry {
+  @Form([
+    Field('criterion', String, 'Criterion', required: true),
+    Field('measurementMethod', String, 'Measurement Method'),
+  ])
+
   String? content;
-  String? criterion;
-  String? measurementMethod;
 }
 
 /// 13.4. Feature Prioritization [PD00-SSP-FEA].
 class FeaturePrioritization {
   String? content;
 
-  /// 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
-  String? moscowAnalysis;
+  /// Moscow Analysis.
+  TextSection moscowAnalysis = TextSection();
 
-  /// 13.4.2. Feature-Stage Matrix [PD00-SSP-FEA-MAT].
-  String? featureStageMatrix;
+  /// Feature Stage Matrix.
+  TextSection featureStageMatrix = TextSection();
 }
 
 /// 13.5. Data Migration Strategy [PD00-SSP-MIG].
@@ -122,12 +132,15 @@ class MigrationPhases {
 
 /// A migration phase entry (form) [PD00-SSP-MIG-PHA-nn].
 class MigrationPhaseEntry {
+  @Form([
+    Field('phaseName', String, 'Phase Name', required: true),
+    Field('description', String, 'Short description'),
+    Field('dataScope', String, 'Data Scope'),
+    Field('targetStage', String, 'Target Stage'),
+    Field('verificationApproach', String, 'Verification Approach'),
+  ])
+
   String? content;
-  String? phaseName;
-  String? description;
-  String? dataScope;
-  String? targetStage;
-  String? verificationApproach;
 }
 
 /// 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
@@ -139,11 +152,14 @@ class StageMigrationRisks {
 
 /// A stage migration risk entry (form) [PD00-SSP-MIG-RIS-nn].
 class StageMigrationRiskEntry {
+  @Form([
+    Field('risk', String, 'Risk'),
+    Field('probability', String, 'Probability'),
+    Field('impact', String, 'Impact assessment'),
+    Field('mitigation', String, 'Mitigation strategy'),
+  ])
+
   String? content;
-  String? risk;
-  String? probability;
-  String? impact;
-  String? mitigation;
 }
 
 /// 13.6. Governance [PD00-SSP-GOV].
@@ -166,19 +182,25 @@ class PhaseGateReviews {
 
 /// A phase gate review entry (form) [PD00-SSP-GOV-GAT-nn].
 class PhaseGateReviewEntry {
+  @Form([
+    Field('gateName', String, 'Gate Name', required: true),
+    Field('stage', String, 'Stage'),
+    Field('decisionAuthority', String, 'Decision Authority'),
+  ])
+
   String? content;
-  String? gateName;
-  String? stage;
   /// Contains 0+× ReviewCriterion.
   List<ReviewCriterionEntry> reviewCriteria = [];
-  String? decisionAuthority;
 }
 
 /// A review criterion entry (form) [PD00-SSP-GOV-GAT-nn-RCR-nn].
 class ReviewCriterionEntry {
+  @Form([
+    Field('criterion', String, 'Criterion', required: true),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? criterion;
-  String? description;
 }
 
 /// 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
@@ -190,19 +212,25 @@ class DecisionPoints {
 
 /// A decision point entry (form) [PD00-SSP-GOV-DEC-nn].
 class DecisionPointEntry {
+  @Form([
+    Field('decisionPoint', String, 'Decision Point'),
+    Field('timing', String, 'Timing'),
+    Field('criteria', String, 'Criteria'),
+    Field('decisionAuthority', String, 'Decision Authority'),
+  ])
+
   String? content;
-  String? decisionPoint;
-  String? timing;
-  String? criteria;
-  String? decisionAuthority;
   /// Contains 0+× DecisionOption.
   List<DecisionOptionEntry> options = [];
 }
 
 /// A decision option entry (form) [PD00-SSP-GOV-DEC-nn-OPT-nn].
 class DecisionOptionEntry {
+  @Form([
+    Field('option', String, 'Option'),
+    Field('description', String, 'Short description'),
+    Field('implications', String, 'Implications'),
+  ])
+
   String? content;
-  String? option;
-  String? description;
-  String? implications;
 }

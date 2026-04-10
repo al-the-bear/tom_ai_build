@@ -23,11 +23,11 @@ class UserInterfaceDesign {
   /// 10.4. Print Layout [PD00-USE-PRI]. Seeds → UP.
   PrintLayout printLayout = PrintLayout();
 
-  /// 10.5. Data Structure Alignment [PD00-USE-DAT]. Seeds → UP.
-  String? dataStructureAlignment;
+  /// Data Structure Alignment.
+  TextSection dataStructureAlignment = TextSection();
 
-  /// 10.6. Authorization Concept Compliance [PD00-USE-AUT]. Seeds → UP.
-  String? authorizationCompliance;
+  /// Authorization Compliance.
+  TextSection authorizationCompliance = TextSection();
 
   /// 10.7. Error Handling Concept [PD00-USE-ERR]. Seeds → UP.
   ErrorHandlingConcept errorHandling = ErrorHandlingConcept();
@@ -71,45 +71,60 @@ class DesignVision {
 
 /// A design goal entry (form) [PD00-USE-VIS-GOA-nn].
 class DesignGoalEntry {
+  @Form([
+    Field('goal', String, 'Goal', required: true),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? goal;
-  String? description;
 }
 
 /// A design principle entry (form) [PD00-USE-VIS-PRI-nn].
 class UiDesignPrincipleEntry {
+  @Form([
+    Field('principle', String, 'Principle', required: true),
+    Field('rationale', String, 'Rationale'),
+  ])
+
   String? content;
-  String? principle;
-  String? rationale;
 }
 
 /// A user persona entry [PD00-USE-VIS-PER-nn] (form).
 class PersonaEntry {
+  @Form([
+    Field('personaName', String, 'Persona Name', required: true),
+    Field('age', String, 'Age'),
+    Field('role', String, 'Role'),
+    Field('technicalProficiency', String, 'Technical Proficiency'),
+    Field('typicalUsage', String, 'Typical Usage'),
+    Field('device', String, 'Device'),
+  ])
+
   String? content;
-  String? personaName;
-  String? age;
-  String? role;
   /// Contains 0+× PersonaGoal.
   List<PersonaGoalEntry> goals = [];
   /// Contains 0+× PersonaPainPoint.
   List<PersonaPainPointEntry> painPoints = [];
-  String? technicalProficiency;
-  String? typicalUsage;
-  String? device;
 }
 
 /// A persona goal entry (form) [PD00-USE-VIS-PER-nn-GOA-nn].
 class PersonaGoalEntry {
+  @Form([
+    Field('goal', String, 'Goal', required: true),
+    Field('priority', String, 'Priority level'),
+  ])
+
   String? content;
-  String? goal;
-  String? priority;
 }
 
 /// A pain point entry (form) [PD00-USE-VIS-PER-nn-PAI-nn].
 class PersonaPainPointEntry {
+  @Form([
+    Field('painPoint', String, 'Pain Point', required: true),
+    Field('impact', String, 'Impact assessment'),
+  ])
+
   String? content;
-  String? painPoint;
-  String? impact;
 }
 
 // ---------------------------------------------------------------------------
@@ -123,45 +138,57 @@ class ScreenDescriptions {
   /// 10.2.1. Screen Inventory [PD00-USE-SCR-INV] — contains 1+× Screen.
   List<ScreenEntry> screenInventory = [];
 
-  /// 10.2.2. Information Architecture [PD00-USE-SCR-INF].
-  String? informationArchitecture;
+  /// Information Architecture.
+  TextSection informationArchitecture = TextSection();
 }
 
 /// A screen entry [PD00-USE-SCR-INV-nn] (form).
 class ScreenEntry {
+  @Form([
+    Field('screenId', String, 'Screen Id', required: true),
+    Field('screenName', String, 'Screen Name', required: true),
+    Field('purpose', String, 'Purpose'),
+    Field('accessLevel', String, 'Access Level'),
+    Field('layout', String, 'Layout'),
+  ])
+
   String? content;
-  String? screenId;
-  String? screenName;
-  String? purpose;
   /// Contains 0+× ScreenElement.
   List<ScreenElementEntry> keyElements = [];
   /// Contains 0+× ScreenUserCategory.
   List<ScreenUserCategoryEntry> userCategories = [];
-  String? accessLevel;
   /// Contains 0+× Point.
   List<EntryPointEntry> entryPoints = [];
-  String? layout;
 }
 
 /// A screen element entry (form) [PD00-USE-SCR-INV-nn-ELE-nn].
 class ScreenElementEntry {
+  @Form([
+    Field('elementName', String, 'Element Name'),
+    Field('elementType', String, 'Element Type'),
+  ])
+
   String? content;
-  String? elementName;
-  String? elementType;
 }
 
 /// A user category entry (form) [PD00-USE-SCR-INV-nn-UCT-nn].
 class ScreenUserCategoryEntry {
+  @Form([
+    Field('categoryName', String, 'Category Name', required: true),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? categoryName;
-  String? description;
 }
 
 /// An entry point entry (form) [PD00-USE-SCR-INV-nn-EPT-nn].
 class EntryPointEntry {
+  @Form([
+    Field('entryPoint', String, 'Entry Point'),
+    Field('source', String, 'Source'),
+  ])
+
   String? content;
-  String? entryPoint;
-  String? source;
 }
 
 // ---------------------------------------------------------------------------
@@ -172,8 +199,8 @@ class EntryPointEntry {
 class ScreenFlowStructure {
   String? content;
 
-  /// 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
-  String? navigationModel;
+  /// Navigation Model.
+  TextSection navigationModel = TextSection();
 
   /// 10.3.2. Screen Flow Diagram [PD00-USE-SCF-DIA] (mermaid).
   FlowDiagramSection screenFlowDiagram = FlowDiagramSection();
@@ -196,29 +223,38 @@ class PrintLayout {
 
 /// An export format entry (form) [PD00-USE-PRI-EXP-nn].
 class ExportFormatEntry {
+  @Form([
+    Field('formatName', String, 'Format Name'),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? formatName;
-  String? description;
 }
 
 /// A report entry [PD00-USE-PRI-REP-nn] (form).
 class ReportEntry {
+  @Form([
+    Field('reportName', String, 'Report Name', required: true),
+    Field('purpose', String, 'Purpose'),
+    Field('reportContent', String, 'Report Content'),
+    Field('format', String, 'Format'),
+    Field('generationTrigger', String, 'Generation Trigger'),
+    Field('customization', String, 'Customization'),
+  ])
+
   String? content;
-  String? reportName;
-  String? purpose;
-  String? reportContent;
-  String? format;
-  String? generationTrigger;
   /// Contains 0+× Recipient.
   List<RecipientEntry> recipients = [];
-  String? customization;
 }
 
 /// A recipient entry (form) [PD00-USE-PRI-REP-nn-REC-nn].
 class RecipientEntry {
+  @Form([
+    Field('recipientName', String, 'Recipient Name'),
+    Field('role', String, 'Role'),
+  ])
+
   String? content;
-  String? recipientName;
-  String? role;
 }
 
 // ---------------------------------------------------------------------------
@@ -229,14 +265,14 @@ class RecipientEntry {
 class ErrorHandlingConcept {
   String? content;
 
-  /// 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
-  String? validationFeedback;
+  /// Validation Feedback.
+  TextSection validationFeedback = TextSection();
 
-  /// 10.7.2. System Error Display [PD00-USE-ERR-SYS].
-  String? systemErrorDisplay;
+  /// System Error Display.
+  TextSection systemErrorDisplay = TextSection();
 
-  /// 10.7.3. Error Recovery [PD00-USE-ERR-REC].
-  String? errorRecovery;
+  /// Error Recovery.
+  TextSection errorRecovery = TextSection();
 }
 
 // ---------------------------------------------------------------------------
@@ -247,14 +283,14 @@ class ErrorHandlingConcept {
 class HelpConcept {
   String? content;
 
-  /// 10.8.1. Contextual Help [PD00-USE-HLP-CON].
-  String? contextualHelp;
+  /// Contextual Help.
+  TextSection contextualHelp = TextSection();
 
-  /// 10.8.2. Onboarding [PD00-USE-HLP-ONB].
-  String? onboarding;
+  /// Onboarding.
+  TextSection onboarding = TextSection();
 
-  /// 10.8.3. Support Access [PD00-USE-HLP-SUP].
-  String? supportAccess;
+  /// Support Access.
+  TextSection supportAccess = TextSection();
 }
 
 // ---------------------------------------------------------------------------
@@ -265,8 +301,8 @@ class HelpConcept {
 class Accessibility {
   String? content;
 
-  /// 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
-  String? wcagComplianceLevel;
+  /// Wcag Compliance Level.
+  TextSection wcagComplianceLevel = TextSection();
 
   /// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
   AccessibilityChecklist accessibilityChecklist = AccessibilityChecklist();
@@ -281,11 +317,14 @@ class AccessibilityChecklist {
 
 /// An accessibility check entry (form) [PD00-USE-ACC-CHK-nn].
 class AccessibilityCheckEntry {
+  @Form([
+    Field('checkItem', String, 'Check Item'),
+    Field('wcagCriterion', String, 'Wcag Criterion'),
+    Field('complianceLevel', String, 'Compliance Level'),
+    Field('verificationMethod', String, 'Verification Method'),
+  ])
+
   String? content;
-  String? checkItem;
-  String? wcagCriterion;
-  String? complianceLevel;
-  String? verificationMethod;
 }
 
 // ---------------------------------------------------------------------------
@@ -299,16 +338,19 @@ class ResponsiveDesign {
   /// 10.10.1. Breakpoints [PD00-USE-RES-BRE] — contains 0+× Breakpoint.
   List<BreakpointEntry> breakpoints = [];
 
-  /// 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
-  String? responsiveBehavior;
+  /// Responsive Behavior.
+  TextSection responsiveBehavior = TextSection();
 }
 
 /// A breakpoint entry (form) [PD00-USE-RES-BRE-nn].
 class BreakpointEntry {
+  @Form([
+    Field('breakpointName', String, 'Breakpoint Name', required: true),
+    Field('minWidth', String, 'Min Width'),
+    Field('layoutBehavior', String, 'Layout Behavior'),
+  ])
+
   String? content;
-  String? breakpointName;
-  String? minWidth;
-  String? layoutBehavior;
 }
 
 // ---------------------------------------------------------------------------
@@ -319,8 +361,8 @@ class BreakpointEntry {
 class UiComponents {
   String? content;
 
-  /// 10.11.1. Component Library [PD00-USE-COM-LIB].
-  String? componentLibrary;
+  /// Component Library.
+  TextSection componentLibrary = TextSection();
 
   /// 10.11.2. Component Specifications [PD00-USE-COM-SPE] — contains 0+×.
   List<UiComponentEntry> componentSpecs = [];
@@ -328,29 +370,38 @@ class UiComponents {
 
 /// A UI component entry [PD00-USE-COM-SPE-nn] (form).
 class UiComponentEntry {
+  @Form([
+    Field('componentName', String, 'Component Name', required: true),
+    Field('purpose', String, 'Purpose'),
+    Field('behavior', String, 'Behavior'),
+    Field('responsive', String, 'Responsive'),
+  ])
+
   String? content;
-  String? componentName;
-  String? purpose;
-  String? behavior;
   /// Contains 0+× ComponentState.
   List<ComponentStateEntry> states = [];
   /// Contains 0+× ComponentVariant.
   List<ComponentVariantEntry> variants = [];
-  String? responsive;
 }
 
 /// A component state entry (form) [PD00-USE-COM-SPE-nn-STA-nn].
 class ComponentStateEntry {
+  @Form([
+    Field('stateName', String, 'State Name'),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? stateName;
-  String? description;
 }
 
 /// A component variant entry (form) [PD00-USE-COM-SPE-nn-VAR-nn].
 class ComponentVariantEntry {
+  @Form([
+    Field('variantName', String, 'Variant Name'),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? variantName;
-  String? description;
 }
 
 // ---------------------------------------------------------------------------
@@ -372,34 +423,34 @@ class MultiLanguageAndRollout {
 class MultiLanguageSupport {
   String? content;
 
-  /// 10.12.1.1. Localization Process [PD00-USE-MUL-LAN-LOC]. Seeds → SR.
-  String? localizationProcess;
+  /// Localization Process.
+  TextSection localizationProcess = TextSection();
 
-  /// 10.12.1.2. Translation Process [PD00-USE-MUL-LAN-TRA]. Seeds → SR.
-  String? translationProcess;
+  /// Translation Process.
+  TextSection translationProcess = TextSection();
 
-  /// 10.12.1.3. Language and Country Selection [PD00-USE-MUL-LAN-LCS]. Seeds → UP.
-  String? languageAndCountrySelection;
+  /// Language And Country Selection.
+  TextSection languageAndCountrySelection = TextSection();
 
-  /// 10.12.1.4. Translation Handling Requirements [PD00-USE-MUL-LAN-REQ]. Seeds → TR.
-  String? translationHandlingRequirements;
+  /// Translation Handling Requirements.
+  TextSection translationHandlingRequirements = TextSection();
 }
 
 /// 10.12.2. Rollout Support [PD00-USE-MUL-ROL].
 class RolloutSupport {
   String? content;
 
-  /// 10.12.2.1. User Documentation [PD00-USE-MUL-ROL-DOC]. Seeds → SR.
-  String? userDocumentation;
+  /// User Documentation.
+  TextSection userDocumentation = TextSection();
 
-  /// 10.12.2.2. Training Plan [PD00-USE-MUL-ROL-TRA]. Seeds → SR.
-  String? trainingPlan;
+  /// Training Plan.
+  TextSection trainingPlan = TextSection();
 
-  /// 10.12.2.3. Phased Deployment Strategy [PD00-USE-MUL-ROL-DEP].
-  String? phasedDeploymentStrategy;
+  /// Phased Deployment Strategy.
+  TextSection phasedDeploymentStrategy = TextSection();
 
-  /// 10.12.2.4. Communication Plan [PD00-USE-MUL-ROL-COM].
-  String? communicationPlan;
+  /// Communication Plan.
+  TextSection communicationPlan = TextSection();
 }
 
 // ---------------------------------------------------------------------------
@@ -413,8 +464,8 @@ class Prototype {
   /// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA] — contains 0+× PrototypeGoal.
   List<PrototypeGoalEntry> prototypeGoals = [];
 
-  /// 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
-  String? selectedFeatureSubset;
+  /// Selected Feature Subset.
+  TextSection selectedFeatureSubset = TextSection();
 
   /// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
   PrototypeTypeSection prototypeType = PrototypeTypeSection();
@@ -424,19 +475,22 @@ class Prototype {
 class PrototypeTypeSection {
   String? content;
 
-  /// 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
-  String? reusablePrototype;
+  /// Reusable Prototype.
+  TextSection reusablePrototype = TextSection();
 
-  /// 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
-  String? trainingPrototype;
+  /// Training Prototype.
+  TextSection trainingPrototype = TextSection();
 
-  /// 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
-  String? throwawayPrototype;
+  /// Throwaway Prototype.
+  TextSection throwawayPrototype = TextSection();
 }
 
 /// A prototype goal entry (form) [PD00-USE-PRO-GOA-nn].
 class PrototypeGoalEntry {
+  @Form([
+    Field('goal', String, 'Goal', required: true),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? goal;
-  String? description;
 }

@@ -4,6 +4,8 @@
 /// boundaries, and environment.
 library;
 
+import 'package:tom_specs_core/tom_specs_core.dart';
+
 
 
 /// 4. System Overview [PD00-SYO].
@@ -40,14 +42,14 @@ class SystemOverview {
 class SystemDescription {
   String? content;
 
-  /// 4.1.1. System Purpose [PD00-SYO-SYD-PUR].
-  String? systemPurpose;
+  /// System Purpose.
+  TextSection systemPurpose = TextSection();
 
-  /// 4.1.2. System Context [PD00-SYO-SYD-CON].
-  String? systemContext;
+  /// System Context.
+  TextSection systemContext = TextSection();
 
-  /// 4.1.3. Description of Task Area [PD00-SYO-SYD-DES].
-  String? taskArea;
+  /// Task Area.
+  TextSection taskArea = TextSection();
 
   /// 4.1.4. User Categories [PD00-SYO-SYD-USR] — contains 1+× User Category.
   List<UserCategoryEntry> userCategories = [];
@@ -66,40 +68,48 @@ class UserInteractionModel {
   /// Interaction patterns (workflow, self-service, batch, etc.) — contains 0+× InteractionPattern.
   List<InteractionPatternEntry> interactionPatterns = [];
 
-  /// Session model (stateful/stateless, session duration, etc.).
-  String? sessionModel;
+  /// Session Model.
+  TextSection sessionModel = TextSection();
 
-  /// Concurrency model (single-user, multi-user, collaborative).
-  String? concurrencyModel;
+  /// Concurrency Model.
+  TextSection concurrencyModel = TextSection();
 }
 
 /// An interaction pattern entry (form) [PD00-SYO-SYD-USI-PAT-nn].
 class InteractionPatternEntry {
+  @Form([
+    Field('patternName', String, 'Pattern Name', required: true),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? patternName;
-  String? description;
 }
 
 /// An interaction channel entry (form) [PD00-SYO-SYD-USI-CHA-nn].
 class InteractionChannelEntry {
+  @Form([
+    Field('channelName', String, 'Channel Name', required: true),
+    Field('channelType', String, 'Channel Type'),
+    Field('targetUserCategories', String, 'Target User Categories'),
+    Field('description', String, 'Short description'),
+    Field('availabilityRequirement', String, 'Availability Requirement'),
+  ])
+
   String? content;
-  String? channelName;
-  String? channelType;
-  String? targetUserCategories;
-  String? description;
-  String? availabilityRequirement;
 }
 
 /// A user category entry [PD00-SYO-SYD-USR-nn] (form).
 class UserCategoryEntry {
-  String? content;
-  String? categoryName;
-  String? description;
-  String? technicalProficiency;
-  String? frequencyOfUse;
-  String? accessChannel;
-  String? estimatedUserCount;
+  @Form([
+    Field('categoryName', String, 'Category Name', required: true),
+    Field('description', String, 'Short description'),
+    Field('technicalProficiency', String, 'Technical Proficiency'),
+    Field('frequencyOfUse', String, 'Frequency Of Use'),
+    Field('accessChannel', String, 'Access Channel'),
+    Field('estimatedUserCount', String, 'Estimated User Count'),
+  ])
 
+  String? content;
   /// Role subsection [PD00-SYO-SYD-USR-nn-ROL] (form, singular).
   UserCategoryRoleEntry? role;
 
@@ -109,19 +119,26 @@ class UserCategoryEntry {
 
 /// Role within a user category [PD00-SYO-SYD-USR-nn-ROL] (form).
 class UserCategoryRoleEntry {
+  @Form([
+    Field('roleName', String, 'Role Name', required: true),
+    Field('roleDescription', String, 'Role Description'),
+    Field('organizationUnit', String, 'Organization Unit'),
+    Field('reportsTo', String, 'Reports To'),
+  ])
+
   String? content;
-  String? roleName;
-  String? roleDescription;
-  String? organizationUnit;
-  String? reportsTo;
 }
 
 /// A system task entry [PD00-SYO-SYD-USR-nn-TSK] (form, repeatable).
 class SystemTaskEntry {
+  @Form([
+    Field('taskName', String, 'Task Name', required: true),
+    Field('description', String, 'Short description'),
+    Field('frequency', String, 'Frequency'),
+  ])
+
   String? content;
-  String? taskName;
-  String? description;
-  String? frequency;
+  @Reference('Related Use Case')
   String? relatedUseCase;
 }
 
@@ -145,27 +162,33 @@ class Goals {
 
 /// A business goal entry [PD00-SYO-GOA-BUS-nn] (form).
 class BusinessGoalEntry {
+  @Form([
+    Field('goalId', String, 'Goal Id', required: true),
+    Field('goalName', String, 'Goal Name', required: true),
+    Field('description', String, 'Short description'),
+    Field('successMetric', String, 'Success Metric'),
+    Field('currentValue', String, 'Current Value'),
+    Field('targetValue', String, 'Target Value'),
+    Field('measurementMethod', String, 'Measurement Method'),
+    Field('targetDate', String, 'Target Date'),
+  ])
+
   String? content;
-  String? goalId;
-  String? goalName;
-  String? description;
-  String? successMetric;
-  String? currentValue;
-  String? targetValue;
-  String? measurementMethod;
-  String? targetDate;
 }
 
 /// A technical goal entry [PD00-SYO-GOA-TEC-nn] (form).
 class TechnicalGoalEntry {
+  @Form([
+    Field('goalId', String, 'Goal Id', required: true),
+    Field('goalName', String, 'Goal Name', required: true),
+    Field('description', String, 'Short description'),
+    Field('successMetric', String, 'Success Metric'),
+    Field('targetValue', String, 'Target Value'),
+    Field('measurementMethod', String, 'Measurement Method'),
+    Field('verificationPoint', String, 'Verification Point'),
+  ])
+
   String? content;
-  String? goalId;
-  String? goalName;
-  String? description;
-  String? successMetric;
-  String? targetValue;
-  String? measurementMethod;
-  String? verificationPoint;
 }
 
 /// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
@@ -177,12 +200,15 @@ class SuccessCriteria {
 
 /// A success criterion entry [PD00-SYO-GOA-SUC-nn] (form).
 class SuccessCriterionEntry {
+  @Form([
+    Field('criterion', String, 'Criterion', required: true),
+    Field('metric', String, 'Metric'),
+    Field('targetValue', String, 'Target Value'),
+    Field('measurementMethod', String, 'Measurement Method'),
+    Field('verificationPoint', String, 'Verification Point'),
+  ])
+
   String? content;
-  String? criterion;
-  String? metric;
-  String? targetValue;
-  String? measurementMethod;
-  String? verificationPoint;
 }
 
 // ---------------------------------------------------------------------------
@@ -208,78 +234,99 @@ class RequirementsOverview {
 
 /// A functional requirement entry [PD00-SYO-REQ-FUN-nn] (form).
 class FunctionalRequirementEntry {
+  @Form([
+    Field('requirementId', String, 'Requirement Id', required: true),
+    Field('title', String, 'Title', required: true),
+    Field('description', String, 'Short description'),
+    Field('priority', String, 'Priority level'),
+    Field('source', String, 'Source'),
+    Field('rationale', String, 'Rationale'),
+    Field('status', String, 'Current status'),
+  ])
+
   String? content;
-  String? requirementId;
-  String? title;
-  String? description;
-  String? priority;
-  String? source;
-  String? rationale;
   /// Contains 0+× AcceptanceCriterion.
   List<AcceptanceCriterionEntry> acceptanceCriteria = [];
+  @Reference('Related Use Case')
   String? relatedUseCase;
+  @Reference('Related Business Process')
   String? relatedBusinessProcess;
   /// Contains 0+× DataEntityReference.
   List<DataEntityReferenceEntry> affectedDataEntities = [];
-  String? status;
 }
 
 /// An acceptance criterion entry (form). Shared across requirement types [PD00-SYO-REQ-FUN-nn-ACR-nn].
 class AcceptanceCriterionEntry {
+  @Form([
+    Field('criterion', String, 'Criterion', required: true),
+    Field('verificationMethod', String, 'Verification Method'),
+  ])
+
   String? content;
-  String? criterion;
-  String? verificationMethod;
 }
 
 /// A reference to a data entity (form) [PD00-SYO-REQ-FUN-nn-DER-nn].
 class DataEntityReferenceEntry {
+  @Form([
+    Field('entityName', String, 'Entity Name', required: true),
+    Field('relationship', String, 'Relationship'),
+  ])
+
   String? content;
-  String? entityName;
-  String? relationship;
 }
 
 /// A technical requirement entry [PD00-SYO-REQ-TEC-nn] (form).
 class TechnicalRequirementEntry {
+  @Form([
+    Field('requirementId', String, 'Requirement Id', required: true),
+    Field('title', String, 'Title', required: true),
+    Field('description', String, 'Short description'),
+    Field('priority', String, 'Priority level'),
+    Field('source', String, 'Source'),
+    Field('rationale', String, 'Rationale'),
+    Field('verificationApproach', String, 'Verification Approach'),
+    Field('status', String, 'Current status'),
+  ])
+
   String? content;
-  String? requirementId;
-  String? title;
-  String? description;
-  String? priority;
-  String? source;
-  String? rationale;
   /// Contains 0+× AcceptanceCriterion.
   List<AcceptanceCriterionEntry> acceptanceCriteria = [];
-  String? verificationApproach;
-  String? status;
 }
 
 /// A security requirement entry [PD00-SYO-REQ-SEC-nn] (form).
 class SecurityRequirementEntry {
+  @Form([
+    Field('requirementId', String, 'Requirement Id', required: true),
+    Field('title', String, 'Title', required: true),
+    Field('description', String, 'Short description'),
+    Field('priority', String, 'Priority level'),
+    Field('source', String, 'Source'),
+    Field('rationale', String, 'Rationale'),
+    Field('status', String, 'Current status'),
+  ])
+
   String? content;
-  String? requirementId;
-  String? title;
-  String? description;
-  String? priority;
-  String? source;
-  String? rationale;
+  @Reference('Compliance Reference')
   String? complianceReference;
   /// Contains 0+× AcceptanceCriterion.
   List<AcceptanceCriterionEntry> acceptanceCriteria = [];
-  String? status;
 }
 
 /// An organizational requirement entry [PD00-SYO-REQ-ORG-nn] (form).
 class OrganizationalRequirementEntry {
+  @Form([
+    Field('requirementId', String, 'Requirement Id', required: true),
+    Field('title', String, 'Title', required: true),
+    Field('description', String, 'Short description'),
+    Field('priority', String, 'Priority level'),
+    Field('source', String, 'Source'),
+    Field('rationale', String, 'Rationale'),
+    Field('status', String, 'Current status'),
+  ])
+
   String? content;
-  String? requirementId;
-  String? title;
-  String? description;
-  String? priority;
-  String? source;
-  String? rationale;
   /// Contains 0+× AcceptanceCriterion.
   List<AcceptanceCriterionEntry> acceptanceCriteria = [];
-  String? status;
 }
 
 // ---------------------------------------------------------------------------
@@ -299,13 +346,16 @@ class SystemsToReplace {
 
 /// A system to replace entry [PD00-SYO-SYR-INV-nn] (form).
 class SystemToReplaceEntry {
+  @Form([
+    Field('systemName', String, 'System Name', required: true),
+    Field('currentTechnology', String, 'Current Technology'),
+    Field('replacementStrategy', String, 'Replacement Strategy'),
+    Field('dataMigrationScope', String, 'Data Migration Scope'),
+    Field('migrationComplexity', String, 'Migration Complexity'),
+    Field('decommissionDate', String, 'Decommission Date'),
+  ])
+
   String? content;
-  String? systemName;
-  String? currentTechnology;
-  String? replacementStrategy;
-  String? dataMigrationScope;
-  String? migrationComplexity;
-  String? decommissionDate;
   /// Contains 0+× SystemDependencyReference.
   List<SystemDependencyReferenceEntry> dependencies = [];
 
@@ -315,47 +365,58 @@ class SystemToReplaceEntry {
 
 /// A system dependency reference entry (form) [PD00-SYO-SYR-INV-nn-DEP-nn].
 class SystemDependencyReferenceEntry {
+  @Form([
+    Field('dependencyType', String, 'Dependency Type'),
+  ])
+
   String? content;
+  @Reference('Dependency Name')
   String? dependencyName;
-  String? dependencyType;
 }
 
 /// Per-system migration considerations [PD00-SYO-SYR-INV-nn-MIG].
 class SystemMigrationConsiderations {
+  @Form([
+    Field('migrationApproach', String, 'Migration Approach'),
+    Field('dataTransformationNeeds', String, 'Data Transformation Needs'),
+    Field('estimatedEffort', String, 'Estimated Effort'),
+  ])
+
   String? content;
-  String? migrationApproach;
-  String? dataTransformationNeeds;
   /// Contains 0+× MigrationRiskReference.
   List<MigrationRiskReferenceEntry> risks = [];
-  String? estimatedEffort;
-  String? rollbackStrategy;
+  /// Rollback Strategy.
+  TextSection rollbackStrategy = TextSection();
 }
 
 /// A migration risk reference entry (form) [PD00-SYO-SYR-INV-nn-MRR-nn].
 class MigrationRiskReferenceEntry {
+  @Form([
+    Field('riskDescription', String, 'Risk Description'),
+    Field('mitigation', String, 'Mitigation strategy'),
+  ])
+
   String? content;
-  String? riskDescription;
-  String? mitigation;
 }
 
 /// 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG] (global).
 class MigrationConsiderations {
   String? content;
 
-  /// Migration strategy [PD00-SYO-SYR-MIG-STR].
-  String? strategy;
+  /// Strategy.
+  TextSection strategy = TextSection();
 
   /// Migration risks [PD00-SYO-SYR-MIG-RIS].
   MigrationRisks migrationRisks = MigrationRisks();
 
-  /// Migration timeline [PD00-SYO-SYR-MIG-TIM].
-  String? timeline;
+  /// Timeline.
+  TextSection timeline = TextSection();
 
-  /// Data mapping [PD00-SYO-SYR-MIG-DAT].
-  String? dataMapping;
+  /// Data Mapping.
+  TextSection dataMapping = TextSection();
 
-  /// Rollback strategy [PD00-SYO-SYR-MIG-ROL].
-  String? rollbackStrategy;
+  /// Rollback Strategy.
+  TextSection rollbackStrategy = TextSection();
 }
 
 /// Migration risks [PD00-SYO-SYR-MIG-RIS].
@@ -367,11 +428,14 @@ class MigrationRisks {
 
 /// A migration risk entry (form) [PD00-SYO-SYR-MIG-RIS-nn].
 class MigrationRiskEntry {
+  @Form([
+    Field('riskDescription', String, 'Risk Description'),
+    Field('probability', String, 'Probability'),
+    Field('impact', String, 'Impact assessment'),
+    Field('mitigation', String, 'Mitigation strategy'),
+  ])
+
   String? content;
-  String? riskDescription;
-  String? probability;
-  String? impact;
-  String? mitigation;
 }
 
 // ---------------------------------------------------------------------------
@@ -394,16 +458,19 @@ class SystemBoundaries {
 
 /// An external interface entry [PD00-SYO-SYB-INT-nn] (form).
 class ExternalInterfaceEntry {
+  @Form([
+    Field('interfaceId', String, 'Interface Id', required: true),
+    Field('externalSystem', String, 'External System'),
+    Field('direction', String, 'Direction'),
+    Field('purpose', String, 'Purpose'),
+    Field('dataExchanged', String, 'Data Exchanged'),
+    Field('protocol', String, 'Protocol'),
+    Field('frequency', String, 'Frequency'),
+    Field('volume', String, 'Volume'),
+    Field('authentication', String, 'Authentication'),
+  ])
+
   String? content;
-  String? interfaceId;
-  String? externalSystem;
-  String? direction;
-  String? purpose;
-  String? dataExchanged;
-  String? protocol;
-  String? frequency;
-  String? volume;
-  String? authentication;
 }
 
 /// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT].
@@ -415,10 +482,13 @@ class OutOfScope {
 
 /// An out-of-scope entry [PD00-SYO-SYB-OUT-nn] (form).
 class OutOfScopeEntry {
+  @Form([
+    Field('item', String, 'Item'),
+    Field('rationale', String, 'Rationale'),
+    Field('futureConsideration', String, 'Future Consideration'),
+  ])
+
   String? content;
-  String? item;
-  String? rationale;
-  String? futureConsideration;
 }
 
 /// 4.5.3. Assumptions [PD00-SYO-SYB-ASS].
@@ -430,11 +500,14 @@ class BoundaryAssumptions {
 
 /// An assumption entry [PD00-SYO-SYB-ASS-nn] (form).
 class AssumptionEntry {
+  @Form([
+    Field('assumption', String, 'Assumption', required: true),
+    Field('rationale', String, 'Rationale'),
+    Field('riskIfWrong', String, 'Risk If Wrong'),
+    Field('validationApproach', String, 'Validation Approach'),
+  ])
+
   String? content;
-  String? assumption;
-  String? rationale;
-  String? riskIfWrong;
-  String? validationApproach;
 }
 
 // ---------------------------------------------------------------------------
@@ -462,14 +535,14 @@ class FrameworkConditions {
 class OrganizationalEnvironment {
   String? content;
 
-  /// Organizational structure [PD00-SYO-RES-ORG-STR].
-  String? structure;
+  /// Structure.
+  TextSection structure = TextSection();
 
-  /// Decision-making processes [PD00-SYO-RES-ORG-DEC].
-  String? decisionMaking;
+  /// Decision Making.
+  TextSection decisionMaking = TextSection();
 
-  /// Cultural considerations [PD00-SYO-RES-ORG-CUL].
-  String? culturalConsiderations;
+  /// Cultural Considerations.
+  TextSection culturalConsiderations = TextSection();
 }
 
 /// 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN].
@@ -481,19 +554,22 @@ class FunctionalResponsibilities {
 
 /// A responsibility entry [PD00-SYO-RES-FUN-nn] (form).
 class ResponsibilityEntry {
+  @Form([
+    Field('area', String, 'Area'),
+    Field('owner', String, 'Owner'),
+    Field('description', String, 'Short description'),
+    Field('scope', String, 'Scope'),
+  ])
+
   String? content;
-  String? area;
-  String? owner;
-  String? description;
-  String? scope;
 }
 
 /// 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
 class TechnicalFrameworkConditions {
   String? content;
 
-  /// Existing infrastructure [PD00-SYO-RES-TEC-INF].
-  String? existingInfrastructure;
+  /// Existing Infrastructure.
+  TextSection existingInfrastructure = TextSection();
 
   /// Technology standards [PD00-SYO-RES-TEC-STD] — contains 0+× TechnologyStandard.
   List<TechnologyStandardEntry> technologyStandards = [];
@@ -504,16 +580,22 @@ class TechnicalFrameworkConditions {
 
 /// A technology standard entry (form) [PD00-SYO-RES-TEC-STD-nn].
 class TechnologyStandardEntry {
+  @Form([
+    Field('standard', String, 'Standard'),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? standard;
-  String? description;
 }
 
 /// An integration constraint entry (form) [PD00-SYO-RES-TEC-INT-nn].
 class IntegrationConstraintEntry {
+  @Form([
+    Field('constraint', String, 'Constraint'),
+    Field('impactedSystem', String, 'Impacted System'),
+  ])
+
   String? content;
-  String? constraint;
-  String? impactedSystem;
 }
 
 /// 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON].
@@ -536,11 +618,14 @@ class Constraints {
 
 /// A constraint entry [PD00-SYO-RES-CON-CON-nn] (form).
 class ConstraintEntry {
+  @Form([
+    Field('constraint', String, 'Constraint'),
+    Field('type', String, 'Type'),
+    Field('impact', String, 'Impact assessment'),
+    Field('mitigation', String, 'Mitigation strategy'),
+  ])
+
   String? content;
-  String? constraint;
-  String? type;
-  String? impact;
-  String? mitigation;
 }
 
 /// 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
@@ -552,11 +637,14 @@ class FrameworkDependencies {
 
 /// A framework dependency entry [PD00-SYO-RES-CON-DEP-nn] (form).
 class FrameworkDependencyEntry {
+  @Form([
+    Field('dependency', String, 'Dependency'),
+    Field('type', String, 'Type'),
+    Field('impact', String, 'Impact assessment'),
+    Field('mitigation', String, 'Mitigation strategy'),
+  ])
+
   String? content;
-  String? dependency;
-  String? type;
-  String? impact;
-  String? mitigation;
 }
 
 // ---------------------------------------------------------------------------
@@ -576,15 +664,18 @@ class RisksAndAssumptions {
 
 /// A risk entry [PD00-SYO-RIS-RIS-nn] (form).
 class RiskEntry {
+  @Form([
+    Field('riskId', String, 'Risk Id', required: true),
+    Field('riskName', String, 'Risk Name'),
+    Field('description', String, 'Short description'),
+    Field('probability', String, 'Probability'),
+    Field('impact', String, 'Impact assessment'),
+    Field('mitigation', String, 'Mitigation strategy'),
+    Field('riskOwner', String, 'Risk Owner'),
+    Field('reviewFrequency', String, 'Review Frequency'),
+  ])
+
   String? content;
-  String? riskId;
-  String? riskName;
-  String? description;
-  String? probability;
-  String? impact;
-  String? mitigation;
-  String? riskOwner;
-  String? reviewFrequency;
 }
 
 /// 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS].

@@ -26,8 +26,8 @@ class Administrative {
   /// 3.5. Reference Documents [PD00-ADM-REF] — contains 0+× Reference Document.
   ReferenceDocuments referenceDocuments = ReferenceDocuments();
 
-  /// 3.6. Other Administrative Requirements [PD00-ADM-OTH].
-  String? otherAdministrative;
+  /// Other Administrative.
+  TextSection otherAdministrative = TextSection();
 }
 
 // ---------------------------------------------------------------------------
@@ -49,8 +49,8 @@ class ProjectOrganization {
 class OrganizationStructure {
   String? content;
 
-  /// Explanation of the organization chart.
-  String? orgChartExplanation;
+  /// Org Chart Explanation.
+  TextSection orgChartExplanation = TextSection();
 
   /// Organization chart diagram (e.g. Mermaid or image reference).
   DiagramSection orgChartDiagram = DiagramSection();
@@ -58,12 +58,15 @@ class OrganizationStructure {
 
 /// A steering committee member entry [PD00-ADM-PRO-STE-nn] (form).
 class CommitteeMemberEntry {
+  @Form([
+    Field('name', String, 'Name', required: true),
+    Field('organizationRole', String, 'Organization Role'),
+    Field('committeeRole', String, 'Committee Role'),
+    Field('decisionAuthority', String, 'Decision Authority'),
+    Field('meetingAttendance', String, 'Meeting Attendance'),
+  ])
+
   String? content;
-  String? name;
-  String? organizationRole;
-  String? committeeRole;
-  String? decisionAuthority;
-  String? meetingAttendance;
 }
 
 // ---------------------------------------------------------------------------
@@ -80,15 +83,18 @@ class ProjectTeamStaffing {
 
 /// A team member entry [PD00-ADM-TEA-nn] (form).
 class TeamMemberEntry {
+  @Form([
+    Field('name', String, 'Name', required: true),
+    Field('projectRole', String, 'Project Role'),
+    Field('organization', String, 'Organization'),
+    Field('allocation', String, 'Allocation'),
+    Field('startDate', String, 'Start Date'),
+    Field('endDate', String, 'End Date'),
+    Field('specialSkills', String, 'Special Skills'),
+    Field('reportingTo', String, 'Reporting To'),
+  ])
+
   String? content;
-  String? name;
-  String? projectRole;
-  String? organization;
-  String? allocation;
-  String? startDate;
-  String? endDate;
-  String? specialSkills;
-  String? reportingTo;
 }
 
 // ---------------------------------------------------------------------------
@@ -122,11 +128,14 @@ class ExecutiveSummaryDistribution {
 
 /// A distribution recipient entry (form) [PD00-ADM-DIS-nn].
 class DistributionRecipientEntry {
+  @Form([
+    Field('name', String, 'Name', required: true),
+    Field('role', String, 'Role'),
+    Field('organization', String, 'Organization'),
+    Field('distributionMethod', String, 'Distribution Method'),
+  ])
+
   String? content;
-  String? name;
-  String? role;
-  String? organization;
-  String? distributionMethod;
 }
 
 // ---------------------------------------------------------------------------
@@ -146,6 +155,11 @@ class ChangeProcedure {
 
 /// 3.4.1. Change Process [PD00-ADM-CHA-PRO].
 class ChangeProcess {
+  @Form([
+    Field('approvalAuthority', String, 'Approval Authority'),
+    Field('escalationPath', String, 'Escalation Path'),
+  ])
+
   String? content;
 
   /// Overview diagram (e.g. Mermaid or image reference).
@@ -157,27 +171,30 @@ class ChangeProcess {
   /// Roles involved in the change process — contains 0+× ChangeRole.
   List<ChangeRoleEntry> roles = [];
 
-  String? approvalAuthority;
-  String? escalationPath;
 }
 
 /// A role involved in the change process (form) [PD00-ADM-CHA-PRO-ROL-nn].
 class ChangeRoleEntry {
+  @Form([
+    Field('roleName', String, 'Role Name', required: true),
+    Field('responsibility', String, 'Responsibility'),
+  ])
+
   String? content;
-  String? roleName;
-  String? responsibility;
 }
 
 /// A change process step entry (form) [PD00-ADM-CHA-PRO-STP-nn].
 class ChangeStepEntry {
-  String? content;
-  String? stepName;
-  String? description;
-  String? responsibleRole;
-  String? inputArtifacts;
-  String? outputArtifacts;
-  String? approvalCriteria;
+  @Form([
+    Field('stepName', String, 'Step Name', required: true),
+    Field('description', String, 'Short description'),
+    Field('responsibleRole', String, 'Responsible Role'),
+    Field('inputArtifacts', String, 'Input Artifacts'),
+    Field('outputArtifacts', String, 'Output Artifacts'),
+    Field('approvalCriteria', String, 'Approval Criteria'),
+  ])
 
+  String? content;
   /// Subflow diagram for this step (e.g. Mermaid or image reference).
   FlowDiagramSection? subflowDiagram;
 }
@@ -191,11 +208,14 @@ class ChangeImpactCriteria {
 
 /// A change impact criterion entry (form) [PD00-ADM-CHA-CRI-nn].
 class ChangeImpactCriterionEntry {
+  @Form([
+    Field('criterion', String, 'Criterion', required: true),
+    Field('impactLevel', String, 'Impact Level'),
+    Field('description', String, 'Short description'),
+    Field('approvalRequired', String, 'Approval Required'),
+  ])
+
   String? content;
-  String? criterion;
-  String? impactLevel;
-  String? description;
-  String? approvalRequired;
 }
 
 // ---------------------------------------------------------------------------
@@ -212,11 +232,14 @@ class ReferenceDocuments {
 
 /// A reference document entry [PD00-ADM-REF-nn] (form).
 class ReferenceDocumentEntry {
+  @Form([
+    Field('documentTitle', String, 'Document Title', required: true),
+    Field('version', String, 'Version'),
+    Field('author', String, 'Author'),
+    Field('date', String, 'Date'),
+    Field('purpose', String, 'Purpose'),
+    Field('location', String, 'Location'),
+  ])
+
   String? content;
-  String? documentTitle;
-  String? version;
-  String? author;
-  String? date;
-  String? purpose;
-  String? location;
 }

@@ -3,6 +3,8 @@
 /// Quality goals for acceptance testing, organized by quality category.
 library;
 
+import 'package:tom_specs_core/tom_specs_core.dart';
+
 
 
 /// 11. System Quality Goals [PD00-SYQ]. Seeds → BQP.
@@ -35,8 +37,8 @@ class SystemQualityGoals {
 class QualityFramework {
   String? content;
 
-  /// 11.1.1. Quality Objectives Overview [PD00-SYQ-FRA-OBJ].
-  String? qualityObjectivesOverview;
+  /// Quality Objectives Overview.
+  TextSection qualityObjectivesOverview = TextSection();
 
   /// 11.1.2. Quality Categories [PD00-SYQ-FRA-CAT] — contains 0+× QualityCategory.
   List<QualityCategoryEntry> qualityCategories = [];
@@ -44,88 +46,91 @@ class QualityFramework {
 
 /// A quality category entry (form) [PD00-SYQ-FRA-CAT-nn].
 class QualityCategoryEntry {
+  @Form([
+    Field('categoryName', String, 'Category Name', required: true),
+    Field('description', String, 'Short description'),
+  ])
+
   String? content;
-  String? categoryName;
-  String? description;
 }
 
 /// 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
 class UserQualityCriteria {
   String? content;
 
-  /// 11.2.1. Usability [PD00-SYQ-USE-USA].
-  String? usability;
+  /// Usability.
+  TextSection usability = TextSection();
 
-  /// 11.2.2. Functional Completeness [PD00-SYQ-USE-FUN].
-  String? functionalCompleteness;
+  /// Functional Completeness.
+  TextSection functionalCompleteness = TextSection();
 
-  /// 11.2.3. Correctness [PD00-SYQ-USE-COR].
-  String? correctness;
+  /// Correctness.
+  TextSection correctness = TextSection();
 }
 
 /// 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
 class TechnicalQualityCriteria {
   String? content;
 
-  /// 11.3.1. Efficiency [PD00-SYQ-TEC-EFF].
-  String? efficiency;
+  /// Efficiency.
+  TextSection efficiency = TextSection();
 
-  /// 11.3.2. Portability [PD00-SYQ-TEC-POR].
-  String? portability;
+  /// Portability.
+  TextSection portability = TextSection();
 
-  /// 11.3.3. Flexibility [PD00-SYQ-TEC-FLE].
-  String? flexibility;
+  /// Flexibility.
+  TextSection flexibility = TextSection();
 
-  /// 11.3.4. Security [PD00-SYQ-TEC-SEC].
-  String? security;
+  /// Security.
+  TextSection security = TextSection();
 
-  /// 11.3.5. Maintainability [PD00-SYQ-TEC-MAI].
-  String? maintainability;
+  /// Maintainability.
+  TextSection maintainability = TextSection();
 
-  /// 11.3.6. Reliability [PD00-SYQ-TEC-REL].
-  String? reliability;
+  /// Reliability.
+  TextSection reliability = TextSection();
 }
 
 /// 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
 class OperationsQualityCriteria {
   String? content;
 
-  /// 11.4.1. Availability [PD00-SYQ-OPE-AVA].
-  String? availability;
+  /// Availability.
+  TextSection availability = TextSection();
 
-  /// 11.4.2. Service Level Requirements [PD00-SYQ-OPE-SER].
-  String? serviceLevelRequirements;
+  /// Service Level Requirements.
+  TextSection serviceLevelRequirements = TextSection();
 
-  /// 11.4.3. Monitoring and Prevention [PD00-SYQ-OPE-MON].
-  String? monitoringAndPrevention;
+  /// Monitoring And Prevention.
+  TextSection monitoringAndPrevention = TextSection();
 
-  /// 11.4.4. IT Security Operations [PD00-SYQ-OPE-ITS].
-  String? itSecurityOperations;
+  /// It Security Operations.
+  TextSection itSecurityOperations = TextSection();
 }
 
 /// 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
 class DocumentationQualityCriteria {
   String? content;
 
-  /// 11.5.1. Readability [PD00-SYQ-DOC-REA].
-  String? readability;
+  /// Readability.
+  TextSection readability = TextSection();
 
-  /// 11.5.2. Completeness [PD00-SYQ-DOC-COM].
-  String? completeness;
+  /// Completeness.
+  TextSection completeness = TextSection();
 
-  /// 11.5.3. Correctness [PD00-SYQ-DOC-COR].
-  String? correctness;
+  /// Correctness.
+  TextSection correctness = TextSection();
 
-  /// 11.5.4. Changeability [PD00-SYQ-DOC-CHA].
-  String? changeability;
+  /// Changeability.
+  TextSection changeability = TextSection();
 }
 
 /// 11.6. Quality Prioritization [PD00-SYQ-PRI].
 class QualityPrioritization {
   String? content;
 
-  /// 11.6.1. Weighted Quality Matrix [PD00-SYQ-PRI-WEI].
-  String? weightedQualityMatrix;
+  /// Weighted Quality Matrix.
+  TextSection weightedQualityMatrix = TextSection();
 
   /// 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
   TradeOffDecisions tradeOffDecisions = TradeOffDecisions();
@@ -140,11 +145,14 @@ class TradeOffDecisions {
 
 /// A trade-off decision entry (form) [PD00-SYQ-PRI-TRA-nn].
 class TradeOffDecisionEntry {
+  @Form([
+    Field('decision', String, 'Decision'),
+    Field('qualitiesInConflict', String, 'Qualities In Conflict'),
+    Field('rationale', String, 'Rationale'),
+    Field('impact', String, 'Impact assessment'),
+  ])
+
   String? content;
-  String? decision;
-  String? qualitiesInConflict;
-  String? rationale;
-  String? impact;
 }
 
 /// 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
@@ -167,10 +175,13 @@ class MustPassCriteria {
 
 /// A must-pass criterion entry (form) [PD00-SYQ-ACC-MUS-nn].
 class MustPassCriterionEntry {
+  @Form([
+    Field('criterion', String, 'Criterion', required: true),
+    Field('verificationMethod', String, 'Verification Method'),
+    Field('acceptanceThreshold', String, 'Acceptance Threshold'),
+  ])
+
   String? content;
-  String? criterion;
-  String? verificationMethod;
-  String? acceptanceThreshold;
 }
 
 /// 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
@@ -182,9 +193,12 @@ class QualityGateChecklist {
 
 /// A quality gate check entry (form) [PD00-SYQ-ACC-GAT-nn].
 class QualityGateCheckEntry {
+  @Form([
+    Field('checkItem', String, 'Check Item'),
+    Field('qualityCategory', String, 'Quality Category'),
+    Field('verificationMethod', String, 'Verification Method'),
+    Field('responsibleParty', String, 'Responsible Party'),
+  ])
+
   String? content;
-  String? checkItem;
-  String? qualityCategory;
-  String? verificationMethod;
-  String? responsibleParty;
 }

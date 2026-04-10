@@ -1,3 +1,4 @@
+import 'package:tom_specs_core/tom_specs_core.dart';
 import 'package:tom_specs_model/tom_specs_model.dart';
 import 'package:test/test.dart';
 
@@ -5,21 +6,15 @@ void main() {
   group('ProjectDefinition', () {
     test('can be constructed with all defaults', () {
       final pd = ProjectDefinition();
-      expect(pd.header.documentId, isNull);
+      expect(pd.header.content, isNull);
       expect(pd.currentStateAnalysis.content, isNull);
       expect(pd.systemOverview.content, isNull);
     });
 
-    test('header fields are all String?', () {
+    test('header has @Form annotation on content', () {
       final header = DocumentHeader()
-        ..documentId = 'PD00'
-        ..project = 'Test Project'
-        ..version = '0.1'
-        ..date = '2026-04-07'
-        ..author = 'Test'
-        ..status = 'Draft';
-      expect(header.documentId, 'PD00');
-      expect(header.date, '2026-04-07');
+        ..content = 'PD00 — Test Project v0.1 by Test (Draft)';
+      expect(header.content, contains('PD00'));
     });
 
     test('section classes have content field', () {
@@ -29,24 +24,22 @@ void main() {
       expect(section.existingSystemsLandscape.content, isNull);
     });
 
-    test('plural fields are lists of entry types', () {
+    test('form entry classes use content with @Form', () {
       final goal = BusinessGoalEntry()
-        ..goalId = 'BG-001'
-        ..goalName = 'Increase revenue';
+        ..content = 'BG-001 — Increase revenue';
       final goals = Goals()..businessGoals = [goal];
       final overview = SystemOverview()..goals = goals;
       expect(overview.goals.businessGoals, hasLength(1));
-      expect(overview.goals.businessGoals.first.goalId, 'BG-001');
+      expect(overview.goals.businessGoals.first.content, contains('BG-001'));
     });
 
-    test('stage entry uses String? fields', () {
+    test('stage entry uses content and TextSection fields', () {
       final stage = StageEntry()
-        ..stageNumber = '1'
-        ..stageName = 'Foundation'
-        ..scopeSummary = 'Core infrastructure'
-        ..featureScope = 'Login, CRUD, orders';
-      expect(stage.stageNumber, '1');
-      expect(stage.featureScope, isNotNull);
+        ..content = 'Stage 1 — Foundation — Core infrastructure';
+      stage.featureScope.content = 'Login, CRUD, orders';
+      expect(stage.content, contains('Foundation'));
+      expect(stage.featureScope, isA<TextSection>());
+      expect(stage.featureScope.content, isNotNull);
     });
   });
 }
