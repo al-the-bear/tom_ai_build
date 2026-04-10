@@ -230,16 +230,34 @@ access key. Otherwise, prefer the field ending in `Name`.
 
 ## 11. `@Reference` — from cross-reference fields
 
-**Pattern:** Fields that reference data owned by another section.
+**Pattern:** Fields that reference data owned by another section in the model.
+
+References are **typed Dart fields** pointing to the referenced section class,
+not strings. The field type IS the target section type. The outliner does NOT
+follow references (no tree recursion). The schema generator uses them for
+cross-reference validation.
 
 ```dart
-String? processReference;   // references TargetBusinessProcess.processId
-String? relatedUseCase;     // references a use case defined elsewhere
-String? sourceEntity;       // references DataEntityEntry.entityName
+// Before (current model — string references):
+String? processReference;   // references TargetBusinessProcess
+String? sourceEntity;       // references DataEntityEntry
+
+// After (restructured — typed references):
+@Reference('Process this interaction belongs to')
+TargetBusinessProcess? processReference;
+
+@Reference('Source entity in this relationship')
+DataEntityEntry? sourceEntity;
 ```
 
 **Rule:** Fields containing `*Reference`, `*Related*`, or that clearly point to
-another entity get `@Reference('description', #targetField)`.
+another section become `@Reference('description') TargetType? fieldName`.
+
+**Identification heuristics:**
+- Field name ends in `Reference` → definitely a reference
+- Field name is `source*` / `target*` and the context is a relationship → reference
+- Field name is `related*` → likely a reference
+- Field value would be an ID or name that matches another section type → reference
 
 ---
 
@@ -316,7 +334,7 @@ format.
 | 8 | `@TextRequired` | **Medium** | From `(description)` + class shape |
 | 9 | `@FieldType` | **Medium** | Field name heuristics |
 | 10 | `@AccessKey` | **Medium** | `*Id` / `*Name` field patterns |
-| 11 | `@Reference` | **Medium** | `*Reference` / `*Related*` fields |
+| 11 | `@Reference` | **Medium** | `*Reference` / `*Related*` fields → typed section pointers |
 | 12 | `@MaxDepth` | **Medium** | Class shape (no subsection lists) |
 | 13 | `@AllowedTags` | **None** | No comment convention |
 | 14 | `@ForEach` | **Low** | `per XYZ` heuristic |
