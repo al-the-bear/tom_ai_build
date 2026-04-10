@@ -7,6 +7,7 @@ export 'comment.dart';
 export 'content_type.dart';
 export 'field_type.dart';
 export 'for_each.dart';
+export 'form.dart';
 export 'max.dart';
 export 'max_depth.dart';
 export 'max_length.dart';

@@ -2,3 +2,4 @@
 library;
 
 export 'src/annotations/annotations.dart';
+export 'src/sections/sections.dart';
