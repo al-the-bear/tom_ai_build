@@ -13,11 +13,11 @@
 
 include: package:lints/recommended.yaml
 
-# Uncomment the following section to specify additional rules.
-
-# linter:
-#   rules:
-#     - camel_case_types
+linter:
+  rules:
+    # Section subtypes intentionally re-declare 'content' to apply their own
+    # @ContentType annotation. This is by design, not an error.
+    overridden_fields: false
 
 # analyzer:
 #   exclude:

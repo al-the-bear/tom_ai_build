@@ -324,7 +324,7 @@ ignored by tooling.
 
 Annotates the `content` field to declare the **format** of the content text.
 
-- Applied to: `content` fields only.
+- **Must** be applied to a `String? content` field — never on a class.
 - Allowed values for `type`: `Form` (default), `DDL`, `SQL`, `Dart`,
   `ER-Diagram`, `Mermaid`, and other format identifiers.
 - `description`: Explains what should be described in the content field.
@@ -341,9 +341,9 @@ The rules differ by class type:
 
 | Class type | Documentation source |
 |------------|---------------------|
-| *Section class (`TextSection`, `DiagramSection`, etc.) | Doc-comment on the **field** in the class that uses the section variable. The section class itself only has `@ContentType` for the format. |
-| Regular class with `String? content` | `@ContentType(type, 'description')` annotation on the content field. The `description` parameter is mandatory. |
-| Container class (content unused) | `@Unused()` annotation on the content field. Section text is not expected. |
+| *Section class (`TextSection`, `DiagramSection`, etc.) | `@ContentType` on the `content` field inside the section class declares the format. The human-readable description for the content comes from the doc-comment on the **field** in the class that uses the section variable. |
+| Regular class with `String? content` | `@ContentType(type, 'description')` annotation on the `content` field. The `description` parameter is mandatory. |
+| Container class (content unused) | `@Unused()` annotation on the `content` field. Section text is not expected. |
 
 **Example — Section class (comment on using field):**
 ```dart

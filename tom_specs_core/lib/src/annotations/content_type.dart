@@ -1,6 +1,6 @@
 /// Annotates the `content` field to declare the format of the content text.
 ///
-/// Applied to `content` fields only.
+/// **Must** be applied to a `String? content` field — never on a class.
 ///
 /// When [type] is `'Form'` (the default), the class's other scalar fields
 /// represent form fields within the content. When [type] is any other value

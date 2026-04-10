@@ -301,9 +301,9 @@ class.
 ### 9.1 *Section classes
 
 For `TextSection`, `DiagramSection`, `CodeSection` and their subtypes, the
-content description comes from the **doc-comment on the field** in the class
-that uses the section variable. The section class itself only has `@ContentType`
-for the format type.
+`@ContentType` annotation is on the `content` field **inside** the section class
+(declaring the format). The human-readable content description comes from the
+**doc-comment on the field** in the class that uses the section variable.
 
 ```dart
 class DataModel {
@@ -318,8 +318,9 @@ Here `TextSection.content` is described by the field comment on
 ### 9.2 Regular classes with `String? content`
 
 Classes that have a `String? content` field (not a *Section class) must have a
-`@ContentType(type, 'description')` annotation. The `description` parameter
-explains what should be described in the content.
+`@ContentType(type, 'description')` annotation **on the `content` field** — never
+on the class. The `description` parameter explains what should be described in
+the content.
 
 ```dart
 class DataModel {
