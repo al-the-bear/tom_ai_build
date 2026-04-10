@@ -10,38 +10,26 @@ library;
 class TargetBusinessProcessModel {
   String? content;
 
-  /// 6.1. Business Process Descriptions [PD00-TAR-PRO]. Seeds → BP.
-  BusinessProcessDescriptions processDescriptions = BusinessProcessDescriptions();
-
-  /// 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
-  ProcessStepsAndActorInteractions processSteps = ProcessStepsAndActorInteractions();
-}
-
-// ---------------------------------------------------------------------------
-// 6.1 Business Process Descriptions (seeds → BP)
-// ---------------------------------------------------------------------------
-
-/// 6.1. Business Process Descriptions [PD00-TAR-PRO]. Seeds → BP.
-class BusinessProcessDescriptions {
-  String? content;
-
-  /// 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
+  /// 6.1. Process Vision [PD00-TAR-VIS].
   String? processVision;
 
-  /// 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
+  /// 6.2. Design Principles [PD00-TAR-PRI].
   DesignPrinciples designPrinciples = DesignPrinciples();
 
-  /// 6.1.3. Process Catalog [PD00-TAR-PRO-CAT] — contains 1+× Business Process.
-  List<BusinessProcessEntry> processCatalog = [];
-
-  /// 6.1.4. Process Overview Diagram [PD00-TAR-PRO-FLO] (mermaid).
+  /// 6.3. Process Overview Diagram [PD00-TAR-FLO] (mermaid).
   String? processOverviewDiagram;
 
-  /// 6.1.5. Improvement Summary [PD00-TAR-PRO-IMP].
+  /// 6.4. Relationships Between Processes [PD00-TAR-REL].
+  ProcessRelationships relationshipsBetweenProcesses = ProcessRelationships();
+
+  /// 6.5. Improvement Summary [PD00-TAR-IMP].
   String? improvementSummary;
+
+  /// 6.6. Process Catalog [PD00-TAR-CAT] — contains 1+× Target Business Process.
+  List<TargetBusinessProcess> processCatalog = [];
 }
 
-/// 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
+/// 6.2. Design Principles [PD00-TAR-PRI].
 class DesignPrinciples {
   String? content;
   List<DesignPrincipleEntry> items = [];
@@ -55,8 +43,41 @@ class DesignPrincipleEntry {
   String? rationale;
 }
 
-/// A business process entry [PD00-TAR-PRO-CAT-nn] (form).
-class BusinessProcessEntry {
+/// 6.4. Relationships Between Processes [PD00-TAR-REL].
+class ProcessRelationships {
+  String? content;
+  List<ProcessRelationshipEntry> items = [];
+}
+
+/// A process relationship entry (form).
+class ProcessRelationshipEntry {
+  String? content;
+  String? sourceProcess;
+  String? targetProcess;
+  String? relationshipType;
+  String? description;
+}
+
+// ---------------------------------------------------------------------------
+// Target Business Process (catalog entry)
+// ---------------------------------------------------------------------------
+
+/// A target business process [PD00-TAR-CAT-nn].
+///
+/// Combines a single business process description with its process steps
+/// and actor interactions.
+class TargetBusinessProcess {
+  String? content;
+
+  /// Process Description [PD00-TAR-CAT-nn-DES].
+  BusinessProcessDescription processDescription = BusinessProcessDescription();
+
+  /// Process Steps and Actor Interactions [PD00-TAR-CAT-nn-STP]. Seeds → UC.
+  ProcessStepsAndActorInteractions processSteps = ProcessStepsAndActorInteractions();
+}
+
+/// A business process description [PD00-TAR-CAT-nn-DES] (form).
+class BusinessProcessDescription {
   String? content;
   String? processId;
   String? processName;
@@ -69,24 +90,24 @@ class BusinessProcessEntry {
 }
 
 // ---------------------------------------------------------------------------
-// 6.2 Process Steps and Actor Interactions (seeds → UC)
+// Process Steps and Actor Interactions (seeds → UC)
 // ---------------------------------------------------------------------------
 
-/// 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
+/// Process Steps and Actor Interactions [PD00-TAR-CAT-nn-STP]. Seeds → UC.
 class ProcessStepsAndActorInteractions {
   String? content;
 
-  /// 6.2.1. Actor Overview [PD00-TAR-STP-ACT] — contains 1+× Actor.
+  /// Actor Overview — contains 1+× Actor.
   List<ActorEntry> actors = [];
 
-  /// 6.2.2. Interaction Catalog [PD00-TAR-STP-INT] — contains 1+× Interaction.
+  /// Interaction Catalog — contains 1+× Interaction.
   List<InteractionEntry> interactions = [];
 
-  /// 6.2.3. Key Scenarios [PD00-TAR-STP-SCE] — contains 1+× Scenario.
+  /// Key Scenarios — contains 1+× Scenario.
   List<ScenarioEntry> scenarios = [];
 }
 
-/// An actor entry [PD00-TAR-STP-ACT-nn] (form).
+/// An actor entry (form).
 class ActorEntry {
   String? content;
   String? actorName;
@@ -114,7 +135,7 @@ class PrimaryInteractionEntry {
   String? criticality;
 }
 
-/// An interaction entry [PD00-TAR-STP-INT-nn] (form).
+/// An interaction entry (form).
 class InteractionEntry {
   String? content;
   String? interactionId;
@@ -128,7 +149,7 @@ class InteractionEntry {
   String? relatedUseCase;
 }
 
-/// A scenario entry [PD00-TAR-STP-SCE-nn] (description).
+/// A scenario entry (description).
 class ScenarioEntry {
   String? content;
   String? scenarioName;

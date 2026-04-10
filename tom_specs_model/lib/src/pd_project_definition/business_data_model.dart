@@ -46,7 +46,8 @@ class DataEntityEntry {
   String? entityName;
   String? description;
   String? category;
-  List<DataAttributeEntry> keyAttributes = [];
+  List<DataAttributeEntry> attributes = [];
+  List<KeyAttributeEntry> keyAttributes = [];
   String? estimatedRecordCount;
   String? growthRate;
   String? retentionPolicy;
@@ -57,6 +58,18 @@ class DataAttributeEntry {
   String? content;
   String? attributeName;
   String? dataType;
+  String? length;
+  String? format;
+  String? mandatory;
+  String? description;
+}
+
+/// A key attribute entry (form) — primary, unique, or foreign key.
+class KeyAttributeEntry {
+  String? content;
+  String? attributeName;
+  String? keyType;
+  String? referencedEntity;
   String? description;
 }
 
@@ -129,11 +142,25 @@ class BusinessObjectEntry {
   String? objectName;
   String? category;
   String? description;
+  List<BusinessObjectAttributeEntry> attributes = [];
   List<ObjectStateEntry> keyStates = [];
   List<BusinessRuleReferenceEntry> keyBusinessRules = [];
 
   /// Lifecycle State Transitions [PD00-BUS-BUS-CAT-nn-LIF].
   List<LifecycleTransitionEntry> lifecycleTransitions = [];
+}
+
+/// A business object attribute entry (form).
+class BusinessObjectAttributeEntry {
+  String? content;
+  String? attributeName;
+  String? type;
+  String? length;
+  String? format;
+  String? description;
+  String? mandatory;
+  String? defaultValue;
+  String? validationRules;
 }
 
 /// An object state entry (form).

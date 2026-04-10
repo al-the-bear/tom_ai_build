@@ -273,43 +273,49 @@
                 -: items:TrainingRequirementEntry
                     -> content, trainingTopic, targetAudience, format, duration, schedule
     -> targetBusinessProcess:TargetBusinessProcessModel
-        -> content
-        -> processDescriptions:BusinessProcessDescriptions
-            -> content, processVision, processOverviewDiagram, improvementSummary
-            -> DesignPrinciples
-                -> content
-                -: items:DesignPrincipleEntry
-                    -> content, principle, description, rationale
-            -: processCatalog:BusinessProcessEntry
+        -> content, processVision, processOverviewDiagram, improvementSummary
+        -> DesignPrinciples
+            -> content
+            -: items:DesignPrincipleEntry
+                -> content, principle, description, rationale
+        -> relationshipsBetweenProcesses:ProcessRelationships
+            -> content
+            -: items:ProcessRelationshipEntry
+                -> content, sourceProcess, targetProcess, relationshipType, description
+        -: processCatalog:TargetBusinessProcess
+            -> content
+            -> processDescription:BusinessProcessDescription
                 -> content, processId, processName, trigger, primaryActor, description, expectedOutcome,
                     estimatedFrequency, estimatedDuration
-        -> processSteps:ProcessStepsAndActorInteractions
-            -> content
-            -: actors:ActorEntry
-                -> content, actorName, actorType, description, accessChannel
-                -> PrimaryInteractions
-                    -> content
-                    -: items:PrimaryInteractionEntry
-                        -> content, useCaseReference, description, frequency, criticality
-            -: interactions:InteractionEntry
-                -> content, interactionId, processReference, actor, action, systemResponse, expectedOutcome,
-                    precondition, postcondition, relatedUseCase
-            -: scenarios:ScenarioEntry
-                -> content, scenarioName, description, successCondition
-                -: steps:ScenarioStepEntry
-                    -> content, stepNumber, description, expectedResult
-                -: alternativeFlows:AlternativeFlowEntry
-                    -> content, flowName, triggerCondition, outcome, returnPoint
+            -> processSteps:ProcessStepsAndActorInteractions
+                -> content
+                -: actors:ActorEntry
+                    -> content, actorName, actorType, description, accessChannel
+                    -> PrimaryInteractions
+                        -> content
+                        -: items:PrimaryInteractionEntry
+                            -> content, useCaseReference, description, frequency, criticality
+                -: interactions:InteractionEntry
+                    -> content, interactionId, processReference, actor, action, systemResponse, expectedOutcome,
+                        precondition, postcondition, relatedUseCase
+                -: scenarios:ScenarioEntry
+                    -> content, scenarioName, description, successCondition
                     -: steps:ScenarioStepEntry
                         -> content, stepNumber, description, expectedResult
+                    -: alternativeFlows:AlternativeFlowEntry
+                        -> content, flowName, triggerCondition, outcome, returnPoint
+                        -: steps:ScenarioStepEntry
+                            -> content, stepNumber, description, expectedResult
     -> businessDataModel:BusinessObjectAndDataModel
         -> content
         -> DataModel
             -> content, erDiagram
             -: entities:DataEntityEntry
                 -> content, entityName, description, category, estimatedRecordCount, growthRate, retentionPolicy
-                -: keyAttributes:DataAttributeEntry
-                    -> content, attributeName, dataType, description
+                -: attributes:DataAttributeEntry
+                    -> content, attributeName, dataType, length, format, mandatory, description
+                -: keyAttributes:KeyAttributeEntry
+                    -> content, attributeName, keyType, referencedEntity, description
             -> EntityRelationships
                 -> content
                 -: items:EntityRelationshipEntry
@@ -326,6 +332,9 @@
             -> content, objectDiagram
             -: objects:BusinessObjectEntry
                 -> content, objectName, category, description
+                -: attributes:BusinessObjectAttributeEntry
+                    -> content, attributeName, type, length, format, description, mandatory, defaultValue,
+                        validationRules
                 -: keyStates:ObjectStateEntry
                     -> content, stateName, description
                 -: keyBusinessRules:BusinessRuleReferenceEntry
