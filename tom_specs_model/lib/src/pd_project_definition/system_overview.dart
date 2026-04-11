@@ -3195,104 +3195,549 @@ class OrgImplementationActivity {
 // ---------------------------------------------------------------------------
 
 /// 4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
+///
+/// Documents existing systems that will be replaced, migrated, or decommissioned
+/// as part of the project. Follows TOGAF migration planning patterns and
+/// Gartner application rationalization frameworks. Each system entry provides
+/// comprehensive assessment for informed replacement decisions.
 @SectionId('PD00-SYO-SYR')
 @Comment('Seeds → CS')
 class SystemsToReplace {
-  @Unused()
-  String? content;
+  /// Overview of the systems replacement scope and strategy.
+  @ContentHelp('Provide executive summary of systems being replaced: '
+      'portfolio count, replacement rationale, expected timeline, '
+      'and overall migration approach.')
+  TextSection overview = TextSection();
 
   /// 4.4.1. Replacement Inventory [PD00-SYO-SYR-INV] — contains 0+×.
-  @SectionIdPattern('PD00-SYO-SYR-INV-xx')
-  List<SystemToReplaceEntry> replacementInventory = [];
+  ReplacementInventory replacementInventory = ReplacementInventory();
 
   /// 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG].
   MigrationConsiderations migrationConsiderations = MigrationConsiderations();
 }
 
-/// A system to replace entry [PD00-SYO-SYR-INV-nn] (form).
-class SystemToReplaceEntry {
-  @Form([
-    Field('systemName', String, 'System Name', required: true),
-    Field('currentTechnology', String, 'Current Technology'),
-    Field('replacementStrategy', String, 'Replacement Strategy'),
-    Field('dataMigrationScope', String, 'Data Migration Scope'),
-    Field('migrationComplexity', String, 'Migration Complexity'),
-    Field('decommissionDate', String, 'Decommission Date'),
-  ])
-  String? content;
+// ---------------------------------------------------------------------------
+// 4.4.1. Replacement Inventory
+// ---------------------------------------------------------------------------
 
-  /// Contains 0+× SystemDependencyReference.
+/// Container for systems to replace [PD00-SYO-SYR-INV].
+///
+/// Provides a structured inventory of all systems targeted for replacement,
+/// with portfolio-level metrics and prioritization guidance.
+@SectionId('PD00-SYO-SYR-INV')
+class ReplacementInventory {
+  /// Portfolio summary before listing individual systems.
+  @ContentHelp('Summarize the replacement portfolio: total system count, '
+      'technology categories, combined user base, and overall complexity.')
+  TextSection portfolioSummary = TextSection();
+
+  /// Prioritization criteria for replacement sequencing.
+  @ContentHelp('Describe how replacement order is determined: business value, '
+      'technical debt, risk, dependency chains, resource availability.')
+  TextSection prioritizationCriteria = TextSection();
+
+  /// Contains 0+× SystemToReplaceEntry.
+  @SectionIdPattern('PD00-SYO-SYR-INV-xx')
+  List<SystemToReplaceEntry> systems = [];
+}
+
+/// A system to replace entry [PD00-SYO-SYR-INV-nn] (form).
+///
+/// Comprehensive documentation of a legacy system to be replaced, covering
+/// technical assessment, business criticality, replacement strategy, and
+/// migration planning. Follows Gartner's TIME (Tolerate, Invest, Migrate,
+/// Eliminate) model and TOGAF application portfolio management patterns.
+class SystemToReplaceEntry {
+  // -------------------------------------------------------------------------
+  // System Identification
+  // -------------------------------------------------------------------------
+
+  @Form([
+    Field('systemId', String, 'System ID (e.g., SYS-CRM-001)', required: true),
+    Field('systemName', String, 'System Name', required: true),
+    Field('officialName', String, 'Official/Vendor Name'),
+    Field('systemDescription', String, 'Description'),
+    Field('systemCategory', String, 'Category (CRM, ERP, HR, Finance, etc.)'),
+    Field('applicationTier', String,
+        'Tier (Mission Critical, Business Critical, Operational)'),
+    Field('businessOwner', String, 'Business Owner'),
+    Field('technicalOwner', String, 'Technical Owner'),
+    Field('vendorName', String, 'Vendor/Provider'),
+    Field('contractStatus', String,
+        'Contract Status (Active, Expired, Month-to-month)'),
+    Field('contractEndDate', String, 'Contract End Date'),
+  ])
+  String? identificationContent;
+
+  /// Technical stack and architecture assessment.
+  SystemTechnicalAssessment technicalAssessment = SystemTechnicalAssessment();
+
+  /// Business value and criticality assessment.
+  SystemBusinessCriticality businessCriticality = SystemBusinessCriticality();
+
+  /// Detailed replacement approach.
+  SystemReplacementStrategy replacementStrategy = SystemReplacementStrategy();
+
+  /// Data migration scope and assessment.
+  SystemDataScope dataScope = SystemDataScope();
+
+  /// Contains 0+× SystemDependencyEntry — integrations with other systems.
   @SectionIdPattern('PD00-SYO-SYR-INV-xx-DEP-xx')
-  List<SystemDependencyReferenceEntry> dependencies = [];
+  List<SystemDependencyEntry> dependencies = [];
+
+  /// User impact and change management needs.
+  SystemUserImpact userImpact = SystemUserImpact();
+
+  /// Financial analysis for replacement decision.
+  SystemCostAnalysis costAnalysis = SystemCostAnalysis();
 
   /// Per-system migration considerations.
-  SystemMigrationConsiderations systemMigration = SystemMigrationConsiderations();
+  SystemMigrationPlan migrationPlan = SystemMigrationPlan();
+
+  /// Documentation and knowledge transfer status.
+  SystemKnowledgeTransfer knowledgeTransfer = SystemKnowledgeTransfer();
 }
 
-/// A system dependency reference entry (form) [PD00-SYO-SYR-INV-nn-DEP-nn].
-class SystemDependencyReferenceEntry {
+/// Technical assessment for a system to replace [PD00-SYO-SYR-INV-nn-TEC].
+@SectionId('PD00-SYO-SYR-INV-xx-TEC')
+class SystemTechnicalAssessment {
   @Form([
-    Field('dependencyType', String, 'Dependency Type'),
+    Field('primaryTechnology', String, 'Primary Technology/Platform'),
+    Field('technologyVersion', String, 'Version'),
+    Field('databasePlatform', String, 'Database Platform'),
+    Field('hostingEnvironment', String,
+        'Hosting (On-premises, Cloud, Hybrid, SaaS)'),
+    Field('operatingSystem', String, 'Operating System'),
+    Field('middlewareComponents', String, 'Middleware Components'),
+    Field('deploymentDate', String, 'Initial Deployment Date'),
+    Field('systemAge', int, 'System Age (Years)'),
+    Field('lastMajorUpgrade', String, 'Last Major Upgrade'),
+    Field('vendorSupportStatus', String,
+        'Support Status (Full, Extended, End of Life)'),
+    Field('endOfSupportDate', String, 'End of Support Date'),
+    Field('technicalDebtRating', String,
+        'Technical Debt (Low, Medium, High, Critical)'),
+    Field('securityPosture', String, 'Security Posture'),
+    Field('performanceStatus', String,
+        'Performance (Acceptable, Degraded, Poor)'),
+    Field('scalabilityLimitations', String, 'Scalability Limitations'),
+    Field('maintainability', String, 'Maintainability Rating'),
+    Field('documentationQuality', String,
+        'Documentation (Complete, Partial, Outdated, Missing)'),
   ])
   String? content;
 
-  @Reference('Dependency Name')
-  String? dependencyName;
+  /// Known technical issues and deficiencies.
+  TextSection knownIssues = TextSection();
+
+  /// Security vulnerabilities and compliance gaps.
+  TextSection securityConcerns = TextSection();
 }
 
-/// Per-system migration considerations [PD00-SYO-SYR-INV-nn-MIG].
-class SystemMigrationConsiderations {
+/// Business criticality assessment [PD00-SYO-SYR-INV-nn-BUS].
+@SectionId('PD00-SYO-SYR-INV-xx-BUS')
+class SystemBusinessCriticality {
   @Form([
-    Field('migrationApproach', String, 'Migration Approach'),
+    Field('criticalityRating', String,
+        'Criticality (1=Mission Critical, 2=Business, 3=Operational)',
+        required: true),
+    Field('businessValueScore', int, 'Business Value Score (1-10)'),
+    Field('timeModelClassification', String,
+        'TIME Classification (Tolerate, Invest, Migrate, Eliminate)'),
+    Field('activeUsers', int, 'Active Users'),
+    Field('peakConcurrentUsers', int, 'Peak Concurrent Users'),
+    Field('transactionVolume', String, 'Transaction Volume'),
+    Field('dataVolume', String, 'Data Volume'),
+    Field('revenueImpact', String, 'Revenue Impact (Direct, Indirect, None)'),
+    Field('operationsImpact', String,
+        'Operations Impact (Severe, Moderate, Minor, None)'),
+    Field('complianceRole', String, 'Compliance/Regulatory Role'),
+    Field('maxDowntime', String, 'Max Acceptable Downtime (RTO)'),
+  ])
+  String? content;
+
+  /// Business units and departments using this system.
+  @SectionIdPattern('PD00-SYO-SYR-INV-xx-BUS-BU-xx')
+  List<SystemBusinessUnitEntry> businessUnits = [];
+
+  /// Business processes supported by this system.
+  @SectionIdPattern('PD00-SYO-SYR-INV-xx-BUS-BP-xx')
+  List<SystemBusinessProcessEntry> supportedProcesses = [];
+}
+
+/// Business unit using the system [PD00-SYO-SYR-INV-nn-BUS-BU-nn].
+class SystemBusinessUnitEntry {
+  @Form([
+    Field('unitName', String, 'Business Unit', required: true),
+    Field('userCount', int, 'User Count'),
+    Field('usagePattern', String, 'Usage Pattern (Daily, Weekly, etc.)'),
+    Field('dependencyLevel', String,
+        'Dependency Level (Primary, Secondary, Occasional)'),
+    Field('impactIfRemoved', String, 'Impact if System Removed'),
+  ])
+  String? content;
+}
+
+/// Business process supported [PD00-SYO-SYR-INV-nn-BUS-BP-nn].
+class SystemBusinessProcessEntry {
+  @Form([
+    Field('processName', String, 'Process Name', required: true),
+    Field('processId', String, 'Process ID'),
+    Field('systemRole', String, 'System Role (Primary, Data Source, etc.)'),
+    Field('automationLevel', String, 'Automation Level'),
+    Field('processFrequency', String, 'Execution Frequency'),
+  ])
+  String? content;
+}
+
+/// Replacement strategy details [PD00-SYO-SYR-INV-nn-STR].
+@SectionId('PD00-SYO-SYR-INV-xx-STR')
+class SystemReplacementStrategy {
+  @Form([
+    Field('strategyType', String,
+        'Strategy (Replace, Consolidate, Retire, Rehost, Replatform)',
+        required: true),
+    Field('strategyRationale', String, 'Rationale'),
+    Field('targetSolution', String, 'Target Solution'),
+    Field('targetSolutionType', String,
+        'Target Type (COTS, SaaS, Custom, Platform)'),
+    Field('plannedStartDate', String, 'Planned Start Date'),
+    Field('targetCutoverDate', String, 'Target Cutover Date'),
+    Field('decommissionDate', String, 'Decommission Date'),
+    Field('parallelRunPeriod', String, 'Parallel Run Period'),
+    Field('cutoverStrategy', String,
+        'Cutover (Big Bang, Phased, Parallel Run, Pilot)'),
+    Field('rollbackCapability', String, 'Rollback Capability (Full, Partial)'),
+    Field('rollbackWindow', String, 'Rollback Window'),
+  ])
+  String? content;
+
+  /// Replacement phases if phased approach.
+  @SectionIdPattern('PD00-SYO-SYR-INV-xx-STR-PH-xx')
+  List<ReplacementPhaseEntry> phases = [];
+
+  /// Predecessor systems that must be addressed first.
+  TextSection predecessorDependencies = TextSection();
+
+  /// Success criteria for replacement completion.
+  TextSection successCriteria = TextSection();
+}
+
+/// A replacement phase entry [PD00-SYO-SYR-INV-nn-STR-PH-nn].
+class ReplacementPhaseEntry {
+  @Form([
+    Field('phaseNumber', int, 'Phase Number', required: true),
+    Field('phaseName', String, 'Phase Name', required: true),
+    Field('phaseScope', String, 'Scope'),
+    Field('startDate', String, 'Start Date'),
+    Field('endDate', String, 'End Date'),
+    Field('exitCriteria', String, 'Exit Criteria'),
+  ])
+  String? content;
+}
+
+/// Data scope and migration assessment [PD00-SYO-SYR-INV-nn-DAT].
+@SectionId('PD00-SYO-SYR-INV-xx-DAT')
+class SystemDataScope {
+  @Form([
+    Field('totalRecords', String, 'Total Records'),
+    Field('dataSize', String, 'Data Size (GB/TB)'),
+    Field('growthRate', String, 'Growth Rate'),
+    Field('dataTypes', String, 'Data Types (Master, Transactional, etc.)'),
+    Field('sensitivityLevel', String,
+        'Sensitivity (Public, Internal, Confidential, PII)'),
+    Field('retentionRequirements', String, 'Retention Requirements'),
+    Field('dataQuality', String, 'Quality Rating (Excellent to Poor)'),
+    Field('cleansingRequired', String, 'Cleansing Required'),
+    Field('deduplicationNeeded', bool, 'Deduplication Needed'),
+    Field('transformationComplexity', String, 'Transformation Complexity'),
+    Field('migrationScope', String,
+        'Scope (Full, Recent, Active records, Reference)'),
+    Field('archiveStrategy', String, 'Archive Strategy'),
+  ])
+  String? content;
+
+  /// Data entities to migrate.
+  @SectionIdPattern('PD00-SYO-SYR-INV-xx-DAT-ENT-xx')
+  List<DataEntityMigrationEntry> entities = [];
+
+  /// Data quality issues to address.
+  TextSection knownQualityIssues = TextSection();
+}
+
+/// A data entity migration entry [PD00-SYO-SYR-INV-nn-DAT-ENT-nn].
+class DataEntityMigrationEntry {
+  @Form([
+    Field('entityName', String, 'Entity Name', required: true),
+    Field('recordCount', String, 'Record Count'),
+    Field('targetMapping', String, 'Target Mapping'),
+    Field('transformationNotes', String, 'Transformation Notes'),
+    Field('validationRules', String, 'Validation Rules'),
+    Field('migrationPriority', String, 'Priority'),
+  ])
+  String? content;
+}
+
+/// A system dependency entry [PD00-SYO-SYR-INV-nn-DEP-nn].
+///
+/// Documents integrations and dependencies with other systems.
+class SystemDependencyEntry {
+  @Form([
+    Field('integrationId', String, 'Integration ID'),
+    Field('connectedSystem', String, 'Connected System', required: true),
+    Field('systemStatus', String,
+        'Status (Also being replaced, Remaining, External)'),
+    Field('direction', String, 'Direction (Inbound, Outbound, Bidirectional)'),
+    Field('integrationType', String, 'Type (API, File, Database, Message)'),
+    Field('protocol', String, 'Protocol'),
+    Field('dataExchanged', String, 'Data Exchanged'),
+    Field('frequency', String, 'Frequency'),
+    Field('volume', String, 'Volume'),
+    Field('criticality', String, 'Criticality (Critical, Important)'),
+    Field('impactIfBroken', String, 'Impact if Broken'),
+    Field('owningSystem', String, 'Integration Owner'),
+    Field('replacementMapping', String, 'Replacement Mapping'),
+    Field('migrationApproach', String,
+        'Migration Approach (Rebuild, Adapt, Bridge, Eliminate)'),
+  ])
+  String? content;
+}
+
+/// User impact assessment [PD00-SYO-SYR-INV-nn-USR].
+@SectionId('PD00-SYO-SYR-INV-xx-USR')
+class SystemUserImpact {
+  @Form([
+    Field('totalUserCount', int, 'Total Users'),
+    Field('activeUserCount', int, 'Active Users (last 30 days)'),
+    Field('powerUsers', int, 'Power Users'),
+    Field('userLocations', String, 'User Locations'),
+    Field('workflowChange', String, 'Workflow Change Level'),
+    Field('uiChange', String, 'UI Change Level'),
+    Field('functionalityChange', String, 'Functionality Change'),
+    Field('trainingRequired', String, 'Training Required'),
+    Field('estimatedTrainingHours', int, 'Training Hours per User'),
+    Field('trainingApproach', String, 'Training Approach'),
+    Field('trainingMaterials', String, 'Materials Needed'),
+    Field('communicationPlan', String, 'Communication Plan'),
+    Field('changeChampions', String, 'Change Champions'),
+  ])
+  String? content;
+
+  /// User groups requiring specific handling.
+  @SectionIdPattern('PD00-SYO-SYR-INV-xx-USR-GR-xx')
+  List<UserGroupImpactEntry> userGroups = [];
+}
+
+/// User group impact entry [PD00-SYO-SYR-INV-nn-USR-GR-nn].
+class UserGroupImpactEntry {
+  @Form([
+    Field('groupName', String, 'User Group', required: true),
+    Field('userCount', int, 'User Count'),
+    Field('impactLevel', String, 'Impact Level (High, Medium, Low)'),
+    Field('specialConsiderations', String, 'Special Considerations'),
+    Field('trainingNeeds', String, 'Training Needs'),
+  ])
+  String? content;
+}
+
+/// Cost analysis for replacement [PD00-SYO-SYR-INV-nn-CST].
+@SectionId('PD00-SYO-SYR-INV-xx-CST')
+class SystemCostAnalysis {
+  @Form([
+    Field('annualLicenseCost', String, 'Annual License Cost'),
+    Field('annualMaintenanceCost', String, 'Annual Maintenance Cost'),
+    Field('annualOperationsCost', String, 'Annual Operations Cost'),
+    Field('annualSupportCost', String, 'Annual Support Cost'),
+    Field('totalCurrentAnnualCost', String, 'Total Current Annual Cost'),
+    Field('migrationProjectCost', String, 'Migration Project Cost'),
+    Field('dataConversionCost', String, 'Data Conversion Cost'),
+    Field('integrationCost', String, 'Integration Rebuild Cost'),
+    Field('trainingCost', String, 'Training Cost'),
+    Field('parallelRunCost', String, 'Parallel Run Cost'),
+    Field('newSystemAnnualCost', String, 'New System Annual Cost'),
+    Field('annualSavings', String, 'Annual Savings'),
+    Field('paybackPeriod', String, 'Payback Period'),
+    Field('fiveYearTco', String, '5-Year TCO'),
+  ])
+  String? content;
+
+  /// Cost breakdown by category if detailed analysis available.
+  TextSection costBreakdown = TextSection();
+
+  /// Non-financial benefits to include in ROI.
+  TextSection nonFinancialBenefits = TextSection();
+}
+
+/// Per-system migration plan [PD00-SYO-SYR-INV-nn-MIG].
+@SectionId('PD00-SYO-SYR-INV-xx-MIG')
+class SystemMigrationPlan {
+  @Form([
+    Field('migrationApproach', String,
+        'Approach (Big Bang, Phased, Parallel, Strangler)'),
     Field('dataTransformationNeeds', String, 'Data Transformation Needs'),
     Field('estimatedEffort', String, 'Estimated Effort'),
+    Field('teamSize', String, 'Team Size'),
+    Field('duration', String, 'Estimated Duration'),
+    Field('testingApproach', String, 'Testing Approach'),
+    Field('dataValidationMethod', String, 'Data Validation Method'),
+    Field('uatScope', String, 'UAT Scope'),
+    Field('cutoverWindow', String, 'Cutover Window'),
+    Field('cutoverDuration', String, 'Cutover Duration'),
+    Field('businessContingency', String, 'Business Contingency'),
   ])
   String? content;
 
-  /// Contains 0+× MigrationRiskReference.
-  @SectionIdPattern('PD00-SYO-SYR-INV-xx-MRR-xx')
-  List<MigrationRiskReferenceEntry> risks = [];
+  /// Contains 0+× MigrationRiskEntry — per-system migration risks.
+  @SectionIdPattern('PD00-SYO-SYR-INV-xx-MIG-RSK-xx')
+  List<SystemMigrationRiskEntry> risks = [];
 
-  /// Rollback Strategy.
+  /// Rollback strategy and procedures.
   TextSection rollbackStrategy = TextSection();
+
+  /// Post-migration validation steps.
+  TextSection postMigrationValidation = TextSection();
 }
 
-/// A migration risk reference entry (form) [PD00-SYO-SYR-INV-nn-MRR-nn].
-class MigrationRiskReferenceEntry {
+/// A system migration risk entry [PD00-SYO-SYR-INV-nn-MIG-RSK-nn].
+class SystemMigrationRiskEntry {
   @Form([
-    Field('riskDescription', String, 'Risk Description'),
-    Field('mitigation', String, 'Mitigation strategy'),
+    Field('riskId', String, 'Risk ID'),
+    Field('riskDescription', String, 'Risk Description', required: true),
+    Field('probability', String, 'Probability (High, Medium, Low)'),
+    Field('impact', String, 'Impact (High, Medium, Low)'),
+    Field('riskScore', String, 'Risk Score'),
+    Field('mitigation', String, 'Mitigation Strategy'),
+    Field('contingency', String, 'Contingency Plan'),
+    Field('owner', String, 'Risk Owner'),
   ])
   String? content;
 }
+
+/// Knowledge transfer status [PD00-SYO-SYR-INV-nn-KNW].
+@SectionId('PD00-SYO-SYR-INV-xx-KNW')
+class SystemKnowledgeTransfer {
+  @Form([
+    Field('technicalDocStatus', String,
+        'Technical Doc Status (Complete, Partial, Outdated, Missing)'),
+    Field('businessDocStatus', String, 'Business Documentation Status'),
+    Field('dataDocStatus', String, 'Data Documentation Status'),
+    Field('primarySme', String, 'Primary SME'),
+    Field('smeAvailability', String,
+        'SME Availability (Available, Partial, Leaving)'),
+    Field('smeRiskLevel', String, 'SME Risk Level'),
+    Field('backupSme', String, 'Backup SME'),
+    Field('knowledgeCaptureNeeded', bool, 'Knowledge Capture Needed'),
+    Field('captureApproach', String, 'Capture Approach'),
+    Field('captureDeadline', String, 'Capture Deadline'),
+  ])
+  String? content;
+
+  /// Critical knowledge areas to preserve.
+  TextSection criticalKnowledgeAreas = TextSection();
+
+  /// Knowledge transfer plan if SME risk is high.
+  TextSection knowledgeTransferPlan = TextSection();
+}
+
+// ---------------------------------------------------------------------------
+// 4.4.2. Migration Considerations (Global)
+// ---------------------------------------------------------------------------
 
 /// 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG] (global).
+///
+/// Cross-system migration concerns covering portfolio-wide strategy,
+/// resource planning, and coordination. Complements per-system
+/// migration details with global governance.
 @SectionId('PD00-SYO-SYR-MIG')
 class MigrationConsiderations {
-  @Unused()
-  String? content;
+  @Form([
+    Field('overallStrategy', String,
+        'Overall Strategy (Big Bang, Phased, Parallel, Strangler)'),
+    Field('sequencingApproach', String, 'Sequencing Approach'),
+    Field('interdependencyHandling', String, 'Interdependency Handling'),
+    Field('migrationWindowStrategy', String, 'Migration Window Strategy'),
+    Field('blackoutPeriods', String, 'Blackout Periods'),
+    Field('parallelRunDuration', String, 'Parallel Run Duration'),
+  ])
+  String? strategyContent;
 
-  /// Strategy.
-  TextSection strategy = TextSection();
+  /// Detailed strategy narrative.
+  TextSection strategyNarrative = TextSection();
+
+  /// Resource requirements for migration program.
+  MigrationResources resources = MigrationResources();
 
   /// Migration risks [PD00-SYO-SYR-MIG-RIS].
   MigrationRisks migrationRisks = MigrationRisks();
 
-  /// Timeline.
+  /// High-level migration timeline.
   TextSection timeline = TextSection();
 
-  /// Data Mapping.
+  /// Migration milestones.
+  @SectionIdPattern('PD00-SYO-SYR-MIG-MIL-xx')
+  List<MigrationMilestoneEntry> milestones = [];
+
+  /// Cross-system data mapping considerations.
   TextSection dataMapping = TextSection();
 
-  /// Rollback Strategy.
+  /// Master data management approach during migration.
+  TextSection masterDataApproach = TextSection();
+
+  /// Global rollback strategy and governance.
   TextSection rollbackStrategy = TextSection();
+
+  /// Go/No-Go decision criteria for each migration.
+  TextSection goNoGosCriteria = TextSection();
+
+  /// Stakeholder communication plan for migration program.
+  TextSection communicationPlan = TextSection();
+
+  /// Escalation procedures during migration.
+  TextSection escalationProcedures = TextSection();
 }
 
-/// Migration risks [PD00-SYO-SYR-MIG-RIS].
+/// Migration resource requirements [PD00-SYO-SYR-MIG-RES].
+@SectionId('PD00-SYO-SYR-MIG-RES')
+class MigrationResources {
+  @Form([
+    Field('migrationLead', String, 'Migration Lead'),
+    Field('technicalResources', String, 'Technical Resources'),
+    Field('businessResources', String, 'Business Resources'),
+    Field('testingResources', String, 'Testing Resources'),
+    Field('vendorSupport', String, 'Vendor Support'),
+    Field('consultingSupport', String, 'Consulting Support'),
+    Field('contractorNeeds', String, 'Contractor Needs'),
+    Field('migrationEnvironments', String, 'Migration Environments'),
+    Field('dataStorageNeeds', String, 'Data Storage'),
+    Field('networkBandwidth', String, 'Network Bandwidth'),
+  ])
+  String? content;
+
+  /// Resource timeline by phase.
+  TextSection resourceTimeline = TextSection();
+}
+
+/// A migration milestone entry [PD00-SYO-SYR-MIG-MIL-nn].
+class MigrationMilestoneEntry {
+  @Form([
+    Field('milestoneName', String, 'Milestone Name', required: true),
+    Field('targetDate', String, 'Target Date'),
+    Field('systemsIncluded', String, 'Systems Included'),
+    Field('deliverables', String, 'Deliverables'),
+    Field('successCriteria', String, 'Success Criteria'),
+    Field('gateName', String, 'Gate Name'),
+  ])
+  String? content;
+}
+
+/// Migration risks [PD00-SYO-SYR-MIG-RIS] — program-level risks.
 @SectionId('PD00-SYO-SYR-MIG-RIS')
 class MigrationRisks {
   @Unused()
   String? content;
+
+  /// Risk overview at program level.
+  TextSection riskOverview = TextSection();
 
   /// Contains 0+× MigrationRisk.
   @SectionIdPattern('PD00-SYO-SYR-MIG-RIS-xx')
@@ -3302,10 +3747,17 @@ class MigrationRisks {
 /// A migration risk entry (form) [PD00-SYO-SYR-MIG-RIS-nn].
 class MigrationRiskEntry {
   @Form([
-    Field('riskDescription', String, 'Risk Description'),
-    Field('probability', String, 'Probability'),
-    Field('impact', String, 'Impact assessment'),
-    Field('mitigation', String, 'Mitigation strategy'),
+    Field('riskId', String, 'Risk ID'),
+    Field('riskCategory', String, 'Risk Category'),
+    Field('riskDescription', String, 'Risk Description', required: true),
+    Field('probability', String, 'Probability (High >70%, Medium, Low <30%)'),
+    Field('impact', String, 'Impact (High, Medium, Low)'),
+    Field('riskScore', String, 'Risk Score'),
+    Field('affectedSystems', String, 'Affected Systems'),
+    Field('mitigation', String, 'Mitigation Strategy'),
+    Field('contingency', String, 'Contingency Plan'),
+    Field('owner', String, 'Risk Owner'),
+    Field('status', String, 'Status (Open, Mitigating, Closed, Realized)'),
   ])
   String? content;
 }

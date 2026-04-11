@@ -46,8 +46,8 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-SYO-REQ-SEC-01 | Sample: REQ-S001 Data Encryption at Rest | Low | ✅ Done |
 | PD00-SYO-REQ-ORG | Organizational Requirements | Medium | ✅ Done |
 | PD00-SYO-REQ-ORG-01 | Sample: REQ-O001 User Training Program | Low | ✅ Done |
-| PD00-SYO-SYR-INV | Replacement Inventory | Medium | ⬜ Not Started |
-| PD00-SYO-SYR-INV-01 | Sample: Legacy CRM | Low | ⬜ Not Started |
+| PD00-SYO-SYR-INV | Replacement Inventory | Medium | ✅ Done |
+| PD00-SYO-SYR-INV-01 | Sample: Legacy CRM | Low | ✅ Done |
 | PD00-SYO-SYB-INT | Interfaces to External Systems | High | ⬜ Not Started |
 | PD00-SYO-SYB-INT-01 | Sample: Payment Gateway | Low | ⬜ Not Started |
 | PD00-SYO-RIS-RIS | Key Risks | High | ⬜ Not Started |
