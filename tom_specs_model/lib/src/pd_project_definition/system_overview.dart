@@ -3767,15 +3767,21 @@ class MigrationRiskEntry {
 // ---------------------------------------------------------------------------
 
 /// 4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
+///
+/// Defines the scope boundaries of the system including external interfaces,
+/// out-of-scope items, and operating assumptions. This section provides the
+/// foundation for integration planning and scope management. Follows TOGAF
+/// system context patterns and enterprise integration best practices.
 @SectionId('PD00-SYO-SYB')
 @Comment('Seeds → BSI')
 class SystemBoundaries {
-  @Unused()
-  String? content;
+  /// Overview of system boundaries and scope definition approach.
+  @ContentHelp('Provide executive summary of system boundaries: '
+      'integration count, scope philosophy, and boundary governance approach.')
+  TextSection overview = TextSection();
 
   /// 4.5.1. Interfaces to External Systems [PD00-SYO-SYB-INT] — contains 0+×.
-  @SectionIdPattern('PD00-SYO-SYB-INT-xx')
-  List<ExternalInterfaceEntry> externalInterfaces = [];
+  ExternalInterfaces externalInterfaces = ExternalInterfaces();
 
   /// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT] — contains 0+×.
   OutOfScope outOfScope = OutOfScope();
@@ -3784,29 +3790,451 @@ class SystemBoundaries {
   BoundaryAssumptions assumptions = BoundaryAssumptions();
 }
 
+// ---------------------------------------------------------------------------
+// 4.5.1. External Interfaces
+// ---------------------------------------------------------------------------
+
+/// Container for external interface definitions [PD00-SYO-SYB-INT].
+///
+/// Provides structured inventory of all external system integrations with
+/// categorization, prioritization, and governance information. Each interface
+/// seeds detailed specification in the BSI (Business System Interactions)
+/// document. Follows enterprise integration patterns (EIP) and API-first
+/// design principles.
+@SectionId('PD00-SYO-SYB-INT')
+class ExternalInterfaces {
+  /// Summary of the integration landscape.
+  @ContentHelp('Summarize integration portfolio: total count by category, '
+      'strategic vs tactical integrations, integration platform approach.')
+  TextSection integrationSummary = TextSection();
+
+  /// Integration architecture approach.
+  @ContentHelp('Describe integration patterns: point-to-point vs hub, '
+      'synchronous vs async, API gateway usage, message broker approach.')
+  TextSection architectureApproach = TextSection();
+
+  /// Integration governance model.
+  @ContentHelp('Describe integration governance: ownership model, '
+      'change control process, versioning strategy, deprecation policy.')
+  TextSection governanceModel = TextSection();
+
+  /// Contains 0+× ExternalInterfaceEntry.
+  @SectionIdPattern('PD00-SYO-SYB-INT-xx')
+  List<ExternalInterfaceEntry> interfaces = [];
+}
+
 /// An external interface entry [PD00-SYO-SYB-INT-nn] (form).
+///
+/// Comprehensive documentation of an external system interface covering
+/// identification, technical details, data exchange specification, security,
+/// operational characteristics, and contractual governance. Follows
+/// OpenAPI/AsyncAPI patterns for API documentation and enterprise
+/// integration best practices.
 class ExternalInterfaceEntry {
+  // -------------------------------------------------------------------------
+  // Interface Identification
+  // -------------------------------------------------------------------------
+
   @Form([
-    Field('interfaceId', String, 'Interface Id', required: true),
-    Field('externalSystem', String, 'External System'),
-    Field('direction', String, 'Direction'),
-    Field('purpose', String, 'Purpose'),
-    Field('dataExchanged', String, 'Data Exchanged'),
-    Field('protocol', String, 'Protocol'),
-    Field('frequency', String, 'Frequency'),
-    Field('volume', String, 'Volume'),
-    Field('authentication', String, 'Authentication'),
+    Field('interfaceId', String, 'Interface ID (e.g., IF-PAY-001)',
+        required: true),
+    Field('interfaceName', String, 'Interface Name', required: true),
+    Field('externalSystem', String, 'External System Name', required: true),
+    Field('externalSystemVendor', String, 'Vendor/Provider'),
+    Field('interfaceCategory', String,
+        'Category (Payment, Identity, Data, Messaging, etc.)'),
+    Field('integrationPattern', String,
+        'Pattern (Request-Reply, Fire-and-Forget, Pub-Sub, Event-Driven)'),
+    Field('priority', String, 'Priority (Critical, High, Medium, Low)'),
+    Field('status', String, 'Status (Existing, New, To be replaced)'),
+  ])
+  String? identificationContent;
+
+  /// Business purpose and value of this interface.
+  InterfaceBusinessContext businessContext = InterfaceBusinessContext();
+
+  // -------------------------------------------------------------------------
+  // Technical Specification
+  // -------------------------------------------------------------------------
+
+  /// Technical details of the interface.
+  InterfaceTechnicalSpec technicalSpec = InterfaceTechnicalSpec();
+
+  // -------------------------------------------------------------------------
+  // Data Specification
+  // -------------------------------------------------------------------------
+
+  /// Data exchange specification.
+  InterfaceDataSpec dataSpec = InterfaceDataSpec();
+
+  // -------------------------------------------------------------------------
+  // Security & Authentication
+  // -------------------------------------------------------------------------
+
+  /// Security and authentication requirements.
+  InterfaceSecurity security = InterfaceSecurity();
+
+  // -------------------------------------------------------------------------
+  // Operational Characteristics
+  // -------------------------------------------------------------------------
+
+  /// Operational and SLA requirements.
+  InterfaceOperational operational = InterfaceOperational();
+
+  // -------------------------------------------------------------------------
+  // Error Handling
+  // -------------------------------------------------------------------------
+
+  /// Error handling and resilience.
+  InterfaceErrorHandling errorHandling = InterfaceErrorHandling();
+
+  // -------------------------------------------------------------------------
+  // Governance & Contracts
+  // -------------------------------------------------------------------------
+
+  /// Contractual and governance information.
+  InterfaceGovernance governance = InterfaceGovernance();
+
+  // -------------------------------------------------------------------------
+  // Testing & Environments
+  // -------------------------------------------------------------------------
+
+  /// Testing and environment information.
+  InterfaceTesting testing = InterfaceTesting();
+}
+
+/// Business context for an interface [PD00-SYO-SYB-INT-nn-BUS].
+@SectionId('PD00-SYO-SYB-INT-xx-BUS')
+class InterfaceBusinessContext {
+  @Form([
+    Field('businessPurpose', String, 'Business Purpose'),
+    Field('businessValue', String, 'Business Value'),
+    Field('businessOwner', String, 'Business Owner'),
+    Field('useCases', String, 'Primary Use Cases'),
+    Field('businessCriticality', String,
+        'Criticality (Mission Critical, Business Critical, Operational)'),
+    Field('revenueImpact', String, 'Revenue Impact (Direct, Indirect, None)'),
+    Field('regulatoryDriver', String, 'Regulatory/Compliance Driver'),
+  ])
+  String? content;
+
+  /// Business processes that depend on this interface.
+  @SectionIdPattern('PD00-SYO-SYB-INT-xx-BUS-BP-xx')
+  List<InterfaceBusinessProcessEntry> dependentProcesses = [];
+}
+
+/// Business process dependency entry [PD00-SYO-SYB-INT-nn-BUS-BP-nn].
+class InterfaceBusinessProcessEntry {
+  @Form([
+    Field('processName', String, 'Process Name', required: true),
+    Field('processId', String, 'Process ID'),
+    Field('dependencyType', String, 'Dependency (Critical Path, Supporting)'),
+    Field('fallbackBehavior', String, 'Fallback if Interface Unavailable'),
   ])
   String? content;
 }
 
-/// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT].
-@SectionId('PD00-SYO-SYB-OUT')
-class OutOfScope {
-  @Unused()
+/// Technical specification for an interface [PD00-SYO-SYB-INT-nn-TEC].
+@SectionId('PD00-SYO-SYB-INT-xx-TEC')
+class InterfaceTechnicalSpec {
+  @Form([
+    // Protocol & Transport
+    Field('protocol', String,
+        'Protocol (REST/HTTPS, SOAP/HTTPS, gRPC, GraphQL, SFTP, etc.)'),
+    Field('transportSecurity', String, 'Transport Security (TLS 1.2, TLS 1.3)'),
+    Field('messageFormat', String, 'Message Format (JSON, XML, Protobuf, CSV)'),
+    Field('encoding', String, 'Character Encoding (UTF-8, etc.)'),
+
+    // Direction & Pattern
+    Field('direction', String, 'Direction (Inbound, Outbound, Bidirectional)'),
+    Field('initiator', String, 'Initiator (Our System, External System)'),
+    Field('communicationStyle', String,
+        'Style (Synchronous, Asynchronous, Event-Driven)'),
+    Field('deliveryGuarantee', String,
+        'Delivery (At-most-once, At-least-once, Exactly-once)'),
+
+    // Endpoints
+    Field('baseEndpoint', String, 'Base URL/Endpoint'),
+    Field('apiVersion', String, 'API Version'),
+    Field('documentationUrl', String, 'API Documentation URL'),
+    Field('sandboxEndpoint', String, 'Sandbox/Test Endpoint'),
+  ])
   String? content;
 
-  /// Contains 0+× OutOfScope.
+  /// API operations/methods exposed or consumed.
+  @SectionIdPattern('PD00-SYO-SYB-INT-xx-TEC-OP-xx')
+  List<InterfaceOperationEntry> operations = [];
+
+  /// Webhook/callback configurations if applicable.
+  InterfaceWebhookSpec webhookSpec = InterfaceWebhookSpec();
+}
+
+/// API operation entry [PD00-SYO-SYB-INT-nn-TEC-OP-nn].
+class InterfaceOperationEntry {
+  @Form([
+    Field('operationId', String, 'Operation ID', required: true),
+    Field('operationName', String, 'Operation Name', required: true),
+    Field('httpMethod', String, 'HTTP Method (GET, POST, PUT, DELETE, etc.)'),
+    Field('path', String, 'Path/Endpoint'),
+    Field('purpose', String, 'Purpose'),
+    Field('idempotent', bool, 'Idempotent'),
+    Field('requestFormat', String, 'Request Format'),
+    Field('responseFormat', String, 'Response Format'),
+    Field('paginationSupport', bool, 'Pagination Supported'),
+    Field('filteringSupport', String, 'Filtering/Query Parameters'),
+  ])
+  String? content;
+}
+
+/// Webhook specification [PD00-SYO-SYB-INT-nn-TEC-WH].
+@SectionId('PD00-SYO-SYB-INT-xx-TEC-WH')
+class InterfaceWebhookSpec {
+  @Form([
+    Field('webhooksUsed', bool, 'Webhooks/Callbacks Used'),
+    Field('webhookEndpoint', String, 'Our Webhook Endpoint'),
+    Field('eventTypes', String, 'Event Types Received'),
+    Field('signatureVerification', String, 'Signature Verification Method'),
+    Field('retryPolicy', String, 'External System Retry Policy'),
+    Field('idempotencyHandling', String, 'Idempotency Handling'),
+  ])
+  String? content;
+}
+
+/// Data specification for an interface [PD00-SYO-SYB-INT-nn-DAT].
+@SectionId('PD00-SYO-SYB-INT-xx-DAT')
+class InterfaceDataSpec {
+  @Form([
+    // Data Exchange Overview
+    Field('dataExchangeSummary', String, 'Data Exchange Summary'),
+    Field('dataDirection', String,
+        'Data Flow (Send, Receive, Bidirectional)'),
+    Field('dataSensitivity', String,
+        'Sensitivity (Public, Internal, Confidential, PII/PHI)'),
+    Field('dataRetentionExternal', String, 'External System Data Retention'),
+
+    // Volume & Frequency
+    Field('frequency', String,
+        'Frequency (Real-time, Near real-time, Batch, On-demand)'),
+    Field('batchSchedule', String, 'Batch Schedule (if applicable)'),
+    Field('volumePerTransaction', String, 'Volume per Transaction'),
+    Field('dailyVolume', String, 'Expected Daily Volume'),
+    Field('peakVolume', String, 'Peak Volume'),
+    Field('payloadSizeLimit', String, 'Payload Size Limit'),
+  ])
+  String? content;
+
+  /// Data entities exchanged.
+  @SectionIdPattern('PD00-SYO-SYB-INT-xx-DAT-ENT-xx')
+  List<InterfaceDataEntityEntry> dataEntities = [];
+
+  /// Data mapping and transformation rules.
+  TextSection mappingRules = TextSection();
+
+  /// Data validation rules.
+  TextSection validationRules = TextSection();
+}
+
+/// Data entity exchanged [PD00-SYO-SYB-INT-nn-DAT-ENT-nn].
+class InterfaceDataEntityEntry {
+  @Form([
+    Field('entityName', String, 'Entity Name', required: true),
+    Field('direction', String, 'Direction (Send, Receive)'),
+    Field('fieldCount', int, 'Field Count'),
+    Field('requiredFields', String, 'Required Fields'),
+    Field('sensitiveFields', String, 'Sensitive Fields (PII, etc.)'),
+    Field('internalMapping', String, 'Maps to Internal Entity'),
+    Field('transformationNeeded', String, 'Transformation Required'),
+  ])
+  String? content;
+}
+
+/// Security specification for an interface [PD00-SYO-SYB-INT-nn-SEC].
+@SectionId('PD00-SYO-SYB-INT-xx-SEC')
+class InterfaceSecurity {
+  @Form([
+    // Authentication
+    Field('authMethod', String,
+        'Authentication (API Key, OAuth 2.0, mTLS, Basic, SAML, etc.)'),
+    Field('authDetails', String, 'Authentication Details'),
+    Field('credentialStorage', String, 'Credential Storage Method'),
+    Field('credentialRotation', String, 'Credential Rotation Policy'),
+
+    // Authorization
+    Field('authorizationModel', String, 'Authorization Model'),
+    Field('scopesPermissions', String, 'Scopes/Permissions Required'),
+    Field('ipWhitelisting', String, 'IP Whitelisting Required'),
+
+    // Encryption
+    Field('encryptionInTransit', String, 'Encryption in Transit'),
+    Field('encryptionAtRest', String, 'Encryption at Rest (if applicable)'),
+    Field('fieldLevelEncryption', String, 'Field-Level Encryption'),
+
+    // Compliance
+    Field('complianceRequirements', String,
+        'Compliance (PCI-DSS, HIPAA, GDPR, SOC2, etc.)'),
+    Field('auditLogging', String, 'Audit Logging Requirements'),
+    Field('dataResidency', String, 'Data Residency Requirements'),
+  ])
+  String? content;
+
+  /// Security contacts and escalation.
+  TextSection securityContacts = TextSection();
+}
+
+/// Operational characteristics [PD00-SYO-SYB-INT-nn-OPS].
+@SectionId('PD00-SYO-SYB-INT-xx-OPS')
+class InterfaceOperational {
+  @Form([
+    // Availability & SLA
+    Field('availabilitySla', String, 'Availability SLA (e.g., 99.9%)'),
+    Field('scheduledDowntime', String, 'Scheduled Downtime Windows'),
+    Field('responseTimeSla', String, 'Response Time SLA (e.g., p95 < 200ms)'),
+    Field('throughputSla', String, 'Throughput SLA'),
+
+    // Rate Limiting
+    Field('rateLimits', String, 'Rate Limits (requests/minute)'),
+    Field('quotaLimits', String, 'Quota Limits (requests/day)'),
+    Field('burstCapacity', String, 'Burst Capacity'),
+
+    // Monitoring
+    Field('healthCheckEndpoint', String, 'Health Check Endpoint'),
+    Field('statusPageUrl', String, 'Status Page URL'),
+    Field('monitoringApproach', String, 'Monitoring Approach'),
+    Field('alertingThresholds', String, 'Alerting Thresholds'),
+
+    // Support
+    Field('supportHours', String, 'Support Hours'),
+    Field('supportContact', String, 'Support Contact'),
+    Field('incidentProcess', String, 'Incident Process'),
+    Field('escalationPath', String, 'Escalation Path'),
+  ])
+  String? content;
+
+  /// Operational dependencies.
+  TextSection dependencies = TextSection();
+}
+
+/// Error handling specification [PD00-SYO-SYB-INT-nn-ERR].
+@SectionId('PD00-SYO-SYB-INT-xx-ERR')
+class InterfaceErrorHandling {
+  @Form([
+    // Error Responses
+    Field('errorFormat', String, 'Error Response Format'),
+    Field('errorCodes', String, 'Error Codes Used'),
+    Field('retryableErrors', String, 'Retryable Error Codes'),
+    Field('fatalErrors', String, 'Fatal/Non-Retryable Errors'),
+
+    // Retry Strategy
+    Field('retryStrategy', String, 'Retry Strategy (Exponential backoff, etc.)'),
+    Field('maxRetries', int, 'Max Retries'),
+    Field('retryInterval', String, 'Retry Interval'),
+    Field('circuitBreakerConfig', String, 'Circuit Breaker Configuration'),
+
+    // Fallback
+    Field('fallbackBehavior', String, 'Fallback Behavior'),
+    Field('degradedMode', String, 'Degraded Mode Operation'),
+    Field('manualRecovery', String, 'Manual Recovery Procedure'),
+
+    // Timeout
+    Field('connectionTimeout', String, 'Connection Timeout'),
+    Field('readTimeout', String, 'Read Timeout'),
+    Field('overallTimeout', String, 'Overall Transaction Timeout'),
+  ])
+  String? content;
+
+  /// Error handling procedures.
+  TextSection errorProcedures = TextSection();
+}
+
+/// Governance and contracts [PD00-SYO-SYB-INT-nn-GOV].
+@SectionId('PD00-SYO-SYB-INT-xx-GOV')
+class InterfaceGovernance {
+  @Form([
+    // Ownership
+    Field('externalOwner', String, 'External System Owner'),
+    Field('internalOwner', String, 'Internal Owner/Steward'),
+    Field('technicalContact', String, 'Technical Contact'),
+    Field('businessContact', String, 'Business Contact'),
+
+    // Contracts
+    Field('contractType', String, 'Contract Type (SLA, Agreement, Partnership)'),
+    Field('contractExpiry', String, 'Contract Expiry Date'),
+    Field('renewalTerms', String, 'Renewal Terms'),
+    Field('costModel', String, 'Cost Model (Per-call, Subscription, etc.)'),
+    Field('estimatedCost', String, 'Estimated Monthly/Annual Cost'),
+
+    // Change Management
+    Field('versioningStrategy', String, 'Versioning Strategy'),
+    Field('deprecationPolicy', String, 'Deprecation Policy'),
+    Field('changeNotificationLead', String, 'Change Notification Lead Time'),
+    Field('breakingChangePolicy', String, 'Breaking Change Policy'),
+  ])
+  String? content;
+
+  /// Integration changelog.
+  TextSection changelog = TextSection();
+}
+
+/// Testing specification [PD00-SYO-SYB-INT-nn-TST].
+@SectionId('PD00-SYO-SYB-INT-xx-TST')
+class InterfaceTesting {
+  @Form([
+    // Test Environments
+    Field('sandboxAvailable', bool, 'Sandbox Environment Available'),
+    Field('sandboxUrl', String, 'Sandbox URL'),
+    Field('testCredentials', String, 'Test Credentials Approach'),
+    Field('mockAvailable', bool, 'Mock/Stub Available'),
+
+    // Test Data
+    Field('testDataApproach', String, 'Test Data Approach'),
+    Field('syntheticDataSupport', bool, 'Synthetic Data Supported'),
+    Field('productionMirror', bool, 'Production Data Mirroring'),
+
+    // Testing Strategy
+    Field('unitTestApproach', String, 'Unit Test Approach'),
+    Field('integrationTestApproach', String, 'Integration Test Approach'),
+    Field('contractTestApproach', String, 'Contract Test Approach'),
+    Field('e2eTestApproach', String, 'E2E Test Approach'),
+    Field('performanceTestApproach', String, 'Performance Test Approach'),
+  ])
+  String? content;
+
+  /// Test scenarios.
+  @SectionIdPattern('PD00-SYO-SYB-INT-xx-TST-SC-xx')
+  List<InterfaceTestScenarioEntry> testScenarios = [];
+}
+
+/// Test scenario entry [PD00-SYO-SYB-INT-nn-TST-SC-nn].
+class InterfaceTestScenarioEntry {
+  @Form([
+    Field('scenarioId', String, 'Scenario ID', required: true),
+    Field('scenarioName', String, 'Scenario Name', required: true),
+    Field('scenarioType', String, 'Type (Happy Path, Error, Edge Case)'),
+    Field('preconditions', String, 'Preconditions'),
+    Field('testSteps', String, 'Test Steps'),
+    Field('expectedResult', String, 'Expected Result'),
+    Field('automated', bool, 'Automated'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 4.5.2. Out of Scope
+// ---------------------------------------------------------------------------
+
+/// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT].
+///
+/// Explicit documentation of functionality, systems, and integrations that
+/// are excluded from the project scope. Provides clear boundaries and
+/// rationale to prevent scope creep and manage stakeholder expectations.
+@SectionId('PD00-SYO-SYB-OUT')
+class OutOfScope {
+  /// Overview of scope exclusion approach.
+  @ContentHelp('Describe the scope philosophy and how exclusions were '
+      'determined. Reference any scope workshops or decision records.')
+  TextSection scopePhilosophy = TextSection();
+
+  /// Contains 0+× OutOfScopeEntry.
   @SectionIdPattern('PD00-SYO-SYB-OUT-xx')
   List<OutOfScopeEntry> items = [];
 }
@@ -3814,20 +4242,41 @@ class OutOfScope {
 /// An out-of-scope entry [PD00-SYO-SYB-OUT-nn] (form).
 class OutOfScopeEntry {
   @Form([
-    Field('item', String, 'Item'),
-    Field('rationale', String, 'Rationale'),
-    Field('futureConsideration', String, 'Future Consideration'),
+    Field('itemId', String, 'Item ID'),
+    Field('item', String, 'Out of Scope Item', required: true),
+    Field('itemType', String,
+        'Type (Feature, Integration, System, Process, Data)'),
+    Field('rationale', String, 'Exclusion Rationale'),
+    Field('requestedBy', String, 'Originally Requested By'),
+    Field('decisionMaker', String, 'Decision Maker'),
+    Field('decisionDate', String, 'Decision Date'),
+    Field('futureConsideration', String,
+        'Future Consideration (Yes, No, Maybe)'),
+    Field('targetPhase', String, 'Target Phase (if future)'),
+    Field('alternativeSolution', String, 'Alternative/Workaround'),
+    Field('riskIfIncluded', String, 'Risk if Included'),
   ])
   String? content;
 }
 
+// ---------------------------------------------------------------------------
+// 4.5.3. Assumptions
+// ---------------------------------------------------------------------------
+
 /// 4.5.3. Assumptions [PD00-SYO-SYB-ASS].
+///
+/// Documents assumptions about external systems, data availability,
+/// organizational readiness, and third-party services that must hold true
+/// for the project to succeed. Each assumption should be validated and
+/// tracked as a potential risk if proven incorrect.
 @SectionId('PD00-SYO-SYB-ASS')
 class BoundaryAssumptions {
-  @Unused()
-  String? content;
+  /// Overview of assumption categories and validation approach.
+  @ContentHelp('Describe assumption categories, validation timeline, '
+      'and impact assessment approach for assumption failures.')
+  TextSection assumptionApproach = TextSection();
 
-  /// Contains 0+× Assumption.
+  /// Contains 0+× AssumptionEntry.
   @SectionIdPattern('PD00-SYO-SYB-ASS-xx')
   List<AssumptionEntry> items = [];
 }
@@ -3835,10 +4284,21 @@ class BoundaryAssumptions {
 /// An assumption entry [PD00-SYO-SYB-ASS-nn] (form).
 class AssumptionEntry {
   @Form([
-    Field('assumption', String, 'Assumption', required: true),
-    Field('rationale', String, 'Rationale'),
-    Field('riskIfWrong', String, 'Risk If Wrong'),
-    Field('validationApproach', String, 'Validation Approach'),
+    Field('assumptionId', String, 'Assumption ID'),
+    Field('assumption', String, 'Assumption Statement', required: true),
+    Field('category', String,
+        'Category (Technical, Organizational, External, Data, Resource)'),
+    Field('rationale', String, 'Basis for Assumption'),
+    Field('owner', String, 'Assumption Owner'),
+    Field('validationMethod', String, 'Validation Method'),
+    Field('validationDate', String, 'Target Validation Date'),
+    Field('validationStatus', String,
+        'Status (Not Validated, Validated, Invalidated)'),
+    Field('confidence', String, 'Confidence Level (High, Medium, Low)'),
+    Field('riskIfWrong', String, 'Risk if Wrong'),
+    Field('riskImpact', String, 'Impact Level (High, Medium, Low)'),
+    Field('contingencyPlan', String, 'Contingency Plan'),
+    Field('relatedRiskId', String, 'Related Risk ID'),
   ])
   String? content;
 }
