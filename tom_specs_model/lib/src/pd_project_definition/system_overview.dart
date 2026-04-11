@@ -1219,49 +1219,408 @@ class InteractionChannelEntry {
   String? content;
 }
 
-/// A user category entry [PD00-SYO-SYD-USR-nn] (form).
+// ---------------------------------------------------------------------------
+// 4.1.4 User Categories
+// ---------------------------------------------------------------------------
+
+/// 4.1.4. User Categories [PD00-SYO-SYD-USR].
+///
+/// Container for user category definitions. Each user category describes a
+/// distinct group of users with shared characteristics, access needs, and
+/// system interaction patterns. Based on user persona methodology for
+/// user-centered design.
+@SectionId('PD00-SYO-SYD-USR')
+@ContentHelp('Define all user categories (personas) that will interact with '
+    'the system. Each category represents a distinct group with shared '
+    'characteristics, needs, and interaction patterns. Use this to drive '
+    'user-centered design decisions.')
+class UserCategories {
+  @ContentType('description', 'Overview of user categories and how they '
+      'relate to the system. Include summary of user population and '
+      'key differences between categories.')
+  String? content;
+
+  /// User category overview diagram.
+  @SectionId('PD00-SYO-SYD-USR-DIA')
+  @ContentType('mermaid-flowchart', 'User category hierarchy or relationship '
+      'diagram showing how different user types relate')
+  @ContentHelp('Create a diagram showing user categories, their '
+      'relationships, and organizational hierarchy.')
+  String? userCategoryDiagram;
+
+  /// User category entries — contains 1+× UserCategoryEntry.
+  @SectionIdPattern('PD00-SYO-SYD-USR-xx')
+  @Min(1)
+  @ContentHelp('Add one entry per distinct user category. Categories should '
+      'be mutually exclusive where possible, with clear distinguishing '
+      'characteristics.')
+  List<UserCategoryEntry> categories = [];
+}
+
+/// A user category entry [PD00-SYO-SYD-USR-nn].
+///
+/// Comprehensive user persona definition including demographics, goals,
+/// frustrations, technical proficiency, and system interaction patterns.
 class UserCategoryEntry {
   @Form([
     Field('categoryName', String, 'Category Name', required: true),
-    Field('description', String, 'Short description'),
-    Field('technicalProficiency', String, 'Technical Proficiency'),
-    Field('frequencyOfUse', String, 'Frequency Of Use'),
-    Field('accessChannel', String, 'Access Channel'),
-    Field('estimatedUserCount', String, 'Estimated User Count'),
+    Field('categoryId', String, 'Category ID (unique identifier)'),
+    Field('description', String, 'Description (brief summary of this user type)',
+        required: true),
+    Field('userType', String,
+        'User Type (Internal, External, Partner, Customer, Administrator, etc.)',
+        required: true),
+    Field('technicalProficiency', String,
+        'Technical Proficiency (Novice, Intermediate, Advanced, Expert)'),
+    Field('frequencyOfUse', String,
+        'Frequency of Use (Continuous, Daily, Weekly, Monthly, Occasional)'),
+    Field('accessChannel', String,
+        'Primary Access Channel (Web, Mobile, Desktop, API, etc.)'),
+    Field('estimatedUserCount', String,
+        'Estimated User Count (current number or range)'),
+    Field('growthExpectation', String,
+        'Growth Expectation (expected change in user count)'),
+    Field('criticality', String,
+        'Criticality (how critical is this user group to the system)'),
+    Field('priority', String,
+        'Priority (High, Medium, Low - for design decisions)'),
   ])
   String? content;
 
-  /// Role subsection [PD00-SYO-SYD-USR-nn-ROL] (form, singular).
+  /// 4.1.4.n.1. User Persona Details [PD00-SYO-SYD-USR-nn-PER].
+  UserPersonaDetails personaDetails = UserPersonaDetails();
+
+  /// 4.1.4.n.2. Role [PD00-SYO-SYD-USR-nn-ROL].
   UserCategoryRoleEntry? role;
 
-  /// System Tasks [PD00-SYO-SYD-USR-nn-TSK] — contains 1+× System Task.
+  /// 4.1.4.n.3. System Tasks [PD00-SYO-SYD-USR-nn-TSK] — contains 1+× System Task.
   @SectionIdPattern('PD00-SYO-SYD-USR-xx-TSK-xx')
   @Min(1)
   List<SystemTaskEntry> systemTasks = [];
+
+  /// 4.1.4.n.4. Access and Permissions [PD00-SYO-SYD-USR-nn-ACC].
+  UserAccessPermissions accessPermissions = UserAccessPermissions();
+
+  /// 4.1.4.n.5. Training Requirements [PD00-SYO-SYD-USR-nn-TRA].
+  UserTrainingRequirements trainingRequirements = UserTrainingRequirements();
+
+  /// 4.1.4.n.6. Accessibility Needs [PD00-SYO-SYD-USR-nn-ACS].
+  UserAccessibilityNeeds accessibilityNeeds = UserAccessibilityNeeds();
+
+  /// 4.1.4.n.7. User Journey [PD00-SYO-SYD-USR-nn-JOU].
+  UserJourney userJourney = UserJourney();
 }
 
-/// Role within a user category [PD00-SYO-SYD-USR-nn-ROL] (form).
+/// 4.1.4.n.1. User Persona Details [PD00-SYO-SYD-USR-nn-PER].
+///
+/// Detailed persona information including demographics, goals, frustrations,
+/// and behavioral characteristics for user-centered design.
+@SectionId('PD00-SYO-SYD-USR-nn-PER')
+@ContentHelp('Describe the persona in detail to help designers and developers '
+    'understand and empathize with this user type.')
+class UserPersonaDetails {
+  @ContentType('description', 'Narrative description of the persona, '
+      'written from a human perspective.')
+  String? content;
+
+  /// Persona Details Form.
+  @Form([
+    Field('representativeName', String,
+        'Representative Name (fictional name for this persona)'),
+    Field('ageRange', String, 'Age Range'),
+    Field('educationLevel', String, 'Education Level'),
+    Field('jobTitle', String, 'Job Title / Position'),
+    Field('yearsOfExperience', String, 'Years of Experience (in this role)'),
+    Field('workEnvironment', String,
+        'Work Environment (office, remote, field, etc.)'),
+    Field('primaryGoals', String,
+        'Primary Goals (what they want to achieve with the system)'),
+    Field('secondaryGoals', String, 'Secondary Goals'),
+    Field('frustrations', String,
+        'Frustrations (pain points with current solutions)'),
+    Field('motivations', String, 'Motivations (what drives them)'),
+    Field('fears', String, 'Fears (concerns about new systems)'),
+    Field('techComfort', String,
+        'Technology Comfort Level (attitude toward technology)'),
+    Field('preferredLearningStyle', String,
+        'Preferred Learning Style (visual, hands-on, documentation, etc.)'),
+    Field('typicalWorkday', String,
+        'Typical Workday (relevant aspects of daily routine)'),
+    Field('decisionMakingStyle', String,
+        'Decision Making Style (analytical, intuitive, collaborative)'),
+  ])
+  String? personaForm;
+
+  /// Representative photo or avatar description.
+  @ContentType('description', 'Description of a representative photo or '
+      'avatar that embodies this persona (for design reference).')
+  String? visualRepresentation;
+
+  /// Key quotes that represent this persona's mindset.
+  @ContentType('description', 'Representative quotes that capture this '
+      'persona\'s attitude, needs, or concerns.')
+  String? representativeQuotes;
+}
+
+/// Role within a user category [PD00-SYO-SYD-USR-nn-ROL].
+///
+/// Organizational role and responsibilities associated with this user category.
 class UserCategoryRoleEntry {
   @Form([
     Field('roleName', String, 'Role Name', required: true),
-    Field('roleDescription', String, 'Role Description'),
+    Field('roleDescription', String, 'Role Description', required: true),
     Field('organizationUnit', String, 'Organization Unit'),
-    Field('reportsTo', String, 'Reports To'),
+    Field('reportsTo', String, 'Reports To (role or position)'),
+    Field('directReports', String, 'Direct Reports (roles reporting to this)'),
+    Field('responsibilities', String,
+        'Key Responsibilities (main job functions)'),
+    Field('decisionAuthority', String,
+        'Decision Authority (what decisions can they make)'),
+    Field('budgetAuthority', String,
+        'Budget Authority (financial approval limits)'),
+    Field('collaborators', String,
+        'Primary Collaborators (roles they work with)'),
+    Field('performanceMetrics', String,
+        'Performance Metrics (how their success is measured)'),
   ])
   String? content;
 }
 
-/// A system task entry [PD00-SYO-SYD-USR-nn-TSK] (form, repeatable).
+/// A system task entry [PD00-SYO-SYD-USR-nn-TSK-mm].
+///
+/// Describes one activity this user category performs with the system.
+/// Tasks map to Use Cases in the UC document.
 class SystemTaskEntry {
   @Form([
+    Field('taskId', String, 'Task ID', required: true),
     Field('taskName', String, 'Task Name', required: true),
-    Field('description', String, 'Short description'),
-    Field('frequency', String, 'Frequency'),
+    Field('description', String, 'Description (what the user does)'),
+    Field('frequency', String,
+        'Frequency (how often: Continuous, Daily, Weekly, Monthly, Ad-hoc)'),
+    Field('averageDuration', String,
+        'Average Duration (typical time to complete)'),
+    Field('complexity', String, 'Complexity (Simple, Moderate, Complex)'),
+    Field('importance', String,
+        'Importance (Critical, High, Medium, Low)'),
+    Field('trigger', String, 'Trigger (what initiates this task)'),
+    Field('expectedOutcome', String, 'Expected Outcome'),
+    Field('successCriteria', String, 'Success Criteria'),
+    Field('dataAccessed', String, 'Data Accessed (what information is needed)'),
+    Field('dataModified', String, 'Data Modified (what information changes)'),
+    Field('toolsUsed', String, 'Tools Used (systems or tools involved)'),
   ])
   String? content;
 
   @Reference('Related Use Case')
   String? relatedUseCase;
+
+  /// Task workflow steps.
+  @ContentType('description', 'Detailed steps for completing this task.')
+  String? workflowSteps;
+
+  /// Variations and exceptions.
+  @ContentType('description', 'Alternative paths and exception handling.')
+  String? variationsAndExceptions;
+}
+
+/// 4.1.4.n.4. Access and Permissions [PD00-SYO-SYD-USR-nn-ACC].
+///
+/// Security and access control specifications for this user category.
+@SectionId('PD00-SYO-SYD-USR-nn-ACC')
+@ContentHelp('Define the access rights, permissions, and security '
+    'constraints for this user category.')
+class UserAccessPermissions {
+  @ContentType('description', 'Overview of access permissions and '
+      'security context for this user category.')
+  String? content;
+
+  /// Access Permissions Form.
+  @Form([
+    Field('accessLevel', String,
+        'Access Level (Guest, User, Power User, Administrator, Super Admin)',
+        required: true),
+    Field('authenticationMethod', String,
+        'Authentication Method (Password, SSO, MFA, Certificate, etc.)',
+        required: true),
+    Field('authorizationRoles', String,
+        'Authorization Roles (system roles assigned to this category)'),
+    Field('dataAccessScope', String,
+        'Data Access Scope (all, department, team, own records)'),
+    Field('functionalAccess', String,
+        'Functional Access (what features they can use)'),
+    Field('restrictions', String,
+        'Restrictions (what they cannot access or do)'),
+    Field('timeRestrictions', String,
+        'Time Restrictions (business hours, specific times)'),
+    Field('locationRestrictions', String,
+        'Location Restrictions (office only, VPN required, etc.)'),
+    Field('deviceRestrictions', String,
+        'Device Restrictions (managed devices only, etc.)'),
+    Field('sessionTimeout', String,
+        'Session Timeout (inactivity timeout duration)'),
+    Field('auditRequirements', String,
+        'Audit Requirements (what actions are logged)'),
+  ])
+  String? permissionsForm;
+
+  /// Permission matrix entries — contains 0+× PermissionMatrixEntry.
+  @SectionIdPattern('PD00-SYO-SYD-USR-xx-ACC-PER-xx')
+  @ContentHelp('Define specific permission entries for fine-grained access.')
+  List<PermissionMatrixEntry> permissionMatrix = [];
+}
+
+/// A permission matrix entry (form).
+class PermissionMatrixEntry {
+  @Form([
+    Field('resource', String, 'Resource (what is being accessed)', required: true),
+    Field('action', String, 'Action (Create, Read, Update, Delete, Execute)',
+        required: true),
+    Field('permission', String, 'Permission (Allowed, Denied, Conditional)'),
+    Field('condition', String, 'Condition (if conditional, what is required)'),
+    Field('scope', String, 'Scope (all, own, department, etc.)'),
+  ])
+  String? content;
+}
+
+/// 4.1.4.n.5. Training Requirements [PD00-SYO-SYD-USR-nn-TRA].
+///
+/// Training and onboarding requirements for this user category.
+@SectionId('PD00-SYO-SYD-USR-nn-TRA')
+@ContentHelp('Define the training and support needs for this user category.')
+class UserTrainingRequirements {
+  @ContentType('description', 'Overview of training requirements and '
+      'support mechanisms for this user category.')
+  String? content;
+
+  /// Training Requirements Form.
+  @Form([
+    Field('initialTrainingRequired', bool,
+        'Initial Training Required (is formal training needed)'),
+    Field('trainingFormat', String,
+        'Training Format (In-person, Online, Self-paced, On-the-job)'),
+    Field('estimatedTrainingDuration', String,
+        'Estimated Training Duration'),
+    Field('certificationRequired', bool,
+        'Certification Required (must pass assessment)'),
+    Field('refresherFrequency', String,
+        'Refresher Frequency (how often retraining is needed)'),
+    Field('supportLevel', String,
+        'Support Level Expected (Self-service, Help desk, Dedicated)'),
+    Field('documentationNeeds', String,
+        'Documentation Needs (User guide, Quick reference, Video tutorials)'),
+    Field('onboardingProcess', String,
+        'Onboarding Process (steps to get started)'),
+    Field('mentoringRequired', bool,
+        'Mentoring Required (paired with experienced user)'),
+  ])
+  String? trainingForm;
+
+  /// Training topics — contains 0+× TrainingTopicEntry.
+  @SectionIdPattern('PD00-SYO-SYD-USR-xx-TRA-TOP-xx')
+  @ContentHelp('Define specific training topics for this user category.')
+  List<TrainingTopicEntry> trainingTopics = [];
+}
+
+/// A training topic entry (form).
+class TrainingTopicEntry {
+  @Form([
+    Field('topicName', String, 'Topic Name', required: true),
+    Field('description', String, 'Description'),
+    Field('learningObjectives', String, 'Learning Objectives'),
+    Field('duration', String, 'Duration'),
+    Field('prerequisites', String, 'Prerequisites'),
+    Field('assessmentMethod', String, 'Assessment Method'),
+  ])
+  String? content;
+}
+
+/// 4.1.4.n.6. Accessibility Needs [PD00-SYO-SYD-USR-nn-ACS].
+///
+/// Accessibility requirements and accommodations for this user category.
+@SectionId('PD00-SYO-SYD-USR-nn-ACS')
+@ContentHelp('Document any accessibility requirements or accommodations '
+    'that should be considered for this user category.')
+class UserAccessibilityNeeds {
+  @ContentType('description', 'Overview of accessibility needs and '
+      'accommodations for this user category.')
+  String? content;
+
+  /// Accessibility Needs Form.
+  @Form([
+    Field('visualRequirements', String,
+        'Visual Requirements (screen reader, high contrast, magnification)'),
+    Field('auditoryRequirements', String,
+        'Auditory Requirements (captions, visual alerts)'),
+    Field('motorRequirements', String,
+        'Motor Requirements (keyboard navigation, voice control)'),
+    Field('cognitiveRequirements', String,
+        'Cognitive Requirements (simple language, clear navigation)'),
+    Field('languageRequirements', String,
+        'Language Requirements (multiple languages, reading level)'),
+    Field('deviceAccommodations', String,
+        'Device Accommodations (large buttons, touch targets)'),
+    Field('wcagLevel', String,
+        'WCAG Conformance Level Required (A, AA, AAA)'),
+    Field('additionalStandards', String,
+        'Additional Standards (Section 508, EN 301 549, etc.)'),
+  ])
+  String? accessibilityForm;
+}
+
+/// 4.1.4.n.7. User Journey [PD00-SYO-SYD-USR-nn-JOU].
+///
+/// Key touchpoints and journey map for this user category's experience.
+@SectionId('PD00-SYO-SYD-USR-nn-JOU')
+@ContentHelp('Document the user journey - key touchpoints and stages '
+    'in this user category\'s interaction with the system.')
+class UserJourney {
+  @ContentType('description', 'Overview of the user journey and '
+      'key experience stages.')
+  String? content;
+
+  /// User journey diagram.
+  @SectionId('PD00-SYO-SYD-USR-nn-JOU-DIA')
+  @ContentType('mermaid-flowchart', 'User journey map showing stages, '
+      'touchpoints, and emotional peaks/valleys')
+  @ContentHelp('Create a journey map showing the user\'s experience '
+      'from first contact through regular use.')
+  String? journeyDiagram;
+
+  /// Journey stage entries — contains 0+× JourneyStageEntry.
+  @SectionIdPattern('PD00-SYO-SYD-USR-xx-JOU-STG-xx')
+  @ContentHelp('Define each stage of the user journey.')
+  List<JourneyStageEntry> stages = [];
+
+  /// Key touchpoints.
+  @ContentType('description', 'List of key system touchpoints in '
+      'the user journey.')
+  String? keyTouchpoints;
+
+  /// Pain points in the journey.
+  @ContentType('description', 'Known or anticipated pain points in '
+      'the user journey that should be addressed.')
+  String? painPoints;
+
+  /// Opportunities for delight.
+  @ContentType('description', 'Opportunities to exceed user expectations '
+      'and create positive experiences.')
+  String? opportunitiesForDelight;
+}
+
+/// A journey stage entry (form).
+class JourneyStageEntry {
+  @Form([
+    Field('stageName', String, 'Stage Name', required: true),
+    Field('stageDescription', String, 'Stage Description'),
+    Field('userGoal', String, 'User Goal (what they want to achieve)'),
+    Field('userActions', String, 'User Actions (what they do)'),
+    Field('systemResponse', String, 'System Response (what system does)'),
+    Field('userEmotions', String, 'User Emotions (expected feeling)'),
+    Field('touchpoints', String, 'Touchpoints (system interactions)'),
+    Field('potentialIssues', String, 'Potential Issues'),
+    Field('successMetrics', String, 'Success Metrics'),
+  ])
+  String? content;
 }
 
 // ---------------------------------------------------------------------------

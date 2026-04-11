@@ -30,10 +30,10 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-SYO-SYD-PUR | System Purpose | High | ✅ Done |
 | PD00-SYO-SYD-CON | System Context | High | ✅ Done |
 | PD00-SYO-SYD-DES | Description of Task Area | Medium | ✅ Done |
-| PD00-SYO-SYD-USR | User Categories | High | ⬜ Not Started |
-| PD00-SYO-SYD-USR-01 | Sample: Back-Office Administrator | Low | ⬜ Not Started |
-| PD00-SYO-SYD-USR-01-ROL | Role | Low | ⬜ Not Started |
-| PD00-SYO-SYD-USR-01-TSK | System Tasks | Low | ⬜ Not Started |
+| PD00-SYO-SYD-USR | User Categories | High | ✅ Done |
+| PD00-SYO-SYD-USR-01 | Sample: Back-Office Administrator | Low | ✅ Done |
+| PD00-SYO-SYD-USR-01-ROL | Role | Low | ✅ Done |
+| PD00-SYO-SYD-USR-01-TSK | System Tasks | Low | ✅ Done |
 | PD00-SYO-GOA-BUS | Business Goals | High | ⬜ Not Started |
 | PD00-SYO-GOA-BUS-01 | Sample: Reduce Order Processing Time | Low | ⬜ Not Started |
 | PD00-SYO-GOA-TEC | Technical Goals | High | ⬜ Not Started |
@@ -284,10 +284,10 @@ All 317 sections from `pd_template.md` with content migration status.
 | 39 | PD00-SYO-SYD-PUR | System Purpose | ❓ Missing | ⬜ |
 | 40 | PD00-SYO-SYD-CON | System Context | ❓ Missing | ⬜ |
 | 41 | PD00-SYO-SYD-DES | Description of Task Area | ❓ Missing | ⬜ |
-| 42 | PD00-SYO-SYD-USR | User Categories | ❓ Missing | ⬜ |
-| 43 | PD00-SYO-SYD-USR-01 | Sample: Back-Office Administrator | ❓ Missing | ⏭️ |
-| 44 | PD00-SYO-SYD-USR-01-ROL | Role | ❓ Missing | ⏭️ |
-| 45 | PD00-SYO-SYD-USR-01-TSK | System Tasks | ❓ Missing | ⏭️ |
+| 42 | PD00-SYO-SYD-USR | User Categories | ✅ Enhanced | ✅ |
+| 43 | PD00-SYO-SYD-USR-01 | Sample: Back-Office Administrator | ✅ Enhanced | ✅ |
+| 44 | PD00-SYO-SYD-USR-01-ROL | Role | ✅ Enhanced | ✅ |
+| 45 | PD00-SYO-SYD-USR-01-TSK | System Tasks | ✅ Enhanced | ✅ |
 | 46 | PD00-SYO-SYD-USI | User Interaction Model | ✅ Exists | ⬜ |
 | 47 | PD00-SYO-GOA | Goals | ✅ Exists | ⬜ |
 | 48 | PD00-SYO-GOA-BUS | Business Goals | ❓ Missing | ⬜ |
