@@ -52,7 +52,7 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-SYO-SYB-INT-01 | Sample: Payment Gateway | Low | ✅ Done |
 | PD00-SYO-RIS-RIS | Key Risks | High | ✅ Done |
 | PD00-SYO-RIS-RIS-01 | Sample: Vendor Lock-in | Low | ✅ Done |
-| PD00-ORG-STR-TIM | Organizational Transition Timeline | Medium | ⬜ Not Started |
+| PD00-ORG-STR-TIM | Organizational Transition Timeline | Medium | ✅ Done |
 | PD00-ORG-JOB-NEW | New Roles | Medium | ⬜ Not Started |
 | PD00-ORG-JOB-NEW-01 | Sample: Data Steward | Low | ⬜ Not Started |
 | PD00-ORG-JOB-CHA | Changed Roles | Medium | ⬜ Not Started |
