@@ -1628,73 +1628,616 @@ class JourneyStageEntry {
 // ---------------------------------------------------------------------------
 
 /// 4.2. Goals [PD00-SYO-GOA].
+///
+/// Container for project goals organized by category. Goals provide measurable
+/// objectives that guide project execution and define success. This section
+/// supports OKR (Objectives and Key Results) methodology while also
+/// accommodating traditional goal structures.
 @SectionId('PD00-SYO-GOA')
+@ContentHelp('Define clear, measurable goals that the project must achieve. '
+    'Organize goals by category (business, technical) and ensure each goal '
+    'has specific success metrics and target dates.')
 class Goals {
-  @Unused()
+  @ContentType('description', 'Overview of project goals and how they '
+      'align with organizational strategy. Summarize the goal hierarchy '
+      'and key objectives.')
   String? content;
 
-  /// 4.2.1. Business Goals [PD00-SYO-GOA-BUS] — contains 1+× Business Goal.
-  @SectionIdPattern('PD00-SYO-GOA-BUS-xx')
-  @Min(1)
-  List<BusinessGoalEntry> businessGoals = [];
+  /// Goal hierarchy diagram.
+  @SectionId('PD00-SYO-GOA-DIA')
+  @ContentType('mermaid-flowchart', 'Goal hierarchy and dependency diagram '
+      'showing relationships between business and technical goals')
+  @ContentHelp('Create a diagram showing goal categories, dependencies, '
+      'and alignment to strategic objectives.')
+  String? goalHierarchyDiagram;
 
-  /// 4.2.2. Technical Goals [PD00-SYO-GOA-TEC] — contains 1+× Technical Goal.
-  @SectionIdPattern('PD00-SYO-GOA-TEC-xx')
-  @Min(1)
-  List<TechnicalGoalEntry> technicalGoals = [];
+  /// 4.2.1. Business Goals [PD00-SYO-GOA-BUS].
+  BusinessGoals businessGoals = BusinessGoals();
 
-  /// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC] — contains 1+×.
+  /// 4.2.2. Technical Goals [PD00-SYO-GOA-TEC].
+  TechnicalGoals technicalGoals = TechnicalGoals();
+
+  /// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
   SuccessCriteria successCriteria = SuccessCriteria();
 }
 
-/// A business goal entry [PD00-SYO-GOA-BUS-nn] (form).
+// ---------------------------------------------------------------------------
+// 4.2.1 Business Goals
+// ---------------------------------------------------------------------------
+
+/// 4.2.1. Business Goals [PD00-SYO-GOA-BUS].
+///
+/// Container for business goal definitions. Business goals define what the
+/// organization wants to achieve through this project in terms of business
+/// outcomes, value delivery, and strategic advancement.
+@SectionId('PD00-SYO-GOA-BUS')
+@ContentHelp('Define business goals that are specific, measurable, achievable, '
+    'relevant, and time-bound (SMART). Each goal should have clear ownership '
+    'and success metrics.')
+class BusinessGoals {
+  @ContentType('description', 'Overview of business goals and their '
+      'relationship to organizational strategy. Explain how these goals '
+      'support the business case and value proposition.')
+  String? content;
+
+  /// Business goals list — contains 1+× Business Goal.
+  @SectionIdPattern('PD00-SYO-GOA-BUS-xx')
+  @Min(1)
+  @ContentHelp('Add one entry per business goal. Goals should be mutually '
+      'exclusive and collectively exhaustive for the project scope.')
+  List<BusinessGoalEntry> goals = [];
+}
+
+/// A business goal entry [PD00-SYO-GOA-BUS-nn].
+///
+/// Comprehensive business goal definition following SMART criteria with
+/// OKR-style key results, ownership, and tracking information.
 class BusinessGoalEntry {
   @Form([
-    Field('goalId', String, 'Goal Id', required: true),
-    Field('goalName', String, 'Goal Name', required: true),
-    Field('description', String, 'Short description'),
-    Field('successMetric', String, 'Success Metric'),
-    Field('currentValue', String, 'Current Value'),
-    Field('targetValue', String, 'Target Value'),
-    Field('measurementMethod', String, 'Measurement Method'),
-    Field('targetDate', String, 'Target Date'),
+    Field('goalId', String, 'Goal ID (unique identifier, e.g., BG-001)',
+        required: true),
+    Field('goalName', String, 'Goal Name (concise objective statement)',
+        required: true),
+    Field('description', String,
+        'Description (detailed explanation of what this goal means)'),
+    Field('goalCategory', String,
+        'Goal Category (Strategic, Tactical, Operational)', required: true),
+    Field('goalType', String,
+        'Goal Type (Revenue, Cost Reduction, Efficiency, Quality, Compliance, '
+            'Growth, Customer Satisfaction, Market Position, Innovation)'),
+    Field('priority', String, 'Priority (Critical, High, Medium, Low)',
+        required: true),
+    Field('successMetric', String,
+        'Primary Success Metric (what is measured)', required: true),
+    Field('currentValue', String,
+        'Current Value (baseline measurement before project)'),
+    Field('targetValue', String, 'Target Value (desired end state)',
+        required: true),
+    Field('measurementMethod', String,
+        'Measurement Method (how the metric is captured)'),
+    Field('measurementFrequency', String,
+        'Measurement Frequency (Daily, Weekly, Monthly, Quarterly)'),
+    Field('targetDate', String, 'Target Date (when goal should be achieved)',
+        required: true),
+    Field('owner', String, 'Goal Owner (accountable person or role)',
+        required: true),
+    Field('stakeholders', String,
+        'Contributing Stakeholders (roles involved in achieving this goal)'),
+    Field('businessJustification', String,
+        'Business Justification (why this goal matters)'),
+    Field('strategicAlignment', String,
+        'Strategic Alignment (link to corporate strategy or OKR)'),
+    Field('impactAreas', String,
+        'Impact Areas (departments, processes, or systems affected)'),
+    Field('estimatedValue', String,
+        'Estimated Value (monetary or quantitative benefit)'),
+    Field('riskOfNotAchieving', String,
+        'Risk of Not Achieving (consequences of failure)'),
+    Field('status', String,
+        'Status (Not Started, In Progress, On Track, At Risk, Achieved)'),
+  ])
+  String? content;
+
+  /// 4.2.1.n.1. Key Results [PD00-SYO-GOA-BUS-nn-KR].
+  GoalKeyResults keyResults = GoalKeyResults();
+
+  /// 4.2.1.n.2. Milestones [PD00-SYO-GOA-BUS-nn-MIL].
+  GoalMilestones milestones = GoalMilestones();
+
+  /// 4.2.1.n.3. Dependencies [PD00-SYO-GOA-BUS-nn-DEP].
+  GoalDependencies dependencies = GoalDependencies();
+
+  /// 4.2.1.n.4. Risks [PD00-SYO-GOA-BUS-nn-RSK].
+  GoalRisks risks = GoalRisks();
+
+  /// 4.2.1.n.5. Resources [PD00-SYO-GOA-BUS-nn-RES].
+  GoalResources resources = GoalResources();
+}
+
+/// 4.2.1.n.1. Key Results [PD00-SYO-GOA-BUS-nn-KR].
+///
+/// OKR-style key results that indicate progress toward the goal.
+/// Key results are specific, measurable outcomes that together constitute
+/// achievement of the parent goal.
+@SectionId('PD00-SYO-GOA-BUS-nn-KR')
+@ContentHelp('Define 3-5 key results that together indicate goal achievement. '
+    'Each key result should be independently measurable.')
+class GoalKeyResults {
+  @ContentType('description', 'Overview of key results and how they '
+      'collectively demonstrate goal achievement.')
+  String? content;
+
+  /// Key result entries — contains 0+× KeyResultEntry.
+  @SectionIdPattern('PD00-SYO-GOA-BUS-xx-KR-xx')
+  @ContentHelp('Add 3-5 key results per goal. Each should be specific '
+      'and measurable.')
+  List<KeyResultEntry> items = [];
+}
+
+/// A key result entry (form).
+class KeyResultEntry {
+  @Form([
+    Field('keyResultId', String, 'Key Result ID', required: true),
+    Field('keyResult', String, 'Key Result (measurable outcome)', required: true),
+    Field('metric', String, 'Metric (what is measured)'),
+    Field('baselineValue', String, 'Baseline Value (starting point)'),
+    Field('targetValue', String, 'Target Value (desired endpoint)',
+        required: true),
+    Field('currentValue', String, 'Current Value (latest measurement)'),
+    Field('progress', String, 'Progress (percentage toward target)'),
+    Field('owner', String, 'Owner (responsible person)'),
+    Field('dueDate', String, 'Due Date'),
+    Field('status', String, 'Status (Not Started, In Progress, Achieved, Missed)'),
   ])
   String? content;
 }
 
-/// A technical goal entry [PD00-SYO-GOA-TEC-nn] (form).
+/// 4.2.1.n.2. Milestones [PD00-SYO-GOA-BUS-nn-MIL].
+///
+/// Key milestones marking progress toward the goal.
+@SectionId('PD00-SYO-GOA-BUS-nn-MIL')
+@ContentHelp('Define milestones that mark significant progress points.')
+class GoalMilestones {
+  @ContentType('description', 'Overview of milestone approach and how '
+      'milestones relate to goal progress.')
+  String? content;
+
+  /// Milestone entries — contains 0+× GoalMilestoneEntry.
+  @SectionIdPattern('PD00-SYO-GOA-BUS-xx-MIL-xx')
+  List<GoalMilestoneEntry> items = [];
+}
+
+/// A goal milestone entry (form).
+class GoalMilestoneEntry {
+  @Form([
+    Field('milestoneId', String, 'Milestone ID', required: true),
+    Field('milestoneName', String, 'Milestone Name', required: true),
+    Field('description', String, 'Description'),
+    Field('targetDate', String, 'Target Date', required: true),
+    Field('completionCriteria', String, 'Completion Criteria'),
+    Field('deliverables', String, 'Deliverables (outputs of this milestone)'),
+    Field('dependencies', String, 'Dependencies (what must be done first)'),
+    Field('status', String, 'Status (Planned, In Progress, Completed, Delayed)'),
+    Field('actualDate', String, 'Actual Completion Date'),
+  ])
+  String? content;
+}
+
+/// 4.2.1.n.3. Dependencies [PD00-SYO-GOA-BUS-nn-DEP].
+///
+/// Dependencies that may affect goal achievement.
+@SectionId('PD00-SYO-GOA-BUS-nn-DEP')
+@ContentHelp('Identify dependencies on other goals, projects, or external factors.')
+class GoalDependencies {
+  @ContentType('description', 'Overview of dependencies and their impact '
+      'on goal achievement timeline.')
+  String? content;
+
+  /// Dependency entries — contains 0+× GoalDependencyEntry.
+  @SectionIdPattern('PD00-SYO-GOA-BUS-xx-DEP-xx')
+  List<GoalDependencyEntry> items = [];
+}
+
+/// A goal dependency entry (form).
+class GoalDependencyEntry {
+  @Form([
+    Field('dependencyId', String, 'Dependency ID', required: true),
+    Field('dependencyType', String,
+        'Dependency Type (Internal Goal, External Project, Resource, '
+            'Regulatory, Technical, Organizational)',
+        required: true),
+    Field('dependencyName', String, 'Dependency Name (what we depend on)',
+        required: true),
+    Field('description', String, 'Description'),
+    Field('owner', String, 'Owner (who controls this dependency)'),
+    Field('expectedResolutionDate', String, 'Expected Resolution Date'),
+    Field('impact', String, 'Impact (how this affects our goal)'),
+    Field('mitigationStrategy', String,
+        'Mitigation Strategy (what if dependency is not resolved)'),
+    Field('status', String, 'Status (Open, In Progress, Resolved, Blocked)'),
+  ])
+  String? content;
+
+  @Reference('Related Goal')
+  String? relatedGoal;
+}
+
+/// 4.2.1.n.4. Risks [PD00-SYO-GOA-BUS-nn-RSK].
+///
+/// Risks that may prevent or delay goal achievement.
+@SectionId('PD00-SYO-GOA-BUS-nn-RSK')
+@ContentHelp('Identify risks specific to this goal and mitigation strategies.')
+class GoalRisks {
+  @ContentType('description', 'Overview of risks affecting this goal '
+      'and overall risk posture.')
+  String? content;
+
+  /// Risk entries — contains 0+× GoalRiskEntry.
+  @SectionIdPattern('PD00-SYO-GOA-BUS-xx-RSK-xx')
+  List<GoalRiskEntry> items = [];
+}
+
+/// A goal risk entry (form).
+class GoalRiskEntry {
+  @Form([
+    Field('riskId', String, 'Risk ID', required: true),
+    Field('riskName', String, 'Risk Name', required: true),
+    Field('description', String, 'Description'),
+    Field('riskCategory', String,
+        'Risk Category (Market, Operational, Technical, Resource, '
+            'Regulatory, External)'),
+    Field('probability', String, 'Probability (Low, Medium, High)'),
+    Field('impact', String, 'Impact (Low, Medium, High, Critical)'),
+    Field('riskScore', String, 'Risk Score (probability × impact)'),
+    Field('triggerConditions', String, 'Trigger Conditions (early warning signs)'),
+    Field('mitigationStrategy', String, 'Mitigation Strategy'),
+    Field('contingencyPlan', String, 'Contingency Plan (if risk occurs)'),
+    Field('owner', String, 'Risk Owner'),
+    Field('status', String, 'Status (Identified, Mitigating, Occurred, Closed)'),
+  ])
+  String? content;
+}
+
+/// 4.2.1.n.5. Resources [PD00-SYO-GOA-BUS-nn-RES].
+///
+/// Resources required to achieve the goal.
+@SectionId('PD00-SYO-GOA-BUS-nn-RES')
+@ContentHelp('Define resources (people, budget, tools) needed for this goal.')
+class GoalResources {
+  @ContentType('description', 'Overview of resource requirements and '
+      'allocation approach.')
+  String? content;
+
+  /// Resource requirement form.
+  @Form([
+    Field('totalBudget', String, 'Total Budget (estimated or allocated)'),
+    Field('fteRequired', String, 'FTE Required (full-time equivalent staff)'),
+    Field('keySkills', String, 'Key Skills Required'),
+    Field('toolsRequired', String, 'Tools or Systems Required'),
+    Field('externalSupport', String,
+        'External Support (consultants, vendors)'),
+    Field('trainingNeeds', String, 'Training Needs'),
+  ])
+  String? resourcesForm;
+
+  /// Resource allocation entries — contains 0+× ResourceAllocationEntry.
+  @SectionIdPattern('PD00-SYO-GOA-BUS-xx-RES-xx')
+  List<ResourceAllocationEntry> items = [];
+}
+
+/// A resource allocation entry (form).
+class ResourceAllocationEntry {
+  @Form([
+    Field('resourceType', String,
+        'Resource Type (Personnel, Budget, Tool, System, External)',
+        required: true),
+    Field('resourceName', String, 'Resource Name', required: true),
+    Field('quantity', String, 'Quantity or Allocation'),
+    Field('duration', String, 'Duration (how long needed)'),
+    Field('estimatedCost', String, 'Estimated Cost'),
+    Field('availability', String, 'Availability (when available)'),
+    Field('source', String, 'Source (internal, external, to be hired)'),
+    Field('status', String, 'Status (Requested, Allocated, Confirmed)'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 4.2.2 Technical Goals
+// ---------------------------------------------------------------------------
+
+/// 4.2.2. Technical Goals [PD00-SYO-GOA-TEC].
+///
+/// Container for technical goal definitions. Technical goals define the
+/// non-functional characteristics and technical capabilities the system
+/// must achieve, such as performance, scalability, reliability, and security.
+@SectionId('PD00-SYO-GOA-TEC')
+@ContentHelp('Define technical goals that establish the quality attributes '
+    'and capabilities of the system. Each goal should have measurable '
+    'criteria and clear verification methods.')
+class TechnicalGoals {
+  @ContentType('description', 'Overview of technical goals and their '
+      'relationship to business requirements. Explain the technical '
+      'vision and quality attribute priorities.')
+  String? content;
+
+  /// Technical goals list — contains 1+× Technical Goal.
+  @SectionIdPattern('PD00-SYO-GOA-TEC-xx')
+  @Min(1)
+  @ContentHelp('Add one entry per technical goal. Cover key quality '
+      'attributes: performance, scalability, reliability, security, '
+      'usability, maintainability.')
+  List<TechnicalGoalEntry> goals = [];
+}
+
+/// A technical goal entry [PD00-SYO-GOA-TEC-nn].
+///
+/// Comprehensive technical goal definition with quality attributes,
+/// architectural impact, and verification approach.
 class TechnicalGoalEntry {
   @Form([
-    Field('goalId', String, 'Goal Id', required: true),
-    Field('goalName', String, 'Goal Name', required: true),
-    Field('description', String, 'Short description'),
-    Field('successMetric', String, 'Success Metric'),
-    Field('targetValue', String, 'Target Value'),
-    Field('measurementMethod', String, 'Measurement Method'),
-    Field('verificationPoint', String, 'Verification Point'),
+    Field('goalId', String, 'Goal ID (unique identifier, e.g., TG-001)',
+        required: true),
+    Field('goalName', String, 'Goal Name (concise statement)', required: true),
+    Field('description', String,
+        'Description (detailed explanation of the technical objective)'),
+    Field('goalCategory', String,
+        'Goal Category (Performance, Scalability, Reliability, Security, '
+            'Usability, Accessibility, Maintainability, Portability, '
+            'Interoperability, Compliance)',
+        required: true),
+    Field('priority', String, 'Priority (Critical, High, Medium, Low)',
+        required: true),
+    Field('successMetric', String,
+        'Primary Success Metric (what is measured)', required: true),
+    Field('currentValue', String, 'Current/Baseline Value'),
+    Field('targetValue', String, 'Target Value', required: true),
+    Field('measurementMethod', String,
+        'Measurement Method (APM, load testing, security scan, etc.)'),
+    Field('measurementTool', String,
+        'Measurement Tool (specific tool or platform)'),
+    Field('measurementEnvironment', String,
+        'Measurement Environment (production, staging, load test)'),
+    Field('verificationPoint', String,
+        'Verification Point (when/how verified: unit test, integration, '
+            'acceptance, production monitoring)'),
+    Field('systemArea', String,
+        'System Area Affected (frontend, backend, database, network, all)'),
+    Field('architectureImpact', String,
+        'Architecture Impact (how this affects system design)'),
+    Field('owner', String, 'Technical Owner'),
+    Field('status', String,
+        'Status (Not Started, In Progress, Verified, Failed)'),
+  ])
+  String? content;
+
+  /// 4.2.2.n.1. Quality Scenarios [PD00-SYO-GOA-TEC-nn-QS].
+  QualityScenarios qualityScenarios = QualityScenarios();
+
+  /// 4.2.2.n.2. Test Criteria [PD00-SYO-GOA-TEC-nn-TST].
+  TechnicalGoalTestCriteria testCriteria = TechnicalGoalTestCriteria();
+
+  /// 4.2.2.n.3. Dependencies [PD00-SYO-GOA-TEC-nn-DEP].
+  TechnicalGoalDependencies dependencies = TechnicalGoalDependencies();
+
+  /// 4.2.2.n.4. Constraints [PD00-SYO-GOA-TEC-nn-CON].
+  TechnicalGoalConstraints constraints = TechnicalGoalConstraints();
+}
+
+/// 4.2.2.n.1. Quality Scenarios [PD00-SYO-GOA-TEC-nn-QS].
+///
+/// Quality attribute scenarios that define concrete, testable situations
+/// for verifying the technical goal (based on SEI quality attribute workshop).
+@SectionId('PD00-SYO-GOA-TEC-nn-QS')
+@ContentHelp('Define quality scenarios using: Source → Stimulus → Environment → '
+    'Artifact → Response → Response Measure pattern.')
+class QualityScenarios {
+  @ContentType('description', 'Overview of quality scenarios and how '
+      'they verify achievement of the parent technical goal.')
+  String? content;
+
+  /// Quality scenario entries — contains 0+× QualityScenarioEntry.
+  @SectionIdPattern('PD00-SYO-GOA-TEC-xx-QS-xx')
+  List<QualityScenarioEntry> items = [];
+}
+
+/// A quality scenario entry (form) - SEI Quality Attribute Workshop format.
+class QualityScenarioEntry {
+  @Form([
+    Field('scenarioId', String, 'Scenario ID', required: true),
+    Field('scenarioName', String, 'Scenario Name', required: true),
+    Field('source', String, 'Source (who/what generates the stimulus)',
+        required: true),
+    Field('stimulus', String,
+        'Stimulus (event or condition that triggers the scenario)',
+        required: true),
+    Field('environment', String,
+        'Environment (system state when stimulus occurs)'),
+    Field('artifact', String, 'Artifact (what part of system is affected)'),
+    Field('response', String, 'Response (how the system should respond)',
+        required: true),
+    Field('responseMeasure', String,
+        'Response Measure (quantifiable success criterion)', required: true),
+    Field('priority', String, 'Priority (Core, Important, Nice-to-have)'),
+    Field('testability', String,
+        'Testability (how easy to test: Automated, Manual, Complex)'),
   ])
   String? content;
 }
 
-/// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
-@SectionId('PD00-SYO-GOA-SUC')
-class SuccessCriteria {
-  @Unused()
+/// 4.2.2.n.2. Test Criteria [PD00-SYO-GOA-TEC-nn-TST].
+///
+/// Specific test criteria and acceptance thresholds for the technical goal.
+@SectionId('PD00-SYO-GOA-TEC-nn-TST')
+@ContentHelp('Define specific test criteria that will be used to verify '
+    'the technical goal has been achieved.')
+class TechnicalGoalTestCriteria {
+  @ContentType('description', 'Overview of test approach and acceptance '
+      'criteria for this technical goal.')
   String? content;
 
-  /// Contains 0+× SuccessCriterion.
+  /// Test criteria form.
+  @Form([
+    Field('testType', String,
+        'Test Type (Performance, Load, Stress, Security, Penetration, '
+            'Accessibility, Usability)'),
+    Field('testEnvironment', String, 'Test Environment'),
+    Field('testData', String, 'Test Data Requirements'),
+    Field('testTools', String, 'Test Tools'),
+    Field('passThreshold', String, 'Pass Threshold'),
+    Field('failThreshold', String, 'Fail Threshold'),
+    Field('testSchedule', String, 'Test Schedule (when tests will run)'),
+    Field('retestPolicy', String, 'Retest Policy (when retesting is required)'),
+  ])
+  String? testCriteriaForm;
+
+  /// Test case entries — contains 0+× TechnicalGoalTestCaseEntry.
+  @SectionIdPattern('PD00-SYO-GOA-TEC-xx-TST-xx')
+  List<TechnicalGoalTestCaseEntry> items = [];
+}
+
+/// A test case entry for technical goal verification (form).
+class TechnicalGoalTestCaseEntry {
+  @Form([
+    Field('testCaseId', String, 'Test Case ID', required: true),
+    Field('testCaseName', String, 'Test Case Name', required: true),
+    Field('description', String, 'Description'),
+    Field('testProcedure', String, 'Test Procedure'),
+    Field('expectedResult', String, 'Expected Result'),
+    Field('actualResult', String, 'Actual Result'),
+    Field('status', String, 'Status (Planned, In Progress, Passed, Failed)'),
+  ])
+  String? content;
+}
+
+/// 4.2.2.n.3. Dependencies [PD00-SYO-GOA-TEC-nn-DEP].
+///
+/// Technical dependencies affecting goal achievement.
+@SectionId('PD00-SYO-GOA-TEC-nn-DEP')
+@ContentHelp('Identify technical dependencies: infrastructure, APIs, '
+    'third-party services, other system components.')
+class TechnicalGoalDependencies {
+  @ContentType('description', 'Overview of technical dependencies and '
+      'their impact on achieving this goal.')
+  String? content;
+
+  /// Dependency entries — contains 0+× TechnicalDependencyEntry.
+  @SectionIdPattern('PD00-SYO-GOA-TEC-xx-DEP-xx')
+  List<TechnicalDependencyEntry> items = [];
+}
+
+/// A technical dependency entry (form).
+class TechnicalDependencyEntry {
+  @Form([
+    Field('dependencyId', String, 'Dependency ID', required: true),
+    Field('dependencyName', String, 'Dependency Name', required: true),
+    Field('dependencyType', String,
+        'Dependency Type (Infrastructure, API, Library, Service, '
+            'Hardware, Network, Third-party)'),
+    Field('description', String, 'Description'),
+    Field('version', String, 'Version (if applicable)'),
+    Field('sla', String, 'SLA (if external service)'),
+    Field('fallback', String, 'Fallback (what if unavailable)'),
+    Field('status', String, 'Status (Available, Pending, At Risk)'),
+  ])
+  String? content;
+}
+
+/// 4.2.2.n.4. Constraints [PD00-SYO-GOA-TEC-nn-CON].
+///
+/// Technical constraints that may limit or shape how the goal is achieved.
+@SectionId('PD00-SYO-GOA-TEC-nn-CON')
+@ContentHelp('Document constraints: technology choices, standards, '
+    'resource limits, compatibility requirements.')
+class TechnicalGoalConstraints {
+  @ContentType('description', 'Overview of constraints affecting this '
+      'technical goal.')
+  String? content;
+
+  /// Constraint entries — contains 0+× TechnicalConstraintEntry.
+  @SectionIdPattern('PD00-SYO-GOA-TEC-xx-CON-xx')
+  List<TechnicalConstraintEntry> items = [];
+}
+
+/// A technical constraint entry (form).
+class TechnicalConstraintEntry {
+  @Form([
+    Field('constraintId', String, 'Constraint ID', required: true),
+    Field('constraintName', String, 'Constraint Name', required: true),
+    Field('constraintType', String,
+        'Constraint Type (Technology, Standard, Resource, '
+            'Compatibility, Budget, Timeline, Regulatory)'),
+    Field('description', String, 'Description'),
+    Field('source', String, 'Source (who/what imposed this constraint)'),
+    Field('rationale', String, 'Rationale (why this constraint exists)'),
+    Field('impact', String, 'Impact (how this affects our approach)'),
+    Field('flexibility', String,
+        'Flexibility (Fixed, Negotiable, Preferred)'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 4.2.3 Success Criteria
+// ---------------------------------------------------------------------------
+
+/// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
+///
+/// Overall project success criteria that determine whether the project
+/// has achieved its objectives. These criteria will be used during
+/// acceptance testing and project closure.
+@SectionId('PD00-SYO-GOA-SUC')
+@ContentHelp('Define criteria that collectively determine project success. '
+    'Each criterion should be objectively verifiable.')
+class SuccessCriteria {
+  @ContentType('description', 'Overview of success criteria and how they '
+      'relate to project objectives. Define the acceptance process and '
+      'sign-off requirements.')
+  String? content;
+
+  /// Success criteria form.
+  @Form([
+    Field('acceptanceProcess', String,
+        'Acceptance Process (how criteria will be evaluated)'),
+    Field('signOffAuthority', String,
+        'Sign-off Authority (who approves project success)'),
+    Field('evaluationTiming', String,
+        'Evaluation Timing (when criteria will be evaluated)'),
+    Field('partialSuccessHandling', String,
+        'Partial Success Handling (what if some criteria not met)'),
+  ])
+  String? successCriteriaForm;
+
+  /// Success criterion entries — contains 0+× SuccessCriterionEntry.
   @SectionIdPattern('PD00-SYO-GOA-SUC-xx')
   List<SuccessCriterionEntry> items = [];
+
+  /// Success criteria matrix — overall view.
+  @SectionId('PD00-SYO-GOA-SUC-MAT')
+  @ContentType('description', 'Success criteria matrix showing all criteria, '
+      'their weights, and evaluation status.')
+  @ContentHelp('Create a summary matrix of all success criteria.')
+  String? successCriteriaMatrix;
 }
 
 /// A success criterion entry [PD00-SYO-GOA-SUC-nn] (form).
 class SuccessCriterionEntry {
   @Form([
-    Field('criterion', String, 'Criterion', required: true),
-    Field('metric', String, 'Metric'),
-    Field('targetValue', String, 'Target Value'),
+    Field('criterionId', String, 'Criterion ID', required: true),
+    Field('criterionName', String, 'Criterion Name', required: true),
+    Field('description', String, 'Description'),
+    Field('category', String,
+        'Category (Business, Technical, User, Compliance, Budget, Timeline)'),
+    Field('metric', String, 'Metric (what is measured)'),
+    Field('targetValue', String, 'Target Value', required: true),
     Field('measurementMethod', String, 'Measurement Method'),
-    Field('verificationPoint', String, 'Verification Point'),
+    Field('verificationPoint', String,
+        'Verification Point (when verified: go-live, 30 days, 90 days)'),
+    Field('weight', String,
+        'Weight (importance: Critical, High, Medium, Low)'),
+    Field('relatedGoals', String, 'Related Goals (which goals this supports)'),
+    Field('status', String, 'Status (Not Evaluated, Met, Not Met, Waived)'),
+    Field('evidence', String, 'Evidence (proof that criterion is met)'),
   ])
   String? content;
 }

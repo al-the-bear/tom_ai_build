@@ -34,8 +34,8 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-SYO-SYD-USR-01 | Sample: Back-Office Administrator | Low | ✅ Done |
 | PD00-SYO-SYD-USR-01-ROL | Role | Low | ✅ Done |
 | PD00-SYO-SYD-USR-01-TSK | System Tasks | Low | ✅ Done |
-| PD00-SYO-GOA-BUS | Business Goals | High | ⬜ Not Started |
-| PD00-SYO-GOA-BUS-01 | Sample: Reduce Order Processing Time | Low | ⬜ Not Started |
+| PD00-SYO-GOA-BUS | Business Goals | High | ✅ Done |
+| PD00-SYO-GOA-BUS-01 | Sample: Reduce Order Processing Time | Low | ✅ Done |
 | PD00-SYO-GOA-TEC | Technical Goals | High | ⬜ Not Started |
 | PD00-SYO-GOA-TEC-01 | Sample: Response Time | Low | ⬜ Not Started |
 | PD00-SYO-REQ-FUN | Functional Requirements | High | ⬜ Not Started |
@@ -289,9 +289,9 @@ All 317 sections from `pd_template.md` with content migration status.
 | 44 | PD00-SYO-SYD-USR-01-ROL | Role | ✅ Enhanced | ✅ |
 | 45 | PD00-SYO-SYD-USR-01-TSK | System Tasks | ✅ Enhanced | ✅ |
 | 46 | PD00-SYO-SYD-USI | User Interaction Model | ✅ Exists | ⬜ |
-| 47 | PD00-SYO-GOA | Goals | ✅ Exists | ⬜ |
-| 48 | PD00-SYO-GOA-BUS | Business Goals | ❓ Missing | ⬜ |
-| 49 | PD00-SYO-GOA-BUS-01 | Sample: Reduce Order Processing Time | ❓ Missing | ⏭️ |
+| 47 | PD00-SYO-GOA | Goals | ✅ Enhanced | ✅ |
+| 48 | PD00-SYO-GOA-BUS | Business Goals | ✅ Enhanced | ✅ |
+| 49 | PD00-SYO-GOA-BUS-01 | Sample: Reduce Order Processing Time | ✅ Enhanced | ✅ |
 | 50 | PD00-SYO-GOA-TEC | Technical Goals | ❓ Missing | ⬜ |
 | 51 | PD00-SYO-GOA-TEC-01 | Sample: Response Time | ❓ Missing | ⏭️ |
 | 52 | PD00-SYO-GOA-SUC | Success Criteria | ✅ Exists | ⬜ |
