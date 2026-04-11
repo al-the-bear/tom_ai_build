@@ -28,7 +28,7 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-ADM-TEA-01 | Sample: Project Manager | Low | ✅ Done |
 | PD00-ADM-REF-01 | Sample: Enterprise Architecture Document | Low | ✅ Done |
 | PD00-SYO-SYD-PUR | System Purpose | High | ✅ Done |
-| PD00-SYO-SYD-CON | System Context | High | ⬜ Not Started |
+| PD00-SYO-SYD-CON | System Context | High | ✅ Done |
 | PD00-SYO-SYD-DES | Description of Task Area | Medium | ⬜ Not Started |
 | PD00-SYO-SYD-USR | User Categories | High | ⬜ Not Started |
 | PD00-SYO-SYD-USR-01 | Sample: Back-Office Administrator | Low | ⬜ Not Started |

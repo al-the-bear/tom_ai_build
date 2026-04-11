@@ -53,7 +53,7 @@ class SystemDescription {
   SystemPurpose systemPurpose = SystemPurpose();
 
   /// 4.1.2. System Context [PD00-SYO-SYD-CON].
-  TextSection systemContext = TextSection();
+  SystemContext systemContext = SystemContext();
 
   /// 4.1.3. Task Area [PD00-SYO-SYD-DES].
   TextSection taskArea = TextSection();
@@ -390,6 +390,395 @@ class DeferredScopeItemEntry {
         'Estimated Effort (rough sizing for planning purposes)'),
   ])
   String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 4.1.2 System Context
+// ---------------------------------------------------------------------------
+
+/// 4.1.2. System Context [PD00-SYO-SYD-CON].
+///
+/// Describes the system in its operational context: how it fits within the
+/// organization's IT landscape, who interacts with it, and what external
+/// systems it connects to. Based on UML context diagrams and IEEE 830.
+@SectionId('PD00-SYO-SYD-CON')
+@ContentHelp('Describe the system in its operational context. Include: '
+    'how it fits in the IT landscape, who interacts with it, '
+    'external systems it connects to, and a context diagram.')
+class SystemContext {
+  @ContentType('description', 'High-level overview of the system context '
+      'and its position in the overall enterprise architecture.')
+  String? content;
+
+  /// 4.1.2.1. Context Diagram [PD00-SYO-SYD-CON-DIA].
+  ContextDiagram contextDiagram = ContextDiagram();
+
+  /// 4.1.2.2. IT Landscape Position [PD00-SYO-SYD-CON-ITP].
+  ItLandscapePosition itLandscapePosition = ItLandscapePosition();
+
+  /// 4.1.2.3. External Actors [PD00-SYO-SYD-CON-ACT].
+  ExternalActors externalActors = ExternalActors();
+
+  /// 4.1.2.4. External Systems [PD00-SYO-SYD-CON-SYS].
+  ExternalSystemsContext externalSystems = ExternalSystemsContext();
+
+  /// 4.1.2.5. Trust Boundaries [PD00-SYO-SYD-CON-TRU].
+  TrustBoundaries trustBoundaries = TrustBoundaries();
+
+  /// 4.1.2.6. Organizational Context [PD00-SYO-SYD-CON-ORG].
+  OrganizationalContext organizationalContext = OrganizationalContext();
+
+  /// 4.1.2.7. Deployment Context [PD00-SYO-SYD-CON-DEP].
+  DeploymentContext deploymentContext = DeploymentContext();
+
+  /// 4.1.2.8. Regulatory Context [PD00-SYO-SYD-CON-REG].
+  RegulatoryContext regulatoryContext = RegulatoryContext();
+}
+
+/// 4.1.2.1. Context Diagram [PD00-SYO-SYD-CON-DIA].
+///
+/// Visual representation of the system as a black box showing external
+/// entities and data flows (UML context diagram / DFD Level 0).
+@SectionId('PD00-SYO-SYD-CON-DIA')
+@ContentHelp('Provide a context diagram showing the system as a black box '
+    'with all external entities (users, systems, organizations) and '
+    'the data/control flows between them.')
+class ContextDiagram {
+  @ContentType('description', 'Explanation of the context diagram, '
+      'key relationships, and data flow patterns.')
+  String? content;
+
+  /// Context diagram in Mermaid format.
+  @SectionId('PD00-SYO-SYD-CON-DIA-MER')
+  @ContentType('mermaid-flowchart', 'Context diagram showing the system '
+      'as a central node with external actors and systems connected by '
+      'labeled data flows')
+  @ContentHelp('Create a Mermaid flowchart with the system in the center '
+      'and all external entities around it. Label edges with data flow '
+      'descriptions (e.g., "orders", "payments", "notifications").')
+  String? diagram;
+
+  /// Diagram legend and conventions.
+  @ContentType('description', 'Legend explaining shapes, colors, and '
+      'line styles used in the diagram.')
+  String? legend;
+}
+
+/// 4.1.2.2. IT Landscape Position [PD00-SYO-SYD-CON-ITP].
+///
+/// How this system fits within the organization's overall IT architecture
+/// and application portfolio.
+@SectionId('PD00-SYO-SYD-CON-ITP')
+@ContentHelp('Describe how this system fits in the overall IT architecture. '
+    'What role does it play? What other systems does it complement or replace?')
+class ItLandscapePosition {
+  @ContentType('description', 'Overview of the system\'s role in the '
+      'IT landscape and application portfolio.')
+  String? content;
+
+  /// IT Landscape Position Details (form).
+  @Form([
+    Field('architectureLayer', String,
+        'Architecture Layer (Presentation, Business, Data, Integration)'),
+    Field('applicationCategory', String,
+        'Application Category (Core, Support, Management, Infrastructure)'),
+    Field('portfolioRole', String,
+        'Portfolio Role (Strategic, Key Operational, Support, Legacy)'),
+    Field('replacedSystems', String,
+        'Replaced Systems (systems this will replace or retire)'),
+    Field('complementarySystems', String,
+        'Complementary Systems (systems this works alongside)'),
+    Field('dependsOnSystems', String,
+        'Depends On Systems (systems this requires to operate)'),
+    Field('dependentSystems', String,
+        'Dependent Systems (systems that will depend on this)'),
+    Field('dataOwnership', String,
+        'Data Ownership (what master data does this system own)'),
+    Field('integrationPattern', String,
+        'Primary Integration Pattern (API, Event, Batch, Real-time)'),
+  ])
+  String? positionDetails;
+}
+
+/// 4.1.2.3. External Actors [PD00-SYO-SYD-CON-ACT].
+///
+/// Human users and organizational entities that interact with the system
+/// from outside the system boundary.
+@SectionId('PD00-SYO-SYD-CON-ACT')
+@ContentHelp('List all external actors (human users, organizations, '
+    'external parties) that interact with the system.')
+class ExternalActors {
+  @ContentType('description', 'Overview of external actors and '
+      'their interaction patterns with the system.')
+  String? content;
+
+  /// Actor entries — contains 1+× ExternalActorEntry.
+  @SectionIdPattern('PD00-SYO-SYD-CON-ACT-xx')
+  @Min(1)
+  @ContentHelp('Add one entry per external actor or actor category '
+      'that interacts with the system.')
+  List<ExternalActorEntry> actors = [];
+}
+
+/// An external actor entry (form).
+class ExternalActorEntry {
+  @Form([
+    Field('actorName', String, 'Actor Name', required: true),
+    Field('actorType', String,
+        'Actor Type (Internal User, External User, Organization, '
+            'Partner, Customer, Regulator, etc.)', required: true),
+    Field('description', String, 'Actor Description'),
+    Field('interactionPurpose', String,
+        'Interaction Purpose (why they interact with the system)'),
+    Field('interactionFrequency', String,
+        'Interaction Frequency (Real-time, Daily, Weekly, On-demand)'),
+    Field('interactionChannel', String,
+        'Interaction Channel (Web UI, Mobile App, API, Email, etc.)'),
+    Field('dataExchanged', String,
+        'Data Exchanged (what information flows to/from this actor)'),
+    Field('accessLevel', String,
+        'Access Level (Read, Write, Admin, API-only, etc.)'),
+    Field('authenticationMethod', String,
+        'Authentication Method (SSO, Password, Certificate, API Key, etc.)'),
+    Field('location', String,
+        'Location (On-site, Remote, Mobile, Global, etc.)'),
+    Field('volumeEstimate', String,
+        'Volume Estimate (number of actors, transactions per day)'),
+  ])
+  String? content;
+
+  /// Interaction scenarios for this actor.
+  @ContentType('description', 'Key interaction scenarios describing '
+      'typical workflows for this actor.')
+  String? interactionScenarios;
+}
+
+/// 4.1.2.4. External Systems [PD00-SYO-SYD-CON-SYS].
+///
+/// External systems, services, and APIs that the system integrates with.
+@SectionId('PD00-SYO-SYD-CON-SYS')
+@ContentHelp('List all external systems, services, and APIs that this '
+    'system will integrate with. Include both incoming and outgoing '
+    'integrations.')
+class ExternalSystemsContext {
+  @ContentType('description', 'Overview of external system integrations '
+      'and integration architecture.')
+  String? content;
+
+  /// External system entries — contains 0+× ExternalSystemContextEntry.
+  @SectionIdPattern('PD00-SYO-SYD-CON-SYS-xx')
+  @ContentHelp('Add one entry per external system that this system '
+      'integrates with.')
+  List<ExternalSystemContextEntry> systems = [];
+}
+
+/// An external system context entry (form).
+class ExternalSystemContextEntry {
+  @Form([
+    Field('systemName', String, 'System Name', required: true),
+    Field('systemOwner', String, 'System Owner (organization/department)'),
+    Field('systemType', String,
+        'System Type (ERP, CRM, Database, API, SaaS, Legacy, etc.)',
+        required: true),
+    Field('integrationDirection', String,
+        'Integration Direction (Inbound, Outbound, Bidirectional)',
+        required: true),
+    Field('integrationPurpose', String,
+        'Integration Purpose (what business need does this serve)'),
+    Field('dataExchanged', String,
+        'Data Exchanged (what data flows between systems)'),
+    Field('integrationMethod', String,
+        'Integration Method (REST API, SOAP, File Transfer, Database, '
+            'Message Queue, Event Stream, etc.)'),
+    Field('integrationFrequency', String,
+        'Integration Frequency (Real-time, Near-real-time, Batch, '
+            'On-demand)'),
+    Field('dataVolume', String,
+        'Data Volume (estimated records/transactions per time period)'),
+    Field('sla', String,
+        'SLA (availability, response time requirements)'),
+    Field('errorHandling', String,
+        'Error Handling (retry, dead-letter, manual intervention)'),
+    Field('securityRequirements', String,
+        'Security Requirements (encryption, authentication, network)'),
+    Field('contactPerson', String, 'Contact Person (technical contact)'),
+  ])
+  String? content;
+
+  /// Data mapping details.
+  @ContentType('description', 'Details of data transformation and '
+      'mapping between systems.')
+  String? dataMapping;
+}
+
+/// 4.1.2.5. Trust Boundaries [PD00-SYO-SYD-CON-TRU].
+///
+/// Security zones and trust boundaries that the system operates within
+/// or crosses.
+@SectionId('PD00-SYO-SYD-CON-TRU')
+@ContentHelp('Define the trust boundaries (security zones) that the system '
+    'operates within and crosses. This is important for security design.')
+class TrustBoundaries {
+  @ContentType('description', 'Overview of trust boundaries and '
+      'security zones relevant to this system.')
+  String? content;
+
+  /// Trust boundary entries — contains 0+× TrustBoundaryEntry.
+  @SectionIdPattern('PD00-SYO-SYD-CON-TRU-xx')
+  @ContentHelp('Add one entry per trust boundary or security zone.')
+  List<TrustBoundaryEntry> boundaries = [];
+}
+
+/// A trust boundary entry (form).
+class TrustBoundaryEntry {
+  @Form([
+    Field('boundaryName', String, 'Boundary Name', required: true),
+    Field('boundaryType', String,
+        'Boundary Type (Network Zone, Authentication Domain, '
+            'Organizational, Legal/Regulatory, Cloud/On-Prem)', required: true),
+    Field('description', String, 'Description'),
+    Field('componentsCrossing', String,
+        'Components Crossing (which parts of the system cross this boundary)'),
+    Field('protectionMechanisms', String,
+        'Protection Mechanisms (firewall, encryption, authentication, etc.)'),
+    Field('trustLevel', String,
+        'Trust Level (Untrusted, Semi-trusted, Trusted, Highly Trusted)'),
+    Field('complianceImplications', String,
+        'Compliance Implications (regulatory requirements for crossing)'),
+  ])
+  String? content;
+}
+
+/// 4.1.2.6. Organizational Context [PD00-SYO-SYD-CON-ORG].
+///
+/// Organizational units, departments, and business areas that the system
+/// serves or interacts with.
+@SectionId('PD00-SYO-SYD-CON-ORG')
+@ContentHelp('Describe the organizational context: which departments, '
+    'business units, and organizational structures are involved.')
+class OrganizationalContext {
+  @ContentType('description', 'Overview of the organizational context '
+      'and business units served by the system.')
+  String? content;
+
+  /// Organizational unit entries — contains 0+× OrganizationalUnitContextEntry.
+  @SectionIdPattern('PD00-SYO-SYD-CON-ORG-xx')
+  @ContentHelp('Add one entry per organizational unit that uses or '
+      'is affected by the system.')
+  List<OrganizationalUnitContextEntry> organizationalUnits = [];
+
+  /// Business process coverage.
+  @ContentType('description', 'Which business processes does this system '
+      'support or automate?')
+  String? businessProcessCoverage;
+}
+
+/// An organizational unit context entry (form).
+class OrganizationalUnitContextEntry {
+  @Form([
+    Field('unitName', String, 'Unit Name', required: true),
+    Field('unitType', String,
+        'Unit Type (Department, Division, Team, Business Unit, '
+            'Subsidiary, External Partner)'),
+    Field('role', String, 'Role (Primary User, Secondary User, '
+        'Data Provider, Beneficiary, Sponsor)'),
+    Field('responsibilities', String,
+        'Responsibilities (what they do with/for the system)'),
+    Field('headcount', String, 'Headcount (estimated number of users)'),
+    Field('location', String, 'Location (geographic location)'),
+    Field('timezone', String, 'Timezone (primary operating timezone)'),
+    Field('keyContacts', String, 'Key Contacts (business contacts)'),
+  ])
+  String? content;
+}
+
+/// 4.1.2.7. Deployment Context [PD00-SYO-SYD-CON-DEP].
+///
+/// Where and how the system will be deployed in the infrastructure
+/// landscape.
+@SectionId('PD00-SYO-SYD-CON-DEP')
+@ContentHelp('Describe the deployment context: where the system will be '
+    'deployed, what infrastructure it will use, and deployment constraints.')
+class DeploymentContext {
+  @ContentType('description', 'Overview of the deployment environment '
+      'and infrastructure context.')
+  String? content;
+
+  /// Deployment Context Details (form).
+  @Form([
+    Field('deploymentModel', String,
+        'Deployment Model (On-Premises, Cloud, Hybrid, Multi-Cloud)'),
+    Field('cloudProvider', String,
+        'Cloud Provider (AWS, Azure, GCP, Private Cloud, N/A)'),
+    Field('hostingEnvironment', String,
+        'Hosting Environment (Containers, VMs, Serverless, Bare Metal)'),
+    Field('dataCenter', String,
+        'Data Center (location, name, or identifier)'),
+    Field('geographicDistribution', String,
+        'Geographic Distribution (Single region, Multi-region, Global)'),
+    Field('availabilityZones', String,
+        'Availability Zones (redundancy configuration)'),
+    Field('networkZone', String,
+        'Network Zone (DMZ, Internal, Private, Public)'),
+    Field('scalingModel', String,
+        'Scaling Model (Horizontal, Vertical, Auto-scaling, Manual)'),
+    Field('disasterRecovery', String,
+        'Disaster Recovery (DR site, strategy)'),
+    Field('environmentTypes', String,
+        'Environment Types (Dev, Test, Staging, Production, DR)'),
+  ])
+  String? deploymentDetails;
+}
+
+/// 4.1.2.8. Regulatory Context [PD00-SYO-SYD-CON-REG].
+///
+/// Regulatory and compliance context that affects system design and
+/// operations.
+@SectionId('PD00-SYO-SYD-CON-REG')
+@ContentHelp('Describe the regulatory and compliance context: which '
+    'regulations apply, what compliance requirements exist.')
+class RegulatoryContext {
+  @ContentType('description', 'Overview of the regulatory environment '
+      'and compliance requirements affecting this system.')
+  String? content;
+
+  /// Applicable regulations — contains 0+× ApplicableRegulationEntry.
+  @SectionIdPattern('PD00-SYO-SYD-CON-REG-xx')
+  @ContentHelp('Add one entry per applicable regulation or compliance '
+      'requirement.')
+  List<ApplicableRegulationEntry> regulations = [];
+}
+
+/// An applicable regulation entry (form).
+class ApplicableRegulationEntry {
+  @Form([
+    Field('regulationName', String, 'Regulation Name', required: true),
+    Field('regulationCode', String, 'Regulation Code / Reference'),
+    Field('regulationType', String,
+        'Regulation Type (Privacy, Security, Financial, Industry, '
+            'Data Retention, Accessibility)', required: true),
+    Field('jurisdiction', String,
+        'Jurisdiction (Geographic or organizational scope)'),
+    Field('applicability', String,
+        'Applicability (why this regulation applies to this system)'),
+    Field('keyRequirements', String,
+        'Key Requirements (summary of main requirements)'),
+    Field('complianceStatus', String,
+        'Compliance Status (Compliant, Partially Compliant, Non-Compliant, '
+            'To Be Assessed)'),
+    Field('complianceOwner', String,
+        'Compliance Owner (who is responsible for compliance)'),
+    Field('auditRequirements', String,
+        'Audit Requirements (audit frequency, type)'),
+    Field('penalties', String,
+        'Penalties (consequences of non-compliance)'),
+  ])
+  String? content;
+
+  /// Specific compliance measures for this regulation.
+  @ContentType('description', 'Detailed compliance measures and controls '
+      'implemented for this regulation.')
+  String? complianceMeasures;
 }
 
 /// 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
