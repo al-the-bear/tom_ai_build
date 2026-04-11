@@ -26,7 +26,7 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-ADM-PRO-STE | Steering Committee | Medium | ✅ Done |
 | PD00-ADM-PRO-STE-01 | Sample: Chief Technology Officer | Low | ✅ Done |
 | PD00-ADM-TEA-01 | Sample: Project Manager | Low | ✅ Done |
-| PD00-ADM-REF-01 | Sample: Enterprise Architecture Document | Low | ⬜ Not Started |
+| PD00-ADM-REF-01 | Sample: Enterprise Architecture Document | Low | ✅ Done |
 | PD00-SYO-SYD-PUR | System Purpose | High | ⬜ Not Started |
 | PD00-SYO-SYD-CON | System Context | High | ⬜ Not Started |
 | PD00-SYO-SYD-DES | Description of Task Area | Medium | ⬜ Not Started |

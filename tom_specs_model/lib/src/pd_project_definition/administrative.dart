@@ -444,9 +444,18 @@ class ChangeImpactCriterionEntry {
 // ---------------------------------------------------------------------------
 
 /// 3.5. Reference Documents [PD00-ADM-REF].
+///
+/// Catalog of all documents referenced by this project specification,
+/// including enterprise standards, technical guidelines, regulatory
+/// requirements, and related project documentation.
 @SectionId('PD00-ADM-REF')
+@ContentHelp('List all documents that provide context, requirements, '
+    'constraints, or guidance for this project. Include enterprise '
+    'architecture documents, standards, policies, regulations, '
+    'and related project specifications.')
 class ReferenceDocuments {
-  @Unused()
+  @ContentType('description', 'Overview of reference document categories and '
+      'their relevance to the project.')
   String? content;
 
   /// Reference document entries — contains 0+× Reference Document.
@@ -455,14 +464,99 @@ class ReferenceDocuments {
 }
 
 /// A reference document entry [PD00-ADM-REF-nn] (form).
+///
+/// Detailed metadata for a single referenced document including
+/// identification, classification, status, and applicability.
 class ReferenceDocumentEntry {
   @Form([
     Field('documentTitle', String, 'Document Title', required: true),
+    Field('documentId', String, 'Document ID (internal reference number)'),
     Field('version', String, 'Version'),
-    Field('author', String, 'Author'),
-    Field('date', String, 'Date'),
-    Field('purpose', String, 'Purpose'),
-    Field('location', String, 'Location'),
+    Field('author', String, 'Author / Issuing Organization'),
+    Field('date', String, 'Publication / Effective Date'),
+    Field('purpose', String, 'Purpose / Relevance to Project'),
+    Field('location', String, 'Location (URL, repository, or physical)'),
+    Field('documentType', String,
+        'Document Type (Standard, Policy, Regulation, Specification, etc.)'),
+    Field('classification', String,
+        'Classification (Public, Internal, Confidential, Restricted)'),
+    Field('status', String,
+        'Status (Current, Draft, Under Review, Superseded, Archived)'),
+    Field('applicability', String,
+        'Applicability (which project phases or components this applies to)'),
+    Field('supersedes', String, 'Supersedes Document (if replacing older doc)'),
+    Field('supersededBy', String, 'Superseded By (if this doc is deprecated)'),
+    Field('validUntil', String, 'Valid Until (expiration or review date)'),
+    Field('lastReviewedDate', String, 'Last Reviewed Date'),
+    Field('accessRestrictions', String,
+        'Access Restrictions (who can access, special permissions required)'),
+    Field('language', String, 'Language'),
+    Field('format', String, 'Format (PDF, Word, HTML, Confluence, etc.)'),
+    Field('notes', String, 'Additional Notes'),
+  ])
+  String? content;
+
+  /// Key sections or chapters within the document relevant to this project.
+  DocumentRelevantSections relevantSections = DocumentRelevantSections();
+
+  /// Relationship to other reference documents.
+  DocumentRelationships relationships = DocumentRelationships();
+}
+
+/// Key sections within a reference document relevant to the project.
+class DocumentRelevantSections {
+  @Form([
+    Field('sectionReference', String,
+        'Section Reference (chapter, section, or page number)', required: true),
+    Field(
+        'sectionTitle', String, 'Section Title or Description', required: true),
+    Field('relevance', String, 'Relevance to Project'),
+    Field('extractSummary', String,
+        'Summary / Key Extract (brief summary of applicable content)'),
+  ])
+  String? content;
+
+  /// Individual relevant section entries.
+  List<RelevantSectionEntry> sections = [];
+}
+
+/// A single relevant section entry within a reference document.
+class RelevantSectionEntry {
+  @Form([
+    Field('sectionReference', String,
+        'Section Reference (chapter, section, or page number)', required: true),
+    Field(
+        'sectionTitle', String, 'Section Title or Description', required: true),
+    Field('relevance', String,
+        'Relevance (how this section applies to the project)'),
+    Field('extractSummary', String,
+        'Summary / Key Extract (brief summary of applicable content)'),
+    Field('complianceRequired', bool,
+        'Compliance Required (must project comply with this section?)'),
+  ])
+  String? content;
+}
+
+/// Relationships between reference documents.
+class DocumentRelationships {
+  @ContentType('description', 'Describe how this document relates to '
+      'other reference documents in the catalog.')
+  String? content;
+
+  /// Related document entries.
+  List<RelatedDocumentEntry> relatedDocuments = [];
+}
+
+/// A relationship to another reference document.
+class RelatedDocumentEntry {
+  @Form([
+    Field('relatedDocumentId', String, 'Related Document ID', required: true),
+    Field('relatedDocumentTitle', String, 'Related Document Title'),
+    Field('relationshipType', String,
+        'Relationship Type (Depends On, Referenced By, Supersedes, '
+            'Complements, Conflicts With, Parent Of, Child Of)'),
+    Field('relationshipDescription', String,
+        'Relationship Description (explain the connection)'),
   ])
   String? content;
 }
