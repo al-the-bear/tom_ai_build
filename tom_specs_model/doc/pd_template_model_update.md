@@ -50,8 +50,8 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-SYO-SYR-INV-01 | Sample: Legacy CRM | Low | ✅ Done |
 | PD00-SYO-SYB-INT | Interfaces to External Systems | High | ✅ Done |
 | PD00-SYO-SYB-INT-01 | Sample: Payment Gateway | Low | ✅ Done |
-| PD00-SYO-RIS-RIS | Key Risks | High | ⬜ Not Started |
-| PD00-SYO-RIS-RIS-01 | Sample: Vendor Lock-in | Low | ⬜ Not Started |
+| PD00-SYO-RIS-RIS | Key Risks | High | ✅ Done |
+| PD00-SYO-RIS-RIS-01 | Sample: Vendor Lock-in | Low | ✅ Done |
 | PD00-ORG-STR-TIM | Organizational Transition Timeline | Medium | ⬜ Not Started |
 | PD00-ORG-JOB-NEW | New Roles | Medium | ⬜ Not Started |
 | PD00-ORG-JOB-NEW-01 | Sample: Data Steward | Low | ⬜ Not Started |

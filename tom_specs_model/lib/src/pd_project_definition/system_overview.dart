@@ -4276,13 +4276,13 @@ class BoundaryAssumptions {
       'and impact assessment approach for assumption failures.')
   TextSection assumptionApproach = TextSection();
 
-  /// Contains 0+× AssumptionEntry.
+  /// Contains 0+× BoundaryAssumptionEntry.
   @SectionIdPattern('PD00-SYO-SYB-ASS-xx')
-  List<AssumptionEntry> items = [];
+  List<BoundaryAssumptionEntry> items = [];
 }
 
-/// An assumption entry [PD00-SYO-SYB-ASS-nn] (form).
-class AssumptionEntry {
+/// A boundary assumption entry [PD00-SYO-SYB-ASS-nn] (form).
+class BoundaryAssumptionEntry {
   @Form([
     Field('assumptionId', String, 'Assumption ID'),
     Field('assumption', String, 'Assumption Statement', required: true),
@@ -4464,10 +4464,15 @@ class FrameworkDependencyEntry {
 // ---------------------------------------------------------------------------
 
 /// 4.7. Risks and Assumptions [PD00-SYO-RIS].
+///
+/// Documents identified project risks and underlying assumptions following
+/// ISO 31000 Risk Management and PMBOK risk management best practices.
+/// Provides structured framework for risk identification, analysis, response
+/// planning, and ongoing monitoring throughout the project lifecycle.
 @SectionId('PD00-SYO-RIS')
 class RisksAndAssumptions {
-  @Unused()
-  String? content;
+  /// Overview of the risk management approach for this project.
+  RisksOverview overview = RisksOverview();
 
   /// 4.7.1. Key Risks [PD00-SYO-RIS-RIS] — contains 0+× Risk.
   @SectionIdPattern('PD00-SYO-RIS-RIS-xx')
@@ -4477,28 +4482,367 @@ class RisksAndAssumptions {
   KeyAssumptions keyAssumptions = KeyAssumptions();
 }
 
-/// A risk entry [PD00-SYO-RIS-RIS-nn] (form).
-class RiskEntry {
+/// Overview of the risk management approach.
+class RisksOverview {
   @Form([
-    Field('riskId', String, 'Risk Id', required: true),
-    Field('riskName', String, 'Risk Name'),
-    Field('description', String, 'Short description'),
-    Field('probability', String, 'Probability'),
-    Field('impact', String, 'Impact assessment'),
-    Field('mitigation', String, 'Mitigation strategy'),
-    Field('riskOwner', String, 'Risk Owner'),
-    Field('reviewFrequency', String, 'Review Frequency'),
+    Field('riskManagementApproach', String,
+        'Risk Management Approach — overall methodology and framework'),
+    Field('riskAppetite', String,
+        'Risk Appetite — organization tolerance (risk-averse, risk-neutral, risk-seeking)'),
+    Field('riskThresholds', String,
+        'Risk Thresholds — quantitative escalation levels (e.g., cost > \$50K)'),
+    Field('riskReviewCadence', String,
+        'Risk Review Cadence — frequency of review meetings'),
+    Field('escalationPath', String,
+        'Escalation Path — hierarchy for escalating high-severity risks'),
+    Field('riskTooling', String,
+        'Risk Management Tooling — tools used to track risks'),
+    Field('riskCategories', String,
+        'Risk Categories — Technical, Schedule, Cost, Resource, External, etc.'),
+    Field('probabilityScale', String,
+        'Probability Scale — Very Low (<10%), Low (10-30%), Medium (30-50%), High (50-70%), Very High (>70%)'),
+    Field('impactScale', String,
+        'Impact Scale — Negligible, Minor, Moderate, Major, Catastrophic with criteria'),
   ])
   String? content;
 }
 
+/// A risk entry [PD00-SYO-RIS-RIS-nn] (form).
+///
+/// Comprehensive risk documentation following ISO 31000 and PMBOK guidelines.
+/// Captures risk identification, analysis, response planning, ownership,
+/// and monitoring information for systematic risk management.
+class RiskEntry {
+  /// Risk identification — unique identifier and basic description.
+  RiskIdentification identification = RiskIdentification();
+
+  /// Risk analysis — probability, impact, and scoring.
+  RiskAnalysis analysis = RiskAnalysis();
+
+  /// Risk response — strategy and planned actions.
+  RiskResponse response = RiskResponse();
+
+  /// Risk ownership and governance.
+  RiskOwnership ownership = RiskOwnership();
+
+  /// Risk monitoring and tracking details.
+  RiskMonitoring monitoring = RiskMonitoring();
+
+  /// Business impact assessment.
+  RiskBusinessImpact businessImpact = RiskBusinessImpact();
+
+  /// Relationships to other risks, assumptions, and project elements.
+  RiskRelationships relationships = RiskRelationships();
+}
+
+/// Risk identification details.
+class RiskIdentification {
+  @Form([
+    Field('riskId', String, 'Risk ID (e.g., RISK-001, TR-001)', required: true),
+    Field('riskName', String, 'Risk Name — short descriptive name', required: true),
+    Field('description', String,
+        'Description — detailed risk event and potential causes'),
+    Field('category', String,
+        'Category — Technical, Schedule, Cost, Resource, External, Legal, Organizational'),
+    Field('subcategory', String,
+        'Subcategory — more specific categorization'),
+    Field('source', String,
+        'Risk Source — brainstorming, review, lessons learned'),
+    Field('dateIdentified', String, 'Date Identified'),
+    Field('identifiedBy', String, 'Identified By — person or team'),
+    Field('riskType', String,
+        'Risk Type — Threat (negative) or Opportunity (positive)'),
+    Field('trigger', String,
+        'Risk Trigger — events indicating risk is about to occur'),
+    Field('rootCause', String,
+        'Root Cause — underlying causes that could lead to this risk'),
+  ])
+  String? content;
+}
+
+/// Risk analysis — probability, impact, and risk scoring.
+class RiskAnalysis {
+  @Form([
+    Field('probability', String,
+        'Probability — Very Low, Low, Medium, High, Very High'),
+    Field('probabilityValue', double,
+        'Probability Value — numeric (0.0-1.0) for quantitative analysis'),
+    Field('impact', String,
+        'Impact — Negligible, Minor, Moderate, Major, Catastrophic'),
+    Field('impactValue', double,
+        'Impact Value — numeric score (1-5 or monetary value)'),
+    Field('riskScore', double,
+        'Risk Score — calculated (probability × impact)'),
+    Field('riskLevel', String, 'Risk Level — Low, Medium, High, Critical'),
+    Field('riskRanking', int, 'Risk Ranking — priority relative to other risks'),
+    Field('analysisMethod', String,
+        'Analysis Method — Qualitative, Semi-quantitative, Quantitative'),
+    Field('confidenceLevel', String,
+        'Confidence Level — in probability/impact estimates'),
+    Field('analysisNotes', String, 'Analysis Notes — methodology and findings'),
+  ])
+  String? content;
+}
+
+/// Risk response — strategy and planned actions.
+class RiskResponse {
+  @Form([
+    Field('responseStrategy', String,
+        'Response Strategy — Avoid, Transfer, Mitigate, Accept (or Exploit, Share, Enhance for opportunities)'),
+    Field('responseDescription', String,
+        'Response Description — planned approach'),
+    Field('mitigationActions', String,
+        'Mitigation Actions — actions to reduce probability or impact'),
+    Field('contingencyPlan', String,
+        'Contingency Plan — actions if risk materializes'),
+    Field('residualRisk', String,
+        'Residual Risk — level remaining after mitigation'),
+    Field('residualProbability', String,
+        'Residual Probability — expected after mitigation'),
+    Field('residualImpact', String,
+        'Residual Impact — expected after mitigation'),
+    Field('secondaryRisks', String,
+        'Secondary Risks — new risks from implementing response'),
+    Field('responseEffectiveness', String,
+        'Response Effectiveness — Low, Medium, High'),
+    Field('implementationCost', String,
+        'Implementation Cost — cost to implement response'),
+    Field('implementationTimeline', String,
+        'Implementation Timeline — for response actions'),
+  ])
+  String? content;
+}
+
+/// Risk ownership and governance.
+class RiskOwnership {
+  @Form([
+    Field('riskOwner', String,
+        'Risk Owner — person accountable for monitoring'),
+    Field('riskOwnerRole', String, 'Owner Role — role/title'),
+    Field('actionOwners', String,
+        'Action Owners — people responsible for mitigation actions'),
+    Field('escalationContact', String,
+        'Escalation Contact — who to escalate to if risk worsens'),
+    Field('stakeholdersInformed', String,
+        'Stakeholders Informed — who needs to be kept informed'),
+    Field('approvalRequired', bool,
+        'Approval Required — whether response actions need approval'),
+    Field('approver', String,
+        'Approver — person who must approve response actions'),
+    Field('decisionAuthority', String,
+        'Decision Authority — authority level for decisions'),
+  ])
+  String? content;
+}
+
+/// Risk monitoring and tracking.
+class RiskMonitoring {
+  @Form([
+    Field('reviewFrequency', String,
+        'Review Frequency — Daily, Weekly, Bi-weekly, Monthly'),
+    Field('lastReviewDate', String, 'Last Review Date'),
+    Field('nextReviewDate', String, 'Next Review Date'),
+    Field('riskStatus', String,
+        'Risk Status — Identified, Analyzing, Responding, Monitoring, Closed, Realized'),
+    Field('trend', String, 'Trend — Increasing, Stable, Decreasing'),
+    Field('trendJustification', String,
+        'Trend Justification — explanation for trend assessment'),
+    Field('earlyWarningIndicators', String,
+        'Early Warning Indicators — metrics signaling risk may materialize'),
+    Field('monitoringMechanism', String,
+        'Monitoring Mechanism — automated alerts, manual review, etc.'),
+    Field('closureDate', String, 'Closure Date'),
+    Field('closureReason', String,
+        'Closure Reason — Mitigated, Avoided, Accepted, Realized, No longer relevant'),
+    Field('lessonsLearned', String,
+        'Lessons Learned — key insights from managing this risk'),
+  ])
+  String? content;
+}
+
+/// Business impact assessment for the risk.
+class RiskBusinessImpact {
+  @Form([
+    Field('costImpact', String,
+        'Cost Impact — potential cost if risk materializes'),
+    Field('scheduleImpact', String,
+        'Schedule Impact — potential delay (days, weeks, phases)'),
+    Field('scopeImpact', String, 'Scope Impact — impact on deliverables'),
+    Field('qualityImpact', String, 'Quality Impact'),
+    Field('resourceImpact', String,
+        'Resource Impact — impact on team resources'),
+    Field('reputationImpact', String,
+        'Reputation Impact — organizational or project'),
+    Field('customerImpact', String,
+        'Customer Impact — impact on customers or end users'),
+    Field('regulatoryImpact', String,
+        'Regulatory Impact — compliance implications'),
+    Field('operationalImpact', String,
+        'Operational Impact — impact on ongoing operations'),
+    Field('strategicImpact', String,
+        'Strategic Impact — impact on strategic objectives'),
+    Field('affectedMilestones', String,
+        'Affected Milestones — project milestones at risk'),
+    Field('affectedDeliverables', String,
+        'Affected Deliverables — specific deliverables at risk'),
+  ])
+  String? content;
+}
+
+/// Relationships to other risks, assumptions, and project elements.
+class RiskRelationships {
+  @Form([
+    Field('relatedRisks', String,
+        'Related Risks — other risks that are related or dependent'),
+    Field('relatedAssumptions', String,
+        'Related Assumptions — assumptions that could affect this risk'),
+    Field('relatedIssues', String,
+        'Related Issues — issues arising from this risk'),
+    Field('relatedRequirements', String,
+        'Related Requirements — requirements affected'),
+    Field('affectedComponents', String,
+        'Affected Components — system components or modules'),
+    Field('affectedStakeholders', String,
+        'Affected Stakeholders — groups impacted if risk occurs'),
+    Field('externalDependencies', String,
+        'External Dependencies — external factors related to risk'),
+    Field('documentReferences', String,
+        'Document References — related documentation'),
+  ])
+  String? content;
+}
+
+// ────────────────────────────────────────────────────────────────
+// Key Assumptions
+// ────────────────────────────────────────────────────────────────
+
 /// 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS].
+///
+/// Documents project assumptions that must hold true for success.
+/// Tracks validation status and contingency plans if assumptions prove false.
 @SectionId('PD00-SYO-RIS-ASS')
 class KeyAssumptions {
-  @Unused()
-  String? content;
+  /// Overview of assumptions management approach.
+  AssumptionsOverview overview = AssumptionsOverview();
 
   /// Contains 0+× Assumption.
   @SectionIdPattern('PD00-SYO-RIS-ASS-xx')
   List<AssumptionEntry> items = [];
+}
+
+/// Overview of assumptions management.
+class AssumptionsOverview {
+  @Form([
+    Field('assumptionsApproach', String,
+        'Assumptions Management Approach — process for documenting and validating'),
+    Field('validationCadence', String,
+        'Validation Cadence — how often reviewed and validated'),
+    Field('assumptionCategories', String,
+        'Assumption Categories — Technical, Resource, Schedule, Budget, External, Organizational'),
+    Field('escalationProcess', String,
+        'Escalation Process — when critical assumption proves false'),
+  ])
+  String? content;
+}
+
+/// An assumption entry [PD00-SYO-RIS-ASS-nn] (form).
+///
+/// Documents a project assumption including its basis, validation approach,
+/// and contingency plans if the assumption proves false.
+class AssumptionEntry {
+  /// Assumption identification and description.
+  AssumptionIdentification identification = AssumptionIdentification();
+
+  /// Assumption validation details.
+  AssumptionValidation validation = AssumptionValidation();
+
+  /// Impact and contingency if assumption is false.
+  AssumptionImpact impact = AssumptionImpact();
+
+  /// Relationships to other project elements.
+  AssumptionRelationships relationships = AssumptionRelationships();
+}
+
+/// Assumption identification details.
+class AssumptionIdentification {
+  @Form([
+    Field('assumptionId', String,
+        'Assumption ID (e.g., ASSUM-001, TA-001)', required: true),
+    Field('assumptionName', String,
+        'Assumption Name — short descriptive name', required: true),
+    Field('description', String,
+        'Description — detailed statement of what is assumed'),
+    Field('category', String,
+        'Category — Technical, Resource, Schedule, Budget, External, Organizational'),
+    Field('basis', String,
+        'Basis — evidence or reasoning supporting this assumption'),
+    Field('dateIdentified', String, 'Date Identified'),
+    Field('identifiedBy', String, 'Identified By'),
+    Field('criticality', String,
+        'Criticality — Low, Medium, High, Critical'),
+    Field('confidence', String,
+        'Confidence Level — that assumption will hold'),
+  ])
+  String? content;
+}
+
+/// Assumption validation details.
+class AssumptionValidation {
+  @Form([
+    Field('validationMethod', String,
+        'Validation Method — testing, confirmation, analysis'),
+    Field('validationCriteria', String,
+        'Validation Criteria — determines if assumption is valid'),
+    Field('validationDate', String,
+        'Validation Date — target date for validation'),
+    Field('validationStatus', String,
+        'Validation Status — Unvalidated, In Progress, Validated, Invalid, N/A'),
+    Field('lastValidationDate', String, 'Last Validation Date'),
+    Field('validatedBy', String, 'Validated By'),
+    Field('validationNotes', String, 'Validation Notes'),
+    Field('validationOwner', String, 'Validation Owner — responsible person'),
+  ])
+  String? content;
+}
+
+/// Impact assessment if assumption proves false.
+class AssumptionImpact {
+  @Form([
+    Field('impactIfFalse', String,
+        'Impact If False — consequences if incorrect'),
+    Field('impactSeverity', String,
+        'Impact Severity — Low, Medium, High, Critical'),
+    Field('affectedAreas', String,
+        'Affected Areas — Scope, Schedule, Cost, Quality, Resources'),
+    Field('contingencyPlan', String,
+        'Contingency Plan — actions if assumption proves false'),
+    Field('contingencyOwner', String, 'Contingency Owner'),
+    Field('contingencyCost', String,
+        'Contingency Cost — estimated cost of executing'),
+    Field('contingencyTimeline', String,
+        'Contingency Timeline — time required to execute'),
+    Field('relatedRisks', String,
+        'Related Risks — triggered if assumption is false'),
+  ])
+  String? content;
+}
+
+/// Relationships to other project elements.
+class AssumptionRelationships {
+  @Form([
+    Field('relatedAssumptions', String,
+        'Related Assumptions — other dependent assumptions'),
+    Field('relatedRisks', String, 'Related Risks'),
+    Field('relatedRequirements', String,
+        'Related Requirements — that depend on this'),
+    Field('affectedDecisions', String,
+        'Affected Decisions — based on this assumption'),
+    Field('documentReferences', String,
+        'Document References — supporting documentation'),
+    Field('stakeholderOwner', String,
+        'Stakeholder Owner — accountable stakeholder'),
+    Field('reviewFrequency', String,
+        'Review Frequency — how often reviewed'),
+  ])
+  String? content;
 }
