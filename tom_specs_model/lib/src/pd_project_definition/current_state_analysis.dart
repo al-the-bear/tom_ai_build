@@ -34,39 +34,276 @@ class CurrentStateAnalysis {
 // ---------------------------------------------------------------------------
 
 /// 1.1. Existing Systems Landscape [PD00-CUR-SYS].
+///
+/// Overview of the current systems in use, their roles, technology stacks,
+/// and limitations. Provides the foundation for understanding the AS-IS state.
 @SectionId('PD00-CUR-SYS')
 class ExistingSystemsLandscape {
-  @Unused()
+  @ContentType('description', 'High-level overview of the existing systems '
+      'landscape. Include a context diagram showing how systems interact.')
   String? content;
 
-  /// 1.1.1. System Inventory [PD00-CUR-SYS-INV] — contains 1+× Existing System.
-  @SectionIdPattern('PD00-CUR-SYS-INV-xx')
-  @Min(1)
-  List<ExistingSystemEntry> systems = [];
+  /// 1.1.1. System Inventory [PD00-CUR-SYS-INV].
+  SystemInventory systemInventory = SystemInventory();
 
-  /// Current Architecture.
-  TextSection currentArchitecture = TextSection();
+  /// 1.1.2. Current Architecture [PD00-CUR-SYS-ARC].
+  CurrentArchitecture currentArchitecture = CurrentArchitecture();
 
   /// 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
-  DependenciesAndIntegrations dependenciesAndIntegrations = DependenciesAndIntegrations();
+  DependenciesAndIntegrations dependenciesAndIntegrations =
+      DependenciesAndIntegrations();
+}
+
+/// 1.1.1. System Inventory [PD00-CUR-SYS-INV].
+///
+/// Container for individual system descriptions. Add one entry per existing
+/// system relevant to the project scope.
+@SectionId('PD00-CUR-SYS-INV')
+class SystemInventory {
+  @ContentType('description', 'Introduction to the system inventory. '
+      'Describe the criteria for including systems and the overall landscape.')
+  String? content;
+
+  /// Contains 1+× Existing System [PD00-CUR-SYS-INV-nn].
+  @SectionIdPattern('PD00-CUR-SYS-INV-xx')
+  @Min(1)
+  @ContentHelp('Add one entry per existing system that is relevant to the '
+      'project scope. Include all systems that will be replaced, integrated '
+      'with, or affected by the new system.')
+  List<ExistingSystemEntry> systems = [];
+}
+
+/// 1.1.2. Current Architecture [PD00-CUR-SYS-ARC].
+///
+/// Description of the current system architecture including deployment
+/// topology, integration patterns, shared services, and data stores.
+@SectionId('PD00-CUR-SYS-ARC')
+class CurrentArchitecture {
+  @ContentType('description', 'Narrative description of the current '
+      'architecture including deployment topology, integration patterns, '
+      'shared services, and data stores.')
+  @ContentHelp('Describe the current system architecture. Include deployment '
+      'topology, integration patterns, shared services, data stores. '
+      'Reference an architecture overview diagram.')
+  String? content;
+
+  /// Architecture overview diagram [PD00-CUR-SYS-ARC-DIA].
+  @SectionId('PD00-CUR-SYS-ARC-DIA')
+  @ContentType('mermaid-flowchart', 'Architecture overview diagram showing '
+      'systems, their connections, and data flows')
+  @ContentHelp('Provide a Mermaid flowchart showing the current architecture. '
+      'Include all major systems, their connections, and data flow directions.')
+  String? architectureDiagram;
+
+  /// Deployment topology description [PD00-CUR-SYS-ARC-DEP].
+  @ContentType('description', 'Description of how systems are deployed '
+      'across infrastructure')
+  String? deploymentTopology;
+
+  /// Integration patterns used [PD00-CUR-SYS-ARC-INT].
+  @ContentType('description', 'Description of integration patterns '
+      '(API, file transfer, message queue, etc.)')
+  String? integrationPatterns;
+
+  /// Shared services inventory [PD00-CUR-SYS-ARC-SHR].
+  @ContentType('description', 'List and description of shared services '
+      'used across systems')
+  String? sharedServices;
 }
 
 /// An existing system entry [PD00-CUR-SYS-INV-nn] (form).
+///
+/// Captures comprehensive information about an existing system including
+/// identity, technology, business context, usage metrics, lifecycle, and risks.
 class ExistingSystemEntry {
+  // -------------------------------------------------------------------------
+  // System Identity
+  // -------------------------------------------------------------------------
+
   @Form([
     Field('systemName', String, 'System Name', required: true),
-    Field('technology', String, 'Technology'),
-    Field('purpose', String, 'Purpose'),
-    Field('activeUsers', String, 'Active Users'),
-    Field('dataVolume', String, 'Data Volume'),
-    Field('operationalSince', String, 'Operational Since'),
-    Field('supportStatus', String, 'Support Status'),
+    Field('systemId', String, 'System ID/Code (internal identifier)'),
+    Field('systemVersion', String, 'Current Version'),
+    Field('systemType', String, 'System Type '
+        '(ERP, CRM, Custom Development, COTS, SaaS, etc.)'),
+    Field('vendor', String, 'Vendor (if commercial software)'),
+    Field('licenseType', String, 'License Type '
+        '(Enterprise, Per-User, Subscription, Open Source, etc.)'),
   ])
   String? content;
 
-  /// Contains 0+× Limitation.
+  // -------------------------------------------------------------------------
+  // Technology Stack
+  // -------------------------------------------------------------------------
+
+  /// Technology stack details [PD00-CUR-SYS-INV-nn-TEC].
+  @Comment('Technology stack')
+  ExistingSystemTechnology? technology;
+
+  // -------------------------------------------------------------------------
+  // Business Context
+  // -------------------------------------------------------------------------
+
+  /// Business context [PD00-CUR-SYS-INV-nn-BUS].
+  @Comment('Business context')
+  ExistingSystemBusinessContext? businessContext;
+
+  // -------------------------------------------------------------------------
+  // Usage Metrics
+  // -------------------------------------------------------------------------
+
+  /// Usage metrics [PD00-CUR-SYS-INV-nn-USE].
+  @Comment('Usage metrics')
+  ExistingSystemUsage? usage;
+
+  // -------------------------------------------------------------------------
+  // Lifecycle Information
+  // -------------------------------------------------------------------------
+
+  /// Lifecycle information [PD00-CUR-SYS-INV-nn-LIF].
+  @Comment('Lifecycle information')
+  ExistingSystemLifecycle? lifecycle;
+
+  // -------------------------------------------------------------------------
+  // Integration Profile
+  // -------------------------------------------------------------------------
+
+  /// Integration profile [PD00-CUR-SYS-INV-nn-INT].
+  @Comment('Integration profile')
+  ExistingSystemIntegration? integrationProfile;
+
+  // -------------------------------------------------------------------------
+  // Infrastructure
+  // -------------------------------------------------------------------------
+
+  /// Infrastructure details [PD00-CUR-SYS-INV-nn-INF].
+  @Comment('Infrastructure')
+  ExistingSystemInfrastructure? infrastructure;
+
+  // -------------------------------------------------------------------------
+  // Quality & Risk
+  // -------------------------------------------------------------------------
+
+  /// Contains 0+× Limitation [PD00-CUR-SYS-INV-nn-LIM-nn].
   @SectionIdPattern('PD00-CUR-SYS-INV-xx-LIM-xx')
+  @ContentHelp('Document each known limitation with its impact on current '
+      'operations and any workarounds in place.')
   List<LimitationEntry> knownLimitations = [];
+
+  /// Quality and risk assessment [PD00-CUR-SYS-INV-nn-QUA].
+  @Comment('Quality and risk')
+  ExistingSystemQuality? quality;
+}
+
+/// Technology stack details for an existing system.
+class ExistingSystemTechnology {
+  @Form([
+    Field('primaryPlatform', String, 'Primary Technology Platform'),
+    Field('programmingLanguages', String, 'Programming Languages (comma-separated)'),
+    Field('databaseTechnology', String, 'Database Technology'),
+    Field('operatingSystem', String, 'Operating System'),
+    Field('frameworksMiddleware', String, 'Frameworks/Middleware'),
+    Field('frontendTechnology', String, 'Frontend Technology (if applicable)'),
+  ])
+  String? content;
+}
+
+/// Business context for an existing system.
+class ExistingSystemBusinessContext {
+  @Form([
+    Field('purpose', String, 'Purpose/Description', required: true),
+    Field('businessDomain', String, 'Business Domain '
+        '(Finance, Sales, Operations, HR, etc.)'),
+    Field('owningDepartment', String, 'Owning Business Unit/Department'),
+    Field('businessCriticality', String, 'Business Criticality '
+        '(Mission Critical, Business Critical, Standard, Low)'),
+    Field('businessOwner', String, 'Business Owner (name/role)'),
+    Field('technicalOwner', String, 'Technical Owner (name/role)'),
+  ])
+  String? content;
+}
+
+/// Usage metrics for an existing system.
+class ExistingSystemUsage {
+  @Form([
+    Field('activeUsers', int, 'Active Users (total registered)'),
+    Field('dailyActiveUsers', int, 'Daily Active Users'),
+    Field('peakConcurrentUsers', int, 'Peak Concurrent Users'),
+    Field('transactionVolumeDaily', String, 'Transaction Volume (daily average)'),
+    Field('dataVolumeCurrent', String, 'Current Data Volume'),
+    Field('dataGrowthRate', String, 'Data Growth Rate (monthly/yearly)'),
+    Field('availabilityRequirement', String, 'Availability Requirement '
+        '(e.g., 99.9%, 24x7, business hours)'),
+  ])
+  String? content;
+}
+
+/// Lifecycle information for an existing system.
+class ExistingSystemLifecycle {
+  @Form([
+    Field('goLiveDate', String, 'Go-Live Date (operational since)'),
+    Field('lastMajorUpgrade', String, 'Last Major Upgrade Date'),
+    Field('currentVersion', String, 'Current Version'),
+    Field('supportStatus', String, 'Support Status '
+        '(Active, Limited, Extended, End-of-Life)'),
+    Field('supportExpiryDate', String, 'Support Expiry Date'),
+    Field('plannedRetirementDate', String, 'Planned Retirement Date (if any)'),
+    Field('migrationUrgency', String, 'Migration Urgency '
+        '(Immediate, Within 1 year, Within 3 years, No deadline)'),
+  ])
+  String? content;
+}
+
+/// Integration profile for an existing system.
+class ExistingSystemIntegration {
+  @Form([
+    Field('apiTypesAvailable', String, 'API Types Available '
+        '(REST, SOAP, GraphQL, gRPC, none)'),
+    Field('integrationMethods', String, 'Integration Methods '
+        '(API, File Transfer, Database Link, Message Queue, manual)'),
+    Field('dataFormats', String, 'Data Formats (JSON, XML, CSV, EDI, etc.)'),
+    Field('realTimeCapable', bool, 'Real-Time Integration Capable'),
+    Field('batchProcessingWindows', String, 'Batch Processing Windows'),
+    Field('externalInterfaceCount', int, 'Number of External Interfaces'),
+    Field('internalInterfaceCount', int, 'Number of Internal Interfaces'),
+  ])
+  String? content;
+}
+
+/// Infrastructure details for an existing system.
+class ExistingSystemInfrastructure {
+  @Form([
+    Field('hostingModel', String, 'Hosting Model '
+        '(On-Premise, Private Cloud, Public Cloud, Hybrid, SaaS)'),
+    Field('cloudProvider', String, 'Cloud Provider (if applicable)'),
+    Field('environmentCount', int, 'Number of Environments '
+        '(Dev, Test, Staging, Prod, etc.)'),
+    Field('geographicDeployment', String, 'Geographic Deployment '
+        '(Single region, Multi-region, Global)'),
+    Field('disasterRecovery', String, 'Disaster Recovery Capability '
+        '(Hot standby, Warm standby, Cold backup, None)'),
+    Field('backupFrequency', String, 'Backup Frequency'),
+  ])
+  String? content;
+}
+
+/// Quality and risk assessment for an existing system.
+class ExistingSystemQuality {
+  @Form([
+    Field('technicalDebtLevel', String, 'Technical Debt Level '
+        '(Low, Medium, High, Critical)'),
+    Field('codeQuality', String, 'Code Quality Assessment '
+        '(Good, Acceptable, Poor, Unknown)'),
+    Field('documentationStatus', String, 'Documentation Status '
+        '(Current, Outdated, Minimal, None)'),
+    Field('availabilitySla', String, 'Availability SLA (actual achieved)'),
+    Field('securityComplianceStatus', String, 'Security Compliance Status'),
+    Field('lastSecurityAudit', String, 'Last Security Audit Date'),
+    Field('lastPenetrationTest', String, 'Last Penetration Test Date'),
+    Field('accessibilityCompliance', String, 'Accessibility Compliance '
+        '(WCAG level, Section 508, etc.)'),
+  ])
+  String? content;
 }
 
 /// A known limitation of an existing system (form) [PD00-CUR-SYS-INV-nn-LIM-nn].
