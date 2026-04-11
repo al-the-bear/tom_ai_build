@@ -55,8 +55,8 @@ class SystemDescription {
   /// 4.1.2. System Context [PD00-SYO-SYD-CON].
   SystemContext systemContext = SystemContext();
 
-  /// 4.1.3. Task Area [PD00-SYO-SYD-DES].
-  TextSection taskArea = TextSection();
+  /// 4.1.3. Description of Task Area [PD00-SYO-SYD-DES].
+  TaskArea taskArea = TaskArea();
 
   /// 4.1.4. User Categories [PD00-SYO-SYD-USR] — contains 1+× User Category.
   @SectionIdPattern('PD00-SYO-SYD-USR-xx')
@@ -779,6 +779,402 @@ class ApplicableRegulationEntry {
   @ContentType('description', 'Detailed compliance measures and controls '
       'implemented for this regulation.')
   String? complianceMeasures;
+}
+
+// ---------------------------------------------------------------------------
+// 4.1.3 Description of Task Area
+// ---------------------------------------------------------------------------
+
+/// 4.1.3. Description of Task Area [PD00-SYO-SYD-DES].
+///
+/// Describes the business domain and task area the system addresses.
+/// Defines the domain vocabulary and key concepts (ubiquitous language)
+/// that will be used throughout the project. Based on Domain-Driven Design
+/// principles for establishing a shared understanding.
+@SectionId('PD00-SYO-SYD-DES')
+@ContentHelp('Describe the business domain and task area this system '
+    'addresses. Define the domain vocabulary and key concepts that will '
+    'be used throughout the project documentation. This establishes '
+    'the ubiquitous language for the project.')
+class TaskArea {
+  @ContentType('description', 'High-level overview of the business domain '
+      'and task area, explaining what business activities and processes '
+      'this system will support.')
+  String? content;
+
+  /// 4.1.3.1. Domain Overview [PD00-SYO-SYD-DES-OVE].
+  DomainOverview domainOverview = DomainOverview();
+
+  /// 4.1.3.2. Domain Vocabulary [PD00-SYO-SYD-DES-VOC].
+  DomainVocabulary domainVocabulary = DomainVocabulary();
+
+  /// 4.1.3.3. Key Concepts [PD00-SYO-SYD-DES-CON].
+  KeyConcepts keyConcepts = KeyConcepts();
+
+  /// 4.1.3.4. Domain Boundaries [PD00-SYO-SYD-DES-BOU].
+  DomainBoundaries domainBoundaries = DomainBoundaries();
+
+  /// 4.1.3.5. Business Rules [PD00-SYO-SYD-DES-RUL].
+  DomainBusinessRules businessRules = DomainBusinessRules();
+
+  /// 4.1.3.6. Domain Processes [PD00-SYO-SYD-DES-PRO].
+  DomainProcesses domainProcesses = DomainProcesses();
+
+  /// 4.1.3.7. Domain Events [PD00-SYO-SYD-DES-EVE].
+  DomainEvents domainEvents = DomainEvents();
+}
+
+/// 4.1.3.1. Domain Overview [PD00-SYO-SYD-DES-OVE].
+///
+/// High-level description of the business domain including its purpose,
+/// scope, and relationship to the overall business.
+@SectionId('PD00-SYO-SYD-DES-OVE')
+@ContentHelp('Provide a comprehensive overview of the business domain: '
+    'what area of business it covers, its importance to the organization, '
+    'and how it relates to other business domains.')
+class DomainOverview {
+  @ContentType('description', 'Narrative description of the business domain, '
+      'its purpose, and significance to the organization.')
+  String? content;
+
+  /// Domain Overview Details (form).
+  @Form([
+    Field('domainName', String, 'Domain Name', required: true),
+    Field('domainDescription', String,
+        'Domain Description (what this domain encompasses)'),
+    Field('businessImportance', String,
+        'Business Importance (why this domain matters to the organization)'),
+    Field('industryContext', String,
+        'Industry Context (how this domain fits in the industry)'),
+    Field('relatedDomains', String,
+        'Related Domains (other business domains this interacts with)'),
+    Field('domainOwner', String,
+        'Domain Owner (business unit or person responsible)'),
+    Field('keyStakeholders', String,
+        'Key Stakeholders (who has interest in this domain)'),
+    Field('domainMaturity', String,
+        'Domain Maturity (Emerging, Established, Mature, Legacy)'),
+    Field('changeFrequency', String,
+        'Change Frequency (how often this domain changes)'),
+  ])
+  String? domainDetails;
+}
+
+/// 4.1.3.2. Domain Vocabulary [PD00-SYO-SYD-DES-VOC].
+///
+/// Glossary of domain-specific terms and definitions establishing the
+/// ubiquitous language for the project.
+@SectionId('PD00-SYO-SYD-DES-VOC')
+@ContentHelp('Define all domain-specific terms and their meanings. '
+    'This glossary establishes the ubiquitous language - the shared '
+    'vocabulary that all team members and stakeholders will use.')
+class DomainVocabulary {
+  @ContentType('description', 'Introduction to the domain vocabulary '
+      'and guidelines for using consistent terminology.')
+  String? content;
+
+  /// Vocabulary entries — contains 1+× DomainTermEntry.
+  @SectionIdPattern('PD00-SYO-SYD-DES-VOC-xx')
+  @Min(1)
+  @ContentHelp('Add one entry per domain term. Include all business-specific '
+      'terms that may be unfamiliar or have domain-specific meanings.')
+  List<DomainTermEntry> terms = [];
+}
+
+/// A domain term entry (form).
+class DomainTermEntry {
+  @Form([
+    Field('term', String, 'Term', required: true),
+    Field('definition', String, 'Definition', required: true),
+    Field('synonyms', String, 'Synonyms (alternative terms sometimes used)'),
+    Field('antiPatterns', String,
+        'Anti-Patterns (terms to avoid, incorrect usage)'),
+    Field('examples', String, 'Examples (usage examples)'),
+    Field('relatedTerms', String, 'Related Terms (linked concepts)'),
+    Field('category', String,
+        'Category (Entity, Process, Role, Metric, Status, etc.)'),
+    Field('source', String,
+        'Source (where this definition comes from: industry, company, etc.)'),
+    Field('abbreviation', String, 'Abbreviation (if commonly abbreviated)'),
+  ])
+  String? content;
+}
+
+/// 4.1.3.3. Key Concepts [PD00-SYO-SYD-DES-CON].
+///
+/// Core business concepts and entities in the domain, their attributes,
+/// and relationships (conceptual domain model).
+@SectionId('PD00-SYO-SYD-DES-CON')
+@ContentHelp('Describe the key concepts (entities, value objects, aggregates) '
+    'in the domain. This is the conceptual domain model showing core '
+    'business objects and their relationships.')
+class KeyConcepts {
+  @ContentType('description', 'Overview of the key concepts in the domain '
+      'and how they relate to each other.')
+  String? content;
+
+  /// Conceptual domain model diagram.
+  @SectionId('PD00-SYO-SYD-DES-CON-DIA')
+  @ContentType('mermaid-classDiagram', 'Conceptual domain model showing '
+      'key entities and their relationships')
+  @ContentHelp('Create a Mermaid class diagram showing the main domain '
+      'concepts and their relationships. Focus on business concepts, '
+      'not technical implementation.')
+  String? conceptualModelDiagram;
+
+  /// Key concept entries — contains 1+× KeyConceptEntry.
+  @SectionIdPattern('PD00-SYO-SYD-DES-CON-xx')
+  @Min(1)
+  @ContentHelp('Add one entry per key business concept or entity.')
+  List<KeyConceptEntry> concepts = [];
+}
+
+/// A key concept entry (form).
+class KeyConceptEntry {
+  @Form([
+    Field('conceptName', String, 'Concept Name', required: true),
+    Field('conceptType', String,
+        'Concept Type (Entity, Value Object, Aggregate Root, Event, Service)',
+        required: true),
+    Field('description', String, 'Description', required: true),
+    Field('keyAttributes', String,
+        'Key Attributes (main properties of this concept)'),
+    Field('identifiedBy', String,
+        'Identified By (what uniquely identifies instances)'),
+    Field('lifecycle', String,
+        'Lifecycle (how instances are created, modified, archived)'),
+    Field('ownedBy', String,
+        'Owned By (which business function owns this concept)'),
+    Field('relatedConcepts', String,
+        'Related Concepts (other concepts this relates to)'),
+    Field('businessRules', String,
+        'Business Rules (rules that govern this concept)'),
+    Field('volumeEstimate', String,
+        'Volume Estimate (expected number of instances)'),
+  ])
+  String? content;
+
+  /// Detailed attribute definitions for this concept.
+  @ContentType('description', 'Detailed description of attributes, '
+      'their types, constraints, and business meaning.')
+  String? attributeDetails;
+
+  /// Relationships to other concepts.
+  @ContentType('description', 'Detailed description of how this concept '
+      'relates to other concepts in the domain.')
+  String? relationshipDetails;
+}
+
+/// 4.1.3.4. Domain Boundaries [PD00-SYO-SYD-DES-BOU].
+///
+/// Clear definition of what is within and outside the domain scope,
+/// based on bounded context principles.
+@SectionId('PD00-SYO-SYD-DES-BOU')
+@ContentHelp('Define clear boundaries for this domain: what concepts, '
+    'processes, and responsibilities are within scope, and what belongs '
+    'to adjacent domains. This establishes the bounded context.')
+class DomainBoundaries {
+  @ContentType('description', 'Overview of domain boundaries and '
+      'how this domain interfaces with others.')
+  String? content;
+
+  /// Context map showing domain boundaries.
+  @SectionId('PD00-SYO-SYD-DES-BOU-MAP')
+  @ContentType('mermaid-flowchart', 'Context map showing this domain '
+      'and its relationships to adjacent domains')
+  @ContentHelp('Create a context map showing this domain (bounded context) '
+      'and how it relates to other domains/contexts.')
+  String? contextMap;
+
+  /// Within-scope items.
+  @ContentType('description', 'Concepts, processes, and responsibilities '
+      'that are within this domain\'s scope.')
+  String? withinScope;
+
+  /// Outside-scope items.
+  @ContentType('description', 'Concepts and responsibilities that belong '
+      'to other domains and are outside this domain\'s scope.')
+  String? outsideScope;
+
+  /// Domain interfaces — contains 0+× DomainInterfaceEntry.
+  @SectionIdPattern('PD00-SYO-SYD-DES-BOU-INT-xx')
+  @ContentHelp('Define interfaces to adjacent domains - how this domain '
+      'communicates with and shares data with other domains.')
+  List<DomainInterfaceEntry> interfaces = [];
+}
+
+/// A domain interface entry (form).
+class DomainInterfaceEntry {
+  @Form([
+    Field('adjacentDomain', String, 'Adjacent Domain Name', required: true),
+    Field('interfaceType', String,
+        'Interface Type (Shared Kernel, Customer-Supplier, '
+            'Conformist, Anti-Corruption Layer, Published Language)',
+        required: true),
+    Field('direction', String,
+        'Direction (Upstream, Downstream, Bidirectional)'),
+    Field('dataExchanged', String,
+        'Data Exchanged (what information crosses the boundary)'),
+    Field('integrationMechanism', String,
+        'Integration Mechanism (API, Events, Shared Database, etc.)'),
+    Field('translationRequired', String,
+        'Translation Required (does data need transformation?)'),
+    Field('owner', String,
+        'Owner (who owns this interface)'),
+  ])
+  String? content;
+}
+
+/// 4.1.3.5. Domain Business Rules [PD00-SYO-SYD-DES-RUL].
+///
+/// Business rules, policies, and constraints that govern behavior
+/// within this domain.
+@SectionId('PD00-SYO-SYD-DES-RUL')
+@ContentHelp('Document the business rules that govern this domain. '
+    'Include policies, constraints, calculations, and decision logic.')
+class DomainBusinessRules {
+  @ContentType('description', 'Overview of business rules and their '
+      'importance in this domain.')
+  String? content;
+
+  /// Business rule entries — contains 0+× BusinessRuleEntry.
+  @SectionIdPattern('PD00-SYO-SYD-DES-RUL-xx')
+  @ContentHelp('Add one entry per business rule. Be specific and unambiguous.')
+  List<DomainBusinessRuleEntry> rules = [];
+}
+
+/// A domain business rule entry (form).
+class DomainBusinessRuleEntry {
+  @Form([
+    Field('ruleId', String, 'Rule ID', required: true),
+    Field('ruleName', String, 'Rule Name', required: true),
+    Field('ruleType', String,
+        'Rule Type (Constraint, Calculation, Derivation, Action-Trigger, '
+            'Authorization, Validation)', required: true),
+    Field('description', String, 'Description (plain language)', required: true),
+    Field('formalStatement', String,
+        'Formal Statement (precise, unambiguous statement)'),
+    Field('appliesTo', String,
+        'Applies To (which concepts/processes this rule governs)'),
+    Field('conditions', String,
+        'Conditions (when this rule applies)'),
+    Field('consequences', String,
+        'Consequences (what happens when rule is triggered/violated)'),
+    Field('priority', String,
+        'Priority (if rules conflict, which takes precedence)'),
+    Field('source', String,
+        'Source (regulation, policy, business decision)'),
+    Field('exceptions', String,
+        'Exceptions (when rule does not apply)'),
+    Field('examples', String,
+        'Examples (concrete examples of rule application)'),
+  ])
+  String? content;
+}
+
+/// 4.1.3.6. Domain Processes [PD00-SYO-SYD-DES-PRO].
+///
+/// High-level business processes within this domain, showing the main
+/// workflows and activities.
+@SectionId('PD00-SYO-SYD-DES-PRO')
+@ContentHelp('Describe the main business processes within this domain. '
+    'Focus on business activities, not system implementation.')
+class DomainProcesses {
+  @ContentType('description', 'Overview of the key business processes '
+      'that operate within this domain.')
+  String? content;
+
+  /// Process overview diagram.
+  @SectionId('PD00-SYO-SYD-DES-PRO-DIA')
+  @ContentType('mermaid-flowchart', 'High-level process map showing '
+      'main processes and their relationships')
+  @ContentHelp('Create a process map showing the main business processes '
+      'and how they interact.')
+  String? processOverviewDiagram;
+
+  /// Domain process entries — contains 0+× DomainProcessEntry.
+  @SectionIdPattern('PD00-SYO-SYD-DES-PRO-xx')
+  @ContentHelp('Add one entry per major business process in this domain.')
+  List<DomainProcessEntry> processes = [];
+}
+
+/// A domain process entry (form).
+class DomainProcessEntry {
+  @Form([
+    Field('processName', String, 'Process Name', required: true),
+    Field('processDescription', String, 'Process Description', required: true),
+    Field('processType', String,
+        'Process Type (Core, Support, Management)'),
+    Field('trigger', String,
+        'Trigger (what initiates this process)'),
+    Field('inputs', String,
+        'Inputs (what data/artifacts are needed)'),
+    Field('outputs', String,
+        'Outputs (what is produced)'),
+    Field('participants', String,
+        'Participants (roles/actors involved)'),
+    Field('frequency', String,
+        'Frequency (how often this process runs)'),
+    Field('duration', String,
+        'Duration (typical time to complete)'),
+    Field('successCriteria', String,
+        'Success Criteria (what defines successful completion)'),
+    Field('keyDecisions', String,
+        'Key Decisions (decision points within the process)'),
+    Field('relatedProcesses', String,
+        'Related Processes (processes that interact with this one)'),
+  ])
+  String? content;
+
+  /// Process flow details.
+  @ContentType('description', 'Detailed description of process steps, '
+      'decision points, and variations.')
+  String? processFlowDetails;
+}
+
+/// 4.1.3.7. Domain Events [PD00-SYO-SYD-DES-EVE].
+///
+/// Significant business events that occur within this domain and
+/// trigger actions or state changes.
+@SectionId('PD00-SYO-SYD-DES-EVE')
+@ContentHelp('Document significant business events within this domain. '
+    'Events represent things that happen which are important to the '
+    'business and may trigger reactions.')
+class DomainEvents {
+  @ContentType('description', 'Overview of key domain events and '
+      'their significance.')
+  String? content;
+
+  /// Domain event entries — contains 0+× DomainEventEntry.
+  @SectionIdPattern('PD00-SYO-SYD-DES-EVE-xx')
+  @ContentHelp('Add one entry per significant business event.')
+  List<DomainEventEntry> events = [];
+}
+
+/// A domain event entry (form).
+class DomainEventEntry {
+  @Form([
+    Field('eventName', String, 'Event Name (past tense, e.g., OrderPlaced)',
+        required: true),
+    Field('eventDescription', String, 'Event Description', required: true),
+    Field('eventType', String,
+        'Event Type (State Change, Action Completed, Time-based, External)'),
+    Field('trigger', String,
+        'Trigger (what causes this event)'),
+    Field('sourceEntity', String,
+        'Source Entity (which concept generates this event)'),
+    Field('eventData', String,
+        'Event Data (what information is carried with the event)'),
+    Field('subscribers', String,
+        'Subscribers (who/what reacts to this event)'),
+    Field('reactions', String,
+        'Reactions (what happens when this event occurs)'),
+    Field('frequency', String,
+        'Frequency (how often this event occurs)'),
+    Field('businessImpact', String,
+        'Business Impact (significance of this event)'),
+  ])
+  String? content;
 }
 
 /// 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
