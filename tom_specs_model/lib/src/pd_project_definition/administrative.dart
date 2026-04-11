@@ -164,28 +164,141 @@ class CommitteeResponsibilityEntry {
 // ---------------------------------------------------------------------------
 
 /// 3.2. Project Team Staffing [PD00-ADM-TEA].
+///
+/// Container for individual staff assignments including roles, responsibilities,
+/// availability, and required competencies.
 @SectionId('PD00-ADM-TEA')
+@ContentHelp('Document all team members assigned to the project with their '
+    'roles, allocation percentages, and reporting relationships.')
 class ProjectTeamStaffing {
-  @Unused()
+  @ContentType('description', 'Overview of team structure, staffing approach, '
+      'and resource planning considerations.')
   String? content;
+
+  /// Team structure overview.
+  TeamStructureOverview teamStructure = TeamStructureOverview();
 
   /// Team members — contains 1+× Team Member.
   @SectionIdPattern('PD00-ADM-TEA-xx')
   @Min(1)
   List<TeamMemberEntry> members = [];
+
+  /// Resource requirements not yet filled.
+  @SectionIdPattern('PD00-ADM-TEA-REQ-xx')
+  List<ResourceRequirementEntry> openRequirements = [];
+}
+
+/// Team structure overview.
+class TeamStructureOverview {
+  @Form([
+    Field('teamSize', int, 'Total Team Size'),
+    Field('internalResources', int, 'Internal Resources'),
+    Field('externalResources', int, 'External Resources'),
+    Field('teamLocationModel', String, 'Location Model (Co-located/Distributed/Hybrid)'),
+    Field('coreHours', String, 'Core Working Hours'),
+    Field('reportingStructure', String, 'Reporting Structure'),
+  ])
+  String? content;
+
+  /// Team structure diagram.
+  DiagramSection teamDiagram = DiagramSection();
+}
+
+/// A resource requirement entry for unfilled positions.
+class ResourceRequirementEntry {
+  @Form([
+    Field('roleName', String, 'Role Name', required: true),
+    Field('skillsRequired', String, 'Required Skills'),
+    Field('experience', String, 'Experience Level'),
+    Field('allocation', String, 'Allocation'),
+    Field('requiredBy', String, 'Required By Date'),
+    Field('priority', String, 'Priority (Critical/High/Medium/Low)'),
+    Field('status', String, 'Recruitment Status'),
+  ])
+  String? content;
 }
 
 /// A team member entry [PD00-ADM-TEA-nn] (form).
+///
+/// Detailed information about a project team member including their role,
+/// responsibilities, availability, and competencies.
+@ContentHelp('Document each team member with their role, allocation, skills, '
+    'and availability. Include contact information and backup arrangements.')
 class TeamMemberEntry {
   @Form([
     Field('name', String, 'Name', required: true),
-    Field('projectRole', String, 'Project Role'),
-    Field('organization', String, 'Organization'),
-    Field('allocation', String, 'Allocation'),
+    Field('projectRole', String, 'Project Role', required: true),
+    Field('organization', String, 'Organization/Department'),
+    Field('jobTitle', String, 'Job Title'),
+    Field('allocation', String, 'Allocation Percentage'),
     Field('startDate', String, 'Start Date'),
     Field('endDate', String, 'End Date'),
-    Field('specialSkills', String, 'Special Skills'),
+    Field('workLocation', String, 'Work Location'),
+    Field('timeZone', String, 'Time Zone'),
+    Field('contactEmail', String, 'Contact Email'),
+    Field('contactPhone', String, 'Contact Phone'),
     Field('reportingTo', String, 'Reporting To'),
+    Field('backup', String, 'Backup/Deputy'),
+  ])
+  String? content;
+
+  /// Special skills and certifications.
+  TeamMemberSkills skills = TeamMemberSkills();
+
+  /// Availability constraints.
+  TeamMemberAvailability availability = TeamMemberAvailability();
+
+  /// Role-specific responsibilities.
+  @SectionIdPattern('PD00-ADM-TEA-xx-RES-xx')
+  List<TeamMemberResponsibilityEntry> responsibilities = [];
+}
+
+/// Team member skills and certifications.
+class TeamMemberSkills {
+  @Form([
+    Field('primarySkills', String, 'Primary Skills'),
+    Field('secondarySkills', String, 'Secondary Skills'),
+    Field('certifications', String, 'Certifications'),
+    Field('domainExpertise', String, 'Domain Expertise'),
+    Field('yearsExperience', int, 'Years of Experience'),
+  ])
+  String? content;
+
+  /// Individual skill entries.
+  List<SkillEntry> skillDetails = [];
+}
+
+/// A skill entry with proficiency level.
+class SkillEntry {
+  @Form([
+    Field('skillName', String, 'Skill Name', required: true),
+    Field('proficiencyLevel', String, 'Proficiency (Expert/Advanced/Intermediate/Beginner)'),
+    Field('yearsUsing', int, 'Years Using'),
+    Field('lastUsed', String, 'Last Used'),
+  ])
+  String? content;
+}
+
+/// Team member availability constraints.
+class TeamMemberAvailability {
+  @Form([
+    Field('availableFrom', String, 'Available From'),
+    Field('availableUntil', String, 'Available Until'),
+    Field('plannedAbsences', String, 'Planned Absences'),
+    Field('workingHours', String, 'Working Hours'),
+    Field('constraints', String, 'Availability Constraints'),
+    Field('onCallRequirements', String, 'On-Call Requirements'),
+  ])
+  String? content;
+}
+
+/// A team member responsibility entry.
+class TeamMemberResponsibilityEntry {
+  @Form([
+    Field('area', String, 'Responsibility Area', required: true),
+    Field('description', String, 'Description'),
+    Field('deliverables', String, 'Key Deliverables'),
+    Field('authority', String, 'Decision Authority'),
   ])
   String? content;
 }
