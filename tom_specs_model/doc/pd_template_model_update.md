@@ -22,9 +22,9 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-CUR-PRO | Current Business Processes | High | ✅ Done |
 | PD00-CUR-PRO-WOR | Workflow Descriptions | Medium | ✅ Done |
 | PD00-CUR-PRO-WOR-01 | Sample: Order Processing Workflow | Low | ✅ Done |
-| PD00-ADM-OTH | Other Administrative Requirements | Medium | ⬜ Not Started |
-| PD00-ADM-PRO-STE | Steering Committee | Medium | ⬜ Not Started |
-| PD00-ADM-PRO-STE-01 | Sample: Chief Technology Officer | Low | ⬜ Not Started |
+| PD00-ADM-OTH | Other Administrative Requirements | Medium | ✅ Done |
+| PD00-ADM-PRO-STE | Steering Committee | Medium | ✅ Done |
+| PD00-ADM-PRO-STE-01 | Sample: Chief Technology Officer | Low | ✅ Done |
 | PD00-ADM-TEA-01 | Sample: Project Manager | Low | ⬜ Not Started |
 | PD00-ADM-REF-01 | Sample: Enterprise Architecture Document | Low | ⬜ Not Started |
 | PD00-SYO-SYD-PUR | System Purpose | High | ⬜ Not Started |

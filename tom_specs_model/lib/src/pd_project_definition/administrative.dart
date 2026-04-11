@@ -28,8 +28,9 @@ class Administrative {
   /// 3.5. Reference Documents [PD00-ADM-REF] — contains 0+× Reference Document.
   ReferenceDocuments referenceDocuments = ReferenceDocuments();
 
-  /// Other Administrative.
-  TextSection otherAdministrative = TextSection();
+  /// 3.6. Other Administrative Requirements [PD00-ADM-OTH].
+  OtherAdministrativeRequirements otherAdministrative =
+      OtherAdministrativeRequirements();
 }
 
 // ---------------------------------------------------------------------------
@@ -45,33 +46,115 @@ class ProjectOrganization {
   /// 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
   OrganizationStructure organizationStructure = OrganizationStructure();
 
-  /// 3.1.2. Steering Committee [PD00-ADM-PRO-STE] — contains 1+× Member.
-  @SectionIdPattern('PD00-ADM-PRO-STE-xx')
-  @Min(1)
-  List<CommitteeMemberEntry> steeringCommittee = [];
+  /// 3.1.2. Steering Committee [PD00-ADM-PRO-STE].
+  SteeringCommittee steeringCommittee = SteeringCommittee();
 }
 
 /// 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
 @SectionId('PD00-ADM-PRO-STR')
 class OrganizationStructure {
-  @Unused()
+  @ContentType('description', 'Project organization chart with reporting '
+      'lines, governance model, and escalation paths.')
+  @ContentHelp('Insert project organization chart showing reporting lines. '
+      'Describe the governance model: who decides what, escalation paths, '
+      'meeting cadence.')
   String? content;
 
-  /// Org Chart Explanation.
-  TextSection orgChartExplanation = TextSection();
+  /// Governance model details.
+  GovernanceModel governanceModel = GovernanceModel();
 
   /// Organization chart diagram (e.g. Mermaid or image reference).
   DiagramSection orgChartDiagram = DiagramSection();
 }
 
+/// Governance model details.
+class GovernanceModel {
+  @Form([
+    Field('decisionFramework', String, 'Decision-Making Framework'),
+    Field('escalationPaths', String, 'Escalation Paths'),
+    Field('meetingCadence', String, 'Meeting Cadence'),
+    Field('reportingFrequency', String, 'Reporting Frequency'),
+  ])
+  String? content;
+
+  /// Decision authority matrix.
+  @SectionIdPattern('PD00-ADM-PRO-STR-DEC-xx')
+  List<DecisionAuthorityEntry> decisionAuthorities = [];
+}
+
+/// A decision authority entry.
+class DecisionAuthorityEntry {
+  @Form([
+    Field('decisionArea', String, 'Decision Area', required: true),
+    Field('authorityLevel', String, 'Authority Level'),
+    Field('decisionMaker', String, 'Decision Maker'),
+    Field('escalationTo', String, 'Escalation To'),
+    Field('responseTime', String, 'Expected Response Time'),
+  ])
+  String? content;
+}
+
+/// 3.1.2. Steering Committee [PD00-ADM-PRO-STE].
+///
+/// Container for steering committee member descriptions.
+@SectionId('PD00-ADM-PRO-STE')
+@ContentHelp('List all steering committee members with their roles, '
+    'responsibilities, and decision authorities.')
+class SteeringCommittee {
+  @ContentType('description', 'Overview of steering committee composition '
+      'and responsibilities.')
+  String? content;
+
+  /// Committee charter and rules.
+  CommitteeCharter charter = CommitteeCharter();
+
+  /// Steering committee members — contains 1+× Committee Member.
+  @SectionIdPattern('PD00-ADM-PRO-STE-xx')
+  @Min(1)
+  List<CommitteeMemberEntry> members = [];
+}
+
+/// Committee charter defining rules and procedures.
+class CommitteeCharter {
+  @Form([
+    Field('purpose', String, 'Purpose'),
+    Field('meetingFrequency', String, 'Meeting Frequency'),
+    Field('quorumRequirements', String, 'Quorum Requirements'),
+    Field('votingRules', String, 'Voting Rules'),
+    Field('minutesDistribution', String, 'Minutes Distribution'),
+  ])
+  String? content;
+}
+
 /// A steering committee member entry [PD00-ADM-PRO-STE-nn] (form).
+///
+/// Detailed information about a steering committee member.
+@ContentHelp('Document each committee member with their organizational role, '
+    'committee responsibilities, and decision authority.')
 class CommitteeMemberEntry {
   @Form([
     Field('name', String, 'Name', required: true),
     Field('organizationRole', String, 'Organization Role'),
+    Field('department', String, 'Department'),
     Field('committeeRole', String, 'Committee Role'),
     Field('decisionAuthority', String, 'Decision Authority'),
-    Field('meetingAttendance', String, 'Meeting Attendance'),
+    Field('delegationRules', String, 'Delegation Rules'),
+    Field('meetingAttendance', String, 'Meeting Attendance (Mandatory/Optional)'),
+    Field('contactInfo', String, 'Contact Information'),
+    Field('substitute', String, 'Substitute/Deputy'),
+  ])
+  String? content;
+
+  /// Specific responsibilities of this member.
+  List<CommitteeResponsibilityEntry> responsibilities = [];
+}
+
+/// A committee member responsibility entry.
+class CommitteeResponsibilityEntry {
+  @Form([
+    Field('area', String, 'Responsibility Area', required: true),
+    Field('scope', String, 'Scope'),
+    Field('escalationTo', String, 'Escalation To'),
   ])
   String? content;
 }
@@ -267,6 +350,289 @@ class ReferenceDocumentEntry {
     Field('date', String, 'Date'),
     Field('purpose', String, 'Purpose'),
     Field('location', String, 'Location'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 3.6 Other Administrative Requirements
+// ---------------------------------------------------------------------------
+
+/// 3.6. Other Administrative Requirements [PD00-ADM-OTH].
+///
+/// Additional administrative agreements, constraints, or requirements not
+/// covered by other sections: IP ownership, NDAs, regulatory compliance,
+/// audit requirements, and other legal or organizational agreements.
+@SectionId('PD00-ADM-OTH')
+@ContentHelp('Document any additional administrative requirements not covered '
+    'elsewhere. Include legal agreements, compliance obligations, and '
+    'organizational constraints that affect project execution.')
+class OtherAdministrativeRequirements {
+  @ContentType('description', 'Overview of additional administrative '
+      'requirements and their impact on the project.')
+  String? content;
+
+  /// 3.6.1. Intellectual Property [PD00-ADM-OTH-IPR].
+  IntellectualPropertyRequirements intellectualProperty =
+      IntellectualPropertyRequirements();
+
+  /// 3.6.2. Confidentiality and NDAs [PD00-ADM-OTH-NDA].
+  ConfidentialityRequirements confidentiality = ConfidentialityRequirements();
+
+  /// 3.6.3. Regulatory Compliance [PD00-ADM-OTH-REG].
+  RegulatoryComplianceRequirements regulatoryCompliance =
+      RegulatoryComplianceRequirements();
+
+  /// 3.6.4. Audit Requirements [PD00-ADM-OTH-AUD].
+  AuditRequirements auditRequirements = AuditRequirements();
+
+  /// 3.6.5. Insurance and Liability [PD00-ADM-OTH-INS].
+  InsuranceLiabilityRequirements insuranceLiability =
+      InsuranceLiabilityRequirements();
+
+  /// 3.6.6. Other Agreements [PD00-ADM-OTH-AGR] — contains 0+× Agreement.
+  @SectionIdPattern('PD00-ADM-OTH-AGR-xx')
+  List<OtherAgreementEntry> otherAgreements = [];
+}
+
+/// 3.6.1. Intellectual Property Requirements [PD00-ADM-OTH-IPR].
+///
+/// Defines ownership and usage rights for project deliverables and IP.
+@SectionId('PD00-ADM-OTH-IPR')
+@ContentHelp('Specify who owns intellectual property created during the project, '
+    'licensing terms, and any pre-existing IP that will be incorporated.')
+class IntellectualPropertyRequirements {
+  @Form([
+    Field('ownershipModel', String, 'Ownership Model',
+        required: true),
+    Field('preExistingIp', String, 'Pre-existing IP'),
+    Field('licensingTerms', String, 'Licensing Terms'),
+    Field('transferConditions', String, 'Transfer Conditions'),
+  ])
+  String? content;
+
+  /// IP ownership details — contains 0+× IP Ownership Entry.
+  @SectionIdPattern('PD00-ADM-OTH-IPR-xx')
+  List<IpOwnershipEntry> ownershipDetails = [];
+}
+
+/// An IP ownership entry (form).
+class IpOwnershipEntry {
+  @Form([
+    Field('assetType', String, 'Asset Type', required: true),
+    Field('assetDescription', String, 'Description'),
+    Field('owner', String, 'Owner'),
+    Field('usageRights', String, 'Usage Rights'),
+    Field('restrictions', String, 'Restrictions'),
+  ])
+  String? content;
+}
+
+/// 3.6.2. Confidentiality and NDA Requirements [PD00-ADM-OTH-NDA].
+///
+/// Non-disclosure agreements and confidentiality constraints.
+@SectionId('PD00-ADM-OTH-NDA')
+@ContentHelp('Document all NDA and confidentiality requirements, including '
+    'what information is confidential, duration, and handling procedures.')
+class ConfidentialityRequirements {
+  @Form([
+    Field('ndaType', String, 'NDA Type (Mutual/One-way)'),
+    Field('effectiveDate', String, 'Effective Date'),
+    Field('expirationDate', String, 'Expiration Date'),
+    Field('governingLaw', String, 'Governing Law'),
+  ])
+  String? content;
+
+  /// Confidential information categories.
+  @SectionIdPattern('PD00-ADM-OTH-NDA-xx')
+  List<ConfidentialInfoCategoryEntry> categories = [];
+
+  /// Data handling procedures.
+  DataHandlingProcedures dataHandling = DataHandlingProcedures();
+}
+
+/// A confidential information category.
+class ConfidentialInfoCategoryEntry {
+  @Form([
+    Field('categoryName', String, 'Category Name', required: true),
+    Field('description', String, 'Description'),
+    Field('classificationLevel', String, 'Classification Level'),
+    Field('handlingInstructions', String, 'Handling Instructions'),
+    Field('authorizedPersonnel', String, 'Authorized Personnel'),
+  ])
+  String? content;
+}
+
+/// Data handling procedures for confidential information.
+class DataHandlingProcedures {
+  @Form([
+    Field('storageRequirements', String, 'Storage Requirements'),
+    Field('transmissionRequirements', String, 'Transmission Requirements'),
+    Field('destructionProcedure', String, 'Destruction Procedure'),
+    Field('breachNotificationProcess', String, 'Breach Notification Process'),
+  ])
+  String? content;
+}
+
+/// 3.6.3. Regulatory Compliance Requirements [PD00-ADM-OTH-REG].
+///
+/// Regulatory and compliance obligations affecting the project.
+@SectionId('PD00-ADM-OTH-REG')
+@ContentHelp('List all regulatory requirements the project must comply with, '
+    'including deadlines, evidence requirements, and responsible parties.')
+class RegulatoryComplianceRequirements {
+  @ContentType('description', 'Overview of regulatory landscape and '
+      'compliance approach.')
+  String? content;
+
+  /// Regulatory requirements — contains 0+× Regulatory Requirement.
+  @SectionIdPattern('PD00-ADM-OTH-REG-xx')
+  List<RegulatoryRequirementEntry> requirements = [];
+
+  /// Compliance milestones.
+  @SectionIdPattern('PD00-ADM-OTH-REG-MIL-xx')
+  List<ComplianceMilestoneEntry> milestones = [];
+}
+
+/// A regulatory requirement entry.
+class RegulatoryRequirementEntry {
+  @Form([
+    Field('regulationName', String, 'Regulation Name', required: true),
+    Field('regulatoryBody', String, 'Regulatory Body'),
+    Field('jurisdiction', String, 'Jurisdiction'),
+    Field('applicability', String, 'Applicability'),
+    Field('complianceDeadline', String, 'Compliance Deadline'),
+    Field('evidenceRequired', String, 'Evidence Required'),
+    Field('responsibleParty', String, 'Responsible Party'),
+    Field('penaltyForNonCompliance', String, 'Penalty for Non-compliance'),
+  ])
+  String? content;
+}
+
+/// A compliance milestone entry.
+class ComplianceMilestoneEntry {
+  @Form([
+    Field('milestoneName', String, 'Milestone Name', required: true),
+    Field('regulation', String, 'Related Regulation'),
+    Field('dueDate', String, 'Due Date'),
+    Field('deliverables', String, 'Deliverables'),
+    Field('verificationMethod', String, 'Verification Method'),
+    Field('status', String, 'Status'),
+  ])
+  String? content;
+}
+
+/// 3.6.4. Audit Requirements [PD00-ADM-OTH-AUD].
+///
+/// Internal and external audit obligations.
+@SectionId('PD00-ADM-OTH-AUD')
+@ContentHelp('Document audit requirements including scope, frequency, '
+    'auditor selection, and deliverable requirements.')
+class AuditRequirements {
+  @ContentType('description', 'Overview of audit requirements and approach.')
+  String? content;
+
+  /// Planned audits — contains 0+× Audit Entry.
+  @SectionIdPattern('PD00-ADM-OTH-AUD-xx')
+  List<AuditEntry> audits = [];
+
+  /// Audit evidence requirements.
+  AuditEvidenceRequirements evidenceRequirements = AuditEvidenceRequirements();
+}
+
+/// An audit entry.
+class AuditEntry {
+  @Form([
+    Field('auditName', String, 'Audit Name', required: true),
+    Field('auditType', String, 'Type (Internal/External)'),
+    Field('auditor', String, 'Auditor'),
+    Field('scope', String, 'Scope'),
+    Field('plannedDate', String, 'Planned Date'),
+    Field('frequency', String, 'Frequency'),
+    Field('standards', String, 'Applicable Standards'),
+  ])
+  String? content;
+}
+
+/// Audit evidence requirements.
+class AuditEvidenceRequirements {
+  @Form([
+    Field('documentationStandards', String, 'Documentation Standards'),
+    Field('retentionPeriod', String, 'Retention Period'),
+    Field('traceabilityRequirements', String, 'Traceability Requirements'),
+    Field('signoffRequirements', String, 'Sign-off Requirements'),
+  ])
+  String? content;
+
+  /// Evidence types required.
+  @SectionIdPattern('PD00-ADM-OTH-AUD-EVI-xx')
+  List<AuditEvidenceTypeEntry> evidenceTypes = [];
+}
+
+/// An audit evidence type entry.
+class AuditEvidenceTypeEntry {
+  @Form([
+    Field('evidenceType', String, 'Evidence Type', required: true),
+    Field('description', String, 'Description'),
+    Field('format', String, 'Required Format'),
+    Field('responsibleRole', String, 'Responsible Role'),
+  ])
+  String? content;
+}
+
+/// 3.6.5. Insurance and Liability Requirements [PD00-ADM-OTH-INS].
+///
+/// Insurance coverage and liability agreements.
+@SectionId('PD00-ADM-OTH-INS')
+@ContentHelp('Document insurance requirements and liability limitations '
+    'applicable to the project.')
+class InsuranceLiabilityRequirements {
+  @ContentType('description', 'Overview of insurance and liability framework.')
+  String? content;
+
+  /// Insurance requirements — contains 0+× Insurance Entry.
+  @SectionIdPattern('PD00-ADM-OTH-INS-xx')
+  List<InsuranceEntry> insuranceRequirements = [];
+
+  /// Liability limitations.
+  LiabilityLimitations liabilityLimitations = LiabilityLimitations();
+}
+
+/// An insurance requirement entry.
+class InsuranceEntry {
+  @Form([
+    Field('insuranceType', String, 'Insurance Type', required: true),
+    Field('minimumCoverage', String, 'Minimum Coverage'),
+    Field('insuredParty', String, 'Insured Party'),
+    Field('policyHolder', String, 'Policy Holder'),
+    Field('validityPeriod', String, 'Validity Period'),
+    Field('certificateRequired', bool, 'Certificate Required'),
+  ])
+  String? content;
+}
+
+/// Liability limitations.
+class LiabilityLimitations {
+  @Form([
+    Field('maxLiability', String, 'Maximum Liability'),
+    Field('exclusions', String, 'Exclusions'),
+    Field('indemnificationClauses', String, 'Indemnification Clauses'),
+    Field('limitationOfDamages', String, 'Limitation of Damages'),
+  ])
+  String? content;
+}
+
+/// An other agreement entry.
+class OtherAgreementEntry {
+  @Form([
+    Field('agreementTitle', String, 'Agreement Title', required: true),
+    Field('agreementType', String, 'Type'),
+    Field('parties', String, 'Parties'),
+    Field('effectiveDate', String, 'Effective Date'),
+    Field('expirationDate', String, 'Expiration Date'),
+    Field('keyTerms', String, 'Key Terms'),
+    Field('obligations', String, 'Obligations'),
+    Field('location', String, 'Document Location'),
   ])
   String? content;
 }
