@@ -2247,132 +2247,947 @@ class SuccessCriterionEntry {
 // ---------------------------------------------------------------------------
 
 /// 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
+///
+/// Initial requirements overview organized by category. Each requirement
+/// receives a unique ID and will be expanded into the RC (Requirements
+/// Catalog) document with full traceability. This section provides the
+/// foundation for requirements management throughout the project lifecycle.
+/// Based on IEEE 830, ISO 29148, BABOK, and Volere requirements shell.
 @SectionId('PD00-SYO-REQ')
 @Comment('Seeds → RC')
+@ContentHelp('Define initial requirements at a level sufficient for project '
+    'scoping and planning. Each requirement should be traceable to business '
+    'goals and verifiable through acceptance criteria.')
 class RequirementsOverview {
-  @Unused()
+  @ContentType('description', 'Overview of requirements approach, '
+      'traceability strategy, and categorization scheme. Explain how '
+      'requirements will be managed throughout the project lifecycle.')
   String? content;
 
-  /// 4.3.1. Functional Requirements [PD00-SYO-REQ-FUN] — contains 1+×.
+  /// Requirements overview form.
+  @Form([
+    Field('requirementsProcess', String,
+        'Requirements Process (how requirements are elicited and managed)'),
+    Field('traceabilityApproach', String,
+        'Traceability Approach (how requirements are linked to goals, tests, code)'),
+    Field('changeControlProcess', String,
+        'Change Control Process (how requirement changes are handled)'),
+    Field('prioritizationMethod', String,
+        'Prioritization Method (MoSCoW, Weighted, etc.)'),
+    Field('totalRequirements', String,
+        'Total Requirements Expected (estimated count)'),
+    Field('mustHaveCount', String, 'Must-Have Requirements (estimated)'),
+    Field('shouldHaveCount', String, 'Should-Have Requirements (estimated)'),
+    Field('couldHaveCount', String, 'Could-Have Requirements (estimated)'),
+  ])
+  String? requirementsForm;
+
+  /// Traceability matrix overview.
+  @SectionId('PD00-SYO-REQ-TRC')
+  @ContentType('description', 'Summary of traceability matrix showing '
+      'connections between requirements, goals, use cases, and tests.')
+  @ContentHelp('Provide a high-level view of requirement traceability.')
+  String? traceabilityMatrix;
+
+  /// 4.3.1. Functional Requirements [PD00-SYO-REQ-FUN].
+  FunctionalRequirements functionalRequirements = FunctionalRequirements();
+
+  /// 4.3.2. Technical Requirements [PD00-SYO-REQ-TEC].
+  TechnicalRequirements technicalRequirements = TechnicalRequirements();
+
+  /// 4.3.3. Security Requirements [PD00-SYO-REQ-SEC].
+  SecurityRequirements securityRequirements = SecurityRequirements();
+
+  /// 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG].
+  OrganizationalRequirements organizationalRequirements =
+      OrganizationalRequirements();
+}
+
+// ---------------------------------------------------------------------------
+// 4.3.1 Functional Requirements
+// ---------------------------------------------------------------------------
+
+/// 4.3.1. Functional Requirements [PD00-SYO-REQ-FUN].
+///
+/// Container for functional requirements. Functional requirements describe
+/// what the system must do — its features, behaviors, processing rules,
+/// and user interactions. Each requirement is uniquely identified and
+/// traceable to business goals and use cases.
+@SectionId('PD00-SYO-REQ-FUN')
+@ContentHelp('Functional requirements describe system capabilities, behaviors, '
+    'and features. Use clear, testable language. Each requirement should '
+    'answer: What must the system do? For whom? Under what conditions?')
+class FunctionalRequirements {
+  @ContentType('description', 'Overview of functional requirements scope, '
+      'categorization, and coverage. Explain how functional requirements '
+      'are organized and trace to use cases.')
+  String? content;
+
+  /// Functional requirements summary form.
+  @Form([
+    Field('totalFunctionalRequirements', String,
+        'Total Functional Requirements'),
+    Field('mustHaveFunctional', String, 'Must-Have (count)'),
+    Field('shouldHaveFunctional', String, 'Should-Have (count)'),
+    Field('couldHaveFunctional', String, 'Could-Have (count)'),
+    Field('wontHaveThisTimeFunctional', String, 'Won\'t-Have-This-Time (count)'),
+    Field('coverageNote', String, 'Coverage Notes'),
+  ])
+  String? summaryForm;
+
+  /// Functional requirements list — contains 1+× Functional Requirement.
   @SectionIdPattern('PD00-SYO-REQ-FUN-xx')
   @Min(1)
-  List<FunctionalRequirementEntry> functionalRequirements = [];
-
-  /// 4.3.2. Technical Requirements [PD00-SYO-REQ-TEC] — contains 0+×.
-  @SectionIdPattern('PD00-SYO-REQ-TEC-xx')
-  List<TechnicalRequirementEntry> technicalRequirements = [];
-
-  /// 4.3.3. Security Requirements [PD00-SYO-REQ-SEC] — contains 0+×.
-  @SectionIdPattern('PD00-SYO-REQ-SEC-xx')
-  List<SecurityRequirementEntry> securityRequirements = [];
-
-  /// 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG] — contains 0+×.
-  @SectionIdPattern('PD00-SYO-REQ-ORG-xx')
-  List<OrganizationalRequirementEntry> organizationalRequirements = [];
+  @ContentHelp('Add one entry per functional requirement. Group related '
+      'requirements together. Each requirement should be atomic, testable, '
+      'and have clear acceptance criteria.')
+  List<FunctionalRequirementEntry> requirements = [];
 }
 
-/// A functional requirement entry [PD00-SYO-REQ-FUN-nn] (form).
+/// A functional requirement entry [PD00-SYO-REQ-FUN-nn].
+///
+/// Comprehensive functional requirement definition following IEEE 830,
+/// ISO 29148, and Volere requirements shell. Includes traceability,
+/// acceptance criteria, UI specification, and business rules.
 class FunctionalRequirementEntry {
   @Form([
-    Field('requirementId', String, 'Requirement Id', required: true),
-    Field('title', String, 'Title', required: true),
-    Field('description', String, 'Short description'),
-    Field('priority', String, 'Priority level'),
-    Field('source', String, 'Source'),
-    Field('rationale', String, 'Rationale'),
-    Field('status', String, 'Current status'),
+    Field('requirementId', String,
+        'Requirement ID (unique, e.g., REQ-F001)', required: true),
+    Field('title', String, 'Title (concise statement)', required: true),
+    Field('description', String,
+        'Description (The system shall... detailed statement)', required: true),
+    Field('requirementType', String,
+        'Requirement Type (Feature, User Story, Business Rule, Report, '
+            'Integration, Calculation, Workflow, Notification, Search, '
+            'Data Entry, Data Display, Data Export, Batch Process)'),
+    Field('category', String,
+        'Category (functional area grouping)'),
+    Field('priority', String,
+        'Priority (Must, Should, Could, Won\'t-This-Time)', required: true),
+    Field('businessValue', String,
+        'Business Value (High, Medium, Low) - benefit to business'),
+    Field('effort', String,
+        'Estimated Effort (Small, Medium, Large, XLarge)'),
+    Field('source', String,
+        'Source (who requested: stakeholder name, workshop, document)',
+        required: true),
+    Field('requestDate', String, 'Request Date'),
+    Field('rationale', String,
+        'Rationale (why this requirement is needed)'),
+    Field('fitCriterion', String,
+        'Fit Criterion (measurable condition for acceptance)'),
+    Field('customerSatisfaction', String,
+        'Customer Satisfaction (1-5 scale if delivered)'),
+    Field('customerDissatisfaction', String,
+        'Customer Dissatisfaction (1-5 scale if NOT delivered)'),
+    Field('assumptions', String,
+        'Assumptions (conditions assumed to be true)'),
+    Field('constraints', String,
+        'Constraints (limitations on implementation)'),
+    Field('riskLevel', String,
+        'Risk Level (High, Medium, Low) - risk of not meeting'),
+    Field('conflictsWith', String,
+        'Conflicts With (IDs of conflicting requirements)'),
+    Field('status', String,
+        'Status (Draft, Proposed, Approved, Implemented, Verified, Deferred)',
+        required: true),
+    Field('version', String, 'Version'),
+    Field('lastModified', String, 'Last Modified Date'),
+    Field('modifiedBy', String, 'Modified By'),
   ])
   String? content;
 
-  /// Contains 0+× AcceptanceCriterion.
-  @SectionIdPattern('PD00-SYO-REQ-FUN-xx-ACR-xx')
-  List<AcceptanceCriterionEntry> acceptanceCriteria = [];
+  /// 4.3.1.n.1. Acceptance Criteria [PD00-SYO-REQ-FUN-nn-ACR].
+  RequirementAcceptanceCriteria acceptanceCriteria =
+      RequirementAcceptanceCriteria();
 
-  @Reference('Related Use Case')
-  String? relatedUseCase;
+  /// 4.3.1.n.2. Business Rules [PD00-SYO-REQ-FUN-nn-BRU].
+  RequirementBusinessRules businessRules = RequirementBusinessRules();
 
-  @Reference('Related Business Process')
-  String? relatedBusinessProcess;
+  /// 4.3.1.n.3. Data Requirements [PD00-SYO-REQ-FUN-nn-DAT].
+  RequirementDataRequirements dataRequirements = RequirementDataRequirements();
 
-  /// Contains 0+× DataEntityReference.
-  @SectionIdPattern('PD00-SYO-REQ-FUN-xx-DER-xx')
-  List<DataEntityReferenceEntry> affectedDataEntities = [];
+  /// 4.3.1.n.4. UI Specification [PD00-SYO-REQ-FUN-nn-UI].
+  RequirementUiSpecification uiSpecification = RequirementUiSpecification();
+
+  /// 4.3.1.n.5. Dependencies [PD00-SYO-REQ-FUN-nn-DEP].
+  RequirementDependencies dependencies = RequirementDependencies();
+
+  /// 4.3.1.n.6. Traceability [PD00-SYO-REQ-FUN-nn-TRC].
+  RequirementTraceability traceability = RequirementTraceability();
+
+  /// 4.3.1.n.7. Test Cases [PD00-SYO-REQ-FUN-nn-TST].
+  RequirementTestCases testCases = RequirementTestCases();
 }
 
-/// An acceptance criterion entry (form). Shared across requirement types [PD00-SYO-REQ-FUN-nn-ACR-nn].
+/// 4.3.1.n.1. Acceptance Criteria [PD00-SYO-REQ-FUN-nn-ACR].
+///
+/// Testable conditions that must be met for the requirement to be accepted.
+/// Uses Given-When-Then format for clarity.
+@SectionId('PD00-SYO-REQ-FUN-nn-ACR')
+@ContentHelp('Define clear, testable acceptance criteria. Use Given-When-Then '
+    'format: Given [context], When [action], Then [expected result].')
+class RequirementAcceptanceCriteria {
+  @ContentType('description', 'Overview of acceptance approach and '
+      'test coverage expectations.')
+  String? content;
+
+  /// Acceptance criterion entries — contains 0+× AcceptanceCriterionEntry.
+  @SectionIdPattern('PD00-SYO-REQ-FUN-xx-ACR-xx')
+  @ContentHelp('Add one criterion per testable condition.')
+  List<AcceptanceCriterionEntry> criteria = [];
+}
+
+/// An acceptance criterion entry (form).
+///
+/// Uses Given-When-Then format (Gherkin style) for testable criteria.
 class AcceptanceCriterionEntry {
   @Form([
-    Field('criterion', String, 'Criterion', required: true),
-    Field('verificationMethod', String, 'Verification Method'),
+    Field('criterionId', String, 'Criterion ID', required: true),
+    Field('criterionTitle', String, 'Criterion Title', required: true),
+    Field('given', String, 'Given (precondition/context)'),
+    Field('when', String, 'When (action/trigger)'),
+    Field('then', String, 'Then (expected outcome)', required: true),
+    Field('and', String, 'And (additional outcomes)'),
+    Field('verificationMethod', String,
+        'Verification Method (Manual, Automated, Inspection, Demo)'),
+    Field('testType', String,
+        'Test Type (Unit, Integration, System, Acceptance, UAT)'),
+    Field('priority', String, 'Priority (Critical, High, Medium, Low)'),
+    Field('status', String, 'Status (Draft, Ready, Passed, Failed, Blocked)'),
   ])
   String? content;
 }
 
-/// A reference to a data entity (form) [PD00-SYO-REQ-FUN-nn-DER-nn].
+/// 4.3.1.n.2. Business Rules [PD00-SYO-REQ-FUN-nn-BRU].
+///
+/// Business rules that constrain or guide this requirement's behavior.
+@SectionId('PD00-SYO-REQ-FUN-nn-BRU')
+@ContentHelp('Define business rules that affect this requirement. Business '
+    'rules are constraints, calculations, or policies from the business domain.')
+class RequirementBusinessRules {
+  @ContentType('description', 'Overview of business rules associated '
+      'with this requirement.')
+  String? content;
+
+  /// Business rule entries — contains 0+× BusinessRuleEntry.
+  @SectionIdPattern('PD00-SYO-REQ-FUN-xx-BRU-xx')
+  List<BusinessRuleEntry> rules = [];
+}
+
+/// A business rule entry (form).
+class BusinessRuleEntry {
+  @Form([
+    Field('ruleId', String, 'Rule ID', required: true),
+    Field('ruleName', String, 'Rule Name', required: true),
+    Field('ruleType', String,
+        'Rule Type (Constraint, Computation, Derivation, Inference, '
+            'Condition, Action, Workflow, Authorization)'),
+    Field('ruleStatement', String,
+        'Rule Statement (IF/WHEN condition THEN action)', required: true),
+    Field('source', String, 'Source (policy, regulation, expert)'),
+    Field('effectiveDate', String, 'Effective Date'),
+    Field('expirationDate', String, 'Expiration Date'),
+    Field('exceptions', String, 'Exceptions (when rule does not apply)'),
+    Field('enforcement', String,
+        'Enforcement (Hard = system enforces, Soft = warning only)'),
+    Field('impact', String, 'Impact (what happens if rule is violated)'),
+  ])
+  String? content;
+}
+
+/// 4.3.1.n.3. Data Requirements [PD00-SYO-REQ-FUN-nn-DAT].
+///
+/// Data entities, attributes, and relationships needed by this requirement.
+@SectionId('PD00-SYO-REQ-FUN-nn-DAT')
+@ContentHelp('Define the data entities and attributes this requirement '
+    'reads, creates, updates, or deletes.')
+class RequirementDataRequirements {
+  @ContentType('description', 'Overview of data requirements and '
+      'CRUD (Create, Read, Update, Delete) operations.')
+  String? content;
+
+  /// Data entity entries — contains 0+× DataEntityReferenceEntry.
+  @SectionIdPattern('PD00-SYO-REQ-FUN-xx-DAT-xx')
+  List<DataEntityReferenceEntry> entities = [];
+}
+
+/// A reference to a data entity (form).
 class DataEntityReferenceEntry {
   @Form([
     Field('entityName', String, 'Entity Name', required: true),
-    Field('relationship', String, 'Relationship'),
+    Field('crudOperations', String,
+        'CRUD Operations (Create, Read, Update, Delete)', required: true),
+    Field('attributes', String,
+        'Attributes (specific fields involved)'),
+    Field('volumeEstimate', String,
+        'Volume Estimate (records created/accessed)'),
+    Field('dataQualityRules', String,
+        'Data Quality Rules (validation, completeness)'),
+    Field('dataOwner', String, 'Data Owner'),
+  ])
+  String? content;
+
+  @Reference('Related Data Model Entity')
+  String? relatedEntity;
+}
+
+/// 4.3.1.n.4. UI Specification [PD00-SYO-REQ-FUN-nn-UI].
+///
+/// User interface specification for this requirement. Defines screens,
+/// forms, and interactions needed to fulfill the requirement.
+/// Uses Flutter/Tom UI framework concepts for specification.
+@SectionId('PD00-SYO-REQ-FUN-nn-UI')
+@ContentHelp('Define the UI elements needed to support this requirement. '
+    'Specify screens, forms, fields, actions, and behaviors.')
+class RequirementUiSpecification {
+  @ContentType('description', 'Overview of UI requirements and '
+      'user interaction patterns.')
+  String? content;
+
+  /// UI specification form.
+  @Form([
+    Field('screenName', String, 'Screen/View Name'),
+    Field('screenType', String,
+        'Screen Type (List, Detail, Form, Dashboard, Dialog, Wizard)'),
+    Field('navigationPath', String, 'Navigation Path (how user reaches this)'),
+    Field('userRoles', String, 'Allowed User Roles'),
+    Field('responsiveBreakpoints', String,
+        'Responsive Breakpoints (mobile, tablet, desktop)'),
+  ])
+  String? uiForm;
+
+  /// UI layout specification (D4rt Flutter code).
+  @SectionId('PD00-SYO-REQ-FUN-nn-UI-LAY')
+  @ContentType('code-dart', 'Flutter/D4rt code specifying the UI layout '
+      'using tom_flutter_ui components.')
+  @ContentHelp('Provide D4rt Flutter code for the UI layout, using '
+      'tom_flutter_ui components. This can be rendered in documentation.')
+  String? layoutCode;
+
+  /// UI mockup diagram (fallback if code not available).
+  @SectionId('PD00-SYO-REQ-FUN-nn-UI-MOC')
+  @ContentType('description', 'ASCII or text description of UI mockup '
+      'if D4rt code is not available.')
+  String? mockupDescription;
+
+  /// Screen field entries — contains 0+× ScreenFieldEntry.
+  @SectionIdPattern('PD00-SYO-REQ-FUN-xx-UI-FLD-xx')
+  @ContentHelp('Define each field in the UI.')
+  List<ScreenFieldEntry> fields = [];
+
+  /// Screen action entries — contains 0+× ScreenActionEntry.
+  @SectionIdPattern('PD00-SYO-REQ-FUN-xx-UI-ACT-xx')
+  @ContentHelp('Define actions available in the UI.')
+  List<ScreenActionEntry> actions = [];
+
+  /// Screen behavior entries — contains 0+× ScreenBehaviorEntry.
+  @SectionIdPattern('PD00-SYO-REQ-FUN-xx-UI-BEH-xx')
+  @ContentHelp('Define dynamic behaviors and interactions.')
+  List<ScreenBehaviorEntry> behaviors = [];
+}
+
+/// A screen field entry (form).
+///
+/// Defines a field in the user interface with all its properties.
+class ScreenFieldEntry {
+  @Form([
+    Field('fieldId', String, 'Field ID', required: true),
+    Field('fieldLabel', String, 'Field Label (display text)', required: true),
+    Field('fieldType', String,
+        'Field Type (Text, Number, Date, DateTime, Dropdown, Checkbox, '
+            'Radio, Switch, TextArea, RichText, File, Image, Lookup, '
+            'Autocomplete, MultiSelect, Slider, Rating, Currency, '
+            'Phone, Email, URL, Address, Signature)',
+        required: true),
+    Field('dataBinding', String, 'Data Binding (entity.attribute)'),
+    Field('defaultValue', String, 'Default Value'),
+    Field('placeholder', String, 'Placeholder Text'),
+    Field('helpText', String, 'Help Text / Tooltip'),
+    Field('required', String, 'Required (Yes, No, Conditional)'),
+    Field('requiredCondition', String,
+        'Required Condition (if conditional)'),
+    Field('readOnly', String, 'Read Only (Yes, No, Conditional)'),
+    Field('readOnlyCondition', String, 'Read Only Condition'),
+    Field('visible', String, 'Visible (Yes, No, Conditional)'),
+    Field('visibilityCondition', String, 'Visibility Condition'),
+    Field('minLength', String, 'Minimum Length'),
+    Field('maxLength', String, 'Maximum Length'),
+    Field('minValue', String, 'Minimum Value'),
+    Field('maxValue', String, 'Maximum Value'),
+    Field('pattern', String, 'Validation Pattern (regex)'),
+    Field('validationMessage', String, 'Custom Validation Message'),
+    Field('dropdownSource', String, 'Dropdown Source (static, API, entity)'),
+    Field('dropdownValues', String, 'Static Dropdown Values'),
+    Field('dependsOn', String, 'Depends On (field IDs that affect this)'),
+    Field('width', String, 'Width (full, half, third, quarter, custom)'),
+    Field('order', String, 'Display Order'),
+    Field('grouping', String, 'Field Grouping / Section'),
+  ])
+  String? content;
+
+  /// Field validation rules — contains 0+× FieldValidationRule.
+  @SectionIdPattern('PD00-SYO-REQ-FUN-xx-UI-FLD-xx-VAL-xx')
+  List<FieldValidationRule> validationRules = [];
+}
+
+/// A field validation rule (form).
+class FieldValidationRule {
+  @Form([
+    Field('ruleType', String,
+        'Rule Type (Required, Pattern, Range, Length, Custom, CrossField)',
+        required: true),
+    Field('ruleExpression', String, 'Rule Expression / Formula'),
+    Field('errorMessage', String, 'Error Message', required: true),
+    Field('severity', String, 'Severity (Error, Warning, Info)'),
+    Field('triggerEvent', String,
+        'Trigger Event (OnBlur, OnChange, OnSubmit)'),
   ])
   String? content;
 }
 
-/// A technical requirement entry [PD00-SYO-REQ-TEC-nn] (form).
+/// A screen action entry (form).
+///
+/// Defines an action (button, link, menu item) in the user interface.
+class ScreenActionEntry {
+  @Form([
+    Field('actionId', String, 'Action ID', required: true),
+    Field('actionLabel', String, 'Action Label (button text)', required: true),
+    Field('actionType', String,
+        'Action Type (Submit, Cancel, Navigate, API Call, Dialog, '
+            'Download, Print, Delete, Duplicate, Export, Import, Refresh, '
+            'Save, SaveAndNew, SaveAndClose, Custom)',
+        required: true),
+    Field('icon', String, 'Icon (Material Icon name or custom)'),
+    Field('iconPosition', String, 'Icon Position (Left, Right, Only)'),
+    Field('buttonStyle', String,
+        'Button Style (Primary, Secondary, Text, Outlined, Danger)'),
+    Field('placement', String,
+        'Placement (Toolbar, Inline, Footer, ContextMenu, FAB)'),
+    Field('keyboardShortcut', String, 'Keyboard Shortcut'),
+    Field('enabled', String, 'Enabled (Yes, No, Conditional)'),
+    Field('enabledCondition', String, 'Enabled Condition'),
+    Field('visible', String, 'Visible (Yes, No, Conditional)'),
+    Field('visibilityCondition', String, 'Visibility Condition'),
+    Field('confirmationRequired', String, 'Confirmation Required (Yes, No)'),
+    Field('confirmationMessage', String, 'Confirmation Message'),
+    Field('successMessage', String, 'Success Message'),
+    Field('errorMessage', String, 'Error Message'),
+    Field('navigationTarget', String, 'Navigation Target (if Navigate)'),
+    Field('apiEndpoint', String, 'API Endpoint (if API Call)'),
+    Field('requiredPermission', String, 'Required Permission'),
+    Field('auditLogging', String, 'Audit Logging (Yes, No)'),
+  ])
+  String? content;
+
+  /// Action parameters — contains 0+× ActionParameterEntry.
+  @SectionIdPattern('PD00-SYO-REQ-FUN-xx-UI-ACT-xx-PAR-xx')
+  List<ActionParameterEntry> parameters = [];
+}
+
+/// An action parameter entry (form).
+class ActionParameterEntry {
+  @Form([
+    Field('parameterName', String, 'Parameter Name', required: true),
+    Field('sourceType', String,
+        'Source Type (Field, Constant, Context, User)', required: true),
+    Field('sourceValue', String, 'Source Value / Field ID'),
+    Field('required', String, 'Required (Yes, No)'),
+  ])
+  String? content;
+}
+
+/// A screen behavior entry (form).
+///
+/// Defines dynamic behavior such as conditional visibility, calculations,
+/// cascading selects, and other interactions.
+class ScreenBehaviorEntry {
+  @Form([
+    Field('behaviorId', String, 'Behavior ID', required: true),
+    Field('behaviorName', String, 'Behavior Name', required: true),
+    Field('behaviorType', String,
+        'Behavior Type (ConditionalVisibility, ConditionalRequired, '
+            'Calculation, CascadingSelect, AutoPopulate, CrossFieldValidation, '
+            'DynamicDefault, FieldFormatting, LiveSearch, InlineEdit)',
+        required: true),
+    Field('triggerEvent', String,
+        'Trigger Event (OnLoad, OnChange, OnBlur, OnFocus, OnClick, '
+            'OnSubmit, OnFieldChange)'),
+    Field('triggerField', String, 'Trigger Field (if field-specific)'),
+    Field('condition', String, 'Condition (when behavior applies)'),
+    Field('affectedFields', String, 'Affected Fields (field IDs)'),
+    Field('action', String,
+        'Action (Show, Hide, Enable, Disable, Calculate, Populate, Validate)'),
+    Field('formula', String, 'Formula / Expression (for calculations)'),
+    Field('description', String, 'Behavior Description'),
+  ])
+  String? content;
+}
+
+/// 4.3.1.n.5. Dependencies [PD00-SYO-REQ-FUN-nn-DEP].
+///
+/// Dependencies this requirement has on other requirements.
+@SectionId('PD00-SYO-REQ-FUN-nn-DEP')
+@ContentHelp('Identify requirements that must be implemented before or '
+    'alongside this requirement.')
+class RequirementDependencies {
+  @ContentType('description', 'Overview of requirement dependencies '
+      'and implementation order.')
+  String? content;
+
+  /// Dependency entries — contains 0+× RequirementDependencyEntry.
+  @SectionIdPattern('PD00-SYO-REQ-FUN-xx-DEP-xx')
+  List<RequirementDependencyEntry> items = [];
+}
+
+/// A requirement dependency entry (form).
+class RequirementDependencyEntry {
+  @Form([
+    Field('dependencyType', String,
+        'Dependency Type (Prerequisite, Bidirectional, Parent-Child, '
+            'Conflict, Refinement)', required: true),
+    Field('description', String, 'Description'),
+    Field('impact', String, 'Impact (what happens if dependency not met)'),
+  ])
+  String? content;
+
+  @Reference('Related Requirement')
+  String? relatedRequirement;
+}
+
+/// 4.3.1.n.6. Traceability [PD00-SYO-REQ-FUN-nn-TRC].
+///
+/// Traceability links to goals, use cases, processes, and other artifacts.
+@SectionId('PD00-SYO-REQ-FUN-nn-TRC')
+@ContentHelp('Document traceability links to maintain visibility of '
+    'requirements throughout the project lifecycle.')
+class RequirementTraceability {
+  @ContentType('description', 'Overview of traceability links for '
+      'this requirement.')
+  String? content;
+
+  /// Traceability links form.
+  @Form([
+    Field('relatedGoals', String, 'Related Business Goals (IDs)'),
+    Field('relatedUseCases', String, 'Related Use Cases (IDs)'),
+    Field('relatedProcesses', String, 'Related Business Processes (IDs)'),
+    Field('relatedUserStories', String, 'Related User Stories (if Agile)'),
+    Field('relatedScreens', String, 'Related UI Screens/Views'),
+    Field('relatedDataEntities', String, 'Related Data Entities'),
+    Field('relatedTestCases', String, 'Related Test Cases (IDs)'),
+    Field('relatedDocuments', String, 'Related Documents or Artifacts'),
+    Field('implementationComponent', String,
+        'Implementation Component (module, service)'),
+    Field('implementationStatus', String,
+        'Implementation Status (Not Started, In Progress, Done)'),
+    Field('deploymentVersion', String, 'Deployment Version (first release)'),
+  ])
+  String? traceabilityForm;
+}
+
+/// 4.3.1.n.7. Test Cases [PD00-SYO-REQ-FUN-nn-TST].
+///
+/// Test cases that verify this requirement is correctly implemented.
+@SectionId('PD00-SYO-REQ-FUN-nn-TST')
+@ContentHelp('Define test cases that verify requirement implementation.')
+class RequirementTestCases {
+  @ContentType('description', 'Overview of test coverage for this requirement.')
+  String? content;
+
+  /// Test case entries — contains 0+× RequirementTestCaseEntry.
+  @SectionIdPattern('PD00-SYO-REQ-FUN-xx-TST-xx')
+  List<RequirementTestCaseEntry> testCases = [];
+}
+
+/// A test case entry for requirement verification (form).
+class RequirementTestCaseEntry {
+  @Form([
+    Field('testCaseId', String, 'Test Case ID', required: true),
+    Field('testCaseName', String, 'Test Case Name', required: true),
+    Field('testType', String,
+        'Test Type (Unit, Integration, System, Acceptance, UAT, Regression)'),
+    Field('testCategory', String,
+        'Test Category (Positive, Negative, Boundary, Error, Performance)'),
+    Field('preconditions', String, 'Preconditions'),
+    Field('testSteps', String, 'Test Steps'),
+    Field('testData', String, 'Test Data'),
+    Field('expectedResult', String, 'Expected Result', required: true),
+    Field('automationStatus', String,
+        'Automation Status (Automated, Manual, To Be Automated)'),
+    Field('automationScript', String, 'Automation Script Reference'),
+    Field('priority', String, 'Priority (Critical, High, Medium, Low)'),
+  ])
+  String? content;
+
+  @Reference('Related Acceptance Criterion')
+  String? relatedCriterion;
+}
+
+// ---------------------------------------------------------------------------
+// 4.3.2 Technical Requirements
+// ---------------------------------------------------------------------------
+
+/// 4.3.2. Technical Requirements [PD00-SYO-REQ-TEC].
+///
+/// Container for technical requirements. Technical requirements describe
+/// constraints on how the system is built — platform, performance,
+/// scalability, reliability, and standards compliance. These requirements
+/// often drive architectural decisions.
+@SectionId('PD00-SYO-REQ-TEC')
+@ContentHelp('Technical requirements describe non-functional aspects and '
+    'constraints. Each should be measurable and testable. Common categories: '
+    'Performance, Scalability, Availability, Security, Maintainability.')
+class TechnicalRequirements {
+  @ContentType('description', 'Overview of technical requirements scope, '
+      'categories, and quality attribute priorities.')
+  String? content;
+
+  /// Technical requirements summary form.
+  @Form([
+    Field('totalTechnicalRequirements', String, 'Total Technical Requirements'),
+    Field('criticalCount', String, 'Critical (count)'),
+    Field('highCount', String, 'High (count)'),
+    Field('mediumCount', String, 'Medium (count)'),
+    Field('lowCount', String, 'Low (count)'),
+    Field('architectureDrivers', String,
+        'Architecture Drivers (top constraints shaping design)'),
+  ])
+  String? summaryForm;
+
+  /// Technical requirements list — contains 0+× Technical Requirement.
+  @SectionIdPattern('PD00-SYO-REQ-TEC-xx')
+  @ContentHelp('Add one entry per technical requirement.')
+  List<TechnicalRequirementEntry> requirements = [];
+}
+
+/// A technical requirement entry [PD00-SYO-REQ-TEC-nn].
+///
+/// Comprehensive technical requirement definition following ISO 25010
+/// quality characteristics and architecture decision records.
 class TechnicalRequirementEntry {
   @Form([
-    Field('requirementId', String, 'Requirement Id', required: true),
+    Field('requirementId', String,
+        'Requirement ID (unique, e.g., REQ-T001)', required: true),
     Field('title', String, 'Title', required: true),
-    Field('description', String, 'Short description'),
-    Field('priority', String, 'Priority level'),
-    Field('source', String, 'Source'),
+    Field('description', String,
+        'Description (The system shall... detailed statement)', required: true),
+    Field('category', String,
+        'Category (Performance, Scalability, Availability, Reliability, '
+            'Security, Usability, Accessibility, Maintainability, Portability, '
+            'Interoperability, Compliance, Capacity, Recoverability)',
+        required: true),
+    Field('subcategory', String, 'Subcategory (specific aspect within category)'),
+    Field('priority', String,
+        'Priority (Critical, High, Medium, Low)', required: true),
+    Field('source', String, 'Source (who requested)', required: true),
     Field('rationale', String, 'Rationale'),
-    Field('verificationApproach', String, 'Verification Approach'),
-    Field('status', String, 'Current status'),
+    Field('metric', String, 'Metric (what is measured)'),
+    Field('currentValue', String, 'Current Value (baseline)'),
+    Field('targetValue', String, 'Target Value', required: true),
+    Field('measurementMethod', String, 'Measurement Method'),
+    Field('measurementEnvironment', String,
+        'Measurement Environment (production, staging, load test)'),
+    Field('measurementFrequency', String, 'Measurement Frequency'),
+    Field('verificationApproach', String,
+        'Verification Approach (how verified: test, inspection, analysis)'),
+    Field('verificationTool', String, 'Verification Tool'),
+    Field('verificationTiming', String,
+        'Verification Timing (unit test, integration, acceptance, production)'),
+    Field('architectureImpact', String,
+        'Architecture Impact (how this affects system design)'),
+    Field('estimatedEffort', String, 'Estimated Implementation Effort'),
+    Field('riskIfNotMet', String, 'Risk If Not Met'),
+    Field('assumptions', String, 'Assumptions'),
+    Field('constraints', String, 'Constraints'),
+    Field('status', String,
+        'Status (Draft, Proposed, Approved, Verified, Deferred)', required: true),
   ])
   String? content;
 
-  /// Contains 0+× AcceptanceCriterion.
-  @SectionIdPattern('PD00-SYO-REQ-TEC-xx-ACR-xx')
-  List<AcceptanceCriterionEntry> acceptanceCriteria = [];
+  /// 4.3.2.n.1. Acceptance Criteria [PD00-SYO-REQ-TEC-nn-ACR].
+  RequirementAcceptanceCriteria acceptanceCriteria =
+      RequirementAcceptanceCriteria();
+
+  /// 4.3.2.n.2. Dependencies [PD00-SYO-REQ-TEC-nn-DEP].
+  RequirementDependencies dependencies = RequirementDependencies();
+
+  /// 4.3.2.n.3. Traceability [PD00-SYO-REQ-TEC-nn-TRC].
+  RequirementTraceability traceability = RequirementTraceability();
 }
 
-/// A security requirement entry [PD00-SYO-REQ-SEC-nn] (form).
+// ---------------------------------------------------------------------------
+// 4.3.3 Security Requirements
+// ---------------------------------------------------------------------------
+
+/// 4.3.3. Security Requirements [PD00-SYO-REQ-SEC].
+///
+/// Container for security requirements. Security requirements describe
+/// information protection, access control, authentication, authorization,
+/// audit, and compliance needs. Based on OWASP, ISO 27001, and common
+/// security frameworks.
+@SectionId('PD00-SYO-REQ-SEC')
+@ContentHelp('Security requirements protect confidentiality, integrity, '
+    'and availability of information. Include authentication, authorization, '
+    'data protection, and compliance requirements.')
+class SecurityRequirements {
+  @ContentType('description', 'Overview of security requirements scope, '
+      'threat landscape, and compliance context.')
+  String? content;
+
+  /// Security requirements summary form.
+  @Form([
+    Field('totalSecurityRequirements', String, 'Total Security Requirements'),
+    Field('criticalCount', String, 'Critical (count)'),
+    Field('highCount', String, 'High (count)'),
+    Field('mediumCount', String, 'Medium (count)'),
+    Field('securityFramework', String,
+        'Security Framework (OWASP, NIST, ISO 27001, CIS, etc.)'),
+    Field('complianceRequirements', String,
+        'Compliance Requirements (GDPR, HIPAA, PCI-DSS, SOX, etc.)'),
+    Field('threatCategories', String,
+        'Threat Categories Addressed (Injection, XSS, CSRF, etc.)'),
+  ])
+  String? summaryForm;
+
+  /// Security requirements list — contains 0+× Security Requirement.
+  @SectionIdPattern('PD00-SYO-REQ-SEC-xx')
+  @ContentHelp('Add one entry per security requirement.')
+  List<SecurityRequirementEntry> requirements = [];
+}
+
+/// A security requirement entry [PD00-SYO-REQ-SEC-nn].
+///
+/// Comprehensive security requirement definition following OWASP ASVS,
+/// ISO 27001, and security best practices.
 class SecurityRequirementEntry {
   @Form([
-    Field('requirementId', String, 'Requirement Id', required: true),
+    Field('requirementId', String,
+        'Requirement ID (unique, e.g., REQ-S001)', required: true),
     Field('title', String, 'Title', required: true),
-    Field('description', String, 'Short description'),
-    Field('priority', String, 'Priority level'),
-    Field('source', String, 'Source'),
+    Field('description', String,
+        'Description (The system shall... detailed statement)', required: true),
+    Field('category', String,
+        'Category (Authentication, Authorization, Data Protection, '
+            'Encryption, Audit Logging, Input Validation, Session Management, '
+            'Error Handling, Communication Security, Configuration, '
+            'Cryptography, Data Retention, Privacy)',
+        required: true),
+    Field('subcategory', String, 'Subcategory'),
+    Field('priority', String,
+        'Priority (Critical, High, Medium, Low)', required: true),
+    Field('source', String, 'Source', required: true),
     Field('rationale', String, 'Rationale'),
-    Field('status', String, 'Current status'),
+    Field('threatMitigated', String,
+        'Threat Mitigated (what attack is prevented)'),
+    Field('owaspCategory', String,
+        'OWASP Category (if applicable, e.g., A01:2021 Broken Access Control)'),
+    Field('cisControl', String, 'CIS Control (if applicable)'),
+    Field('nistControl', String, 'NIST Control (if applicable)'),
+    Field('iso27001Control', String, 'ISO 27001 Control (if applicable)'),
+    Field('complianceReference', String,
+        'Compliance Reference (GDPR Article, PCI-DSS requirement, etc.)'),
+    Field('dataClassification', String,
+        'Data Classification Affected (Public, Internal, Confidential, '
+            'Restricted, PII, PHI)'),
+    Field('implementationApproach', String, 'Implementation Approach'),
+    Field('verificationMethod', String,
+        'Verification Method (Penetration test, Code review, Security scan)'),
+    Field('verificationFrequency', String,
+        'Verification Frequency (Continuous, Release, Quarterly, Annual)'),
+    Field('residualRisk', String, 'Residual Risk (after mitigation)'),
+    Field('riskOwner', String, 'Risk Owner'),
+    Field('status', String,
+        'Status (Draft, Proposed, Approved, Implemented, Verified)',
+        required: true),
   ])
   String? content;
 
-  @Reference('Compliance Reference')
-  String? complianceReference;
+  /// 4.3.3.n.1. Acceptance Criteria [PD00-SYO-REQ-SEC-nn-ACR].
+  RequirementAcceptanceCriteria acceptanceCriteria =
+      RequirementAcceptanceCriteria();
 
-  /// Contains 0+× AcceptanceCriterion.
-  @SectionIdPattern('PD00-SYO-REQ-SEC-xx-ACR-xx')
-  List<AcceptanceCriterionEntry> acceptanceCriteria = [];
+  /// 4.3.3.n.2. Security Controls [PD00-SYO-REQ-SEC-nn-CTL].
+  SecurityControls controls = SecurityControls();
+
+  /// 4.3.3.n.3. Dependencies [PD00-SYO-REQ-SEC-nn-DEP].
+  RequirementDependencies dependencies = RequirementDependencies();
+
+  /// 4.3.3.n.4. Traceability [PD00-SYO-REQ-SEC-nn-TRC].
+  RequirementTraceability traceability = RequirementTraceability();
 }
 
-/// An organizational requirement entry [PD00-SYO-REQ-ORG-nn] (form).
+/// 4.3.3.n.2. Security Controls [PD00-SYO-REQ-SEC-nn-CTL].
+///
+/// Security controls that implement or support this requirement.
+@SectionId('PD00-SYO-REQ-SEC-nn-CTL')
+@ContentHelp('Define security controls that implement this requirement.')
+class SecurityControls {
+  @ContentType('description', 'Overview of security controls for this '
+      'requirement.')
+  String? content;
+
+  /// Security control entries — contains 0+× SecurityControlEntry.
+  @SectionIdPattern('PD00-SYO-REQ-SEC-xx-CTL-xx')
+  List<SecurityControlEntry> controls = [];
+}
+
+/// A security control entry (form).
+class SecurityControlEntry {
+  @Form([
+    Field('controlId', String, 'Control ID', required: true),
+    Field('controlName', String, 'Control Name', required: true),
+    Field('controlType', String,
+        'Control Type (Preventive, Detective, Corrective, Deterrent, '
+            'Compensating)',
+        required: true),
+    Field('implementationType', String,
+        'Implementation Type (Technical, Administrative, Physical)'),
+    Field('description', String, 'Description'),
+    Field('implementationDetails', String, 'Implementation Details'),
+    Field('effectiveDate', String, 'Effective Date'),
+    Field('testFrequency', String, 'Test Frequency'),
+    Field('lastTestDate', String, 'Last Test Date'),
+    Field('testResult', String, 'Last Test Result'),
+    Field('status', String, 'Status (Planned, Implemented, Active, Retired)'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 4.3.4 Organizational Requirements
+// ---------------------------------------------------------------------------
+
+/// 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG].
+///
+/// Container for organizational requirements. These describe needed changes
+/// to organization, processes, training, or support that must be fulfilled
+/// for the system to succeed. Based on change management and organizational
+/// readiness assessment practices.
+@SectionId('PD00-SYO-REQ-ORG')
+@ContentHelp('Organizational requirements describe non-technical changes '
+    'needed for system success: training, process changes, role changes, '
+    'support structures, and communication.')
+class OrganizationalRequirements {
+  @ContentType('description', 'Overview of organizational requirements scope '
+      'and change management context.')
+  String? content;
+
+  /// Organizational requirements summary form.
+  @Form([
+    Field('totalOrgRequirements', String, 'Total Organizational Requirements'),
+    Field('trainingRequirements', String, 'Training Requirements (count)'),
+    Field('processChangeRequirements', String, 'Process Change (count)'),
+    Field('roleChangeRequirements', String, 'Role Change (count)'),
+    Field('supportRequirements', String, 'Support Requirements (count)'),
+    Field('communicationRequirements', String, 'Communication (count)'),
+    Field('changeReadinessScore', String,
+        'Organizational Change Readiness Score'),
+  ])
+  String? summaryForm;
+
+  /// Organizational requirements list — contains 0+× Organizational Requirement.
+  @SectionIdPattern('PD00-SYO-REQ-ORG-xx')
+  @ContentHelp('Add one entry per organizational requirement.')
+  List<OrganizationalRequirementEntry> requirements = [];
+}
+
+/// An organizational requirement entry [PD00-SYO-REQ-ORG-nn].
+///
+/// Comprehensive organizational requirement definition following change
+/// management and organizational development best practices.
 class OrganizationalRequirementEntry {
   @Form([
-    Field('requirementId', String, 'Requirement Id', required: true),
+    Field('requirementId', String,
+        'Requirement ID (unique, e.g., REQ-O001)', required: true),
     Field('title', String, 'Title', required: true),
-    Field('description', String, 'Short description'),
-    Field('priority', String, 'Priority level'),
-    Field('source', String, 'Source'),
+    Field('description', String,
+        'Description (detailed statement)', required: true),
+    Field('category', String,
+        'Category (Training, Process Change, Role Change, Support, '
+            'Communication, Policy, Governance, Culture, Staffing)',
+        required: true),
+    Field('subcategory', String, 'Subcategory'),
+    Field('priority', String,
+        'Priority (Must, Should, Could, Won\'t-This-Time)', required: true),
+    Field('source', String, 'Source', required: true),
     Field('rationale', String, 'Rationale'),
-    Field('status', String, 'Current status'),
+    Field('impactedGroups', String,
+        'Impacted Groups (departments, roles, user categories)'),
+    Field('impactedUserCount', String, 'Estimated Impacted Users'),
+    Field('changeType', String,
+        'Change Type (Behavioral, Procedural, Structural, Cultural)'),
+    Field('changeComplexity', String,
+        'Change Complexity (Low, Medium, High)'),
+    Field('resistance', String,
+        'Expected Resistance (Low, Medium, High)'),
+    Field('timeline', String, 'Timeline (when change must occur)'),
+    Field('dependencies', String, 'Dependencies (other changes needed first)'),
+    Field('owner', String, 'Change Owner'),
+    Field('sponsor', String, 'Executive Sponsor'),
+    Field('successCriteria', String, 'Success Criteria'),
+    Field('measurementMethod', String, 'Measurement Method'),
+    Field('status', String,
+        'Status (Draft, Proposed, Approved, In Progress, Completed)',
+        required: true),
   ])
   String? content;
 
-  /// Contains 0+× AcceptanceCriterion.
-  @SectionIdPattern('PD00-SYO-REQ-ORG-xx-ACR-xx')
-  List<AcceptanceCriterionEntry> acceptanceCriteria = [];
+  /// 4.3.4.n.1. Acceptance Criteria [PD00-SYO-REQ-ORG-nn-ACR].
+  RequirementAcceptanceCriteria acceptanceCriteria =
+      RequirementAcceptanceCriteria();
+
+  /// 4.3.4.n.2. Implementation Plan [PD00-SYO-REQ-ORG-nn-IMP].
+  OrgRequirementImplementationPlan implementationPlan =
+      OrgRequirementImplementationPlan();
+
+  /// 4.3.4.n.3. Dependencies [PD00-SYO-REQ-ORG-nn-DEP].
+  RequirementDependencies dependencies = RequirementDependencies();
+}
+
+/// 4.3.4.n.2. Implementation Plan [PD00-SYO-REQ-ORG-nn-IMP].
+///
+/// Implementation plan for this organizational requirement.
+@SectionId('PD00-SYO-REQ-ORG-nn-IMP')
+@ContentHelp('Define the implementation approach for this organizational '
+    'change requirement.')
+class OrgRequirementImplementationPlan {
+  @ContentType('description', 'Overview of implementation approach.')
+  String? content;
+
+  /// Implementation plan form.
+  @Form([
+    Field('approach', String,
+        'Approach (Big Bang, Phased, Pilot, Parallel)'),
+    Field('phases', String, 'Phases (if phased rollout)'),
+    Field('pilotGroup', String, 'Pilot Group (if pilot approach)'),
+    Field('trainingApproach', String, 'Training Approach'),
+    Field('communicationPlan', String, 'Communication Plan'),
+    Field('supportPlan', String, 'Support Plan'),
+    Field('rollbackPlan', String, 'Rollback Plan'),
+    Field('resourcesNeeded', String, 'Resources Needed'),
+    Field('budget', String, 'Budget'),
+    Field('timeline', String, 'Timeline'),
+  ])
+  String? planForm;
+
+  /// Implementation activities — contains 0+× OrgImplementationActivity.
+  @SectionIdPattern('PD00-SYO-REQ-ORG-xx-IMP-xx')
+  List<OrgImplementationActivity> activities = [];
+}
+
+/// An organizational implementation activity (form).
+class OrgImplementationActivity {
+  @Form([
+    Field('activityId', String, 'Activity ID', required: true),
+    Field('activityName', String, 'Activity Name', required: true),
+    Field('description', String, 'Description'),
+    Field('owner', String, 'Owner'),
+    Field('startDate', String, 'Start Date'),
+    Field('endDate', String, 'End Date'),
+    Field('deliverable', String, 'Deliverable'),
+    Field('status', String, 'Status (Planned, In Progress, Completed, Delayed)'),
+  ])
+  String? content;
 }
 
 // ---------------------------------------------------------------------------
