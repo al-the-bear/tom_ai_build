@@ -17,10 +17,8 @@ class CurrentStateAnalysis {
   /// 1.1. Existing Systems Landscape [PD00-CUR-SYS].
   ExistingSystemsLandscape existingSystemsLandscape = ExistingSystemsLandscape();
 
-  /// 1.2. Current Business Processes [PD00-CUR-PRO] — contains 1+× Business Process.
-  @SectionIdPattern('PD00-CUR-PRO-xx')
-  @Min(1)
-  List<CurrentBusinessProcess> currentBusinessProcesses = [];
+  /// 1.2. Current Business Processes [PD00-CUR-PRO].
+  CurrentBusinessProcesses currentBusinessProcesses = CurrentBusinessProcesses();
 
   /// 1.3. Pain Points and Gaps [PD00-CUR-PAI].
   PainPointsAndGaps painPointsAndGaps = PainPointsAndGaps();
@@ -386,84 +384,397 @@ class SystemIntegrationEntry {
 // 1.2 Current Business Processes
 // ---------------------------------------------------------------------------
 
+/// 1.2. Current Business Processes [PD00-CUR-PRO].
+///
+/// Documents the current business processes that the project will impact,
+/// replace, or enhance. Understanding existing workflows is critical for
+/// gap analysis, migration planning, and ensuring the new system meets
+/// operational needs.
+@SectionId('PD00-CUR-PRO')
+class CurrentBusinessProcesses {
+  @ContentType('description', 'Overview of the business process landscape, '
+      'including process categories, ownership, and interdependencies.')
+  @ContentHelp('Describe the overall process landscape being analyzed. '
+      'Include a process map or hierarchy showing how processes relate. '
+      'Identify which processes are in scope for this project.')
+  String? content;
+
+  /// 1.2.1. Workflow Descriptions [PD00-CUR-PRO-WOR] — contains 1+× Business Process.
+  @SectionIdPattern('PD00-CUR-PRO-xx')
+  @Min(1)
+  List<CurrentBusinessProcess> processes = [];
+}
+
 /// A current business process [PD00-CUR-PRO-nn].
+///
+/// Detailed documentation of a single business process including its
+/// workflows, actors, metrics, and pain points.
+@ContentHelp('Document each business process that the project will impact. '
+    'Include process maps (BPMN recommended), actor descriptions, and '
+    'quantitative metrics. Identify manual steps and error-prone areas.')
 class CurrentBusinessProcess {
   @Form([
     Field('processName', String, 'Process Name', required: true),
+    Field('processOwner', String, 'Process Owner'),
+    Field('processCategory', String, 'Category (e.g., Core, Support, Management)'),
+    Field('processScope', String, 'Scope - organizational units involved'),
+    Field('processMaturity', String, 'Maturity Level (e.g., Ad-hoc, Defined, Managed, Optimized)'),
   ])
   String? content;
 
+  /// Process context and purpose.
+  ProcessContext processContext = ProcessContext();
+
   /// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR] — contains 1+× Workflow.
-  @SectionIdPattern('PD00-CUR-PRO-xx-WOR-xx')
-  @Min(1)
-  List<CurrentWorkflowEntry> workflows = [];
+  WorkflowDescriptions workflowDescriptions = WorkflowDescriptions();
 
   /// 1.2.nn.2. Process Metrics [PD00-CUR-PRO-MET].
   ProcessMetrics processMetrics = ProcessMetrics();
+
+  /// Process pain points and improvement opportunities.
+  ProcessPainPoints processPainPoints = ProcessPainPoints();
+}
+
+/// Context and purpose of a business process.
+@ContentHelp('Describe why this process exists, what business value it delivers, '
+    'and how it fits into the overall organizational workflow.')
+class ProcessContext {
+  @Form([
+    Field('businessPurpose', String, 'Business Purpose - why this process exists'),
+    Field('businessValue', String, 'Business Value Delivered'),
+    Field('regulatoryRequirements', String, 'Regulatory Requirements (compliance drivers)'),
+    Field('slaRequirements', String, 'SLA Requirements'),
+    Field('upstreamDependencies', String, 'Upstream Dependencies (processes that feed into this one)'),
+    Field('downstreamConsumers', String, 'Downstream Consumers (processes that depend on this output)'),
+  ])
+  String? content;
+}
+
+/// Process-specific pain points and improvement opportunities.
+class ProcessPainPoints {
+  @ContentType('description', 'Known issues, inefficiencies, and improvement '
+      'opportunities specific to this process.')
+  String? content;
+
+  /// Process improvement opportunities.
+  List<ProcessImprovementEntry> improvements = [];
+}
+
+/// A process improvement opportunity.
+class ProcessImprovementEntry {
+  @Form([
+    Field('improvementArea', String, 'Improvement Area', required: true),
+    Field('currentState', String, 'Current State'),
+    Field('desiredState', String, 'Desired State'),
+    Field('estimatedBenefit', String, 'Estimated Benefit'),
+    Field('implementationEffort', String, 'Implementation Effort (Low/Medium/High)'),
+    Field('priority', String, 'Priority (Must-have/Should-have/Nice-to-have)'),
+  ])
+  String? content;
+}
+
+/// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR].
+///
+/// Container for workflow entries within a business process.
+@SectionIdPattern('PD00-CUR-PRO-xx-WOR')
+class WorkflowDescriptions {
+  @ContentType('description', 'Overview of workflows within this process.')
+  @ContentHelp('Describe how the workflows within this process relate to each '
+      'other. Include a workflow diagram showing the sequence and decision points.')
+  String? content;
+
+  /// Individual workflow entries.
+  @SectionIdPattern('PD00-CUR-PRO-xx-WOR-xx')
+  @Min(1)
+  List<CurrentWorkflowEntry> workflows = [];
 }
 
 /// A current workflow entry [PD00-CUR-PRO-WOR-nn] (form).
+///
+/// Detailed documentation of a single workflow within a business process.
+/// Includes triggers, steps, actors, inputs, outputs, and timing.
+@ContentHelp('Document each workflow with enough detail to understand the '
+    'current state and identify improvement opportunities. Include swim-lane '
+    'diagrams for complex workflows with multiple actors.')
 class CurrentWorkflowEntry {
   @Form([
-    Field('processName', String, 'Process Name', required: true),
-    Field('trigger', String, 'Trigger'),
-    Field('output', String, 'Output'),
-    Field('cycleTime', String, 'Cycle Time'),
+    Field('workflowName', String, 'Workflow Name', required: true),
+    Field('workflowId', String, 'Workflow ID (internal identifier)'),
+    Field('workflowType', String, 'Type (e.g., Operational, Approval, Exception)'),
+    Field('frequency', String, 'Execution Frequency'),
+    Field('averageVolume', String, 'Average Volume per period'),
+    Field('criticality', String, 'Business Criticality'),
   ])
   String? content;
 
-  /// Contains 0+× WorkflowStep.
+  /// Workflow triggers and initiation.
+  WorkflowTriggers triggers = WorkflowTriggers();
+
+  /// Workflow steps in sequence.
   @SectionIdPattern('PD00-CUR-PRO-xx-WOR-xx-STP-xx')
   List<WorkflowStepEntry> steps = [];
 
-  /// Contains 0+× WorkflowActor.
+  /// Workflow actors and responsibilities.
   @SectionIdPattern('PD00-CUR-PRO-xx-WOR-xx-ACT-xx')
   List<WorkflowActorEntry> actors = [];
 
-  /// Contains 0+× WorkflowStep.
+  /// Workflow inputs.
+  List<WorkflowInputEntry> inputs = [];
+
+  /// Workflow outputs.
+  List<WorkflowOutputEntry> outputs = [];
+
+  /// Decision points within the workflow.
+  List<WorkflowDecisionPoint> decisionPoints = [];
+
+  /// Business rules governing the workflow.
+  List<WorkflowBusinessRule> businessRules = [];
+
+  /// Manual steps requiring human intervention.
+  @ContentHelp('Identify steps that cannot be automated or require human judgment.')
   List<WorkflowStepEntry> manualSteps = [];
 
-  /// Contains 0+× WorkflowStep.
+  /// Error-prone steps with high failure rates.
+  @ContentHelp('Identify steps with known issues, high error rates, or workarounds.')
   List<WorkflowStepEntry> errorProneSteps = [];
+
+  /// Workflow timing and performance.
+  WorkflowTiming timing = WorkflowTiming();
+
+  /// Workflow exceptions and error handling.
+  WorkflowExceptions exceptions = WorkflowExceptions();
+}
+
+/// Workflow triggers and initiation conditions.
+class WorkflowTriggers {
+  @ContentType('description', 'Conditions that initiate this workflow.')
+  String? content;
+
+  /// Trigger entries.
+  List<WorkflowTriggerEntry> triggers = [];
+}
+
+/// A single workflow trigger.
+class WorkflowTriggerEntry {
+  @Form([
+    Field('triggerName', String, 'Trigger Name', required: true),
+    Field('triggerType', String, 'Type (e.g., Event, Schedule, Manual, System)'),
+    Field('triggerSource', String, 'Source - origin of the trigger'),
+    Field('triggerCondition', String, 'Condition - conditions that must be met'),
+    Field('frequency', String, 'Frequency'),
+  ])
+  String? content;
 }
 
 /// A workflow step entry (form) [PD00-CUR-PRO-nn-WOR-nn-STP-nn].
+///
+/// Detailed documentation of a single step within a workflow.
+@ContentHelp('Document each step with enough detail for process analysis and '
+    'system design. Include responsible actors, inputs, outputs, and timing.')
 class WorkflowStepEntry {
   @Form([
     Field('stepName', String, 'Step Name', required: true),
-    Field('description', String, 'Short description'),
+    Field('stepNumber', int, 'Step Number (sequence order)'),
+    Field('description', String, 'Description'),
+    Field('responsibleActor', String, 'Responsible Actor'),
+    Field('stepType', String, 'Step Type (e.g., Task, Decision, Wait, Subprocess)'),
+    Field('isManual', bool, 'Is Manual (requires human intervention)'),
+    Field('isAutomatable', bool, 'Is Automatable'),
+    Field('averageDuration', String, 'Average Duration'),
+  ])
+  String? content;
+
+  /// Systems used in this step.
+  List<String> systemsUsed = [];
+
+  /// Step inputs.
+  List<WorkflowInputEntry> inputs = [];
+
+  /// Step outputs.
+  List<WorkflowOutputEntry> outputs = [];
+
+  /// Step-specific business rules.
+  List<WorkflowBusinessRule> businessRules = [];
+
+  /// Known issues with this step.
+  List<WorkflowStepIssue> knownIssues = [];
+}
+
+/// Known issue with a workflow step.
+class WorkflowStepIssue {
+  @Form([
+    Field('issueName', String, 'Issue Name', required: true),
+    Field('issueDescription', String, 'Description'),
+    Field('frequency', String, 'Frequency of occurrence'),
+    Field('impact', String, 'Business Impact'),
+    Field('currentWorkaround', String, 'Current Workaround'),
   ])
   String? content;
 }
 
 /// A workflow actor entry (form) [PD00-CUR-PRO-nn-WOR-nn-ACT-nn].
+///
+/// Documentation of a participant in the workflow.
+@ContentHelp('Document all actors including their roles, responsibilities, '
+    'authorization levels, and involvement pattern.')
 class WorkflowActorEntry {
   @Form([
     Field('actorName', String, 'Actor Name', required: true),
-    Field('role', String, 'Role'),
+    Field('actorType', String, 'Actor Type (e.g., Role, System, Department, External)'),
+    Field('role', String, 'Role in this workflow'),
+    Field('responsibilities', String, 'Responsibilities'),
+    Field('authorizationLevel', String, 'Authorization Level'),
+    Field('availabilityRequirements', String, 'Availability Requirements'),
+    Field('skillRequirements', String, 'Skill Requirements'),
+    Field('headcount', int, 'Headcount (number of people in this role)'),
+  ])
+  String? content;
+
+  /// Steps this actor participates in.
+  @Reference('Participating Steps')
+  List<WorkflowStepEntry> participatingSteps = [];
+}
+
+/// A workflow input.
+class WorkflowInputEntry {
+  @Form([
+    Field('inputName', String, 'Input Name', required: true),
+    Field('inputType', String, 'Type (data type or document type)'),
+    Field('source', String, 'Source'),
+    Field('format', String, 'Format (e.g., PDF, XML, Manual Entry)'),
+    Field('isRequired', bool, 'Is Required'),
+    Field('validationRules', String, 'Validation Rules'),
+  ])
+  String? content;
+}
+
+/// A workflow output.
+class WorkflowOutputEntry {
+  @Form([
+    Field('outputName', String, 'Output Name', required: true),
+    Field('outputType', String, 'Type (data type or document type)'),
+    Field('destination', String, 'Destination'),
+    Field('format', String, 'Format'),
+    Field('retentionRequirements', String, 'Retention Requirements'),
+  ])
+  String? content;
+}
+
+/// A decision point within a workflow.
+class WorkflowDecisionPoint {
+  @Form([
+    Field('decisionName', String, 'Decision Name', required: true),
+    Field('decisionCriteria', String, 'Decision Criteria'),
+    Field('decisionMaker', String, 'Decision Maker'),
+    Field('outcomes', String, 'Possible Outcomes (comma-separated)'),
+    Field('escalationPath', String, 'Escalation Path'),
+    Field('slaForDecision', String, 'SLA for Decision'),
+  ])
+  String? content;
+}
+
+/// A business rule governing workflow behavior.
+class WorkflowBusinessRule {
+  @Form([
+    Field('ruleName', String, 'Rule Name', required: true),
+    Field('ruleDescription', String, 'Description'),
+    Field('ruleLogic', String, 'Rule Logic (business logic in plain language)'),
+    Field('ruleSource', String, 'Source (e.g., Policy, Regulation, SOP)'),
+    Field('exceptions', String, 'Exceptions - when this rule does not apply'),
+  ])
+  String? content;
+}
+
+/// Workflow timing and performance characteristics.
+class WorkflowTiming {
+  @Form([
+    Field('startToEndTime', String, 'Start-to-End Time (total elapsed)'),
+    Field('processingTime', String, 'Processing Time (active work time)'),
+    Field('waitTime', String, 'Wait Time'),
+    Field('slaTarget', String, 'SLA Target'),
+    Field('slaMet', String, 'SLA Compliance Rate'),
+    Field('peakPeriods', String, 'Peak Periods (times of highest volume)'),
+    Field('bottlenecks', String, 'Bottlenecks (steps causing delays)'),
+  ])
+  String? content;
+}
+
+/// Workflow exception handling.
+class WorkflowExceptions {
+  @ContentType('description', 'How exceptions are handled in this workflow.')
+  String? content;
+
+  /// Exception entries.
+  List<WorkflowExceptionEntry> exceptions = [];
+}
+
+/// A workflow exception type.
+class WorkflowExceptionEntry {
+  @Form([
+    Field('exceptionName', String, 'Exception Name', required: true),
+    Field('exceptionType', String, 'Type (e.g., Validation, System, Business)'),
+    Field('frequency', String, 'Frequency'),
+    Field('handlingProcedure', String, 'Handling Procedure'),
+    Field('escalationPath', String, 'Escalation Path'),
+    Field('recoveryTime', String, 'Recovery Time'),
   ])
   String? content;
 }
 
 /// 1.2.2. Process Metrics [PD00-CUR-PRO-MET].
-@SectionId('PD00-CUR-PRO-MET')
+///
+/// Quantitative metrics for measuring process performance.
+@SectionIdPattern('PD00-CUR-PRO-xx-MET')
+@ContentHelp('Define measurable metrics that capture current process performance. '
+    'These metrics will serve as the baseline for measuring improvement.')
 class ProcessMetrics {
-  @Unused()
+  @ContentType('description', 'Overview of process metrics and measurement approach.')
   String? content;
 
-  /// Contains 0+× ProcessMetric.
+  /// Efficiency metrics.
+  ProcessMetricCategory efficiencyMetrics = ProcessMetricCategory();
+
+  /// Quality metrics.
+  ProcessMetricCategory qualityMetrics = ProcessMetricCategory();
+
+  /// Volume metrics.
+  ProcessMetricCategory volumeMetrics = ProcessMetricCategory();
+
+  /// Cost metrics.
+  ProcessMetricCategory costMetrics = ProcessMetricCategory();
+
+  /// Individual metric entries.
   @SectionIdPattern('PD00-CUR-PRO-xx-MET-xx')
   List<ProcessMetricEntry> items = [];
 }
 
+/// A category of process metrics.
+class ProcessMetricCategory {
+  @ContentType('description', 'Category-level summary of metrics.')
+  String? content;
+
+  /// Metrics in this category.
+  List<ProcessMetricEntry> metrics = [];
+}
+
 /// A process metric entry (form) [PD00-CUR-PRO-nn-MET-nn].
+///
+/// A single measurable metric with current value and measurement details.
+@ContentHelp('Define each metric clearly with current baseline values, '
+    'measurement methodology, and target values if known.')
 class ProcessMetricEntry {
   @Form([
     Field('metricName', String, 'Metric Name', required: true),
+    Field('metricId', String, 'Metric ID'),
+    Field('metricCategory', String, 'Category (e.g., Efficiency, Quality, Volume, Cost)'),
     Field('currentValue', String, 'Current Value'),
     Field('unit', String, 'Unit'),
+    Field('targetValue', String, 'Target Value'),
     Field('measurementMethod', String, 'Measurement Method'),
-    Field('frequency', String, 'Frequency'),
+    Field('dataSource', String, 'Data Source'),
+    Field('frequency', String, 'Measurement Frequency'),
+    Field('trend', String, 'Trend (Improving, Stable, Declining)'),
+    Field('benchmark', String, 'Industry Benchmark'),
   ])
   String? content;
 
