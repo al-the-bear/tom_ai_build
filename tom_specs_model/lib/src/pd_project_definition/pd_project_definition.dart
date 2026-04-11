@@ -41,6 +41,13 @@ import 'user_interface_design.dart';
 /// The complete Project Definition (PD) document.
 ///
 /// Contains a [DocumentHeader] and all 14 PD sections [PD00].
+@Document(
+  name: 'Project Definition',
+  description: 'Comprehensive specification document covering all aspects of '
+      'the system from current state analysis through implementation planning, '
+      'organizational framework, business processes, data models, technical '
+      'framework, security, and user interface design.',
+)
 @SectionId('PD00')
 class ProjectDefinition {
   @Unused()

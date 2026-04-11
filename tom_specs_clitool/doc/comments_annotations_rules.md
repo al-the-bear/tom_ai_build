@@ -501,6 +501,54 @@ cannot express multiple targets.
 
 ---
 
+## 18. `@ContentHelp` — content authoring guidance
+
+**Pattern:** Guidance about how to create or populate a section is documented
+in comments or determined by domain experts.
+
+```dart
+/// Interview stakeholders to identify key pain points.
+/// Document each with severity and estimated business impact.
+```
+
+**Rule:** When a section requires specific guidance about content format, data
+sources, or authoring approach, add `@ContentHelp(guidance)` with actionable
+instructions.
+
+```dart
+@ContentHelp('Interview stakeholders to identify key pain points. '
+    'Document each with severity (High/Medium/Low) and estimated business impact.')
+List<PainPoint> operationalPainPoints = [];
+```
+
+**Confidence:** None — no formal comment convention exists. Applied by domain
+experts or AI assistants based on content analysis.
+
+---
+
+## 19. `@Document` — document root marker
+
+**Pattern:** Top-level document classes (e.g., `ProjectDefinition`,
+`TechnicalRequirements`) are identified by their structural position and
+doc-comment descriptions.
+
+**Rule:** Apply `@Document(name, description, basedOn)` to classes that
+represent complete document types:
+
+```dart
+@Document(
+  name: 'Project Definition',
+  description: 'Comprehensive specification document covering all aspects '
+      'of the system from current state through implementation.',
+)
+class ProjectDefinition { ... }
+```
+
+**Confidence:** High — document roots are structurally identifiable by their
+position in the model hierarchy and explicit naming.
+
+---
+
 ## Summary of Confidence Levels
 
 | Rule | Annotation / Pattern | Confidence | Source signal |
@@ -524,3 +572,5 @@ cannot express multiple targets.
 | 15 | `@ValidationPrompt` | **None** | No comment convention |
 | 16 | `@PatternCheckId` | **Medium** | ID format conventions |
 | 17 | `@SeedFor` | **High** | Single `Seeds → XX` in comment → typed link |
+| 18 | `@ContentHelp` | **None** | No comment convention; domain expert applied |
+| 19 | `@Document` | **High** | Document root class structure and naming |

@@ -183,6 +183,8 @@ Not all annotations appear in the outline. Annotations are categorized as **visi
 | `@AccessKey` | No | Schema constraint only |
 | `@MinLength`, `@MaxLength` | No | Schema constraint only |
 | `@SeedFor` | No | Schema constraint only (compile-time document link) |
+| `@ContentHelp` | No | Schema constraint only (content authoring guidance) |
+| `@Document` | No | Schema constraint only (document root metadata) |
 
 ### 4.14 Inline Schema Annotations (`--show-schema-annotations`)
 
@@ -496,6 +498,29 @@ Marks a section or field as seeding a single downstream document.
 **Multi-document seeds:** When content seeds multiple documents (e.g.,
 `Seeds → BP, UC`), use only `@Comment('Seeds → …')` — `@SeedFor` cannot express
 multiple targets.
+
+### 7.22 `@ContentHelp(String guidance)`
+
+Provides content creation guidance for a section or field.
+
+- Applied to: classes or fields that need specific guidance about content
+  format, how to obtain data, what to include, or other authoring instructions.
+- Effect: Helps AI assistants and human authors understand the intent and
+  approach for populating the section.
+- Example: `@ContentHelp('Interview stakeholders to identify key pain points.')`.
+
+### 7.23 `@Document({name, description, basedOn})`
+
+Marks a class as a document root in the specification model.
+
+- Applied to: top-level classes representing complete document types
+  (e.g., `ProjectDefinition`, `TechnicalRequirements`).
+- Parameters:
+  - `name`: Display name of the document (e.g., `'Project Definition'`).
+  - `description`: Description of the document's purpose and scope.
+  - `basedOn`: Optional list of upstream document types this document derives from.
+- Effect: Identifies document roots for generation, validation, and dependency tracking.
+- Example: `@Document(name: 'Project Definition', description: '...')`.
 
 ## 8. Output Example
 
