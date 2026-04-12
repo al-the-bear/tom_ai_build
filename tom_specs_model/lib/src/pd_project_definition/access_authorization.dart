@@ -3840,11 +3840,71 @@ class RoleReferenceEntry {
 }
 
 /// An authorization role entry [PD00-ACC-USA-ROL-nn] (form).
+///
+/// Defines a single authorization role with its category, scope, permission
+/// assignments, activation rules, provisioning, and review requirements.
+/// Aligns with NIST RBAC model (core + hierarchical + constrained).
 class AuthorizationRoleEntry {
   @Form([
     Field('roleName', String, 'Role Name', required: true),
     Field('description', String, 'Short description'),
-    Field('inheritsFrom', String, 'Inherits From'),
+    Field('roleCategory', String, 'Role Category',
+        hint:
+            'Business | Technical | Administrative | System | Compliance | '
+            'Custom — classification of the role by function'),
+    Field('roleScope', String, 'Role Scope',
+        hint:
+            'Global | Tenant | Department | Project | Team | Custom — '
+            'organizational scope where this role is applicable'),
+    Field('inheritsFrom', String, 'Inherits From',
+        hint:
+            'Parent role name or "none" for top-level roles; child roles '
+            'inherit all permissions of the parent'),
+    Field('permissionSet', String, 'Permission Set',
+        hint:
+            'Comma-separated permission keys summarizing the role\'s access '
+            '(e.g. user.manage, config.read, audit.read)'),
+    Field('riskLevel', String, 'Risk Level',
+        hint:
+            'Critical | High | Medium | Low — privilege risk classification '
+            'for access review prioritization'),
+    Field('maxHolders', int, 'Maximum Holders',
+        hint:
+            'Maximum number of users who can hold this role concurrently; '
+            '0 = unlimited'),
+    Field('activationType', String, 'Activation Type',
+        hint:
+            'AlwaysActive | OnDemand | TimeLimited | Scheduled — whether the '
+            'role is permanently active or requires activation'),
+    Field('activationDuration', String, 'Activation Duration',
+        hint:
+            'Maximum duration for on-demand or time-limited activation '
+            '(e.g. 8h, 24h, 7d)'),
+    Field('approvalRequired', bool, 'Approval Required',
+        hint: 'Yes | No — whether role assignment requires explicit approval'),
+    Field('approver', String, 'Approver',
+        hint:
+            'Role or person responsible for approving role assignments '
+            '(e.g. Line Manager, Security Officer, System Owner)'),
+    Field('provisioningMethod', String, 'Provisioning Method',
+        hint:
+            'Manual | Automatic | ApprovalBased | SelfService | RuleBased — '
+            'how the role is assigned to users'),
+    Field('reviewFrequency', String, 'Review Frequency',
+        hint:
+            'Monthly | Quarterly | SemiAnnual | Annual | OnChange | Never — '
+            'how often role assignments are reviewed for appropriateness'),
+    Field('dataAccessScope', String, 'Data Access Scope',
+        hint:
+            'AllData | TenantData | DepartmentData | TeamData | OwnData | '
+            'None — breadth of data accessible through this role'),
+    Field('isDefault', bool, 'Default Role',
+        hint: 'Yes | No — automatically assigned to new users upon creation'),
+    Field('isSystem', bool, 'System Role',
+        hint:
+            'Yes | No — system-defined role that cannot be modified or '
+            'deleted by administrators'),
+    Field('notes', String, 'Notes', hint: 'Additional role definition notes'),
   ])
   String? content;
 
@@ -3855,6 +3915,14 @@ class AuthorizationRoleEntry {
   /// Contains 0+× EntitlementReference.
   @SectionIdPattern('PD00-ACC-USA-ROL-xx-ENT-xx')
   List<EntitlementReferenceEntry> entitlementReferences = [];
+
+  /// Contains 0+× RolePermission.
+  @SectionIdPattern('PD00-ACC-USA-ROL-xx-PRM-xx')
+  List<RolePermissionEntry> directPermissions = [];
+
+  /// Contains 0+× RoleDataScope.
+  @SectionIdPattern('PD00-ACC-USA-ROL-xx-DAS-xx')
+  List<RoleDataScopeEntry> dataScopes = [];
 
   /// Contains 0+× RoleExclusion.
   @SectionIdPattern('PD00-ACC-USA-ROL-xx-EXC-xx')
@@ -3868,8 +3936,16 @@ class AuthorizationRoleEntry {
 /// A responsibility reference entry (form) [PD00-ACC-USA-ROL-nn-RSP-nn].
 class ResponsibilityReferenceEntry {
   @Form([
-    Field('responsibility', String, 'Responsibility'),
+    Field('responsibility', String, 'Responsibility', required: true),
     Field('description', String, 'Short description'),
+    Field('scope', String, 'Scope',
+        hint:
+            'Specific area or context where this responsibility applies '
+            '(e.g. user management, data quality, incident response)'),
+    Field('criticalityLevel', String, 'Criticality Level',
+        hint:
+            'Critical | High | Medium | Low — importance of this '
+            'responsibility for business operations'),
   ])
   String? content;
 }
@@ -3878,6 +3954,73 @@ class ResponsibilityReferenceEntry {
 class EntitlementReferenceEntry {
   @Form([
     Field('entitlementName', String, 'Entitlement Name', required: true),
+    Field('grantType', String, 'Grant Type',
+        hint:
+            'Full | ReadOnly | Conditional | TimeLimited — type of access '
+            'granted through this entitlement'),
+    Field('conditions', String, 'Conditions',
+        hint:
+            'Conditions under which this entitlement is active '
+            '(e.g. during business hours, from internal network)'),
+    Field('scope', String, 'Scope',
+        hint:
+            'Specific scope within the entitlement (e.g. own-department, '
+            'all-tenants, specific-project)'),
+  ])
+  String? content;
+}
+
+/// A direct permission entry for a role (form) [PD00-ACC-USA-ROL-nn-PRM-nn].
+///
+/// Captures direct permission assignments that complement or override
+/// entitlement-based access — useful when fine-grained per-role permissions
+/// are needed beyond what entitlements provide.
+class RolePermissionEntry {
+  @Form([
+    Field('permissionKey', String, 'Permission Key',
+        required: true,
+        hint:
+            'Dot-notation permission identifier '
+            '(e.g. user.create, config.manage, report.export)'),
+    Field('accessType', String, 'Access Type',
+        hint:
+            'Read | Write | Execute | Delete | Manage | All — type of access '
+            'this permission grants'),
+    Field('resourceScope', String, 'Resource Scope',
+        hint:
+            'Specific resource or resource pattern this permission applies to '
+            '(e.g. /api/users/*, tenant.settings, report.*)'),
+    Field('conditions', String, 'Conditions',
+        hint:
+            'Runtime conditions for this permission (e.g. business-hours-only, '
+            'requires-mfa, from-internal-network)'),
+  ])
+  String? content;
+}
+
+/// A data scope entry for a role (form) [PD00-ACC-USA-ROL-nn-DAS-nn].
+///
+/// Specifies what data categories the role can access and at what level —
+/// supports horizontal access control and data-level security.
+class RoleDataScopeEntry {
+  @Form([
+    Field('dataCategory', String, 'Data Category',
+        required: true,
+        hint:
+            'Business data category (e.g. CustomerRecords, FinancialData, '
+            'HRData, AuditLogs, SystemConfiguration)'),
+    Field('accessLevel', String, 'Access Level',
+        hint:
+            'Full | Filtered | Aggregated | Masked | ReadOnly | None — '
+            'level of access to this data category'),
+    Field('filterCriteria', String, 'Filter Criteria',
+        hint:
+            'How data is filtered for this role (e.g. own-department, '
+            'own-records, assigned-projects, tenant-boundary)'),
+    Field('maskingRules', String, 'Masking Rules',
+        hint:
+            'Fields masked or redacted for this role (e.g. SSN-last4, '
+            'email-domain-only, salary-hidden)'),
   ])
   String? content;
 }
@@ -3885,8 +4028,17 @@ class EntitlementReferenceEntry {
 /// A role exclusion entry (form) [PD00-ACC-USA-ROL-nn-EXC-nn].
 class RoleExclusionEntry {
   @Form([
-    Field('excludedRole', String, 'Excluded Role'),
-    Field('reason', String, 'Reason'),
+    Field('excludedRole', String, 'Excluded Role', required: true),
+    Field('reason', String, 'Reason',
+        hint: 'Business reason for the mutual exclusion (separation of duties)'),
+    Field('exclusionType', String, 'Exclusion Type',
+        hint:
+            'Static | Dynamic — static = enforced at assignment time, '
+            'dynamic = enforced at activation/runtime'),
+    Field('severity', String, 'Severity',
+        hint:
+            'Hard | Soft — hard = system-enforced block, '
+            'soft = warning with override option'),
   ])
   String? content;
 }
@@ -3894,8 +4046,16 @@ class RoleExclusionEntry {
 /// A role holder entry (form) [PD00-ACC-USA-ROL-nn-HOL-nn].
 class RoleHolderEntry {
   @Form([
-    Field('holderDescription', String, 'Holder Description'),
+    Field('holderDescription', String, 'Holder Description', required: true),
     Field('department', String, 'Department'),
+    Field('organizationalUnit', String, 'Organizational Unit',
+        hint: 'Specific organizational unit or team'),
+    Field('estimatedCount', int, 'Estimated Count',
+        hint: 'Approximate number of users expected to hold this role'),
+    Field('assignmentBasis', String, 'Assignment Basis',
+        hint:
+            'JobFunction | ProjectMembership | DepartmentMembership | '
+            'ManualAssignment — reason for role assignment'),
   ])
   String? content;
 }
