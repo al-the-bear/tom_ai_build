@@ -656,8 +656,8 @@ class Authentication {
   PasswordAndCredentialPolicy passwordAndCredentialPolicy =
       PasswordAndCredentialPolicy();
 
-  /// Session Management.
-  TextSection sessionManagement = TextSection();
+  /// 9.2.4. Session Management [PD00-ACC-IDE-SES].
+  SessionManagement sessionManagement = SessionManagement();
 }
 
 /// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
@@ -1850,6 +1850,363 @@ class MfaCategoryRequirementEntry {
             'Description of MFA requirements and rationale for this user category'),
   ])
   String? content;
+}
+
+/// 9.2.4. Session Management [PD00-ACC-IDE-SES].
+///
+/// Comprehensive session management policy covering session timeouts,
+/// concurrent session control, session revocation, remember-me functionality,
+/// session security hardening, and session lifecycle monitoring.
+/// Aligned with OWASP Session Management Cheat Sheet and NIST SP 800-63B
+/// session requirements by Authentication Assurance Level (AAL).
+@SectionId('PD00-ACC-IDE-SES')
+class SessionManagement {
+  @Unused()
+  String? content;
+
+  /// Session Management Overview (text).
+  TextSection overview = TextSection();
+
+  /// Session Timeout Policy.
+  SessionTimeoutPolicy sessionTimeoutPolicy = SessionTimeoutPolicy();
+
+  /// Concurrent Session Policy.
+  ConcurrentSessionPolicy concurrentSessionPolicy = ConcurrentSessionPolicy();
+
+  /// Session Revocation Policy.
+  SessionRevocationPolicy sessionRevocationPolicy = SessionRevocationPolicy();
+
+  /// Remember-Me and Persistent Session Policy.
+  RememberMePolicy rememberMePolicy = RememberMePolicy();
+
+  /// Session Security Hardening Policy.
+  SessionSecurityPolicy sessionSecurityPolicy = SessionSecurityPolicy();
+
+  /// Session Lifecycle Monitoring.
+  SessionLifecycleMonitoring sessionLifecycleMonitoring =
+      SessionLifecycleMonitoring();
+}
+
+/// Session timeout policy (form).
+///
+/// Defines idle timeout, absolute timeout, and renewal timeout
+/// parameters including per-AAL differentiation. OWASP recommends
+/// idle timeouts of 2–5 min for high-value and 15–30 min for low-risk
+/// applications. Absolute timeouts limit maximum session duration.
+@Form([
+  Field('idleTimeoutDefault', String, 'Default Idle Timeout',
+      hint:
+          'Duration of inactivity before session expires (e.g., 15min, 30min, 1h)'),
+  Field('idleTimeoutHighValue', String, 'Idle Timeout — High-Value Operations',
+      hint:
+          'Shorter idle timeout for sensitive operations (e.g., 2min, 5min)'),
+  Field('absoluteTimeout', String, 'Absolute Session Timeout',
+      hint:
+          'Maximum session duration regardless of activity (e.g., 4h, 8h, 24h)'),
+  Field('renewalTimeout', String, 'Session ID Renewal Timeout',
+      hint:
+          'Interval at which the session ID is transparently rotated (e.g., 15min, 30min)'),
+  Field('idleTimeoutAal1', String, 'Idle Timeout — AAL1',
+      hint: 'Idle timeout for AAL1 sessions (NIST default: 30 days)'),
+  Field('absoluteTimeoutAal1', String, 'Absolute Timeout — AAL1',
+      hint: 'Maximum session duration for AAL1 (NIST default: 30 days)'),
+  Field('idleTimeoutAal2', String, 'Idle Timeout — AAL2',
+      hint: 'Idle timeout for AAL2 sessions (NIST default: 1 hour)'),
+  Field('absoluteTimeoutAal2', String, 'Absolute Timeout — AAL2',
+      hint: 'Maximum session duration for AAL2 (NIST default: 24 hours)'),
+  Field('idleTimeoutAal3', String, 'Idle Timeout — AAL3',
+      hint: 'Idle timeout for AAL3 sessions (NIST default: 15 minutes)'),
+  Field('absoluteTimeoutAal3', String, 'Absolute Timeout — AAL3',
+      hint: 'Maximum session duration for AAL3 (NIST default: 12 hours)'),
+  Field('timeoutEnforcement', String, 'Timeout Enforcement',
+      hint:
+          'ServerSide | ClientSide | Both — where session timeout is enforced (server-side mandatory)'),
+  Field('timeoutWarningEnabled', String, 'Timeout Warning Enabled',
+      hint:
+          'Yes | No — whether users receive a warning before session expiry'),
+  Field('timeoutWarningLeadTime', String, 'Timeout Warning Lead Time',
+      hint:
+          'Time before expiry to show warning (e.g., 2min, 5min)'),
+  Field('timeoutWarningAction', String, 'Timeout Warning Action',
+      hint:
+          'ExtendSession | SaveDraft | RedirectToLogin — action offered to user'),
+  Field('sessionExtensionAllowed', String, 'Session Extension Allowed',
+      hint:
+          'Yes | No | Limited — whether users can extend an expiring session'),
+  Field('maxExtensions', String, 'Maximum Session Extensions',
+      hint:
+          'Maximum number of consecutive session extensions (e.g., 3, unlimited)'),
+  Field('gracePeriodAfterExpiry', String, 'Grace Period After Expiry',
+      hint:
+          'Brief window after expiry for saving work (e.g., 0s, 30s, 2min)'),
+])
+class SessionTimeoutPolicy {
+  String? content;
+
+  /// Session Timeout Details (text).
+  TextSection sessionTimeoutDetails = TextSection();
+}
+
+/// Concurrent session policy (form).
+///
+/// Defines how the application handles multiple simultaneous sessions
+/// from the same user account, including limits, notifications, and
+/// conflict resolution strategies.
+@Form([
+  Field('concurrentSessionsAllowed', String, 'Concurrent Sessions Allowed',
+      hint: 'Yes | No | Limited — whether multiple simultaneous sessions are permitted'),
+  Field('maxConcurrentSessions', String, 'Maximum Concurrent Sessions',
+      hint:
+          'Maximum number of active sessions per user (e.g., 1, 3, 5, unlimited)'),
+  Field('concurrentSessionScope', String, 'Concurrent Session Scope',
+      hint:
+          'PerAccount | PerDeviceType | PerApplication — scope for counting sessions'),
+  Field('conflictResolution', String, 'Session Conflict Resolution',
+      hint:
+          'TerminateOldest | TerminateNewest | DenyNew | AskUser — action when limit exceeded'),
+  Field('sessionListVisible', String, 'Session List Visible to User',
+      hint:
+          'Yes | No — whether users can see a list of their active sessions'),
+  Field('remoteTerminationEnabled', String, 'Remote Termination Enabled',
+      hint:
+          'Yes | No — whether users can terminate other sessions remotely'),
+  Field('sessionDeviceInfo', String, 'Session Device Information',
+      hint:
+          'IPAddress | DeviceType | Browser | Location | All — info shown per session'),
+  Field('concurrentLoginNotification', String, 'Concurrent Login Notification',
+      hint:
+          'None | Email | Push | InApp | All — notification when new session starts'),
+  Field('suspiciousConcurrentLoginAction', String,
+      'Suspicious Concurrent Login Action',
+      hint:
+          'Notify | RequireMFA | TerminateAll | LockAccount — action for suspicious simultaneous access'),
+  Field('privilegedAccountSessionLimit', String,
+      'Privileged Account Session Limit',
+      hint:
+          'Maximum sessions for admin/privileged accounts (typically stricter, e.g., 1)'),
+  Field('crossDeviceSessionHandling', String, 'Cross-Device Session Handling',
+      hint:
+          'Independent | Synchronized | SingleDevice — how sessions relate across devices'),
+])
+class ConcurrentSessionPolicy {
+  String? content;
+
+  /// Concurrent Session Details (text).
+  TextSection concurrentSessionDetails = TextSection();
+}
+
+/// Session revocation policy (form).
+///
+/// Defines how sessions are explicitly invalidated: logout behavior,
+/// administrative termination, privilege change handling, and
+/// bulk revocation scenarios.
+@Form([
+  Field('logoutMechanism', String, 'Logout Mechanism',
+      hint:
+          'ServerSideInvalidation | TokenBlacklist | CookieClear | All — how sessions are terminated'),
+  Field('logoutButtonPlacement', String, 'Logout Button Placement',
+      hint:
+          'Header | Menu | Both | EveryPage — where the logout action is accessible'),
+  Field('logoutConfirmation', String, 'Logout Confirmation',
+      hint:
+          'Immediate | ConfirmDialog | None — whether logout requires confirmation'),
+  Field('postLogoutRedirect', String, 'Post-Logout Redirect',
+      hint:
+          'LoginPage | HomePage | GoodbyePage | CustomUrl — where users go after logout'),
+  Field('postLogoutCacheClear', String, 'Post-Logout Cache Clear',
+      hint:
+          'Yes | No — whether Clear-Site-Data header is sent on logout'),
+  Field('singleLogoutEnabled', String, 'Single Logout (SLO) Enabled',
+      hint:
+          'Yes | No — whether logout propagates to all connected IdPs and services'),
+  Field('singleLogoutProtocol', String, 'Single Logout Protocol',
+      hint:
+          'FrontChannel | BackChannel | Both — SLO propagation method'),
+  Field('privilegeChangeRevocation', String,
+      'Session Revocation on Privilege Change',
+      hint:
+          'Regenerate | Terminate | NoAction — session handling when user roles change'),
+  Field('passwordChangeRevocation', String,
+      'Session Revocation on Password Change',
+      hint:
+          'TerminateAll | TerminateOthers | KeepCurrent — session handling after password change'),
+  Field('compromiseRevocation', String,
+      'Session Revocation on Compromise Detection',
+      hint:
+          'TerminateAll | TerminateOthers | RequireReauth — action when account compromise suspected'),
+  Field('adminTerminationEnabled', String, 'Admin Session Termination Enabled',
+      hint:
+          'Yes | No — whether administrators can terminate user sessions'),
+  Field('bulkRevocationEnabled', String, 'Bulk Session Revocation Enabled',
+      hint:
+          'Yes | No — whether mass session invalidation is supported (e.g., security incident)'),
+  Field('revocationPropagationDelay', String,
+      'Revocation Propagation Delay',
+      hint:
+          'Immediate | EventualConsistency | MaxDelay — how quickly revocation takes effect across nodes'),
+])
+class SessionRevocationPolicy {
+  String? content;
+
+  /// Session Revocation Details (text).
+  TextSection sessionRevocationDetails = TextSection();
+}
+
+/// Remember-me and persistent session policy (form).
+///
+/// Defines the remember-me (persistent login) functionality, device trust,
+/// and long-lived session token management. Persistent sessions trade
+/// security for convenience and must be carefully scoped.
+@Form([
+  Field('rememberMeEnabled', String, 'Remember-Me Enabled',
+      hint: 'Yes | No — whether remember-me / keep-me-signed-in is offered'),
+  Field('rememberMeDuration', String, 'Remember-Me Duration',
+      hint:
+          'Duration of persistent session (e.g., 7d, 30d, 90d)'),
+  Field('rememberMeTokenType', String, 'Remember-Me Token Type',
+      hint:
+          'PersistentCookie | DeviceToken | RefreshToken — mechanism for persistent login'),
+  Field('rememberMeTokenStorage', String, 'Remember-Me Token Storage',
+      hint:
+          'HttpOnlyCookie | SecureStorage | EncryptedLocalStorage — client-side storage'),
+  Field('rememberMeTokenRotation', String, 'Remember-Me Token Rotation',
+      hint:
+          'Yes | No — whether persistent tokens are rotated on each use'),
+  Field('rememberMeReuseDetection', String, 'Remember-Me Reuse Detection',
+      hint:
+          'Yes | No — whether reuse of old persistent tokens triggers revocation'),
+  Field('rememberMeDeviceBinding', String, 'Remember-Me Device Binding',
+      hint:
+          'None | Fingerprint | CertificateBound — how persistent tokens are bound to devices'),
+  Field('rememberMeRevocation', String, 'Remember-Me Revocation',
+      hint:
+          'ManualOnly | OnPasswordChange | OnSecurityEvent | All — when persistent tokens are revoked'),
+  Field('rememberMeAalReduction', String, 'Remember-Me AAL Reduction',
+      hint:
+          'Yes | No — whether remember-me reduces effective AAL (e.g., AAL2 to AAL1)'),
+  Field('rememberMeRestrictedOperations', String,
+      'Restricted Operations with Remember-Me',
+      hint:
+          'Operations requiring full reauthentication even with active remember-me (e.g., password change, payment)'),
+  Field('trustedDeviceManagement', String, 'Trusted Device Management',
+      hint:
+          'Yes | No — whether users can manage a list of trusted/remembered devices'),
+  Field('maxTrustedDevices', String, 'Maximum Trusted Devices',
+      hint:
+          'Maximum number of devices in the trusted device list (e.g., 5, 10)'),
+  Field('trustedDeviceExpiry', String, 'Trusted Device Expiry',
+      hint:
+          'Duration a device stays trusted (e.g., 30d, 90d, indefinite)'),
+])
+class RememberMePolicy {
+  String? content;
+
+  /// Remember-Me Policy Details (text).
+  TextSection rememberMeDetails = TextSection();
+}
+
+/// Session security hardening policy (form).
+///
+/// Defines session fixation protection, session binding to user properties,
+/// session anomaly detection, and content caching policies.
+/// Aligned with OWASP Session Management Cheat Sheet recommendations.
+@Form([
+  Field('sessionFixationProtection', String, 'Session Fixation Protection',
+      hint:
+          'RegenerateOnLogin | RegenerateOnPrivilegeChange | Both — session ID regeneration strategy'),
+  Field('sessionIdRegenerationTriggers', String,
+      'Session ID Regeneration Triggers',
+      hint:
+          'Login | PrivilegeChange | PasswordChange | MfaStep | All — events triggering session ID renewal'),
+  Field('sessionBindingProperties', String, 'Session Binding Properties',
+      hint:
+          'None | IPAddress | UserAgent | DeviceFingerprint | TlsCertificate — properties bound to session'),
+  Field('bindingMismatchAction', String, 'Binding Mismatch Action',
+      hint:
+          'Terminate | RequireReauth | LogAndContinue | StepUpAuth — action on session binding violation'),
+  Field('sessionAnomalyDetection', String, 'Session Anomaly Detection',
+      hint:
+          'Yes | No — whether session anomalies (IP change, user-agent change) are monitored'),
+  Field('anomalyDetectionSignals', String, 'Anomaly Detection Signals',
+      hint:
+          'IPChange | UserAgentChange | GeoLocationJump | ConcurrentAccess — signals monitored'),
+  Field('sessionCachePolicy', String, 'Session Cache Policy',
+      hint:
+          'NoStore | NoCache | Private — Cache-Control directive for pages with session data'),
+  Field('clearSiteDataOnLogout', String, 'Clear-Site-Data on Logout',
+      hint:
+          'Yes | No — whether Clear-Site-Data header clears cache, cookies, storage on logout'),
+  Field('sessionTransportSecurity', String, 'Session Transport Security',
+      hint:
+          'HttpsOnly | HstsEnabled | CertificatePinning — transport layer requirements for sessions'),
+  Field('sessionIdInUrlPrevention', String, 'Session ID in URL Prevention',
+      hint:
+          'Yes | No — whether session IDs in URL parameters are explicitly blocked'),
+  Field('crossOriginSessionProtection', String,
+      'Cross-Origin Session Protection',
+      hint:
+          'SameSiteCookies | CorsRestriction | Both — cross-origin session protection mechanisms'),
+  Field('sessionDataMinimization', String, 'Session Data Minimization',
+      hint:
+          'Yes | No — whether session stores only essential data (minimize sensitive data in session)'),
+])
+class SessionSecurityPolicy {
+  String? content;
+
+  /// Session Security Details (text).
+  TextSection sessionSecurityDetails = TextSection();
+}
+
+/// Session lifecycle monitoring (form).
+///
+/// Defines how session events are logged, monitored, and audited
+/// throughout the session lifecycle: creation, usage, renewal,
+/// and destruction.
+@Form([
+  Field('sessionCreationLogging', String, 'Session Creation Logging',
+      hint:
+          'Yes | No — whether session creation events are logged'),
+  Field('sessionDestructionLogging', String, 'Session Destruction Logging',
+      hint:
+          'Yes | No — whether session termination events are logged'),
+  Field('sessionRenewalLogging', String, 'Session Renewal Logging',
+      hint:
+          'Yes | No — whether session ID renewal events are logged'),
+  Field('sessionEventDetails', String, 'Session Event Details',
+      hint:
+          'Timestamp | SourceIP | UserAgent | GeoLocation | SessionAction — details captured per event'),
+  Field('sessionIdInLogs', String, 'Session ID in Logs',
+      hint:
+          'SaltedHash | Truncated | Never — how session IDs appear in logs (never in plaintext)'),
+  Field('sessionActivityTracking', String, 'Session Activity Tracking',
+      hint:
+          'Yes | No — whether per-session activity (page visits, actions) is tracked'),
+  Field('sessionHistoryVisibleToUser', String,
+      'Session History Visible to User',
+      hint:
+          'Yes | No — whether users can view their session activity history'),
+  Field('failedSessionAccessLogging', String,
+      'Failed Session Access Logging',
+      hint:
+          'Yes | No — whether invalid/expired session access attempts are logged'),
+  Field('sessionMetricsCollection', String, 'Session Metrics Collection',
+      hint:
+          'Yes | No — whether session duration, count, and patterns are collected as metrics'),
+  Field('sessionAuditRetention', String, 'Session Audit Log Retention',
+      hint:
+          'Duration session audit logs are retained (e.g., 90d, 1y, 7y)'),
+  Field('realTimeSessionAlerts', String, 'Real-Time Session Alerts',
+      hint:
+          'Yes | No — whether suspicious session events trigger real-time alerts'),
+  Field('alertTriggers', String, 'Session Alert Triggers',
+      hint:
+          'BruteForce | AnomalousAccess | MassLogout | SessionHijack — events triggering alerts'),
+])
+class SessionLifecycleMonitoring {
+  String? content;
+
+  /// Session Lifecycle Monitoring Details (text).
+  TextSection sessionLifecycleDetails = TextSection();
 }
 
 /// 9.3. Resource Protection [PD00-ACC-RES].
