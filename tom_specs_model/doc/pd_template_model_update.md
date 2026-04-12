@@ -255,7 +255,7 @@ All 317 sections from `pd_template.md` with content migration status.
 | # | Section ID | Section Name | Model Status | Content Status |
 |---|------------|--------------|--------------|----------------|
 | 1 | PD00-CUR | Current State Analysis | ✅ Exists | ✅ |
-| 2 | PD00-CUR-SYS | Existing Systems Landscape | ✅ Exists | ⬜ |
+| 2 | PD00-CUR-SYS | Existing Systems Landscape | ✅ Exists | ✅ |
 | 3 | PD00-CUR-SYS-INV | System Inventory | ✅ Exists | ⬜ |
 | 4 | PD00-CUR-SYS-INV-01 | Sample: Legacy ERP System | ✅ Exists | ⏭️ |
 | 5 | PD00-CUR-SYS-ARC | Current Architecture | ✅ Exists | ⬜ |
