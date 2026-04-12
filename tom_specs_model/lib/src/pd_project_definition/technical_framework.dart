@@ -6109,8 +6109,8 @@ class OperationsRequirements {
   MonitoringAndAlertingSection monitoringAndAlerting =
       MonitoringAndAlertingSection();
 
-  /// Maintenance Windows.
-  TextSection maintenanceWindows = TextSection();
+  /// 8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI].
+  MaintenanceWindowsSection maintenanceWindows = MaintenanceWindowsSection();
 }
 
 // =============================================================================
@@ -7530,6 +7530,313 @@ class SlaMonitoringRequirements {
         hint: 'SLA review cadence'),
     Field('notes', String, 'Notes',
         hint: 'Additional SLA notes'),
+  ])
+  String? content;
+}
+
+// =============================================================================
+// 8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI]
+// =============================================================================
+
+/// 8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI].
+///
+/// Maintenance window requirements: frequency, duration, notification period,
+/// and impact on users.
+@SectionId('PD00-TEC-OPE-MAI')
+class MaintenanceWindowsSection {
+  @Unused()
+  String? content;
+
+  /// Overview of maintenance strategy.
+  TextSection overview = TextSection();
+
+  /// Scheduled maintenance policies.
+  ScheduledMaintenancePolicy scheduledMaintenance =
+      ScheduledMaintenancePolicy();
+
+  /// Maintenance window definitions.
+  @SectionIdPattern('PD00-TEC-OPE-MAI-WIN-xx')
+  List<MaintenanceWindowEntry> maintenanceWindows = [];
+
+  /// Emergency maintenance procedures.
+  EmergencyMaintenanceProcedures emergencyMaintenance =
+      EmergencyMaintenanceProcedures();
+
+  /// Change management for maintenance.
+  MaintenanceChangeManagement changeManagement =
+      MaintenanceChangeManagement();
+
+  /// User impact and communication.
+  MaintenanceUserImpact userImpact = MaintenanceUserImpact();
+
+  /// Post-maintenance validation.
+  PostMaintenanceValidation postMaintenance = PostMaintenanceValidation();
+}
+
+/// Scheduled maintenance policy.
+class ScheduledMaintenancePolicy {
+  @Form([
+    // Policy
+    Field('maintenancePolicy', String, 'Maintenance Policy',
+        hint: 'Overall maintenance approach'),
+    Field('zeroDowntimeGoal', bool, 'Zero-Downtime Goal',
+        hint: 'Strive for zero downtime'),
+    Field('maintenanceAgreement', String, 'Maintenance Agreement',
+        hint: 'SLA for maintenance windows'),
+
+    // Scheduling
+    Field('preferredDay', String, 'Preferred Day',
+        hint: 'Preferred day of week'),
+    Field('preferredTime', String, 'Preferred Time',
+        hint: 'Preferred start time'),
+    Field('timezone', String, 'Timezone',
+        hint: 'Maintenance timezone'),
+    Field('maxFrequency', String, 'Maximum Frequency',
+        hint: 'Max maintenance per month'),
+    Field('blackoutPeriods', String, 'Blackout Periods',
+        hint: 'When maintenance is forbidden'),
+
+    // Duration
+    Field('maxDuration', String, 'Maximum Duration',
+        hint: 'Max window duration'),
+    Field('typicalDuration', String, 'Typical Duration',
+        hint: 'Typical window length'),
+    Field('extensionPolicy', String, 'Extension Policy',
+        hint: 'How to extend if needed'),
+
+    // Advance notice
+    Field('standardNotice', String, 'Standard Notice Period',
+        hint: 'Days advance notice'),
+    Field('minimumNotice', String, 'Minimum Notice Period',
+        hint: 'Minimum advance notice'),
+    Field('noticeChannels', String, 'Notice Channels',
+        hint: 'How users are notified'),
+
+    // Approval
+    Field('approvalRequired', bool, 'Approval Required',
+        hint: 'Requires approval'),
+    Field('approvalAuthority', String, 'Approval Authority',
+        hint: 'Who approves maintenance'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional policy notes'),
+  ])
+  String? content;
+}
+
+/// Maintenance window entry.
+class MaintenanceWindowEntry {
+  @Form([
+    // Identity
+    Field('windowName', String, 'Window Name',
+        required: true, hint: 'Maintenance window name'),
+    Field('windowType', String, 'Window Type',
+        hint: 'Routine, Patch, Upgrade, Migration'),
+    Field('priority', String, 'Priority',
+        hint: 'Critical, Standard, Low'),
+    Field('description', String, 'Description',
+        hint: 'What maintenance is performed'),
+
+    // Schedule
+    Field('frequency', String, 'Frequency',
+        hint: 'Weekly, Monthly, Quarterly'),
+    Field('dayOfWeek', String, 'Day of Week',
+        hint: 'When this window occurs'),
+    Field('startTime', String, 'Start Time',
+        hint: 'Window start time'),
+    Field('endTime', String, 'End Time',
+        hint: 'Window end time'),
+    Field('duration', String, 'Duration',
+        hint: 'Expected duration'),
+
+    // Scope
+    Field('affectedSystems', String, 'Affected Systems',
+        hint: 'Which systems are affected'),
+    Field('affectedServices', String, 'Affected Services',
+        hint: 'Which services impacted'),
+    Field('affectedRegions', String, 'Affected Regions',
+        hint: 'Geographic scope'),
+
+    // Impact
+    Field('userImpact', String, 'User Impact',
+        hint: 'How users are affected'),
+    Field('serviceAvailability', String, 'Service Availability',
+        hint: 'Fully down, degraded, partial'),
+    Field('dataAvailability', String, 'Data Availability',
+        hint: 'Data access during window'),
+    Field('workarounds', String, 'Workarounds',
+        hint: 'Workarounds during maintenance'),
+
+    // Rollback
+    Field('rollbackPlan', String, 'Rollback Plan',
+        hint: 'How to roll back if needed'),
+    Field('rollbackDecisionPoint', String, 'Rollback Decision Point',
+        hint: 'When to decide on rollback'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional window notes'),
+  ])
+  String? content;
+}
+
+/// Emergency maintenance procedures.
+class EmergencyMaintenanceProcedures {
+  @Form([
+    // Triggers
+    Field('emergencyTriggers', String, 'Emergency Triggers',
+        hint: 'What triggers emergency maintenance'),
+    Field('securityPatchPolicy', String, 'Security Patch Policy',
+        hint: 'Critical security patch handling'),
+    Field('severityThresholds', String, 'Severity Thresholds',
+        hint: 'What severity warrants emergency'),
+
+    // Authorization
+    Field('emergencyApproval', String, 'Emergency Approval',
+        hint: 'Who approves emergency work'),
+    Field('delegationOfAuthority', String, 'Delegation of Authority',
+        hint: 'Backup approvers'),
+    Field('documentationRequired', String, 'Documentation Required',
+        hint: 'Post-hoc documentation'),
+
+    // Notification
+    Field('emergencyNotice', String, 'Emergency Notice',
+        hint: 'Minimum notice for emergency'),
+    Field('notificationChannels', String, 'Notification Channels',
+        hint: 'Emergency notification channels'),
+    Field('stakeholderEscalation', String, 'Stakeholder Escalation',
+        hint: 'How stakeholders are informed'),
+
+    // Execution
+    Field('teamAssembly', String, 'Team Assembly',
+        hint: 'How response team assembles'),
+    Field('maxEmergencyDuration', String, 'Max Emergency Duration',
+        hint: 'Maximum emergency window'),
+    Field('postEmergencyReview', bool, 'Post-Emergency Review',
+        hint: 'Mandatory review after'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional emergency notes'),
+  ])
+  String? content;
+}
+
+/// Change management for maintenance.
+class MaintenanceChangeManagement {
+  @Form([
+    // Change process
+    Field('changeProcess', String, 'Change Process',
+        hint: 'ITIL, custom change process'),
+    Field('changeCategories', String, 'Change Categories',
+        hint: 'Standard, Normal, Emergency'),
+    Field('changeBoard', String, 'Change Advisory Board',
+        hint: 'CAB composition'),
+    Field('changeBoardSchedule', String, 'CAB Schedule',
+        hint: 'When CAB meets'),
+
+    // Documentation
+    Field('changeRequestRequired', bool, 'Change Request Required',
+        hint: 'CR needed for maintenance'),
+    Field('impactAssessment', bool, 'Impact Assessment Required',
+        hint: 'Assess impact before change'),
+    Field('riskAssessment', bool, 'Risk Assessment Required',
+        hint: 'Assess risk before change'),
+    Field('rollbackPlanRequired', bool, 'Rollback Plan Required',
+        hint: 'Rollback plan mandatory'),
+
+    // Testing
+    Field('preProdTesting', bool, 'Pre-Production Testing',
+        hint: 'Test in staging first'),
+    Field('testPlanRequired', bool, 'Test Plan Required',
+        hint: 'Test plan mandatory'),
+    Field('signOffRequired', bool, 'Sign-Off Required',
+        hint: 'Post-test sign-off'),
+
+    // Audit
+    Field('changeLogging', bool, 'Change Logging',
+        hint: 'Log all changes'),
+    Field('changeHistory', String, 'Change History',
+        hint: 'Where changes are tracked'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional change management notes'),
+  ])
+  String? content;
+}
+
+/// User impact and communication.
+class MaintenanceUserImpact {
+  @Form([
+    // Pre-maintenance
+    Field('advanceNotification', String, 'Advance Notification',
+        hint: 'How users are notified in advance'),
+    Field('inAppNotification', bool, 'In-App Notification',
+        hint: 'Banner or popup in app'),
+    Field('emailNotification', bool, 'Email Notification',
+        hint: 'Email users before maintenance'),
+    Field('statusPageUpdate', bool, 'Status Page Update',
+        hint: 'Update status page'),
+    Field('socialMediaNotice', bool, 'Social Media Notice',
+        hint: 'Post on social media'),
+
+    // During maintenance
+    Field('maintenancePage', String, 'Maintenance Page',
+        hint: 'What user sees during downtime'),
+    Field('maintenanceMessage', String, 'Maintenance Message',
+        hint: 'Default maintenance text'),
+    Field('estimatedCompletion', bool, 'Estimated Completion',
+        hint: 'Show estimated completion'),
+    Field('progressUpdates', bool, 'Progress Updates',
+        hint: 'Periodic progress updates'),
+
+    // Graceful degradation
+    Field('gracefulDegradation', String, 'Graceful Degradation',
+        hint: 'Partial service availability'),
+    Field('readOnlyMode', bool, 'Read-Only Mode',
+        hint: 'Allow read-only access'),
+    Field('queuedOperations', bool, 'Queued Operations',
+        hint: 'Queue writes during maintenance'),
+
+    // Post-maintenance
+    Field('completionNotice', bool, 'Completion Notice',
+        hint: 'Notify when complete'),
+    Field('changelogPublished', bool, 'Changelog Published',
+        hint: 'Publish changes made'),
+    Field('feedbackCollection', bool, 'Feedback Collection',
+        hint: 'Collect user feedback'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional user impact notes'),
+  ])
+  String? content;
+}
+
+/// Post-maintenance validation.
+class PostMaintenanceValidation {
+  @Form([
+    // Validation steps
+    Field('smokeTests', bool, 'Smoke Tests',
+        hint: 'Run smoke tests after'),
+    Field('functionalTests', bool, 'Functional Tests',
+        hint: 'Run functional test suite'),
+    Field('performanceTests', bool, 'Performance Tests',
+        hint: 'Run performance checks'),
+    Field('healthChecks', bool, 'Health Checks',
+        hint: 'Verify all health checks'),
+
+    // Monitoring
+    Field('enhancedMonitoring', String, 'Enhanced Monitoring',
+        hint: 'Heightened monitoring period'),
+    Field('monitoringDuration', String, 'Monitoring Duration',
+        hint: 'How long to watch after'),
+    Field('keyMetrics', String, 'Key Metrics',
+        hint: 'Metrics to watch closely'),
+    Field('baselineComparison', bool, 'Baseline Comparison',
+        hint: 'Compare to pre-maintenance'),
+
+    // Sign-off
+    Field('validateSignoff', String, 'Validation Sign-Off',
+        hint: 'Who signs off validation'),
+    Field('maintenanceReport', bool, 'Maintenance Report',
+        hint: 'Generate maintenance report'),
+    Field('lessonsLearned', bool, 'Lessons Learned',
+        hint: 'Document lessons learned'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional validation notes'),
   ])
   String? content;
 }
