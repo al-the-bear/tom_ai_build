@@ -5410,69 +5410,482 @@ class KeyCompromiseRecoveryPolicy {
 }
 
 /// 9.6. Audit and Logging [PD00-ACC-AUD].
+///
+/// Security audit and event logging requirements covering security event
+/// definitions, audit log format and structure, and compliance reporting.
+/// Aligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to
+/// Computer Security Log Management).
 @SectionId('PD00-ACC-AUD')
 class AuditAndLogging {
   @Unused()
   String? content;
 
-  /// 9.6.1. Audit [PD00-ACC-AUD-AUD].
-  Audit audit = Audit();
+  /// 9.6.1. Security Events [PD00-ACC-AUD-EVE].
+  @SectionId('PD00-ACC-AUD-EVE')
+  SecurityEventsDefinition securityEvents = SecurityEventsDefinition();
 
-  /// 9.6.2. Logging [PD00-ACC-AUD-LOG].
-  Logging logging = Logging();
+  /// 9.6.2. Audit Log Format [PD00-ACC-AUD-FMT].
+  @SectionId('PD00-ACC-AUD-FMT')
+  AuditLogFormat auditLogFormat = AuditLogFormat();
+
+  /// 9.6.3. Compliance Reporting [PD00-ACC-AUD-COM].
+  @SectionId('PD00-ACC-AUD-COM')
+  ComplianceReporting complianceReporting = ComplianceReporting();
 }
 
-/// 9.6.1. Audit [PD00-ACC-AUD-AUD].
-@SectionId('PD00-ACC-AUD-AUD')
-class Audit {
+// ---------------------------------------------------------------------------
+// 9.6.1. Security Events [PD00-ACC-AUD-EVE]
+// ---------------------------------------------------------------------------
+
+/// 9.6.1. Security Events [PD00-ACC-AUD-EVE].
+///
+/// Defines which security events must be logged: authentication attempts,
+/// authorization failures, data access, configuration changes, admin actions,
+/// input validation failures, and higher-risk functionality usage.
+@SectionId('PD00-ACC-AUD-EVE')
+class SecurityEventsDefinition {
   @Unused()
   String? content;
 
-  /// Audit Trail.
-  TextSection auditTrail = TextSection();
+  /// Security Event Logging Policy.
+  SecurityEventLoggingPolicy loggingPolicy = SecurityEventLoggingPolicy();
 
-  /// Compliance Reporting.
-  TextSection complianceReporting = TextSection();
+  /// Authentication Events.
+  AuthenticationEventPolicy authenticationEvents = AuthenticationEventPolicy();
 
-  /// Retention Policy.
-  TextSection retentionPolicy = TextSection();
+  /// Authorization Events.
+  AuthorizationEventPolicy authorizationEvents = AuthorizationEventPolicy();
+
+  /// Data Access Events.
+  DataAccessEventPolicy dataAccessEvents = DataAccessEventPolicy();
+
+  /// Administrative Events.
+  AdministrativeEventPolicy administrativeEvents = AdministrativeEventPolicy();
+
+  /// Custom Security Events — contains 0+× Security Event Entry.
+  @SectionIdPattern('PD00-ACC-AUD-EVE-xx')
+  List<SecurityEventEntry> customEvents = [];
 }
 
-/// 9.6.2. Logging [PD00-ACC-AUD-LOG].
-@SectionId('PD00-ACC-AUD-LOG')
-class Logging {
-  @Unused()
-  String? content;
-
-  /// Log Format.
-  TextSection logFormat = TextSection();
-
-  /// Log Levels.
-  TextSection logLevels = TextSection();
-
-  /// 9.6.2.3. Security Events [PD00-ACC-AUD-LOG-EVE].
-  SecurityEvents securityEvents = SecurityEvents();
-}
-
-/// 9.6.2.3. Security Events [PD00-ACC-AUD-LOG-EVE].
-@SectionId('PD00-ACC-AUD-LOG-EVE')
-class SecurityEvents {
-  @Unused()
-  String? content;
-
-  /// Contains 0+× SecurityEvent.
-  @SectionIdPattern('PD00-ACC-AUD-LOG-EVE-xx')
-  List<SecurityEventEntry> items = [];
-}
-
-/// A security event entry (form) [PD00-ACC-AUD-LOG-EVE-nn].
-class SecurityEventEntry {
+/// Security event logging policy (form).
+///
+/// Overall policy for security event logging: default level, PII handling,
+/// event classification scheme, and severity definitions.
+class SecurityEventLoggingPolicy {
   @Form([
-    Field('eventName', String, 'Event Name', required: true),
-    Field('eventType', String, 'Event Type'),
-    Field('description', String, 'Short description'),
-    Field('severity', String, 'Severity level'),
-    Field('responseAction', String, 'Response Action'),
+    Field('defaultLoggingLevel', String, 'Default Logging Level',
+        hint: 'Default logging verbosity '
+            '(e.g., Info, Warning, Error, Debug)'),
+    Field('piiHandling', String, 'PII Handling',
+        hint: 'How PII is handled in logs '
+            '(e.g., masked, hashed, excluded, encrypted)'),
+    Field('eventClassificationScheme', String, 'Classification Scheme',
+        hint: 'Event classification scheme used '
+            '(e.g., custom, CEF, LEEF, Syslog sevority)'),
+    Field('severityLevels', String, 'Severity Levels',
+        hint: 'Severity level definitions '
+            '(e.g., Emergency=0, Alert=1, ... Debug=7)'),
+    Field('timeSynchronization', String, 'Time Synchronization',
+        hint: 'Time synchronization requirements '
+            '(e.g., NTP with trusted source, GPS)'),
+    Field('correlationIdentifiers', String, 'Correlation Identifiers',
+        hint: 'Interaction/correlation ID strategy '
+            '(e.g., request ID, trace ID, session ID)'),
   ])
   String? content;
+
+  /// Additional Notes (text).
+  TextSection notes = TextSection();
+}
+
+/// Authentication event policy (form).
+///
+/// Defines which authentication-related events are logged.
+class AuthenticationEventPolicy {
+  @Form([
+    Field('logSuccessfulLogins', String, 'Log Successful Logins',
+        hint: 'Yes / No — whether successful logins are logged'),
+    Field('logFailedLogins', String, 'Log Failed Logins',
+        hint: 'Yes / No — whether failed login attempts are logged'),
+    Field('logPasswordChanges', String, 'Log Password Changes',
+        hint: 'Yes / No — whether password changes are logged'),
+    Field('logMfaEvents', String, 'Log MFA Events',
+        hint: 'Yes / No — whether MFA setup/verification events are logged'),
+    Field('logSessionEvents', String, 'Log Session Events',
+        hint: 'Yes / No — whether session creation/termination is logged'),
+    Field('logAccountLockouts', String, 'Log Account Lockouts',
+        hint: 'Yes / No — whether account lockout events are logged'),
+    Field('logTokenEvents', String, 'Log Token Events',
+        hint: 'Yes / No — whether token issuance/revocation is logged'),
+  ])
+  String? content;
+
+  /// Additional Notes (text).
+  TextSection notes = TextSection();
+}
+
+/// Authorization event policy (form).
+///
+/// Defines which authorization-related events are logged.
+class AuthorizationEventPolicy {
+  @Form([
+    Field('logAccessGranted', String, 'Log Access Granted',
+        hint: 'Yes / No / Sensitive-Only — whether access grants are logged'),
+    Field('logAccessDenied', String, 'Log Access Denied',
+        hint: 'Yes / No — whether access denial events are logged'),
+    Field('logPrivilegeEscalation', String, 'Log Privilege Escalation',
+        hint: 'Yes / No — whether privilege escalation attempts are logged'),
+    Field('logRoleChanges', String, 'Log Role Changes',
+        hint: 'Yes / No — whether role assignment changes are logged'),
+    Field('logPermissionChanges', String, 'Log Permission Changes',
+        hint: 'Yes / No — whether permission modifications are logged'),
+    Field('logResourceAccessPatterns', String, 'Log Resource Access Patterns',
+        hint: 'Yes / No — whether resource access anomalies are logged'),
+  ])
+  String? content;
+
+  /// Additional Notes (text).
+  TextSection notes = TextSection();
+}
+
+/// Data access event policy (form).
+///
+/// Defines which data access events are logged.
+class DataAccessEventPolicy {
+  @Form([
+    Field('logDataCreation', String, 'Log Data Creation',
+        hint: 'Yes / No / Sensitive-Only — whether data creation is logged'),
+    Field('logDataModification', String, 'Log Data Modification',
+        hint: 'Yes / No / Sensitive-Only — whether data updates are logged'),
+    Field('logDataDeletion', String, 'Log Data Deletion',
+        hint: 'Yes / No — whether data deletion is logged'),
+    Field('logDataExport', String, 'Log Data Export',
+        hint: 'Yes / No — whether data exports/downloads are logged'),
+    Field('logDataImport', String, 'Log Data Import',
+        hint: 'Yes / No — whether data imports/uploads are logged'),
+    Field('logBulkOperations', String, 'Log Bulk Operations',
+        hint: 'Yes / No — whether bulk data operations are logged'),
+    Field('logSensitiveDataAccess', String, 'Log Sensitive Data Access',
+        hint: 'Yes / No — whether access to sensitive fields is logged'),
+  ])
+  String? content;
+
+  /// Additional Notes (text).
+  TextSection notes = TextSection();
+}
+
+/// Administrative event policy (form).
+///
+/// Defines which administrative events are logged.
+class AdministrativeEventPolicy {
+  @Form([
+    Field('logConfigurationChanges', String, 'Log Configuration Changes',
+        hint: 'Yes / No — whether system configuration changes are logged'),
+    Field('logUserAdministration', String, 'Log User Administration',
+        hint: 'Yes / No — whether user account administration is logged'),
+    Field('logSystemStartStop', String, 'Log System Start/Stop',
+        hint: 'Yes / No — whether application startup/shutdown is logged'),
+    Field('logBackupRestoreOperations', String, 'Log Backup/Restore',
+        hint: 'Yes / No — whether backup/restore operations are logged'),
+    Field('logSecurityPolicyChanges', String, 'Log Security Policy Changes',
+        hint: 'Yes / No — whether security policy modifications are logged'),
+    Field('logAuditLogAccess', String, 'Log Audit Log Access',
+        hint: 'Yes / No — whether access to audit logs is logged'),
+    Field('logBreakGlassUsage', String, 'Log Break-Glass Usage',
+        hint: 'Yes / No — whether emergency/break-glass access is logged'),
+  ])
+  String? content;
+
+  /// Additional Notes (text).
+  TextSection notes = TextSection();
+}
+
+/// A custom security event entry (form) [PD00-ACC-AUD-EVE-nn].
+///
+/// Allows defining additional application-specific security events
+/// beyond the standard categories.
+class SecurityEventEntry {
+  @Form([
+    Field('eventName', String, 'Event Name', required: true,
+        hint: 'Unique identifier for this event type'),
+    Field('eventCategory', String, 'Event Category',
+        hint: 'Category (e.g., BusinessLogic, Integration, Compliance)'),
+    Field('description', String, 'Description',
+        hint: 'What triggers this event'),
+    Field('severity', String, 'Severity',
+        hint: 'Default severity level (e.g., Info, Warning, Critical)'),
+    Field('triggerCondition', String, 'Trigger Condition',
+        hint: 'Specific condition that triggers logging'),
+    Field('responseAction', String, 'Response Action',
+        hint: 'Automated response if any (e.g., alert, block, notify)'),
+    Field('complianceMapping', String, 'Compliance Mapping',
+        hint: 'Relevant compliance requirement (e.g., PCI-DSS 10.2.5)'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 9.6.2. Audit Log Format [PD00-ACC-AUD-FMT]
+// ---------------------------------------------------------------------------
+
+/// 9.6.2. Audit Log Format [PD00-ACC-AUD-FMT].
+///
+/// Defines the audit log format: fields to capture (who, what, when, where,
+/// result), log retention period, and tamper protection requirements.
+@SectionId('PD00-ACC-AUD-FMT')
+class AuditLogFormat {
+  @Unused()
+  String? content;
+
+  /// Event Attribute Policy.
+  EventAttributePolicy eventAttributes = EventAttributePolicy();
+
+  /// Log Storage Policy.
+  LogStoragePolicy logStorage = LogStoragePolicy();
+
+  /// Log Protection Policy.
+  LogProtectionPolicy logProtection = LogProtectionPolicy();
+
+  /// Log Retention Policy.
+  LogRetentionPolicy logRetention = LogRetentionPolicy();
+
+  /// Additional Notes (text).
+  TextSection notes = TextSection();
+}
+
+/// Event attribute policy (form).
+///
+/// Defines which attributes are captured for each log event:
+/// when, where, who, and what information.
+class EventAttributePolicy {
+  @Form([
+    Field('timestampFormat', String, 'Timestamp Format',
+        hint: 'Date/time format (e.g., ISO 8601, UTC, with timezone)'),
+    Field('applicationIdentifier', String, 'Application Identifier',
+        hint: 'How application is identified (e.g., name, version, instance)'),
+    Field('sourceAddress', String, 'Source Address',
+        hint: 'User source info captured (e.g., IP, device ID, geolocation)'),
+    Field('userIdentity', String, 'User Identity',
+        hint: 'User identity fields (e.g., user ID, username, session ID)'),
+    Field('eventType', String, 'Event Type',
+        hint: 'Event type classification captured'),
+    Field('eventSeverity', String, 'Event Severity',
+        hint: 'How severity is recorded (e.g., numeric 0-7, named levels)'),
+    Field('actionAndObject', String, 'Action and Object',
+        hint: 'Action performed and target object (e.g., URL, resource ID)'),
+    Field('resultStatus', String, 'Result Status',
+        hint: 'Outcome recorded (e.g., Success, Fail, Defer, HTTP status)'),
+    Field('extendedDetails', String, 'Extended Details',
+        hint: 'Additional context captured (e.g., stack trace, request body)'),
+  ])
+  String? content;
+
+  /// Additional Notes (text).
+  TextSection notes = TextSection();
+}
+
+/// Log storage policy (form).
+///
+/// Defines where and how log data is stored.
+class LogStoragePolicy {
+  @Form([
+    Field('primaryStorage', String, 'Primary Storage',
+        hint: 'Primary log storage (e.g., file system, database, cloud)'),
+    Field('storageFormat', String, 'Storage Format',
+        hint: 'Log format (e.g., JSON, CEF, LEEF, Syslog, plaintext)'),
+    Field('storageLocation', String, 'Storage Location',
+        hint: 'Where logs are stored (e.g., separate partition, remote SIEM)'),
+    Field('centralizedLogging', String, 'Centralized Logging',
+        hint: 'Whether logs are sent to centralized system (Yes/No, system)'),
+    Field('storageEncryption', String, 'Storage Encryption',
+        hint: 'Whether logs are encrypted at rest (Yes/No, method)'),
+    Field('accessPermissions', String, 'Access Permissions',
+        hint: 'Access controls on log storage (e.g., read-only roles)'),
+  ])
+  String? content;
+
+  /// Additional Notes (text).
+  TextSection notes = TextSection();
+}
+
+/// Log protection policy (form).
+///
+/// Defines tamper protection and integrity verification for logs.
+class LogProtectionPolicy {
+  @Form([
+    Field('tamperDetection', String, 'Tamper Detection',
+        hint: 'Tamper detection mechanism (e.g., cryptographic hash, MAC, '
+            'digital signature, write-once media)'),
+    Field('integrityVerification', String, 'Integrity Verification',
+        hint: 'How log integrity is verified (e.g., periodic hash check, '
+            'blockchain-style chaining)'),
+    Field('writeProtection', String, 'Write Protection',
+        hint: 'Write protection (e.g., append-only, immutable after write)'),
+    Field('deletionControls', String, 'Deletion Controls',
+        hint: 'Controls on log deletion (e.g., dual approval, prohibited '
+            'before retention period)'),
+    Field('transmissionProtection', String, 'Transmission Protection',
+        hint: 'Protection during transmission (e.g., TLS, mutual TLS)'),
+    Field('originVerification', String, 'Origin Verification',
+        hint: 'How log source authenticity is verified'),
+  ])
+  String? content;
+
+  /// Additional Notes (text).
+  TextSection notes = TextSection();
+}
+
+/// Log retention policy (form).
+///
+/// Defines how long logs are retained and disposal procedures.
+class LogRetentionPolicy {
+  @Form([
+    Field('minimumRetention', String, 'Minimum Retention',
+        hint: 'Minimum retention period (e.g., 90 days, 1 year, 7 years)'),
+    Field('maximumRetention', String, 'Maximum Retention',
+        hint: 'Maximum retention period (privacy/legal constraints)'),
+    Field('retentionByCategory', String, 'Retention by Category',
+        hint: 'Different retention for different event categories'),
+    Field('archivalPolicy', String, 'Archival Policy',
+        hint: 'Long-term archival approach (e.g., offline, cold storage)'),
+    Field('disposalMethod', String, 'Disposal Method',
+        hint: 'Secure disposal method (e.g., cryptographic erasure, overwrite)'),
+    Field('legalHold', String, 'Legal Hold',
+        hint: 'Process for legal hold on log destruction'),
+  ])
+  String? content;
+
+  /// Additional Notes (text).
+  TextSection notes = TextSection();
+}
+
+// ---------------------------------------------------------------------------
+// 9.6.3. Compliance Reporting [PD00-ACC-AUD-COM]
+// ---------------------------------------------------------------------------
+
+/// 9.6.3. Compliance Reporting [PD00-ACC-AUD-COM].
+///
+/// Describes compliance reporting requirements: periodic access reviews,
+/// privilege usage reports, anomaly detection, and regulatory audit support.
+@SectionId('PD00-ACC-AUD-COM')
+class ComplianceReporting {
+  @Unused()
+  String? content;
+
+  /// Periodic Review Policy.
+  PeriodicReviewPolicy periodicReviews = PeriodicReviewPolicy();
+
+  /// Privilege Usage Reporting.
+  PrivilegeUsageReporting privilegeUsageReports = PrivilegeUsageReporting();
+
+  /// Anomaly Detection Policy.
+  AnomalyDetectionPolicy anomalyDetection = AnomalyDetectionPolicy();
+
+  /// Regulatory Audit Support.
+  RegulatoryAuditSupport regulatoryAuditSupport = RegulatoryAuditSupport();
+
+  /// Additional Notes (text).
+  TextSection notes = TextSection();
+}
+
+/// Periodic review policy (form).
+///
+/// Defines periodic reviews of access rights and security posture.
+class PeriodicReviewPolicy {
+  @Form([
+    Field('accessReviewFrequency', String, 'Access Review Frequency',
+        hint: 'How often access rights are reviewed '
+            '(e.g., quarterly, annually)'),
+    Field('privilegedAccountReview', String, 'Privileged Account Review',
+        hint: 'Review frequency for privileged accounts '
+            '(e.g., monthly, bi-annually)'),
+    Field('reviewers', String, 'Reviewers',
+        hint: 'Who performs reviews (e.g., manager, security team, CISO)'),
+    Field('dormantAccountReview', String, 'Dormant Account Review',
+        hint: 'Review of inactive accounts (e.g., disable after 90 days)'),
+    Field('segregationOfDutiesReview', String, 'Segregation of Duties Review',
+        hint: 'SoD violation review frequency'),
+    Field('reviewDocumentation', String, 'Review Documentation',
+        hint: 'How review results are documented'),
+  ])
+  String? content;
+
+  /// Additional Notes (text).
+  TextSection notes = TextSection();
+}
+
+/// Privilege usage reporting (form).
+///
+/// Defines reports on privileged access and administrative actions.
+class PrivilegeUsageReporting {
+  @Form([
+    Field('adminActivityReports', String, 'Admin Activity Reports',
+        hint: 'Reports on administrative actions '
+            '(e.g., daily summary, on-demand)'),
+    Field('privilegeEscalationReports', String, 'Escalation Reports',
+        hint: 'Reports on privilege escalation events'),
+    Field('breakGlassReports', String, 'Break-Glass Reports',
+        hint: 'Reports on emergency access usage'),
+    Field('accessPatternReports', String, 'Access Pattern Reports',
+        hint: 'Reports on unusual access patterns'),
+    Field('reportRecipients', String, 'Report Recipients',
+        hint: 'Who receives privilege usage reports'),
+    Field('reportFrequency', String, 'Report Frequency',
+        hint: 'How often reports are generated'),
+  ])
+  String? content;
+
+  /// Additional Notes (text).
+  TextSection notes = TextSection();
+}
+
+/// Anomaly detection policy (form).
+///
+/// Defines automated anomaly detection and alerting.
+class AnomalyDetectionPolicy {
+  @Form([
+    Field('behaviorBaseline', String, 'Behavior Baseline',
+        hint: 'How normal behavior baseline is established'),
+    Field('anomalyTypes', String, 'Anomaly Types',
+        hint: 'Types of anomalies detected '
+            '(e.g., unusual access time, volume, location)'),
+    Field('detectionMechanism', String, 'Detection Mechanism',
+        hint: 'How anomalies are detected '
+            '(e.g., SIEM rules, ML, statistical analysis)'),
+    Field('alertThresholds', String, 'Alert Thresholds',
+        hint: 'Thresholds for generating alerts'),
+    Field('alertRecipients', String, 'Alert Recipients',
+        hint: 'Who receives anomaly alerts'),
+    Field('responseActions', String, 'Response Actions',
+        hint: 'Automated or manual response to anomalies'),
+  ])
+  String? content;
+
+  /// Additional Notes (text).
+  TextSection notes = TextSection();
+}
+
+/// Regulatory audit support (form).
+///
+/// Defines support for external regulatory audits.
+class RegulatoryAuditSupport {
+  @Form([
+    Field('applicableRegulations', String, 'Applicable Regulations',
+        hint: 'Regulations requiring audit support '
+            '(e.g., SOX, HIPAA, GDPR, PCI-DSS)'),
+    Field('auditTrailAvailability', String, 'Audit Trail Availability',
+        hint: 'How audit trails are made available to auditors'),
+    Field('reportGeneration', String, 'Report Generation',
+        hint: 'Standard reports available for auditors'),
+    Field('evidencePreservation', String, 'Evidence Preservation',
+        hint: 'How audit evidence is preserved'),
+    Field('auditorAccess', String, 'Auditor Access',
+        hint: 'How auditors are granted access (e.g., read-only role)'),
+    Field('complianceCertifications', String, 'Compliance Certifications',
+        hint: 'Target certifications (e.g., SOC 2, ISO 27001)'),
+  ])
+  String? content;
+
+  /// Additional Notes (text).
+  TextSection notes = TextSection();
 }

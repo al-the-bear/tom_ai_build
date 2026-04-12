@@ -4,7 +4,7 @@ This document tracks the synchronization between `pd_template.md` (source of tru
 
 **Status:** Active  
 **Created:** 2025-01-24  
-**Last Updated:** 2026-04-12 (PD00-ACC-SEN-KEY: Key Management)
+**Last Updated:** 2026-04-12 (PD00-ACC-AUD-*: Audit and Logging restructure)
 
 ---
 
@@ -124,9 +124,9 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-ACC-SEN-RES | Encryption at Rest | High | ✅ Done |
 | PD00-ACC-SEN-TRA | Encryption in Transit | High | ✅ Done |
 | PD00-ACC-SEN-KEY | Key Management | High | ✅ Done |
-| PD00-ACC-AUD-EVE | Security Events | Medium | ⬜ Not Started |
-| PD00-ACC-AUD-FMT | Audit Log Format | Medium | ⬜ Not Started |
-| PD00-ACC-AUD-COM | Compliance Reporting | Medium | ⬜ Not Started |
+| PD00-ACC-AUD-EVE | Security Events | Medium | ✅ Done |
+| PD00-ACC-AUD-FMT | Audit Log Format | Medium | ✅ Done |
+| PD00-ACC-AUD-COM | Compliance Reporting | Medium | ✅ Done |
 | PD00-USE-VIS | Design Vision | High | ⬜ Not Started |
 | PD00-USE-VIS-GOA | Design Goals | Medium | ⬜ Not Started |
 | PD00-USE-VIS-PRI | Design Principles | Medium | ⬜ Not Started |
