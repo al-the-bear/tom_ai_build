@@ -191,11 +191,18 @@ These sections exist in `tom_specs_model` but are missing from `pd_template.md`:
 | PD00-SYQ-PRI-TRA | Trade-off Decisions | Review | ✅ Done |
 | PD00-SYQ-TEC | Technical Quality | Review | ✅ Done |
 | PD00-SYQ-USE | User Quality | Review | ✅ Done |
-| PD00-TAR-CAT-ACT-PRI | Action Priority | Review | ⬜ Not Started |
-| PD00-TAR-CAT-DES | Catalog Description | Review | ⬜ Not Started |
-| PD00-TAR-CAT-STP | Catalog Steps | Review | ⬜ Not Started |
-| PD00-TAR-PRI | Priority | Review | ⬜ Not Started |
-| PD00-TAR-REL | Relationships | Review | ⬜ Not Started |
+| PD00-TAR | Target Business Process Model | Review | ✅ Done |
+| PD00-TAR-PRO | Business Process Descriptions | Review | ✅ Done |
+| PD00-TAR-PRO-VIS | Process Vision | Review | ✅ Done |
+| PD00-TAR-PRO-PRI | Design Principles | Review | ✅ Done |
+| PD00-TAR-PRO-CAT | Process Catalog | Review | ✅ Done |
+| PD00-TAR-PRO-FLO | Process Overview Diagram | Review | ✅ Done |
+| PD00-TAR-PRO-IMP | Improvement Summary | Review | ✅ Done |
+| PD00-TAR-PRO-REL | Process Relationships | Review | ✅ Done |
+| PD00-TAR-STP | Process Steps and Actor Interactions | Review | ✅ Done |
+| PD00-TAR-STP-ACT | Actor Overview | Review | ✅ Done |
+| PD00-TAR-STP-INT | Interaction Catalog | Review | ✅ Done |
+| PD00-TAR-STP-SCE | Key Scenarios | Review | ✅ Done |
 | PD00-TEC-SYS-MON | Monitoring | Review | ✅ Done |
 | PD00-TEC-SYS-OPE | Operations | Review | ✅ Done |
 | PD00-USE-ACC | Accessibility | Review | ✅ Done |
