@@ -4421,8 +4421,8 @@ class HardwareRequirements {
   /// 8.4.2. Client Requirements [PD00-TEC-HAR-CLI].
   ClientRequirementsSection clientRequirements = ClientRequirementsSection();
 
-  /// Network Requirements.
-  TextSection networkRequirements = TextSection();
+  /// 8.4.3. Network Requirements [PD00-TEC-HAR-NET].
+  NetworkRequirementsSection networkRequirements = NetworkRequirementsSection();
 }
 
 // =============================================================================
@@ -5501,6 +5501,594 @@ class ClientSecurityRequirements {
         hint: 'Detect app tampering'),
     Field('notes', String, 'Notes',
         hint: 'Additional client security notes'),
+  ])
+  String? content;
+}
+
+// =============================================================================
+// 8.4.3. Network Requirements [PD00-TEC-HAR-NET]
+// =============================================================================
+
+/// 8.4.3. Network Requirements [PD00-TEC-HAR-NET].
+///
+/// Network requirements: bandwidth, latency, availability, VPN/firewall rules,
+/// and geographic distribution.
+@SectionId('PD00-TEC-HAR-NET')
+class NetworkRequirementsSection {
+  @Unused()
+  String? content;
+
+  /// Overview of network infrastructure strategy.
+  TextSection overview = TextSection();
+
+  /// Internal network requirements.
+  InternalNetworkRequirements internalNetwork = InternalNetworkRequirements();
+
+  /// External connectivity requirements.
+  ExternalNetworkRequirements externalNetwork = ExternalNetworkRequirements();
+
+  /// Bandwidth and throughput requirements.
+  BandwidthRequirements bandwidthRequirements = BandwidthRequirements();
+
+  /// Latency and performance requirements.
+  NetworkLatencyRequirements latencyRequirements = NetworkLatencyRequirements();
+
+  /// Network availability requirements.
+  NetworkAvailabilityRequirements availabilityRequirements =
+      NetworkAvailabilityRequirements();
+
+  /// VPN requirements.
+  @SectionIdPattern('PD00-TEC-HAR-NET-VPN-xx')
+  List<VpnRequirementEntry> vpnRequirements = [];
+
+  /// Firewall rules and policies.
+  FirewallRequirements firewallRequirements = FirewallRequirements();
+
+  /// Geographic distribution and CDN.
+  GeographicDistributionRequirements geographicDistribution =
+      GeographicDistributionRequirements();
+
+  /// DNS requirements.
+  DnsRequirements dnsRequirements = DnsRequirements();
+
+  /// Load balancing requirements.
+  NetworkLoadBalancingRequirements loadBalancing =
+      NetworkLoadBalancingRequirements();
+
+  /// Network security requirements.
+  NetworkSecurityRequirements networkSecurity = NetworkSecurityRequirements();
+}
+
+/// Internal network requirements.
+class InternalNetworkRequirements {
+  @Form([
+    // Topology
+    Field('networkTopology', String, 'Network Topology',
+        hint: 'Hub-spoke, mesh, star'),
+    Field('vpcStructure', String, 'VPC Structure',
+        hint: 'VPC/VLAN organization'),
+    Field('subnetConfiguration', String, 'Subnet Configuration',
+        hint: 'Subnet layout'),
+    Field('cidrRanges', String, 'CIDR Ranges',
+        hint: 'IP address ranges'),
+
+    // Segmentation
+    Field('networkSegmentation', String, 'Network Segmentation',
+        hint: 'DMZ, tiers, microsegmentation'),
+    Field('securityZones', String, 'Security Zones',
+        hint: 'Trust zones defined'),
+    Field('isolationRequirements', String, 'Isolation Requirements',
+        hint: 'Network isolation'),
+
+    // Internal routing
+    Field('routingProtocol', String, 'Routing Protocol',
+        hint: 'BGP, OSPF, static'),
+    Field('serviceDiscovery', String, 'Service Discovery',
+        hint: 'DNS, Consul, etc.'),
+    Field('serviceMesh', String, 'Service Mesh',
+        hint: 'Istio, Linkerd if used'),
+
+    // Inter-service
+    Field('interServiceCommunication', String, 'Inter-Service Communication',
+        hint: 'REST, gRPC, messaging'),
+    Field('encryptionInTransit', bool, 'Encryption in Transit',
+        hint: 'mTLS, TLS required'),
+    Field('certificateManagement', String, 'Certificate Management',
+        hint: 'Cert-manager, PKI'),
+
+    // Monitoring
+    Field('networkMonitoring', String, 'Network Monitoring',
+        hint: 'Network monitoring tools'),
+    Field('flowLogging', bool, 'Flow Logging',
+        hint: 'VPC flow logs'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional internal network notes'),
+  ])
+  String? content;
+}
+
+/// External network requirements.
+class ExternalNetworkRequirements {
+  @Form([
+    // Internet connectivity
+    Field('internetAccess', String, 'Internet Access',
+        hint: 'Direct, NAT gateway, proxy'),
+    Field('ispRedundancy', String, 'ISP Redundancy',
+        hint: 'Multi-ISP, single ISP'),
+    Field('dedicatedLines', String, 'Dedicated Lines',
+        hint: 'MPLS, leased lines'),
+    Field('peeringRequirements', String, 'Peering Requirements',
+        hint: 'Direct peering arrangements'),
+
+    // Public endpoints
+    Field('publicEndpoints', String, 'Public Endpoints',
+        hint: 'Public-facing services'),
+    Field('staticIps', String, 'Static IP Addresses',
+        hint: 'Required static IPs'),
+    Field('ipv6Support', bool, 'IPv6 Support',
+        hint: 'IPv6 required'),
+    Field('dnscname', String, 'DNS/CNAME Requirements',
+        hint: 'DNS records needed'),
+
+    // Third-party connectivity
+    Field('partnerConnectivity', String, 'Partner Connectivity',
+        hint: 'B2B connections'),
+    Field('apiGateway', String, 'API Gateway',
+        hint: 'External API gateway'),
+    Field('webhookEndpoints', String, 'Webhook Endpoints',
+        hint: 'Inbound webhooks'),
+
+    // Cloud connectivity
+    Field('cloudConnect', String, 'Cloud Direct Connect',
+        hint: 'AWS Direct Connect, Azure ExpressRoute'),
+    Field('hybridCloud', String, 'Hybrid Cloud',
+        hint: 'Hybrid cloud networking'),
+
+    // Security
+    Field('ddosProtection', String, 'DDoS Protection',
+        hint: 'DDoS mitigation'),
+    Field('waf', String, 'WAF Requirements',
+        hint: 'Web application firewall'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional external network notes'),
+  ])
+  String? content;
+}
+
+/// Bandwidth requirements.
+class BandwidthRequirements {
+  @Form([
+    // Aggregate bandwidth
+    Field('totalBandwidth', String, 'Total Bandwidth Required',
+        hint: 'Total bandwidth capacity'),
+    Field('peakBandwidth', String, 'Peak Bandwidth',
+        hint: 'Peak bandwidth requirements'),
+    Field('averageBandwidth', String, 'Average Bandwidth',
+        hint: 'Average bandwidth usage'),
+    Field('burstCapacity', String, 'Burst Capacity',
+        hint: 'Burst handling capability'),
+
+    // Direction
+    Field('ingressBandwidth', String, 'Ingress Bandwidth',
+        hint: 'Inbound bandwidth'),
+    Field('egressBandwidth', String, 'Egress Bandwidth',
+        hint: 'Outbound bandwidth'),
+    Field('eastWestBandwidth', String, 'East-West Bandwidth',
+        hint: 'Internal traffic bandwidth'),
+
+    // Per-connection
+    Field('perConnectionBandwidth', String, 'Per-Connection Bandwidth',
+        hint: 'Bandwidth per connection'),
+    Field('concurrentConnections', String, 'Concurrent Connections',
+        hint: 'Max concurrent connections'),
+    Field('connectionPooling', String, 'Connection Pooling',
+        hint: 'Connection pool requirements'),
+
+    // Traffic patterns
+    Field('trafficPatterns', String, 'Traffic Patterns',
+        hint: 'Typical traffic patterns'),
+    Field('videoStreaming', String, 'Video/Streaming',
+        hint: 'Streaming bandwidth'),
+    Field('fileTransfers', String, 'File Transfers',
+        hint: 'Large file transfer needs'),
+
+    // QoS
+    Field('qosRequirements', String, 'QoS Requirements',
+        hint: 'Quality of Service'),
+    Field('trafficPrioritization', String, 'Traffic Prioritization',
+        hint: 'Traffic priority rules'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional bandwidth notes'),
+  ])
+  String? content;
+}
+
+/// Network latency requirements.
+class NetworkLatencyRequirements {
+  @Form([
+    // Targets
+    Field('maxLatency', String, 'Maximum Latency',
+        hint: 'Maximum acceptable latency'),
+    Field('targetLatency', String, 'Target Latency',
+        hint: 'Target p50 latency'),
+    Field('p95Latency', String, 'P95 Latency',
+        hint: '95th percentile target'),
+    Field('p99Latency', String, 'P99 Latency',
+        hint: '99th percentile target'),
+
+    // Network segments
+    Field('clientToEdge', String, 'Client to Edge Latency',
+        hint: 'Client to CDN/edge'),
+    Field('edgeToOrigin', String, 'Edge to Origin Latency',
+        hint: 'Edge to origin server'),
+    Field('internalLatency', String, 'Internal Service Latency',
+        hint: 'Service-to-service'),
+    Field('databaseLatency', String, 'Database Latency',
+        hint: 'DB access latency'),
+
+    // Geographic
+    Field('regionalLatency', String, 'Regional Latency',
+        hint: 'Same region latency'),
+    Field('crossRegionalLatency', String, 'Cross-Regional Latency',
+        hint: 'Cross-region latency'),
+    Field('globalLatency', String, 'Global Latency',
+        hint: 'Worldwide latency targets'),
+
+    // Jitter and stability
+    Field('jitterTolerance', String, 'Jitter Tolerance',
+        hint: 'Acceptable jitter'),
+    Field('packetLoss', String, 'Packet Loss Tolerance',
+        hint: 'Acceptable packet loss'),
+    Field('connectionStability', String, 'Connection Stability',
+        hint: 'Connection stability requirements'),
+
+    // Optimization
+    Field('latencyOptimization', String, 'Latency Optimization',
+        hint: 'Optimization strategies'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional latency notes'),
+  ])
+  String? content;
+}
+
+/// Network availability requirements.
+class NetworkAvailabilityRequirements {
+  @Form([
+    // SLA targets
+    Field('availabilityTarget', String, 'Availability Target',
+        hint: '99.99%, 99.999%'),
+    Field('monthlyDowntime', String, 'Monthly Downtime Budget',
+        hint: 'Allowed downtime/month'),
+    Field('maintenanceWindows', String, 'Maintenance Windows',
+        hint: 'Scheduled maintenance'),
+
+    // Redundancy
+    Field('pathRedundancy', String, 'Path Redundancy',
+        hint: 'Multiple network paths'),
+    Field('ispRedundancy', String, 'ISP Redundancy',
+        hint: 'Multiple ISPs'),
+    Field('linkRedundancy', String, 'Link Redundancy',
+        hint: 'Redundant links'),
+    Field('deviceRedundancy', String, 'Device Redundancy',
+        hint: 'Redundant network devices'),
+
+    // Failover
+    Field('failoverMechanism', String, 'Failover Mechanism',
+        hint: 'Automatic/manual failover'),
+    Field('failoverTime', String, 'Failover Time',
+        hint: 'Maximum failover time'),
+    Field('healthChecks', String, 'Health Checks',
+        hint: 'Network health monitoring'),
+    Field('automaticRerouting', bool, 'Automatic Rerouting',
+        hint: 'Auto path rerouting'),
+
+    // Recovery
+    Field('rpo', String, 'Recovery Point Objective',
+        hint: 'Network state RPO'),
+    Field('rto', String, 'Recovery Time Objective',
+        hint: 'Network recovery RTO'),
+    Field('drSite', String, 'DR Site Connectivity',
+        hint: 'DR network connectivity'),
+
+    // Testing
+    Field('failoverTesting', String, 'Failover Testing',
+        hint: 'Testing frequency'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional availability notes'),
+  ])
+  String? content;
+}
+
+/// VPN requirement entry.
+class VpnRequirementEntry {
+  @Form([
+    // Identity
+    Field('vpnName', String, 'VPN Name',
+        required: true, hint: 'VPN connection name'),
+    Field('vpnType', String, 'VPN Type',
+        hint: 'Site-to-Site, Client, SSL'),
+    Field('purpose', String, 'Purpose',
+        hint: 'Purpose of this VPN'),
+
+    // Endpoints
+    Field('localEndpoint', String, 'Local Endpoint',
+        hint: 'Local network endpoint'),
+    Field('remoteEndpoint', String, 'Remote Endpoint',
+        hint: 'Remote network endpoint'),
+    Field('remoteNetworks', String, 'Remote Networks',
+        hint: 'Networks accessible via VPN'),
+
+    // Protocol
+    Field('protocol', String, 'Protocol',
+        hint: 'IPSec, OpenVPN, WireGuard'),
+    Field('encryptionAlgorithm', String, 'Encryption Algorithm',
+        hint: 'AES-256, ChaCha20'),
+    Field('authenticationMethod', String, 'Authentication Method',
+        hint: 'PSK, certificates, MFA'),
+    Field('perfectForwardSecrecy', bool, 'Perfect Forward Secrecy',
+        hint: 'PFS enabled'),
+
+    // Performance
+    Field('bandwidth', String, 'Bandwidth',
+        hint: 'VPN bandwidth capacity'),
+    Field('maxConnections', int, 'Max Connections',
+        hint: 'Maximum concurrent connections'),
+    Field('splitTunneling', bool, 'Split Tunneling',
+        hint: 'Split tunnel allowed'),
+
+    // Availability
+    Field('availability', String, 'Availability',
+        hint: 'Required availability'),
+    Field('redundancy', String, 'Redundancy',
+        hint: 'VPN redundancy'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional VPN notes'),
+  ])
+  String? content;
+}
+
+/// Firewall requirements.
+class FirewallRequirements {
+  @Form([
+    // Architecture
+    Field('firewallArchitecture', String, 'Firewall Architecture',
+        hint: 'Perimeter, distributed, cloud'),
+    Field('firewallVendor', String, 'Firewall Vendor/Product',
+        hint: 'Firewall product used'),
+    Field('managementModel', String, 'Management Model',
+        hint: 'Centralized, distributed'),
+
+    // Rules
+    Field('defaultPolicy', String, 'Default Policy',
+        hint: 'Deny-all, allow-all'),
+    Field('inboundRules', String, 'Inbound Rules Summary',
+        hint: 'Summary of inbound rules'),
+    Field('outboundRules', String, 'Outbound Rules Summary',
+        hint: 'Summary of outbound rules'),
+    Field('internalRules', String, 'Internal Rules Summary',
+        hint: 'Inter-zone rules'),
+
+    // Ports
+    Field('requiredPorts', String, 'Required Ports',
+        hint: 'Ports that must be open'),
+    Field('blockedPorts', String, 'Blocked Ports',
+        hint: 'Explicitly blocked ports'),
+    Field('portRanges', String, 'Port Ranges',
+        hint: 'Dynamic port ranges'),
+
+    // Advanced features
+    Field('intrusionDetection', bool, 'Intrusion Detection',
+        hint: 'IDS/IPS enabled'),
+    Field('deepPacketInspection', bool, 'Deep Packet Inspection',
+        hint: 'DPI enabled'),
+    Field('applicationAwareness', bool, 'Application Awareness',
+        hint: 'Layer 7 inspection'),
+    Field('threatIntelligence', String, 'Threat Intelligence',
+        hint: 'Threat feed integration'),
+
+    // Logging
+    Field('loggingRequirements', String, 'Logging Requirements',
+        hint: 'Firewall log retention'),
+    Field('alerting', String, 'Alerting',
+        hint: 'Firewall alerting'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional firewall notes'),
+  ])
+  String? content;
+}
+
+/// Geographic distribution requirements.
+class GeographicDistributionRequirements {
+  @Form([
+    // Regions
+    Field('primaryRegion', String, 'Primary Region',
+        hint: 'Primary deployment region'),
+    Field('secondaryRegions', String, 'Secondary Regions',
+        hint: 'Secondary/backup regions'),
+    Field('edgeLocations', String, 'Edge Locations',
+        hint: 'CDN edge locations'),
+    Field('regionalCompliance', String, 'Regional Compliance',
+        hint: 'Data residency requirements'),
+
+    // CDN
+    Field('cdnRequired', bool, 'CDN Required',
+        hint: 'Content delivery network'),
+    Field('cdnProvider', String, 'CDN Provider',
+        hint: 'CloudFront, Cloudflare, etc.'),
+    Field('cachedContent', String, 'Cached Content',
+        hint: 'What to cache at edge'),
+    Field('cacheTtl', String, 'Cache TTL',
+        hint: 'Cache expiration'),
+    Field('cacheInvalidation', String, 'Cache Invalidation',
+        hint: 'Invalidation strategy'),
+
+    // Traffic routing
+    Field('routingStrategy', String, 'Routing Strategy',
+        hint: 'Latency, geo, weighted'),
+    Field('failoverRouting', String, 'Failover Routing',
+        hint: 'Geographic failover'),
+    Field('trafficSteering', String, 'Traffic Steering',
+        hint: 'How traffic is directed'),
+
+    // Anycast
+    Field('anycastIp', bool, 'Anycast IP',
+        hint: 'Anycast addressing'),
+    Field('globalLoadBalancing', String, 'Global Load Balancing',
+        hint: 'GSLB requirements'),
+
+    // Performance
+    Field('edgeCaching', String, 'Edge Caching',
+        hint: 'Edge cache strategy'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional geographic distribution notes'),
+  ])
+  String? content;
+}
+
+/// DNS requirements.
+class DnsRequirements {
+  @Form([
+    // Provider
+    Field('dnsProvider', String, 'DNS Provider',
+        hint: 'Route 53, Cloudflare, etc.'),
+    Field('dnsHosting', String, 'DNS Hosting',
+        hint: 'Managed, self-hosted'),
+    Field('dnsSecEnabled', bool, 'DNSSEC Enabled',
+        hint: 'DNS security extensions'),
+
+    // Zones
+    Field('publicZones', String, 'Public Zones',
+        hint: 'Public DNS zones'),
+    Field('privateZones', String, 'Private Zones',
+        hint: 'Private DNS zones'),
+    Field('splitHorizon', bool, 'Split Horizon DNS',
+        hint: 'Internal/external split'),
+
+    // Records
+    Field('recordTypes', String, 'Record Types',
+        hint: 'A, CNAME, TXT, etc.'),
+    Field('ttlPolicy', String, 'TTL Policy',
+        hint: 'Default TTL settings'),
+    Field('dynamicDns', bool, 'Dynamic DNS',
+        hint: 'Dynamic DNS updates'),
+
+    // Availability
+    Field('dnsRedundancy', String, 'DNS Redundancy',
+        hint: 'Secondary DNS'),
+    Field('resolutionSla', String, 'Resolution SLA',
+        hint: 'DNS query SLA'),
+    Field('failoverDns', String, 'Failover DNS',
+        hint: 'DNS-based failover'),
+
+    // Health checks
+    Field('healthChecks', bool, 'Health Checks',
+        hint: 'DNS health checking'),
+    Field('healthCheckEndpoints', String, 'Health Check Endpoints',
+        hint: 'Endpoints to check'),
+    Field('failoverAction', String, 'Failover Action',
+        hint: 'Action on failure'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional DNS notes'),
+  ])
+  String? content;
+}
+
+/// Network load balancing requirements.
+class NetworkLoadBalancingRequirements {
+  @Form([
+    // Type
+    Field('loadBalancerType', String, 'Load Balancer Type',
+        hint: 'L4, L7, DNS-based'),
+    Field('loadBalancerProduct', String, 'Load Balancer Product',
+        hint: 'ALB, NLB, HAProxy, etc.'),
+    Field('deploymentModel', String, 'Deployment Model',
+        hint: 'Cloud, on-premises, hybrid'),
+
+    // Algorithm
+    Field('loadBalancingAlgorithm', String, 'Load Balancing Algorithm',
+        hint: 'Round-robin, least-conn'),
+    Field('sessionPersistence', String, 'Session Persistence',
+        hint: 'Sticky sessions'),
+    Field('weightedRouting', bool, 'Weighted Routing',
+        hint: 'Weighted distribution'),
+
+    // Health checks
+    Field('healthCheckProtocol', String, 'Health Check Protocol',
+        hint: 'HTTP, TCP, HTTPS'),
+    Field('healthCheckPath', String, 'Health Check Path',
+        hint: 'Health endpoint path'),
+    Field('healthCheckInterval', String, 'Health Check Interval',
+        hint: 'Check frequency'),
+    Field('unhealthyThreshold', int, 'Unhealthy Threshold',
+        hint: 'Failures before unhealthy'),
+    Field('healthyThreshold', int, 'Healthy Threshold',
+        hint: 'Successes before healthy'),
+
+    // SSL/TLS
+    Field('sslTermination', String, 'SSL Termination',
+        hint: 'At LB, at backend'),
+    Field('sslCertificate', String, 'SSL Certificate',
+        hint: 'Certificate management'),
+    Field('http2Support', bool, 'HTTP/2 Support',
+        hint: 'HTTP/2 enabled'),
+
+    // Availability
+    Field('lbRedundancy', String, 'LB Redundancy',
+        hint: 'Load balancer HA'),
+    Field('crossZoneBalancing', bool, 'Cross-Zone Balancing',
+        hint: 'Cross-AZ distribution'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional load balancing notes'),
+  ])
+  String? content;
+}
+
+/// Network security requirements.
+class NetworkSecurityRequirements {
+  @Form([
+    // Encryption
+    Field('encryptionInTransit', String, 'Encryption in Transit',
+        hint: 'TLS requirements'),
+    Field('minTlsVersion', String, 'Minimum TLS Version',
+        hint: 'TLS 1.2, TLS 1.3'),
+    Field('cipherSuites', String, 'Cipher Suites',
+        hint: 'Allowed cipher suites'),
+    Field('certificateAuthority', String, 'Certificate Authority',
+        hint: 'CA for certificates'),
+
+    // Access control
+    Field('networkAcls', String, 'Network ACLs',
+        hint: 'Network access control lists'),
+    Field('securityGroups', String, 'Security Groups',
+        hint: 'SG strategy'),
+    Field('ipWhitelisting', String, 'IP Whitelisting',
+        hint: 'Allowed IP ranges'),
+    Field('ipBlacklisting', String, 'IP Blacklisting',
+        hint: 'Blocked IP ranges'),
+
+    // Monitoring
+    Field('networkIdp', String, 'Network IDS/IPS',
+        hint: 'Intrusion detection/prevention'),
+    Field('trafficAnalysis', String, 'Traffic Analysis',
+        hint: 'Deep traffic analysis'),
+    Field('anomalyDetection', bool, 'Anomaly Detection',
+        hint: 'Anomaly-based detection'),
+
+    // DDoS
+    Field('ddosProtection', String, 'DDoS Protection',
+        hint: 'DDoS mitigation'),
+    Field('rateLimiting', String, 'Rate Limiting',
+        hint: 'Rate limit policies'),
+    Field('geoBlocking', String, 'Geo-Blocking',
+        hint: 'Geographic restrictions'),
+
+    // Compliance
+    Field('pciDssCompliance', String, 'PCI-DSS Network Compliance',
+        hint: 'PCI network requirements'),
+    Field('networkAuditLogs', String, 'Network Audit Logs',
+        hint: 'Audit logging'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional network security notes'),
   ])
   String? content;
 }
