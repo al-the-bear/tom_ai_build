@@ -314,41 +314,230 @@ class LimitationEntry {
 }
 
 /// 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
+///
+/// Documents how current systems depend on each other, on external services,
+/// and on shared infrastructure. Identifies fragile integration points that
+/// pose risk to operations or to the new system implementation.
 @SectionId('PD00-CUR-SYS-DEP')
 class DependenciesAndIntegrations {
-  @Unused()
+  @ContentType('description', 'Overview of the dependency and integration '
+      'landscape including systemic risks and fragile points.')
+  @ContentHelp('Provide an executive summary of dependencies and integrations. '
+      'Highlight critical dependencies, fragile integration points, and '
+      'areas requiring attention during the project.')
   String? content;
 
-  /// 1.1.3.1. Dependencies [PD00-CUR-SYS-DEP-DEP].
-  Dependencies dependencies = Dependencies();
+  /// Dependency matrix diagram [PD00-CUR-SYS-DEP-DIA].
+  @SectionId('PD00-CUR-SYS-DEP-DIA')
+  @ContentType('mermaid-flowchart', 'Visual representation of system '
+      'dependencies showing data flows and coupling strength')
+  @ContentHelp('Create a Mermaid flowchart showing dependencies between '
+      'systems. Use line styles to indicate coupling strength: solid for '
+      'tight coupling, dashed for loose coupling. Add labels for data types.')
+  String? dependencyDiagram;
 
-  /// 1.1.3.2. Integrations [PD00-CUR-SYS-DEP-INT].
+  /// 1.1.3.1. Internal Dependencies [PD00-CUR-SYS-DEP-INT].
+  @Comment('Dependencies between internal systems')
+  InternalDependencies internalDependencies = InternalDependencies();
+
+  /// 1.1.3.2. External Service Dependencies [PD00-CUR-SYS-DEP-EXT].
+  @Comment('Dependencies on external/third-party services')
+  ExternalServiceDependencies externalServiceDependencies =
+      ExternalServiceDependencies();
+
+  /// 1.1.3.3. Shared Infrastructure Dependencies [PD00-CUR-SYS-DEP-SHR].
+  @Comment('Dependencies on shared infrastructure components')
+  SharedInfrastructureDependencies sharedInfrastructureDependencies =
+      SharedInfrastructureDependencies();
+
+  /// 1.1.3.4. System Integrations [PD00-CUR-SYS-DEP-SYS].
+  @Comment('Active integrations between systems')
   Integrations integrations = Integrations();
+
+  /// 1.1.3.5. Integration Health Summary [PD00-CUR-SYS-DEP-HEA].
+  @Comment('Overall assessment of integration landscape health')
+  IntegrationHealthSummary? healthSummary;
 }
 
-/// 1.1.3.1. Dependencies [PD00-CUR-SYS-DEP-DEP].
-@SectionId('PD00-CUR-SYS-DEP-DEP')
-class Dependencies {
-  @Unused()
+/// 1.1.3.1. Internal Dependencies [PD00-CUR-SYS-DEP-INT].
+///
+/// Dependencies between systems owned and operated internally.
+@SectionId('PD00-CUR-SYS-DEP-INT')
+class InternalDependencies {
+  @ContentType('description', 'Overview of internal system dependencies.')
+  @ContentHelp('Describe the overall pattern of internal dependencies. '
+      'Identify clusters of tightly coupled systems and potential cascading '
+      'failure risks.')
   String? content;
 
-  /// Contains 0+× SystemDependency.
-  @SectionIdPattern('PD00-CUR-SYS-DEP-DEP-xx')
+  /// Contains 0+× Internal System Dependency.
+  @SectionIdPattern('PD00-CUR-SYS-DEP-INT-xx')
   List<SystemDependencyEntry> items = [];
 }
 
-/// 1.1.3.2. Integrations [PD00-CUR-SYS-DEP-INT].
-@SectionId('PD00-CUR-SYS-DEP-INT')
+/// 1.1.3.2. External Service Dependencies [PD00-CUR-SYS-DEP-EXT].
+///
+/// Dependencies on external services, third-party APIs, SaaS platforms,
+/// and cloud services not under direct organizational control.
+@SectionId('PD00-CUR-SYS-DEP-EXT')
+class ExternalServiceDependencies {
+  @ContentType('description', 'Overview of external service dependencies '
+      'and vendor relationships.')
+  @ContentHelp('Describe reliance on external services. Include vendor risk '
+      'assessment, contract status, and contingency planning.')
+  String? content;
+
+  /// Contains 0+× External Service Dependency.
+  @SectionIdPattern('PD00-CUR-SYS-DEP-EXT-xx')
+  List<ExternalServiceDependencyEntry> items = [];
+}
+
+/// An external service dependency entry (form) [PD00-CUR-SYS-DEP-EXT-nn].
+///
+/// Documents a dependency on an external service or third-party provider
+/// including vendor details, SLA, risk assessment, and fallback options.
+class ExternalServiceDependencyEntry {
+  @Form([
+    Field('serviceName', String, 'External Service Name', required: true),
+    Field('serviceProvider', String, 'Service Provider/Vendor'),
+    Field('serviceType', String, 'Service Type',
+        hint: 'SaaS / PaaS / IaaS / API Service / Data Feed / Payment Gateway / etc.'),
+    Field('dependentSystems', String, 'Dependent Internal Systems',
+        hint: 'List of internal systems that use this external service'),
+    Field('criticality', String, 'Criticality',
+        hint: 'Critical / High / Medium / Low'),
+    Field('contractStatus', String, 'Contract Status',
+        hint: 'Active / Renewal Due / Negotiating / Month-to-Month'),
+    Field('contractExpiry', String, 'Contract Expiry Date'),
+    Field('slaGuarantee', String, 'SLA Guarantee',
+        hint: 'Vendor-provided availability guarantee, e.g., 99.9%'),
+    Field('actualAvailability', String, 'Actual Availability',
+        hint: 'Measured availability over past period'),
+    Field('dataExchanged', String, 'Data Exchanged',
+        hint: 'Types of data sent to/received from service'),
+    Field('dataResidency', String, 'Data Residency',
+        hint: 'Where vendor stores/processes data - relevant for compliance'),
+    Field('securityCertifications', String, 'Vendor Security Certifications',
+        hint: 'SOC2, ISO 27001, HIPAA, etc.'),
+    Field('vendorLockIn', String, 'Vendor Lock-In Risk',
+        hint: 'None / Low / Moderate / High / Severe'),
+    Field('switchingCost', String, 'Switching Cost',
+        hint: 'Estimated effort to migrate to alternative'),
+    Field('alternativeProviders', String, 'Alternative Providers',
+        hint: 'Known alternatives if migration needed'),
+    Field('fallbackProcedure', String, 'Fallback Procedure',
+        hint: 'Manual workaround or degraded operation mode'),
+    Field('lastOutage', String, 'Last Significant Outage',
+        hint: 'Date and impact of last vendor outage'),
+    Field('communicationChannel', String, 'Support Communication Channel',
+        hint: 'How incidents are reported and tracked'),
+  ])
+  String? content;
+
+  @Reference('Primary Dependent System')
+  ExistingSystemEntry? primaryDependentSystem;
+}
+
+/// 1.1.3.3. Shared Infrastructure Dependencies [PD00-CUR-SYS-DEP-SHR].
+///
+/// Dependencies on shared infrastructure components used by multiple systems.
+@SectionId('PD00-CUR-SYS-DEP-SHR')
+class SharedInfrastructureDependencies {
+  @ContentType('description', 'Overview of shared infrastructure and '
+      'cross-cutting dependencies.')
+  @ContentHelp('Describe shared infrastructure components (networks, '
+      'databases, messaging systems, identity providers) that multiple '
+      'systems depend on. Identify single points of failure.')
+  String? content;
+
+  /// Contains 0+× Shared Infrastructure Component.
+  @SectionIdPattern('PD00-CUR-SYS-DEP-SHR-xx')
+  List<SharedInfrastructureEntry> items = [];
+}
+
+/// A shared infrastructure entry (form) [PD00-CUR-SYS-DEP-SHR-nn].
+///
+/// Documents a shared infrastructure component that multiple systems depend on.
+class SharedInfrastructureEntry {
+  @Form([
+    Field('componentName', String, 'Infrastructure Component Name', required: true),
+    Field('componentType', String, 'Component Type',
+        hint: 'Database Cluster / Message Broker / Load Balancer / '
+            'Identity Provider / DNS / Certificate Authority / '
+            'Logging Platform / Monitoring System / Network Segment'),
+    Field('dependentSystemCount', int, 'Number of Dependent Systems'),
+    Field('dependentSystemList', String, 'List of Dependent Systems'),
+    Field('criticality', String, 'Criticality',
+        hint: 'Critical / High / Medium / Low'),
+    Field('singlePointOfFailure', bool, 'Is Single Point of Failure'),
+    Field('redundancyLevel', String, 'Redundancy Level',
+        hint: 'None / Active-Passive / Active-Active / Multi-Region'),
+    Field('failoverTime', String, 'Failover Time (RTO)',
+        hint: 'Time to recover if component fails'),
+    Field('lastFailure', String, 'Last Failure Incident',
+        hint: 'Date and summary of last significant failure'),
+    Field('capacityHeadroom', String, 'Capacity Headroom',
+        hint: 'Current utilization vs capacity, e.g., 60% of max'),
+    Field('scalingLimitations', String, 'Scaling Limitations',
+        hint: 'Constraints on horizontal or vertical scaling'),
+    Field('managedBy', String, 'Managed By',
+        hint: 'Team or vendor responsible for this component'),
+    Field('maintenanceWindow', String, 'Maintenance Window',
+        hint: 'Regular maintenance schedule'),
+    Field('documentationStatus', String, 'Documentation Status',
+        hint: 'Current / Outdated / Minimal / None'),
+  ])
+  String? content;
+}
+
+/// 1.1.3.5. Integration Health Summary [PD00-CUR-SYS-DEP-HEA].
+///
+/// Executive summary of overall integration landscape health and risk areas.
+@SectionId('PD00-CUR-SYS-DEP-HEA')
+class IntegrationHealthSummary {
+  @Form([
+    Field('overallHealthRating', String, 'Overall Health Rating',
+        hint: 'Healthy / Acceptable / Concerning / Critical'),
+    Field('totalDependencies', int, 'Total Dependencies Documented'),
+    Field('criticalDependencies', int, 'Critical Dependencies'),
+    Field('highRiskDependencies', int, 'High-Risk Dependencies'),
+    Field('singlePointsOfFailure', int, 'Identified Single Points of Failure'),
+    Field('undocumentedIntegrations', int, 'Known Undocumented Integrations'),
+    Field('technicalDebtSummary', String, 'Technical Debt Summary',
+        hint: 'Overview of integration-related technical debt'),
+    Field('priorityRemediationAreas', String, 'Priority Remediation Areas',
+        hint: 'Top 3-5 areas requiring immediate attention'),
+    Field('impactOnProject', String, 'Impact on This Project',
+        hint: 'How current integration state affects project planning'),
+  ])
+  String? content;
+
+  /// Fragile integration points requiring attention [PD00-CUR-SYS-DEP-HEA-FRA].
+  @ContentType('description', 'Detailed list of fragile integration points '
+      'that pose risk to operations or project implementation.')
+  @ContentHelp('Document specific integration points that are fragile, '
+      'brittle, or at risk of failure. Include rationale and recommendations.')
+  String? fragilePoints;
+}
+
+/// 1.1.3.4. System Integrations [PD00-CUR-SYS-DEP-SYS].
+///
+/// Active integrations between systems including protocols, data formats,
+/// error handling, and monitoring.
+@SectionId('PD00-CUR-SYS-DEP-SYS')
 class Integrations {
-  @Unused()
+  @ContentType('description', 'Overview of system integrations and '
+      'data exchange patterns.')
+  @ContentHelp('Describe the integration patterns in use. Identify '
+      'standards vs custom integrations, and areas of complexity.')
   String? content;
 
   /// Contains 0+× SystemIntegration.
-  @SectionIdPattern('PD00-CUR-SYS-DEP-INT-xx')
+  @SectionIdPattern('PD00-CUR-SYS-DEP-SYS-xx')
   List<SystemIntegrationEntry> items = [];
 }
 
-/// A system dependency entry (form) [PD00-CUR-SYS-DEP-DEP-nn].
+/// A system dependency entry (form) [PD00-CUR-SYS-DEP-INT-nn].
 ///
 /// Documents one dependency between systems in the current landscape:
 /// mechanism, coupling strength, data flow, failure impact, SLA,
