@@ -4,7 +4,7 @@ This document tracks the synchronization between `pd_template.md` (source of tru
 
 **Status:** Active  
 **Created:** 2025-01-24  
-**Last Updated:** 2026-04-11
+**Last Updated:** 2026-04-11 (PD00-BUS batch: data model, business objects, functions)
 
 ---
 
@@ -72,17 +72,19 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-TAR-STP-INT-01 | Sample: Submit Registration | Low | ✅ Done |
 | PD00-TAR-STP-SCE | Key Scenarios | Medium | ✅ Done |
 | PD00-TAR-STP-SCE-01 | Sample: New Customer Journey | Low | ✅ Done |
-| PD00-BUS-DAT-ENT | Entity Overview | High | ⬜ Not Started |
-| PD00-BUS-DAT-ENT-01 | Sample: Customer | Low | ⬜ Not Started |
-| PD00-BUS-DAT-DIA | Entity-Relationship Diagram | Medium | ⬜ Not Started |
-| PD00-BUS-BUS-CAT | Object Catalog | High | ⬜ Not Started |
-| PD00-BUS-BUS-CAT-01 | Sample: Order | Low | ⬜ Not Started |
-| PD00-BUS-BUS-CAT-01-LIF | Lifecycle State Transitions | Medium | ⬜ Not Started |
-| PD00-BUS-BUS-DIA | Business Object Diagram | Medium | ⬜ Not Started |
-| PD00-BUS-FUN-DEC | Function Decomposition | Medium | ⬜ Not Started |
-| PD00-BUS-FUN-MAT | Function-to-Data Matrix | Medium | ⬜ Not Started |
-| PD00-BUS-FUN-RUL | Business Rules | High | ⬜ Not Started |
-| PD00-BUS-FUN-RUL-01 | Sample: Credit Limit Check | Low | ⬜ Not Started |
+| PD00-BUS-DAT-ENT | Entity Overview | High | ✅ Done |
+| PD00-BUS-DAT-ENT-01 | Sample: Customer | Low | ✅ Done |
+| PD00-BUS-DAT-REL | Entity Relationships | High | ✅ Done |
+| PD00-BUS-DAT-DIA | Entity-Relationship Diagram | Medium | ✅ Done |
+| PD00-BUS-DAT-CLA | Data Classification | High | ✅ Done |
+| PD00-BUS-BUS-CAT | Object Catalog | High | ✅ Done |
+| PD00-BUS-BUS-CAT-01 | Sample: Order | Low | ✅ Done |
+| PD00-BUS-BUS-CAT-01-LIF | Lifecycle State Transitions | Medium | ✅ Done |
+| PD00-BUS-BUS-DIA | Business Object Diagram | Medium | ✅ Done |
+| PD00-BUS-FUN-DEC | Function Decomposition | Medium | ✅ Done |
+| PD00-BUS-FUN-MAT | Function-to-Data Matrix | Medium | ✅ Done |
+| PD00-BUS-FUN-RUL | Business Rules | High | ✅ Done |
+| PD00-BUS-FUN-RUL-01 | Sample: Credit Limit Check | Low | ✅ Done |
 | PD00-TEC-BAS-PLA | Platform and Language | High | ⬜ Not Started |
 | PD00-TEC-BAS-ARC | Architecture Style | High | ⬜ Not Started |
 | PD00-TEC-BAS-PAT | Design Patterns and Standards | Medium | ⬜ Not Started |

@@ -26,5 +26,16 @@ class Field {
   /// Whether this field is required (non-empty).
   final bool required;
 
-  const Field(this.name, this.type, this.description, {this.required = false});
+  /// Optional hint text providing guidance on valid values, formats, or
+  /// allowed options. Used by AI assistants and UI tools to help users
+  /// fill in the field correctly.
+  final String? hint;
+
+  const Field(
+    this.name,
+    this.type,
+    this.description, {
+    this.required = false,
+    this.hint,
+  });
 }
