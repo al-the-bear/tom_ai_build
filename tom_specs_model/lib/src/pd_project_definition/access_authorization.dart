@@ -2218,8 +2218,8 @@ class ResourceProtection {
   /// 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
   DataLevelSecurity dataLevelSecurity = DataLevelSecurity();
 
-  /// Api Security.
-  TextSection apiSecurity = TextSection();
+  /// 9.3.2. API Security [PD00-ACC-RES-API].
+  ApiSecurity apiSecurity = ApiSecurity();
 
   /// File And Storage Security.
   TextSection fileAndStorageSecurity = TextSection();
@@ -2556,6 +2556,461 @@ class DataAccessAuditPolicy {
 
   /// Data Access Audit Details (text).
   TextSection dataAccessAuditDetails = TextSection();
+}
+
+// ---------------------------------------------------------------------------
+// 9.3.2. API Security [PD00-ACC-RES-API]
+// ---------------------------------------------------------------------------
+
+/// 9.3.2. API Security [PD00-ACC-RES-API].
+///
+/// Comprehensive API security specification covering authentication,
+/// authorization, request validation, CORS policy, input sanitization,
+/// abuse prevention, and security monitoring. Aligned with OWASP API
+/// Security Top 10 (2023) and OWASP REST Security Cheat Sheet.
+@SectionId('PD00-ACC-RES-API')
+class ApiSecurity {
+  @Unused()
+  String? content;
+
+  /// API Security Overview (text).
+  TextSection overview = TextSection();
+
+  /// API Authentication Policy.
+  ApiAuthenticationPolicy apiAuthenticationPolicy =
+      ApiAuthenticationPolicy();
+
+  /// API Authorization Policy.
+  ApiAuthorizationPolicy apiAuthorizationPolicy = ApiAuthorizationPolicy();
+
+  /// API Request Validation Policy.
+  ApiRequestValidationPolicy apiRequestValidationPolicy =
+      ApiRequestValidationPolicy();
+
+  /// API CORS Security.
+  ApiCorsSecurity apiCorsSecurity = ApiCorsSecurity();
+
+  /// API Abuse Protection.
+  ApiAbuseProtection apiAbuseProtection = ApiAbuseProtection();
+
+  /// API Security Monitoring.
+  ApiSecurityMonitoring apiSecurityMonitoring = ApiSecurityMonitoring();
+}
+
+/// API authentication policy — how API consumers prove their identity.
+///
+/// Covers API keys, OAuth2 flows, JWT validation, mutual TLS, webhook
+/// signature verification, and service-to-service authentication.
+@Form([
+  // Primary authentication mechanism
+  Field('authenticationMethod', String, 'Primary Authentication Method',
+      required: true,
+      hint:
+          'OAuth2 | APIKey | JWT | mTLS | HMAC | Basic — primary API authentication mechanism'),
+  Field('multipleMethodsSupported', bool, 'Multiple Methods Supported',
+      hint:
+          'Yes | No — whether the API supports multiple authentication methods simultaneously'),
+
+  // API key management
+  Field('apiKeyTransmission', String, 'API Key Transmission',
+      hint:
+          'Header | QueryParam | Cookie — where API keys are transmitted (Header recommended)'),
+  Field('apiKeyRotationPolicy', String, 'API Key Rotation Policy',
+      hint:
+          'Automatic periodic rotation interval and overlap/grace period for old keys'),
+  Field('apiKeyScoping', String, 'API Key Scoping',
+      hint:
+          'Global | PerEnvironment | PerService — whether keys are scoped to specific environments or services'),
+
+  // OAuth2 / JWT
+  Field('jwtValidationPolicy', String, 'JWT Validation Policy',
+      hint:
+          'iss, aud, exp, nbf — required JWT claims to validate on every request'),
+  Field('jwtSigningAlgorithm', String, 'JWT Signing Algorithm',
+      hint:
+          'RS256 | ES256 | EdDSA — required JWT signing algorithm (HS256 discouraged for APIs)'),
+  Field('accessTokenLifetime', String, 'Access Token Lifetime',
+      hint:
+          'Maximum access token validity duration (e.g. 15 min, 1 hour)'),
+  Field('refreshTokenPolicy', String, 'Refresh Token Policy',
+      hint:
+          'Rotation | Reuse | None — refresh token handling and lifetime'),
+  Field('clientCredentialsFlow', bool, 'Client Credentials Flow',
+      hint:
+          'Yes | No — whether OAuth2 client credentials flow is supported for service-to-service'),
+  Field('authorizationCodeFlow', bool, 'Authorization Code Flow',
+      hint:
+          'Yes | No — whether OAuth2 authorization code flow with PKCE is supported'),
+  Field('tokenRevocationSupport', bool, 'Token Revocation Support',
+      hint:
+          'Yes | No — whether explicit token revocation is supported (RFC 7009)'),
+
+  // Service-to-service and mutual TLS
+  Field('mutualTlsRequired', bool, 'Mutual TLS Required',
+      hint:
+          'Yes | No — require client certificate authentication for service-to-service communication'),
+  Field('serviceAccountPolicy', String, 'Service Account Policy',
+      hint:
+          'How service accounts authenticate and what credential types they use'),
+
+  // Webhook and third-party
+  Field('webhookSignatureVerification', String,
+      'Webhook Signature Verification',
+      hint:
+          'HMAC-SHA256 | RSA | EdDSA — method used to verify incoming webhook requests'),
+  Field('thirdPartyApiConsumption', String,
+      'Third-Party API Consumption Security',
+      hint:
+          'Security requirements when consuming external third-party APIs (OWASP API10)'),
+  Field('credentialTransmission', String, 'Credential Transmission',
+      hint:
+          'Header | Body — where credentials are transmitted (Header via Authorization recommended)'),
+  Field('bearerTokenFormat', String, 'Bearer Token Format',
+      hint: 'JWT | Opaque | Reference — format used for bearer tokens'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional API authentication notes'),
+])
+class ApiAuthenticationPolicy {
+  String? content;
+
+  /// API Authentication Details (text).
+  TextSection apiAuthenticationDetails = TextSection();
+}
+
+/// API authorization policy — how API access decisions are made.
+///
+/// Covers object-level, function-level, and property-level authorization,
+/// scope definitions, delegation controls, and protection against privilege
+/// escalation. Aligned with OWASP API1/API3/API5 (Broken Authorization).
+@Form([
+  // Authorization granularity
+  Field('objectLevelAuthorization', String, 'Object-Level Authorization',
+      required: true,
+      hint:
+          'How every API endpoint verifies the caller owns or may access the requested object (OWASP API1)'),
+  Field('functionLevelAuthorization', String, 'Function-Level Authorization',
+      hint:
+          'How administrative vs. regular functions are separated and access-controlled (OWASP API5)'),
+  Field(
+      'propertyLevelAuthorization', String, 'Property-Level Authorization',
+      hint:
+          'How field-level exposure is controlled — preventing excessive data exposure and mass assignment (OWASP API3)'),
+  Field('permissionGranularity', String, 'Permission Granularity',
+      hint:
+          'Endpoint | Resource | Field — granularity at which permissions are evaluated'),
+
+  // Scopes and delegation
+  Field('scopeDefinitions', String, 'OAuth2 Scope Definitions',
+      hint:
+          'OAuth2 scopes required for API access (e.g. read:users, write:orders)'),
+  Field('scopeEnforcementLevel', String, 'Scope Enforcement Level',
+      hint:
+          'Gateway | Service | Both — where scope checks are enforced'),
+  Field('delegatedAccessPolicy', String, 'Delegated Access Policy',
+      hint:
+          'How delegation or impersonation is controlled (on-behalf-of flows)'),
+
+  // Bulk and batch operations
+  Field(
+      'bulkOperationAuthorization', String, 'Bulk Operation Authorization',
+      hint:
+          'How batch/bulk API operations are authorized — per-item or at collection level'),
+  Field('contextualAuthorization', String, 'Contextual Authorization',
+      hint:
+          'IP, time-of-day, device, or geolocation-based access decisions'),
+
+  // Escalation prevention
+  Field('massAssignmentPrevention', String, 'Mass Assignment Prevention',
+      hint:
+          'How mass assignment attacks are prevented — allowlisted fields, DTOs, read-only markers'),
+  Field('horizontalPrivilegeEscalation', String,
+      'Horizontal Privilege Escalation Prevention',
+      hint:
+          'Controls preventing a user from accessing another user\'s data via direct object reference'),
+  Field('verticalPrivilegeEscalation', String,
+      'Vertical Privilege Escalation Prevention',
+      hint:
+          'Controls preventing regular users from accessing administrative functions'),
+
+  // Business flow protection
+  Field('sensitiveBusinessFlowProtection', String,
+      'Sensitive Business Flow Protection',
+      hint:
+          'How sensitive workflows (checkout, transfer) are protected from automated abuse (OWASP API6)'),
+  Field('workflowStateValidation', String, 'Workflow State Validation',
+      hint:
+          'How out-of-order API execution is prevented (server-side state machine enforcement)'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional API authorization notes'),
+])
+class ApiAuthorizationPolicy {
+  String? content;
+
+  /// API Authorization Details (text).
+  TextSection apiAuthorizationDetails = TextSection();
+}
+
+/// API request validation policy — input validation, schema enforcement,
+/// and content type verification for all API requests.
+///
+/// Covers schema validation, parameter typing, size limits, content type
+/// enforcement, and structured payload validation. Aligned with OWASP
+/// Input Validation Cheat Sheet.
+@Form([
+  // Validation approach
+  Field('inputValidationStrategy', String, 'Input Validation Strategy',
+      required: true,
+      hint:
+          'Allowlist | Blocklist | SchemaValidation — primary validation approach (Allowlist recommended)'),
+  Field('schemaValidationEnforced', bool, 'Schema Validation Enforced',
+      hint:
+          'Yes | No — whether JSON Schema or OpenAPI schema validation is enforced on all requests'),
+  Field('schemaValidationTool', String, 'Schema Validation Tool',
+      hint:
+          'Library or framework used for request schema validation'),
+
+  // Content type
+  Field('contentTypeValidation', bool, 'Content-Type Validation',
+      hint:
+          'Yes | No — whether Content-Type header is validated against expected types'),
+  Field('acceptedContentTypes', String, 'Accepted Content Types',
+      hint:
+          'application/json | application/xml — comma-separated list of accepted content types'),
+  Field('rejectUnexpectedContentType', bool, 'Reject Unexpected Content-Type',
+      hint:
+          'Yes | No — respond with HTTP 415 for unsupported media types'),
+
+  // Size and depth limits
+  Field('requestSizeLimit', String, 'Request Size Limit',
+      hint:
+          'Maximum request body size (e.g. 1 MB, 10 MB) — reject with HTTP 413'),
+  Field('arrayLengthLimit', int, 'Array Length Limit',
+      hint:
+          'Maximum number of elements allowed in any JSON array in request body'),
+  Field('nestedObjectDepthLimit', int, 'Nested Object Depth Limit',
+      hint:
+          'Maximum nesting depth for JSON objects to prevent DoS via deep nesting'),
+  Field('stringFieldMaxLength', int, 'String Field Max Length',
+      hint:
+          'Default maximum character length for string fields unless overridden per field'),
+
+  // Parameter and type enforcement
+  Field('parameterTypeEnforcement', bool, 'Parameter Type Enforcement',
+      hint:
+          'Yes | No — enforce strong typing (number, boolean, date) on query/path parameters'),
+  Field('numericRangeValidation', bool, 'Numeric Range Validation',
+      hint:
+          'Yes | No — enforce min/max bounds on numeric parameters'),
+  Field('dateFormatValidation', String, 'Date Format Validation',
+      hint:
+          'ISO 8601 | RFC 3339 | Custom — required date/time format for all date fields'),
+  Field('encodingValidation', String, 'Encoding Validation',
+      hint:
+          'UTF-8 | ASCII — accepted character encoding for request bodies'),
+
+  // File uploads
+  Field('fileUploadValidation', String, 'File Upload Validation',
+      hint:
+          'Allowed extensions, MIME types, max file size, and content scanning requirements'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional request validation notes'),
+])
+class ApiRequestValidationPolicy {
+  String? content;
+
+  /// Request Validation Details (text).
+  TextSection requestValidationDetails = TextSection();
+}
+
+/// API CORS security — Cross-Origin Resource Sharing policy from a security
+/// perspective.
+///
+/// Defines allowed origins, methods, headers, credential handling, and
+/// security headers returned with API responses. Aligned with OWASP CORS
+/// guidance and Content Security Policy best practices.
+@Form([
+  // CORS core
+  Field('corsEnabled', bool, 'CORS Enabled',
+      required: true,
+      hint:
+          'Yes | No — whether CORS is enabled for the API'),
+  Field('allowedOrigins', String, 'Allowed Origins',
+      hint:
+          'Explicit domain list or pattern — avoid wildcard * with credentials'),
+  Field('allowedMethods', String, 'Allowed HTTP Methods',
+      hint:
+          'GET | POST | PUT | DELETE | PATCH — permitted HTTP methods'),
+  Field('allowedHeaders', String, 'Allowed Request Headers',
+      hint:
+          'Authorization, Content-Type, X-Request-ID — allowed request headers'),
+  Field('exposedHeaders', String, 'Exposed Response Headers',
+      hint:
+          'X-RateLimit-Remaining, X-Request-ID — response headers visible to client JavaScript'),
+  Field('credentialsAllowed', bool, 'Credentials Allowed',
+      hint:
+          'Yes | No — Access-Control-Allow-Credentials (mutually exclusive with wildcard origin)'),
+  Field('preflightCacheMaxAge', int, 'Preflight Cache Max-Age',
+      hint:
+          'Maximum time in seconds that preflight responses can be cached (e.g. 3600)'),
+  Field('wildcardRestriction', bool, 'Wildcard Restriction',
+      hint:
+          'Yes | No — whether wildcard * origin is explicitly prohibited when credentials are used'),
+
+  // Security headers
+  Field('contentSecurityPolicy', String, 'Content Security Policy',
+      hint:
+          'CSP directives for API responses (e.g. default-src none, frame-ancestors none)'),
+  Field('strictTransportSecurity', String, 'Strict Transport Security',
+      hint:
+          'HSTS max-age and includeSubDomains directive for API endpoints'),
+  Field('securityHeadersRequired', String, 'Required Security Headers',
+      hint:
+          'X-Content-Type-Options: nosniff, X-Frame-Options: DENY, Referrer-Policy: no-referrer'),
+  Field('privateNetworkAccess', String, 'Private Network Access Policy',
+      hint:
+          'How CORS private network access requests are handled (Access-Control-Request-Private-Network)'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional CORS security notes'),
+])
+class ApiCorsSecurity {
+  String? content;
+
+  /// CORS Security Details (text).
+  TextSection corsSecurityDetails = TextSection();
+}
+
+/// API abuse protection — rate limiting, bot detection, brute force
+/// prevention, and business flow protection from a security perspective.
+///
+/// Focuses on the security policy aspects of abuse prevention. Complements
+/// rate-limiting configuration in the technical framework with security-
+/// specific rules and threat response actions.
+@Form([
+  // Rate limiting security
+  Field('rateLimitingEnabled', bool, 'Rate Limiting Enabled',
+      required: true,
+      hint:
+          'Yes | No — whether security-focused rate limiting is enforced'),
+  Field('rateLimitScope', String, 'Rate Limit Scope',
+      hint:
+          'PerClient | PerEndpoint | PerTenant | Global — at what level limits are applied'),
+  Field('authenticationEndpointLimits', String,
+      'Authentication Endpoint Limits',
+      hint:
+          'Stricter rate limits for login/token endpoints to prevent brute-force attacks'),
+  Field('sensitiveEndpointLimits', String, 'Sensitive Endpoint Limits',
+      hint:
+          'Additional rate limits for password reset, MFA enrolment, payment endpoints'),
+
+  // Brute force and bot protection
+  Field('bruteForceProtection', String, 'Brute Force Protection',
+      hint:
+          'Account lockout, progressive delays, CAPTCHA — how brute force authentication attacks are mitigated'),
+  Field('botDetectionPolicy', String, 'Bot Detection Policy',
+      hint:
+          'CAPTCHA | BehavioralAnalysis | DeviceFingerprint | None — automated request detection'),
+  Field('ipReputationFiltering', bool, 'IP Reputation Filtering',
+      hint:
+          'Yes | No — use IP reputation databases to filter known-malicious sources'),
+
+  // Threat response
+  Field('automaticBlocking', bool, 'Automatic Blocking',
+      hint:
+          'Yes | No — automatically block clients exceeding abuse thresholds'),
+  Field('blockDuration', String, 'Block Duration',
+      hint:
+          'Temporary (minutes/hours) or permanent — duration of automatic blocks'),
+  Field('geographicRestrictions', String, 'Geographic Restrictions',
+      hint:
+          'Region or country-based access restrictions for API endpoints'),
+  Field('requestThrottlingOnFailure', String,
+      'Request Throttling on Failure',
+      hint:
+          'Progressive delay or backoff on repeated authentication or validation failures'),
+
+  // Business flow protection
+  Field('businessFlowProtection', String, 'Business Flow Protection',
+      hint:
+          'How automated abuse of business-critical flows is detected and prevented (OWASP API6)'),
+  Field('webhookFloodProtection', String, 'Webhook Flood Protection',
+      hint:
+          'How webhook replay attacks and flood scenarios are prevented'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional abuse protection notes'),
+])
+class ApiAbuseProtection {
+  String? content;
+
+  /// Abuse Protection Details (text).
+  TextSection abuseProtectionDetails = TextSection();
+}
+
+/// API security monitoring — logging, anomaly detection, inventory
+/// management, and compliance reporting for API security.
+///
+/// Covers API access logging, error monitoring, authentication failure
+/// tracking, deprecated endpoint usage, and data exfiltration detection.
+/// Aligned with OWASP API9 (Improper Inventory Management) and OWASP
+/// API10 (Unsafe Consumption of APIs).
+@Form([
+  // Logging
+  Field('apiAccessLogging', bool, 'API Access Logging',
+      required: true,
+      hint:
+          'Yes | No — whether all API access is logged with caller identity and action'),
+  Field('loggedAttributes', String, 'Logged Request Attributes',
+      hint:
+          'Timestamp, clientId, endpoint, method, statusCode, responseTime, sourceIP — attributes captured per request'),
+  Field('sensitiveEndpointMonitoring', bool, 'Sensitive Endpoint Monitoring',
+      hint:
+          'Yes | No — enhanced logging for authentication, payment, and admin endpoints'),
+  Field('sensitiveDataRedaction', bool, 'Sensitive Data Redaction',
+      hint:
+          'Yes | No — redact PII, credentials, and tokens from API logs'),
+
+  // Anomaly detection
+  Field('anomalyDetection', bool, 'Anomaly Detection',
+      hint:
+          'Yes | No — detect anomalous API usage patterns (unusual volume, timing, geography)'),
+  Field('errorRateMonitoring', String, 'Error Rate Monitoring',
+      hint:
+          'Threshold and window for error-rate alerting (e.g. >5% 4xx in 5-min window)'),
+  Field('authenticationFailureTracking', bool,
+      'Authentication Failure Tracking',
+      hint:
+          'Yes | No — track and alert on authentication failure patterns per client/IP'),
+  Field('dataExfiltrationDetection', bool, 'Data Exfiltration Detection',
+      hint:
+          'Yes | No — detect unusual data volume patterns that may indicate exfiltration'),
+
+  // Inventory and versioning
+  Field('apiVersionInventory', bool, 'API Version Inventory',
+      hint:
+          'Yes | No — maintain a current inventory of all API versions and endpoints (OWASP API9)'),
+  Field('deprecatedEndpointMonitoring', bool,
+      'Deprecated Endpoint Monitoring',
+      hint:
+          'Yes | No — monitor and alert on usage of deprecated API endpoints or versions'),
+
+  // Alerts and response
+  Field('realTimeAlerts', bool, 'Real-Time Alerts',
+      hint:
+          'Yes | No — trigger real-time security alerts on threshold breaches'),
+  Field('securityResponseAutomation', String,
+      'Security Response Automation',
+      hint:
+          'Automated actions on security events — block, throttle, escalate, notify'),
+  Field('complianceReporting', String, 'Compliance Reporting',
+      hint:
+          'Frequency and format of API security compliance reports'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional API security monitoring notes'),
+])
+class ApiSecurityMonitoring {
+  String? content;
+
+  /// API Security Monitoring Details (text).
+  TextSection apiSecurityMonitoringDetails = TextSection();
 }
 
 /// 9.4. User Authorization [PD00-ACC-USA].
