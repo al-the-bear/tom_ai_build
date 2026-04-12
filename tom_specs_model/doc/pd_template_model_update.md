@@ -4,7 +4,7 @@ This document tracks the synchronization between `pd_template.md` (source of tru
 
 **Status:** Active  
 **Created:** 2025-01-24  
-**Last Updated:** 2026-04-12 (PD00-ACC-USA-ROH: Role Hierarchy)
+**Last Updated:** 2026-04-12 (PD00-ACC-USA-TEN: Tenant Isolation)
 
 ---
 
@@ -120,7 +120,7 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-ACC-USA-ROL | Role Definitions | High | ✅ Done |
 | PD00-ACC-USA-ROL-01 | Sample: System Administrator | Low | ✅ Done |
 | PD00-ACC-USA-ROH | Role Hierarchy | Medium | ✅ Done |
-| PD00-ACC-USA-TEN | Tenant Isolation | Medium | ⬜ Not Started |
+| PD00-ACC-USA-TEN | Tenant Isolation | Medium | ✅ Done |
 | PD00-ACC-SEN-RES | Encryption at Rest | High | ⬜ Not Started |
 | PD00-ACC-SEN-TRA | Encryption in Transit | High | ⬜ Not Started |
 | PD00-ACC-SEN-KEY | Key Management | High | ⬜ Not Started |

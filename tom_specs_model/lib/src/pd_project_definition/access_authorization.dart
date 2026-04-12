@@ -3814,8 +3814,9 @@ class UserAuthorization {
   @SectionId('PD00-ACC-USA-ROH')
   RoleHierarchy roleHierarchy = RoleHierarchy();
 
-  /// Tenant Isolation.
-  TextSection tenantIsolation = TextSection();
+  /// 9.4.7. Tenant Isolation [PD00-ACC-USA-TEN].
+  @SectionId('PD00-ACC-USA-TEN')
+  TenantIsolation tenantIsolation = TenantIsolation();
 }
 
 // ---------------------------------------------------------------------------
@@ -4045,6 +4046,294 @@ class RoleCertificationPolicy {
 
   /// Role Certification Details (text).
   TextSection roleCertificationDetails = TextSection();
+}
+
+// ---------------------------------------------------------------------------
+// 9.4.7. Tenant Isolation [PD00-ACC-USA-TEN]
+// ---------------------------------------------------------------------------
+
+/// 9.4.7. Tenant Isolation [PD00-ACC-USA-TEN].
+///
+/// Describes how multi-tenant authorization is structured: how tenant context
+/// is established and propagated, how cross-tenant access is prevented or
+/// controlled, how tenants can customize their authorization model, how tenant
+/// onboarding/offboarding is handled from an authorization perspective, and
+/// how tenant boundaries are enforced at the authorization layer.
+/// Complements TenantDataIsolationPolicy (PD00-ACC-RES-DAT) which covers
+/// data-level isolation; this section focuses on authorization-level isolation.
+@SectionId('PD00-ACC-USA-TEN')
+class TenantIsolation {
+  @Unused()
+  String? content;
+
+  /// Tenant Context Policy.
+  TenantContextPolicy tenantContextPolicy = TenantContextPolicy();
+
+  /// Cross-Tenant Access Policy.
+  CrossTenantAccessPolicy crossTenantAccessPolicy = CrossTenantAccessPolicy();
+
+  /// Contains 0+× TenantCustomization.
+  @SectionIdPattern('PD00-ACC-USA-TEN-CUS-xx')
+  List<TenantCustomizationEntry> tenantCustomizations = [];
+
+  /// Tenant Onboarding Policy.
+  TenantOnboardingPolicy tenantOnboardingPolicy = TenantOnboardingPolicy();
+
+  /// Tenant Boundary Enforcement Policy.
+  TenantBoundaryEnforcementPolicy boundaryEnforcement =
+      TenantBoundaryEnforcementPolicy();
+
+  /// Tenant Isolation Notes (text).
+  TextSection tenantIsolationNotes = TextSection();
+}
+
+/// Tenant Context Policy (form).
+///
+/// Defines how the tenant context is established, validated, and propagated
+/// throughout authorization decisions. Covers context resolution, immutability,
+/// cross-service propagation, and behavior when tenant context is missing.
+/// Aligns with OWASP Multi-Tenant Security: Tenant Identification & Context
+/// Management.
+@Form([
+  Field('contextResolutionMethod', String, 'Context Resolution Method',
+      required: true,
+      hint:
+          'Token | Header | Domain | Path | Session | IDP-Asserted — how '
+          'tenant identity is determined from incoming requests'),
+  Field('contextPropagation', String, 'Context Propagation',
+      hint:
+          'ThreadLocal | RequestScoped | ServiceMesh | TokenBased — how '
+          'tenant context flows through application layers during '
+          'authorization evaluation'),
+  Field('contextValidation', String, 'Context Validation',
+      hint:
+          'SessionBinding | TokenClaim | DatabaseLookup | IDP-Asserted — '
+          'how tenant context is validated against the authenticated user'),
+  Field('contextImmutability', bool, 'Context Immutability',
+      hint:
+          'Yes | No — whether the tenant context is immutable once '
+          'established for a request (prevents mid-request tampering)'),
+  Field('crossServicePropagation', String, 'Cross-Service Propagation',
+      hint:
+          'JwtClaim | Header | gRPC-Metadata | ContextObject — how tenant '
+          'context propagates across service boundaries in distributed '
+          'architectures'),
+  Field('missingContextBehavior', String, 'Missing Context Behavior',
+      hint:
+          'Reject | DefaultTenant | Anonymous — what happens when tenant '
+          'context cannot be determined (reject = deny access; '
+          'defaultTenant = use platform default)'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional tenant context policy notes'),
+])
+class TenantContextPolicy {
+  String? content;
+
+  /// Tenant Context Policy Details (text).
+  TextSection tenantContextPolicyDetails = TextSection();
+}
+
+/// Cross-Tenant Access Policy (form).
+///
+/// Defines whether and how cross-tenant access is permitted, what
+/// authorization mechanisms govern it, resource sharing models, and
+/// audit/review requirements. Aligns with OWASP: Preventing Cross-Tenant
+/// Data Access and IDOR Prevention.
+@Form([
+  Field('crossTenantAccessAllowed', bool, 'Cross-Tenant Access Allowed',
+      required: true,
+      hint:
+          'Yes | No — whether any form of cross-tenant access is permitted '
+          'in the system'),
+  Field('crossTenantAccessModel', String, 'Cross-Tenant Access Model',
+      hint:
+          'GlobalAdmin | ServiceAccount | ExplicitGrant | Federation | '
+          'None — model governing how cross-tenant access is structured'),
+  Field('authorizationMechanism', String, 'Authorization Mechanism',
+      hint:
+          'SuperAdminRole | ServiceAccountToken | ExplicitGrant | '
+          'FederationAgreement — how cross-tenant operations are authorized '
+          'when allowed'),
+  Field('resourceSharingModel', String, 'Resource Sharing Model',
+      hint:
+          'None | ReferenceOnly | Copy | SharedOwnership | Linked — how '
+          'resources can be shared across tenant boundaries'),
+  Field('idorPreventionStrategy', String, 'IDOR Prevention Strategy',
+      hint:
+          'CompositeKeys | QueryFilter | RLS | ScopedTokens — strategy to '
+          'prevent insecure direct object references across tenants'),
+  Field('crossTenantAuditRequirement', String,
+      'Cross-Tenant Audit Requirement',
+      hint:
+          'All | AdminOnly | None — level of audit logging required for '
+          'cross-tenant operations'),
+  Field('accessReviewFrequency', String, 'Access Review Frequency',
+      hint:
+          'Monthly | Quarterly | SemiAnnual | Annual | OnChange — how '
+          'often cross-tenant access grants are reviewed'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional cross-tenant access policy notes'),
+])
+class CrossTenantAccessPolicy {
+  String? content;
+
+  /// Cross-Tenant Access Policy Details (text).
+  TextSection crossTenantAccessPolicyDetails = TextSection();
+}
+
+/// A tenant customization entry (form) [PD00-ACC-USA-TEN-CUS-nn].
+///
+/// Describes a specific area where tenants can customize their authorization
+/// model — custom roles, permissions, policies, or workflows. Covers scoping,
+/// inheritance from global defaults, and approval requirements.
+class TenantCustomizationEntry {
+  @Form([
+    Field('customizationType', String, 'Customization Type',
+        required: true,
+        hint:
+            'Roles | Permissions | Policies | Workflows | All — area of '
+            'authorization that can be customized per tenant'),
+    Field('scopingMechanism', String, 'Scoping Mechanism',
+        hint:
+            'TenantConfig | TenantOverride | TenantExtension | Inheritance '
+            '— how tenant-specific customizations are applied'),
+    Field('customRolesAllowed', bool, 'Custom Roles Allowed',
+        hint:
+            'Yes | No — whether tenants can define their own custom roles '
+            'beyond the platform-provided role set'),
+    Field('customPermissionsAllowed', bool, 'Custom Permissions Allowed',
+        hint:
+            'Yes | No — whether tenants can define custom fine-grained '
+            'permissions beyond platform defaults'),
+    Field('customPoliciesAllowed', bool, 'Custom Policies Allowed',
+        hint:
+            'Yes | No — whether tenants can define custom authorization '
+            'policies (e.g. IP restrictions, time-based access)'),
+    Field('inheritFromGlobal', bool, 'Inherit From Global',
+        hint:
+            'Yes | No — whether tenant customizations inherit from and '
+            'extend global/platform defaults'),
+    Field('customizationApproval', String, 'Customization Approval',
+        hint:
+            'None | TenantAdmin | PlatformAdmin | Both — who must approve '
+            'authorization customizations for a tenant'),
+    Field('customizationAudit', bool, 'Customization Audit',
+        hint:
+            'Yes | No — whether all customization changes are logged for '
+            'audit and compliance purposes'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional tenant customization notes'),
+  ])
+  String? content;
+}
+
+/// Tenant Onboarding Policy (form).
+///
+/// Defines how authorization resources are provisioned when a new tenant is
+/// created and how they are cleaned up when a tenant is offboarded. Covers
+/// initial role templates, admin provisioning, permission sets, data retention,
+/// and offboarding approval workflows.
+@Form([
+  Field('authorizationProvisioningModel', String,
+      'Authorization Provisioning Model',
+      required: true,
+      hint:
+          'Template | Clone | Custom | Minimal — how authorization '
+          'resources (roles, permissions, policies) are provisioned for '
+          'new tenants'),
+  Field('defaultRoleTemplate', String, 'Default Role Template',
+      hint:
+          'Name or ID of the role template used to bootstrap initial '
+          'roles for a new tenant (e.g. StandardSaaS, Enterprise, '
+          'Minimal)'),
+  Field('adminRoleProvisioning', String, 'Admin Role Provisioning',
+      hint:
+          'AutoCreate | ManualAssign | InviteBased — how the initial '
+          'tenant administrator role is set up'),
+  Field('initialPermissionSet', String, 'Initial Permission Set',
+      hint:
+          'Full | Minimal | Custom — what permissions are granted to a '
+          'new tenant upon creation'),
+  Field('offboardingStrategy', String, 'Offboarding Strategy',
+      hint:
+          'SoftDelete | HardDelete | Archive | Anonymize — how tenant '
+          'authorization data is handled on offboarding'),
+  Field('resourceCleanupOnOffboarding', String,
+      'Resource Cleanup on Offboarding',
+      hint:
+          'Immediate | Deferred | Manual | PolicyBased — when '
+          'authorization resources are cleaned up after tenant removal'),
+  Field('dataRetentionDays', int, 'Data Retention Days',
+      hint:
+          'Number of days tenant authorization data (roles, assignments, '
+          'audit logs) is retained after offboarding (0 = immediate)'),
+  Field('offboardingApproval', String, 'Offboarding Approval',
+      hint:
+          'None | PlatformAdmin | ComplianceOfficer | Both — who must '
+          'approve tenant offboarding and data deletion'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional tenant onboarding/offboarding notes'),
+])
+class TenantOnboardingPolicy {
+  String? content;
+
+  /// Tenant Onboarding Policy Details (text).
+  TextSection tenantOnboardingPolicyDetails = TextSection();
+}
+
+/// Tenant Boundary Enforcement Policy (form).
+///
+/// Defines how authorization boundaries between tenants are enforced at
+/// runtime — covering enforcement layers, filtering strategies, escalation
+/// prevention, shared service authorization, multi-tenant user support,
+/// and authorization caching per tenant.
+@Form([
+  Field('enforcementLayer', String, 'Enforcement Layer',
+      required: true,
+      hint:
+          'API | Service | Database | All — at which architectural layer '
+          'tenant authorization boundaries are enforced'),
+  Field('authorizationFilterStrategy', String,
+      'Authorization Filter Strategy',
+      hint:
+          'QueryFilter | TokenScope | PolicyEngine | Middleware — how '
+          'tenant boundaries are applied in authorization decisions'),
+  Field('implicitTenantFilter', bool, 'Implicit Tenant Filter',
+      hint:
+          'Yes | No — whether all authorization queries automatically '
+          'include a tenant filter (defense-in-depth)'),
+  Field('escalationPrevention', String, 'Escalation Prevention',
+      hint:
+          'StrictScoping | RoleSeparation | TokenIsolation | All — how '
+          'privilege escalation across tenant boundaries is prevented'),
+  Field('sharedServiceAuthorization', String,
+      'Shared Service Authorization',
+      hint:
+          'ServiceAccount | PlatformRole | TenantAgnostic | ScopedProxy '
+          '— how shared platform services authorize operations that span '
+          'or are independent of tenants'),
+  Field('tenantSwitchingPolicy', String, 'Tenant Switching Policy',
+      hint:
+          'ReAuthenticate | SessionSwitch | TokenExchange | NotAllowed — '
+          'how users belonging to multiple tenants switch their active '
+          'tenant context'),
+  Field('multiTenantUserSupport', bool, 'Multi-Tenant User Support',
+      hint:
+          'Yes | No — whether a single user identity can belong to and '
+          'operate within multiple tenants'),
+  Field('authorizationCaching', String, 'Authorization Caching',
+      hint:
+          'None | PerTenant | SharedWithValidation | InvalidateOnSwitch '
+          '— how authorization decisions are cached with respect to '
+          'tenant context to prevent cross-tenant cache leakage'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional tenant boundary enforcement notes'),
+])
+class TenantBoundaryEnforcementPolicy {
+  String? content;
+
+  /// Tenant Boundary Enforcement Details (text).
+  TextSection boundaryEnforcementDetails = TextSection();
 }
 
 /// An authorization group entry [PD00-ACC-USA-GRP-nn] (form).
