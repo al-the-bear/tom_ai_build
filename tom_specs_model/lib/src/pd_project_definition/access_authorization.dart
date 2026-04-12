@@ -4619,14 +4619,291 @@ class SensitiveDataEncryption {
   @Unused()
   String? content;
 
-  /// Encryption At Rest.
-  TextSection encryptionAtRest = TextSection();
+  /// 9.5.1. Encryption At Rest [PD00-ACC-SEN-RES].
+  @SectionId('PD00-ACC-SEN-RES')
+  EncryptionAtRest encryptionAtRest = EncryptionAtRest();
 
   /// Encryption In Transit.
   TextSection encryptionInTransit = TextSection();
 
   /// Key Management.
   TextSection keyManagement = TextSection();
+}
+
+// ---------------------------------------------------------------------------
+// 9.5.1. Encryption At Rest [PD00-ACC-SEN-RES]
+// ---------------------------------------------------------------------------
+
+/// 9.5.1. Encryption At Rest [PD00-ACC-SEN-RES].
+///
+/// Defines encryption requirements for stored data: algorithms, key lengths,
+/// encryption layers (application, database, filesystem, hardware), field-level
+/// and full-disk encryption, encrypted data categories, backup encryption,
+/// and compliance requirements. Aligns with OWASP Cryptographic Storage
+/// Cheat Sheet and NIST SP 800-111 (Storage Encryption).
+@SectionId('PD00-ACC-SEN-RES')
+class EncryptionAtRest {
+  @Unused()
+  String? content;
+
+  /// Encryption At Rest Policy.
+  EncryptionAtRestPolicy encryptionPolicy = EncryptionAtRestPolicy();
+
+  /// Contains 0+× EncryptedDataCategory.
+  @SectionIdPattern('PD00-ACC-SEN-RES-CAT-xx')
+  List<EncryptedDataCategoryEntry> encryptedDataCategories = [];
+
+  /// Database Encryption Policy.
+  DatabaseEncryptionPolicy databaseEncryption = DatabaseEncryptionPolicy();
+
+  /// File and Storage Encryption Policy.
+  FileStorageEncryptionPolicy fileStorageEncryption =
+      FileStorageEncryptionPolicy();
+
+  /// Backup Encryption Policy.
+  BackupEncryptionPolicy backupEncryption = BackupEncryptionPolicy();
+
+  /// Encryption At Rest Notes (text).
+  TextSection encryptionAtRestNotes = TextSection();
+}
+
+/// Encryption At Rest Policy (form).
+///
+/// Global settings governing how data at rest is encrypted: default algorithm,
+/// key size, cipher mode, encryption layer strategy, field-level vs full-disk
+/// encryption, and compliance framework alignment.
+@Form([
+  Field('defaultAlgorithm', String, 'Default Algorithm',
+      required: true,
+      hint:
+          'AES-256 | AES-128 | ChaCha20 | 3DES | Other — symmetric '
+          'encryption algorithm used as the default for data at rest '
+          '(AES-256 recommended per OWASP/NIST)'),
+  Field('defaultKeyLength', int, 'Default Key Length (bits)',
+      required: true,
+      hint:
+          '128 | 192 | 256 — minimum key length in bits for symmetric '
+          'encryption (256-bit recommended for sensitive data)'),
+  Field('cipherMode', String, 'Cipher Mode',
+      hint:
+          'GCM | CCM | CTR | CBC | XTS — block cipher mode of operation '
+          '(GCM or CCM recommended for authenticated encryption; '
+          'XTS for full-disk encryption)'),
+  Field('encryptionLayer', String, 'Encryption Layer',
+      hint:
+          'Application | Database | Filesystem | Hardware | Multiple — '
+          'at which architectural layer encryption is primarily applied '
+          '(multiple = defense-in-depth across layers)'),
+  Field('fieldLevelEncryption', bool, 'Field-Level Encryption',
+      hint:
+          'Yes | No — whether individual sensitive fields (e.g. SSN, '
+          'credit card) are encrypted at the application level beyond '
+          'database/disk encryption'),
+  Field('transparentDataEncryption', bool, 'Transparent Data Encryption',
+      hint:
+          'Yes | No — whether TDE (Transparent Data Encryption) is used '
+          'at the database engine level (e.g. SQL Server TDE, Oracle TDE, '
+          'PostgreSQL pgcrypto)'),
+  Field('fullDiskEncryption', bool, 'Full-Disk Encryption',
+      hint:
+          'Yes | No — whether full-disk or volume-level encryption is '
+          'required (e.g. LUKS, BitLocker, AWS EBS encryption)'),
+  Field('minimizeSensitiveStorage', bool, 'Minimize Sensitive Storage',
+      hint:
+          'Yes | No — whether the system actively minimizes storage of '
+          'sensitive data (e.g. tokenization, truncation, avoiding '
+          'unnecessary PII retention)'),
+  Field('complianceFramework', String, 'Compliance Framework',
+      hint:
+          'FIPS-140-2 | PCI-DSS | HIPAA | GDPR | SOC2 | None — '
+          'regulatory or compliance framework dictating encryption '
+          'requirements'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional encryption at rest policy notes'),
+])
+class EncryptionAtRestPolicy {
+  String? content;
+
+  /// Encryption At Rest Policy Details (text).
+  TextSection encryptionAtRestPolicyDetails = TextSection();
+}
+
+/// An encrypted data category entry (form) [PD00-ACC-SEN-RES-CAT-nn].
+///
+/// Defines a specific category of data that requires encryption at rest,
+/// including the data classification, encryption approach, algorithm override,
+/// and data minimization strategy. Allows specifying different encryption
+/// levels for different data sensitivity tiers.
+class EncryptedDataCategoryEntry {
+  @Form([
+    Field('categoryName', String, 'Category Name',
+        required: true,
+        hint:
+            'Name of the data category requiring encryption '
+            '(e.g. PersonalData, FinancialRecords, HealthRecords, '
+            'Credentials, APIKeys)'),
+    Field('dataClassification', String, 'Data Classification',
+        required: true,
+        hint:
+            'Public | Internal | Confidential | Restricted | Secret — '
+            'sensitivity classification of the data category'),
+    Field('encryptionApproach', String, 'Encryption Approach',
+        hint:
+            'FieldLevel | ColumnLevel | TableLevel | DatabaseLevel | '
+            'FileLevel | VolumeLevel — at what granularity this data '
+            'category is encrypted'),
+    Field('algorithmOverride', String, 'Algorithm Override',
+        hint:
+            'Algorithm and key length if different from the default '
+            'policy (e.g. AES-256-GCM, ChaCha20-Poly1305); blank = '
+            'use default'),
+    Field('encryptedFields', String, 'Encrypted Fields',
+        hint:
+            'Comma-separated list of specific fields or columns encrypted '
+            'for this category (e.g. ssn, creditCardNumber, bankAccount, '
+            'dateOfBirth)'),
+    Field('tokenizationUsed', bool, 'Tokenization Used',
+        hint:
+            'Yes | No — whether tokenization is used instead of or in '
+            'addition to encryption for this data category'),
+    Field('dataRetentionDays', int, 'Data Retention (Days)',
+        hint:
+            'Maximum retention period for this encrypted data category '
+            'in days; 0 = indefinite'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional notes for this encrypted data category'),
+  ])
+  String? content;
+}
+
+/// Database Encryption Policy (form).
+///
+/// Defines how database-level encryption is implemented: TDE configuration,
+/// column-level encryption, index handling for encrypted columns, search
+/// strategy for encrypted data, and database engine-specific settings.
+@Form([
+  Field('databaseEncryptionMethod', String, 'Database Encryption Method',
+      required: true,
+      hint:
+          'TDE | ColumnLevel | CellLevel | ApplicationLayer | None — '
+          'method of encrypting data within the database'),
+  Field('encryptedColumnStrategy', String, 'Encrypted Column Strategy',
+      hint:
+          'Deterministic | Randomized | Homomorphic | Envelope — how '
+          'individual columns are encrypted (deterministic allows '
+          'equality search; randomized provides stronger security)'),
+  Field('indexOnEncryptedColumns', bool, 'Index on Encrypted Columns',
+      hint:
+          'Yes | No — whether indexes are maintained on encrypted '
+          'columns (requires deterministic encryption or specialized '
+          'schemes)'),
+  Field('searchOnEncryptedData', String, 'Search on Encrypted Data',
+      hint:
+          'None | DeterministicMatch | BlindIndex | Searchable '
+          'Encryption | DecryptThenSearch — strategy for querying '
+          'encrypted data without full decryption'),
+  Field('connectionEncryption', bool, 'Connection Encryption',
+      hint:
+          'Yes | No — whether database connections use TLS/SSL for '
+          'data in transit to/from the database'),
+  Field('databaseEngine', String, 'Database Engine',
+      hint:
+          'PostgreSQL | MySQL | SQLServer | Oracle | MongoDB | Other — '
+          'target database engine (encryption capabilities vary by '
+          'engine)'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional database encryption notes'),
+])
+class DatabaseEncryptionPolicy {
+  String? content;
+
+  /// Database Encryption Details (text).
+  TextSection databaseEncryptionDetails = TextSection();
+}
+
+/// File and Storage Encryption Policy (form).
+///
+/// Defines how files, blobs, and other non-database storage are encrypted:
+/// file-level vs volume-level encryption, cloud storage encryption, signed
+/// URL handling, and local device encryption requirements.
+@Form([
+  Field('fileEncryptionMethod', String, 'File Encryption Method',
+      required: true,
+      hint:
+          'FileLevel | VolumeLevel | ObjectLevel | ClientSide | '
+          'ServerSide | None — how files and blobs are encrypted at rest'),
+  Field('cloudStorageEncryption', String, 'Cloud Storage Encryption',
+      hint:
+          'SSE-S3 | SSE-KMS | SSE-C | AzureSSE | GCS-CMEK | None — '
+          'cloud provider server-side encryption method if applicable'),
+  Field('clientSideEncryption', bool, 'Client-Side Encryption',
+      hint:
+          'Yes | No — whether files are encrypted before upload '
+          '(client-side encryption for defense-in-depth)'),
+  Field('encryptedFileFormats', String, 'Encrypted File Formats',
+      hint:
+          'Comma-separated list of file types that must be encrypted '
+          '(e.g. PDF, XLSX, CSV, backup dumps, log archives)'),
+  Field('localDeviceEncryption', bool, 'Local Device Encryption',
+      hint:
+          'Yes | No — whether local device storage (mobile, desktop) '
+          'must be encrypted for cached or offline data'),
+  Field('temporaryFileEncryption', bool, 'Temporary File Encryption',
+      hint:
+          'Yes | No — whether temporary files and caches must be '
+          'encrypted (prevents data leakage through temp files)'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional file and storage encryption notes'),
+])
+class FileStorageEncryptionPolicy {
+  String? content;
+
+  /// File Storage Encryption Details (text).
+  TextSection fileStorageEncryptionDetails = TextSection();
+}
+
+/// Backup Encryption Policy (form).
+///
+/// Defines encryption requirements for backup data: backup encryption method,
+/// separate key management for backups, retention of encrypted backups,
+/// and verification of backup encryption integrity.
+@Form([
+  Field('backupEncryptionRequired', bool, 'Backup Encryption Required',
+      required: true,
+      hint:
+          'Yes | No — whether all backups (database, file, system) '
+          'must be encrypted'),
+  Field('backupEncryptionMethod', String, 'Backup Encryption Method',
+      hint:
+          'SameAsSource | SeparateKey | EnvelopeEncryption | '
+          'CloudProviderManaged — how backup data is encrypted '
+          '(SameAsSource = same keys as live data)'),
+  Field('separateBackupKeys', bool, 'Separate Backup Keys',
+      hint:
+          'Yes | No — whether backups use separate encryption keys '
+          'from production data (recommended for key rotation '
+          'independence)'),
+  Field('backupKeyRotation', String, 'Backup Key Rotation',
+      hint:
+          'OnEveryBackup | Monthly | Quarterly | Annual | OnKeyChange — '
+          'how often backup encryption keys are rotated'),
+  Field('encryptedBackupVerification', bool,
+      'Encrypted Backup Verification',
+      hint:
+          'Yes | No — whether backup integrity and encryption are '
+          'periodically verified through test restores'),
+  Field('offSiteBackupEncryption', bool, 'Off-Site Backup Encryption',
+      hint:
+          'Yes | No — whether off-site or disaster recovery backups '
+          'have additional encryption requirements'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional backup encryption notes'),
+])
+class BackupEncryptionPolicy {
+  String? content;
+
+  /// Backup Encryption Details (text).
+  TextSection backupEncryptionDetails = TextSection();
 }
 
 /// 9.6. Audit and Logging [PD00-ACC-AUD].
