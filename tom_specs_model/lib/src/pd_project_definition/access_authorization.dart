@@ -4627,8 +4627,9 @@ class SensitiveDataEncryption {
   @SectionId('PD00-ACC-SEN-TRA')
   EncryptionInTransit encryptionInTransit = EncryptionInTransit();
 
-  /// Key Management.
-  TextSection keyManagement = TextSection();
+  /// 9.5.3. Key Management [PD00-ACC-SEN-KEY].
+  @SectionId('PD00-ACC-SEN-KEY')
+  KeyManagement keyManagement = KeyManagement();
 }
 
 // ---------------------------------------------------------------------------
@@ -5198,6 +5199,214 @@ class TransportSecurityPolicy {
 
   /// Transport Security Policy Details (text).
   TextSection transportSecurityPolicyDetails = TextSection();
+}
+
+// ---------------------------------------------------------------------------
+// 9.5.3. Key Management [PD00-ACC-SEN-KEY]
+// ---------------------------------------------------------------------------
+
+/// 9.5.3. Key Management [PD00-ACC-SEN-KEY].
+///
+/// Defines cryptographic key management policies covering the full key
+/// lifecycle: generation, storage, rotation, escrow/backup, and compromise
+/// recovery. Aligns with OWASP Key Management Cheat Sheet and
+/// NIST SP 800-57 (Recommendation for Key Management).
+@SectionId('PD00-ACC-SEN-KEY')
+class KeyManagement {
+  @Unused()
+  String? content;
+
+  /// Key Generation Policy.
+  KeyGenerationPolicy keyGenerationPolicy = KeyGenerationPolicy();
+
+  /// Key Storage Policy.
+  KeyStoragePolicy keyStoragePolicy = KeyStoragePolicy();
+
+  /// Key Rotation Policy.
+  KeyRotationPolicy keyRotationPolicy = KeyRotationPolicy();
+
+  /// Key Escrow and Backup Policy.
+  KeyEscrowAndBackupPolicy keyEscrowAndBackupPolicy =
+      KeyEscrowAndBackupPolicy();
+
+  /// Key Compromise and Recovery Policy.
+  KeyCompromiseRecoveryPolicy keyCompromiseRecoveryPolicy =
+      KeyCompromiseRecoveryPolicy();
+
+  /// Additional Notes (text).
+  TextSection notes = TextSection();
+}
+
+/// Key generation policy (form).
+///
+/// Defines how cryptographic keys are generated: approved algorithms,
+/// cryptographic module requirements (FIPS 140-2/140-3), random number
+/// generation, minimum key strengths, and key-purpose separation.
+class KeyGenerationPolicy {
+  @Form([
+    Field('generationMethod', String, 'Generation Method',
+        hint: 'Key generation method (e.g., HSM, software module, '
+            'cloud KMS)'),
+    Field('cryptographicModuleCompliance', String, 'Module Compliance',
+        hint: 'Required cryptographic module compliance level '
+            '(e.g., FIPS 140-2 Level 2, FIPS 140-3)'),
+    Field('randomNumberGenerator', String, 'RNG Requirements',
+        hint: 'RNG requirements (e.g., NIST SP 800-90A DRBG, '
+            'hardware entropy source)'),
+    Field('minimumKeyStrength', String, 'Minimum Key Strength',
+        hint: 'Minimum key strength per algorithm type '
+            '(e.g., 128-bit symmetric, 2048-bit RSA, 256-bit ECC)'),
+    Field('approvedAlgorithms', String, 'Approved Algorithms',
+        hint: 'Comma-separated list of approved algorithms '
+            '(e.g., AES-256, RSA-2048, ECDSA P-256, Ed25519)'),
+    Field('keyPurposeSeparation', String, 'Key Purpose Separation',
+        hint: 'Policy for single-purpose keys '
+            '(e.g., separate keys for encryption, signing, wrapping)'),
+    Field('quantumReadinessStrategy', String, 'Quantum Readiness',
+        hint: 'Post-quantum cryptography readiness '
+            '(e.g., CNSA 2.0 timeline, hybrid algorithms)'),
+  ])
+  String? content;
+
+  /// Additional Notes (text).
+  TextSection notes = TextSection();
+}
+
+/// Key storage policy (form).
+///
+/// Defines how cryptographic keys are stored: storage mechanisms (HSM,
+/// vault, KMS), key-encryption-key (KEK) requirements, plaintext
+/// prohibitions, integrity protection, access control, and memory
+/// management considerations.
+class KeyStoragePolicy {
+  @Form([
+    Field('storageMethod', String, 'Storage Method',
+        hint: 'Primary key storage mechanism '
+            '(e.g., HSM, HashiCorp Vault, AWS KMS, Azure Key Vault)'),
+    Field('keyEncryptionKeyPolicy', String, 'KEK Policy',
+        hint: 'Key-encryption-key (KEK) requirements: '
+            'algorithm and minimum strength for wrapping keys'),
+    Field('plaintextKeyProhibition', String, 'Plaintext Prohibition',
+        hint: 'Controls prohibiting plaintext key storage '
+            '(e.g., never stored in plaintext, encrypted at rest)'),
+    Field('integrityProtection', String, 'Integrity Protection',
+        hint: 'Integrity verification for stored keys '
+            '(e.g., MAC, digital signature, authenticated encryption)'),
+    Field('accessControl', String, 'Access Control',
+        hint: 'Access control policy for key material '
+            '(e.g., role-based, dual-control, split knowledge)'),
+    Field('memoryProtection', String, 'Memory Protection',
+        hint: 'In-memory key protection '
+            '(e.g., key splitting, secure enclave, burn-in mitigation)'),
+    Field('trustStorePolicy', String, 'Trust Store Policy',
+        hint: 'Trust store security: injection prevention, '
+            'integrity controls, export restrictions'),
+  ])
+  String? content;
+
+  /// Additional Notes (text).
+  TextSection notes = TextSection();
+}
+
+/// Key rotation policy (form).
+///
+/// Defines key rotation schedules, automation, triggers, grace periods,
+/// versioning, and distribution of rotated keys.
+class KeyRotationPolicy {
+  @Form([
+    Field('rotationSchedule', String, 'Rotation Schedule',
+        hint: 'Rotation frequency per key type '
+            '(e.g., encryption keys every 90 days, signing keys annually)'),
+    Field('automaticRotation', String, 'Automatic Rotation',
+        hint: 'Whether rotation is automated '
+            '(e.g., fully automatic via KMS, semi-automatic, manual)'),
+    Field('rotationTriggers', String, 'Rotation Triggers',
+        hint: 'Events triggering immediate rotation '
+            '(e.g., suspected compromise, personnel change, '
+            'algorithm deprecation)'),
+    Field('gracePeriod', String, 'Grace Period',
+        hint: 'Overlap period during which old and new keys '
+            'coexist (e.g., 7 days for decryption fallback)'),
+    Field('keyVersioning', String, 'Key Versioning',
+        hint: 'Key versioning scheme '
+            '(e.g., monotonic version counter, timestamp-based)'),
+    Field('distributionMethod', String, 'Distribution Method',
+        hint: 'How rotated keys are distributed '
+            '(e.g., KMS push, pull-based refresh, secure channel)'),
+  ])
+  String? content;
+
+  /// Additional Notes (text).
+  TextSection notes = TextSection();
+}
+
+/// Key escrow and backup policy (form).
+///
+/// Defines key escrow and backup procedures: whether escrow is used,
+/// who holds escrowed keys, which key types are escrowed, backup
+/// encryption, storage location, and backup frequency.
+class KeyEscrowAndBackupPolicy {
+  @Form([
+    Field('escrowEnabled', String, 'Escrow Enabled',
+        hint: 'Whether key escrow is used (Yes / No / Conditional)'),
+    Field('escrowProvider', String, 'Escrow Provider',
+        hint: 'Escrow provider or mechanism '
+            '(e.g., Certificate Authority, KMS, internal escrow service)'),
+    Field('escrowScope', String, 'Escrow Scope',
+        hint: 'Which key types are escrowed '
+            '(e.g., encryption keys only — never signing keys)'),
+    Field('backupEncryption', String, 'Backup Encryption',
+        hint: 'Backup encryption requirements '
+            '(e.g., FIPS 140-2 validated module, KEK strength ≥ data key)'),
+    Field('backupStorageLocation', String, 'Backup Storage Location',
+        hint: 'Where key backups are stored '
+            '(e.g., geographically separate HSM, offline vault)'),
+    Field('backupFrequency', String, 'Backup Frequency',
+        hint: 'How often key backups are performed '
+            '(e.g., daily, on rotation, on creation)'),
+  ])
+  String? content;
+
+  /// Additional Notes (text).
+  TextSection notes = TextSection();
+}
+
+/// Key compromise and recovery policy (form).
+///
+/// Defines procedures for detecting key compromise, notification,
+/// re-keying, revocation, impact assessment, and the documented
+/// compromise-recovery plan.
+class KeyCompromiseRecoveryPolicy {
+  @Form([
+    Field('compromiseDetection', String, 'Compromise Detection',
+        hint: 'How key compromise is detected '
+            '(e.g., anomaly monitoring, audit log alerts, '
+            'third-party notification)'),
+    Field('notificationProcedure', String, 'Notification Procedure',
+        hint: 'Personnel and channels notified upon compromise '
+            '(e.g., security team, CISO, affected data owners)'),
+    Field('recoveryPersonnel', String, 'Recovery Personnel',
+        hint: 'Roles responsible for performing recovery actions'),
+    Field('rekeyingMethod', String, 'Re-keying Method',
+        hint: 'Re-keying procedure '
+            '(e.g., immediate rotation, phased re-encryption, '
+            'new key generation)'),
+    Field('revocationProcess', String, 'Revocation Process',
+        hint: 'How compromised keys and certificates are revoked '
+            '(e.g., CRL publication, OCSP update, KMS key disable)'),
+    Field('keyInventoryMaintenance', String, 'Key Inventory',
+        hint: 'Inventory of all keys and their use '
+            '(e.g., centralized registry, certificate locations)'),
+    Field('impactAssessment', String, 'Impact Assessment',
+        hint: 'Process for identifying data and signatures '
+            'affected by the compromised key'),
+    Field('compromiseRecoveryPlanReference', String, 'Recovery Plan Reference',
+        hint: 'Reference to the documented compromise-recovery plan'),
+  ])
+  String? content;
+
+  /// Additional Notes (text).
+  TextSection notes = TextSection();
 }
 
 /// 9.6. Audit and Logging [PD00-ACC-AUD].
