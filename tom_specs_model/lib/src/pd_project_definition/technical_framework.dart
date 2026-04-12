@@ -1554,9 +1554,8 @@ class SoftwareDesignRequirements {
   /// 8.2.2. Development Environment [PD00-TEC-SOF-DEV].
   DevelopmentEnvironment developmentEnvironment = DevelopmentEnvironment();
 
-  /// 8.2.3. Reusable Components [PD00-TEC-SOF-REU] — contains 0+× ReusableComponent.
-  @SectionIdPattern('PD00-TEC-SOF-REU-xx')
-  List<ReusableComponentEntry> reusableComponents = [];
+  /// 8.2.3. Reusable Components [PD00-TEC-SOF-REU].
+  ReusableComponentsSection reusableComponents = ReusableComponentsSection();
 }
 
 // =============================================================================
@@ -2743,12 +2742,462 @@ class DevelopmentQualityGates {
   String? content;
 }
 
-/// A reusable component entry (form) [PD00-TEC-SOF-REU-nn].
-class ReusableComponentEntry {
+// =============================================================================
+// 8.2.3. Reusable Components [PD00-TEC-SOF-REU]
+// =============================================================================
+
+/// 8.2.3. Reusable Components [PD00-TEC-SOF-REU].
+///
+/// Components, libraries, or frameworks designed for reuse across projects
+/// or modules.
+@SectionId('PD00-TEC-SOF-REU')
+class ReusableComponentsSection {
+  @Unused()
+  String? content;
+
+  /// Overview of reusability strategy.
+  TextSection overview = TextSection();
+
+  /// Reusability principles and guidelines.
+  ReusabilityPrinciples principles = ReusabilityPrinciples();
+
+  /// Shared component library catalog.
+  @SectionIdPattern('PD00-TEC-SOF-REU-LIB-xx')
+  List<SharedLibraryComponentEntry> sharedLibraries = [];
+
+  /// UI component library entries.
+  @SectionIdPattern('PD00-TEC-SOF-REU-UIC-xx')
+  List<UiComponentEntry> uiComponents = [];
+
+  /// Business logic components.
+  @SectionIdPattern('PD00-TEC-SOF-REU-BUS-xx')
+  List<BusinessComponentEntry> businessComponents = [];
+
+  /// Infrastructure components.
+  @SectionIdPattern('PD00-TEC-SOF-REU-INF-xx')
+  List<InfrastructureComponentEntry> infrastructureComponents = [];
+
+  /// Third-party frameworks and libraries.
+  @SectionIdPattern('PD00-TEC-SOF-REU-3RD-xx')
+  List<ThirdPartyLibraryEntry> thirdPartyLibraries = [];
+
+  /// Component governance and maintenance.
+  ComponentGovernance governance = ComponentGovernance();
+
+  /// Component discovery and registry.
+  ComponentRegistry registry = ComponentRegistry();
+}
+
+/// Reusability principles and guidelines.
+class ReusabilityPrinciples {
   @Form([
-    Field('componentName', String, 'Component Name', required: true),
-    Field('source', String, 'Source'),
-    Field('purpose', String, 'Purpose'),
+    // Design principles
+    Field('reuseFirstPolicy', String, 'Reuse-First Policy',
+        hint: 'Policy on preferring existing components'),
+    Field('extractionCriteria', String, 'Extraction Criteria',
+        hint: 'When to extract code into reusable components'),
+    Field('granularityGuidelines', String, 'Granularity Guidelines',
+        hint: 'Right size for reusable components'),
+
+    // Abstraction
+    Field('abstractionLevel', String, 'Abstraction Level',
+        hint: 'Required abstraction for reusability'),
+    Field('interfaceStandards', String, 'Interface Standards',
+        hint: 'Standards for component interfaces'),
+    Field('dependencyRules', String, 'Dependency Rules',
+        hint: 'Rules for component dependencies'),
+
+    // Quality
+    Field('documentationRequirements', String, 'Documentation Requirements',
+        hint: 'Required documentation for reusable components'),
+    Field('testingRequirements', String, 'Testing Requirements',
+        hint: 'Test coverage for reusable components'),
+    Field('codeReviewProcess', String, 'Code Review Process',
+        hint: 'Review process for shared components'),
+
+    // Versioning
+    Field('versioningPolicy', String, 'Versioning Policy',
+        hint: 'How reusable components are versioned'),
+    Field('breakingChangePolicy', String, 'Breaking Change Policy',
+        hint: 'Handling breaking changes in shared components'),
+    Field('deprecationProcess', String, 'Deprecation Process',
+        hint: 'How components are deprecated'),
+
+    // Ownership
+    Field('ownershipModel', String, 'Ownership Model',
+        hint: 'Who owns shared components'),
+    Field('contributionProcess', String, 'Contribution Process',
+        hint: 'How to contribute to shared components'),
+    Field('notes', String, 'Notes', hint: 'Additional principles notes'),
+  ])
+  String? content;
+}
+
+/// Shared library component entry.
+class SharedLibraryComponentEntry {
+  @Form([
+    // Identity
+    Field('componentName', String, 'Component Name',
+        required: true, hint: 'Unique library name'),
+    Field('componentType', String, 'Component Type',
+        hint: 'Core, Utility, Domain, Integration, Extension'),
+    Field('version', String, 'Version', hint: 'Current version'),
+    Field('packageName', String, 'Package/Module Name',
+        hint: 'Package identifier'),
+
+    // Description
+    Field('purpose', String, 'Purpose',
+        required: true, hint: 'What problem this component solves'),
+    Field('functionality', String, 'Functionality',
+        hint: 'Key features provided'),
+    Field('targetConsumers', String, 'Target Consumers',
+        hint: 'Who should use this component'),
+    Field('useCases', String, 'Use Cases', hint: 'Example use cases'),
+
+    // Technical
+    Field('publicApi', String, 'Public API',
+        hint: 'Key public classes/functions'),
+    Field('extensionPoints', String, 'Extension Points',
+        hint: 'How consumers can extend'),
+    Field('configuration', String, 'Configuration Options',
+        hint: 'Available configuration'),
+    Field('dependencies', String, 'Dependencies',
+        hint: 'Required dependencies'),
+
+    // Quality
+    Field('testCoverage', String, 'Test Coverage', hint: 'Current coverage'),
+    Field('documentationUrl', String, 'Documentation URL',
+        hint: 'Link to documentation'),
+    Field('examplesLocation', String, 'Examples Location',
+        hint: 'Where to find examples'),
+
+    // Ownership
+    Field('owner', String, 'Owner', hint: 'Team/person responsible'),
+    Field('maintainers', String, 'Maintainers', hint: 'List of maintainers'),
+    Field('supportChannel', String, 'Support Channel',
+        hint: 'Where to get help'),
+
+    // Status
+    Field('maturityLevel', String, 'Maturity Level',
+        hint: 'Experimental, Beta, Stable, Deprecated'),
+    Field('lastUpdated', String, 'Last Updated', hint: 'Last update date'),
+    Field('notes', String, 'Notes', hint: 'Additional component notes'),
+  ])
+  String? content;
+}
+
+/// UI component entry — a reusable UI widget or pattern.
+class UiComponentEntry {
+  @Form([
+    // Identity
+    Field('componentName', String, 'Component Name',
+        required: true, hint: 'Widget or pattern name'),
+    Field('componentCategory', String, 'Category',
+        hint: 'Input, Display, Navigation, Layout, Feedback, Data'),
+    Field('version', String, 'Version', hint: 'Component version'),
+
+    // Description
+    Field('purpose', String, 'Purpose', hint: 'What this component does'),
+    Field('visualDescription', String, 'Visual Description',
+        hint: 'How it looks and behaves'),
+    Field('useCases', String, 'Use Cases',
+        hint: 'When to use this component'),
+    Field('antiPatterns', String, 'Anti-Patterns',
+        hint: 'When NOT to use this component'),
+
+    // Design
+    Field('designTokens', String, 'Design Tokens Used',
+        hint: 'Colors, spacing, typography tokens'),
+    Field('variants', String, 'Variants',
+        hint: 'Available variants (size, style)'),
+    Field('states', String, 'States',
+        hint: 'Supported states (disabled, loading, error)'),
+    Field('responsiveBehavior', String, 'Responsive Behavior',
+        hint: 'How component adapts to screen sizes'),
+
+    // Interaction
+    Field('interactionPatterns', String, 'Interaction Patterns',
+        hint: 'Touch, keyboard, mouse behaviors'),
+    Field('accessibility', String, 'Accessibility',
+        hint: 'A11y features and requirements'),
+    Field('animations', String, 'Animations',
+        hint: 'Animation specifications'),
+
+    // API
+    Field('requiredProperties', String, 'Required Properties',
+        hint: 'Required parameters'),
+    Field('optionalProperties', String, 'Optional Properties',
+        hint: 'Optional parameters'),
+    Field('callbacks', String, 'Callbacks',
+        hint: 'Event callbacks supported'),
+    Field('slots', String, 'Slots/Children',
+        hint: 'Child content areas'),
+
+    // Implementation
+    Field('flutterWidget', String, 'Flutter Widget Class',
+        hint: 'Implementing Flutter widget'),
+    Field('exampleCode', String, 'Example Code',
+        hint: 'Code snippet or reference'),
+    Field('storybook', String, 'Storybook/Demo',
+        hint: 'Link to component demo'),
+    Field('notes', String, 'Notes', hint: 'Additional UI component notes'),
+  ])
+  String? content;
+}
+
+/// Business logic component entry.
+class BusinessComponentEntry {
+  @Form([
+    // Identity
+    Field('componentName', String, 'Component Name',
+        required: true, hint: 'Business component name'),
+    Field('componentType', String, 'Component Type',
+        hint: 'Service, Repository, UseCase, Validator, Calculator'),
+    Field('boundedContext', String, 'Bounded Context',
+        hint: 'Domain area this belongs to'),
+
+    // Description
+    Field('purpose', String, 'Purpose',
+        hint: 'Business problem this solves'),
+    Field('businessRules', String, 'Business Rules',
+        hint: 'Key business rules implemented'),
+    Field('capabilities', String, 'Capabilities',
+        hint: 'What operations this provides'),
+
+    // Interface
+    Field('publicInterface', String, 'Public Interface',
+        hint: 'Key public methods'),
+    Field('inputTypes', String, 'Input Types', hint: 'Expected inputs'),
+    Field('outputTypes', String, 'Output Types', hint: 'Produced outputs'),
+    Field('errorHandling', String, 'Error Handling',
+        hint: 'How errors are handled'),
+
+    // Dependencies
+    Field('requiredServices', String, 'Required Services',
+        hint: 'Services this depends on'),
+    Field('dataAccess', String, 'Data Access',
+        hint: 'Data repositories used'),
+    Field('externalIntegrations', String, 'External Integrations',
+        hint: 'External systems accessed'),
+
+    // Testing
+    Field('testStrategy', String, 'Test Strategy',
+        hint: 'How this is tested'),
+    Field('mockableInterfaces', String, 'Mockable Interfaces',
+        hint: 'Interfaces for testing'),
+    Field('testDataRequirements', String, 'Test Data Requirements',
+        hint: 'Required test data'),
+
+    // Reusability
+    Field('reuseScenarios', String, 'Reuse Scenarios',
+        hint: 'Where this can be reused'),
+    Field('customizationPoints', String, 'Customization Points',
+        hint: 'How behavior can be customized'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional business component notes'),
+  ])
+  String? content;
+}
+
+/// Infrastructure component entry.
+class InfrastructureComponentEntry {
+  @Form([
+    // Identity
+    Field('componentName', String, 'Component Name',
+        required: true, hint: 'Infrastructure component name'),
+    Field('componentType', String, 'Component Type',
+        hint: 'Logging, Caching, Messaging, Storage, Network'),
+    Field('layer', String, 'Layer', hint: 'Infrastructure layer'),
+
+    // Description
+    Field('purpose', String, 'Purpose',
+        hint: 'What infrastructure need this addresses'),
+    Field('capabilities', String, 'Capabilities',
+        hint: 'Infrastructure capabilities provided'),
+    Field('technologyStack', String, 'Technology Stack',
+        hint: 'Underlying technologies'),
+
+    // Configuration
+    Field('configurationOptions', String, 'Configuration Options',
+        hint: 'Available configuration'),
+    Field('environmentVariables', String, 'Environment Variables',
+        hint: 'Required environment variables'),
+    Field('secrets', String, 'Secrets', hint: 'Required secrets'),
+
+    // Integration
+    Field('serviceInterface', String, 'Service Interface',
+        hint: 'Public service interface'),
+    Field('initializationProcess', String, 'Initialization Process',
+        hint: 'How to initialize'),
+    Field('shutdownProcess', String, 'Shutdown Process',
+        hint: 'Graceful shutdown procedure'),
+
+    // Operations
+    Field('monitoring', String, 'Monitoring',
+        hint: 'Monitoring and observability'),
+    Field('healthCheck', String, 'Health Check',
+        hint: 'Health check implementation'),
+    Field('scalability', String, 'Scalability',
+        hint: 'Scaling considerations'),
+
+    // Resiliency
+    Field('failureHandling', String, 'Failure Handling',
+        hint: 'How failures are handled'),
+    Field('retryPolicy', String, 'Retry Policy',
+        hint: 'Retry configuration'),
+    Field('circuitBreaker', String, 'Circuit Breaker',
+        hint: 'Circuit breaker configuration'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional infrastructure notes'),
+  ])
+  String? content;
+}
+
+/// Third-party library entry.
+class ThirdPartyLibraryEntry {
+  @Form([
+    // Identity
+    Field('libraryName', String, 'Library Name',
+        required: true, hint: 'Package name'),
+    Field('packageSource', String, 'Package Source',
+        hint: 'pub.dev, npm, Maven, GitHub'),
+    Field('version', String, 'Version',
+        required: true, hint: 'Version constraint'),
+    Field('homepage', String, 'Homepage', hint: 'Library homepage URL'),
+
+    // Evaluation
+    Field('purpose', String, 'Purpose', hint: 'Why this library is used'),
+    Field('alternatives', String, 'Alternatives Considered',
+        hint: 'Other options evaluated'),
+    Field('selectionRationale', String, 'Selection Rationale',
+        hint: 'Why this was chosen'),
+
+    // License
+    Field('license', String, 'License',
+        required: true, hint: 'MIT, Apache, GPL, BSD'),
+    Field('licenseCompliance', String, 'License Compliance',
+        hint: 'Compliance status'),
+    Field('attributionRequired', bool, 'Attribution Required',
+        hint: 'Requires attribution'),
+
+    // Risk
+    Field('maintenanceStatus', String, 'Maintenance Status',
+        hint: 'Active, Maintained, Stale, Abandoned'),
+    Field('communitySize', String, 'Community Size',
+        hint: 'Community support level'),
+    Field('securityHistory', String, 'Security History',
+        hint: 'Known security issues'),
+    Field('vendorLockIn', String, 'Vendor Lock-In Risk',
+        hint: 'Lock-in considerations'),
+
+    // Usage
+    Field('usageScope', String, 'Usage Scope',
+        hint: 'Where in project this is used'),
+    Field('wrapperRequired', bool, 'Wrapper Required',
+        hint: 'Should be wrapped in abstraction'),
+    Field('upgradeStrategy', String, 'Upgrade Strategy',
+        hint: 'How upgrades are handled'),
+
+    // Monitoring
+    Field('updateNotifications', String, 'Update Notifications',
+        hint: 'How updates are monitored'),
+    Field('deprecationHandling', String, 'Deprecation Handling',
+        hint: 'Plan if library deprecated'),
+    Field('notes', String, 'Notes', hint: 'Additional library notes'),
+  ])
+  String? content;
+}
+
+/// Component governance and maintenance policies.
+class ComponentGovernance {
+  @Form([
+    // Ownership
+    Field('ownershipModel', String, 'Ownership Model',
+        hint: 'Central team, federated, individual'),
+    Field('sharedComponentsTeam', String, 'Shared Components Team',
+        hint: 'Team responsible for shared components'),
+    Field('escalationPath', String, 'Escalation Path',
+        hint: 'How issues are escalated'),
+
+    // Contribution
+    Field('contributionGuidelines', String, 'Contribution Guidelines',
+        hint: 'How to contribute'),
+    Field('reviewProcess', String, 'Review Process',
+        hint: 'Review process for contributions'),
+    Field('acceptanceCriteria', String, 'Acceptance Criteria',
+        hint: 'Criteria for accepting components'),
+
+    // Quality
+    Field('qualityStandards', String, 'Quality Standards',
+        hint: 'Quality requirements for shared components'),
+    Field('testingRequirements', String, 'Testing Requirements',
+        hint: 'Required test coverage'),
+    Field('documentationRequirements', String, 'Documentation Requirements',
+        hint: 'Required documentation'),
+
+    // Lifecycle
+    Field('promotionProcess', String, 'Promotion Process',
+        hint: 'How components move to production'),
+    Field('deprecationProcess', String, 'Deprecation Process',
+        hint: 'How components are deprecated'),
+    Field('retirementProcess', String, 'Retirement Process',
+        hint: 'How components are retired'),
+
+    // Metrics
+    Field('adoptionMetrics', String, 'Adoption Metrics',
+        hint: 'How usage is tracked'),
+    Field('qualityMetrics', String, 'Quality Metrics',
+        hint: 'Quality measurements'),
+    Field('successCriteria', String, 'Success Criteria',
+        hint: 'How success is measured'),
+    Field('notes', String, 'Notes', hint: 'Additional governance notes'),
+  ])
+  String? content;
+}
+
+/// Component discovery and registry configuration.
+class ComponentRegistry {
+  @Form([
+    // Registry
+    Field('registryType', String, 'Registry Type',
+        hint: 'Wiki, catalog tool, package registry'),
+    Field('registryLocation', String, 'Registry Location',
+        hint: 'URL or location of registry'),
+    Field('searchCapabilities', String, 'Search Capabilities',
+        hint: 'How to search for components'),
+
+    // Metadata
+    Field('requiredMetadata', String, 'Required Metadata',
+        hint: 'Metadata required for each component'),
+    Field('taggingConventions', String, 'Tagging Conventions',
+        hint: 'How components are tagged'),
+    Field('categorizationScheme', String, 'Categorization Scheme',
+        hint: 'How components are categorized'),
+
+    // Discovery
+    Field('discoveryProcess', String, 'Discovery Process',
+        hint: 'How developers find components'),
+    Field('recommendationEngine', String, 'Recommendation Engine',
+        hint: 'Component recommendations'),
+    Field('integration', String, 'IDE Integration',
+        hint: 'Integration with development tools'),
+
+    // Documentation
+    Field('documentationFormat', String, 'Documentation Format',
+        hint: 'Standard documentation format'),
+    Field('exampleRequirements', String, 'Example Requirements',
+        hint: 'Required examples'),
+    Field('apiDocGeneration', String, 'API Doc Generation',
+        hint: 'Automated API documentation'),
+
+    // Updates
+    Field('updateNotifications', String, 'Update Notifications',
+        hint: 'How updates are communicated'),
+    Field('changelogRequirements', String, 'Changelog Requirements',
+        hint: 'Changelog format'),
+    Field('migrationGuides', String, 'Migration Guides',
+        hint: 'Migration documentation'),
+    Field('notes', String, 'Notes', hint: 'Additional registry notes'),
   ])
   String? content;
 }
