@@ -9447,9 +9447,9 @@ class TechnicalSecurityRequirements {
   @Unused()
   String? content;
 
-  /// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS] — contains 0+× SecurityStandard.
-  @SectionIdPattern('PD00-TEC-SEC-ITS-xx')
-  List<SecurityStandardEntry> itSecurityStandards = [];
+  /// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
+  ItSecurityStandardsSection itSecurityStandards =
+      ItSecurityStandardsSection();
 
   /// Data Protection And Privacy.
   TextSection dataProtectionAndPrivacy = TextSection();
@@ -9459,12 +9459,301 @@ class TechnicalSecurityRequirements {
   List<SecurityAuditEntry> securityAuditRequirements = [];
 }
 
+/// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
+@SectionId('PD00-TEC-SEC-ITS')
+class ItSecurityStandardsSection {
+  @Unused()
+  String? content;
+
+  /// Overview of IT security standards strategy.
+  TextSection overview = TextSection();
+
+  /// Security standards and frameworks — contains 0+× SecurityStandard.
+  @SectionIdPattern('PD00-TEC-SEC-ITS-xx')
+  List<SecurityStandardEntry> standards = [];
+
+  /// Application security requirements (OWASP).
+  ApplicationSecurityRequirements applicationSecurity =
+      ApplicationSecurityRequirements();
+
+  /// Infrastructure security hardening.
+  InfrastructureSecurityHardening infrastructureSecurity =
+      InfrastructureSecurityHardening();
+
+  /// Security development lifecycle.
+  SecurityDevelopmentLifecycle securityDevLifecycle =
+      SecurityDevelopmentLifecycle();
+
+  /// Vulnerability management.
+  VulnerabilityManagementPolicy vulnerabilityManagement =
+      VulnerabilityManagementPolicy();
+
+  /// Incident response plan.
+  IncidentResponsePlan incidentResponse = IncidentResponsePlan();
+}
+
 /// A security standard entry (form) [PD00-TEC-SEC-ITS-nn].
 class SecurityStandardEntry {
   @Form([
-    Field('standardName', String, 'Standard Name', required: true),
-    Field('version', String, 'Version'),
-    Field('scope', String, 'Scope'),
+    // Identity
+    Field('standardName', String, 'Standard Name',
+        required: true, hint: 'E.g., OWASP Top 10, ISO 27001, SOC 2, NIST CSF'),
+    Field('standardVersion', String, 'Standard Version',
+        hint: 'Version or year of the standard'),
+    Field('standardType', String, 'Standard Type',
+        hint: 'Framework, Certification, Guideline, Benchmark'),
+    Field('issuingBody', String, 'Issuing Body',
+        hint: 'Organization that publishes the standard'),
+
+    // Scope
+    Field('applicabilityScope', String, 'Applicability Scope',
+        hint: 'Which systems, services, or data this applies to'),
+    Field('mandatoryOrVoluntary', String, 'Mandatory / Voluntary',
+        hint: 'Regulatory requirement or best-practice adoption'),
+    Field('regulatoryDriver', String, 'Regulatory Driver',
+        hint: 'Regulation requiring this standard (e.g. GDPR, PCI-DSS)'),
+
+    // Implementation
+    Field('implementationStatus', String, 'Implementation Status',
+        hint: 'Planned, In Progress, Implemented, Certified'),
+    Field('targetComplianceDate', String, 'Target Compliance Date',
+        hint: 'Date by which compliance must be achieved'),
+    Field('controlsRequired', String, 'Controls Required',
+        hint: 'Key control areas to implement'),
+    Field('gapAnalysis', String, 'Gap Analysis',
+        hint: 'Summary of current gaps against the standard'),
+
+    // Verification
+    Field('certificationRequired', bool, 'Certification Required',
+        hint: 'Whether formal certification is needed'),
+    Field('assessmentFrequency', String, 'Assessment Frequency',
+        hint: 'How often compliance is assessed'),
+    Field('evidenceRequirements', String, 'Evidence Requirements',
+        hint: 'Documentation and artifacts to maintain'),
+    Field('responsibleTeam', String, 'Responsible Team',
+        hint: 'Team/role accountable for compliance'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional security standard notes'),
+  ])
+  String? content;
+}
+
+/// Application security requirements (OWASP-based).
+class ApplicationSecurityRequirements {
+  @Form([
+    // OWASP
+    Field('owaspTop10Compliance', String, 'OWASP Top 10 Compliance',
+        required: true, hint: 'Current OWASP Top 10 version addressed'),
+    Field('injectionPrevention', String, 'Injection Prevention',
+        hint: 'SQL injection, XSS, command injection measures'),
+    Field('authenticationControls', String, 'Authentication Controls',
+        hint: 'Broken authentication prevention'),
+    Field('sensitiveDataExposure', String, 'Sensitive Data Exposure',
+        hint: 'Encryption, masking, tokenization'),
+    Field('accessControlEnforcement', String, 'Access Control Enforcement',
+        hint: 'Broken access control prevention'),
+    Field('securityMisconfiguration', String, 'Security Misconfiguration',
+        hint: 'Default credentials, open ports, debug mode'),
+    Field('csrfProtection', String, 'CSRF Protection',
+        hint: 'Cross-site request forgery prevention'),
+    Field('ssrfProtection', String, 'SSRF Protection',
+        hint: 'Server-side request forgery prevention'),
+
+    // Input validation
+    Field('inputValidationStrategy', String, 'Input Validation Strategy',
+        hint: 'Whitelist, sanitization, encoding'),
+    Field('outputEncoding', String, 'Output Encoding',
+        hint: 'HTML, URL, JavaScript encoding'),
+    Field('fileUploadSecurity', String, 'File Upload Security',
+        hint: 'File type, size, malware scanning'),
+
+    // API security
+    Field('apiSecurityStandard', String, 'API Security Standard',
+        hint: 'OWASP API Security Top 10 measures'),
+    Field('rateLimiting', String, 'Rate Limiting',
+        hint: 'API rate limiting and throttling'),
+    Field('contentSecurityPolicy', String, 'Content Security Policy',
+        hint: 'CSP headers and directives'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional application security notes'),
+  ])
+  String? content;
+}
+
+/// Infrastructure security hardening.
+class InfrastructureSecurityHardening {
+  @Form([
+    // OS hardening
+    Field('osHardeningBaseline', String, 'OS Hardening Baseline',
+        required: true, hint: 'CIS Benchmark, DISA STIG, custom baseline'),
+    Field('patchManagementPolicy', String, 'Patch Management Policy',
+        hint: 'Patching cadence, critical patch SLA'),
+    Field('minimumInstallation', bool, 'Minimum Installation',
+        hint: 'Remove unnecessary packages and services'),
+    Field('firewallRules', String, 'Firewall Rules',
+        hint: 'Default deny, explicit allow rules'),
+
+    // Container security
+    Field('containerBaseImages', String, 'Container Base Images',
+        hint: 'Approved base images, distroless, Alpine'),
+    Field('containerScanning', String, 'Container Scanning',
+        hint: 'Image vulnerability scanning tool'),
+    Field('containerRuntimeSecurity', String, 'Container Runtime Security',
+        hint: 'Read-only filesystems, non-root, capabilities'),
+    Field('containerOrchestrationSecurity', String, 'Orchestration Security',
+        hint: 'K8s RBAC, network policies, pod security'),
+
+    // Network hardening
+    Field('networkSegmentation', String, 'Network Segmentation',
+        hint: 'VPC, subnet, security group strategy'),
+    Field('internalTlsCommunication', bool, 'Internal TLS Communication',
+        hint: 'Service-to-service mTLS'),
+    Field('dnsSecurityPolicy', String, 'DNS Security Policy',
+        hint: 'DNSSEC, private DNS zones'),
+
+    // Access hardening
+    Field('sshAccessPolicy', String, 'SSH Access Policy',
+        hint: 'Key-only auth, bastion hosts, session recording'),
+    Field('privilegedAccessManagement', String, 'Privileged Access Management',
+        hint: 'PAM tool, just-in-time access'),
+    Field('serviceAccountPolicy', String, 'Service Account Policy',
+        hint: 'Least privilege, rotation, naming'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional infrastructure security notes'),
+  ])
+  String? content;
+}
+
+/// Security development lifecycle.
+class SecurityDevelopmentLifecycle {
+  @Form([
+    // Design phase
+    Field('threatModeling', String, 'Threat Modeling',
+        required: true, hint: 'STRIDE, PASTA, Attack Trees methodology'),
+    Field('threatModelingFrequency', String, 'Threat Modeling Frequency',
+        hint: 'Per feature, per release, quarterly'),
+    Field('securityDesignReview', bool, 'Security Design Review',
+        hint: 'Mandatory security review of architecture'),
+    Field('securityRequirementsProcess', String, 'Security Requirements Process',
+        hint: 'How security requirements are gathered'),
+
+    // Development phase
+    Field('secureCodeTraining', String, 'Secure Code Training',
+        hint: 'Developer security training frequency'),
+    Field('staticAnalysis', String, 'Static Analysis (SAST)',
+        hint: 'SAST tool and integration point'),
+    Field('secretDetection', String, 'Secret Detection',
+        hint: 'Pre-commit hooks, CI scanning for secrets'),
+    Field('dependencyScanning', String, 'Dependency Scanning (SCA)',
+        hint: 'SCA tool for known vulnerabilities'),
+    Field('licenseScannerPolicy', String, 'License Compliance Scanning',
+        hint: 'OSS license compatibility checking'),
+
+    // Testing phase
+    Field('dynamicAnalysis', String, 'Dynamic Analysis (DAST)',
+        hint: 'DAST tool and test frequency'),
+    Field('interactiveAnalysis', String, 'Interactive Analysis (IAST)',
+        hint: 'IAST tool for runtime detection'),
+    Field('securityTestingInCi', bool, 'Security Testing in CI',
+        hint: 'Automated security tests in pipeline'),
+    Field('manualCodeReview', String, 'Manual Code Review',
+        hint: 'Security-focused code review process'),
+
+    // Release phase
+    Field('preReleaseSecurityGate', bool, 'Pre-Release Security Gate',
+        hint: 'Security sign-off before production deploy'),
+    Field('securityChangeLog', bool, 'Security Change Log',
+        hint: 'Track security-relevant changes'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional security dev lifecycle notes'),
+  ])
+  String? content;
+}
+
+/// Vulnerability management policy.
+class VulnerabilityManagementPolicy {
+  @Form([
+    // Discovery
+    Field('vulnerabilityScanningTool', String, 'Vulnerability Scanning Tool',
+        required: true, hint: 'Nessus, Qualys, Tenable, Trivy'),
+    Field('scanFrequency', String, 'Scan Frequency',
+        hint: 'Daily, weekly, on each deployment'),
+    Field('scanScope', String, 'Scan Scope',
+        hint: 'Infrastructure, applications, containers, dependencies'),
+
+    // Classification
+    Field('severityClassification', String, 'Severity Classification',
+        hint: 'CVSS-based: Critical, High, Medium, Low'),
+    Field('criticalVulnSla', String, 'Critical Vulnerability SLA',
+        hint: 'Max time to patch critical (e.g. 24h)'),
+    Field('highVulnSla', String, 'High Vulnerability SLA',
+        hint: 'Max time to patch high (e.g. 7d)'),
+    Field('mediumVulnSla', String, 'Medium Vulnerability SLA',
+        hint: 'Max time to patch medium (e.g. 30d)'),
+    Field('lowVulnSla', String, 'Low Vulnerability SLA',
+        hint: 'Max time to patch low (e.g. 90d)'),
+
+    // Process
+    Field('vulnerabilityTracking', String, 'Vulnerability Tracking',
+        hint: 'Jira, dedicated vulnerability tool'),
+    Field('riskAcceptanceProcess', String, 'Risk Acceptance Process',
+        hint: 'When and how to accept residual risk'),
+    Field('exceptionProcess', String, 'Exception Process',
+        hint: 'Temporary exception workflow and approvals'),
+    Field('zeroDayResponsePlan', String, 'Zero-Day Response Plan',
+        hint: 'Emergency response for zero-day exploits'),
+
+    // Reporting
+    Field('vulnerabilityReporting', String, 'Vulnerability Reporting',
+        hint: 'Dashboard, weekly report, executive summary'),
+    Field('responsibleDisclosure', String, 'Responsible Disclosure',
+        hint: 'Bug bounty, security.txt, disclosure policy'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional vulnerability management notes'),
+  ])
+  String? content;
+}
+
+/// Incident response plan.
+class IncidentResponsePlan {
+  @Form([
+    // Classification
+    Field('incidentSeverityLevels', String, 'Incident Severity Levels',
+        required: true, hint: 'SEV1-SEV4 definitions for security incidents'),
+    Field('incidentCategories', String, 'Incident Categories',
+        hint: 'Data breach, unauthorized access, malware, DDoS'),
+    Field('detectionMechanisms', String, 'Detection Mechanisms',
+        hint: 'SIEM, IDS/IPS, anomaly detection, user reports'),
+
+    // Response process
+    Field('initialResponseSla', String, 'Initial Response SLA',
+        hint: 'Time to acknowledge and begin triage'),
+    Field('containmentProcedure', String, 'Containment Procedure',
+        hint: 'Steps to isolate affected systems'),
+    Field('eradicationProcedure', String, 'Eradication Procedure',
+        hint: 'Steps to remove threat from systems'),
+    Field('recoveryProcedure', String, 'Recovery Procedure',
+        hint: 'Steps to restore normal operations'),
+
+    // Communication
+    Field('notificationRequirements', String, 'Notification Requirements',
+        hint: 'Regulatory breach notification timelines'),
+    Field('internalEscalation', String, 'Internal Escalation',
+        hint: 'Escalation paths and contacts'),
+    Field('externalCommunication', String, 'External Communication',
+        hint: 'Customer notification, press, regulators'),
+    Field('legalCounselEngagement', String, 'Legal Counsel Engagement',
+        hint: 'When to engage legal team'),
+
+    // Post-incident
+    Field('postIncidentReview', String, 'Post-Incident Review',
+        hint: 'Blameless retrospective process'),
+    Field('lessonsLearnedProcess', String, 'Lessons Learned Process',
+        hint: 'How findings are fed back into prevention'),
+    Field('incidentDocumentation', String, 'Incident Documentation',
+        hint: 'What to document and retention period'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional incident response notes'),
   ])
   String? content;
 }
