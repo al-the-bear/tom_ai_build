@@ -96,7 +96,7 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-TEC-HAR-SRV | Server Requirements | Medium | ✅ Done |
 | PD00-TEC-HAR-CLI | Client Requirements | Medium | ✅ Done |
 | PD00-TEC-HAR-NET | Network Requirements | Medium | ✅ Done |
-| PD00-TEC-OPE-BAC | Backup and Recovery | High | ⬜ Not Started |
+| PD00-TEC-OPE-BAC | Backup and Recovery | High | ✅ Done |
 | PD00-TEC-OPE-DEP | Deployment Strategy | High | ⬜ Not Started |
 | PD00-TEC-OPE-MON | Monitoring and Alerting | High | ⬜ Not Started |
 | PD00-TEC-OPE-MAI | Maintenance Windows | Medium | ⬜ Not Started |

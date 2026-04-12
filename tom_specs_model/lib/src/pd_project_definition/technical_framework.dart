@@ -6099,8 +6099,8 @@ class OperationsRequirements {
   @Unused()
   String? content;
 
-  /// Backup And Recovery.
-  TextSection backupAndRecovery = TextSection();
+  /// 8.5.1. Backup And Recovery [PD00-TEC-OPE-BAC].
+  BackupAndRecoverySection backupAndRecovery = BackupAndRecoverySection();
 
   /// Deployment Strategy.
   TextSection deploymentStrategy = TextSection();
@@ -6110,6 +6110,438 @@ class OperationsRequirements {
 
   /// Maintenance Windows.
   TextSection maintenanceWindows = TextSection();
+}
+
+// =============================================================================
+// 8.5.1. Backup and Recovery [PD00-TEC-OPE-BAC]
+// =============================================================================
+
+/// 8.5.1. Backup and Recovery [PD00-TEC-OPE-BAC].
+///
+/// Backup frequency, retention period, recovery point objective (RPO),
+/// recovery time objective (RTO), and backup verification procedures.
+@SectionId('PD00-TEC-OPE-BAC')
+class BackupAndRecoverySection {
+  @Unused()
+  String? content;
+
+  /// Overview of backup and recovery strategy.
+  TextSection overview = TextSection();
+
+  /// Data classification for backup purposes.
+  BackupDataClassification dataClassification = BackupDataClassification();
+
+  /// Backup policies by data type.
+  @SectionIdPattern('PD00-TEC-OPE-BAC-POL-xx')
+  List<BackupPolicyEntry> backupPolicies = [];
+
+  /// RPO and RTO requirements.
+  RpoRtoRequirements rpoRtoRequirements = RpoRtoRequirements();
+
+  /// Backup infrastructure requirements.
+  BackupInfrastructure infrastructure = BackupInfrastructure();
+
+  /// Recovery procedures.
+  RecoveryProcedures recoveryProcedures = RecoveryProcedures();
+
+  /// Disaster recovery requirements.
+  DisasterRecoveryRequirements disasterRecovery = DisasterRecoveryRequirements();
+
+  /// Backup verification and testing.
+  BackupVerification verification = BackupVerification();
+
+  /// Compliance and audit requirements.
+  BackupCompliance compliance = BackupCompliance();
+}
+
+/// Data classification for backup purposes.
+class BackupDataClassification {
+  @Form([
+    // Classification tiers
+    Field('criticalData', String, 'Critical Data',
+        hint: 'Data requiring highest protection'),
+    Field('highPriorityData', String, 'High Priority Data',
+        hint: 'Important business data'),
+    Field('mediumPriorityData', String, 'Medium Priority Data',
+        hint: 'Standard operational data'),
+    Field('lowPriorityData', String, 'Low Priority Data',
+        hint: 'Non-essential data'),
+
+    // Data categories
+    Field('databaseData', String, 'Database Data',
+        hint: 'Which databases to back up'),
+    Field('fileStorage', String, 'File Storage',
+        hint: 'File systems to back up'),
+    Field('configurationData', String, 'Configuration Data',
+        hint: 'System configurations'),
+    Field('logData', String, 'Log Data',
+        hint: 'Logs to archive/backup'),
+    Field('applicationState', String, 'Application State',
+        hint: 'Stateful application data'),
+
+    // Exclusions
+    Field('excludedData', String, 'Excluded Data',
+        hint: 'Data not requiring backup'),
+    Field('temporaryData', String, 'Temporary Data',
+        hint: 'Ephemeral data handling'),
+    Field('cacheData', String, 'Cache Data',
+        hint: 'Cache regeneration strategy'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional classification notes'),
+  ])
+  String? content;
+}
+
+/// Backup policy entry.
+class BackupPolicyEntry {
+  @Form([
+    // Identity
+    Field('policyName', String, 'Policy Name',
+        required: true, hint: 'Policy identifier'),
+    Field('dataScope', String, 'Data Scope',
+        hint: 'What this policy covers'),
+    Field('priority', String, 'Priority',
+        hint: 'Critical, High, Medium, Low'),
+
+    // Backup type
+    Field('backupType', String, 'Backup Type',
+        hint: 'Full, Incremental, Differential'),
+    Field('fullBackupFrequency', String, 'Full Backup Frequency',
+        hint: 'Daily, Weekly, Monthly'),
+    Field('incrementalFrequency', String, 'Incremental Frequency',
+        hint: 'Hourly, Every 6 hours'),
+    Field('differentialFrequency', String, 'Differential Frequency',
+        hint: 'If using differential'),
+
+    // Schedule
+    Field('backupWindow', String, 'Backup Window',
+        hint: 'When backups run'),
+    Field('maxDuration', String, 'Max Duration',
+        hint: 'Maximum backup duration'),
+    Field('timezone', String, 'Timezone',
+        hint: 'Backup schedule timezone'),
+
+    // Retention
+    Field('retentionPeriod', String, 'Retention Period',
+        hint: 'How long to keep backups'),
+    Field('dailyRetention', String, 'Daily Retention',
+        hint: 'Daily backup retention'),
+    Field('weeklyRetention', String, 'Weekly Retention',
+        hint: 'Weekly backup retention'),
+    Field('monthlyRetention', String, 'Monthly Retention',
+        hint: 'Monthly backup retention'),
+    Field('yearlyRetention', String, 'Yearly Retention',
+        hint: 'Annual backup retention'),
+
+    // Storage
+    Field('storageLocation', String, 'Storage Location',
+        hint: 'Where backups are stored'),
+    Field('offSiteReplication', bool, 'Off-Site Replication',
+        hint: 'Replicate to off-site'),
+    Field('encryptionRequired', bool, 'Encryption Required',
+        hint: 'Encrypt backups'),
+    Field('compressionEnabled', bool, 'Compression Enabled',
+        hint: 'Compress backups'),
+
+    // Verification
+    Field('verificationRequired', bool, 'Verification Required',
+        hint: 'Verify backup integrity'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional policy notes'),
+  ])
+  String? content;
+}
+
+/// RPO and RTO requirements.
+class RpoRtoRequirements {
+  @Form([
+    // Overall targets
+    Field('overallRpo', String, 'Overall RPO',
+        hint: 'Maximum acceptable data loss'),
+    Field('overallRto', String, 'Overall RTO',
+        hint: 'Maximum acceptable downtime'),
+
+    // By tier
+    Field('criticalRpo', String, 'Critical Data RPO',
+        hint: 'RPO for critical data'),
+    Field('criticalRto', String, 'Critical Data RTO',
+        hint: 'RTO for critical systems'),
+    Field('highRpo', String, 'High Priority RPO',
+        hint: 'RPO for high priority data'),
+    Field('highRto', String, 'High Priority RTO',
+        hint: 'RTO for high priority systems'),
+    Field('mediumRpo', String, 'Medium Priority RPO',
+        hint: 'RPO for medium priority'),
+    Field('mediumRto', String, 'Medium Priority RTO',
+        hint: 'RTO for medium priority'),
+    Field('lowRpo', String, 'Low Priority RPO',
+        hint: 'RPO for low priority'),
+    Field('lowRto', String, 'Low Priority RTO',
+        hint: 'RTO for low priority'),
+
+    // Specific system requirements
+    Field('databaseRpo', String, 'Database RPO',
+        hint: 'Database-specific RPO'),
+    Field('databaseRto', String, 'Database RTO',
+        hint: 'Database recovery time'),
+    Field('applicationRpo', String, 'Application RPO',
+        hint: 'Application state RPO'),
+    Field('applicationRto', String, 'Application RTO',
+        hint: 'Application recovery time'),
+
+    // Degraded operation
+    Field('degradedOperationAllowed', bool, 'Degraded Operation Allowed',
+        hint: 'Allow partial restoration'),
+    Field('minimalFunctionality', String, 'Minimal Functionality',
+        hint: 'Minimum required functions'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional RPO/RTO notes'),
+  ])
+  String? content;
+}
+
+/// Backup infrastructure requirements.
+class BackupInfrastructure {
+  @Form([
+    // Primary storage
+    Field('primaryStorage', String, 'Primary Backup Storage',
+        hint: 'Primary storage system'),
+    Field('storageType', String, 'Storage Type',
+        hint: 'Object, block, tape'),
+    Field('storageCapacity', String, 'Storage Capacity',
+        hint: 'Required capacity'),
+    Field('storagePerformance', String, 'Storage Performance',
+        hint: 'IOPS, throughput'),
+
+    // Secondary/off-site
+    Field('secondaryStorage', String, 'Secondary Storage',
+        hint: 'Secondary storage location'),
+    Field('geographicSeparation', String, 'Geographic Separation',
+        hint: 'Distance from primary'),
+    Field('cloudBackupProvider', String, 'Cloud Backup Provider',
+        hint: 'AWS S3, Azure Blob, GCS'),
+    Field('crossRegionReplication', bool, 'Cross-Region Replication',
+        hint: 'Replicate across regions'),
+
+    // Backup software
+    Field('backupSoftware', String, 'Backup Software',
+        hint: 'Backup solution used'),
+    Field('agentBased', bool, 'Agent-Based',
+        hint: 'Requires backup agents'),
+    Field('agentlessBackup', bool, 'Agentless Backup',
+        hint: 'Snapshot-based backup'),
+    Field('deduplication', bool, 'Deduplication',
+        hint: 'Enable deduplication'),
+
+    // Network requirements
+    Field('backupNetwork', String, 'Backup Network',
+        hint: 'Dedicated backup network'),
+    Field('bandwidthRequired', String, 'Bandwidth Required',
+        hint: 'Network bandwidth'),
+    Field('encryptionInTransit', bool, 'Encryption in Transit',
+        hint: 'Encrypt backup traffic'),
+
+    // Security
+    Field('accessControl', String, 'Access Control',
+        hint: 'Who can access backups'),
+    Field('encryptionAlgorithm', String, 'Encryption Algorithm',
+        hint: 'AES-256 etc.'),
+    Field('keyManagement', String, 'Key Management',
+        hint: 'Encryption key handling'),
+    Field('immutableBackups', bool, 'Immutable Backups',
+        hint: 'WORM compliance'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional infrastructure notes'),
+  ])
+  String? content;
+}
+
+/// Recovery procedures.
+class RecoveryProcedures {
+  @Form([
+    // Recovery types
+    Field('granularRecovery', String, 'Granular Recovery',
+        hint: 'File/item-level recovery'),
+    Field('volumeRecovery', String, 'Volume Recovery',
+        hint: 'Volume-level recovery'),
+    Field('systemRecovery', String, 'Full System Recovery',
+        hint: 'Complete system restore'),
+    Field('bareMetalRecovery', bool, 'Bare Metal Recovery',
+        hint: 'Hardware replacement'),
+
+    // Database recovery
+    Field('databaseRecovery', String, 'Database Recovery',
+        hint: 'Database restore process'),
+    Field('pointInTimeRecovery', bool, 'Point-in-Time Recovery',
+        hint: 'Restore to specific time'),
+    Field('transactionLogRecovery', bool, 'Transaction Log Recovery',
+        hint: 'Log-based recovery'),
+
+    // Application recovery
+    Field('applicationRecovery', String, 'Application Recovery',
+        hint: 'App restoration process'),
+    Field('configurationRecovery', String, 'Configuration Recovery',
+        hint: 'Config restoration'),
+    Field('stateRecovery', String, 'State Recovery',
+        hint: 'Session/state restoration'),
+
+    // Automation
+    Field('automatedRecovery', bool, 'Automated Recovery',
+        hint: 'Auto-failover enabled'),
+    Field('recoveryScripts', String, 'Recovery Scripts',
+        hint: 'Scripted recovery'),
+    Field('runbookLocation', String, 'Runbook Location',
+        hint: 'Where runbooks are stored'),
+
+    // Validation
+    Field('postRecoveryValidation', String, 'Post-Recovery Validation',
+        hint: 'Validation procedures'),
+    Field('sanityChecks', String, 'Sanity Checks',
+        hint: 'Data integrity checks'),
+    Field('serviceValidation', String, 'Service Validation',
+        hint: 'Service health verification'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional recovery notes'),
+  ])
+  String? content;
+}
+
+/// Disaster recovery requirements.
+class DisasterRecoveryRequirements {
+  @Form([
+    // DR strategy
+    Field('drStrategy', String, 'DR Strategy',
+        hint: 'Hot, Warm, Cold standby'),
+    Field('drSite', String, 'DR Site Location',
+        hint: 'DR site location'),
+    Field('drProvider', String, 'DR Provider',
+        hint: 'DR service provider'),
+
+    // Failover
+    Field('failoverType', String, 'Failover Type',
+        hint: 'Automatic, Manual, Semi-auto'),
+    Field('failoverThreshold', String, 'Failover Threshold',
+        hint: 'When to trigger failover'),
+    Field('failoverDuration', String, 'Failover Duration',
+        hint: 'Time to complete failover'),
+
+    // Failback
+    Field('failbackProcedure', String, 'Failback Procedure',
+        hint: 'Return to primary'),
+    Field('failbackValidation', String, 'Failback Validation',
+        hint: 'Validating failback'),
+    Field('dataSync', String, 'Data Synchronization',
+        hint: 'Syncing after failback'),
+
+    // Data replication
+    Field('replicationMethod', String, 'Replication Method',
+        hint: 'Sync, Async replication'),
+    Field('replicationLag', String, 'Replication Lag',
+        hint: 'Acceptable lag'),
+    Field('replicationBandwidth', String, 'Replication Bandwidth',
+        hint: 'Bandwidth for DR'),
+
+    // Business continuity
+    Field('businessContinuityPlan', String, 'Business Continuity Plan',
+        hint: 'BCP reference'),
+    Field('communicationPlan', String, 'Communication Plan',
+        hint: 'Stakeholder notification'),
+    Field('escalationPath', String, 'Escalation Path',
+        hint: 'DR escalation'),
+    Field('drTeam', String, 'DR Team',
+        hint: 'DR response team'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional DR notes'),
+  ])
+  String? content;
+}
+
+/// Backup verification and testing.
+class BackupVerification {
+  @Form([
+    // Verification
+    Field('verificationFrequency', String, 'Verification Frequency',
+        hint: 'How often to verify'),
+    Field('verificationMethod', String, 'Verification Method',
+        hint: 'Checksum, test restore'),
+    Field('integrityChecks', bool, 'Integrity Checks',
+        hint: 'Automated integrity checks'),
+    Field('alertOnFailure', bool, 'Alert on Failure',
+        hint: 'Notify on verification failure'),
+
+    // Recovery testing
+    Field('recoveryTestFrequency', String, 'Recovery Test Frequency',
+        hint: 'How often to test recovery'),
+    Field('fullRecoveryTest', String, 'Full Recovery Test',
+        hint: 'Complete restore test'),
+    Field('partialRecoveryTest', String, 'Partial Recovery Test',
+        hint: 'Selective restore test'),
+    Field('drTest', String, 'DR Test',
+        hint: 'Disaster recovery drill'),
+
+    // Test environment
+    Field('testEnvironment', String, 'Test Environment',
+        hint: 'Where tests run'),
+    Field('testDataHandling', String, 'Test Data Handling',
+        hint: 'Handling test data'),
+    Field('productionIsolation', bool, 'Production Isolation',
+        hint: 'Isolated from production'),
+
+    // Documentation
+    Field('testDocumentation', String, 'Test Documentation',
+        hint: 'Test result documentation'),
+    Field('testSignoff', String, 'Test Sign-off',
+        hint: 'Who approves tests'),
+    Field('deficiencyRemediation', String, 'Deficiency Remediation',
+        hint: 'Addressing test failures'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional verification notes'),
+  ])
+  String? content;
+}
+
+/// Backup compliance requirements.
+class BackupCompliance {
+  @Form([
+    // Regulatory
+    Field('regulatoryRequirements', String, 'Regulatory Requirements',
+        hint: 'GDPR, HIPAA, SOX etc.'),
+    Field('retentionCompliance', String, 'Retention Compliance',
+        hint: 'Legal retention requirements'),
+    Field('dataResidency', String, 'Data Residency',
+        hint: 'Where backups can be stored'),
+    Field('crossBorderTransfer', bool, 'Cross-Border Transfer',
+        hint: 'International data transfer'),
+
+    // Audit
+    Field('auditTrail', bool, 'Audit Trail',
+        hint: 'Backup operation logging'),
+    Field('accessLogging', bool, 'Access Logging',
+        hint: 'Log backup access'),
+    Field('changeManagement', String, 'Change Management',
+        hint: 'Backup policy changes'),
+    Field('auditFrequency', String, 'Audit Frequency',
+        hint: 'How often audited'),
+
+    // Reporting
+    Field('complianceReporting', String, 'Compliance Reporting',
+        hint: 'Required reports'),
+    Field('reportFrequency', String, 'Report Frequency',
+        hint: 'How often reported'),
+    Field('reportRecipients', String, 'Report Recipients',
+        hint: 'Who receives reports'),
+
+    // Legal hold
+    Field('legalHoldCapability', bool, 'Legal Hold Capability',
+        hint: 'Support legal holds'),
+    Field('legalHoldProcess', String, 'Legal Hold Process',
+        hint: 'How legal holds work'),
+    Field('eDiscovery', String, 'eDiscovery Support',
+        hint: 'Supporting eDiscovery'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional compliance notes'),
+  ])
+  String? content;
 }
 
 /// 8.6. Communication Requirements [PD00-TEC-COM].
