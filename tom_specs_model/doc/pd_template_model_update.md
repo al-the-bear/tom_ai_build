@@ -163,7 +163,7 @@ These sections exist in `tom_specs_model` but are missing from `pd_template.md`:
 | PD00-CUR-PAI-GAP | Gaps | Review | ✅ Done |
 | PD00-CUR-SYS-DEP-DEP | Dependencies | Review | ✅ Done |
 | PD00-CUR-SYS-DEP-INT | Integrations | Review | ✅ Done |
-| PD00-DEL-ACC-UAT | User Acceptance Testing | Review | ⬜ Not Started |
+| PD00-DEL-ACC-UAT | User Acceptance Testing | Review | ✅ Done |
 | PD00-ORG-JOB-STA | Staffing | Review | ⬜ Not Started |
 | PD00-POP-TOO-ENV | Environments | Review | ⬜ Not Started |
 | PD00-POP-TOO-TOO | Tools | Review | ⬜ Not Started |
