@@ -4623,8 +4623,9 @@ class SensitiveDataEncryption {
   @SectionId('PD00-ACC-SEN-RES')
   EncryptionAtRest encryptionAtRest = EncryptionAtRest();
 
-  /// Encryption In Transit.
-  TextSection encryptionInTransit = TextSection();
+  /// 9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA].
+  @SectionId('PD00-ACC-SEN-TRA')
+  EncryptionInTransit encryptionInTransit = EncryptionInTransit();
 
   /// Key Management.
   TextSection keyManagement = TextSection();
@@ -4904,6 +4905,299 @@ class BackupEncryptionPolicy {
 
   /// Backup Encryption Details (text).
   TextSection backupEncryptionDetails = TextSection();
+}
+
+// ---------------------------------------------------------------------------
+// 9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA]
+// ---------------------------------------------------------------------------
+
+/// 9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA].
+///
+/// Defines encryption requirements for data in transit: TLS protocol versions,
+/// cipher suites, certificate management, HSTS policy, mutual TLS, certificate
+/// pinning, and internal/service-to-service communication encryption. Aligns
+/// with OWASP Transport Layer Security Cheat Sheet and NIST SP 800-52.
+@SectionId('PD00-ACC-SEN-TRA')
+class EncryptionInTransit {
+  @Unused()
+  String? content;
+
+  /// TLS Protocol Policy.
+  TlsProtocolPolicy tlsProtocolPolicy = TlsProtocolPolicy();
+
+  /// Certificate Management Policy.
+  CertificateManagementPolicy certificateManagement =
+      CertificateManagementPolicy();
+
+  /// Contains 0+× CommunicationChannelEncryption.
+  @SectionIdPattern('PD00-ACC-SEN-TRA-CHA-xx')
+  List<CommunicationChannelEncryptionEntry> communicationChannels = [];
+
+  /// Mutual TLS Policy.
+  MutualTlsPolicy mutualTlsPolicy = MutualTlsPolicy();
+
+  /// HSTS and Transport Security Policy.
+  TransportSecurityPolicy transportSecurityPolicy =
+      TransportSecurityPolicy();
+
+  /// Encryption In Transit Notes (text).
+  TextSection encryptionInTransitNotes = TextSection();
+}
+
+/// TLS Protocol Policy (form).
+///
+/// Global settings for TLS protocol configuration: minimum and preferred
+/// protocol versions, allowed cipher suites, Diffie-Hellman groups,
+/// compression settings, and compliance requirements.
+@Form([
+  Field('minimumTlsVersion', String, 'Minimum TLS Version',
+      required: true,
+      hint:
+          'TLS1.2 | TLS1.3 — minimum acceptable TLS version '
+          '(TLS 1.3 recommended; TLS 1.0/1.1 are deprecated and '
+          'should not be used; PCI DSS forbids TLS 1.0)'),
+  Field('preferredTlsVersion', String, 'Preferred TLS Version',
+      hint:
+          'TLS1.3 | TLS1.2 — preferred TLS version for new connections '
+          '(TLS 1.3 provides improved security and performance)'),
+  Field('allowedCipherSuites', String, 'Allowed Cipher Suites',
+      hint:
+          'Comma-separated cipher suite names or categories '
+          '(e.g. TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256; '
+          'disable NULL, Anonymous, EXPORT, DES, RC4 ciphers)'),
+  Field('preferAuthenticatedEncryption', bool,
+      'Prefer Authenticated Encryption',
+      hint:
+          'Yes | No — whether GCM/CCM authenticated cipher modes are '
+          'preferred over CBC (recommended: Yes)'),
+  Field('dhGroups', String, 'Diffie-Hellman Groups',
+      hint:
+          'Comma-separated DH groups for key exchange '
+          '(e.g. x25519, prime256v1, ffdhe3072; per RFC 7919)'),
+  Field('tlsCompressionDisabled', bool, 'TLS Compression Disabled',
+      hint:
+          'Yes | No — whether TLS compression is disabled to prevent '
+          'CRIME/BREACH attacks (recommended: Yes)'),
+  Field('sessionResumption', String, 'Session Resumption',
+      hint:
+          'Tickets | SessionID | None — TLS session resumption mechanism '
+          '(tickets recommended for TLS 1.3; session IDs for TLS 1.2)'),
+  Field('complianceFramework', String, 'Compliance Framework',
+      hint:
+          'FIPS-140-2 | PCI-DSS | HIPAA | NIST-800-52 | None — '
+          'regulatory framework dictating TLS requirements'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional TLS protocol policy notes'),
+])
+class TlsProtocolPolicy {
+  String? content;
+
+  /// TLS Protocol Policy Details (text).
+  TextSection tlsProtocolPolicyDetails = TextSection();
+}
+
+/// Certificate Management Policy (form).
+///
+/// Defines how TLS certificates are managed: certificate authority selection,
+/// validation type, key strength, hashing algorithm, wildcard policy,
+/// certificate lifecycle, and automated renewal.
+@Form([
+  Field('certificateAuthority', String, 'Certificate Authority',
+      required: true,
+      hint:
+          'LetsEncrypt | DigiCert | GlobalSign | InternalCA | Other — '
+          'certificate authority used for issuing TLS certificates'),
+  Field('validationType', String, 'Validation Type',
+      hint:
+          'DV | OV | EV — Domain Validated, Organization Validated, or '
+          'Extended Validation (DV is sufficient for most applications; '
+          'EV provides no additional browser security benefits)'),
+  Field('minimumKeyLength', int, 'Minimum Key Length (bits)',
+      hint:
+          '2048 | 3072 | 4096 — minimum RSA key length in bits for '
+          'certificates (2048 minimum per NIST; 3072+ recommended)'),
+  Field('keyType', String, 'Key Type',
+      hint:
+          'RSA | ECDSA | Ed25519 — certificate key type '
+          '(ECDSA with P-256/P-384 or Ed25519 preferred for '
+          'performance; RSA for broadest compatibility)'),
+  Field('hashingAlgorithm', String, 'Hashing Algorithm',
+      hint:
+          'SHA-256 | SHA-384 | SHA-512 — certificate hashing algorithm '
+          '(SHA-256 minimum; MD5 and SHA-1 must not be used)'),
+  Field('wildcardCertificatePolicy', String, 'Wildcard Certificate Policy',
+      hint:
+          'Allowed | Restricted | Prohibited — policy on wildcard '
+          'certificates (* certs; use with caution per OWASP — '
+          'violates least privilege principle)'),
+  Field('certificateLifetimeDays', int, 'Certificate Lifetime (Days)',
+      hint:
+          'Maximum certificate validity in days (e.g. 90 for '
+          'LetsEncrypt auto-renewal, 365 for annual, 730 for 2-year)'),
+  Field('automatedRenewal', bool, 'Automated Renewal',
+      hint:
+          'Yes | No — whether certificates are automatically renewed '
+          'via ACME or similar protocol before expiration'),
+  Field('certificateTransparency', bool, 'Certificate Transparency',
+      hint:
+          'Yes | No — whether certificates are logged in Certificate '
+          'Transparency logs for public auditability'),
+  Field('caaRecords', bool, 'CAA DNS Records',
+      hint:
+          'Yes | No — whether CAA DNS records restrict which CAs can '
+          'issue certificates for the domain'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional certificate management notes'),
+])
+class CertificateManagementPolicy {
+  String? content;
+
+  /// Certificate Management Details (text).
+  TextSection certificateManagementDetails = TextSection();
+}
+
+/// A communication channel encryption entry (form)
+/// [PD00-ACC-SEN-TRA-CHA-nn].
+///
+/// Defines encryption requirements for a specific communication channel
+/// (e.g. client-to-server HTTPS, server-to-database, inter-service,
+/// WebSocket, gRPC, message queue). Allows different channels to have
+/// different TLS configurations and requirements.
+class CommunicationChannelEncryptionEntry {
+  @Form([
+    Field('channelName', String, 'Channel Name',
+        required: true,
+        hint:
+            'Name of the communication channel '
+            '(e.g. ClientToServer, ServerToDatabase, InterService, '
+            'WebSocket, gRPC, MessageQueue, EmailSMTP)'),
+    Field('channelType', String, 'Channel Type',
+        hint:
+            'HTTPS | gRPC | WebSocket | TCP | AMQP | MQTT | SMTP | '
+            'Custom — transport protocol used by this channel'),
+    Field('tlsRequired', bool, 'TLS Required',
+        required: true,
+        hint:
+            'Yes | No — whether TLS encryption is mandatory for this '
+            'channel (should be Yes for all channels carrying '
+            'sensitive data)'),
+    Field('minimumTlsVersionOverride', String,
+        'Minimum TLS Version Override',
+        hint:
+            'TLS1.2 | TLS1.3 | UseDefault — override minimum TLS '
+            'version for this specific channel if different from '
+            'global policy'),
+    Field('mutualTlsRequired', bool, 'Mutual TLS Required',
+        hint:
+            'Yes | No — whether mutual TLS (mTLS) is required for '
+            'this channel (recommended for service-to-service)'),
+    Field('certificatePinning', bool, 'Certificate Pinning',
+        hint:
+            'Yes | No — whether certificate or public key pinning is '
+            'used for this channel (useful for mobile apps, thick '
+            'clients, and server-to-server communication)'),
+    Field('pinningStrategy', String, 'Pinning Strategy',
+        hint:
+            'PublicKey | Certificate | SPKI | None — how pinning is '
+            'implemented if enabled (SPKI recommended for '
+            'flexibility during key rotation)'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional notes for this communication channel'),
+  ])
+  String? content;
+}
+
+/// Mutual TLS Policy (form).
+///
+/// Defines requirements for mutual TLS (mTLS) where both client and server
+/// authenticate via certificates. Covers client certificate issuance,
+/// authentication scope, revocation checking, and fallback behavior.
+@Form([
+  Field('mtlsEnabled', bool, 'mTLS Enabled',
+      required: true,
+      hint:
+          'Yes | No — whether mutual TLS is used anywhere in the '
+          'system (client certificates for authentication)'),
+  Field('mtlsScope', String, 'mTLS Scope',
+      hint:
+          'AllServices | InternalOnly | HighValueAPIs | '
+          'SpecificEndpoints — which communication paths require mTLS'),
+  Field('clientCertificateIssuance', String, 'Client Certificate Issuance',
+      hint:
+          'InternalCA | ExternalCA | SelfSigned | Automated — how '
+          'client certificates are issued and distributed'),
+  Field('revocationChecking', String, 'Revocation Checking',
+      hint:
+          'CRL | OCSP | OCSPStapling | None — how certificate '
+          'revocation status is verified'),
+  Field('fallbackOnMtlsFailure', String, 'Fallback on mTLS Failure',
+      hint:
+          'Reject | FallbackToTLS | DegradeWithWarning — behavior '
+          'when mTLS handshake fails (Reject recommended for '
+          'high-security channels)'),
+  Field('clientCertificateRotation', String, 'Client Certificate Rotation',
+      hint:
+          'Automated | Manual | OnExpiry — how client certificates '
+          'are rotated'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional mutual TLS policy notes'),
+])
+class MutualTlsPolicy {
+  String? content;
+
+  /// Mutual TLS Policy Details (text).
+  TextSection mutualTlsPolicyDetails = TextSection();
+}
+
+/// HSTS and Transport Security Policy (form).
+///
+/// Defines HTTP Strict Transport Security, HTTP-to-HTTPS redirect behavior,
+/// secure cookie flags, mixed content prevention, and sensitive data caching
+/// rules.
+@Form([
+  Field('hstsEnabled', bool, 'HSTS Enabled',
+      required: true,
+      hint:
+          'Yes | No — whether HTTP Strict Transport Security header '
+          'is sent to force browsers to use HTTPS'),
+  Field('hstsMaxAgeDays', int, 'HSTS Max-Age (Days)',
+      hint:
+          'HSTS max-age value in days (e.g. 365 = 1 year; 730 = '
+          '2 years; must be sufficiently long to prevent downgrade)'),
+  Field('hstsIncludeSubdomains', bool, 'HSTS Include Subdomains',
+      hint:
+          'Yes | No — whether HSTS applies to all subdomains '
+          '(recommended: Yes when all subdomains support HTTPS)'),
+  Field('hstsPreload', bool, 'HSTS Preload',
+      hint:
+          'Yes | No — whether the domain is submitted to the HSTS '
+          'preload list (hardcoded into browsers; requires '
+          'includeSubDomains and long max-age)'),
+  Field('httpToHttpsRedirect', bool, 'HTTP-to-HTTPS Redirect',
+      hint:
+          'Yes | No — whether HTTP requests are permanently redirected '
+          '(301) to HTTPS'),
+  Field('secureCookieFlag', bool, 'Secure Cookie Flag',
+      hint:
+          'Yes | No — whether all cookies are marked with Secure flag '
+          '(browsers only send them over HTTPS)'),
+  Field('preventMixedContent', bool, 'Prevent Mixed Content',
+      hint:
+          'Yes | No — whether loading of non-TLS resources from '
+          'TLS pages is blocked'),
+  Field('sensitiveDataCaching', String, 'Sensitive Data Caching',
+      hint:
+          'NoCache | NoStore | Private | Default — cache-control '
+          'headers for responses containing sensitive data '
+          '(NoStore recommended per OWASP)'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional transport security policy notes'),
+])
+class TransportSecurityPolicy {
+  String? content;
+
+  /// Transport Security Policy Details (text).
+  TextSection transportSecurityPolicyDetails = TextSection();
 }
 
 /// 9.6. Audit and Logging [PD00-ACC-AUD].
