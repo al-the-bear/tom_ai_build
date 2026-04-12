@@ -180,7 +180,7 @@ These sections exist in `tom_specs_model` but are missing from `pd_template.md`:
 | PD00-SYO-RES-CON-CON | Constraints | Review | ✅ Done |
 | PD00-SYO-RES-CON-DEP | Dependencies | Review | ✅ Done |
 | PD00-SYO-SYR-MIG-RIS | Migration Risks | Review | ✅ Done |
-| PD00-SYQ | System Qualities | Review | ⬜ Not Started |
+| PD00-SYQ | System Qualities | Review | ✅ Done |
 | PD00-SYQ-ACC | Accessibility | Review | ⬜ Not Started |
 | PD00-SYQ-ACC-GAT | Accessibility Gates | Review | ⬜ Not Started |
 | PD00-SYQ-ACC-MUS | Accessibility Musts | Review | ⬜ Not Started |

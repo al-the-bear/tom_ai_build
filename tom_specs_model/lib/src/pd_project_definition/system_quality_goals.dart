@@ -1,18 +1,94 @@
 /// Section 11: System Quality Goals [PD00-SYQ]. Seeds → BQP.
 ///
 /// Quality goals for acceptance testing, organized by quality category.
+/// Comprehensive quality management framework covering user-related,
+/// technical, operational, and documentation quality attributes.
+/// Follows ISO/IEC 25010 (SQuaRE) quality model and enterprise QA practices.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
-
-
 /// 11. System Quality Goals [PD00-SYQ]. Seeds → BQP.
+///
+/// Quality goals selected from standard quality criteria and operationalized
+/// for project-specific acceptance testing. Provides governing structure for
+/// all quality attributes and acceptance criteria. Seeds the BQP (Business
+/// Quality Plan) document where quality goals are expanded into measurable
+/// targets, verification methods, and acceptance criteria.
 @SectionId('PD00-SYQ')
 @Comment('Seeds → BQP')
 class SystemQualityGoals {
-  @Unused()
-  String? content;
+  // ─────────────────────────────────────────────────────────────────────────
+  // Quality Governance
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    // Governance structure
+    Field('qualityApproach', String, 'Quality Approach',
+        hint: 'Overall quality philosophy: proactive, reactive, hybrid'),
+    Field('qualityStandards', String, 'Applicable Quality Standards',
+        hint: 'ISO 25010, ISO 9001, CMMI, industry-specific'),
+    Field('qualityOwner', String, 'Quality Owner',
+        hint: 'Role accountable for quality outcomes'),
+    Field('qualityReviewBoard', String, 'Quality Review Board',
+        hint: 'Governance body for quality decisions'),
+    Field('qualityMeetingCadence', String, 'Quality Meeting Cadence',
+        hint: 'Weekly, bi-weekly, sprint-aligned'),
+    Field('qualityEscalationPath', String, 'Escalation Path',
+        hint: 'How quality issues escalate to leadership'),
+    // Baseline and targets
+    Field('qualityBaselineDate', String, 'Quality Baseline Date',
+        hint: 'When quality targets were baselined'),
+    Field('qualityBaselineVersion', String, 'Baseline Version'),
+    Field('overallQualityTargetLevel', String, 'Overall Quality Target Level',
+        hint: 'High, production-grade, MVP-acceptable'),
+    Field('qualityRiskTolerance', String, 'Quality Risk Tolerance',
+        hint: 'Low (zero defects), medium, high tolerance'),
+    // Measurement approach
+    Field('qualityMetricsFramework', String, 'Metrics Framework',
+        hint: 'How quality is measured: GQM, balanced scorecard'),
+    Field('qualityReportingFrequency', String, 'Reporting Frequency',
+        hint: 'Daily, weekly, sprint, release'),
+    Field('qualityDashboardTool', String, 'Quality Dashboard Tool',
+        hint: 'SonarQube, custom dashboard, spreadsheet'),
+    Field('defectTrackingSystem', String, 'Defect Tracking System',
+        hint: 'Jira, Azure DevOps, GitHub Issues'),
+    Field('qualityTrendAnalysis', String, 'Trend Analysis Approach',
+        hint: 'How quality trends are tracked over time'),
+    // Resources
+    Field('qualityBudget', String, 'Quality Budget',
+        hint: 'Budget allocated for QA activities'),
+    Field('qaTeamSize', String, 'QA Team Size',
+        hint: 'Number of dedicated QA resources'),
+    Field('testAutomationTarget', String, 'Test Automation Target %',
+        hint: 'Target percentage of automated tests'),
+    Field('qualityTrainingPlan', String, 'Quality Training Plan',
+        hint: 'Training for team on quality practices'),
+  ])
+  String? governanceContent;
+
+  /// Executive summary of quality goals and approach.
+  @ContentHelp('High-level overview of quality objectives, expected quality '
+      'level, key quality risks, and approach summary.')
+  TextSection executiveSummary = TextSection();
+
+  /// Quality vision and principles.
+  @ContentHelp('Quality vision statement, core principles guiding '
+      'quality decisions, and non-negotiable quality standards.')
+  TextSection qualityVision = TextSection();
+
+  /// Quality assurance strategy.
+  @ContentHelp('Overall QA strategy: shift-left testing, continuous testing, '
+      'test pyramid approach, verification vs validation approach.')
+  TextSection qaStrategy = TextSection();
+
+  /// Quality attribute interdependencies.
+  @ContentHelp('How quality attributes relate to and affect each other, '
+      'known tensions and resolution approaches.')
+  TextSection attributeInterdependencies = TextSection();
+
+  /// Quality attribute priority radar.
+  @ContentHelp('Visual showing relative importance of quality attributes.')
+  DiagramSection qualityRadar = DiagramSection();
 
   /// 11.1. Quality Framework [PD00-SYQ-FRA].
   QualityFramework framework = QualityFramework();
@@ -27,7 +103,8 @@ class SystemQualityGoals {
   OperationsQualityCriteria operationsQuality = OperationsQualityCriteria();
 
   /// 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
-  DocumentationQualityCriteria documentationQuality = DocumentationQualityCriteria();
+  DocumentationQualityCriteria documentationQuality =
+      DocumentationQualityCriteria();
 
   /// 11.6. Quality Prioritization [PD00-SYQ-PRI].
   QualityPrioritization prioritization = QualityPrioritization();
@@ -37,125 +114,1179 @@ class SystemQualityGoals {
 }
 
 /// 11.1. Quality Framework [PD00-SYQ-FRA].
+///
+/// Overall quality approach for the project defining objectives, categories,
+/// and how quality is structured and governed across the system.
 @SectionId('PD00-SYQ-FRA')
 class QualityFramework {
-  @Unused()
-  String? content;
+  // ─────────────────────────────────────────────────────────────────────────
+  // Framework Configuration
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    // Framework selection
+    Field('qualityModel', String, 'Quality Model',
+        hint: 'ISO 25010, McCall, Boehm, custom'),
+    Field('qualityModelVersion', String, 'Model Version',
+        hint: 'Specific version of quality model'),
+    Field('qualityModelAdaptations', String, 'Model Adaptations',
+        hint: 'How standard model is adapted for this project'),
+    // Objectives structure
+    Field('objectivesHierarchy', String, 'Objectives Hierarchy',
+        hint: 'How quality objectives are structured'),
+    Field('objectivesAlignment', String, 'Objectives Alignment',
+        hint: 'How quality objectives align with business goals'),
+    Field('objectivesMeasurability', String, 'Measurability Requirement',
+        hint: 'All objectives SMART, key objectives only'),
+    // Trade-off philosophy
+    Field('primaryQualityAttribute', String, 'Primary Quality Attribute',
+        hint: 'Most important attribute when trade-offs required'),
+    Field('secondaryQualityAttribute', String, 'Secondary Quality Attribute'),
+    Field('tradeOffApproach', String, 'Trade-off Approach',
+        hint: 'How conflicts between attributes are resolved'),
+    Field('qualityCompromiseAuthority', String, 'Compromise Authority',
+        hint: 'Who can authorize quality trade-offs'),
+    // Verification approach
+    Field('verificationStrategy', String, 'Verification Strategy',
+        hint: 'Testing, review, analysis, demonstration'),
+    Field('verificationCoverage', String, 'Verification Coverage',
+        hint: 'All attributes, critical only, risk-based'),
+    Field('defectClassification', String, 'Defect Classification Scheme',
+        hint: 'Critical, major, minor, trivial'),
+    Field('defectPriorityScheme', String, 'Defect Priority Scheme',
+        hint: 'P1-P5, urgent/high/medium/low'),
+  ])
+  String? frameworkContent;
 
-  /// Quality Objectives Overview.
+  /// 11.1.1. Quality Objectives Overview [PD00-SYQ-FRA-OBJ].
+  @ContentHelp('Overall quality objectives: expected quality level, '
+      'how quality will be measured, acceptable trade-offs.')
+  @SectionId('PD00-SYQ-FRA-OBJ')
   TextSection qualityObjectivesOverview = TextSection();
+
+  /// Quality objectives breakdown by category.
+  @ContentHelp('Structured breakdown of objectives for each quality '
+      'category with measurable targets.')
+  TextSection objectivesBreakdown = TextSection();
 
   /// 11.1.2. Quality Categories [PD00-SYQ-FRA-CAT] — contains 0+× QualityCategory.
   @SectionIdPattern('PD00-SYQ-FRA-CAT-xx')
   List<QualityCategoryEntry> qualityCategories = [];
+
+  /// Quality dependencies map.
+  @ContentHelp('How quality categories depend on and influence each other.')
+  DiagramSection categoryDependencies = DiagramSection();
 }
 
 /// A quality category entry (form) [PD00-SYQ-FRA-CAT-nn].
+///
+/// Defines a quality category with its attributes, weight, and relationship
+/// to other categories.
 class QualityCategoryEntry {
   @Form([
-    Field('categoryName', String, 'Category Name', required: true),
-    Field('description', String, 'Short description'),
+    // Category identification
+    Field('categoryId', String, 'Category ID',
+        hint: 'Unique identifier (e.g., QC-USER-01)'),
+    Field('categoryName', String, 'Category Name', required: true,
+        hint: 'User-Related, Technical, Operational, Documentation'),
+    Field('categoryDescription', String, 'Description',
+        hint: 'Purpose and scope of this category'),
+    Field('categoryScope', String, 'Scope',
+        hint: 'What aspects of quality this covers'),
+    // Importance and weighting
+    Field('categoryWeight', int, 'Category Weight (1-100)',
+        hint: 'Relative importance in overall quality'),
+    Field('categoryPriority', String, 'Priority',
+        hint: 'Critical, high, medium, low'),
+    Field('categoryRationale', String, 'Priority Rationale',
+        hint: 'Why this priority level'),
+    // Relationships
+    Field('parentCategory', String, 'Parent Category',
+        hint: 'Higher-level category if hierarchical'),
+    Field('relatedCategories', String, 'Related Categories',
+        hint: 'Categories that interact with this one'),
+    Field('conflictingCategories', String, 'Conflicting Categories',
+        hint: 'Categories that may trade off against this'),
+    // Governance
+    Field('categoryOwner', String, 'Category Owner',
+        hint: 'Role responsible for this quality area'),
+    Field('reviewFrequency', String, 'Review Frequency',
+        hint: 'How often category metrics are reviewed'),
+    Field('escalationThreshold', String, 'Escalation Threshold',
+        hint: 'When category issues escalate'),
+    // Measurement
+    Field('primaryMetric', String, 'Primary Metric',
+        hint: 'Main metric for this category'),
+    Field('secondaryMetrics', String, 'Secondary Metrics',
+        hint: 'Supporting metrics'),
+    Field('targetValue', String, 'Target Value',
+        hint: 'Target for primary metric'),
+    Field('currentBaseline', String, 'Current Baseline',
+        hint: 'Starting baseline value'),
+  ])
+  String? content;
+
+  /// Detailed category definition.
+  @ContentHelp('Extended description of category scope, boundaries, '
+      'and quality attributes included.')
+  TextSection categoryDetails = TextSection();
+}
+
+/// 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
+///
+/// Quality criteria that directly affect user experience, including usability,
+/// functional completeness, and correctness from the end-user perspective.
+@SectionId('PD00-SYQ-USE')
+class UserQualityCriteria {
+  // ─────────────────────────────────────────────────────────────────────────
+  // User Quality Overview
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    Field('userQualityPhilosophy', String, 'User Quality Philosophy',
+        hint: 'User-first, balanced, efficiency-focused'),
+    Field('targetUserExperience', String, 'Target User Experience',
+        hint: 'Delightful, efficient, adequate, minimal'),
+    Field('userResearchBasis', String, 'User Research Basis',
+        hint: 'Personas, surveys, interviews, analytics'),
+    Field('userFeedbackChannel', String, 'User Feedback Channel',
+        hint: 'How user quality feedback is collected'),
+    Field('userSatisfactionTarget', String, 'User Satisfaction Target',
+        hint: 'NPS > 50, CSAT > 80%, etc.'),
+    Field('accessibilityLevel', String, 'Accessibility Level',
+        hint: 'WCAG 2.1 AA, AAA, Section 508'),
+  ])
+  String? userQualityContent;
+
+  /// User quality criteria overview.
+  @ContentHelp('Executive summary of user-related quality goals, '
+      'target user experience, and key user quality metrics.')
+  TextSection overview = TextSection();
+
+  /// 11.2.1. Usability [PD00-SYQ-USE-USA].
+  @SectionId('PD00-SYQ-USE-USA')
+  UsabilityQuality usability = UsabilityQuality();
+
+  /// 11.2.2. Functional Completeness [PD00-SYQ-USE-FUN].
+  @SectionId('PD00-SYQ-USE-FUN')
+  FunctionalCompletenessQuality functionalCompleteness =
+      FunctionalCompletenessQuality();
+
+  /// 11.2.3. Correctness [PD00-SYQ-USE-COR].
+  @SectionId('PD00-SYQ-USE-COR')
+  CorrectnessQuality correctness = CorrectnessQuality();
+}
+
+/// 11.2.1. Usability quality [PD00-SYQ-USE-USA].
+class UsabilityQuality {
+  @Form([
+    // Operability
+    Field('operabilityTarget', String, 'Operability Target',
+        hint: 'Ease of operation: intuitive, training-required'),
+    Field('operabilityMetric', String, 'Operability Metric',
+        hint: 'Task completion rate, error rate'),
+    Field('operabilityVerification', String, 'Operability Verification',
+        hint: 'Usability testing, heuristic evaluation'),
+    // Ergonomics
+    Field('ergonomicsStandard', String, 'Ergonomics Standard',
+        hint: 'ISO 9241, platform guidelines'),
+    Field('ergonomicsTarget', String, 'Ergonomics Target',
+        hint: 'Reduce cognitive load, minimize clicks'),
+    // Learnability
+    Field('learnabilityTarget', String, 'Learnability Target',
+        hint: 'Time to proficiency: <1 hour, <1 day'),
+    Field('learnabilityVerification', String, 'Learnability Verification',
+        hint: 'First-use testing, training time measurement'),
+    Field('onboardingRequirement', String, 'Onboarding Requirement',
+        hint: 'Self-service, guided tour, training required'),
+    // Functional clarity
+    Field('functionalClarityTarget', String, 'Functional Clarity Target',
+        hint: 'Labels, icons, workflows self-explanatory'),
+    Field('helpSystemRequirement', String, 'Help System Requirement',
+        hint: 'Contextual help, tooltips, documentation'),
+    // Complexity
+    Field('complexityLimit', String, 'Complexity Limit',
+        hint: 'Max steps per workflow, max form fields'),
+    Field('cognitiveLoadTarget', String, 'Cognitive Load Target',
+        hint: 'Info per screen, decision points'),
+    // Controllability
+    Field('undoRequirement', String, 'Undo Requirement',
+        hint: 'All actions, critical actions, none'),
+    Field('customizationLevel', String, 'Customization Level',
+        hint: 'User preferences, layout, workflow'),
+    // Response time
+    Field('responseTimeP50', String, 'Response Time P50',
+        hint: 'Median response time target (e.g., <200ms)'),
+    Field('responseTimeP95', String, 'Response Time P95',
+        hint: '95th percentile (e.g., <500ms)'),
+    Field('responseTimeP99', String, 'Response Time P99',
+        hint: '99th percentile (e.g., <1s)'),
+    Field('perceivedPerformance', String, 'Perceived Performance',
+        hint: 'Loading indicators, optimistic updates'),
+  ])
+  String? content;
+
+  /// Detailed usability requirements narrative.
+  TextSection narrative = TextSection();
+}
+
+/// 11.2.2. Functional completeness quality [PD00-SYQ-USE-FUN].
+class FunctionalCompletenessQuality {
+  @Form([
+    // Coverage
+    Field('featureCoverageTarget', String, 'Feature Coverage Target %',
+        hint: 'Percentage of specified features implemented'),
+    Field('coreWorkflowCoverage', String, 'Core Workflow Coverage',
+        hint: '100% of core, 80% of secondary'),
+    Field('edgeCaseHandling', String, 'Edge Case Handling',
+        hint: 'Explicit handling, graceful degradation'),
+    // Scope management
+    Field('scopePrioritization', String, 'Scope Prioritization',
+        hint: 'MoSCoW, weighted scoring'),
+    Field('mvpDefinition', String, 'MVP Definition',
+        hint: 'Minimum feature set for launch'),
+    Field('deferredFeatureHandling', String, 'Deferred Feature Handling',
+        hint: 'How deferred features are communicated'),
+    // Verification
+    Field('completenessVerification', String, 'Completeness Verification',
+        hint: 'Traceability matrix, acceptance testing'),
+    Field('userStoryTracking', String, 'User Story Tracking',
+        hint: 'How coverage is tracked to requirements'),
+    Field('gapAnalysisFrequency', String, 'Gap Analysis Frequency',
+        hint: 'Sprint, release, milestone'),
+  ])
+  String? content;
+
+  /// Detailed functional completeness narrative.
+  TextSection narrative = TextSection();
+}
+
+/// 11.2.3. Correctness quality [PD00-SYQ-USE-COR].
+class CorrectnessQuality {
+  @Form([
+    // Error-freedom
+    Field('defectDensityTarget', String, 'Defect Density Target',
+        hint: 'Defects per KLOC, per function point'),
+    Field('criticalDefectTarget', String, 'Critical Defect Target',
+        hint: 'Zero critical/blocking, <N major'),
+    Field('defectEscapeRate', String, 'Defect Escape Rate',
+        hint: 'Defects found post-release'),
+    // Data integrity
+    Field('dataIntegrityRequirement', String, 'Data Integrity Requirement',
+        hint: 'ACID, eventual consistency'),
+    Field('dataValidationCoverage', String, 'Data Validation Coverage',
+        hint: 'All inputs, critical inputs'),
+    Field('dataCorruptionHandling', String, 'Data Corruption Handling',
+        hint: 'Detection, recovery, prevention'),
+    // Calculation accuracy
+    Field('calculationAccuracyTarget', String, 'Calculation Accuracy Target',
+        hint: 'Decimal precision, rounding rules'),
+    Field('financialAccuracyRequirement', String, 'Financial Accuracy',
+        hint: 'Penny-accurate, significant figures'),
+    Field('auditTrailRequirement', String, 'Audit Trail Requirement',
+        hint: 'All changes, financial only'),
+    // Verification
+    Field('correctnessVerification', String, 'Correctness Verification',
+        hint: 'Unit tests, integration tests, UAT'),
+    Field('testCoverageTarget', String, 'Test Coverage Target',
+        hint: 'Code coverage %, requirement coverage'),
+    Field('regressionTestingApproach', String, 'Regression Testing',
+        hint: 'Automated, manual, risk-based'),
+  ])
+  String? content;
+
+  /// Detailed correctness requirements narrative.
+  TextSection narrative = TextSection();
+}
+
+/// 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
+///
+/// Quality criteria for the technical implementation including efficiency,
+/// portability, flexibility, security, maintainability, and reliability.
+@SectionId('PD00-SYQ-TEC')
+class TechnicalQualityCriteria {
+  // ─────────────────────────────────────────────────────────────────────────
+  // Technical Quality Overview
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    Field('technicalQualityPhilosophy', String, 'Technical Quality Philosophy',
+        hint: 'Performance-first, maintainability-first, balanced'),
+    Field('architecturalQualityGoals', String, 'Architectural Quality Goals',
+        hint: 'Key architectural quality attributes'),
+    Field('technicalDebtTolerance', String, 'Technical Debt Tolerance',
+        hint: 'Zero, controlled, pragmatic'),
+    Field('codeQualityStandard', String, 'Code Quality Standard',
+        hint: 'Style guide, linting rules'),
+    Field('designPrinciplesAdherence', String, 'Design Principles Adherence',
+        hint: 'SOLID, DRY, KISS, YAGNI'),
+  ])
+  String? technicalQualityContent;
+
+  /// Technical quality overview.
+  @ContentHelp('Executive summary of technical quality goals, '
+      'architectural decisions, and key technical metrics.')
+  TextSection overview = TextSection();
+
+  /// 11.3.1. Efficiency [PD00-SYQ-TEC-EFF].
+  @SectionId('PD00-SYQ-TEC-EFF')
+  EfficiencyQuality efficiency = EfficiencyQuality();
+
+  /// 11.3.2. Portability [PD00-SYQ-TEC-POR].
+  @SectionId('PD00-SYQ-TEC-POR')
+  PortabilityQuality portability = PortabilityQuality();
+
+  /// 11.3.3. Flexibility [PD00-SYQ-TEC-FLE].
+  @SectionId('PD00-SYQ-TEC-FLE')
+  FlexibilityQuality flexibility = FlexibilityQuality();
+
+  /// 11.3.4. Security [PD00-SYQ-TEC-SEC].
+  @SectionId('PD00-SYQ-TEC-SEC')
+  SecurityQuality security = SecurityQuality();
+
+  /// 11.3.5. Maintainability [PD00-SYQ-TEC-MAI].
+  @SectionId('PD00-SYQ-TEC-MAI')
+  MaintainabilityQuality maintainability = MaintainabilityQuality();
+
+  /// 11.3.6. Reliability [PD00-SYQ-TEC-REL].
+  @SectionId('PD00-SYQ-TEC-REL')
+  ReliabilityQuality reliability = ReliabilityQuality();
+}
+
+/// 11.3.1. Efficiency quality [PD00-SYQ-TEC-EFF].
+class EfficiencyQuality {
+  @Form([
+    // Response time
+    Field('responseTimeP50Target', String, 'Response Time P50',
+        hint: 'Median response time (e.g., <100ms)'),
+    Field('responseTimeP95Target', String, 'Response Time P95',
+        hint: '95th percentile (e.g., <300ms)'),
+    Field('responseTimeP99Target', String, 'Response Time P99',
+        hint: '99th percentile (e.g., <1s)'),
+    // Throughput
+    Field('throughputTarget', String, 'Throughput Target',
+        hint: 'Requests/second, transactions/minute'),
+    Field('concurrentUsersTarget', String, 'Concurrent Users Target',
+        hint: 'Peak concurrent users supported'),
+    Field('scalabilityModel', String, 'Scalability Model',
+        hint: 'Horizontal, vertical, auto-scaling'),
+    // Resource utilization
+    Field('cpuUtilizationLimit', String, 'CPU Utilization Limit',
+        hint: 'Max sustained CPU usage (e.g., <70%)'),
+    Field('memoryUtilizationLimit', String, 'Memory Utilization Limit',
+        hint: 'Max memory usage'),
+    Field('storageEfficiencyTarget', String, 'Storage Efficiency Target',
+        hint: 'Data storage per user/record'),
+    Field('networkBandwidthLimit', String, 'Network Bandwidth Limit',
+        hint: 'Max bandwidth consumption'),
+    // Verification
+    Field('loadTestingRequirement', String, 'Load Testing Requirement',
+        hint: 'Load test scenarios, thresholds'),
+    Field('performanceProfilingApproach', String, 'Performance Profiling',
+        hint: 'APM tools, custom instrumentation'),
+    Field('performanceBaselineDate', String, 'Performance Baseline Date',
+        hint: 'When baseline was established'),
+    Field('performanceSlaDefinition', String, 'Performance SLA Definition',
+        hint: 'SLA for performance metrics'),
+  ])
+  String? content;
+
+  /// Detailed efficiency requirements narrative.
+  TextSection narrative = TextSection();
+}
+
+/// 11.3.2. Portability quality [PD00-SYQ-TEC-POR].
+class PortabilityQuality {
+  @Form([
+    // Platform support
+    Field('targetPlatforms', String, 'Target Platforms',
+        hint: 'iOS, Android, Web, Windows, macOS, Linux'),
+    Field('browserSupport', String, 'Browser Support',
+        hint: 'Chrome, Firefox, Safari, Edge versions'),
+    Field('mobileOsVersions', String, 'Mobile OS Versions',
+        hint: 'iOS 14+, Android 10+'),
+    Field('desktopOsVersions', String, 'Desktop OS Versions',
+        hint: 'Windows 10+, macOS 11+'),
+    // Migration
+    Field('migrationEffortConstraint', String, 'Migration Effort Constraint',
+        hint: 'Max effort to migrate to new platform'),
+    Field('dataPortability', String, 'Data Portability',
+        hint: 'Export formats, import capabilities'),
+    Field('vendorLockInAvoidance', String, 'Vendor Lock-in Avoidance',
+        hint: 'Standards-based, abstraction layers'),
+    // Containerization
+    Field('containerizationRequirement', String, 'Containerization',
+        hint: 'Docker, Kubernetes requirements'),
+    Field('infrastructureAsCode', String, 'Infrastructure as Code',
+        hint: 'Terraform, CloudFormation'),
+    // Verification
+    Field('portabilityVerification', String, 'Portability Verification',
+        hint: 'Cross-platform testing, compatibility matrix'),
+  ])
+  String? content;
+
+  /// Detailed portability requirements narrative.
+  TextSection narrative = TextSection();
+}
+
+/// 11.3.3. Flexibility quality [PD00-SYQ-TEC-FLE].
+class FlexibilityQuality {
+  @Form([
+    // Component model
+    Field('componentArchitecture', String, 'Component Architecture',
+        hint: 'Microservices, modular monolith, plugins'),
+    Field('componentGranularity', String, 'Component Granularity',
+        hint: 'Fine-grained, coarse-grained'),
+    Field('componentReplaceability', String, 'Component Replaceability',
+        hint: 'Hot-swap, restart required'),
+    // Modularity
+    Field('modularityLevel', String, 'Modularity Level',
+        hint: 'Highly modular, moderately, monolithic'),
+    Field('moduleIndependence', String, 'Module Independence',
+        hint: 'Loose coupling, shared libraries'),
+    Field('moduleReusability', String, 'Module Reusability',
+        hint: 'Design for reuse, single-purpose'),
+    // Distribution
+    Field('distributionCapability', String, 'Distribution Capability',
+        hint: 'Multi-region, single-region, on-premise'),
+    Field('multiTenancy', String, 'Multi-Tenancy',
+        hint: 'Shared, isolated, hybrid'),
+    // Configurability
+    Field('configurabilityLevel', String, 'Configurability Level',
+        hint: 'Feature flags, runtime config, deploy-time'),
+    Field('extensibilityModel', String, 'Extensibility Model',
+        hint: 'Plugins, APIs, webhooks'),
+    Field('customizationScope', String, 'Customization Scope',
+        hint: 'UI, business rules, workflows'),
+    // Verification
+    Field('flexibilityVerification', String, 'Flexibility Verification',
+        hint: 'Architecture review, change impact analysis'),
+  ])
+  String? content;
+
+  /// Detailed flexibility requirements narrative.
+  TextSection narrative = TextSection();
+}
+
+/// 11.3.4. Security quality [PD00-SYQ-TEC-SEC].
+class SecurityQuality {
+  @Form([
+    // Encryption
+    Field('encryptionAtRest', String, 'Encryption at Rest',
+        hint: 'AES-256, database-level, disk-level'),
+    Field('encryptionInTransit', String, 'Encryption in Transit',
+        hint: 'TLS 1.2+, certificate requirements'),
+    Field('keyManagement', String, 'Key Management',
+        hint: 'HSM, KMS, key rotation policy'),
+    // Authentication
+    Field('authenticationMethod', String, 'Authentication Method',
+        hint: 'OAuth2, SAML, OIDC, MFA'),
+    Field('mfaRequirement', String, 'MFA Requirement',
+        hint: 'All users, privileged users, optional'),
+    Field('passwordPolicy', String, 'Password Policy',
+        hint: 'Complexity, rotation, history'),
+    Field('sessionManagement', String, 'Session Management',
+        hint: 'Timeout, concurrent sessions'),
+    // Authorization
+    Field('authorizationModel', String, 'Authorization Model',
+        hint: 'RBAC, ABAC, ACL'),
+    Field('authorizationCoverage', String, 'Authorization Coverage',
+        hint: 'All resources, sensitive resources'),
+    Field('privilegeEscalationPrevention', String, 'Privilege Escalation',
+        hint: 'Controls to prevent escalation'),
+    // Vulnerability management
+    Field('vulnerabilityScanFrequency', String, 'Vulnerability Scan Frequency',
+        hint: 'Continuous, weekly, per-release'),
+    Field('penetrationTestFrequency', String, 'Penetration Test Frequency',
+        hint: 'Annual, semi-annual, per-release'),
+    Field('cveResponseTime', String, 'CVE Response Time',
+        hint: 'Critical: 24h, high: 7d'),
+    // Compliance
+    Field('securityCompliance', String, 'Security Compliance',
+        hint: 'SOC2, ISO 27001, GDPR'),
+    Field('securityCertifications', String, 'Security Certifications',
+        hint: 'Required certifications'),
+    Field('securityAuditFrequency', String, 'Security Audit Frequency',
+        hint: 'Annual, continuous'),
+    // Verification
+    Field('securityVerification', String, 'Security Verification',
+        hint: 'SAST, DAST, security review'),
+  ])
+  String? content;
+
+  /// Detailed security requirements narrative.
+  TextSection narrative = TextSection();
+}
+
+/// 11.3.5. Maintainability quality [PD00-SYQ-TEC-MAI].
+class MaintainabilityQuality {
+  @Form([
+    // Adaptability
+    Field('adaptabilityTarget', String, 'Adaptability Target',
+        hint: 'Change implementation time'),
+    Field('changeImpactLimit', String, 'Change Impact Limit',
+        hint: 'Max components affected by change'),
+    // Analyzability
+    Field('codeReadabilityStandard', String, 'Code Readability Standard',
+        hint: 'Style guide, code review criteria'),
+    Field('documentationRequirement', String, 'Documentation Requirement',
+        hint: 'Inline, API docs, architecture docs'),
+    Field('loggingStandard', String, 'Logging Standard',
+        hint: 'Structured logging, log levels'),
+    // Changeability
+    Field('codeCoverageMinimum', String, 'Code Coverage Minimum',
+        hint: 'Unit test coverage % target'),
+    Field('cyclomaticComplexityLimit', String, 'Cyclomatic Complexity Limit',
+        hint: 'Max complexity per function'),
+    Field('methodLengthLimit', String, 'Method Length Limit',
+        hint: 'Max lines per method'),
+    Field('classLengthLimit', String, 'Class Length Limit',
+        hint: 'Max lines per class'),
+    // Testability
+    Field('testabilityDesign', String, 'Testability Design',
+        hint: 'Dependency injection, mocking support'),
+    Field('testPyramidRatio', String, 'Test Pyramid Ratio',
+        hint: 'Unit:Integration:E2E ratio'),
+    Field('testDataManagement', String, 'Test Data Management',
+        hint: 'Fixtures, factories, production-like'),
+    // Extensibility
+    Field('extensibilityPattern', String, 'Extensibility Pattern',
+        hint: 'Plugin architecture, middleware, hooks'),
+    Field('apiVersioningStrategy', String, 'API Versioning Strategy',
+        hint: 'URL path, header, query param'),
+    // Verification
+    Field('maintainabilityVerification', String, 'Maintainability Verification',
+        hint: 'Static analysis, architecture fitness functions'),
+    Field('technicalDebtTracking', String, 'Technical Debt Tracking',
+        hint: 'SonarQube, manual tracking'),
+  ])
+  String? content;
+
+  /// Detailed maintainability requirements narrative.
+  TextSection narrative = TextSection();
+}
+
+/// 11.3.6. Reliability quality [PD00-SYQ-TEC-REL].
+class ReliabilityQuality {
+  @Form([
+    // Uptime
+    Field('uptimeTarget', String, 'Uptime Target',
+        hint: '99.9%, 99.95%, 99.99%'),
+    Field('plannedDowntimeWindow', String, 'Planned Downtime Window',
+        hint: 'Maintenance window schedule'),
+    Field('degradedModeCapability', String, 'Degraded Mode Capability',
+        hint: 'Graceful degradation approach'),
+    // MTBF / MTTR
+    Field('mtbfTarget', String, 'MTBF Target',
+        hint: 'Mean time between failures'),
+    Field('mttrTarget', String, 'MTTR Target',
+        hint: 'Mean time to recovery'),
+    Field('rtoTarget', String, 'RTO Target',
+        hint: 'Recovery time objective'),
+    Field('rpoTarget', String, 'RPO Target',
+        hint: 'Recovery point objective'),
+    // Failover
+    Field('failoverStrategy', String, 'Failover Strategy',
+        hint: 'Active-passive, active-active'),
+    Field('failoverTime', String, 'Failover Time',
+        hint: 'Time to complete failover'),
+    Field('failoverTesting', String, 'Failover Testing',
+        hint: 'Chaos engineering, DR drills'),
+    // Data durability
+    Field('dataDurability', String, 'Data Durability',
+        hint: '99.999999999% (11 nines)'),
+    Field('backupFrequency', String, 'Backup Frequency',
+        hint: 'Continuous, hourly, daily'),
+    Field('backupRetention', String, 'Backup Retention',
+        hint: 'Retention period'),
+    Field('backupVerification', String, 'Backup Verification',
+        hint: 'Restore testing frequency'),
+    // Verification
+    Field('reliabilityVerification', String, 'Reliability Verification',
+        hint: 'Soak testing, chaos engineering'),
+    Field('incidentPostmortem', String, 'Incident Postmortem',
+        hint: 'Blameless postmortem process'),
+  ])
+  String? content;
+
+  /// Detailed reliability requirements narrative.
+  TextSection narrative = TextSection();
+}
+
+/// 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
+///
+/// Quality criteria for system operations including availability, service
+/// levels, monitoring, and IT security operations.
+@SectionId('PD00-SYQ-OPE')
+class OperationsQualityCriteria {
+  // ─────────────────────────────────────────────────────────────────────────
+  // Operations Quality Overview
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    Field('operationsMaturityModel', String, 'Operations Maturity Model',
+        hint: 'ITIL, DevOps, SRE'),
+    Field('operationsPhilosophy', String, 'Operations Philosophy',
+        hint: 'Ops-driven, DevOps, NoOps'),
+    Field('operationsResponsibility', String, 'Operations Responsibility',
+        hint: 'Dedicated team, shared, outsourced'),
+    Field('incidentManagementProcess', String, 'Incident Management Process',
+        hint: 'PagerDuty, custom, ITIL-based'),
+    Field('changeManagementProcess', String, 'Change Management Process',
+        hint: 'ITIL change management, lightweight'),
+    Field('operationsToolchain', String, 'Operations Toolchain',
+        hint: 'Key ops tools and platforms'),
+  ])
+  String? operationsOverviewContent;
+
+  /// Operations quality overview narrative.
+  @ContentHelp('Executive summary of operational requirements, '
+      'support model, and key operational metrics.')
+  TextSection overview = TextSection();
+
+  /// 11.4.1. Availability [PD00-SYQ-OPE-AVA].
+  @SectionId('PD00-SYQ-OPE-AVA')
+  AvailabilityQuality availability = AvailabilityQuality();
+
+  /// 11.4.2. Service Level Requirements [PD00-SYQ-OPE-SER].
+  @SectionId('PD00-SYQ-OPE-SER')
+  ServiceLevelQuality serviceLevelRequirements = ServiceLevelQuality();
+
+  /// 11.4.3. Monitoring and Prevention [PD00-SYQ-OPE-MON].
+  @SectionId('PD00-SYQ-OPE-MON')
+  MonitoringQuality monitoringAndPrevention = MonitoringQuality();
+
+  /// 11.4.4. IT Security Operations [PD00-SYQ-OPE-ITS].
+  @SectionId('PD00-SYQ-OPE-ITS')
+  ItSecurityOperationsQuality itSecurityOperations =
+      ItSecurityOperationsQuality();
+}
+
+/// 11.4.1. Availability quality [PD00-SYQ-OPE-AVA].
+class AvailabilityQuality {
+  @Form([
+    // Uptime targets
+    Field('uptimeTargetPercentage', String, 'Uptime Target %',
+        hint: '99.9% (8.76h/year downtime)'),
+    Field('uptimeCalculationMethod', String, 'Uptime Calculation Method',
+        hint: 'Excluding planned, including all'),
+    Field('uptimeMeasurementPeriod', String, 'Measurement Period',
+        hint: 'Monthly, quarterly, annually'),
+    // Operating hours
+    Field('operatingHours', String, 'Operating Hours',
+        hint: '24/7, business hours, regional'),
+    Field('peakHoursDefinition', String, 'Peak Hours Definition',
+        hint: 'When peak hours apply'),
+    Field('peakHoursAvailability', String, 'Peak Hours Availability',
+        hint: 'Higher availability during peaks'),
+    // Maintenance windows
+    Field('scheduledMaintenanceWindow', String, 'Scheduled Maintenance Window',
+        hint: 'When maintenance can occur'),
+    Field('maintenanceNotification', String, 'Maintenance Notification',
+        hint: 'How users are notified'),
+    Field('maintenanceFrequency', String, 'Maintenance Frequency',
+        hint: 'Weekly, monthly, quarterly'),
+    Field('maintenanceDurationLimit', String, 'Maintenance Duration Limit',
+        hint: 'Max duration per window'),
+    // Degraded mode
+    Field('degradedModeDefinition', String, 'Degraded Mode Definition',
+        hint: 'What constitutes degraded mode'),
+    Field('degradedModeCapabilities', String, 'Degraded Mode Capabilities',
+        hint: 'Features available in degraded mode'),
+    Field('degradedModeCommunication', String, 'Degraded Mode Communication',
+        hint: 'How users are informed'),
+    // Verification
+    Field('availabilityMonitoring', String, 'Availability Monitoring',
+        hint: 'Synthetic monitoring, real user'),
+    Field('availabilityReporting', String, 'Availability Reporting',
+        hint: 'Dashboard, reports, SLA tracking'),
+  ])
+  String? content;
+
+  /// Detailed availability requirements narrative.
+  TextSection narrative = TextSection();
+}
+
+/// 11.4.2. Service level quality [PD00-SYQ-OPE-SER].
+class ServiceLevelQuality {
+  @Form([
+    // Support response
+    Field('supportTierStructure', String, 'Support Tier Structure',
+        hint: 'L1/L2/L3, single tier'),
+    Field('criticalResponseTime', String, 'Critical Response Time',
+        hint: 'Response time for P1 issues'),
+    Field('highResponseTime', String, 'High Response Time',
+        hint: 'Response time for P2 issues'),
+    Field('mediumResponseTime', String, 'Medium Response Time',
+        hint: 'Response time for P3 issues'),
+    Field('lowResponseTime', String, 'Low Response Time',
+        hint: 'Response time for P4 issues'),
+    // Resolution targets
+    Field('criticalResolutionTime', String, 'Critical Resolution Time',
+        hint: 'Resolution target for P1'),
+    Field('highResolutionTime', String, 'High Resolution Time',
+        hint: 'Resolution target for P2'),
+    Field('mediumResolutionTime', String, 'Medium Resolution Time',
+        hint: 'Resolution target for P3'),
+    Field('lowResolutionTime', String, 'Low Resolution Time',
+        hint: 'Resolution target for P4'),
+    // Escalation
+    Field('escalationTimeframes', String, 'Escalation Timeframes',
+        hint: 'When issues escalate'),
+    Field('escalationContacts', String, 'Escalation Contacts',
+        hint: 'Who to escalate to'),
+    Field('executiveEscalation', String, 'Executive Escalation',
+        hint: 'When executive escalation occurs'),
+    // On-call
+    Field('onCallCoverage', String, 'On-Call Coverage',
+        hint: '24/7, business hours, regional'),
+    Field('onCallRotation', String, 'On-Call Rotation',
+        hint: 'Weekly, bi-weekly'),
+    Field('onCallCompensation', String, 'On-Call Compensation',
+        hint: 'Compensation model'),
+    // Service restoration
+    Field('serviceRestorationPriority', String, 'Service Restoration Priority',
+        hint: 'Order of restoration'),
+    Field('communicationDuringOutage', String, 'Communication During Outage',
+        hint: 'Status page, email, SMS'),
+  ])
+  String? content;
+
+  /// Detailed service level requirements narrative.
+  TextSection narrative = TextSection();
+
+  /// Service Level Agreement entries.
+  @SectionIdPattern('PD00-SYQ-OPE-SER-SLA-xx')
+  List<ServiceLevelAgreementEntry> slaEntries = [];
+}
+
+/// A service level agreement entry [PD00-SYQ-OPE-SER-SLA-nn].
+class ServiceLevelAgreementEntry {
+  @Form([
+    Field('slaId', String, 'SLA ID'),
+    Field('slaName', String, 'SLA Name', required: true),
+    Field('slaDescription', String, 'Description'),
+    Field('slaMetric', String, 'Metric',
+        hint: 'What is measured'),
+    Field('slaTarget', String, 'Target',
+        hint: 'Target value'),
+    Field('slaMeasurementMethod', String, 'Measurement Method'),
+    Field('slaReportingFrequency', String, 'Reporting Frequency'),
+    Field('slaPenalty', String, 'Penalty',
+        hint: 'Consequence of missing SLA'),
+    Field('slaExclusions', String, 'Exclusions',
+        hint: 'What is excluded from SLA'),
   ])
   String? content;
 }
 
-/// 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
-@SectionId('PD00-SYQ-USE')
-class UserQualityCriteria {
-  @Unused()
+/// 11.4.3. Monitoring quality [PD00-SYQ-OPE-MON].
+class MonitoringQuality {
+  @Form([
+    // Scalability monitoring
+    Field('scalabilityMonitoringApproach', String, 'Scalability Monitoring',
+        hint: 'Auto-scaling triggers, capacity alerts'),
+    Field('capacityPlanningProcess', String, 'Capacity Planning Process',
+        hint: 'How capacity is planned'),
+    Field('growthProjections', String, 'Growth Projections',
+        hint: 'Expected growth rate'),
+    // Component monitoring
+    Field('infrastructureMonitoring', String, 'Infrastructure Monitoring',
+        hint: 'Servers, containers, network'),
+    Field('applicationMonitoring', String, 'Application Monitoring',
+        hint: 'APM, logs, traces'),
+    Field('databaseMonitoring', String, 'Database Monitoring',
+        hint: 'Queries, connections, storage'),
+    Field('thirdPartyMonitoring', String, 'Third-Party Monitoring',
+        hint: 'External service monitoring'),
+    // Automation
+    Field('alertAutomation', String, 'Alert Automation',
+        hint: 'Automated response to alerts'),
+    Field('selfHealingCapability', String, 'Self-Healing Capability',
+        hint: 'Auto-recovery mechanisms'),
+    Field('runbookAutomation', String, 'Runbook Automation',
+        hint: 'Automated runbook execution'),
+    // Alerting
+    Field('alertingStrategy', String, 'Alerting Strategy',
+        hint: 'Threshold-based, anomaly detection'),
+    Field('alertPrioritization', String, 'Alert Prioritization',
+        hint: 'How alerts are prioritized'),
+    Field('alertNotificationChannels', String, 'Notification Channels',
+        hint: 'Slack, PagerDuty, email, SMS'),
+    Field('alertFatiguePrevention', String, 'Alert Fatigue Prevention',
+        hint: 'De-duplication, correlation'),
+    // Resource planning
+    Field('resourcePlanningFrequency', String, 'Resource Planning Frequency',
+        hint: 'Quarterly, annually'),
+    Field('proactiveMaintenanceSchedule', String, 'Proactive Maintenance',
+        hint: 'Scheduled maintenance activities'),
+    // Observability
+    Field('observabilityPillars', String, 'Observability Pillars',
+        hint: 'Logs, metrics, traces'),
+    Field('distributedTracingRequirement', String, 'Distributed Tracing',
+        hint: 'Tracing implementation'),
+    Field('logRetentionPeriod', String, 'Log Retention Period',
+        hint: 'How long logs are kept'),
+  ])
   String? content;
 
-  /// Usability.
-  TextSection usability = TextSection();
-
-  /// Functional Completeness.
-  TextSection functionalCompleteness = TextSection();
-
-  /// Correctness.
-  TextSection correctness = TextSection();
+  /// Detailed monitoring requirements narrative.
+  TextSection narrative = TextSection();
 }
 
-/// 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
-@SectionId('PD00-SYQ-TEC')
-class TechnicalQualityCriteria {
-  @Unused()
+/// 11.4.4. IT Security Operations quality [PD00-SYQ-OPE-ITS].
+class ItSecurityOperationsQuality {
+  @Form([
+    // Access protection
+    Field('accessControlModel', String, 'Access Control Model',
+        hint: 'RBAC, ABAC, zero-trust'),
+    Field('privilegedAccessManagement', String, 'Privileged Access Management',
+        hint: 'PAM solution, just-in-time'),
+    Field('accessReviewFrequency', String, 'Access Review Frequency',
+        hint: 'Quarterly, annually'),
+    Field('accessAuditLogging', String, 'Access Audit Logging',
+        hint: 'What access is logged'),
+    // Disaster recovery
+    Field('drPlanRequired', bool, 'DR Plan Required'),
+    Field('drTestingFrequency', String, 'DR Testing Frequency',
+        hint: 'Annual, semi-annual'),
+    Field('drRecoveryTargets', String, 'DR Recovery Targets',
+        hint: 'RTO/RPO for DR scenarios'),
+    Field('drDataCenterStrategy', String, 'Data Center Strategy',
+        hint: 'Multi-region, hot/warm/cold'),
+    Field('drCommunicationPlan', String, 'DR Communication Plan',
+        hint: 'How stakeholders are notified'),
+    // Penetration testing
+    Field('penetrationTestScope', String, 'Penetration Test Scope',
+        hint: 'Internal, external, both'),
+    Field('penetrationTestFrequency', String, 'Penetration Test Frequency',
+        hint: 'Annual, per-release'),
+    Field('vulnerabilitySlaResolution', String, 'Vulnerability SLA',
+        hint: 'Resolution timeframes by severity'),
+    Field('bugBountyProgram', bool, 'Bug Bounty Program'),
+    // Incident response
+    Field('incidentResponsePlan', String, 'Incident Response Plan',
+        hint: 'NIST, custom'),
+    Field('securityIncidentClassification', String, 'Incident Classification',
+        hint: 'Severity levels'),
+    Field('securityIncidentNotification', String, 'Incident Notification',
+        hint: 'Who is notified, when'),
+    Field('forensicsCapability', String, 'Forensics Capability',
+        hint: 'Evidence preservation'),
+    Field('regulatoryReporting', String, 'Regulatory Reporting',
+        hint: 'Breach notification requirements'),
+  ])
   String? content;
 
-  /// Efficiency.
-  TextSection efficiency = TextSection();
-
-  /// Portability.
-  TextSection portability = TextSection();
-
-  /// Flexibility.
-  TextSection flexibility = TextSection();
-
-  /// Security.
-  TextSection security = TextSection();
-
-  /// Maintainability.
-  TextSection maintainability = TextSection();
-
-  /// Reliability.
-  TextSection reliability = TextSection();
-}
-
-/// 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
-@SectionId('PD00-SYQ-OPE')
-class OperationsQualityCriteria {
-  @Unused()
-  String? content;
-
-  /// Availability.
-  TextSection availability = TextSection();
-
-  /// Service Level Requirements.
-  TextSection serviceLevelRequirements = TextSection();
-
-  /// Monitoring And Prevention.
-  TextSection monitoringAndPrevention = TextSection();
-
-  /// It Security Operations.
-  TextSection itSecurityOperations = TextSection();
+  /// Detailed IT security operations narrative.
+  TextSection narrative = TextSection();
 }
 
 /// 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
+///
+/// Quality criteria for project documentation including readability,
+/// completeness, correctness, and changeability.
 @SectionId('PD00-SYQ-DOC')
 class DocumentationQualityCriteria {
-  @Unused()
+  // ─────────────────────────────────────────────────────────────────────────
+  // Documentation Quality Overview
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    Field('documentationStrategy', String, 'Documentation Strategy',
+        hint: 'Comprehensive, minimal, just-in-time'),
+    Field('documentationOwnership', String, 'Documentation Ownership',
+        hint: 'Technical writers, developers, shared'),
+    Field('documentationPlatform', String, 'Documentation Platform',
+        hint: 'Confluence, GitBook, custom'),
+    Field('documentationReviewProcess', String, 'Review Process',
+        hint: 'Peer review, editorial review'),
+    Field('documentationVersionControl', String, 'Version Control',
+        hint: 'Git, CMS versioning, manual'),
+    Field('documentationUpdateCadence', String, 'Update Cadence',
+        hint: 'Continuous, per-release, scheduled'),
+  ])
+  String? documentationOverviewContent;
+
+  /// Documentation quality overview narrative.
+  @ContentHelp('Executive summary of documentation goals, '
+      'target audiences, and key documentation metrics.')
+  TextSection overview = TextSection();
+
+  /// 11.5.1. Readability [PD00-SYQ-DOC-REA].
+  @SectionId('PD00-SYQ-DOC-REA')
+  ReadabilityQuality readability = ReadabilityQuality();
+
+  /// 11.5.2. Completeness [PD00-SYQ-DOC-COM].
+  @SectionId('PD00-SYQ-DOC-COM')
+  DocCompletenessQuality completeness = DocCompletenessQuality();
+
+  /// 11.5.3. Correctness [PD00-SYQ-DOC-COR].
+  @SectionId('PD00-SYQ-DOC-COR')
+  DocCorrectnessQuality correctness = DocCorrectnessQuality();
+
+  /// 11.5.4. Changeability [PD00-SYQ-DOC-CHA].
+  @SectionId('PD00-SYQ-DOC-CHA')
+  DocChangeabilityQuality changeability = DocChangeabilityQuality();
+}
+
+/// 11.5.1. Readability quality [PD00-SYQ-DOC-REA].
+class ReadabilityQuality {
+  @Form([
+    // Unambiguity
+    Field('terminologyStandard', String, 'Terminology Standard',
+        hint: 'Glossary, controlled vocabulary'),
+    Field('ambiguityPrevention', String, 'Ambiguity Prevention',
+        hint: 'Review checklist, automated checks'),
+    Field('jargonPolicy', String, 'Jargon Policy',
+        hint: 'Define all terms, minimize jargon'),
+    // Identifiability
+    Field('sectionNumbering', String, 'Section Numbering',
+        hint: 'Hierarchical, flat, none'),
+    Field('crossReferenceStandard', String, 'Cross-Reference Standard',
+        hint: 'Section IDs, hyperlinks'),
+    Field('searchability', String, 'Searchability',
+        hint: 'Full-text search, tagged'),
+    // Comprehensibility
+    Field('readingLevelTarget', String, 'Reading Level Target',
+        hint: 'Grade level, technical audience'),
+    Field('formatStandards', String, 'Format Standards',
+        hint: 'Headings, lists, tables usage'),
+    Field('visualAidRequirements', String, 'Visual Aid Requirements',
+        hint: 'Diagrams, screenshots, examples'),
+    // Logical structure
+    Field('documentStructureTemplate', String, 'Structure Template',
+        hint: 'Standard document templates'),
+    Field('informationHierarchy', String, 'Information Hierarchy',
+        hint: 'How information is organized'),
+    Field('navigationAids', String, 'Navigation Aids',
+        hint: 'TOC, index, breadcrumbs'),
+    // Style guide
+    Field('styleGuideReference', String, 'Style Guide Reference',
+        hint: 'Google, Microsoft, custom'),
+    Field('writingVoice', String, 'Writing Voice',
+        hint: 'Active, passive, imperative'),
+    Field('formattingConventions', String, 'Formatting Conventions',
+        hint: 'Code, commands, UI elements'),
+  ])
   String? content;
 
-  /// Readability.
-  TextSection readability = TextSection();
+  /// Detailed readability requirements narrative.
+  TextSection narrative = TextSection();
+}
 
-  /// Completeness.
-  TextSection completeness = TextSection();
+/// 11.5.2. Documentation completeness quality [PD00-SYQ-DOC-COM].
+class DocCompletenessQuality {
+  @Form([
+    // Topic coverage
+    Field('requiredTopics', String, 'Required Topics',
+        hint: 'List of required documentation topics'),
+    Field('topicCoverageTarget', String, 'Topic Coverage Target %',
+        hint: '100% of required, 80% of optional'),
+    Field('audienceCoverage', String, 'Audience Coverage',
+        hint: 'End users, admins, developers'),
+    // Detail level
+    Field('detailLevelExpectation', String, 'Detail Level Expectation',
+        hint: 'Comprehensive, overview, reference'),
+    Field('exampleRequirements', String, 'Example Requirements',
+        hint: 'Examples for all features, key features'),
+    Field('screenshotRequirements', String, 'Screenshot Requirements',
+        hint: 'All UI, key workflows'),
+    // Cross-reference
+    Field('crossReferenceIntegrity', String, 'Cross-Reference Integrity',
+        hint: 'Automated link checking'),
+    Field('relatedTopicsLinking', String, 'Related Topics Linking',
+        hint: 'Manual, automated suggestions'),
+    // Verification
+    Field('completenessReview', String, 'Completeness Review',
+        hint: 'Checklist, traceability matrix'),
+    Field('gapIdentificationProcess', String, 'Gap Identification',
+        hint: 'User feedback, coverage reports'),
+  ])
+  String? content;
 
-  /// Correctness.
-  TextSection correctness = TextSection();
+  /// Detailed completeness requirements narrative.
+  TextSection narrative = TextSection();
+}
 
-  /// Changeability.
-  TextSection changeability = TextSection();
+/// 11.5.3. Documentation correctness quality [PD00-SYQ-DOC-COR].
+class DocCorrectnessQuality {
+  @Form([
+    // Error-freedom
+    Field('spellingGrammarCheck', String, 'Spelling/Grammar Check',
+        hint: 'Automated tools, manual review'),
+    Field('technicalAccuracyReview', String, 'Technical Accuracy Review',
+        hint: 'SME review, testing against product'),
+    Field('errorToleranceLevel', String, 'Error Tolerance Level',
+        hint: 'Zero errors, minor allowed'),
+    // Consistency
+    Field('terminologyConsistency', String, 'Terminology Consistency',
+        hint: 'Glossary enforcement'),
+    Field('formatConsistency', String, 'Format Consistency',
+        hint: 'Template adherence'),
+    Field('crossDocumentConsistency', String, 'Cross-Document Consistency',
+        hint: 'Consistency across documents'),
+    // Implementation alignment
+    Field('documentationSyncProcess', String, 'Documentation Sync Process',
+        hint: 'How docs stay aligned with code'),
+    Field('versionAlignment', String, 'Version Alignment',
+        hint: 'Docs versioned with product'),
+    Field('deprecationHandling', String, 'Deprecation Handling',
+        hint: 'How deprecated features are handled'),
+    // Verification
+    Field('correctnessVerification', String, 'Correctness Verification',
+        hint: 'Testing docs against product'),
+    Field('userFeedbackIntegration', String, 'User Feedback Integration',
+        hint: 'How user-reported errors are handled'),
+  ])
+  String? content;
+
+  /// Detailed correctness requirements narrative.
+  TextSection narrative = TextSection();
+}
+
+/// 11.5.4. Documentation changeability quality [PD00-SYQ-DOC-CHA].
+class DocChangeabilityQuality {
+  @Form([
+    // Versioning
+    Field('versioningStrategy', String, 'Versioning Strategy',
+        hint: 'Semantic, date-based, product-aligned'),
+    Field('versionHistoryTracking', String, 'Version History Tracking',
+        hint: 'Changelog, git history'),
+    Field('multiVersionSupport', String, 'Multi-Version Support',
+        hint: 'Multiple product versions documented'),
+    // Extensibility
+    Field('extensibilityApproach', String, 'Extensibility Approach',
+        hint: 'Modular, template-based'),
+    Field('newSectionGuidelines', String, 'New Section Guidelines',
+        hint: 'How to add new content'),
+    Field('localizationReadiness', String, 'Localization Readiness',
+        hint: 'i18n considerations'),
+    // Document sizing
+    Field('documentSizingGuideline', String, 'Document Sizing',
+        hint: 'Max pages, when to split'),
+    Field('topicGranularity', String, 'Topic Granularity',
+        hint: 'One topic per page, combined'),
+    // Structural consistency
+    Field('templateAdherence', String, 'Template Adherence',
+        hint: 'Required, recommended'),
+    Field('structuralChangeProcess', String, 'Structural Change Process',
+        hint: 'How structure changes are made'),
+    // Maintenance
+    Field('reviewCycle', String, 'Review Cycle',
+        hint: 'Periodic review schedule'),
+    Field('retirementProcess', String, 'Retirement Process',
+        hint: 'How outdated docs are retired'),
+  ])
+  String? content;
+
+  /// Detailed changeability requirements narrative.
+  TextSection narrative = TextSection();
 }
 
 /// 11.6. Quality Prioritization [PD00-SYQ-PRI].
+///
+/// Prioritization and balancing of quality attributes including weighted
+/// matrices and explicit trade-off decisions.
 @SectionId('PD00-SYQ-PRI')
 class QualityPrioritization {
-  @Unused()
-  String? content;
+  // ─────────────────────────────────────────────────────────────────────────
+  // Prioritization Framework
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    Field('prioritizationMethod', String, 'Prioritization Method',
+        hint: 'Weighted scoring, AHP, forced ranking'),
+    Field('prioritizationStakeholders', String, 'Prioritization Stakeholders',
+        hint: 'Who participates in prioritization'),
+    Field('prioritizationFrequency', String, 'Prioritization Frequency',
+        hint: 'Once, per-phase, continuous'),
+    Field('prioritizationDocumentation', String, 'Prioritization Documentation',
+        hint: 'How decisions are documented'),
+    Field('prioritizationReview', String, 'Prioritization Review',
+        hint: 'When priorities are reviewed'),
+    Field('conflictResolutionAuthority', String, 'Conflict Resolution Authority',
+        hint: 'Who resolves priority conflicts'),
+  ])
+  String? prioritizationFrameworkContent;
 
-  /// Weighted Quality Matrix.
-  TextSection weightedQualityMatrix = TextSection();
+  /// Prioritization approach overview.
+  @ContentHelp('Overview of how quality attributes are prioritized, '
+      'including stakeholder involvement and decision process.')
+  TextSection prioritizationOverview = TextSection();
+
+  /// 11.6.1. Weighted Quality Matrix [PD00-SYQ-PRI-WEI].
+  @SectionId('PD00-SYQ-PRI-WEI')
+  WeightedQualityMatrix weightedQualityMatrix = WeightedQualityMatrix();
 
   /// 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
   TradeOffDecisions tradeOffDecisions = TradeOffDecisions();
 }
 
+/// 11.6.1. Weighted Quality Matrix [PD00-SYQ-PRI-WEI].
+@SectionId('PD00-SYQ-PRI-WEI')
+class WeightedQualityMatrix {
+  @Form([
+    Field('matrixFormat', String, 'Matrix Format',
+        hint: 'Spreadsheet, radar chart, heatmap'),
+    Field('weightingScale', String, 'Weighting Scale',
+        hint: '1-5, 1-10, percentage'),
+    Field('totalWeightRequirement', String, 'Total Weight Requirement',
+        hint: 'Sum to 100%, relative weights'),
+    Field('weightJustificationRequired', bool, 'Weight Justification Required'),
+    Field('matrixUpdateProcess', String, 'Matrix Update Process',
+        hint: 'How weights are updated'),
+  ])
+  String? matrixConfigContent;
+
+  /// Weighted quality matrix narrative.
+  @ContentHelp('Description of weighted quality matrix including '
+      'weights assigned to each attribute and rationale.')
+  TextSection matrixNarrative = TextSection();
+
+  /// Quality attribute weight entries.
+  @SectionIdPattern('PD00-SYQ-PRI-WEI-xx')
+  List<QualityWeightEntry> weights = [];
+
+  /// Quality matrix visualization.
+  @ContentHelp('Visual representation of quality attribute priorities.')
+  DiagramSection matrixVisualization = DiagramSection();
+}
+
+/// A quality weight entry [PD00-SYQ-PRI-WEI-nn].
+class QualityWeightEntry {
+  @Form([
+    Field('qualityAttribute', String, 'Quality Attribute', required: true),
+    Field('qualityCategory', String, 'Category',
+        hint: 'User, Technical, Operations, Documentation'),
+    Field('weight', int, 'Weight (1-100)'),
+    Field('priority', String, 'Priority',
+        hint: 'Critical, high, medium, low'),
+    Field('rationale', String, 'Rationale',
+        hint: 'Why this weight'),
+    Field('stakeholderAgreement', String, 'Stakeholder Agreement',
+        hint: 'Who agreed to this weight'),
+    Field('tradeOffImplications', String, 'Trade-off Implications',
+        hint: 'What this priority means for other attributes'),
+  ])
+  String? content;
+}
+
 /// 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
+///
+/// Explicit trade-off decisions between quality attributes.
 @SectionId('PD00-SYQ-PRI-TRA')
 class TradeOffDecisions {
-  @Unused()
-  String? content;
+  @Form([
+    Field('tradeOffGovernance', String, 'Trade-off Governance',
+        hint: 'Who can make trade-off decisions'),
+    Field('tradeOffDocumentation', String, 'Trade-off Documentation',
+        hint: 'How decisions are documented'),
+    Field('tradeOffReview', String, 'Trade-off Review',
+        hint: 'When trade-offs are reviewed'),
+    Field('tradeOffReversal', String, 'Trade-off Reversal',
+        hint: 'Process to reverse a trade-off decision'),
+  ])
+  String? tradeOffGovernanceContent;
+
+  /// Trade-off decisions overview.
+  @ContentHelp('Overview of major trade-off decisions and their impact '
+      'on system quality and design choices.')
+  TextSection tradeOffOverview = TextSection();
 
   /// Contains 0+× TradeOffDecision.
   @SectionIdPattern('PD00-SYQ-PRI-TRA-xx')
@@ -165,32 +1296,128 @@ class TradeOffDecisions {
 /// A trade-off decision entry (form) [PD00-SYQ-PRI-TRA-nn].
 class TradeOffDecisionEntry {
   @Form([
-    Field('decision', String, 'Decision'),
-    Field('qualitiesInConflict', String, 'Qualities In Conflict'),
-    Field('rationale', String, 'Rationale'),
-    Field('impact', String, 'Impact assessment'),
+    // Decision identification
+    Field('decisionId', String, 'Decision ID',
+        hint: 'Unique identifier (e.g., TRADEOFF-001)'),
+    Field('decisionTitle', String, 'Decision Title', required: true),
+    Field('decisionDate', String, 'Decision Date'),
+    Field('decisionStatus', String, 'Status',
+        hint: 'Proposed, approved, implemented, reversed'),
+    // Qualities in conflict
+    Field('prioritizedQuality', String, 'Prioritized Quality', required: true,
+        hint: 'Quality attribute given priority'),
+    Field('deprioritizedQuality', String, 'Deprioritized Quality', required: true,
+        hint: 'Quality attribute traded off'),
+    Field('additionalQualitiesAffected', String, 'Additional Qualities Affected',
+        hint: 'Other qualities impacted'),
+    // Rationale
+    Field('businessRationale', String, 'Business Rationale',
+        hint: 'Business reason for trade-off'),
+    Field('technicalRationale', String, 'Technical Rationale',
+        hint: 'Technical considerations'),
+    Field('constraintsInfluencing', String, 'Constraints Influencing',
+        hint: 'Constraints that drove decision'),
+    Field('alternativesConsidered', String, 'Alternatives Considered',
+        hint: 'Other approaches evaluated'),
+    // Impact
+    Field('impactOnRequirements', String, 'Impact on Requirements',
+        hint: 'Requirements affected'),
+    Field('impactOnArchitecture', String, 'Impact on Architecture',
+        hint: 'Architectural implications'),
+    Field('impactOnSchedule', String, 'Impact on Schedule',
+        hint: 'Schedule implications'),
+    Field('impactOnCost', String, 'Impact on Cost',
+        hint: 'Cost implications'),
+    Field('impactOnUserExperience', String, 'Impact on User Experience',
+        hint: 'UX implications'),
+    // Mitigation
+    Field('mitigationMeasures', String, 'Mitigation Measures',
+        hint: 'How deprioritized quality is mitigated'),
+    Field('acceptanceCriteria', String, 'Acceptance Criteria',
+        hint: 'Minimum acceptable level'),
+    Field('monitoringApproach', String, 'Monitoring Approach',
+        hint: 'How impact is monitored'),
+    // Approval
+    Field('approvedBy', String, 'Approved By',
+        hint: 'Who approved the trade-off'),
+    Field('stakeholdersConsulted', String, 'Stakeholders Consulted',
+        hint: 'Who was consulted'),
+    Field('reviewDate', String, 'Review Date',
+        hint: 'When decision will be reviewed'),
   ])
   String? content;
+
+  /// Detailed trade-off analysis.
+  @ContentHelp('Extended analysis of trade-off decision including '
+      'quantitative impact assessment.')
+  TextSection detailedAnalysis = TextSection();
 }
 
 /// 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
+///
+/// Quality acceptance criteria for the project including must-pass criteria
+/// and quality gate checklists.
 @SectionId('PD00-SYQ-ACC')
 class AcceptanceCriteriaSummary {
-  @Unused()
-  String? content;
+  // ─────────────────────────────────────────────────────────────────────────
+  // Acceptance Framework
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    Field('acceptanceProcess', String, 'Acceptance Process',
+        hint: 'Formal UAT, continuous acceptance'),
+    Field('acceptanceAuthority', String, 'Acceptance Authority',
+        hint: 'Who signs off on acceptance'),
+    Field('acceptanceScope', String, 'Acceptance Scope',
+        hint: 'Full system, incremental, phase-based'),
+    Field('acceptanceEnvironment', String, 'Acceptance Environment',
+        hint: 'Where acceptance testing occurs'),
+    Field('acceptanceTimeline', String, 'Acceptance Timeline',
+        hint: 'Duration of acceptance period'),
+    Field('partialAcceptance', String, 'Partial Acceptance',
+        hint: 'Policy on accepting with defects'),
+    Field('acceptanceRejectionCriteria', String, 'Rejection Criteria',
+        hint: 'What triggers rejection'),
+  ])
+  String? acceptanceFrameworkContent;
+
+  /// Acceptance criteria overview.
+  @ContentHelp('Overview of acceptance process, key acceptance criteria, '
+      'and acceptance governance.')
+  TextSection acceptanceOverview = TextSection();
 
   /// 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
   MustPassCriteria mustPassCriteria = MustPassCriteria();
 
   /// 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
   QualityGateChecklist qualityGateChecklist = QualityGateChecklist();
+
+  /// Acceptance test summary.
+  @ContentHelp('Summary of acceptance test plan and expected outcomes.')
+  TextSection acceptanceTestSummary = TextSection();
 }
 
 /// 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
+///
+/// Criteria that must be met for the system to be accepted.
 @SectionId('PD00-SYQ-ACC-MUS')
 class MustPassCriteria {
-  @Unused()
-  String? content;
+  @Form([
+    Field('mustPassPhilosophy', String, 'Must-Pass Philosophy',
+        hint: 'All must pass, weighted approach'),
+    Field('mustPassCount', int, 'Number of Must-Pass Criteria'),
+    Field('criticalityDefinition', String, 'Criticality Definition',
+        hint: 'What makes a criterion must-pass'),
+    Field('waiverProcess', String, 'Waiver Process',
+        hint: 'Can must-pass criteria be waived'),
+    Field('waiverAuthority', String, 'Waiver Authority',
+        hint: 'Who can grant waivers'),
+  ])
+  String? mustPassOverviewContent;
+
+  /// Must-pass criteria overview.
+  @ContentHelp('Overview of must-pass criteria approach and '
+      'rationale for selection.')
+  TextSection overview = TextSection();
 
   /// Contains 0+× MustPassCriterion.
   @SectionIdPattern('PD00-SYQ-ACC-MUS-xx')
@@ -200,18 +1427,80 @@ class MustPassCriteria {
 /// A must-pass criterion entry (form) [PD00-SYQ-ACC-MUS-nn].
 class MustPassCriterionEntry {
   @Form([
-    Field('criterion', String, 'Criterion', required: true),
-    Field('verificationMethod', String, 'Verification Method'),
-    Field('acceptanceThreshold', String, 'Acceptance Threshold'),
+    // Criterion identification
+    Field('criterionId', String, 'Criterion ID',
+        hint: 'Unique identifier (e.g., MP-001)'),
+    Field('criterionName', String, 'Criterion Name', required: true),
+    Field('criterionDescription', String, 'Description',
+        hint: 'What must be achieved'),
+    Field('qualityCategory', String, 'Quality Category',
+        hint: 'User, Technical, Operations, Documentation'),
+    Field('qualityAttribute', String, 'Quality Attribute',
+        hint: 'Specific attribute this relates to'),
+    // Verification
+    Field('verificationMethod', String, 'Verification Method', required: true,
+        hint: 'Test, demonstration, analysis, inspection'),
+    Field('verificationProcedure', String, 'Verification Procedure',
+        hint: 'Steps to verify'),
+    Field('verificationEvidence', String, 'Verification Evidence',
+        hint: 'What evidence is required'),
+    // Threshold
+    Field('acceptanceThreshold', String, 'Acceptance Threshold', required: true,
+        hint: 'Pass/fail criteria'),
+    Field('measurementMethod', String, 'Measurement Method',
+        hint: 'How threshold is measured'),
+    Field('toleranceAllowed', String, 'Tolerance Allowed',
+        hint: 'Any acceptable variance'),
+    // Responsibility
+    Field('responsibleParty', String, 'Responsible Party',
+        hint: 'Who is responsible for verification'),
+    Field('reviewerParty', String, 'Reviewer Party',
+        hint: 'Who reviews the evidence'),
+    Field('approverParty', String, 'Approver Party',
+        hint: 'Who approves the result'),
+    // Dependencies
+    Field('dependsOnCriteria', String, 'Depends On',
+        hint: 'Other criteria this depends on'),
+    Field('blockedByCriteria', String, 'Blocked By',
+        hint: 'Criteria that block this'),
+    // Status
+    Field('criterionStatus', String, 'Status',
+        hint: 'Not tested, passed, failed, waived'),
+    Field('testDate', String, 'Test Date'),
+    Field('testResult', String, 'Test Result'),
+    Field('defectIds', String, 'Defect IDs',
+        hint: 'Defects blocking pass'),
   ])
   String? content;
+
+  /// Additional criterion details.
+  @ContentHelp('Extended description of criterion including '
+      'edge cases and special considerations.')
+  TextSection details = TextSection();
 }
 
 /// 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
+///
+/// Quality gate checklist used during acceptance.
 @SectionId('PD00-SYQ-ACC-GAT')
 class QualityGateChecklist {
-  @Unused()
-  String? content;
+  @Form([
+    Field('checklistPurpose', String, 'Checklist Purpose',
+        hint: 'Gate review, final acceptance, milestone'),
+    Field('checklistCompleteness', String, 'Completeness Requirement',
+        hint: 'All checks required, critical only'),
+    Field('checklistReviewProcess', String, 'Review Process',
+        hint: 'Individual, committee, automated'),
+    Field('checklistSignoff', String, 'Signoff Requirement',
+        hint: 'Single, multiple signoffs'),
+    Field('checklistFrequency', String, 'Checklist Frequency',
+        hint: 'When checklist is used'),
+  ])
+  String? checklistOverviewContent;
+
+  /// Quality gate checklist overview.
+  @ContentHelp('Overview of quality gate process and checklist usage.')
+  TextSection overview = TextSection();
 
   /// Contains 0+× QualityGateCheck.
   @SectionIdPattern('PD00-SYQ-ACC-GAT-xx')
@@ -221,10 +1510,50 @@ class QualityGateChecklist {
 /// A quality gate check entry (form) [PD00-SYQ-ACC-GAT-nn].
 class QualityGateCheckEntry {
   @Form([
-    Field('checkItem', String, 'Check Item'),
-    Field('qualityCategory', String, 'Quality Category'),
-    Field('verificationMethod', String, 'Verification Method'),
-    Field('responsibleParty', String, 'Responsible Party'),
+    // Check identification
+    Field('checkId', String, 'Check ID',
+        hint: 'Unique identifier (e.g., QGC-001)'),
+    Field('checkItem', String, 'Check Item', required: true,
+        hint: 'What is being checked'),
+    Field('checkDescription', String, 'Check Description',
+        hint: 'Detailed description of check'),
+    Field('checkCategory', String, 'Check Category',
+        hint: 'Category of check'),
+    Field('qualityCategory', String, 'Quality Category',
+        hint: 'User, Technical, Operations, Documentation'),
+    // Verification
+    Field('verificationMethod', String, 'Verification Method', required: true,
+        hint: 'How check is verified'),
+    Field('verificationCriteria', String, 'Verification Criteria',
+        hint: 'Pass/fail criteria'),
+    Field('evidenceRequired', String, 'Evidence Required',
+        hint: 'What evidence is needed'),
+    Field('automatedCheck', bool, 'Automated Check',
+        hint: 'Is check automated'),
+    // Responsibility
+    Field('responsibleParty', String, 'Responsible Party', required: true,
+        hint: 'Who performs the check'),
+    Field('reviewerParty', String, 'Reviewer Party',
+        hint: 'Who reviews the result'),
+    // Timing
+    Field('checkTiming', String, 'Check Timing',
+        hint: 'When check is performed'),
+    Field('checkDuration', String, 'Check Duration',
+        hint: 'Expected time to complete'),
+    Field('checkDependencies', String, 'Dependencies',
+        hint: 'What must be complete first'),
+    // Status
+    Field('checkStatus', String, 'Status',
+        hint: 'Not started, in progress, passed, failed'),
+    Field('checkDate', String, 'Check Date'),
+    Field('checkResult', String, 'Check Result'),
+    Field('checkNotes', String, 'Notes',
+        hint: 'Additional observations'),
+    // Blocking
+    Field('isBlocking', bool, 'Is Blocking',
+        hint: 'Does failure block acceptance'),
+    Field('blockingRationale', String, 'Blocking Rationale',
+        hint: 'Why this check blocks'),
   ])
   String? content;
 }
