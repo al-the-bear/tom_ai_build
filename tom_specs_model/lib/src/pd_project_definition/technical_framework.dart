@@ -8880,17 +8880,775 @@ class SystemDiagnosticTools {
 }
 
 /// 8.7.2. Monitoring [PD00-TEC-SYS-MON].
+///
+/// Comprehensive monitoring specification covering health checks, alerting,
+/// observability, dashboards, and SLA/SLO tracking.
 @SectionId('PD00-TEC-SYS-MON')
 class Monitoring {
-  @Unused()
-  String? content;
+  // ─────────────────────────────────────────────────────────────────────────
+  // Monitoring Overview
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    // Strategy
+    Field('monitoringStrategy', String, 'Monitoring Strategy',
+        hint: 'Proactive, reactive, hybrid approach'),
+    Field('observabilityMaturity', String, 'Observability Maturity',
+        hint: 'Current maturity level (L1-L4)'),
+    Field('monitoringScope', String, 'Monitoring Scope',
+        hint: 'Infrastructure, application, business metrics'),
+    // Tools
+    Field('primaryMonitoringPlatform', String, 'Primary Monitoring Platform',
+        hint: 'Datadog, New Relic, Prometheus, CloudWatch'),
+    Field('metricsStore', String, 'Metrics Store',
+        hint: 'InfluxDB, Prometheus, CloudWatch Metrics'),
+    Field('tracingPlatform', String, 'Tracing Platform',
+        hint: 'Jaeger, Zipkin, AWS X-Ray, Datadog APM'),
+    Field('loggingPlatform', String, 'Logging Platform',
+        hint: 'ELK Stack, Loki, CloudWatch Logs'),
+    // Coverage
+    Field('coverageRequirement', String, 'Coverage Requirement',
+        hint: 'Which services must be monitored'),
+    Field('dataRetention', String, 'Data Retention',
+        hint: 'Metrics: 15d, traces: 7d, logs: 30d'),
+    Field('costBudget', String, 'Cost Budget',
+        hint: 'Monthly monitoring cost budget'),
+  ])
+  String? monitoringOverview;
+
+  /// Monitoring strategy narrative.
+  @ContentHelp('Executive summary of monitoring philosophy, tool '
+      'selection rationale, and observability goals.')
+  TextSection overviewNarrative = TextSection();
 
   /// 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].
+  @SectionId('PD00-TEC-SYS-HEA')
   HealthChecksAndDiagnosticsSection healthChecksAndDiagnostics =
       HealthChecksAndDiagnosticsSection();
 
-  /// Alerting.
-  TextSection alerting = TextSection();
+  /// 8.7.2.2. Alerting Configuration [PD00-TEC-SYS-MON-ALR].
+  @SectionId('PD00-TEC-SYS-MON-ALR')
+  AlertingConfiguration alertingConfiguration = AlertingConfiguration();
+
+  /// 8.7.2.3. Metrics and Observability [PD00-TEC-SYS-MON-MET].
+  @SectionId('PD00-TEC-SYS-MON-MET')
+  MetricsAndObservability metricsAndObservability = MetricsAndObservability();
+
+  /// 8.7.2.4. Monitoring Dashboards [PD00-TEC-SYS-MON-DAS].
+  @SectionId('PD00-TEC-SYS-MON-DAS')
+  MonitoringDashboards dashboards = MonitoringDashboards();
+
+  /// 8.7.2.5. SLA and SLO Monitoring [PD00-TEC-SYS-MON-SLA].
+  @SectionId('PD00-TEC-SYS-MON-SLA')
+  SlaAndSloMonitoring slaAndSloMonitoring = SlaAndSloMonitoring();
+}
+
+// ---------------------------------------------------------------------------
+// 8.7.2.2 Alerting Configuration
+// ---------------------------------------------------------------------------
+
+/// 8.7.2.2. Alerting Configuration [PD00-TEC-SYS-MON-ALR].
+///
+/// Comprehensive alerting rules, notification channels, and escalation
+/// policies.
+@SectionId('PD00-TEC-SYS-MON-ALR')
+class AlertingConfiguration {
+  // ─────────────────────────────────────────────────────────────────────────
+  // Alerting Overview
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    // Philosophy
+    Field('alertingPhilosophy', String, 'Alerting Philosophy',
+        hint: 'Page on symptoms, not causes; reduce noise'),
+    Field('alertSeverityLevels', String, 'Alert Severity Levels',
+        hint: 'Critical, Warning, Info'),
+    Field('onCallModel', String, 'On-Call Model',
+        hint: 'Follow-the-sun, regional, single team'),
+    // Response expectations
+    Field('criticalResponseTime', String, 'Critical Response Time',
+        hint: 'Max time to acknowledge critical alerts'),
+    Field('warningResponseTime', String, 'Warning Response Time',
+        hint: 'Max time to acknowledge warnings'),
+    Field('infoResponseTime', String, 'Info Response Time',
+        hint: 'Expected review time for info alerts'),
+    // Alert hygiene
+    Field('alertReviewCadence', String, 'Alert Review Cadence',
+        hint: 'How often alert rules are reviewed'),
+    Field('noisyAlertPolicy', String, 'Noisy Alert Policy',
+        hint: 'Process for tuning noisy alerts'),
+    Field('staleAlertCleanup', String, 'Stale Alert Cleanup',
+        hint: 'Removing outdated alert rules'),
+  ])
+  String? alertingOverview;
+
+  /// Alerting overview narrative.
+  TextSection overviewNarrative = TextSection();
+
+  /// Notification channels.
+  AlertNotificationChannels notificationChannels = AlertNotificationChannels();
+
+  /// Alert rules catalog.
+  @SectionIdPattern('PD00-TEC-SYS-MON-ALR-xx')
+  List<AlertRuleEntry> alertRules = [];
+
+  /// Escalation policies.
+  AlertEscalationPolicies escalationPolicies = AlertEscalationPolicies();
+
+  /// Alert suppression and maintenance windows.
+  AlertSuppressionRules suppressionRules = AlertSuppressionRules();
+
+  /// On-call schedule.
+  OnCallScheduleConfig onCallSchedule = OnCallScheduleConfig();
+}
+
+/// Alert notification channels.
+class AlertNotificationChannels {
+  @Form([
+    // Primary channels
+    Field('pagingService', String, 'Paging Service',
+        hint: 'PagerDuty, Opsgenie, VictorOps'),
+    Field('slackIntegration', String, 'Slack Integration',
+        hint: 'Channel for alerts (#alerts, #incidents)'),
+    Field('teamsIntegration', String, 'Teams Integration',
+        hint: 'Microsoft Teams channel integration'),
+    Field('emailNotification', String, 'Email Notification',
+        hint: 'Email distribution lists for alerts'),
+    Field('smsNotification', String, 'SMS Notification',
+        hint: 'SMS/text for critical alerts'),
+    Field('phoneCallEscalation', String, 'Phone Call Escalation',
+        hint: 'Voice call for unacknowledged criticals'),
+    // Channel routing
+    Field('criticalAlertChannels', String, 'Critical Alert Channels',
+        hint: 'Where critical alerts are sent'),
+    Field('warningAlertChannels', String, 'Warning Alert Channels',
+        hint: 'Where warning alerts are sent'),
+    Field('infoAlertChannels', String, 'Info Alert Channels',
+        hint: 'Where info alerts are sent'),
+    // Customization
+    Field('alertMessageFormat', String, 'Alert Message Format',
+        hint: 'Template for alert notification content'),
+    Field('enrichmentData', String, 'Enrichment Data',
+        hint: 'Runbook links, dashboard links, context'),
+    Field('deduplication', String, 'Deduplication',
+        hint: 'How duplicate alerts are suppressed'),
+    Field('groupingRules', String, 'Grouping Rules',
+        hint: 'How related alerts are grouped'),
+    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+}
+
+/// An alert rule entry [PD00-TEC-SYS-MON-ALR-nn].
+class AlertRuleEntry {
+  @Form([
+    // Identity
+    Field('alertId', String, 'Alert ID', required: true),
+    Field('alertName', String, 'Alert Name', required: true),
+    Field('alertDescription', String, 'Alert Description'),
+    Field('severity', String, 'Severity',
+        hint: 'Critical, Warning, Info'),
+    Field('category', String, 'Category',
+        hint: 'Infrastructure, Application, Business, Security'),
+    // Trigger condition
+    Field('metricOrCondition', String, 'Metric/Condition',
+        hint: 'What triggers this alert'),
+    Field('threshold', String, 'Threshold',
+        hint: 'Threshold value(s) for triggering'),
+    Field('evaluationWindow', String, 'Evaluation Window',
+        hint: 'Time window for condition evaluation'),
+    Field('requiredOccurrences', String, 'Required Occurrences',
+        hint: 'N of M before alerting'),
+    // Response
+    Field('notificationChannels', String, 'Notification Channels',
+        hint: 'Where alert is sent'),
+    Field('runbookLink', String, 'Runbook Link',
+        hint: 'Link to troubleshooting runbook'),
+    Field('escalationPolicy', String, 'Escalation Policy',
+        hint: 'Which escalation policy applies'),
+    Field('autoRemediation', String, 'Auto-Remediation',
+        hint: 'Automatic remediation action if any'),
+    // Ownership
+    Field('ownerTeam', String, 'Owner Team'),
+    Field('primaryContact', String, 'Primary Contact'),
+    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+}
+
+/// Alert escalation policies.
+class AlertEscalationPolicies {
+  @Form([
+    // Escalation levels
+    Field('level1Responder', String, 'Level 1 Responder',
+        hint: 'Primary on-call, response time'),
+    Field('level2Responder', String, 'Level 2 Responder',
+        hint: 'Escalation if L1 no response'),
+    Field('level3Responder', String, 'Level 3 Responder',
+        hint: 'Senior engineer/architect escalation'),
+    Field('managementEscalation', String, 'Management Escalation',
+        hint: 'When to escalate to management'),
+    // Timing
+    Field('level1ToLevel2Time', String, 'L1 to L2 Time',
+        hint: 'Time before escalating to L2'),
+    Field('level2ToLevel3Time', String, 'L2 to L3 Time',
+        hint: 'Time before escalating to L3'),
+    Field('level3ToManagementTime', String, 'L3 to Management Time',
+        hint: 'Time before management notification'),
+    // Behavior
+    Field('acknowledgeStopsEscalation', bool, 'Acknowledge Stops Escalation',
+        hint: 'Whether acknowledgment pauses escalation'),
+    Field('resolveStopsEscalation', bool, 'Resolve Stops Escalation',
+        hint: 'Whether resolution cancels escalation'),
+    Field('repeatNotification', String, 'Repeat Notification',
+        hint: 'Re-notify if unresolved after N minutes'),
+    // Multiple policies
+    Field('businessHoursPolicy', String, 'Business Hours Policy',
+        hint: 'Escalation during business hours'),
+    Field('afterHoursPolicy', String, 'After-Hours Policy',
+        hint: 'Escalation outside business hours'),
+    Field('weekendHolidayPolicy', String, 'Weekend/Holiday Policy',
+        hint: 'Escalation on weekends/holidays'),
+    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+}
+
+/// Alert suppression and maintenance windows.
+class AlertSuppressionRules {
+  @Form([
+    // Maintenance windows
+    Field('scheduledMaintenanceWindows', String, 'Scheduled Maintenance Windows',
+        hint: 'Recurring maintenance window times'),
+    Field('adHocMaintenanceProcess', String, 'Ad-Hoc Maintenance Process',
+        hint: 'How to create one-time maintenance windows'),
+    Field('maintenanceNotification', String, 'Maintenance Notification',
+        hint: 'How stakeholders are informed'),
+    // Suppression rules
+    Field('dependentAlertSuppression', bool, 'Dependent Alert Suppression',
+        hint: 'Suppress downstream alerts'),
+    Field('flappingDetection', bool, 'Flapping Detection',
+        hint: 'Detect and suppress flapping alerts'),
+    Field('silenceRules', String, 'Silence Rules',
+        hint: 'Temporary silence for known issues'),
+    Field('inhibitRules', String, 'Inhibit Rules',
+        hint: 'Rules to inhibit lower-severity alerts'),
+    // Audit
+    Field('suppressionAuditLog', bool, 'Suppression Audit Log',
+        hint: 'Log all suppression/silence actions'),
+    Field('suppressionReview', String, 'Suppression Review',
+        hint: 'Periodic review of active suppressions'),
+    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+}
+
+/// On-call schedule configuration.
+class OnCallScheduleConfig {
+  @Form([
+    // Schedule
+    Field('rotationSchedule', String, 'Rotation Schedule',
+        hint: 'Weekly, bi-weekly, custom rotation'),
+    Field('scheduleTimezone', String, 'Schedule Timezone',
+        hint: 'UTC, local, follow-the-sun'),
+    Field('primaryOnCallDuties', String, 'Primary On-Call Duties',
+        hint: 'Responsibilities during on-call'),
+    Field('secondaryOnCallDuties', String, 'Secondary On-Call Duties',
+        hint: 'Backup on-call responsibilities'),
+    // Override handling
+    Field('scheduleOverrideProcess', String, 'Schedule Override Process',
+        hint: 'How to swap on-call shifts'),
+    Field('holidayCoverage', String, 'Holiday Coverage',
+        hint: 'Coverage during holidays'),
+    Field('vacationCoverage', String, 'Vacation Coverage',
+        hint: 'How vacation affects on-call'),
+    // Compensation
+    Field('onCallCompensation', String, 'On-Call Compensation',
+        hint: 'Comp for being on-call'),
+    Field('incidentResponseCompensation', String, 'Incident Response Compensation',
+        hint: 'Additional comp for incidents'),
+    // Tools
+    Field('scheduleManagementTool', String, 'Schedule Management Tool',
+        hint: 'PagerDuty, Opsgenie schedule'),
+    Field('handoffProcess', String, 'Handoff Process',
+        hint: 'On-call handoff procedure'),
+    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 8.7.2.3 Metrics and Observability
+// ---------------------------------------------------------------------------
+
+/// 8.7.2.3. Metrics and Observability [PD00-TEC-SYS-MON-MET].
+///
+/// Comprehensive metrics collection, distributed tracing, and observability
+/// requirements.
+@SectionId('PD00-TEC-SYS-MON-MET')
+class MetricsAndObservability {
+  // ─────────────────────────────────────────────────────────────────────────
+  // Metrics Overview
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    // Pillars
+    Field('metricsEnabled', bool, 'Metrics Enabled'),
+    Field('logsEnabled', bool, 'Logs Enabled'),
+    Field('tracesEnabled', bool, 'Traces Enabled'),
+    Field('profilesEnabled', bool, 'Profiles Enabled',
+        hint: 'Continuous profiling'),
+    // Standards
+    Field('metricsFormat', String, 'Metrics Format',
+        hint: 'Prometheus, OpenMetrics, StatsD'),
+    Field('logsFormat', String, 'Logs Format',
+        hint: 'Structured JSON, syslog'),
+    Field('tracingStandard', String, 'Tracing Standard',
+        hint: 'OpenTelemetry, OpenTracing, W3C Trace Context'),
+    // Collection
+    Field('collectionMethod', String, 'Collection Method',
+        hint: 'Pull (Prometheus), push (agent), sidecar'),
+    Field('scrapeInterval', String, 'Scrape Interval',
+        hint: 'Metrics collection frequency'),
+    Field('samplingRate', String, 'Sampling Rate',
+        hint: 'Trace sampling percentage'),
+  ])
+  String? metricsOverview;
+
+  /// Observability overview narrative.
+  TextSection overviewNarrative = TextSection();
+
+  /// Application metrics specification.
+  ApplicationMetricsSpec applicationMetrics = ApplicationMetricsSpec();
+
+  /// Infrastructure metrics specification.
+  InfrastructureMetricsSpec infrastructureMetrics = InfrastructureMetricsSpec();
+
+  /// Business metrics specification.
+  BusinessMetricsSpec businessMetrics = BusinessMetricsSpec();
+
+  /// Distributed tracing specification.
+  DistributedTracingSpec distributedTracing = DistributedTracingSpec();
+
+  /// Custom metrics catalog.
+  @SectionIdPattern('PD00-TEC-SYS-MON-MET-xx')
+  List<CustomMetricEntry> customMetrics = [];
+}
+
+/// Application metrics specification.
+class ApplicationMetricsSpec {
+  @Form([
+    // RED metrics (Rate, Errors, Duration)
+    Field('requestRate', bool, 'Request Rate',
+        hint: 'Requests per second'),
+    Field('errorRate', bool, 'Error Rate',
+        hint: 'Error percentage'),
+    Field('requestDuration', bool, 'Request Duration',
+        hint: 'Latency histograms (p50, p95, p99)'),
+    // USE metrics (Utilization, Saturation, Errors)
+    Field('resourceUtilization', bool, 'Resource Utilization',
+        hint: 'CPU, memory per service'),
+    Field('resourceSaturation', bool, 'Resource Saturation',
+        hint: 'Queue depths, connection pool usage'),
+    Field('resourceErrors', bool, 'Resource Errors',
+        hint: 'Timeouts, failures'),
+    // Application-specific
+    Field('cacheMetrics', bool, 'Cache Metrics',
+        hint: 'Hit rate, miss rate, evictions'),
+    Field('databaseMetrics', bool, 'Database Metrics',
+        hint: 'Query count, latency, connection count'),
+    Field('httpClientMetrics', bool, 'HTTP Client Metrics',
+        hint: 'Outbound request metrics'),
+    Field('grpcMetrics', bool, 'gRPC Metrics',
+        hint: 'gRPC-specific metrics'),
+    Field('messageQueueMetrics', bool, 'Message Queue Metrics',
+        hint: 'Publish/consume rates, lag'),
+    // Labels
+    Field('standardLabels', String, 'Standard Labels',
+        hint: 'service, environment, version, instance'),
+    Field('customLabels', String, 'Custom Labels',
+        hint: 'Business-specific labels'),
+    Field('labelCardinality', String, 'Label Cardinality',
+        hint: 'Max cardinality guidelines'),
+    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+}
+
+/// Infrastructure metrics specification.
+class InfrastructureMetricsSpec {
+  @Form([
+    // Compute
+    Field('cpuMetrics', bool, 'CPU Metrics',
+        hint: 'User, system, iowait, idle'),
+    Field('memoryMetrics', bool, 'Memory Metrics',
+        hint: 'Used, available, cached, buffered'),
+    Field('diskMetrics', bool, 'Disk Metrics',
+        hint: 'Usage, IOPS, throughput, latency'),
+    Field('networkMetrics', bool, 'Network Metrics',
+        hint: 'Bytes in/out, packets, errors'),
+    // Kubernetes/Container
+    Field('containerMetrics', bool, 'Container Metrics',
+        hint: 'Container CPU, memory, restarts'),
+    Field('podMetrics', bool, 'Pod Metrics',
+        hint: 'Pod status, readiness, age'),
+    Field('nodeMetrics', bool, 'Node Metrics',
+        hint: 'Node capacity, allocatable, conditions'),
+    Field('deploymentMetrics', bool, 'Deployment Metrics',
+        hint: 'Replica count, rollout status'),
+    // Cloud provider
+    Field('cloudProviderMetrics', bool, 'Cloud Provider Metrics',
+        hint: 'Native cloud metrics integration'),
+    Field('managedServiceMetrics', bool, 'Managed Service Metrics',
+        hint: 'RDS, ElastiCache, SQS metrics'),
+    Field('loadBalancerMetrics', bool, 'Load Balancer Metrics',
+        hint: 'Connection count, healthy hosts'),
+    Field('cdnMetrics', bool, 'CDN Metrics',
+        hint: 'Cache hit ratio, bandwidth, latency'),
+    // Cost
+    Field('costMetrics', bool, 'Cost Metrics',
+        hint: 'Resource cost attribution'),
+    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+}
+
+/// Business metrics specification.
+class BusinessMetricsSpec {
+  @Form([
+    // User activity
+    Field('activeUsers', bool, 'Active Users',
+        hint: 'DAU, WAU, MAU'),
+    Field('sessionMetrics', bool, 'Session Metrics',
+        hint: 'Session count, duration, depth'),
+    Field('userJourneyMetrics', bool, 'User Journey Metrics',
+        hint: 'Funnel completion, drop-off'),
+    // Transactions
+    Field('transactionVolume', bool, 'Transaction Volume',
+        hint: 'Orders, payments, conversions'),
+    Field('transactionValue', bool, 'Transaction Value',
+        hint: 'Revenue, GMV, average order value'),
+    Field('transactionSuccess', bool, 'Transaction Success',
+        hint: 'Success/failure rates'),
+    // Feature usage
+    Field('featureAdoption', bool, 'Feature Adoption',
+        hint: 'Feature usage rates'),
+    Field('featureEngagement', bool, 'Feature Engagement',
+        hint: 'Depth of feature usage'),
+    // Business KPIs
+    Field('conversionRate', bool, 'Conversion Rate'),
+    Field('churnRate', bool, 'Churn Rate'),
+    Field('customerSatisfaction', bool, 'Customer Satisfaction',
+        hint: 'NPS, CSAT from feedback'),
+    Field('slaCompliance', bool, 'SLA Compliance',
+        hint: 'SLA adherence metrics'),
+    // Real-time
+    Field('realTimeBusinessDashboard', bool, 'Real-Time Business Dashboard',
+        hint: 'Live business metrics display'),
+    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+}
+
+/// Distributed tracing specification.
+class DistributedTracingSpec {
+  @Form([
+    // Tracing infrastructure
+    Field('tracingBackend', String, 'Tracing Backend',
+        hint: 'Jaeger, Zipkin, Tempo, X-Ray'),
+    Field('tracingProtocol', String, 'Tracing Protocol',
+        hint: 'OTLP, Jaeger Thrift, Zipkin JSON'),
+    Field('traceIdFormat', String, 'Trace ID Format',
+        hint: 'W3C Trace Context, B3, custom'),
+    // Sampling
+    Field('headSamplingRate', String, 'Head Sampling Rate',
+        hint: 'Percentage of traces sampled at start'),
+    Field('tailSamplingRules', String, 'Tail Sampling Rules',
+        hint: 'Rules for sampling after trace completes'),
+    Field('errorSampling', String, 'Error Sampling',
+        hint: 'Always sample error traces'),
+    Field('latencySampling', String, 'Latency Sampling',
+        hint: 'Sample slow traces'),
+    // Span details
+    Field('defaultSpanAttributes', String, 'Default Span Attributes',
+        hint: 'Attributes added to all spans'),
+    Field('spanNameConvention', String, 'Span Name Convention',
+        hint: 'Naming convention for spans'),
+    Field('resourceAttributes', String, 'Resource Attributes',
+        hint: 'Service name, version, environment'),
+    // Correlation
+    Field('logTraceCorrelation', bool, 'Log-Trace Correlation',
+        hint: 'Inject trace ID into logs'),
+    Field('metricsTraceCorrelation', bool, 'Metrics-Trace Correlation',
+        hint: 'Link metrics to exemplar traces'),
+    Field('baggagePropagation', String, 'Baggage Propagation',
+        hint: 'Custom context propagated across services'),
+    // Retention
+    Field('traceRetention', String, 'Trace Retention',
+        hint: 'How long traces are stored'),
+    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+}
+
+/// A custom metric entry [PD00-TEC-SYS-MON-MET-nn].
+class CustomMetricEntry {
+  @Form([
+    Field('metricName', String, 'Metric Name', required: true,
+        hint: 'Full metric name (e.g., app_orders_total)'),
+    Field('metricType', String, 'Metric Type',
+        hint: 'Counter, gauge, histogram, summary'),
+    Field('metricDescription', String, 'Metric Description'),
+    Field('unit', String, 'Unit',
+        hint: 'seconds, bytes, requests, count'),
+    Field('labels', String, 'Labels',
+        hint: 'Labels attached to this metric'),
+    Field('source', String, 'Source',
+        hint: 'Where this metric is emitted'),
+    Field('alertOnMetric', bool, 'Alert On Metric',
+        hint: 'Whether alerts are based on this metric'),
+    Field('dashboardInclusion', String, 'Dashboard Inclusion',
+        hint: 'Which dashboards include this metric'),
+    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 8.7.2.4 Monitoring Dashboards
+// ---------------------------------------------------------------------------
+
+/// 8.7.2.4. Monitoring Dashboards [PD00-TEC-SYS-MON-DAS].
+///
+/// Operational dashboards for system monitoring.
+@SectionId('PD00-TEC-SYS-MON-DAS')
+class MonitoringDashboards {
+  @Form([
+    // Platform
+    Field('dashboardPlatform', String, 'Dashboard Platform',
+        hint: 'Grafana, Datadog, CloudWatch, custom'),
+    Field('dashboardAccessControl', String, 'Dashboard Access Control',
+        hint: 'Who can view, edit dashboards'),
+    Field('dashboardVersioning', bool, 'Dashboard Versioning',
+        hint: 'Version control for dashboards'),
+    // Standards
+    Field('dashboardNamingConvention', String, 'Dashboard Naming Convention',
+        hint: 'Naming standards for dashboards'),
+    Field('standardLayout', String, 'Standard Layout',
+        hint: 'Common layout patterns'),
+    Field('colorCodingStandards', String, 'Color Coding Standards',
+        hint: 'Red=bad, green=good conventions'),
+    // Categories
+    Field('executiveDashboards', bool, 'Executive Dashboards',
+        hint: 'High-level business KPIs'),
+    Field('operationalDashboards', bool, 'Operational Dashboards',
+        hint: 'Real-time ops dashboards'),
+    Field('serviceDashboards', bool, 'Service Dashboards',
+        hint: 'Per-service detail dashboards'),
+    Field('infrastructureDashboards', bool, 'Infrastructure Dashboards',
+        hint: 'Infra-level dashboards'),
+  ])
+  String? dashboardOverview;
+
+  /// Dashboard overview narrative.
+  TextSection overviewNarrative = TextSection();
+
+  /// Dashboard catalog.
+  @SectionIdPattern('PD00-TEC-SYS-MON-DAS-xx')
+  List<DashboardEntry> dashboards = [];
+
+  /// Dashboard template specifications.
+  DashboardTemplates dashboardTemplates = DashboardTemplates();
+}
+
+/// A dashboard entry [PD00-TEC-SYS-MON-DAS-nn].
+class DashboardEntry {
+  @Form([
+    Field('dashboardId', String, 'Dashboard ID', required: true),
+    Field('dashboardName', String, 'Dashboard Name', required: true),
+    Field('dashboardCategory', String, 'Dashboard Category',
+        hint: 'Executive, operational, service, infrastructure'),
+    Field('targetAudience', String, 'Target Audience',
+        hint: 'Who uses this dashboard'),
+    Field('refreshInterval', String, 'Refresh Interval'),
+    Field('timeRangeDefault', String, 'Time Range Default',
+        hint: 'Default time window'),
+    Field('keyPanels', String, 'Key Panels',
+        hint: 'Main visualizations on dashboard'),
+    Field('dataSource', String, 'Data Source',
+        hint: 'Data source for dashboard'),
+    Field('alertIntegration', String, 'Alert Integration',
+        hint: 'Alerts displayed on dashboard'),
+    Field('ownerTeam', String, 'Owner Team'),
+    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+}
+
+/// Dashboard templates specification.
+class DashboardTemplates {
+  @Form([
+    // Service template
+    Field('serviceTemplateLayout', String, 'Service Template Layout',
+        hint: 'Standard panels for service dashboards'),
+    Field('serviceTemplateVariables', String, 'Service Template Variables',
+        hint: 'Configurable variables'),
+    // Infrastructure template
+    Field('infraTemplateLayout', String, 'Infra Template Layout',
+        hint: 'Standard panels for infra dashboards'),
+    // K8s template
+    Field('k8sTemplateLayout', String, 'K8s Template Layout',
+        hint: 'Kubernetes-specific dashboard layout'),
+    // Database template
+    Field('databaseTemplateLayout', String, 'Database Template Layout',
+        hint: 'Database monitoring panels'),
+    // Custom templates
+    Field('customTemplateProcess', String, 'Custom Template Process',
+        hint: 'How to create new templates'),
+    Field('templateVersioning', String, 'Template Versioning',
+        hint: 'How templates are versioned'),
+    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 8.7.2.5 SLA and SLO Monitoring
+// ---------------------------------------------------------------------------
+
+/// 8.7.2.5. SLA and SLO Monitoring [PD00-TEC-SYS-MON-SLA].
+///
+/// Service Level Agreement and Service Level Objective tracking.
+@SectionId('PD00-TEC-SYS-MON-SLA')
+class SlaAndSloMonitoring {
+  @Form([
+    // SLI/SLO framework
+    Field('sloFramework', String, 'SLO Framework',
+        hint: 'Google SRE, custom'),
+    Field('errorBudgetPolicy', String, 'Error Budget Policy',
+        hint: 'How error budget is managed'),
+    Field('errorBudgetExhaustionPolicy', String, 'Error Budget Exhaustion Policy',
+        hint: 'Actions when budget exhausted'),
+    // Reporting
+    Field('slaReportingCadence', String, 'SLA Reporting Cadence',
+        hint: 'Weekly, monthly SLA reports'),
+    Field('slaReportingAudience', String, 'SLA Reporting Audience',
+        hint: 'Who receives SLA reports'),
+    Field('slaBreachProcess', String, 'SLA Breach Process',
+        hint: 'Process when SLA is breached'),
+    // External SLAs
+    Field('customerFacingSLAs', bool, 'Customer-Facing SLAs',
+        hint: 'SLAs published to customers'),
+    Field('slaCredits', String, 'SLA Credits',
+        hint: 'Credit/refund policy for breaches'),
+    Field('slaExclusions', String, 'SLA Exclusions',
+        hint: 'Maintenance windows, force majeure'),
+  ])
+  String? slaOverview;
+
+  /// SLA/SLO overview narrative.
+  TextSection overviewNarrative = TextSection();
+
+  /// Service Level Indicators.
+  ServiceLevelIndicators slis = ServiceLevelIndicators();
+
+  /// SLO catalog.
+  @SectionIdPattern('PD00-TEC-SYS-MON-SLA-xx')
+  List<SloEntry> slos = [];
+
+  /// Error budget tracking.
+  ErrorBudgetTracking errorBudget = ErrorBudgetTracking();
+}
+
+/// Service Level Indicators.
+class ServiceLevelIndicators {
+  @Form([
+    // Availability SLIs
+    Field('availabilitySli', String, 'Availability SLI',
+        hint: 'How availability is measured'),
+    Field('availabilityExclusions', String, 'Availability Exclusions',
+        hint: 'What is excluded from availability'),
+    // Latency SLIs
+    Field('latencySli', String, 'Latency SLI',
+        hint: 'How latency is measured (p50, p95, p99)'),
+    Field('latencyThresholds', String, 'Latency Thresholds',
+        hint: 'Good latency vs bad latency'),
+    // Throughput SLIs
+    Field('throughputSli', String, 'Throughput SLI',
+        hint: 'How throughput is measured'),
+    // Error rate SLIs
+    Field('errorRateSli', String, 'Error Rate SLI',
+        hint: 'How errors are counted'),
+    Field('errorCategories', String, 'Error Categories',
+        hint: 'Which errors count against SLI'),
+    // Correctness SLIs
+    Field('correctnessSli', String, 'Correctness SLI',
+        hint: 'Data correctness measurement'),
+    // Freshness SLIs
+    Field('freshnessSli', String, 'Freshness SLI',
+        hint: 'Data freshness measurement'),
+    // Measurement
+    Field('measurementMethod', String, 'Measurement Method',
+        hint: 'Synthetic, real user, logs'),
+    Field('measurementLocation', String, 'Measurement Location',
+        hint: 'Server-side, client-side, edge'),
+    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+}
+
+/// An SLO entry [PD00-TEC-SYS-MON-SLA-nn].
+class SloEntry {
+  @Form([
+    Field('sloId', String, 'SLO ID', required: true),
+    Field('sloName', String, 'SLO Name', required: true),
+    Field('sloDescription', String, 'SLO Description'),
+    Field('serviceName', String, 'Service Name'),
+    Field('sliType', String, 'SLI Type',
+        hint: 'Availability, latency, error rate'),
+    Field('sloTarget', String, 'SLO Target',
+        hint: 'e.g., 99.9%, p99 < 200ms'),
+    Field('sloWindow', String, 'SLO Window',
+        hint: 'Rolling 28-day, calendar month'),
+    Field('errorBudget', String, 'Error Budget',
+        hint: 'Derived error budget'),
+    Field('alertThreshold', String, 'Alert Threshold',
+        hint: 'When to alert on burn rate'),
+    Field('burnRateAlert', String, 'Burn Rate Alert',
+        hint: 'Fast-burn, slow-burn alerts'),
+    Field('ownerTeam', String, 'Owner Team'),
+    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+}
+
+/// Error budget tracking.
+class ErrorBudgetTracking {
+  @Form([
+    // Budget calculation
+    Field('budgetCalculationMethod', String, 'Budget Calculation Method',
+        hint: 'How error budget is calculated'),
+    Field('budgetWindow', String, 'Budget Window',
+        hint: 'Rolling or calendar window'),
+    Field('budgetResetPolicy', String, 'Budget Reset Policy',
+        hint: 'When budget resets'),
+    // Monitoring
+    Field('budgetBurnRateDashboard', bool, 'Budget Burn Rate Dashboard',
+        hint: 'Dashboard showing burn rate'),
+    Field('budgetAlertThresholds', String, 'Budget Alert Thresholds',
+        hint: 'Warn at 50%, critical at 80%'),
+    Field('burnRateTimePeriods', String, 'Burn Rate Time Periods',
+        hint: '1h, 6h, 24h, 7d burn rates'),
+    // Policy
+    Field('budgetExhaustionActions', String, 'Budget Exhaustion Actions',
+        hint: 'Feature freeze, deployment freeze'),
+    Field('budgetRecoveryProcess', String, 'Budget Recovery Process',
+        hint: 'Steps to recover budget'),
+    Field('budgetReviewMeeting', String, 'Budget Review Meeting',
+        hint: 'Regular error budget review'),
+    // Attribution
+    Field('budgetAttribution', String, 'Budget Attribution',
+        hint: 'Attribute budget spend to incidents'),
+    Field('notes', String, 'Notes'),
+  ])
+  String? content;
 }
 
 /// 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].

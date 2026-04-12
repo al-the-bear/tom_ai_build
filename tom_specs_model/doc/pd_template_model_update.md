@@ -196,8 +196,8 @@ These sections exist in `tom_specs_model` but are missing from `pd_template.md`:
 | PD00-TAR-CAT-STP | Catalog Steps | Review | ⬜ Not Started |
 | PD00-TAR-PRI | Priority | Review | ⬜ Not Started |
 | PD00-TAR-REL | Relationships | Review | ⬜ Not Started |
-| PD00-TEC-SYS-MON | Monitoring | Review | ⬜ Not Started |
-| PD00-TEC-SYS-OPE | Operations | Review | ⬜ Not Started |
+| PD00-TEC-SYS-MON | Monitoring | Review | ✅ Done |
+| PD00-TEC-SYS-OPE | Operations | Review | ✅ Done |
 | PD00-USE-ACC | Accessibility | Review | ✅ Done |
 | PD00-USE-ACC-CHK | Accessibility Checks | Review | ✅ Done |
 | PD00-USE-ACC-WCA | WCAG Compliance | Review | ✅ Done |
