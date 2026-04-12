@@ -9451,8 +9451,9 @@ class TechnicalSecurityRequirements {
   ItSecurityStandardsSection itSecurityStandards =
       ItSecurityStandardsSection();
 
-  /// Data Protection And Privacy.
-  TextSection dataProtectionAndPrivacy = TextSection();
+  /// 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
+  DataProtectionAndPrivacySection dataProtectionAndPrivacy =
+      DataProtectionAndPrivacySection();
 
   /// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD] — contains 0+× SecurityAudit.
   @SectionIdPattern('PD00-TEC-SEC-AUD-xx')
@@ -9754,6 +9755,465 @@ class IncidentResponsePlan {
         hint: 'What to document and retention period'),
     Field('notes', String, 'Notes',
         hint: 'Additional incident response notes'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI]
+// ---------------------------------------------------------------------------
+
+/// 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
+///
+/// Comprehensive data protection and privacy requirements including
+/// GDPR compliance, data residency, consent management, data subject
+/// rights (erasure, portability, access), privacy impact assessments,
+/// and data processing agreements.
+@SectionId('PD00-TEC-SEC-PRI')
+class DataProtectionAndPrivacySection {
+  @Unused()
+  String? content;
+
+  /// Overview of data protection and privacy strategy.
+  TextSection overview = TextSection();
+
+  /// Applicable privacy regulations and compliance framework.
+  PrivacyRegulationCompliance regulationCompliance =
+      PrivacyRegulationCompliance();
+
+  /// Data residency and sovereignty requirements.
+  DataResidencyRequirements dataResidency = DataResidencyRequirements();
+
+  /// Consent collection, tracking and management.
+  ConsentManagementRequirements consentManagement =
+      ConsentManagementRequirements();
+
+  /// Data subject rights management (access, erasure, portability).
+  DataSubjectRightsManagement dataSubjectRights =
+      DataSubjectRightsManagement();
+
+  /// Privacy impact assessment and DPIA process.
+  PrivacyImpactAssessmentProcess privacyImpactAssessment =
+      PrivacyImpactAssessmentProcess();
+
+  /// Data processing agreements with third parties.
+  DataProcessingAgreementRequirements dataProcessingAgreements =
+      DataProcessingAgreementRequirements();
+
+  /// Data protection classification and handling rules.
+  DataProtectionClassification dataClassification =
+      DataProtectionClassification();
+}
+
+/// Privacy regulation compliance requirements [PD00-TEC-SEC-PRI].
+class PrivacyRegulationCompliance {
+  @Form([
+    // Regulation scope
+    Field('applicableRegulations', String, 'Applicable Regulations',
+        required: true,
+        hint: 'GDPR, CCPA/CPRA, LGPD, PIPA, PIPEDA, PDPA, etc.'),
+    Field('primaryJurisdiction', String, 'Primary Jurisdiction',
+        required: true, hint: 'Main legal jurisdiction for data processing'),
+    Field('additionalJurisdictions', String, 'Additional Jurisdictions',
+        hint: 'Other jurisdictions where data subjects reside'),
+    Field('regulatoryAuthority', String, 'Supervisory Authority',
+        hint: 'Lead data protection authority for GDPR purposes'),
+
+    // GDPR specifics
+    Field('gdprLawfulBasis', String, 'GDPR Lawful Basis',
+        hint:
+            'Consent, contract, legal obligation, vital interests, public task, legitimate interests'),
+    Field('gdprDataControllerRole', String, 'Data Controller Role',
+        required: true,
+        hint: 'Whether organization acts as controller or processor'),
+    Field('gdprRepresentative', String, 'EU Representative',
+        hint: 'EU-based representative if organization is outside EU'),
+    Field(
+        'gdprLeadSupervisoryAuthority', String, 'Lead Supervisory Authority',
+        hint: 'Lead supervisory authority for cross-border processing'),
+
+    // Data Protection Officer
+    Field('dpoRequired', String, 'DPO Required',
+        hint: 'Whether a Data Protection Officer is required'),
+    Field('dpoContactDetails', String, 'DPO Contact Details',
+        hint: 'Name, email, and reporting line of DPO'),
+    Field('dpoResponsibilities', String, 'DPO Responsibilities',
+        hint: 'Monitoring compliance, advising on DPIA, liaison with authority'),
+
+    // Records and documentation
+    Field('recordsOfProcessing', String, 'Records of Processing Activities',
+        required: true,
+        hint: 'ROPA maintenance process — Article 30 GDPR'),
+    Field('privacyPolicyRequirements', String, 'Privacy Policy Requirements',
+        hint: 'Transparency notices, layered privacy policies'),
+    Field('dataProtectionTraining', String, 'Data Protection Training',
+        hint: 'Staff training frequency, content, and certification'),
+
+    // Cross-border transfers
+    Field('crossBorderTransferMechanism', String, 'Transfer Mechanism',
+        hint:
+            'Standard contractual clauses, adequacy decisions, binding corporate rules'),
+    Field('transferImpactAssessment', String, 'Transfer Impact Assessment',
+        hint: 'Assessment of third-country legal framework, Schrems II'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional regulation compliance notes'),
+  ])
+  String? content;
+}
+
+/// Data residency and sovereignty requirements [PD00-TEC-SEC-PRI].
+class DataResidencyRequirements {
+  @Form([
+    // Storage location
+    Field('primaryDataRegion', String, 'Primary Data Region',
+        required: true, hint: 'Geographic region for primary data storage'),
+    Field('allowedDataRegions', String, 'Allowed Data Regions',
+        hint: 'All permitted regions for data storage and processing'),
+    Field('prohibitedDataRegions', String, 'Prohibited Data Regions',
+        hint: 'Regions where data must never be stored or processed'),
+    Field('dataResidencyRegulation', String, 'Residency Regulation',
+        hint: 'Specific laws mandating data residency (e.g. Russia, China)'),
+
+    // Sovereignty
+    Field('dataSovereigntyRequirements', String, 'Sovereignty Requirements',
+        hint:
+            'Government access restrictions, national security considerations'),
+    Field('encryptionKeyLocation', String, 'Encryption Key Location',
+        required: true,
+        hint: 'Where encryption keys are stored and managed geographically'),
+    Field('cloudProviderRequirements', String, 'Cloud Provider Requirements',
+        hint:
+            'Sovereign cloud requirements, government-certified providers'),
+
+    // Replication and backup
+    Field('backupDataResidency', String, 'Backup Data Residency',
+        hint: 'Geographic constraints for backup and disaster recovery data'),
+    Field('replicationConstraints', String, 'Replication Constraints',
+        hint: 'Cross-region replication limitations and rules'),
+    Field('cdnDataConstraints', String, 'CDN Data Constraints',
+        hint: 'Content delivery network caching location restrictions'),
+
+    // Verification
+    Field('residencyVerification', String, 'Residency Verification',
+        hint: 'How data residency compliance is verified and audited'),
+    Field('providerCertifications', String, 'Provider Certifications',
+        hint:
+            'Cloud provider certifications (ISO 27001, SOC 2, C5, ENS)'),
+    Field('dataLocationTransparency', String, 'Data Location Transparency',
+        hint: 'How data subjects are informed about storage locations'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional data residency notes'),
+  ])
+  String? content;
+}
+
+/// Consent collection, tracking and management requirements [PD00-TEC-SEC-PRI].
+class ConsentManagementRequirements {
+  @Form([
+    // Consent collection
+    Field('consentCollectionMethod', String, 'Collection Method',
+        required: true,
+        hint:
+            'How consent is obtained: opt-in checkboxes, cookie banners, in-app dialogs'),
+    Field('consentGranularity', String, 'Consent Granularity',
+        required: true,
+        hint: 'Per-purpose consent, bundled consent, tiered consent model'),
+    Field('consentLanguage', String, 'Consent Language',
+        hint:
+            'Plain language requirements, multi-language support, reading level'),
+    Field('doubleOptIn', String, 'Double Opt-In',
+        hint: 'Whether double opt-in is required (e.g. email verification)'),
+    Field('ageVerification', String, 'Age Verification',
+        hint:
+            'Minimum age requirements, parental consent for minors (COPPA, GDPR Art. 8)'),
+
+    // Consent storage
+    Field('consentRecordStorage', String, 'Consent Record Storage',
+        required: true,
+        hint: 'How consent records are stored with timestamp and version'),
+    Field('consentVersioning', String, 'Consent Versioning',
+        hint: 'Tracking consent policy versions and re-consent triggers'),
+    Field('consentProofRetention', String, 'Consent Proof Retention',
+        hint: 'How long consent proof is retained after withdrawal'),
+
+    // Consent management
+    Field('consentWithdrawalProcess', String, 'Withdrawal Process',
+        required: true,
+        hint: 'How users can withdraw consent — must be as easy as giving it'),
+    Field('consentPreferenceCenter', String, 'Preference Center',
+        hint: 'Self-service UI for managing consent preferences'),
+    Field('consentPropagation', String, 'Consent Propagation',
+        hint:
+            'How consent changes propagate to downstream systems and processors'),
+    Field('consentSynchronization', String, 'Cross-Platform Sync',
+        hint: 'Synchronizing consent across web, mobile, and third parties'),
+
+    // Cookie and tracking
+    Field('cookieConsentRequirements', String, 'Cookie Consent',
+        hint:
+            'Cookie categories (essential, functional, analytics, marketing)'),
+    Field('trackingConsentRequirements', String, 'Tracking Consent',
+        hint:
+            'Analytics, advertising pixels, fingerprinting consent requirements'),
+    Field('thirdPartyConsentSharing', String, 'Third-Party Consent Sharing',
+        hint: 'How consent status is communicated to third-party integrations'),
+
+    // Compliance
+    Field('consentAuditTrail', String, 'Consent Audit Trail',
+        hint: 'Audit logging of all consent events for regulatory evidence'),
+    Field('consentComplianceReporting', String, 'Compliance Reporting',
+        hint: 'Consent metrics, dashboards, and regulatory reports'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional consent management notes'),
+  ])
+  String? content;
+}
+
+/// Data subject rights management [PD00-TEC-SEC-PRI].
+///
+/// Covers GDPR Articles 15–22: right of access, rectification, erasure,
+/// restriction, portability, objection, and automated decision-making.
+class DataSubjectRightsManagement {
+  @Form([
+    // Right of access (Art. 15)
+    Field('rightOfAccessProcess', String, 'Right of Access Process',
+        required: true,
+        hint: 'How data subjects request and receive copies of their data'),
+    Field('accessRequestTimeline', String, 'Access Request Timeline',
+        required: true,
+        hint: 'Response timeline — GDPR requires within 1 month'),
+    Field('accessDataFormat', String, 'Access Data Format',
+        hint:
+            'Format for providing data (structured, machine-readable, PDF)'),
+    Field('identityVerification', String, 'Identity Verification',
+        required: true,
+        hint: 'How requester identity is verified before disclosure'),
+
+    // Right to rectification (Art. 16)
+    Field('rectificationProcess', String, 'Rectification Process',
+        hint:
+            'How data subjects request correction of inaccurate personal data'),
+    Field('rectificationPropagation', String, 'Rectification Propagation',
+        hint: 'How corrections propagate to recipients of the data'),
+
+    // Right to erasure (Art. 17)
+    Field('erasureProcess', String, 'Right to Erasure Process',
+        required: true,
+        hint: 'How erasure requests are processed — "right to be forgotten"'),
+    Field('erasureScope', String, 'Erasure Scope',
+        hint: 'What data is erased: active records, backups, logs, analytics'),
+    Field('erasureExceptions', String, 'Erasure Exceptions',
+        hint:
+            'Legal retention obligations that override erasure (tax, fraud)'),
+    Field('erasureVerification', String, 'Erasure Verification',
+        hint: 'How complete erasure is verified across all systems'),
+
+    // Right to data portability (Art. 20)
+    Field('portabilityProcess', String, 'Data Portability Process',
+        required: true,
+        hint: 'How data is exported in structured, machine-readable format'),
+    Field('portabilityFormat', String, 'Portability Format',
+        hint: 'Export formats: JSON, CSV, XML, API-based transfer'),
+    Field('portabilityDirectTransfer', String, 'Direct Transfer',
+        hint: 'Whether direct controller-to-controller transfer is supported'),
+
+    // Right to restriction (Art. 18) and objection (Art. 21)
+    Field('restrictionProcess', String, 'Restriction of Processing',
+        hint: 'How processing restriction is applied while disputes are resolved'),
+    Field('objectionProcess', String, 'Right to Object',
+        hint:
+            'How objections to processing are handled (direct marketing, profiling)'),
+
+    // Automated decisions (Art. 22)
+    Field('automatedDecisionMaking', String, 'Automated Decision-Making',
+        hint:
+            'Safeguards for automated decisions with legal or significant effects'),
+    Field('humanReviewProcess', String, 'Human Review Process',
+        hint: 'Process for requesting human review of automated decisions'),
+
+    // Operations
+    Field('dsarWorkflow', String, 'DSAR Workflow',
+        hint: 'Data Subject Access Request end-to-end workflow and tooling'),
+    Field('dsarTracking', String, 'DSAR Tracking',
+        hint: 'Tracking system for requests, SLAs, and completion metrics'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional data subject rights notes'),
+  ])
+  String? content;
+}
+
+/// Privacy impact assessment and DPIA process [PD00-TEC-SEC-PRI].
+class PrivacyImpactAssessmentProcess {
+  @Form([
+    // When required
+    Field('dpiaThreshold', String, 'DPIA Threshold',
+        required: true,
+        hint:
+            'Criteria triggering a DPIA: new processing, high risk, large-scale profiling'),
+    Field('dpiaScreeningProcess', String, 'Screening Process',
+        hint: 'Initial screening to determine if full DPIA is needed'),
+    Field('mandatoryDpiaScenarios', String, 'Mandatory DPIA Scenarios',
+        hint:
+            'Systematic monitoring, sensitive data at scale, automated decisions'),
+
+    // Assessment process
+    Field('dpiaMethodology', String, 'DPIA Methodology',
+        required: true,
+        hint: 'Framework used: ICO template, CNIL PIA tool, NIST privacy'),
+    Field('dpiaStakeholders', String, 'DPIA Stakeholders',
+        hint:
+            'Who participates: DPO, engineering, legal, business, external advisor'),
+    Field('dataFlowMapping', String, 'Data Flow Mapping',
+        hint:
+            'Documenting data flows, storage, access, and sharing for each processing activity'),
+    Field('riskAssessmentCriteria', String, 'Risk Assessment Criteria',
+        hint: 'Likelihood and severity matrix, residual risk thresholds'),
+
+    // Mitigation
+    Field('mitigationMeasures', String, 'Mitigation Measures',
+        hint:
+            'Technical and organizational measures to reduce identified risks'),
+    Field('privacyByDesign', String, 'Privacy by Design',
+        required: true,
+        hint:
+            'How privacy is embedded in system design from inception (Art. 25 GDPR)'),
+    Field('privacyByDefault', String, 'Privacy by Default',
+        hint:
+            'Default settings protect privacy — minimal data, shortest retention'),
+    Field('dataMinimization', String, 'Data Minimization',
+        hint:
+            'Limiting collection to what is necessary for the specified purpose'),
+    Field('pseudonymization', String, 'Pseudonymization',
+        hint:
+            'Techniques applied: tokenization, hashing, key-coded data'),
+    Field('anonymization', String, 'Anonymization',
+        hint:
+            'Techniques for irreversible de-identification: k-anonymity, differential privacy'),
+
+    // Review and approval
+    Field('dpiaApprovalProcess', String, 'Approval Process',
+        hint: 'Who reviews and approves the DPIA before processing begins'),
+    Field('supervisoryConsultation', String, 'Supervisory Consultation',
+        hint: 'When prior consultation with the supervisory authority is required'),
+    Field('dpiaReviewFrequency', String, 'Review Frequency',
+        hint: 'How often existing DPIAs are reviewed and updated'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional privacy impact assessment notes'),
+  ])
+  String? content;
+}
+
+/// Data processing agreement requirements [PD00-TEC-SEC-PRI].
+class DataProcessingAgreementRequirements {
+  @Form([
+    // Agreement structure
+    Field('dpaTemplate', String, 'DPA Template',
+        required: true,
+        hint: 'Standard data processing agreement template used'),
+    Field('processorObligations', String, 'Processor Obligations',
+        required: true,
+        hint:
+            'Article 28 GDPR: security measures, sub-processing, audits, deletion'),
+    Field('subProcessorManagement', String, 'Sub-Processor Management',
+        hint:
+            'How sub-processors are approved, listed, and monitored'),
+    Field('subProcessorNotification', String, 'Sub-Processor Notification',
+        hint: 'Process for notifying controllers of sub-processor changes'),
+
+    // Data handling
+    Field('processingPurposeLimitation', String, 'Purpose Limitation',
+        required: true,
+        hint: 'Ensuring data is processed only for specified purposes'),
+    Field('dataRetentionInDpa', String, 'Retention in DPA',
+        hint: 'Retention periods and deletion/return obligations'),
+    Field('dataReturnOnTermination', String, 'Data Return on Termination',
+        hint: 'Data return or certified destruction on contract end'),
+    Field('confidentialityObligations', String, 'Confidentiality Obligations',
+        hint:
+            'Staff confidentiality commitments and access restrictions'),
+
+    // Security and audits
+    Field('securityMeasuresInDpa', String, 'Security Measures',
+        hint:
+            'Technical and organizational measures required from processors'),
+    Field('breachNotificationInDpa', String, 'Breach Notification',
+        hint:
+            'Processor obligation to notify controller of breaches without undue delay'),
+    Field('auditRights', String, 'Audit Rights',
+        required: true,
+        hint: 'Controller right to audit processor premises and practices'),
+    Field('complianceCertification', String, 'Compliance Certification',
+        hint: 'Processor certifications accepted as audit evidence'),
+
+    // International transfers
+    Field('internationalTransferClauses', String, 'International Transfer Clauses',
+        hint:
+            'Standard contractual clauses or other mechanisms in the DPA'),
+    Field('governingLaw', String, 'Governing Law',
+        hint: 'Applicable law and jurisdiction for DPA disputes'),
+    Field('liabilityAndIndemnification', String, 'Liability',
+        hint: 'Liability allocation and indemnification provisions'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional data processing agreement notes'),
+  ])
+  String? content;
+}
+
+/// Data protection classification and handling rules [PD00-TEC-SEC-PRI].
+///
+/// Named DataProtectionClassification to avoid collision with
+/// DataClassification in business_data_model.dart.
+class DataProtectionClassification {
+  @Form([
+    // Classification scheme
+    Field('classificationLevels', String, 'Classification Levels',
+        required: true,
+        hint: 'Public, Internal, Confidential, Restricted, Top Secret'),
+    Field('personalDataCategories', String, 'Personal Data Categories',
+        required: true,
+        hint:
+            'Basic identity, contact, financial, health, biometric, genetic'),
+    Field('sensitiveDataCategories', String, 'Sensitive Data Categories',
+        hint:
+            'Special categories Art. 9 GDPR: race, religion, health, sexual orientation, political opinion'),
+    Field('classificationResponsibility', String, 'Classification Responsibility',
+        hint: 'Who is responsible for classifying data'),
+
+    // Handling rules
+    Field('encryptionAtRest', String, 'Encryption at Rest',
+        required: true,
+        hint: 'Encryption requirements per classification level (AES-256)'),
+    Field('encryptionInTransit', String, 'Encryption in Transit',
+        required: true, hint: 'TLS 1.2+, mTLS, certificate requirements'),
+    Field('accessControlByClassification', String, 'Access Control',
+        hint: 'Access restrictions mapped to classification levels'),
+    Field('loggingByClassification', String, 'Logging Requirements',
+        hint: 'Audit logging requirements per classification level'),
+
+    // Retention and disposal
+    Field('retentionPolicyByCategory', String, 'Retention Policy',
+        required: true,
+        hint: 'Retention periods per data category and legal basis'),
+    Field('disposalProcedure', String, 'Disposal Procedure',
+        hint: 'Secure deletion, shredding, crypto-erasure per classification'),
+    Field('retentionExceptions', String, 'Retention Exceptions',
+        hint: 'Legal holds, regulatory overrides, litigation preservation'),
+
+    // Masking and de-identification
+    Field('dataMaskingRules', String, 'Data Masking Rules',
+        hint: 'Masking rules for non-production environments, logs, and reports'),
+    Field('tokenizationRequirements', String, 'Tokenization Requirements',
+        hint: 'Payment card, PII tokenization approach (PCI DSS)'),
+    Field('deIdentificationStandards', String, 'De-Identification Standards',
+        hint: 'HIPAA Safe Harbor, Expert Determination, k-anonymity'),
+
+    // Incident handling
+    Field('breachClassificationMatrix', String, 'Breach Classification',
+        hint: 'Mapping data classification to breach severity and response'),
+    Field('dataLossPreventionControls', String, 'DLP Controls',
+        hint: 'Technical controls to prevent unauthorized data exfiltration'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional data protection classification notes'),
   ])
   String? content;
 }
