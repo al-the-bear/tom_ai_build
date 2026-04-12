@@ -65,13 +65,13 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-TAR-PRO-CAT-01 | Sample: Customer Onboarding | Low | ✅ Done |
 | PD00-TAR-PRO-FLO | Process Overview Diagram | Medium | ✅ Done |
 | PD00-TAR-PRO-IMP | Improvement Summary | Medium | ✅ Done |
-| PD00-TAR-STP | Process Steps and Actor Interactions | High | ⬜ Not Started |
-| PD00-TAR-STP-ACT | Actor Overview | Medium | ⬜ Not Started |
-| PD00-TAR-STP-ACT-01 | Sample: Back-Office Administrator | Low | ⬜ Not Started |
-| PD00-TAR-STP-INT | Interaction Catalog | Medium | ⬜ Not Started |
-| PD00-TAR-STP-INT-01 | Sample: Submit Registration | Low | ⬜ Not Started |
-| PD00-TAR-STP-SCE | Key Scenarios | Medium | ⬜ Not Started |
-| PD00-TAR-STP-SCE-01 | Sample: New Customer Journey | Low | ⬜ Not Started |
+| PD00-TAR-STP | Process Steps and Actor Interactions | High | ✅ Done |
+| PD00-TAR-STP-ACT | Actor Overview | Medium | ✅ Done |
+| PD00-TAR-STP-ACT-01 | Sample: Back-Office Administrator | Low | ✅ Done |
+| PD00-TAR-STP-INT | Interaction Catalog | Medium | ✅ Done |
+| PD00-TAR-STP-INT-01 | Sample: Submit Registration | Low | ✅ Done |
+| PD00-TAR-STP-SCE | Key Scenarios | Medium | ✅ Done |
+| PD00-TAR-STP-SCE-01 | Sample: New Customer Journey | Low | ✅ Done |
 | PD00-BUS-DAT-ENT | Entity Overview | High | ⬜ Not Started |
 | PD00-BUS-DAT-ENT-01 | Sample: Customer | Low | ⬜ Not Started |
 | PD00-BUS-DAT-DIA | Entity-Relationship Diagram | Medium | ⬜ Not Started |

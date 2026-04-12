@@ -857,12 +857,15 @@ class ProcessRelationshipEntry {
 ///
 /// Key process steps with their actor interactions. Each interaction will be
 /// expanded into a full use case with alternate paths, preconditions, and
-/// postconditions in the UC document.
+/// postconditions in the UC document. Follows Cockburn-style use case modeling.
 @SectionId('PD00-TAR-STP')
 @Comment('Seeds → UC')
 class ProcessStepsAndActorInteractions {
   @Unused()
   String? content;
+
+  /// Section overview.
+  ProcessStepsOverview overview = ProcessStepsOverview();
 
   /// 6.2.1. Actor Overview [PD00-TAR-STP-ACT] — contains 1+× Actor.
   ActorOverview actorOverview = ActorOverview();
@@ -872,67 +875,691 @@ class ProcessStepsAndActorInteractions {
 
   /// 6.2.3. Key Scenarios [PD00-TAR-STP-SCE] — contains 1+× Scenario.
   KeyScenarios keyScenarios = KeyScenarios();
+
+  /// Actor relationship diagram.
+  ActorRelationshipDiagram actorRelationshipDiagram =
+      ActorRelationshipDiagram();
 }
 
+/// Process steps overview.
+class ProcessStepsOverview {
+  @Form([
+    Field('useCaseScope', String,
+        'Use Case Scope — system, organization, subsystem'),
+    Field('primaryActorFocus', String,
+        'Primary Actor Focus — main user types'),
+    Field('interactionCoverage', String,
+        'Interaction Coverage — scope of interactions'),
+    Field('scenarioCoverage', String,
+        'Scenario Coverage — what scenarios are included'),
+    Field('useCaseNamingConvention', String,
+        'Use Case Naming Convention — UC-xxx pattern'),
+    Field('traceabilityApproach', String,
+        'Traceability Approach — link to BP, UC documents'),
+    Field('detailLevel', String,
+        'Detail Level — brief, casual, fully dressed'),
+    Field('notationStandard', String,
+        'Notation Standard — Cockburn, Fowler, RUP'),
+  ])
+  String? content;
+}
+
+/// Actor relationship diagram.
+class ActorRelationshipDiagram {
+  /// Diagram overview.
+  ActorDiagramOverview overview = ActorDiagramOverview();
+
+  /// Actor hierarchy diagram (generalization relationships).
+  FlowDiagramSection actorHierarchy = FlowDiagramSection();
+
+  /// Actor-system interaction overview diagram.
+  FlowDiagramSection actorSystemDiagram = FlowDiagramSection();
+}
+
+/// Actor diagram overview.
+class ActorDiagramOverview {
+  @Form([
+    Field('diagramPurpose', String,
+        'Diagram Purpose — show actor relationships'),
+    Field('actorCategories', String,
+        'Actor Categories — primary, secondary, supporting'),
+    Field('systemBoundary', String, 'System Boundary — what is inside/outside'),
+    Field('notation', String, 'Notation — UML use case, custom'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 6.2.1 Actor Overview [PD00-TAR-STP-ACT]
+// ---------------------------------------------------------------------------
+
 /// 6.2.1. Actor Overview [PD00-TAR-STP-ACT].
+///
+/// Actors represent roles that interact with the system. Follows UML actor
+/// modeling conventions with Cockburn-style goal and scope annotations.
 @SectionId('PD00-TAR-STP-ACT')
 class ActorOverview {
   @Unused()
   String? content;
 
+  /// Actor overview narrative.
+  ActorOverviewNarrative overview = ActorOverviewNarrative();
+
   /// Contains 1+× Actor.
   @SectionIdPattern('PD00-TAR-STP-ACT-xx')
   @Min(1)
   List<ActorEntry> actors = [];
+
+  /// Actor categorization summary.
+  ActorCategorizationSummary categorization = ActorCategorizationSummary();
 }
 
-/// An actor entry (form) [PD00-TAR-STP-ACT-nn].
-class ActorEntry {
+/// Actor overview narrative.
+class ActorOverviewNarrative {
   @Form([
-    Field('actorName', String, 'Actor Name', required: true),
-    Field('actorType', String, 'Actor Type — human user, system, external'),
-    Field('description', String, 'Description'),
-    Field('primaryInteractions', String,
-        'Primary Interactions — main activities'),
-    Field('accessChannel', String,
-        'Access Channel — web, mobile, API, desktop'),
+    Field('totalActorCount', int, 'Total Actor Count'),
+    Field('humanActorCount', int, 'Human Actor Count'),
+    Field('systemActorCount', int, 'System Actor Count'),
+    Field('externalActorCount', int, 'External Actor Count'),
+    Field('actorIdentificationApproach', String,
+        'Actor Identification Approach — how actors were identified'),
+    Field('actorPrioritization', String,
+        'Actor Prioritization — which actors are most important'),
+    Field('actorGoalAlignment', String,
+        'Actor Goal Alignment — how actor goals align with business goals'),
   ])
   String? content;
 }
 
+/// Actor categorization summary.
+class ActorCategorizationSummary {
+  @Form([
+    Field('primaryActors', String,
+        'Primary Actors — actors who initiate interactions'),
+    Field('secondaryActors', String,
+        'Secondary Actors — actors who support primary actors'),
+    Field('offstageActors', String,
+        'Offstage Actors — stakeholders with interests but no direct interaction'),
+    Field('systemActors', String, 'System Actors — external systems'),
+    Field('timerActors', String,
+        'Timer/Scheduled Actors — time-triggered actions'),
+  ])
+  String? content;
+}
+
+/// An actor entry [PD00-TAR-STP-ACT-nn].
+///
+/// Comprehensive actor definition following UML and Cockburn conventions.
+class ActorEntry {
+  /// Actor identification.
+  ActorIdentification identification = ActorIdentification();
+
+  /// Actor characteristics.
+  ActorCharacteristics characteristics = ActorCharacteristics();
+
+  /// Actor goals (Cockburn style).
+  ActorGoals goals = ActorGoals();
+
+  /// Actor permissions and access.
+  ActorPermissions permissions = ActorPermissions();
+
+  /// Actor technology profile.
+  ActorTechnologyProfile technology = ActorTechnologyProfile();
+
+  /// Actor interactions summary.
+  ActorInteractionsSummary interactions = ActorInteractionsSummary();
+}
+
+/// Actor identification.
+class ActorIdentification {
+  @Form([
+    Field('actorId', String, 'Actor ID (e.g., ACT-001)', required: true),
+    Field('actorName', String, 'Actor Name', required: true),
+    Field('actorType', String,
+        'Actor Type — human user, system, external system, scheduled'),
+    Field('category', String,
+        'Category — primary, secondary, supporting, offstage'),
+    Field('description', String, 'Description — role purpose'),
+    Field('realWorldExamples', String,
+        'Real World Examples — who fills this role'),
+    Field('organizationalUnit', String,
+        'Organizational Unit — department or team'),
+    Field('estimatedCount', String,
+        'Estimated Count — how many users in this role'),
+    Field('geographicDistribution', String,
+        'Geographic Distribution — where actors are located'),
+  ])
+  String? content;
+}
+
+/// Actor characteristics.
+class ActorCharacteristics {
+  @Form([
+    Field('domainKnowledge', String,
+        'Domain Knowledge — expertise level required'),
+    Field('technicalSkills', String, 'Technical Skills — IT proficiency'),
+    Field('trainingRequired', String, 'Training Required — onboarding needs'),
+    Field('usageFrequency', String,
+        'Usage Frequency — daily, weekly, monthly, occasional'),
+    Field('usageDuration', String,
+        'Usage Duration — typical session length'),
+    Field('peakUsageTimes', String, 'Peak Usage Times — when most active'),
+    Field('taskComplexity', String,
+        'Task Complexity — simple, moderate, expert'),
+    Field('decisionAuthority', String,
+        'Decision Authority — what decisions can be made'),
+    Field('supervisionLevel', String,
+        'Supervision Level — how closely monitored'),
+    Field('communicationPreference', String,
+        'Communication Preference — how to reach this actor'),
+    Field('languageRequirements', String,
+        'Language Requirements — languages needed'),
+    Field('accessibilityNeeds', String,
+        'Accessibility Needs — special accommodations'),
+  ])
+  String? content;
+}
+
+/// Actor goals (Cockburn-style goal hierarchy).
+class ActorGoals {
+  @Form([
+    Field('summaryGoals', String,
+        'Summary Goals — high-level organizational goals'),
+    Field('userGoals', String, 'User Goals — main goals actor wants to achieve'),
+    Field('subfunctionGoals', String,
+        'Subfunction Goals — supporting goals'),
+    Field('successMeasures', String,
+        'Success Measures — how actor knows goals are met'),
+    Field('failureConcerns', String,
+        'Failure Concerns — what actor wants to avoid'),
+    Field('motivations', String, 'Motivations — why actor uses the system'),
+    Field('painPoints', String, 'Pain Points — current frustrations'),
+    Field('desiredImprovements', String,
+        'Desired Improvements — what actor wants better'),
+  ])
+  String? content;
+}
+
+/// Actor permissions and access levels.
+class ActorPermissions {
+  @Form([
+    Field('securityClearance', String,
+        'Security Clearance — data access level'),
+    Field('roleBasedPermissions', String,
+        'Role-Based Permissions — RBAC roles'),
+    Field('dataAccessScope', String,
+        'Data Access Scope — own, team, department, all'),
+    Field('functionalPermissions', String,
+        'Functional Permissions — what functions can access'),
+    Field('approvalLimits', String,
+        'Approval Limits — transaction/decision limits'),
+    Field('delegationRights', String,
+        'Delegation Rights — can delegate to others'),
+    Field('temporaryElevation', String,
+        'Temporary Elevation — can request higher access'),
+    Field('auditRequirements', String,
+        'Audit Requirements — what actions are logged'),
+  ])
+  String? content;
+}
+
+/// Actor technology profile.
+class ActorTechnologyProfile {
+  @Form([
+    Field('primaryAccessChannel', String,
+        'Primary Access Channel — web, mobile app, desktop, API'),
+    Field('secondaryAccessChannels', String,
+        'Secondary Access Channels — alternative channels'),
+    Field('deviceTypes', String,
+        'Device Types — desktop, laptop, tablet, smartphone'),
+    Field('operatingSystems', String,
+        'Operating Systems — Windows, macOS, iOS, Android'),
+    Field('browserRequirements', String, 'Browser Requirements — supported browsers'),
+    Field('networkConnectivity', String,
+        'Network Connectivity — always online, occasionally offline'),
+    Field('bandwidthExpectations', String,
+        'Bandwidth Expectations — high-speed, limited'),
+    Field('integratedTools', String,
+        'Integrated Tools — other tools actor uses'),
+    Field('authenticationMethod', String,
+        'Authentication Method — password, SSO, MFA, biometric'),
+  ])
+  String? content;
+}
+
+/// Actor interactions summary.
+class ActorInteractionsSummary {
+  @Form([
+    Field('primaryInteractions', String,
+        'Primary Interactions — main use cases'),
+    Field('secondaryInteractions', String,
+        'Secondary Interactions — supporting use cases'),
+    Field('interactionFrequency', String,
+        'Interaction Frequency — how often each type'),
+    Field('criticalInteractions', String,
+        'Critical Interactions — most important'),
+    Field('complexInteractions', String,
+        'Complex Interactions — most challenging'),
+    Field('collaborativeInteractions', String,
+        'Collaborative Interactions — involves other actors'),
+    Field('handoffPoints', String,
+        'Handoff Points — where work passes to others'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 6.2.2 Interaction Catalog [PD00-TAR-STP-INT]
+// ---------------------------------------------------------------------------
+
 /// 6.2.2. Interaction Catalog [PD00-TAR-STP-INT].
+///
+/// Container for key interaction descriptions. Each interaction seeds a use
+/// case following Cockburn's fully dressed use case template.
 @SectionId('PD00-TAR-STP-INT')
 class InteractionCatalog {
   @Unused()
   String? content;
 
+  /// Interaction catalog overview.
+  InteractionCatalogOverview overview = InteractionCatalogOverview();
+
   /// Contains 1+× Interaction.
   @SectionIdPattern('PD00-TAR-STP-INT-xx')
   @Min(1)
   List<InteractionEntry> interactions = [];
+
+  /// Interaction prioritization matrix.
+  InteractionPrioritization prioritization = InteractionPrioritization();
 }
 
-/// An interaction entry (form) [PD00-TAR-STP-INT-nn].
-class InteractionEntry {
+/// Interaction catalog overview.
+class InteractionCatalogOverview {
   @Form([
-    Field('interactionId', String, 'Interaction ID', required: true),
-    Field('processReference', String, 'Process Reference — BP-xxx'),
-    Field('actor', String, 'Actor'),
-    Field('action', String, 'Action — what the actor does'),
-    Field('systemResponse', String, 'System Response — what system does'),
-    Field('expectedOutcome', String, 'Expected Outcome'),
-    Field('precondition', String, 'Precondition'),
-    Field('postcondition', String, 'Postcondition'),
-    Field('relatedUseCase', String, 'Related Use Case — UC reference'),
+    Field('totalInteractionCount', int, 'Total Interaction Count'),
+    Field('highPriorityCount', int, 'High Priority Count'),
+    Field('mediumPriorityCount', int, 'Medium Priority Count'),
+    Field('lowPriorityCount', int, 'Low Priority Count'),
+    Field('coverageStatement', String,
+        'Coverage Statement — what interactions are covered'),
+    Field('identificationMethod', String,
+        'Identification Method — how interactions were identified'),
+    Field('prioritizationCriteria', String,
+        'Prioritization Criteria — how priority was determined'),
+    Field('traceabilityToProcesses', String,
+        'Traceability to Processes — link to BP section'),
   ])
   String? content;
 }
 
+/// Interaction prioritization matrix.
+class InteractionPrioritization {
+  @Form([
+    Field('mustHaveInteractions', String,
+        'Must-Have Interactions — essential for MVP'),
+    Field('shouldHaveInteractions', String,
+        'Should-Have Interactions — important but deferrable'),
+    Field('couldHaveInteractions', String,
+        'Could-Have Interactions — nice to have'),
+    Field('wontHaveInteractions', String,
+        'Wont-Have Interactions — out of scope'),
+    Field('phaseOneInteractions', String, 'Phase One Interactions'),
+    Field('phaseTwoInteractions', String, 'Phase Two Interactions'),
+    Field('futureInteractions', String, 'Future Interactions'),
+  ])
+  String? content;
+}
+
+/// An interaction entry [PD00-TAR-STP-INT-nn].
+///
+/// Comprehensive interaction definition following Cockburn's fully dressed
+/// use case template. Seeds the UC (Use Case) document.
+class InteractionEntry {
+  /// Interaction identification (use case header).
+  InteractionIdentification identification = InteractionIdentification();
+
+  /// Use case scope and context (Cockburn style).
+  UseCaseScopeContext scopeContext = UseCaseScopeContext();
+
+  /// Stakeholders and interests.
+  StakeholdersAndInterests stakeholders = StakeholdersAndInterests();
+
+  /// Preconditions and triggers.
+  PreconditionsAndTriggers preconditions = PreconditionsAndTriggers();
+
+  /// Postconditions and guarantees.
+  PostconditionsAndGuarantees postconditions = PostconditionsAndGuarantees();
+
+  /// Main success scenario (basic flow).
+  MainSuccessScenario mainScenario = MainSuccessScenario();
+
+  /// Extensions (alternative and exception flows).
+  UseCaseExtensions extensions = UseCaseExtensions();
+
+  /// Technology and data variations.
+  TechnologyDataVariations variations = TechnologyDataVariations();
+
+  /// UI requirements preview.
+  UIRequirementsPreview uiPreview = UIRequirementsPreview();
+
+  /// Performance and frequency.
+  InteractionPerformance performance = InteractionPerformance();
+
+  /// Security and authorization.
+  InteractionSecurity security = InteractionSecurity();
+
+  /// Business rules triggered.
+  InteractionBusinessRules businessRules = InteractionBusinessRules();
+
+  /// Related elements and traceability.
+  InteractionTraceability traceability = InteractionTraceability();
+}
+
+/// Interaction identification (use case header).
+class InteractionIdentification {
+  @Form([
+    Field('interactionId', String, 'Interaction ID (e.g., INT-001)',
+        required: true),
+    Field('useCaseName', String, 'Use Case Name — active verb goal phrase',
+        required: true),
+    Field('processReference', String, 'Process Reference — BP-xxx'),
+    Field('briefDescription', String, 'Brief Description — one sentence'),
+    Field('fullDescription', String,
+        'Full Description — complete explanation'),
+    Field('primaryActor', String, 'Primary Actor — who initiates'),
+    Field('supportingActors', String,
+        'Supporting Actors — who else participates'),
+    Field('goalLevel', String,
+        'Goal Level — summary (+), user goal (!), subfunction (-)'),
+    Field('designScope', String,
+        'Design Scope — organization, system, subsystem, component'),
+  ])
+  String? content;
+}
+
+/// Use case scope and context (Cockburn style).
+class UseCaseScopeContext {
+  @Form([
+    Field('systemUnderDiscussion', String,
+        'System Under Discussion — SuD name'),
+    Field('systemBoundary', String,
+        'System Boundary — what is inside/outside'),
+    Field('level', String, 'Level — sea level/user goal, fish/subfunction'),
+    Field('context', String, 'Context — business context'),
+    Field('assumption', String, 'Assumptions — what is assumed true'),
+    Field('dependency', String, 'Dependencies — what this depends on'),
+    Field('constraint', String, 'Constraints — limitations'),
+    Field('relatedUseCases', String, 'Related Use Cases — includes, extends'),
+  ])
+  String? content;
+}
+
+/// Stakeholders and interests.
+class StakeholdersAndInterests {
+  @Form([
+    Field('primaryActorInterest', String,
+        'Primary Actor Interest — what they want'),
+    Field('systemOwnerInterest', String,
+        'System Owner Interest — business value'),
+    Field('regulatorInterest', String,
+        'Regulator Interest — compliance needs'),
+    Field('operationsInterest', String,
+        'Operations Interest — operational needs'),
+    Field('supportStaffInterest', String,
+        'Support Staff Interest — support needs'),
+    Field('otherStakeholders', String,
+        'Other Stakeholders — additional interested parties'),
+  ])
+  String? content;
+}
+
+/// Preconditions and triggers.
+class PreconditionsAndTriggers {
+  @Form([
+    Field('precondition', String, 'Preconditions — must be true before'),
+    Field('trigger', String, 'Trigger — what initiates this use case'),
+    Field('triggerType', String,
+        'Trigger Type — user action, system event, timer, message'),
+    Field('triggerSource', String, 'Trigger Source — where trigger originates'),
+    Field('triggerData', String, 'Trigger Data — data available at trigger'),
+    Field('frequencyOfTrigger', String,
+        'Frequency of Trigger — how often triggered'),
+    Field('validationBeforeStart', String,
+        'Validation Before Start — checks before proceeding'),
+  ])
+  String? content;
+}
+
+/// Postconditions and guarantees.
+class PostconditionsAndGuarantees {
+  @Form([
+    Field('minimalGuarantees', String,
+        'Minimal Guarantees — always true after, even on failure'),
+    Field('successGuarantees', String,
+        'Success Guarantees — true after successful completion'),
+    Field('primaryActorPostcondition', String,
+        'Primary Actor Postcondition — actor state after'),
+    Field('systemPostcondition', String,
+        'System Postcondition — system state after'),
+    Field('dataPostcondition', String, 'Data Postcondition — data changes'),
+    Field('notificationsGenerated', String,
+        'Notifications Generated — who is notified'),
+    Field('auditTrail', String, 'Audit Trail — what is logged'),
+  ])
+  String? content;
+}
+
+/// Main success scenario (basic flow).
+class MainSuccessScenario {
+  @Form([
+    Field('scenarioSummary', String, 'Scenario Summary — overview'),
+    Field('estimatedDuration', String,
+        'Estimated Duration — typical completion time'),
+    Field('stepCount', int, 'Step Count — number of steps'),
+  ])
+  String? content;
+
+  /// Main scenario steps — contains 1+× Scenario Step.
+  @SectionIdPattern('PD00-TAR-STP-INT-xx-MSS-xx')
+  @Min(1)
+  List<MainScenarioStepEntry> steps = [];
+}
+
+/// A main scenario step entry [PD00-TAR-STP-INT-nn-MSS-nn].
+class MainScenarioStepEntry {
+  @Form([
+    Field('stepNumber', int, 'Step Number', required: true),
+    Field('actorAction', String, 'Actor Action — what actor does'),
+    Field('systemResponse', String, 'System Response — what system does'),
+    Field('dataInvolved', String, 'Data Involved — data read/written'),
+    Field('businessRuleApplied', String,
+        'Business Rule Applied — BR-xxx reference'),
+    Field('uiElementUsed', String, 'UI Element Used — screen/component'),
+    Field('validationPerformed', String,
+        'Validation Performed — checks done'),
+    Field('expectedDuration', String,
+        'Expected Duration — time for this step'),
+  ])
+  String? content;
+}
+
+/// Use case extensions (alternative and exception flows).
+class UseCaseExtensions {
+  @Form([
+    Field('extensionSummary', String,
+        'Extension Summary — overview of variations'),
+    Field('extensionCount', int, 'Extension Count — number of extensions'),
+  ])
+  String? content;
+
+  /// Extension entries — contains 0+× Extension.
+  @SectionIdPattern('PD00-TAR-STP-INT-xx-EXT-xx')
+  List<ExtensionEntry> extensions = [];
+}
+
+/// An extension entry [PD00-TAR-STP-INT-nn-EXT-nn].
+class ExtensionEntry {
+  @Form([
+    Field('extensionId', String, 'Extension ID (e.g., 3a)', required: true),
+    Field('branchPoint', String, 'Branch Point — step number'),
+    Field('condition', String, 'Condition — when this extension triggers'),
+    Field('extensionType', String,
+        'Extension Type — alternative, exception, error'),
+    Field('description', String, 'Description — what happens'),
+    Field('outcome', String, 'Outcome — how it ends'),
+    Field('returnPoint', String,
+        'Return Point — step to return to, or end'),
+    Field('frequency', String, 'Frequency — how often this occurs'),
+    Field('severity', String,
+        'Severity — impact level (for exceptions)'),
+  ])
+  String? content;
+
+  /// Extension steps — contains 0+× Scenario Step.
+  @SectionIdPattern('PD00-TAR-STP-INT-xx-EXT-xx-EST-xx')
+  List<ExtensionStepEntry> steps = [];
+}
+
+/// An extension step entry [PD00-TAR-STP-INT-nn-EXT-nn-EST-nn].
+class ExtensionStepEntry {
+  @Form([
+    Field('stepNumber', String, 'Step Number (e.g., 3a1)'),
+    Field('action', String, 'Action'),
+    Field('response', String, 'Response'),
+  ])
+  String? content;
+}
+
+/// Technology and data variations.
+class TechnologyDataVariations {
+  @Form([
+    Field('dataVariations', String,
+        'Data Variations — different data formats, sources'),
+    Field('technologyVariations', String,
+        'Technology Variations — different platforms, devices'),
+    Field('channelVariations', String,
+        'Channel Variations — web, mobile, API differences'),
+    Field('localizationVariations', String,
+        'Localization Variations — language, regional'),
+    Field('accessibilityVariations', String,
+        'Accessibility Variations — screen reader, keyboard'),
+    Field('offlineVariations', String,
+        'Offline Variations — handling offline state'),
+  ])
+  String? content;
+}
+
+/// UI requirements preview for this interaction.
+class UIRequirementsPreview {
+  @Form([
+    Field('primaryScreen', String, 'Primary Screen — main UI screen'),
+    Field('screenFlow', String, 'Screen Flow — navigation path'),
+    Field('keyFormFields', String, 'Key Form Fields — input fields'),
+    Field('keyActions', String, 'Key Actions — buttons, links'),
+    Field('keyDisplayElements', String,
+        'Key Display Elements — data shown'),
+    Field('feedbackMechanisms', String,
+        'Feedback Mechanisms — success/error messages'),
+    Field('layoutConsiderations', String,
+        'Layout Considerations — responsive, orientation'),
+    Field('interactionPatterns', String,
+        'Interaction Patterns — drag-drop, swipe'),
+  ])
+  String? content;
+
+  /// UI mockup/wireframe reference.
+  FlowDiagramSection screenMockup = FlowDiagramSection();
+}
+
+/// Interaction performance requirements.
+class InteractionPerformance {
+  @Form([
+    Field('expectedFrequency', String,
+        'Expected Frequency — times per day/week'),
+    Field('peakVolume', String, 'Peak Volume — maximum concurrent'),
+    Field('responseTimeTarget', String,
+        'Response Time Target — max acceptable'),
+    Field('throughputTarget', String,
+        'Throughput Target — transactions per second'),
+    Field('availabilityRequirement', String,
+        'Availability Requirement — uptime needed'),
+    Field('concurrencyExpectation', String,
+        'Concurrency Expectation — simultaneous users'),
+    Field('dataVolumeHandled', String,
+        'Data Volume Handled — typical data size'),
+  ])
+  String? content;
+}
+
+/// Interaction security requirements.
+class InteractionSecurity {
+  @Form([
+    Field('authenticationRequired', String,
+        'Authentication Required — auth needed'),
+    Field('authorizationRules', String,
+        'Authorization Rules — who can do this'),
+    Field('dataClassification', String,
+        'Data Classification — sensitivity level'),
+    Field('encryptionRequirements', String,
+        'Encryption Requirements — data protection'),
+    Field('auditLogging', String, 'Audit Logging — what is logged'),
+    Field('sessionRequirements', String,
+        'Session Requirements — timeout, renewal'),
+    Field('complianceRequirements', String,
+        'Compliance Requirements — GDPR, HIPAA'),
+  ])
+  String? content;
+}
+
+/// Business rules triggered by this interaction.
+class InteractionBusinessRules {
+  @Form([
+    Field('validationRules', String,
+        'Validation Rules — BR-xxx for validation'),
+    Field('calculationRules', String,
+        'Calculation Rules — BR-xxx for calculations'),
+    Field('authorizationRules', String,
+        'Authorization Rules — BR-xxx for permissions'),
+    Field('workflowRules', String, 'Workflow Rules — BR-xxx for flow'),
+    Field('notificationRules', String,
+        'Notification Rules — BR-xxx for notifications'),
+    Field('integrationRules', String,
+        'Integration Rules — BR-xxx for integrations'),
+  ])
+  String? content;
+}
+
+/// Interaction traceability to other elements.
+class InteractionTraceability {
+  @Form([
+    Field('relatedProcess', String, 'Related Process — BP-xxx'),
+    Field('relatedRequirements', String, 'Related Requirements — REQ-xxx'),
+    Field('relatedUseCase', String, 'Related Use Case — UC-xxx in UC document'),
+    Field('relatedDataEntities', String, 'Related Data Entities — entity names'),
+    Field('relatedBusinessObjects', String,
+        'Related Business Objects — BO-xxx'),
+    Field('relatedBusinessRules', String, 'Related Business Rules — BR-xxx'),
+    Field('relatedIntegrations', String, 'Related Integrations — INT-xxx'),
+    Field('relatedTestCases', String, 'Related Test Cases — TC-xxx'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 6.2.3 Key Scenarios [PD00-TAR-STP-SCE]
+// ---------------------------------------------------------------------------
+
 /// 6.2.3. Key Scenarios [PD00-TAR-STP-SCE].
+///
+/// End-to-end scenario descriptions showing how users achieve business goals
+/// through sequences of interactions.
 @SectionId('PD00-TAR-STP-SCE')
 class KeyScenarios {
   @Unused()
   String? content;
+
+  /// Scenario overview.
+  ScenarioOverview overview = ScenarioOverview();
 
   /// Contains 1+× Scenario.
   @SectionIdPattern('PD00-TAR-STP-SCE-xx')
@@ -940,44 +1567,181 @@ class KeyScenarios {
   List<ScenarioEntry> scenarios = [];
 }
 
-/// A scenario entry (description) [PD00-TAR-STP-SCE-nn].
-class ScenarioEntry {
+/// Scenario overview.
+class ScenarioOverview {
   @Form([
-    Field('scenarioName', String, 'Scenario Name', required: true),
-    Field('description', String, 'Description'),
-    Field('successCondition', String, 'Success Condition'),
+    Field('totalScenarioCount', int, 'Total Scenario Count'),
+    Field('scenarioCoverage', String,
+        'Scenario Coverage — what user journeys are covered'),
+    Field('scenarioTypes', String,
+        'Scenario Types — happy path, error handling, edge case'),
+    Field('scenarioPrioritization', String,
+        'Scenario Prioritization — which are most important'),
+    Field('scenarioToTestMapping', String,
+        'Scenario to Test Mapping — how scenarios map to tests'),
   ])
   String? content;
+}
 
-  /// Contains 0+× Scenario Step.
+/// A scenario entry [PD00-TAR-STP-SCE-nn].
+///
+/// Comprehensive scenario definition for end-to-end user journey.
+class ScenarioEntry {
+  /// Scenario identification.
+  ScenarioIdentification identification = ScenarioIdentification();
+
+  /// Scenario context.
+  ScenarioContext context = ScenarioContext();
+
+  /// Contains 1+× Scenario Step.
   @SectionIdPattern('PD00-TAR-STP-SCE-xx-SST-xx')
+  @Min(1)
   List<ScenarioStepEntry> steps = [];
 
   /// Alternative flows — contains 0+× Alternative Flow.
   @SectionIdPattern('PD00-TAR-STP-SCE-xx-AFL-xx')
   List<AlternativeFlowEntry> alternativeFlows = [];
+
+  /// Scenario data.
+  ScenarioData scenarioData = ScenarioData();
+
+  /// Scenario timing.
+  ScenarioTiming timing = ScenarioTiming();
+
+  /// Scenario validation.
+  ScenarioValidation validation = ScenarioValidation();
 }
 
-/// A scenario step entry (form) [PD00-TAR-STP-SCE-nn-SST-nn].
+/// Scenario identification.
+class ScenarioIdentification {
+  @Form([
+    Field('scenarioId', String, 'Scenario ID (e.g., SCE-001)', required: true),
+    Field('scenarioName', String, 'Scenario Name', required: true),
+    Field('scenarioType', String,
+        'Scenario Type — happy path, alternative, exception'),
+    Field('description', String, 'Description — narrative summary'),
+    Field('businessGoal', String, 'Business Goal — what is achieved'),
+    Field('primaryActor', String, 'Primary Actor — who performs scenario'),
+    Field('supportingActors', String, 'Supporting Actors — who else'),
+    Field('priority', String, 'Priority — critical, high, medium, low'),
+    Field('complexity', String, 'Complexity — simple, moderate, complex'),
+  ])
+  String? content;
+}
+
+/// Scenario context.
+class ScenarioContext {
+  @Form([
+    Field('preconditions', String, 'Preconditions — required initial state'),
+    Field('trigger', String, 'Trigger — what starts the scenario'),
+    Field('successCondition', String,
+        'Success Condition — how to know it worked'),
+    Field('failureCondition', String,
+        'Failure Condition — how to know it failed'),
+    Field('assumptions', String, 'Assumptions — what is assumed true'),
+    Field('outOfScope', String, 'Out of Scope — what is not included'),
+    Field('relatedInteractions', String,
+        'Related Interactions — INT-xxx references'),
+  ])
+  String? content;
+}
+
+/// A scenario step entry [PD00-TAR-STP-SCE-nn-SST-nn].
 class ScenarioStepEntry {
   @Form([
+    Field('stepNumber', int, 'Step Number', required: true),
+    Field('actor', String, 'Actor — who performs this step'),
+    Field('action', String, 'Action — what actor does'),
+    Field('systemResponse', String, 'System Response — what system does'),
+    Field('expectedResult', String, 'Expected Result — observable outcome'),
+    Field('interactionReference', String,
+        'Interaction Reference — INT-xxx if detailed'),
+    Field('dataInvolved', String, 'Data Involved — input/output data'),
+    Field('uiElement', String, 'UI Element — screen/component used'),
+    Field('decisionPoint', String,
+        'Decision Point — if branching occurs here'),
+    Field('timing', String, 'Timing — expected duration'),
+    Field('notes', String, 'Notes — clarifications'),
+  ])
+  String? content;
+}
+
+/// An alternative flow entry [PD00-TAR-STP-SCE-nn-AFL-nn].
+class AlternativeFlowEntry {
+  @Form([
+    Field('flowId', String, 'Flow ID (e.g., AFL-001)', required: true),
+    Field('flowName', String, 'Flow Name', required: true),
+    Field('flowType', String, 'Flow Type — alternative, exception, error'),
+    Field('branchPoint', String, 'Branch Point — step where flow branches'),
+    Field('triggerCondition', String, 'Trigger Condition — when this occurs'),
+    Field('description', String, 'Description — what happens'),
+    Field('outcome', String, 'Outcome — how flow ends'),
+    Field('returnPoint', String, 'Return Point — step to return to'),
+    Field('frequency', String, 'Frequency — how often this occurs'),
+    Field('businessImpact', String, 'Business Impact — effect on business'),
+  ])
+  String? content;
+
+  /// Contains 0+× Scenario Step.
+  @SectionIdPattern('PD00-TAR-STP-SCE-xx-AFL-xx-AST-xx')
+  List<AlternativeStepEntry> steps = [];
+}
+
+/// An alternative step entry [PD00-TAR-STP-SCE-nn-AFL-nn-AST-nn].
+class AlternativeStepEntry {
+  @Form([
     Field('stepNumber', String, 'Step Number'),
-    Field('description', String, 'Description'),
+    Field('action', String, 'Action'),
+    Field('response', String, 'Response'),
     Field('expectedResult', String, 'Expected Result'),
   ])
   String? content;
 }
 
-/// An alternative flow entry (form) [PD00-TAR-STP-SCE-nn-AFL-nn].
-class AlternativeFlowEntry {
+/// Scenario data requirements.
+class ScenarioData {
   @Form([
-    Field('flowName', String, 'Flow Name', required: true),
-    Field('triggerCondition', String, 'Trigger Condition'),
-    Field('outcome', String, 'Outcome'),
-    Field('returnPoint', String, 'Return Point'),
+    Field('inputData', String, 'Input Data — data needed to start'),
+    Field('outputData', String, 'Output Data — data produced'),
+    Field('testDataRequirements', String,
+        'Test Data Requirements — data for testing'),
+    Field('dataTransformations', String,
+        'Data Transformations — how data changes'),
+    Field('dataValidations', String, 'Data Validations — checks performed'),
+    Field('sampleDataValues', String,
+        'Sample Data Values — example input/output'),
   ])
   String? content;
+}
 
-  /// Contains 0+× Scenario Step.
-  List<ScenarioStepEntry> steps = [];
+/// Scenario timing expectations.
+class ScenarioTiming {
+  @Form([
+    Field('totalDuration', String, 'Total Duration — end-to-end time'),
+    Field('userActiveTime', String, 'User Active Time — user effort'),
+    Field('systemProcessingTime', String,
+        'System Processing Time — system work'),
+    Field('waitTime', String,
+        'Wait Time — delays for external factors'),
+    Field('timeConstraints', String,
+        'Time Constraints — deadlines, SLAs'),
+    Field('timeoutHandling', String,
+        'Timeout Handling — what if too slow'),
+  ])
+  String? content;
+}
+
+/// Scenario validation criteria.
+class ScenarioValidation {
+  @Form([
+    Field('acceptanceCriteria', String,
+        'Acceptance Criteria — how success is verified'),
+    Field('testScenarios', String, 'Test Scenarios — TC-xxx references'),
+    Field('verificationMethod', String,
+        'Verification Method — manual, automated'),
+    Field('validationData', String, 'Validation Data — data to check'),
+    Field('expectedMetrics', String, 'Expected Metrics — performance targets'),
+    Field('knownIssues', String, 'Known Issues — documented problems'),
+  ])
+  String? content;
 }
