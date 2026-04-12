@@ -9455,9 +9455,9 @@ class TechnicalSecurityRequirements {
   DataProtectionAndPrivacySection dataProtectionAndPrivacy =
       DataProtectionAndPrivacySection();
 
-  /// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD] — contains 0+× SecurityAudit.
-  @SectionIdPattern('PD00-TEC-SEC-AUD-xx')
-  List<SecurityAuditEntry> securityAuditRequirements = [];
+  /// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
+  SecurityAuditRequirementsSection securityAuditRequirements =
+      SecurityAuditRequirementsSection();
 }
 
 /// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
@@ -10218,11 +10218,402 @@ class DataProtectionClassification {
   String? content;
 }
 
+// ---------------------------------------------------------------------------
+// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD]
+// ---------------------------------------------------------------------------
+
+/// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
+///
+/// Comprehensive security audit requirements covering penetration testing,
+/// security-focused code review, dependency scanning, security certifications,
+/// compliance audit scheduling, and automated security testing integration.
+@SectionId('PD00-TEC-SEC-AUD')
+class SecurityAuditRequirementsSection {
+  @Unused()
+  String? content;
+
+  /// Overview of security audit strategy and approach.
+  TextSection overview = TextSection();
+
+  /// Penetration testing requirements and schedule.
+  PenetrationTestingRequirements penetrationTesting =
+      PenetrationTestingRequirements();
+
+  /// Security-focused code review policy and process.
+  SecurityCodeReviewPolicy securityCodeReview = SecurityCodeReviewPolicy();
+
+  /// Dependency and supply-chain scanning requirements.
+  DependencyScanningRequirements dependencyScanning =
+      DependencyScanningRequirements();
+
+  /// Security certification and compliance framework needs.
+  SecurityCertificationRequirements securityCertifications =
+      SecurityCertificationRequirements();
+
+  /// Compliance audit planning and scheduling.
+  ComplianceAuditSchedule complianceAuditSchedule = ComplianceAuditSchedule();
+
+  /// Automated security testing integration (SAST, DAST, IAST).
+  SecurityTestingAutomation securityTestingAutomation =
+      SecurityTestingAutomation();
+
+  /// Individual security audit requirement entries — contains 0+× SecurityAudit.
+  @SectionIdPattern('PD00-TEC-SEC-AUD-xx')
+  List<SecurityAuditEntry> auditEntries = [];
+}
+
+/// Penetration testing requirements and schedule [PD00-TEC-SEC-AUD].
+class PenetrationTestingRequirements {
+  @Form([
+    // Scope and approach
+    Field('pentestScope', String, 'Penetration Test Scope',
+        required: true,
+        hint:
+            'External network, internal network, web application, mobile app, API'),
+    Field('pentestMethodology', String, 'Testing Methodology',
+        required: true,
+        hint: 'OWASP WSTG, PTES, OSSTMM, NIST SP 800-115'),
+    Field('pentestApproach', String, 'Testing Approach',
+        hint: 'Black box, grey box, white box, or combination'),
+    Field('pentestProvider', String, 'Testing Provider',
+        hint: 'Internal red team, external firm, or both'),
+
+    // Frequency and scheduling
+    Field('pentestFrequency', String, 'Testing Frequency',
+        required: true,
+        hint: 'Annual, semi-annual, quarterly, after major releases'),
+    Field('retestRequirements', String, 'Retest Requirements',
+        hint: 'When retesting is required after remediation'),
+    Field('triggerBasedTesting', String, 'Trigger-Based Testing',
+        hint:
+            'Events triggering unscheduled tests: major changes, incidents, new integrations'),
+
+    // Execution
+    Field('testingEnvironment', String, 'Testing Environment',
+        hint: 'Production, staging, dedicated pentest environment'),
+    Field('rulesOfEngagement', String, 'Rules of Engagement',
+        hint: 'Boundaries, excluded systems, testing windows, escalation'),
+    Field('socialEngineeringScope', String, 'Social Engineering Scope',
+        hint: 'Phishing, vishing, physical access testing if applicable'),
+    Field('dosTestingAllowed', String, 'DoS Testing Allowed',
+        hint: 'Whether denial-of-service testing is in scope'),
+
+    // Reporting
+    Field('findingSeverityScale', String, 'Finding Severity Scale',
+        hint: 'CVSS, custom scale (Critical/High/Medium/Low/Info)'),
+    Field('reportingFormat', String, 'Reporting Format',
+        hint: 'Executive summary, technical findings, remediation guidance'),
+    Field('remediationTimelines', String, 'Remediation Timelines',
+        required: true,
+        hint:
+            'SLAs per severity: Critical 48h, High 7d, Medium 30d, Low 90d'),
+    Field('managementBriefing', String, 'Management Briefing',
+        hint: 'Post-test executive debrief requirements'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional penetration testing notes'),
+  ])
+  String? content;
+}
+
+/// Security-focused code review policy [PD00-TEC-SEC-AUD].
+///
+/// Distinct from CodeReviewProcess (section 8.4) which covers general
+/// development code review. This section focuses specifically on
+/// security-oriented review requirements.
+class SecurityCodeReviewPolicy {
+  @Form([
+    // Review scope
+    Field('securityReviewTriggers', String, 'Security Review Triggers',
+        required: true,
+        hint:
+            'New features, auth changes, crypto code, data handling changes, third-party integrations'),
+    Field('securityReviewScope', String, 'Review Scope',
+        hint:
+            'Authentication, authorization, input validation, cryptography, session management'),
+    Field('reviewMethodology', String, 'Review Methodology',
+        hint: 'OWASP Code Review Guide, CWE/SANS Top 25, manual + automated'),
+
+    // Reviewers
+    Field('securityReviewerRequirements', String, 'Reviewer Requirements',
+        required: true,
+        hint:
+            'Security training certifications, experience requirements for reviewers'),
+    Field('externalReviewCriteria', String, 'External Review Criteria',
+        hint: 'When external security review firm is engaged'),
+    Field('reviewerRotation', String, 'Reviewer Rotation',
+        hint: 'How security reviewers are rotated to avoid bias'),
+
+    // Process
+    Field('securityChecklist', String, 'Security Checklist',
+        hint:
+            'OWASP Top 10, injection, XSS, CSRF, auth bypass, data exposure'),
+    Field('threatModelingIntegration', String, 'Threat Modeling Integration',
+        hint: 'How threat models inform code review focus areas'),
+    Field('securityAnnotations', String, 'Security Annotations',
+        hint:
+            'Code annotations marking security-critical sections for priority review'),
+
+    // Findings
+    Field('findingClassification', String, 'Finding Classification',
+        hint: 'Vulnerability, weakness, informational, best-practice deviation'),
+    Field('findingTrackingProcess', String, 'Finding Tracking',
+        hint: 'How findings are tracked from discovery to resolution'),
+    Field('securityDebtManagement', String, 'Security Debt Management',
+        hint: 'How accepted security risks are documented and reviewed'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional security code review notes'),
+  ])
+  String? content;
+}
+
+/// Dependency and supply-chain scanning requirements [PD00-TEC-SEC-AUD].
+class DependencyScanningRequirements {
+  @Form([
+    // Scanning approach
+    Field('scaScanningTool', String, 'SCA Scanning Tool',
+        required: true,
+        hint:
+            'Software Composition Analysis tool: Snyk, Dependabot, OWASP Dependency-Check, Trivy'),
+    Field('scanFrequency', String, 'Scan Frequency',
+        required: true,
+        hint: 'Every build, daily, weekly, on dependency change'),
+    Field('registryScanning', String, 'Registry Scanning',
+        hint: 'Scanning package registries (pub.dev, npm, Docker Hub) for known vulnerabilities'),
+
+    // Vulnerability management
+    Field('vulnerabilityDatabase', String, 'Vulnerability Database',
+        hint: 'NVD, GitHub Advisory Database, OSV, vendor-specific advisories'),
+    Field('severityThresholds', String, 'Severity Thresholds',
+        required: true,
+        hint: 'Build-blocking severity: Critical blocks, High warns, etc.'),
+    Field('remediationSla', String, 'Remediation SLA',
+        hint: 'Time to patch per severity level'),
+    Field('exceptionProcess', String, 'Exception Process',
+        hint: 'How vulnerabilities are risk-accepted with justification'),
+
+    // Software bill of materials
+    Field('sbomGeneration', String, 'SBOM Generation',
+        hint: 'Software Bill of Materials format: SPDX, CycloneDX'),
+    Field('sbomUpdateFrequency', String, 'SBOM Update Frequency',
+        hint: 'How often SBOM is regenerated and published'),
+    Field('sbomDistribution', String, 'SBOM Distribution',
+        hint: 'Who receives SBOM: customers, auditors, regulators'),
+
+    // License compliance
+    Field('licensePolicy', String, 'License Policy',
+        hint:
+            'Allowed licenses (MIT, BSD, Apache 2.0), restricted (GPL, AGPL), review-required'),
+    Field('licenseScanning', String, 'License Scanning',
+        hint: 'Automated license detection and policy enforcement'),
+
+    // Supply chain security
+    Field('dependencyPinning', String, 'Dependency Pinning',
+        hint: 'Lock file requirements, version pinning strategy'),
+    Field('signatureVerification', String, 'Signature Verification',
+        hint: 'Package signature verification, provenance attestation'),
+    Field('privateRegistryPolicy', String, 'Private Registry Policy',
+        hint: 'Internal package registry, proxy settings, caching policy'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional dependency scanning notes'),
+  ])
+  String? content;
+}
+
+/// Security certification and compliance requirements [PD00-TEC-SEC-AUD].
+class SecurityCertificationRequirements {
+  @Form([
+    // Target certifications
+    Field('targetCertifications', String, 'Target Certifications',
+        required: true,
+        hint:
+            'ISO 27001, SOC 2 Type II, PCI DSS, HIPAA, FedRAMP, CSA STAR'),
+    Field('certificationTimeline', String, 'Certification Timeline',
+        hint: 'Target dates for achieving each certification'),
+    Field('certificationScope', String, 'Certification Scope',
+        hint: 'Which systems, processes, and data are in scope'),
+
+    // ISO 27001
+    Field('iso27001Controls', String, 'ISO 27001 Controls',
+        hint: 'Annex A controls applicable, Statement of Applicability'),
+    Field('ismsScope', String, 'ISMS Scope',
+        hint: 'Information Security Management System boundary definition'),
+    Field('riskAssessmentMethodology', String, 'Risk Assessment Methodology',
+        hint: 'Risk assessment approach for ISO 27001 compliance'),
+
+    // SOC 2
+    Field('soc2TrustServiceCriteria', String, 'SOC 2 Trust Criteria',
+        hint: 'Security, Availability, Processing Integrity, Confidentiality, Privacy'),
+    Field('soc2ReportType', String, 'SOC 2 Report Type',
+        hint: 'Type I (point in time) or Type II (over period)'),
+    Field('soc2AuditPeriod', String, 'SOC 2 Audit Period',
+        hint: 'Observation window for Type II audit'),
+
+    // Industry-specific
+    Field('pciDssLevel', String, 'PCI DSS Level',
+        hint: 'PCI DSS compliance level based on transaction volume'),
+    Field('hipaaRequirements', String, 'HIPAA Requirements',
+        hint: 'PHI handling, BAA requirements if applicable'),
+    Field('industrySpecificCompliance', String, 'Industry-Specific Compliance',
+        hint: 'FINRA, FDA 21 CFR Part 11, NERC CIP, etc.'),
+
+    // Maintenance
+    Field('recertificationCycle', String, 'Recertification Cycle',
+        hint: 'Annual surveillance audits, triennial recertification'),
+    Field('continuousComplianceMonitoring', String, 'Continuous Monitoring',
+        hint: 'How ongoing compliance is monitored between audits'),
+    Field('certificationBudget', String, 'Certification Budget',
+        hint: 'Estimated budget for certification and maintenance'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional security certification notes'),
+  ])
+  String? content;
+}
+
+/// Compliance audit planning and scheduling [PD00-TEC-SEC-AUD].
+class ComplianceAuditSchedule {
+  @Form([
+    // Audit types
+    Field('internalAuditFrequency', String, 'Internal Audit Frequency',
+        required: true,
+        hint: 'How often internal security audits are conducted'),
+    Field('externalAuditFrequency', String, 'External Audit Frequency',
+        required: true,
+        hint: 'How often external/third-party audits are conducted'),
+    Field('auditTypes', String, 'Audit Types',
+        hint:
+            'Technical audit, process audit, compliance audit, forensic audit'),
+
+    // Planning
+    Field('annualAuditPlan', String, 'Annual Audit Plan',
+        hint: 'Documented plan with scope, schedule, resources for the year'),
+    Field('auditScopeDefinition', String, 'Scope Definition',
+        hint: 'How audit scope is determined: risk-based, regulatory, coverage rotation'),
+    Field('auditResourceRequirements', String, 'Resource Requirements',
+        hint: 'Internal staff, external auditors, tools, budget'),
+
+    // Execution
+    Field('auditorQualifications', String, 'Auditor Qualifications',
+        hint: 'CISA, CISSP, ISO 27001 Lead Auditor, industry-specific'),
+    Field('auditEvidenceCollection', String, 'Evidence Collection',
+        hint: 'How audit evidence is gathered, documented, and preserved'),
+    Field('auditInterviewProcess', String, 'Interview Process',
+        hint: 'Staff interview methodology during audits'),
+
+    // Reporting and follow-up
+    Field('auditReportingStructure', String, 'Reporting Structure',
+        hint: 'Finding format, severity rating, recommendation structure'),
+    Field('findingRemediationTracking', String, 'Remediation Tracking',
+        hint: 'How audit findings are tracked to resolution'),
+    Field('managementResponseTimeline', String, 'Management Response Timeline',
+        hint: 'Time for management to respond to audit findings'),
+    Field('auditCommitteeReporting', String, 'Committee Reporting',
+        hint: 'How audit results are reported to board/audit committee'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional compliance audit schedule notes'),
+  ])
+  String? content;
+}
+
+/// Automated security testing integration [PD00-TEC-SEC-AUD].
+///
+/// Requirements for SAST, DAST, IAST, and fuzzing integration
+/// into the CI/CD pipeline and development workflow.
+class SecurityTestingAutomation {
+  @Form([
+    // Static analysis (SAST)
+    Field('sastTool', String, 'SAST Tool',
+        required: true,
+        hint:
+            'Static Application Security Testing: SonarQube, Semgrep, Fortify, Checkmarx'),
+    Field('sastIntegration', String, 'SAST Integration',
+        hint: 'CI/CD pipeline integration point: pre-commit, PR, build'),
+    Field('sastRuleConfiguration', String, 'SAST Rule Configuration',
+        hint: 'Custom rules, severity mapping, false-positive management'),
+
+    // Dynamic analysis (DAST)
+    Field('dastTool', String, 'DAST Tool',
+        hint:
+            'Dynamic Application Security Testing: OWASP ZAP, Burp Suite, Nuclei'),
+    Field('dastScanSchedule', String, 'DAST Scan Schedule',
+        hint: 'Automated scan frequency against staging/QA environment'),
+    Field('dastAuthenticationConfig', String, 'DAST Authentication',
+        hint: 'How DAST scanner authenticates to test protected resources'),
+
+    // Interactive analysis (IAST)
+    Field('iastTool', String, 'IAST Tool',
+        hint:
+            'Interactive Application Security Testing: Contrast Security, Hdiv'),
+    Field('iastDeploymentModel', String, 'IAST Deployment',
+        hint: 'Agent-based in QA/staging, runtime instrumentation approach'),
+
+    // Fuzzing
+    Field('fuzzingRequirements', String, 'Fuzzing Requirements',
+        hint: 'API fuzzing, protocol fuzzing, input mutation testing'),
+    Field('fuzzingTargets', String, 'Fuzzing Targets',
+        hint: 'API endpoints, file parsers, protocol handlers to fuzz'),
+
+    // Container and infrastructure scanning
+    Field('containerScanning', String, 'Container Scanning',
+        hint: 'Docker image vulnerability scanning: Trivy, Grype, Snyk Container'),
+    Field('infrastructureAsCodeScanning', String, 'IaC Scanning',
+        hint: 'Terraform, CloudFormation scanning: Checkov, tfsec, KICS'),
+    Field('secretsDetection', String, 'Secrets Detection',
+        hint: 'Pre-commit secrets scanning: GitLeaks, TruffleHog, detect-secrets'),
+
+    // Quality gates
+    Field('securityQualityGates', String, 'Security Quality Gates',
+        required: true,
+        hint:
+            'Build-blocking criteria: no critical/high SAST findings, clean container scan'),
+    Field('falsePositiveProcess', String, 'False Positive Process',
+        hint: 'How false positives are triaged, suppressed, and documented'),
+    Field('securityDashboard', String, 'Security Dashboard',
+        hint: 'Centralized security metrics and trend visualization'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional security testing automation notes'),
+  ])
+  String? content;
+}
+
 /// A security audit requirement entry (form) [PD00-TEC-SEC-AUD-nn].
 class SecurityAuditEntry {
   @Form([
-    Field('requirement', String, 'Requirement'),
-    Field('frequency', String, 'Frequency'),
+    // Audit identification
+    Field('auditName', String, 'Audit Name',
+        required: true, hint: 'Name or title of the audit requirement'),
+    Field('auditCategory', String, 'Audit Category',
+        hint:
+            'Penetration test, compliance audit, code audit, infrastructure audit'),
+    Field('auditDescription', String, 'Description',
+        hint: 'Detailed description of what the audit covers'),
+
+    // Scheduling
+    Field('frequency', String, 'Frequency',
+        required: true, hint: 'Annual, semi-annual, quarterly, on-demand'),
+    Field('lastAuditDate', String, 'Last Audit Date',
+        hint: 'Date of most recent audit'),
+    Field('nextAuditDate', String, 'Next Audit Date',
+        hint: 'Planned date for next audit'),
+
+    // Scope and execution
+    Field('auditScope', String, 'Audit Scope',
+        hint: 'Systems, processes, and data in scope'),
+    Field('auditStandard', String, 'Audit Standard',
+        hint: 'Standard or framework: ISO 27001, SOC 2, OWASP, PCI DSS'),
+    Field('auditorType', String, 'Auditor Type',
+        hint: 'Internal team, external firm, regulatory body'),
+    Field('estimatedDuration', String, 'Estimated Duration',
+        hint: 'Expected duration of the audit engagement'),
+
+    // Deliverables
+    Field('expectedDeliverables', String, 'Expected Deliverables',
+        hint: 'Audit report, remediation plan, certification, attestation'),
+    Field('remediationTimeline', String, 'Remediation Timeline',
+        hint: 'Expected timeline for addressing findings'),
+    Field('responsibleParty', String, 'Responsible Party',
+        hint: 'Team or individual responsible for coordinating the audit'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional audit requirement notes'),
   ])
   String? content;
 }
