@@ -3208,19 +3208,595 @@ class StandardSoftwareRequirements {
   @Unused()
   String? content;
 
-  /// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM] — contains 0+× CompatibilityRequirement.
-  @SectionIdPattern('PD00-TEC-STA-COM-xx')
-  List<CompatibilityRequirementEntry> compatibilityRequirements = [];
+  /// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
+  CompatibilityRequirementsSection compatibilityRequirements =
+      CompatibilityRequirementsSection();
 
   /// Standards Compliance.
   TextSection standardsCompliance = TextSection();
 }
 
-/// A compatibility requirement entry (form) [PD00-TEC-STA-COM-nn].
-class CompatibilityRequirementEntry {
+// =============================================================================
+// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM]
+// =============================================================================
+
+/// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
+///
+/// Compatibility requirements with existing IT infrastructure, standard software,
+/// and enterprise systems.
+@SectionId('PD00-TEC-STA-COM')
+class CompatibilityRequirementsSection {
+  @Unused()
+  String? content;
+
+  /// Overview of compatibility strategy.
+  TextSection overview = TextSection();
+
+  /// Operating system compatibility requirements.
+  @SectionIdPattern('PD00-TEC-STA-COM-OS-xx')
+  List<OsCompatibilityEntry> osCompatibility = [];
+
+  /// Browser compatibility requirements.
+  @SectionIdPattern('PD00-TEC-STA-COM-BRW-xx')
+  List<BrowserCompatibilityEntry> browserCompatibility = [];
+
+  /// Database compatibility requirements.
+  @SectionIdPattern('PD00-TEC-STA-COM-DB-xx')
+  List<DatabaseCompatibilityEntry> databaseCompatibility = [];
+
+  /// Enterprise system compatibility requirements.
+  @SectionIdPattern('PD00-TEC-STA-COM-ENT-xx')
+  List<EnterpriseSystemCompatibilityEntry> enterpriseSystemCompatibility = [];
+
+  /// API and protocol compatibility requirements.
+  @SectionIdPattern('PD00-TEC-STA-COM-API-xx')
+  List<ApiCompatibilityEntry> apiCompatibility = [];
+
+  /// Legacy system compatibility requirements.
+  @SectionIdPattern('PD00-TEC-STA-COM-LEG-xx')
+  List<LegacyCompatibilityEntry> legacyCompatibility = [];
+
+  /// Mobile device compatibility requirements.
+  @SectionIdPattern('PD00-TEC-STA-COM-MOB-xx')
+  List<MobileCompatibilityEntry> mobileCompatibility = [];
+
+  /// Third-party software compatibility requirements.
+  @SectionIdPattern('PD00-TEC-STA-COM-3RD-xx')
+  List<ThirdPartyCompatibilityEntry> thirdPartyCompatibility = [];
+
+  /// Data format and encoding compatibility.
+  DataFormatCompatibility dataFormatCompatibility = DataFormatCompatibility();
+
+  /// Backwards compatibility requirements.
+  BackwardsCompatibilityRequirements backwardsCompatibility =
+      BackwardsCompatibilityRequirements();
+
+  /// Interoperability requirements.
+  InteroperabilityRequirements interoperability = InteroperabilityRequirements();
+}
+
+/// Operating system compatibility entry.
+class OsCompatibilityEntry {
   @Form([
-    Field('requirement', String, 'Requirement'),
-    Field('system', String, 'System'),
+    // Identity
+    Field('osName', String, 'Operating System',
+        required: true, hint: 'E.g., Windows, macOS, Linux, iOS, Android'),
+    Field('osFamily', String, 'OS Family',
+        hint: 'Windows, Unix, Mobile'),
+    Field('minVersion', String, 'Minimum Version',
+        required: true, hint: 'Minimum supported version'),
+    Field('maxVersion', String, 'Maximum Version',
+        hint: 'Maximum tested version'),
+
+    // Support level
+    Field('supportLevel', String, 'Support Level',
+        hint: 'Full, Partial, Best-effort, Unsupported'),
+    Field('priority', String, 'Priority',
+        hint: 'Primary, Secondary, Edge case'),
+    Field('marketShare', String, 'Market Share',
+        hint: 'Target market share percentage'),
+
+    // Requirements
+    Field('architectures', String, 'Architectures',
+        hint: 'x64, ARM64, x86'),
+    Field('minMemory', String, 'Minimum Memory',
+        hint: 'Minimum RAM required'),
+    Field('minStorage', String, 'Minimum Storage',
+        hint: 'Minimum disk space required'),
+    Field('prerequisites', String, 'Prerequisites',
+        hint: 'Required runtime, frameworks'),
+
+    // Testing
+    Field('testEnvironment', String, 'Test Environment',
+        hint: 'VM, physical, cloud'),
+    Field('testFrequency', String, 'Test Frequency',
+        hint: 'Every release, periodic, on-demand'),
+    Field('knownIssues', String, 'Known Issues',
+        hint: 'OS-specific issues'),
+
+    // Notes
+    Field('specialConsiderations', String, 'Special Considerations',
+        hint: 'Special handling for this OS'),
+    Field('eolPlanning', String, 'EOL Planning',
+        hint: 'Plan for OS end-of-life'),
+    Field('notes', String, 'Notes', hint: 'Additional OS compatibility notes'),
+  ])
+  String? content;
+}
+
+/// Browser compatibility entry.
+class BrowserCompatibilityEntry {
+  @Form([
+    // Identity
+    Field('browserName', String, 'Browser',
+        required: true, hint: 'E.g., Chrome, Firefox, Safari, Edge'),
+    Field('browserEngine', String, 'Browser Engine',
+        hint: 'Chromium, Gecko, WebKit'),
+    Field('minVersion', String, 'Minimum Version',
+        required: true, hint: 'Minimum supported version'),
+    Field('maxVersion', String, 'Maximum Version',
+        hint: 'Maximum tested version'),
+
+    // Support
+    Field('supportLevel', String, 'Support Level',
+        hint: 'Full, Partial, Polyfill required, Unsupported'),
+    Field('priority', String, 'Priority',
+        hint: 'Primary, Secondary, Edge case'),
+    Field('userShare', String, 'User Share',
+        hint: 'Expected user share percentage'),
+
+    // Features
+    Field('requiredFeatures', String, 'Required Features',
+        hint: 'JS features, APIs required'),
+    Field('polyfills', String, 'Polyfills Required',
+        hint: 'Polyfills needed'),
+    Field('gracefulDegradation', String, 'Graceful Degradation',
+        hint: 'Fallback behavior'),
+
+    // Mobile browsers
+    Field('mobileSupport', String, 'Mobile Support',
+        hint: 'Mobile browser support level'),
+    Field('pwa', String, 'PWA Support',
+        hint: 'Progressive Web App support'),
+    Field('offlineSupport', String, 'Offline Support',
+        hint: 'Offline capability'),
+
+    // Testing
+    Field('testPlatforms', String, 'Test Platforms',
+        hint: 'Where browser is tested'),
+    Field('automatedTesting', String, 'Automated Testing',
+        hint: 'Automated browser testing'),
+    Field('knownIssues', String, 'Known Issues',
+        hint: 'Browser-specific issues'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional browser compatibility notes'),
+  ])
+  String? content;
+}
+
+/// Database compatibility entry.
+class DatabaseCompatibilityEntry {
+  @Form([
+    // Identity
+    Field('databaseName', String, 'Database',
+        required: true, hint: 'E.g., PostgreSQL, MySQL, MongoDB, SQLite'),
+    Field('databaseType', String, 'Type',
+        hint: 'RDBMS, Document, Key-Value, Graph'),
+    Field('minVersion', String, 'Minimum Version',
+        required: true, hint: 'Minimum supported version'),
+    Field('maxVersion', String, 'Maximum Version',
+        hint: 'Maximum tested version'),
+
+    // Support
+    Field('supportLevel', String, 'Support Level',
+        hint: 'Primary, Secondary, Experimental'),
+    Field('cloudVariants', String, 'Cloud Variants',
+        hint: 'AWS RDS, Azure SQL, Cloud SQL'),
+
+    // Features
+    Field('requiredFeatures', String, 'Required Features',
+        hint: 'Required database features'),
+    Field('optionalFeatures', String, 'Optional Features',
+        hint: 'Optional performance features'),
+    Field('extensions', String, 'Extensions',
+        hint: 'Required extensions/plugins'),
+
+    // Connection
+    Field('connectionDriver', String, 'Connection Driver',
+        hint: 'Driver/client library'),
+    Field('connectionPooling', String, 'Connection Pooling',
+        hint: 'Pooling requirements'),
+    Field('ssl', String, 'SSL Requirements',
+        hint: 'SSL/TLS requirements'),
+
+    // Performance
+    Field('performanceNotes', String, 'Performance Notes',
+        hint: 'DB-specific performance'),
+    Field('scalingConsiderations', String, 'Scaling Considerations',
+        hint: 'Scaling with this database'),
+    Field('knownLimitations', String, 'Known Limitations',
+        hint: 'Database-specific limitations'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional database compatibility notes'),
+  ])
+  String? content;
+}
+
+/// Enterprise system compatibility entry.
+class EnterpriseSystemCompatibilityEntry {
+  @Form([
+    // Identity
+    Field('systemName', String, 'System Name',
+        required: true, hint: 'E.g., SAP, Salesforce, Oracle ERP'),
+    Field('systemType', String, 'System Type',
+        hint: 'ERP, CRM, HR, Finance, Supply Chain'),
+    Field('vendor', String, 'Vendor', hint: 'System vendor'),
+    Field('version', String, 'Version', hint: 'Supported versions'),
+
+    // Integration
+    Field('integrationMethod', String, 'Integration Method',
+        hint: 'API, File transfer, Middleware, Direct'),
+    Field('integrationProtocol', String, 'Integration Protocol',
+        hint: 'REST, SOAP, OData, BAPI'),
+    Field('dataExchange', String, 'Data Exchange',
+        hint: 'Data exchanged with system'),
+    Field('frequency', String, 'Frequency',
+        hint: 'Real-time, batch, on-demand'),
+
+    // Authentication
+    Field('authentication', String, 'Authentication',
+        hint: 'Auth method for system'),
+    Field('authorization', String, 'Authorization',
+        hint: 'Required permissions/roles'),
+    Field('sso', String, 'SSO Integration',
+        hint: 'Single sign-on support'),
+
+    // Requirements
+    Field('prerequisites', String, 'Prerequisites',
+        hint: 'Required adapters, middleware'),
+    Field('configuration', String, 'Configuration',
+        hint: 'Required configuration'),
+    Field('customization', String, 'Customization',
+        hint: 'Required customizations'),
+
+    // Testing
+    Field('testEnvironment', String, 'Test Environment',
+        hint: 'Sandbox, dev instance'),
+    Field('testApproach', String, 'Test Approach',
+        hint: 'Integration testing approach'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional enterprise compatibility notes'),
+  ])
+  String? content;
+}
+
+/// API and protocol compatibility entry.
+class ApiCompatibilityEntry {
+  @Form([
+    // Identity
+    Field('apiName', String, 'API/Protocol Name',
+        required: true, hint: 'Name of API or protocol'),
+    Field('apiType', String, 'API Type',
+        hint: 'REST, GraphQL, gRPC, SOAP, WebSocket'),
+    Field('version', String, 'Version',
+        required: true, hint: 'Supported API versions'),
+
+    // Compatibility
+    Field('versioningStrategy', String, 'Versioning Strategy',
+        hint: 'URL path, header, query param'),
+    Field('backwardsCompatibility', String, 'Backwards Compatibility',
+        hint: 'Support for older versions'),
+    Field('deprecationPolicy', String, 'Deprecation Policy',
+        hint: 'How deprecated APIs handled'),
+
+    // Format
+    Field('dataFormat', String, 'Data Format',
+        hint: 'JSON, XML, Protobuf'),
+    Field('encoding', String, 'Encoding',
+        hint: 'UTF-8, character encoding'),
+    Field('compression', String, 'Compression',
+        hint: 'gzip, deflate support'),
+
+    // Transport
+    Field('transport', String, 'Transport',
+        hint: 'HTTP, HTTPS, WebSocket'),
+    Field('security', String, 'Security',
+        hint: 'TLS version, certificates'),
+    Field('authentication', String, 'Authentication',
+        hint: 'OAuth, API key, JWT'),
+
+    // Specifications
+    Field('specificationUrl', String, 'Specification URL',
+        hint: 'OpenAPI, AsyncAPI URL'),
+    Field('schemaValidation', String, 'Schema Validation',
+        hint: 'Schema validation requirements'),
+    Field('conformanceLevel', String, 'Conformance Level',
+        hint: 'Strict, relaxed'),
+    Field('notes', String, 'Notes', hint: 'Additional API compatibility notes'),
+  ])
+  String? content;
+}
+
+/// Legacy system compatibility entry.
+class LegacyCompatibilityEntry {
+  @Form([
+    // Identity
+    Field('systemName', String, 'System Name',
+        required: true, hint: 'Legacy system name'),
+    Field('systemAge', String, 'System Age',
+        hint: 'How old the system is'),
+    Field('technology', String, 'Technology',
+        hint: 'COBOL, mainframe, etc.'),
+
+    // Integration
+    Field('integrationApproach', String, 'Integration Approach',
+        hint: 'Wrapper, adapter, gateway'),
+    Field('dataAccess', String, 'Data Access',
+        hint: 'How legacy data is accessed'),
+    Field('bidirectional', bool, 'Bidirectional',
+        hint: 'Two-way data flow'),
+
+    // Constraints
+    Field('constraints', String, 'Constraints',
+        hint: 'Legacy system constraints'),
+    Field('limitations', String, 'Limitations',
+        hint: 'Integration limitations'),
+    Field('performanceImpact', String, 'Performance Impact',
+        hint: 'Impact on performance'),
+
+    // Migration
+    Field('migrationPath', String, 'Migration Path',
+        hint: 'Path to replace legacy'),
+    Field('coexistencePeriod', String, 'Coexistence Period',
+        hint: 'How long systems coexist'),
+    Field('dataSync', String, 'Data Synchronization',
+        hint: 'How data stays in sync'),
+
+    // Risk
+    Field('riskAssessment', String, 'Risk Assessment',
+        hint: 'Risks of integration'),
+    Field('fallbackPlan', String, 'Fallback Plan',
+        hint: 'If integration fails'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional legacy compatibility notes'),
+  ])
+  String? content;
+}
+
+/// Mobile device compatibility entry.
+class MobileCompatibilityEntry {
+  @Form([
+    // Identity
+    Field('platform', String, 'Platform',
+        required: true, hint: 'iOS, Android, Cross-platform'),
+    Field('minVersion', String, 'Minimum Version',
+        required: true, hint: 'Minimum OS version'),
+    Field('maxVersion', String, 'Maximum Version',
+        hint: 'Maximum tested version'),
+
+    // Devices
+    Field('deviceTypes', String, 'Device Types',
+        hint: 'Phone, tablet, foldable'),
+    Field('screenSizes', String, 'Screen Sizes',
+        hint: 'Supported screen sizes'),
+    Field('specificDevices', String, 'Specific Devices',
+        hint: 'Named device support'),
+
+    // Hardware
+    Field('minRam', String, 'Minimum RAM',
+        hint: 'Minimum device RAM'),
+    Field('minStorage', String, 'Minimum Storage',
+        hint: 'Minimum storage needed'),
+    Field('requiredHardware', String, 'Required Hardware',
+        hint: 'Camera, GPS, biometric'),
+
+    // Capabilities
+    Field('permissions', String, 'Permissions Required',
+        hint: 'App permissions needed'),
+    Field('backgroundMode', String, 'Background Mode',
+        hint: 'Background execution'),
+    Field('offlineSupport', String, 'Offline Support',
+        hint: 'Offline capabilities'),
+    Field('pushNotifications', String, 'Push Notifications',
+        hint: 'Push notification support'),
+
+    // Distribution
+    Field('appStore', String, 'App Store',
+        hint: 'Distribution channels'),
+    Field('enterpriseDistribution', String, 'Enterprise Distribution',
+        hint: 'MDM, enterprise deployment'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional mobile compatibility notes'),
+  ])
+  String? content;
+}
+
+/// Third-party software compatibility entry.
+class ThirdPartyCompatibilityEntry {
+  @Form([
+    // Identity
+    Field('softwareName', String, 'Software Name',
+        required: true, hint: 'Third-party software name'),
+    Field('vendor', String, 'Vendor', hint: 'Software vendor'),
+    Field('category', String, 'Category',
+        hint: 'Antivirus, Firewall, MDM, Office'),
+    Field('version', String, 'Version', hint: 'Supported versions'),
+
+    // Compatibility
+    Field('compatibilityLevel', String, 'Compatibility Level',
+        hint: 'Certified, Compatible, Known issues'),
+    Field('coexistence', String, 'Coexistence',
+        hint: 'How they work together'),
+    Field('conflicts', String, 'Known Conflicts',
+        hint: 'Known compatibility issues'),
+
+    // Integration
+    Field('integrationPoints', String, 'Integration Points',
+        hint: 'Where systems integrate'),
+    Field('sharedData', String, 'Shared Data',
+        hint: 'Data shared between systems'),
+    Field('coordination', String, 'Coordination',
+        hint: 'How operations coordinate'),
+
+    // Testing
+    Field('testMatrix', String, 'Test Matrix',
+        hint: 'Combinations tested'),
+    Field('certificationStatus', String, 'Certification Status',
+        hint: 'Vendor certification'),
+    Field('testFrequency', String, 'Test Frequency',
+        hint: 'How often tested'),
+
+    // Support
+    Field('supportArrangement', String, 'Support Arrangement',
+        hint: 'Joint support process'),
+    Field('escalationPath', String, 'Escalation Path',
+        hint: 'Issue escalation'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional third-party compatibility notes'),
+  ])
+  String? content;
+}
+
+/// Data format and encoding compatibility.
+class DataFormatCompatibility {
+  @Form([
+    // Text encoding
+    Field('defaultEncoding', String, 'Default Encoding',
+        hint: 'UTF-8, UTF-16, ISO-8859-1'),
+    Field('supportedEncodings', String, 'Supported Encodings',
+        hint: 'All supported encodings'),
+    Field('encodingConversion', String, 'Encoding Conversion',
+        hint: 'How encoding conversion handled'),
+
+    // Data formats
+    Field('primaryFormat', String, 'Primary Data Format',
+        hint: 'JSON, XML, CSV, Binary'),
+    Field('supportedFormats', String, 'Supported Formats',
+        hint: 'All supported formats'),
+    Field('formatConversion', String, 'Format Conversion',
+        hint: 'Format conversion support'),
+
+    // Date/time
+    Field('dateFormat', String, 'Date Format',
+        hint: 'ISO 8601, locale-specific'),
+    Field('timeZoneHandling', String, 'Time Zone Handling',
+        hint: 'UTC, local, configurable'),
+    Field('calendarSystems', String, 'Calendar Systems',
+        hint: 'Gregorian, other calendars'),
+
+    // Numbers
+    Field('numberFormat', String, 'Number Format',
+        hint: 'Decimal separator, grouping'),
+    Field('currencyFormat', String, 'Currency Format',
+        hint: 'Currency representation'),
+    Field('precision', String, 'Numeric Precision',
+        hint: 'Decimal precision handling'),
+
+    // Locale
+    Field('localeSupport', String, 'Locale Support',
+        hint: 'Locale handling'),
+    Field('rtlSupport', bool, 'RTL Support',
+        hint: 'Right-to-left languages'),
+    Field('unicodeSupport', String, 'Unicode Support',
+        hint: 'Unicode version, emoji'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional data format notes'),
+  ])
+  String? content;
+}
+
+/// Backwards compatibility requirements.
+class BackwardsCompatibilityRequirements {
+  @Form([
+    // Policy
+    Field('compatibilityPolicy', String, 'Compatibility Policy',
+        hint: 'How many versions supported'),
+    Field('breakingChangePolicy', String, 'Breaking Change Policy',
+        hint: 'When breaking changes allowed'),
+    Field('deprecationTimeline', String, 'Deprecation Timeline',
+        hint: 'Deprecation notice period'),
+
+    // Data
+    Field('dataCompatibility', String, 'Data Compatibility',
+        hint: 'Data format compatibility'),
+    Field('migrationSupport', String, 'Migration Support',
+        hint: 'Automatic migration support'),
+    Field('rollbackSupport', String, 'Rollback Support',
+        hint: 'Can rollback to older version'),
+
+    // API
+    Field('apiVersioning', String, 'API Versioning',
+        hint: 'API versioning approach'),
+    Field('multipleVersionSupport', String, 'Multiple Version Support',
+        hint: 'Supporting multiple versions'),
+    Field('clientUpdateGracePeriod', String, 'Client Update Grace Period',
+        hint: 'Time for clients to update'),
+
+    // Database
+    Field('schemaEvolution', String, 'Schema Evolution',
+        hint: 'Database schema changes'),
+    Field('dataMigration', String, 'Data Migration',
+        hint: 'Data migration approach'),
+    Field('backfillStrategy', String, 'Backfill Strategy',
+        hint: 'New field population'),
+
+    // Communication
+    Field('changeNotification', String, 'Change Notification',
+        hint: 'How changes communicated'),
+    Field('documentation', String, 'Documentation',
+        hint: 'Migration documentation'),
+    Field('supportChannels', String, 'Support Channels',
+        hint: 'Migration support'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional backwards compatibility notes'),
+  ])
+  String? content;
+}
+
+/// System interoperability requirements.
+class InteroperabilityRequirements {
+  @Form([
+    // Strategy
+    Field('interopStrategy', String, 'Interoperability Strategy',
+        hint: 'Overall interop approach'),
+    Field('integrationPatterns', String, 'Integration Patterns',
+        hint: 'API, Events, File, Message'),
+    Field('communicationProtocols', String, 'Communication Protocols',
+        hint: 'Supported protocols'),
+
+    // Data exchange
+    Field('dataExchangeFormats', String, 'Data Exchange Formats',
+        hint: 'JSON, XML, Protobuf, Avro'),
+    Field('schemaRegistry', String, 'Schema Registry',
+        hint: 'Schema management'),
+    Field('dataContracts', String, 'Data Contracts',
+        hint: 'Contract definition approach'),
+
+    // Standards
+    Field('industryStandards', String, 'Industry Standards',
+        hint: 'HL7, EDI, SWIFT'),
+    Field('openStandards', String, 'Open Standards',
+        hint: 'Open standard adoption'),
+    Field('certifications', String, 'Certifications',
+        hint: 'Interop certifications'),
+
+    // Testing
+    Field('interopTesting', String, 'Interoperability Testing',
+        hint: 'Testing approach'),
+    Field('testPartners', String, 'Test Partners',
+        hint: 'Partners for testing'),
+    Field('conformanceTests', String, 'Conformance Tests',
+        hint: 'Standard conformance'),
+
+    // Governance
+    Field('changeManagement', String, 'Change Management',
+        hint: 'Managing interface changes'),
+    Field('versionNegotiation', String, 'Version Negotiation',
+        hint: 'How versions negotiated'),
+    Field('fallbackBehavior', String, 'Fallback Behavior',
+        hint: 'When interop fails'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional interoperability notes'),
   ])
   String? content;
 }
