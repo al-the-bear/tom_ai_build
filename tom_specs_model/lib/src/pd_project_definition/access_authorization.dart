@@ -3469,6 +3469,317 @@ class StorageLifecyclePolicy {
   TextSection storageLifecycleDetails = TextSection();
 }
 
+// ---------------------------------------------------------------------------
+// 9.4.1. Authorization Model [PD00-ACC-USA-MOD]
+// ---------------------------------------------------------------------------
+
+/// 9.4.1. Authorization Model [PD00-ACC-USA-MOD].
+///
+/// Describes the authorization model used by the system — RBAC, ABAC, ReBAC,
+/// or hybrid. Covers access control model selection, permission granularity
+/// (function-level, data-level, field-level), permission composition strategy,
+/// access constraints, and evaluation behavior.
+@SectionId('PD00-ACC-USA-MOD')
+class AuthorizationModel {
+  @Unused()
+  String? content;
+
+  /// Access Control Model Selection.
+  AccessControlModelSelection accessControlModelSelection =
+      AccessControlModelSelection();
+
+  /// Permission Granularity.
+  PermissionGranularityPolicy permissionGranularity =
+      PermissionGranularityPolicy();
+
+  /// Permission Composition Strategy.
+  PermissionCompositionStrategy permissionComposition =
+      PermissionCompositionStrategy();
+
+  /// Access Constraint Policies.
+  AccessConstraintPolicies accessConstraints = AccessConstraintPolicies();
+
+  /// Permission Evaluation Behavior.
+  PermissionEvaluationBehavior permissionEvaluation =
+      PermissionEvaluationBehavior();
+
+  /// Authorization Model Notes (text).
+  TextSection authorizationModelNotes = TextSection();
+}
+
+/// Access Control Model Selection (form).
+///
+/// Defines the primary access control paradigm — RBAC, ABAC, ReBAC, or a
+/// combination — and the rationale for the choice.
+@Form([
+  Field('primaryModel', String, 'Primary Model',
+      required: true,
+      hint:
+          'RBAC | ABAC | ReBAC | Hybrid-RBAC-ABAC | Hybrid-RBAC-ReBAC | '
+          'Hybrid-ABAC-ReBAC | Hybrid-All — primary access control paradigm'),
+  Field('modelRationale', String, 'Model Rationale',
+      hint: 'Why this model was chosen over alternatives'),
+  Field('rbacEnabled', bool, 'RBAC Enabled',
+      hint:
+          'Yes | No — role-based access control with permissions assigned to '
+          'roles rather than directly to users'),
+  Field('abacEnabled', bool, 'ABAC Enabled',
+      hint:
+          'Yes | No — attribute-based access control using subject, resource, '
+          'action, and environment attributes per NIST SP 800-162'),
+  Field('rebacEnabled', bool, 'ReBAC Enabled',
+      hint:
+          'Yes | No — relationship-based access control granting access based '
+          'on relationships between resources and users (e.g. Zanzibar model)'),
+  Field('policyLanguage', String, 'Policy Language',
+      hint:
+          'XACML | OPA-Rego | CedarPolicy | CustomDSL | None — formal policy '
+          'language for expressing access control rules'),
+  Field('policyDecisionPoint', String, 'Policy Decision Point',
+      hint:
+          'Embedded | ExternalPDP | Sidecar | CloudService — where access '
+          'control decisions are evaluated'),
+  Field('policyEnforcementPoint', String, 'Policy Enforcement Point',
+      hint:
+          'APIGateway | Middleware | ServiceMesh | InApplication — where access '
+          'control decisions are enforced'),
+  Field('policyAdministrationPoint', String, 'Policy Administration Point',
+      hint:
+          'AdminUI | ConfigFile | PolicyRepository | ExternalService — where '
+          'policies are managed and maintained'),
+  Field('policyInformationPoint', String, 'Policy Information Point',
+      hint:
+          'UserDirectory | AttributeStore | ExternalIdP | Database — source '
+          'of attributes used in access decisions'),
+  Field('delegationModel', String, 'Delegation Model',
+      hint:
+          'None | Administrative | UserInitiated | Hierarchical — whether and '
+          'how permissions can be delegated between users'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional access control model selection notes'),
+])
+class AccessControlModelSelection {
+  String? content;
+
+  /// Access Control Model Details (text).
+  TextSection accessControlModelDetails = TextSection();
+}
+
+/// Permission Granularity Policy (form).
+///
+/// Defines the levels at which permissions can be specified — from coarse
+/// function-level through fine-grained field-level control.
+@Form([
+  Field('functionLevelControl', bool, 'Function-Level Control',
+      hint:
+          'Yes | No — permissions control access to entire functions, '
+          'operations, or API endpoints'),
+  Field('dataLevelControl', bool, 'Data-Level Control',
+      hint:
+          'Yes | No — permissions control access to specific data records, '
+          'rows, or resource instances (horizontal access control)'),
+  Field('fieldLevelControl', bool, 'Field-Level Control',
+      hint:
+          'Yes | No — permissions control access to individual fields or '
+          'attributes within a record (column-level security)'),
+  Field('uiElementControl', bool, 'UI Element Control',
+      hint:
+          'Yes | No — permissions control visibility or availability of '
+          'UI components, menus, or actions'),
+  Field('apiOperationControl', bool, 'API Operation Control',
+      hint:
+          'Yes | No — permissions are specific to individual API operations '
+          '(GET, POST, PUT, DELETE on specific resources)'),
+  Field('objectLevelControl', bool, 'Object-Level Control',
+      hint:
+          'Yes | No — permissions apply to individual business object instances '
+          '(IDOR prevention through ownership checks)'),
+  Field('tenantLevelControl', bool, 'Tenant-Level Control',
+      hint:
+          'Yes | No — permissions provide isolation between tenants in a '
+          'multi-tenant system'),
+  Field('finestGranularity', String, 'Finest Granularity',
+      hint:
+          'Function | Data | Field | UIElement | APIOperation | Object — the '
+          'finest level of permission granularity supported'),
+  Field('dynamicPermissions', bool, 'Dynamic Permissions',
+      hint:
+          'Yes | No — permissions can change dynamically based on runtime '
+          'context (time, location, device, risk score)'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional permission granularity notes'),
+])
+class PermissionGranularityPolicy {
+  String? content;
+
+  /// Permission Granularity Details (text).
+  TextSection permissionGranularityDetails = TextSection();
+}
+
+/// Permission Composition Strategy (form).
+///
+/// Defines how permissions from multiple sources (roles, groups, attributes)
+/// are combined to produce an effective permission set.
+@Form([
+  Field('compositionModel', String, 'Composition Model',
+      required: true,
+      hint:
+          'Additive | Subtractive | MostRestrictive | LeastRestrictive | '
+          'OrderedPrecedence | WeightedPriority — how permissions compose'),
+  Field('defaultPolicy', String, 'Default Policy',
+      required: true,
+      hint:
+          'DenyByDefault | AllowByDefault — action when no explicit rule '
+          'matches (OWASP: always deny by default)'),
+  Field('explicitDenyOverride', bool, 'Explicit Deny Override',
+      hint:
+          'Yes | No — whether explicit deny always overrides any allow '
+          '(deny-trumps-allow semantics)'),
+  Field('rolePermissionInheritance', bool, 'Role Permission Inheritance',
+      hint:
+          'Yes | No — whether child roles inherit permissions from parent '
+          'roles in a hierarchy'),
+  Field('groupPermissionAggregation', String, 'Group Permission Aggregation',
+      hint:
+          'Union | Intersection | FirstMatch — how permissions from multiple '
+          'group memberships combine'),
+  Field('conflictResolution', String, 'Conflict Resolution',
+      hint:
+          'DenyWins | AllowWins | MostSpecificWins | ExplicitWins | '
+          'PriorityBased — how conflicting permissions are resolved'),
+  Field('permissionBoundary', bool, 'Permission Boundary',
+      hint:
+          'Yes | No — whether a maximum permission boundary constrains '
+          'effective permissions regardless of assigned roles'),
+  Field('scopedPermissions', bool, 'Scoped Permissions',
+      hint:
+          'Yes | No — whether permissions can be scoped to specific contexts '
+          '(e.g. project, department, time window)'),
+  Field('temporaryElevation', bool, 'Temporary Elevation',
+      hint:
+          'Yes | No — whether time-limited permission elevation is supported '
+          '(just-in-time access, break-glass procedures)'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional permission composition notes'),
+])
+class PermissionCompositionStrategy {
+  String? content;
+
+  /// Permission Composition Details (text).
+  TextSection permissionCompositionDetails = TextSection();
+}
+
+/// Access Constraint Policies (form).
+///
+/// Defines constraints that restrict access beyond basic role/attribute
+/// assignments — separation of duties, temporal, environmental, and
+/// risk-adaptive constraints.
+@Form([
+  Field('separationOfDuties', bool, 'Separation of Duties',
+      hint:
+          'Yes | No — enforce static or dynamic separation of duties to '
+          'prevent conflicts of interest (e.g. creator cannot approve)'),
+  Field('sodEnforcement', String, 'SoD Enforcement',
+      hint:
+          'Static | Dynamic | Both — whether separation of duties is enforced '
+          'at role-assignment time (static) or at runtime (dynamic)'),
+  Field('temporalConstraints', bool, 'Temporal Constraints',
+      hint:
+          'Yes | No — time-based access restrictions (business hours, '
+          'maintenance windows, embargo periods)'),
+  Field('locationConstraints', bool, 'Location Constraints',
+      hint:
+          'Yes | No — geographic or network-based access restrictions '
+          '(IP range, geofencing, VPN requirement)'),
+  Field('deviceConstraints', bool, 'Device Constraints',
+      hint:
+          'Yes | No — device-based access restrictions (managed devices, '
+          'compliance status, device type)'),
+  Field('riskAdaptiveAccess', bool, 'Risk-Adaptive Access',
+      hint:
+          'Yes | No — access decisions consider real-time risk scores '
+          '(user behavior, threat intelligence, anomaly detection)'),
+  Field('contextualAttributes', String, 'Contextual Attributes',
+      hint:
+          'Comma-separated list of contextual attributes used in access '
+          'decisions (e.g. time, location, device, riskScore, '
+          'authenticationLevel, networkZone)'),
+  Field('maxSessionPermissions', bool, 'Max Session Permissions',
+      hint:
+          'Yes | No — limit the maximum number of active permissions per '
+          'session to reduce exposure from compromised sessions'),
+  Field('leastPrivilegeEnforcement', String, 'Least Privilege Enforcement',
+      hint:
+          'Manual | Automated | ContinuousReview — how least privilege '
+          'principle is enforced and verified over time'),
+  Field('privilegeCreepDetection', bool, 'Privilege Creep Detection',
+      hint:
+          'Yes | No — automatically detect users who accumulate excessive '
+          'permissions over time through role changes'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional access constraint notes'),
+])
+class AccessConstraintPolicies {
+  String? content;
+
+  /// Access Constraint Details (text).
+  TextSection accessConstraintDetails = TextSection();
+}
+
+/// Permission Evaluation Behavior (form).
+///
+/// Defines how the system evaluates and enforces access control decisions
+/// at runtime — server-side checks, caching, failure handling, and testing.
+@Form([
+  Field('evaluationLocation', String, 'Evaluation Location',
+      required: true,
+      hint:
+          'ServerSide | Gateway | ServiceMesh | Serverless — where permission '
+          'checks are performed (OWASP: never client-side only)'),
+  Field('evaluationFrequency', String, 'Evaluation Frequency',
+      required: true,
+      hint:
+          'EveryRequest | SessionStart | Cached | Lazy — how often permissions '
+          'are re-evaluated (OWASP: validate on every request)'),
+  Field('cachingStrategy', String, 'Caching Strategy',
+      hint:
+          'None | ShortLived | SessionBound | DistributedCache — permission '
+          'decision caching approach and TTL'),
+  Field('cacheTtlSeconds', int, 'Cache TTL (Seconds)',
+      hint: 'Maximum time in seconds before cached permission decisions expire'),
+  Field('failureMode', String, 'Failure Mode',
+      required: true,
+      hint:
+          'DenyOnFailure | LastKnownGood | DegradedAccess — behavior when '
+          'the authorization service is unavailable (OWASP: exit safely)'),
+  Field('authorizationLogging', bool, 'Authorization Logging',
+      hint:
+          'Yes | No — log all access control decisions including grants and '
+          'denials for audit and incident response'),
+  Field('logDeniedRequests', bool, 'Log Denied Requests',
+      hint: 'Yes | No — log details of all denied access attempts'),
+  Field('logSuccessfulAccess', bool, 'Log Successful Access',
+      hint:
+          'Yes | No — log successful access to sensitive resources for '
+          'forensic analysis'),
+  Field('automatedTesting', bool, 'Automated Testing',
+      hint:
+          'Yes | No — unit and integration tests verify authorization logic '
+          '(OWASP: catch low-hanging security issues early)'),
+  Field('clientSideHints', bool, 'Client-Side Hints',
+      hint:
+          'Yes | No — provide permission hints to UI for UX purposes while '
+          'enforcing all checks server-side'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional permission evaluation behavior notes'),
+])
+class PermissionEvaluationBehavior {
+  String? content;
+
+  /// Permission Evaluation Details (text).
+  TextSection permissionEvaluationDetails = TextSection();
+}
+
 /// 9.4. User Authorization [PD00-ACC-USA].
 ///
 /// Aligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.
@@ -3477,8 +3788,9 @@ class UserAuthorization {
   @Unused()
   String? content;
 
-  /// Authorization Model.
-  TextSection authorizationModel = TextSection();
+  /// 9.4.1. Authorization Model [PD00-ACC-USA-MOD].
+  @SectionId('PD00-ACC-USA-MOD')
+  AuthorizationModel authorizationModel = AuthorizationModel();
 
   /// 9.4.2. Authorization Groups [PD00-ACC-USA-GRP] — contains 0+× Group.
   @SectionIdPattern('PD00-ACC-USA-GRP-xx')
