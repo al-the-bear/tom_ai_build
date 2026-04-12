@@ -2221,8 +2221,8 @@ class ResourceProtection {
   /// 9.3.2. API Security [PD00-ACC-RES-API].
   ApiSecurity apiSecurity = ApiSecurity();
 
-  /// File And Storage Security.
-  TextSection fileAndStorageSecurity = TextSection();
+  /// 9.3.3. File and Storage Security [PD00-ACC-RES-FIL].
+  FileAndStorageSecurity fileAndStorageSecurity = FileAndStorageSecurity();
 }
 
 /// 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
@@ -3011,6 +3011,462 @@ class ApiSecurityMonitoring {
 
   /// API Security Monitoring Details (text).
   TextSection apiSecurityMonitoringDetails = TextSection();
+}
+
+// ---------------------------------------------------------------------------
+// 9.3.3. File and Storage Security [PD00-ACC-RES-FIL]
+// ---------------------------------------------------------------------------
+
+/// 9.3.3. File and Storage Security [PD00-ACC-RES-FIL].
+///
+/// Comprehensive file and storage security specification covering upload
+/// validation, storage encryption, access control on file resources, content
+/// scanning, download protection, and storage lifecycle management.
+/// Aligned with OWASP File Upload Cheat Sheet and defense-in-depth principles.
+@SectionId('PD00-ACC-RES-FIL')
+class FileAndStorageSecurity {
+  @Unused()
+  String? content;
+
+  /// File and Storage Security Overview (text).
+  TextSection overview = TextSection();
+
+  /// File Upload Validation Policy.
+  FileUploadValidationPolicy fileUploadValidationPolicy =
+      FileUploadValidationPolicy();
+
+  /// Storage Encryption Policy.
+  StorageEncryptionPolicy storageEncryptionPolicy =
+      StorageEncryptionPolicy();
+
+  /// File Access Control Policy.
+  FileAccessControlPolicy fileAccessControlPolicy =
+      FileAccessControlPolicy();
+
+  /// Content Scanning Policy.
+  ContentScanningPolicy contentScanningPolicy = ContentScanningPolicy();
+
+  /// File Download Security Policy.
+  FileDownloadSecurityPolicy fileDownloadSecurityPolicy =
+      FileDownloadSecurityPolicy();
+
+  /// Storage Lifecycle Policy.
+  StorageLifecyclePolicy storageLifecyclePolicy = StorageLifecyclePolicy();
+}
+
+/// File upload validation policy — how uploaded files are validated before
+/// acceptance.
+///
+/// Covers extension validation, content-type verification, file signature
+/// validation, filename safety, size limits, and structural validation.
+/// Aligned with OWASP File Upload Cheat Sheet defense-in-depth approach.
+@Form([
+  // Extension validation
+  Field('extensionValidationStrategy', String,
+      'Extension Validation Strategy',
+      required: true,
+      hint:
+          'Allowlist | Blocklist | Both — approach to file extension validation (Allowlist recommended)'),
+  Field('allowedFileExtensions', String, 'Allowed File Extensions',
+      hint:
+          'Comma-separated list of permitted extensions (e.g. jpg, png, pdf, docx)'),
+  Field('blockedFileExtensions', String, 'Blocked File Extensions',
+      hint:
+          'Comma-separated list of explicitly blocked extensions (e.g. exe, bat, sh, php, js)'),
+  Field('doubleExtensionPrevention', bool, 'Double Extension Prevention',
+      hint:
+          'Yes | No — prevent bypass via double extensions like .jpg.php'),
+
+  // Content-type and signature
+  Field('contentTypeValidation', bool, 'Content-Type Validation',
+      hint:
+          'Yes | No — validate MIME type from Content-Type header against allowed types'),
+  Field('fileSignatureValidation', bool, 'File Signature (Magic Byte) Validation',
+      hint:
+          'Yes | No — validate file magic bytes match the declared content type'),
+  Field('signatureMismatchAction', String, 'Signature Mismatch Action',
+      hint:
+          'Reject | Quarantine | Log — action when file signature does not match extension'),
+
+  // Filename safety
+  Field('filenameStrategy', String, 'Filename Strategy',
+      hint:
+          'GenerateUUID | SanitizeOriginal | Preserve — how filenames are handled on upload'),
+  Field('filenameMaxLength', int, 'Filename Max Length',
+      hint:
+          'Maximum allowed filename length in characters'),
+  Field('filenameAllowedCharacters', String, 'Filename Allowed Characters',
+      hint:
+          'Alphanumeric, hyphen, underscore, period — allowed characters in filenames'),
+  Field('pathTraversalPrevention', bool, 'Path Traversal Prevention',
+      hint:
+          'Yes | No — strip or reject path components (../, /) in filenames'),
+  Field('nullBytePrevention', bool, 'Null Byte Prevention',
+      hint:
+          'Yes | No — reject filenames containing null bytes (%00)'),
+
+  // Size limits
+  Field('maxFileSizeBytes', String, 'Max File Size',
+      hint:
+          'Maximum individual file size (e.g. 10 MB, 50 MB, 1 GB)'),
+  Field('maxUploadBatchSize', String, 'Max Upload Batch Size',
+      hint:
+          'Maximum total size for multi-file uploads in a single request'),
+  Field('maxConcurrentUploads', int, 'Max Concurrent Uploads',
+      hint:
+          'Maximum number of simultaneous file uploads per user'),
+  Field('compressedFileSizeLimit', String, 'Compressed File Size Limit',
+      hint:
+          'Maximum decompressed size for ZIP/archive files to prevent ZIP bombs'),
+
+  // Structural validation
+  Field('imageRewriting', bool, 'Image Rewriting',
+      hint:
+          'Yes | No — rewrite/re-encode images to strip embedded metadata and malicious payloads'),
+  Field('documentSanitization', bool, 'Document Sanitization',
+      hint:
+          'Yes | No — apply Content Disarm & Reconstruct (CDR) to office documents and PDFs'),
+  Field('metadataStripping', bool, 'Metadata Stripping',
+      hint:
+          'Yes | No — remove EXIF, XMP, and other embedded metadata from uploaded files'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional file upload validation notes'),
+])
+class FileUploadValidationPolicy {
+  String? content;
+
+  /// Upload Validation Details (text).
+  TextSection uploadValidationDetails = TextSection();
+}
+
+/// Storage encryption policy — how files and storage volumes are encrypted
+/// at rest and in transit to/from storage.
+///
+/// Covers server-side encryption, client-side encryption, key management
+/// for file storage, and encryption scope for different storage tiers.
+@Form([
+  // Encryption at rest
+  Field('encryptionAtRest', bool, 'Encryption at Rest',
+      required: true,
+      hint:
+          'Yes | No — whether stored files are encrypted at rest'),
+  Field('encryptionAlgorithm', String, 'Encryption Algorithm',
+      hint:
+          'AES-256-GCM | AES-256-CBC | ChaCha20-Poly1305 — algorithm for file encryption'),
+  Field('encryptionScope', String, 'Encryption Scope',
+      hint:
+          'Volume | Bucket | PerFile | PerTenant — granularity at which encryption keys are applied'),
+  Field('serverSideEncryption', String, 'Server-Side Encryption',
+      hint:
+          'SSE-S3 | SSE-KMS | SSE-C | ManagedKey — server-side encryption method'),
+  Field('clientSideEncryption', bool, 'Client-Side Encryption',
+      hint:
+          'Yes | No — whether files are encrypted before upload by the client'),
+  Field('clientSideEncryptionMethod', String, 'Client-Side Encryption Method',
+      hint:
+          'Envelope encryption, client-managed keys — method for client-side encryption'),
+
+  // Key management for files
+  Field('fileKeyRotation', String, 'File Encryption Key Rotation',
+      hint:
+          'Frequency and method of rotating file encryption keys'),
+  Field('perTenantKeys', bool, 'Per-Tenant Encryption Keys',
+      hint:
+          'Yes | No — whether each tenant has its own encryption key for file storage'),
+  Field('keyDeletionOnTenantRemoval', bool, 'Key Deletion on Tenant Removal',
+      hint:
+          'Yes | No — whether tenant file encryption keys are destroyed when tenant is deleted'),
+
+  // Transit encryption
+  Field('encryptionInTransit', bool, 'Encryption in Transit',
+      hint:
+          'Yes | No — TLS for file upload/download transport'),
+  Field('minimumTlsVersion', String, 'Minimum TLS Version for File Transfer',
+      hint:
+          'TLS 1.2 | TLS 1.3 — minimum TLS version for file transfers'),
+
+  // Backup encryption
+  Field('backupEncryption', bool, 'Backup Encryption',
+      hint:
+          'Yes | No — whether file storage backups are encrypted with the same or separate keys'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional storage encryption notes'),
+])
+class StorageEncryptionPolicy {
+  String? content;
+
+  /// Storage Encryption Details (text).
+  TextSection storageEncryptionDetails = TextSection();
+}
+
+/// File access control policy — who can access, modify, share, and delete
+/// files, and how access decisions are enforced.
+///
+/// Covers authentication requirements, authorization model, sharing controls,
+/// storage location isolation, filesystem permissions, and temporary access.
+@Form([
+  // Access model
+  Field('fileAccessModel', String, 'File Access Model',
+      required: true,
+      hint:
+          'OwnerBased | RoleBased | ACL | Capability — how file access permissions are determined'),
+  Field('authenticationRequired', bool, 'Authentication Required',
+      hint:
+          'Yes | No — whether authentication is required for all file access'),
+  Field('anonymousDownloadAllowed', bool, 'Anonymous Download Allowed',
+      hint:
+          'Yes | No — whether any files can be downloaded without authentication (public files)'),
+  Field('fileOwnershipModel', String, 'File Ownership Model',
+      hint:
+          'User | Tenant | SharedOwnership — who owns uploaded files by default'),
+
+  // Permission granularity
+  Field('permissionGranularity', String, 'Permission Granularity',
+      hint:
+          'Read | Write | Delete | Share | Admin — permission types supported on files'),
+  Field('folderLevelPermissions', bool, 'Folder-Level Permissions',
+      hint:
+          'Yes | No — whether permissions can be set at folder/directory level with inheritance'),
+  Field('permissionInheritance', String, 'Permission Inheritance',
+      hint:
+          'Inherit | Override | None — how folder permissions propagate to contained files'),
+
+  // Sharing controls
+  Field('sharingEnabled', bool, 'Sharing Enabled',
+      hint:
+          'Yes | No — whether files can be shared with other users or externally'),
+  Field('shareableLinkSupport', bool, 'Shareable Link Support',
+      hint:
+          'Yes | No — support for time-limited or password-protected shareable URLs'),
+  Field('shareableLinkExpiration', String, 'Shareable Link Default Expiration',
+      hint:
+          'Default expiration time for shareable links (e.g. 24 hours, 7 days, never)'),
+  Field('externalSharingPolicy', String, 'External Sharing Policy',
+      hint:
+          'Allowed | RestrictedDomains | Disabled — whether files can be shared outside the tenant'),
+
+  // Storage isolation
+  Field('storageLocationPolicy', String, 'Storage Location Policy',
+      hint:
+          'SeparateServer | OutsideWebroot | CloudBucket — where files are stored relative to application'),
+  Field('tenantStorageIsolation', String, 'Tenant Storage Isolation',
+      hint:
+          'SeparateBucket | PrefixPartition | SharedWithACL — how tenant files are isolated in storage'),
+  Field('filesystemPermissions', String, 'Filesystem Permissions',
+      hint:
+          'Least-privilege file permission policy (read-only for web server, write for upload service)'),
+
+  // Temporary and pre-signed access
+  Field('presignedUrlSupport', bool, 'Pre-signed URL Support',
+      hint:
+          'Yes | No — use pre-signed URLs for time-limited direct file access'),
+  Field('presignedUrlMaxExpiry', String, 'Pre-signed URL Max Expiry',
+      hint:
+          'Maximum validity period for pre-signed URLs (e.g. 15 min, 1 hour)'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional file access control notes'),
+])
+class FileAccessControlPolicy {
+  String? content;
+
+  /// File Access Control Details (text).
+  TextSection fileAccessControlDetails = TextSection();
+}
+
+/// Content scanning policy — how uploaded and stored files are scanned for
+/// malicious content, policy violations, and compliance risks.
+///
+/// Covers antivirus scanning, malware detection, content disarm and
+/// reconstruct (CDR), data loss prevention, and content moderation.
+@Form([
+  // Antivirus and malware
+  Field('antivirusScanningEnabled', bool, 'Antivirus Scanning Enabled',
+      required: true,
+      hint:
+          'Yes | No — whether uploaded files are scanned by antivirus before acceptance'),
+  Field('scanTiming', String, 'Scan Timing',
+      hint:
+          'OnUpload | Asynchronous | OnAccess | Periodic — when scanning occurs'),
+  Field('scanEngine', String, 'Scan Engine',
+      hint:
+          'ClamAV | CloudProvider | ThirdPartyAPI | Multiple — scanning engine or service used'),
+  Field('quarantinePolicy', String, 'Quarantine Policy',
+      hint:
+          'Quarantine | Reject | NotifyAndQuarantine — action when malicious content is detected'),
+  Field('quarantineRetentionDays', int, 'Quarantine Retention Days',
+      hint:
+          'Number of days quarantined files are retained before permanent deletion'),
+  Field('signatureUpdateFrequency', String, 'Signature Update Frequency',
+      hint:
+          'Hourly | Daily | RealTime — how often antivirus signatures are updated'),
+
+  // Content Disarm and Reconstruct
+  Field('cdrEnabled', bool, 'CDR (Content Disarm & Reconstruct) Enabled',
+      hint:
+          'Yes | No — whether CDR is applied to office documents, PDFs, and similar file types'),
+  Field('cdrApplicableTypes', String, 'CDR Applicable File Types',
+      hint:
+          'PDF | DOCX | XLSX | Images — file types processed by CDR'),
+
+  // Data loss prevention
+  Field('dlpScanningEnabled', bool, 'DLP Scanning Enabled',
+      hint:
+          'Yes | No — scan file contents for sensitive data (PII, credit cards, health records)'),
+  Field('dlpPolicies', String, 'DLP Policies',
+      hint:
+          'Regex patterns, trained classifiers, keyword lists — methods for detecting sensitive data in files'),
+  Field('dlpAction', String, 'DLP Action on Detection',
+      hint:
+          'Block | Redact | Notify | Quarantine — action when DLP detects sensitive content'),
+
+  // Content moderation
+  Field('contentModeration', bool, 'Content Moderation',
+      hint:
+          'Yes | No — scan for illegal, offensive, or policy-violating content'),
+  Field('moderationMethod', String, 'Moderation Method',
+      hint:
+          'Automated | ManualReview | Hybrid — approach to content moderation'),
+  Field('hashBasedDetection', bool, 'Hash-Based Detection',
+      hint:
+          'Yes | No — use file hash databases (e.g. VirusTotal) to detect known-malicious files'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional content scanning notes'),
+])
+class ContentScanningPolicy {
+  String? content;
+
+  /// Content Scanning Details (text).
+  TextSection contentScanningDetails = TextSection();
+}
+
+/// File download security policy — how file downloads are protected,
+/// including rate limiting, access logging, and content disposition.
+///
+/// Covers download authentication, bandwidth protection, content disposition
+/// headers, hot-link prevention, and download audit logging.
+@Form([
+  // Download protection
+  Field('downloadAuthenticationRequired', bool,
+      'Download Authentication Required',
+      required: true,
+      hint:
+          'Yes | No — whether authentication is required for file downloads'),
+  Field('downloadRateLimiting', bool, 'Download Rate Limiting',
+      hint:
+          'Yes | No — rate limit file downloads per user/IP to prevent DoS'),
+  Field('downloadRateLimit', String, 'Download Rate Limit',
+      hint:
+          'Maximum downloads per minute/hour/day per user or IP'),
+  Field('bandwidthThrottling', bool, 'Bandwidth Throttling',
+      hint:
+          'Yes | No — throttle download bandwidth per user to prevent abuse'),
+
+  // Content disposition and delivery
+  Field('contentDispositionPolicy', String, 'Content-Disposition Policy',
+      hint:
+          'Attachment | Inline | PerType — how Content-Disposition header is set (Attachment recommended for untrusted content)'),
+  Field('cdnDelivery', bool, 'CDN Delivery',
+      hint:
+          'Yes | No — serve files through a CDN for performance and DDoS protection'),
+  Field('hotlinkPrevention', bool, 'Hotlink Prevention',
+      hint:
+          'Yes | No — prevent direct linking to files from external sites'),
+  Field('cacheControlPolicy', String, 'Cache-Control Policy',
+      hint:
+          'NoStore | Private | PublicShortTTL — cache directives for file download responses'),
+
+  // Audit and tracking
+  Field('downloadAuditLogging', bool, 'Download Audit Logging',
+      hint:
+          'Yes | No — log all file download events with user, timestamp, file, and IP'),
+  Field('downloadAlerts', bool, 'Download Alerts',
+      hint:
+          'Yes | No — alert on unusual download patterns (bulk downloads, sensitive files)'),
+  Field('watermarking', bool, 'File Watermarking',
+      hint:
+          'Yes | No — apply invisible watermarks to downloaded files for traceability'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional file download security notes'),
+])
+class FileDownloadSecurityPolicy {
+  String? content;
+
+  /// Download Security Details (text).
+  TextSection downloadSecurityDetails = TextSection();
+}
+
+/// Storage lifecycle policy — retention, archiving, versioning, and
+/// secure deletion of stored files.
+///
+/// Covers retention rules, archival tiers, versioning, backup schedules,
+/// secure deletion methods, and compliance-driven retention requirements.
+@Form([
+  // Retention
+  Field('retentionPolicy', String, 'Retention Policy',
+      required: true,
+      hint:
+          'TimeBased | Indefinite | ComplianceDriven — default file retention strategy'),
+  Field('defaultRetentionPeriod', String, 'Default Retention Period',
+      hint:
+          'Default duration files are kept before eligible for deletion (e.g. 90 days, 7 years)'),
+  Field('retentionByFileType', bool, 'Retention by File Type',
+      hint:
+          'Yes | No — different retention periods for different file categories'),
+  Field('legalHoldSupport', bool, 'Legal Hold Support',
+      hint:
+          'Yes | No — ability to place legal holds preventing deletion regardless of retention policy'),
+
+  // Archiving
+  Field('archivingEnabled', bool, 'Archiving Enabled',
+      hint:
+          'Yes | No — whether files are moved to low-cost archival tiers after a defined period'),
+  Field('archivalStorageTier', String, 'Archival Storage Tier',
+      hint:
+          'Glacier | ColdStorage | NearlineStorage — target tier for archived files'),
+  Field('archivalTransitionDays', int, 'Archival Transition Days',
+      hint:
+          'Number of days after last access before files move to archival storage'),
+
+  // Versioning
+  Field('versioningEnabled', bool, 'File Versioning Enabled',
+      hint:
+          'Yes | No — maintain previous versions of overwritten or modified files'),
+  Field('maxVersions', int, 'Max Versions Retained',
+      hint:
+          'Maximum number of previous versions to retain per file'),
+  Field('versionRetentionDays', int, 'Version Retention Days',
+      hint:
+          'Number of days previous versions are retained'),
+
+  // Backup
+  Field('backupSchedule', String, 'Backup Schedule',
+      hint:
+          'Daily | Hourly | Continuous — frequency of file storage backups'),
+  Field('backupRetentionDays', int, 'Backup Retention Days',
+      hint:
+          'Number of days file backups are retained'),
+  Field('crossRegionReplication', bool, 'Cross-Region Replication',
+      hint:
+          'Yes | No — replicate file storage to a secondary region for disaster recovery'),
+
+  // Secure deletion
+  Field('secureDeletionMethod', String, 'Secure Deletion Method',
+      hint:
+          'CryptoShred | Overwrite | StandardDelete — method for permanent file deletion'),
+  Field('deletionConfirmation', bool, 'Deletion Confirmation Required',
+      hint:
+          'Yes | No — require explicit confirmation or approval for permanent file deletion'),
+  Field('deletionAuditLogging', bool, 'Deletion Audit Logging',
+      hint:
+          'Yes | No — log all file deletion events for compliance and forensics'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional storage lifecycle notes'),
+])
+class StorageLifecyclePolicy {
+  String? content;
+
+  /// Storage Lifecycle Details (text).
+  TextSection storageLifecycleDetails = TextSection();
 }
 
 /// 9.4. User Authorization [PD00-ACC-USA].

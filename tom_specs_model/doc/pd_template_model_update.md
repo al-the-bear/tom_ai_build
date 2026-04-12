@@ -4,7 +4,7 @@ This document tracks the synchronization between `pd_template.md` (source of tru
 
 **Status:** Active  
 **Created:** 2025-01-24  
-**Last Updated:** 2026-04-12 (PD00-ACC-RES-API: API Security)
+**Last Updated:** 2026-04-12 (PD00-ACC-RES-FIL: File and Storage Security)
 
 ---
 
@@ -115,7 +115,7 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-ACC-IDE-SES | Session Management | High | ✅ Done |
 | PD00-ACC-RES-DAT | Data-Level Security | High | ✅ Done |
 | PD00-ACC-RES-API | API Security | High | ✅ Done |
-| PD00-ACC-RES-FIL | File and Storage Security | Medium | ⬜ Not Started |
+| PD00-ACC-RES-FIL | File and Storage Security | Medium | ✅ Done |
 | PD00-ACC-USA-MOD | Authorization Model | High | ⬜ Not Started |
 | PD00-ACC-USA-ROL | Role Definitions | High | ⬜ Not Started |
 | PD00-ACC-USA-ROL-01 | Sample: System Administrator | Low | ⬜ Not Started |
