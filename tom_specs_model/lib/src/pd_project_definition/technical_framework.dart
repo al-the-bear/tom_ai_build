@@ -8570,6 +8570,9 @@ class SystemOperationAndMonitoring {
 
   /// 8.7.2. Monitoring [PD00-TEC-SYS-MON].
   Monitoring monitoring = Monitoring();
+
+  /// 8.7.3. Capacity Planning [PD00-TEC-SYS-CAP].
+  CapacityPlanningSection capacityPlanning = CapacityPlanningSection();
 }
 
 /// 8.7.1. System Operation [PD00-TEC-SYS-OPE].
@@ -8886,9 +8889,6 @@ class Monitoring {
   HealthChecksAndDiagnosticsSection healthChecksAndDiagnostics =
       HealthChecksAndDiagnosticsSection();
 
-  /// Capacity Planning.
-  TextSection capacityPlanning = TextSection();
-
   /// Alerting.
   TextSection alerting = TextSection();
 }
@@ -9142,6 +9142,301 @@ class DependencyHealthMonitoring {
         hint: 'Prevent cascading failures'),
     Field('notes', String, 'Notes',
         hint: 'Additional dependency health notes'),
+  ])
+  String? content;
+}
+
+/// 8.7.3. Capacity Planning [PD00-TEC-SYS-CAP].
+@SectionId('PD00-TEC-SYS-CAP')
+class CapacityPlanningSection {
+  @Unused()
+  String? content;
+
+  /// Overview of capacity planning strategy.
+  TextSection overview = TextSection();
+
+  /// User growth projections.
+  UserGrowthProjections userGrowth = UserGrowthProjections();
+
+  /// Data growth projections.
+  DataGrowthProjections dataGrowth = DataGrowthProjections();
+
+  /// Peak load patterns.
+  PeakLoadPatterns peakLoadPatterns = PeakLoadPatterns();
+
+  /// Scaling triggers and thresholds.
+  ScalingTriggersAndThresholds scalingTriggers =
+      ScalingTriggersAndThresholds();
+
+  /// Resource capacity baselines.
+  ResourceCapacityBaselines resourceCapacity = ResourceCapacityBaselines();
+
+  /// Capacity review process.
+  CapacityReviewProcess capacityReview = CapacityReviewProcess();
+}
+
+/// User growth projections.
+class UserGrowthProjections {
+  @Form([
+    // Current state
+    Field('currentActiveUsers', int, 'Current Active Users',
+        required: true, hint: 'Current monthly active user count'),
+    Field('currentRegisteredUsers', int, 'Current Registered Users',
+        hint: 'Total registered user accounts'),
+    Field('currentConcurrentUsers', int, 'Current Concurrent Users',
+        hint: 'Peak concurrent user count'),
+
+    // Growth projections
+    Field('projectedGrowthRate', String, 'Projected Growth Rate',
+        required: true, hint: 'Monthly/yearly user growth percentage'),
+    Field('users6Months', int, 'Users at 6 Months',
+        hint: 'Expected active users in 6 months'),
+    Field('users12Months', int, 'Users at 12 Months',
+        hint: 'Expected active users in 12 months'),
+    Field('users24Months', int, 'Users at 24 Months',
+        hint: 'Expected active users in 24 months'),
+    Field('users36Months', int, 'Users at 36 Months',
+        hint: 'Expected active users in 36 months'),
+
+    // User segments
+    Field('userSegments', String, 'User Segments',
+        hint: 'Growth per user category (free, premium, enterprise)'),
+    Field('geographicDistribution', String, 'Geographic Distribution',
+        hint: 'Expected user distribution across regions'),
+    Field('seasonalPatterns', String, 'Seasonal Patterns',
+        hint: 'Monthly/quarterly user volume patterns'),
+
+    // Capacity thresholds
+    Field('softCapacityLimit', int, 'Soft Capacity Limit',
+        hint: 'User count requiring system review'),
+    Field('hardCapacityLimit', int, 'Hard Capacity Limit',
+        hint: 'Maximum supportable users before scaling'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional user growth notes'),
+  ])
+  String? content;
+}
+
+/// Data growth projections.
+class DataGrowthProjections {
+  @Form([
+    // Current state
+    Field('currentDataVolume', String, 'Current Data Volume',
+        required: true, hint: 'Total data size (e.g. 500 GB)'),
+    Field('currentDatabaseSize', String, 'Current Database Size',
+        hint: 'Primary database storage usage'),
+    Field('currentFileStorageSize', String, 'Current File Storage Size',
+        hint: 'File/blob storage usage'),
+
+    // Growth rates
+    Field('dataGrowthRate', String, 'Data Growth Rate',
+        required: true, hint: 'Monthly data volume increase'),
+    Field('dataVolumePerUser', String, 'Data Volume per User',
+        hint: 'Average storage per active user'),
+    Field('transactionVolumeGrowth', String, 'Transaction Volume Growth',
+        hint: 'Growth in daily/monthly transactions'),
+
+    // Projections
+    Field('projectedVolume6Months', String, 'Projected Volume at 6 Months',
+        hint: 'Expected total data at 6 months'),
+    Field('projectedVolume12Months', String, 'Projected Volume at 12 Months',
+        hint: 'Expected total data at 12 months'),
+    Field('projectedVolume24Months', String, 'Projected Volume at 24 Months',
+        hint: 'Expected total data at 24 months'),
+
+    // Data lifecycle
+    Field('dataRetentionPolicy', String, 'Data Retention Policy',
+        hint: 'Hot/warm/cold storage tiers'),
+    Field('archivalStrategy', String, 'Archival Strategy',
+        hint: 'When and how data moves to archive'),
+    Field('dataCleanupPolicy', String, 'Data Cleanup Policy',
+        hint: 'Automatic deletion rules'),
+    Field('compressionStrategy', String, 'Compression Strategy',
+        hint: 'Data compression for storage efficiency'),
+
+    // Thresholds
+    Field('storageAlertThreshold', String, 'Storage Alert Threshold',
+        hint: 'Percentage triggering storage alert (e.g. 80%)'),
+    Field('partitioningStrategy', String, 'Partitioning Strategy',
+        hint: 'Table/index partitioning approach'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional data growth notes'),
+  ])
+  String? content;
+}
+
+/// Peak load patterns.
+class PeakLoadPatterns {
+  @Form([
+    // Load patterns
+    Field('dailyPeakHours', String, 'Daily Peak Hours',
+        required: true, hint: 'Hours of highest daily traffic'),
+    Field('weeklyPeakDays', String, 'Weekly Peak Days',
+        hint: 'Highest traffic days of the week'),
+    Field('monthlyPeakPeriods', String, 'Monthly Peak Periods',
+        hint: 'Month-end processing, billing cycles'),
+    Field('yearlyPeakEvents', String, 'Yearly Peak Events',
+        hint: 'Black Friday, tax season, renewals'),
+
+    // Peak metrics
+    Field('peakRequestsPerSecond', int, 'Peak Requests/Second',
+        hint: 'Maximum expected RPS during peak'),
+    Field('peakConcurrentSessions', int, 'Peak Concurrent Sessions',
+        hint: 'Maximum simultaneous user sessions'),
+    Field('averageResponseTimeTarget', String, 'Avg Response Time Target',
+        hint: 'Target p50 response time during peak'),
+    Field('p99ResponseTimeTarget', String, 'P99 Response Time Target',
+        hint: 'Target p99 response time during peak'),
+
+    // Load multipliers
+    Field('peakToAverageRatio', String, 'Peak-to-Average Ratio',
+        hint: 'Ratio of peak to normal load (e.g. 3:1)'),
+    Field('burstCapacityRequired', String, 'Burst Capacity Required',
+        hint: 'Short-duration spike handling'),
+    Field('gracefulDegradationPlan', String, 'Graceful Degradation Plan',
+        hint: 'What degrades first under extreme load'),
+
+    // Testing
+    Field('loadTestingFrequency', String, 'Load Testing Frequency',
+        hint: 'How often load tests are run'),
+    Field('loadTestingTools', String, 'Load Testing Tools',
+        hint: 'k6, JMeter, Gatling, Locust'),
+    Field('benchmarkBaseline', String, 'Benchmark Baseline',
+        hint: 'Current performance baseline metrics'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional peak load notes'),
+  ])
+  String? content;
+}
+
+/// Scaling triggers and thresholds.
+class ScalingTriggersAndThresholds {
+  @Form([
+    // CPU scaling
+    Field('cpuScaleUpThreshold', String, 'CPU Scale-Up Threshold',
+        required: true, hint: 'CPU % triggering scale-up (e.g. 70%)'),
+    Field('cpuScaleDownThreshold', String, 'CPU Scale-Down Threshold',
+        hint: 'CPU % triggering scale-down (e.g. 30%)'),
+
+    // Memory scaling
+    Field('memoryScaleUpThreshold', String, 'Memory Scale-Up Threshold',
+        hint: 'Memory % triggering scale-up'),
+    Field('memoryScaleDownThreshold', String, 'Memory Scale-Down Threshold',
+        hint: 'Memory % triggering scale-down'),
+
+    // Request-based scaling
+    Field('requestRateScaleUpThreshold', String, 'Request Rate Scale-Up',
+        hint: 'RPS threshold for scaling up'),
+    Field('responseTimeScaleUpThreshold', String, 'Response Time Scale-Up',
+        hint: 'Latency threshold triggering scale-up'),
+    Field('queueDepthScaleUpThreshold', String, 'Queue Depth Scale-Up',
+        hint: 'Message queue depth triggering scale-up'),
+
+    // Scaling behavior
+    Field('scalingCooldownPeriod', String, 'Scaling Cooldown Period',
+        hint: 'Minimum time between scaling events'),
+    Field('minInstances', int, 'Minimum Instances',
+        hint: 'Minimum number of running instances'),
+    Field('maxInstances', int, 'Maximum Instances',
+        hint: 'Maximum number of running instances'),
+    Field('scalingStepSize', String, 'Scaling Step Size',
+        hint: 'Instances added per scale-up event'),
+
+    // Scaling type
+    Field('horizontalScaling', bool, 'Horizontal Scaling',
+        hint: 'Add more instances'),
+    Field('verticalScaling', bool, 'Vertical Scaling',
+        hint: 'Increase instance resources'),
+    Field('autoScalingProvider', String, 'Auto-Scaling Provider',
+        hint: 'Kubernetes HPA, AWS Auto Scaling, Azure VMSS'),
+    Field('scheduledScaling', String, 'Scheduled Scaling',
+        hint: 'Pre-scale for known peak events'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional scaling trigger notes'),
+  ])
+  String? content;
+}
+
+/// Resource capacity baselines.
+class ResourceCapacityBaselines {
+  @Form([
+    // Compute
+    Field('cpuBaseline', String, 'CPU Baseline',
+        required: true, hint: 'Normal CPU utilization per service'),
+    Field('memoryBaseline', String, 'Memory Baseline',
+        hint: 'Normal memory usage per service'),
+    Field('instanceCountBaseline', String, 'Instance Count Baseline',
+        hint: 'Normal number of running instances'),
+
+    // Storage
+    Field('storageIOPSBaseline', String, 'Storage IOPS Baseline',
+        hint: 'Normal storage I/O operations per second'),
+    Field('storageThroughputBaseline', String, 'Storage Throughput Baseline',
+        hint: 'Normal storage throughput (MB/s)'),
+
+    // Network
+    Field('networkBandwidthBaseline', String, 'Network Bandwidth Baseline',
+        hint: 'Normal network usage (Mbps)'),
+    Field('connectionCountBaseline', String, 'Connection Count Baseline',
+        hint: 'Normal active connection count'),
+
+    // Database
+    Field('databaseConnectionPoolBaseline', String, 'DB Connection Pool Baseline',
+        hint: 'Normal active DB connections'),
+    Field('queryVolumeBaseline', String, 'Query Volume Baseline',
+        hint: 'Normal queries per second'),
+    Field('databaseSizeBaseline', String, 'Database Size Baseline',
+        hint: 'Current database on-disk size'),
+
+    // Cost
+    Field('currentMonthlyCost', String, 'Current Monthly Cost',
+        hint: 'Baseline monthly infrastructure cost'),
+    Field('costPerUser', String, 'Cost Per User',
+        hint: 'Infrastructure cost per active user'),
+    Field('projectedCostAtScale', String, 'Projected Cost at Scale',
+        hint: 'Estimated cost at target user count'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional resource baseline notes'),
+  ])
+  String? content;
+}
+
+/// Capacity review process.
+class CapacityReviewProcess {
+  @Form([
+    // Review cadence
+    Field('reviewFrequency', String, 'Review Frequency',
+        required: true, hint: 'Monthly, quarterly, on-demand'),
+    Field('reviewParticipants', String, 'Review Participants',
+        hint: 'Engineering, ops, finance stakeholders'),
+    Field('reviewChecklist', String, 'Review Checklist',
+        hint: 'Standard items reviewed each cycle'),
+
+    // Monitoring
+    Field('capacityDashboard', bool, 'Capacity Dashboard',
+        hint: 'Dedicated capacity monitoring dashboard'),
+    Field('trendAnalysis', bool, 'Trend Analysis',
+        hint: 'Automated growth trend detection'),
+    Field('forecastingModel', String, 'Forecasting Model',
+        hint: 'Linear, exponential, ML-based forecasting'),
+
+    // Escalation
+    Field('capacityAlertThresholds', String, 'Capacity Alert Thresholds',
+        hint: 'Warning: 70%, critical: 85%, emergency: 95%'),
+    Field('escalationProcedure', String, 'Escalation Procedure',
+        hint: 'Who to notify at each threshold level'),
+    Field('emergencyScalingProcedure', String, 'Emergency Scaling Procedure',
+        hint: 'Steps for urgent capacity increase'),
+
+    // Planning
+    Field('budgetPlanningIntegration', bool, 'Budget Planning Integration',
+        hint: 'Capacity forecasts feed into budget cycles'),
+    Field('procurementLeadTime', String, 'Procurement Lead Time',
+        hint: 'Time to provision new resources'),
+    Field('rightsizingReview', bool, 'Rightsizing Review',
+        hint: 'Periodic over-provisioning review'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional capacity review notes'),
   ])
   String? content;
 }
