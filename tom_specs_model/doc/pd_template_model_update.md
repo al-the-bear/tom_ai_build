@@ -132,9 +132,9 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-USE-VIS-PRI | Design Principles | Medium | ✅ Done |
 | PD00-USE-VIS-PER | User Personas | Medium | ✅ Done |
 | PD00-USE-VIS-PER-01 | Sample: Finance Manager Persona | Low | ✅ Done |
-| PD00-USE-SCR-INV | Screen Inventory | High | ⬜ Not Started |
-| PD00-USE-SCR-INV-01 | Sample: Dashboard | Low | ⬜ Not Started |
-| PD00-USE-SCR-INF | Information Architecture | Medium | ⬜ Not Started |
+| PD00-USE-SCR-INV | Screen Inventory | High | ✅ Done |
+| PD00-USE-SCR-INV-01 | Sample: Dashboard | Low | ✅ Done |
+| PD00-USE-SCR-INF | Information Architecture | Medium | ✅ Done |
 | PD00-USE-SCF-NAV | Navigation Model | Medium | ⬜ Not Started |
 | PD00-USE-SCF-DIA | Screen Flow Diagram | Medium | ⬜ Not Started |
 | PD00-USE-PRI-REP | Reports | Medium | ⬜ Not Started |
