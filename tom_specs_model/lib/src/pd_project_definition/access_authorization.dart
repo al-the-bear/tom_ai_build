@@ -660,24 +660,333 @@ class Authentication {
 }
 
 /// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
+///
+/// Comprehensive authentication methods specification aligned with
+/// NIST SP 800-63B Authentication Assurance Levels (AAL1–AAL3).
+/// Covers all authenticator types: passwords, MFA, SSO, certificates,
+/// biometrics, API keys, and cryptographic authenticators.
 @SectionId('PD00-ACC-IDE-AUT-MET')
 class AuthenticationMethods {
   @Unused()
   String? content;
+
+  /// Authentication Methods Overview (text).
+  TextSection overview = TextSection();
+
+  /// Multi-Factor Authentication Configuration.
+  MfaConfiguration mfaConfiguration = MfaConfiguration();
+
+  /// Single Sign-On Policy.
+  SsoPolicy ssoPolicy = SsoPolicy();
+
+  /// Certificate-Based Authentication Policy.
+  CertificateAuthenticationPolicy certificateAuthentication =
+      CertificateAuthenticationPolicy();
+
+  /// Biometric Authentication Policy.
+  BiometricAuthenticationPolicy biometricAuthentication =
+      BiometricAuthenticationPolicy();
+
+  /// API Key Management Policy.
+  ApiKeyManagementPolicy apiKeyManagement = ApiKeyManagementPolicy();
 
   /// Contains 0+× AuthenticationMethod.
   @SectionIdPattern('PD00-ACC-IDE-AUT-MET-xx')
   List<AuthenticationMethodEntry> items = [];
 }
 
+/// Multi-Factor Authentication (MFA) configuration (form).
+///
+/// Defines MFA requirements aligned with NIST SP 800-63B AAL2/AAL3:
+/// proof of possession and control of two distinct authentication factors.
+@Form([
+  Field('mfaRequired', String, 'MFA Required',
+      hint: 'Yes | No | Conditional — whether MFA is mandatory'),
+  Field('mfaEnforcementScope', String, 'MFA Enforcement Scope',
+      hint:
+          'AllUsers | AdminOnly | PrivilegedRoles | ExternalAccess | Conditional'),
+  Field('defaultSecondFactor', String, 'Default Second Factor',
+      hint: 'TOTP | Push | FIDO2 | SMS | Email | HardwareToken'),
+  Field('allowedSecondFactors', String, 'Allowed Second Factors',
+      hint:
+          'Comma-separated list of permitted second-factor types'),
+  Field('assuranceLevelTarget', String, 'Assurance Level Target',
+      hint: 'AAL1 | AAL2 | AAL3 — target NIST authentication assurance level'),
+  Field('phishingResistanceRequired', String, 'Phishing Resistance Required',
+      hint:
+          'Yes | No — whether phishing-resistant authenticators are required (AAL3)'),
+  Field('stepUpAuthenticationEnabled', String,
+      'Step-Up Authentication Enabled',
+      hint:
+          'Yes | No — whether sensitive operations trigger higher AAL re-authentication'),
+  Field('stepUpTriggers', String, 'Step-Up Triggers',
+      hint:
+          'Operations that trigger step-up (payment, admin actions, data export)'),
+  Field('rememberDevicePolicy', String, 'Remember Device Policy',
+      hint:
+          'Duration a device is remembered before MFA re-prompt (e.g., 30d, never)'),
+  Field('recoveryCodePolicy', String, 'Recovery Code Policy',
+      hint:
+          'How many one-time recovery codes are issued and their validity'),
+  Field('enrollmentGracePeriod', String, 'Enrollment Grace Period',
+      hint:
+          'Time allowed for users to enroll MFA after it becomes required (e.g., 14d)'),
+  Field('mfaBypassPolicy', String, 'MFA Bypass Policy',
+      hint: 'Conditions under which MFA can be bypassed (break-glass, service accounts)'),
+])
+class MfaConfiguration {
+  String? content;
+
+  /// MFA Implementation Details (text).
+  TextSection mfaDetails = TextSection();
+}
+
+/// Single Sign-On (SSO) policy (form).
+///
+/// Defines federation and SSO configuration for centralized authentication
+/// across multiple applications via identity providers.
+@Form([
+  Field('ssoEnabled', String, 'SSO Enabled',
+      hint: 'Yes | No — whether SSO is implemented'),
+  Field('ssoProtocol', String, 'SSO Protocol',
+      hint: 'SAML2.0 | OIDC | OAuth2 | WS-Federation | Kerberos'),
+  Field('identityProviderType', String, 'Identity Provider Type',
+      hint:
+          'Internal | External | Hybrid — where the IdP is hosted'),
+  Field('identityProviderProduct', String, 'Identity Provider Product',
+      hint:
+          'Specific IdP product or service (e.g., Keycloak, Azure AD, Okta, Auth0)'),
+  Field('federationProtocol', String, 'Federation Protocol',
+      hint:
+          'Protocol for cross-organization federation (SAML, OIDC, SCIM)'),
+  Field('attributeMapping', String, 'Attribute Mapping',
+      hint:
+          'How IdP attributes map to application roles and permissions'),
+  Field('justInTimeProvisioning', String, 'Just-In-Time Provisioning',
+      hint:
+          'Yes | No — whether accounts are auto-created on first SSO login'),
+  Field('sessionSynchronization', String, 'Session Synchronization',
+      hint:
+          'Yes | No — whether logout from one app logs out all SSO-connected apps'),
+  Field('singleLogoutEnabled', String, 'Single Logout Enabled',
+      hint:
+          'Yes | No — whether SLO (Single Logout) is implemented across services'),
+  Field('ssoFallbackMethod', String, 'SSO Fallback Method',
+      hint:
+          'Local password | Backup IdP | None — fallback when IdP is unavailable'),
+  Field('ssoScopePolicy', String, 'SSO Scope Policy',
+      hint:
+          'Which applications are included in SSO (all, internal only, selected)'),
+  Field('externalIdpTrustPolicy', String, 'External IdP Trust Policy',
+      hint:
+          'Validation requirements for external identity providers'),
+])
+class SsoPolicy {
+  String? content;
+
+  /// SSO Implementation Details (text).
+  TextSection ssoDetails = TextSection();
+}
+
+/// Certificate-based authentication policy (form).
+///
+/// Defines requirements for X.509 certificate authentication including
+/// mTLS, PIV/CAC cards, and client certificate authentication.
+@Form([
+  Field('certificateAuthEnabled', String, 'Certificate Auth Enabled',
+      hint: 'Yes | No — whether certificate-based authentication is supported'),
+  Field('certificateTypes', String, 'Certificate Types',
+      hint: 'X.509 | PIV | CAC | SmartCard — types of certificates accepted'),
+  Field('certificateIssuance', String, 'Certificate Issuance',
+      hint:
+          'InternalCA | ExternalCA | SelfSigned — who issues the certificates'),
+  Field('certificateAuthority', String, 'Certificate Authority',
+      hint: 'CA product or service used for certificate issuance'),
+  Field('keyStorageRequirement', String, 'Key Storage Requirement',
+      hint:
+          'TPM | HSM | SmartCard | SoftwareKeystore — where private keys must be stored'),
+  Field('mutualTlsRequired', String, 'Mutual TLS Required',
+      hint:
+          'Yes | No — whether mTLS (client certificate) is required for API access'),
+  Field('certificateValidation', String, 'Certificate Validation',
+      hint:
+          'OCSP | CRL | OCSP-Stapling — certificate revocation checking method'),
+  Field('certificateLifetime', String, 'Certificate Lifetime',
+      hint: 'Maximum validity period for certificates (e.g., 1y, 2y)'),
+  Field('renewalProcess', String, 'Renewal Process',
+      hint: 'Automatic | Manual | AdminApproval — certificate renewal method'),
+  Field('revocationProcess', String, 'Revocation Process',
+      hint: 'How compromised certificates are revoked and propagated'),
+  Field('minimumKeyStrength', String, 'Minimum Key Strength',
+      hint: 'RSA-2048 | RSA-4096 | EC-P256 | EC-P384 — minimum key requirements'),
+  Field('fipsComplianceRequired', String, 'FIPS Compliance Required',
+      hint: 'Yes | No — whether FIPS 140-2/3 validated modules are required'),
+])
+class CertificateAuthenticationPolicy {
+  String? content;
+
+  /// Certificate Authentication Details (text).
+  TextSection certificateDetails = TextSection();
+}
+
+/// Biometric authentication policy (form).
+///
+/// Defines requirements for biometric authentication factors aligned with
+/// NIST SP 800-63B Section 3.2.3: biometrics as activation factor for
+/// multi-factor authenticators, not standalone authentication.
+@Form([
+  Field('biometricAuthEnabled', String, 'Biometric Auth Enabled',
+      hint: 'Yes | No — whether biometric authentication is supported'),
+  Field('biometricModalities', String, 'Biometric Modalities',
+      hint:
+          'Fingerprint | FacialRecognition | IrisScan | VoicePrint — supported modalities'),
+  Field('biometricUsageContext', String, 'Biometric Usage Context',
+      hint:
+          'DeviceUnlock | TransactionApproval | MfaActivation — when biometrics are used'),
+  Field('biometricAsActivationFactor', String,
+      'Biometric As Activation Factor',
+      hint:
+          'Yes | No — whether biometric is used as MFA activation factor per NIST guidance'),
+  Field('localVsCentralComparison', String, 'Local vs Central Comparison',
+      hint:
+          'Local | Central — where biometric comparison is performed (local preferred)'),
+  Field('falseMatchRateTarget', String, 'False Match Rate Target',
+      hint: 'Target FMR (e.g., 1:10000 per NIST SP 800-63B)'),
+  Field('presentationAttackDetection', String,
+      'Presentation Attack Detection',
+      hint:
+          'Yes | No — whether PAD is implemented (required for facial recognition)'),
+  Field('maxConsecutiveFailures', String, 'Max Consecutive Failures',
+      hint:
+          'Maximum failed biometric attempts before fallback (e.g., 5 without PAD, 10 with PAD)'),
+  Field('fallbackMethod', String, 'Fallback Method',
+      hint:
+          'PIN | Password | AlternateModality — fallback when biometric fails'),
+  Field('biometricDataStorage', String, 'Biometric Data Storage',
+      hint:
+          'DeviceOnly | EncryptedCentral | Never — where biometric templates are stored'),
+  Field('privacyConsiderations', String, 'Privacy Considerations',
+      hint:
+          'Consent requirements, data retention policy, right to withdraw'),
+  Field('accessibilityAlternative', String, 'Accessibility Alternative',
+      hint:
+          'Alternative authentication for users unable to use biometric modalities'),
+])
+class BiometricAuthenticationPolicy {
+  String? content;
+
+  /// Biometric Implementation Details (text).
+  TextSection biometricDetails = TextSection();
+}
+
+/// API key management policy (form).
+///
+/// Defines lifecycle management for API keys, service tokens, and
+/// machine-to-machine authentication credentials.
+@Form([
+  Field('apiKeyAuthEnabled', String, 'API Key Auth Enabled',
+      hint: 'Yes | No — whether API key authentication is supported'),
+  Field('apiKeyTypes', String, 'API Key Types',
+      hint:
+          'Static | Rotating | Scoped | ShortLived — types of API keys supported'),
+  Field('keyGenerationMethod', String, 'Key Generation Method',
+      hint:
+          'Cryptographic random | UUID | JWT — how API keys are generated'),
+  Field('keyLength', String, 'Key Length',
+      hint: 'Minimum key length or entropy (e.g., 256-bit, 32 bytes)'),
+  Field('keyRotationPolicy', String, 'Key Rotation Policy',
+      hint: 'Rotation frequency and method (e.g., 90d, automatic, manual)'),
+  Field('keyExpirationPolicy', String, 'Key Expiration Policy',
+      hint: 'Maximum key lifetime (e.g., 1y, never, custom)'),
+  Field('keyScopeRestrictions', String, 'Key Scope Restrictions',
+      hint:
+          'Yes | No — whether API keys can be limited to specific resources/actions'),
+  Field('ipAllowlisting', String, 'IP Allowlisting',
+      hint:
+          'Yes | No — whether API keys can be restricted to specific IP addresses'),
+  Field('rateLimitingPerKey', String, 'Rate Limiting Per Key',
+      hint:
+          'Yes | No — whether rate limiting is enforced per API key'),
+  Field('keyRevocationProcess', String, 'Key Revocation Process',
+      hint: 'Immediate | Graceful — how revoked keys stop working'),
+  Field('keyStorageGuidance', String, 'Key Storage Guidance',
+      hint:
+          'VaultService | EnvironmentVariable | SecretManager — recommended storage'),
+  Field('keyAuditLogging', String, 'Key Audit Logging',
+      hint:
+          'Yes | No — whether API key usage is logged for audit purposes'),
+  Field('serviceTokenSupport', String, 'Service Token Support',
+      hint:
+          'OAuth2ClientCredentials | JWT | Custom — machine-to-machine token types'),
+  Field('tokenLifetime', String, 'Token Lifetime',
+      hint: 'Default lifetime for service tokens (e.g., 1h, 24h)'),
+])
+class ApiKeyManagementPolicy {
+  String? content;
+
+  /// API Key Management Details (text).
+  TextSection apiKeyDetails = TextSection();
+}
+
 /// An authentication method entry (form) [PD00-ACC-IDE-AUT-MET-nn].
+///
+/// Detailed per-method specification aligned with NIST SP 800-63B
+/// authenticator types (password, OTP, cryptographic, out-of-band).
 class AuthenticationMethodEntry {
   @Form([
-    Field('methodName', String, 'Method Name', required: true),
-    Field('methodType', String, 'Method Type'),
-    Field('applicableUserCategories', String, 'Applicable User Categories'),
-    Field('securityLevel', String, 'Security Level'),
-    Field('description', String, 'Short description'),
+    Field('methodName', String, 'Method Name', required: true,
+        hint: 'Unique name identifying this authentication method'),
+    Field('methodType', String, 'Method Type',
+        hint:
+            'Password | TOTP | HOTP | FIDO2 | WebAuthn | SmartCard | Push | SMS | Email | Biometric | APIKey | Certificate'),
+    Field('authenticationFactor', String, 'Authentication Factor',
+        hint:
+            'Knowledge | Possession | Inherence — NIST factor category'),
+    Field('assuranceLevel', String, 'Assurance Level',
+        hint: 'AAL1 | AAL2 | AAL3 — NIST authentication assurance level'),
+    Field('phishingResistant', String, 'Phishing Resistant',
+        hint:
+            'Yes | No — whether this method resists phishing per NIST SP 800-63B §3.2.5'),
+    Field('replayResistant', String, 'Replay Resistant',
+        hint:
+            'Yes | No — whether this method resists replay attacks'),
+    Field('applicableUserCategories', String, 'Applicable User Categories',
+        hint:
+            'InternalUsers | ExternalUsers | Admins | ServiceAccounts | All'),
+    Field('primaryOrSecondary', String, 'Primary or Secondary',
+        hint:
+            'Primary | Secondary | Either — role in authentication flow'),
+    Field('enrollmentProcess', String, 'Enrollment Process',
+        hint:
+            'How users enroll in this method (self-service, admin-provisioned, automated)'),
+    Field('enrollmentVerification', String, 'Enrollment Verification',
+        hint:
+            'Verification required during enrollment (identity proofing, email confirmation)'),
+    Field('activationRequirement', String, 'Activation Requirement',
+        hint:
+            'PIN | Password | Biometric | None — activation factor for multi-factor authenticators'),
+    Field('fallbackMethod', String, 'Fallback Method',
+        hint:
+            'Alternative method when this one is unavailable (recovery codes, admin reset)'),
+    Field('maxFailedAttempts', String, 'Max Failed Attempts',
+        hint:
+            'Maximum consecutive failed attempts before lockout (e.g., 5, 10, 100)'),
+    Field('lockoutPolicy', String, 'Lockout Policy',
+        hint:
+            'TemporaryDelay | AccountLock | RequireRebinding — action after max failures'),
+    Field('reauthenticationTimeout', String, 'Reauthentication Timeout',
+        hint:
+            'Session timeout requiring reauthentication (e.g., 15min, 12h, 30d per AAL)'),
+    Field('hardwareRequirement', String, 'Hardware Requirement',
+        hint:
+            'None | SecurityKey | SmartCard | TPM | HSM — required hardware'),
+    Field('fipsValidationLevel', String, 'FIPS Validation Level',
+        hint:
+            'None | Level1 | Level2 | Level3 — FIPS 140 validation level if applicable'),
+    Field('securityLevel', String, 'Security Level',
+        hint: 'Low | Medium | High | Critical — overall security classification'),
+    Field('description', String, 'Description',
+        hint: 'Detailed description of this authentication method'),
   ])
   String? content;
 }
