@@ -881,11 +881,556 @@ class ScreenFlowStructure {
   @Unused()
   String? content;
 
-  /// Navigation Model.
-  TextSection navigationModel = TextSection();
+  /// 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
+  NavigationModel navigationModel = NavigationModel();
 
-  /// 10.3.2. Screen Flow Diagram [PD00-USE-SCF-DIA] (mermaid).
+  /// 10.3.2. Screen Flow Diagram [PD00-USE-SCF-DIA] (mermaid-flow).
   FlowDiagramSection screenFlowDiagram = FlowDiagramSection();
+}
+
+// ---------------------------------------------------------------------------
+// 10.3.1 Navigation Model
+// ---------------------------------------------------------------------------
+
+/// 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
+///
+/// Comprehensive navigation structure: primary, secondary, utility, contextual
+/// navigation, deep linking, navigation guards, and platform adaptation.
+@SectionId('PD00-USE-SCF-NAV')
+class NavigationModel {
+  @Unused()
+  String? content;
+
+  /// 10.3.1.1. Navigation Overview [PD00-USE-SCF-NAV-OVR].
+  NavigationOverview overview = NavigationOverview();
+
+  /// 10.3.1.2. Navigation Hierarchy [PD00-USE-SCF-NAV-HIE].
+  NavigationHierarchy hierarchy = NavigationHierarchy();
+
+  /// 10.3.1.3. Primary Navigation [PD00-USE-SCF-NAV-PRI].
+  PrimaryNavigation primaryNavigation = PrimaryNavigation();
+
+  /// 10.3.1.4. Secondary Navigation [PD00-USE-SCF-NAV-SEC].
+  SecondaryNavigation secondaryNavigation = SecondaryNavigation();
+
+  /// 10.3.1.5. Utility Navigation [PD00-USE-SCF-NAV-UTL].
+  UtilityNavigation utilityNavigation = UtilityNavigation();
+
+  /// 10.3.1.6. Contextual Navigation [PD00-USE-SCF-NAV-CTX].
+  ContextualNavigation contextualNavigation = ContextualNavigation();
+
+  /// 10.3.1.7. Deep Linking [PD00-USE-SCF-NAV-DPL].
+  DeepLinking deepLinking = DeepLinking();
+
+  /// 10.3.1.8. Navigation Guards [PD00-USE-SCF-NAV-GRD].
+  NavigationGuards navigationGuards = NavigationGuards();
+}
+
+// ---------------------------------------------------------------------------
+// 10.3.1.1 Navigation Overview
+// ---------------------------------------------------------------------------
+
+/// 10.3.1.1. Navigation Overview [PD00-USE-SCF-NAV-OVR].
+///
+/// Overall navigation strategy, routing approach, and design decisions.
+@SectionId('PD00-USE-SCF-NAV-OVR')
+class NavigationOverview {
+  @Form([
+    Field('navigationStrategy', String, 'Navigation Strategy',
+        hint: 'URL-based/State-based/Hybrid'),
+    Field('maxNavigationDepth', int, 'Max Navigation Depth',
+        hint: 'Maximum levels of nesting the user encounters'),
+    Field('defaultLandingScreen', String, 'Default Landing Screen',
+        hint: 'Screen ID the user sees after login'),
+    Field('unauthenticatedLanding', String, 'Unauthenticated Landing',
+        hint: 'Screen ID for unauthenticated users'),
+    Field('navigationPersistence', String, 'Navigation Persistence',
+        hint: 'Whether navigation state survives app restart: Yes/No/Partial'),
+    Field('historyManagement', String, 'History Management',
+        hint: 'Browser-like-stack/Flat/Tab-specific-stacks'),
+    Field('backBehavior', String, 'Back Button Behavior',
+        hint: 'System-back/In-app-back/Both'),
+  ])
+  String? content;
+
+  /// Design rationale and open questions.
+  TextSection designNotes = TextSection();
+}
+
+// ---------------------------------------------------------------------------
+// 10.3.1.2 Navigation Hierarchy
+// ---------------------------------------------------------------------------
+
+/// 10.3.1.2. Navigation Hierarchy [PD00-USE-SCF-NAV-HIE].
+///
+/// Full navigation tree: groups and items forming the app's navigation structure.
+@SectionId('PD00-USE-SCF-NAV-HIE')
+class NavigationHierarchy {
+  @Unused()
+  String? content;
+
+  /// Overview of the navigation hierarchy structure.
+  TextSection overview = TextSection();
+
+  /// Contains 0+× NavigationGroup.
+  @SectionIdPattern('PD00-USE-SCF-NAV-HIE-xx')
+  List<NavigationGroupEntry> groups = [];
+}
+
+/// A navigation group entry (form) [PD00-USE-SCF-NAV-HIE-nn].
+///
+/// Logical grouping of navigation items (e.g., "Sales", "Administration").
+class NavigationGroupEntry {
+  @Form([
+    Field('groupId', String, 'Group ID', required: true,
+        hint: 'Unique identifier, e.g., nav-grp-sales'),
+    Field('groupLabel', String, 'Label Resource', required: true,
+        hint: 'Resource key for display label'),
+    Field('groupIcon', String, 'Icon Resource',
+        hint: 'Resource key for group icon'),
+    Field('groupDescription', String, 'Description Resource',
+        hint: 'Resource key for tooltip/subtitle'),
+    Field('displayOrder', int, 'Display Order',
+        hint: 'Sort position among siblings'),
+    Field('collapsible', String, 'Collapsible',
+        hint: 'Yes/No — can the group be collapsed?'),
+    Field('initiallyExpanded', String, 'Initially Expanded',
+        hint: 'Yes/No — default expanded state'),
+    Field('visibilityCondition', String, 'Visibility Condition',
+        hint: 'Business rule for visibility'),
+    Field('requiredRoles', String, 'Required Roles',
+        hint: 'Comma-separated role IDs'),
+    Field('requiredPermissions', String, 'Required Permissions',
+        hint: 'Specific permissions required'),
+    Field('permissionBehavior', String, 'Permission Behavior',
+        hint: 'Hide/Disable/Collapse when unauthorized'),
+    Field('badgeType', String, 'Badge Type',
+        hint: 'None/Count/Dot/Text — aggregate from children'),
+    Field('badgeSource', String, 'Badge Source',
+        hint: 'Data source for badge value'),
+    Field('navigationLevel', String, 'Navigation Level',
+        hint: 'Primary/Secondary/Tertiary'),
+    Field('parentGroupId', String, 'Parent Group ID',
+        hint: 'For nested groups, null = top-level'),
+    Field('dividerBefore', String, 'Divider Before',
+        hint: 'Yes/No — show divider above'),
+  ])
+  String? content;
+
+  /// Contains 0+× NavigationItem.
+  @SectionIdPattern('PD00-USE-SCF-NAV-HIE-xx-ITM-xx')
+  List<NavigationItemEntry> items = [];
+}
+
+/// A navigation item entry (form) [PD00-USE-SCF-NAV-HIE-nn-ITM-mm].
+///
+/// A single navigable destination within a group.
+class NavigationItemEntry {
+  @Form([
+    Field('itemId', String, 'Item ID', required: true,
+        hint: 'Unique identifier, e.g., nav-customers'),
+    Field('label', String, 'Label Resource', required: true,
+        hint: 'Resource key for display label'),
+    Field('shortLabel', String, 'Short Label Resource',
+        hint: 'Abbreviated label for bottom nav/compact mode'),
+    Field('icon', String, 'Icon Resource',
+        hint: 'Primary icon resource key'),
+    Field('activeIcon', String, 'Active Icon Resource',
+        hint: 'Icon variant when selected (filled vs outlined)'),
+    Field('description', String, 'Description Resource',
+        hint: 'Tooltip or subtitle text'),
+    Field('targetScreenId', String, 'Target Screen ID',
+        hint: 'Reference to Screen Inventory SCR-xxx'),
+    Field('targetRoute', String, 'Target Route',
+        hint: 'Route path, e.g., /customers'),
+    Field('targetRouteParams', String, 'Route Parameters',
+        hint: 'Default params, e.g., {status: active}'),
+    Field('displayOrder', int, 'Display Order',
+        hint: 'Position within parent group'),
+    Field('isDefault', String, 'Is Default',
+        hint: 'Yes/No — default selected item in group'),
+    Field('visibilityCondition', String, 'Visibility Condition',
+        hint: 'Business condition for visibility'),
+    Field('enabledCondition', String, 'Enabled Condition',
+        hint: 'When item is visible but non-interactive'),
+    Field('requiredRoles', String, 'Required Roles',
+        hint: 'Comma-separated roles'),
+    Field('requiredPermissions', String, 'Required Permissions',
+        hint: 'Specific permissions'),
+    Field('permissionBehavior', String, 'Permission Behavior',
+        hint: 'Hide/Disable/Show-Locked-Icon'),
+    Field('badgeType', String, 'Badge Type',
+        hint: 'None/Count/Dot/Text/Icon'),
+    Field('badgeSource', String, 'Badge Source',
+        hint: 'Data binding for badge, e.g., inbox.unreadCount'),
+    Field('badgeColor', String, 'Badge Color',
+        hint: 'Error/Warning/Info/Success/Neutral'),
+    Field('keyboardShortcut', String, 'Keyboard Shortcut',
+        hint: 'Global shortcut, e.g., Ctrl+Shift+C'),
+    Field('searchKeywords', String, 'Search Keywords',
+        hint: 'Keywords for global search matching'),
+    Field('openBehavior', String, 'Open Behavior',
+        hint: 'Replace/Push/New-Tab/Dialog'),
+    Field('highlightRules', String, 'Highlight Rules',
+        hint: 'Routes that keep this item highlighted'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 10.3.1.3 Primary Navigation
+// ---------------------------------------------------------------------------
+
+/// 10.3.1.3. Primary Navigation [PD00-USE-SCF-NAV-PRI].
+///
+/// How the main navigation appears across platforms: drawer, sidebar, bottom nav.
+@SectionId('PD00-USE-SCF-NAV-PRI')
+class PrimaryNavigation {
+  @Form([
+    Field('mobilePattern', String, 'Mobile Pattern',
+        hint: 'Drawer/Bottom-Nav/Bottom-Nav+Drawer'),
+    Field('tabletPattern', String, 'Tablet Pattern',
+        hint: 'Rail/Collapsible-Sidebar/Drawer'),
+    Field('desktopPattern', String, 'Desktop Pattern',
+        hint: 'Sidebar/Sidebar-Collapsible/Top-Nav+Sidebar'),
+    Field('drawerBehavior', String, 'Drawer Behavior',
+        hint: 'Modal-Overlay/Push-Content/Persistent'),
+    Field('drawerWidth', String, 'Drawer Width',
+        hint: 'Width specification, e.g., 280dp/25%'),
+    Field('drawerHeaderContent', String, 'Drawer Header',
+        hint: 'User-Avatar/App-Logo/User-Card/Custom'),
+    Field('drawerFooterContent', String, 'Drawer Footer',
+        hint: 'Version-Info/Settings-Link/Logout/None'),
+    Field('bottomNavMaxItems', int, 'Bottom Nav Max Items',
+        hint: 'Maximum items (Material guideline: 3-5)'),
+    Field('bottomNavStyle', String, 'Bottom Nav Style',
+        hint: 'Fixed/Shifting/Labeled/Icon-Only'),
+    Field('bottomNavShowLabels', String, 'Show Labels',
+        hint: 'Always/Selected-Only/Never'),
+    Field('sidebarCollapsedWidth', String, 'Collapsed Width',
+        hint: 'Rail/icon width when collapsed'),
+    Field('sidebarExpandedWidth', String, 'Expanded Width',
+        hint: 'Full sidebar width'),
+    Field('selectedItemStyle', String, 'Selected Item Style',
+        hint: 'Background-Highlight/Indicator-Bar/Bold/Color-Change'),
+    Field('overflowBehavior', String, 'Overflow Behavior',
+        hint: 'Scroll/More-Menu/Paginated'),
+  ])
+  String? content;
+
+  /// Design notes and tradeoffs.
+  TextSection designNotes = TextSection();
+}
+
+// ---------------------------------------------------------------------------
+// 10.3.1.4 Secondary Navigation
+// ---------------------------------------------------------------------------
+
+/// 10.3.1.4. Secondary Navigation [PD00-USE-SCF-NAV-SEC].
+///
+/// In-page navigation: tab bars, segmented controls.
+@SectionId('PD00-USE-SCF-NAV-SEC')
+class SecondaryNavigation {
+  @Unused()
+  String? content;
+
+  /// Overview of secondary navigation patterns.
+  TextSection overview = TextSection();
+
+  /// Contains 0+× TabBarDefinition.
+  @SectionIdPattern('PD00-USE-SCF-NAV-SEC-xx')
+  List<TabBarDefinitionEntry> tabBars = [];
+}
+
+/// A tab bar definition entry (form) [PD00-USE-SCF-NAV-SEC-nn].
+///
+/// Defines a tab bar or segmented control on a specific screen.
+class TabBarDefinitionEntry {
+  @Form([
+    Field('tabBarId', String, 'Tab Bar ID', required: true,
+        hint: 'Unique identifier, e.g., tabs-customer-detail'),
+    Field('tabBarName', String, 'Tab Bar Name', required: true,
+        hint: 'Human label'),
+    Field('hostScreenId', String, 'Host Screen ID',
+        hint: 'Screen that contains this tab bar'),
+    Field('tabBarStyle', String, 'Style',
+        hint: 'Material-Tabs/Segmented-Control/Pill-Tabs/Scrollable-Tabs'),
+    Field('tabBarPosition', String, 'Position',
+        hint: 'Top/Bottom/Left'),
+    Field('isScrollable', String, 'Scrollable',
+        hint: 'Yes/No — scrollable when tabs exceed width'),
+    Field('defaultTabIndex', int, 'Default Tab',
+        hint: 'Zero-based index of initially selected tab'),
+    Field('persistSelection', String, 'Persist Selection',
+        hint: 'Yes/No — remember last selected tab'),
+    Field('swipeEnabled', String, 'Swipe Navigation',
+        hint: 'Yes/No — swipe between tabs on mobile'),
+    Field('lazyLoading', String, 'Lazy Loading',
+        hint: 'Yes/No — load tab content when first selected'),
+    Field('visibilityCondition', String, 'Visibility Condition',
+        hint: 'When entire tab bar is shown'),
+  ])
+  String? content;
+
+  /// Contains 1+× TabItem.
+  @SectionIdPattern('PD00-USE-SCF-NAV-SEC-xx-TAB-xx')
+  @Min(1)
+  List<TabItemEntry> tabs = [];
+}
+
+/// A tab item entry (form) [PD00-USE-SCF-NAV-SEC-nn-TAB-mm].
+class TabItemEntry {
+  @Form([
+    Field('tabId', String, 'Tab ID', required: true,
+        hint: 'Unique within tab bar'),
+    Field('label', String, 'Label Resource', required: true,
+        hint: 'Resource key for tab label'),
+    Field('icon', String, 'Icon Resource',
+        hint: 'Tab icon'),
+    Field('displayOrder', int, 'Display Order',
+        hint: 'Position in tab bar'),
+    Field('contentScreenId', String, 'Content Screen ID',
+        hint: 'Screen/fragment loaded in tab'),
+    Field('visibilityCondition', String, 'Visibility Condition',
+        hint: 'Business rule for visibility'),
+    Field('requiredPermissions', String, 'Required Permissions',
+        hint: 'Tab-level access control'),
+    Field('permissionBehavior', String, 'Permission Behavior',
+        hint: 'Hide/Disable'),
+    Field('badgeType', String, 'Badge Type',
+        hint: 'None/Count/Dot'),
+    Field('badgeSource', String, 'Badge Source',
+        hint: 'Data source for badge'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 10.3.1.5 Utility Navigation
+// ---------------------------------------------------------------------------
+
+/// 10.3.1.5. Utility Navigation [PD00-USE-SCF-NAV-UTL].
+///
+/// Always-visible utility items: user menu, notifications, help, settings.
+@SectionId('PD00-USE-SCF-NAV-UTL')
+class UtilityNavigation {
+  @Unused()
+  String? content;
+
+  /// Contains 0+× UtilityNavigationItem.
+  @SectionIdPattern('PD00-USE-SCF-NAV-UTL-xx')
+  List<UtilityNavigationItemEntry> items = [];
+}
+
+/// A utility navigation item entry (form) [PD00-USE-SCF-NAV-UTL-nn].
+///
+/// A persistent utility element in the app bar: user avatar, notifications bell,
+/// help icon, settings.
+class UtilityNavigationItemEntry {
+  @Form([
+    Field('utilityId', String, 'Utility ID', required: true,
+        hint: 'e.g., util-user-menu, util-notifications'),
+    Field('label', String, 'Label Resource',
+        hint: 'Display label (may be hidden)'),
+    Field('icon', String, 'Icon Resource', required: true,
+        hint: 'Primary icon'),
+    Field('position', String, 'Position',
+        hint: 'AppBar-Leading/AppBar-Trailing/Drawer-Footer'),
+    Field('displayOrder', int, 'Display Order',
+        hint: 'Sort position'),
+    Field('widgetType', String, 'Widget Type',
+        hint: 'Icon-Button/Avatar/Dropdown/Popup-Menu/Badge-Icon'),
+    Field('visibilityCondition', String, 'Visibility Condition',
+        hint: 'When shown'),
+    Field('requiredRoles', String, 'Required Roles',
+        hint: 'Access control'),
+    Field('badgeType', String, 'Badge Type',
+        hint: 'None/Count/Dot'),
+    Field('badgeSource', String, 'Badge Source',
+        hint: 'Data binding for badge'),
+    Field('interactionType', String, 'Interaction Type',
+        hint: 'Navigate/Open-Popup/Open-Drawer/Open-Bottom-Sheet/Open-Dialog'),
+    Field('targetScreenId', String, 'Target Screen ID',
+        hint: 'Navigation target'),
+  ])
+  String? content;
+
+  /// Contains 0+× UtilityMenuItem.
+  @SectionIdPattern('PD00-USE-SCF-NAV-UTL-xx-MEN-xx')
+  List<UtilityMenuItemEntry> menuItems = [];
+}
+
+/// A utility menu item entry (form) [PD00-USE-SCF-NAV-UTL-nn-MEN-mm].
+///
+/// Entry in a utility popup/dropdown menu (e.g., user menu items).
+class UtilityMenuItemEntry {
+  @Form([
+    Field('menuItemId', String, 'Menu Item ID', required: true),
+    Field('label', String, 'Label Resource', required: true,
+        hint: 'Display text'),
+    Field('icon', String, 'Icon Resource',
+        hint: 'Leading icon'),
+    Field('displayOrder', int, 'Display Order',
+        hint: 'Position in menu'),
+    Field('actionType', String, 'Action Type',
+        hint: 'Navigate/Action/External-Link/Divider'),
+    Field('targetRoute', String, 'Target Route',
+        hint: 'Navigation target'),
+    Field('actionId', String, 'Action ID',
+        hint: 'Action system reference, e.g., logout'),
+    Field('visibilityCondition', String, 'Visibility Condition',
+        hint: 'When shown'),
+    Field('requiredPermissions', String, 'Required Permissions',
+        hint: 'Access control'),
+    Field('isDangerous', String, 'Is Dangerous',
+        hint: 'Yes/No — show in danger style'),
+    Field('confirmationRequired', String, 'Confirmation Required',
+        hint: 'Yes/No — show confirmation dialog'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 10.3.1.6 Contextual Navigation
+// ---------------------------------------------------------------------------
+
+/// 10.3.1.6. Contextual Navigation [PD00-USE-SCF-NAV-CTX].
+///
+/// Breadcrumbs, back navigation, related links.
+@SectionId('PD00-USE-SCF-NAV-CTX')
+class ContextualNavigation {
+  @Unused()
+  String? content;
+
+  /// 10.3.1.6.1. Breadcrumb Configuration [PD00-USE-SCF-NAV-CTX-BRD].
+  BreadcrumbConfiguration breadcrumbs = BreadcrumbConfiguration();
+
+  /// Back navigation behavior.
+  TextSection backNavigation = TextSection();
+
+  /// Related links behavior.
+  TextSection relatedLinks = TextSection();
+}
+
+/// 10.3.1.6.1. Breadcrumb Configuration [PD00-USE-SCF-NAV-CTX-BRD].
+@SectionId('PD00-USE-SCF-NAV-CTX-BRD')
+class BreadcrumbConfiguration {
+  @Form([
+    Field('enabled', String, 'Enabled',
+        hint: 'Yes/No — whether breadcrumbs are shown'),
+    Field('platformVisibility', String, 'Platform Visibility',
+        hint: 'All/Desktop-Only/Tablet-Up'),
+    Field('maxVisibleItems', int, 'Max Visible Items',
+        hint: 'Items before collapsing with ellipsis'),
+    Field('collapseBehavior', String, 'Collapse Behavior',
+        hint: 'Ellipsis-Menu/Hide-Middle/Truncate'),
+    Field('showHomeItem', String, 'Show Home',
+        hint: 'Yes/No — include root/home as first crumb'),
+    Field('homeLabel', String, 'Home Label Resource',
+        hint: 'Resource key for home crumb'),
+    Field('homeIcon', String, 'Home Icon Resource',
+        hint: 'Icon for home crumb'),
+    Field('separator', String, 'Separator',
+        hint: 'Visual separator: / , > , chevron-icon'),
+    Field('currentItemStyle', String, 'Current Item Style',
+        hint: 'Bold/Muted/Normal — style of last item'),
+    Field('position', String, 'Position',
+        hint: 'Below-AppBar/Inside-Content/Top-Of-Page'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 10.3.1.7 Deep Linking
+// ---------------------------------------------------------------------------
+
+/// 10.3.1.7. Deep Linking [PD00-USE-SCF-NAV-DPL].
+///
+/// External entry points, URL patterns, share links.
+@SectionId('PD00-USE-SCF-NAV-DPL')
+class DeepLinking {
+  @Unused()
+  String? content;
+
+  /// Deep linking strategy overview.
+  TextSection strategy = TextSection();
+
+  /// Contains 0+× DeepLinkPattern.
+  @SectionIdPattern('PD00-USE-SCF-NAV-DPL-xx')
+  List<DeepLinkPatternEntry> patterns = [];
+}
+
+/// A deep link pattern entry (form) [PD00-USE-SCF-NAV-DPL-nn].
+class DeepLinkPatternEntry {
+  @Form([
+    Field('patternId', String, 'Pattern ID', required: true),
+    Field('urlPattern', String, 'URL Pattern', required: true,
+        hint: 'Route pattern, e.g., /orders/:orderId'),
+    Field('targetScreenId', String, 'Target Screen ID',
+        hint: 'Screen to open'),
+    Field('description', String, 'Description',
+        hint: 'When/why this link is used'),
+    Field('authenticationRequired', String, 'Authentication Required',
+        hint: 'Yes/No — redirect to login if unauthenticated'),
+    Field('requiredPermissions', String, 'Required Permissions',
+        hint: 'Permissions needed to access via deep link'),
+    Field('fallbackRoute', String, 'Fallback Route',
+        hint: 'Where to go if target is unavailable'),
+    Field('shareEnabled', String, 'Share Enabled',
+        hint: 'Yes/No — can users share this link'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 10.3.1.8 Navigation Guards
+// ---------------------------------------------------------------------------
+
+/// 10.3.1.8. Navigation Guards [PD00-USE-SCF-NAV-GRD].
+///
+/// Route guards: unsaved changes, authentication redirects, permission checks.
+@SectionId('PD00-USE-SCF-NAV-GRD')
+class NavigationGuards {
+  @Unused()
+  String? content;
+
+  /// Overview of navigation guard strategy.
+  TextSection overview = TextSection();
+
+  /// Contains 0+× NavigationGuard.
+  @SectionIdPattern('PD00-USE-SCF-NAV-GRD-xx')
+  List<NavigationGuardEntry> guards = [];
+}
+
+/// A navigation guard entry (form) [PD00-USE-SCF-NAV-GRD-nn].
+class NavigationGuardEntry {
+  @Form([
+    Field('guardId', String, 'Guard ID', required: true,
+        hint: 'Unique identifier, e.g., guard-unsaved-changes'),
+    Field('guardName', String, 'Guard Name', required: true,
+        hint: 'Human-readable name'),
+    Field('guardType', String, 'Guard Type',
+        hint:
+            'Unsaved-Changes/Authentication/Permission/Feature-Flag/'
+            'Onboarding/Maintenance'),
+    Field('triggerCondition', String, 'Trigger Condition',
+        hint: 'When this guard activates, e.g., form.isDirty'),
+    Field('appliesTo', String, 'Applies To',
+        hint: 'Route patterns or screen IDs this guard covers'),
+    Field('dialogTitleResource', String, 'Dialog Title Resource',
+        hint: 'Resource key for confirmation dialog title'),
+    Field('dialogMessageResource', String, 'Dialog Message Resource',
+        hint: 'Resource key for confirmation dialog message'),
+    Field('confirmActionResource', String, 'Confirm Action Resource',
+        hint: 'Resource key for confirm button, e.g., Discard'),
+    Field('cancelActionResource', String, 'Cancel Action Resource',
+        hint: 'Resource key for cancel button, e.g., Stay'),
+    Field('redirectTo', String, 'Redirect To',
+        hint: 'Route to redirect to if guard blocks navigation'),
+    Field('priority', int, 'Priority',
+        hint: 'Execution order when multiple guards apply'),
+  ])
+  String? content;
 }
 
 // ---------------------------------------------------------------------------

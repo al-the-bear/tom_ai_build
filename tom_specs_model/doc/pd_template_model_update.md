@@ -135,8 +135,8 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-USE-SCR-INV | Screen Inventory | High | ✅ Done |
 | PD00-USE-SCR-INV-01 | Sample: Dashboard | Low | ✅ Done |
 | PD00-USE-SCR-INF | Information Architecture | Medium | ✅ Done |
-| PD00-USE-SCF-NAV | Navigation Model | Medium | ⬜ Not Started |
-| PD00-USE-SCF-DIA | Screen Flow Diagram | Medium | ⬜ Not Started |
+| PD00-USE-SCF-NAV | Navigation Model | Medium | ✅ Done |
+| PD00-USE-SCF-DIA | Screen Flow Diagram | Medium | ✅ Done |
 | PD00-USE-PRI-REP | Reports | Medium | ⬜ Not Started |
 | PD00-USE-PRI-REP-01 | Sample: Monthly Summary Report | Low | ⬜ Not Started |
 | PD00-USE-PRI-EXP | Export Formats | Medium | ⬜ Not Started |
