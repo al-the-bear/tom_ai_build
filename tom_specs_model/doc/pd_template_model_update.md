@@ -57,7 +57,7 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-ORG-JOB-NEW-01 | Sample: Data Steward | Low | ✅ Done |
 | PD00-ORG-JOB-CHA | Changed Roles | Medium | ✅ Done |
 | PD00-ORG-JOB-CHA-01 | Sample: Sales Team Lead | Low | ✅ Done |
-| PD00-ORG-WOR | Workplace Description | Medium | ⬜ Not Started |
+| PD00-ORG-WOR | Workplace Description | Medium | ✅ Done |
 | PD00-TAR-PRO | Business Process Descriptions | High | ⬜ Not Started |
 | PD00-TAR-PRO-VIS | Process Vision | Medium | ⬜ Not Started |
 | PD00-TAR-PRO-PRI | Design Principles | Medium | ⬜ Not Started |

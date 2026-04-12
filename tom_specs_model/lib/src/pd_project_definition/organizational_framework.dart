@@ -1271,61 +1271,706 @@ class SkillEntry {
 // ---------------------------------------------------------------------------
 
 /// A workplace description entry [PD00-ORG-WOR-nn] (form, per user category).
+///
+/// Comprehensive workplace requirements following workplace design best
+/// practices (OSHA, ISO 9001, ergonomic standards). Covers physical,
+/// technical, and training aspects per user category.
 @Comment('per user category')
 class WorkplaceDescriptionEntry {
-  @Form([
-    Field('userCategory', String, 'User Category'),
-  ])
-  String? content;
+  /// User category identification.
+  WorkplaceUserCategory userCategory = WorkplaceUserCategory();
+
+  /// Physical workplace layout and environment.
+  PhysicalWorkplaceRequirements physicalRequirements =
+      PhysicalWorkplaceRequirements();
 
   /// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
   EquipmentRequirements equipmentRequirements = EquipmentRequirements();
 
+  /// Technical infrastructure requirements.
+  TechnicalInfrastructure technicalInfrastructure = TechnicalInfrastructure();
+
   /// 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
   TrainingRequirements trainingRequirements = TrainingRequirements();
+
+  /// Support resources available to users.
+  WorkplaceSupportResources supportResources = WorkplaceSupportResources();
+}
+
+/// User category identification for workplace definition.
+class WorkplaceUserCategory {
+  @Form([
+    Field('categoryId', String, 'Category ID (e.g., WP-001)', required: true),
+    Field('categoryName', String, 'Category Name', required: true),
+    Field('description', String, 'Description — what defines this category'),
+    Field('headcount', int, 'Headcount — number of users in this category'),
+    Field('roles', String, 'Roles — job titles in this category'),
+    Field('workPatterns', String,
+        'Work Patterns — shift work, flex time, standard hours'),
+    Field('workLocations', String,
+        'Work Locations — office, remote, hybrid, field'),
+    Field('primaryResponsibilities', String,
+        'Primary Responsibilities — main work tasks'),
+    Field('systemUsageIntensity', String,
+        'System Usage Intensity — constant, frequent, occasional, rare'),
+    Field('criticalityLevel', String,
+        'Criticality Level — how critical is system access for this category'),
+  ])
+  String? content;
+}
+
+/// Physical workplace layout and environment requirements.
+class PhysicalWorkplaceRequirements {
+  @Form([
+    Field('workplaceType', String,
+        'Workplace Type — office, cubicle, open plan, home office, mobile'),
+    Field('workstationLayout', String,
+        'Workstation Layout — desk configuration, monitor arrangement'),
+    Field('spaceRequirements', String,
+        'Space Requirements — square footage, accessibility'),
+    Field('ergonomicStandards', String,
+        'Ergonomic Standards — chair, desk height, monitor position'),
+    Field('lightingRequirements', String,
+        'Lighting Requirements — natural light, task lighting, glare reduction'),
+    Field('noiseLevel', String,
+        'Noise Level — acceptable dB, sound dampening needs'),
+    Field('temperatureControl', String,
+        'Temperature Control — HVAC requirements'),
+    Field('ventilation', String, 'Ventilation — air quality requirements'),
+    Field('accessibilityFeatures', String,
+        'Accessibility Features — ADA compliance, wheelchair access'),
+    Field('privacyRequirements', String,
+        'Privacy Requirements — visual privacy, sound isolation'),
+    Field('collaborationSpaces', String,
+        'Collaboration Spaces — meeting rooms, huddle spaces access'),
+    Field('storageNeeds', String,
+        'Storage Needs — physical document/material storage'),
+  ])
+  String? content;
 }
 
 /// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
+///
+/// Hardware and peripheral requirements per workplace type.
 @SectionId('PD00-ORG-WOR-EQU')
 class EquipmentRequirements {
-  @Unused()
-  String? content;
+  /// Equipment overview.
+  EquipmentOverview overview = EquipmentOverview();
 
-  /// Contains 0+× EquipmentRequirement.
-  @SectionIdPattern('PD00-ORG-WOR-xx-EQU-xx')
-  List<EquipmentRequirementEntry> items = [];
+  /// Primary computing equipment.
+  @SectionIdPattern('PD00-ORG-WOR-xx-EQU-PRI-xx')
+  List<ComputingEquipmentEntry> primaryComputing = [];
+
+  /// Display and monitors.
+  @SectionIdPattern('PD00-ORG-WOR-xx-EQU-DSP-xx')
+  List<DisplayEquipmentEntry> displays = [];
+
+  /// Input devices.
+  @SectionIdPattern('PD00-ORG-WOR-xx-EQU-INP-xx')
+  List<InputDeviceEntry> inputDevices = [];
+
+  /// Peripheral equipment.
+  @SectionIdPattern('PD00-ORG-WOR-xx-EQU-PER-xx')
+  List<PeripheralEquipmentEntry> peripherals = [];
+
+  /// Mobile devices.
+  @SectionIdPattern('PD00-ORG-WOR-xx-EQU-MOB-xx')
+  List<MobileDeviceEntry> mobileDevices = [];
+
+  /// Specialized equipment.
+  @SectionIdPattern('PD00-ORG-WOR-xx-EQU-SPE-xx')
+  List<SpecializedEquipmentEntry> specializedEquipment = [];
 }
 
-/// An equipment requirement entry (form) [PD00-ORG-WOR-nn-EQU-nn].
-class EquipmentRequirementEntry {
+/// Equipment overview and standards.
+class EquipmentOverview {
   @Form([
-    Field('equipmentType', String, 'Equipment Type'),
-    Field('specification', String, 'Specification'),
-    Field('quantity', String, 'Quantity'),
-    Field('purpose', String, 'Purpose'),
+    Field('equipmentStandard', String,
+        'Equipment Standard — corporate standard, premium, basic'),
+    Field('refreshCycle', String,
+        'Refresh Cycle — replacement frequency (e.g., 3 years)'),
+    Field('procurementProcess', String,
+        'Procurement Process — how equipment is ordered'),
+    Field('assetTracking', String,
+        'Asset Tracking — how equipment is tracked'),
+    Field('supportModel', String,
+        'Support Model — warranty, maintenance, break-fix'),
+    Field('disposalProcess', String,
+        'Disposal Process — end-of-life handling'),
+    Field('budgetAllocation', String,
+        'Budget Allocation — equipment budget per user'),
+  ])
+  String? content;
+}
+
+/// Computing equipment entry (form) [PD00-ORG-WOR-nn-EQU-PRI-nn].
+class ComputingEquipmentEntry {
+  @Form([
+    Field('equipmentId', String, 'Equipment ID'),
+    Field('deviceType', String,
+        'Device Type — desktop, laptop, workstation, thin client'),
+    Field('brand', String, 'Brand — manufacturer preference'),
+    Field('modelSpecification', String, 'Model/Specification — exact model'),
+    Field('processor', String, 'Processor — CPU requirements'),
+    Field('memory', String, 'Memory — RAM requirements'),
+    Field('storage', String, 'Storage — HDD/SSD requirements'),
+    Field('graphicsCard', String, 'Graphics Card — if required'),
+    Field('operatingSystem', String, 'Operating System — OS version'),
+    Field('securityFeatures', String,
+        'Security Features — TPM, biometric, encryption'),
+    Field('portRequirements', String,
+        'Port Requirements — USB, HDMI, network ports'),
+    Field('formFactor', String,
+        'Form Factor — tower, small form factor, all-in-one'),
+    Field('quantityNeeded', int, 'Quantity Needed'),
+    Field('priorityLevel', String,
+        'Priority Level — critical, standard, optional'),
+    Field('justification', String, 'Justification — why this specification'),
+  ])
+  String? content;
+}
+
+/// Display equipment entry (form) [PD00-ORG-WOR-nn-EQU-DSP-nn].
+class DisplayEquipmentEntry {
+  @Form([
+    Field('displayId', String, 'Display ID'),
+    Field('displayType', String,
+        'Display Type — monitor, projector, video wall'),
+    Field('screenSize', String, 'Screen Size — diagonal inches'),
+    Field('resolution', String, 'Resolution — HD, FHD, QHD, 4K'),
+    Field('panelType', String, 'Panel Type — IPS, VA, TN, OLED'),
+    Field('refreshRate', String, 'Refresh Rate — Hz'),
+    Field('colorAccuracy', String,
+        'Color Accuracy — sRGB coverage, if color-critical'),
+    Field('connectivity', String,
+        'Connectivity — HDMI, DisplayPort, USB-C'),
+    Field('adjustability', String,
+        'Adjustability — height, tilt, swivel, pivot'),
+    Field('ergonomicFeatures', String,
+        'Ergonomic Features — blue light filter, flicker-free'),
+    Field('quantityPerUser', int, 'Quantity Per User — number of monitors'),
+    Field('mounting', String, 'Mounting — stand, arm, wall mount'),
+    Field('justification', String, 'Justification'),
+  ])
+  String? content;
+}
+
+/// Input device entry (form) [PD00-ORG-WOR-nn-EQU-INP-nn].
+class InputDeviceEntry {
+  @Form([
+    Field('deviceId', String, 'Device ID'),
+    Field('deviceType', String,
+        'Device Type — keyboard, mouse, trackpad, stylus, touchscreen'),
+    Field('ergonomicDesign', String,
+        'Ergonomic Design — split keyboard, vertical mouse'),
+    Field('connectivity', String,
+        'Connectivity — wired, wireless, Bluetooth'),
+    Field('specialFeatures', String,
+        'Special Features — programmable keys, precision'),
+    Field('accessibilityFeatures', String,
+        'Accessibility Features — large keys, one-handed'),
+    Field('quantityPerUser', int, 'Quantity Per User'),
+    Field('justification', String, 'Justification'),
+  ])
+  String? content;
+}
+
+/// Peripheral equipment entry (form) [PD00-ORG-WOR-nn-EQU-PER-nn].
+class PeripheralEquipmentEntry {
+  @Form([
+    Field('peripheralId', String, 'Peripheral ID'),
+    Field('peripheralType', String,
+        'Peripheral Type — printer, scanner, webcam, headset, docking station'),
+    Field('brand', String, 'Brand'),
+    Field('model', String, 'Model'),
+    Field('specifications', String, 'Specifications — key specs'),
+    Field('connectivity', String, 'Connectivity — USB, network, Bluetooth'),
+    Field('sharedOrPersonal', String,
+        'Shared/Personal — dedicated or shared device'),
+    Field('location', String, 'Location — workstation, print room, etc.'),
+    Field('quantityNeeded', int, 'Quantity Needed'),
+    Field('justification', String, 'Justification'),
+  ])
+  String? content;
+}
+
+/// Mobile device entry (form) [PD00-ORG-WOR-nn-EQU-MOB-nn].
+class MobileDeviceEntry {
+  @Form([
+    Field('deviceId', String, 'Device ID'),
+    Field('deviceType', String,
+        'Device Type — smartphone, tablet, rugged device'),
+    Field('operatingSystem', String, 'Operating System — iOS, Android'),
+    Field('screenSize', String, 'Screen Size'),
+    Field('storageCapacity', String, 'Storage Capacity'),
+    Field('cellularConnectivity', String,
+        'Cellular Connectivity — 4G, 5G, none'),
+    Field('durabilityRating', String,
+        'Durability Rating — IP rating, drop protection'),
+    Field('mdmEnrollment', String,
+        'MDM Enrollment — mobile device management requirements'),
+    Field('dataCarrier', String,
+        'Data Carrier — carrier, plan type'),
+    Field('accessories', String,
+        'Accessories — case, screen protector, car mount'),
+    Field('quantityNeeded', int, 'Quantity Needed'),
+    Field('justification', String, 'Justification'),
+  ])
+  String? content;
+}
+
+/// Specialized equipment entry (form) [PD00-ORG-WOR-nn-EQU-SPE-nn].
+class SpecializedEquipmentEntry {
+  @Form([
+    Field('equipmentId', String, 'Equipment ID'),
+    Field('equipmentType', String,
+        'Equipment Type — barcode scanner, card reader, signature pad'),
+    Field('brand', String, 'Brand'),
+    Field('model', String, 'Model'),
+    Field('purpose', String, 'Purpose — business function supported'),
+    Field('specifications', String, 'Specifications'),
+    Field('connectivity', String, 'Connectivity'),
+    Field('driverSoftware', String,
+        'Driver/Software — software requirements'),
+    Field('certifications', String,
+        'Certifications — PCI, EMV, etc.'),
+    Field('quantityNeeded', int, 'Quantity Needed'),
+    Field('justification', String, 'Justification'),
+  ])
+  String? content;
+}
+
+/// Technical infrastructure requirements.
+class TechnicalInfrastructure {
+  /// Network connectivity requirements.
+  NetworkConnectivity networkConnectivity = NetworkConnectivity();
+
+  /// Software requirements.
+  WorkplaceSoftwareRequirements softwareRequirements =
+      WorkplaceSoftwareRequirements();
+
+  /// Remote access requirements.
+  RemoteAccessRequirements remoteAccess = RemoteAccessRequirements();
+
+  /// Communication tools.
+  CommunicationToolsRequirements communicationTools =
+      CommunicationToolsRequirements();
+}
+
+/// Network connectivity requirements.
+class NetworkConnectivity {
+  @Form([
+    Field('connectionType', String,
+        'Connection Type — wired ethernet, Wi-Fi, both'),
+    Field('bandwidthRequirement', String,
+        'Bandwidth Requirement — minimum Mbps'),
+    Field('latencyRequirement', String,
+        'Latency Requirement — maximum acceptable ms'),
+    Field('vpnRequirement', String,
+        'VPN Requirement — always-on, on-demand, none'),
+    Field('networkSegment', String,
+        'Network Segment — VLAN, security zone'),
+    Field('firewallRules', String,
+        'Firewall Rules — ports, protocols needed'),
+    Field('proxyConfiguration', String,
+        'Proxy Configuration — if required'),
+    Field('dnsRequirements', String,
+        'DNS Requirements — internal DNS, split DNS'),
+    Field('redundancyRequirement', String,
+        'Redundancy Requirement — failover connectivity'),
+    Field('guestNetworkAccess', String,
+        'Guest Network Access — if needed'),
+  ])
+  String? content;
+}
+
+/// Workplace software requirements.
+class WorkplaceSoftwareRequirements {
+  @Form([
+    Field('operatingSystem', String, 'Operating System — version, edition'),
+    Field('productivitySuite', String,
+        'Productivity Suite — Office 365, Google Workspace'),
+    Field('browser', String, 'Browser — Chrome, Edge, Firefox'),
+    Field('emailClient', String, 'Email Client — Outlook, web-based'),
+    Field('securitySoftware', String,
+        'Security Software — antivirus, EDR, firewall'),
+    Field('encryptionSoftware', String,
+        'Encryption Software — disk encryption, file encryption'),
+    Field('collaborationTools', String,
+        'Collaboration Tools — Teams, Slack, Zoom'),
+    Field('documentManagement', String,
+        'Document Management — SharePoint, OneDrive'),
+    Field('businessApplications', String,
+        'Business Applications — specific apps needed'),
+    Field('developmentTools', String,
+        'Development Tools — if applicable'),
+    Field('licenseType', String,
+        'License Type — per user, per device, concurrent'),
+    Field('installationMethod', String,
+        'Installation Method — SCCM, Intune, manual'),
+  ])
+  String? content;
+}
+
+/// Remote access requirements.
+class RemoteAccessRequirements {
+  @Form([
+    Field('remoteAccessType', String,
+        'Remote Access Type — VPN, VDI, direct access'),
+    Field('vpnClient', String, 'VPN Client — specific client software'),
+    Field('vdiPlatform', String,
+        'VDI Platform — Citrix, VMware Horizon, AVD'),
+    Field('mfaRequirement', String,
+        'MFA Requirement — hardware token, app, SMS'),
+    Field('homeNetworkRequirements', String,
+        'Home Network Requirements — minimum internet speed'),
+    Field('splitTunnel', String,
+        'Split Tunnel — allowed, required, prohibited'),
+    Field('sessionTimeout', String,
+        'Session Timeout — idle timeout, max session'),
+    Field('localPrintingAllowed', String,
+        'Local Printing Allowed — yes, no, restricted'),
+    Field('localDriveAccess', String,
+        'Local Drive Access — allowed, restricted, blocked'),
+    Field('remoteSupport', String,
+        'Remote Support — how IT supports remote users'),
+  ])
+  String? content;
+}
+
+/// Communication tools requirements.
+class CommunicationToolsRequirements {
+  @Form([
+    Field('unifiedComms', String,
+        'Unified Communications Platform — Teams, Zoom, Webex'),
+    Field('voiceCapability', String,
+        'Voice Capability — softphone, desk phone, mobile'),
+    Field('videoConferencing', String,
+        'Video Conferencing — external meetings, capabilities'),
+    Field('instantMessaging', String,
+        'Instant Messaging — chat platform'),
+    Field('presenceIndicator', String,
+        'Presence Indicator — availability status requirements'),
+    Field('screenSharing', String,
+        'Screen Sharing — capabilities, security controls'),
+    Field('recordingCapability', String,
+        'Recording Capability — meeting recording, compliance'),
+    Field('integrations', String,
+        'Integrations — calendar, CRM, ticketing system'),
+    Field('externalCommunication', String,
+        'External Communication — ability to call/message externally'),
+    Field('emergencyContact', String,
+        'Emergency Contact — emergency calling, E911'),
   ])
   String? content;
 }
 
 /// 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
+///
+/// Comprehensive training program requirements following adult learning
+/// principles (ADDIE, Kirkpatrick evaluation model).
 @SectionId('PD00-ORG-WOR-TRA')
 class TrainingRequirements {
-  @Unused()
-  String? content;
+  /// Training overview and strategy.
+  TrainingOverview overview = TrainingOverview();
 
-  /// Contains 0+× TrainingRequirement.
-  @SectionIdPattern('PD00-ORG-WOR-xx-TRA-xx')
-  List<TrainingRequirementEntry> items = [];
+  /// Initial/onboarding training.
+  @SectionIdPattern('PD00-ORG-WOR-xx-TRA-INI-xx')
+  List<InitialTrainingEntry> initialTraining = [];
+
+  /// Ongoing/refresher training.
+  @SectionIdPattern('PD00-ORG-WOR-xx-TRA-ONG-xx')
+  List<OngoingTrainingEntry> ongoingTraining = [];
+
+  /// System-specific training.
+  @SectionIdPattern('PD00-ORG-WOR-xx-TRA-SYS-xx')
+  List<SystemTrainingEntry> systemTraining = [];
+
+  /// Certification requirements.
+  @SectionIdPattern('PD00-ORG-WOR-xx-TRA-CER-xx')
+  List<CertificationEntry> certifications = [];
+
+  /// Training materials and resources.
+  TrainingMaterials trainingMaterials = TrainingMaterials();
+
+  /// Assessment and evaluation.
+  TrainingAssessment assessment = TrainingAssessment();
 }
 
-/// A training requirement entry (form) [PD00-ORG-WOR-nn-TRA-nn].
-class TrainingRequirementEntry {
+/// Training overview and strategy.
+class TrainingOverview {
   @Form([
-    Field('trainingTopic', String, 'Training Topic'),
+    Field('trainingStrategy', String,
+        'Training Strategy — overall approach to training'),
+    Field('learningManagementSystem', String,
+        'Learning Management System — LMS platform used'),
+    Field('blendedLearningApproach', String,
+        'Blended Learning Approach — mix of methods'),
+    Field('trainingBudget', String,
+        'Training Budget — per user, total'),
+    Field('trainingTimeline', String,
+        'Training Timeline — when training occurs'),
+    Field('trainingOwner', String,
+        'Training Owner — department/person responsible'),
+    Field('trainerResources', String,
+        'Trainer Resources — internal trainers, external vendors'),
+    Field('trainingFacilities', String,
+        'Training Facilities — classrooms, labs, online'),
+    Field('successCriteria', String,
+        'Success Criteria — how training success is measured'),
+    Field('feedbackMechanism', String,
+        'Feedback Mechanism — how feedback is collected'),
+  ])
+  String? content;
+}
+
+/// Initial training entry (form) [PD00-ORG-WOR-nn-TRA-INI-nn].
+class InitialTrainingEntry {
+  @Form([
+    Field('trainingId', String, 'Training ID', required: true),
+    Field('trainingName', String, 'Training Name', required: true),
+    Field('description', String, 'Description'),
+    Field('targetAudience', String, 'Target Audience — who takes this'),
+    Field('prerequisiteTraining', String,
+        'Prerequisite Training — training required first'),
+    Field('prerequisiteKnowledge', String,
+        'Prerequisite Knowledge — skills needed'),
+    Field('learningObjectives', String,
+        'Learning Objectives — what participants will learn'),
+    Field('format', String,
+        'Format — classroom, online, hands-on, blended'),
+    Field('duration', String, 'Duration — hours/days'),
+    Field('deliveryMethod', String,
+        'Delivery Method — live, self-paced, instructor-led'),
+    Field('classSize', int, 'Class Size — max participants'),
+    Field('schedule', String,
+        'Schedule — when offered relative to go-live'),
+    Field('frequency', String,
+        'Frequency — one-time, recurring schedule'),
+    Field('location', String,
+        'Location — training site, virtual'),
+    Field('mandatory', String, 'Mandatory — required or optional'),
+    Field('trainer', String, 'Trainer — who delivers'),
+    Field('materials', String, 'Materials — what is provided'),
+    Field('practiceEnvironment', String,
+        'Practice Environment — sandbox, simulation'),
+    Field('assessmentMethod', String,
+        'Assessment Method — test, practical, none'),
+    Field('passingCriteria', String,
+        'Passing Criteria — minimum score'),
+    Field('retakePolicy', String,
+        'Retake Policy — if assessment failed'),
+    Field('competencyEarned', String,
+        'Competency Earned — skill/competency certified'),
+    Field('expirationPeriod', String,
+        'Expiration Period — when refresher needed'),
+    Field('costPerParticipant', String,
+        'Cost Per Participant — training cost'),
+  ])
+  String? content;
+}
+
+/// Ongoing training entry (form) [PD00-ORG-WOR-nn-TRA-ONG-nn].
+class OngoingTrainingEntry {
+  @Form([
+    Field('trainingId', String, 'Training ID', required: true),
+    Field('trainingName', String, 'Training Name', required: true),
+    Field('description', String, 'Description'),
     Field('targetAudience', String, 'Target Audience'),
+    Field('trainingType', String,
+        'Training Type — refresher, update, advanced, cross-training'),
+    Field('triggerCondition', String,
+        'Trigger Condition — time-based, event-based, performance-based'),
+    Field('frequency', String,
+        'Frequency — annual, quarterly, as-needed'),
     Field('format', String, 'Format'),
     Field('duration', String, 'Duration'),
-    Field('schedule', String, 'Schedule'),
+    Field('learningObjectives', String, 'Learning Objectives'),
+    Field('contentUpdates', String,
+        'Content Updates — how content is kept current'),
+    Field('mandatory', String, 'Mandatory'),
+    Field('trackingMethod', String,
+        'Tracking Method — how completion is tracked'),
+    Field('complianceRequirement', String,
+        'Compliance Requirement — regulatory requirement'),
+    Field('reminderProcess', String,
+        'Reminder Process — how users are notified'),
+    Field('noncompliance', String,
+        'Non-compliance — consequences of missing training'),
+  ])
+  String? content;
+}
+
+/// System training entry (form) [PD00-ORG-WOR-nn-TRA-SYS-nn].
+class SystemTrainingEntry {
+  @Form([
+    Field('trainingId', String, 'Training ID', required: true),
+    Field('systemName', String, 'System Name', required: true),
+    Field('modulesCovered', String,
+        'Modules Covered — system modules in scope'),
+    Field('userRoleFocus', String,
+        'User Role Focus — specific role training'),
+    Field('functionalScope', String,
+        'Functional Scope — functions covered'),
+    Field('taskBasedLearning', String,
+        'Task-Based Learning — specific tasks taught'),
+    Field('navigationTraining', String,
+        'Navigation Training — general system navigation'),
+    Field('dataEntryPractice', String,
+        'Data Entry Practice — hands-on data entry'),
+    Field('reportingTraining', String,
+        'Reporting Training — reports, dashboards'),
+    Field('workflowTraining', String,
+        'Workflow Training — business workflows'),
+    Field('integrationAwareness', String,
+        'Integration Awareness — related systems'),
+    Field('troubleshootingBasics', String,
+        'Troubleshooting Basics — common issues'),
+    Field('helpResources', String,
+        'Help Resources — where to get help'),
+    Field('sandboxEnvironment', String,
+        'Sandbox Environment — practice system'),
+    Field('scenarioBased', String,
+        'Scenario-Based — realistic scenarios practiced'),
+  ])
+  String? content;
+}
+
+/// Certification entry (form) [PD00-ORG-WOR-nn-TRA-CER-nn].
+class CertificationEntry {
+  @Form([
+    Field('certificationId', String, 'Certification ID', required: true),
+    Field('certificationName', String, 'Certification Name', required: true),
+    Field('issuingBody', String, 'Issuing Body — who certifies'),
+    Field('description', String, 'Description'),
+    Field('targetRoles', String, 'Target Roles — who needs this'),
+    Field('mandatory', String, 'Mandatory — required or recommended'),
+    Field('prerequisites', String, 'Prerequisites'),
+    Field('preparationPath', String,
+        'Preparation Path — how to prepare'),
+    Field('examFormat', String,
+        'Exam Format — multiple choice, practical, etc.'),
+    Field('examDuration', String, 'Exam Duration'),
+    Field('passingScore', String, 'Passing Score'),
+    Field('validityPeriod', String, 'Validity Period — how long valid'),
+    Field('renewalRequirements', String,
+        'Renewal Requirements — CEUs, retake'),
+    Field('examCost', String, 'Exam Cost'),
+    Field('examLocation', String,
+        'Exam Location — testing center, online'),
+    Field('companySponsored', String,
+        'Company Sponsored — paid by company'),
+    Field('studyTimeAllotted', String,
+        'Study Time Allotted — work time for study'),
+    Field('failureConsequence', String,
+        'Failure Consequence — impact on role'),
+  ])
+  String? content;
+}
+
+/// Training materials and resources.
+class TrainingMaterials {
+  @Form([
+    Field('userGuides', String,
+        'User Guides — printed/digital manuals'),
+    Field('quickReferenceCards', String,
+        'Quick Reference Cards — job aids'),
+    Field('videoTutorials', String,
+        'Video Tutorials — recorded demonstrations'),
+    Field('elearningModules', String,
+        'E-Learning Modules — interactive online courses'),
+    Field('simulationEnvironment', String,
+        'Simulation Environment — sandbox for practice'),
+    Field('practiceExercises', String,
+        'Practice Exercises — hands-on exercises'),
+    Field('knowledgeBase', String,
+        'Knowledge Base — searchable help articles'),
+    Field('faq', String, 'FAQ — frequently asked questions'),
+    Field('cheatSheets', String,
+        'Cheat Sheets — shortcuts, tips'),
+    Field('processFlowcharts', String,
+        'Process Flowcharts — visual process guides'),
+    Field('screenRecordings', String,
+        'Screen Recordings — step-by-step demos'),
+    Field('accessMethod', String,
+        'Access Method — LMS, intranet, SharePoint'),
+    Field('updateProcess', String,
+        'Update Process — how materials are updated'),
+    Field('translationNeeds', String,
+        'Translation Needs — languages required'),
+    Field('accessibilityFormat', String,
+        'Accessibility Format — screen reader, captions'),
+  ])
+  String? content;
+}
+
+/// Training assessment and evaluation.
+class TrainingAssessment {
+  @Form([
+    Field('assessmentStrategy', String,
+        'Assessment Strategy — how learning is measured'),
+    Field('preAssessment', String,
+        'Pre-Assessment — baseline knowledge check'),
+    Field('postAssessment', String,
+        'Post-Assessment — end-of-training test'),
+    Field('practicalEvaluation', String,
+        'Practical Evaluation — hands-on demonstration'),
+    Field('knowledgeRetention', String,
+        'Knowledge Retention — follow-up assessments'),
+    Field('kirkpatrickLevel1', String,
+        'Level 1 (Reaction) — satisfaction surveys'),
+    Field('kirkpatrickLevel2', String,
+        'Level 2 (Learning) — knowledge/skill gain'),
+    Field('kirkpatrickLevel3', String,
+        'Level 3 (Behavior) — on-the-job application'),
+    Field('kirkpatrickLevel4', String,
+        'Level 4 (Results) — business impact'),
+    Field('competencyMapping', String,
+        'Competency Mapping — linking training to competencies'),
+    Field('gapAnalysis', String,
+        'Gap Analysis — identifying remaining gaps'),
+    Field('remediation', String,
+        'Remediation — addressing failed assessments'),
+    Field('progressTracking', String,
+        'Progress Tracking — individual progress visibility'),
+    Field('reportingDashboard', String,
+        'Reporting Dashboard — training metrics'),
+    Field('managementVisibility', String,
+        'Management Visibility — supervisor access to progress'),
+  ])
+  String? content;
+}
+
+/// Support resources available to users.
+class WorkplaceSupportResources {
+  @Form([
+    Field('helpDeskAccess', String,
+        'Help Desk Access — phone, email, chat, portal'),
+    Field('helpDeskHours', String,
+        'Help Desk Hours — support availability'),
+    Field('escalationPath', String,
+        'Escalation Path — how issues escalate'),
+    Field('onSiteSupport', String,
+        'On-Site Support — deskside support availability'),
+    Field('remoteSupport', String,
+        'Remote Support — remote troubleshooting'),
+    Field('superUserNetwork', String,
+        'Super User Network — power users for first-line help'),
+    Field('knowledgeBase', String,
+        'Knowledge Base — self-service help articles'),
+    Field('communityForum', String,
+        'Community Forum — user community for help'),
+    Field('chatbot', String, 'Chatbot — AI-assisted support'),
+    Field('feedbackChannel', String,
+        'Feedback Channel — how to submit suggestions'),
+    Field('incidentReporting', String,
+        'Incident Reporting — how to report issues'),
+    Field('slaExpectations', String,
+        'SLA Expectations — response/resolution times'),
+    Field('afterHoursSupport', String,
+        'After-Hours Support — out-of-hours help'),
+    Field('emergencyProcedures', String,
+        'Emergency Procedures — for critical issues'),
   ])
   String? content;
 }
