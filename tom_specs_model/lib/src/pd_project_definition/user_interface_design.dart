@@ -1440,49 +1440,793 @@ class NavigationGuardEntry {
 /// 10.4. Print Layout [PD00-USE-PRI].
 @SectionId('PD00-USE-PRI')
 class PrintLayout {
-  @Unused()
+  @Form([
+    Field('printStrategy', String, 'Print Strategy',
+        hint: 'Browser-native / Server-side-PDF / Hybrid / Third-party-service'),
+    Field('defaultPaperSize', String, 'Default Paper Size',
+        hint: 'A4 / Letter / Legal / A3 / Custom'),
+    Field('defaultOrientation', String, 'Default Orientation',
+        hint: 'Portrait / Landscape'),
+    Field('defaultMarginTop', String, 'Default Margin Top',
+        hint: 'Top margin, e.g. 20mm'),
+    Field('defaultMarginBottom', String, 'Default Margin Bottom',
+        hint: 'Bottom margin, e.g. 20mm'),
+    Field('defaultMarginLeft', String, 'Default Margin Left',
+        hint: 'Left margin, e.g. 15mm'),
+    Field('defaultMarginRight', String, 'Default Margin Right',
+        hint: 'Right margin, e.g. 15mm'),
+    Field('brandingLogoResource', String, 'Branding Logo Resource',
+        hint: 'Resource key or path for company logo on printed output'),
+    Field('brandingColorPrimary', String, 'Branding Primary Color',
+        hint: 'Primary brand color for headings and accents, e.g. #003366'),
+    Field('brandingColorSecondary', String, 'Branding Secondary Color',
+        hint: 'Secondary brand color for subheadings and rules'),
+    Field('brandingFontFamily', String, 'Branding Font Family',
+        hint: 'Font family for printed output, e.g. Helvetica, Arial'),
+    Field('brandingFontSizeBase', String, 'Branding Base Font Size',
+        hint: 'Base font size, e.g. 10pt'),
+    Field('watermarkText', String, 'Watermark Text',
+        hint: 'Text watermark on every page, e.g. DRAFT, CONFIDENTIAL'),
+    Field('watermarkImageResource', String, 'Watermark Image Resource',
+        hint: 'Resource key for image watermark'),
+    Field('watermarkOpacity', String, 'Watermark Opacity',
+        hint: 'Watermark opacity, e.g. 0.1'),
+    Field('confidentialityMarking', String, 'Confidentiality Marking',
+        hint: 'Default classification label: Internal / Confidential / Public'),
+    Field('confidentialityPosition', String, 'Confidentiality Position',
+        hint: 'Header / Footer / Both / Watermark'),
+    Field('defaultHeaderContent', String, 'Default Header Content',
+        hint:
+            'Default page header template, e.g. {logo} {reportTitle} {date}'),
+    Field('defaultFooterContent', String, 'Default Footer Content',
+        hint:
+            'Default page footer template, e.g. {companyName} — Page {page}/{pages}'),
+    Field('defaultDateFormat', String, 'Default Date Format',
+        hint: 'Date format for printed reports, e.g. dd.MM.yyyy'),
+    Field('defaultNumberFormat', String, 'Default Number Format',
+        hint: 'Number format, e.g. #,##0.00'),
+    Field('defaultCurrencyFormat', String, 'Default Currency Format',
+        hint: 'Currency format, e.g. €#,##0.00'),
+    Field('defaultTimezone', String, 'Default Timezone',
+        hint: 'Timezone for report timestamps, e.g. Europe/Berlin'),
+    Field('defaultLocale', String, 'Default Locale',
+        hint: 'Locale for formatting, e.g. de-DE'),
+    Field('archivePolicy', String, 'Archive Policy',
+        hint:
+            'How generated reports are archived: None / 30-days / 1-year / Permanent'),
+    Field('reportNamingConvention', String, 'Report Naming Convention',
+        hint:
+            'File naming pattern for generated reports, e.g. {reportId}_{date}_{version}'),
+    Field('batchGenerationSupport', String, 'Batch Generation Support',
+        hint:
+            'Yes / No — support generating multiple reports in one batch run'),
+    Field('maxConcurrentReports', int, 'Max Concurrent Reports',
+        hint: 'Maximum number of reports generated concurrently'),
+  ])
   String? content;
 
   /// 10.4.1. Reports [PD00-USE-PRI-REP] — contains 0+× Report.
   @SectionIdPattern('PD00-USE-PRI-REP-xx')
   List<ReportEntry> reports = [];
 
-  /// 10.4.2. Export Formats [PD00-USE-PRI-EXP] — contains 0+× ExportFormat.
+  /// 10.4.2. Export Formats [PD00-USE-PRI-EXP] — contains 0+× Export Format.
   @SectionIdPattern('PD00-USE-PRI-EXP-xx')
   List<ExportFormatEntry> exportFormats = [];
+
+  /// 10.4.3. Export Templates [PD00-USE-PRI-TPL] — contains 0+× Export
+  /// Template.
+  @SectionIdPattern('PD00-USE-PRI-TPL-xx')
+  List<ExportTemplateEntry> exportTemplates = [];
 }
 
-/// An export format entry (form) [PD00-USE-PRI-EXP-nn].
-class ExportFormatEntry {
-  @Form([
-    Field('formatName', String, 'Format Name'),
-    Field('description', String, 'Short description'),
-  ])
-  String? content;
-}
+// ---------------------------------------------------------------------------
+// 10.4.1 Reports
+// ---------------------------------------------------------------------------
 
 /// A report entry [PD00-USE-PRI-REP-nn] (form).
 class ReportEntry {
   @Form([
-    Field('reportName', String, 'Report Name', required: true),
-    Field('purpose', String, 'Purpose'),
-    Field('reportContent', String, 'Report Content'),
-    Field('format', String, 'Format'),
-    Field('generationTrigger', String, 'Generation Trigger'),
-    Field('customization', String, 'Customization'),
+    Field('reportId', String, 'Report ID',
+        hint: 'Unique identifier, e.g. RPT-001', required: true),
+    Field('reportName', String, 'Report Name',
+        hint: 'Human-readable report title', required: true),
+    Field('description', String, 'Description',
+        hint: 'Business purpose and summary of the report'),
+    Field('reportCategory', String, 'Report Category',
+        hint:
+            'Operational / Analytical / Compliance / Financial / Management / Audit / Ad-hoc'),
+    Field('reportType', String, 'Report Type',
+        hint:
+            'Tabular / Summary / Dashboard / KPI-Card / Chart-Only / Mixed / Letter / Invoice / Certificate / Label'),
+    Field('relatedUseCases', String, 'Related Use Cases',
+        hint: 'UC references this report serves'),
+    Field('relatedBusinessProcesses', String, 'Related Business Processes',
+        hint: 'BP references where this report is used'),
+    Field('relatedDataEntities', String, 'Related Data Entities',
+        hint: 'BDM entity references used as data sources'),
+    Field('dataSource', String, 'Data Source',
+        hint: 'Primary data source or query reference'),
+    Field('dataScope', String, 'Data Scope',
+        hint: 'What data is included, e.g. All orders for current fiscal year'),
+    Field('dataCurrency', String, 'Data Currency',
+        hint: 'Real-time / Near-real-time / Daily-snapshot / As-of-date'),
+    Field('generationTrigger', String, 'Generation Trigger',
+        hint: 'On-demand / Scheduled / Event-triggered / Batch'),
+    Field('format', String, 'Output Format',
+        hint: 'PDF / Excel / CSV / HTML / Word / Print / Multi-format'),
+    Field('interactivity', String, 'Interactivity',
+        hint: 'Static / Interactive / Drill-down / Parameterized'),
+    Field('pageSize', String, 'Page Size',
+        hint: 'Override: A4 / Letter / Legal / A3 / Custom'),
+    Field('orientation', String, 'Orientation',
+        hint: 'Override: Portrait / Landscape / Auto'),
+    Field('marginTop', String, 'Margin Top', hint: 'Override top margin'),
+    Field('marginBottom', String, 'Margin Bottom',
+        hint: 'Override bottom margin'),
+    Field('marginLeft', String, 'Margin Left', hint: 'Override left margin'),
+    Field('marginRight', String, 'Margin Right',
+        hint: 'Override right margin'),
+    Field('headerTemplate', String, 'Header Template',
+        hint: 'Page header override, e.g. {logo} {reportTitle} — {dateRange}'),
+    Field('footerTemplate', String, 'Footer Template',
+        hint: 'Page footer override'),
+    Field('coverPage', String, 'Cover Page',
+        hint: 'Yes / No — include a cover page'),
+    Field('coverPageTemplate', String, 'Cover Page Template',
+        hint: 'Cover page content template'),
+    Field('tableOfContents', String, 'Table of Contents',
+        hint: 'Yes / No — include TOC for multi-section reports'),
+    Field('defaultSortField', String, 'Default Sort Field',
+        hint: 'Default sort column or field'),
+    Field('defaultSortDirection', String, 'Default Sort Direction',
+        hint: 'Ascending / Descending'),
+    Field('defaultGroupBy', String, 'Default Group By',
+        hint: 'Default grouping field'),
+    Field('groupSummary', String, 'Group Summary',
+        hint: 'Yes / No — show subtotals per group'),
+    Field('grandTotal', String, 'Grand Total',
+        hint: 'Yes / No — show grand total row'),
+    Field('conditionalFormatting', String, 'Conditional Formatting',
+        hint:
+            'Description of conditional formatting rules applied globally'),
+    Field('highlightRules', String, 'Highlight Rules',
+        hint: 'Row/cell highlight rules, e.g. overdue items in red'),
+    Field('drillDownTarget', String, 'Drill-Down Target',
+        hint: 'Report or screen navigated to on row click'),
+    Field('drillThroughReports', String, 'Drill-Through Reports',
+        hint: 'Comma-separated report IDs reachable from this report'),
+    Field('parameterForm', String, 'Parameter Form',
+        hint: 'Description of user input form shown before generation'),
+    Field('emptyDataMessage', String, 'Empty Data Message',
+        hint: 'Message to display when report has no data'),
+    Field('maxRows', int, 'Maximum Rows',
+        hint: 'Row limit for performance; 0 = unlimited'),
+    Field('paginationStyle', String, 'Pagination Style',
+        hint: 'Page-break / Continuous / Scrollable'),
+    Field('rowsPerPage', int, 'Rows Per Page',
+        hint: 'For paginated tabular reports'),
+    Field('localization', String, 'Localization',
+        hint: 'Locales supported, e.g. de-DE, en-US, fr-FR'),
+    Field('brandingOverride', String, 'Branding Override',
+        hint: 'Override branding for this report, e.g. subsidiary logo'),
+    Field('accessLevel', String, 'Access Level',
+        hint: 'Public / Authenticated / Role-specific / Confidential'),
+    Field('requiredRoles', String, 'Required Roles',
+        hint: 'Roles permitted to generate this report'),
+    Field('dataLevelSecurity', String, 'Data-Level Security',
+        hint:
+            'Row/column level security rules, e.g. managers see only own department'),
+    Field('archiveRetention', String, 'Archive Retention',
+        hint: 'Retention policy for generated instances, e.g. 90 days'),
+    Field('signatureRequired', String, 'Signature Required',
+        hint: 'Yes / No — does the report require a digital signature'),
+    Field('approvalWorkflow', String, 'Approval Workflow',
+        hint: 'Approval steps before distribution, if any'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional design notes or open questions'),
   ])
   String? content;
 
+  /// Contains 0+× Report Section.
+  @SectionIdPattern('PD00-USE-PRI-REP-xx-SEC-xx')
+  List<ReportSectionEntry> sections = [];
+
+  /// Contains 0+× Report Filter.
+  @SectionIdPattern('PD00-USE-PRI-REP-xx-FLT-xx')
+  List<ReportFilterEntry> filters = [];
+
+  /// Contains 0+× Report Schedule.
+  @SectionIdPattern('PD00-USE-PRI-REP-xx-SCH-xx')
+  List<ReportScheduleEntry> schedules = [];
+
+  /// Contains 0+× Report Distribution.
+  @SectionIdPattern('PD00-USE-PRI-REP-xx-DST-xx')
+  List<ReportDistributionEntry> distributions = [];
+
   /// Contains 0+× Recipient.
   @SectionIdPattern('PD00-USE-PRI-REP-xx-REC-xx')
-  List<RecipientEntry> recipients = [];
+  List<ReportRecipientEntry> recipients = [];
+}
+
+/// A section within a report [PD00-USE-PRI-REP-nn-SEC-nn] (form).
+class ReportSectionEntry {
+  @Form([
+    Field('sectionId', String, 'Section ID',
+        hint: 'Unique within report, e.g. SEC-01', required: true),
+    Field('title', String, 'Title',
+        hint: 'Section heading displayed in the report', required: true),
+    Field('sectionType', String, 'Section Type',
+        hint:
+            'Table / Chart / Summary / Text / KPI-Card / Image / Separator / Page-Header / Page-Footer / Cover / TOC / Mixed'),
+    Field('purpose', String, 'Purpose',
+        hint: 'What this section communicates'),
+    Field('dataSource', String, 'Data Source',
+        hint: 'Data source or query for this section (if different from report)'),
+    Field('dataScope', String, 'Data Scope',
+        hint: 'Scope filter applied to the section data'),
+    Field('displayOrder', int, 'Display Order',
+        hint: 'Position within the report'),
+    Field('pageBreakBefore', String, 'Page Break Before',
+        hint: 'Yes / No — force page break before this section'),
+    Field('pageBreakAfter', String, 'Page Break After',
+        hint: 'Yes / No — force page break after this section'),
+    Field('repeatOnNewPage', String, 'Repeat on New Page',
+        hint:
+            'Yes / No — repeat section header on each new page (for long tables)'),
+    Field('orientation', String, 'Orientation',
+        hint: 'Override: Portrait / Landscape (for this section only)'),
+    Field('conditionalVisibility', String, 'Conditional Visibility',
+        hint: 'Condition when section is shown, e.g. data.rows > 0'),
+    Field('backgroundColor', String, 'Background Color',
+        hint: 'Background color or shading'),
+    Field('borderStyle', String, 'Border Style',
+        hint: 'None / Thin / Medium / Thick / Custom'),
+    Field('sortField', String, 'Sort Field',
+        hint: 'Default sort for this section data'),
+    Field('sortDirection', String, 'Sort Direction',
+        hint: 'Ascending / Descending'),
+    Field('groupByField', String, 'Group By Field',
+        hint: 'Field used for grouping rows'),
+    Field('showGroupSubtotals', String, 'Show Group Subtotals',
+        hint: 'Yes / No'),
+    Field('showSectionTotal', String, 'Show Section Total',
+        hint: 'Yes / No — show totals row at section end'),
+    Field('aggregationFields', String, 'Aggregation Fields',
+        hint:
+            'Comma-separated fields with aggregation, e.g. amount:sum, quantity:avg'),
+    Field('maxRows', int, 'Max Rows',
+        hint: 'Row limit for this section; 0 = unlimited'),
+    Field('overflowBehavior', String, 'Overflow Behavior',
+        hint: 'Truncate / Continue-next-page / Scroll (interactive only)'),
+    Field('textContent', String, 'Text Content',
+        hint: 'Static text or template for text-type sections'),
+    Field('notes', String, 'Notes', hint: 'Design notes'),
+  ])
+  String? content;
+
+  /// Contains 0+× Report Column.
+  @SectionIdPattern('PD00-USE-PRI-REP-xx-SEC-xx-COL-xx')
+  List<ReportColumnEntry> columns = [];
+
+  /// Contains 0+× Report Chart.
+  @SectionIdPattern('PD00-USE-PRI-REP-xx-SEC-xx-CHT-xx')
+  List<ReportChartEntry> charts = [];
+}
+
+/// A column in a tabular report section [PD00-USE-PRI-REP-nn-SEC-nn-COL-nn]
+/// (form).
+class ReportColumnEntry {
+  @Form([
+    Field('columnId', String, 'Column ID',
+        hint: 'Unique within section, e.g. COL-01', required: true),
+    Field('columnName', String, 'Column Name',
+        hint: 'Internal field reference', required: true),
+    Field('displayLabel', String, 'Display Label',
+        hint: 'Column header text shown in report', required: true),
+    Field('dataSourceField', String, 'Data Source Field',
+        hint: 'Path to the data field, e.g. order.customer.name'),
+    Field('dataType', String, 'Data Type',
+        hint:
+            'String / Integer / Decimal / Currency / Date / DateTime / Boolean / Percentage / Duration / Enum'),
+    Field('displayOrder', int, 'Display Order',
+        hint: 'Column position left to right'),
+    Field('width', String, 'Width',
+        hint: 'Auto / Fixed(120px) / Proportion(25%) / Min(80px)'),
+    Field('alignment', String, 'Alignment', hint: 'Left / Center / Right'),
+    Field('verticalAlignment', String, 'Vertical Alignment',
+        hint: 'Top / Middle / Bottom'),
+    Field('formatPattern', String, 'Format Pattern',
+        hint:
+            'Display format, e.g. #,##0.00 for numbers, dd.MM.yyyy for dates'),
+    Field('currencyCode', String, 'Currency Code',
+        hint: 'Currency code if type is Currency, e.g. EUR, USD'),
+    Field('nullDisplay', String, 'Null Display',
+        hint: 'What to show for null/empty values, e.g. — or N/A'),
+    Field('booleanTrueDisplay', String, 'Boolean True Display',
+        hint: 'Display for true, e.g. Yes / ✓'),
+    Field('booleanFalseDisplay', String, 'Boolean False Display',
+        hint: 'Display for false, e.g. No / —'),
+    Field('aggregation', String, 'Aggregation',
+        hint:
+            'None / Sum / Average / Count / Min / Max / Median / Count-Distinct'),
+    Field('aggregationLabel', String, 'Aggregation Label',
+        hint: 'Custom label for the aggregation row, e.g. Total Amount'),
+    Field('conditionalFormattingRules', String, 'Conditional Formatting Rules',
+        hint:
+            'Rules for value-based formatting, e.g. value < 0 → red; value > 1000 → bold'),
+    Field('hyperlinkTarget', String, 'Hyperlink Target',
+        hint: 'Make column values clickable, target screen/report/URL'),
+    Field('sortable', String, 'Sortable',
+        hint: 'Yes / No — can user sort by this column (interactive reports)'),
+    Field('filterable', String, 'Filterable',
+        hint: 'Yes / No — can user filter by this column'),
+    Field('visible', String, 'Visible', hint: 'Yes / No / Conditional'),
+    Field('visibilityCondition', String, 'Visibility Condition',
+        hint: 'When this column is shown'),
+    Field('wordWrap', String, 'Word Wrap', hint: 'Yes / No — wrap long text'),
+    Field('truncateAt', int, 'Truncate At',
+        hint: 'Character limit before truncation with ellipsis'),
+    Field('notes', String, 'Notes', hint: 'Design notes'),
+  ])
+  String? content;
+}
+
+/// A chart/visualization in a report [PD00-USE-PRI-REP-nn-SEC-nn-CHT-nn]
+/// (form).
+class ReportChartEntry {
+  @Form([
+    Field('chartId', String, 'Chart ID',
+        hint: 'Unique within section, e.g. CHT-01', required: true),
+    Field('title', String, 'Title',
+        hint: 'Chart title', required: true),
+    Field('chartType', String, 'Chart Type',
+        hint:
+            'Bar / Stacked-Bar / Grouped-Bar / Horizontal-Bar / Line / Area / Pie / Donut / Scatter / Bubble / Gauge / Treemap / Heatmap / Waterfall / Funnel / Radar / Combo / KPI-Card / Sparkline'),
+    Field('dataSource', String, 'Data Source',
+        hint: 'Data source or query if different from section'),
+    Field('xAxisField', String, 'X-Axis Field',
+        hint: 'Field mapped to X-axis / category axis'),
+    Field('xAxisLabel', String, 'X-Axis Label', hint: 'Axis label text'),
+    Field('xAxisFormat', String, 'X-Axis Format',
+        hint: 'Format for axis values, e.g. MMM yyyy'),
+    Field('yAxisField', String, 'Y-Axis Field',
+        hint: 'Field mapped to Y-axis / value axis'),
+    Field('yAxisLabel', String, 'Y-Axis Label', hint: 'Axis label text'),
+    Field('yAxisFormat', String, 'Y-Axis Format',
+        hint: 'Format for axis values, e.g. #,##0'),
+    Field('yAxisMin', String, 'Y-Axis Min',
+        hint: 'Minimum axis value; Auto or fixed'),
+    Field('yAxisMax', String, 'Y-Axis Max',
+        hint: 'Maximum axis value; Auto or fixed'),
+    Field('secondaryYAxisField', String, 'Secondary Y-Axis Field',
+        hint: 'Field for dual-axis charts'),
+    Field('secondaryYAxisLabel', String, 'Secondary Y-Axis Label',
+        hint: 'Label for secondary axis'),
+    Field('seriesField', String, 'Series Field',
+        hint: 'Field used to split data into series'),
+    Field('seriesColors', String, 'Series Colors',
+        hint:
+            'Comma-separated color assignments, e.g. Revenue:#003366,Cost:#CC0000'),
+    Field('colorScheme', String, 'Color Scheme',
+        hint:
+            'Named palette or auto, e.g. Corporate / Pastel / Sequential-Blue'),
+    Field('legendPosition', String, 'Legend Position',
+        hint: 'Top / Bottom / Left / Right / None'),
+    Field('showDataLabels', String, 'Show Data Labels',
+        hint: 'Yes / No / On-Hover'),
+    Field('dataLabelFormat', String, 'Data Label Format',
+        hint: 'Format for data labels, e.g. {value} ({percentage}%)'),
+    Field('thresholdLines', String, 'Threshold Lines',
+        hint:
+            'Reference lines, e.g. Target:500000:green, Budget:400000:orange'),
+    Field('trendLine', String, 'Trend Line',
+        hint: 'None / Linear / Moving-Average / Polynomial'),
+    Field('goalValue', String, 'Goal Value',
+        hint: 'Target/goal value for gauge/KPI charts'),
+    Field('interactive', String, 'Interactive',
+        hint: 'Yes / No — tooltips, zoom, click events'),
+    Field('drillDownTarget', String, 'Drill-Down Target',
+        hint: 'Report or screen navigated to on chart element click'),
+    Field('width', String, 'Width',
+        hint: 'Chart width: Full / Half / Third / Custom(400px)'),
+    Field('height', String, 'Height',
+        hint: 'Chart height, e.g. 300px / Auto'),
+    Field('emptyDataMessage', String, 'Empty Data Message',
+        hint: 'Message when chart has no data'),
+    Field('notes', String, 'Notes', hint: 'Design notes'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 10.4.1 Report Filters, Schedules, Distribution, Recipients
+// ---------------------------------------------------------------------------
+
+/// A filter parameter for a report [PD00-USE-PRI-REP-nn-FLT-nn] (form).
+class ReportFilterEntry {
+  @Form([
+    Field('filterId', String, 'Filter ID',
+        hint: 'Unique within report, e.g. FLT-01', required: true),
+    Field('filterName', String, 'Filter Name',
+        hint: 'Internal reference name', required: true),
+    Field('displayLabel', String, 'Display Label',
+        hint: 'Label shown in parameter form', required: true),
+    Field('dataType', String, 'Data Type',
+        hint:
+            'String / Integer / Decimal / Date / DateTime / DateRange / Boolean / Enum / Entity-Ref'),
+    Field('inputType', String, 'Input Type',
+        hint:
+            'Text-Field / Select / Multi-Select / Date-Picker / Date-Range-Picker / Checkbox / Radio / Autocomplete / Cascading-Select'),
+    Field('defaultValue', String, 'Default Value',
+        hint: 'Default filter value, e.g. current_month, today, *'),
+    Field('availableValuesSource', String, 'Available Values Source',
+        hint:
+            'Source for dropdown/select values: static list, entity query, API endpoint'),
+    Field('staticValues', String, 'Static Values',
+        hint:
+            'Comma-separated values if source is static, e.g. Active,Inactive,All'),
+    Field('cascadeParent', String, 'Cascade Parent',
+        hint: 'Filter ID of parent filter for cascading dropdowns'),
+    Field('multiSelect', String, 'Multi-Select',
+        hint: 'Yes / No — allow selecting multiple values'),
+    Field('required', String, 'Required',
+        hint: 'Yes / No — must user provide a value'),
+    Field('appliedScope', String, 'Applied Scope',
+        hint:
+            'Whole-Report / Section:{sectionId} — where the filter applies'),
+    Field('displayOrder', int, 'Display Order',
+        hint: 'Position in parameter form'),
+    Field('groupName', String, 'Group Name',
+        hint:
+            'Group related filters visually, e.g. Date Filters, Entity Filters'),
+    Field('validationRule', String, 'Validation Rule',
+        hint: 'Validation expression, e.g. startDate <= endDate'),
+    Field('dependsOn', String, 'Depends On',
+        hint: 'Other filter IDs this filter depends on'),
+    Field('hiddenFilter', String, 'Hidden Filter',
+        hint: 'Yes / No — filter applied programmatically, not shown to user'),
+    Field('quickFilterBar', String, 'Quick Filter Bar',
+        hint: 'Yes / No — show in report quick filter bar'),
+    Field('rememberLastValue', String, 'Remember Last Value',
+        hint: 'Yes / No — persist user last selection'),
+    Field('notes', String, 'Notes', hint: 'Design notes'),
+  ])
+  String? content;
+}
+
+/// Scheduling rules for report generation [PD00-USE-PRI-REP-nn-SCH-nn]
+/// (form).
+class ReportScheduleEntry {
+  @Form([
+    Field('scheduleId', String, 'Schedule ID',
+        hint: 'Unique within report, e.g. SCH-01', required: true),
+    Field('scheduleName', String, 'Schedule Name',
+        hint: 'Human-readable name, e.g. Monthly Financial Close',
+        required: true),
+    Field('frequency', String, 'Frequency',
+        hint:
+            'Daily / Weekly / Bi-weekly / Monthly / Quarterly / Semi-annually / Annually / On-demand / Event-triggered'),
+    Field('scheduleExpression', String, 'Schedule Expression',
+        hint:
+            'Cron-like expression or recurrence rule, e.g. 0 6 1 * * (1st of month at 06:00)'),
+    Field('timezone', String, 'Timezone',
+        hint: 'Timezone for schedule, e.g. Europe/Berlin'),
+    Field('startDate', String, 'Start Date',
+        hint: 'Schedule effective start date'),
+    Field('endDate', String, 'End Date',
+        hint: 'Schedule expiry date; empty = no expiry'),
+    Field('generationWindow', String, 'Generation Window',
+        hint: 'Time window for generation, e.g. 02:00–06:00 (off-peak)'),
+    Field('generationTimeout', String, 'Generation Timeout',
+        hint: 'Max duration before timeout, e.g. 30min'),
+    Field('retryOnFailure', String, 'Retry On Failure', hint: 'Yes / No'),
+    Field('maxRetries', int, 'Max Retries',
+        hint: 'Number of retry attempts'),
+    Field('retryDelay', String, 'Retry Delay',
+        hint: 'Delay between retries, e.g. 5min / 15min / Exponential'),
+    Field('notifyOnCompletion', String, 'Notify On Completion',
+        hint: 'Yes / No — send notification when report is ready'),
+    Field('completionRecipients', String, 'Completion Recipients',
+        hint:
+            'Recipients for completion notification (if different from report recipients)'),
+    Field('notifyOnFailure', String, 'Notify On Failure',
+        hint: 'Yes / No — send alert on generation failure'),
+    Field('failureRecipients', String, 'Failure Recipients',
+        hint: 'Recipients for failure alerts'),
+    Field('filterOverrides', String, 'Filter Overrides',
+        hint:
+            'Parameter values for scheduled run, e.g. dateRange=last_month'),
+    Field('outputFormat', String, 'Output Format',
+        hint: 'Override format for this schedule, e.g. PDF'),
+    Field('outputDestination', String, 'Output Destination',
+        hint:
+            'Where to store generated output: Archive / File-Share / Dashboard / S3-Bucket'),
+    Field('priority', String, 'Priority',
+        hint: 'Low / Normal / High / Critical — queue priority'),
+    Field('enabled', String, 'Enabled',
+        hint: 'Yes / No — is this schedule active'),
+    Field('notes', String, 'Notes', hint: 'Design notes'),
+  ])
+  String? content;
+}
+
+/// Distribution channel configuration [PD00-USE-PRI-REP-nn-DST-nn] (form).
+class ReportDistributionEntry {
+  @Form([
+    Field('distributionId', String, 'Distribution ID',
+        hint: 'Unique within report, e.g. DST-01', required: true),
+    Field('channel', String, 'Channel',
+        hint:
+            'Email / Dashboard / File-Share / API / Print / Push-Notification / Webhook / SFTP',
+        required: true),
+    Field('description', String, 'Description',
+        hint: 'Purpose of this distribution channel'),
+    Field('formatPerChannel', String, 'Format Per Channel',
+        hint:
+            'Output format for this channel, e.g. PDF for email, Excel for file-share'),
+    Field('recipientSource', String, 'Recipient Source',
+        hint: 'Static-List / Role-Based / Query / Report-Filter'),
+    Field('recipientList', String, 'Recipient List',
+        hint: 'Comma-separated recipient IDs or addresses'),
+    Field('recipientRoles', String, 'Recipient Roles',
+        hint: 'Roles whose members receive the report'),
+    Field('subjectTemplate', String, 'Subject Template',
+        hint:
+            'Email/notification subject, e.g. {reportName} — {dateRange}'),
+    Field('bodyTemplate', String, 'Body Template',
+        hint: 'Email/notification body template'),
+    Field('attachmentOption', String, 'Attachment Option',
+        hint: 'Inline / Attachment / Link-Only / Embedded-Preview'),
+    Field('attachmentFileNamePattern', String, 'Attachment File Name Pattern',
+        hint:
+            'Pattern for attachment filename, e.g. {reportName}_{date}.pdf'),
+    Field('compressionEnabled', String, 'Compression Enabled',
+        hint: 'Yes / No — compress attachment (ZIP)'),
+    Field('passwordProtect', String, 'Password Protect',
+        hint: 'Yes / No — encrypt attachment with password'),
+    Field('conditionalDistribution', String, 'Conditional Distribution',
+        hint:
+            'Condition for sending, e.g. data.rows > 0 or totalAmount > threshold'),
+    Field('suppressIfEmpty', String, 'Suppress If Empty',
+        hint: 'Yes / No — skip distribution if report has no data'),
+    Field('fileSharePath', String, 'File Share Path',
+        hint: 'Network/cloud path for file-share distribution'),
+    Field('retainCopy', String, 'Retain Copy',
+        hint: 'Yes / No — keep a copy in the archive'),
+    Field('sendTime', String, 'Send Time',
+        hint:
+            'When to distribute after generation: Immediately / Delay(1h) / Scheduled-Window'),
+    Field('enabled', String, 'Enabled',
+        hint: 'Yes / No — is this channel active'),
+    Field('notes', String, 'Notes', hint: 'Design notes'),
+  ])
+  String? content;
 }
 
 /// A recipient entry (form) [PD00-USE-PRI-REP-nn-REC-nn].
-class RecipientEntry {
+class ReportRecipientEntry {
   @Form([
-    Field('recipientName', String, 'Recipient Name'),
-    Field('role', String, 'Role'),
+    Field('recipientId', String, 'Recipient ID',
+        hint: 'Unique within report, e.g. REC-01', required: true),
+    Field('recipientName', String, 'Recipient Name',
+        hint: 'Display name', required: true),
+    Field('recipientType', String, 'Recipient Type',
+        hint:
+            'User / Role / Group / Email / Distribution-List / External-Contact / System-Account'),
+    Field('recipientReference', String, 'Recipient Reference',
+        hint: 'User ID, role name, group name, or email address'),
+    Field('role', String, 'Role',
+        hint:
+            'Business role of this recipient, e.g. Department Head, Controller'),
+    Field('deliveryPreference', String, 'Delivery Preference',
+        hint:
+            'Email / Dashboard / Print / File-Share / API — preferred channel'),
+    Field('formatPreference', String, 'Format Preference',
+        hint: 'PDF / Excel / HTML — preferred output format'),
+    Field('localePreference', String, 'Locale Preference',
+        hint: 'Preferred locale for this recipient, e.g. en-US'),
+    Field('scheduleOverride', String, 'Schedule Override',
+        hint:
+            'Override schedule for this recipient, e.g. Weekly instead of Monthly'),
+    Field('dataScopeRestriction', String, 'Data Scope Restriction',
+        hint: 'Data visibility restriction, e.g. own-department-only'),
+    Field('notifyOnReady', String, 'Notify On Ready',
+        hint: 'Yes / No — send notification when report is available'),
+    Field('active', String, 'Active',
+        hint: 'Yes / No — is this recipient currently receiving reports'),
+    Field('effectiveFrom', String, 'Effective From',
+        hint: 'Date this recipient is added'),
+    Field('effectiveTo', String, 'Effective To',
+        hint: 'Date this recipient is removed; empty = indefinite'),
+    Field('notes', String, 'Notes', hint: 'Design notes'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 10.4.2 Export Formats
+// ---------------------------------------------------------------------------
+
+/// An export format entry (form) [PD00-USE-PRI-EXP-nn].
+class ExportFormatEntry {
+  @Form([
+    Field('exportId', String, 'Export ID',
+        hint: 'Unique identifier, e.g. EXP-001', required: true),
+    Field('formatName', String, 'Format Name',
+        hint: 'Human-readable name, e.g. Monthly Orders CSV', required: true),
+    Field('description', String, 'Description',
+        hint: 'Business purpose of this export'),
+    Field('formatType', String, 'Format Type',
+        hint:
+            'CSV / Excel / PDF / JSON / XML / HTML / Fixed-Width / Parquet / ODS / Custom'),
+    Field('relatedDataEntities', String, 'Related Data Entities',
+        hint: 'BDM entity references included in export'),
+    Field('dataSource', String, 'Data Source',
+        hint: 'Data source or query reference'),
+    Field('dataScope', String, 'Data Scope',
+        hint: 'Scope of exported data'),
+    Field('fileNamingPattern', String, 'File Naming Pattern',
+        hint:
+            'Output filename pattern, e.g. orders_{date}_{sequence}.csv'),
+    Field('encoding', String, 'Encoding',
+        hint: 'UTF-8 / UTF-16 / ISO-8859-1 / Windows-1252 / ASCII'),
+    Field('lineEnding', String, 'Line Ending', hint: 'CRLF / LF / CR'),
+    Field('delimiter', String, 'Delimiter',
+        hint:
+            'Column delimiter for CSV: Comma / Semicolon / Tab / Pipe / Custom'),
+    Field('quoteCharacter', String, 'Quote Character',
+        hint: 'Field quote character, e.g. double-quote or single-quote'),
+    Field('headerRow', String, 'Header Row',
+        hint: 'Yes / No — include column header row'),
+    Field('headerStyle', String, 'Header Style',
+        hint: 'Display-Labels / Field-Names / Custom-Mapping'),
+    Field('dateFormat', String, 'Date Format',
+        hint: 'Date format for export, e.g. yyyy-MM-dd / ISO-8601'),
+    Field('numberFormat', String, 'Number Format',
+        hint:
+            'Number format: Locale-default / US(1,000.00) / EU(1.000,00) / Raw'),
+    Field('decimalSeparator', String, 'Decimal Separator', hint: '. or ,'),
+    Field('currencyFormat', String, 'Currency Format',
+        hint: 'Currency handling: Symbol-prefix / Code-suffix / Raw-number'),
+    Field('booleanTrueValue', String, 'Boolean True Value',
+        hint: 'String value for true, e.g. 1, true, Yes, Y'),
+    Field('booleanFalseValue', String, 'Boolean False Value',
+        hint: 'String value for false, e.g. 0, false, No, N'),
+    Field('nullHandling', String, 'Null Handling',
+        hint: 'Empty-string / Null-literal / Custom-value / Omit-field'),
+    Field('maxRows', int, 'Maximum Rows',
+        hint: 'Row limit; 0 = unlimited'),
+    Field('splitLargeFiles', String, 'Split Large Files',
+        hint:
+            'Yes / No — split into chunks when exceeding row/size limit'),
+    Field('splitThreshold', String, 'Split Threshold',
+        hint: 'Split point, e.g. 100000 rows or 50MB'),
+    Field('compressionFormat', String, 'Compression Format',
+        hint: 'None / ZIP / GZIP / BZIP2'),
+    Field('encryptionEnabled', String, 'Encryption Enabled',
+        hint: 'Yes / No'),
+    Field('encryptionMethod', String, 'Encryption Method',
+        hint: 'AES-256 / Password-Protected-ZIP / PGP / None'),
+    Field('outputDestination', String, 'Output Destination',
+        hint: 'Download / File-Share / S3 / SFTP / API / Email'),
+    Field('outputPath', String, 'Output Path',
+        hint: 'Path or URL for file-share/S3/SFTP destination'),
+    Field('schedulingEnabled', String, 'Scheduling Enabled',
+        hint: 'Yes / No — can this export be scheduled'),
+    Field('schedulingExpression', String, 'Scheduling Expression',
+        hint: 'Cron-like expression for automated export'),
+    Field('accessLevel', String, 'Access Level',
+        hint: 'Public / Authenticated / Role-specific'),
+    Field('requiredRoles', String, 'Required Roles',
+        hint: 'Roles permitted to run this export'),
+    Field('auditLogging', String, 'Audit Logging',
+        hint: 'Yes / No — log export executions'),
+    Field('previewAvailable', String, 'Preview Available',
+        hint: 'Yes / No — allow user to preview before downloading'),
+    Field('notes', String, 'Notes', hint: 'Design notes'),
+  ])
+  String? content;
+
+  /// Contains 0+× Export Field Mapping.
+  @SectionIdPattern('PD00-USE-PRI-EXP-xx-FLD-xx')
+  List<ExportFieldMappingEntry> fieldMappings = [];
+}
+
+/// A field mapping within an export [PD00-USE-PRI-EXP-nn-FLD-nn] (form).
+class ExportFieldMappingEntry {
+  @Form([
+    Field('mappingId', String, 'Mapping ID',
+        hint: 'Unique within export, e.g. FLD-01', required: true),
+    Field('sourceField', String, 'Source Field',
+        hint: 'Data model field path, e.g. order.customer.name',
+        required: true),
+    Field('targetFieldName', String, 'Target Field Name',
+        hint: 'Column/field name in output file', required: true),
+    Field('displayOrder', int, 'Display Order',
+        hint: 'Position in the export output (column order)'),
+    Field('dataType', String, 'Data Type',
+        hint:
+            'String / Integer / Decimal / Date / DateTime / Boolean / Enum'),
+    Field('formatPattern', String, 'Format Pattern',
+        hint:
+            'Output format, e.g. dd.MM.yyyy for dates, #,##0.00 for numbers'),
+    Field('transformationRule', String, 'Transformation Rule',
+        hint:
+            'Value transformation: None / Uppercase / Lowercase / Trim / Truncate(n) / Map / Concatenate / Calculate / Custom'),
+    Field('transformationExpression', String, 'Transformation Expression',
+        hint: 'Expression for transform, e.g. firstName + lastName'),
+    Field('valueMapping', String, 'Value Mapping',
+        hint: 'Value substitution map, e.g. ACTIVE→A, INACTIVE→I'),
+    Field('defaultValue', String, 'Default Value',
+        hint: 'Value to use when source is null/empty'),
+    Field('includeInExport', String, 'Include In Export',
+        hint: 'Yes / No / Conditional'),
+    Field('inclusionCondition', String, 'Inclusion Condition',
+        hint: 'Condition for conditional inclusion'),
+    Field('maxLength', int, 'Max Length',
+        hint: 'Truncate output to this character length'),
+    Field('paddingChar', String, 'Padding Char',
+        hint: 'For fixed-width: padding character, e.g. space or 0'),
+    Field('paddingDirection', String, 'Padding Direction',
+        hint: 'Left / Right for fixed-width formats'),
+    Field('fixedWidth', int, 'Fixed Width',
+        hint: 'Column width for fixed-width format exports'),
+    Field('quoteAlways', String, 'Quote Always',
+        hint: 'Yes / No — always quote this field in CSV'),
+    Field('notes', String, 'Notes', hint: 'Design notes'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 10.4.3 Export Templates
+// ---------------------------------------------------------------------------
+
+/// A reusable export template [PD00-USE-PRI-TPL-nn] (form).
+class ExportTemplateEntry {
+  @Form([
+    Field('templateId', String, 'Template ID',
+        hint: 'Unique identifier, e.g. TPL-001', required: true),
+    Field('templateName', String, 'Template Name',
+        hint: 'Human-readable name, e.g. Standard Customer Export',
+        required: true),
+    Field('description', String, 'Description',
+        hint: 'Purpose and use cases for this template'),
+    Field('baseFormatType', String, 'Base Format Type',
+        hint: 'CSV / Excel / PDF / JSON / XML / HTML'),
+    Field('encoding', String, 'Encoding',
+        hint: 'Default encoding for this template'),
+    Field('delimiter', String, 'Delimiter', hint: 'Default delimiter'),
+    Field('headerRow', String, 'Header Row', hint: 'Yes / No'),
+    Field('dateFormat', String, 'Date Format', hint: 'Default date format'),
+    Field('numberFormat', String, 'Number Format',
+        hint: 'Default number format'),
+    Field('fieldSet', String, 'Field Set',
+        hint: 'Comma-separated field names included in this template'),
+    Field('defaultFilters', String, 'Default Filters',
+        hint: 'Pre-applied filters, e.g. status=active'),
+    Field('defaultSortField', String, 'Default Sort Field',
+        hint: 'Default sort column'),
+    Field('defaultSortDirection', String, 'Default Sort Direction',
+        hint: 'Ascending / Descending'),
+    Field('headerConfig', String, 'Header Config',
+        hint: 'Header content template for PDF/Excel exports'),
+    Field('footerConfig', String, 'Footer Config',
+        hint: 'Footer content template for PDF/Excel exports'),
+    Field('brandingOverride', String, 'Branding Override',
+        hint: 'Template-specific branding (for PDF)'),
+    Field('compressionFormat', String, 'Compression Format',
+        hint: 'None / ZIP / GZIP'),
+    Field('accessLevel', String, 'Access Level',
+        hint: 'Public / Authenticated / Role-specific'),
+    Field('requiredRoles', String, 'Required Roles',
+        hint: 'Roles permitted to use this template'),
+    Field('reusableAcrossReports', String, 'Reusable Across Reports',
+        hint:
+            'Yes / No — can this template be used by multiple reports/exports'),
+    Field('version', String, 'Version',
+        hint: 'Template version, e.g. 1.0'),
+    Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
   String? content;
 }
