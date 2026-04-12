@@ -7847,19 +7847,380 @@ class CommunicationRequirements {
   @Unused()
   String? content;
 
-  /// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO] — contains 0+× Protocol.
-  @SectionIdPattern('PD00-TEC-COM-PRO-xx')
-  List<ProtocolEntry> protocolsAndStandards = [];
+  /// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
+  ProtocolsAndStandardsSection protocolsAndStandards =
+      ProtocolsAndStandardsSection();
 
-  /// External Connectivity.
+  /// 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
   TextSection externalConnectivity = TextSection();
+}
+
+/// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
+@SectionId('PD00-TEC-COM-PRO')
+class ProtocolsAndStandardsSection {
+  @Unused()
+  String? content;
+
+  /// Overview of communication protocols and standards.
+  TextSection overview = TextSection();
+
+  /// Protocol catalog — contains 0+× Protocol.
+  @SectionIdPattern('PD00-TEC-COM-PRO-xx')
+  List<ProtocolEntry> protocols = [];
+
+  /// TLS/SSL requirements.
+  TlsRequirements tlsRequirements = TlsRequirements();
+
+  /// Certificate management.
+  CertificateManagement certificateManagement = CertificateManagement();
+
+  /// API versioning strategy.
+  ApiVersioningStrategy apiVersioning = ApiVersioningStrategy();
+
+  /// Message format standards.
+  MessageFormatStandards messageFormats = MessageFormatStandards();
+
+  /// Rate limiting and throttling.
+  RateLimitingPolicy rateLimiting = RateLimitingPolicy();
+
+  /// Protocol compliance requirements.
+  ProtocolComplianceRequirements compliance = ProtocolComplianceRequirements();
 }
 
 /// A protocol or standard entry (form) [PD00-TEC-COM-PRO-nn].
 class ProtocolEntry {
   @Form([
-    Field('protocolName', String, 'Protocol Name', required: true),
-    Field('purpose', String, 'Purpose'),
+    // Identity
+    Field('protocolName', String, 'Protocol Name',
+        required: true, hint: 'HTTP/2, WebSocket, gRPC, MQTT, AMQP'),
+    Field('protocolType', String, 'Protocol Type',
+        hint: 'Request-response, streaming, pub-sub, event-driven'),
+    Field('protocolVersion', String, 'Protocol Version',
+        hint: 'HTTP/2, MQTT 5.0, gRPC 1.x'),
+    Field('purpose', String, 'Purpose',
+        hint: 'Primary use case for this protocol'),
+
+    // Transport
+    Field('transportLayer', String, 'Transport Layer',
+        hint: 'TCP, UDP, QUIC'),
+    Field('defaultPort', int, 'Default Port',
+        hint: 'Standard port number'),
+    Field('alternatePort', int, 'Alternate Port',
+        hint: 'Alternative port if needed'),
+    Field('encryptionRequired', bool, 'Encryption Required',
+        hint: 'TLS mandatory for this protocol'),
+    Field('minimumTlsVersion', String, 'Minimum TLS Version',
+        hint: 'TLS 1.2, TLS 1.3'),
+
+    // Authentication
+    Field('authenticationMethod', String, 'Authentication Method',
+        hint: 'API key, OAuth 2.0, mTLS, JWT'),
+    Field('authorizationScheme', String, 'Authorization Scheme',
+        hint: 'Bearer token, Basic, custom'),
+
+    // Serialization
+    Field('messageFormat', String, 'Message Format',
+        hint: 'JSON, Protocol Buffers, XML, Avro'),
+    Field('encoding', String, 'Encoding',
+        hint: 'UTF-8, Base64, binary'),
+    Field('compressionSupport', String, 'Compression Support',
+        hint: 'gzip, brotli, none'),
+
+    // Performance
+    Field('maxMessageSize', String, 'Max Message Size',
+        hint: 'Maximum payload size'),
+    Field('connectionPooling', bool, 'Connection Pooling',
+        hint: 'Connection reuse strategy'),
+    Field('keepAliveInterval', String, 'Keep-Alive Interval',
+        hint: 'Heartbeat/keep-alive timing'),
+    Field('connectionTimeout', String, 'Connection Timeout',
+        hint: 'Connection establishment timeout'),
+    Field('requestTimeout', String, 'Request Timeout',
+        hint: 'Individual request timeout'),
+
+    // Reliability
+    Field('retryPolicy', String, 'Retry Policy',
+        hint: 'Exponential backoff, fixed interval'),
+    Field('idempotencySupport', bool, 'Idempotency Support',
+        hint: 'Support for idempotent operations'),
+    Field('deliveryGuarantee', String, 'Delivery Guarantee',
+        hint: 'At-most-once, at-least-once, exactly-once'),
+
+    // Usage
+    Field('usedBy', String, 'Used By',
+        hint: 'Components or services using this protocol'),
+    Field('directionality', String, 'Directionality',
+        hint: 'Client-to-server, bidirectional, server-push'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional protocol notes'),
+  ])
+  String? content;
+}
+
+/// TLS/SSL requirements.
+class TlsRequirements {
+  @Form([
+    // Version requirements
+    Field('minimumTlsVersion', String, 'Minimum TLS Version',
+        required: true, hint: 'TLS 1.2, TLS 1.3'),
+    Field('preferredTlsVersion', String, 'Preferred TLS Version',
+        hint: 'TLS 1.3'),
+    Field('disabledProtocols', String, 'Disabled Protocols',
+        hint: 'SSLv3, TLS 1.0, TLS 1.1'),
+
+    // Cipher suites
+    Field('allowedCipherSuites', String, 'Allowed Cipher Suites',
+        hint: 'AES-256-GCM, ChaCha20-Poly1305'),
+    Field('disabledCipherSuites', String, 'Disabled Cipher Suites',
+        hint: 'RC4, DES, 3DES, MD5-based'),
+    Field('keyExchangeAlgorithms', String, 'Key Exchange Algorithms',
+        hint: 'ECDHE, DHE, X25519'),
+
+    // Certificate validation
+    Field('certificatePinning', bool, 'Certificate Pinning',
+        hint: 'Enable HPKP or app-level pinning'),
+    Field('ocspStapling', bool, 'OCSP Stapling',
+        hint: 'Online certificate status protocol'),
+    Field('mutualTls', bool, 'Mutual TLS (mTLS)',
+        hint: 'Client certificate authentication'),
+
+    // Termination
+    Field('tlsTermination', String, 'TLS Termination',
+        hint: 'Load balancer, reverse proxy, application'),
+    Field('internalTls', bool, 'Internal TLS',
+        hint: 'Encrypt service-to-service traffic'),
+
+    // Compliance
+    Field('sslLabsTargetGrade', String, 'SSL Labs Target Grade',
+        hint: 'A+, A, B minimum rating'),
+    Field('hstsEnabled', bool, 'HSTS Enabled',
+        hint: 'HTTP Strict Transport Security'),
+    Field('hstsMaxAge', String, 'HSTS Max-Age',
+        hint: 'HSTS header max-age value'),
+    Field('hstsIncludeSubdomains', bool, 'HSTS Include Subdomains',
+        hint: 'Apply HSTS to all subdomains'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional TLS requirements'),
+  ])
+  String? content;
+}
+
+/// Certificate management.
+class CertificateManagement {
+  @Form([
+    // Authority
+    Field('certificateAuthority', String, 'Certificate Authority',
+        hint: 'Public CA, private PKI, Let\'s Encrypt'),
+    Field('certificateType', String, 'Certificate Type',
+        hint: 'DV, OV, EV, Wildcard'),
+
+    // Key specifications
+    Field('keyAlgorithm', String, 'Key Algorithm',
+        hint: 'RSA, ECDSA, Ed25519'),
+    Field('keyLength', String, 'Key Length',
+        hint: 'RSA 2048/4096, ECDSA P-256/P-384'),
+    Field('signatureAlgorithm', String, 'Signature Algorithm',
+        hint: 'SHA-256, SHA-384'),
+
+    // Lifecycle
+    Field('validityPeriod', String, 'Validity Period',
+        hint: 'Certificate lifetime (e.g. 90 days, 1 year)'),
+    Field('renewalWindow', String, 'Renewal Window',
+        hint: 'Days before expiry to renew'),
+    Field('automaticRenewal', bool, 'Automatic Renewal',
+        hint: 'Auto-renew via ACME/cert-manager'),
+    Field('rotationPolicy', String, 'Rotation Policy',
+        hint: 'Scheduled rotation cadence'),
+    Field('revocationProcess', String, 'Revocation Process',
+        hint: 'CRL, OCSP procedures'),
+
+    // Storage and access
+    Field('storageMethod', String, 'Storage Method',
+        hint: 'HSM, vault, Kubernetes secrets'),
+    Field('privateKeyProtection', String, 'Private Key Protection',
+        hint: 'Hardware-backed, encrypted at rest'),
+    Field('accessControl', String, 'Access Control',
+        hint: 'Who can access certificates/keys'),
+
+    // Monitoring
+    Field('expiryMonitoring', bool, 'Expiry Monitoring',
+        hint: 'Automated certificate expiry alerts'),
+    Field('expiryAlertThreshold', String, 'Expiry Alert Threshold',
+        hint: 'Days before expiry to alert (e.g. 30, 14, 7)'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional certificate management notes'),
+  ])
+  String? content;
+}
+
+/// API versioning strategy.
+class ApiVersioningStrategy {
+  @Form([
+    // Scheme
+    Field('versioningScheme', String, 'Versioning Scheme',
+        required: true, hint: 'URL path, header, query parameter'),
+    Field('versionFormat', String, 'Version Format',
+        hint: 'v1, v2.0, semver, date-based'),
+    Field('currentVersion', String, 'Current Version',
+        hint: 'Current active API version'),
+    Field('supportedVersions', String, 'Supported Versions',
+        hint: 'List of all currently supported versions'),
+
+    // Deprecation
+    Field('deprecationPolicy', String, 'Deprecation Policy',
+        hint: 'Sunset timeline, notice period'),
+    Field('deprecationNoticeMethod', String, 'Deprecation Notice Method',
+        hint: 'HTTP Sunset header, changelog, email'),
+    Field('minimumSupportPeriod', String, 'Minimum Support Period',
+        hint: 'Minimum time a version stays supported'),
+
+    // Compatibility
+    Field('backwardCompatibility', String, 'Backward Compatibility',
+        hint: 'Guaranteed compatibility rules'),
+    Field('breakingChangePolicy', String, 'Breaking Change Policy',
+        hint: 'When and how breaking changes are allowed'),
+    Field('migrationGuidance', bool, 'Migration Guidance',
+        hint: 'Provide migration guides between versions'),
+
+    // Documentation
+    Field('apiDocumentationFormat', String, 'API Documentation Format',
+        hint: 'OpenAPI/Swagger, AsyncAPI, GraphQL SDL'),
+    Field('changelogFormat', String, 'Changelog Format',
+        hint: 'Keep a Changelog, custom'),
+    Field('clientSdkGeneration', bool, 'Client SDK Generation',
+        hint: 'Auto-generate client libraries'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional versioning notes'),
+  ])
+  String? content;
+}
+
+/// Message format standards.
+class MessageFormatStandards {
+  @Form([
+    // Format
+    Field('primaryFormat', String, 'Primary Format',
+        required: true, hint: 'JSON, Protocol Buffers, XML'),
+    Field('secondaryFormats', String, 'Secondary Formats',
+        hint: 'Additional supported formats'),
+
+    // Schema
+    Field('schemaDefinition', String, 'Schema Definition',
+        hint: 'JSON Schema, Protobuf definitions, XSD'),
+    Field('schemaRegistry', String, 'Schema Registry',
+        hint: 'Confluent, Apicurio, custom'),
+    Field('schemaEvolution', String, 'Schema Evolution',
+        hint: 'Forward, backward, full compatibility'),
+    Field('schemaValidation', String, 'Schema Validation',
+        hint: 'Request/response validation strategy'),
+
+    // Conventions
+    Field('dateTimeFormat', String, 'Date/Time Format',
+        hint: 'ISO 8601, Unix timestamp'),
+    Field('characterEncoding', String, 'Character Encoding',
+        hint: 'UTF-8, ASCII'),
+    Field('nullHandling', String, 'Null Handling',
+        hint: 'Omit, explicit null, empty string'),
+    Field('enumRepresentation', String, 'Enum Representation',
+        hint: 'String, integer, UPPER_CASE'),
+    Field('namingConvention', String, 'Naming Convention',
+        hint: 'camelCase, snake_case for field names'),
+
+    // Pagination and errors
+    Field('paginationFormat', String, 'Pagination Format',
+        hint: 'Cursor, offset, page-number'),
+    Field('errorResponseFormat', String, 'Error Response Format',
+        hint: 'RFC 7807 Problem Details, custom envelope'),
+    Field('envelopeFormat', String, 'Envelope Format',
+        hint: 'Flat, wrapped with metadata'),
+
+    // Compression
+    Field('compressionAlgorithm', String, 'Compression Algorithm',
+        hint: 'gzip, brotli, zstd, none'),
+    Field('contentNegotiation', bool, 'Content Negotiation',
+        hint: 'Support Accept/Content-Type headers'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional message format notes'),
+  ])
+  String? content;
+}
+
+/// Rate limiting and throttling.
+class RateLimitingPolicy {
+  @Form([
+    // Strategy
+    Field('rateLimitingStrategy', String, 'Rate Limiting Strategy',
+        required: true, hint: 'Token bucket, sliding window, fixed window'),
+    Field('rateLimitScope', String, 'Rate Limit Scope',
+        hint: 'Global, per-client, per-endpoint, per-tenant'),
+
+    // Limits
+    Field('globalRateLimit', String, 'Global Rate Limit',
+        hint: 'Requests per second/minute overall'),
+    Field('perClientLimit', String, 'Per-Client Limit',
+        hint: 'Rate limit per API key/client'),
+    Field('perEndpointLimit', String, 'Per-Endpoint Limit',
+        hint: 'Rate limit per API endpoint'),
+    Field('burstAllowance', String, 'Burst Allowance',
+        hint: 'Short burst above steady-state limit'),
+
+    // Behavior
+    Field('throttlingBehavior', String, 'Throttling Behavior',
+        hint: 'HTTP 429, queue, graceful degrade'),
+    Field('retryAfterHeader', bool, 'Retry-After Header',
+        hint: 'Include Retry-After in 429 responses'),
+    Field('rateLimitHeaders', bool, 'Rate Limit Headers',
+        hint: 'X-RateLimit-* response headers'),
+
+    // Quotas
+    Field('quotaManagement', String, 'Quota Management',
+        hint: 'Daily/monthly quotas per subscription tier'),
+    Field('quotaResetPolicy', String, 'Quota Reset Policy',
+        hint: 'Calendar-based, rolling window'),
+    Field('exemptions', String, 'Exemptions',
+        hint: 'Services or clients exempt from limits'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional rate limiting notes'),
+  ])
+  String? content;
+}
+
+/// Protocol compliance requirements.
+class ProtocolComplianceRequirements {
+  @Form([
+    // HTTP security
+    Field('corsPolicy', String, 'CORS Policy',
+        hint: 'Allowed origins, methods, headers'),
+    Field('contentSecurityPolicy', String, 'Content Security Policy',
+        hint: 'CSP header directives'),
+    Field('httpSecurityHeaders', String, 'HTTP Security Headers',
+        hint: 'X-Frame-Options, X-Content-Type-Options'),
+    Field('cookiePolicy', String, 'Cookie Policy',
+        hint: 'SameSite, Secure, HttpOnly attributes'),
+
+    // Caching
+    Field('cachingPolicy', String, 'Caching Policy',
+        hint: 'Cache-Control, ETag, If-Modified-Since'),
+    Field('cdnIntegration', String, 'CDN Integration',
+        hint: 'CDN caching strategy and invalidation'),
+
+    // Observability
+    Field('requestLogging', String, 'Request Logging',
+        hint: 'Request/response logging, PII redaction'),
+    Field('distributedTracing', String, 'Distributed Tracing',
+        hint: 'Correlation IDs, W3C Trace Context, OpenTelemetry'),
+    Field('tracePropagation', String, 'Trace Propagation',
+        hint: 'Header format for trace context propagation'),
+
+    // Event standards
+    Field('webhookStandards', String, 'Webhook Standards',
+        hint: 'Signature verification, retry policy'),
+    Field('eventStreamStandards', String, 'Event Stream Standards',
+        hint: 'SSE, CloudEvents format'),
+    Field('healthEndpointStandard', String, 'Health Endpoint Standard',
+        hint: '/health, /ready, /live conventions'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional compliance notes'),
   ])
   String? content;
 }

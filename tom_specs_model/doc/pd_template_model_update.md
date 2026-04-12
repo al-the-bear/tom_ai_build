@@ -100,7 +100,7 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-TEC-OPE-DEP | Deployment Strategy | High | ✅ Done |
 | PD00-TEC-OPE-MON | Monitoring and Alerting | High | ✅ Done |
 | PD00-TEC-OPE-MAI | Maintenance Windows | Medium | ✅ Done |
-| PD00-TEC-COM-PRO | Protocols and Standards | Medium | ⬜ Not Started |
+| PD00-TEC-COM-PRO | Protocols and Standards | Medium | ✅ Done |
 | PD00-TEC-COM-EXT | External Connectivity | Medium | ⬜ Not Started |
 | PD00-TEC-SYS-ADM | Administration Requirements | Medium | ⬜ Not Started |
 | PD00-TEC-SYS-HEA | Health Checks and Diagnostics | Medium | ⬜ Not Started |
