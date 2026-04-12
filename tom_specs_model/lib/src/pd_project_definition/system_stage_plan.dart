@@ -1367,10 +1367,355 @@ class FeatureDependencyEntry {
 }
 
 /// 13.5. Data Migration Strategy [PD00-SSP-MIG].
+///
+/// Comprehensive data migration strategy covering approach, methodology,
+/// tooling, environment strategy, data quality governance, cutover
+/// planning, rollback mechanisms, compliance requirements (GDPR, HIPAA),
+/// and stakeholder sign-off. Aligns with DAMA-DMBOK data management
+/// principles, TOGAF migration planning, and PMBOK risk-aware delivery.
 @SectionId('PD00-SSP-MIG')
 class DataMigrationStrategy {
-  @Unused()
+  @Form([
+    // --- Strategic Approach ---
+    Field('migrationApproach', String, 'Migration Approach',
+        hint:
+            'BigBang / Trickle / ParallelRun / Phased / Hybrid — '
+            'overall migration strategy',
+        required: true),
+    Field('migrationMethodology', String, 'Migration Methodology',
+        hint:
+            'ETL-Centric / API-First / CDC-Based / '
+            'ReplicationBased / ManualAssisted / Hybrid — primary '
+            'technical methodology',
+        required: true),
+    Field('migrationRationale', String, 'Approach Rationale',
+        hint:
+            'Why this approach was chosen — risk tolerance, data '
+            'volume, downtime constraints, regulatory deadlines'),
+    Field('alternativesConsidered', String,
+        'Alternatives Considered',
+        hint:
+            'Other approaches evaluated and why rejected — e.g. '
+            'BigBang rejected due to 4-hour max downtime window'),
+    // --- Scope & Data Landscape ---
+    Field('dataLandscapeOverview', String,
+        'Data Landscape Overview',
+        hint:
+            'High-level description of the data ecosystem — '
+            'number of sources, total volume, data types '
+            '(structured, semi-structured, unstructured)',
+        required: true),
+    Field('totalSourceSystems', String, 'Total Source Systems',
+        hint:
+            'Number of source systems involved — e.g. 5 databases, '
+            '3 file stores, 2 SaaS APIs',
+        required: true),
+    Field('totalDataVolume', String, 'Total Data Volume',
+        hint:
+            'Aggregate data volume across all sources — e.g. '
+            '2.5 TB structured, 500 GB documents, 15M records'),
+    Field('totalEntitiesInScope', String,
+        'Total Entities in Scope',
+        hint:
+            'Number of distinct data entities/tables to migrate — '
+            'e.g. 120 tables across 5 schemas'),
+    Field('dataClassificationSummary', String,
+        'Data Classification Summary',
+        hint:
+            'Breakdown by classification — e.g. Public: 30%, '
+            'Internal: 45%, Confidential: 20%, Restricted: 5%'),
+    Field('excludedFromMigration', String,
+        'Excluded from Migration',
+        hint:
+            'Data explicitly out of scope — archived records '
+            'older than 7 years, deprecated modules, test data'),
+    // --- Source & Target Systems ---
+    Field('sourceSystemInventory', String,
+        'Source System Inventory',
+        hint:
+            'List of source systems — e.g. Oracle ERP 11g, '
+            'Salesforce CRM, SharePoint 2016, PostgreSQL 12 '
+            'data warehouse'),
+    Field('targetSystemDescription', String,
+        'Target System Description',
+        hint:
+            'Target platform and architecture — e.g. AWS Aurora '
+            'PostgreSQL 15, S3 for documents, OpenSearch for '
+            'full-text'),
+    Field('schemaTransformationComplexity', String,
+        'Schema Transformation Complexity',
+        hint:
+            'Low / Medium / High / VeryHigh — complexity of '
+            'schema changes between source and target',
+        required: true),
+    Field('dataModelChangeSummary', String,
+        'Data Model Change Summary',
+        hint:
+            'Key structural changes — table splits/merges, '
+            'normalization changes, new lookup tables, enum '
+            'standardization'),
+    // --- Data Quality ---
+    Field('dataQualityBaselineStatus', String,
+        'Data Quality Baseline Status',
+        hint:
+            'NotStarted / InProgress / Complete — whether source '
+            'data quality has been profiled',
+        required: true),
+    Field('dataQualityProfileTool', String,
+        'Data Quality Profiling Tool',
+        hint:
+            'Tool used for profiling — e.g. Great Expectations, '
+            'Talend DQ, Informatica Data Explorer, dbt tests'),
+    Field('knownDataQualityIssues', String,
+        'Known Data Quality Issues',
+        hint:
+            'Critical issues discovered — e.g. 12% null emails, '
+            '5% duplicate customers, inconsistent date formats'),
+    Field('dataCleansingStrategy', String,
+        'Data Cleansing Strategy',
+        hint:
+            'PreMigration / DuringMigration / PostMigration / '
+            'Hybrid — when and how data quality issues are '
+            'resolved'),
+    Field('dataQualityThresholds', String,
+        'Data Quality Thresholds',
+        hint:
+            'Minimum quality metrics for migration approval — '
+            'e.g. completeness ≥98%, accuracy ≥99%, uniqueness '
+            '≥99.5%'),
+    // --- Tooling & Technology ---
+    Field('primaryMigrationTool', String,
+        'Primary Migration Tool',
+        hint:
+            'Main tool or platform — e.g. AWS DMS, Apache NiFi, '
+            'Informatica PowerCenter, Talend, Azure Data Factory, '
+            'custom Python/Spark pipeline',
+        required: true),
+    Field('secondaryTools', String, 'Secondary Tools',
+        hint:
+            'Supporting tools — e.g. dbt for transformations, '
+            'Great Expectations for validation, Flyway for schema'),
+    Field('cdcTool', String, 'CDC Tool',
+        hint:
+            'Change Data Capture tool if applicable — e.g. '
+            'Debezium, Oracle GoldenGate, AWS DMS CDC, Striim'),
+    Field('orchestrationPlatform', String,
+        'Orchestration Platform',
+        hint:
+            'Workflow orchestration — e.g. Apache Airflow, '
+            'AWS Step Functions, Azure Data Factory, Prefect'),
+    Field('scriptingLanguage', String, 'Scripting Language',
+        hint:
+            'Primary language for custom migration logic — '
+            'Python / SQL / Spark / Dart / Java'),
+    Field('versionControlForMigrations', String,
+        'Version Control for Migrations',
+        hint:
+            'How migration scripts are versioned — Git repo, '
+            'Flyway migrations, Liquibase changesets, numbered SQL'),
+    // --- Environment Strategy ---
+    Field('migrationEnvironments', String,
+        'Migration Environments',
+        hint:
+            'Environments used for migration — e.g. Dev (subset), '
+            'Test (full copy), Staging (production-like), '
+            'Production',
+        required: true),
+    Field('environmentDataSubsetting', String,
+        'Environment Data Subsetting',
+        hint:
+            'Data subsetting strategy for lower environments — '
+            'percentage-based, date-range, referential-integrity-'
+            'aware, anonymized'),
+    Field('productionLikeEnvironmentReady', String,
+        'Production-Like Environment Ready',
+        hint:
+            'Yes / No / InProgress — whether a production-'
+            'equivalent environment exists for dress rehearsals'),
+    Field('environmentRefreshCadence', String,
+        'Environment Refresh Cadence',
+        hint:
+            'How often test environments are refreshed with '
+            'production data — weekly, per dry run, on demand'),
+    // --- Cutover Planning ---
+    Field('cutoverStrategy', String, 'Cutover Strategy',
+        hint:
+            'BigBang / PhaseByEntity / PhaseByModule / '
+            'BlueGreenSwitch / CanaryRollout — cutover execution '
+            'approach',
+        required: true),
+    Field('cutoverWindowDuration', String,
+        'Cutover Window Duration',
+        hint:
+            'Maximum allowed downtime — e.g. 4 hours, 8 hours, '
+            'zero-downtime required',
+        required: true),
+    Field('cutoverWindowTiming', String,
+        'Cutover Window Timing',
+        hint:
+            'Preferred timing — e.g. Saturday 22:00–Sunday 06:00 '
+            'UTC, holiday weekend, Q1 end'),
+    Field('cutoverRunbook', String, 'Cutover Runbook Status',
+        hint:
+            'NotStarted / InProgress / Complete / Tested — '
+            'status of the detailed cutover procedure document'),
+    Field('preFlightChecklist', String,
+        'Pre-Flight Checklist Status',
+        hint:
+            'NotStarted / InProgress / Complete — checklist of '
+            'conditions before committing to cutover'),
+    Field('goNoGoDecisionOwner', String,
+        'Go/No-Go Decision Owner',
+        hint:
+            'Person with final cutover authority — e.g. Program '
+            'Director, CTO, Steering Committee'),
+    Field('goNoGoCriteria', String, 'Go/No-Go Criteria',
+        hint:
+            'Key criteria for cutover approval — dry run passed, '
+            'data quality met, rollback tested, team available'),
+    // --- Rollback & Recovery ---
+    Field('rollbackStrategy', String, 'Rollback Strategy',
+        hint:
+            'FullRollback / PartialRollback / ForwardFix / '
+            'DualWrite — approach if migration fails',
+        required: true),
+    Field('rollbackTimeBudget', String, 'Rollback Time Budget',
+        hint:
+            'Maximum time to complete rollback — e.g. 2 hours, '
+            'must fit within cutover window'),
+    Field('rollbackTriggers', String, 'Rollback Triggers',
+        hint:
+            'Conditions that activate rollback — data loss '
+            'detected, validation failure >1%, system unresponsive'),
+    Field('rollbackTested', String, 'Rollback Tested',
+        hint:
+            'Yes / No / Partially — whether the rollback plan '
+            'has been exercised in a dry run'),
+    Field('pointOfNoReturn', String, 'Point of No Return',
+        hint:
+            'Step in the migration after which rollback is no '
+            'longer viable — e.g. after source decommission, '
+            'after cutover plus 24h'),
+    // --- Compliance & Governance ---
+    Field('dataPrivacyCompliance', String,
+        'Data Privacy Compliance',
+        hint:
+            'GDPR / CCPA / HIPAA / SOX / PCI-DSS / None — '
+            'applicable regulations',
+        required: true),
+    Field('gdprDataHandling', String, 'GDPR Data Handling',
+        hint:
+            'How personal data is handled during migration — '
+            'encryption in transit/at rest, pseudonymization, '
+            'consent re-verification, right-to-erasure queue'),
+    Field('dataResidencyRequirements', String,
+        'Data Residency Requirements',
+        hint:
+            'Geographic constraints — e.g. EU data must remain '
+            'in eu-west-1, no cross-border transfer without DPA'),
+    Field('auditTrailRequirements', String,
+        'Audit Trail Requirements',
+        hint:
+            'Logging requirements — every record transformation '
+            'logged, before/after snapshots, reconciliation logs'),
+    Field('dataRetentionDuringMigration', String,
+        'Data Retention During Migration',
+        hint:
+            'How long source data is retained post-migration — '
+            'e.g. 90 days parallel, 1 year archive, then purge'),
+    Field('migrationGovernanceBody', String,
+        'Migration Governance Body',
+        hint:
+            'Who oversees migration quality — Data Governance '
+            'Council, Migration Review Board, Steering Committee'),
+    // --- Success Metrics ---
+    Field('successMetrics', String, 'Success Metrics',
+        hint:
+            'Key metrics defining migration success — data '
+            'completeness ≥99.9%, zero data loss, validation '
+            'pass rate ≥99%, downtime ≤4h',
+        required: true),
+    Field('dataCompletenessTarget', String,
+        'Data Completeness Target',
+        hint:
+            'Target percentage — e.g. 99.99% of records migrated '
+            'with all required fields'),
+    Field('dataAccuracyTarget', String, 'Data Accuracy Target',
+        hint:
+            'Target accuracy — e.g. 99.9% field-level accuracy '
+            'validated by checksums and business rule checks'),
+    Field('performanceBenchmark', String,
+        'Performance Benchmark',
+        hint:
+            'Target throughput — e.g. 10K records/sec ETL, '
+            'full migration completes within 3 hours'),
+    Field('maxAcceptableDowntime', String,
+        'Max Acceptable Downtime',
+        hint:
+            'Business-defined downtime limit — e.g. 4 hours, '
+            'or zero for critical systems'),
+    // --- Stakeholders & Communication ---
+    Field('migrationLead', String, 'Migration Lead',
+        hint:
+            'Person accountable for end-to-end migration — name '
+            'and role',
+        required: true),
+    Field('dataOwnerSignoffRequired', String,
+        'Data Owner Sign-off Required',
+        hint:
+            'Yes / No — whether each data domain owner must '
+            'approve migration results'),
+    Field('businessSignoffProcess', String,
+        'Business Sign-off Process',
+        hint:
+            'How business validates migration — UAT, side-by-'
+            'side comparison, sample report reconciliation'),
+    Field('communicationPlan', String, 'Communication Plan',
+        hint:
+            'Stakeholder communication — weekly status, pre-'
+            'cutover briefing, post-migration report, escalation'),
+    Field('trainingForMigrationTeam', String,
+        'Training for Migration Team',
+        hint:
+            'Training needed — migration tool training, target '
+            'platform, rollback procedures, monitoring tools'),
+    // --- Budget & Resources ---
+    Field('migrationBudget', String, 'Migration Budget',
+        hint:
+            'Total budget for migration activities — tooling '
+            'licenses, cloud compute, contractor hours'),
+    Field('teamComposition', String, 'Team Composition',
+        hint:
+            'Key roles — Migration Architect, ETL Developer, '
+            'DBA, Data Analyst, QA Engineer, Business Validator'),
+    Field('externalVendorSupport', String,
+        'External Vendor Support',
+        hint:
+            'Third-party support — database vendor, migration '
+            'tool vendor, consulting firm, cloud provider PS'),
+    // --- Schedule Overview ---
+    Field('overallMigrationStart', String,
+        'Overall Migration Start',
+        hint: 'Planned start date of migration activities'),
+    Field('overallMigrationEnd', String, 'Overall Migration End',
+        hint: 'Planned completion date including hypercare'),
+    Field('dryRunCount', String, 'Planned Dry Run Count',
+        hint:
+            'Number of full dress rehearsals planned — e.g. 3 '
+            'dry runs before production cutover'),
+    Field('dryRunSchedule', String, 'Dry Run Schedule',
+        hint:
+            'Dates for each dry run — e.g. DR1: May 1, DR2: '
+            'May 15, DR3: May 29, Production: Jun 7'),
+    Field('hypercareDuration', String, 'Hypercare Duration',
+        hint:
+            'Post-migration intensive support — e.g. 2 weeks '
+            '24x7, then 2 weeks business hours'),
+  ])
   String? content;
+
+  /// Migration strategy narrative.
+  TextSection migrationStrategyNarrative = TextSection();
 
   /// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
   MigrationPhases migrationPhases = MigrationPhases();
@@ -1380,46 +1725,567 @@ class DataMigrationStrategy {
 }
 
 /// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
+///
+/// Staged migration phases defining the sequential or overlapping
+/// execution plan. Each phase targets a specific data domain or source
+/// system, with defined methods, transformation rules, validation
+/// criteria, and dry run expectations.
 @SectionId('PD00-SSP-MIG-PHA')
 class MigrationPhases {
-  @Unused()
+  @Form([
+    // --- Phase Summary ---
+    Field('totalPhases', String, 'Total Phases',
+        hint:
+            'Number of distinct migration phases — e.g. 5 phases '
+            'covering 3 source systems',
+        required: true),
+    Field('phaseExecutionModel', String, 'Phase Execution Model',
+        hint:
+            'Sequential / Overlapping / Parallel / '
+            'WaterfallWithinAgileAcross — how phases relate '
+            'temporally',
+        required: true),
+    Field('longestPhase', String, 'Longest Phase',
+        hint:
+            'Phase with longest duration and its expected '
+            'timeframe — e.g. Phase 2 (ERP data): 6 weeks'),
+    Field('criticalPathPhases', String, 'Critical Path Phases',
+        hint:
+            'Phases on the critical path that determine overall '
+            'migration timeline'),
+    Field('totalDataVolumeAcrossPhases', String,
+        'Total Data Volume Across Phases',
+        hint:
+            'Aggregate data volume — e.g. 2.1 TB structured + '
+            '400 GB documents'),
+    Field('overallValidationStrategy', String,
+        'Overall Validation Strategy',
+        hint:
+            'Cross-phase validation approach — automated '
+            'reconciliation, business rule suites, sampling '
+            'methodology'),
+    Field('phaseDependencySummary', String,
+        'Phase Dependency Summary',
+        hint:
+            'Key inter-phase dependencies — e.g. Phase 2 requires '
+            'master data from Phase 1, Phase 4 requires Phase 3 '
+            'reference data'),
+    Field('dryRunStrategy', String, 'Dry Run Strategy',
+        hint:
+            'How dry runs are organized — per phase, combined, '
+            'incremental buildup, production-equivalent'),
+  ])
   String? content;
 
-  /// Contains 0+× MigrationPhase.
+  /// Phase overview narrative.
+  TextSection phaseOverview = TextSection();
+
+  /// Contains 1+× MigrationPhaseEntry.
   @SectionIdPattern('PD00-SSP-MIG-PHA-xx')
+  @Min(1)
   List<MigrationPhaseEntry> items = [];
 }
 
 /// A migration phase entry (form) [PD00-SSP-MIG-PHA-nn].
+///
+/// Represents a single migration phase targeting a specific data domain,
+/// source system, or entity group. Covers data scope analysis, migration
+/// method selection, transformation mapping, scheduling, dependency
+/// tracking, validation approach, acceptance criteria, and dry run
+/// results.
 class MigrationPhaseEntry {
   @Form([
-    Field('phaseName', String, 'Phase Name', required: true),
-    Field('description', String, 'Short description'),
-    Field('dataScope', String, 'Data Scope'),
-    Field('targetStage', String, 'Target Stage'),
-    Field('verificationApproach', String, 'Verification Approach'),
+    // --- Phase Identity ---
+    Field('phaseNumber', String, 'Phase Number',
+        hint: '1, 2, 3… — sequential phase ordering',
+        required: true),
+    Field('phaseName', String, 'Phase Name',
+        hint:
+            'Descriptive name — e.g. Master Data, Transactional '
+            'History, Document Migration, Reference Data',
+        required: true),
+    Field('phaseDescription', String, 'Phase Description',
+        hint:
+            'Detailed description of what this phase migrates '
+            'and why it is sequenced here'),
+    Field('phaseType', String, 'Phase Type',
+        hint:
+            'MasterData / ReferenceData / Transactional / '
+            'Historical / Documents / BinaryAssets / Configuration '
+            '/ UserProfiles',
+        required: true),
+    Field('phaseObjective', String, 'Phase Objective',
+        hint:
+            'Primary goal — e.g. migrate all customer master data '
+            'with full address and contact history'),
+    Field('linkedProjectStage', String, 'Linked Project Stage',
+        hint:
+            'Which system stage this phase supports — '
+            'e.g. Stage 1 Foundation requires Phase 1 master data'),
+    // --- Data Scope ---
+    Field('sourceSystems', String, 'Source Systems',
+        hint:
+            'Source system(s) for this phase — e.g. Oracle ERP '
+            '11g (CUSTOMERS, ADDRESSES, CONTACTS schemas)',
+        required: true),
+    Field('sourceDatabase', String, 'Source Database / Store',
+        hint:
+            'Specific database, file store, or API — e.g. '
+            'PROD_ERP.dbo, S3://legacy-docs, Salesforce REST API'),
+    Field('tablesOrEntities', String, 'Tables / Entities',
+        hint:
+            'List of tables, collections, or entities — e.g. '
+            'CUSTOMERS (1.2M rows), ORDERS (8.5M rows), '
+            'ORDER_LINES (34M rows)',
+        required: true),
+    Field('totalRecordCount', String, 'Total Record Count',
+        hint:
+            'Aggregate record count for this phase — e.g. 43.7M '
+            'records across 12 tables',
+        required: true),
+    Field('dataVolumeGB', String, 'Data Volume (GB)',
+        hint:
+            'Total data volume — e.g. 850 GB including LOBs and '
+            'attachments'),
+    Field('dataFormats', String, 'Data Formats',
+        hint:
+            'Source data formats — Relational/SQL, CSV, JSON, '
+            'XML, Parquet, BLOB, PDF, images, proprietary'),
+    Field('targetDestination', String, 'Target Destination',
+        hint:
+            'Target system and location — e.g. Aurora PostgreSQL '
+            'public.customers, S3://new-docs/migrated/'),
+    Field('dataClassification', String, 'Data Classification',
+        hint:
+            'Classification of data in this phase — Public / '
+            'Internal / Confidential / Restricted / PII / PHI',
+        required: true),
+    Field('piiFields', String, 'PII Fields Identified',
+        hint:
+            'Personal data fields requiring special handling — '
+            'e.g. email, phone, SSN, date_of_birth, address'),
+    Field('dataOwner', String, 'Data Owner',
+        hint:
+            'Business owner of this data domain — person '
+            'accountable for data quality and sign-off'),
+    // --- Migration Method ---
+    Field('migrationMethod', String, 'Migration Method',
+        hint:
+            'ETL / ELT / API / CDC / BulkLoad / '
+            'DatabaseReplication / ManualEntry / FileTransfer / '
+            'Hybrid',
+        required: true),
+    Field('etlToolUsed', String, 'ETL/Migration Tool',
+        hint:
+            'Specific tool — e.g. AWS DMS for CDC, Apache NiFi '
+            'for ETL, custom Python for file migration'),
+    Field('extractionMethod', String, 'Extraction Method',
+        hint:
+            'FullExtract / IncrementalExtract / CDC / '
+            'LogicalReplication / APIPolling / EventDriven',
+        required: true),
+    Field('extractionSchedule', String, 'Extraction Schedule',
+        hint:
+            'When extraction runs — e.g. nightly at 02:00 UTC, '
+            'continuous CDC, one-time bulk on cutover day'),
+    Field('loadStrategy', String, 'Load Strategy',
+        hint:
+            'BulkInsert / UpsertMerge / TruncateAndReload / '
+            'AppendOnly / SCD-Type2 — how data is loaded into '
+            'target'),
+    // --- Transformation & Mapping ---
+    Field('transformationRulesSummary', String,
+        'Transformation Rules Summary',
+        hint:
+            'Key transformations — e.g. currency conversion, date '
+            'format ISO 8601, address normalization, enum mapping, '
+            'composite key generation'),
+    Field('mappingComplexity', String, 'Mapping Complexity',
+        hint:
+            'Low / Medium / High / VeryHigh — complexity of '
+            'source-to-target field mapping',
+        required: true),
+    Field('totalFieldMappings', String, 'Total Field Mappings',
+        hint:
+            'Number of field-level mappings — e.g. 245 fields '
+            'across 12 tables'),
+    Field('mappingDocumentLocation', String,
+        'Mapping Document Location',
+        hint:
+            'Where field mapping specifications are stored — '
+            'e.g. Confluence page, Excel workbook, dbt models'),
+    Field('dataCleansingRules', String, 'Data Cleansing Rules',
+        hint:
+            'Cleansing applied — e.g. trim whitespace, remove '
+            'duplicates, standardize phone format, fill missing '
+            'country from postal code'),
+    Field('dataEnrichmentRules', String, 'Data Enrichment Rules',
+        hint:
+            'Enrichment during migration — e.g. geocode addresses, '
+            'derive age from DOB, lookup currency codes, add '
+            'audit timestamps'),
+    Field('defaultValueRules', String, 'Default Value Rules',
+        hint:
+            'Defaults for null or missing data — e.g. '
+            'status=ACTIVE for null, country=US when region=NA'),
+    Field('characterEncodingHandling', String,
+        'Character Encoding Handling',
+        hint:
+            'Encoding conversion — e.g. Latin-1 to UTF-8, handle '
+            'multibyte characters, emoji support'),
+    // --- Schedule & Dependencies ---
+    Field('plannedStartDate', String, 'Planned Start Date',
+        required: true),
+    Field('plannedEndDate', String, 'Planned End Date',
+        required: true),
+    Field('estimatedDuration', String, 'Estimated Duration',
+        hint: 'e.g. 3 weeks, 10 business days'),
+    Field('actualStartDate', String, 'Actual Start Date',
+        hint: 'Populated when phase begins'),
+    Field('actualEndDate', String, 'Actual End Date',
+        hint: 'Populated when phase completes'),
+    Field('prerequisitePhases', String, 'Prerequisite Phases',
+        hint:
+            'Phases that must complete first — e.g. Phase 1 '
+            '(master data must exist before transactions)'),
+    Field('parallelPhases', String, 'Parallel Phases',
+        hint: 'Phases that can run concurrently with this one'),
+    Field('externalDependencies', String, 'External Dependencies',
+        hint:
+            'Dependencies outside migration — e.g. network '
+            'connectivity to legacy DC, VPN to vendor, API '
+            'credentials provisioned'),
+    Field('infrastructureDependencies', String,
+        'Infrastructure Dependencies',
+        hint:
+            'Required infrastructure — e.g. target database '
+            'provisioned, replication agent installed, S3 bucket '
+            'created with IAM policy'),
+    // --- Dry Runs ---
+    Field('dryRunsPlanned', String, 'Dry Runs Planned',
+        hint:
+            'Number of rehearsals — e.g. 2 partial + 1 full '
+            'production-equivalent'),
+    Field('dryRunSchedule', String, 'Dry Run Schedule',
+        hint:
+            'Dates for rehearsals — e.g. DR1: Apr 15 (subset), '
+            'DR2: Apr 29 (full), DR3: May 10 (dress rehearsal)'),
+    Field('lastDryRunDate', String, 'Last Dry Run Date',
+        hint: 'Date of the most recent dry run execution'),
+    Field('lastDryRunDuration', String, 'Last Dry Run Duration',
+        hint: 'How long the last dry run took — e.g. 2h 45m'),
+    Field('lastDryRunResult', String, 'Last Dry Run Result',
+        hint:
+            'Passed / PassedWithIssues / Failed — outcome of '
+            'last rehearsal'),
+    Field('dryRunIssuesFound', String, 'Dry Run Issues Found',
+        hint:
+            'Issues discovered — e.g. 3 mapping errors, 1 timeout '
+            'on large table, encoding issue in comments field'),
+    Field('dryRunIssuesResolved', String,
+        'Dry Run Issues Resolved',
+        hint:
+            'How many issues were fixed — e.g. 3/3 resolved, '
+            'next DR will verify'),
+    // --- Validation & Reconciliation ---
+    Field('validationApproach', String, 'Validation Approach',
+        hint:
+            'Automated / Manual / Hybrid — overall validation '
+            'methodology',
+        required: true),
+    Field('rowCountReconciliation', String,
+        'Row Count Reconciliation',
+        hint:
+            'Source vs target row count comparison — expected '
+            '100% match or documented exceptions'),
+    Field('checksumValidation', String, 'Checksum Validation',
+        hint:
+            'Hash/checksum approach — e.g. MD5 per table, SHA-256 '
+            'per record, aggregate CRC comparison'),
+    Field('businessRuleValidation', String,
+        'Business Rule Validation',
+        hint:
+            'Business logic checks — e.g. order totals match, '
+            'customer balances reconcile, referential integrity '
+            'holds, date ranges valid'),
+    Field('samplingStrategy', String, 'Sampling Strategy',
+        hint:
+            'Statistical sampling — e.g. 5% random sample manual '
+            'review, stratified by entity type, targeted review '
+            'of edge cases'),
+    Field('dataIntegrityChecks', String, 'Data Integrity Checks',
+        hint:
+            'Referential integrity validation — foreign keys '
+            'valid, no orphan records, cascading relationships '
+            'intact'),
+    Field('nullAnalysis', String, 'Null/Missing Data Analysis',
+        hint:
+            'How nulls are tracked — expected vs actual null '
+            'rates, mandatory field completeness report'),
+    Field('validationToolUsed', String, 'Validation Tool',
+        hint:
+            'Tool for validation — e.g. Great Expectations, '
+            'custom SQL scripts, dbt tests, Informatica DQ'),
+    Field('validationReportLocation', String,
+        'Validation Report Location',
+        hint:
+            'Where validation results are stored — e.g. S3://'
+            'migration-reports/, Confluence, SharePoint'),
+    // --- Acceptance Criteria ---
+    Field('acceptanceCriteria', String, 'Acceptance Criteria',
+        hint:
+            'Conditions for phase sign-off — 100% row count match, '
+            'checksum pass, business rules pass, no critical '
+            'defects, data owner approved',
+        required: true),
+    Field('acceptanceSignoffOwner', String,
+        'Acceptance Sign-off Owner',
+        hint:
+            'Person who signs off on phase completion — '
+            'data domain owner or business sponsor'),
+    Field('acceptanceSignoffDate', String,
+        'Acceptance Sign-off Date',
+        hint: 'Date when sign-off was granted (post-migration)'),
+    // --- Rollback ---
+    Field('phaseRollbackStrategy', String,
+        'Phase Rollback Strategy',
+        hint:
+            'Rollback approach specific to this phase — '
+            'TruncateAndRevert / RestoreFromBackup / '
+            'ReverseTransform / NoRollbackNeeded'),
+    Field('phaseRollbackTimeBudget', String,
+        'Rollback Time Budget',
+        hint:
+            'Maximum time to rollback this phase — e.g. 1 hour'),
+    // --- Resources ---
+    Field('assignedTeamMembers', String, 'Assigned Team Members',
+        hint:
+            'Team members for this phase — e.g. 2 ETL developers, '
+            '1 DBA, 1 business analyst'),
+    Field('estimatedEffort', String, 'Estimated Effort',
+        hint:
+            'Person-days of effort — e.g. 40 person-days '
+            'development, 10 person-days testing'),
+    // --- Status ---
+    Field('currentStatus', String, 'Current Status',
+        hint:
+            'NotStarted / InDesign / InDevelopment / InTesting / '
+            'DryRunning / ReadyForProduction / InExecution / '
+            'Completed / RolledBack'),
+    Field('completionPercentage', String, 'Completion %',
+        hint: '0-100 — current progress'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional context, caveats, or special instructions'),
   ])
   String? content;
 }
 
 /// 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
+///
+/// Risk register specific to data migration activities. Covers data
+/// loss, corruption, downtime overrun, compliance violations,
+/// performance degradation, and organizational readiness risks.
 @SectionId('PD00-SSP-MIG-RIS')
 class StageMigrationRisks {
-  @Unused()
+  @Form([
+    // --- Risk Summary ---
+    Field('totalIdentifiedRisks', String,
+        'Total Identified Risks',
+        hint:
+            'Number of migration-specific risks — e.g. 18 risks '
+            'across 5 categories',
+        required: true),
+    Field('criticalRiskCount', String, 'Critical Risk Count',
+        hint:
+            'Number of risks rated Critical or High — requiring '
+            'active mitigation'),
+    Field('topRiskSummary', String, 'Top Risk Summary',
+        hint:
+            'Brief summary of highest-priority risks — e.g. data '
+            'loss during cutover, downtime overrun, PII exposure'),
+    Field('riskAssessmentMethodology', String,
+        'Risk Assessment Methodology',
+        hint:
+            'QuantitativeMatrix / QualitativeScale / '
+            'BowtieAnalysis / FMEA / Custom — how risks are '
+            'scored'),
+    Field('riskTolerancePolicy', String,
+        'Risk Tolerance Policy',
+        hint:
+            'Organizational risk tolerance — no Critical risks '
+            'accepted, High must have mitigation plan, Medium '
+            'monitored'),
+    Field('riskReviewFrequency', String, 'Risk Review Frequency',
+        hint:
+            'How often risks are reviewed — weekly during active '
+            'migration, biweekly during planning, daily during '
+            'cutover'),
+    Field('riskRegisterOwner', String, 'Risk Register Owner',
+        hint:
+            'Person maintaining the migration risk register — '
+            'typically Migration Lead or Project Manager'),
+    Field('lastRiskReviewDate', String, 'Last Risk Review Date',
+        hint: 'Date risks were last formally reviewed'),
+    Field('overallMigrationRiskRating', String,
+        'Overall Migration Risk Rating',
+        hint:
+            'Low / Medium / High / Critical — aggregate risk '
+            'assessment for the entire migration'),
+  ])
   String? content;
 
-  /// Contains 0+× StageMigrationRisk.
+  /// Risk summary narrative.
+  TextSection riskSummary = TextSection();
+
+  /// Contains 1+× StageMigrationRiskEntry.
   @SectionIdPattern('PD00-SSP-MIG-RIS-xx')
+  @Min(1)
   List<StageMigrationRiskEntry> items = [];
 }
 
 /// A stage migration risk entry (form) [PD00-SSP-MIG-RIS-nn].
+///
+/// Individual risk in the data migration risk register. Covers risk
+/// identification, categorization, probability/impact scoring,
+/// mitigation planning, contingency actions, trigger indicators,
+/// ownership, monitoring approach, and residual risk after mitigation.
 class StageMigrationRiskEntry {
   @Form([
-    Field('risk', String, 'Risk'),
-    Field('probability', String, 'Probability'),
-    Field('impact', String, 'Impact assessment'),
-    Field('mitigation', String, 'Mitigation strategy'),
+    // --- Risk Identity ---
+    Field('riskId', String, 'Risk ID',
+        hint: 'Unique identifier — e.g. MIG-R001, MIG-R002',
+        required: true),
+    Field('riskName', String, 'Risk Name',
+        hint:
+            'Short descriptive name — e.g. Data Loss During '
+            'Cutover, PII Exposure in Staging',
+        required: true),
+    Field('riskDescription', String, 'Risk Description',
+        hint:
+            'Detailed description of the risk scenario — what '
+            'could go wrong, under what circumstances',
+        required: true),
+    Field('riskCategory', String, 'Risk Category',
+        hint:
+            'DataLoss / DataCorruption / DowntimeOverrun / '
+            'PerformanceDegradation / ComplianceViolation / '
+            'SecurityBreach / ToolFailure / '
+            'ResourceUnavailability / ScopeCreep / '
+            'DependencyFailure',
+        required: true),
+    // --- Probability & Impact ---
+    Field('probability', String, 'Probability',
+        hint:
+            'VeryLow / Low / Medium / High / VeryHigh — '
+            'likelihood this risk materializes',
+        required: true),
+    Field('impact', String, 'Impact',
+        hint:
+            'Negligible / Minor / Moderate / Major / Critical — '
+            'severity if risk materializes',
+        required: true),
+    Field('riskScore', String, 'Risk Score',
+        hint:
+            'Calculated risk rating — Probability x Impact on a '
+            '1-25 scale, or qualitative Low/Medium/High/Critical'),
+    Field('impactAreas', String, 'Impact Areas',
+        hint:
+            'What is affected — DataIntegrity / '
+            'SystemAvailability / Compliance / Budget / Schedule '
+            '/ Reputation — comma-separated'),
+    Field('affectedPhases', String, 'Affected Phases',
+        hint:
+            'Which migration phases are exposed — e.g. Phase 2, '
+            'Phase 3, or All Phases'),
+    // --- Mitigation ---
+    Field('mitigationStrategy', String, 'Mitigation Strategy',
+        hint:
+            'Planned actions to reduce probability or impact — '
+            'e.g. implement checksums at every step, run 3 dry '
+            'runs, encrypt all PII in transit and at rest',
+        required: true),
+    Field('mitigationOwner', String, 'Mitigation Owner',
+        hint:
+            'Person responsible for implementing mitigation — '
+            'name and role'),
+    Field('mitigationStatus', String, 'Mitigation Status',
+        hint:
+            'NotStarted / InProgress / Implemented / Verified — '
+            'current state of mitigation actions'),
+    Field('mitigationDeadline', String, 'Mitigation Deadline',
+        hint:
+            'Date by which mitigation must be in place — '
+            'typically before the associated migration phase'),
+    // --- Contingency ---
+    Field('contingencyPlan', String, 'Contingency Plan',
+        hint:
+            'Actions if risk materializes despite mitigation — '
+            'e.g. activate rollback, switch to manual migration, '
+            'invoke vendor emergency support',
+        required: true),
+    Field('contingencyTrigger', String, 'Contingency Trigger',
+        hint:
+            'Measurable condition that activates contingency — '
+            'e.g. data mismatch >0.1%, downtime exceeds 2 hours, '
+            'error rate >5% during load'),
+    Field('contingencyBudget', String, 'Contingency Budget',
+        hint:
+            'Reserved budget for contingency — e.g. 15K for '
+            'vendor emergency support, 40 person-hours reserve'),
+    // --- Monitoring & Detection ---
+    Field('triggerIndicators', String, 'Trigger Indicators',
+        hint:
+            'Early warning signs — e.g. dry run failures, '
+            'increasing error counts, source system performance '
+            'degradation, team availability drops'),
+    Field('monitoringApproach', String, 'Monitoring Approach',
+        hint:
+            'How risk is tracked — automated dashboards, daily '
+            'status checks, checkpoint reviews, alerting rules'),
+    Field('monitoringFrequency', String, 'Monitoring Frequency',
+        hint:
+            'Continuous / Daily / Weekly / PerPhase / PerDryRun '
+            '— how often risk indicators are checked'),
+    Field('alertThresholds', String, 'Alert Thresholds',
+        hint:
+            'Thresholds triggering alerts — e.g. error rate >1% '
+            'yellow, >5% red; latency >2x baseline'),
+    // --- Ownership & Accountability ---
+    Field('riskOwner', String, 'Risk Owner',
+        hint:
+            'Person accountable for managing this risk — name '
+            'and role',
+        required: true),
+    Field('escalationPath', String, 'Escalation Path',
+        hint:
+            'Escalation chain if risk materializes — e.g. '
+            'Migration Lead → Program Manager → Steering '
+            'Committee'),
+    // --- Residual Risk ---
+    Field('residualProbability', String, 'Residual Probability',
+        hint:
+            'VeryLow / Low / Medium / High — probability after '
+            'mitigation is in place'),
+    Field('residualImpact', String, 'Residual Impact',
+        hint:
+            'Negligible / Minor / Moderate / Major — impact after '
+            'mitigation is in place'),
+    Field('residualRiskAcceptable', String,
+        'Residual Risk Acceptable',
+        hint:
+            'Yes / No / Conditional — whether the residual risk '
+            'is within tolerance'),
+    // --- Status & Review ---
+    Field('currentStatus', String, 'Current Status',
+        hint:
+            'Open / Mitigated / Materialized / Closed / '
+            'Accepted — current risk state'),
+    Field('lastReviewDate', String, 'Last Review Date',
+        hint: 'When this risk was last reviewed'),
+    Field('notes', String, 'Notes',
+        hint:
+            'Additional context — lessons learned, related '
+            'incidents, historical data from similar migrations'),
   ])
   String? content;
 }

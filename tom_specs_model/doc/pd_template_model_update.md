@@ -172,9 +172,9 @@ These sections exist in `tom_specs_model` but are missing from `pd_template.md`:
 | PD00-SSP-GOV | Governance | Review | ✅ Done |
 | PD00-SSP-GOV-DEC | Decisions | Review | ✅ Done |
 | PD00-SSP-GOV-GAT | Gates | Review | ✅ Done |
-| PD00-SSP-MIG | Migration | Review | ⬜ Not Started |
-| PD00-SSP-MIG-PHA | Phases | Review | ⬜ Not Started |
-| PD00-SSP-MIG-RIS | Migration Risks | Review | ⬜ Not Started |
+| PD00-SSP-MIG | Migration | Review | ✅ Done |
+| PD00-SSP-MIG-PHA | Phases | Review | ✅ Done |
+| PD00-SSP-MIG-RIS | Migration Risks | Review | ✅ Done |
 | PD00-SSP-STA | Stakeholders | Review | ⬜ Not Started |
 | PD00-SSP-STR | Strategy | Review | ⬜ Not Started |
 | PD00-SYO-RES-CON-CON | Constraints | Review | ⬜ Not Started |
