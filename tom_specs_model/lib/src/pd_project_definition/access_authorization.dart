@@ -652,8 +652,9 @@ class Authentication {
   /// 9.2.2.2. Authentication Flow [PD00-ACC-IDE-FLO].
   AuthenticationFlow authenticationFlow = AuthenticationFlow();
 
-  /// Password Policy.
-  TextSection passwordPolicy = TextSection();
+  /// 9.2.3. Password and Credential Policy [PD00-ACC-IDE-POL].
+  PasswordAndCredentialPolicy passwordAndCredentialPolicy =
+      PasswordAndCredentialPolicy();
 
   /// Session Management.
   TextSection sessionManagement = TextSection();
@@ -1381,6 +1382,472 @@ class LoginFlowStepEntry {
             'OAuth2 AuthZ Request | Token Request | SAML AuthnRequest | OIDC Userinfo — protocol-level message'),
     Field('description', String, 'Description',
         hint: 'Detailed description of what happens in this step'),
+  ])
+  String? content;
+}
+
+/// 9.2.3. Password and Credential Policy [PD00-ACC-IDE-POL].
+///
+/// Comprehensive password and credential policy aligned with NIST SP 800-63B
+/// (Revision 4). Covers password requirements, storage, lifecycle, account
+/// lockout, credential recovery, MFA enforcement per user category,
+/// credential compromise detection, and service account credential management.
+@SectionId('PD00-ACC-IDE-POL')
+class PasswordAndCredentialPolicy {
+  @Unused()
+  String? content;
+
+  /// Password and Credential Policy Overview (text).
+  TextSection overview = TextSection();
+
+  /// Password Requirements.
+  PasswordRequirementsPolicy passwordRequirements =
+      PasswordRequirementsPolicy();
+
+  /// Password Storage and Verification.
+  PasswordStoragePolicy passwordStorage = PasswordStoragePolicy();
+
+  /// Password Lifecycle.
+  PasswordLifecyclePolicy passwordLifecycle = PasswordLifecyclePolicy();
+
+  /// Account Lockout and Throttling.
+  AccountLockoutPolicy accountLockout = AccountLockoutPolicy();
+
+  /// Credential Recovery.
+  CredentialRecoveryPolicy credentialRecovery = CredentialRecoveryPolicy();
+
+  /// Credential Compromise Detection.
+  CredentialCompromiseDetectionPolicy compromiseDetection =
+      CredentialCompromiseDetectionPolicy();
+
+  /// Service Account and API Credential Policy.
+  ServiceAccountCredentialPolicy serviceAccountCredentials =
+      ServiceAccountCredentialPolicy();
+
+  /// Contains 0+× MFA Enforcement per User Category.
+  @SectionIdPattern('PD00-ACC-IDE-POL-xx')
+  List<MfaCategoryRequirementEntry> mfaCategoryRequirements = [];
+}
+
+/// Password requirements policy (form).
+///
+/// Defines the rules for password creation, including length, complexity,
+/// character set, and user guidance. Aligned with NIST SP 800-63B which
+/// recommends length over complexity and prohibits composition rules.
+@Form([
+  Field('minimumLengthSingleFactor', String,
+      'Minimum Length Single Factor',
+      hint:
+          'Minimum password length when used as single factor (NIST: 15 characters)'),
+  Field('minimumLengthMultiFactor', String,
+      'Minimum Length Multi Factor',
+      hint:
+          'Minimum password length when used as part of MFA (NIST: 8 characters)'),
+  Field('maximumLength', String, 'Maximum Length',
+      hint:
+          'Maximum allowed password length (NIST: at least 64 characters)'),
+  Field('allowedCharacterSets', String, 'Allowed Character Sets',
+      hint:
+          'ASCII | Unicode | ASCIIPlusSpace — character sets accepted in passwords'),
+  Field('compositionRulesEnforced', String, 'Composition Rules Enforced',
+      hint:
+          'Yes | No — whether mixed-case/digit/symbol rules are enforced (NIST: No)'),
+  Field('passphraseSupported', String, 'Passphrase Supported',
+      hint:
+          'Yes | No — whether multi-word passphrases with spaces are supported'),
+  Field('unicodeNormalization', String, 'Unicode Normalization',
+      hint:
+          'NFC | NFD | None — Unicode normalization form applied before hashing'),
+  Field('passwordBlocklistEnabled', String, 'Password Blocklist Enabled',
+      hint:
+          'Yes | No — whether passwords are compared against a blocklist'),
+  Field('blocklistSources', String, 'Blocklist Sources',
+      hint:
+          'BreachCorpus | DictionaryWords | ContextSpecific | HaveIBeenPwned — sources for blocklist'),
+  Field('passwordStrengthMeter', String, 'Password Strength Meter',
+      hint:
+          'Yes | No — whether a real-time strength indicator is displayed during creation'),
+  Field('passwordHintsAllowed', String, 'Password Hints Allowed',
+      hint:
+          'Yes | No — whether password hints are stored (NIST: No)'),
+  Field('securityQuestionsAllowed', String, 'Security Questions Allowed',
+      hint:
+          'Yes | No — whether KBA/security questions are used (NIST: No)'),
+  Field('showPasswordOption', String, 'Show Password Option',
+      hint:
+          'Yes | No — whether users can toggle password visibility during entry'),
+  Field('passwordManagerSupport', String, 'Password Manager Support',
+      hint:
+          'Yes | No — whether autofill and paste are supported for password entry'),
+  Field('truncationPolicy', String, 'Truncation Policy',
+      hint:
+          'None | Trim — whether leading/trailing whitespace is trimmed (NIST: verify entire password)'),
+  Field('typoTolerancePolicy', String, 'Typo Tolerance Policy',
+      hint:
+          'None | CaseFirstChar | TrimWhitespace — whether minor typo corrections are attempted'),
+])
+class PasswordRequirementsPolicy {
+  String? content;
+
+  /// Password Requirements Details (text).
+  TextSection passwordRequirementsDetails = TextSection();
+}
+
+/// Password storage and verification policy (form).
+///
+/// Defines how passwords are stored, hashed, salted, and verified.
+/// Aligned with NIST SP 800-63B and OWASP password storage recommendations.
+@Form([
+  Field('hashingAlgorithm', String, 'Hashing Algorithm',
+      hint:
+          'Argon2id | bcrypt | scrypt | PBKDF2 — password hashing algorithm'),
+  Field('hashingCostFactor', String, 'Hashing Cost Factor',
+      hint:
+          'Work factor/iteration count for the hashing algorithm (e.g., bcrypt cost 12)'),
+  Field('costFactorReviewSchedule', String, 'Cost Factor Review Schedule',
+      hint:
+          'Annual | Biannual | OnHardwareUpgrade — when cost factor is re-evaluated'),
+  Field('saltLength', String, 'Salt Length',
+      hint:
+          'Minimum salt length in bits (NIST: at least 32 bits)'),
+  Field('saltGeneration', String, 'Salt Generation',
+      hint:
+          'CryptoRandom | CSPRNG — method for generating salt values'),
+  Field('pepperEnabled', String, 'Pepper Enabled',
+      hint:
+          'Yes | No — whether a server-side secret key (pepper) is used for additional hashing'),
+  Field('pepperStorage', String, 'Pepper Storage',
+      hint:
+          'HSM | TEE | EncryptedConfig | SecretManager — where the pepper key is stored'),
+  Field('hashVersioning', String, 'Hash Versioning',
+      hint:
+          'Yes | No — whether the hash algorithm and cost factor are stored per password for migration'),
+  Field('transmissionEncryption', String, 'Transmission Encryption',
+      hint:
+          'TLS1.3 | TLS1.2 — encryption for password transmission'),
+  Field('clientSideHashing', String, 'Client-Side Hashing',
+      hint:
+          'Yes | No — whether passwords are pre-hashed on the client before transmission'),
+  Field('memoryHardFunction', String, 'Memory-Hard Function',
+      hint:
+          'Yes | No — whether the hashing function is memory-hard to resist GPU attacks'),
+  Field('outputLength', String, 'Output Length',
+      hint:
+          'Hash output length in bits (should match underlying scheme output length)'),
+])
+class PasswordStoragePolicy {
+  String? content;
+
+  /// Password Storage Details (text).
+  TextSection passwordStorageDetails = TextSection();
+}
+
+/// Password lifecycle policy (form).
+///
+/// Defines the lifecycle of passwords: creation, rotation, expiry, and
+/// history. NIST SP 800-63B recommends against periodic rotation and
+/// only forces changes on evidence of compromise.
+@Form([
+  Field('periodicRotationRequired', String, 'Periodic Rotation Required',
+      hint:
+          'Yes | No — whether periodic password changes are required (NIST: No)'),
+  Field('rotationPeriod', String, 'Rotation Period',
+      hint:
+          'If rotation is required: period in days (e.g., 90, 180, 365)'),
+  Field('forceChangeOnCompromise', String, 'Force Change On Compromise',
+      hint:
+          'Yes | No — whether password change is forced on evidence of compromise'),
+  Field('passwordHistoryDepth', String, 'Password History Depth',
+      hint:
+          'Number of previous passwords stored to prevent reuse (e.g., 0, 5, 12, 24)'),
+  Field('minimumPasswordAge', String, 'Minimum Password Age',
+      hint:
+          'Minimum time before a password can be changed again (e.g., 0, 1d) to prevent rapid cycling'),
+  Field('initialPasswordPolicy', String, 'Initial Password Policy',
+      hint:
+          'SystemGenerated | UserChosen | TemporaryWithForceChange — policy for initial passwords'),
+  Field('temporaryPasswordExpiry', String, 'Temporary Password Expiry',
+      hint:
+          'Duration before a temporary/initial password expires (e.g., 24h, 72h)'),
+  Field('passwordExpiryWarning', String, 'Password Expiry Warning',
+      hint:
+          'Number of days before expiry that users are warned (e.g., 14, 30)'),
+  Field('passwordChangeNotification', String,
+      'Password Change Notification',
+      hint:
+          'Yes | No — whether users are notified when their password is changed'),
+  Field('passwordChangeRequiresCurrent', String,
+      'Password Change Requires Current',
+      hint:
+          'Yes | No — whether current password must be verified before setting a new one'),
+  Field('administratorResetPolicy', String, 'Administrator Reset Policy',
+      hint:
+          'TemporaryPassword | ResetLink | MfaVerification — how admins reset user passwords'),
+  Field('passwordInactivityDisable', String,
+      'Password Inactivity Disable',
+      hint:
+          'Duration of inactivity before account is disabled (e.g., 90d, 180d, Never)'),
+])
+class PasswordLifecyclePolicy {
+  String? content;
+
+  /// Password Lifecycle Details (text).
+  TextSection passwordLifecycleDetails = TextSection();
+}
+
+/// Account lockout and throttling policy (form).
+///
+/// Defines how failed authentication attempts are rate-limited and how
+/// accounts are locked and unlocked. Aligned with NIST SP 800-63B
+/// throttling requirements (max 100 consecutive failures).
+@Form([
+  Field('lockoutThreshold', String, 'Lockout Threshold',
+      hint:
+          'Number of consecutive failed attempts before lockout (NIST max: 100, typical: 5-10)'),
+  Field('lockoutDuration', String, 'Lockout Duration',
+      hint:
+          'Duration of lockout (e.g., 15min, 30min, UntilAdminUnlock, Progressive)'),
+  Field('lockoutEscalation', String, 'Lockout Escalation',
+      hint:
+          'Fixed | Progressive | Exponential — whether lockout duration increases'),
+  Field('rateLimitingMethod', String, 'Rate Limiting Method',
+      hint:
+          'Delay | CAPTCHA | Lockout | IPBlock | Combination — rate-limiting strategy'),
+  Field('delayProgression', String, 'Delay Progression',
+      hint:
+          'Delay schedule for progressive throttling (e.g., 30s after 3rd, 1min after 5th)'),
+  Field('captchaTriggerThreshold', String, 'CAPTCHA Trigger Threshold',
+      hint:
+          'Number of failed attempts before CAPTCHA is required'),
+  Field('ipBasedRateLimiting', String, 'IP-Based Rate Limiting',
+      hint:
+          'Yes | No — whether rate limiting also applies per IP address'),
+  Field('distributedAttackProtection', String,
+      'Distributed Attack Protection',
+      hint:
+          'Yes | No — whether protection against credential stuffing across IPs is implemented'),
+  Field('unlockMechanism', String, 'Unlock Mechanism',
+      hint:
+          'TimeBasedAutoUnlock | AdminUnlock | SelfServiceWithMFA | EmailVerification'),
+  Field('failedAttemptResetOnSuccess', String,
+      'Failed Attempt Reset On Success',
+      hint:
+          'Yes | No — whether the failed attempt counter resets after successful login'),
+  Field('lockoutNotification', String, 'Lockout Notification',
+      hint:
+          'User | Admin | Both | None — who is notified when lockout occurs'),
+  Field('permanentLockoutEnabled', String, 'Permanent Lockout Enabled',
+      hint:
+          'Yes | No — whether accounts are permanently locked after extreme abuse'),
+  Field('permanentLockoutThreshold', String,
+      'Permanent Lockout Threshold',
+      hint:
+          'Number of lockout cycles before permanent lock (e.g., 5, 10)'),
+])
+class AccountLockoutPolicy {
+  String? content;
+
+  /// Account Lockout Details (text).
+  TextSection accountLockoutDetails = TextSection();
+}
+
+/// Credential recovery policy (form).
+///
+/// Defines how users recover access when they lose credentials, including
+/// password reset flows, recovery codes, and identity re-verification.
+@Form([
+  Field('passwordResetMethod', String, 'Password Reset Method',
+      hint:
+          'EmailLink | SMSCode | SecurityQuestions | MfaVerification | AdminAssisted — how users reset passwords'),
+  Field('resetLinkExpiry', String, 'Reset Link Expiry',
+      hint:
+          'Duration before a password reset link expires (e.g., 15min, 1h, 24h)'),
+  Field('resetLinkSingleUse', String, 'Reset Link Single Use',
+      hint: 'Yes | No — whether reset links can only be used once'),
+  Field('resetRateLimiting', String, 'Reset Rate Limiting',
+      hint:
+          'Requests per period allowed (e.g., 3 per hour, 5 per day)'),
+  Field('savedRecoveryCodesEnabled', String,
+      'Saved Recovery Codes Enabled',
+      hint:
+          'Yes | No — whether one-time recovery codes are provided at enrollment'),
+  Field('recoveryCodeCount', String, 'Recovery Code Count',
+      hint:
+          'Number of recovery codes generated (e.g., 8, 10, 16)'),
+  Field('recoveryCodeFormat', String, 'Recovery Code Format',
+      hint:
+          'AlphaNumeric | NumericOnly | Words — format of recovery codes'),
+  Field('issuedRecoveryCodeChannels', String,
+      'Issued Recovery Code Channels',
+      hint:
+          'Email | SMS | PostalMail | InPerson — channels for sending issued recovery codes'),
+  Field('recoveryCodeExpiry', String, 'Recovery Code Expiry',
+      hint:
+          'Duration before issued recovery codes expire (NIST: 10min SMS, 24h email)'),
+  Field('identityReverificationRequired', String,
+      'Identity Reverification Required',
+      hint:
+          'Yes | No — whether identity re-verification is required for recovery at higher AALs'),
+  Field('recoveryContactEnabled', String, 'Recovery Contact Enabled',
+      hint:
+          'Yes | No — whether a trusted contact can initiate recovery'),
+  Field('multipleRecoveryAddresses', String,
+      'Multiple Recovery Addresses',
+      hint:
+          'Yes | No — whether subscribers can register multiple recovery addresses (NIST: at least 2)'),
+  Field('recoveryAuditLogging', String, 'Recovery Audit Logging',
+      hint:
+          'Yes | No — whether all recovery attempts are logged for audit'),
+])
+class CredentialRecoveryPolicy {
+  String? content;
+
+  /// Credential Recovery Details (text).
+  TextSection credentialRecoveryDetails = TextSection();
+}
+
+/// Credential compromise detection policy (form).
+///
+/// Defines how compromised credentials are detected and how the system
+/// responds, including breach database monitoring and proactive scanning.
+@Form([
+  Field('breachDatabaseMonitoring', String, 'Breach Database Monitoring',
+      hint:
+          'Yes | No — whether passwords are checked against known breach databases'),
+  Field('breachDatabaseSource', String, 'Breach Database Source',
+      hint:
+          'HaveIBeenPwned | Internal | CommercialFeed | Multiple — source of breach data'),
+  Field('breachCheckFrequency', String, 'Breach Check Frequency',
+      hint:
+          'AtCreation | AtLogin | Periodic | RealTime — when breach checks are performed'),
+  Field('compromisedCredentialAction', String,
+      'Compromised Credential Action',
+      hint:
+          'ForceChange | NotifyAndRecommend | DisableAccount — action when credential is found compromised'),
+  Field('credentialStuffingDetection', String,
+      'Credential Stuffing Detection',
+      hint:
+          'Yes | No — whether automated credential stuffing attacks are detected'),
+  Field('stuffingDetectionMethod', String, 'Stuffing Detection Method',
+      hint:
+          'BehaviorAnalysis | IPReputation | VelocityChecks | DeviceFingerprint — detection methods'),
+  Field('darkWebMonitoring', String, 'Dark Web Monitoring',
+      hint:
+          'Yes | No — whether organizational credentials are monitored on dark web'),
+  Field('userCompromiseNotification', String,
+      'User Compromise Notification',
+      hint:
+          'Email | InApp | Push | SMS — how users are notified of credential compromise'),
+  Field('adminCompromiseAlerts', String, 'Admin Compromise Alerts',
+      hint:
+          'Yes | No — whether administrators receive alerts for mass compromise events'),
+  Field('compromiseResponseSla', String, 'Compromise Response SLA',
+      hint:
+          'Time to force credential change after detection (e.g., Immediate, 24h, 72h)'),
+])
+class CredentialCompromiseDetectionPolicy {
+  String? content;
+
+  /// Compromise Detection Details (text).
+  TextSection compromiseDetectionDetails = TextSection();
+}
+
+/// Service account and API credential policy (form).
+///
+/// Defines credential management for non-human identities: service accounts,
+/// API keys, machine-to-machine tokens, and automation credentials.
+@Form([
+  Field('serviceAccountPasswordPolicy', String,
+      'Service Account Password Policy',
+      hint:
+          'AutoGenerated | ManagedByVault | CertificateBased — how service account credentials are managed'),
+  Field('serviceAccountRotationPeriod', String,
+      'Service Account Rotation Period',
+      hint:
+          'Rotation period for service account credentials (e.g., 30d, 90d, OnDemand)'),
+  Field('apiKeyLifetime', String, 'API Key Lifetime',
+      hint:
+          'Maximum lifetime for API keys (e.g., 90d, 365d, NoExpiry)'),
+  Field('apiKeyRotationPolicy', String, 'API Key Rotation Policy',
+      hint:
+          'Automatic | Manual | GracePeriodOverlap — how API keys are rotated'),
+  Field('secretsManagementTool', String, 'Secrets Management Tool',
+      hint:
+          'HashiCorpVault | AWSSecretsManager | AzureKeyVault | GCPSecretManager | None'),
+  Field('machineToMachineAuth', String, 'Machine-to-Machine Auth',
+      hint:
+          'OAuth2ClientCredentials | mTLS | JWTBearer | APIKey — authentication method'),
+  Field('serviceAccountMfaRequired', String,
+      'Service Account MFA Required',
+      hint:
+          'Yes | No — whether service accounts require MFA for interactive login'),
+  Field('sharedCredentialProhibition', String,
+      'Shared Credential Prohibition',
+      hint:
+          'Yes | No — whether shared/group credentials are prohibited'),
+  Field('credentialVaultIntegration', String,
+      'Credential Vault Integration',
+      hint:
+          'Yes | No — whether application credentials are injected from a secrets vault at runtime'),
+  Field('hardcodedCredentialDetection', String,
+      'Hardcoded Credential Detection',
+      hint:
+          'Yes | No — whether CI/CD scans for hardcoded credentials in source code'),
+])
+class ServiceAccountCredentialPolicy {
+  String? content;
+
+  /// Service Account Credential Details (text).
+  TextSection serviceAccountDetails = TextSection();
+}
+
+/// An MFA enforcement per user category entry (form) [PD00-ACC-IDE-POL-nn].
+///
+/// Defines MFA requirements for a specific user category, allowing
+/// different authentication assurance levels per role or access tier.
+class MfaCategoryRequirementEntry {
+  @Form([
+    Field('userCategory', String, 'User Category', required: true,
+        hint:
+            'Name of the user category (e.g., Administrator, Employee, Customer, Partner, API)'),
+    Field('mfaRequired', String, 'MFA Required',
+        hint: 'Yes | No | Conditional — whether MFA is required for this category'),
+    Field('targetAal', String, 'Target AAL',
+        hint:
+            'AAL1 | AAL2 | AAL3 — target Authentication Assurance Level'),
+    Field('allowedAuthenticatorTypes', String,
+        'Allowed Authenticator Types',
+        hint:
+            'TOTP | WebAuthn | FIDO2 | SMS | Push | Passkey — allowed second-factor types'),
+    Field('phishingResistanceRequired', String,
+        'Phishing Resistance Required',
+        hint:
+            'Yes | No | Recommended — whether phishing-resistant authenticators are required'),
+    Field('mfaEnrollmentDeadline', String, 'MFA Enrollment Deadline',
+        hint:
+            'Deadline or grace period for MFA enrollment (e.g., Immediate, 30d, 90d)'),
+    Field('mfaGracePeriod', String, 'MFA Grace Period',
+        hint:
+            'Period after enrollment deadline during which MFA is recommended but not enforced'),
+    Field('rememberDeviceEnabled', String, 'Remember Device Enabled',
+        hint:
+            'Yes | No — whether trusted device remembering can skip MFA temporarily'),
+    Field('rememberDeviceDuration', String, 'Remember Device Duration',
+        hint:
+            'Duration the device is trusted (e.g., 7d, 30d, 90d)'),
+    Field('fallbackMechanismIfUnavailable', String,
+        'Fallback If Unavailable',
+        hint:
+            'RecoveryCode | AdminAssist | Deny — fallback when primary MFA is unavailable'),
+    Field('reauthenticationTimeout', String, 'Reauthentication Timeout',
+        hint:
+            'Overall session timeout requiring re-authentication (NIST: AAL1=30d, AAL2=24h, AAL3=12h)'),
+    Field('inactivityTimeout', String, 'Inactivity Timeout',
+        hint:
+            'Session inactivity timeout (NIST: AAL2=1h, AAL3=15min)'),
+    Field('description', String, 'Description',
+        hint:
+            'Description of MFA requirements and rationale for this user category'),
   ])
   String? content;
 }
