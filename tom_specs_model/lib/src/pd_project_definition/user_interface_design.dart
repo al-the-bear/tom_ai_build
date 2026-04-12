@@ -3128,28 +3128,439 @@ class BreakpointEntry {
 // ---------------------------------------------------------------------------
 
 /// 10.11. UI Components [PD00-USE-COM].
+///
+/// Comprehensive UI component library specification covering design system,
+/// component catalog, and detailed per-component specifications. Supports
+/// Flutter-based implementation with Tom framework integration.
 @SectionId('PD00-USE-COM')
 class UiComponents {
-  @Unused()
-  String? content;
+  // ─────────────────────────────────────────────────────────────────────────
+  // Component Library Overview
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    // Design system identification
+    Field('designSystemName', String, 'Design System Name',
+        hint: 'Name of the design system (e.g., "Acme Design System")'),
+    Field('designSystemVersion', String, 'Design System Version'),
+    Field('basedOnFramework', String, 'Based On Framework',
+        hint: 'Material Design 3, Cupertino, Custom'),
+    Field('tomFlutterUiIntegration', bool, 'Tom Flutter UI Integration',
+        hint: 'Uses tom_flutter_ui component library'),
+    // Visual language
+    Field('visualLanguage', String, 'Visual Language',
+        hint: 'Clean, playful, professional, minimal'),
+    Field('brandAlignment', String, 'Brand Alignment',
+        hint: 'How design aligns with brand guidelines'),
+    Field('motionPrinciples', String, 'Motion Principles',
+        hint: 'Animation philosophy: subtle, expressive, functional'),
+    // Component approach
+    Field('componentGranularity', String, 'Component Granularity',
+        hint: 'Atomic design levels: atoms, molecules, organisms'),
+    Field('componentNaming', String, 'Component Naming Convention',
+        hint: 'PascalCase, kebab-case, prefix rules'),
+    Field('componentDocumentation', String, 'Component Documentation',
+        hint: 'Storybook, living style guide, doc site'),
+    // Extension and customization
+    Field('extensionModel', String, 'Extension Model',
+        hint: 'How components can be extended or themed'),
+    Field('themingApproach', String, 'Theming Approach',
+        hint: 'Token-based, widget-level, theme data'),
+    Field('customizationBoundaries', String, 'Customization Boundaries',
+        hint: 'What can vs. cannot be customized'),
+  ])
+  String? componentLibraryOverview;
 
-  /// Component Library.
-  TextSection componentLibrary = TextSection();
+  /// 10.11.1. Component Library [PD00-USE-COM-LIB].
+  @SectionId('PD00-USE-COM-LIB')
+  ComponentLibrary componentLibrary = ComponentLibrary();
 
   /// 10.11.2. Component Specifications [PD00-USE-COM-SPE] — contains 0+×.
   @SectionIdPattern('PD00-USE-COM-SPE-xx')
   List<UiComponentEntry> componentSpecs = [];
+
+  /// 10.11.3. Component Families [PD00-USE-COM-FAM] — contains 0+×.
+  @SectionIdPattern('PD00-USE-COM-FAM-xx')
+  List<ComponentFamilyEntry> componentFamilies = [];
 }
 
-/// A UI component entry [PD00-USE-COM-SPE-nn] (form).
-class UiComponentEntry {
+/// 10.11.1. Component Library [PD00-USE-COM-LIB].
+///
+/// Design system and component catalog specification.
+@SectionId('PD00-USE-COM-LIB')
+class ComponentLibrary {
+  // ─────────────────────────────────────────────────────────────────────────
+  // Design System Foundations
+  // ─────────────────────────────────────────────────────────────────────────
   @Form([
-    Field('componentName', String, 'Component Name', required: true),
-    Field('purpose', String, 'Purpose'),
-    Field('behavior', String, 'Behavior'),
-    Field('responsive', String, 'Responsive'),
+    // Color system
+    Field('primaryColor', String, 'Primary Color',
+        hint: 'Primary brand color (hex or semantic name)'),
+    Field('secondaryColor', String, 'Secondary Color'),
+    Field('tertiaryColor', String, 'Tertiary Color'),
+    Field('errorColor', String, 'Error Color'),
+    Field('warningColor', String, 'Warning Color'),
+    Field('successColor', String, 'Success Color'),
+    Field('infoColor', String, 'Info Color'),
+    Field('surfaceColors', String, 'Surface Colors',
+        hint: 'Background, card, dialog surfaces'),
+    Field('colorTokenFormat', String, 'Color Token Format',
+        hint: 'CSS variables, Dart constants, theme data'),
+    // Typography system
+    Field('fontFamilyPrimary', String, 'Primary Font Family'),
+    Field('fontFamilySecondary', String, 'Secondary Font Family'),
+    Field('fontFamilyMonospace', String, 'Monospace Font Family'),
+    Field('typographyScale', String, 'Typography Scale',
+        hint: 'Material type scale, custom scale'),
+    Field('fontSizeUnit', String, 'Font Size Unit',
+        hint: 'Logical pixels, rem, sp'),
+    // Spacing system
+    Field('spacingScale', String, 'Spacing Scale',
+        hint: '4px base, 8px base, custom scale'),
+    Field('spacingTokens', String, 'Spacing Tokens',
+        hint: 'xxs, xs, sm, md, lg, xl, xxl'),
+    // Elevation system
+    Field('elevationLevels', String, 'Elevation Levels',
+        hint: 'Number of elevation levels'),
+    Field('elevationImplementation', String, 'Elevation Implementation',
+        hint: 'Shadows, borders, color shifts'),
+    // Border radius
+    Field('cornerRadiusScale', String, 'Corner Radius Scale',
+        hint: 'Rounded levels: none, sm, md, lg, full'),
+    Field('borderStyleDefaults', String, 'Border Style Defaults'),
+    // Icons
+    Field('iconLibrary', String, 'Icon Library',
+        hint: 'Material Icons, Cupertino, custom'),
+    Field('iconSizeScale', String, 'Icon Size Scale',
+        hint: 'Small, medium, large sizes'),
+    // Animation
+    Field('animationDurations', String, 'Animation Durations',
+        hint: 'Fast, normal, slow durations'),
+    Field('animationCurves', String, 'Animation Curves',
+        hint: 'Easing curves: ease, easeInOut, custom'),
+  ])
+  String? designFoundations;
+
+  /// Design system narrative.
+  @ContentHelp('Comprehensive description of the design system foundations, '
+      'visual language, and component philosophy.')
+  TextSection designSystemNarrative = TextSection();
+
+  /// Design token catalog.
+  @ContentHelp('Catalog of all design tokens: colors, typography, spacing, '
+      'elevation, borders, and animation values.')
+  TextSection designTokenCatalog = TextSection();
+
+  /// Color palette specification.
+  @SectionIdPattern('PD00-USE-COM-LIB-COL-xx')
+  List<ColorPaletteEntry> colorPalettes = [];
+
+  /// Typography styles.
+  @SectionIdPattern('PD00-USE-COM-LIB-TYP-xx')
+  List<TypographyStyleEntry> typographyStyles = [];
+}
+
+/// A color palette entry [PD00-USE-COM-LIB-COL-nn].
+class ColorPaletteEntry {
+  @Form([
+    Field('paletteName', String, 'Palette Name', required: true,
+        hint: 'Primary, Secondary, Neutral, Error'),
+    Field('paletteRole', String, 'Palette Role',
+        hint: 'Brand, functional, semantic'),
+    Field('colorCount', int, 'Color Count',
+        hint: 'Number of color stops in palette'),
+    Field('baseColor', String, 'Base Color',
+        hint: 'Primary color value (hex)'),
+    Field('lightVariants', String, 'Light Variants',
+        hint: 'Lighter color stops'),
+    Field('darkVariants', String, 'Dark Variants',
+        hint: 'Darker color stops'),
+    Field('onColorDefault', String, 'On-Color Default',
+        hint: 'Default text color on this palette'),
+    Field('wcagCompliance', String, 'WCAG Compliance',
+        hint: 'Contrast compliance level'),
+    Field('usageGuidelines', String, 'Usage Guidelines'),
   ])
   String? content;
+}
+
+/// A typography style entry [PD00-USE-COM-LIB-TYP-nn].
+class TypographyStyleEntry {
+  @Form([
+    Field('styleName', String, 'Style Name', required: true,
+        hint: 'DisplayLarge, BodyMedium, LabelSmall'),
+    Field('fontFamily', String, 'Font Family'),
+    Field('fontSize', String, 'Font Size',
+        hint: 'Size in logical pixels'),
+    Field('fontWeight', String, 'Font Weight',
+        hint: 'Normal, medium, semibold, bold'),
+    Field('lineHeight', String, 'Line Height',
+        hint: 'Line height multiplier'),
+    Field('letterSpacing', String, 'Letter Spacing'),
+    Field('textDecoration', String, 'Text Decoration',
+        hint: 'None, underline, strikethrough'),
+    Field('useCase', String, 'Use Case',
+        hint: 'Where this style is used'),
+  ])
+  String? content;
+}
+
+/// A component family entry [PD00-USE-COM-FAM-nn].
+///
+/// Groups related components by function (buttons, inputs, navigation, etc.).
+class ComponentFamilyEntry {
+  @Form([
+    Field('familyId', String, 'Family ID', required: true,
+        hint: 'Unique identifier (e.g., FAM-BTN)'),
+    Field('familyName', String, 'Family Name', required: true,
+        hint: 'Buttons, Inputs, Navigation, Tables'),
+    Field('familyDescription', String, 'Family Description'),
+    Field('componentCount', int, 'Component Count'),
+    Field('sharedPatterns', String, 'Shared Patterns',
+        hint: 'Common patterns across family'),
+    Field('consistencyRules', String, 'Consistency Rules',
+        hint: 'Rules for family consistency'),
+  ])
+  String? content;
+
+  /// Family narrative.
+  TextSection familyNarrative = TextSection();
+
+  /// Components in this family.
+  @SectionIdPattern('PD00-USE-COM-FAM-xx-CMP-xx')
+  List<FamilyComponentRef> components = [];
+}
+
+/// A component reference within a family.
+class FamilyComponentRef {
+  @Form([
+    Field('componentId', String, 'Component ID', required: true),
+    Field('componentName', String, 'Component Name', required: true),
+    Field('familyRole', String, 'Family Role',
+        hint: 'Primary, secondary, specialized'),
+    Field('relationToOthers', String, 'Relation to Others',
+        hint: 'How it relates to other family members'),
+  ])
+  String? content;
+}
+
+/// A UI component entry [PD00-USE-COM-SPE-nn].
+///
+/// Comprehensive specification for a single UI component covering identity,
+/// visual design, behavior, states, responsiveness, accessibility,
+/// authorization, and data binding.
+class UiComponentEntry {
+  // ─────────────────────────────────────────────────────────────────────────
+  // Component Identity
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    // Identity
+    Field('componentId', String, 'Component ID', required: true,
+        hint: 'Unique identifier (e.g., CMP-DTT-001)'),
+    Field('componentName', String, 'Component Name', required: true,
+        hint: 'Human-readable name'),
+    Field('componentFamily', String, 'Component Family',
+        hint: 'Button, Input, Table, Navigation, etc.'),
+    Field('flutterWidgetBase', String, 'Flutter Widget Base',
+        hint: 'Base Flutter widget (DataTable, TextField)'),
+    Field('tomWrapperClass', String, 'Tom Wrapper Class',
+        hint: 'TomDataTable, TomTextField, etc.'),
+    // Purpose
+    Field('purpose', String, 'Purpose', required: true,
+        hint: 'What the component does'),
+    Field('businessContext', String, 'Business Context',
+        hint: 'Business scenarios where used'),
+    Field('userGoals', String, 'User Goals',
+        hint: 'What user accomplishes with this'),
+    // Classification
+    Field('atomicLevel', String, 'Atomic Level',
+        hint: 'Atom, molecule, organism'),
+    Field('complexity', String, 'Complexity',
+        hint: 'Simple, moderate, complex'),
+    Field('reusability', String, 'Reusability',
+        hint: 'Generic, semi-generic, specialized'),
+  ])
+  String? identity;
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Visual Design
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    // Appearance
+    Field('defaultAppearance', String, 'Default Appearance',
+        hint: 'Visual description of default state'),
+    Field('colorScheme', String, 'Color Scheme',
+        hint: 'Primary, secondary, surface colors used'),
+    Field('typography', String, 'Typography',
+        hint: 'Text styles used'),
+    Field('iconography', String, 'Iconography',
+        hint: 'Icons used and their placement'),
+    // Dimensions
+    Field('defaultWidth', String, 'Default Width',
+        hint: 'Default width or width behavior'),
+    Field('defaultHeight', String, 'Default Height',
+        hint: 'Default height or height behavior'),
+    Field('minDimensions', String, 'Minimum Dimensions'),
+    Field('maxDimensions', String, 'Maximum Dimensions'),
+    // Spacing
+    Field('internalPadding', String, 'Internal Padding'),
+    Field('externalMargin', String, 'External Margin'),
+    Field('contentSpacing', String, 'Content Spacing',
+        hint: 'Spacing between internal elements'),
+    // Borders and elevation
+    Field('borderStyle', String, 'Border Style'),
+    Field('cornerRadius', String, 'Corner Radius'),
+    Field('elevation', String, 'Elevation'),
+    Field('shadowStyle', String, 'Shadow Style'),
+  ])
+  String? visualDesign;
+
+  /// Visual design diagram.
+  @ContentHelp('Visual diagram or mockup of the component.')
+  DiagramSection visualDiagram = DiagramSection();
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Interactive Behavior
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    // Gestures
+    Field('tapBehavior', String, 'Tap Behavior',
+        hint: 'What happens on tap/click'),
+    Field('longPressBehavior', String, 'Long Press Behavior'),
+    Field('doubleTapBehavior', String, 'Double Tap Behavior'),
+    Field('swipeBehavior', String, 'Swipe Behavior'),
+    Field('dragBehavior', String, 'Drag Behavior'),
+    Field('hoverBehavior', String, 'Hover Behavior'),
+    // Focus and keyboard
+    Field('focusBehavior', String, 'Focus Behavior',
+        hint: 'Focus ring, highlight, navigation'),
+    Field('keyboardNavigation', String, 'Keyboard Navigation',
+        hint: 'Tab order, arrow key behavior'),
+    Field('keyboardShortcuts', String, 'Keyboard Shortcuts'),
+    // Animation
+    Field('entryAnimation', String, 'Entry Animation'),
+    Field('exitAnimation', String, 'Exit Animation'),
+    Field('stateTransitions', String, 'State Transitions',
+        hint: 'Animation between states'),
+    Field('feedbackAnimations', String, 'Feedback Animations',
+        hint: 'Ripple, scale, color change'),
+    // Scrolling
+    Field('scrollBehavior', String, 'Scroll Behavior',
+        hint: 'If component is scrollable'),
+    Field('stickyBehavior', String, 'Sticky Behavior',
+        hint: 'Headers, columns that stick'),
+  ])
+  String? interactiveBehavior;
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Responsiveness
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    Field('mobileLayout', String, 'Mobile Layout',
+        hint: 'Layout on mobile (< 600dp)'),
+    Field('tabletLayout', String, 'Tablet Layout',
+        hint: 'Layout on tablet (600-1024dp)'),
+    Field('desktopLayout', String, 'Desktop Layout',
+        hint: 'Layout on desktop (> 1024dp)'),
+    Field('breakpointBehavior', String, 'Breakpoint Behavior',
+        hint: 'What changes at breakpoints'),
+    Field('adaptiveContent', String, 'Adaptive Content',
+        hint: 'Content that appears/hides'),
+    Field('touchTargets', String, 'Touch Targets',
+        hint: 'Minimum touch target sizes'),
+    Field('orientationBehavior', String, 'Orientation Behavior',
+        hint: 'Portrait vs. landscape'),
+  ])
+  String? responsiveness;
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Accessibility
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    Field('semanticRole', String, 'Semantic Role',
+        hint: 'ARIA role or semantic meaning'),
+    Field('screenReaderLabel', String, 'Screen Reader Label',
+        hint: 'How screen readers announce'),
+    Field('screenReaderHint', String, 'Screen Reader Hint',
+        hint: 'Additional context for screen readers'),
+    Field('focusOrder', String, 'Focus Order',
+        hint: 'Tab order in context'),
+    Field('ariaAttributes', String, 'ARIA Attributes',
+        hint: 'Required ARIA attributes'),
+    Field('colorContrastNotes', String, 'Color Contrast Notes'),
+    Field('motionSensitivity', String, 'Motion Sensitivity',
+        hint: 'Reduced motion behavior'),
+    Field('textScalingBehavior', String, 'Text Scaling Behavior',
+        hint: 'How component responds to text scaling'),
+  ])
+  String? accessibility;
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Authorization Integration
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    Field('authBasePath', String, 'Auth Base Path',
+        hint: 'Base path for authorization lookup'),
+    Field('authVisibilityBehavior', String, 'Visibility Behavior',
+        hint: 'Hidden, visible, conditionally visible'),
+    Field('authEnabledBehavior', String, 'Enabled Behavior',
+        hint: 'Disabled, enabled, conditionally enabled'),
+    Field('authReadonlyBehavior', String, 'Readonly Behavior',
+        hint: 'Readonly state behavior'),
+    Field('authActionControl', String, 'Action Control',
+        hint: 'Which actions are auth-controlled'),
+    Field('authFallbackBehavior', String, 'Fallback Behavior',
+        hint: 'Behavior when auth unavailable'),
+    Field('fourStateMapping', String, 'Four-State Mapping',
+        hint: 'Mapping to TomAuthState four states'),
+  ])
+  String? authorization;
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Resource Integration
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    Field('resourceBasePath', String, 'Resource Base Path',
+        hint: 'Base path for resource lookup'),
+    Field('labelResource', String, 'Label Resource',
+        hint: 'Resource key for label text'),
+    Field('hintResource', String, 'Hint Resource',
+        hint: 'Resource key for hint text'),
+    Field('errorResource', String, 'Error Resource',
+        hint: 'Resource key for error messages'),
+    Field('tooltipResource', String, 'Tooltip Resource'),
+    Field('placeholderResource', String, 'Placeholder Resource'),
+    Field('ariaLabelResource', String, 'ARIA Label Resource'),
+    Field('iconResource', String, 'Icon Resource',
+        hint: 'Resource key for icon selection'),
+    Field('resourceFallbacks', String, 'Resource Fallbacks',
+        hint: 'Fallback behavior when resource missing'),
+  ])
+  String? resourceIntegration;
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Data Binding
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    Field('dataType', String, 'Data Type',
+        hint: 'Type of data component displays/edits'),
+    Field('bindingPattern', String, 'Binding Pattern',
+        hint: 'Observable, form field, direct'),
+    Field('valueAccessor', String, 'Value Accessor',
+        hint: 'How value is read/written'),
+    Field('changeNotification', String, 'Change Notification',
+        hint: 'How changes are communicated'),
+    Field('validationIntegration', String, 'Validation Integration',
+        hint: 'How validation errors are displayed'),
+    Field('dirtyTracking', String, 'Dirty Tracking',
+        hint: 'How dirty state is tracked'),
+    Field('undoRedoSupport', String, 'Undo/Redo Support'),
+  ])
+  String? dataBinding;
+
+  /// Component behavior narrative.
+  @ContentHelp('Detailed description of component behavior, '
+      'user interactions, and edge cases.')
+  TextSection behaviorNarrative = TextSection();
 
   /// Contains 0+× ComponentState.
   @SectionIdPattern('PD00-USE-COM-SPE-xx-STA-xx')
@@ -3158,22 +3569,156 @@ class UiComponentEntry {
   /// Contains 0+× ComponentVariant.
   @SectionIdPattern('PD00-USE-COM-SPE-xx-VAR-xx')
   List<ComponentVariantEntry> variants = [];
+
+  /// Contains 0+× ComponentAction.
+  @SectionIdPattern('PD00-USE-COM-SPE-xx-ACT-xx')
+  List<ComponentActionEntry> actions = [];
+
+  /// Contains 0+× ComponentSlot.
+  @SectionIdPattern('PD00-USE-COM-SPE-xx-SLT-xx')
+  List<ComponentSlotEntry> slots = [];
+
+  /// Contains 0+× ComponentProperty.
+  @SectionIdPattern('PD00-USE-COM-SPE-xx-PRP-xx')
+  List<ComponentPropertyEntry> properties = [];
 }
 
-/// A component state entry (form) [PD00-USE-COM-SPE-nn-STA-nn].
+/// A component state entry [PD00-USE-COM-SPE-nn-STA-nn].
+///
+/// Defines a visual/functional state of the component.
 class ComponentStateEntry {
   @Form([
-    Field('stateName', String, 'State Name'),
-    Field('description', String, 'Short description'),
+    Field('stateId', String, 'State ID', required: true,
+        hint: 'Unique state identifier'),
+    Field('stateName', String, 'State Name', required: true,
+        hint: 'Loading, Empty, Error, Disabled, etc.'),
+    Field('stateDescription', String, 'State Description'),
+    // Visual appearance in state
+    Field('visualChanges', String, 'Visual Changes',
+        hint: 'How appearance changes in this state'),
+    Field('colorOverrides', String, 'Color Overrides'),
+    Field('opacityChange', String, 'Opacity Change'),
+    Field('iconChange', String, 'Icon Change'),
+    Field('textChange', String, 'Text Change'),
+    // Behavior in state
+    Field('interactionChanges', String, 'Interaction Changes',
+        hint: 'How interactions change'),
+    Field('accessibilityState', String, 'Accessibility State',
+        hint: 'Screen reader announcements'),
+    // Transitions
+    Field('entryTrigger', String, 'Entry Trigger',
+        hint: 'What causes entry to this state'),
+    Field('exitTrigger', String, 'Exit Trigger',
+        hint: 'What causes exit from this state'),
+    Field('transitionAnimation', String, 'Transition Animation'),
+  ])
+  String? content;
+
+  /// State visual mockup.
+  DiagramSection stateMockup = DiagramSection();
+}
+
+/// A component variant entry [PD00-USE-COM-SPE-nn-VAR-nn].
+///
+/// Defines a variation of the component with different appearance or behavior.
+class ComponentVariantEntry {
+  @Form([
+    Field('variantId', String, 'Variant ID', required: true),
+    Field('variantName', String, 'Variant Name', required: true,
+        hint: 'Filled, Outlined, Tonal, Text'),
+    Field('variantDescription', String, 'Variant Description'),
+    // Visual differentiation
+    Field('visualDifferences', String, 'Visual Differences',
+        hint: 'How variant looks different'),
+    Field('colorSchemeVariant', String, 'Color Scheme Variant'),
+    Field('borderVariant', String, 'Border Variant'),
+    Field('elevationVariant', String, 'Elevation Variant'),
+    // Behavioral differentiation
+    Field('behaviorDifferences', String, 'Behavior Differences'),
+    Field('useCaseDifferences', String, 'Use Case Differences',
+        hint: 'When to use this variant'),
+    // Implementation
+    Field('implementationNote', String, 'Implementation Note',
+        hint: 'How variant is implemented'),
+    Field('flutterVariant', String, 'Flutter Variant',
+        hint: 'Corresponding Flutter variant'),
+  ])
+  String? content;
+
+  /// Variant visual mockup.
+  DiagramSection variantMockup = DiagramSection();
+}
+
+/// A component action entry [PD00-USE-COM-SPE-nn-ACT-nn].
+///
+/// Defines an action that can be triggered from the component.
+class ComponentActionEntry {
+  @Form([
+    Field('actionId', String, 'Action ID', required: true),
+    Field('actionName', String, 'Action Name', required: true,
+        hint: 'onTap, onSubmit, onDelete'),
+    Field('actionTrigger', String, 'Action Trigger',
+        hint: 'User interaction that triggers'),
+    Field('actionPayload', String, 'Action Payload',
+        hint: 'Data passed with action'),
+    Field('actionResult', String, 'Action Result',
+        hint: 'Expected outcome'),
+    Field('authRequired', bool, 'Auth Required',
+        hint: 'Requires authorization'),
+    Field('authPermission', String, 'Auth Permission',
+        hint: 'Required permission'),
+    Field('confirmationRequired', bool, 'Confirmation Required'),
+    Field('confirmationMessage', String, 'Confirmation Message'),
+    Field('asyncBehavior', String, 'Async Behavior',
+        hint: 'Loading state during async'),
+    Field('errorHandling', String, 'Error Handling'),
+    Field('successFeedback', String, 'Success Feedback'),
   ])
   String? content;
 }
 
-/// A component variant entry (form) [PD00-USE-COM-SPE-nn-VAR-nn].
-class ComponentVariantEntry {
+/// A component slot entry [PD00-USE-COM-SPE-nn-SLT-nn].
+///
+/// Defines a slot where child widgets can be placed.
+class ComponentSlotEntry {
   @Form([
-    Field('variantName', String, 'Variant Name'),
-    Field('description', String, 'Short description'),
+    Field('slotId', String, 'Slot ID', required: true),
+    Field('slotName', String, 'Slot Name', required: true,
+        hint: 'leading, trailing, title, content'),
+    Field('slotDescription', String, 'Slot Description'),
+    Field('slotRequired', bool, 'Slot Required'),
+    Field('acceptedWidgets', String, 'Accepted Widgets',
+        hint: 'Widget types allowed in slot'),
+    Field('defaultContent', String, 'Default Content',
+        hint: 'What shows if slot is empty'),
+    Field('sizingBehavior', String, 'Sizing Behavior',
+        hint: 'How slot affects component size'),
+    Field('resourceKey', String, 'Resource Key',
+        hint: 'Resource for slot content'),
+  ])
+  String? content;
+}
+
+/// A component property entry [PD00-USE-COM-SPE-nn-PRP-nn].
+///
+/// Defines a configurable property of the component.
+class ComponentPropertyEntry {
+  @Form([
+    Field('propertyId', String, 'Property ID', required: true),
+    Field('propertyName', String, 'Property Name', required: true,
+        hint: 'enabled, selected, elevation'),
+    Field('propertyType', String, 'Property Type',
+        hint: 'bool, String, Color, int'),
+    Field('defaultValue', String, 'Default Value'),
+    Field('allowedValues', String, 'Allowed Values',
+        hint: 'Enum values or constraints'),
+    Field('propertyDescription', String, 'Property Description'),
+    Field('affectsAppearance', bool, 'Affects Appearance'),
+    Field('affectsBehavior', bool, 'Affects Behavior'),
+    Field('resourceResolvable', bool, 'Resource Resolvable',
+        hint: 'Can be resolved from resources'),
+    Field('authControlled', bool, 'Auth Controlled',
+        hint: 'Controlled by authorization'),
   ])
   String? content;
 }

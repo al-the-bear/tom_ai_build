@@ -201,7 +201,10 @@ These sections exist in `tom_specs_model` but are missing from `pd_template.md`:
 | PD00-USE-ACC | Accessibility | Review | ✅ Done |
 | PD00-USE-ACC-CHK | Accessibility Checks | Review | ✅ Done |
 | PD00-USE-ACC-WCA | WCAG Compliance | Review | ✅ Done |
-| PD00-USE-COM | Components | Review | ⬜ Not Started |
+| PD00-USE-COM | Components | Review | ✅ Done |
+| PD00-USE-COM-LIB | Component Library | Review | ✅ Done |
+| PD00-USE-COM-SPE | Component Specifications | Review | ✅ Done |
+| PD00-USE-COM-FAM | Component Families | Review | ✅ Done |
 | PD00-USE-ERR | Error Handling | Review | ✅ Done |
 | PD00-USE-ERR-VAL | Validation Feedback | Review | ✅ Done |
 | PD00-USE-ERR-SYS | System Error Display | Review | ✅ Done |
