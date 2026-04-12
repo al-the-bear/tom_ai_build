@@ -649,8 +649,8 @@ class Authentication {
   /// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
   AuthenticationMethods authenticationMethods = AuthenticationMethods();
 
-  /// Authentication Flow.
-  TextSection authenticationFlow = TextSection();
+  /// 9.2.2.2. Authentication Flow [PD00-ACC-IDE-FLO].
+  AuthenticationFlow authenticationFlow = AuthenticationFlow();
 
   /// Password Policy.
   TextSection passwordPolicy = TextSection();
@@ -987,6 +987,400 @@ class AuthenticationMethodEntry {
         hint: 'Low | Medium | High | Critical — overall security classification'),
     Field('description', String, 'Description',
         hint: 'Detailed description of this authentication method'),
+  ])
+  String? content;
+}
+
+/// 9.2.2.2. Authentication Flow [PD00-ACC-IDE-FLO].
+///
+/// Comprehensive authentication flow specification covering the complete
+/// login lifecycle: credential submission, validation, multi-factor challenges,
+/// token issuance, session establishment, redirect handling, and error
+/// recovery. Aligned with OAuth 2.0/OIDC and NIST SP 800-63B flow patterns.
+@SectionId('PD00-ACC-IDE-FLO')
+class AuthenticationFlow {
+  @Unused()
+  String? content;
+
+  /// Authentication Flow Overview (text).
+  TextSection overview = TextSection();
+
+  /// Authentication Flow Diagram (mermaid-sequence).
+  SequenceDiagramSection authenticationFlowDiagram =
+      SequenceDiagramSection();
+
+  /// Login Flow Configuration.
+  LoginFlowConfiguration loginFlow = LoginFlowConfiguration();
+
+  /// Token Management Policy.
+  TokenManagementPolicy tokenManagement = TokenManagementPolicy();
+
+  /// Session Creation Policy.
+  SessionCreationPolicy sessionCreation = SessionCreationPolicy();
+
+  /// Redirect and Callback Handling.
+  RedirectHandlingPolicy redirectHandling = RedirectHandlingPolicy();
+
+  /// Authentication Error Handling.
+  AuthenticationErrorHandling errorHandling =
+      AuthenticationErrorHandling();
+
+  /// Step-Up and Adaptive Authentication.
+  StepUpAuthenticationPolicy stepUpAuthentication =
+      StepUpAuthenticationPolicy();
+
+  /// Contains 0+× Login Flow Step.
+  @SectionIdPattern('PD00-ACC-IDE-FLO-xx')
+  List<LoginFlowStepEntry> loginFlowSteps = [];
+}
+
+/// Login flow configuration (form).
+///
+/// Defines the overall login flow structure: entry points, credential
+/// submission method, pre-authentication checks, and post-authentication
+/// actions.
+@Form([
+  Field('loginEntryPoint', String, 'Login Entry Point',
+      hint:
+          'LoginPage | Modal | InlineWidget | ApiEndpoint — where users initiate login'),
+  Field('credentialSubmissionMethod', String, 'Credential Submission Method',
+      hint:
+          'FormPost | Ajax | OAuth2AuthCode | OAuth2PKCE | SAMLRequest'),
+  Field('preAuthenticationChecks', String, 'Pre-Authentication Checks',
+      hint:
+          'CAPTCHA | DeviceFingerprint | GeoIP | RiskScore | None'),
+  Field('authenticationEndpoint', String, 'Authentication Endpoint',
+      hint: 'URL or path of the authentication API endpoint'),
+  Field('allowedAuthenticationMethods', String,
+      'Allowed Authentication Methods',
+      hint:
+          'Comma-separated list of allowed methods for this login flow'),
+  Field('mfaChallengePresentation', String, 'MFA Challenge Presentation',
+      hint:
+          'SamePage | SeparateStep | PushNotification — how MFA is presented'),
+  Field('rememberMeEnabled', String, 'Remember Me Enabled',
+      hint: 'Yes | No — whether Remember Me option is available'),
+  Field('rememberMeDuration', String, 'Remember Me Duration',
+      hint: 'Duration the device is remembered (e.g., 30d, 90d)'),
+  Field('socialLoginEnabled', String, 'Social Login Enabled',
+      hint: 'Yes | No — whether social identity providers are supported'),
+  Field('socialLoginProviders', String, 'Social Login Providers',
+      hint: 'Google | Apple | Microsoft | GitHub | Facebook — supported providers'),
+  Field('passwordlessLoginEnabled', String, 'Passwordless Login Enabled',
+      hint:
+          'Yes | No — whether passwordless options (magic link, WebAuthn) are offered'),
+  Field('passwordlessLoginMethods', String, 'Passwordless Login Methods',
+      hint: 'MagicLink | WebAuthn | FIDO2 | Passkey — available passwordless methods'),
+  Field('postAuthenticationAction', String, 'Post-Authentication Action',
+      hint:
+          'RedirectToOriginal | Dashboard | ConsentScreen | ProfileCompletion'),
+  Field('concurrentLoginPolicy', String, 'Concurrent Login Policy',
+      hint:
+          'Allow | DenyNew | TerminateOldest | TerminateAll — behavior for concurrent logins'),
+  Field('loginNotification', String, 'Login Notification',
+      hint:
+          'Yes | No — whether users are notified of successful logins'),
+  Field('loginFromNewDeviceAction', String, 'Login From New Device Action',
+      hint:
+          'Notify | RequireMFA | Block | VerifyEmail — action for unrecognized devices'),
+])
+class LoginFlowConfiguration {
+  String? content;
+
+  /// Login Flow Details (text).
+  TextSection loginFlowDetails = TextSection();
+}
+
+/// Token management policy (form).
+///
+/// Defines token issuance, refresh, storage, and revocation policies for
+/// authentication tokens (JWT, opaque, refresh tokens, ID tokens).
+@Form([
+  Field('tokenFormat', String, 'Token Format',
+      hint: 'JWT | Opaque | SAML | Custom — primary access token format'),
+  Field('tokenSigningAlgorithm', String, 'Token Signing Algorithm',
+      hint: 'RS256 | ES256 | HS256 | EdDSA — algorithm for signing tokens'),
+  Field('accessTokenLifetime', String, 'Access Token Lifetime',
+      hint: 'Duration of access token validity (e.g., 15min, 1h)'),
+  Field('refreshTokenEnabled', String, 'Refresh Token Enabled',
+      hint: 'Yes | No — whether refresh tokens are issued'),
+  Field('refreshTokenLifetime', String, 'Refresh Token Lifetime',
+      hint: 'Duration of refresh token validity (e.g., 7d, 30d)'),
+  Field('refreshTokenRotation', String, 'Refresh Token Rotation',
+      hint:
+          'Yes | No — whether refresh tokens are rotated on each use'),
+  Field('refreshTokenReuseDetection', String,
+      'Refresh Token Reuse Detection',
+      hint:
+          'Yes | No — whether reuse of old refresh tokens triggers revocation'),
+  Field('idTokenEnabled', String, 'ID Token Enabled',
+      hint: 'Yes | No — whether OIDC ID tokens are issued'),
+  Field('idTokenClaims', String, 'ID Token Claims',
+      hint:
+          'Standard claims included in ID tokens (sub, email, name, roles)'),
+  Field('tokenStorageClient', String, 'Token Storage Client',
+      hint:
+          'HttpOnlyCookie | SessionStorage | LocalStorage | Memory — client-side storage'),
+  Field('tokenStorageServer', String, 'Token Storage Server',
+      hint:
+          'Redis | Database | InMemory | None — server-side token store (for opaque tokens)'),
+  Field('tokenRevocationEnabled', String, 'Token Revocation Enabled',
+      hint: 'Yes | No — whether token revocation endpoint is available'),
+  Field('tokenRevocationPropagation', String,
+      'Token Revocation Propagation',
+      hint:
+          'Immediate | EventualConsistency | Polling — how revocation propagates'),
+  Field('tokenIntrospectionEnabled', String, 'Token Introspection Enabled',
+      hint:
+          'Yes | No — whether RFC 7662 token introspection endpoint is available'),
+  Field('audienceRestriction', String, 'Audience Restriction',
+      hint:
+          'Yes | No — whether tokens are audience-restricted to specific services'),
+  Field('scopePolicy', String, 'Scope Policy',
+      hint:
+          'Minimum scope principle — how token scopes are assigned and validated'),
+])
+class TokenManagementPolicy {
+  String? content;
+
+  /// Token Management Details (text).
+  TextSection tokenManagementDetails = TextSection();
+}
+
+/// Session creation policy (form).
+///
+/// Defines how authenticated sessions are established after successful
+/// authentication: session binding, device binding, and session properties.
+@Form([
+  Field('sessionMechanism', String, 'Session Mechanism',
+      hint:
+          'ServerSideCookie | JwtBearer | OpaqueToken — primary session mechanism'),
+  Field('sessionIdGeneration', String, 'Session ID Generation',
+      hint:
+          'CryptoRandom | UUID | HMAC — method for session identifier generation'),
+  Field('sessionIdEntropy', String, 'Session ID Entropy',
+      hint: 'Minimum entropy for session identifiers (e.g., 128-bit, 256-bit)'),
+  Field('sessionBindingMethod', String, 'Session Binding Method',
+      hint:
+          'Cookie | Header | TokenBound — how sessions are bound to requests'),
+  Field('httpOnlyCookies', String, 'HttpOnly Cookies',
+      hint: 'Yes | No — whether session cookies use HttpOnly flag'),
+  Field('secureCookies', String, 'Secure Cookies',
+      hint: 'Yes | No — whether session cookies use Secure flag (HTTPS only)'),
+  Field('sameSitePolicy', String, 'SameSite Policy',
+      hint: 'Strict | Lax | None — SameSite cookie attribute policy'),
+  Field('cookieDomain', String, 'Cookie Domain',
+      hint: 'Domain scope for session cookies (exact domain or parent domain)'),
+  Field('deviceBinding', String, 'Device Binding',
+      hint:
+          'None | Fingerprint | CertificateBound | DPoP — session-to-device binding'),
+  Field('sessionDataStorage', String, 'Session Data Storage',
+      hint:
+          'ServerSide | ClientSide | Hybrid — where full session data is stored'),
+  Field('sessionReplicationStrategy', String,
+      'Session Replication Strategy',
+      hint:
+          'StickySession | Distributed | Stateless — strategy for multi-node deployments'),
+  Field('csrfProtection', String, 'CSRF Protection',
+      hint:
+          'SynchronizerToken | DoubleSubmit | SameSite | None — CSRF mitigation method'),
+  Field('postLoginRedirectValidation', String,
+      'Post-Login Redirect Validation',
+      hint:
+          'Allowlist | SameOrigin | None — validation of post-login redirect targets'),
+])
+class SessionCreationPolicy {
+  String? content;
+
+  /// Session Creation Details (text).
+  TextSection sessionCreationDetails = TextSection();
+}
+
+/// Redirect and callback handling policy (form).
+///
+/// Defines how authentication redirects, OAuth/OIDC callbacks, deep links,
+/// and error redirects are managed in the authentication flow.
+@Form([
+  Field('oauthRedirectUriPolicy', String, 'OAuth Redirect URI Policy',
+      hint:
+          'ExactMatch | WildcardSubdomain | DynamicRegistration — redirect URI validation'),
+  Field('allowedRedirectDomains', String, 'Allowed Redirect Domains',
+      hint: 'Comma-separated list of allowed redirect domains'),
+  Field('callbackUrlValidation', String, 'Callback URL Validation',
+      hint:
+          'StrictMatch | PathPrefix | OriginOnly — how callback URLs are validated'),
+  Field('stateParameterRequired', String, 'State Parameter Required',
+      hint:
+          'Yes | No — whether OAuth state parameter is required for CSRF protection'),
+  Field('pkceRequired', String, 'PKCE Required',
+      hint:
+          'Yes | No — whether PKCE (Proof Key for Code Exchange) is mandatory'),
+  Field('pkceMethod', String, 'PKCE Method',
+      hint: 'S256 | Plain — PKCE code challenge method (S256 recommended)'),
+  Field('deepLinkHandling', String, 'Deep Link Handling',
+      hint:
+          'UniversalLinks | AppLinks | CustomScheme — mobile deep link strategy'),
+  Field('errorRedirectBehavior', String, 'Error Redirect Behavior',
+      hint:
+          'RedirectWithError | ErrorPage | OriginalPage — behavior on auth errors'),
+  Field('postLogoutRedirectUri', String, 'Post-Logout Redirect URI',
+      hint: 'Where users are redirected after logout'),
+  Field('singleLogoutRedirectChain', String,
+      'Single Logout Redirect Chain',
+      hint:
+          'Yes | No — whether SLO propagates logouts across all connected services'),
+  Field('corsPolicy', String, 'CORS Policy',
+      hint:
+          'AllowedOrigins for authentication endpoints (exact list or pattern)'),
+  Field('iframeEmbeddingPolicy', String, 'Iframe Embedding Policy',
+      hint:
+          'Deny | SameOrigin | AllowSpecific — X-Frame-Options / CSP frame-ancestors'),
+])
+class RedirectHandlingPolicy {
+  String? content;
+
+  /// Redirect Handling Details (text).
+  TextSection redirectDetails = TextSection();
+}
+
+/// Authentication error handling (form).
+///
+/// Defines how authentication failures, lockouts, and security events are
+/// handled in the authentication flow.
+@Form([
+  Field('invalidCredentialResponse', String,
+      'Invalid Credential Response',
+      hint:
+          'GenericError | SpecificError — response to invalid credentials (generic preferred)'),
+  Field('accountLockoutThreshold', String, 'Account Lockout Threshold',
+      hint:
+          'Number of failed attempts before lockout (e.g., 5, 10, configurable)'),
+  Field('lockoutDuration', String, 'Lockout Duration',
+      hint:
+          'Duration of lockout (e.g., 15min, 30min, progressive, permanent)'),
+  Field('lockoutEscalation', String, 'Lockout Escalation',
+      hint:
+          'Fixed | Progressive | Exponential — whether lockout duration increases'),
+  Field('bruteForceProtection', String, 'Brute Force Protection',
+      hint:
+          'RateLimiting | CAPTCHA | IPBlock | AccountLock — brute-force mitigation'),
+  Field('credentialStuffingProtection', String,
+      'Credential Stuffing Protection',
+      hint:
+          'BreachDatabase | DeviceFingerprint | BehaviorAnalysis | None'),
+  Field('userNotificationOnFailure', String,
+      'User Notification On Failure',
+      hint:
+          'Yes | No — whether users are notified of failed login attempts'),
+  Field('adminAlertThreshold', String, 'Admin Alert Threshold',
+      hint:
+          'Number of failures before admin alert (e.g., 10, 50, per-minute rate)'),
+  Field('failedLoginAuditLogging', String, 'Failed Login Audit Logging',
+      hint:
+          'Yes | No — whether failed login attempts are logged for audit'),
+  Field('suspiciousActivityResponse', String,
+      'Suspicious Activity Response',
+      hint:
+          'RequireMFA | TemporaryBlock | CAPTCHA | ManualReview — response to anomalies'),
+  Field('gracefulDegradation', String, 'Graceful Degradation',
+      hint:
+          'Behavior when authentication service is partially unavailable (queue, fallback, deny)'),
+])
+class AuthenticationErrorHandling {
+  String? content;
+
+  /// Error Handling Details (text).
+  TextSection errorHandlingDetails = TextSection();
+}
+
+/// Step-up and adaptive authentication policy (form).
+///
+/// Defines when and how authentication level is elevated for sensitive
+/// operations, including risk-based and context-aware authentication.
+@Form([
+  Field('stepUpEnabled', String, 'Step-Up Enabled',
+      hint: 'Yes | No — whether step-up authentication is implemented'),
+  Field('stepUpTriggers', String, 'Step-Up Triggers',
+      hint:
+          'HighRiskOperation | SensitiveDataAccess | AdminAction | PaymentApproval | SettingsChange'),
+  Field('stepUpTargetAal', String, 'Step-Up Target AAL',
+      hint:
+          'AAL2 | AAL3 — target assurance level for step-up authentication'),
+  Field('stepUpTimeout', String, 'Step-Up Timeout',
+      hint:
+          'Duration the elevated session lasts (e.g., 5min, 15min, transaction-scoped)'),
+  Field('riskBasedAuthEnabled', String, 'Risk-Based Auth Enabled',
+      hint:
+          'Yes | No — whether risk signals influence authentication requirements'),
+  Field('riskSignals', String, 'Risk Signals',
+      hint:
+          'GeoLocation | IPReputation | DeviceFingerprint | BehaviorPattern | TimeOfDay'),
+  Field('riskScoringMethod', String, 'Risk Scoring Method',
+      hint:
+          'RuleBased | MachineLearning | Hybrid — how risk scores are computed'),
+  Field('lowRiskAction', String, 'Low Risk Action',
+      hint: 'AllowSilently | NormalAuth — response to low-risk signals'),
+  Field('mediumRiskAction', String, 'Medium Risk Action',
+      hint:
+          'RequireMFA | AdditionalVerification — response to medium-risk signals'),
+  Field('highRiskAction', String, 'High Risk Action',
+      hint:
+          'Block | RequirePhishingResistant | ManualReview — response to high-risk signals'),
+  Field('adaptiveAuthProvider', String, 'Adaptive Auth Provider',
+      hint:
+          'Built-in | Third-party service name — provider of adaptive authentication'),
+  Field('continuousAuthEnabled', String, 'Continuous Auth Enabled',
+      hint:
+          'Yes | No — whether session is continuously monitored for risk changes'),
+])
+class StepUpAuthenticationPolicy {
+  String? content;
+
+  /// Step-Up Authentication Details (text).
+  TextSection stepUpDetails = TextSection();
+}
+
+/// A login flow step entry (form) [PD00-ACC-IDE-FLO-nn].
+///
+/// Defines an individual step in the authentication flow sequence,
+/// allowing detailed specification of each stage from initial request
+/// to authenticated session.
+class LoginFlowStepEntry {
+  @Form([
+    Field('stepName', String, 'Step Name', required: true,
+        hint: 'Unique name for this login flow step'),
+    Field('stepOrder', String, 'Step Order',
+        hint: 'Numeric order in the flow sequence (1, 2, 3, ...)'),
+    Field('stepType', String, 'Step Type',
+        hint:
+            'EntryPoint | CredentialInput | Validation | MfaChallenge | ConsentScreen | TokenIssuance | SessionCreation | Redirect | ErrorHandling'),
+    Field('actor', String, 'Actor',
+        hint:
+            'User | Browser | AuthServer | IdP | MfaDevice | ResourceServer — who performs this step'),
+    Field('inputRequired', String, 'Input Required',
+        hint:
+            'Username | Password | OTP | BiometricSample | ConsentApproval | None'),
+    Field('validationAction', String, 'Validation Action',
+        hint:
+            'CredentialVerification | TokenValidation | RiskAssessment | MfaVerification | None'),
+    Field('successOutcome', String, 'Success Outcome',
+        hint:
+            'NextStep | TokenIssued | SessionCreated | RedirectToApp — outcome on success'),
+    Field('failureOutcome', String, 'Failure Outcome',
+        hint:
+            'RetryWithError | Lockout | RedirectToError | AbortFlow — outcome on failure'),
+    Field('timeoutSeconds', String, 'Timeout Seconds',
+        hint: 'Maximum time allowed for this step (e.g., 300, 600)'),
+    Field('optional', String, 'Optional',
+        hint: 'Yes | No — whether this step can be skipped'),
+    Field('conditionalTrigger', String, 'Conditional Trigger',
+        hint:
+            'Condition under which this step is activated (e.g., MFA required, new device)'),
+    Field('protocolMessage', String, 'Protocol Message',
+        hint:
+            'OAuth2 AuthZ Request | Token Request | SAML AuthnRequest | OIDC Userinfo — protocol-level message'),
+    Field('description', String, 'Description',
+        hint: 'Detailed description of what happens in this step'),
   ])
   String? content;
 }

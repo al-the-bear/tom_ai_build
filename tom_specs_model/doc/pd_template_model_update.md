@@ -4,7 +4,7 @@ This document tracks the synchronization between `pd_template.md` (source of tru
 
 **Status:** Active  
 **Created:** 2025-01-24  
-**Last Updated:** 2026-04-11 (PD00-BUS batch: data model, business objects, functions)
+**Last Updated:** 2026-04-14 (PD00-ACC-IDE-FLO: Authentication Flow)
 
 ---
 
@@ -110,7 +110,7 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-TEC-SEC-AUD | Security Audit Requirements | Medium | ✅ Done |
 | PD00-ACC-USE-LIF | User Lifecycle | Medium | ✅ Done |
 | PD00-ACC-IDE-MET | Authentication Methods | High | ✅ Done |
-| PD00-ACC-IDE-FLO | Authentication Flow | High | ⬜ Not Started |
+| PD00-ACC-IDE-FLO | Authentication Flow | High | ✅ Done |
 | PD00-ACC-IDE-POL | Password and Credential Policy | High | ⬜ Not Started |
 | PD00-ACC-IDE-SES | Session Management | High | ⬜ Not Started |
 | PD00-ACC-RES-DAT | Data-Level Security | High | ⬜ Not Started |
