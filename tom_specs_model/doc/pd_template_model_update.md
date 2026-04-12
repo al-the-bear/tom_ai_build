@@ -127,11 +127,11 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-ACC-AUD-EVE | Security Events | Medium | ✅ Done |
 | PD00-ACC-AUD-FMT | Audit Log Format | Medium | ✅ Done |
 | PD00-ACC-AUD-COM | Compliance Reporting | Medium | ✅ Done |
-| PD00-USE-VIS | Design Vision | High | ⬜ Not Started |
-| PD00-USE-VIS-GOA | Design Goals | Medium | ⬜ Not Started |
-| PD00-USE-VIS-PRI | Design Principles | Medium | ⬜ Not Started |
-| PD00-USE-VIS-PER | User Personas | Medium | ⬜ Not Started |
-| PD00-USE-VIS-PER-01 | Sample: Finance Manager Persona | Low | ⬜ Not Started |
+| PD00-USE-VIS | Design Vision | High | ✅ Done |
+| PD00-USE-VIS-GOA | Design Goals | Medium | ✅ Done |
+| PD00-USE-VIS-PRI | Design Principles | Medium | ✅ Done |
+| PD00-USE-VIS-PER | User Personas | Medium | ✅ Done |
+| PD00-USE-VIS-PER-01 | Sample: Finance Manager Persona | Low | ✅ Done |
 | PD00-USE-SCR-INV | Screen Inventory | High | ⬜ Not Started |
 | PD00-USE-SCR-INV-01 | Sample: Dashboard | Low | ⬜ Not Started |
 | PD00-USE-SCR-INF | Information Architecture | Medium | ⬜ Not Started |

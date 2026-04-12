@@ -59,78 +59,265 @@ class UserInterfaceDesign {
 // ---------------------------------------------------------------------------
 
 /// 10.1. Design Vision [PD00-USE-VIS].
+///
+/// Overall design vision for the user interface, encompassing goals,
+/// principles, and user personas that guide all UI decisions.
 @SectionId('PD00-USE-VIS')
 class DesignVision {
   @Unused()
   String? content;
 
-  /// 10.1.1. Design Goals [PD00-USE-VIS-GOA] — contains 0+× DesignGoal.
+  /// 10.1.1. Design Goals [PD00-USE-VIS-GOA].
+  DesignGoals designGoals = DesignGoals();
+
+  /// 10.1.2. Design Principles [PD00-USE-VIS-PRI].
+  DesignPrinciples designPrinciples = DesignPrinciples();
+
+  /// 10.1.3. User Personas [PD00-USE-VIS-PER].
+  UserPersonas personas = UserPersonas();
+}
+
+// ---------------------------------------------------------------------------
+// 10.1.1 Design Goals
+// ---------------------------------------------------------------------------
+
+/// 10.1.1. Design Goals [PD00-USE-VIS-GOA].
+///
+/// Primary design objectives that the UI must achieve: simplicity, efficiency,
+/// accessibility, consistency, delight. Goals are prioritized for the project.
+@SectionId('PD00-USE-VIS-GOA')
+class DesignGoals {
+  @Unused()
+  String? content;
+
+  /// Overview of the design goal framework and prioritization approach.
+  TextSection overview = TextSection();
+
+  /// Contains 0+× DesignGoal.
   @SectionIdPattern('PD00-USE-VIS-GOA-xx')
-  List<DesignGoalEntry> designGoals = [];
-
-  /// 10.1.2. Design Principles [PD00-USE-VIS-PRI] — contains 0+× UiDesignPrinciple.
-  @SectionIdPattern('PD00-USE-VIS-PRI-xx')
-  List<UiDesignPrincipleEntry> designPrinciples = [];
-
-  /// 10.1.3. User Personas [PD00-USE-VIS-PER] — contains 1+× Persona.
-  @SectionIdPattern('PD00-USE-VIS-PER-xx')
-  @Min(1)
-  List<PersonaEntry> personas = [];
+  List<DesignGoalEntry> items = [];
 }
 
 /// A design goal entry (form) [PD00-USE-VIS-GOA-nn].
+///
+/// Each goal represents a measurable UI objective with success criteria.
 class DesignGoalEntry {
   @Form([
-    Field('goal', String, 'Goal', required: true),
-    Field('description', String, 'Short description'),
+    Field('goalName', String, 'Goal Name', required: true),
+    Field('description', String, 'Goal Description',
+        hint: 'What this goal means for the UI'),
+    Field('priority', String, 'Priority',
+        hint: 'Critical/High/Medium/Low'),
+    Field('category', String, 'Category',
+        hint: 'Usability/Performance/Accessibility/Aesthetics/Engagement'),
+    Field('measurementCriteria', String, 'Measurement Criteria',
+        hint: 'How we verify goal achievement'),
+    Field('targetMetric', String, 'Target Metric',
+        hint: 'Quantifiable target if applicable'),
+    Field('relatedPrinciples', String, 'Related Principles',
+        hint: 'Design principles that support this goal'),
   ])
   String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 10.1.2 Design Principles
+// ---------------------------------------------------------------------------
+
+/// 10.1.2. Design Principles [PD00-USE-VIS-PRI].
+///
+/// Guiding principles for all UI decisions: progressive disclosure, direct
+/// manipulation, feedback, consistency, error prevention.
+@SectionId('PD00-USE-VIS-PRI')
+class DesignPrinciples {
+  @Unused()
+  String? content;
+
+  /// Overview of the design principle framework.
+  TextSection overview = TextSection();
+
+  /// Contains 0+× UiDesignPrinciple.
+  @SectionIdPattern('PD00-USE-VIS-PRI-xx')
+  List<UiDesignPrincipleEntry> items = [];
 }
 
 /// A design principle entry (form) [PD00-USE-VIS-PRI-nn].
+///
+/// Each principle guides UI decisions with rationale and examples.
 class UiDesignPrincipleEntry {
   @Form([
-    Field('principle', String, 'Principle', required: true),
-    Field('rationale', String, 'Rationale'),
+    Field('principleName', String, 'Principle Name', required: true),
+    Field('description', String, 'Description',
+        hint: 'What this principle means'),
+    Field('rationale', String, 'Rationale',
+        hint: 'Why this principle matters'),
+    Field('category', String, 'Category',
+        hint: 'Visual/Interaction/Accessibility/Information/Navigation'),
+    Field('examples', String, 'Examples',
+        hint: 'How the principle manifests in the UI'),
+    Field('exceptions', String, 'Exceptions',
+        hint: 'When deviation is acceptable'),
+    Field('sourceReference', String, 'Source Reference',
+        hint: 'Design system or external reference'),
+    Field('relatedGoals', String, 'Related Goals',
+        hint: 'Design goals this principle supports'),
   ])
   String? content;
 }
 
+// ---------------------------------------------------------------------------
+// 10.1.3 User Personas
+// ---------------------------------------------------------------------------
+
+/// 10.1.3. User Personas [PD00-USE-VIS-PER].
+///
+/// Container for user persona definitions. Each persona represents a distinct
+/// user archetype with goals, pain points, and context.
+@SectionId('PD00-USE-VIS-PER')
+class UserPersonas {
+  @Unused()
+  String? content;
+
+  /// Overview of persona research methodology and usage.
+  TextSection overview = TextSection();
+
+  /// Contains 1+× Persona.
+  @SectionIdPattern('PD00-USE-VIS-PER-xx')
+  @Min(1)
+  List<PersonaEntry> items = [];
+}
+
 /// A user persona entry [PD00-USE-VIS-PER-nn] (form).
+///
+/// Represents a distinct user archetype with detailed context for UI design.
 class PersonaEntry {
   @Form([
-    Field('personaName', String, 'Persona Name', required: true),
-    Field('age', String, 'Age'),
-    Field('role', String, 'Role'),
-    Field('technicalProficiency', String, 'Technical Proficiency'),
-    Field('typicalUsage', String, 'Typical Usage'),
-    Field('device', String, 'Device'),
+    Field('personaName', String, 'Persona Name', required: true,
+        hint: 'Name and title, e.g., "Marco, Finance Manager"'),
+    Field('age', String, 'Age',
+        hint: 'Age or age range'),
+    Field('role', String, 'Role',
+        hint: 'Job title and responsibilities'),
+    Field('bio', String, 'Background',
+        hint: 'Brief biographical context'),
+    Field('technicalProficiency', String, 'Technical Proficiency',
+        hint: 'Beginner/Intermediate/Advanced — with context'),
+    Field('typicalUsage', String, 'Typical Usage',
+        hint: 'Frequency, duration, and primary activities'),
+    Field('primaryDevice', String, 'Primary Device',
+        hint: 'Desktop/Laptop/Tablet/Mobile'),
+    Field('additionalDevices', String, 'Additional Devices',
+        hint: 'Secondary devices used'),
+    Field('workEnvironment', String, 'Work Environment',
+        hint: 'Office/Remote/Field/Hybrid'),
+    Field('accessibilityNeeds', String, 'Accessibility Needs',
+        hint: 'Visual/Motor/Cognitive/None'),
+    Field('motivations', String, 'Motivations',
+        hint: 'What drives their behavior'),
+    Field('frustrationsWithCurrent', String, 'Current Frustrations',
+        hint: 'Issues with existing solutions'),
+    Field('successCriteria', String, 'Success Criteria',
+        hint: 'How they measure success'),
+    Field('quote', String, 'Representative Quote',
+        hint: 'A quote that captures their perspective'),
   ])
+  String? content;
+
+  /// 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
+  PersonaGoals goals = PersonaGoals();
+
+  /// 10.1.3.n.2. Persona Pain Points [PD00-USE-VIS-PER-nn-PAI].
+  PersonaPainPoints painPoints = PersonaPainPoints();
+
+  /// 10.1.3.n.3. Persona Scenarios [PD00-USE-VIS-PER-nn-SCE].
+  PersonaScenarios scenarios = PersonaScenarios();
+}
+
+/// 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
+@SectionId('PD00-USE-VIS-PER-xx-GOA')
+class PersonaGoals {
+  @Unused()
   String? content;
 
   /// Contains 0+× PersonaGoal.
   @SectionIdPattern('PD00-USE-VIS-PER-xx-GOA-xx')
-  List<PersonaGoalEntry> goals = [];
-
-  /// Contains 0+× PersonaPainPoint.
-  @SectionIdPattern('PD00-USE-VIS-PER-xx-PAI-xx')
-  List<PersonaPainPointEntry> painPoints = [];
+  List<PersonaGoalEntry> items = [];
 }
 
-/// A persona goal entry (form) [PD00-USE-VIS-PER-nn-GOA-nn].
+/// A persona goal entry (form) [PD00-USE-VIS-PER-nn-GOA-mm].
 class PersonaGoalEntry {
   @Form([
     Field('goal', String, 'Goal', required: true),
-    Field('priority', String, 'Priority level'),
+    Field('priority', String, 'Priority',
+        hint: 'Critical/High/Medium/Low'),
+    Field('frequency', String, 'Frequency',
+        hint: 'How often this goal arises'),
+    Field('currentApproach', String, 'Current Approach',
+        hint: 'How they achieve this today'),
+    Field('desiredOutcome', String, 'Desired Outcome',
+        hint: 'What success looks like'),
   ])
   String? content;
 }
 
-/// A pain point entry (form) [PD00-USE-VIS-PER-nn-PAI-nn].
+/// 10.1.3.n.2. Persona Pain Points [PD00-USE-VIS-PER-nn-PAI].
+@SectionId('PD00-USE-VIS-PER-xx-PAI')
+class PersonaPainPoints {
+  @Unused()
+  String? content;
+
+  /// Contains 0+× PersonaPainPoint.
+  @SectionIdPattern('PD00-USE-VIS-PER-xx-PAI-xx')
+  List<PersonaPainPointEntry> items = [];
+}
+
+/// A pain point entry (form) [PD00-USE-VIS-PER-nn-PAI-mm].
 class PersonaPainPointEntry {
   @Form([
     Field('painPoint', String, 'Pain Point', required: true),
-    Field('impact', String, 'Impact assessment'),
+    Field('severity', String, 'Severity',
+        hint: 'Critical/High/Medium/Low'),
+    Field('frequency', String, 'Frequency',
+        hint: 'How often this occurs'),
+    Field('impact', String, 'Impact',
+        hint: 'Effect on productivity/satisfaction'),
+    Field('workaround', String, 'Current Workaround',
+        hint: 'How they cope today'),
+    Field('desiredSolution', String, 'Desired Solution',
+        hint: 'What would help'),
+  ])
+  String? content;
+}
+
+/// 10.1.3.n.3. Persona Scenarios [PD00-USE-VIS-PER-nn-SCE].
+///
+/// Key usage scenarios for this persona — helps map personas to screens/flows.
+@SectionId('PD00-USE-VIS-PER-xx-SCE')
+class PersonaScenarios {
+  @Unused()
+  String? content;
+
+  /// Contains 0+× PersonaScenario.
+  @SectionIdPattern('PD00-USE-VIS-PER-xx-SCE-xx')
+  List<PersonaScenarioEntry> items = [];
+}
+
+/// A persona scenario entry (form) [PD00-USE-VIS-PER-nn-SCE-mm].
+class PersonaScenarioEntry {
+  @Form([
+    Field('scenarioName', String, 'Scenario Name', required: true),
+    Field('description', String, 'Description',
+        hint: 'What the persona is trying to accomplish'),
+    Field('frequency', String, 'Frequency',
+        hint: 'Daily/Weekly/Monthly/Occasional'),
+    Field('urgency', String, 'Urgency',
+        hint: 'Time-sensitive nature'),
+    Field('context', String, 'Context',
+        hint: 'Where/when this scenario occurs'),
+    Field('requiredScreens', String, 'Required Screens',
+        hint: 'Screens needed for this scenario'),
+    Field('successMetric', String, 'Success Metric',
+        hint: 'How we measure scenario success'),
   ])
   String? content;
 }
