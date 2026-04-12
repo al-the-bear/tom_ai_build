@@ -94,7 +94,7 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-TEC-STA-COM | Compatibility Requirements | Medium | ✅ Done |
 | PD00-TEC-STA-STD | Standards Compliance | Medium | ✅ Done |
 | PD00-TEC-HAR-SRV | Server Requirements | Medium | ✅ Done |
-| PD00-TEC-HAR-CLI | Client Requirements | Medium | ⬜ Not Started |
+| PD00-TEC-HAR-CLI | Client Requirements | Medium | ✅ Done |
 | PD00-TEC-HAR-NET | Network Requirements | Medium | ⬜ Not Started |
 | PD00-TEC-OPE-BAC | Backup and Recovery | High | ⬜ Not Started |
 | PD00-TEC-OPE-DEP | Deployment Strategy | High | ⬜ Not Started |
@@ -402,7 +402,7 @@ All 317 sections from `pd_template.md` with content migration status.
 | 135 | PD00-TEC-STA-STD | Standards Compliance | ✅ Exists | ✅ |
 | 136 | PD00-TEC-HAR | Hardware Concept Requirements | ✅ Exists | ⬜ |
 | 137 | PD00-TEC-HAR-SRV | Server Requirements | ✅ Exists | ✅ |
-| 138 | PD00-TEC-HAR-CLI | Client Requirements | ❓ Missing | ⬜ |
+| 138 | PD00-TEC-HAR-CLI | Client Requirements | ✅ Exists | ✅ |
 | 139 | PD00-TEC-HAR-NET | Network Requirements | ❓ Missing | ⬜ |
 | 140 | PD00-TEC-OPE | Operations Requirements | ✅ Exists | ⬜ |
 | 141 | PD00-TEC-OPE-BAC | Backup and Recovery | ❓ Missing | ⬜ |

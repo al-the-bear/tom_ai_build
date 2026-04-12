@@ -4418,8 +4418,8 @@ class HardwareRequirements {
   /// 8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
   ServerRequirementsSection serverRequirements = ServerRequirementsSection();
 
-  /// Client Requirements.
-  TextSection clientRequirements = TextSection();
+  /// 8.4.2. Client Requirements [PD00-TEC-HAR-CLI].
+  ClientRequirementsSection clientRequirements = ClientRequirementsSection();
 
   /// Network Requirements.
   TextSection networkRequirements = TextSection();
@@ -4954,6 +4954,553 @@ class ServerOsRequirements {
     Field('licenseCount', String, 'License Count',
         hint: 'Number of licenses'),
     Field('notes', String, 'Notes', hint: 'Additional OS notes'),
+  ])
+  String? content;
+}
+
+// =============================================================================
+// 8.4.2. Client Requirements [PD00-TEC-HAR-CLI]
+// =============================================================================
+
+/// 8.4.2. Client Requirements [PD00-TEC-HAR-CLI].
+///
+/// Minimum client requirements: browser versions, operating systems, screen
+/// resolution, network bandwidth, and device capabilities.
+@SectionId('PD00-TEC-HAR-CLI')
+class ClientRequirementsSection {
+  @Unused()
+  String? content;
+
+  /// Overview of client requirements strategy.
+  TextSection overview = TextSection();
+
+  /// Web browser requirements.
+  @SectionIdPattern('PD00-TEC-HAR-CLI-BRW-xx')
+  List<BrowserRequirementEntry> browserRequirements = [];
+
+  /// Desktop operating system requirements.
+  @SectionIdPattern('PD00-TEC-HAR-CLI-DSK-xx')
+  List<DesktopOsRequirementEntry> desktopOsRequirements = [];
+
+  /// Mobile device requirements.
+  @SectionIdPattern('PD00-TEC-HAR-CLI-MOB-xx')
+  List<MobileDeviceRequirementEntry> mobileRequirements = [];
+
+  /// Display and screen requirements.
+  DisplayRequirements displayRequirements = DisplayRequirements();
+
+  /// Client network requirements.
+  ClientNetworkRequirements networkRequirements = ClientNetworkRequirements();
+
+  /// Client hardware requirements.
+  ClientHardwareRequirements hardwareRequirements = ClientHardwareRequirements();
+
+  /// Accessibility requirements for clients.
+  ClientAccessibilityRequirements accessibilityRequirements =
+      ClientAccessibilityRequirements();
+
+  /// Progressive Web App (PWA) requirements.
+  PwaRequirements pwaRequirements = PwaRequirements();
+
+  /// Native app requirements.
+  NativeAppRequirements nativeAppRequirements = NativeAppRequirements();
+
+  /// Client security requirements.
+  ClientSecurityRequirements securityRequirements = ClientSecurityRequirements();
+}
+
+/// Browser requirement entry.
+class BrowserRequirementEntry {
+  @Form([
+    // Identity
+    Field('browserName', String, 'Browser Name',
+        required: true, hint: 'E.g., Chrome, Firefox, Safari, Edge'),
+    Field('browserEngine', String, 'Browser Engine',
+        hint: 'Chromium, Gecko, WebKit'),
+    Field('minVersion', String, 'Minimum Version',
+        required: true, hint: 'Minimum supported version'),
+    Field('recommendedVersion', String, 'Recommended Version',
+        hint: 'Recommended version'),
+
+    // Support level
+    Field('supportLevel', String, 'Support Level',
+        hint: 'Full, Partial, Best-effort'),
+    Field('priority', String, 'Priority',
+        hint: 'Primary, Secondary, Edge case'),
+    Field('expectedUserShare', String, 'Expected User Share',
+        hint: 'Percentage of users'),
+
+    // Features
+    Field('requiredFeatures', String, 'Required Features',
+        hint: 'JS, CSS features required'),
+    Field('optionalFeatures', String, 'Optional Features',
+        hint: 'Enhanced features'),
+    Field('polyfillsNeeded', String, 'Polyfills Needed',
+        hint: 'Required polyfills'),
+    Field('cssSupport', String, 'CSS Support',
+        hint: 'CSS features required'),
+
+    // Testing
+    Field('testPlatform', String, 'Test Platform',
+        hint: 'BrowserStack, Sauce Labs'),
+    Field('automatedTesting', bool, 'Automated Testing',
+        hint: 'Include in automated tests'),
+    Field('manualTestingFrequency', String, 'Manual Testing Frequency',
+        hint: 'How often manually tested'),
+
+    // Known issues
+    Field('knownLimitations', String, 'Known Limitations',
+        hint: 'Browser-specific limitations'),
+    Field('workarounds', String, 'Workarounds',
+        hint: 'Applied workarounds'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional browser requirement notes'),
+  ])
+  String? content;
+}
+
+/// Desktop operating system requirement entry.
+class DesktopOsRequirementEntry {
+  @Form([
+    // Identity
+    Field('osName', String, 'Operating System',
+        required: true, hint: 'E.g., Windows, macOS, Linux'),
+    Field('osFamily', String, 'OS Family',
+        hint: 'Windows, macOS, Unix'),
+    Field('minVersion', String, 'Minimum Version',
+        required: true, hint: 'Minimum supported version'),
+    Field('recommendedVersion', String, 'Recommended Version',
+        hint: 'Recommended version'),
+
+    // Support
+    Field('supportLevel', String, 'Support Level',
+        hint: 'Full, Partial, Best-effort'),
+    Field('priority', String, 'Priority',
+        hint: 'Primary, Secondary'),
+    Field('expectedUserShare', String, 'Expected User Share',
+        hint: 'Percentage of users'),
+
+    // Requirements
+    Field('architecture', String, 'Architecture',
+        hint: 'x64, ARM64, x86'),
+    Field('minRam', String, 'Minimum RAM',
+        hint: 'Minimum RAM required'),
+    Field('minStorage', String, 'Minimum Storage',
+        hint: 'Free disk space needed'),
+    Field('displayDriver', String, 'Display Driver',
+        hint: 'Graphics requirements'),
+
+    // Software
+    Field('runtimeDependencies', String, 'Runtime Dependencies',
+        hint: 'Required runtimes (.NET, Java)'),
+    Field('additionalSoftware', String, 'Additional Software',
+        hint: 'Other required software'),
+
+    // Testing
+    Field('testEnvironment', String, 'Test Environment',
+        hint: 'VM, physical, cloud'),
+    Field('automatedTesting', bool, 'Automated Testing',
+        hint: 'Include in CI/CD'),
+    Field('knownIssues', String, 'Known Issues',
+        hint: 'OS-specific issues'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional desktop OS notes'),
+  ])
+  String? content;
+}
+
+/// Mobile device requirement entry.
+class MobileDeviceRequirementEntry {
+  @Form([
+    // Platform
+    Field('platform', String, 'Platform',
+        required: true, hint: 'iOS, Android, iPadOS'),
+    Field('minOsVersion', String, 'Minimum OS Version',
+        required: true, hint: 'Minimum OS version'),
+    Field('recommendedOsVersion', String, 'Recommended OS Version',
+        hint: 'Recommended OS version'),
+
+    // Support
+    Field('supportLevel', String, 'Support Level',
+        hint: 'Full, Partial, Best-effort'),
+    Field('priority', String, 'Priority',
+        hint: 'Primary, Secondary'),
+    Field('expectedUserShare', String, 'Expected User Share',
+        hint: 'Percentage of users'),
+
+    // Device types
+    Field('deviceTypes', String, 'Device Types',
+        hint: 'Phone, Tablet, Foldable'),
+    Field('specificDevices', String, 'Specific Devices',
+        hint: 'Named devices to support'),
+    Field('screenSizes', String, 'Screen Sizes',
+        hint: 'Supported screen sizes'),
+
+    // Hardware
+    Field('minRam', String, 'Minimum RAM',
+        hint: 'Minimum device RAM'),
+    Field('minStorage', String, 'Minimum Storage',
+        hint: 'Storage for app'),
+    Field('requiredSensors', String, 'Required Sensors',
+        hint: 'GPS, camera, biometric'),
+    Field('hardwareAcceleration', bool, 'Hardware Acceleration',
+        hint: 'GPU acceleration needed'),
+
+    // Capabilities
+    Field('permissionsRequired', String, 'Permissions Required',
+        hint: 'Required app permissions'),
+    Field('backgroundExecution', String, 'Background Execution',
+        hint: 'Background modes needed'),
+    Field('pushNotifications', bool, 'Push Notifications',
+        hint: 'Push notification support'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional mobile device notes'),
+  ])
+  String? content;
+}
+
+/// Display and screen requirements.
+class DisplayRequirements {
+  @Form([
+    // Resolution
+    Field('minResolution', String, 'Minimum Resolution',
+        hint: '1024x768, 1280x720'),
+    Field('recommendedResolution', String, 'Recommended Resolution',
+        hint: 'Recommended screen resolution'),
+    Field('maxResolution', String, 'Maximum Resolution',
+        hint: 'Maximum tested resolution'),
+
+    // Aspect ratios
+    Field('supportedAspectRatios', String, 'Supported Aspect Ratios',
+        hint: '16:9, 4:3, 21:9'),
+    Field('responsiveBreakpoints', String, 'Responsive Breakpoints',
+        hint: 'Mobile, tablet, desktop'),
+    Field('fluidLayout', bool, 'Fluid Layout',
+        hint: 'Supports fluid layouts'),
+
+    // DPI and scaling
+    Field('minDpi', String, 'Minimum DPI',
+        hint: 'Minimum display DPI'),
+    Field('hiDpiSupport', bool, 'HiDPI Support',
+        hint: 'Retina/HiDPI support'),
+    Field('scalingFactors', String, 'Scaling Factors',
+        hint: '100%, 125%, 150%, 200%'),
+    Field('vectorGraphics', bool, 'Vector Graphics',
+        hint: 'SVG/vector support'),
+
+    // Color
+    Field('colorDepth', String, 'Color Depth',
+        hint: '24-bit, 32-bit'),
+    Field('colorSpaceSupport', String, 'Color Space Support',
+        hint: 'sRGB, P3, HDR'),
+    Field('darkModeSupport', bool, 'Dark Mode Support',
+        hint: 'Dark mode theme support'),
+    Field('highContrastSupport', bool, 'High Contrast Support',
+        hint: 'High contrast mode'),
+
+    // Multi-display
+    Field('multiMonitorSupport', bool, 'Multi-Monitor Support',
+        hint: 'Multiple display support'),
+    Field('projectorMode', String, 'Projector/Presentation Mode',
+        hint: 'Presentation display mode'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional display notes'),
+  ])
+  String? content;
+}
+
+/// Client network requirements.
+class ClientNetworkRequirements {
+  @Form([
+    // Bandwidth
+    Field('minDownloadSpeed', String, 'Minimum Download Speed',
+        hint: 'Minimum download Mbps'),
+    Field('recommendedDownloadSpeed', String, 'Recommended Download Speed',
+        hint: 'Recommended download Mbps'),
+    Field('minUploadSpeed', String, 'Minimum Upload Speed',
+        hint: 'Minimum upload Mbps'),
+    Field('peakBandwidthUsage', String, 'Peak Bandwidth Usage',
+        hint: 'Maximum bandwidth consumed'),
+
+    // Latency
+    Field('maxLatency', String, 'Maximum Latency',
+        hint: 'Maximum acceptable latency'),
+    Field('recommendedLatency', String, 'Recommended Latency',
+        hint: 'Recommended latency'),
+    Field('jitterTolerance', String, 'Jitter Tolerance',
+        hint: 'Network jitter tolerance'),
+
+    // Connection types
+    Field('connectionTypes', String, 'Connection Types',
+        hint: 'WiFi, Ethernet, Cellular'),
+    Field('offlineCapability', String, 'Offline Capability',
+        hint: 'Offline mode support'),
+    Field('lowBandwidthMode', String, 'Low Bandwidth Mode',
+        hint: 'Degraded mode for slow connections'),
+
+    // Protocols
+    Field('requiredProtocols', String, 'Required Protocols',
+        hint: 'HTTP/2, WebSocket'),
+    Field('tlsVersion', String, 'TLS Version',
+        hint: 'Minimum TLS version'),
+    Field('webRtcRequired', bool, 'WebRTC Required',
+        hint: 'Real-time communication'),
+
+    // Proxy and firewall
+    Field('proxySupport', String, 'Proxy Support',
+        hint: 'HTTP/SOCKS proxy support'),
+    Field('firewallPorts', String, 'Firewall Ports',
+        hint: 'Required outbound ports'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional network notes'),
+  ])
+  String? content;
+}
+
+/// Client hardware requirements.
+class ClientHardwareRequirements {
+  @Form([
+    // CPU
+    Field('minCpuCores', String, 'Minimum CPU Cores',
+        hint: 'Minimum CPU cores'),
+    Field('recommendedCpuCores', String, 'Recommended CPU Cores',
+        hint: 'Recommended CPU cores'),
+    Field('cpuArchitecture', String, 'CPU Architecture',
+        hint: 'x64, ARM, Universal'),
+    Field('minCpuSpeed', String, 'Minimum CPU Speed',
+        hint: 'Minimum clock speed'),
+
+    // Memory
+    Field('minRam', String, 'Minimum RAM',
+        hint: 'Minimum system RAM'),
+    Field('recommendedRam', String, 'Recommended RAM',
+        hint: 'Recommended RAM'),
+    Field('appMemoryUsage', String, 'App Memory Usage',
+        hint: 'Expected memory consumption'),
+
+    // Storage
+    Field('minFreeSpace', String, 'Minimum Free Space',
+        hint: 'Required free disk space'),
+    Field('installSize', String, 'Installation Size',
+        hint: 'App installation size'),
+    Field('cacheSize', String, 'Cache Size',
+        hint: 'Typical cache size'),
+    Field('storageType', String, 'Storage Type',
+        hint: 'SSD recommended'),
+
+    // Graphics
+    Field('gpuRequired', bool, 'GPU Required',
+        hint: 'Dedicated GPU needed'),
+    Field('gpuAcceleration', String, 'GPU Acceleration',
+        hint: 'WebGL, hardware acceleration'),
+    Field('videoDecoding', String, 'Video Decoding',
+        hint: 'Hardware video decode'),
+
+    // Peripherals
+    Field('inputDevices', String, 'Input Devices',
+        hint: 'Keyboard, mouse, touch'),
+    Field('audioSupport', String, 'Audio Support',
+        hint: 'Audio I/O requirements'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional hardware notes'),
+  ])
+  String? content;
+}
+
+/// Client accessibility requirements.
+class ClientAccessibilityRequirements {
+  @Form([
+    // Screen readers
+    Field('screenReaderSupport', String, 'Screen Reader Support',
+        hint: 'NVDA, VoiceOver, JAWS'),
+    Field('ariaCompliance', String, 'ARIA Compliance',
+        hint: 'ARIA landmark/role support'),
+    Field('semanticHtml', bool, 'Semantic HTML',
+        hint: 'Proper semantic structure'),
+
+    // Visual
+    Field('colorBlindSupport', bool, 'Color Blind Support',
+        hint: 'Color-blind friendly'),
+    Field('highContrastMode', bool, 'High Contrast Mode',
+        hint: 'High contrast support'),
+    Field('zoomSupport', String, 'Zoom Support',
+        hint: 'Browser zoom support'),
+    Field('fontScaling', String, 'Font Scaling',
+        hint: 'Dynamic font scaling'),
+
+    // Motor
+    Field('keyboardNavigation', bool, 'Keyboard Navigation',
+        hint: 'Full keyboard access'),
+    Field('focusIndicators', bool, 'Focus Indicators',
+        hint: 'Visible focus indicators'),
+    Field('touchTargetSize', String, 'Touch Target Size',
+        hint: 'Minimum touch targets'),
+    Field('voiceControl', String, 'Voice Control',
+        hint: 'Voice input support'),
+
+    // Cognitive
+    Field('simplifiedMode', bool, 'Simplified Mode',
+        hint: 'Reduced complexity mode'),
+    Field('readingLevel', String, 'Reading Level',
+        hint: 'Content reading level'),
+    Field('animationControls', bool, 'Animation Controls',
+        hint: 'Reduce motion option'),
+
+    // Standards
+    Field('wcagLevel', String, 'WCAG Conformance',
+        hint: 'A, AA, or AAA'),
+    Field('additionalStandards', String, 'Additional Standards',
+        hint: 'Section 508, EN 301 549'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional accessibility notes'),
+  ])
+  String? content;
+}
+
+/// Progressive Web App (PWA) requirements.
+class PwaRequirements {
+  @Form([
+    // Manifest
+    Field('pwaEnabled', bool, 'PWA Enabled',
+        hint: 'PWA functionality enabled'),
+    Field('appName', String, 'App Name',
+        hint: 'PWA display name'),
+    Field('shortName', String, 'Short Name',
+        hint: 'PWA short name'),
+    Field('themeColor', String, 'Theme Color',
+        hint: 'Theme color hex'),
+    Field('backgroundColor', String, 'Background Color',
+        hint: 'Splash background color'),
+
+    // Icons
+    Field('iconSizes', String, 'Icon Sizes',
+        hint: '192x192, 512x512'),
+    Field('maskableIcon', bool, 'Maskable Icon',
+        hint: 'Adaptive icon support'),
+    Field('splashScreen', String, 'Splash Screen',
+        hint: 'Splash screen config'),
+
+    // Installation
+    Field('installPrompt', String, 'Install Prompt',
+        hint: 'Installation prompt strategy'),
+    Field('standaloneMode', bool, 'Standalone Mode',
+        hint: 'Standalone display mode'),
+    Field('startUrl', String, 'Start URL',
+        hint: 'PWA start URL'),
+
+    // Offline
+    Field('serviceWorkerStrategy', String, 'Service Worker Strategy',
+        hint: 'Cache-first, network-first'),
+    Field('offlinePages', String, 'Offline Pages',
+        hint: 'Pages available offline'),
+    Field('backgroundSync', bool, 'Background Sync',
+        hint: 'Background sync support'),
+
+    // Updates
+    Field('updateStrategy', String, 'Update Strategy',
+        hint: 'How updates are handled'),
+    Field('cacheVersion', String, 'Cache Versioning',
+        hint: 'Cache versioning approach'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional PWA notes'),
+  ])
+  String? content;
+}
+
+/// Native app requirements.
+class NativeAppRequirements {
+  @Form([
+    // Distribution
+    Field('appStoreDistribution', bool, 'App Store Distribution',
+        hint: 'Distributed via app stores'),
+    Field('enterpriseDistribution', bool, 'Enterprise Distribution',
+        hint: 'MDM/enterprise deployment'),
+    Field('sideloading', bool, 'Sideloading',
+        hint: 'Direct installation'),
+
+    // App stores
+    Field('appleAppStore', bool, 'Apple App Store',
+        hint: 'iOS App Store listing'),
+    Field('googlePlayStore', bool, 'Google Play Store',
+        hint: 'Google Play listing'),
+    Field('otherStores', String, 'Other Stores',
+        hint: 'Amazon, Samsung, etc.'),
+
+    // Version requirements
+    Field('minSdkVersion', String, 'Minimum SDK Version',
+        hint: 'Minimum SDK level'),
+    Field('targetSdkVersion', String, 'Target SDK Version',
+        hint: 'Target SDK level'),
+    Field('compileSdkVersion', String, 'Compile SDK Version',
+        hint: 'Compile SDK version'),
+
+    // Size and performance
+    Field('maxAppSize', String, 'Maximum App Size',
+        hint: 'Max download size'),
+    Field('startupTime', String, 'Startup Time Target',
+        hint: 'Cold start time target'),
+    Field('memoryLimit', String, 'Memory Limit',
+        hint: 'Max memory usage'),
+
+    // Deep linking
+    Field('deepLinking', bool, 'Deep Linking',
+        hint: 'Deep link support'),
+    Field('universalLinks', bool, 'Universal/App Links',
+        hint: 'Universal links support'),
+    Field('customScheme', String, 'Custom URL Scheme',
+        hint: 'App URL scheme'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional native app notes'),
+  ])
+  String? content;
+}
+
+/// Client security requirements.
+class ClientSecurityRequirements {
+  @Form([
+    // Data protection
+    Field('localDataEncryption', bool, 'Local Data Encryption',
+        hint: 'Encrypt local storage'),
+    Field('secureStorage', String, 'Secure Storage',
+        hint: 'Keychain, encrypted prefs'),
+    Field('cacheClearing', String, 'Cache Clearing',
+        hint: 'Sensitive data clearing'),
+
+    // Authentication
+    Field('biometricAuth', bool, 'Biometric Authentication',
+        hint: 'FaceID, TouchID, fingerprint'),
+    Field('devicePasscode', bool, 'Device Passcode Required',
+        hint: 'Require device passcode'),
+    Field('rememberCredentials', String, 'Remember Credentials',
+        hint: 'Credential storage policy'),
+    Field('autoLockTimeout', String, 'Auto-Lock Timeout',
+        hint: 'Session timeout'),
+
+    // Device security
+    Field('jailbreakDetection', bool, 'Jailbreak Detection',
+        hint: 'Detect rooted devices'),
+    Field('debugDetection', bool, 'Debug Detection',
+        hint: 'Detect debugging'),
+    Field('certificatePinning', bool, 'Certificate Pinning',
+        hint: 'SSL certificate pinning'),
+    Field('vpnDetection', String, 'VPN Detection',
+        hint: 'VPN/proxy detection'),
+
+    // Network security
+    Field('httpsOnly', bool, 'HTTPS Only',
+        hint: 'Require HTTPS'),
+    Field('minTlsVersion', String, 'Minimum TLS Version',
+        hint: 'TLS 1.2, TLS 1.3'),
+    Field('insecureConnectionBlocking', bool, 'Block Insecure Connections',
+        hint: 'Block HTTP'),
+
+    // Code protection
+    Field('codeObfuscation', bool, 'Code Obfuscation',
+        hint: 'Obfuscate app code'),
+    Field('tamperDetection', bool, 'Tamper Detection',
+        hint: 'Detect app tampering'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional client security notes'),
   ])
   String? content;
 }
