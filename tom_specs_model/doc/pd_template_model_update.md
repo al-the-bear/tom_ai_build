@@ -168,7 +168,7 @@ These sections exist in `tom_specs_model` but are missing from `pd_template.md`:
 | PD00-POP-TOO-ENV | Environments | Review | ✅ Done |
 | PD00-POP-TOO-TOO | Tools | Review | ✅ Done |
 | PD00-SSP | System Strategy and Planning | Review | ✅ Done |
-| PD00-SSP-FEA | Features | Review | ⬜ Not Started |
+| PD00-SSP-FEA | Features | Review | ✅ Done |
 | PD00-SSP-GOV | Governance | Review | ⬜ Not Started |
 | PD00-SSP-GOV-DEC | Decisions | Review | ⬜ Not Started |
 | PD00-SSP-GOV-GAT | Gates | Review | ⬜ Not Started |

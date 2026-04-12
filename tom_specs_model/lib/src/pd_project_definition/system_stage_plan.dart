@@ -657,16 +657,713 @@ class StageSuccessCriterionEntry {
 }
 
 /// 13.4. Feature Prioritization [PD00-SSP-FEA].
+///
+/// Comprehensive feature prioritization framework for staged delivery.
+/// Covers prioritization methodology, MoSCoW analysis, feature-stage
+/// mapping, individual feature priority scoring, and cross-feature
+/// dependency tracking. Aligns with SAFe WSJF, PMBOK value-driven
+/// delivery, MoSCoW (DSDM), and Kano model classification.
 @SectionId('PD00-SSP-FEA')
 class FeaturePrioritization {
-  @Unused()
+  @Form([
+    // --- Methodology & Approach ---
+    Field('prioritizationMethodology', String,
+        'Prioritization Methodology',
+        hint:
+            'MoSCoW / WSJF / ValueVsEffort / Kano / '
+            'WeightedScoring / StackRank / Hybrid',
+        required: true),
+    Field('secondaryMethodology', String, 'Secondary Methodology',
+        hint:
+            'Optional complementary method — e.g. Kano for UX '
+            'features alongside MoSCoW for core'),
+    Field('scoringModelDescription', String,
+        'Scoring Model Description',
+        hint:
+            'How priority scores are calculated — criteria, '
+            'weights, scale (1-5, Fibonacci, T-shirt)'),
+    Field('prioritizationCriteria', String,
+        'Prioritization Criteria',
+        hint:
+            'Comma-separated criteria — BusinessValue, '
+            'CostOfDelay, Risk, Effort, StrategicAlignment, '
+            'Urgency, Dependency'),
+    Field('criteriaWeights', String, 'Criteria Weights',
+        hint:
+            'Weight per criterion — e.g. BusinessValue:30%, '
+            'CostOfDelay:25%, Risk:20%, Effort:15%, '
+            'Alignment:10%'),
+    // --- Stakeholder Involvement ---
+    Field('prioritizationOwner', String, 'Prioritization Owner',
+        hint:
+            'Role or person with final authority — Product Owner, '
+            'Steering Committee'),
+    Field('stakeholderParticipants', String,
+        'Stakeholder Participants',
+        hint:
+            'Roles involved — PM, Architects, Business Analysts, '
+            'UX, Customer Reps'),
+    Field('stakeholderVotingMethod', String,
+        'Stakeholder Voting Method',
+        hint:
+            'DotVoting / PlanningPoker / ConsensusBuilding / '
+            'DelegatedAuthority / Delphi'),
+    Field('conflictResolutionProcess', String,
+        'Conflict Resolution Process',
+        hint:
+            'How disagreements are resolved — escalation to '
+            'sponsor, majority vote, data-driven'),
+    // --- Cadence & Triggers ---
+    Field('reviewCadence', String, 'Review Cadence',
+        hint:
+            'How often prioritization is reviewed — EveryPI / '
+            'Monthly / PerStage / OnDemand',
+        required: true),
+    Field('rePrioritizationTriggers', String,
+        'Re-Prioritization Triggers',
+        hint:
+            'Events forcing re-prioritization — budget change, '
+            'regulatory mandate, competitive pressure, scope '
+            'change, dependency failure'),
+    Field('lastPrioritizationDate', String,
+        'Last Prioritization Date',
+        hint: 'When features were last formally prioritized'),
+    Field('nextReviewDate', String, 'Next Scheduled Review',
+        hint: 'Next planned prioritization review session'),
+    // --- Capacity Constraints ---
+    Field('teamVelocity', String, 'Team Velocity',
+        hint:
+            'Current velocity in story points per sprint or '
+            'features per PI'),
+    Field('budgetCap', String, 'Budget Cap',
+        hint:
+            'Total budget available for feature delivery across '
+            'all stages'),
+    Field('maxFeaturesPerStage', String, 'Max Features Per Stage',
+        hint:
+            'Capacity limit based on team size and velocity'),
+    Field('resourceBottlenecks', String, 'Resource Bottlenecks',
+        hint:
+            'Scarce resources constraining delivery — e.g. DBA, '
+            'Security review, UX design'),
+    // --- Backlog Health ---
+    Field('totalFeaturesInBacklog', String,
+        'Total Features in Backlog',
+        hint: 'Total feature count across all priority tiers'),
+    Field('featuresFullyPrioritized', String,
+        'Features Fully Prioritized',
+        hint: 'Count with complete priority scoring'),
+    Field('featuresUnprioritized', String,
+        'Features Unprioritized',
+        hint: 'Features awaiting prioritization'),
+    Field('backlogGroomingStatus', String,
+        'Backlog Grooming Status',
+        hint:
+            'Current / Stale / NeedsReview — health of the '
+            'feature backlog'),
+    Field('averageFeatureAge', String, 'Average Feature Age',
+        hint:
+            'Mean time features spend in backlog before delivery '
+            'or removal — e.g. 3 months'),
+    // --- Traceability ---
+    Field('traceabilityToBusinessCase', String,
+        'Traceability to Business Case',
+        hint:
+            'How features link to business case — tagging, OKR '
+            'mapping, epic hierarchy'),
+    Field('traceabilityToRequirements', String,
+        'Traceability to Requirements',
+        hint:
+            'How features map to requirements — by ID, by use '
+            'case, by business process'),
+  ])
   String? content;
 
-  /// Moscow Analysis.
-  TextSection moscowAnalysis = TextSection();
+  /// Prioritization rationale narrative.
+  TextSection prioritizationRationale = TextSection();
 
-  /// Feature Stage Matrix.
-  TextSection featureStageMatrix = TextSection();
+  /// 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
+  MoscowAnalysis moscowAnalysis = MoscowAnalysis();
+
+  /// 13.4.2. Feature-Stage Matrix [PD00-SSP-FEA-MAT].
+  FeatureStageMatrix featureStageMatrix = FeatureStageMatrix();
+
+  /// 13.4.3. Feature Priority Register [PD00-SSP-FEA-REG].
+  FeaturePriorityRegister featurePriorityRegister =
+      FeaturePriorityRegister();
+
+  /// 13.4.4. Feature Dependencies [PD00-SSP-FEA-DEP].
+  FeatureDependencies featureDependencies = FeatureDependencies();
+}
+
+/// 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
+///
+/// Classifies every feature using the MoSCoW method (Must / Should /
+/// Could / Won't) and maps each to its target delivery stage.
+@SectionId('PD00-SSP-FEA-MOS')
+class MoscowAnalysis {
+  @Form([
+    // --- Summary Statistics ---
+    Field('mustHaveCount', String, 'Must-Have Count',
+        hint: 'Number of Must-have features'),
+    Field('shouldHaveCount', String, 'Should-Have Count',
+        hint: 'Number of Should-have features'),
+    Field('couldHaveCount', String, 'Could-Have Count',
+        hint: 'Number of Could-have features'),
+    Field('wontHaveCount', String, 'Won\'t-Have Count',
+        hint: 'Number of Won\'t-have features'),
+    Field('mustHaveEffortPercentage', String, 'Must-Have Effort %',
+        hint:
+            'Percentage of total effort consumed by Must-haves — '
+            'DSDM recommends ≤60%'),
+    Field('shouldHaveEffortPercentage', String,
+        'Should-Have Effort %',
+        hint: 'Percentage of total effort for Should-haves — ≤20%'),
+    Field('classificationRationale', String,
+        'Classification Rationale',
+        hint:
+            'High-level rationale for the MoSCoW balance — '
+            'risk-averse, value-first, regulatory-driven'),
+    Field('classificationDate', String, 'Classification Date',
+        hint: 'When the MoSCoW classification was last performed'),
+    Field('classificationApprovedBy', String,
+        'Classification Approved By',
+        hint: 'Person or body who approved the classification'),
+  ])
+  String? content;
+
+  /// MoSCoW rationale narrative.
+  TextSection moscowRationale = TextSection();
+
+  /// Contains 0+× MoscowEntry.
+  @SectionIdPattern('PD00-SSP-FEA-MOS-xx')
+  List<MoscowEntry> items = [];
+}
+
+/// A MoSCoW classification entry (form) [PD00-SSP-FEA-MOS-nn].
+///
+/// Maps a single feature or feature group to its MoSCoW category and
+/// target delivery stage, with justification and cross-references.
+class MoscowEntry {
+  @Form([
+    // --- Feature Identity ---
+    Field('featureId', String, 'Feature ID',
+        hint:
+            'Unique feature identifier — e.g. FEA-001, or '
+            'reference to feature register entry',
+        required: true),
+    Field('featureName', String, 'Feature Name',
+        hint: 'Short descriptive name of the feature',
+        required: true),
+    Field('featureGroup', String, 'Feature Group',
+        hint:
+            'Logical grouping — e.g. Authentication, Reporting, '
+            'Payments, User Management'),
+    // --- MoSCoW Classification ---
+    Field('moscowCategory', String, 'MoSCoW Category',
+        hint: 'Must / Should / Could / Wont',
+        required: true),
+    Field('justification', String, 'Justification',
+        hint:
+            'Why this feature has this classification — business '
+            'rationale, regulatory need, user demand',
+        required: true),
+    Field('reclassificationRisk', String, 'Reclassification Risk',
+        hint:
+            'Low / Medium / High — likelihood the category will '
+            'change before delivery'),
+    // --- Value & Effort ---
+    Field('businessValue', String, 'Business Value',
+        hint:
+            'Relative business value — 1-10, Fibonacci, or '
+            'qualitative High/Medium/Low'),
+    Field('effortEstimate', String, 'Effort Estimate',
+        hint:
+            'Relative effort — story points, T-shirt size, or '
+            'person-days'),
+    Field('costOfDelay', String, 'Cost of Delay',
+        hint:
+            'Impact of not delivering on time — revenue loss, '
+            'penalty, competitive risk'),
+    // --- Stage Assignment ---
+    Field('targetStage', String, 'Target Stage',
+        hint:
+            'Stage in which this feature is planned for delivery',
+        required: true),
+    Field('earliestPossibleStage', String,
+        'Earliest Possible Stage',
+        hint:
+            'Earliest stage where prerequisites allow delivery'),
+    // --- Cross-References ---
+    Field('linkedRequirements', String, 'Linked Requirements',
+        hint:
+            'Requirement IDs this feature traces to — '
+            'comma-separated'),
+    Field('linkedUseCases', String, 'Linked Use Cases',
+        hint: 'Use case IDs this feature implements'),
+    Field('dependsOnFeatures', String, 'Depends on Features',
+        hint:
+            'Feature IDs that must be delivered before this one'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional notes or caveats'),
+  ])
+  String? content;
+}
+
+/// 13.4.2. Feature-Stage Matrix [PD00-SSP-FEA-MAT].
+///
+/// Maps every feature or feature group to the delivery stage, tracking
+/// readiness, confidence, dependencies, and acceptance criteria.
+@SectionId('PD00-SSP-FEA-MAT')
+class FeatureStageMatrix {
+  @Form([
+    // --- Matrix Summary ---
+    Field('totalMappedFeatures', String, 'Total Mapped Features',
+        hint: 'Number of features mapped to stages'),
+    Field('unmappedFeatures', String, 'Unmapped Features',
+        hint: 'Features not yet assigned to any stage'),
+    Field('stageCapacityUtilization', String,
+        'Stage Capacity Utilization',
+        hint:
+            'Per-stage capacity summary — e.g. Stage 1: 85%, '
+            'Stage 2: 60%'),
+    Field('crossStageDependencyCount', String,
+        'Cross-Stage Dependency Count',
+        hint:
+            'Feature dependencies crossing stage boundaries'),
+    Field('matrixLastUpdated', String, 'Matrix Last Updated',
+        hint: 'Date the feature-stage matrix was last updated'),
+    Field('matrixApprovedBy', String, 'Matrix Approved By',
+        hint: 'Person or body who approved the current matrix'),
+  ])
+  String? content;
+
+  /// Feature-Stage matrix narrative.
+  TextSection matrixNarrative = TextSection();
+
+  /// Contains 0+× FeatureStageMapping.
+  @SectionIdPattern('PD00-SSP-FEA-MAT-xx')
+  List<FeatureStageMapping> items = [];
+}
+
+/// A feature-to-stage mapping entry (form) [PD00-SSP-FEA-MAT-nn].
+///
+/// Maps a single feature or feature group to its delivery stage with
+/// readiness, confidence, and dependency information.
+class FeatureStageMapping {
+  @Form([
+    // --- Feature Identity ---
+    Field('featureId', String, 'Feature ID',
+        hint:
+            'Feature identifier — matches MoSCoW entry or '
+            'register',
+        required: true),
+    Field('featureName', String, 'Feature Name',
+        hint: 'Short descriptive name',
+        required: true),
+    Field('featureGroup', String, 'Feature Group',
+        hint: 'Logical grouping for this feature'),
+    // --- Stage Assignment ---
+    Field('targetStage', String, 'Target Stage',
+        hint: 'Stage in which this feature will be delivered',
+        required: true),
+    Field('stagePhase', String, 'Stage Phase',
+        hint:
+            'Sub-phase within the stage — Alpha / Beta / GA / '
+            'Full rollout'),
+    Field('fallbackStage', String, 'Fallback Stage',
+        hint:
+            'Stage to which this feature moves if cut from '
+            'target stage'),
+    // --- Readiness & Confidence ---
+    Field('readinessStatus', String, 'Readiness Status',
+        hint:
+            'NotReady / InProgress / DesignComplete / '
+            'ReadyForDev / ReadyForTest / ReadyForRelease',
+        required: true),
+    Field('deliveryConfidence', String, 'Delivery Confidence',
+        hint:
+            'High / Medium / Low — confidence that this feature '
+            'will be delivered in the target stage'),
+    Field('confidenceRationale', String, 'Confidence Rationale',
+        hint:
+            'Why confidence is at this level — blockers, '
+            'unknowns, resource gaps'),
+    // --- Dependencies ---
+    Field('prerequisiteFeatures', String, 'Prerequisite Features',
+        hint:
+            'Feature IDs that must complete first — '
+            'comma-separated'),
+    Field('blockedByExternalDependency', String,
+        'Blocked by External Dependency',
+        hint:
+            'External systems, vendors, or approvals — None, '
+            'or description'),
+    Field('crossStageDependency', String,
+        'Cross-Stage Dependency',
+        hint:
+            'Does this feature depend on something from a prior '
+            'stage — Yes/No, plus which stage'),
+    // --- Acceptance ---
+    Field('acceptanceCriteriaSummary', String,
+        'Acceptance Criteria Summary',
+        hint:
+            'High-level criteria for this feature to be accepted'),
+    Field('definitionOfDone', String, 'Definition of Done',
+        hint:
+            'DoD for this feature — code complete, tests pass, '
+            'docs updated, deployed'),
+    // --- Notes ---
+    Field('notes', String, 'Notes',
+        hint: 'Additional context or caveats'),
+  ])
+  String? content;
+}
+
+/// 13.4.3. Feature Priority Register [PD00-SSP-FEA-REG].
+///
+/// Master register of all features with comprehensive priority scoring,
+/// business value analysis, effort estimates, stakeholder ownership,
+/// and traceability. Single source of truth for feature identity.
+@SectionId('PD00-SSP-FEA-REG')
+class FeaturePriorityRegister {
+  @Form([
+    Field('totalRegisteredFeatures', String,
+        'Total Registered Features',
+        hint: 'Total number of features in the register'),
+    Field('registerLastUpdated', String, 'Register Last Updated',
+        hint: 'Date the register was last fully reviewed'),
+    Field('registerOwner', String, 'Register Owner',
+        hint:
+            'Person responsible for maintaining the register — '
+            'typically Product Owner'),
+  ])
+  String? content;
+
+  /// Contains 1+× FeaturePriorityEntry.
+  @SectionIdPattern('PD00-SSP-FEA-REG-xx')
+  @Min(1)
+  List<FeaturePriorityEntry> items = [];
+}
+
+/// An individual feature priority entry (form) [PD00-SSP-FEA-REG-nn].
+///
+/// Comprehensive record covering identity, classification, business
+/// value, effort, priority scoring, stage assignment, dependencies,
+/// stakeholders, traceability, and status.
+class FeaturePriorityEntry {
+  @Form([
+    // --- Feature Identity ---
+    Field('featureId', String, 'Feature ID',
+        hint: 'Unique identifier — e.g. FEA-001',
+        required: true),
+    Field('featureName', String, 'Feature Name',
+        hint: 'Short descriptive name',
+        required: true),
+    Field('featureDescription', String, 'Description',
+        hint: 'Detailed description of the feature capability'),
+    Field('featureCategory', String, 'Category',
+        hint:
+            'Functional / NonFunctional / Regulatory / UX / '
+            'Infrastructure / Security / DataManagement / '
+            'Integration',
+        required: true),
+    Field('featureSubCategory', String, 'Sub-Category',
+        hint:
+            'Finer classification — e.g. Authentication, '
+            'Reporting, Caching'),
+    Field('featureType', String, 'Feature Type',
+        hint:
+            'New / Enhancement / BugFix / TechnicalDebt / '
+            'Enabler / Exploration'),
+    Field('featureSize', String, 'Feature Size',
+        hint: 'XS / S / M / L / XL — T-shirt sizing'),
+    Field('epicLink', String, 'Epic Link',
+        hint:
+            'Parent epic or theme — for portfolio-level '
+            'tracking'),
+    // --- Business Value ---
+    Field('businessValueScore', String, 'Business Value Score',
+        hint:
+            'Numeric score — 1-10 or Fibonacci — used in '
+            'weighted scoring',
+        required: true),
+    Field('revenueImpact', String, 'Revenue Impact',
+        hint:
+            'None / Low / Medium / High / Critical — expected '
+            'revenue impact'),
+    Field('revenueEstimate', String, 'Revenue Estimate',
+        hint:
+            'Estimated revenue or savings — e.g. \$50K/year, '
+            '5% conversion increase'),
+    Field('costOfDelay', String, 'Cost of Delay',
+        hint:
+            'Daily/weekly/monthly cost of not delivering — '
+            'financial or qualitative'),
+    Field('costOfDelayCategory', String,
+        'Cost of Delay Category',
+        hint:
+            'StandardDecay / FixedDate / UrgentPenalty / None '
+            '— SAFe CoD categorization'),
+    Field('strategicAlignment', String, 'Strategic Alignment',
+        hint:
+            'Low / Medium / High / Critical — alignment with '
+            'business strategy and OKRs',
+        required: true),
+    Field('strategicObjectiveLink', String,
+        'Strategic Objective Link',
+        hint:
+            'Which business objective or OKR this supports — '
+            'e.g. O1-KR3'),
+    Field('customerImpact', String, 'Customer Impact',
+        hint:
+            'Low / Medium / High — impact on customer '
+            'experience or satisfaction'),
+    Field('userBaseAffected', String, 'User Base Affected',
+        hint:
+            'Percentage or count of users — e.g. 80% of active '
+            'users, 500 enterprises'),
+    Field('marketCompetitiveness', String,
+        'Market Competitiveness',
+        hint:
+            'TableStakes / Differentiator / Innovative / '
+            'CatchUp — market positioning'),
+    Field('regulatoryRequirement', String,
+        'Regulatory Requirement',
+        hint:
+            'None / Recommended / Mandatory — whether compliance '
+            'depends on this feature'),
+    Field('regulatoryDeadline', String, 'Regulatory Deadline',
+        hint:
+            'Hard compliance deadline — e.g. GDPR by 2025-Q2'),
+    // --- Effort & Complexity ---
+    Field('estimatedEffort', String, 'Estimated Effort',
+        hint:
+            'Story points, person-days, or T-shirt size — '
+            'primary effort metric',
+        required: true),
+    Field('complexityRating', String, 'Complexity Rating',
+        hint:
+            'Low / Medium / High / VeryHigh — technical and '
+            'organizational complexity'),
+    Field('complexityFactors', String, 'Complexity Factors',
+        hint:
+            'Key sources — integration count, data migration, '
+            'UI complexity, algorithm difficulty'),
+    Field('riskLevel', String, 'Risk Level',
+        hint:
+            'Low / Medium / High — delivery risk for this '
+            'feature',
+        required: true),
+    Field('riskFactors', String, 'Risk Factors',
+        hint:
+            'Specific risks — novel technology, unclear reqs, '
+            'external dependency, performance'),
+    Field('technicalDebtImpact', String, 'Technical Debt Impact',
+        hint:
+            'Creates / Reduces / Neutral — effect on technical '
+            'debt'),
+    Field('dependencyCount', String, 'Dependency Count',
+        hint: 'Number of features this depends on or blocks'),
+    Field('integrationComplexity', String,
+        'Integration Complexity',
+        hint:
+            'None / Low / Medium / High — integrations required'),
+    // --- Priority Scoring ---
+    Field('weightedPriorityScore', String,
+        'Weighted Priority Score',
+        hint:
+            'Calculated score from weighted criteria — e.g. '
+            '8.5 out of 10',
+        required: true),
+    Field('priorityRank', String, 'Priority Rank',
+        hint: 'Ordinal rank — 1 = highest',
+        required: true),
+    Field('moscowTier', String, 'MoSCoW Tier',
+        hint: 'Must / Should / Could / Wont',
+        required: true),
+    Field('wsjfScore', String, 'WSJF Score',
+        hint:
+            'Weighted Shortest Job First score — CoD / JobSize'),
+    Field('kanoClassification', String, 'Kano Classification',
+        hint:
+            'Basic / Performance / Excitement / Indifferent / '
+            'Reverse'),
+    Field('prioritizationNotes', String, 'Prioritization Notes',
+        hint: 'Justification or context for the scoring'),
+    // --- Stage Assignment ---
+    Field('targetStage', String, 'Target Stage',
+        hint: 'Planned delivery stage',
+        required: true),
+    Field('earliestPossibleStage', String,
+        'Earliest Possible Stage',
+        hint:
+            'Earliest stage prerequisites allow — may differ '
+            'from target due to capacity'),
+    Field('fallbackStage', String, 'Fallback Stage',
+        hint: 'Stage to defer to if cut from target'),
+    Field('stageAssignmentRationale', String,
+        'Stage Assignment Rationale',
+        hint:
+            'Why this stage — dependency, value, risk, capacity'),
+    // --- Dependencies ---
+    Field('dependsOnFeatures', String, 'Depends on Features',
+        hint: 'Feature IDs this requires — comma-separated'),
+    Field('blocksFeatures', String, 'Blocks Features',
+        hint:
+            'Feature IDs blocked until this completes — '
+            'comma-separated'),
+    Field('externalDependencies', String, 'External Dependencies',
+        hint:
+            'External systems, APIs, vendors, or approvals — '
+            'comma-separated'),
+    Field('dependencyCriticalPath', String,
+        'On Dependency Critical Path',
+        hint:
+            'Yes / No — whether on the critical dependency '
+            'chain'),
+    // --- Stakeholders ---
+    Field('requestedBy', String, 'Requested By',
+        hint: 'Person, team, or customer who requested this'),
+    Field('businessOwner', String, 'Business Owner',
+        hint: 'Business stakeholder accountable',
+        required: true),
+    Field('productOwner', String, 'Product Owner',
+        hint: 'Product owner for backlog management'),
+    Field('technicalOwner', String, 'Technical Owner',
+        hint: 'Engineer or architect for delivery'),
+    Field('approvalStatus', String, 'Approval Status',
+        hint:
+            'Proposed / Approved / ConditionallyApproved / '
+            'Rejected / Deferred'),
+    Field('approvedBy', String, 'Approved By',
+        hint: 'Person or body who approved'),
+    Field('approvalDate', String, 'Approval Date',
+        hint: 'When approval was granted'),
+    // --- Traceability ---
+    Field('linkedRequirements', String, 'Linked Requirements',
+        hint: 'Requirement IDs — comma-separated'),
+    Field('linkedUseCases', String, 'Linked Use Cases',
+        hint: 'Use case IDs — comma-separated'),
+    Field('linkedBusinessProcesses', String,
+        'Linked Business Processes',
+        hint: 'Business process IDs — comma-separated'),
+    Field('linkedUserStories', String, 'Linked User Stories',
+        hint: 'User story IDs in the backlog'),
+    Field('linkedArchitectureDecisions', String,
+        'Linked Architecture Decisions',
+        hint: 'ADR IDs affected by or affecting this feature'),
+    // --- Status ---
+    Field('prioritizationStatus', String, 'Prioritization Status',
+        hint:
+            'Draft / UnderReview / Prioritized / Deferred / '
+            'Dropped',
+        required: true),
+    Field('deliveryStatus', String, 'Delivery Status',
+        hint:
+            'Backlog / Planned / InDevelopment / InTest / '
+            'Delivered / Cancelled'),
+    Field('confidenceLevel', String, 'Confidence Level',
+        hint:
+            'High / Medium / Low — confidence feature can be '
+            'delivered as scoped and on time'),
+    Field('lastReviewedDate', String, 'Last Reviewed Date',
+        hint: 'When last reviewed in prioritization'),
+    Field('changeHistory', String, 'Change History',
+        hint:
+            'Brief log of priority/stage changes — e.g. '
+            '"Moved Must→Should Q1, re-staged 2→3"'),
+  ])
+  String? content;
+}
+
+/// 13.4.4. Feature Dependencies [PD00-SSP-FEA-DEP].
+///
+/// Cross-feature dependencies affecting staging order, critical path
+/// analysis, and delivery sequencing.
+@SectionId('PD00-SSP-FEA-DEP')
+class FeatureDependencies {
+  @Form([
+    Field('totalDependencyCount', String, 'Total Dependency Count',
+        hint: 'Total number of inter-feature dependencies'),
+    Field('crossStageDependencyCount', String,
+        'Cross-Stage Dependency Count',
+        hint:
+            'Dependencies spanning stage boundaries — highest '
+            'scheduling risk'),
+    Field('criticalPathLength', String, 'Critical Path Length',
+        hint:
+            'Longest dependency chain — number of features on '
+            'the critical path'),
+    Field('circularDependenciesDetected', String,
+        'Circular Dependencies Detected',
+        hint:
+            'Yes / No — whether any circular chains exist '
+            '(must be resolved)'),
+    Field('dependencyMapLastUpdated', String,
+        'Dependency Map Last Updated',
+        hint: 'When the dependency map was last analyzed'),
+  ])
+  String? content;
+
+  /// Dependency analysis narrative.
+  TextSection dependencyAnalysis = TextSection();
+
+  /// Contains 0+× FeatureDependencyEntry.
+  @SectionIdPattern('PD00-SSP-FEA-DEP-xx')
+  List<FeatureDependencyEntry> items = [];
+}
+
+/// A feature dependency entry (form) [PD00-SSP-FEA-DEP-nn].
+///
+/// Describes a single directional dependency between two features,
+/// including type, impact, and resolution strategy.
+class FeatureDependencyEntry {
+  @Form([
+    // --- Dependency Relationship ---
+    Field('sourceFeatureId', String, 'Source Feature ID',
+        hint: 'Feature that has the dependency (the dependent)',
+        required: true),
+    Field('targetFeatureId', String, 'Target Feature ID',
+        hint:
+            'Feature that must be delivered first (the '
+            'prerequisite)',
+        required: true),
+    Field('dependencyType', String, 'Dependency Type',
+        hint:
+            'FinishToStart / StartToStart / FinishToFinish / '
+            'Technical / Data / Interface / Regulatory',
+        required: true),
+    Field('dependencyStrength', String, 'Dependency Strength',
+        hint:
+            'Hard / Soft — Hard = strict ordering, Soft = '
+            'preferred but can be broken with workaround'),
+    // --- Impact & Risk ---
+    Field('impactIfBroken', String, 'Impact if Broken',
+        hint:
+            'Consequence if not satisfied — rework, partial '
+            'functionality, blocking'),
+    Field('schedulingImpact', String, 'Scheduling Impact',
+        hint:
+            'Days of delay if target feature slips — e.g. '
+            '1:1 day-for-day, or buffered'),
+    Field('crossStageDependency', String, 'Cross-Stage',
+        hint:
+            'Yes / No — whether source and target are in '
+            'different stages'),
+    // --- Resolution ---
+    Field('mitigationStrategy', String, 'Mitigation Strategy',
+        hint:
+            'How to handle if at risk — stub/mock, parallel '
+            'development, interface contract'),
+    Field('resolutionStatus', String, 'Resolution Status',
+        hint:
+            'Open / Mitigated / Resolved / Accepted — current '
+            'state'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional context or constraints'),
+  ])
+  String? content;
 }
 
 /// 13.5. Data Migration Strategy [PD00-SSP-MIG].
