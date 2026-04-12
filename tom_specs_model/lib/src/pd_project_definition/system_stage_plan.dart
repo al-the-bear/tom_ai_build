@@ -212,67 +212,535 @@ class StagingStrategy {
 
 /// 13.2. Stage Overview [PD00-SSP-STA].
 ///
-/// High-level summary across all stages including aggregate metrics,
-/// critical path identification, and resource allocation patterns.
+/// High-level summary across all planned stages including aggregate
+/// metrics, critical-path identification, resource allocation patterns,
+/// budget distribution, schedule analytics, quality targets, risk
+/// profile, and plan health. Draws from PMBOK phase-gate discipline,
+/// SAFe PI planning cadence, PRINCE2 stage boundary management, and
+/// TOGAF architecture road-mapping.
 @SectionId('PD00-SSP-STA')
 class StageOverview {
   @Form([
     // --- Summary Metrics ---
     Field('numberOfStages', String, 'Number of Stages',
-        hint: 'Total number of major stages in the plan',
+        hint: 'Total number of major stages in the plan, e.g. 4',
         required: true),
     Field('totalFeaturesPlanned', String, 'Total Features Planned',
         hint:
             'Total number of features or capabilities across all '
-            'stages'),
+            'stages, e.g. 87 features'),
+    Field('totalEpicsPlanned', String, 'Total Epics Planned',
+        hint:
+            'Total number of epics or major work packages '
+            'across all stages'),
+    Field('totalStoriesEstimated', String, 'Total Stories Estimated',
+        hint:
+            'Total user stories or work items estimated '
+            'across all stages'),
     Field('totalDurationMonths', String, 'Total Duration',
-        hint: 'End-to-end planned duration, e.g. 18 months'),
+        hint:
+            'End-to-end planned duration from first stage start '
+            'to last stage completion, e.g. 18 months'),
+    Field('totalEffortPersonMonths', String,
+        'Total Effort (Person-Months)',
+        hint:
+            'Aggregate effort across all stages in person-months, '
+            'e.g. 240 person-months'),
     Field('totalBudgetAllocation', String, 'Total Budget Allocation',
-        hint: 'Aggregate budget across all stages'),
-    // --- Cross-Stage Analysis ---
+        hint:
+            'Aggregate budget across all stages including '
+            'contingency, e.g. EUR 2.4M'),
+    Field('averageStageDuration', String, 'Average Stage Duration',
+        hint:
+            'Average duration of a single stage, e.g. '
+            '4.5 months'),
+    Field('shortestStageDuration', String, 'Shortest Stage Duration',
+        hint:
+            'Duration of the shortest stage and which stage it is'),
+    Field('longestStageDuration', String, 'Longest Stage Duration',
+        hint:
+            'Duration of the longest stage and which stage it is'),
+
+    // --- Planning Baseline ---
+    Field('baselineVersion', String, 'Baseline Version',
+        hint:
+            'Version identifier of the current baseline plan, '
+            'e.g. v2.1'),
+    Field('baselineApprovalDate', String, 'Baseline Approval Date',
+        hint:
+            'Date the current baseline was formally approved, '
+            'e.g. 2026-03-15'),
+    Field('baselineApprovedBy', String, 'Baseline Approved By',
+        hint:
+            'Name or role of the person/board who approved the '
+            'baseline, e.g. Steering Committee'),
+    Field('plannedStartDate', String, 'Planned Start Date',
+        hint:
+            'Overall programme start date from baseline, '
+            'e.g. 2026-04-01'),
+    Field('plannedEndDate', String, 'Planned End Date',
+        hint:
+            'Overall programme end date from baseline, '
+            'e.g. 2027-09-30'),
+    Field('lastPlanRevisionDate', String, 'Last Plan Revision Date',
+        hint:
+            'Date the staging plan was last revised, '
+            'e.g. 2026-06-01'),
+    Field('revisionCount', String, 'Revision Count',
+        hint:
+            'Number of baseline revisions since initial approval'),
+    Field('nextScheduledReview', String, 'Next Scheduled Review',
+        hint:
+            'Date of the next formal plan review, '
+            'e.g. 2026-07-15'),
+
+    // --- Cross-Stage Dependencies ---
     Field('criticalPathSummary', String, 'Critical Path Summary',
         hint:
             'Key activities on the critical path that determine '
             'overall duration'),
+    Field('criticalPathLength', String, 'Critical Path Length',
+        hint:
+            'Duration of the critical path in weeks/months, '
+            'e.g. 14 months'),
     Field('crossStageDependencyCount', String,
         'Cross-Stage Dependency Count',
-        hint: 'Number of dependencies between stages'),
+        hint:
+            'Total number of dependencies between stages, '
+            'e.g. 12 dependencies'),
+    Field('highRiskDependencies', String, 'High-Risk Dependencies',
+        hint:
+            'Cross-stage dependencies with highest risk of delay '
+            '— list key items and affected stages'),
+    Field('externalDependencyCount', String,
+        'External Dependency Count',
+        hint:
+            'Number of dependencies on external parties — vendors, '
+            'regulators, partner systems'),
     Field('longestLeadTimeItem', String, 'Longest Lead-Time Item',
         hint:
             'Activity or procurement with the longest lead time '
             'across all stages'),
-    // --- Resource Overview ---
+    Field('interStagebufferDays', String,
+        'Inter-Stage Buffer (Days)',
+        hint:
+            'Average buffer time between consecutive stages, '
+            'e.g. 10 working days'),
+
+    // --- Resource Allocation Overview ---
     Field('peakTeamSize', String, 'Peak Team Size',
-        hint: 'Maximum team size across all stages'),
+        hint:
+            'Maximum team size across all stages, '
+            'e.g. 24 FTEs'),
+    Field('minimumTeamSize', String, 'Minimum Team Size',
+        hint:
+            'Minimum team size during any stage, '
+            'e.g. 8 FTEs'),
+    Field('averageTeamSize', String, 'Average Team Size',
+        hint:
+            'Average team size weighted by stage duration'),
     Field('resourceAllocationPattern', String,
         'Resource Allocation Pattern',
         hint:
             'FrontLoaded / EvenlyDistributed / BackLoaded / '
-            'BellCurve — how resources are distributed'),
+            'BellCurve — how resources are distributed '
+            'over time'),
+    Field('internalResourcePercent', String,
+        'Internal Resource Percentage',
+        hint:
+            'Percentage of effort from internal staff vs '
+            'external contractors, e.g. 70% internal'),
+    Field('keyRolesRequired', String, 'Key Roles Required',
+        hint:
+            'Critical roles needed across stages — project '
+            'manager, architect, UX designer, DBA, QA lead'),
     Field('sharedResourceConflicts', String,
         'Shared Resource Conflicts',
         hint:
             'Key resources shared across stages that may cause '
-            'contention'),
-    // --- Risk & Confidence ---
+            'contention or bottlenecks'),
+    Field('resourceOnboardingLeadTime', String,
+        'Resource Onboarding Lead Time',
+        hint:
+            'Average time needed to onboard new team members, '
+            'e.g. 2-3 weeks'),
+
+    // --- Budget Distribution ---
+    Field('budgetDistributionPattern', String,
+        'Budget Distribution Pattern',
+        hint:
+            'FrontLoaded / EvenlyDistributed / BackLoaded — '
+            'how budget is distributed across stages'),
+    Field('contingencyReservePercent', String,
+        'Contingency Reserve Percentage',
+        hint:
+            'Percentage of total budget reserved for contingency, '
+            'e.g. 15%'),
+    Field('contingencyReserveAmount', String,
+        'Contingency Reserve Amount',
+        hint:
+            'Absolute contingency amount, e.g. EUR 360K'),
+    Field('managementReservePercent', String,
+        'Management Reserve Percentage',
+        hint:
+            'Percentage held back as management reserve for '
+            'unknown risks, e.g. 5%'),
+    Field('expectedBurnRatePerMonth', String,
+        'Expected Burn Rate Per Month',
+        hint:
+            'Average monthly expenditure, e.g. EUR 130K/month'),
+    Field('peakBurnRateMonth', String,
+        'Peak Burn Rate Month',
+        hint:
+            'Month with highest expenditure and which stage '
+            'drives it'),
+    Field('capitalVsOperationalSplit', String,
+        'Capital vs Operational Split',
+        hint:
+            'Ratio of capital expenditure to operational '
+            'expenditure, e.g. 60% CAPEX / 40% OPEX'),
+
+    // --- Schedule Analytics ---
+    Field('totalFloatDays', String, 'Total Float (Days)',
+        hint:
+            'Total float available across the project, '
+            'e.g. 30 days'),
+    Field('freeFloatDistribution', String, 'Free Float Distribution',
+        hint:
+            'How free float is distributed across stages — '
+            'which stages have the most/least slack'),
+    Field('scheduleCompressionOptions', String,
+        'Schedule Compression Options',
+        hint:
+            'Crashing / FastTracking / ScopeReduction — '
+            'options if schedule needs compression'),
+    Field('scheduleCompressionLimit', String,
+        'Schedule Compression Limit',
+        hint:
+            'Maximum compression possible without unacceptable '
+            'risk, e.g. 15% reduction'),
+    Field('bufferAllocationPolicy', String,
+        'Buffer Allocation Policy',
+        hint:
+            'How buffers are allocated — per-stage / '
+            'project-level / critical-chain based'),
+    Field('milestoneCount', String, 'Milestone Count',
+        hint:
+            'Total number of key milestones across all stages'),
+
+    // --- Quality & Compliance ---
+    Field('aggregateQualityTarget', String,
+        'Aggregate Quality Target',
+        hint:
+            'Overall quality target — defect density, test '
+            'coverage percentage, acceptance criteria pass rate'),
+    Field('complianceMilestoneCount', String,
+        'Compliance Milestone Count',
+        hint:
+            'Number of regulatory or compliance milestones '
+            'across all stages'),
+    Field('auditPointCount', String, 'Audit Point Count',
+        hint:
+            'Number of planned audit checkpoints, e.g. 6 audits'),
+    Field('qualityGateCount', String, 'Quality Gate Count',
+        hint:
+            'Total number of quality gates across all stages'),
+    Field('regressionTestingApproach', String,
+        'Regression Testing Approach',
+        hint:
+            'How regression testing is managed across stages — '
+            'automated / manual / hybrid, cumulative scope'),
+
+    // --- Risk Profile ---
     Field('overallScheduleRisk', String, 'Overall Schedule Risk',
         hint:
-            'Low / Medium / High — aggregate schedule risk '
-            'assessment'),
+            'Low / Medium / High / Critical — aggregate '
+            'schedule risk assessment'),
+    Field('overallBudgetRisk', String, 'Overall Budget Risk',
+        hint:
+            'Low / Medium / High / Critical — aggregate '
+            'budget overrun risk'),
+    Field('overallScopeRisk', String, 'Overall Scope Risk',
+        hint:
+            'Low / Medium / High / Critical — risk of scope '
+            'creep or scope reduction'),
     Field('stageWithHighestRisk', String, 'Stage with Highest Risk',
-        hint: 'Which stage carries the most risk and why'),
+        hint:
+            'Which stage carries the most risk and why, '
+            'e.g. Stage 2 — complex integrations'),
+    Field('riskMitigationInvestment', String,
+        'Risk Mitigation Investment',
+        hint:
+            'Budget allocated to risk mitigation activities '
+            'across all stages, e.g. EUR 200K'),
+    Field('topThreeRisks', String, 'Top Three Risks',
+        hint:
+            'Three most significant risks to the overall staging '
+            'plan — brief description of each'),
+    Field('riskReviewCadence', String, 'Risk Review Cadence',
+        hint:
+            'How often risks are formally reviewed — weekly / '
+            'biweekly / monthly / per-stage-gate'),
+
+    // --- Plan Status & Health ---
+    Field('overallPlanStatus', String, 'Overall Plan Status',
+        hint:
+            'Green / Amber / Red — traffic-light status of '
+            'the overall staging plan'),
+    Field('scheduleVariancePercent', String,
+        'Schedule Variance Percentage',
+        hint:
+            'Current schedule variance vs baseline, '
+            'e.g. +5% behind, -2% ahead'),
+    Field('budgetVariancePercent', String,
+        'Budget Variance Percentage',
+        hint:
+            'Current budget variance vs baseline, '
+            'e.g. +3% over budget'),
+    Field('scopeCompletionPercent', String,
+        'Scope Completion Percentage',
+        hint:
+            'Overall scope completion across all stages, '
+            'e.g. 35% complete'),
+    Field('earnedValueCPI', String, 'Earned Value CPI',
+        hint:
+            'Cost Performance Index — ratio of earned value '
+            'to actual cost, target >= 1.0'),
+    Field('earnedValueSPI', String, 'Earned Value SPI',
+        hint:
+            'Schedule Performance Index — ratio of earned value '
+            'to planned value, target >= 1.0'),
     Field('planConfidenceLevel', String, 'Plan Confidence Level',
         hint:
             'High / Medium / Low — confidence in the overall '
-            'timeline'),
+            'timeline and budget'),
+    Field('confidenceBasis', String, 'Confidence Basis',
+        hint:
+            'Basis for the confidence level — analogous '
+            'estimation / expert judgement / parametric / '
+            'Monte Carlo simulation'),
+
+    // --- Stakeholder Communication ---
+    Field('reportingCadence', String, 'Reporting Cadence',
+        hint:
+            'How often stage plan progress is reported — weekly / '
+            'biweekly / monthly / per-milestone'),
+    Field('primaryReportingAudience', String,
+        'Primary Reporting Audience',
+        hint:
+            'Primary audience for stage plan reports — '
+            'steering committee / PMO / sponsors / all stakeholders'),
+    Field('escalationThreshold', String, 'Escalation Threshold',
+        hint:
+            'When variances require escalation — e.g. >10% '
+            'schedule deviation, >5% budget deviation'),
+    Field('dashboardAvailability', String, 'Dashboard Availability',
+        hint:
+            'Where the live plan status is available — '
+            'project portal / Jira dashboard / SharePoint / email'),
+
+    // --- Assumptions & Constraints ---
+    Field('keyPlanningAssumptions', String,
+        'Key Planning Assumptions',
+        hint:
+            'Top assumptions the staging plan relies on — '
+            'resource availability, vendor delivery, '
+            'regulatory timelines'),
+    Field('externalConstraints', String, 'External Constraints',
+        hint:
+            'Constraints imposed by external factors — market '
+            'deadlines, regulatory go-live dates, contract terms'),
+    Field('internalConstraints', String, 'Internal Constraints',
+        hint:
+            'Internal organizational constraints — budget cycles, '
+            'hiring freezes, technology refresh windows'),
+    Field('stageOverlapPolicy', String, 'Stage Overlap Policy',
+        hint:
+            'NoOverlap / MinimalOverlap / AggressiveOverlap — '
+            'whether stages can run in parallel'),
+    Field('stageOverlapMaxPercent', String,
+        'Stage Overlap Max Percentage',
+        hint:
+            'Maximum allowed overlap between consecutive stages, '
+            'e.g. 20%'),
   ])
   String? content;
 
-  /// Stage Summary narrative.
-  TextSection stageSummary = TextSection();
+  /// 13.2.1. Stage Summary [PD00-SSP-STA-SUM] — contains 1+× Stage
+  /// Summary Entry.
+  @SectionIdPattern('PD00-SSP-STA-SUM-xx')
+  @Min(1)
+  List<StageSummaryEntry> stageSummaries = [];
 
-  /// 13.2.2. Stage Timeline Diagram [PD00-SSP-STA-DIA] (mermaid).
+  /// Stage Summary narrative.
+  @Comment('Free-text overview that complements the structured '
+      'stage summary entries above')
+  TextSection stageSummaryNarrative = TextSection();
+
+  /// 13.2.2. Stage Timeline Diagram [PD00-SSP-STA-DIA] (mermaid-gantt).
   GanttDiagramSection timelineDiagram = GanttDiagramSection();
+
+  /// 13.2.3. Resource Allocation Diagram [PD00-SSP-STA-RAD]
+  /// (mermaid-gantt).
+  @Comment('Gantt-style view of resource allocation across stages')
+  GanttDiagramSection resourceAllocationDiagram = GanttDiagramSection();
+
+  /// 13.2.4. Budget Distribution Diagram [PD00-SSP-STA-BDD]
+  /// (mermaid-flow).
+  @Comment('Visual breakdown of budget distribution across stages')
+  FlowDiagramSection budgetDistributionDiagram = FlowDiagramSection();
+
+  /// 13.2.5. Dependency Map [PD00-SSP-STA-DEP] (mermaid-flow).
+  @Comment('Visual map of cross-stage dependencies and critical paths')
+  FlowDiagramSection dependencyMap = FlowDiagramSection();
+}
+
+/// A stage summary entry [PD00-SSP-STA-SUM-nn] (form).
+///
+/// Quick-reference record for a single stage within the overview. Each
+/// entry captures the essential identification, timeline, scope, and
+/// status of a stage to enable at-a-glance comparison across the full
+/// staging plan. This is the high-level summary — detailed stage
+/// information is captured in the individual StageEntry classes under
+/// section 13.3.
+class StageSummaryEntry {
+  @Form([
+    // --- Stage Identity ---
+    Field('stageNumber', String, 'Stage Number',
+        hint: '1, 2, 3… — sequential stage number',
+        required: true),
+    Field('stageName', String, 'Stage Name',
+        hint:
+            'Descriptive name, e.g. Foundation / Core Operations / '
+            'Analytics / Full Rollout',
+        required: true),
+    Field('stageCodename', String, 'Stage Codename',
+        hint: 'Optional internal codename, e.g. Atlas, Phoenix'),
+    Field('stageTheme', String, 'Stage Theme',
+        hint:
+            'High-level theme or focus area — Infrastructure / '
+            'CoreBusiness / Integration / Optimization / Expansion'),
+
+    // --- Timeline ---
+    Field('plannedStartDate', String, 'Planned Start Date',
+        hint: 'Planned start date, e.g. 2026-04-01',
+        required: true),
+    Field('plannedEndDate', String, 'Planned End Date',
+        hint: 'Planned end date, e.g. 2026-07-31',
+        required: true),
+    Field('durationWeeks', String, 'Duration (Weeks)',
+        hint: 'Planned duration in weeks, e.g. 16 weeks'),
+    Field('bufferWeeks', String, 'Buffer (Weeks)',
+        hint:
+            'Buffer time included at end of stage, '
+            'e.g. 2 weeks'),
+    Field('overlapWithPrevious', String, 'Overlap with Previous Stage',
+        hint:
+            'Duration of overlap with preceding stage, '
+            'e.g. None / 2 weeks / 10%'),
+
+    // --- Scope ---
+    Field('scopeSummary', String, 'Scope Summary',
+        hint:
+            'One-line summary of what this stage delivers, '
+            'e.g. Core user management and authentication',
+        required: true),
+    Field('featureCount', String, 'Feature Count',
+        hint:
+            'Number of features or capabilities delivered '
+            'in this stage'),
+    Field('epicCount', String, 'Epic Count',
+        hint: 'Number of epics or major work packages'),
+    Field('storyPointEstimate', String, 'Story Point Estimate',
+        hint:
+            'Total estimated story points or effort units '
+            'for this stage'),
+    Field('keyDeliverables', String, 'Key Deliverables',
+        hint:
+            'Top 3-5 deliverables of this stage — comma-separated, '
+            'e.g. User Portal, Admin Dashboard, API Gateway'),
+    Field('outOfScopeItems', String, 'Out of Scope Items',
+        hint:
+            'Key items explicitly excluded from this stage — '
+            'deferred to later stages'),
+
+    // --- Resources & Budget ---
+    Field('teamSize', String, 'Team Size',
+        hint:
+            'Number of team members assigned to this stage, '
+            'e.g. 12 FTEs'),
+    Field('keyRoles', String, 'Key Roles',
+        hint:
+            'Critical roles for this stage — architect, '
+            'UX designer, backend lead, QA lead'),
+    Field('estimatedBudget', String, 'Estimated Budget',
+        hint:
+            'Budget for this stage including all cost categories, '
+            'e.g. EUR 600K'),
+    Field('budgetPercentOfTotal', String, 'Budget Percentage of Total',
+        hint:
+            'This stage budget as percentage of total programme '
+            'budget, e.g. 25%'),
+    Field('externalCostPercent', String, 'External Cost Percentage',
+        hint:
+            'Percentage of stage budget going to external vendors '
+            'or contractors'),
+
+    // --- Dependencies & Risks ---
+    Field('predecessorStages', String, 'Predecessor Stages',
+        hint:
+            'Stages that must complete before this one, '
+            'e.g. Stage 1 / None'),
+    Field('successorStages', String, 'Successor Stages',
+        hint:
+            'Stages that depend on this one completing, '
+            'e.g. Stage 3, Stage 4'),
+    Field('externalDependencies', String, 'External Dependencies',
+        hint:
+            'External factors this stage depends on — vendor '
+            'delivery, regulatory approval, hardware procurement'),
+    Field('primaryRisk', String, 'Primary Risk',
+        hint:
+            'Single biggest risk for this stage — brief '
+            'description'),
+    Field('riskLevel', String, 'Risk Level',
+        hint:
+            'Low / Medium / High / Critical — overall risk '
+            'level for this stage'),
+
+    // --- Quality & Acceptance ---
+    Field('qualityTarget', String, 'Quality Target',
+        hint:
+            'Specific quality target — defect density, '
+            'test pass rate, code coverage'),
+    Field('acceptanceCriteriaCount', String,
+        'Acceptance Criteria Count',
+        hint:
+            'Number of formal acceptance criteria for stage '
+            'completion'),
+    Field('gateReviewType', String, 'Gate Review Type',
+        hint:
+            'Formal / Informal / Automated — type of stage '
+            'gate review'),
+
+    // --- Status ---
+    Field('currentStatus', String, 'Current Status',
+        hint:
+            'NotStarted / InPlanning / InProgress / OnHold / '
+            'Completed / Cancelled — current stage status'),
+    Field('percentComplete', String, 'Percent Complete',
+        hint:
+            'Completion percentage, e.g. 0% / 45% / 100%'),
+    Field('statusComment', String, 'Status Comment',
+        hint:
+            'Brief comment on current status — e.g. on track, '
+            '2 weeks behind due to resource constraints'),
+    Field('trafficLightStatus', String, 'Traffic Light Status',
+        hint:
+            'Green / Amber / Red — traffic-light indicator '
+            'for this stage'),
+  ])
+  String? content;
 }
 
 /// A stage entry [PD00-SSP-STG-nn] (form) with description subsections.
