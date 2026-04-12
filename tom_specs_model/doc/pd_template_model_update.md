@@ -160,9 +160,9 @@ These sections exist in `tom_specs_model` but are missing from `pd_template.md`:
 | PD00-COM-RUN | Ramp-up | Review | ✅ Done — split to RuntimeDependencyEntry with 19 fields |
 | PD00-COM-STR | Strategy | Review | ✅ Done — ComponentStrategy enhanced with 20 form fields |
 | PD00-COM-STR-EVA | Evaluation | Review | ✅ Done — EvaluationCriterionEntry enhanced to 16 fields |
-| PD00-CUR-PAI-GAP | Gaps | Review | ⬜ Not Started |
-| PD00-CUR-SYS-DEP-DEP | Dependencies | Review | ⬜ Not Started |
-| PD00-CUR-SYS-DEP-INT | Integrations | Review | ⬜ Not Started |
+| PD00-CUR-PAI-GAP | Gaps | Review | ✅ Done |
+| PD00-CUR-SYS-DEP-DEP | Dependencies | Review | ✅ Done |
+| PD00-CUR-SYS-DEP-INT | Integrations | Review | ✅ Done |
 | PD00-DEL-ACC-UAT | User Acceptance Testing | Review | ⬜ Not Started |
 | PD00-ORG-JOB-STA | Staffing | Review | ⬜ Not Started |
 | PD00-POP-TOO-ENV | Environments | Review | ⬜ Not Started |

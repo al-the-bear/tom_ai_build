@@ -349,10 +349,72 @@ class Integrations {
 }
 
 /// A system dependency entry (form) [PD00-CUR-SYS-DEP-DEP-nn].
+///
+/// Documents one dependency between systems in the current landscape:
+/// mechanism, coupling strength, data flow, failure impact, SLA,
+/// monitoring, and technical debt assessment.
 class SystemDependencyEntry {
   @Form([
-    Field('dependencyType', String, 'Dependency Type'),
-    Field('criticality', String, 'Criticality'),
+    Field('dependencyName', String, 'Dependency Name',
+        hint: 'Descriptive name, e.g. CRM → ERP order sync',
+        required: true),
+    Field('dependencyType', String, 'Dependency Type',
+        hint: 'Data / Functional / Operational / Temporal / Transactional'),
+    Field('direction', String, 'Direction',
+        hint: 'Upstream / Downstream / Bidirectional'),
+    Field('mechanism', String, 'Dependency Mechanism',
+        hint:
+            'API / DatabaseLink / FileTransfer / MessageQueue / SharedStorage / Manual / ETL'),
+    Field('couplingStrength', String, 'Coupling Strength',
+        hint:
+            'Tight / Moderate / Loose — degree of coupling between systems'),
+    Field('criticality', String, 'Criticality',
+        hint: 'Critical / High / Medium / Low'),
+    Field('dataExchanged', String, 'Data Exchanged',
+        hint:
+            'Key data entities or types flowing through this dependency'),
+    Field('dataVolume', String, 'Data Volume',
+        hint:
+            'Typical volume, e.g. ~5k records/day, 200 MB/hour'),
+    Field('dataFreshness', String, 'Data Freshness Requirements',
+        hint:
+            'RealTime / NearRealTime / Hourly / Daily / OnDemand'),
+    Field('failureImpact', String, 'Failure Impact',
+        hint:
+            'What happens when this dependency fails — business consequences'),
+    Field('cascadeRisk', String, 'Failure Cascade Risk',
+        hint:
+            'None / Contained / ModerateCascade / SevereCascade — propagation to other systems'),
+    Field('latencyRequirement', String, 'Latency Requirement',
+        hint:
+            'Maximum acceptable latency, e.g. <500ms, within same business day'),
+    Field('availabilityRequirement', String, 'Availability Requirement',
+        hint:
+            'Required uptime, e.g. 99.9%, business hours only'),
+    Field('sla', String, 'SLA',
+        hint:
+            'Formal SLA reference or key terms, e.g. 4h response, 24h resolution'),
+    Field('monitoringStatus', String, 'Monitoring Status',
+        hint:
+            'Monitored / PartiallyMonitored / Unmonitored'),
+    Field('documentationStatus', String, 'Documentation Status',
+        hint:
+            'Documented / PartiallyDocumented / Undocumented'),
+    Field('dependencyOwner', String, 'Dependency Owner',
+        hint:
+            'Team or role responsible for maintaining this dependency'),
+    Field('technicalDebt', String, 'Technical Debt Assessment',
+        hint:
+            'None / Low / Moderate / High — accumulated technical debt'),
+    Field('technicalDebtDetails', String, 'Technical Debt Details',
+        hint:
+            'Description of known issues, outdated protocols, or maintenance burden'),
+    Field('plannedChanges', String, 'Planned Changes',
+        hint:
+            'Any known upcoming changes to this dependency'),
+    Field('fallbackProcedure', String, 'Fallback Procedure',
+        hint:
+            'Manual or automated fallback when this dependency is unavailable'),
   ])
   String? content;
 
@@ -364,12 +426,80 @@ class SystemDependencyEntry {
 }
 
 /// A system integration entry (form) [PD00-CUR-SYS-DEP-INT-nn].
+///
+/// Documents one integration between systems: type, pattern, protocol,
+/// data format, throughput, error handling, monitoring, security,
+/// and technical debt.
 class SystemIntegrationEntry {
   @Form([
-    Field('protocol', String, 'Protocol'),
-    Field('dataExchanged', String, 'Data Exchanged'),
-    Field('direction', String, 'Direction'),
-    Field('frequency', String, 'Frequency'),
+    Field('integrationName', String, 'Integration Name',
+        hint: 'Descriptive name, e.g. Real-time inventory sync',
+        required: true),
+    Field('integrationType', String, 'Integration Type',
+        hint:
+            'RealTime / Batch / EventDriven / RequestResponse / Manual'),
+    Field('integrationPattern', String, 'Integration Pattern',
+        hint:
+            'PointToPoint / HubSpoke / PubSub / ESB / ApiGateway / EtlPipeline'),
+    Field('protocol', String, 'Protocol',
+        hint: 'REST / SOAP / gRPC / SFTP / JDBC / AMQP / Kafka / Custom'),
+    Field('direction', String, 'Direction',
+        hint: 'Inbound / Outbound / Bidirectional'),
+    Field('frequency', String, 'Frequency',
+        hint:
+            'Continuous / Hourly / Daily / Weekly / OnDemand / EventTriggered'),
+    Field('middlewareUsed', String, 'Middleware / Platform',
+        hint:
+            'Integration platform or middleware, e.g. MuleSoft, Azure Service Bus, none'),
+    Field('authenticationMethod', String, 'Authentication Method',
+        hint: 'OAuth2 / APIKey / mTLS / BasicAuth / SAML / None'),
+    Field('dataExchanged', String, 'Data Exchanged',
+        hint: 'Key data entities or payloads exchanged'),
+    Field('messageFormat', String, 'Message Format',
+        hint: 'JSON / XML / CSV / Avro / Protobuf / EDI / Custom'),
+    Field('schemaVersion', String, 'Schema Version',
+        hint:
+            'Current schema or API version, e.g. v2.3, 2024-01 schema'),
+    Field('transformationRequired', String, 'Transformation Required',
+        hint: 'Yes / No — whether data mapping or transformation occurs'),
+    Field('dataMappingComplexity', String, 'Data Mapping Complexity',
+        hint:
+            'Simple / Moderate / Complex — degree of data transformation needed'),
+    Field('errorHandling', String, 'Error Handling',
+        hint:
+            'Retry / DeadLetter / Alert / ManualIntervention — how errors are handled'),
+    Field('retryPolicy', String, 'Retry Policy',
+        hint:
+            'Retry mechanism and limits, e.g. 3 retries with exponential backoff'),
+    Field('throughputCapacity', String, 'Throughput Capacity',
+        hint:
+            'Maximum supported throughput, e.g. 10k msg/sec, 500 records/batch'),
+    Field('currentUtilization', String, 'Current Utilization',
+        hint: 'Typical load vs capacity, e.g. ~60% of capacity'),
+    Field('peakLoadHandling', String, 'Peak Load Handling',
+        hint:
+            'Scales / Queues / Throttles / Degrades — behavior under peak load'),
+    Field('monitoringAlerting', String, 'Monitoring & Alerting',
+        hint: 'Monitoring tools and alert thresholds in place'),
+    Field('failoverBehavior', String, 'Failover Behavior',
+        hint:
+            'AutomaticFailover / ManualFailover / NoFailover'),
+    Field('integrationAge', String, 'Integration Age',
+        hint:
+            'When this integration was established, e.g. 2019, 7 years'),
+    Field('documentationQuality', String, 'Documentation Quality',
+        hint:
+            'Comprehensive / Adequate / Minimal / Undocumented'),
+    Field('maintenanceOwner', String, 'Maintenance Owner',
+        hint: 'Team or role responsible for this integration'),
+    Field('securityClassification', String, 'Security Classification',
+        hint: 'Public / Internal / Confidential / Restricted'),
+    Field('complianceRequirements', String, 'Compliance Requirements',
+        hint:
+            'Applicable regulations, e.g. PCI-DSS, GDPR data transfer'),
+    Field('technicalDebt', String, 'Technical Debt',
+        hint:
+            'None / Low / Moderate / High — maintenance burden and known issues'),
   ])
   String? content;
 
@@ -863,14 +993,67 @@ class Gaps {
 }
 
 /// A gap entry (form) — a missing capability or feature [PD00-CUR-PAI-GAP-nn].
+///
+/// Documents a specific gap between current capabilities and business needs:
+/// category, severity, quantified cost, stakeholders, compliance drivers,
+/// workarounds, resolution approach, and success criteria.
 class GapEntry {
   @Form([
-    Field('gapName', String, 'Gap Name', required: true),
-    Field('description', String, 'Short description'),
-    Field('businessImpact', String, 'Business Impact'),
-    Field('affectedProcess', String, 'Affected Process'),
-    Field('priority', String, 'Priority level'),
-    Field('proposedResolution', String, 'Proposed Resolution'),
+    Field('gapName', String, 'Gap Name',
+        hint: 'Concise name for the identified gap', required: true),
+    Field('description', String, 'Description',
+        hint: 'Detailed description of what is missing or inadequate'),
+    Field('gapCategory', String, 'Gap Category',
+        hint:
+            'Functional / Process / Data / Integration / Compliance / Security / Performance / Usability'),
+    Field('severity', String, 'Severity',
+        hint: 'Critical / High / Medium / Low'),
+    Field('priority', String, 'Priority',
+        hint: 'MustAddress / ShouldAddress / NiceToHave'),
+    Field('businessImpact', String, 'Business Impact',
+        hint:
+            'How this gap affects business outcomes, revenue, or operations'),
+    Field('quantifiedCost', String, 'Quantified Cost of Gap',
+        hint:
+            'Estimated annual cost or productivity loss, e.g. ~€120k/year in manual processing'),
+    Field('affectedProcess', String, 'Affected Process',
+        hint: 'Primary business process impacted by this gap'),
+    Field('affectedStakeholders', String, 'Affected Stakeholders',
+        hint:
+            'Roles, departments, or external parties impacted'),
+    Field('complianceDriver', String, 'Regulatory/Compliance Driver',
+        hint:
+            'Regulation or standard making this gap critical, e.g. GDPR Art. 17, SOX Section 404'),
+    Field('discoveryMethod', String, 'Discovery Method',
+        hint:
+            'Audit / UserFeedback / Incident / ProcessReview / Benchmarking / RegulatoryChange'),
+    Field('gapAge', String, 'Gap Age',
+        hint:
+            'How long this gap has been known, e.g. Since 2023-Q2, 18 months'),
+    Field('validationStatus', String, 'Validation Status',
+        hint: 'Identified / Confirmed / Quantified / Accepted'),
+    Field('relatedPainPoints', String, 'Related Pain Points',
+        hint:
+            'References to pain point entries that stem from this gap'),
+    Field('interimWorkaround', String, 'Interim Workaround',
+        hint: 'Current workaround in place and its limitations'),
+    Field('workaroundCost', String, 'Workaround Cost',
+        hint:
+            'Cost or effort of maintaining the workaround, e.g. 2 FTE hours/week'),
+    Field('riskIfNotAddressed', String, 'Risk if Not Addressed',
+        hint:
+            'Consequences and risk level if gap remains unresolved'),
+    Field('proposedResolution', String, 'Proposed Resolution',
+        hint: 'High-level approach to closing the gap'),
+    Field('expectedTimeline', String, 'Expected Resolution Timeline',
+        hint:
+            'Target timeframe, e.g. Phase 1 — Q3 2026, 6-9 months'),
+    Field('successCriteria', String, 'Success Criteria',
+        hint:
+            'Measurable criteria that confirm the gap is closed'),
+    Field('dependsOnGaps', String, 'Depends on Other Gaps',
+        hint:
+            'Other gaps that must be resolved first, by name or ID'),
   ])
   String? content;
 }
