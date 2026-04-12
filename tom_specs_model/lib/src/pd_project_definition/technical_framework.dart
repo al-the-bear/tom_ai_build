@@ -1551,8 +1551,8 @@ class SoftwareDesignRequirements {
   LayeringAndModuleStructure layeringAndModuleStructure =
       LayeringAndModuleStructure();
 
-  /// Development Environment.
-  TextSection developmentEnvironment = TextSection();
+  /// 8.2.2. Development Environment [PD00-TEC-SOF-DEV].
+  DevelopmentEnvironment developmentEnvironment = DevelopmentEnvironment();
 
   /// 8.2.3. Reusable Components [PD00-TEC-SOF-REU] — contains 0+× ReusableComponent.
   @SectionIdPattern('PD00-TEC-SOF-REU-xx')
@@ -2093,6 +2093,652 @@ class ModuleVersioningStrategy {
     Field('versionConstraints', String, 'Version Constraints',
         hint: 'Constraints between module versions'),
     Field('notes', String, 'Notes', hint: 'Additional versioning notes'),
+  ])
+  String? content;
+}
+
+// =============================================================================
+// 8.2.2. Development Environment [PD00-TEC-SOF-DEV]
+// =============================================================================
+
+/// 8.2.2. Development Environment [PD00-TEC-SOF-DEV].
+///
+/// Required IDEs, build tools, version control, CI/CD pipeline, code review
+/// process, and development workflow.
+@SectionId('PD00-TEC-SOF-DEV')
+class DevelopmentEnvironment {
+  @Unused()
+  String? content;
+
+  /// Overview of development environment requirements.
+  TextSection overview = TextSection();
+
+  /// IDE and editor requirements.
+  @SectionIdPattern('PD00-TEC-SOF-DEV-IDE-xx')
+  List<IdeRequirementEntry> ideRequirements = [];
+
+  /// Build tools and automation.
+  BuildToolsConfiguration buildTools = BuildToolsConfiguration();
+
+  /// Version control configuration.
+  VersionControlConfiguration versionControl = VersionControlConfiguration();
+
+  /// CI/CD pipeline requirements.
+  CiCdPipelineConfiguration cicdPipeline = CiCdPipelineConfiguration();
+
+  /// Code review process requirements.
+  CodeReviewProcess codeReviewProcess = CodeReviewProcess();
+
+  /// Local development setup.
+  LocalDevelopmentSetup localDevelopmentSetup = LocalDevelopmentSetup();
+
+  /// Debugging configuration.
+  DebuggingConfiguration debugging = DebuggingConfiguration();
+
+  /// Environment management.
+  EnvironmentManagement environmentManagement = EnvironmentManagement();
+
+  /// Developer onboarding requirements.
+  DeveloperOnboarding developerOnboarding = DeveloperOnboarding();
+
+  /// Development metrics and quality gates.
+  DevelopmentQualityGates qualityGates = DevelopmentQualityGates();
+}
+
+/// IDE requirement entry — a required IDE or editor.
+class IdeRequirementEntry {
+  @Form([
+    // Identity
+    Field('ideName', String, 'IDE/Editor Name',
+        required: true, hint: 'E.g., VS Code, IntelliJ IDEA, Android Studio'),
+    Field('version', String, 'Version Requirements',
+        hint: 'Minimum version or version range'),
+    Field('platform', String, 'Platform',
+        hint: 'Windows, macOS, Linux, Web'),
+
+    // Configuration
+    Field('requiredExtensions', String, 'Required Extensions',
+        hint: 'Extensions/plugins that must be installed'),
+    Field('recommendedExtensions', String, 'Recommended Extensions',
+        hint: 'Optional but helpful extensions'),
+    Field('settingsTemplate', String, 'Settings Template',
+        hint: 'Reference to shared settings file'),
+    Field('workspaceConfiguration', String, 'Workspace Configuration',
+        hint: 'Required workspace setup'),
+
+    // Integration
+    Field('debuggerSupport', String, 'Debugger Support',
+        hint: 'Required debugger integration'),
+    Field('linterIntegration', String, 'Linter Integration',
+        hint: 'How linter integrates with IDE'),
+    Field('formatOnSave', bool, 'Format on Save',
+        hint: 'Require format on save'),
+    Field('gitIntegration', String, 'Git Integration',
+        hint: 'Required Git tooling'),
+
+    // Team standardization
+    Field('sharedConfigLocation', String, 'Shared Config Location',
+        hint: 'Where team configs are stored'),
+    Field('syncMechanism', String, 'Sync Mechanism',
+        hint: 'How settings are synced across team'),
+    Field('notes', String, 'Notes', hint: 'Additional IDE notes'),
+  ])
+  String? content;
+}
+
+/// Build tools configuration.
+class BuildToolsConfiguration {
+  @Form([
+    // Package management
+    Field('packageManager', String, 'Package Manager',
+        hint: 'Pub, npm, yarn, pnpm, Gradle'),
+    Field('packageManagerVersion', String, 'Package Manager Version',
+        hint: 'Required version'),
+    Field('lockfileManagement', String, 'Lockfile Management',
+        hint: 'Lockfile policies'),
+
+    // Build system
+    Field('buildSystem', String, 'Build System',
+        hint: 'Flutter build, Gradle, Make, Melos'),
+    Field('buildSystemVersion', String, 'Build System Version',
+        hint: 'Required version'),
+    Field('buildConfiguration', String, 'Build Configuration',
+        hint: 'Build configuration files'),
+
+    // Compilation
+    Field('compilerVersion', String, 'Compiler/SDK Version',
+        hint: 'Dart SDK, JDK version'),
+    Field('compilationMode', String, 'Compilation Mode',
+        hint: 'JIT, AOT, mixed'),
+    Field('optimizationLevel', String, 'Optimization Level',
+        hint: 'Debug, profile, release settings'),
+
+    // Scripts
+    Field('buildScripts', String, 'Build Scripts',
+        hint: 'Custom build scripts location'),
+    Field('preCommitHooks', String, 'Pre-Commit Hooks',
+        hint: 'Pre-commit hook configuration'),
+    Field('postBuildActions', String, 'Post-Build Actions',
+        hint: 'Actions after successful build'),
+
+    // Artifacts
+    Field('artifactLocation', String, 'Artifact Location',
+        hint: 'Where build artifacts are stored'),
+    Field('artifactNaming', String, 'Artifact Naming',
+        hint: 'Artifact naming convention'),
+    Field('cacheManagement', String, 'Cache Management',
+        hint: 'Build cache policies'),
+    Field('notes', String, 'Notes', hint: 'Additional build tool notes'),
+  ])
+  String? content;
+}
+
+/// Version control configuration.
+class VersionControlConfiguration {
+  @Form([
+    // System
+    Field('vcsSystem', String, 'VCS System', hint: 'Git, Mercurial, SVN'),
+    Field('vcsVersion', String, 'VCS Version', hint: 'Minimum version required'),
+    Field('hostingPlatform', String, 'Hosting Platform',
+        hint: 'GitHub, GitLab, Bitbucket, Azure DevOps'),
+
+    // Repository structure
+    Field('repositoryStructure', String, 'Repository Structure',
+        hint: 'Monorepo, polyrepo, hybrid'),
+    Field('submodulePolicy', String, 'Submodule Policy',
+        hint: 'Use of Git submodules'),
+    Field('lfsUsage', String, 'LFS Usage',
+        hint: 'Git LFS for large files'),
+
+    // Branching
+    Field('branchingStrategy', String, 'Branching Strategy',
+        hint: 'GitFlow, trunk-based, GitHub Flow'),
+    Field('mainBranchName', String, 'Main Branch Name',
+        hint: 'main, master, develop'),
+    Field('featureBranchNaming', String, 'Feature Branch Naming',
+        hint: 'feature/TICKET-description'),
+    Field('releaseBranchNaming', String, 'Release Branch Naming',
+        hint: 'release/v1.2.3'),
+    Field('hotfixPolicy', String, 'Hotfix Policy',
+        hint: 'Hotfix branch workflow'),
+
+    // Commits
+    Field('commitMessageFormat', String, 'Commit Message Format',
+        hint: 'Conventional Commits, custom format'),
+    Field('commitSigningRequired', bool, 'Commit Signing Required',
+        hint: 'GPG signing requirement'),
+    Field('squashMergePolicy', String, 'Squash/Merge Policy',
+        hint: 'When to squash vs merge'),
+
+    // Tags
+    Field('tagNamingConvention', String, 'Tag Naming Convention',
+        hint: 'v1.2.3, yyyy-MM-dd, custom'),
+    Field('tagSigningRequired', bool, 'Tag Signing Required',
+        hint: 'GPG signing for tags'),
+
+    // Ignore and attributes
+    Field('gitignoreTemplate', String, 'Gitignore Template',
+        hint: 'Standard gitignore file'),
+    Field('gitattributes', String, 'Git Attributes',
+        hint: 'Line endings, merge drivers'),
+    Field('notes', String, 'Notes', hint: 'Additional VCS notes'),
+  ])
+  String? content;
+}
+
+/// CI/CD pipeline configuration.
+class CiCdPipelineConfiguration {
+  @Form([
+    // Platform
+    Field('cicdPlatform', String, 'CI/CD Platform',
+        hint: 'GitHub Actions, GitLab CI, Jenkins, CircleCI'),
+    Field('configurationLocation', String, 'Configuration Location',
+        hint: 'Where pipeline configs live'),
+    Field('secretsManagement', String, 'Secrets Management',
+        hint: 'How secrets are stored and accessed'),
+  ])
+  String? content;
+
+  /// Pipeline stages.
+  @SectionIdPattern('PD00-TEC-SOF-DEV-CIC-STG-xx')
+  List<PipelineStageEntry> stages = [];
+
+  /// Build jobs.
+  @SectionIdPattern('PD00-TEC-SOF-DEV-CIC-JOB-xx')
+  List<PipelineJobEntry> jobs = [];
+
+  /// Deployment environments.
+  @SectionIdPattern('PD00-TEC-SOF-DEV-CIC-ENV-xx')
+  List<DeploymentEnvironmentEntry> environments = [];
+}
+
+/// Pipeline stage entry.
+class PipelineStageEntry {
+  @Form([
+    // Identity
+    Field('stageName', String, 'Stage Name',
+        required: true, hint: 'E.g., Build, Test, Deploy, Release'),
+    Field('stageOrder', String, 'Order', hint: 'Execution order'),
+    Field('description', String, 'Description', hint: 'What this stage does'),
+
+    // Triggers
+    Field('triggers', String, 'Triggers',
+        hint: 'What triggers this stage (push, PR, schedule)'),
+    Field('conditions', String, 'Conditions',
+        hint: 'Conditions for stage to run'),
+    Field('manualApproval', bool, 'Manual Approval',
+        hint: 'Requires human approval'),
+
+    // Execution
+    Field('runnerRequirements', String, 'Runner Requirements',
+        hint: 'Required runner type/labels'),
+    Field('timeoutMinutes', String, 'Timeout', hint: 'Stage timeout in minutes'),
+    Field('parallelJobs', bool, 'Parallel Jobs',
+        hint: 'Jobs in stage run in parallel'),
+
+    // Artifacts
+    Field('inputArtifacts', String, 'Input Artifacts',
+        hint: 'Required artifacts from previous stages'),
+    Field('outputArtifacts', String, 'Output Artifacts',
+        hint: 'Artifacts produced by this stage'),
+
+    // Failure handling
+    Field('failureBehavior', String, 'Failure Behavior',
+        hint: 'Continue, stop, retry'),
+    Field('retryPolicy', String, 'Retry Policy',
+        hint: 'Automatic retry configuration'),
+    Field('notes', String, 'Notes', hint: 'Additional stage notes'),
+  ])
+  String? content;
+}
+
+/// Pipeline job entry.
+class PipelineJobEntry {
+  @Form([
+    // Identity
+    Field('jobName', String, 'Job Name', required: true, hint: 'Job identifier'),
+    Field('parentStage', String, 'Parent Stage', hint: 'Stage this job belongs to'),
+    Field('description', String, 'Description', hint: 'What this job does'),
+
+    // Environment
+    Field('runnerType', String, 'Runner Type',
+        hint: 'Self-hosted, cloud, container'),
+    Field('containerImage', String, 'Container Image',
+        hint: 'Docker image if containerized'),
+    Field('environmentVariables', String, 'Environment Variables',
+        hint: 'Required environment variables'),
+
+    // Steps
+    Field('setupSteps', String, 'Setup Steps',
+        hint: 'Checkout, install dependencies'),
+    Field('mainSteps', String, 'Main Steps', hint: 'Main job steps'),
+    Field('cleanupSteps', String, 'Cleanup Steps', hint: 'Cleanup after job'),
+
+    // Dependencies
+    Field('dependsOn', String, 'Depends On', hint: 'Other jobs this depends on'),
+    Field('services', String, 'Services', hint: 'Required services (DB, cache)'),
+    Field('caching', String, 'Caching', hint: 'Cache configuration'),
+
+    // Outputs
+    Field('testReports', String, 'Test Reports', hint: 'Test report locations'),
+    Field('coverageReports', String, 'Coverage Reports',
+        hint: 'Coverage report locations'),
+    Field('artifacts', String, 'Artifacts', hint: 'Produced artifacts'),
+    Field('notes', String, 'Notes', hint: 'Additional job notes'),
+  ])
+  String? content;
+}
+
+/// Deployment environment entry.
+class DeploymentEnvironmentEntry {
+  @Form([
+    // Identity
+    Field('environmentName', String, 'Environment Name',
+        required: true, hint: 'E.g., dev, staging, production'),
+    Field('environmentType', String, 'Type',
+        hint: 'Development, Staging, Production'),
+    Field('url', String, 'URL', hint: 'Environment URL'),
+
+    // Deployment
+    Field('deploymentMethod', String, 'Deployment Method',
+        hint: 'Kubernetes, serverless, VM, container'),
+    Field('deploymentConfig', String, 'Deployment Config',
+        hint: 'Reference to deployment configuration'),
+    Field('rollbackStrategy', String, 'Rollback Strategy',
+        hint: 'How to rollback failed deployments'),
+
+    // Protection
+    Field('protectionRules', String, 'Protection Rules',
+        hint: 'Required reviewers, branch protection'),
+    Field('requiredApprovers', String, 'Required Approvers',
+        hint: 'Who must approve deployments'),
+    Field('preventSelfApproval', bool, 'Prevent Self-Approval',
+        hint: 'Cannot approve own deployments'),
+
+    // Secrets
+    Field('secretsScope', String, 'Secrets Scope',
+        hint: 'Environment-specific secrets'),
+    Field('configurationSource', String, 'Configuration Source',
+        hint: 'Where config comes from'),
+
+    // Monitoring
+    Field('healthCheckUrl', String, 'Health Check URL',
+        hint: 'URL for health verification'),
+    Field('deploymentVerification', String, 'Deployment Verification',
+        hint: 'Post-deployment checks'),
+    Field('notes', String, 'Notes', hint: 'Additional environment notes'),
+  ])
+  String? content;
+}
+
+/// Code review process configuration.
+class CodeReviewProcess {
+  @Form([
+    // Pull requests
+    Field('prRequired', bool, 'PR Required', hint: 'All changes via PR'),
+    Field('prTemplate', String, 'PR Template', hint: 'Pull request template'),
+    Field('prNamingConvention', String, 'PR Naming Convention',
+        hint: 'PR title format'),
+    Field('draftPrSupport', bool, 'Draft PR Support', hint: 'Use draft PRs'),
+
+    // Review requirements
+    Field('minimumReviewers', String, 'Minimum Reviewers',
+        hint: 'Required number of approvals'),
+    Field('codeOwners', String, 'Code Owners',
+        hint: 'CODEOWNERS file usage'),
+    Field('automaticReviewerAssignment', String, 'Auto-Assignment',
+        hint: 'How reviewers are assigned'),
+
+    // Review process
+    Field('reviewChecklist', String, 'Review Checklist',
+        hint: 'Standard review checklist'),
+    Field('inlineComments', bool, 'Inline Comments Required',
+        hint: 'Must use inline comments'),
+    Field('suggestionFormat', String, 'Suggestion Format',
+        hint: 'Format for code suggestions'),
+    Field('discussionResolution', String, 'Discussion Resolution',
+        hint: 'How discussions are resolved'),
+
+    // Automation
+    Field('automatedChecks', String, 'Automated Checks',
+        hint: 'Required automated checks'),
+    Field('lintingRequired', bool, 'Linting Required',
+        hint: 'Linting must pass'),
+    Field('testsRequired', bool, 'Tests Required', hint: 'Tests must pass'),
+    Field('coverageThreshold', String, 'Coverage Threshold',
+        hint: 'Minimum coverage for approval'),
+
+    // Merge
+    Field('mergeStrategy', String, 'Merge Strategy',
+        hint: 'Squash, merge, rebase'),
+    Field('deleteSourceBranch', bool, 'Delete Source Branch',
+        hint: 'Auto-delete after merge'),
+    Field('requiredStatusChecks', String, 'Required Status Checks',
+        hint: 'Checks that must pass before merge'),
+    Field('notes', String, 'Notes', hint: 'Additional review process notes'),
+  ])
+  String? content;
+}
+
+/// Local development setup configuration.
+class LocalDevelopmentSetup {
+  @Form([
+    // Prerequisites
+    Field('systemRequirements', String, 'System Requirements',
+        hint: 'OS, RAM, disk space requirements'),
+    Field('prerequisiteSoftware', String, 'Prerequisite Software',
+        hint: 'Required software before setup'),
+    Field('sdkVersions', String, 'SDK Versions',
+        hint: 'Required SDK versions'),
+
+    // Setup
+    Field('cloneInstructions', String, 'Clone Instructions',
+        hint: 'How to clone the repository'),
+    Field('setupScript', String, 'Setup Script',
+        hint: 'Automated setup script location'),
+    Field('manualSetupSteps', String, 'Manual Setup Steps',
+        hint: 'Manual steps if needed'),
+    Field('configurationFiles', String, 'Configuration Files',
+        hint: 'Config files to create/modify'),
+
+    // Dependencies
+    Field('dependencyInstallation', String, 'Dependency Installation',
+        hint: 'How to install dependencies'),
+    Field('localServices', String, 'Local Services',
+        hint: 'Required local services (DB, Redis)'),
+    Field('dockerCompose', String, 'Docker Compose',
+        hint: 'Docker Compose for services'),
+
+    // Running
+    Field('runCommands', String, 'Run Commands',
+        hint: 'Commands to run the application'),
+    Field('hotReload', bool, 'Hot Reload Available',
+        hint: 'Hot reload support'),
+    Field('watchMode', String, 'Watch Mode',
+        hint: 'File watching configuration'),
+
+    // Testing
+    Field('runTestsLocally', String, 'Run Tests Locally',
+        hint: 'How to run tests locally'),
+    Field('testDatabaseSetup', String, 'Test Database Setup',
+        hint: 'Test database configuration'),
+    Field('mockServices', String, 'Mock Services',
+        hint: 'How to use mock services'),
+
+    // Troubleshooting
+    Field('commonIssues', String, 'Common Issues',
+        hint: 'Common setup issues and solutions'),
+    Field('supportChannel', String, 'Support Channel',
+        hint: 'Where to get help'),
+    Field('notes', String, 'Notes', hint: 'Additional setup notes'),
+  ])
+  String? content;
+}
+
+/// Debugging configuration.
+class DebuggingConfiguration {
+  @Form([
+    // Debugger
+    Field('debuggerTool', String, 'Debugger Tool',
+        hint: 'IDE debugger, DevTools, custom'),
+    Field('debuggerConfiguration', String, 'Debugger Configuration',
+        hint: 'Launch configurations'),
+    Field('remoteDebugging', String, 'Remote Debugging',
+        hint: 'Remote debugging setup'),
+
+    // Breakpoints
+    Field('breakpointTypes', String, 'Breakpoint Types',
+        hint: 'Line, conditional, exception breakpoints'),
+    Field('logPoints', String, 'Log Points', hint: 'Non-breaking log points'),
+    Field('watchExpressions', String, 'Watch Expressions',
+        hint: 'Standard watch expressions'),
+
+    // Logging
+    Field('loggingConfiguration', String, 'Logging Configuration',
+        hint: 'Debug logging setup'),
+    Field('logLevels', String, 'Log Levels',
+        hint: 'Available log levels'),
+    Field('structuredLogging', bool, 'Structured Logging',
+        hint: 'JSON/structured logs'),
+
+    // Inspection
+    Field('stateInspection', String, 'State Inspection',
+        hint: 'How to inspect app state'),
+    Field('networkInspection', String, 'Network Inspection',
+        hint: 'Network call debugging'),
+    Field('performanceInspection', String, 'Performance Inspection',
+        hint: 'Performance profiling tools'),
+
+    // Flutter-specific
+    Field('widgetInspector', String, 'Widget Inspector',
+        hint: 'Flutter widget inspector'),
+    Field('devToolsFeatures', String, 'DevTools Features',
+        hint: 'Required DevTools features'),
+    Field('repaintRainbow', bool, 'Repaint Rainbow',
+        hint: 'Visual repaint debugging'),
+
+    // Error tracking
+    Field('errorTrackingSetup', String, 'Error Tracking Setup',
+        hint: 'Error tracking in development'),
+    Field('crashReporting', String, 'Crash Reporting',
+        hint: 'Local crash reporting'),
+    Field('notes', String, 'Notes', hint: 'Additional debugging notes'),
+  ])
+  String? content;
+}
+
+/// Environment management configuration.
+class EnvironmentManagement {
+  @Form([
+    // Environment types
+    Field('environmentTypes', String, 'Environment Types',
+        hint: 'development, staging, production, etc.'),
+    Field('environmentNaming', String, 'Environment Naming',
+        hint: 'Naming convention for environments'),
+    Field('environmentPurposes', String, 'Environment Purposes',
+        hint: 'Purpose of each environment'),
+
+    // Configuration
+    Field('configurationMethod', String, 'Configuration Method',
+        hint: 'Environment variables, files, remote'),
+    Field('configFileFormat', String, 'Config File Format',
+        hint: '.env, YAML, JSON'),
+    Field('configurationHierarchy', String, 'Configuration Hierarchy',
+        hint: 'Default → environment → local'),
+
+    // Secrets
+    Field('localSecretsManagement', String, 'Local Secrets Management',
+        hint: 'How secrets are managed locally'),
+    Field('secretsTemplate', String, 'Secrets Template',
+        hint: 'Template for required secrets'),
+    Field('secretsNeverCommit', String, 'Never Commit',
+        hint: 'Secrets that must never be committed'),
+
+    // Switching
+    Field('switchingMechanism', String, 'Switching Mechanism',
+        hint: 'How to switch environments'),
+    Field('flavorSupport', String, 'Flavor/Variant Support',
+        hint: 'Build flavors for environments'),
+    Field('runtimeSwitching', bool, 'Runtime Switching',
+        hint: 'Can switch at runtime'),
+
+    // Parity
+    Field('devProdParity', String, 'Dev-Prod Parity',
+        hint: 'How similar dev is to prod'),
+    Field('dataSeeding', String, 'Data Seeding',
+        hint: 'Test data for environments'),
+    Field('mockingStrategy', String, 'Mocking Strategy',
+        hint: 'Service mocking per environment'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional environment management notes'),
+  ])
+  String? content;
+}
+
+/// Developer onboarding requirements.
+class DeveloperOnboarding {
+  @Form([
+    // Documentation
+    Field('onboardingGuide', String, 'Onboarding Guide',
+        hint: 'Location of onboarding documentation'),
+    Field('architectureOverview', String, 'Architecture Overview',
+        hint: 'System architecture docs'),
+    Field('codingStandardsDocs', String, 'Coding Standards Docs',
+        hint: 'Where to find coding standards'),
+
+    // Setup
+    Field('estimatedSetupTime', String, 'Estimated Setup Time',
+        hint: 'How long initial setup takes'),
+    Field('automatedSetup', bool, 'Automated Setup',
+        hint: 'Setup is automated'),
+    Field('setupVideoGuide', String, 'Setup Video Guide',
+        hint: 'Video walkthrough if available'),
+
+    // Access
+    Field('requiredAccess', String, 'Required Access',
+        hint: 'Access needed (repos, services, tools)'),
+    Field('accessRequestProcess', String, 'Access Request Process',
+        hint: 'How to request access'),
+    Field('vpnSetup', String, 'VPN Setup',
+        hint: 'VPN configuration if needed'),
+
+    // Learning
+    Field('requiredReading', String, 'Required Reading',
+        hint: 'Must-read documentation'),
+    Field('codeWalkthrough', String, 'Code Walkthrough',
+        hint: 'Guided code tour'),
+    Field('pairProgrammingBuddy', bool, 'Pair Programming Buddy',
+        hint: 'Assigned onboarding buddy'),
+
+    // First tasks
+    Field('starterTasks', String, 'Starter Tasks',
+        hint: 'Good first issues'),
+    Field('shadowingPeriod', String, 'Shadowing Period',
+        hint: 'Time spent shadowing'),
+    Field('firstPrExpectation', String, 'First PR Expectation',
+        hint: 'Expected time to first PR'),
+
+    // Verification
+    Field('onboardingChecklist', String, 'Onboarding Checklist',
+        hint: 'Checklist to complete'),
+    Field('completionCriteria', String, 'Completion Criteria',
+        hint: 'When onboarding is complete'),
+    Field('notes', String, 'Notes', hint: 'Additional onboarding notes'),
+  ])
+  String? content;
+}
+
+/// Development quality gates and metrics.
+class DevelopmentQualityGates {
+  @Form([
+    // Code quality
+    Field('staticAnalysis', String, 'Static Analysis',
+        hint: 'Required static analysis tools'),
+    Field('linterConfiguration', String, 'Linter Configuration',
+        hint: 'Linter rules and configuration'),
+    Field('formatterConfiguration', String, 'Formatter Configuration',
+        hint: 'Code formatter settings'),
+
+    // Coverage
+    Field('unitTestCoverageMinimum', String, 'Unit Test Coverage Minimum',
+        hint: 'Minimum unit test coverage'),
+    Field('integrationTestRequirement', String, 'Integration Test Requirement',
+        hint: 'Integration test requirements'),
+    Field('coverageExclusions', String, 'Coverage Exclusions',
+        hint: 'What is excluded from coverage'),
+
+    // Complexity
+    Field('complexityThresholds', String, 'Complexity Thresholds',
+        hint: 'Max cyclomatic complexity'),
+    Field('fileSizeLimit', String, 'File Size Limit',
+        hint: 'Maximum lines per file'),
+    Field('functionSizeLimit', String, 'Function Size Limit',
+        hint: 'Maximum lines per function'),
+
+    // Security
+    Field('dependencyScanning', String, 'Dependency Scanning',
+        hint: 'Vulnerability scanning'),
+    Field('secretsScanning', bool, 'Secrets Scanning',
+        hint: 'Check for leaked secrets'),
+    Field('licenseCompliance', String, 'License Compliance',
+        hint: 'OSS license checking'),
+
+    // Documentation
+    Field('apiDocumentation', String, 'API Documentation',
+        hint: 'Required API documentation'),
+    Field('changelogRequired', bool, 'Changelog Required',
+        hint: 'Must update changelog'),
+    Field('readmeRequired', bool, 'README Required',
+        hint: 'README for new features'),
+
+    // Performance
+    Field('performanceBudgets', String, 'Performance Budgets',
+        hint: 'Performance constraints'),
+    Field('bundleSizeLimit', String, 'Bundle Size Limit',
+        hint: 'Maximum bundle size'),
+    Field('startupTimeLimit', String, 'Startup Time Limit',
+        hint: 'Maximum startup time'),
+    Field('notes', String, 'Notes', hint: 'Additional quality gate notes'),
   ])
   String? content;
 }
