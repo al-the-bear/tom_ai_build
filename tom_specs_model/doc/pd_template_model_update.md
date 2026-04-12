@@ -103,7 +103,7 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-TEC-COM-PRO | Protocols and Standards | Medium | ✅ Done |
 | PD00-TEC-COM-EXT | External Connectivity | Medium | ✅ Done |
 | PD00-TEC-SYS-ADM | Administration Requirements | Medium | ✅ Done |
-| PD00-TEC-SYS-HEA | Health Checks and Diagnostics | Medium | ⬜ Not Started |
+| PD00-TEC-SYS-HEA | Health Checks and Diagnostics | Medium | ✅ Done |
 | PD00-TEC-SYS-CAP | Capacity Planning | Medium | ⬜ Not Started |
 | PD00-TEC-SEC-ITS | IT Security Standards | High | ⬜ Not Started |
 | PD00-TEC-SEC-PRI | Data Protection and Privacy | High | ⬜ Not Started |

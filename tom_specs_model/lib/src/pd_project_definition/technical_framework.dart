@@ -8882,14 +8882,268 @@ class Monitoring {
   @Unused()
   String? content;
 
-  /// Health Checks And Diagnostics.
-  TextSection healthChecksAndDiagnostics = TextSection();
+  /// 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].
+  HealthChecksAndDiagnosticsSection healthChecksAndDiagnostics =
+      HealthChecksAndDiagnosticsSection();
 
   /// Capacity Planning.
   TextSection capacityPlanning = TextSection();
 
   /// Alerting.
   TextSection alerting = TextSection();
+}
+
+/// 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].
+@SectionId('PD00-TEC-SYS-HEA')
+class HealthChecksAndDiagnosticsSection {
+  @Unused()
+  String? content;
+
+  /// Overview of health check and diagnostic strategy.
+  TextSection overview = TextSection();
+
+  /// Health check endpoint requirements.
+  HealthCheckEndpoints healthEndpoints = HealthCheckEndpoints();
+
+  /// Application diagnostics.
+  ApplicationDiagnostics applicationDiagnostics = ApplicationDiagnostics();
+
+  /// Log aggregation and analysis.
+  LogAggregationRequirements logAggregation = LogAggregationRequirements();
+
+  /// Troubleshooting capabilities.
+  TroubleshootingCapabilities troubleshooting = TroubleshootingCapabilities();
+
+  /// Dependency health monitoring.
+  DependencyHealthMonitoring dependencyHealth = DependencyHealthMonitoring();
+}
+
+/// Health check endpoint requirements.
+class HealthCheckEndpoints {
+  @Form([
+    // Endpoint types
+    Field('livenessEndpoint', String, 'Liveness Endpoint',
+        required: true, hint: '/health/live — is the process running'),
+    Field('readinessEndpoint', String, 'Readiness Endpoint',
+        required: true, hint: '/health/ready — can it serve traffic'),
+    Field('startupEndpoint', String, 'Startup Endpoint',
+        hint: '/health/startup — has initialization completed'),
+    Field('deepHealthEndpoint', String, 'Deep Health Endpoint',
+        hint: '/health/deep — checks all dependencies'),
+
+    // Configuration
+    Field('healthCheckProtocol', String, 'Protocol',
+        hint: 'HTTP, gRPC, TCP'),
+    Field('healthCheckPort', int, 'Port',
+        hint: 'Dedicated health check port'),
+    Field('responseFormat', String, 'Response Format',
+        hint: 'JSON, plain text, RFC Health Check format'),
+    Field('successStatusCode', int, 'Success Status Code',
+        hint: 'HTTP 200 for healthy'),
+    Field('failureStatusCode', int, 'Failure Status Code',
+        hint: 'HTTP 503 for unhealthy'),
+
+    // Timing
+    Field('checkInterval', String, 'Check Interval',
+        hint: 'How often health is checked (e.g. 10s, 30s)'),
+    Field('checkTimeout', String, 'Check Timeout',
+        hint: 'Max time for a health check response'),
+    Field('failureThreshold', int, 'Failure Threshold',
+        hint: 'Consecutive failures before unhealthy'),
+    Field('successThreshold', int, 'Success Threshold',
+        hint: 'Consecutive successes to become healthy'),
+
+    // Content
+    Field('includeComponentStatus', bool, 'Include Component Status',
+        hint: 'Show status of individual components'),
+    Field('includeVersion', bool, 'Include Version',
+        hint: 'Include app version in response'),
+    Field('includeUptime', bool, 'Include Uptime',
+        hint: 'Include process uptime'),
+    Field('includeMetrics', bool, 'Include Metrics',
+        hint: 'Include basic metrics in response'),
+    Field('sensitiveDataRedaction', bool, 'Sensitive Data Redaction',
+        hint: 'Redact secrets from health output'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional health endpoint notes'),
+  ])
+  String? content;
+}
+
+/// Application diagnostics.
+class ApplicationDiagnostics {
+  @Form([
+    // Runtime information
+    Field('infoEndpoint', String, 'Info Endpoint',
+        hint: '/info — build version, git commit, environment'),
+    Field('metricsEndpoint', String, 'Metrics Endpoint',
+        hint: '/metrics — Prometheus, OpenMetrics format'),
+    Field('environmentEndpoint', String, 'Environment Endpoint',
+        hint: '/env — configuration (redacted)'),
+
+    // Performance
+    Field('cpuProfiling', bool, 'CPU Profiling',
+        hint: 'On-demand CPU profiling'),
+    Field('memoryProfiling', bool, 'Memory Profiling',
+        hint: 'Heap analysis and leak detection'),
+    Field('requestTracing', bool, 'Request Tracing',
+        hint: 'Per-request timing breakdown'),
+    Field('slowRequestDetection', String, 'Slow Request Detection',
+        hint: 'Threshold and alerting for slow requests'),
+
+    // Connection pools
+    Field('connectionPoolStatus', bool, 'Connection Pool Status',
+        hint: 'Database and HTTP pool monitoring'),
+    Field('threadPoolStatus', bool, 'Thread Pool Status',
+        hint: 'Worker thread/isolate pool status'),
+    Field('queueDepthMonitoring', bool, 'Queue Depth Monitoring',
+        hint: 'Message queue backlog tracking'),
+
+    // Feature status
+    Field('featureFlagStatus', bool, 'Feature Flag Status',
+        hint: 'Active feature flags visibility'),
+    Field('circuitBreakerStatus', bool, 'Circuit Breaker Status',
+        hint: 'State of circuit breakers'),
+    Field('cacheHitRatio', bool, 'Cache Hit Ratio',
+        hint: 'Cache effectiveness monitoring'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional diagnostics notes'),
+  ])
+  String? content;
+}
+
+/// Log aggregation and analysis requirements.
+class LogAggregationRequirements {
+  @Form([
+    // Platform
+    Field('logPlatform', String, 'Log Platform',
+        required: true, hint: 'ELK Stack, Loki/Grafana, CloudWatch, Datadog'),
+    Field('logFormat', String, 'Log Format',
+        hint: 'Structured JSON, plain text, syslog'),
+    Field('logLevels', String, 'Log Levels',
+        hint: 'TRACE, DEBUG, INFO, WARN, ERROR, FATAL'),
+    Field('defaultLogLevel', String, 'Default Log Level',
+        hint: 'Production default level (e.g. INFO)'),
+    Field('dynamicLogLevelChange', bool, 'Dynamic Log Level Change',
+        hint: 'Change log level without restart'),
+
+    // Collection
+    Field('logCollectionMethod', String, 'Log Collection Method',
+        hint: 'Sidecar, agent, direct push, stdout'),
+    Field('logShippingProtocol', String, 'Log Shipping Protocol',
+        hint: 'Fluentd, Logstash, OTLP'),
+    Field('logBuffering', String, 'Log Buffering',
+        hint: 'Buffer size, flush interval'),
+    Field('logSampling', String, 'Log Sampling',
+        hint: 'Sample rate for high-volume logs'),
+
+    // Retention
+    Field('retentionPeriod', String, 'Retention Period',
+        hint: 'Hot: 7d, warm: 30d, cold: 1y'),
+    Field('archivalPolicy', String, 'Archival Policy',
+        hint: 'S3 Glacier, cold storage'),
+    Field('complianceRetention', String, 'Compliance Retention',
+        hint: 'Regulatory retention requirements'),
+
+    // Search and analysis
+    Field('fullTextSearch', bool, 'Full-Text Search',
+        hint: 'Search across all log streams'),
+    Field('correlationByTraceId', bool, 'Correlation by Trace ID',
+        hint: 'Cross-service log correlation'),
+    Field('savedQueries', bool, 'Saved Queries',
+        hint: 'Reusable log search queries'),
+    Field('logBasedAlerts', bool, 'Log-Based Alerts',
+        hint: 'Alert on log patterns or frequencies'),
+    Field('piiRedaction', bool, 'PII Redaction',
+        hint: 'Automatic PII masking in logs'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional log aggregation notes'),
+  ])
+  String? content;
+}
+
+/// Troubleshooting capabilities.
+class TroubleshootingCapabilities {
+  @Form([
+    // Debugging
+    Field('debugMode', String, 'Debug Mode',
+        hint: 'How to enable verbose diagnostics'),
+    Field('diagnosticDump', bool, 'Diagnostic Dump',
+        hint: 'Generate full diagnostic report on demand'),
+    Field('replayCapability', bool, 'Replay Capability',
+        hint: 'Replay failed requests for analysis'),
+
+    // Runbooks
+    Field('runbookIntegration', bool, 'Runbook Integration',
+        hint: 'Link alerts to troubleshooting runbooks'),
+    Field('automatedRemediation', String, 'Automated Remediation',
+        hint: 'Auto-fix for known issues (restart, scale)'),
+    Field('incidentTimeline', bool, 'Incident Timeline',
+        hint: 'Correlated event timeline for incidents'),
+
+    // Access
+    Field('productionShellAccess', String, 'Production Shell Access',
+        hint: 'Break-glass SSH/exec with audit'),
+    Field('databaseReadAccess', String, 'Database Read Access',
+        hint: 'Read-only query for production DB'),
+    Field('networkDiagnostics', bool, 'Network Diagnostics',
+        hint: 'Ping, traceroute, DNS lookup tools'),
+
+    // Communication
+    Field('statusPageIntegration', String, 'Status Page Integration',
+        hint: 'Statuspage.io, Instatus, custom'),
+    Field('warRoomTools', String, 'War Room Tools',
+        hint: 'Incident collaboration (Slack channel, Zoom)'),
+    Field('postmortemProcess', String, 'Postmortem Process',
+        hint: 'Blameless postmortem template and workflow'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional troubleshooting notes'),
+  ])
+  String? content;
+}
+
+/// Dependency health monitoring.
+class DependencyHealthMonitoring {
+  @Form([
+    // Database
+    Field('databaseHealthCheck', String, 'Database Health Check',
+        hint: 'Connection test, query test, replication lag'),
+    Field('databaseLatencyThreshold', String, 'DB Latency Threshold',
+        hint: 'Alert threshold for slow queries'),
+    Field('databaseConnectionPoolHealth', bool, 'DB Pool Health',
+        hint: 'Monitor pool exhaustion'),
+
+    // Cache
+    Field('cacheHealthCheck', String, 'Cache Health Check',
+        hint: 'Redis/Memcached ping and memory'),
+    Field('cacheEvictionMonitoring', bool, 'Cache Eviction Monitoring',
+        hint: 'Alert on high eviction rates'),
+
+    // Message queue
+    Field('messageQueueHealth', String, 'Message Queue Health',
+        hint: 'Queue depth, consumer lag'),
+    Field('dlqMonitoring', bool, 'Dead Letter Queue Monitoring',
+        hint: 'Alert on DLQ message accumulation'),
+
+    // External services
+    Field('externalServicePing', bool, 'External Service Ping',
+        hint: 'Periodic connectivity tests'),
+    Field('certificateExpiryCheck', bool, 'Certificate Expiry Check',
+        hint: 'Monitor TLS certificate expiration'),
+    Field('dnsResolutionCheck', bool, 'DNS Resolution Check',
+        hint: 'Verify DNS resolution for dependencies'),
+
+    // Thresholds
+    Field('degradedThreshold', String, 'Degraded Threshold',
+        hint: 'When to mark dependency as degraded'),
+    Field('unavailableThreshold', String, 'Unavailable Threshold',
+        hint: 'When to mark dependency as down'),
+    Field('cascadeProtection', String, 'Cascade Protection',
+        hint: 'Prevent cascading failures'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional dependency health notes'),
+  ])
+  String? content;
 }
 
 /// 8.8. Security Requirements [PD00-TEC-SEC].
