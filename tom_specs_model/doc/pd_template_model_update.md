@@ -258,7 +258,7 @@ All 317 sections from `pd_template.md` with content migration status.
 | 2 | PD00-CUR-SYS | Existing Systems Landscape | ✅ Exists | ✅ |
 | 3 | PD00-CUR-SYS-INV | System Inventory | ✅ Exists | ✅ |
 | 4 | PD00-CUR-SYS-INV-01 | Sample: Legacy ERP System | ✅ Exists | ⏭️ |
-| 5 | PD00-CUR-SYS-ARC | Current Architecture | ✅ Exists | ⬜ |
+| 5 | PD00-CUR-SYS-ARC | Current Architecture | ✅ Exists | ✅ |
 | 6 | PD00-CUR-SYS-DEP | Dependencies and Integrations | ✅ Exists | ⬜ |
 | 7 | PD00-CUR-PRO | Current Business Processes | ✅ Exists | ⬜ |
 | 8 | PD00-CUR-PRO-WOR | Workflow Descriptions | ✅ Exists | ⬜ |
