@@ -538,10 +538,14 @@ class TransitionRiskEntry {
 // ---------------------------------------------------------------------------
 
 /// 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
+///
+/// Documents new and changed roles resulting from the system introduction,
+/// following HR best practices and job analysis methodologies (O*NET, SHRM).
+/// Includes competency frameworks, staffing projections, and recruitment planning.
 @SectionId('PD00-ORG-JOB')
 class JobDescriptionsAndStaffing {
-  @Unused()
-  String? content;
+  /// Overview of the job architecture and role design approach.
+  JobDescriptionsOverview overview = JobDescriptionsOverview();
 
   /// 5.2.1. New Roles [PD00-ORG-JOB-NEW] — contains 0+× New Role.
   @SectionIdPattern('PD00-ORG-JOB-NEW-xx')
@@ -551,54 +555,697 @@ class JobDescriptionsAndStaffing {
   @SectionIdPattern('PD00-ORG-JOB-CHA-xx')
   List<ChangedRoleEntry> changedRoles = [];
 
-  /// 5.2.3. Staffing Plan [PD00-ORG-JOB-STA].
+  /// 5.2.3. Removed Roles [PD00-ORG-JOB-REM] — contains 0+× role being eliminated.
+  @SectionIdPattern('PD00-ORG-JOB-REM-xx')
+  List<RemovedRoleEntry> removedRoles = [];
+
+  /// 5.2.4. Staffing Plan [PD00-ORG-JOB-STA].
   StaffingPlan staffingPlan = StaffingPlan();
+
+  /// 5.2.5. Competency Framework [PD00-ORG-JOB-CMP].
+  CompetencyFramework competencyFramework = CompetencyFramework();
 }
 
-/// 5.2.3. Staffing Plan [PD00-ORG-JOB-STA].
+/// Overview of job descriptions and staffing approach.
+class JobDescriptionsOverview {
+  @Form([
+    Field('roleDesignApproach', String,
+        'Role Design Approach — methodology for defining roles'),
+    Field('jobArchitectureModel', String,
+        'Job Architecture Model — job families, levels, career paths'),
+    Field('competencyModel', String,
+        'Competency Model — framework for defining skills/competencies'),
+    Field('gradingStructure', String,
+        'Grading Structure — how roles are graded/leveled'),
+    Field('totalRoleImpact', String,
+        'Total Role Impact — summary of new/changed/removed roles'),
+    Field('totalFteChange', String,
+        'Total FTE Change — net headcount impact'),
+    Field('hrPartner', String, 'HR Partner — HR contact for role changes'),
+    Field('unionConsiderations', String,
+        'Union/Works Council Considerations — labor relations impact'),
+    Field('legalRequirements', String,
+        'Legal Requirements — employment law considerations'),
+  ])
+  String? content;
+}
+
+/// 5.2.4. Staffing Plan [PD00-ORG-JOB-STA].
 @SectionId('PD00-ORG-JOB-STA')
 class StaffingPlan {
-  @Unused()
-  String? content;
+  /// Staffing plan overview.
+  StaffingPlanOverview overview = StaffingPlanOverview();
 
-  /// Budget.
-  TextSection budget = TextSection();
+  /// Budget details.
+  StaffingBudget budget = StaffingBudget();
 
-  /// Contains 0+× Staffing.
+  /// Contains 0+× Staffing entry.
   @SectionIdPattern('PD00-ORG-JOB-STA-xx')
   List<StaffingEntry> items = [];
+
+  /// Recruitment timeline.
+  RecruitmentTimeline recruitmentTimeline = RecruitmentTimeline();
+}
+
+/// Staffing plan overview.
+class StaffingPlanOverview {
+  @Form([
+    Field('staffingStrategy', String,
+        'Staffing Strategy — hire, promote, contract, outsource mix'),
+    Field('sourcingChannels', String,
+        'Sourcing Channels — internal, external, agencies, referrals'),
+    Field('selectionProcess', String,
+        'Selection Process — interviews, assessments, background checks'),
+    Field('onboardingApproach', String,
+        'Onboarding Approach — new hire integration plan'),
+    Field('retentionStrategy', String,
+        'Retention Strategy — how to keep critical talent'),
+    Field('successionPlanning', String,
+        'Succession Planning — backup for key positions'),
+    Field('contingentWorkforce', String,
+        'Contingent Workforce — contractors, temps, consultants'),
+    Field('geographicDistribution', String,
+        'Geographic Distribution — locations where hires are needed'),
+  ])
+  String? content;
+}
+
+/// Staffing budget details.
+class StaffingBudget {
+  @Form([
+    Field('totalBudget', String, 'Total Staffing Budget'),
+    Field('salaryBudget', String, 'Salary Budget — base compensation'),
+    Field('benefitsBudget', String, 'Benefits Budget — insurance, retirement'),
+    Field('recruitmentBudget', String,
+        'Recruitment Budget — agencies, advertising, travel'),
+    Field('trainingBudget', String, 'Training Budget — onboarding, development'),
+    Field('relocatonBudget', String, 'Relocation Budget — if applicable'),
+    Field('contingencyBudget', String,
+        'Contingency Budget — buffer for unforeseen needs'),
+    Field('budgetOwner', String, 'Budget Owner'),
+    Field('approvalRequired', String, 'Approval Required — who must approve'),
+    Field('budgetTimeline', String, 'Budget Timeline — fiscal year alignment'),
+  ])
+  String? content;
 }
 
 /// A staffing entry (form) [PD00-ORG-JOB-STA-nn].
 class StaffingEntry {
   @Form([
     Field('roleTitle', String, 'Role Title', required: true),
+    Field('jobFamily', String, 'Job Family'),
+    Field('jobLevel', String, 'Job Level — grade/level'),
     Field('department', String, 'Department'),
-    Field('fteCount', String, 'Fte Count'),
-    Field('recruitmentStatus', String, 'Recruitment Status'),
+    Field('location', String, 'Location — site/region'),
+    Field('fteCount', double, 'FTE Count'),
+    Field('headcount', int, 'Headcount — number of positions'),
+    Field('employmentType', String,
+        'Employment Type — permanent, contract, part-time'),
+    Field('sourcingMethod', String,
+        'Sourcing Method — internal, external, agency'),
+    Field('recruitmentStatus', String,
+        'Recruitment Status — approved, posted, interviewing, offered, filled'),
     Field('targetStartDate', String, 'Target Start Date'),
+    Field('urgency', String, 'Urgency — critical, high, medium, low'),
+    Field('hiringManager', String, 'Hiring Manager'),
+    Field('recruiter', String, 'Recruiter — HR contact'),
+    Field('salaryRange', String, 'Salary Range'),
+    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+}
+
+/// Recruitment timeline.
+class RecruitmentTimeline {
+  @Form([
+    Field('recruitmentStart', String, 'Recruitment Start Date'),
+    Field('recruitmentEnd', String, 'Recruitment End Date'),
+    Field('criticalHires', String,
+        'Critical Hires — roles that must be filled first'),
+    Field('hiringWaves', String,
+        'Hiring Waves — phased recruitment approach'),
+    Field('leadTimeAssumptions', String,
+        'Lead Time Assumptions — time to hire per role type'),
+    Field('onboardingWaves', String, 'Onboarding Waves — start date cohorts'),
+  ])
+  String? content;
+}
+
+/// 5.2.5. Competency Framework [PD00-ORG-JOB-CMP].
+@SectionId('PD00-ORG-JOB-CMP')
+class CompetencyFramework {
+  /// Framework overview.
+  CompetencyFrameworkOverview overview = CompetencyFrameworkOverview();
+
+  /// Core competencies required across all roles.
+  @SectionIdPattern('PD00-ORG-JOB-CMP-COR-xx')
+  List<CompetencyEntry> coreCompetencies = [];
+
+  /// Technical/functional competencies by role family.
+  @SectionIdPattern('PD00-ORG-JOB-CMP-TEC-xx')
+  List<CompetencyEntry> technicalCompetencies = [];
+
+  /// Leadership competencies for management roles.
+  @SectionIdPattern('PD00-ORG-JOB-CMP-LED-xx')
+  List<CompetencyEntry> leadershipCompetencies = [];
+}
+
+/// Competency framework overview.
+class CompetencyFrameworkOverview {
+  @Form([
+    Field('frameworkPurpose', String,
+        'Framework Purpose — how competencies guide hiring/development'),
+    Field('competencyModel', String,
+        'Competency Model — model name/source (SHRM, custom, etc.)'),
+    Field('proficiencyLevels', String,
+        'Proficiency Levels — scale used (1-5, Novice to Expert, etc.)'),
+    Field('assessmentMethod', String,
+        'Assessment Method — how competencies are measured'),
+    Field('developmentApproach', String,
+        'Development Approach — how gaps are addressed'),
+  ])
+  String? content;
+}
+
+/// A competency entry (form) [PD00-ORG-JOB-CMP-xx-nn].
+class CompetencyEntry {
+  @Form([
+    Field('competencyId', String, 'Competency ID', required: true),
+    Field('competencyName', String, 'Competency Name', required: true),
+    Field('category', String,
+        'Category — Core, Technical, Leadership, Behavioral'),
+    Field('description', String, 'Description'),
+    Field('behavioralIndicators', String,
+        'Behavioral Indicators — observable behaviors'),
+    Field('proficiencyLevels', String,
+        'Proficiency Levels — what each level looks like'),
+    Field('applicableRoles', String,
+        'Applicable Roles — which roles need this competency'),
+    Field('requiredLevel', String,
+        'Required Level — minimum proficiency for the role'),
+    Field('developmentResources', String,
+        'Development Resources — training, coaching, experiences'),
+    Field('assessmentTools', String,
+        'Assessment Tools — tests, interviews, simulations'),
   ])
   String? content;
 }
 
 /// A new role entry [PD00-ORG-JOB-NEW-nn] (form).
+///
+/// Comprehensive new role definition following HR job analysis best practices.
+/// Includes competencies, responsibilities, system access, and success metrics.
 class NewRoleEntry {
+  /// Role identification and overview.
+  NewRoleIdentification identification = NewRoleIdentification();
+
+  /// Role positioning in organization.
+  NewRoleOrganization organization = NewRoleOrganization();
+
+  /// Responsibilities breakdown.
+  NewRoleResponsibilities responsibilities = NewRoleResponsibilities();
+
+  /// Required competencies and qualifications.
+  NewRoleQualifications qualifications = NewRoleQualifications();
+
+  /// System access and tools.
+  NewRoleSystemAccess systemAccess = NewRoleSystemAccess();
+
+  /// Performance and success metrics.
+  NewRolePerformance performance = NewRolePerformance();
+
+  /// Onboarding and development.
+  NewRoleOnboarding onboarding = NewRoleOnboarding();
+}
+
+/// New role identification.
+class NewRoleIdentification {
   @Form([
+    Field('roleId', String, 'Role ID (e.g., NR-001)', required: true),
     Field('roleTitle', String, 'Role Title', required: true),
+    Field('roleFamily', String, 'Job Family'),
+    Field('jobLevel', String, 'Job Level/Grade'),
+    Field('rolePurpose', String, 'Role Purpose — why this role exists'),
+    Field('roleJustification', String,
+        'Role Justification — business case for new role'),
+    Field('effectiveDate', String, 'Effective Date'),
+    Field('roleStatus', String,
+        'Role Status — draft, approved, posted, filled'),
+  ])
+  String? content;
+}
+
+/// New role organizational positioning.
+class NewRoleOrganization {
+  @Form([
     Field('department', String, 'Department'),
-    Field('reportingLine', String, 'Reporting Line'),
-    Field('fteAllocation', String, 'Fte Allocation'),
-    Field('startDate', String, 'Start Date'),
+    Field('division', String, 'Division/Business Unit'),
+    Field('team', String, 'Team — immediate team'),
+    Field('location', String, 'Location — primary work location'),
+    Field('workModel', String,
+        'Work Model — on-site, remote, hybrid'),
+    Field('reportsTo', String, 'Reports To — direct manager title'),
+    Field('directReports', String, 'Direct Reports — roles reporting to this'),
+    Field('matrixRelationships', String,
+        'Matrix Relationships — dotted-line reporting'),
+    Field('keyStakeholders', String,
+        'Key Stakeholders — internal/external contacts'),
+    Field('collaborationScope', String,
+        'Collaboration Scope — teams/departments interacted with'),
+  ])
+  String? content;
+}
+
+/// New role responsibilities.
+class NewRoleResponsibilities {
+  /// Primary responsibilities (key accountabilities).
+  @SectionIdPattern('PD00-ORG-JOB-NEW-xx-RSP-xx')
+  List<ResponsibilityDetailEntry> primaryResponsibilities = [];
+
+  /// Secondary responsibilities (supporting duties).
+  List<ResponsibilityDetailEntry> secondaryResponsibilities = [];
+
+  /// Decision-making authority.
+  RoleDecisionAuthority decisionAuthority = RoleDecisionAuthority();
+}
+
+/// Detailed responsibility entry [PD00-ORG-JOB-NEW-nn-RSP-nn] (form).
+class ResponsibilityDetailEntry {
+  @Form([
+    Field('responsibilityId', String, 'Responsibility ID'),
+    Field('responsibility', String, 'Responsibility', required: true),
+    Field('description', String, 'Description — detailed explanation'),
+    Field('timeAllocation', String,
+        'Time Allocation — percentage of time spent'),
+    Field('frequency', String, 'Frequency — daily, weekly, monthly, ad-hoc'),
+    Field('deliverables', String, 'Deliverables — outputs expected'),
+    Field('qualityStandards', String, 'Quality Standards — success criteria'),
+    Field('relatedProcesses', String,
+        'Related Processes — business processes involved'),
+    Field('toolsUsed', String, 'Tools Used — systems/applications'),
+  ])
+  String? content;
+}
+
+/// Role decision-making authority.
+class RoleDecisionAuthority {
+  @Form([
+    Field('approvalAuthority', String,
+        'Approval Authority — what can be approved without escalation'),
+    Field('budgetAuthority', String,
+        'Budget Authority — spending limits'),
+    Field('hiringAuthority', String,
+        'Hiring Authority — ability to hire/terminate'),
+    Field('policyAuthority', String,
+        'Policy Authority — ability to set/change policies'),
+    Field('contractAuthority', String,
+        'Contract Authority — signing limits for agreements'),
+    Field('exceptionAuthority', String,
+        'Exception Authority — ability to grant exceptions'),
+    Field('escalationRequired', String,
+        'Escalation Required — when must escalate'),
+  ])
+  String? content;
+}
+
+/// New role qualifications and competencies.
+class NewRoleQualifications {
+  @Form([
+    Field('education', String,
+        'Education — minimum education requirement'),
+    Field('preferredEducation', String,
+        'Preferred Education — ideal education'),
+    Field('experience', String,
+        'Experience — years and type of experience required'),
+    Field('preferredExperience', String,
+        'Preferred Experience — ideal experience'),
+    Field('certifications', String,
+        'Certifications — required certifications'),
+    Field('licensure', String,
+        'Licensure — professional licenses needed'),
+    Field('languageRequirements', String,
+        'Language Requirements — languages needed'),
+    Field('travelRequirements', String,
+        'Travel Requirements — percentage, destinations'),
+    Field('physicalRequirements', String,
+        'Physical Requirements — if applicable'),
+    Field('backgroundCheck', String,
+        'Background Check — type required'),
+    Field('securityClearance', String,
+        'Security Clearance — if required'),
   ])
   String? content;
 
-  /// Contains 0+× RoleResponsibility.
-  @SectionIdPattern('PD00-ORG-JOB-NEW-xx-RSP-xx')
-  List<RoleResponsibilityEntry> responsibilities = [];
+  /// Contains 0+× required competency.
+  @SectionIdPattern('PD00-ORG-JOB-NEW-xx-CMP-xx')
+  List<RoleCompetencyEntry> requiredCompetencies = [];
+}
 
-  /// Contains 0+× Skill.
-  @SectionIdPattern('PD00-ORG-JOB-NEW-xx-SKL-xx')
-  List<SkillEntry> requiredSkills = [];
+/// Role competency entry [PD00-ORG-JOB-NEW-nn-CMP-nn] (form).
+class RoleCompetencyEntry {
+  @Form([
+    Field('competencyId', String, 'Competency ID'),
+    Field('competencyName', String, 'Competency Name', required: true),
+    Field('competencyType', String,
+        'Competency Type — Core, Technical, Leadership'),
+    Field('requiredLevel', String,
+        'Required Level — minimum proficiency'),
+    Field('preferredLevel', String, 'Preferred Level — ideal proficiency'),
+    Field('assessmentMethod', String,
+        'Assessment Method — how evaluated during hiring'),
+    Field('developmentPriority', String,
+        'Development Priority — if gap exists'),
+  ])
+  String? content;
+}
+
+/// New role system access requirements.
+class NewRoleSystemAccess {
+  @Form([
+    Field('primarySystems', String,
+        'Primary Systems — main applications used daily'),
+    Field('secondarySystems', String,
+        'Secondary Systems — occasionally used applications'),
+    Field('dataAccess', String,
+        'Data Access — data domains accessible'),
+    Field('securityRole', String,
+        'Security Role — role in access control system'),
+    Field('privilegedAccess', String,
+        'Privileged Access — admin/elevated rights needed'),
+    Field('mobileAccess', String,
+        'Mobile Access — mobile app/device requirements'),
+    Field('remoteAccessTools', String,
+        'Remote Access Tools — VPN, virtual desktop'),
+    Field('communicationTools', String,
+        'Communication Tools — email, chat, video'),
+    Field('reportingTools', String,
+        'Reporting Tools — BI, dashboards, analytics'),
+    Field('accessProvisioning', String,
+        'Access Provisioning — how access is granted'),
+  ])
+  String? content;
+}
+
+/// New role performance metrics.
+class NewRolePerformance {
+  @Form([
+    Field('performanceObjectives', String,
+        'Performance Objectives — key goals'),
+    Field('kpis', String, 'KPIs — quantitative metrics'),
+    Field('qualitativeMetrics', String,
+        'Qualitative Metrics — behavioral/quality measures'),
+    Field('reviewFrequency', String,
+        'Review Frequency — performance review cadence'),
+    Field('probationPeriod', String,
+        'Probation Period — initial review period'),
+    Field('successMilestones', String,
+        'Success Milestones — 30/60/90 day goals'),
+    Field('careerPath', String,
+        'Career Path — typical progression from this role'),
+    Field('promotionCriteria', String,
+        'Promotion Criteria — requirements for advancement'),
+  ])
+  String? content;
+}
+
+/// New role onboarding plan.
+class NewRoleOnboarding {
+  @Form([
+    Field('onboardingDuration', String,
+        'Onboarding Duration — weeks to full productivity'),
+    Field('orientationTopics', String,
+        'Orientation Topics — company/department intro'),
+    Field('requiredTraining', String,
+        'Required Training — mandatory courses'),
+    Field('systemTraining', String,
+        'System Training — application-specific training'),
+    Field('processTraining', String,
+        'Process Training — business process training'),
+    Field('mentorAssignment', String,
+        'Mentor Assignment — buddy/mentor program'),
+    Field('shadowingPlan', String,
+        'Shadowing Plan — observation opportunities'),
+    Field('checkpointMeetings', String,
+        'Checkpoint Meetings — scheduled check-ins'),
+    Field('rampUpExpectations', String,
+        'Ramp-Up Expectations — productivity expectations over time'),
+  ])
+  String? content;
+}
+
+/// A changed role entry [PD00-ORG-JOB-CHA-nn] (form).
+///
+/// Documents modifications to existing roles with impact assessment,
+/// transition planning, and incumbent management.
+class ChangedRoleEntry {
+  /// Changed role identification.
+  ChangedRoleIdentification identification = ChangedRoleIdentification();
+
+  /// Responsibility changes.
+  ChangedRoleResponsibilities responsibilities = ChangedRoleResponsibilities();
+
+  /// Competency changes.
+  ChangedRoleCompetencies competencies = ChangedRoleCompetencies();
+
+  /// System access changes.
+  ChangedRoleSystemAccess systemAccess = ChangedRoleSystemAccess();
+
+  /// Impact on incumbents.
+  ChangedRoleIncumbentImpact incumbentImpact = ChangedRoleIncumbentImpact();
+
+  /// Transition planning.
+  ChangedRoleTransition transition = ChangedRoleTransition();
+}
+
+/// Changed role identification.
+class ChangedRoleIdentification {
+  @Form([
+    Field('roleId', String, 'Role ID (e.g., CR-001)', required: true),
+    Field('roleTitle', String, 'Current Role Title', required: true),
+    Field('newRoleTitle', String, 'New Role Title — if title changes'),
+    Field('currentDepartment', String, 'Current Department'),
+    Field('newDepartment', String, 'New Department — if moving'),
+    Field('currentJobLevel', String, 'Current Job Level'),
+    Field('newJobLevel', String, 'New Job Level — if changing'),
+    Field('changeRationale', String,
+        'Change Rationale — why this role is changing'),
+    Field('changeType', String,
+        'Change Type — expanded, reduced, restructured, upgraded, downgraded'),
+    Field('effectiveDate', String, 'Effective Date'),
+    Field('changeStatus', String,
+        'Change Status — proposed, approved, communicated, implemented'),
+    Field('incumbentCount', int, 'Incumbent Count — people in this role'),
+  ])
+  String? content;
+}
+
+/// Changed role responsibilities.
+class ChangedRoleResponsibilities {
+  /// Responsibilities being added.
+  @SectionIdPattern('PD00-ORG-JOB-CHA-xx-ADD-xx')
+  List<ResponsibilityChangeEntry> addedResponsibilities = [];
+
+  /// Responsibilities being removed.
+  @SectionIdPattern('PD00-ORG-JOB-CHA-xx-REM-xx')
+  List<ResponsibilityChangeEntry> removedResponsibilities = [];
+
+  /// Responsibilities being modified.
+  @SectionIdPattern('PD00-ORG-JOB-CHA-xx-MOD-xx')
+  List<ResponsibilityChangeEntry> modifiedResponsibilities = [];
+
+  /// Net impact summary.
+  ResponsibilityImpactSummary impactSummary = ResponsibilityImpactSummary();
+}
+
+/// Responsibility change entry [PD00-ORG-JOB-CHA-nn-xxx-nn] (form).
+class ResponsibilityChangeEntry {
+  @Form([
+    Field('responsibility', String, 'Responsibility', required: true),
+    Field('changeType', String, 'Change Type — add, remove, modify'),
+    Field('currentState', String, 'Current State — how done today'),
+    Field('futureState', String, 'Future State — how done after change'),
+    Field('reason', String, 'Reason — why this change'),
+    Field('impactLevel', String, 'Impact Level — high, medium, low'),
+    Field('trainingNeeded', String, 'Training Needed'),
+    Field('toolsAffected', String, 'Tools Affected — systems involved'),
+    Field('transitionApproach', String,
+        'Transition Approach — how responsibility is handed over'),
+  ])
+  String? content;
+}
+
+/// Summary of responsibility impact.
+class ResponsibilityImpactSummary {
+  @Form([
+    Field('netTimeImpact', String,
+        'Net Time Impact — increase/decrease in workload'),
+    Field('complexityChange', String,
+        'Complexity Change — simpler, same, more complex'),
+    Field('scopeChange', String,
+        'Scope Change — narrower, same, broader'),
+    Field('authorityChange', String,
+        'Authority Change — less, same, more'),
+    Field('classificationImpact', String,
+        'Classification Impact — should job grade change'),
+    Field('compensationImpact', String,
+        'Compensation Impact — salary implications'),
+  ])
+  String? content;
+}
+
+/// Changed role competency requirements.
+class ChangedRoleCompetencies {
+  /// New competencies required.
+  @SectionIdPattern('PD00-ORG-JOB-CHA-xx-CMP-ADD-xx')
+  List<RoleCompetencyEntry> newCompetencies = [];
+
+  /// Competencies no longer required.
+  @SectionIdPattern('PD00-ORG-JOB-CHA-xx-CMP-REM-xx')
+  List<RoleCompetencyEntry> removedCompetencies = [];
+
+  /// Competencies with changed proficiency levels.
+  @SectionIdPattern('PD00-ORG-JOB-CHA-xx-CMP-CHG-xx')
+  List<CompetencyLevelChangeEntry> changedLevels = [];
+
+  /// Overall competency gap assessment.
+  CompetencyGapAssessment gapAssessment = CompetencyGapAssessment();
+}
+
+/// Competency level change entry.
+class CompetencyLevelChangeEntry {
+  @Form([
+    Field('competencyName', String, 'Competency Name', required: true),
+    Field('currentLevel', String, 'Current Required Level'),
+    Field('newLevel', String, 'New Required Level'),
+    Field('reason', String, 'Reason — why level is changing'),
+    Field('developmentPath', String,
+        'Development Path — how to close gap'),
+    Field('timeframe', String, 'Timeframe — when level needed'),
+  ])
+  String? content;
+}
+
+/// Competency gap assessment.
+class CompetencyGapAssessment {
+  @Form([
+    Field('overallGapSeverity', String,
+        'Overall Gap Severity — critical, significant, moderate, minor'),
+    Field('criticalGaps', String,
+        'Critical Gaps — competencies where gap is most severe'),
+    Field('developmentStrategy', String,
+        'Development Strategy — training, coaching, hiring'),
+    Field('developmentTimeline', String,
+        'Development Timeline — when gaps will be closed'),
+    Field('interimMeasures', String,
+        'Interim Measures — how to manage until gaps closed'),
+  ])
+  String? content;
+}
+
+/// Changed role system access.
+class ChangedRoleSystemAccess {
+  @Form([
+    Field('newSystemAccess', String,
+        'New System Access — additional systems needed'),
+    Field('removedSystemAccess', String,
+        'Removed System Access — systems no longer needed'),
+    Field('changedPermissions', String,
+        'Changed Permissions — modified access levels'),
+    Field('securityRoleChanges', String,
+        'Security Role Changes — updated security roles'),
+    Field('dataAccessChanges', String,
+        'Data Access Changes — modified data domains'),
+    Field('trainingOnNewSystems', String,
+        'Training on New Systems — training required'),
+    Field('accessTransitionDate', String,
+        'Access Transition Date — when access changes'),
+  ])
+  String? content;
+}
+
+/// Impact on current role incumbents.
+class ChangedRoleIncumbentImpact {
+  @Form([
+    Field('incumbentCount', int, 'Incumbent Count — people affected'),
+    Field('impactAssessment', String,
+        'Impact Assessment — how incumbents are affected'),
+    Field('competencyGapAnalysis', String,
+        'Competency Gap Analysis — where incumbents have gaps'),
+    Field('readinessAssessment', String,
+        'Readiness Assessment — incumbent preparedness'),
+    Field('retentionRisk', String,
+        'Retention Risk — flight risk due to changes'),
+    Field('individualTransitionPlans', String,
+        'Individual Transition Plans — personalized plans'),
+    Field('supportProvided', String,
+        'Support Provided — coaching, mentoring, training'),
+    Field('alternativePaths', String,
+        'Alternative Paths — if incumbent cannot adapt'),
+    Field('communicationApproach', String,
+        'Communication Approach — how changes are communicated'),
+    Field('changeAcceptanceStatus', String,
+        'Change Acceptance Status — incumbent reactions'),
+  ])
+  String? content;
+}
+
+/// Changed role transition planning.
+class ChangedRoleTransition {
+  @Form([
+    Field('transitionStart', String, 'Transition Start Date'),
+    Field('transitionEnd', String, 'Transition End Date'),
+    Field('parallelPeriod', String,
+        'Parallel Period — overlap of old/new ways'),
+    Field('trainingSchedule', String,
+        'Training Schedule — when training occurs'),
+    Field('trainingDuration', String,
+        'Training Duration — hours/days of training'),
+    Field('trainingFormat', String,
+        'Training Format — classroom, online, OJT'),
+    Field('practiceOpportunities', String,
+        'Practice Opportunities — sandbox, pilot'),
+    Field('supportDuringTransition', String,
+        'Support During Transition — help available'),
+    Field('performanceExpectations', String,
+        'Performance Expectations — adjusted goals during transition'),
+    Field('transitionMilestones', String,
+        'Transition Milestones — key checkpoints'),
+    Field('successCriteria', String,
+        'Success Criteria — how successful transition is measured'),
+  ])
+  String? content;
+}
+
+/// A removed role entry [PD00-ORG-JOB-REM-nn] (form).
+///
+/// Documents roles being eliminated with transition planning for incumbents.
+class RemovedRoleEntry {
+  @Form([
+    Field('roleId', String, 'Role ID', required: true),
+    Field('roleTitle', String, 'Role Title', required: true),
+    Field('department', String, 'Department'),
+    Field('removalReason', String,
+        'Removal Reason — automation, restructuring, outsourcing, redundancy'),
+    Field('effectiveDate', String, 'Effective Date'),
+    Field('incumbentCount', int, 'Incumbent Count — people affected'),
+    Field('incumbentDisposition', String,
+        'Incumbent Disposition — redeployment, separation, retraining'),
+    Field('reassignmentOptions', String,
+        'Reassignment Options — alternative roles available'),
+    Field('transitionSupport', String,
+        'Transition Support — outplacement, retraining'),
+    Field('severanceConsiderations', String,
+        'Severance Considerations — if applicable'),
+    Field('legalConsiderations', String,
+        'Legal Considerations — employment law, union agreements'),
+    Field('communicationPlan', String,
+        'Communication Plan — how removal is communicated'),
+    Field('knowledgeTransfer', String,
+        'Knowledge Transfer — preserving institutional knowledge'),
+    Field('workReassignment', String,
+        'Work Reassignment — where responsibilities go'),
+  ])
+  String? content;
 }
 
 /// A responsibility entry (form) [PD00-ORG-JOB-nn-RSP-nn].
@@ -617,28 +1264,6 @@ class SkillEntry {
     Field('proficiencyLevel', String, 'Proficiency Level'),
   ])
   String? content;
-}
-
-/// A changed role entry [PD00-ORG-JOB-CHA-nn] (form).
-class ChangedRoleEntry {
-  @Form([
-    Field('roleTitle', String, 'Role Title', required: true),
-    Field('currentDepartment', String, 'Current Department'),
-    Field('changedReportingLine', String, 'Changed Reporting Line'),
-    Field('trainingRequired', String, 'Training Required'),
-  ])
-  String? content;
-
-  /// Contains 0+× RoleResponsibility.
-  @SectionIdPattern('PD00-ORG-JOB-CHA-xx-RSP-xx')
-  List<RoleResponsibilityEntry> addedResponsibilities = [];
-
-  /// Contains 0+× RoleResponsibility.
-  List<RoleResponsibilityEntry> removedResponsibilities = [];
-
-  /// Contains 0+× Skill.
-  @SectionIdPattern('PD00-ORG-JOB-CHA-xx-SKL-xx')
-  List<SkillEntry> newSkillRequirements = [];
 }
 
 // ---------------------------------------------------------------------------
