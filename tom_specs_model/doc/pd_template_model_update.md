@@ -4,7 +4,7 @@ This document tracks the synchronization between `pd_template.md` (source of tru
 
 **Status:** Active  
 **Created:** 2025-01-24  
-**Last Updated:** 2026-04-12 (PD00-ACC-USA-ROL: Role Definitions)
+**Last Updated:** 2026-04-12 (PD00-ACC-USA-ROH: Role Hierarchy)
 
 ---
 
@@ -118,8 +118,8 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-ACC-RES-FIL | File and Storage Security | Medium | ✅ Done |
 | PD00-ACC-USA-MOD | Authorization Model | High | ✅ Done |
 | PD00-ACC-USA-ROL | Role Definitions | High | ✅ Done |
-| PD00-ACC-USA-ROL-01 | Sample: System Administrator | Low | ⬜ Not Started |
-| PD00-ACC-USA-ROH | Role Hierarchy | Medium | ⬜ Not Started |
+| PD00-ACC-USA-ROL-01 | Sample: System Administrator | Low | ✅ Done |
+| PD00-ACC-USA-ROH | Role Hierarchy | Medium | ✅ Done |
 | PD00-ACC-USA-TEN | Tenant Isolation | Medium | ⬜ Not Started |
 | PD00-ACC-SEN-RES | Encryption at Rest | High | ⬜ Not Started |
 | PD00-ACC-SEN-TRA | Encryption in Transit | High | ⬜ Not Started |
@@ -442,8 +442,8 @@ All 317 sections from `pd_template.md` with content migration status.
 | 170 | PD00-ACC-USA | User Authorization | ✅ Exists | ⬜ |
 | 171 | PD00-ACC-USA-MOD | Authorization Model | ✅ Detailed | ✅ |
 | 172 | PD00-ACC-USA-ROL | Role Definitions | ✅ Detailed | ✅ |
-| 173 | PD00-ACC-USA-ROL-01 | Sample: System Administrator | ❓ Missing | ⏭️ |
-| 174 | PD00-ACC-USA-ROH | Role Hierarchy | ❓ Missing | ⬜ |
+| 173 | PD00-ACC-USA-ROL-01 | Sample: System Administrator | ✅ Covered | ✅ |
+| 174 | PD00-ACC-USA-ROH | Role Hierarchy | ✅ Detailed | ✅ |
 | 175 | PD00-ACC-USA-TEN | Tenant Isolation | ❓ Missing | ⬜ |
 | 176 | PD00-ACC-SEN | Sensitive Data Encryption | ✅ Exists | ⬜ |
 | 177 | PD00-ACC-SEN-RES | Encryption at Rest | ❓ Missing | ⬜ |

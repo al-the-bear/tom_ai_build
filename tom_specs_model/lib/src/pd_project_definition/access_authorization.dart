@@ -3810,11 +3810,241 @@ class UserAuthorization {
   @SectionIdPattern('PD00-ACC-USA-RES-xx')
   List<ResourceKeyEntry> resourceKeys = [];
 
-  /// Role Hierarchy.
-  TextSection roleHierarchy = TextSection();
+  /// 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH].
+  @SectionId('PD00-ACC-USA-ROH')
+  RoleHierarchy roleHierarchy = RoleHierarchy();
 
   /// Tenant Isolation.
   TextSection tenantIsolation = TextSection();
+}
+
+// ---------------------------------------------------------------------------
+// 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH]
+// ---------------------------------------------------------------------------
+
+/// 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH].
+///
+/// Defines the role hierarchy: inheritance rules, mutual exclusions,
+/// role combination constraints, hierarchy depth, and role certification
+/// policies. Aligns with NIST hierarchical RBAC model.
+@SectionId('PD00-ACC-USA-ROH')
+class RoleHierarchy {
+  @Unused()
+  String? content;
+
+  /// Role Hierarchy Policy.
+  RoleHierarchyPolicy hierarchyPolicy = RoleHierarchyPolicy();
+
+  /// Contains 0+× RoleInheritanceRule.
+  @SectionIdPattern('PD00-ACC-USA-ROH-INH-xx')
+  List<RoleInheritanceRuleEntry> inheritanceRules = [];
+
+  /// Contains 0+× RoleCombinationConstraint.
+  @SectionIdPattern('PD00-ACC-USA-ROH-CMB-xx')
+  List<RoleCombinationConstraintEntry> combinationConstraints = [];
+
+  /// Contains 0+× GlobalRoleExclusion.
+  @SectionIdPattern('PD00-ACC-USA-ROH-GEX-xx')
+  List<GlobalRoleExclusionEntry> globalExclusions = [];
+
+  /// Role Certification and Review.
+  RoleCertificationPolicy roleCertification = RoleCertificationPolicy();
+
+  /// Role Hierarchy Notes (text).
+  TextSection roleHierarchyNotes = TextSection();
+}
+
+/// Role Hierarchy Policy (form).
+///
+/// Global settings governing how the role hierarchy is structured and
+/// how inheritance, depth, and activation constraints work.
+@Form([
+  Field('hierarchyModel', String, 'Hierarchy Model',
+      required: true,
+      hint:
+          'Tree | DAG | Flat | Layered — structure of the role hierarchy '
+          '(tree = single parent, DAG = multiple parents, flat = no '
+          'inheritance, layered = tiered levels)'),
+  Field('maxHierarchyDepth', int, 'Maximum Hierarchy Depth',
+      hint:
+          'Maximum number of inheritance levels allowed (e.g. 5); '
+          '0 = unlimited depth'),
+  Field('inheritanceMode', String, 'Inheritance Mode',
+      hint:
+          'Full | Selective | None — whether child roles automatically '
+          'inherit all parent permissions (full), selected permissions '
+          '(selective), or none'),
+  Field('multipleInheritance', bool, 'Multiple Inheritance',
+      hint:
+          'Yes | No — whether a role can inherit from more than one '
+          'parent role (DAG model)'),
+  Field('permissionOverride', bool, 'Permission Override',
+      hint:
+          'Yes | No — whether child roles can override (restrict or extend) '
+          'inherited permissions from parent roles'),
+  Field('activationConstraints', bool, 'Activation Constraints',
+      hint:
+          'Yes | No — whether role activation is subject to constraints '
+          '(time-based, prerequisite roles, approval workflows)'),
+  Field('maxActiveRolesPerUser', int, 'Max Active Roles Per User',
+      hint:
+          'Maximum number of roles a single user can hold simultaneously; '
+          '0 = unlimited'),
+  Field('rolePriorityScheme', String, 'Role Priority Scheme',
+      hint:
+          'HierarchyLevel | ExplicitWeight | None — how conflicts between '
+          'equal-level roles are resolved'),
+  Field('automaticInheritanceRevocation', bool,
+      'Automatic Inheritance Revocation',
+      hint:
+          'Yes | No — whether removing a parent role automatically revokes '
+          'inherited child-role permissions'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional role hierarchy policy notes'),
+])
+class RoleHierarchyPolicy {
+  String? content;
+
+  /// Role Hierarchy Policy Details (text).
+  TextSection roleHierarchyPolicyDetails = TextSection();
+}
+
+/// A role inheritance rule entry (form) [PD00-ACC-USA-ROH-INH-nn].
+///
+/// Defines a specific parent-child inheritance relationship between two roles,
+/// including what is inherited and any restrictions.
+class RoleInheritanceRuleEntry {
+  @Form([
+    Field('parentRole', String, 'Parent Role',
+        required: true,
+        hint: 'Name of the parent role whose permissions are inherited'),
+    Field('childRole', String, 'Child Role',
+        required: true,
+        hint: 'Name of the child role that inherits permissions'),
+    Field('inheritanceType', String, 'Inheritance Type',
+        hint:
+            'Full | PermissionsOnly | ResponsibilitiesOnly | Selective — '
+            'what aspects of the parent role are inherited'),
+    Field('excludedPermissions', String, 'Excluded Permissions',
+        hint:
+            'Comma-separated permission keys explicitly excluded from '
+            'inheritance (e.g. user.delete, config.manage)'),
+    Field('additionalConditions', String, 'Additional Conditions',
+        hint:
+            'Conditions under which this inheritance is active '
+            '(e.g. same-department, same-tenant, business-hours)'),
+    Field('overridable', bool, 'Overridable',
+        hint:
+            'Yes | No — whether the child role can override inherited '
+            'permissions from this parent'),
+  ])
+  String? content;
+}
+
+/// A role combination constraint entry (form) [PD00-ACC-USA-ROH-CMB-nn].
+///
+/// Defines rules about which roles can or cannot be combined — supports
+/// separation of duties, prerequisite roles, and co-requisite roles.
+class RoleCombinationConstraintEntry {
+  @Form([
+    Field('constraintType', String, 'Constraint Type',
+        required: true,
+        hint:
+            'MutualExclusion | Prerequisite | Corequisite | MaxCombination — '
+            'type of combination constraint'),
+    Field('roleA', String, 'Role A',
+        required: true, hint: 'First role in the constraint'),
+    Field('roleB', String, 'Role B',
+        required: true, hint: 'Second role in the constraint'),
+    Field('enforcement', String, 'Enforcement',
+        hint:
+            'Static | Dynamic | Both — static = enforced at assignment, '
+            'dynamic = enforced at activation/runtime'),
+    Field('severity', String, 'Severity',
+        hint:
+            'Hard | Soft — hard = system-enforced block, '
+            'soft = warning with override requiring approval'),
+    Field('businessReason', String, 'Business Reason',
+        hint:
+            'Business justification for the constraint '
+            '(e.g. separation of duties, four-eyes principle)'),
+    Field('exemptionProcess', String, 'Exemption Process',
+        hint:
+            'None | ManagerApproval | SecurityOfficerApproval | '
+            'CommitteeApproval — process for granting exemptions'),
+  ])
+  String? content;
+}
+
+/// A global role exclusion entry (form) [PD00-ACC-USA-ROH-GEX-nn].
+///
+/// Defines system-wide mutual exclusion rules that apply across all users,
+/// independent of individual role definitions.
+class GlobalRoleExclusionEntry {
+  @Form([
+    Field('excludedRoleA', String, 'Excluded Role A',
+        required: true, hint: 'First mutually exclusive role'),
+    Field('excludedRoleB', String, 'Excluded Role B',
+        required: true, hint: 'Second mutually exclusive role'),
+    Field('reason', String, 'Reason',
+        hint:
+            'Separation of duties rationale (e.g. the same person cannot '
+            'both submit and approve financial transactions)'),
+    Field('enforcementLevel', String, 'Enforcement Level',
+        hint: 'Hard | Soft — whether override is possible with approval'),
+    Field('complianceReference', String, 'Compliance Reference',
+        hint:
+            'Regulatory or policy reference requiring this exclusion '
+            '(e.g. SOX Section 404, ISO 27001 A.6.1.2)'),
+  ])
+  String? content;
+}
+
+/// Role Certification Policy (form).
+///
+/// Defines how roles and role assignments are periodically reviewed and
+/// certified to prevent privilege creep and ensure continued appropriateness.
+@Form([
+  Field('certificationRequired', bool, 'Certification Required',
+      hint:
+          'Yes | No — whether periodic role certification (access review) '
+          'is mandated'),
+  Field('certificationFrequency', String, 'Certification Frequency',
+      hint:
+          'Monthly | Quarterly | SemiAnnual | Annual | OnChange — '
+          'how often role certifications are conducted'),
+  Field('certifier', String, 'Certifier',
+      hint:
+          'Manager | RoleOwner | SecurityOfficer | Automated — who performs '
+          'the certification review'),
+  Field('nonResponseAction', String, 'Non-Response Action',
+      hint:
+          'Revoke | Escalate | Extend | NoAction — what happens if the '
+          'certifier does not respond within the deadline'),
+  Field('riskBasedScheduling', bool, 'Risk-Based Scheduling',
+      hint:
+          'Yes | No — whether high-risk role assignments are reviewed more '
+          'frequently than low-risk ones'),
+  Field('automatedDetection', bool, 'Automated Detection',
+      hint:
+          'Yes | No — whether the system automatically detects and flags '
+          'anomalous or dormant role assignments'),
+  Field('dormantRoleThresholdDays', int, 'Dormant Role Threshold (Days)',
+      hint:
+          'Number of days after which an unused role assignment is flagged '
+          'as dormant (e.g. 90)'),
+  Field('certificationAuditTrail', bool, 'Certification Audit Trail',
+      hint:
+          'Yes | No — whether certification decisions are logged for '
+          'compliance and audit purposes'),
+  Field('notes', String, 'Notes',
+      hint: 'Additional role certification notes'),
+])
+class RoleCertificationPolicy {
+  String? content;
+
+  /// Role Certification Details (text).
+  TextSection roleCertificationDetails = TextSection();
 }
 
 /// An authorization group entry [PD00-ACC-USA-GRP-nn] (form).
