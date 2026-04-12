@@ -6105,8 +6105,9 @@ class OperationsRequirements {
   /// 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP].
   DeploymentStrategySection deploymentStrategy = DeploymentStrategySection();
 
-  /// Monitoring And Alerting.
-  TextSection monitoringAndAlerting = TextSection();
+  /// 8.5.3. Monitoring And Alerting [PD00-TEC-OPE-MON].
+  MonitoringAndAlertingSection monitoringAndAlerting =
+      MonitoringAndAlertingSection();
 
   /// Maintenance Windows.
   TextSection maintenanceWindows = TextSection();
@@ -6991,6 +6992,544 @@ class DeploymentSecurity {
         hint: 'Log all deployments'),
     Field('notes', String, 'Notes',
         hint: 'Additional deployment security notes'),
+  ])
+  String? content;
+}
+
+// =============================================================================
+// 8.5.3. Monitoring and Alerting [PD00-TEC-OPE-MON]
+// =============================================================================
+
+/// 8.5.3. Monitoring and Alerting [PD00-TEC-OPE-MON].
+///
+/// Monitoring requirements: metrics to collect, alert thresholds, dashboard
+/// requirements, on-call procedures, and escalation paths.
+@SectionId('PD00-TEC-OPE-MON')
+class MonitoringAndAlertingSection {
+  @Unused()
+  String? content;
+
+  /// Overview of monitoring strategy.
+  TextSection overview = TextSection();
+
+  /// Monitoring infrastructure requirements.
+  MonitoringInfrastructure infrastructure = MonitoringInfrastructure();
+
+  /// Metrics collection requirements.
+  MetricsCollectionRequirements metricsCollection =
+      MetricsCollectionRequirements();
+
+  /// Application performance monitoring.
+  ApplicationPerformanceMonitoring apm = ApplicationPerformanceMonitoring();
+
+  /// Log management requirements.
+  LogManagementRequirements logManagement = LogManagementRequirements();
+
+  /// Alerting requirements.
+  AlertingRequirements alerting = AlertingRequirements();
+
+  /// Alert definitions.
+  @SectionIdPattern('PD00-TEC-OPE-MON-ALR-xx')
+  List<AlertDefinitionEntry> alertDefinitions = [];
+
+  /// Dashboard requirements.
+  DashboardRequirements dashboards = DashboardRequirements();
+
+  /// On-call procedures.
+  OnCallProcedures onCallProcedures = OnCallProcedures();
+
+  /// Incident management.
+  IncidentManagementRequirements incidentManagement =
+      IncidentManagementRequirements();
+
+  /// SLA monitoring.
+  SlaMonitoringRequirements slaMonitoring = SlaMonitoringRequirements();
+}
+
+/// Monitoring infrastructure requirements.
+class MonitoringInfrastructure {
+  @Form([
+    // Platform
+    Field('monitoringPlatform', String, 'Monitoring Platform',
+        hint: 'Datadog, Prometheus, CloudWatch'),
+    Field('metricsBackend', String, 'Metrics Backend',
+        hint: 'Prometheus, InfluxDB, Graphite'),
+    Field('loggingBackend', String, 'Logging Backend',
+        hint: 'ELK, Splunk, CloudWatch Logs'),
+    Field('tracingBackend', String, 'Tracing Backend',
+        hint: 'Jaeger, Zipkin, X-Ray'),
+
+    // Deployment
+    Field('monitoringDeployment', String, 'Monitoring Deployment',
+        hint: 'SaaS, self-hosted, hybrid'),
+    Field('dataRetention', String, 'Data Retention',
+        hint: 'Metrics/logs retention period'),
+    Field('storageRequirements', String, 'Storage Requirements',
+        hint: 'Estimated storage needs'),
+    Field('highAvailability', bool, 'High Availability',
+        hint: 'Monitoring HA required'),
+
+    // Collection
+    Field('collectionFrequency', String, 'Collection Frequency',
+        hint: 'Metrics scrape interval'),
+    Field('agentBased', bool, 'Agent-Based Collection',
+        hint: 'Requires monitoring agents'),
+    Field('agentlessCollection', bool, 'Agentless Collection',
+        hint: 'Push-based metrics'),
+
+    // Access
+    Field('accessControl', String, 'Access Control',
+        hint: 'Who can access monitoring'),
+    Field('dataPrivacy', String, 'Data Privacy',
+        hint: 'Sensitive data handling'),
+    Field('multiTenant', bool, 'Multi-Tenant',
+        hint: 'Tenant isolation in monitoring'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional infrastructure notes'),
+  ])
+  String? content;
+}
+
+/// Metrics collection requirements.
+class MetricsCollectionRequirements {
+  @Form([
+    // Infrastructure metrics
+    Field('cpuMetrics', bool, 'CPU Metrics',
+        hint: 'CPU utilization, load'),
+    Field('memoryMetrics', bool, 'Memory Metrics',
+        hint: 'Memory usage, swap'),
+    Field('diskMetrics', bool, 'Disk Metrics',
+        hint: 'Disk I/O, space'),
+    Field('networkMetrics', bool, 'Network Metrics',
+        hint: 'Network I/O, connections'),
+
+    // Container/K8s metrics
+    Field('containerMetrics', bool, 'Container Metrics',
+        hint: 'Container resource usage'),
+    Field('podMetrics', bool, 'Pod Metrics',
+        hint: 'Pod status, restarts'),
+    Field('nodeMetrics', bool, 'Node Metrics',
+        hint: 'Kubernetes node metrics'),
+    Field('clusterMetrics', bool, 'Cluster Metrics',
+        hint: 'Cluster-level metrics'),
+
+    // Application metrics
+    Field('requestMetrics', bool, 'Request Metrics',
+        hint: 'Request rate, latency'),
+    Field('errorMetrics', bool, 'Error Metrics',
+        hint: 'Error rates, types'),
+    Field('saturationMetrics', bool, 'Saturation Metrics',
+        hint: 'Queue depth, utilization'),
+
+    // Business metrics
+    Field('businessMetrics', String, 'Business Metrics',
+        hint: 'Custom business KPIs'),
+    Field('userMetrics', String, 'User Metrics',
+        hint: 'Active users, sessions'),
+    Field('transactionMetrics', String, 'Transaction Metrics',
+        hint: 'Transaction volume, value'),
+
+    // Custom metrics
+    Field('customMetricsRequired', bool, 'Custom Metrics Required',
+        hint: 'Application-specific metrics'),
+    Field('metricNamingConvention', String, 'Metric Naming Convention',
+        hint: 'Naming standard for metrics'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional metrics notes'),
+  ])
+  String? content;
+}
+
+/// Application performance monitoring.
+class ApplicationPerformanceMonitoring {
+  @Form([
+    // APM platform
+    Field('apmPlatform', String, 'APM Platform',
+        hint: 'Datadog APM, New Relic, Dynatrace'),
+    Field('instrumentationMethod', String, 'Instrumentation Method',
+        hint: 'Auto, manual, hybrid'),
+    Field('samplingRate', String, 'Sampling Rate',
+        hint: 'Trace sampling percentage'),
+
+    // Tracing
+    Field('distributedTracing', bool, 'Distributed Tracing',
+        hint: 'End-to-end tracing'),
+    Field('traceContext', String, 'Trace Context',
+        hint: 'W3C, B3, custom'),
+    Field('spanCollection', String, 'Span Collection',
+        hint: 'What spans to collect'),
+    Field('traceRetention', String, 'Trace Retention',
+        hint: 'Trace data retention'),
+
+    // Profiling
+    Field('continuousProfiling', bool, 'Continuous Profiling',
+        hint: 'Production profiling'),
+    Field('cpuProfiling', bool, 'CPU Profiling',
+        hint: 'CPU profile collection'),
+    Field('memoryProfiling', bool, 'Memory Profiling',
+        hint: 'Memory profile collection'),
+    Field('profilingOverhead', String, 'Profiling Overhead',
+        hint: 'Acceptable overhead'),
+
+    // Error tracking
+    Field('errorTracking', bool, 'Error Tracking',
+        hint: 'Exception collection'),
+    Field('errorGrouping', String, 'Error Grouping',
+        hint: 'How errors are grouped'),
+    Field('sourceMapping', bool, 'Source Mapping',
+        hint: 'Stack trace mapping'),
+    Field('errorContext', String, 'Error Context',
+        hint: 'Context data with errors'),
+
+    // RUM
+    Field('realUserMonitoring', bool, 'Real User Monitoring',
+        hint: 'Client-side monitoring'),
+    Field('syntheticMonitoring', bool, 'Synthetic Monitoring',
+        hint: 'Synthetic transactions'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional APM notes'),
+  ])
+  String? content;
+}
+
+/// Log management requirements.
+class LogManagementRequirements {
+  @Form([
+    // Log collection
+    Field('logSources', String, 'Log Sources',
+        hint: 'Application, system, container'),
+    Field('logFormat', String, 'Log Format',
+        hint: 'JSON, structured, unstructured'),
+    Field('logLevels', String, 'Log Levels',
+        hint: 'Debug, Info, Warn, Error'),
+    Field('logFields', String, 'Required Log Fields',
+        hint: 'timestamp, correlation_id'),
+
+    // Collection method
+    Field('collectionMethod', String, 'Collection Method',
+        hint: 'Sidecar, agent, stdout'),
+    Field('logShipping', String, 'Log Shipping',
+        hint: 'Fluentd, Filebeat, Vector'),
+    Field('bufferingStrategy', String, 'Buffering Strategy',
+        hint: 'Memory, disk buffering'),
+
+    // Storage
+    Field('logRetention', String, 'Log Retention',
+        hint: 'Retention period by type'),
+    Field('coldStorage', String, 'Cold Storage',
+        hint: 'Archive strategy'),
+    Field('compressionEnabled', bool, 'Compression Enabled',
+        hint: 'Log compression'),
+
+    // Search and analysis
+    Field('fullTextSearch', bool, 'Full-Text Search',
+        hint: 'Log search capability'),
+    Field('logAnalytics', String, 'Log Analytics',
+        hint: 'Analysis capabilities'),
+    Field('anomalyDetection', bool, 'Anomaly Detection',
+        hint: 'ML-based detection'),
+
+    // Compliance
+    Field('piiHandling', String, 'PII Handling',
+        hint: 'Sensitive data masking'),
+    Field('auditLogs', bool, 'Audit Logs',
+        hint: 'Separate audit logging'),
+    Field('logImmutability', bool, 'Log Immutability',
+        hint: 'Tamper-proof logs'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional logging notes'),
+  ])
+  String? content;
+}
+
+/// Alerting requirements.
+class AlertingRequirements {
+  @Form([
+    // Alert channels
+    Field('alertChannels', String, 'Alert Channels',
+        hint: 'Email, Slack, PagerDuty'),
+    Field('primaryChannel', String, 'Primary Channel',
+        hint: 'Primary alert channel'),
+    Field('secondaryChannel', String, 'Secondary Channel',
+        hint: 'Fallback channel'),
+
+    // Alert routing
+    Field('routingRules', String, 'Routing Rules',
+        hint: 'How alerts are routed'),
+    Field('teamRouting', String, 'Team Routing',
+        hint: 'Team-based routing'),
+    Field('serviceRouting', String, 'Service Routing',
+        hint: 'Service-based routing'),
+    Field('severityRouting', String, 'Severity Routing',
+        hint: 'Severity-based routing'),
+
+    // De-duplication
+    Field('alertDeduplication', String, 'Alert De-duplication',
+        hint: 'De-dup strategy'),
+    Field('alertGrouping', String, 'Alert Grouping',
+        hint: 'Related alert grouping'),
+    Field('flappingDetection', bool, 'Flapping Detection',
+        hint: 'Detect flapping alerts'),
+
+    // Suppression
+    Field('maintenanceWindows', String, 'Maintenance Windows',
+        hint: 'Scheduled suppression'),
+    Field('dependencyAlerts', String, 'Dependency Alerts',
+        hint: 'Dependency-based suppression'),
+    Field('manualSuppression', bool, 'Manual Suppression',
+        hint: 'Allow manual suppression'),
+
+    // Response
+    Field('autoRemediation', bool, 'Auto-Remediation',
+        hint: 'Automatic remediation'),
+    Field('runbookLinks', bool, 'Runbook Links',
+        hint: 'Link alerts to runbooks'),
+    Field('acknowledgeRequired', bool, 'Acknowledge Required',
+        hint: 'Require acknowledgment'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional alerting notes'),
+  ])
+  String? content;
+}
+
+/// Alert definition entry.
+class AlertDefinitionEntry {
+  @Form([
+    // Identity
+    Field('alertName', String, 'Alert Name',
+        required: true, hint: 'Alert identifier'),
+    Field('alertDescription', String, 'Alert Description',
+        hint: 'What this alert means'),
+    Field('severity', String, 'Severity',
+        hint: 'Critical, Warning, Info'),
+    Field('priority', String, 'Priority',
+        hint: 'P1, P2, P3, P4, P5'),
+
+    // Condition
+    Field('metricName', String, 'Metric Name',
+        hint: 'Metric to monitor'),
+    Field('condition', String, 'Condition',
+        hint: '>, <, ==, etc.'),
+    Field('threshold', String, 'Threshold',
+        hint: 'Alert threshold value'),
+    Field('duration', String, 'Duration',
+        hint: 'How long before alerting'),
+    Field('evaluationPeriod', String, 'Evaluation Period',
+        hint: 'Evaluation window'),
+
+    // Recovery
+    Field('recoveryThreshold', String, 'Recovery Threshold',
+        hint: 'When alert resolves'),
+    Field('recoveryDuration', String, 'Recovery Duration',
+        hint: 'Time before resolving'),
+    Field('autoResolve', bool, 'Auto-Resolve',
+        hint: 'Auto-resolve enabled'),
+
+    // Notification
+    Field('notificationChannel', String, 'Notification Channel',
+        hint: 'Where to send alert'),
+    Field('escalationPolicy', String, 'Escalation Policy',
+        hint: 'Escalation if not acked'),
+    Field('runbookUrl', String, 'Runbook URL',
+        hint: 'Link to runbook'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional alert notes'),
+  ])
+  String? content;
+}
+
+/// Dashboard requirements.
+class DashboardRequirements {
+  @Form([
+    // Platform
+    Field('dashboardPlatform', String, 'Dashboard Platform',
+        hint: 'Grafana, Datadog, custom'),
+    Field('dashboardAsCode', bool, 'Dashboards as Code',
+        hint: 'Version-controlled dashboards'),
+    Field('dashboardLocation', String, 'Dashboard Location',
+        hint: 'Where dashboards are stored'),
+
+    // Standard dashboards
+    Field('systemOverview', bool, 'System Overview Dashboard',
+        hint: 'High-level system health'),
+    Field('serviceDashboards', bool, 'Service Dashboards',
+        hint: 'Per-service dashboards'),
+    Field('infrastructureDashboard', bool, 'Infrastructure Dashboard',
+        hint: 'Infra-level dashboard'),
+    Field('businessDashboard', bool, 'Business Dashboard',
+        hint: 'Business metrics dashboard'),
+
+    // Access
+    Field('publicDashboards', String, 'Public Dashboards',
+        hint: 'Status page dashboards'),
+    Field('internalDashboards', String, 'Internal Dashboards',
+        hint: 'Internal-only dashboards'),
+    Field('accessControl', String, 'Dashboard Access Control',
+        hint: 'Who can view/edit'),
+
+    // Features
+    Field('drillDown', bool, 'Drill-Down Capability',
+        hint: 'Navigate to details'),
+    Field('annotations', bool, 'Annotations',
+        hint: 'Deployment markers'),
+    Field('templating', bool, 'Templating',
+        hint: 'Variable-based filtering'),
+    Field('alertIntegration', bool, 'Alert Integration',
+        hint: 'Show alerts on dashboard'),
+
+    // Mobile
+    Field('mobileAccess', bool, 'Mobile Access',
+        hint: 'Mobile-friendly dashboards'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional dashboard notes'),
+  ])
+  String? content;
+}
+
+/// On-call procedures.
+class OnCallProcedures {
+  @Form([
+    // Schedule
+    Field('onCallTool', String, 'On-Call Tool',
+        hint: 'PagerDuty, OpsGenie, VictorOps'),
+    Field('rotationSchedule', String, 'Rotation Schedule',
+        hint: 'Weekly, daily rotation'),
+    Field('coverageHours', String, 'Coverage Hours',
+        hint: '24/7, business hours'),
+    Field('primarySecondary', bool, 'Primary/Secondary',
+        hint: 'Primary and backup on-call'),
+
+    // Teams
+    Field('onCallTeams', String, 'On-Call Teams',
+        hint: 'Which teams participate'),
+    Field('crossTeamEscalation', String, 'Cross-Team Escalation',
+        hint: 'Escalation between teams'),
+    Field('managementEscalation', String, 'Management Escalation',
+        hint: 'When to involve management'),
+
+    // Response SLAs
+    Field('ackSla', String, 'Acknowledgment SLA',
+        hint: 'Time to acknowledge'),
+    Field('responseSla', String, 'Response SLA',
+        hint: 'Time to start response'),
+    Field('resolutionSla', String, 'Resolution SLA',
+        hint: 'Time to resolve'),
+
+    // Escalation
+    Field('escalationTimeout', String, 'Escalation Timeout',
+        hint: 'When to escalate'),
+    Field('escalationPath', String, 'Escalation Path',
+        hint: 'Escalation chain'),
+    Field('executiveEscalation', String, 'Executive Escalation',
+        hint: 'When to involve executives'),
+
+    // Documentation
+    Field('runbooks', String, 'Runbooks',
+        hint: 'Where runbooks are stored'),
+    Field('incidentTemplates', String, 'Incident Templates',
+        hint: 'Incident response templates'),
+    Field('communicationTemplates', String, 'Communication Templates',
+        hint: 'Stakeholder comm templates'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional on-call notes'),
+  ])
+  String? content;
+}
+
+/// Incident management requirements.
+class IncidentManagementRequirements {
+  @Form([
+    // Process
+    Field('incidentProcess', String, 'Incident Process',
+        hint: 'Incident management process'),
+    Field('severityDefinitions', String, 'Severity Definitions',
+        hint: 'SEV1, SEV2, SEV3 definitions'),
+    Field('incidentCommander', String, 'Incident Commander',
+        hint: 'IC role and selection'),
+
+    // Communication
+    Field('internalComms', String, 'Internal Communications',
+        hint: 'Internal status updates'),
+    Field('externalComms', String, 'External Communications',
+        hint: 'Customer communication'),
+    Field('statusPageUpdates', String, 'Status Page Updates',
+        hint: 'Status page process'),
+    Field('stakeholderNotification', String, 'Stakeholder Notification',
+        hint: 'Who gets notified'),
+
+    // War room
+    Field('warRoomSetup', String, 'War Room Setup',
+        hint: 'Incident war room'),
+    Field('bridgeCall', String, 'Bridge Call',
+        hint: 'Conference bridge'),
+    Field('chatChannel', String, 'Chat Channel',
+        hint: 'Incident chat channel'),
+
+    // Post-incident
+    Field('postMortemRequired', bool, 'Post-Mortem Required',
+        hint: 'Require post-mortems'),
+    Field('postMortemTimeline', String, 'Post-Mortem Timeline',
+        hint: 'When post-mortem due'),
+    Field('blamelessCulture', bool, 'Blameless Culture',
+        hint: 'Blameless post-mortems'),
+    Field('actionItemTracking', String, 'Action Item Tracking',
+        hint: 'Track remediation items'),
+
+    // Metrics
+    Field('mttr', String, 'MTTR Target',
+        hint: 'Mean time to repair target'),
+    Field('mtbf', String, 'MTBF Target',
+        hint: 'Mean time between failures'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional incident notes'),
+  ])
+  String? content;
+}
+
+/// SLA monitoring requirements.
+class SlaMonitoringRequirements {
+  @Form([
+    // SLA targets
+    Field('availabilitySla', String, 'Availability SLA',
+        hint: '99.9%, 99.99%'),
+    Field('performanceSla', String, 'Performance SLA',
+        hint: 'Latency SLA'),
+    Field('errorRateSla', String, 'Error Rate SLA',
+        hint: 'Maximum error rate'),
+
+    // Monitoring
+    Field('slaTracking', String, 'SLA Tracking',
+        hint: 'How SLAs are tracked'),
+    Field('slaReporting', String, 'SLA Reporting',
+        hint: 'SLA report frequency'),
+    Field('slaBreachAlerts', bool, 'SLA Breach Alerts',
+        hint: 'Alert on SLA breach'),
+    Field('slaBurnRate', bool, 'SLA Burn Rate',
+        hint: 'Track error budget burn'),
+
+    // Error budget
+    Field('errorBudgetPolicy', String, 'Error Budget Policy',
+        hint: 'Error budget handling'),
+    Field('budgetExhaustionAction', String, 'Budget Exhaustion Action',
+        hint: 'Action when budget spent'),
+    Field('budgetResetPeriod', String, 'Budget Reset Period',
+        hint: 'Monthly, quarterly reset'),
+
+    // Customer SLAs
+    Field('customerSlaTiers', String, 'Customer SLA Tiers',
+        hint: 'Different SLA tiers'),
+    Field('slaExclusions', String, 'SLA Exclusions',
+        hint: 'What is excluded'),
+    Field('slaCredits', String, 'SLA Credits',
+        hint: 'Credit policy for misses'),
+
+    // Reporting
+    Field('slaReportRecipients', String, 'SLA Report Recipients',
+        hint: 'Who receives reports'),
+    Field('slaReviewMeetings', String, 'SLA Review Meetings',
+        hint: 'SLA review cadence'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional SLA notes'),
   ])
   String? content;
 }
