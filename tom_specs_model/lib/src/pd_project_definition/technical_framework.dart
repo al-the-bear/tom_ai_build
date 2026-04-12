@@ -4415,14 +4415,547 @@ class HardwareRequirements {
   @Unused()
   String? content;
 
-  /// Server Requirements.
-  TextSection serverRequirements = TextSection();
+  /// 8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
+  ServerRequirementsSection serverRequirements = ServerRequirementsSection();
 
   /// Client Requirements.
   TextSection clientRequirements = TextSection();
 
   /// Network Requirements.
   TextSection networkRequirements = TextSection();
+}
+
+// =============================================================================
+// 8.4.1. Server Requirements [PD00-TEC-HAR-SRV]
+// =============================================================================
+
+/// 8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
+///
+/// Server compute requirements: CPU, memory, storage, expected load profile,
+/// and scaling requirements.
+@SectionId('PD00-TEC-HAR-SRV')
+class ServerRequirementsSection {
+  @Unused()
+  String? content;
+
+  /// Overview of server infrastructure strategy.
+  TextSection overview = TextSection();
+
+  /// Server environment tiers (dev, staging, production, DR).
+  @SectionIdPattern('PD00-TEC-HAR-SRV-ENV-xx')
+  List<ServerEnvironmentEntry> environments = [];
+
+  /// Server role definitions (app server, db server, web server).
+  @SectionIdPattern('PD00-TEC-HAR-SRV-ROL-xx')
+  List<ServerRoleEntry> serverRoles = [];
+
+  /// Compute resource requirements.
+  ComputeResourceRequirements computeResources = ComputeResourceRequirements();
+
+  /// Storage requirements.
+  ServerStorageRequirements storageRequirements = ServerStorageRequirements();
+
+  /// Load profile and capacity planning.
+  LoadProfileRequirements loadProfile = LoadProfileRequirements();
+
+  /// Scaling requirements and strategy.
+  ScalingRequirements scalingRequirements = ScalingRequirements();
+
+  /// High availability requirements.
+  HighAvailabilityRequirements highAvailability = HighAvailabilityRequirements();
+
+  /// Virtualization and containerization requirements.
+  VirtualizationRequirements virtualization = VirtualizationRequirements();
+
+  /// Cloud provider requirements.
+  CloudProviderRequirements cloudProvider = CloudProviderRequirements();
+
+  /// Operating system requirements.
+  ServerOsRequirements osRequirements = ServerOsRequirements();
+}
+
+/// Server environment entry (development, staging, production, DR).
+class ServerEnvironmentEntry {
+  @Form([
+    // Identity
+    Field('environmentName', String, 'Environment Name',
+        required: true, hint: 'E.g., Development, Staging, Production'),
+    Field('environmentType', String, 'Environment Type',
+        hint: 'Development, QA, UAT, Staging, Production, DR'),
+    Field('environmentCode', String, 'Environment Code',
+        hint: 'dev, stg, prod, dr'),
+    Field('purpose', String, 'Purpose',
+        hint: 'Primary purpose of this environment'),
+
+    // Location
+    Field('region', String, 'Region',
+        hint: 'Geographic region'),
+    Field('dataCenter', String, 'Data Center',
+        hint: 'Data center location'),
+    Field('availabilityZone', String, 'Availability Zone',
+        hint: 'Availability zone'),
+    Field('cloudRegion', String, 'Cloud Region',
+        hint: 'Cloud provider region'),
+
+    // Scale
+    Field('serverCount', int, 'Server Count',
+        hint: 'Number of servers in environment'),
+    Field('expectedUsers', String, 'Expected Users',
+        hint: 'Concurrent users expected'),
+    Field('expectedLoad', String, 'Expected Load',
+        hint: 'Requests per second'),
+
+    // Access
+    Field('accessRestrictions', String, 'Access Restrictions',
+        hint: 'Who can access this environment'),
+    Field('networkSegment', String, 'Network Segment',
+        hint: 'VPC/network segment'),
+    Field('vpnRequired', bool, 'VPN Required',
+        hint: 'VPN access required'),
+
+    // Lifecycle
+    Field('refreshSchedule', String, 'Refresh Schedule',
+        hint: 'Data refresh schedule'),
+    Field('retentionPolicy', String, 'Retention Policy',
+        hint: 'Data retention policy'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional environment notes'),
+  ])
+  String? content;
+}
+
+/// Server role entry (application server, database server, web server).
+class ServerRoleEntry {
+  @Form([
+    // Identity
+    Field('roleName', String, 'Role Name',
+        required: true, hint: 'E.g., Application Server, Database Server'),
+    Field('roleType', String, 'Role Type',
+        hint: 'App, Web, Database, Cache, Queue, Gateway'),
+    Field('roleAbbreviation', String, 'Abbreviation',
+        hint: 'Short code for role'),
+
+    // Software
+    Field('primarySoftware', String, 'Primary Software',
+        hint: 'Main software running on server'),
+    Field('softwareVersion', String, 'Software Version',
+        hint: 'Required software version'),
+    Field('runtimeEnvironment', String, 'Runtime Environment',
+        hint: 'Runtime (JVM, Node.js, .NET)'),
+
+    // Compute
+    Field('minCpuCores', int, 'Minimum CPU Cores',
+        hint: 'Minimum required CPU cores'),
+    Field('recommendedCpuCores', int, 'Recommended CPU Cores',
+        hint: 'Recommended CPU cores'),
+    Field('cpuArchitecture', String, 'CPU Architecture',
+        hint: 'x64, ARM64'),
+    Field('minMemoryGb', int, 'Minimum Memory (GB)',
+        hint: 'Minimum RAM in GB'),
+    Field('recommendedMemoryGb', int, 'Recommended Memory (GB)',
+        hint: 'Recommended RAM in GB'),
+
+    // Storage
+    Field('storageType', String, 'Storage Type',
+        hint: 'SSD, HDD, NVMe'),
+    Field('storageCapacityGb', int, 'Storage Capacity (GB)',
+        hint: 'Required storage in GB'),
+    Field('iopsRequired', int, 'IOPS Required',
+        hint: 'Required I/O operations per second'),
+
+    // Networking
+    Field('networkBandwidth', String, 'Network Bandwidth',
+        hint: 'Required network bandwidth'),
+    Field('exposedPorts', String, 'Exposed Ports',
+        hint: 'Ports exposed by this server'),
+    Field('notes', String, 'Notes', hint: 'Additional server role notes'),
+  ])
+  String? content;
+}
+
+/// Compute resource requirements.
+class ComputeResourceRequirements {
+  @Form([
+    // CPU
+    Field('minCpuCores', String, 'Minimum CPU Cores',
+        hint: 'Total minimum CPU cores'),
+    Field('recommendedCpuCores', String, 'Recommended CPU Cores',
+        hint: 'Recommended CPU cores'),
+    Field('cpuArchitecture', String, 'CPU Architecture',
+        hint: 'x64, ARM64, or both'),
+    Field('cpuGeneration', String, 'CPU Generation',
+        hint: 'Intel Xeon, AMD EPYC'),
+    Field('specIntBenchmark', String, 'SPECint Benchmark',
+        hint: 'Minimum SPECint score'),
+
+    // Memory
+    Field('minMemoryGb', String, 'Minimum Memory (GB)',
+        hint: 'Total minimum RAM'),
+    Field('recommendedMemoryGb', String, 'Recommended Memory (GB)',
+        hint: 'Recommended RAM'),
+    Field('memoryType', String, 'Memory Type',
+        hint: 'DDR4, DDR5'),
+    Field('eccRequired', bool, 'ECC Required',
+        hint: 'Error-correcting memory'),
+
+    // GPU
+    Field('gpuRequired', bool, 'GPU Required',
+        hint: 'GPU computation needed'),
+    Field('gpuType', String, 'GPU Type',
+        hint: 'NVIDIA A100, T4, etc.'),
+    Field('gpuMemoryGb', int, 'GPU Memory (GB)',
+        hint: 'GPU memory required'),
+    Field('gpuCount', int, 'GPU Count',
+        hint: 'Number of GPUs'),
+
+    // Special
+    Field('tpmRequired', bool, 'TPM Required',
+        hint: 'Trusted Platform Module'),
+    Field('secureEnclaveRequired', bool, 'Secure Enclave Required',
+        hint: 'SGX or similar'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional compute notes'),
+  ])
+  String? content;
+}
+
+/// Server storage requirements.
+class ServerStorageRequirements {
+  @Form([
+    // Primary storage
+    Field('primaryStorageType', String, 'Primary Storage Type',
+        hint: 'SSD, NVMe, HDD'),
+    Field('primaryStorageCapacity', String, 'Primary Storage Capacity',
+        hint: 'Total primary storage'),
+    Field('primaryIops', String, 'Primary IOPS',
+        hint: 'Required IOPS'),
+    Field('readWriteRatio', String, 'Read/Write Ratio',
+        hint: 'Expected R/W ratio'),
+
+    // Database storage
+    Field('databaseStorageType', String, 'Database Storage Type',
+        hint: 'Storage for databases'),
+    Field('databaseStorageCapacity', String, 'Database Storage Capacity',
+        hint: 'Database storage size'),
+    Field('databaseIops', String, 'Database IOPS',
+        hint: 'Database IOPS'),
+
+    // File storage
+    Field('fileStorageType', String, 'File Storage Type',
+        hint: 'NAS, SAN, object storage'),
+    Field('fileStorageCapacity', String, 'File Storage Capacity',
+        hint: 'File storage size'),
+    Field('networkFileSystem', String, 'Network File System',
+        hint: 'NFS, SMB, etc.'),
+
+    // Backup storage
+    Field('backupStorageType', String, 'Backup Storage Type',
+        hint: 'Backup storage medium'),
+    Field('backupStorageCapacity', String, 'Backup Storage Capacity',
+        hint: 'Backup storage size'),
+    Field('backupRetention', String, 'Backup Retention',
+        hint: 'Retention period'),
+
+    // Performance
+    Field('throughputRequired', String, 'Throughput Required',
+        hint: 'MB/s throughput'),
+    Field('latencyRequirement', String, 'Latency Requirement',
+        hint: 'Maximum latency'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional storage notes'),
+  ])
+  String? content;
+}
+
+/// Load profile requirements.
+class LoadProfileRequirements {
+  @Form([
+    // User load
+    Field('peakConcurrentUsers', String, 'Peak Concurrent Users',
+        hint: 'Maximum concurrent users'),
+    Field('averageConcurrentUsers', String, 'Average Concurrent Users',
+        hint: 'Typical concurrent users'),
+    Field('totalRegisteredUsers', String, 'Total Registered Users',
+        hint: 'Total user base'),
+    Field('userGrowthRate', String, 'User Growth Rate',
+        hint: 'Expected growth %/year'),
+
+    // Request load
+    Field('peakRequestsPerSecond', String, 'Peak Requests/Second',
+        hint: 'Maximum RPS'),
+    Field('averageRequestsPerSecond', String, 'Average Requests/Second',
+        hint: 'Typical RPS'),
+    Field('requestSizeAverage', String, 'Average Request Size',
+        hint: 'Average payload size'),
+    Field('responseSizeAverage', String, 'Average Response Size',
+        hint: 'Average response size'),
+
+    // Patterns
+    Field('peakHours', String, 'Peak Hours',
+        hint: 'Time of day for peak load'),
+    Field('peakDays', String, 'Peak Days',
+        hint: 'Days of week for peak load'),
+    Field('seasonalPatterns', String, 'Seasonal Patterns',
+        hint: 'Seasonal variations'),
+    Field('eventDrivenSpikes', String, 'Event-Driven Spikes',
+        hint: 'Known spike events'),
+
+    // Performance targets
+    Field('responseTimeP50', String, 'Response Time P50',
+        hint: '50th percentile latency'),
+    Field('responseTimeP95', String, 'Response Time P95',
+        hint: '95th percentile latency'),
+    Field('responseTimeP99', String, 'Response Time P99',
+        hint: '99th percentile latency'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional load profile notes'),
+  ])
+  String? content;
+}
+
+/// Scaling requirements.
+class ScalingRequirements {
+  @Form([
+    // Strategy
+    Field('scalingStrategy', String, 'Scaling Strategy',
+        hint: 'Horizontal, Vertical, Both'),
+    Field('scalingApproach', String, 'Scaling Approach',
+        hint: 'Manual, Auto, Scheduled'),
+    Field('scalingTriggers', String, 'Scaling Triggers',
+        hint: 'What triggers scaling'),
+
+    // Horizontal scaling
+    Field('minInstances', int, 'Minimum Instances',
+        hint: 'Minimum server count'),
+    Field('maxInstances', int, 'Maximum Instances',
+        hint: 'Maximum server count'),
+    Field('instanceStartupTime', String, 'Instance Startup Time',
+        hint: 'Time to add capacity'),
+    Field('sessionHandling', String, 'Session Handling',
+        hint: 'Sticky, distributed'),
+
+    // Vertical scaling
+    Field('canVerticallyScale', bool, 'Can Vertically Scale',
+        hint: 'Allow CPU/RAM increases'),
+    Field('maxCpuCores', int, 'Max CPU Cores',
+        hint: 'Maximum CPU cores'),
+    Field('maxMemoryGb', int, 'Max Memory (GB)',
+        hint: 'Maximum RAM'),
+
+    // Auto-scaling
+    Field('cpuThresholdScale', String, 'CPU Scale Threshold',
+        hint: 'CPU % to trigger scale'),
+    Field('memoryThresholdScale', String, 'Memory Scale Threshold',
+        hint: 'Memory % to trigger scale'),
+    Field('cooldownPeriod', String, 'Cooldown Period',
+        hint: 'Time between scale events'),
+    Field('scaleDownPolicy', String, 'Scale Down Policy',
+        hint: 'How to scale down'),
+
+    // Constraints
+    Field('budgetConstraint', String, 'Budget Constraint',
+        hint: 'Cost limits for scaling'),
+    Field('scalingWindow', String, 'Scaling Window',
+        hint: 'When scaling is allowed'),
+    Field('notes', String, 'Notes', hint: 'Additional scaling notes'),
+  ])
+  String? content;
+}
+
+/// High availability requirements.
+class HighAvailabilityRequirements {
+  @Form([
+    // SLA targets
+    Field('availabilityTarget', String, 'Availability Target',
+        hint: '99.9%, 99.99%, etc.'),
+    Field('downtimeBudgetMonthly', String, 'Monthly Downtime Budget',
+        hint: 'Allowed downtime/month'),
+    Field('plannedMaintenanceWindow', String, 'Planned Maintenance Window',
+        hint: 'When maintenance allowed'),
+
+    // Redundancy
+    Field('redundancyLevel', String, 'Redundancy Level',
+        hint: 'N+1, 2N, etc.'),
+    Field('redundancyScope', String, 'Redundancy Scope',
+        hint: 'Server, rack, datacenter'),
+    Field('geographicRedundancy', bool, 'Geographic Redundancy',
+        hint: 'Multi-region deployment'),
+    Field('activeActiveMode', bool, 'Active-Active Mode',
+        hint: 'All sites active'),
+
+    // Failover
+    Field('failoverType', String, 'Failover Type',
+        hint: 'Automatic, manual'),
+    Field('failoverTime', String, 'Failover Time',
+        hint: 'Maximum failover time'),
+    Field('failbackProcedure', String, 'Failback Procedure',
+        hint: 'How to restore primary'),
+    Field('healthCheckInterval', String, 'Health Check Interval',
+        hint: 'How often to check health'),
+
+    // Load balancing
+    Field('loadBalancerType', String, 'Load Balancer Type',
+        hint: 'L4, L7, DNS-based'),
+    Field('loadBalancingAlgorithm', String, 'Load Balancing Algorithm',
+        hint: 'Round-robin, least-conn'),
+    Field('healthCheckEndpoint', String, 'Health Check Endpoint',
+        hint: 'Endpoint for health checks'),
+
+    // DR
+    Field('drSite', String, 'DR Site',
+        hint: 'Disaster recovery location'),
+    Field('drSyncMethod', String, 'DR Sync Method',
+        hint: 'Sync or async replication'),
+    Field('notes', String, 'Notes', hint: 'Additional HA notes'),
+  ])
+  String? content;
+}
+
+/// Virtualization and containerization requirements.
+class VirtualizationRequirements {
+  @Form([
+    // Approach
+    Field('deploymentModel', String, 'Deployment Model',
+        hint: 'Bare metal, VM, Container'),
+    Field('primaryPlatform', String, 'Primary Platform',
+        hint: 'VMware, Docker, Kubernetes'),
+    Field('orchestrationPlatform', String, 'Orchestration Platform',
+        hint: 'Kubernetes, ECS, etc.'),
+
+    // VMs
+    Field('hypervisorType', String, 'Hypervisor Type',
+        hint: 'VMware, Hyper-V, KVM'),
+    Field('vmImageFormat', String, 'VM Image Format',
+        hint: 'OVA, AMI, VHD'),
+    Field('vmTemplateRequired', bool, 'VM Template Required',
+        hint: 'Golden image needed'),
+
+    // Containers
+    Field('containerRuntime', String, 'Container Runtime',
+        hint: 'Docker, containerd, CRI-O'),
+    Field('baseImage', String, 'Base Image',
+        hint: 'Base container image'),
+    Field('registryUrl', String, 'Registry URL',
+        hint: 'Container registry'),
+    Field('imageScanningRequired', bool, 'Image Scanning Required',
+        hint: 'Security scanning'),
+
+    // Kubernetes
+    Field('k8sVersion', String, 'Kubernetes Version',
+        hint: 'Required K8s version'),
+    Field('k8sDistribution', String, 'Kubernetes Distribution',
+        hint: 'EKS, GKE, AKS, OpenShift'),
+    Field('namespaceStrategy', String, 'Namespace Strategy',
+        hint: 'Per-env, per-service'),
+    Field('resourceQuotas', String, 'Resource Quotas',
+        hint: 'CPU/memory limits'),
+
+    // Networking
+    Field('serviceMesh', String, 'Service Mesh',
+        hint: 'Istio, Linkerd'),
+    Field('ingressController', String, 'Ingress Controller',
+        hint: 'NGINX, Traefik'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional virtualization notes'),
+  ])
+  String? content;
+}
+
+/// Cloud provider requirements.
+class CloudProviderRequirements {
+  @Form([
+    // Provider
+    Field('primaryProvider', String, 'Primary Cloud Provider',
+        hint: 'AWS, Azure, GCP, Private'),
+    Field('secondaryProvider', String, 'Secondary Provider',
+        hint: 'Multi-cloud backup'),
+    Field('multiCloudStrategy', String, 'Multi-Cloud Strategy',
+        hint: 'Hybrid, Multi-cloud'),
+
+    // Account structure
+    Field('accountStructure', String, 'Account Structure',
+        hint: 'Org structure'),
+    Field('environmentSeparation', String, 'Environment Separation',
+        hint: 'By account, VPC, etc.'),
+    Field('billingModel', String, 'Billing Model',
+        hint: 'Pay-as-you-go, reserved'),
+
+    // Services
+    Field('computeServices', String, 'Compute Services',
+        hint: 'EC2, Lambda, etc.'),
+    Field('storageServices', String, 'Storage Services',
+        hint: 'S3, EBS, etc.'),
+    Field('databaseServices', String, 'Database Services',
+        hint: 'RDS, DynamoDB, etc.'),
+    Field('networkingServices', String, 'Networking Services',
+        hint: 'VPC, Route 53, etc.'),
+
+    // Compliance
+    Field('dataSovereigntyRequirements', String, 'Data Sovereignty',
+        hint: 'Data residency requirements'),
+    Field('cloudCompliance', String, 'Cloud Compliance',
+        hint: 'SOC 2, FedRAMP, etc.'),
+    Field('encryptionRequirements', String, 'Encryption Requirements',
+        hint: 'At-rest, in-transit'),
+
+    // Governance
+    Field('taggingStrategy', String, 'Tagging Strategy',
+        hint: 'Resource tagging'),
+    Field('costManagement', String, 'Cost Management',
+        hint: 'Budget alerts, limits'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional cloud provider notes'),
+  ])
+  String? content;
+}
+
+/// Server operating system requirements.
+class ServerOsRequirements {
+  @Form([
+    // Primary OS
+    Field('primaryOs', String, 'Primary OS',
+        required: true, hint: 'Linux, Windows Server'),
+    Field('osDistribution', String, 'OS Distribution',
+        hint: 'Ubuntu, RHEL, CentOS, Debian'),
+    Field('osVersion', String, 'OS Version',
+        hint: 'Specific version'),
+    Field('supportLevel', String, 'Support Level',
+        hint: 'LTS, Standard'),
+
+    // Hardening
+    Field('hardeningStandard', String, 'Hardening Standard',
+        hint: 'CIS, STIG benchmark'),
+    Field('patchingFrequency', String, 'Patching Frequency',
+        hint: 'How often patched'),
+    Field('autoUpdatePolicy', String, 'Auto-Update Policy',
+        hint: 'Automatic or manual'),
+
+    // Security
+    Field('firewallConfiguration', String, 'Firewall Configuration',
+        hint: 'iptables, firewalld'),
+    Field('selinuxMode', String, 'SELinux/AppArmor Mode',
+        hint: 'Enforcing, permissive'),
+    Field('auditdConfiguration', String, 'Auditd Configuration',
+        hint: 'Audit logging requirements'),
+    Field('antivirusRequired', bool, 'Antivirus Required',
+        hint: 'AV/EDR requirement'),
+
+    // Monitoring
+    Field('loggingConfiguration', String, 'Logging Configuration',
+        hint: 'syslog, journald'),
+    Field('monitoringAgent', String, 'Monitoring Agent',
+        hint: 'Agent for monitoring'),
+    Field('performanceMonitoring', String, 'Performance Monitoring',
+        hint: 'Performance tools'),
+
+    // Licensing
+    Field('licensingModel', String, 'Licensing Model',
+        hint: 'Open source, Enterprise'),
+    Field('licenseCount', String, 'License Count',
+        hint: 'Number of licenses'),
+    Field('notes', String, 'Notes', hint: 'Additional OS notes'),
+  ])
+  String? content;
 }
 
 /// 8.5. Operations Requirements [PD00-TEC-OPE].
