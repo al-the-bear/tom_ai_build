@@ -103,6 +103,9 @@ class SystemStagePlan {
 /// Document the rationale behind the chosen staging approach. Consider
 /// PMBOK phase-gate methodology, SAFe PI planning cadence, PRINCE2
 /// stage boundaries, and organizational change management constraints.
+/// The staging strategy addresses how the system will be deployed in
+/// controlled increments, balancing risk mitigation with early value
+/// delivery.
 @SectionId('PD00-SSP-STR')
 class StagingStrategy {
   @Form([
@@ -110,33 +113,104 @@ class StagingStrategy {
     Field('stagingApproachType', String, 'Staging Approach Type',
         hint:
             'BigBang / PhasedByFunction / PhasedByGeography / '
-            'PhasedByUserGroup / PhasedByBusinessUnit / Hybrid',
+            'PhasedByUserGroup / PhasedByBusinessUnit / '
+            'PhasedByModule / Hybrid / Pilot / Parallel',
         required: true),
-    Field('rationale', String, 'Rationale',
-        hint: 'Primary reasons for choosing this staging approach',
-        required: true),
+    Field('approachDescription', String, 'Approach Description',
+        hint:
+            'Brief description of how the staging approach will be '
+            'applied to this specific project'),
     Field('alternativesConsidered', String, 'Alternatives Considered',
         hint:
             'Other staging approaches evaluated and why they were '
-            'rejected'),
-    // --- Key Drivers ---
-    Field('primaryDrivers', String, 'Key Drivers',
+            'rejected — list approach and reason'),
+    Field('selectionCriteria', String, 'Selection Criteria',
         hint:
-            'Primary factors driving the staging approach — risk '
-            'reduction, early business value, regulatory deadlines'),
+            'Criteria used to select this approach — risk profile, '
+            'resource availability, business urgency, '
+            'stakeholder readiness'),
+
+    // --- Rationale & Justification ---
+    Field('primaryRationale', String, 'Primary Rationale',
+        hint:
+            'Main reason for choosing this staging approach, '
+            'e.g. minimize business disruption',
+        required: true),
+    Field('riskReductionRationale', String, 'Risk Reduction Rationale',
+        hint:
+            'How this approach reduces project and deployment risk'),
+    Field('earlyValueRationale', String, 'Early Value Rationale',
+        hint:
+            'How this approach enables early value delivery to '
+            'business stakeholders'),
+    Field('resourceOptimizationRationale', String,
+        'Resource Optimization Rationale',
+        hint:
+            'How this approach optimizes resource utilization and '
+            'prevents bottlenecks'),
+    Field('businessContinuityRationale', String,
+        'Business Continuity Rationale',
+        hint:
+            'How this approach ensures business operations continue '
+            'during transition'),
+
+    // --- Key Drivers ---
+    Field('primaryDrivers', String, 'Primary Drivers',
+        hint:
+            'Key factors driving the staging approach — '
+            'RiskReduction / EarlyBusinessValue / '
+            'RegulatoryDeadlines / ResourceConstraints / '
+            'TechnologyReadiness'),
     Field('businessConstraints', String, 'Business Constraints',
         hint:
             'Business factors constraining staging — fiscal year, '
-            'seasonal cycles, market windows, contract dates'),
+            'seasonal cycles, market windows, contract dates, '
+            'peak business periods'),
     Field('technicalConstraints', String, 'Technical Constraints',
         hint:
             'Technical factors constraining staging — infrastructure '
-            'readiness, integration dependencies, data readiness'),
-    // --- Risk & Complexity ---
+            'readiness, integration dependencies, data readiness, '
+            'vendor schedules'),
+    Field('regulatoryConstraints', String, 'Regulatory Constraints',
+        hint:
+            'Regulatory or compliance factors — audit windows, '
+            'certification requirements, mandatory go-live dates'),
+    Field('geographicConstraints', String, 'Geographic Constraints',
+        hint:
+            'Regional or geographic factors — time zones, '
+            'local holidays, regional regulations, network latency'),
+    Field('seasonalConsiderations', String, 'Seasonal Considerations',
+        hint:
+            'Seasonal business factors — year-end freeze, '
+            'peak season blackouts, fiscal year boundaries'),
+
+    // --- Risk Assessment ---
+    Field('overallRiskLevel', String, 'Overall Risk Level',
+        hint:
+            'Low / Medium / High / Critical — overall risk '
+            'assessment of the staging approach'),
     Field('riskTolerance', String, 'Risk Tolerance',
         hint:
             'Low / Medium / High — acceptable level of risk per '
             'stage transition'),
+    Field('deploymentRiskFactors', String, 'Deployment Risk Factors',
+        hint:
+            'Key risk factors specific to deployment — rollback '
+            'complexity, data corruption potential, downtime impact'),
+    Field('mitigationStrategies', String, 'Mitigation Strategies',
+        hint:
+            'Risk mitigation strategies — pilot groups, '
+            'feature flags, canary releases, blue-green deployment'),
+    Field('contingencyPlans', String, 'Contingency Plans',
+        hint:
+            'Backup plans if primary approach fails — rollback, '
+            'partial deployment, alternative timeline'),
+    Field('rollbackTriggers', String, 'Rollback Triggers',
+        hint:
+            'Criteria that would trigger a rollback — error rate '
+            'threshold, performance degradation, critical bugs'),
+
+    // --- Complexity Assessment ---
     Field('complexityAssessment', String, 'Complexity Assessment',
         hint:
             'Low / Medium / High / VeryHigh — overall complexity '
@@ -145,12 +219,31 @@ class StagingStrategy {
         hint:
             'Primary sources of complexity — data migration volume, '
             'integration count, user base size, geographic spread'),
+    Field('integrationComplexity', String, 'Integration Complexity',
+        hint:
+            'Level of integration needed during staging — systems, '
+            'data flows, API contracts, third-party dependencies'),
+    Field('dataMigrationComplexity', String,
+        'Data Migration Complexity',
+        hint:
+            'Complexity of data migration — volume, transformation, '
+            'validation requirements, downtime requirements'),
+    Field('userImpactComplexity', String, 'User Impact Complexity',
+        hint:
+            'Complexity of user impact management — training, '
+            'communication, parallel support, workflow changes'),
+
     // --- Readiness & Resources ---
     Field('organizationalReadinessFactors', String,
         'Organizational Readiness Factors',
         hint:
             'Key readiness factors — change management maturity, '
             'training capacity, executive sponsorship strength'),
+    Field('organizationalReadinessLevel', String,
+        'Organizational Readiness Level',
+        hint:
+            'Low / Medium / High — overall organizational readiness '
+            'for staged deployment'),
     Field('resourceConstraints', String, 'Resource Constraints',
         hint:
             'Staffing, budget, or infrastructure limits affecting '
@@ -159,37 +252,106 @@ class StagingStrategy {
         hint:
             'Critical skills needed and their availability across '
             'stages — e.g. DBA, cloud architect, UX designer'),
-    // --- Rollback & Cutover ---
-    Field('rollbackStrategyOverview', String,
-        'Rollback Strategy Overview',
+    Field('trainingRequirements', String, 'Training Requirements',
         hint:
-            'High-level approach to rollback if a stage fails — '
-            'FullRollback / PartialRollback / ForwardFix'),
+            'Training needed per stage — scope, timing, '
+            'delivery method, assessment criteria'),
+    Field('supportCapacity', String, 'Support Capacity',
+        hint:
+            'Support team capacity during transition — helpdesk, '
+            'on-site support, escalation paths'),
+
+    // --- Rollback & Cutover Strategy ---
+    Field('rollbackStrategyType', String, 'Rollback Strategy Type',
+        hint:
+            'FullRollback / PartialRollback / ForwardFix / '
+            'NoRollback — high-level rollback approach'),
+    Field('rollbackProcedure', String, 'Rollback Procedure',
+        hint:
+            'Overview of rollback procedure — triggers, steps, '
+            'decision authority, communication'),
+    Field('rollbackTimeWindow', String, 'Rollback Time Window',
+        hint:
+            'Maximum duration for rollback after deployment, '
+            'e.g. 72 hours, until next business day'),
     Field('parallelOperationDuration', String,
         'Parallel Operation Duration',
         hint:
             'Expected duration of parallel system operation during '
             'transitions, e.g. 2 weeks per stage'),
+    Field('parallelOperationStrategy', String,
+        'Parallel Operation Strategy',
+        hint:
+            'How parallel systems will operate — data sync, '
+            'user routing, reconciliation'),
     Field('cutoverMethodology', String, 'Cutover Methodology',
         hint:
             'PilotThenExpand / InstantCutover / GradualMigration / '
-            'BlueGreen / Canary'),
+            'BlueGreen / Canary / ShadowMode'),
     Field('cutoverWindowPreference', String,
         'Cutover Window Preference',
         hint:
             'Preferred timing for cutovers — weekends, holidays, '
             'off-peak hours, maintenance windows'),
-    // --- Communication & Change ---
+    Field('cutoverDuration', String, 'Cutover Duration',
+        hint:
+            'Expected duration of cutover activities per stage, '
+            'e.g. 4 hours, 1 business day'),
+    Field('cutoverCriteria', String, 'Cutover Criteria',
+        hint:
+            'Criteria that must be met before cutover — testing '
+            'complete, data migrated, users trained'),
+
+    // --- Success Criteria & Metrics ---
+    Field('successCriteria', String, 'Success Criteria',
+        hint:
+            'Criteria for declaring a stage successful — user '
+            'adoption rate, error rate, performance metrics'),
+    Field('keyMetrics', String, 'Key Metrics',
+        hint:
+            'Metrics to track during staging — transaction '
+            'volumes, response times, error rates, user satisfaction'),
+    Field('stabilizationPeriod', String, 'Stabilization Period',
+        hint:
+            'Time period after deployment to monitor for issues, '
+            'e.g. 2 weeks'),
+    Field('goNoGoCheckpoints', String, 'Go/No-Go Checkpoints',
+        hint:
+            'Key decision points before each stage — what is '
+            'evaluated and by whom'),
+    Field('acceptanceCriteria', String, 'Acceptance Criteria',
+        hint:
+            'Formal acceptance criteria for stage completion — '
+            'sign-off requirements, validation tests'),
+
+    // --- Communication & Change Management ---
     Field('communicationStrategyOverview', String,
         'Communication Strategy Overview',
         hint:
             'How staging progress and transitions will be '
             'communicated to stakeholders'),
+    Field('communicationChannels', String, 'Communication Channels',
+        hint:
+            'Channels for communication — email, intranet, '
+            'town halls, team meetings, dashboards'),
+    Field('communicationCadence', String, 'Communication Cadence',
+        hint:
+            'Frequency of communications — daily during cutover, '
+            'weekly during stabilization, monthly post-deployment'),
     Field('changeManagementAlignment', String,
         'Change Management Alignment',
         hint:
             'How staging aligns with organizational change '
             'management plan — ADKAR, Kotter, Prosci'),
+    Field('changeChampions', String, 'Change Champions',
+        hint:
+            'Roles or individuals who will champion the change '
+            'within user groups'),
+    Field('feedbackMechanisms', String, 'Feedback Mechanisms',
+        hint:
+            'How user feedback will be collected during staging — '
+            'surveys, focus groups, support tickets'),
+
     // --- Framework Alignment ---
     Field('pmMethodologyAlignment', String, 'PM Methodology Alignment',
         hint:
@@ -203,11 +365,73 @@ class StagingStrategy {
         hint:
             'PRINCE2 stage boundary management — formal review, '
             'exception reporting, tolerance levels'),
+    Field('iterationCadence', String, 'Iteration Cadence',
+        hint:
+            'Iteration or sprint cadence within stages, e.g. '
+            '2-week sprints'),
+    Field('releaseTrainCadence', String, 'Release Train Cadence',
+        hint:
+            'SAFe release train cadence if applicable — PI, '
+            'iteration, inspection points'),
+
+    // --- Dependencies & Prerequisites ---
+    Field('criticalPrerequisites', String, 'Critical Prerequisites',
+        hint:
+            'Prerequisites that must be completed before staged '
+            'deployment can begin'),
+    Field('externalDependencies', String, 'External Dependencies',
+        hint:
+            'Dependencies on external parties — vendors, '
+            'regulators, partners'),
+    Field('internalDependencies', String, 'Internal Dependencies',
+        hint:
+            'Dependencies on internal projects or teams — '
+            'infrastructure, security, other applications'),
+    Field('dependencyRisks', String, 'Dependency Risks',
+        hint:
+            'Risks associated with dependencies and how they '
+            'will be managed'),
+
+    // --- Governance & Approvals ---
+    Field('governanceApproach', String, 'Governance Approach',
+        hint:
+            'How staging decisions will be governed — steering '
+            'committee, change board, project manager'),
+    Field('approvalAuthority', String, 'Approval Authority',
+        hint:
+            'Who has authority to approve stage transitions and '
+            'deployment decisions'),
+    Field('escalationPath', String, 'Escalation Path',
+        hint:
+            'Escalation path for issues and decisions during '
+            'staging'),
+    Field('exceptionHandling', String, 'Exception Handling',
+        hint:
+            'How exceptions to the staging plan will be handled '
+            'and approved'),
   ])
   String? content;
 
-  /// Staging Approach narrative.
+  /// 13.1.1. Staging Approach [PD00-SSP-STR-APP].
+  @Comment('Detailed description of the staging approach — how stages '
+      'are defined, sequenced, and executed')
   TextSection stagingApproach = TextSection();
+
+  /// 13.1.2. Rationale [PD00-SSP-STR-RAT].
+  @Comment('Justification for the chosen staging approach — risk '
+      'reduction, early value delivery, resource optimization, '
+      'business continuity')
+  TextSection rationale = TextSection();
+
+  /// 13.1.3. Key Assumptions [PD00-SSP-STR-ASM].
+  @Comment('Key assumptions underlying the staging strategy — '
+      'resource availability, technology readiness, stakeholder support')
+  TextSection keyAssumptions = TextSection();
+
+  /// 13.1.4. Constraints [PD00-SSP-STR-CON].
+  @Comment('Constraints affecting the staging strategy — fixed dates, '
+      'budget limits, resource caps, regulatory requirements')
+  TextSection constraints = TextSection();
 }
 
 /// 13.2. Stage Overview [PD00-SSP-STA].

@@ -176,7 +176,7 @@ These sections exist in `tom_specs_model` but are missing from `pd_template.md`:
 | PD00-SSP-MIG-PHA | Phases | Review | ✅ Done |
 | PD00-SSP-MIG-RIS | Migration Risks | Review | ✅ Done |
 | PD00-SSP-STA | Stage Overview | Review | ✅ Done |
-| PD00-SSP-STR | Strategy | Review | ⬜ Not Started |
+| PD00-SSP-STR | Staging Strategy | Review | ✅ Done |
 | PD00-SYO-RES-CON-CON | Constraints | Review | ⬜ Not Started |
 | PD00-SYO-RES-CON-DEP | Dependencies | Review | ⬜ Not Started |
 | PD00-SYO-SYR-MIG-RIS | Migration Risks | Review | ⬜ Not Started |
