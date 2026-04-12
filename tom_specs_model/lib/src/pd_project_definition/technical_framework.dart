@@ -7852,7 +7852,8 @@ class CommunicationRequirements {
       ProtocolsAndStandardsSection();
 
   /// 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
-  TextSection externalConnectivity = TextSection();
+  ExternalConnectivitySection externalConnectivity =
+      ExternalConnectivitySection();
 }
 
 /// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
@@ -8221,6 +8222,339 @@ class ProtocolComplianceRequirements {
         hint: '/health, /ready, /live conventions'),
     Field('notes', String, 'Notes',
         hint: 'Additional compliance notes'),
+  ])
+  String? content;
+}
+
+/// 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
+@SectionId('PD00-TEC-COM-EXT')
+class ExternalConnectivitySection {
+  @Unused()
+  String? content;
+
+  /// Overview of external connectivity requirements.
+  TextSection overview = TextSection();
+
+  /// External partner connections — contains 0+× ExternalPartnerConnection.
+  @SectionIdPattern('PD00-TEC-COM-EXT-xx')
+  List<ExternalPartnerConnectionEntry> partnerConnections = [];
+
+  /// Cloud service integrations.
+  CloudServiceIntegrations cloudServices = CloudServiceIntegrations();
+
+  /// Third-party API integrations.
+  ThirdPartyApiIntegrations thirdPartyApis = ThirdPartyApiIntegrations();
+
+  /// Network security and access control.
+  NetworkSecurityPolicy networkSecurity = NetworkSecurityPolicy();
+
+  /// Service mesh and API gateway.
+  ServiceMeshAndGateway serviceMeshAndGateway = ServiceMeshAndGateway();
+
+  /// Connectivity resilience requirements.
+  ConnectivityResilience resilience = ConnectivityResilience();
+}
+
+/// An external partner connection entry (form) [PD00-TEC-COM-EXT-nn].
+class ExternalPartnerConnectionEntry {
+  @Form([
+    // Partner identity
+    Field('partnerName', String, 'Partner Name',
+        required: true, hint: 'Name of the external partner or system'),
+    Field('partnerType', String, 'Partner Type',
+        hint: 'Vendor, customer, regulatory body, payment provider'),
+    Field('connectionPurpose', String, 'Connection Purpose',
+        hint: 'Business purpose of this integration'),
+
+    // Protocol and endpoint
+    Field('protocol', String, 'Protocol',
+        hint: 'REST, SOAP, SFTP, AS2, EDI'),
+    Field('endpointUrl', String, 'Endpoint URL',
+        hint: 'Base URL or hostname'),
+    Field('dataDirection', String, 'Data Direction',
+        hint: 'Inbound, outbound, bidirectional'),
+    Field('dataFormat', String, 'Data Format',
+        hint: 'JSON, XML, CSV, EDI X12, EDIFACT'),
+
+    // Authentication
+    Field('authenticationMethod', String, 'Authentication Method',
+        hint: 'API key, OAuth 2.0, client certificate, SAML'),
+    Field('credentialStorage', String, 'Credential Storage',
+        hint: 'Vault, secrets manager, environment variable'),
+    Field('credentialRotation', String, 'Credential Rotation',
+        hint: 'Rotation frequency and process'),
+
+    // Network
+    Field('networkRoute', String, 'Network Route',
+        hint: 'Public internet, VPN, private link, dedicated line'),
+    Field('ipWhitelisting', bool, 'IP Whitelisting',
+        hint: 'Restrict by IP address'),
+    Field('whitelistedIps', String, 'Whitelisted IPs',
+        hint: 'Allowed IP ranges'),
+    Field('firewallRules', String, 'Firewall Rules',
+        hint: 'Required firewall rule changes'),
+
+    // Reliability
+    Field('sla', String, 'SLA',
+        hint: 'Partner system availability SLA'),
+    Field('expectedLatency', String, 'Expected Latency',
+        hint: 'Round-trip time expectations'),
+    Field('expectedThroughput', String, 'Expected Throughput',
+        hint: 'Requests per second or data volume'),
+    Field('timeoutPolicy', String, 'Timeout Policy',
+        hint: 'Connection and read timeout'),
+    Field('retryStrategy', String, 'Retry Strategy',
+        hint: 'Retry count, backoff policy'),
+    Field('circuitBreakerEnabled', bool, 'Circuit Breaker',
+        hint: 'Circuit breaker for partner failures'),
+
+    // Data handling
+    Field('dataClassification', String, 'Data Classification',
+        hint: 'Confidentiality level of exchanged data'),
+    Field('encryptionRequirements', String, 'Encryption Requirements',
+        hint: 'Encryption in transit and at rest'),
+    Field('dataRetention', String, 'Data Retention',
+        hint: 'Retention of exchanged data'),
+
+    // Operations
+    Field('contactPerson', String, 'Contact Person',
+        hint: 'Technical contact at partner'),
+    Field('escalationProcess', String, 'Escalation Process',
+        hint: 'Issue escalation path'),
+    Field('maintenanceNotification', String, 'Maintenance Notification',
+        hint: 'How partner communicates downtimes'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional connection notes'),
+  ])
+  String? content;
+}
+
+/// Cloud service integrations.
+class CloudServiceIntegrations {
+  @Form([
+    // Provider
+    Field('primaryCloudProvider', String, 'Primary Cloud Provider',
+        hint: 'AWS, Azure, GCP, multi-cloud'),
+    Field('secondaryProviders', String, 'Secondary Providers',
+        hint: 'Additional cloud providers'),
+
+    // Services
+    Field('managedServices', String, 'Managed Services',
+        hint: 'Databases, queues, caches, storage'),
+    Field('identityProvider', String, 'Identity Provider',
+        hint: 'Cognito, Azure AD, Auth0, Keycloak'),
+    Field('emailService', String, 'Email Service',
+        hint: 'SES, SendGrid, Mailgun'),
+    Field('notificationService', String, 'Notification Service',
+        hint: 'Push notifications, SMS gateway'),
+    Field('storageService', String, 'Storage Service',
+        hint: 'S3, Blob Storage, GCS'),
+    Field('cdnService', String, 'CDN Service',
+        hint: 'CloudFront, Azure CDN, Cloudflare'),
+    Field('searchService', String, 'Search Service',
+        hint: 'Elasticsearch, OpenSearch, Algolia'),
+
+    // Networking
+    Field('vpcPeering', String, 'VPC Peering',
+        hint: 'VPC/VNet peering requirements'),
+    Field('privateEndpoints', String, 'Private Endpoints',
+        hint: 'Private link, service endpoints'),
+    Field('transitGateway', String, 'Transit Gateway',
+        hint: 'Cross-VPC or cross-region routing'),
+
+    // Compliance
+    Field('dataResidency', String, 'Data Residency',
+        hint: 'Region restrictions for data storage'),
+    Field('complianceCertifications', String, 'Compliance Certifications',
+        hint: 'SOC 2, ISO 27001, HIPAA'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional cloud integration notes'),
+  ])
+  String? content;
+}
+
+/// Third-party API integrations.
+class ThirdPartyApiIntegrations {
+  @Form([
+    // Payment
+    Field('paymentGateways', String, 'Payment Gateways',
+        hint: 'Stripe, PayPal, Adyen'),
+    Field('paymentCompliance', String, 'Payment Compliance',
+        hint: 'PCI DSS level, tokenization'),
+
+    // Analytics and monitoring
+    Field('analyticsServices', String, 'Analytics Services',
+        hint: 'Google Analytics, Mixpanel, Amplitude'),
+    Field('errorTrackingServices', String, 'Error Tracking Services',
+        hint: 'Sentry, Bugsnag, Datadog APM'),
+
+    // Communication
+    Field('smsProviders', String, 'SMS Providers',
+        hint: 'Twilio, MessageBird, Vonage'),
+    Field('chatIntegrations', String, 'Chat Integrations',
+        hint: 'Slack, Teams, Telegram bots'),
+    Field('videoConferencing', String, 'Video Conferencing',
+        hint: 'Zoom, Teams, Jitsi APIs'),
+
+    // Maps and location
+    Field('mappingServices', String, 'Mapping Services',
+        hint: 'Google Maps, Mapbox, HERE'),
+    Field('geocodingServices', String, 'Geocoding Services',
+        hint: 'Address validation and geocoding'),
+
+    // Document and media
+    Field('documentGeneration', String, 'Document Generation',
+        hint: 'PDF generation, document signing'),
+    Field('mediaProcessing', String, 'Media Processing',
+        hint: 'Image resizing, video transcoding'),
+    Field('ocrServices', String, 'OCR Services',
+        hint: 'Document scanning and text extraction'),
+
+    // AI and ML
+    Field('aiServices', String, 'AI/ML Services',
+        hint: 'OpenAI, Claude, Bedrock, Vertex AI'),
+    Field('translationServices', String, 'Translation Services',
+        hint: 'Google Translate, DeepL'),
+
+    // Compliance
+    Field('apiKeyManagement', String, 'API Key Management',
+        hint: 'Storage, rotation, access control'),
+    Field('usageMonitoring', String, 'Usage Monitoring',
+        hint: 'Cost tracking per API'),
+    Field('fallbackStrategy', String, 'Fallback Strategy',
+        hint: 'Alternative when primary is unavailable'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional third-party integration notes'),
+  ])
+  String? content;
+}
+
+/// Network security and access control.
+class NetworkSecurityPolicy {
+  @Form([
+    // Firewall
+    Field('firewallType', String, 'Firewall Type',
+        hint: 'WAF, network firewall, host-based'),
+    Field('wafProvider', String, 'WAF Provider',
+        hint: 'AWS WAF, Cloudflare, Azure Front Door'),
+    Field('ingressRules', String, 'Ingress Rules',
+        hint: 'Allowed inbound traffic rules'),
+    Field('egressRules', String, 'Egress Rules',
+        hint: 'Allowed outbound traffic rules'),
+    Field('defaultDenyPolicy', bool, 'Default Deny Policy',
+        hint: 'Deny all except explicit allow'),
+
+    // IP management
+    Field('staticIpRequired', bool, 'Static IP Required',
+        hint: 'Fixed outbound IP addresses'),
+    Field('ipAllowListing', String, 'IP Allow-Listing',
+        hint: 'Inbound IP restrictions'),
+    Field('ipDenyListing', String, 'IP Deny-Listing',
+        hint: 'Blocked IP ranges'),
+    Field('geoBlocking', String, 'Geo-Blocking',
+        hint: 'Country or region-based access control'),
+
+    // VPN
+    Field('vpnRequired', bool, 'VPN Required',
+        hint: 'Site-to-site or client VPN'),
+    Field('vpnType', String, 'VPN Type',
+        hint: 'IPSec, WireGuard, OpenVPN, AWS Client VPN'),
+    Field('vpnTopology', String, 'VPN Topology',
+        hint: 'Hub-spoke, mesh, point-to-point'),
+    Field('vpnHighAvailability', bool, 'VPN High Availability',
+        hint: 'Redundant VPN tunnels'),
+
+    // DDoS
+    Field('ddosProtection', String, 'DDoS Protection',
+        hint: 'AWS Shield, Cloudflare, Azure DDoS'),
+    Field('rateLimitingAtEdge', String, 'Rate Limiting at Edge',
+        hint: 'Edge-level request throttling'),
+
+    // DNS
+    Field('dnsProvider', String, 'DNS Provider',
+        hint: 'Route 53, Cloudflare DNS, Azure DNS'),
+    Field('dnssecEnabled', bool, 'DNSSEC Enabled',
+        hint: 'DNS Security Extensions'),
+    Field('privateDns', String, 'Private DNS',
+        hint: 'Internal DNS zones'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional network security notes'),
+  ])
+  String? content;
+}
+
+/// Service mesh and API gateway.
+class ServiceMeshAndGateway {
+  @Form([
+    // API gateway
+    Field('apiGateway', String, 'API Gateway',
+        hint: 'Kong, AWS API Gateway, Apigee, Azure APIM'),
+    Field('gatewayFeatures', String, 'Gateway Features',
+        hint: 'Auth, throttling, transformation, caching'),
+    Field('gatewayHighAvailability', bool, 'Gateway High Availability',
+        hint: 'Multi-region or multi-zone gateway'),
+    Field('apiKeyManagement', String, 'API Key Management',
+        hint: 'Developer portal, key provisioning'),
+
+    // Service mesh
+    Field('serviceMesh', String, 'Service Mesh',
+        hint: 'Istio, Linkerd, Consul Connect'),
+    Field('sidecarProxy', String, 'Sidecar Proxy',
+        hint: 'Envoy, HAProxy, custom'),
+    Field('trafficPolicy', String, 'Traffic Policy',
+        hint: 'Retries, timeouts, circuit breaking'),
+    Field('mtlsEnabled', bool, 'mTLS Enabled',
+        hint: 'Mutual TLS for internal traffic'),
+
+    // Load balancing
+    Field('loadBalancerType', String, 'Load Balancer Type',
+        hint: 'Application LB, Network LB, internal'),
+    Field('loadBalancingAlgorithm', String, 'Load Balancing Algorithm',
+        hint: 'Round-robin, least-connections, weighted'),
+    Field('healthCheckEndpoint', String, 'Health Check Endpoint',
+        hint: 'LB health check path and interval'),
+    Field('sslTermination', String, 'SSL Termination',
+        hint: 'At load balancer, gateway, or application'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional gateway/mesh notes'),
+  ])
+  String? content;
+}
+
+/// Connectivity resilience requirements.
+class ConnectivityResilience {
+  @Form([
+    // Failover
+    Field('failoverStrategy', String, 'Failover Strategy',
+        hint: 'Active-passive, active-active, DNS failover'),
+    Field('redundantConnections', bool, 'Redundant Connections',
+        hint: 'Multiple ISP or network paths'),
+    Field('geographicRedundancy', String, 'Geographic Redundancy',
+        hint: 'Multi-region connectivity'),
+
+    // Circuit breaking
+    Field('circuitBreakerPattern', String, 'Circuit Breaker Pattern',
+        hint: 'Threshold, timeout, half-open criteria'),
+    Field('bulkheadIsolation', String, 'Bulkhead Isolation',
+        hint: 'Connection pool isolation per downstream'),
+    Field('fallbackBehavior', String, 'Fallback Behavior',
+        hint: 'Cached response, degraded mode, error page'),
+
+    // Offline
+    Field('offlineCapability', String, 'Offline Capability',
+        hint: 'Client-side caching and sync strategy'),
+    Field('reconnectionStrategy', String, 'Reconnection Strategy',
+        hint: 'Automatic reconnect with backoff'),
+    Field('queuedOperations', bool, 'Queued Operations',
+        hint: 'Queue requests when connectivity lost'),
+
+    // Monitoring
+    Field('connectivityMonitoring', String, 'Connectivity Monitoring',
+        hint: 'Uptime monitoring, latency checks'),
+    Field('connectivityAlerts', String, 'Connectivity Alerts',
+        hint: 'Alert on degradation or outage'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional resilience notes'),
   ])
   String? content;
 }
