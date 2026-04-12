@@ -2215,14 +2215,347 @@ class ResourceProtection {
   @Unused()
   String? content;
 
-  /// Data Level Security.
-  TextSection dataLevelSecurity = TextSection();
+  /// 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
+  DataLevelSecurity dataLevelSecurity = DataLevelSecurity();
 
   /// Api Security.
   TextSection apiSecurity = TextSection();
 
   /// File And Storage Security.
   TextSection fileAndStorageSecurity = TextSection();
+}
+
+/// 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
+///
+/// Comprehensive data access protection specification covering database-level
+/// security, row-level security, column-level security, tenant data isolation,
+/// and data masking for production and non-production environments.
+/// Aligned with OWASP Database Security Cheat Sheet and least-privilege principles.
+@SectionId('PD00-ACC-RES-DAT')
+class DataLevelSecurity {
+  @Unused()
+  String? content;
+
+  /// Data-Level Security Overview (text).
+  TextSection overview = TextSection();
+
+  /// Database Access Policy.
+  DatabaseAccessPolicy databaseAccessPolicy = DatabaseAccessPolicy();
+
+  /// Row-Level Security Policy.
+  RowLevelSecurityPolicy rowLevelSecurityPolicy = RowLevelSecurityPolicy();
+
+  /// Column-Level Security Policy.
+  ColumnLevelSecurityPolicy columnLevelSecurityPolicy =
+      ColumnLevelSecurityPolicy();
+
+  /// Tenant Data Isolation Policy.
+  TenantDataIsolationPolicy tenantDataIsolationPolicy =
+      TenantDataIsolationPolicy();
+
+  /// Data Masking Policy.
+  DataMaskingPolicy dataMaskingPolicy = DataMaskingPolicy();
+
+  /// Data Access Audit Policy.
+  DataAccessAuditPolicy dataAccessAuditPolicy = DataAccessAuditPolicy();
+}
+
+/// Database access policy (form).
+///
+/// Defines how application and administrative accounts access the database,
+/// including connection security, credential management, and privilege
+/// assignment following the principle of least privilege.
+@Form([
+  Field('databaseConnectionSecurity', String, 'Database Connection Security',
+      hint:
+          'TlsRequired | TlsOptional | LocalSocketOnly — transport security for DB connections'),
+  Field('minimumTlsVersion', String, 'Minimum TLS Version',
+      hint: 'TLS 1.2 | TLS 1.3 — minimum TLS version for database connections'),
+  Field('applicationAccountStrategy', String, 'Application Account Strategy',
+      hint:
+          'PerService | PerModule | SharedPool — how application-level DB accounts are organized'),
+  Field('applicationAccountPrivileges', String,
+      'Application Account Privileges',
+      hint:
+          'SelectUpdateDelete | ReadOnly | Custom — default permissions for application accounts'),
+  Field('schemaOwnershipSeparation', String, 'Schema Ownership Separation',
+      hint:
+          'Yes | No — whether schema owner accounts are separate from application accounts'),
+  Field('directTableAccess', String, 'Direct Table Access',
+      hint:
+          'Allowed | ViewsOnly | StoredProceduresOnly — whether direct table access is permitted'),
+  Field('databaseCredentialStorage', String, 'Database Credential Storage',
+      hint:
+          'SecretsVault | EnvironmentVariable | EncryptedConfig — where DB credentials are stored'),
+  Field('credentialRotationPolicy', String, 'Credential Rotation Policy',
+      hint:
+          'Automatic | Manual | Interval — how DB credentials are rotated (e.g., every 90d)'),
+  Field('connectionPoolSecurity', String, 'Connection Pool Security',
+      hint:
+          'PerUser | PerService | Shared — connection pool isolation level'),
+  Field('privilegedAccessManagement', String, 'Privileged Access Management',
+      hint:
+          'JustInTime | PermanentWithApproval | BreakGlass — how DBA access is managed'),
+  Field('databaseFirewallRules', String, 'Database Firewall Rules',
+      hint:
+          'AllowlistOnly | VpcInternal | SubnetRestricted — network access restrictions'),
+  Field('sqlInjectionPrevention', String, 'SQL Injection Prevention',
+      hint:
+          'ParameterizedQueries | OrmOnly | PreparedStatements — SQL injection mitigation strategy'),
+  Field('queryComplexityLimits', String, 'Query Complexity Limits',
+      hint:
+          'Yes | No — whether query complexity or execution time limits are enforced'),
+  Field('databaseActivityMonitoring', String, 'Database Activity Monitoring',
+      hint:
+          'DamEnabled | NativeAudit | None — database activity monitoring tool usage'),
+])
+class DatabaseAccessPolicy {
+  String? content;
+
+  /// Database Access Policy Details (text).
+  TextSection databaseAccessDetails = TextSection();
+}
+
+/// Row-level security policy (form).
+///
+/// Defines how data access is restricted at the row level, ensuring users
+/// can only access data rows they are authorized to see. Covers tenant-based
+/// filtering, user-scoped access, and hierarchical data visibility.
+@Form([
+  Field('rowLevelSecurityEnabled', String, 'Row-Level Security Enabled',
+      hint:
+          'Yes | No — whether row-level security (RLS) is implemented'),
+  Field('rlsImplementation', String, 'RLS Implementation',
+      hint:
+          'DatabaseNative | ApplicationLayer | OrmFilter | Hybrid — where RLS is enforced'),
+  Field('rlsFilteringStrategy', String, 'RLS Filtering Strategy',
+      hint:
+          'TenantId | UserId | OrganizationId | CustomPredicate — primary filtering dimension'),
+  Field('rlsBypassPolicy', String, 'RLS Bypass Policy',
+      hint:
+          'NeverBypass | SuperAdminOnly | ServiceAccountOnly — who can bypass RLS'),
+  Field('hierarchicalVisibility', String, 'Hierarchical Data Visibility',
+      hint:
+          'Yes | No — whether managers see subordinate data (organizational hierarchy)'),
+  Field('hierarchyDepthLimit', String, 'Hierarchy Depth Limit',
+      hint:
+          'Unlimited | DirectReports | NLevels — how deep hierarchical visibility extends'),
+  Field('crossTenantAccess', String, 'Cross-Tenant Data Access',
+      hint:
+          'Denied | PlatformAdminOnly | ConsentBased — cross-tenant data access rules'),
+  Field('dataOwnerAccess', String, 'Data Owner Access',
+      hint:
+          'FullAccess | ReadOnly | Delegated — access level for the data owner/creator'),
+  Field('sharedDataHandling', String, 'Shared Data Handling',
+      hint:
+          'ExplicitGrant | GroupBased | LinkSharing — how shared records are authorized'),
+  Field('rlsPerformanceStrategy', String, 'RLS Performance Strategy',
+      hint:
+          'IndexedFilterColumn | PartitionedByTenant | MaterializedViews — performance optimization for RLS'),
+  Field('rlsTestingStrategy', String, 'RLS Testing Strategy',
+      hint:
+          'AutomatedTests | PenetrationTesting | Both — how RLS enforcement is verified'),
+])
+class RowLevelSecurityPolicy {
+  String? content;
+
+  /// Row-Level Security Details (text).
+  TextSection rowLevelSecurityDetails = TextSection();
+}
+
+/// Column-level security policy (form).
+///
+/// Defines how access to specific data columns or fields is restricted
+/// based on user roles, sensitivity classification, or regulatory requirements.
+@Form([
+  Field('columnLevelSecurityEnabled', String,
+      'Column-Level Security Enabled',
+      hint:
+          'Yes | No — whether column-level access control is implemented'),
+  Field('columnAccessImplementation', String,
+      'Column Access Implementation',
+      hint:
+          'DatabaseGrants | ViewRestriction | ApplicationLayer | FieldProjection — enforcement mechanism'),
+  Field('sensitiveColumnClassification', String,
+      'Sensitive Column Classification',
+      hint:
+          'PII | Financial | Health | Confidential | Internal | Public — classification scheme for columns'),
+  Field('piiColumnAccess', String, 'PII Column Access',
+      hint:
+          'RestrictedByRole | MaskedByDefault | EncryptedAtRest — access policy for PII columns'),
+  Field('financialDataColumnAccess', String, 'Financial Data Column Access',
+      hint:
+          'RestrictedByRole | AuditedAccess | Masked — access policy for financial data columns'),
+  Field('healthDataColumnAccess', String, 'Health Data Column Access',
+      hint:
+          'HipaaCompliant | StrictRole | Encrypted — access policy for health/medical data'),
+  Field('dynamicFieldVisibility', String, 'Dynamic Field Visibility',
+      hint:
+          'Yes | No — whether field visibility varies dynamically based on user role or context'),
+  Field('columnAccessAudit', String, 'Column Access Audit',
+      hint:
+          'Yes | No — whether access to sensitive columns is individually audited'),
+  Field('columnEncryptionPolicy', String, 'Column Encryption Policy',
+      hint:
+          'None | SelectedColumns | AllSensitive | AlwaysEncrypted — column-level encryption approach'),
+])
+class ColumnLevelSecurityPolicy {
+  String? content;
+
+  /// Column-Level Security Details (text).
+  TextSection columnLevelSecurityDetails = TextSection();
+}
+
+/// Tenant data isolation policy (form).
+///
+/// Defines the multi-tenant data separation strategy, ensuring tenant
+/// data is logically or physically isolated and cannot leak between tenants.
+@Form([
+  Field('tenantIsolationModel', String, 'Tenant Isolation Model',
+      hint:
+          'SharedDatabase_SharedSchema | SharedDatabase_SeparateSchema | SeparateDatabase — multi-tenancy architecture'),
+  Field('tenantIdentifierColumn', String, 'Tenant Identifier Column',
+      hint:
+          'Column name used for tenant filtering (e.g., tenant_id, org_id)'),
+  Field('tenantContextInjection', String, 'Tenant Context Injection',
+      hint:
+          'SessionVariable | ConnectionString | MiddlewareFilter | RowPolicy — how tenant context is set'),
+  Field('tenantIsolationEnforcement', String, 'Tenant Isolation Enforcement',
+      hint:
+          'DatabaseLevel | ApplicationLevel | Both — where isolation is enforced'),
+  Field('crossTenantQueryPrevention', String, 'Cross-Tenant Query Prevention',
+      hint:
+          'DatabaseRLS | QueryRewriting | GlobalFilter | AllLayers — how cross-tenant queries are blocked'),
+  Field('tenantDataBackupIsolation', String, 'Tenant Data Backup Isolation',
+      hint:
+          'SharedBackup | PerTenantBackup | EncryptedShared — tenant-specific backup strategy'),
+  Field('tenantDataDeletion', String, 'Tenant Data Deletion',
+      hint:
+          'SoftDelete | HardDelete | CryptoShredding — how tenant data is removed on offboarding'),
+  Field('tenantDataExport', String, 'Tenant Data Export',
+      hint:
+          'SelfService | AdminAssisted | ApiExport — data portability for tenants'),
+  Field('tenantResourceQuotas', String, 'Tenant Resource Quotas',
+      hint:
+          'Yes | No — whether storage/query quotas are enforced per tenant'),
+  Field('tenantIsolationTesting', String, 'Tenant Isolation Testing',
+      hint:
+          'AutomatedTests | PenetrationTesting | Both — how tenant isolation is verified'),
+  Field('sharedReferenceDataAccess', String, 'Shared Reference Data Access',
+      hint:
+          'ReadOnly | CachedLocally | Replicated — how tenants access shared/global reference data'),
+])
+class TenantDataIsolationPolicy {
+  String? content;
+
+  /// Tenant Data Isolation Details (text).
+  TextSection tenantDataIsolationDetails = TextSection();
+}
+
+/// Data masking policy (form).
+///
+/// Defines how sensitive data is masked or obfuscated for non-production
+/// environments, reporting, and limited-access scenarios. Covers both
+/// static masking (data copies) and dynamic masking (runtime filtering).
+@Form([
+  Field('dynamicDataMaskingEnabled', String, 'Dynamic Data Masking Enabled',
+      hint:
+          'Yes | No — whether dynamic data masking is implemented in production'),
+  Field('dynamicMaskingRules', String, 'Dynamic Masking Rules',
+      hint:
+          'FullMask | PartialMask | Redact | Tokenize — available masking transformations'),
+  Field('dynamicMaskingScope', String, 'Dynamic Masking Scope',
+      hint:
+          'RoleBased | QueryBased | ColumnBased — how masking rules are applied'),
+  Field('staticMaskingForNonProduction', String,
+      'Static Masking for Non-Production',
+      hint:
+          'Yes | No — whether production data is statically masked before copying to test/dev'),
+  Field('staticMaskingTool', String, 'Static Masking Tool',
+      hint:
+          'BuiltIn | ThirdParty | CustomScript — tool used for static data masking'),
+  Field('maskingPreservesFormat', String, 'Masking Preserves Format',
+      hint:
+          'Yes | No — whether masked data maintains original format and referential integrity'),
+  Field('maskingReversibility', String, 'Masking Reversibility',
+      hint:
+          'Irreversible | Tokenized | Deterministic — whether masking can be reversed'),
+  Field('piiMaskingPolicy', String, 'PII Masking Policy',
+      hint:
+          'FullRedact | PartialMask | Pseudonymize — specific masking approach for PII fields'),
+  Field('emailMaskingFormat', String, 'Email Masking Format',
+      hint:
+          'e.g., j***@example.com or completely redacted — how email addresses are masked'),
+  Field('phoneMaskingFormat', String, 'Phone Masking Format',
+      hint:
+          'e.g., ***-***-1234 or fully redacted — how phone numbers are masked'),
+  Field('addressMaskingFormat', String, 'Address Masking Format',
+      hint:
+          'CityOnly | ZipCodeOnly | FullRedact — how addresses are masked'),
+  Field('financialDataMasking', String, 'Financial Data Masking',
+      hint:
+          'FullRedact | Last4Digits | Tokenized — how financial data (credit cards, bank accounts) is masked'),
+  Field('maskingAuditTrail', String, 'Masking Audit Trail',
+      hint:
+          'Yes | No — whether masking/unmasking operations are audited'),
+  Field('developmentDataStrategy', String, 'Development Data Strategy',
+      hint:
+          'MaskedCopy | SyntheticData | SubsetExtract | SeedData — strategy for development/test environments'),
+])
+class DataMaskingPolicy {
+  String? content;
+
+  /// Data Masking Details (text).
+  TextSection dataMaskingDetails = TextSection();
+}
+
+/// Data access audit policy (form).
+///
+/// Defines how data access events are monitored, logged, and reviewed
+/// to detect unauthorized access and support compliance requirements.
+@Form([
+  Field('dataAccessLoggingEnabled', String, 'Data Access Logging Enabled',
+      hint:
+          'Yes | No — whether data access events are logged'),
+  Field('dataAccessLoggingScope', String, 'Data Access Logging Scope',
+      hint:
+          'AllTables | SensitiveTablesOnly | ByClassification — which data access is logged'),
+  Field('loggedOperations', String, 'Logged Operations',
+      hint:
+          'Read | Write | Delete | SchemaChange | All — which operations are captured'),
+  Field('dataAccessLogDetail', String, 'Data Access Log Detail',
+      hint:
+          'QueryText | AffectedRows | ColumnAccess | Minimal — what detail is recorded per event'),
+  Field('queryTextLogging', String, 'Query Text Logging',
+      hint:
+          'Full | Sanitized | HashOnly | Disabled — whether executed query text is logged'),
+  Field('anomalyDetectionEnabled', String, 'Anomaly Detection Enabled',
+      hint:
+          'Yes | No — whether unusual data access patterns trigger alerts'),
+  Field('anomalySignals', String, 'Anomaly Detection Signals',
+      hint:
+          'BulkExport | OffHoursAccess | UnusualVolume | NewAccessPattern — signals monitored'),
+  Field('dataBreachDetection', String, 'Data Breach Detection',
+      hint:
+          'RealTime | BatchReview | ThirdPartyDLP — how potential data exfiltration is detected'),
+  Field('dataAccessReviewCycle', String, 'Data Access Review Cycle',
+      hint:
+          'Monthly | Quarterly | Annually — how often data access permissions are reviewed'),
+  Field('privilegedQueryAlerts', String, 'Privileged Query Alerts',
+      hint:
+          'Yes | No — whether queries by privileged accounts trigger real-time alerts'),
+  Field('complianceReportingEnabled', String, 'Compliance Reporting Enabled',
+      hint:
+          'Yes | No — whether automated compliance reports are generated from access logs'),
+  Field('dataAccessRetention', String, 'Data Access Log Retention',
+      hint:
+          'Duration data access logs are retained (e.g., 90d, 1y, 7y)'),
+])
+class DataAccessAuditPolicy {
+  String? content;
+
+  /// Data Access Audit Details (text).
+  TextSection dataAccessAuditDetails = TextSection();
 }
 
 /// 9.4. User Authorization [PD00-ACC-USA].
