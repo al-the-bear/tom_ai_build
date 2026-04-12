@@ -153,13 +153,13 @@ These sections exist in `tom_specs_model` but are missing from `pd_template.md`:
 | PD00-ACC-IDE-AUT | Authentication | Review | ✅ Done — already detailed |
 | PD00-ACC-IDE-AUT-MET | Authentication Methods | Review | ✅ Done — already detailed |
 | PD00-ACC-IDE-IDN | Identification | Review | ✅ Done — enhanced with 7 classes, ~130 fields |
-| PD00-COM | Commissioning | Review | ⬜ Not Started |
-| PD00-COM-MAI | Maintenance | Review | ⬜ Not Started |
-| PD00-COM-RIS | Risks | Review | ⬜ Not Started |
-| PD00-COM-RIS-CON | Risk Contingency | Review | ⬜ Not Started |
-| PD00-COM-RUN | Ramp-up | Review | ⬜ Not Started |
-| PD00-COM-STR | Strategy | Review | ⬜ Not Started |
-| PD00-COM-STR-EVA | Evaluation | Review | ⬜ Not Started |
+| PD00-COM | Commissioning | Review | ✅ Done — enhanced all 10 classes with ~230 form fields |
+| PD00-COM-MAI | Maintenance | Review | ✅ Done — split to MaintenanceDependencyEntry with 15 fields |
+| PD00-COM-RIS | Risks | Review | ✅ Done — ComponentRiskEntry enhanced to 21 fields |
+| PD00-COM-RIS-CON | Risk Contingency | Review | ✅ Done — ContingencyPlanEntry enhanced to 22 fields |
+| PD00-COM-RUN | Ramp-up | Review | ✅ Done — split to RuntimeDependencyEntry with 19 fields |
+| PD00-COM-STR | Strategy | Review | ✅ Done — ComponentStrategy enhanced with 20 form fields |
+| PD00-COM-STR-EVA | Evaluation | Review | ✅ Done — EvaluationCriterionEntry enhanced to 16 fields |
 | PD00-CUR-PAI-GAP | Gaps | Review | ⬜ Not Started |
 | PD00-CUR-SYS-DEP-DEP | Dependencies | Review | ⬜ Not Started |
 | PD00-CUR-SYS-DEP-INT | Integrations | Review | ⬜ Not Started |

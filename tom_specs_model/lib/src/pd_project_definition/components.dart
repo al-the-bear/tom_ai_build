@@ -1,13 +1,16 @@
 /// Section 12: Components to Use [PD00-COM]. Seeds → TR.
 ///
-/// External and standard components planned for use.
+/// External and standard components planned for use in the system.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
-
-
 /// 12. Components to Use [PD00-COM]. Seeds → TR.
+///
+/// External and standard components planned for use in the system. All
+/// subsections seed the TR document, where component choices are expanded
+/// into detailed dependency analysis, version requirements, licensing,
+/// and integration patterns.
 @SectionId('PD00-COM')
 @Comment('Seeds → TR')
 class ComponentsToUse {
@@ -21,7 +24,8 @@ class ComponentsToUse {
   @SectionIdPattern('PD00-COM-COM-xx')
   List<ComponentEntry> componentCatalog = [];
 
-  /// Component Role In System.
+  /// 12.3. Component Role In System [PD00-COM-ROL].
+  @SectionId('PD00-COM-ROL')
   TextSection componentRoleInSystem = TextSection();
 
   /// 12.4. Runtime Dependencies [PD00-COM-RUN].
@@ -34,10 +38,80 @@ class ComponentsToUse {
   ComponentRiskAssessment riskAssessment = ComponentRiskAssessment();
 }
 
+// ---------------------------------------------------------------------------
+// 12.1. Component Strategy
+// ---------------------------------------------------------------------------
+
 /// 12.1. Component Strategy [PD00-COM-STR].
+///
+/// Overall component strategy: build-vs-buy philosophy, preferred vendors,
+/// technology stack alignment, governance, evaluation cadence, and portfolio
+/// management.
 @SectionId('PD00-COM-STR')
 class ComponentStrategy {
-  @Unused()
+  @Form([
+    Field('buildVsBuyPhilosophy', String, 'Build vs. Buy Philosophy',
+        hint:
+            'BuildFirst / BuyFirst / BestOfBreed / CaseByCase — default stance for component decisions'),
+    Field('buildVsBuyThreshold', String, 'Build vs. Buy Decision Threshold',
+        hint:
+            'Criteria for when to build, e.g. "Build if <40h and core differentiator"'),
+    Field('preferredVendors', String, 'Preferred Vendors',
+        hint:
+            'Strategically aligned vendors, e.g. AWS, Confluent, Elastic'),
+    Field('prohibitedVendors', String, 'Prohibited Vendors',
+        hint:
+            'Vendors excluded for compliance, legal, or strategic reasons'),
+    Field(
+        'technologyStackAlignment', String, 'Technology Stack Alignment',
+        hint:
+            'Target stack, e.g. Dart/Flutter, PostgreSQL, Redis, Kubernetes'),
+    Field('stackDeviationProcess', String, 'Stack Deviation Process',
+        hint:
+            'How to request approval for off-stack choices'),
+    Field('governanceModel', String, 'Governance Model',
+        hint:
+            'How component decisions are made — Architecture Review Board, tech leads, etc.'),
+    Field('governanceFrequency', String, 'Governance Review Cadence',
+        hint:
+            'How often the component portfolio is reviewed, e.g. quarterly, biannually'),
+    Field('evaluationCadence', String, 'Component Evaluation Cadence',
+        hint:
+            'How often new/existing components are formally evaluated'),
+    Field('portfolioVisibility', String, 'Portfolio Visibility',
+        hint:
+            'Where the component catalog is published — wiki, CMDB, internal portal'),
+    Field('componentRegistryUrl', String, 'Component Registry URL',
+        hint: 'Link to the authoritative component catalog'),
+    Field('maxComponentOverlap', int, 'Max Allowed Overlap',
+        hint:
+            'Maximum number of components for the same purpose, e.g. 2 DB engines'),
+    Field('consolidationTargets', String, 'Consolidation Targets',
+        hint:
+            'Components targeted for elimination or merger'),
+    Field('openSourcePolicy', String, 'Open-Source Policy',
+        hint:
+            'Permitted licenses, contribution policy, CLA stance'),
+    Field('securityBaselineRequirement', String, 'Security Baseline',
+        hint:
+            'Minimum security requirements all components must meet'),
+    Field(
+        'complianceBaselineRequirement', String, 'Compliance Baseline',
+        hint:
+            'Minimum compliance certifications required for all components'),
+    Field('vendorDiversityGoal', String, 'Vendor Diversity Goal',
+        hint:
+            'Strategy to avoid over-reliance on a single vendor'),
+    Field('sunsetPolicy', String, 'Sunset Policy',
+        hint:
+            'How end-of-life components are retired — timeline, migration support'),
+    Field('pilotProcessDescription', String, 'Pilot Process',
+        hint:
+            'How new components are piloted before full adoption'),
+    Field('totalPortfolioBudget', String, 'Total Component Budget',
+        hint:
+            'Annual budget ceiling for all component costs'),
+  ])
   String? content;
 
   /// 12.1.1. Reuse Goals [PD00-COM-STR-GOA] — contains 0+× ReuseGoal.
@@ -49,15 +123,55 @@ class ComponentStrategy {
 }
 
 /// A reuse goal entry (form) [PD00-COM-STR-GOA-nn].
+///
+/// Defines a specific reuse target: what to reuse, why, at what percentage,
+/// how to measure, and who owns the goal.
 class ReuseGoalEntry {
   @Form([
-    Field('goal', String, 'Goal', required: true),
-    Field('rationale', String, 'Rationale'),
+    Field('goalId', String, 'Goal ID',
+        hint: 'Unique identifier, e.g. RG-001'),
+    Field('goal', String, 'Reuse Goal',
+        hint:
+            'What should be reused, e.g. Centralize auth via shared login SDK',
+        required: true),
+    Field('rationale', String, 'Business Rationale',
+        hint:
+            'Why reuse matters here — cost savings, consistency, time-to-market'),
+    Field('category', String, 'Reuse Category',
+        hint:
+            'UIComponents / DataLayer / Authentication / Infrastructure / APIs'),
+    Field('scope', String, 'Scope',
+        hint: 'ProjectLevel / DivisionLevel / EnterpriseWide'),
+    Field('targetPercentage', int, 'Target Reuse %',
+        hint: 'Target percentage of reuse for this category'),
+    Field('currentPercentage', int, 'Current Reuse %',
+        hint: 'Measured current reuse percentage'),
+    Field('measurementMethod', String, 'Measurement Method',
+        hint:
+            'How reuse % is measured — code analysis, component registry, survey'),
+    Field('measurementFrequency', String, 'Measurement Frequency',
+        hint: 'How often reuse is measured, e.g. sprint, quarterly, release'),
+    Field('priority', String, 'Priority',
+        hint: 'Critical / High / Medium / Low'),
+    Field('targetDate', String, 'Target Date',
+        hint: 'When this goal should be achieved'),
+    Field('owner', String, 'Goal Owner',
+        hint: 'Person or team responsible for driving this goal'),
+    Field('blockers', String, 'Known Blockers',
+        hint: 'What prevents higher reuse today'),
+    Field('enablers', String, 'Enablers',
+        hint: 'Actions or investments needed to reach the target'),
+    Field('reusableAssets', String, 'Reusable Assets',
+        hint:
+            'Specific components, libraries, or services to be reused'),
   ])
   String? content;
 }
 
 /// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
+///
+/// Container for component evaluation criteria used when assessing
+/// candidate components for adoption.
 @SectionId('PD00-COM-STR-EVA')
 class EvaluationCriteria {
   @Unused()
@@ -69,61 +183,133 @@ class EvaluationCriteria {
 }
 
 /// An evaluation criterion entry (form) [PD00-COM-STR-EVA-nn].
+///
+/// Defines one criterion for evaluating candidate components: scoring scale,
+/// threshold, evidence requirements, and evaluation method.
 class EvaluationCriterionEntry {
   @Form([
-    Field('criterion', String, 'Criterion', required: true),
-    Field('weight', String, 'Weight'),
-    Field('description', String, 'Short description'),
-  ])
-  String? content;
-}
-
-/// 12.4. Runtime Dependencies [PD00-COM-RUN].
-@SectionId('PD00-COM-RUN')
-class RuntimeDependencies {
-  @Unused()
-  String? content;
-
-  /// Contains 0+× Dependency.
-  @SectionIdPattern('PD00-COM-RUN-xx')
-  List<DependencyEntry> items = [];
-}
-
-/// 12.5. Maintenance Dependencies [PD00-COM-MAI].
-@SectionId('PD00-COM-MAI')
-class MaintenanceDependencies {
-  @Unused()
-  String? content;
-
-  /// Contains 0+× Dependency.
-  @SectionIdPattern('PD00-COM-MAI-xx')
-  List<DependencyEntry> items = [];
-}
-
-/// A dependency entry (form) [PD00-COM-RUN-nn].
-class DependencyEntry {
-  @Form([
-    Field('dependencyName', String, 'Dependency Name', required: true),
-    Field('version', String, 'Version'),
-    Field('purpose', String, 'Purpose'),
-    Field('criticality', String, 'Criticality'),
-    Field('alternative', String, 'Alternative'),
+    Field('criterionId', String, 'Criterion ID',
+        hint: 'Unique identifier, e.g. EC-001'),
+    Field('criterion', String, 'Criterion Name',
+        hint: 'Short name, e.g. Vendor Stability', required: true),
+    Field('description', String, 'Description',
+        hint: 'What this criterion evaluates'),
+    Field('category', String, 'Category',
+        hint:
+            'Technical / Commercial / Operational / Strategic / Compliance'),
+    Field('weight', int, 'Weight (%)',
+        hint: 'Relative importance as percentage of total score'),
+    Field('scoringScale', String, 'Scoring Scale',
+        hint: 'Scale used, e.g. 1-5, 1-10, Pass/Fail'),
+    Field('minimumThreshold', String, 'Minimum Threshold',
+        hint: 'Minimum acceptable score, e.g. 3 out of 5'),
+    Field('eliminatory', String, 'Eliminatory',
+        hint:
+            'Yes / No — does failing this criterion disqualify the component?'),
+    Field('evidenceRequired', String, 'Evidence Required',
+        hint:
+            'What proof is needed — benchmark report, vendor attestation, demo'),
+    Field('evaluationMethod', String, 'Evaluation Method',
+        hint:
+            'ProofOfConcept / ReferenceCheck / DocumentReview / LoadTest'),
+    Field('evaluator', String, 'Evaluator Role',
+        hint:
+            'Who performs this evaluation — architect, security, procurement'),
+    Field('evaluationDuration', String, 'Evaluation Duration',
+        hint: 'Expected time to complete this evaluation'),
+    Field('scoringGuidelineLow', String, 'Score Low — Poor',
+        hint: 'What a lowest-tier score looks like'),
+    Field('scoringGuidelineMid', String, 'Score Mid — Acceptable',
+        hint: 'What a mid-tier score looks like'),
+    Field('scoringGuidelineHigh', String, 'Score High — Excellent',
+        hint: 'What the highest score looks like'),
+    Field('applicableTo', String, 'Applicable To',
+        hint:
+            'Which component categories this criterion applies to'),
   ])
   String? content;
 }
 
 // ---------------------------------------------------------------------------
-// Component catalog entries
+// 12.2. Component Catalog
 // ---------------------------------------------------------------------------
 
 /// A component entry [PD00-COM-COM-nn] (form) with sub-entries.
+///
+/// Describes a single external or standard component planned for use:
+/// vendor assessment, maturity, security, cost, deployment model, licensing,
+/// interfaces, and responsibilities.
 class ComponentEntry {
   @Form([
-    Field('componentName', String, 'Component Name', required: true),
-    Field('version', String, 'Version'),
-    Field('category', String, 'Category'),
-    Field('purpose', String, 'Purpose'),
-    Field('documentation', String, 'Documentation'),
+    Field('componentId', String, 'Component ID',
+        hint: 'Unique identifier, e.g. CMP-DB-001'),
+    Field('componentName', String, 'Component Name',
+        hint: 'Official product/library name', required: true),
+    Field('version', String, 'Version',
+        hint: 'Current version in use or targeted'),
+    Field('category', String, 'Category',
+        hint:
+            'Database / Framework / Library / Service / Middleware / Infrastructure / Tool'),
+    Field('purpose', String, 'Business Purpose',
+        hint: 'Why this component is needed in business terms'),
+    Field('vendorName', String, 'Vendor / Publisher',
+        hint: 'Company or organization behind the component'),
+    Field('vendorStability', String, 'Vendor Stability Assessment',
+        hint:
+            'Financial health, market position, acquisition risk'),
+    Field('maturityLevel', String, 'Maturity Level',
+        hint: 'Emerging / Growing / Mature / Declining / EndOfLife'),
+    Field('communitySize', String, 'Community Health',
+        hint:
+            'GitHub stars, contributors, forum activity, Stack Overflow presence'),
+    Field('releaseFrequency', String, 'Release Cadence',
+        hint:
+            'How often new versions are published, e.g. Monthly, Quarterly'),
+    Field('supportModel', String, 'Support Model',
+        hint: 'CommunityOnly / VendorPaid / Hybrid / ManagedService'),
+    Field('supportTier', String, 'Support Tier',
+        hint:
+            'Contracted support level, e.g. Enterprise Gold 24/7'),
+    Field('securityTrackingUrl', String, 'Security Advisory URL',
+        hint: 'CVE feed or security bulletin URL for this component'),
+    Field('performanceBenchmark', String, 'Performance Characteristics',
+        hint:
+            'Key throughput/latency figures relevant to our use case'),
+    Field('scalabilityLimit', String, 'Scalability Ceiling',
+        hint:
+            'Known upper limits, e.g. Tested to 10K concurrent connections'),
+    Field('deploymentModel', String, 'Deployment Model',
+        hint:
+            'OnPremise / SaaS / PaaS / Hybrid / Container / Serverless'),
+    Field('resourceFootprint', String, 'Resource Requirements',
+        hint: 'CPU, memory, disk, network baseline requirements'),
+    Field('totalCostFirstYear', String, 'First-Year TCO',
+        hint:
+            'Total cost including license, infra, integration, training'),
+    Field('totalCostOngoing', String, 'Annual Ongoing TCO',
+        hint: 'Recurring annual cost after first year'),
+    Field('complianceCertifications', String, 'Compliance Certifications',
+        hint: 'SOC2, ISO 27001, HIPAA, FedRAMP, PCI-DSS, etc.'),
+    Field('trainingRequirement', String, 'Training Requirement',
+        hint:
+            'Estimated ramp-up effort, e.g. 2-day course per developer'),
+    Field('replacementDifficulty', String, 'Replacement Difficulty',
+        hint: 'Low / Medium / High / Extreme — with justification'),
+    Field('lockInFactors', String, 'Lock-In Factors',
+        hint:
+            'Proprietary formats, data migration cost, API coupling depth'),
+    Field('integrationComplexity', String, 'Integration Complexity',
+        hint:
+            'Effort to integrate with existing stack — Low / Medium / High'),
+    Field('documentationQuality', String, 'Documentation Quality',
+        hint: 'Poor / Adequate / Good / Excellent — with specifics'),
+    Field('documentationUrl', String, 'Documentation URL',
+        hint: 'Link to official documentation'),
+    Field('approvalStatus', String, 'Approval Status',
+        hint:
+            'Proposed / UnderReview / Approved / Rejected / Deprecated'),
+    Field('approvedBy', String, 'Approved By',
+        hint: 'Name/role of person who approved this component'),
   ])
   String? content;
 
@@ -134,7 +320,7 @@ class ComponentEntry {
   /// Licensing [PD00-COM-COM-nn-LIC] (form).
   ComponentLicensingEntry? licensing;
 
-  /// Usage Rights.
+  /// Usage Rights [PD00-COM-COM-nn-USE].
   TextSection usageRights = TextSection();
 
   /// Responsibilities [PD00-COM-COM-nn-RES] (form).
@@ -142,42 +328,314 @@ class ComponentEntry {
 }
 
 /// A component interface entry (form) [PD00-COM-COM-nn-INT-nn].
+///
+/// Describes one interface exposed or consumed by a component: protocol,
+/// authentication, data format, rate limits, versioning, SLA, monitoring.
 class ComponentInterfaceEntry {
   @Form([
-    Field('interfaceName', String, 'Interface Name'),
-    Field('interfaceType', String, 'Interface Type'),
-    Field('description', String, 'Short description'),
+    Field('interfaceName', String, 'Interface Name',
+        hint: 'Human-readable name, e.g. Order Service REST API'),
+    Field('interfaceType', String, 'Interface Type',
+        hint:
+            'REST / GraphQL / gRPC / WebSocket / MessageQueue / SDK / CLI / File'),
+    Field('protocol', String, 'Protocol',
+        hint: 'HTTP/1.1 / HTTP/2 / AMQP / MQTT / TCP / UDP'),
+    Field('port', int, 'Default Port',
+        hint: 'Default network port, e.g. 443, 5432, 6379'),
+    Field('basePath', String, 'Base Path / Endpoint',
+        hint: 'Root URL or queue name, e.g. /api/v2, orders.events'),
+    Field('authenticationMethod', String, 'Authentication',
+        hint: 'OAuth2 / APIKey / mTLS / SAML / BasicAuth / None'),
+    Field('authorizationModel', String, 'Authorization Model',
+        hint:
+            'RBAC / ABAC / ScopeBased / ACL — how permissions are enforced'),
+    Field('dataFormatRequest', String, 'Request Format',
+        hint: 'JSON / XML / Protobuf / Avro / CSV / Binary'),
+    Field('dataFormatResponse', String, 'Response Format',
+        hint: 'JSON / XML / Protobuf / Avro / CSV / Binary'),
+    Field('rateLimitRequests', int, 'Rate Limit (req/min)',
+        hint: 'Maximum requests per minute allowed'),
+    Field('versioningScheme', String, 'Versioning Scheme',
+        hint: 'URLPath / Header / QueryParam / ContentNegotiation'),
+    Field('currentApiVersion', String, 'Current API Version',
+        hint: 'Currently active version, e.g. v2.3'),
+    Field('backwardCompatibility', String, 'Backward Compatibility Policy',
+        hint:
+            'How breaking changes are handled and communicated'),
+    Field('slaAvailability', String, 'Availability SLA',
+        hint: 'Target uptime, e.g. 99.95%'),
+    Field('slaLatencyP99', String, 'P99 Latency SLA',
+        hint: '99th percentile response time target, e.g. <200ms'),
+    Field('healthCheckEndpoint', String, 'Health Check Endpoint',
+        hint: 'URL or mechanism for liveness/readiness probes'),
+    Field('monitoringEndpoint', String, 'Metrics Endpoint',
+        hint: 'Prometheus, StatsD, or custom metrics endpoint'),
+    Field('retryPolicy', String, 'Recommended Retry Policy',
+        hint:
+            'Exponential backoff params, max retries, idempotency'),
+    Field('tlsRequired', String, 'TLS Requirement',
+        hint: 'Required / Optional / NotSupported, minimum TLS version'),
+    Field('documentationUrl', String, 'API Documentation URL',
+        hint: 'Link to OpenAPI spec, SDK docs, or integration guide'),
+    Field('description', String, 'Description',
+        hint: 'Purpose and usage context for this interface'),
   ])
   String? content;
 }
 
 /// Component licensing sub-entry [PD00-COM-COM-nn-LIC] (form).
+///
+/// Detailed licensing information: model, cost, compliance, open-source
+/// obligations, audit requirements, geographic restrictions, usage metrics.
 class ComponentLicensingEntry {
   @Form([
-    Field('licenseModel', String, 'License Model'),
-    Field('annualCost', String, 'Annual Cost'),
-    Field('renewal', String, 'Renewal'),
-    Field('redistribution', String, 'Redistribution'),
+    Field('licenseModel', String, 'License Model',
+        hint:
+            'PerSeat / PerCore / PerInstance / Site / Metered / OpenSource'),
+    Field('licenseName', String, 'License Name / SPDX',
+        hint:
+            'SPDX identifier or commercial license name, e.g. Apache-2.0, Enterprise v3'),
+    Field('costInitial', String, 'Initial License Cost',
+        hint: 'One-time purchase or setup fee'),
+    Field('costRecurring', String, 'Recurring Cost',
+        hint: 'Annual/monthly renewal amount'),
+    Field('renewalDate', String, 'Renewal Date',
+        hint: 'Next renewal deadline'),
+    Field('autoRenewal', String, 'Auto-Renewal',
+        hint: 'Yes / No — and cancellation notice period'),
+    Field('redistributionRights', String, 'Redistribution Rights',
+        hint:
+            'Can the component be redistributed to end users or partners?'),
+    Field('sublicensingAllowed', String, 'Sublicensing',
+        hint:
+            'Whether sublicensing to third parties is permitted'),
+    Field('openSourceObligations', String, 'Open-Source Obligations',
+        hint: 'Copyleft, attribution, source disclosure requirements'),
+    Field('copyleftScope', String, 'Copyleft Scope',
+        hint:
+            'FileLevel / LibraryLevel / ProjectWide — copyleft impact'),
+    Field('auditRights', String, 'Vendor Audit Rights',
+        hint:
+            'Can vendor audit our usage? Frequency and notice period'),
+    Field('geographicRestrictions', String, 'Geographic Restrictions',
+        hint:
+            'Countries or regions where use is prohibited or restricted'),
+    Field('exportControlClassification', String, 'Export Control',
+        hint: 'ECCN classification or export restriction category'),
+    Field('usageMetricTracked', String, 'Usage Metric',
+        hint:
+            'What is metered — API calls, users, data volume, CPU hours'),
+    Field('licensedCapacity', String, 'Licensed Capacity',
+        hint: 'Maximum allowed under current license'),
+    Field('overagePolicy', String, 'Overage Policy',
+        hint:
+            'What happens when capacity is exceeded — throttle, surcharge, block'),
+    Field('contractTermLength', String, 'Contract Term',
+        hint: 'Duration of the agreement, e.g. 3 years'),
+    Field('terminationClause', String, 'Termination Terms',
+        hint: 'Early termination penalties and data export rights'),
   ])
   String? content;
 }
 
 /// Component responsibilities sub-entry [PD00-COM-COM-nn-RES] (form).
+///
+/// Who owns and maintains this component: primary/backup owners, SLA targets,
+/// patch response time, security vulnerability handling, budget allocation.
 class ComponentResponsibilitiesEntry {
   @Form([
-    Field('technicalContact', String, 'Technical Contact'),
-    Field('supportModel', String, 'Support Model'),
-    Field('escalation', String, 'Escalation'),
-    Field('updateCadence', String, 'Update Cadence'),
+    Field('primaryOwner', String, 'Primary Owner',
+        hint: 'Team or person primarily responsible'),
+    Field('backupOwner', String, 'Backup Owner',
+        hint: 'Secondary contact when primary is unavailable'),
+    Field('escalationPath', String, 'Escalation Path',
+        hint:
+            'Ordered escalation chain with roles and timeframes'),
+    Field('vendorSupportContact', String, 'Vendor Support Contact',
+        hint: 'How to reach vendor support — portal, email, phone'),
+    Field('vendorSupportHours', String, 'Vendor Support Hours',
+        hint:
+            'Availability window, e.g. 24/7 or Mon-Fri 9-17 CET'),
+    Field('slaUptimeTarget', String, 'Uptime SLA Target',
+        hint: 'Internal uptime commitment, e.g. 99.9%'),
+    Field('slaResponseCritical', String, 'Critical Issue Response Time',
+        hint: 'Max time to acknowledge a P1/critical incident'),
+    Field('slaResolutionCritical', String, 'Critical Issue Resolution Time',
+        hint: 'Max time to resolve or workaround a P1 incident'),
+    Field('patchCadence', String, 'Patch Application Cadence',
+        hint:
+            'How quickly patches are applied, e.g. Critical: 24h, Normal: 14d'),
+    Field('securityVulnProcess', String, 'Security Vulnerability Process',
+        hint: 'Steps from CVE disclosure to remediation'),
+    Field('securityScanFrequency', String, 'Security Scan Frequency',
+        hint: 'How often dependency/vulnerability scans run'),
+    Field('updateStrategy', String, 'Update Strategy',
+        hint:
+            'BlueGreen / Rolling / Canary / MaintenanceWindow'),
+    Field('changeApprovalProcess', String, 'Change Approval Process',
+        hint: 'Who approves upgrades and configuration changes'),
+    Field('monitoringOwner', String, 'Monitoring Owner',
+        hint: 'Who maintains dashboards and alerts'),
+    Field('knowledgeBaseLocation', String, 'Knowledge Base',
+        hint: 'Where runbooks, FAQs, and tribal knowledge are stored'),
+    Field('budgetAllocationAnnual', String, 'Annual Budget',
+        hint:
+            'Budget allocated for this component — license + ops + training'),
+    Field('reviewFrequency', String, 'Review Frequency',
+        hint:
+            'How often the component is formally reviewed — quarterly, annually'),
+    Field('capacityPlanningOwner', String, 'Capacity Planning Owner',
+        hint: 'Who monitors usage and plans for growth'),
   ])
   String? content;
 }
 
 // ---------------------------------------------------------------------------
-// Risk assessment
+// 12.4. Runtime Dependencies
+// ---------------------------------------------------------------------------
+
+/// 12.4. Runtime Dependencies [PD00-COM-RUN].
+///
+/// Runtime dependencies between components: required services, startup order,
+/// health-check dependencies, failover behavior, and version constraints.
+@SectionId('PD00-COM-RUN')
+class RuntimeDependencies {
+  @Unused()
+  String? content;
+
+  /// Contains 0+× Runtime Dependency.
+  @SectionIdPattern('PD00-COM-RUN-xx')
+  List<RuntimeDependencyEntry> items = [];
+}
+
+/// 12.5. Maintenance Dependencies [PD00-COM-MAI].
+///
+/// Maintenance dependencies: version compatibility matrix, coordinated
+/// update sequences, and breaking-change handling.
+@SectionId('PD00-COM-MAI')
+class MaintenanceDependencies {
+  @Unused()
+  String? content;
+
+  /// Contains 0+× Maintenance Dependency.
+  @SectionIdPattern('PD00-COM-MAI-xx')
+  List<MaintenanceDependencyEntry> items = [];
+}
+
+/// A runtime dependency entry (form) [PD00-COM-RUN-nn].
+///
+/// Documents one runtime dependency: startup order, health checks,
+/// failover, data flow, latency tolerance, and caching strategy.
+class RuntimeDependencyEntry {
+  @Form([
+    Field('dependencyId', String, 'Dependency ID',
+        hint: 'Unique identifier, e.g. DEP-R-001'),
+    Field('name', String, 'Dependency Name',
+        hint: 'Component or service depended upon', required: true),
+    Field('version', String, 'Required Version',
+        hint: 'Version or version range required'),
+    Field('versionConstraint', String, 'Version Constraint',
+        hint: 'Pinned / Range / Minimum, e.g. >=3.2 <4.0'),
+    Field('dependencyType', String, 'Dependency Type',
+        hint: 'Runtime / Optional / Peer / Conditional'),
+    Field('criticality', String, 'Criticality',
+        hint:
+            'Critical / High / Medium / Low — impact if unavailable'),
+    Field('purpose', String, 'Purpose',
+        hint: 'Why this dependency exists'),
+    Field('startupOrder', int, 'Startup Order',
+        hint: 'Boot sequence priority (1 = first)'),
+    Field('startupTimeout', String, 'Startup Timeout',
+        hint: 'Max wait time before declaring startup failure'),
+    Field('healthCheckMethod', String, 'Health Check',
+        hint:
+            'How to verify this dependency is healthy — endpoint, ping, query'),
+    Field('healthCheckInterval', String, 'Health Check Interval',
+        hint: 'How often health is verified, e.g. 30s'),
+    Field('failoverBehavior', String, 'Failover Behavior',
+        hint:
+            'GracefulDegradation / CircuitBreaker / Retry / FailFast'),
+    Field('fallbackComponent', String, 'Fallback / Alternative',
+        hint:
+            'What to use if this dependency fails or is unavailable'),
+    Field('dataFlowDirection', String, 'Data Flow',
+        hint:
+            'ReadOnly / WriteOnly / Bidirectional / EventDriven'),
+    Field('networkRequired', String, 'Network Requirement',
+        hint:
+            'Local / LAN / Internet — and impact of network partition'),
+    Field('latencyTolerance', String, 'Latency Tolerance',
+        hint: 'Max acceptable latency to this dependency'),
+    Field('cacheStrategy', String, 'Caching Strategy',
+        hint:
+            'How responses/data from this dependency are cached'),
+    Field('transitiveRisk', String, 'Transitive Dependency Risk',
+        hint:
+            'Key risks from this dependency\'s own dependencies'),
+    Field('compatibilityMatrix', String, 'Compatibility Notes',
+        hint:
+            'Known incompatibilities with other components in our stack'),
+  ])
+  String? content;
+}
+
+/// A maintenance dependency entry (form) [PD00-COM-MAI-nn].
+///
+/// Documents one maintenance dependency: coordinated update sequences,
+/// version compatibility, and breaking-change handling.
+class MaintenanceDependencyEntry {
+  @Form([
+    Field('dependencyId', String, 'Dependency ID',
+        hint: 'Unique identifier, e.g. DEP-M-001'),
+    Field('name', String, 'Dependency Name',
+        hint: 'Component or service with maintenance dependency',
+        required: true),
+    Field('version', String, 'Current Version',
+        hint: 'Version currently in use'),
+    Field('versionConstraint', String, 'Version Constraint',
+        hint: 'Acceptable version range, e.g. >=3.2 <4.0'),
+    Field('dependencyType', String, 'Dependency Type',
+        hint: 'BuildTime / TestOnly / DevOnly / Tooling'),
+    Field('criticality', String, 'Criticality',
+        hint:
+            'Critical / High / Medium / Low — impact if update breaks'),
+    Field('purpose', String, 'Purpose',
+        hint: 'Why this maintenance dependency exists'),
+    Field('updateStrategy', String, 'Update Strategy',
+        hint:
+            'How dependency updates are adopted — auto, manual review, staged'),
+    Field('updateFrequency', String, 'Update Frequency',
+        hint:
+            'How often we update this dependency — weekly, monthly, quarterly'),
+    Field('coordinatedUpdateSequence', String, 'Coordinated Update Sequence',
+        hint:
+            'Order in which related components must be updated together'),
+    Field('breakingChangePolicy', String, 'Breaking Change Policy',
+        hint:
+            'How breaking changes are handled — pin version, adapt, delay'),
+    Field('compatibilityMatrix', String, 'Compatibility Notes',
+        hint:
+            'Known incompatibilities with other components in our stack'),
+    Field('alternative', String, 'Alternative',
+        hint: 'Replacement if this dependency is abandoned or EOL'),
+    Field('transitiveRisk', String, 'Transitive Dependency Risk',
+        hint:
+            'Key risks from this dependency\'s own dependencies'),
+    Field('securityPatchSla', String, 'Security Patch SLA',
+        hint:
+            'How quickly security patches must be applied, e.g. Critical: 24h'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 12.6. Risk Assessment
 // ---------------------------------------------------------------------------
 
 /// 12.6. Risk Assessment [PD00-COM-RIS].
+///
+/// Component risk assessment: identified risks with probability/impact,
+/// monitoring, mitigation strategies, and contingency plans.
 @SectionId('PD00-COM-RIS')
 class ComponentRiskAssessment {
   @Unused()
@@ -192,6 +650,8 @@ class ComponentRiskAssessment {
 }
 
 /// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
+///
+/// Container for contingency plans addressing critical component risks.
 @SectionId('PD00-COM-RIS-CON')
 class ContingencyPlans {
   @Unused()
@@ -203,26 +663,122 @@ class ContingencyPlans {
 }
 
 /// A contingency plan entry (form) [PD00-COM-RIS-CON-nn].
+///
+/// Describes one contingency plan for a component risk: trigger conditions,
+/// immediate/recovery actions, RTO/RPO, communication, testing frequency.
 class ContingencyPlanEntry {
   @Form([
-    Field('component', String, 'Component'),
-    Field('triggerCondition', String, 'Trigger Condition'),
-    Field('action', String, 'Action'),
-    Field('responsibleParty', String, 'Responsible Party'),
+    Field('contingencyId', String, 'Contingency Plan ID',
+        hint: 'Unique identifier, e.g. CP-001'),
+    Field('riskRef', String, 'Associated Risk',
+        hint: 'Risk ID this plan addresses'),
+    Field('componentRef', String, 'Component',
+        hint: 'Component ID this plan covers'),
+    Field('planTitle', String, 'Plan Title',
+        hint: 'Short name for this contingency plan', required: true),
+    Field('triggerCondition', String, 'Trigger Condition',
+        hint:
+            'Specific event or threshold that activates this plan'),
+    Field('triggerDetection', String, 'Trigger Detection',
+        hint:
+            'How the trigger is detected — alert, manual report, monitoring'),
+    Field('immediateActions', String, 'Immediate Actions',
+        hint:
+            'First steps within minutes of trigger (containment)'),
+    Field('recoveryActions', String, 'Recovery Actions',
+        hint: 'Steps to restore full operation'),
+    Field('responsibleParty', String, 'Responsible Party',
+        hint: 'Primary person/team who executes this plan'),
+    Field('supportTeams', String, 'Support Teams',
+        hint: 'Additional teams involved in execution'),
+    Field('targetRecoveryTime', String, 'Target Recovery Time (RTO)',
+        hint: 'Maximum acceptable downtime'),
+    Field('targetRecoveryPoint', String, 'Target Recovery Point (RPO)',
+        hint: 'Maximum acceptable data loss window'),
+    Field('communicationPlan', String, 'Communication Plan',
+        hint: 'Who is notified, how, and in what order'),
+    Field('customerCommunication', String, 'Customer Communication',
+        hint: 'External messaging template or process'),
+    Field('testingFrequency', String, 'Testing Frequency',
+        hint:
+            'How often this plan is tested — quarterly, annually'),
+    Field('lastTestedDate', String, 'Last Tested Date',
+        hint: 'When this plan was last exercised'),
+    Field('lastTestResult', String, 'Last Test Result',
+        hint: 'Pass / Fail and key findings from last test'),
+    Field('dependencies', String, 'Plan Dependencies',
+        hint:
+            'What this plan requires to execute — tools, access, backups'),
+    Field('estimatedCost', String, 'Execution Cost',
+        hint: 'Estimated cost of executing this contingency'),
+    Field('priority', String, 'Priority',
+        hint:
+            'Relative priority if multiple plans compete for resources'),
+    Field('fallbackPlan', String, 'Fallback Plan',
+        hint: 'What to do if this contingency plan itself fails'),
+    Field('documentLocation', String, 'Runbook Location',
+        hint:
+            'Where the detailed step-by-step runbook is stored'),
   ])
   String? content;
 }
 
 /// A component risk entry [PD00-COM-RIS-RIS-nn] (form).
+///
+/// Documents one component risk: category, probability, impact, detection
+/// methods, mitigation strategy and status, residual risk, and ownership.
 class ComponentRiskEntry {
   @Form([
-    Field('riskId', String, 'Risk Id', required: true),
-    Field('component', String, 'Component'),
-    Field('risk', String, 'Risk'),
-    Field('probability', String, 'Probability'),
-    Field('impact', String, 'Impact assessment'),
-    Field('mitigation', String, 'Mitigation strategy'),
-    Field('contingencyTrigger', String, 'Contingency Trigger'),
+    Field('riskId', String, 'Risk ID',
+        hint: 'Unique identifier, e.g. CR-001', required: true),
+    Field('componentRef', String, 'Component',
+        hint: 'Component ID this risk applies to'),
+    Field('riskTitle', String, 'Risk Title',
+        hint: 'Short descriptive name'),
+    Field('riskDescription', String, 'Risk Description',
+        hint: 'Detailed explanation of the risk scenario'),
+    Field('riskCategory', String, 'Risk Category',
+        hint:
+            'Technical / Vendor / Security / Compliance / Operational / Financial'),
+    Field('probability', String, 'Probability',
+        hint: 'VeryLow / Low / Medium / High / VeryHigh'),
+    Field('impact', String, 'Business Impact',
+        hint: 'Negligible / Minor / Moderate / Major / Critical'),
+    Field('riskScore', int, 'Risk Score',
+        hint: 'Calculated score (probability × impact)'),
+    Field('riskTrend', String, 'Risk Trend',
+        hint:
+            'Increasing / Stable / Decreasing — direction since last review'),
+    Field('detectionMethod', String, 'Detection Method',
+        hint: 'How we would know this risk is materializing'),
+    Field('earlyWarningIndicators', String, 'Early Warning Indicators',
+        hint:
+            'Metrics or signals that precede this risk event'),
+    Field('monitoringMechanism', String, 'Monitoring',
+        hint:
+            'Dashboards, alerts, or scans that track this risk'),
+    Field('mitigationStrategy', String, 'Mitigation Strategy',
+        hint: 'Actions to reduce probability or impact'),
+    Field('mitigationStatus', String, 'Mitigation Status',
+        hint:
+            'NotStarted / InProgress / Implemented / Verified'),
+    Field('mitigationCost', String, 'Mitigation Cost',
+        hint: 'Budget required to implement mitigation'),
+    Field('residualRisk', String, 'Residual Risk Level',
+        hint:
+            'Risk level remaining after mitigation — Low / Medium / High'),
+    Field('riskOwner', String, 'Risk Owner',
+        hint: 'Person accountable for managing this risk'),
+    Field('reviewFrequency', String, 'Review Frequency',
+        hint: 'How often this risk is reassessed'),
+    Field('contingencyTrigger', String, 'Contingency Trigger',
+        hint:
+            'Condition activating the contingency plan, e.g. No release for 12 months'),
+    Field('relatedRisks', String, 'Related Risks',
+        hint: 'Other risk IDs that correlate or cascade'),
+    Field('acceptanceCriteria', String, 'Risk Acceptance Criteria',
+        hint:
+            'Under what conditions is this risk formally accepted'),
   ])
   String? content;
 }
