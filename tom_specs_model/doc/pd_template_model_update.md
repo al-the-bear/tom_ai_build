@@ -181,16 +181,16 @@ These sections exist in `tom_specs_model` but are missing from `pd_template.md`:
 | PD00-SYO-RES-CON-DEP | Dependencies | Review | ✅ Done |
 | PD00-SYO-SYR-MIG-RIS | Migration Risks | Review | ✅ Done |
 | PD00-SYQ | System Qualities | Review | ✅ Done |
-| PD00-SYQ-ACC | Accessibility | Review | ⬜ Not Started |
-| PD00-SYQ-ACC-GAT | Accessibility Gates | Review | ⬜ Not Started |
-| PD00-SYQ-ACC-MUS | Accessibility Musts | Review | ⬜ Not Started |
-| PD00-SYQ-DOC | Documentation | Review | ⬜ Not Started |
-| PD00-SYQ-FRA | Framework | Review | ⬜ Not Started |
-| PD00-SYQ-OPE | Operations | Review | ⬜ Not Started |
-| PD00-SYQ-PRI | Priority | Review | ⬜ Not Started |
-| PD00-SYQ-PRI-TRA | Training Priority | Review | ⬜ Not Started |
-| PD00-SYQ-TEC | Technical | Review | ⬜ Not Started |
-| PD00-SYQ-USE | Usability | Review | ⬜ Not Started |
+| PD00-SYQ-ACC | Acceptance Criteria | Review | ✅ Done |
+| PD00-SYQ-ACC-GAT | Quality Gate Checklist | Review | ✅ Done |
+| PD00-SYQ-ACC-MUS | Must-Pass Criteria | Review | ✅ Done |
+| PD00-SYQ-DOC | Documentation Quality | Review | ✅ Done |
+| PD00-SYQ-FRA | Quality Framework | Review | ✅ Done |
+| PD00-SYQ-OPE | Operations Quality | Review | ✅ Done |
+| PD00-SYQ-PRI | Quality Prioritization | Review | ✅ Done |
+| PD00-SYQ-PRI-TRA | Trade-off Decisions | Review | ✅ Done |
+| PD00-SYQ-TEC | Technical Quality | Review | ✅ Done |
+| PD00-SYQ-USE | User Quality | Review | ✅ Done |
 | PD00-TAR-CAT-ACT-PRI | Action Priority | Review | ⬜ Not Started |
 | PD00-TAR-CAT-DES | Catalog Description | Review | ⬜ Not Started |
 | PD00-TAR-CAT-STP | Catalog Steps | Review | ⬜ Not Started |
@@ -198,11 +198,18 @@ These sections exist in `tom_specs_model` but are missing from `pd_template.md`:
 | PD00-TAR-REL | Relationships | Review | ⬜ Not Started |
 | PD00-TEC-SYS-MON | Monitoring | Review | ⬜ Not Started |
 | PD00-TEC-SYS-OPE | Operations | Review | ⬜ Not Started |
-| PD00-USE-ACC | Accessibility | Review | ⬜ Not Started |
-| PD00-USE-ACC-CHK | Accessibility Checks | Review | ⬜ Not Started |
+| PD00-USE-ACC | Accessibility | Review | ✅ Done |
+| PD00-USE-ACC-CHK | Accessibility Checks | Review | ✅ Done |
+| PD00-USE-ACC-WCA | WCAG Compliance | Review | ✅ Done |
 | PD00-USE-COM | Components | Review | ⬜ Not Started |
-| PD00-USE-ERR | Error Handling | Review | ⬜ Not Started |
-| PD00-USE-HLP | Help | Review | ⬜ Not Started |
+| PD00-USE-ERR | Error Handling | Review | ✅ Done |
+| PD00-USE-ERR-VAL | Validation Feedback | Review | ✅ Done |
+| PD00-USE-ERR-SYS | System Error Display | Review | ✅ Done |
+| PD00-USE-ERR-REC | Error Recovery | Review | ✅ Done |
+| PD00-USE-HLP | Help | Review | ✅ Done |
+| PD00-USE-HLP-CON | Contextual Help | Review | ✅ Done |
+| PD00-USE-HLP-ONB | Onboarding | Review | ✅ Done |
+| PD00-USE-HLP-SUP | Support Access | Review | ✅ Done |
 | PD00-USE-MUL | Multi-tenancy | Review | ⬜ Not Started |
 | PD00-USE-MUL-LAN | Multi-language | Review | ⬜ Not Started |
 | PD00-USE-MUL-ROL | Multi-role | Review | ⬜ Not Started |

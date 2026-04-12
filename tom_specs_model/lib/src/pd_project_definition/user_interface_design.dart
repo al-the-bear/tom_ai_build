@@ -2236,19 +2236,375 @@ class ExportTemplateEntry {
 // ---------------------------------------------------------------------------
 
 /// 10.7. Error Handling Concept [PD00-USE-ERR].
+///
+/// Comprehensive error handling user experience framework covering validation
+/// feedback, system error presentation, and error recovery flows. Follows
+/// UX best practices for error prevention, detection, and graceful recovery.
 @SectionId('PD00-USE-ERR')
 class ErrorHandlingConcept {
-  @Unused()
+  // ─────────────────────────────────────────────────────────────────────────
+  // Error Handling Philosophy
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    // Philosophy and approach
+    Field('errorPhilosophy', String, 'Error Handling Philosophy',
+        hint: 'Prevention-first, graceful degradation, user empowerment'),
+    Field('errorToneOfVoice', String, 'Error Tone of Voice',
+        hint: 'Friendly, professional, apologetic, neutral'),
+    Field('errorLanguageStyle', String, 'Error Language Style',
+        hint: 'Plain language, technical, user-focused'),
+    Field('blameAvoidance', String, 'Blame Avoidance Approach',
+        hint: 'Never blame user, focus on solutions'),
+    // Error categorization
+    Field('errorCategories', String, 'Error Categories',
+        hint: 'Validation, network, server, permission, data'),
+    Field('errorSeverityLevels', String, 'Severity Levels',
+        hint: 'Critical, warning, info, success'),
+    Field('errorPriorityDisplay', String, 'Priority Display Order',
+        hint: 'Most severe first, chronological, by field'),
+    // Accessibility
+    Field('errorAccessibility', String, 'Error Accessibility',
+        hint: 'Screen reader announcements, ARIA live regions'),
+    Field('colorContrastCompliance', String, 'Color Contrast Compliance',
+        hint: 'WCAG AA, AAA for error states'),
+    Field('nonColorIndicators', String, 'Non-Color Indicators',
+        hint: 'Icons, text, patterns for colorblind users'),
+    // Localization
+    Field('errorLocalization', String, 'Error Localization',
+        hint: 'All messages localized, fallback language'),
+    Field('dynamicContentHandling', String, 'Dynamic Content Handling',
+        hint: 'How dynamic values are inserted into messages'),
+    // Logging and analytics
+    Field('errorTrackingApproach', String, 'Error Tracking Approach',
+        hint: 'Analytics for user errors, trend analysis'),
+    Field('userFrustrationDetection', String, 'User Frustration Detection',
+        hint: 'Rage click detection, repeated errors'),
+  ])
+  String? errorPhilosophyContent;
+
+  /// Error handling overview and strategy.
+  @ContentHelp('Executive summary of error handling approach, '
+      'key principles, and user experience goals.')
+  TextSection errorHandlingOverview = TextSection();
+
+  /// 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
+  @SectionId('PD00-USE-ERR-VAL')
+  ValidationFeedback validationFeedback = ValidationFeedback();
+
+  /// 10.7.2. System Error Display [PD00-USE-ERR-SYS].
+  @SectionId('PD00-USE-ERR-SYS')
+  SystemErrorDisplay systemErrorDisplay = SystemErrorDisplay();
+
+  /// 10.7.3. Error Recovery [PD00-USE-ERR-REC].
+  @SectionId('PD00-USE-ERR-REC')
+  ErrorRecovery errorRecovery = ErrorRecovery();
+
+  /// Error message catalog.
+  @ContentHelp('Centralized catalog of error message templates '
+      'with consistent formatting and tone.')
+  TextSection errorMessageCatalog = TextSection();
+
+  /// Error state visual design.
+  @ContentHelp('Visual design specifications for error states '
+      'including colors, icons, animations.')
+  TextSection errorVisualDesign = TextSection();
+}
+
+/// 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
+///
+/// Field validation error display and feedback mechanisms.
+class ValidationFeedback {
+  // ─────────────────────────────────────────────────────────────────────────
+  // Validation Display
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    // Timing
+    Field('validationTiming', String, 'Validation Timing',
+        hint: 'Real-time, on-blur, on-submit, debounced'),
+    Field('debounceDelay', String, 'Debounce Delay',
+        hint: 'Milliseconds before validation triggers'),
+    Field('validationSequence', String, 'Validation Sequence',
+        hint: 'Field-by-field, all-at-once, progressive'),
+    // Display location
+    Field('errorMessagePlacement', String, 'Error Message Placement',
+        hint: 'Inline below field, above field, tooltip, summary'),
+    Field('summaryPosition', String, 'Error Summary Position',
+        hint: 'Top of form, bottom of form, modal'),
+    Field('fieldHighlighting', String, 'Field Highlighting',
+        hint: 'Border color, background color, icon'),
+    Field('fieldErrorIcon', String, 'Field Error Icon',
+        hint: 'Icon displayed on invalid fields'),
+    Field('fieldErrorIconPosition', String, 'Icon Position',
+        hint: 'Leading, trailing, inside field, outside'),
+    // Message format
+    Field('messageFormat', String, 'Message Format',
+        hint: 'Text only, icon + text, structured'),
+    Field('maxMessageLength', String, 'Max Message Length',
+        hint: 'Character limit for inline messages'),
+    Field('multipleErrorsDisplay', String, 'Multiple Errors Display',
+        hint: 'First only, all, expandable list'),
+    Field('errorPersistence', String, 'Error Persistence',
+        hint: 'Until fixed, until field accessed, timed'),
+    // Helpful guidance
+    Field('showRequirements', bool, 'Show Requirements',
+        hint: 'Display field requirements before error'),
+    Field('showSuggestions', bool, 'Show Suggestions',
+        hint: 'Suggest corrections for common errors'),
+    Field('showExamples', bool, 'Show Examples',
+        hint: 'Show example valid input'),
+    // Animation
+    Field('errorAnimation', String, 'Error Animation',
+        hint: 'Shake, fade-in, bounce, none'),
+    Field('clearAnimation', String, 'Clear Animation',
+        hint: 'Animation when error is resolved'),
+    Field('scrollToError', bool, 'Scroll to Error',
+        hint: 'Auto-scroll to first error on submit'),
+    Field('focusOnError', bool, 'Focus on Error',
+        hint: 'Move focus to first invalid field'),
+  ])
+  String? validationDisplayContent;
+
+  /// Validation feedback narrative.
+  @ContentHelp('Detailed specification of validation feedback behavior '
+      'and user experience considerations.')
+  TextSection validationNarrative = TextSection();
+
+  /// Validation message templates.
+  @SectionIdPattern('PD00-USE-ERR-VAL-MSG-xx')
+  List<ValidationMessageTemplate> messageTemplates = [];
+
+  /// Field validation rules by type.
+  @ContentHelp('Validation rules organized by field type: '
+      'text, email, phone, date, number, etc.')
+  TextSection fieldValidationRules = TextSection();
+}
+
+/// A validation message template [PD00-USE-ERR-VAL-MSG-nn].
+class ValidationMessageTemplate {
+  @Form([
+    Field('messageId', String, 'Message ID', required: true,
+        hint: 'Unique identifier (e.g., VAL-REQ-001)'),
+    Field('validationType', String, 'Validation Type', required: true,
+        hint: 'Required, format, range, length, custom'),
+    Field('fieldTypes', String, 'Applicable Field Types',
+        hint: 'Text, email, number, date, select'),
+    Field('messageTemplate', String, 'Message Template', required: true,
+        hint: 'Template with {field}, {value} placeholders'),
+    Field('shortMessage', String, 'Short Message',
+        hint: 'Brief version for space-constrained contexts'),
+    Field('helpText', String, 'Help Text',
+        hint: 'Extended guidance for complex errors'),
+    Field('exampleCorrection', String, 'Example Correction',
+        hint: 'Example of valid input'),
+    Field('severity', String, 'Severity',
+        hint: 'Error, warning, info'),
+    Field('iconCode', String, 'Icon Code',
+        hint: 'Icon to display with message'),
+    Field('localizationKey', String, 'Localization Key',
+        hint: 'i18n key for translation'),
+  ])
+  String? content;
+}
+
+/// 10.7.2. System Error Display [PD00-USE-ERR-SYS].
+///
+/// System error presentation including server errors, network issues,
+/// and timeouts.
+class SystemErrorDisplay {
+  // ─────────────────────────────────────────────────────────────────────────
+  // System Error Handling
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    // Error types
+    Field('networkErrorHandling', String, 'Network Error Handling',
+        hint: 'How connectivity issues are displayed'),
+    Field('serverErrorHandling', String, 'Server Error Handling',
+        hint: 'How 5xx errors are presented'),
+    Field('timeoutHandling', String, 'Timeout Handling',
+        hint: 'How request timeouts are displayed'),
+    Field('authenticationErrorHandling', String, 'Authentication Error',
+        hint: 'Session expired, unauthorized'),
+    Field('permissionErrorHandling', String, 'Permission Error',
+        hint: 'Forbidden access display'),
+    Field('maintenanceModeHandling', String, 'Maintenance Mode',
+        hint: 'Scheduled downtime display'),
+    // Display method
+    Field('systemErrorDisplayMethod', String, 'Display Method',
+        hint: 'Modal, snackbar, banner, full-page'),
+    Field('errorModalStyle', String, 'Error Modal Style',
+        hint: 'Dialog design for error modals'),
+    Field('snackbarPosition', String, 'Snackbar Position',
+        hint: 'Bottom, top, bottom-left, top-right'),
+    Field('snackbarDuration', String, 'Snackbar Duration',
+        hint: 'Auto-dismiss time or persistent'),
+    Field('bannerPosition', String, 'Banner Position',
+        hint: 'Top of page, top of content'),
+    Field('fullPageErrorTemplate', String, 'Full Page Error Template',
+        hint: 'Design for full-page errors (500, 503)'),
+    // Content
+    Field('showTechnicalDetails', bool, 'Show Technical Details',
+        hint: 'Display error codes, request IDs'),
+    Field('showRetryOption', bool, 'Show Retry Option'),
+    Field('showContactSupport', bool, 'Show Contact Support'),
+    Field('showStatusPageLink', bool, 'Show Status Page Link'),
+    Field('offlineModeMessage', String, 'Offline Mode Message',
+        hint: 'Message when app detects offline state'),
+    // Fallback behavior
+    Field('gracefulDegradation', String, 'Graceful Degradation',
+        hint: 'How features degrade on partial failure'),
+    Field('cachedDataFallback', String, 'Cached Data Fallback',
+        hint: 'Show stale data with indicator'),
+    Field('retryStrategy', String, 'Retry Strategy',
+        hint: 'Automatic retry with backoff'),
+    Field('maxRetryAttempts', int, 'Max Retry Attempts'),
+    Field('retryDelaySeconds', int, 'Retry Delay (seconds)'),
+  ])
+  String? systemErrorContent;
+
+  /// System error display narrative.
+  @ContentHelp('Detailed specification of system error presentation '
+      'and user communication approach.')
+  TextSection systemErrorNarrative = TextSection();
+
+  /// Error page designs.
+  @ContentHelp('Specifications for full-page error designs: '
+      '404, 500, 503, maintenance mode.')
+  TextSection errorPageDesigns = TextSection();
+
+  /// Error codes catalog.
+  @SectionIdPattern('PD00-USE-ERR-SYS-CODE-xx')
+  List<SystemErrorCodeEntry> errorCodes = [];
+}
+
+/// A system error code entry [PD00-USE-ERR-SYS-CODE-nn].
+class SystemErrorCodeEntry {
+  @Form([
+    Field('errorCode', String, 'Error Code', required: true,
+        hint: 'System error code (e.g., ERR-NET-001)'),
+    Field('httpStatus', int, 'HTTP Status',
+        hint: 'Associated HTTP status code'),
+    Field('errorCategory', String, 'Error Category',
+        hint: 'Network, server, authentication, data'),
+    Field('userMessage', String, 'User Message', required: true,
+        hint: 'User-friendly error message'),
+    Field('technicalDescription', String, 'Technical Description',
+        hint: 'Developer-facing description'),
+    Field('suggestedAction', String, 'Suggested Action',
+        hint: 'What user should do'),
+    Field('retryable', bool, 'Retryable',
+        hint: 'Whether retry is likely to help'),
+    Field('autoRetry', bool, 'Auto Retry',
+        hint: 'System automatically retries'),
+    Field('displayMethod', String, 'Display Method',
+        hint: 'How this error is displayed'),
+    Field('notifySupport', bool, 'Notify Support',
+        hint: 'Auto-notify support team'),
+    Field('logLevel', String, 'Log Level',
+        hint: 'Error, warning, info'),
+  ])
+  String? content;
+}
+
+/// 10.7.3. Error Recovery [PD00-USE-ERR-REC].
+///
+/// Error recovery flows including data preservation, retry mechanisms,
+/// and guided recovery steps.
+class ErrorRecovery {
+  // ─────────────────────────────────────────────────────────────────────────
+  // Recovery Mechanisms
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    // Data preservation
+    Field('formDataPreservation', String, 'Form Data Preservation',
+        hint: 'How unsaved form data is preserved on error'),
+    Field('draftAutoSave', bool, 'Draft Auto-Save',
+        hint: 'Automatic draft saving before submission'),
+    Field('draftSaveInterval', String, 'Draft Save Interval',
+        hint: 'How often drafts are auto-saved'),
+    Field('draftStorageMethod', String, 'Draft Storage Method',
+        hint: 'LocalStorage, IndexedDB, server-side'),
+    Field('draftRetentionPeriod', String, 'Draft Retention Period',
+        hint: 'How long drafts are kept'),
+    Field('draftRecoveryPrompt', String, 'Draft Recovery Prompt',
+        hint: 'How users are notified of recoverable drafts'),
+    // Retry mechanisms
+    Field('automaticRetryEnabled', bool, 'Automatic Retry Enabled'),
+    Field('retryBackoffStrategy', String, 'Retry Backoff Strategy',
+        hint: 'Exponential, linear, fixed'),
+    Field('maxAutomaticRetries', int, 'Max Automatic Retries'),
+    Field('manualRetryButton', bool, 'Manual Retry Button'),
+    Field('retryButtonLabel', String, 'Retry Button Label',
+        hint: 'Button text (e.g., "Try Again")'),
+    Field('retryFeedback', String, 'Retry Feedback',
+        hint: 'How retry attempts are indicated'),
+    // Guided recovery
+    Field('stepByStepRecovery', bool, 'Step-by-Step Recovery',
+        hint: 'Guided recovery wizard'),
+    Field('alternativeActions', String, 'Alternative Actions',
+        hint: 'What else user can do'),
+    Field('skipOption', bool, 'Skip Option',
+        hint: 'Allow skipping failed operation'),
+    Field('cancelOption', bool, 'Cancel Option',
+        hint: 'Allow canceling and returning'),
+    // Support contact
+    Field('supportContactMethod', String, 'Support Contact Method',
+        hint: 'Chat, email, phone, ticket'),
+    Field('supportAvailability', String, 'Support Availability',
+        hint: 'When support is available'),
+    Field('errorReportSubmission', bool, 'Error Report Submission',
+        hint: 'Allow user to submit error report'),
+    Field('includeDebugInfo', bool, 'Include Debug Info',
+        hint: 'Include technical details in report'),
+    // Session handling
+    Field('sessionRecovery', String, 'Session Recovery',
+        hint: 'How expired sessions are handled'),
+    Field('reauthenticationFlow', String, 'Reauthentication Flow',
+        hint: 'Inline login, redirect, modal'),
+    Field('preserveContextOnReauth', bool, 'Preserve Context on Reauth',
+        hint: 'Return to original location after reauth'),
+  ])
+  String? recoveryMechanismsContent;
+
+  /// Error recovery narrative.
+  @ContentHelp('Detailed specification of error recovery flows '
+      'and user empowerment strategies.')
+  TextSection recoveryNarrative = TextSection();
+
+  /// Recovery flow diagrams.
+  @ContentHelp('Flow diagrams showing error recovery paths.')
+  FlowDiagramSection recoveryFlows = FlowDiagramSection();
+
+  /// Common recovery scenarios.
+  @SectionIdPattern('PD00-USE-ERR-REC-SCE-xx')
+  List<RecoveryScenarioEntry> recoveryScenarios = [];
+}
+
+/// A recovery scenario entry [PD00-USE-ERR-REC-SCE-nn].
+class RecoveryScenarioEntry {
+  @Form([
+    Field('scenarioId', String, 'Scenario ID', required: true),
+    Field('scenarioName', String, 'Scenario Name', required: true,
+        hint: 'Descriptive name'),
+    Field('triggerCondition', String, 'Trigger Condition',
+        hint: 'What error triggers this scenario'),
+    Field('userImpact', String, 'User Impact',
+        hint: 'How user is affected'),
+    Field('recoverySteps', String, 'Recovery Steps',
+        hint: 'Step-by-step recovery process'),
+    Field('dataAtRisk', String, 'Data at Risk',
+        hint: 'What data might be lost'),
+    Field('preventionMeasures', String, 'Prevention Measures',
+        hint: 'How scenario can be prevented'),
+    Field('timeToRecover', String, 'Time to Recover',
+        hint: 'Expected recovery duration'),
+    Field('supportEscalation', String, 'Support Escalation',
+        hint: 'When to escalate to support'),
+  ])
   String? content;
 
-  /// Validation Feedback.
-  TextSection validationFeedback = TextSection();
-
-  /// System Error Display.
-  TextSection systemErrorDisplay = TextSection();
-
-  /// Error Recovery.
-  TextSection errorRecovery = TextSection();
+  /// Detailed recovery flow.
+  @ContentHelp('Detailed recovery flow for this scenario.')
+  TextSection detailedFlow = TextSection();
 }
 
 // ---------------------------------------------------------------------------
@@ -2256,19 +2612,281 @@ class ErrorHandlingConcept {
 // ---------------------------------------------------------------------------
 
 /// 10.8. Help Concept [PD00-USE-HLP].
+///
+/// Comprehensive in-app help system including contextual help, onboarding,
+/// and support access mechanisms.
 @SectionId('PD00-USE-HLP')
 class HelpConcept {
-  @Unused()
+  // ─────────────────────────────────────────────────────────────────────────
+  // Help System Overview
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    // Help philosophy
+    Field('helpPhilosophy', String, 'Help Philosophy',
+        hint: 'Self-service first, guided, on-demand'),
+    Field('helpAccessibility', String, 'Help Accessibility',
+        hint: 'Always visible, contextual, searchable'),
+    Field('helpPersonalization', String, 'Help Personalization',
+        hint: 'Role-based, skill-based, contextual'),
+    // Help content
+    Field('helpContentStrategy', String, 'Help Content Strategy',
+        hint: 'Video, text, interactive, mixed'),
+    Field('helpContentOwnership', String, 'Help Content Ownership',
+        hint: 'Who maintains help content'),
+    Field('helpUpdateProcess', String, 'Help Update Process',
+        hint: 'How help content is kept current'),
+    // Help indicators
+    Field('helpIconStandard', String, 'Help Icon Standard',
+        hint: 'Question mark, info icon, custom'),
+    Field('helpIconPlacement', String, 'Help Icon Placement',
+        hint: 'By field labels, in headers, floating'),
+    Field('helpTooltipStyle', String, 'Help Tooltip Style',
+        hint: 'Tooltip design and behavior'),
+    // Analytics
+    Field('helpAnalytics', String, 'Help Analytics',
+        hint: 'Track help usage, identify gaps'),
+    Field('helpFeedback', String, 'Help Feedback',
+        hint: 'Rate help articles, suggest improvements'),
+  ])
+  String? helpOverviewContent;
+
+  /// Help system overview narrative.
+  @ContentHelp('Executive summary of help system approach, '
+      'content strategy, and user empowerment goals.')
+  TextSection helpOverview = TextSection();
+
+  /// 10.8.1. Contextual Help [PD00-USE-HLP-CON].
+  @SectionId('PD00-USE-HLP-CON')
+  ContextualHelp contextualHelp = ContextualHelp();
+
+  /// 10.8.2. Onboarding [PD00-USE-HLP-ONB].
+  @SectionId('PD00-USE-HLP-ONB')
+  OnboardingHelp onboarding = OnboardingHelp();
+
+  /// 10.8.3. Support Access [PD00-USE-HLP-SUP].
+  @SectionId('PD00-USE-HLP-SUP')
+  SupportAccess supportAccess = SupportAccess();
+
+  /// Help content inventory.
+  @ContentHelp('Inventory of all help content by feature area.')
+  TextSection helpContentInventory = TextSection();
+}
+
+/// 10.8.1. Contextual Help [PD00-USE-HLP-CON].
+class ContextualHelp {
+  @Form([
+    // Tooltips
+    Field('tooltipTrigger', String, 'Tooltip Trigger',
+        hint: 'Hover, click, focus, icon click'),
+    Field('tooltipDelay', String, 'Tooltip Delay',
+        hint: 'Milliseconds before showing'),
+    Field('tooltipDuration', String, 'Tooltip Duration',
+        hint: 'How long tooltip stays visible'),
+    Field('tooltipMaxWidth', String, 'Tooltip Max Width',
+        hint: 'Maximum width in pixels'),
+    Field('tooltipPosition', String, 'Tooltip Position',
+        hint: 'Above, below, auto-position'),
+    // Inline help
+    Field('inlineHelpPlacement', String, 'Inline Help Placement',
+        hint: 'Below labels, below fields, expandable'),
+    Field('inlineHelpVisibility', String, 'Inline Help Visibility',
+        hint: 'Always visible, on demand, progressive'),
+    Field('inlineHelpLength', String, 'Inline Help Length',
+        hint: 'Max characters for inline help'),
+    // Help panels
+    Field('helpPanelAvailable', bool, 'Help Panel Available',
+        hint: 'Slide-out help panel'),
+    Field('helpPanelPosition', String, 'Help Panel Position',
+        hint: 'Right side, bottom, overlay'),
+    Field('helpPanelContent', String, 'Help Panel Content',
+        hint: 'Field help, page help, related articles'),
+    // What's this help
+    Field('whatsThisMode', bool, 'What\'s This Mode',
+        hint: 'Click-anywhere help mode'),
+    Field('whatsThisActivation', String, 'What\'s This Activation',
+        hint: 'Keyboard shortcut, toolbar button'),
+    // Rich help
+    Field('helpScreenshots', bool, 'Help Screenshots',
+        hint: 'Include screenshots in help'),
+    Field('helpVideos', bool, 'Help Videos',
+        hint: 'Include video tutorials'),
+    Field('helpAnimations', bool, 'Help Animations',
+        hint: 'Animated demonstrations'),
+  ])
+  String? contextualHelpContent;
+
+  /// Contextual help narrative.
+  TextSection contextualHelpNarrative = TextSection();
+
+  /// Field help catalog.
+  @SectionIdPattern('PD00-USE-HLP-CON-FLD-xx')
+  List<FieldHelpEntry> fieldHelpCatalog = [];
+}
+
+/// A field help entry [PD00-USE-HLP-CON-FLD-nn].
+class FieldHelpEntry {
+  @Form([
+    Field('fieldId', String, 'Field ID', required: true),
+    Field('fieldLabel', String, 'Field Label', required: true),
+    Field('tooltipText', String, 'Tooltip Text',
+        hint: 'Brief tooltip content'),
+    Field('inlineHelpText', String, 'Inline Help Text',
+        hint: 'Longer inline help'),
+    Field('extendedHelp', String, 'Extended Help',
+        hint: 'Full help panel content'),
+    Field('relatedArticles', String, 'Related Articles',
+        hint: 'Links to related help articles'),
+    Field('exampleValues', String, 'Example Values',
+        hint: 'Examples of valid input'),
+    Field('commonMistakes', String, 'Common Mistakes',
+        hint: 'Frequently made errors'),
+  ])
+  String? content;
+}
+
+/// 10.8.2. Onboarding Help [PD00-USE-HLP-ONB].
+class OnboardingHelp {
+  @Form([
+    // Welcome experience
+    Field('welcomeFlowEnabled', bool, 'Welcome Flow Enabled'),
+    Field('welcomeFlowStyle', String, 'Welcome Flow Style',
+        hint: 'Modal wizard, full-page, inline'),
+    Field('welcomeFlowSkippable', bool, 'Welcome Flow Skippable'),
+    Field('welcomeFlowDuration', String, 'Welcome Flow Duration',
+        hint: 'Expected completion time'),
+    // Feature tours
+    Field('featureToursEnabled', bool, 'Feature Tours Enabled'),
+    Field('featureTourStyle', String, 'Feature Tour Style',
+        hint: 'Spotlight, coach marks, carousel'),
+    Field('featureTourTrigger', String, 'Feature Tour Trigger',
+        hint: 'First visit, after action, manual'),
+    Field('featureTourProgress', bool, 'Feature Tour Progress',
+        hint: 'Show progress indicator'),
+    // Sample data
+    Field('sampleDataAvailable', bool, 'Sample Data Available'),
+    Field('sampleDataScope', String, 'Sample Data Scope',
+        hint: 'What sample data is provided'),
+    Field('sampleDataClear', String, 'Sample Data Clear',
+        hint: 'How users remove sample data'),
+    // Getting started
+    Field('gettingStartedChecklist', bool, 'Getting Started Checklist'),
+    Field('checklistItems', String, 'Checklist Items',
+        hint: 'Setup tasks to complete'),
+    Field('checklistProgress', String, 'Checklist Progress',
+        hint: 'How progress is shown'),
+    Field('checklistRewards', String, 'Checklist Rewards',
+        hint: 'Gamification elements'),
+    // Progressive disclosure
+    Field('progressiveDisclosure', String, 'Progressive Disclosure',
+        hint: 'How features are revealed over time'),
+    Field('skillLevelAdaptation', String, 'Skill Level Adaptation',
+        hint: 'Adapt to user skill level'),
+    // Re-engagement
+    Field('returnUserWelcome', String, 'Return User Welcome',
+        hint: 'Message for returning users'),
+    Field('whatsNewFeature', bool, 'What\'s New Feature',
+        hint: 'Show new features to returning users'),
+  ])
+  String? onboardingContent;
+
+  /// Onboarding narrative.
+  TextSection onboardingNarrative = TextSection();
+
+  /// Feature tour definitions.
+  @SectionIdPattern('PD00-USE-HLP-ONB-TOUR-xx')
+  List<FeatureTourEntry> featureTours = [];
+}
+
+/// A feature tour entry [PD00-USE-HLP-ONB-TOUR-nn].
+class FeatureTourEntry {
+  @Form([
+    Field('tourId', String, 'Tour ID', required: true),
+    Field('tourName', String, 'Tour Name', required: true),
+    Field('tourDescription', String, 'Tour Description'),
+    Field('targetAudience', String, 'Target Audience',
+        hint: 'New users, specific role, all'),
+    Field('triggerCondition', String, 'Trigger Condition',
+        hint: 'When tour is shown'),
+    Field('stepCount', int, 'Step Count'),
+    Field('estimatedDuration', String, 'Estimated Duration'),
+    Field('skippable', bool, 'Skippable'),
+    Field('repeatPolicy', String, 'Repeat Policy',
+        hint: 'Once only, on request, periodic'),
+  ])
   String? content;
 
-  /// Contextual Help.
-  TextSection contextualHelp = TextSection();
+  /// Tour steps.
+  @SectionIdPattern('PD00-USE-HLP-ONB-TOUR-xx-STEP-yy')
+  List<TourStepEntry> steps = [];
+}
 
-  /// Onboarding.
-  TextSection onboarding = TextSection();
+/// A tour step entry.
+class TourStepEntry {
+  @Form([
+    Field('stepOrder', int, 'Step Order', required: true),
+    Field('targetElement', String, 'Target Element',
+        hint: 'Element to highlight'),
+    Field('stepTitle', String, 'Step Title'),
+    Field('stepContent', String, 'Step Content', required: true),
+    Field('placement', String, 'Placement',
+        hint: 'Position of coach mark'),
+    Field('actionRequired', String, 'Action Required',
+        hint: 'User action to proceed'),
+    Field('spotlightShape', String, 'Spotlight Shape',
+        hint: 'Circle, rectangle, custom'),
+  ])
+  String? content;
+}
 
-  /// Support Access.
-  TextSection supportAccess = TextSection();
+/// 10.8.3. Support Access [PD00-USE-HLP-SUP].
+class SupportAccess {
+  @Form([
+    // Help center
+    Field('helpCenterAvailable', bool, 'Help Center Available'),
+    Field('helpCenterLocation', String, 'Help Center Location',
+        hint: 'In-app, external, hybrid'),
+    Field('helpCenterSearch', bool, 'Help Center Search',
+        hint: 'Searchable knowledge base'),
+    Field('helpArticleCategories', String, 'Article Categories',
+        hint: 'How help is organized'),
+    // Live support
+    Field('liveChatAvailable', bool, 'Live Chat Available'),
+    Field('liveChatHours', String, 'Live Chat Hours',
+        hint: 'Availability hours'),
+    Field('chatbotFirstLine', bool, 'Chatbot First Line',
+        hint: 'Chatbot before human'),
+    Field('chatbotCapabilities', String, 'Chatbot Capabilities',
+        hint: 'What chatbot can handle'),
+    // Ticket submission
+    Field('ticketSubmission', bool, 'Ticket Submission'),
+    Field('ticketFormFields', String, 'Ticket Form Fields',
+        hint: 'Required ticket information'),
+    Field('ticketAttachments', bool, 'Ticket Attachments',
+        hint: 'Allow file attachments'),
+    Field('ticketResponseSla', String, 'Ticket Response SLA',
+        hint: 'Expected response time'),
+    // Contact methods
+    Field('emailSupport', bool, 'Email Support'),
+    Field('phoneSupport', bool, 'Phone Support'),
+    Field('phoneNumber', String, 'Phone Number'),
+    Field('communityForum', bool, 'Community Forum'),
+    // Self-service
+    Field('faqSection', bool, 'FAQ Section'),
+    Field('troubleshootingGuides', bool, 'Troubleshooting Guides'),
+    Field('videoTutorials', bool, 'Video Tutorials'),
+    Field('releaseNotes', bool, 'Release Notes'),
+    // Feedback
+    Field('feedbackButton', bool, 'Feedback Button',
+        hint: 'Always-visible feedback option'),
+    Field('featureRequests', bool, 'Feature Requests',
+        hint: 'Submit feature requests'),
+    Field('bugReporting', bool, 'Bug Reporting',
+        hint: 'Report bugs from app'),
+  ])
+  String? supportAccessContent;
+
+  /// Support access narrative.
+  TextSection supportAccessNarrative = TextSection();
 }
 
 // ---------------------------------------------------------------------------
@@ -2276,23 +2894,169 @@ class HelpConcept {
 // ---------------------------------------------------------------------------
 
 /// 10.9. Accessibility [PD00-USE-ACC].
+///
+/// Comprehensive accessibility requirements for the user interface following
+/// WCAG guidelines and inclusive design principles.
 @SectionId('PD00-USE-ACC')
 class Accessibility {
-  @Unused()
-  String? content;
+  // ─────────────────────────────────────────────────────────────────────────
+  // Accessibility Overview
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    // Compliance targets
+    Field('wcagComplianceTarget', String, 'WCAG Compliance Target',
+        hint: 'A, AA, AAA'),
+    Field('wcagVersion', String, 'WCAG Version',
+        hint: '2.0, 2.1, 2.2'),
+    Field('additionalStandards', String, 'Additional Standards',
+        hint: 'Section 508, EN 301 549, ADA'),
+    Field('accessibilityStatement', bool, 'Accessibility Statement',
+        hint: 'Publish accessibility statement'),
+    // Philosophy
+    Field('accessibilityPhilosophy', String, 'Accessibility Philosophy',
+        hint: 'Inclusive design, equivalent experience'),
+    Field('accessibilityOwnership', String, 'Accessibility Ownership',
+        hint: 'Who is responsible for accessibility'),
+    Field('accessibilityTraining', String, 'Accessibility Training',
+        hint: 'Team training requirements'),
+    // Testing approach
+    Field('automatedTestingTools', String, 'Automated Testing Tools',
+        hint: 'axe, WAVE, Lighthouse'),
+    Field('manualTestingProcess', String, 'Manual Testing Process',
+        hint: 'How manual testing is performed'),
+    Field('assistiveTechTesting', String, 'Assistive Tech Testing',
+        hint: 'Screen readers, switch devices'),
+    Field('userTestingWithDisabilities', bool, 'User Testing with Disabilities',
+        hint: 'Include users with disabilities'),
+    // Support regions
+    Field('targetScreenReaders', String, 'Target Screen Readers',
+        hint: 'NVDA, JAWS, VoiceOver, TalkBack'),
+    Field('targetBrowserAccessibility', String, 'Target Browser Accessibility',
+        hint: 'Browser accessibility features used'),
+  ])
+  String? accessibilityOverviewContent;
 
-  /// Wcag Compliance Level.
-  TextSection wcagComplianceLevel = TextSection();
+  /// Accessibility overview narrative.
+  @ContentHelp('Executive summary of accessibility approach, '
+      'compliance targets, and inclusive design principles.')
+  TextSection accessibilityOverview = TextSection();
+
+  /// 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
+  @SectionId('PD00-USE-ACC-WCA')
+  WcagCompliance wcagComplianceLevel = WcagCompliance();
 
   /// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
   AccessibilityChecklist accessibilityChecklist = AccessibilityChecklist();
+
+  /// Keyboard navigation specification.
+  @ContentHelp('Keyboard navigation patterns, focus management, '
+      'and keyboard shortcuts.')
+  TextSection keyboardNavigation = TextSection();
+
+  /// Screen reader support specification.
+  @ContentHelp('Screen reader support: ARIA labels, landmarks, '
+      'live regions, and announcements.')
+  TextSection screenReaderSupport = TextSection();
+
+  /// Color and contrast specification.
+  @ContentHelp('Color contrast requirements, color-blind-friendly '
+      'design, and non-color indicators.')
+  TextSection colorAndContrast = TextSection();
+}
+
+/// 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
+class WcagCompliance {
+  @Form([
+    // Perceivable
+    Field('textAlternatives', String, 'Text Alternatives (1.1)',
+        hint: 'Alt text for non-text content'),
+    Field('timeBased Media', String, 'Time-Based Media (1.2)',
+        hint: 'Captions, audio descriptions'),
+    Field('adaptableContent', String, 'Adaptable Content (1.3)',
+        hint: 'Structure, sequence, sensory'),
+    Field('distinguishableContent', String, 'Distinguishable (1.4)',
+        hint: 'Color, contrast, resize, audio'),
+    // Operable
+    Field('keyboardAccessible', String, 'Keyboard Accessible (2.1)',
+        hint: 'Full keyboard operation'),
+    Field('enoughTime', String, 'Enough Time (2.2)',
+        hint: 'Adjustable timing, pause'),
+    Field('seizureSafe', String, 'Seizure Safe (2.3)',
+        hint: 'No flashing content'),
+    Field('navigable', String, 'Navigable (2.4)',
+        hint: 'Skip links, page titles, focus'),
+    Field('inputModalities', String, 'Input Modalities (2.5)',
+        hint: 'Pointer, motion, touch'),
+    // Understandable
+    Field('readable', String, 'Readable (3.1)',
+        hint: 'Language, abbreviations'),
+    Field('predictable', String, 'Predictable (3.2)',
+        hint: 'Consistent navigation, identification'),
+    Field('inputAssistance', String, 'Input Assistance (3.3)',
+        hint: 'Error prevention, labels, suggestions'),
+    // Robust
+    Field('compatible', String, 'Compatible (4.1)',
+        hint: 'Parsing, name/role/value'),
+  ])
+  String? wcagComplianceContent;
+
+  /// WCAG compliance narrative.
+  TextSection wcagNarrative = TextSection();
+
+  /// WCAG success criteria mapping.
+  @SectionIdPattern('PD00-USE-ACC-WCA-SC-xx')
+  List<WcagSuccessCriterionEntry> successCriteria = [];
+}
+
+/// A WCAG success criterion entry [PD00-USE-ACC-WCA-SC-nn].
+class WcagSuccessCriterionEntry {
+  @Form([
+    Field('criterionId', String, 'Criterion ID', required: true,
+        hint: 'WCAG SC ID (e.g., 1.4.3)'),
+    Field('criterionName', String, 'Criterion Name', required: true),
+    Field('level', String, 'Level',
+        hint: 'A, AA, AAA'),
+    Field('applicability', String, 'Applicability',
+        hint: 'Where this applies in the app'),
+    Field('implementation', String, 'Implementation',
+        hint: 'How we meet this criterion'),
+    Field('testingMethod', String, 'Testing Method',
+        hint: 'How compliance is verified'),
+    Field('status', String, 'Status',
+        hint: 'Not started, in progress, compliant, not applicable'),
+    Field('exceptions', String, 'Exceptions',
+        hint: 'Any documented exceptions'),
+  ])
+  String? content;
 }
 
 /// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
+///
+/// Comprehensive accessibility verification checklist.
 @SectionId('PD00-USE-ACC-CHK')
 class AccessibilityChecklist {
-  @Unused()
-  String? content;
+  @Form([
+    Field('checklistStandard', String, 'Checklist Standard',
+        hint: 'Based on WCAG, custom additions'),
+    Field('checklistOwner', String, 'Checklist Owner',
+        hint: 'Who maintains the checklist'),
+    Field('checkFrequency', String, 'Check Frequency',
+        hint: 'Per feature, per release, continuous'),
+    Field('automatedChecks', String, 'Automated Checks',
+        hint: 'Automated accessibility testing coverage'),
+    Field('manualChecks', String, 'Manual Checks',
+        hint: 'Manual testing procedures'),
+    Field('userTesting', String, 'User Testing',
+        hint: 'Testing with users with disabilities'),
+    Field('reportingFormat', String, 'Reporting Format',
+        hint: 'How accessibility status is reported'),
+    Field('remediationProcess', String, 'Remediation Process',
+        hint: 'How issues are fixed'),
+  ])
+  String? checklistOverviewContent;
+
+  /// Accessibility checklist overview.
+  TextSection checklistOverview = TextSection();
 
   /// Contains 0+× AccessibilityCheck.
   @SectionIdPattern('PD00-USE-ACC-CHK-xx')
@@ -2302,10 +3066,31 @@ class AccessibilityChecklist {
 /// An accessibility check entry (form) [PD00-USE-ACC-CHK-nn].
 class AccessibilityCheckEntry {
   @Form([
-    Field('checkItem', String, 'Check Item'),
-    Field('wcagCriterion', String, 'Wcag Criterion'),
-    Field('complianceLevel', String, 'Compliance Level'),
-    Field('verificationMethod', String, 'Verification Method'),
+    Field('checkId', String, 'Check ID', required: true),
+    Field('checkItem', String, 'Check Item', required: true,
+        hint: 'What is being checked'),
+    Field('checkDescription', String, 'Check Description',
+        hint: 'Detailed description'),
+    Field('wcagCriterion', String, 'WCAG Criterion',
+        hint: 'Related WCAG success criterion'),
+    Field('complianceLevel', String, 'Compliance Level',
+        hint: 'A, AA, AAA'),
+    Field('checkCategory', String, 'Check Category',
+        hint: 'Perceivable, operable, understandable, robust'),
+    Field('verificationMethod', String, 'Verification Method', required: true,
+        hint: 'Automated, manual, user testing'),
+    Field('testingTool', String, 'Testing Tool',
+        hint: 'Specific tool or technique'),
+    Field('responsibleParty', String, 'Responsible Party',
+        hint: 'Developer, QA, accessibility specialist'),
+    Field('checkStatus', String, 'Check Status',
+        hint: 'Not tested, passed, failed, n/a'),
+    Field('issuesFound', String, 'Issues Found',
+        hint: 'Description of any issues'),
+    Field('remediationPlan', String, 'Remediation Plan',
+        hint: 'How issues will be fixed'),
+    Field('testDate', String, 'Test Date'),
+    Field('testedBy', String, 'Tested By'),
   ])
   String? content;
 }
