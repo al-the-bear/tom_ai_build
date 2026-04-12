@@ -622,22 +622,443 @@ class IdentificationAndAuthentication {
 }
 
 /// 9.2.1. Identification [PD00-ACC-IDE-IDN].
+///
+/// Defines the identity management model: how identities are created,
+/// sourced, verified, federated, and mapped. Covers identity sources,
+/// identity providers, verification/proofing, SSO, self-registration,
+/// and attribute mapping between systems.
 @SectionId('PD00-ACC-IDE-IDN')
 class Identification {
-  @Unused()
+  @Form([
+    Field('identityModelApproach', String, 'Identity Model Approach',
+        hint:
+            'Centralized / Federated / Decentralized / Hybrid — how identities are architecturally managed'),
+    Field('identityNamespace', String, 'Identity Namespace',
+        hint:
+            'Namespace/scheme for identifiers, e.g. email, UPN, employeeId, UUID'),
+    Field('primaryIdentifierType', String, 'Primary Identifier Type',
+        hint:
+            'Email / Username / EmployeeId / PhoneNumber / UUID / Custom — primary user-facing identifier'),
+    Field('uniqueIdentifierStrategy', String, 'Unique Identifier Generation',
+        hint:
+            'UUID / GUID / Sequential / HashBased / ExternallyAssigned — how internal unique IDs are generated'),
+    Field('identifierImmutability', String, 'Identifier Immutability',
+        hint:
+            'Immutable / MutableWithAudit / Mutable — whether the primary identifier can change after creation'),
+    Field('identityLifecycleModel', String, 'Identity Lifecycle Model',
+        hint:
+            'CreateActivateDeactivateDelete / ProvisionDeprovision / Custom — lifecycle state machine'),
+    Field('identityTrustModel', String, 'Identity Trust Model',
+        hint:
+            'ZeroTrust / TrustOnFirstUse / PreEstablished / Hierarchical — how trust is initially established'),
+    Field('maximumIdentitiesPerPerson', String, 'Max Identities Per Person',
+        hint:
+            '1 / Multiple / Unlimited — whether one person can have multiple separate identities'),
+    Field('identityMergingPolicy', String, 'Identity Merging Policy',
+        hint:
+            'Allowed / ProhibitedDuplicate / ManualReview — how duplicate identities across sources are handled'),
+    Field('identityDataResidency', String, 'Identity Data Residency',
+        hint:
+            'Jurisdictional requirements for identity data storage, e.g. EU-only, in-country'),
+  ])
   String? content;
 
-  /// Identity Sources.
-  TextSection identitySources = TextSection();
+  /// Identity Sources — contains 0+× Identity Source.
+  @SectionIdPattern('PD00-ACC-IDE-IDN-SRC-xx')
+  List<IdentitySourceEntry> identitySources = [];
 
-  /// Identity Verification.
-  TextSection identityVerification = TextSection();
+  /// Identity Verification [PD00-ACC-IDE-IDN-VER].
+  @SectionId('PD00-ACC-IDE-IDN-VER')
+  IdentityVerificationPolicy identityVerification =
+      IdentityVerificationPolicy();
 
-  /// Identity Providers.
-  TextSection identityProviders = TextSection();
+  /// Identity Providers — contains 0+× Identity Provider.
+  @SectionIdPattern('PD00-ACC-IDE-IDN-IDP-xx')
+  List<IdentityProviderEntry> identityProviders = [];
 
-  /// Single Sign On.
-  TextSection singleSignOn = TextSection();
+  /// Single Sign-On [PD00-ACC-IDE-IDN-SSO].
+  @SectionId('PD00-ACC-IDE-IDN-SSO')
+  SingleSignOnPolicy singleSignOn = SingleSignOnPolicy();
+
+  /// Self-Registration [PD00-ACC-IDE-IDN-REG].
+  @SectionId('PD00-ACC-IDE-IDN-REG')
+  SelfRegistrationPolicy selfRegistration = SelfRegistrationPolicy();
+
+  /// Attribute Mappings — contains 0+× Identity Attribute Mapping.
+  @SectionIdPattern('PD00-ACC-IDE-IDN-MAP-xx')
+  List<IdentityAttributeMappingEntry> attributeMappings = [];
+}
+
+/// An identity source entry (form) [PD00-ACC-IDE-IDN-SRC-nn].
+///
+/// Defines one source from which identities are obtained, e.g.
+/// internal directory, LDAP, external IdP, HR system, self-registration.
+class IdentitySourceEntry {
+  @Form([
+    Field('sourceName', String, 'Source Name',
+        hint: 'Unique name for this identity source, e.g. CorporateAD',
+        required: true),
+    Field('sourceType', String, 'Source Type',
+        hint:
+            'InternalDirectory / LDAP / ActiveDirectory / ExternalIdP / SocialProvider / SelfRegistration / HRSystem / SCIM / Manual'),
+    Field('sourceProduct', String, 'Source Product',
+        hint:
+            'Specific product/service, e.g. Azure AD, Okta, Google Workspace'),
+    Field('sourceEndpoint', String, 'Source Endpoint',
+        hint: 'Connection endpoint URL or hostname'),
+    Field('sourceProtocol', String, 'Source Protocol',
+        hint:
+            'LDAP / LDAPS / SCIM / SAML / OIDC / REST / DatabaseDirect / Custom'),
+    Field('priority', String, 'Priority',
+        hint:
+            'Primary / Secondary / Tertiary / Fallback — source precedence'),
+    Field('trustLevel', String, 'Trust Level',
+        hint:
+            'Full / High / Medium / Low / Untrusted — degree of trust in identities from this source'),
+    Field('authoritative', String, 'Authoritative Source',
+        hint:
+            'Yes / No — whether this source is the golden record for identity attributes'),
+    Field('synchronizationMode', String, 'Synchronization Mode',
+        hint:
+            'RealTime / Scheduled / OnDemand / EventDriven / Manual'),
+    Field('synchronizationFrequency', String, 'Synchronization Frequency',
+        hint: 'Sync interval if scheduled, e.g. 15min, 1h, 24h, weekly'),
+    Field('provisioningMethod', String, 'Provisioning Method',
+        hint:
+            'JustInTime / PreProvisioned / SCIM / Manual / Automated'),
+    Field('deprovisioningMethod', String, 'Deprovisioning Method',
+        hint:
+            'Automatic / Manual / Delayed / Cascading — how identities are removed'),
+    Field('conflictResolution', String, 'Conflict Resolution',
+        hint:
+            'SourceWins / TargetWins / MostRecent / ManualReview / MergeAttributes'),
+    Field('attributeFilter', String, 'Attribute Filter',
+        hint:
+            'Which attributes are imported, e.g. all, name+email+groups, custom list'),
+    Field('groupMappingEnabled', String, 'Group Mapping Enabled',
+        hint:
+            'Yes / No — whether groups/roles from this source are mapped to application roles'),
+    Field('failoverBehavior', String, 'Failover Behavior',
+        hint:
+            'RetryWithBackoff / FallbackToCache / FailClosed / FailOpen'),
+    Field('enabled', String, 'Enabled',
+        hint: 'Yes / No — whether this source is currently active'),
+    Field('description', String, 'Description',
+        hint: 'Detailed description of this identity source and its role'),
+  ])
+  String? content;
+}
+
+/// Identity verification/proofing policy (form) [PD00-ACC-IDE-IDN-VER].
+///
+/// Defines how identity claims are verified: verification level, required
+/// documents, automation, proofing standards (NIST IAL), and re-verification.
+@SectionId('PD00-ACC-IDE-IDN-VER')
+class IdentityVerificationPolicy {
+  @Form([
+    Field('verificationLevel', String, 'Verification Level',
+        hint:
+            'None / Basic / Enhanced / Strict — overall identity proofing rigor'),
+    Field('nistIalTarget', String, 'NIST IAL Target',
+        hint:
+            'IAL1 / IAL2 / IAL3 — NIST SP 800-63A Identity Assurance Level target'),
+    Field('verificationMode', String, 'Verification Mode',
+        hint:
+            'FullyAutomated / SemiAutomated / ManualReview / Hybrid'),
+    Field('requiredDocuments', String, 'Required Documents',
+        hint:
+            'Document types required for proofing, e.g. Government ID, Passport, Utility Bill, None'),
+    Field('documentVerificationMethod', String, 'Document Verification Method',
+        hint:
+            'VisualInspection / OCR / NFC / DatabaseCheck / BiometricMatch / ThirdPartyService'),
+    Field('biometricVerification', String, 'Biometric Verification',
+        hint:
+            'None / FaceMatch / Fingerprint / LivenessDetection'),
+    Field('emailVerification', String, 'Email Verification',
+        hint: 'Required / Optional / NotApplicable'),
+    Field('phoneVerification', String, 'Phone Verification',
+        hint: 'Required / Optional / NotApplicable'),
+    Field('verificationServiceProvider', String, 'Verification Provider',
+        hint:
+            'Third-party provider, e.g. Jumio, Onfido, LexisNexis, Internal'),
+    Field('verificationSteps', String, 'Verification Steps',
+        hint:
+            'Ordered proofing steps, e.g. EmailConfirm → DocUpload → FaceMatch → AdminApproval'),
+    Field('supervisorApprovalRequired', String, 'Supervisor Approval Required',
+        hint:
+            'Yes / No / ForExternalOnly — whether a supervisor must approve identity proofing'),
+    Field('reverificationTriggers', String, 'Re-verification Triggers',
+        hint:
+            'Events triggering re-proofing, e.g. RoleChange, SuspiciousActivity, Periodic, DataBreach'),
+    Field('reverificationPeriod', String, 'Re-verification Period',
+        hint:
+            'How often identities must be re-verified, e.g. 1y, 2y, never, onRiskEvent'),
+    Field('verificationRecordRetention', String, 'Record Retention',
+        hint:
+            'How long verification evidence is retained, e.g. 5y, 7y, permanent'),
+    Field('proofingChannels', String, 'Proofing Channels',
+        hint: 'InPerson / Remote / Hybrid — where identity proofing occurs'),
+    Field('failedVerificationPolicy', String, 'Failed Verification Policy',
+        hint:
+            'Deny / RetryLimited / ManualEscalation / AlternativeProofing'),
+    Field('maxVerificationAttempts', int, 'Max Verification Attempts',
+        hint: 'Maximum proofing attempts before lockout, e.g. 3, 5'),
+  ])
+  String? content;
+
+  /// Additional verification details (text).
+  TextSection verificationDetails = TextSection();
+}
+
+/// An identity provider entry (form) [PD00-ACC-IDE-IDN-IDP-nn].
+///
+/// Configuration for a single Identity Provider (IdP): protocol, endpoints,
+/// attribute mapping, trust level, certificate management.
+class IdentityProviderEntry {
+  @Form([
+    Field('providerName', String, 'Provider Name',
+        hint: 'Human-readable name, e.g. Corporate Azure AD, Partner ADFS',
+        required: true),
+    Field('providerType', String, 'Provider Type',
+        hint:
+            'SAML / OIDC / LDAP / ActiveDirectory / OAuth2 / WS-Federation / Custom'),
+    Field('providerProduct', String, 'Provider Product',
+        hint:
+            'Specific product, e.g. Azure AD, Okta, Keycloak, PingFederate, Auth0'),
+    Field('protocolVersion', String, 'Protocol Version',
+        hint: 'Protocol version, e.g. SAML 2.0, OIDC 1.0, LDAPv3'),
+    Field('endpointUrl', String, 'Endpoint URL',
+        hint: 'Primary endpoint URL for authentication/authorization'),
+    Field('metadataUrl', String, 'Metadata URL',
+        hint:
+            'SAML metadata URL or OIDC discovery endpoint'),
+    Field('issuerIdentifier', String, 'Issuer Identifier',
+        hint: 'Issuer URI used in tokens (OIDC iss claim, SAML Issuer)'),
+    Field('clientId', String, 'Client ID',
+        hint: 'Application/client identifier registered at this IdP'),
+    Field('scopes', String, 'Scopes',
+        hint:
+            'OAuth2/OIDC scopes requested, e.g. openid profile email groups'),
+    Field('attributeMapping', String, 'Attribute Mapping',
+        hint:
+            'How IdP claims/attributes map to application user attributes'),
+    Field('groupClaimName', String, 'Group Claim Name',
+        hint:
+            'Claim/attribute containing group memberships, e.g. groups, memberOf, roles'),
+    Field('defaultRoles', String, 'Default Roles',
+        hint: 'Roles assigned by default to users from this IdP'),
+    Field('justInTimeProvisioning', String, 'Just-In-Time Provisioning',
+        hint:
+            'Yes / No — whether accounts are auto-created on first login'),
+    Field('accountLinkingStrategy', String, 'Account Linking Strategy',
+        hint:
+            'EmailMatch / ExternalId / ManualLink / None — how IdP identities link to existing accounts'),
+    Field('trustLevel', String, 'Trust Level',
+        hint: 'Full / High / Medium / Low — trust in identities from this provider'),
+    Field('federationAgreement', String, 'Federation Agreement',
+        hint:
+            'Reference to legal/technical federation agreement governing this IdP'),
+    Field('certificateManagement', String, 'Certificate Management',
+        hint:
+            'How signing/encryption certificates are managed, e.g. AutoRotate, ManualUpload, JWKS'),
+    Field('tokenSigningAlgorithm', String, 'Token Signing Algorithm',
+        hint: 'RS256 / RS384 / RS512 / ES256 / EdDSA'),
+    Field('encryptionRequired', String, 'Encryption Required',
+        hint: 'Yes / No — whether assertions/tokens must be encrypted'),
+    Field('mfaCapability', String, 'MFA Capability',
+        hint:
+            'Supported / Required / NotSupported — whether IdP enforces/supports MFA'),
+    Field('failoverIdp', String, 'Failover IdP',
+        hint: 'Backup identity provider if this one is unavailable'),
+    Field('enabled', String, 'Enabled',
+        hint: 'Yes / No — whether this provider is currently active'),
+    Field('description', String, 'Description',
+        hint: 'Detailed description of this identity provider'),
+  ])
+  String? content;
+}
+
+/// Single Sign-On policy (form) [PD00-ACC-IDE-IDN-SSO].
+///
+/// Defines SSO scope, protocol, session propagation, federation,
+/// logout propagation, and platform-specific SSO strategies.
+@SectionId('PD00-ACC-IDE-IDN-SSO')
+class SingleSignOnPolicy {
+  @Form([
+    Field('ssoEnabled', String, 'SSO Enabled',
+        hint: 'Yes / No — whether SSO is enabled for this project'),
+    Field('ssoScope', String, 'SSO Scope',
+        hint:
+            'EnterpriseWide / ApplicationSpecific / CrossDomain / BusinessUnit'),
+    Field('ssoProtocol', String, 'SSO Protocol',
+        hint: 'SAML2.0 / OIDC / OAuth2 / WS-Federation / Kerberos / CAS'),
+    Field('ssoGatewayProduct', String, 'SSO Gateway Product',
+        hint:
+            'Product/service acting as SSO hub, e.g. Keycloak, PingGateway, Azure AD'),
+    Field('sessionPropagationMethod', String, 'Session Propagation Method',
+        hint:
+            'SharedCookie / TokenRelay / BackChannel / FrontChannelRedirect'),
+    Field('crossDomainTrustModel', String, 'Cross-Domain Trust Model',
+        hint:
+            'SharedIdP / FederatedTrust / BrokeredTrust / None'),
+    Field('identityFederationEnabled', String, 'Identity Federation Enabled',
+        hint:
+            'Yes / No — whether identities federate across organizational boundaries'),
+    Field('accountLinkingStrategy', String, 'Account Linking Strategy',
+        hint:
+            'AutomaticByEmail / AutomaticByExternalId / UserInitiated / AdminManaged / None'),
+    Field('consentRequirements', String, 'Consent Requirements',
+        hint:
+            'None / FirstLoginOnly / PerApplication / PerScope / Periodic'),
+    Field('ssoPortalUrl', String, 'SSO Portal URL',
+        hint: 'URL for the central SSO portal or application launcher'),
+    Field('logoutPropagation', String, 'Logout Propagation',
+        hint:
+            'SingleLogout / LocalOnly / BestEffort — how logout propagates across SSO-connected apps'),
+    Field('logoutProtocol', String, 'Logout Protocol',
+        hint: 'FrontChannel / BackChannel / Both — SLO mechanism'),
+    Field('ssoSessionLifetime', String, 'SSO Session Lifetime',
+        hint:
+            'Maximum SSO session duration before re-authentication, e.g. 8h, 24h, 30d'),
+    Field('ssoIdleTimeout', String, 'SSO Idle Timeout',
+        hint:
+            'Idle timeout before SSO session expires, e.g. 30min, 1h, 4h'),
+    Field('ssoBypassRules', String, 'SSO Bypass Rules',
+        hint:
+            'Scenarios where SSO is bypassed, e.g. ServiceAccounts, LocalAdminFallback, BreakGlass'),
+    Field('desktopSsoIntegration', String, 'Desktop SSO Integration',
+        hint:
+            'Kerberos / WindowsIntegrated / None — integration with desktop/OS authentication'),
+    Field('mobileSsoStrategy', String, 'Mobile SSO Strategy',
+        hint:
+            'SharedKeychain / AppLinks / BrowserBased / NativeSDK — SSO approach for mobile apps'),
+    Field('ssoMonitoring', String, 'SSO Monitoring',
+        hint:
+            'How SSO health and usage is monitored, e.g. IdPHealthCheck, LoginSuccessRate'),
+  ])
+  String? content;
+
+  /// Additional SSO details (text).
+  TextSection ssoDetails = TextSection();
+}
+
+/// Self-registration policy (form) [PD00-ACC-IDE-IDN-REG].
+///
+/// Defines self-service identity creation: registration flow, required
+/// fields, verification, approval, rate limiting, and domain restrictions.
+@SectionId('PD00-ACC-IDE-IDN-REG')
+class SelfRegistrationPolicy {
+  @Form([
+    Field('selfRegistrationEnabled', String, 'Self-Registration Enabled',
+        hint:
+            'Yes / No / InviteOnly — whether users can create their own identity'),
+    Field('registrationFlowType', String, 'Registration Flow Type',
+        hint:
+            'SingleStep / MultiStep / Wizard / SocialOneTap / InvitationBased'),
+    Field('requiredFields', String, 'Required Fields',
+        hint:
+            'Fields required at registration, e.g. email, fullName, password, phone'),
+    Field('optionalFields', String, 'Optional Fields',
+        hint:
+            'Fields available but not required, e.g. organization, jobTitle, avatar'),
+    Field('captchaRequired', String, 'Captcha Required',
+        hint: 'Yes / No / Adaptive — whether CAPTCHA/bot protection is required'),
+    Field('captchaProvider', String, 'Captcha Provider',
+        hint: 'reCAPTCHAv2 / reCAPTCHAv3 / hCaptcha / Turnstile / Custom'),
+    Field('emailVerificationRequired', String, 'Email Verification Required',
+        hint:
+            'Yes / No — whether email must be verified before account is active'),
+    Field('emailVerificationMethod', String, 'Email Verification Method',
+        hint: 'ClickLink / EnterCode / MagicLink'),
+    Field('phoneVerificationRequired', String, 'Phone Verification Required',
+        hint: 'Yes / No — whether phone must be verified'),
+    Field('phoneVerificationMethod', String, 'Phone Verification Method',
+        hint: 'SMS / VoiceCall / WhatsApp'),
+    Field('approvalRequired', String, 'Approval Required',
+        hint:
+            'Yes / No / Conditional — whether admin approval is needed before activation'),
+    Field('approvalWorkflow', String, 'Approval Workflow',
+        hint:
+            'SingleApprover / DualApproval / ManagerApproval / AutoApprove'),
+    Field('defaultRole', String, 'Default Role',
+        hint:
+            'Role assigned to newly self-registered users, e.g. BasicUser, Viewer, Pending'),
+    Field('defaultGroup', String, 'Default Group',
+        hint: 'Group assigned to newly self-registered users'),
+    Field('termsAcceptanceRequired', String, 'Terms Acceptance Required',
+        hint:
+            'Yes / No — whether ToS/privacy policy acceptance is required'),
+    Field('allowedEmailDomains', String, 'Allowed Email Domains',
+        hint:
+            'Domain restrictions for registration, e.g. *, company.com, *.edu'),
+    Field('blockedEmailDomains', String, 'Blocked Email Domains',
+        hint:
+            'Domains blocked from registration, e.g. tempmail.com, guerrillamail.com'),
+    Field('duplicateDetectionMethod', String, 'Duplicate Detection Method',
+        hint: 'EmailUniqueness / PhoneUniqueness / NameFuzzyMatch / None'),
+    Field('rateLimiting', String, 'Rate Limiting',
+        hint:
+            'Registration rate limits, e.g. 5/hour per IP, 10/day per domain'),
+    Field('accountActivationDelay', String, 'Account Activation Delay',
+        hint:
+            'Delay between registration and account becoming usable, e.g. immediate, afterVerification, 24h'),
+    Field('welcomeNotification', String, 'Welcome Notification',
+        hint:
+            'Yes / No — whether a welcome email/message is sent after registration'),
+  ])
+  String? content;
+
+  /// Additional registration details (text).
+  TextSection registrationDetails = TextSection();
+}
+
+/// An identity attribute mapping entry (form) [PD00-ACC-IDE-IDN-MAP-nn].
+///
+/// Defines how attributes map between identity sources and the application:
+/// source/target field, data type, transformation, sync direction.
+class IdentityAttributeMappingEntry {
+  @Form([
+    Field('sourceAttribute', String, 'Source Attribute',
+        hint:
+            'Attribute name in the source system, e.g. mail, sAMAccountName, sub',
+        required: true),
+    Field('sourceSystem', String, 'Source System',
+        hint:
+            'Identity source or IdP this mapping applies to, e.g. AzureAD, LDAP, AllSources'),
+    Field('targetAttribute', String, 'Target Attribute',
+        hint:
+            'Attribute name in the application, e.g. email, username, displayName',
+        required: true),
+    Field('dataType', String, 'Data Type',
+        hint:
+            'String / Integer / Boolean / DateTime / List / Email / Phone / URL'),
+    Field('transformationRule', String, 'Transformation Rule',
+        hint:
+            'None / Lowercase / Uppercase / Trim / RegexExtract / Concatenate / MapValues / Custom'),
+    Field('transformationExpression', String, 'Transformation Expression',
+        hint:
+            'Expression if Custom/RegexExtract, e.g. {firstName} {lastName}'),
+    Field('mandatory', String, 'Mandatory',
+        hint:
+            'Yes / No — whether this attribute must be present for identity to be valid'),
+    Field('defaultValue', String, 'Default Value',
+        hint: 'Value used when source attribute is missing or null'),
+    Field('syncDirection', String, 'Sync Direction',
+        hint:
+            'SourceToTarget / TargetToSource / Bidirectional / OneTimeImport'),
+    Field('conflictResolution', String, 'Conflict Resolution',
+        hint:
+            'SourceWins / TargetWins / MostRecent / ManualReview — when source and target values differ'),
+    Field('multiValueHandling', String, 'Multi-Value Handling',
+        hint:
+            'FirstValue / AllValues / Concatenate / PrimaryOnly'),
+    Field('piiClassification', String, 'PII Classification',
+        hint:
+            'None / PII / SensitivePII / SpecialCategory — data sensitivity for GDPR/compliance'),
+    Field('description', String, 'Description',
+        hint: 'Purpose and context for this attribute mapping'),
+  ])
+  String? content;
 }
 
 /// 9.2.2. Authentication [PD00-ACC-IDE-AUT].

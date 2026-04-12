@@ -147,12 +147,12 @@ These sections exist in `tom_specs_model` but are missing from `pd_template.md`:
 
 | Section ID | Section Name (from Model) | Action | Status |
 |------------|---------------------------|--------|--------|
-| PD00-ACC-AUD-AUD | Audit | Review | ⬜ Not Started |
-| PD00-ACC-AUD-LOG | Audit Logging | Review | ⬜ Not Started |
-| PD00-ACC-AUD-LOG-EVE | Log Events | Review | ⬜ Not Started |
-| PD00-ACC-IDE-AUT | Authentication | Review | ⬜ Not Started |
-| PD00-ACC-IDE-AUT-MET | Authentication Methods | Review | ⬜ Not Started |
-| PD00-ACC-IDE-IDN | Identification | Review | ⬜ Not Started |
+| PD00-ACC-AUD-AUD | Audit | Review | ✅ Done — stale, removed in audit restructure |
+| PD00-ACC-AUD-LOG | Audit Logging | Review | ✅ Done — stale, removed in audit restructure |
+| PD00-ACC-AUD-LOG-EVE | Log Events | Review | ✅ Done — stale, removed in audit restructure |
+| PD00-ACC-IDE-AUT | Authentication | Review | ✅ Done — already detailed |
+| PD00-ACC-IDE-AUT-MET | Authentication Methods | Review | ✅ Done — already detailed |
+| PD00-ACC-IDE-IDN | Identification | Review | ✅ Done — enhanced with 7 classes, ~130 fields |
 | PD00-COM | Commissioning | Review | ⬜ Not Started |
 | PD00-COM-MAI | Maintenance | Review | ⬜ Not Started |
 | PD00-COM-RIS | Risks | Review | ⬜ Not Started |
