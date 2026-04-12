@@ -119,10 +119,78 @@ class ToolingAndEnvironments {
 }
 
 /// 2.4.1. Tooling [PD00-POP-TOO-TOO].
+///
+/// Container for the project's tool inventory and governance policies.
+/// Covers all tool categories: development, CI/CD, communication,
+/// documentation, project management, testing, monitoring, security,
+/// infrastructure, and operational tooling.
 @SectionId('PD00-POP-TOO-TOO')
 class Tooling {
-  @Unused()
+  @Form([
+    // --- Tool Strategy & Governance ---
+    Field('toolStrategyOverview', String, 'Tool Strategy Overview',
+        hint:
+            'High-level approach to tooling — standardisation goals, '
+            'preferred vendors, stack alignment'),
+    Field('standardToolStackDescription', String,
+        'Standard Tool Stack Description',
+        hint:
+            'Summary of the baseline tool stack all teams are expected '
+            'to use'),
+    Field('toolGovernancePolicy', String, 'Tool Governance Policy',
+        hint:
+            'Who decides on tool adoption, how exceptions are handled, '
+            'review cadence'),
+    Field('toolApprovalProcess', String, 'Tool Approval Process',
+        hint:
+            'Workflow for requesting, evaluating, and approving new tools'),
+    Field('toolRationalizationGoals', String, 'Tool Rationalization Goals',
+        hint:
+            'Targets for reducing overlap, consolidating redundant tools'),
+    Field('mandatoryToolsOverview', String, 'Mandatory Tools Overview',
+        hint:
+            'Tools that every team member must use — IDE, VCS, CI, '
+            'communication'),
+    Field('recommendedToolsOverview', String, 'Recommended Tools Overview',
+        hint:
+            'Encouraged but optional tools — code assistants, profilers, '
+            'linters'),
+    Field('optionalToolsPolicy', String, 'Optional Tools Policy',
+        hint:
+            'Policy for personal/team tool choices — BYO rules, security '
+            'review'),
+    Field('toolBudgetOverview', String, 'Tool Budget Overview',
+        hint:
+            'Total annual budget for tool licenses, subscriptions, and '
+            'infrastructure'),
+    Field('toolOnboardingProcess', String, 'Tool Onboarding Process',
+        hint:
+            'Standard steps when a new team member joins — account '
+            'provisioning, training'),
+    Field('toolOffboardingProcess', String, 'Tool Offboarding Process',
+        hint:
+            'Steps when a member leaves — license reclaim, access '
+            'revocation, data export'),
+    Field('toolReviewCadence', String, 'Tool Review Cadence',
+        hint:
+            'How often the tool landscape is reviewed — quarterly, '
+            'biannually, annually'),
+    Field('shadowItPolicy', String, 'Shadow IT Policy',
+        hint:
+            'Policy for unapproved tool usage — detection, enforcement, '
+            'amnesty process'),
+    Field('toolCatalogUrl', String, 'Tool Catalog URL',
+        hint: 'Link to the authoritative tool registry or wiki page'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional tooling strategy notes'),
+  ])
   String? content;
+
+  /// Tool strategy narrative.
+  @ContentType('description',
+      'Narrative overview of tool strategy, integration philosophy, '
+      'and long-term tooling roadmap.')
+  TextSection strategyNarrative = TextSection();
 
   /// Contains 0+× Tool.
   @SectionIdPattern('PD00-POP-TOO-TOO-xx')
@@ -130,14 +198,442 @@ class Tooling {
 }
 
 /// A tool entry (form) [PD00-POP-TOO-TOO-nn].
+///
+/// Comprehensive specification of a single tool covering identity,
+/// licensing, versioning, access, integration, support, security,
+/// usage, infrastructure, lifecycle, cost, configuration, and
+/// documentation. Aligns with ITIL service catalog, PMBOK resource
+/// planning, and enterprise architecture concerns.
 class ToolEntry {
   @Form([
-    Field('toolName', String, 'Tool Name', required: true),
-    Field('purpose', String, 'Purpose'),
-    Field('version', String, 'Version'),
-    Field('category', String, 'Category'),
+    // --- Identity & Classification ---
+    // --- Identity & Classification ---
+    Field('toolName', String, 'Tool Name',
+        hint: 'Official product name, e.g. GitHub, Jira, VS Code',
+        required: true),
+    Field('toolId', String, 'Tool ID',
+        hint: 'Unique identifier, e.g. TOOL-IDE-001'),
+    Field('vendorName', String, 'Vendor / Publisher',
+        hint:
+            'Company or organization, e.g. Microsoft, Atlassian, '
+            'JetBrains'),
+    Field('category', String, 'Category',
+        hint:
+            'IDE / VCS / CI-CD / ProjectManagement / Communication / '
+            'Documentation / Testing / Monitoring / Security / '
+            'Infrastructure / Database / Analytics / DesignPrototyping / '
+            'CodeQuality / ArtifactManagement / Other'),
+    Field('subcategory', String, 'Subcategory',
+        hint:
+            'More specific classification, e.g. StaticAnalysis, '
+            'ContainerOrchestration, ChatMessaging, WikiKnowledgeBase'),
+    Field('toolType', String, 'Tool Type',
+        hint:
+            'Commercial / OpenSource / Freemium / CustomBuilt / '
+            'InternalFork / Managed'),
+    Field('purpose', String, 'Purpose',
+        hint: 'What this tool is used for in the project'),
+    Field('businessJustification', String, 'Business Justification',
+        hint:
+            'Why this tool was chosen over alternatives — cost, '
+            'capability, strategy'),
+    Field('mandatoryLevel', String, 'Mandatory Level',
+        hint: 'Mandatory / Recommended / Optional / Deprecated'),
+    Field('targetAudience', String, 'Target Audience',
+        hint:
+            'Who uses this tool — Developers, QA, DevOps, PMs, All, '
+            'Stakeholders'),
+    Field('alternativesConsidered', String, 'Alternatives Considered',
+        hint:
+            'Other tools evaluated, e.g. GitLab vs GitHub, Jira vs '
+            'Linear'),
+    Field('selectionRationale', String, 'Selection Rationale',
+        hint: 'Why this tool won over alternatives'),
+
+    // --- Licensing ---
+    // --- Licensing ---
+    Field('licenseType', String, 'License Type',
+        hint:
+            'SPDX identifier or commercial name, e.g. MIT, Apache-2.0, '
+            'Enterprise v3'),
+    Field('licenseModel', String, 'License Model',
+        hint:
+            'PerSeat / PerUser / Floating / Site / Metered / FreeTier / '
+            'OpenCore'),
+    Field('licenseCount', String, 'License Count',
+        hint: 'Number of licenses purchased or allocated'),
+    Field('licenseCostPerUnit', String, 'License Cost Per Unit',
+        hint: 'Cost per seat/user/instance per billing period'),
+    Field('licenseBillingPeriod', String, 'License Billing Period',
+        hint: 'Monthly / Annually / Perpetual / Multi-Year'),
+    Field('licenseExpiryDate', String, 'License Expiry Date',
+        hint: 'When the current license term ends'),
+    Field('licenseRenewalDate', String, 'License Renewal Date',
+        hint: 'When renewal must be initiated to avoid lapse'),
+    Field('licenseOwner', String, 'License Owner',
+        hint: 'Person or team managing the license relationship'),
+    Field('licenseKeyLocation', String, 'License Key Location',
+        hint:
+            'Where the license key is stored — vault path, admin portal '
+            'URL (never the key itself)'),
+    Field('openSourceObligations', String, 'Open-Source Obligations',
+        hint:
+            'Copyleft, attribution, source disclosure requirements'),
+    Field('licenseComplianceStatus', String, 'License Compliance Status',
+        hint: 'Compliant / UnderReview / AtRisk / NonCompliant'),
+
+    // --- Versioning ---
+    // --- Versioning ---
+    Field('currentVersion', String, 'Current Version',
+        hint: 'Version currently deployed or in use'),
+    Field('minimumVersion', String, 'Minimum Version',
+        hint: 'Earliest acceptable version'),
+    Field('targetVersion', String, 'Target Version',
+        hint: 'Next planned upgrade target'),
+    Field('latestAvailableVersion', String, 'Latest Available Version',
+        hint: 'Most recent stable release from vendor'),
+    Field('upgradeCadence', String, 'Upgrade Cadence',
+        hint:
+            'How often upgrades are applied — monthly, quarterly, '
+            'per-release, LTS-only'),
+    Field('autoUpdatePolicy', String, 'Auto-Update Policy',
+        hint:
+            'Enabled / Disabled / MajorManualMinorAuto / '
+            'ManagedByVendor'),
+    Field('upgradeApprovalProcess', String, 'Upgrade Approval Process',
+        hint: 'Who approves version upgrades, testing requirements'),
+    Field('versionPinningPolicy', String, 'Version Pinning Policy',
+        hint:
+            'Whether and how versions are pinned — lockfiles, tags, '
+            'channels'),
+    Field('breakingChangePolicy', String, 'Breaking Change Policy',
+        hint:
+            'How breaking changes from vendor are handled — testing, '
+            'rollback, migration'),
+    Field('releaseNotesUrl', String, 'Release Notes URL',
+        hint: 'Link to vendor changelog or release announcements'),
+
+    // --- Access & Provisioning ---
+    // --- Access & Provisioning ---
+    Field('accessUrl', String, 'Access URL',
+        hint: 'Primary URL/endpoint to access the tool'),
+    Field('accessMethod', String, 'Access Method',
+        hint:
+            'Web / DesktopApp / CLI / IDE-Plugin / API / MobileApp / '
+            'Terminal'),
+    Field('ssoIntegration', String, 'SSO Integration',
+        hint:
+            'SSO provider and protocol — Okta SAML, Azure AD OIDC, '
+            'None'),
+    Field('mfaRequired', String, 'MFA Required',
+        hint: 'Yes / No / ForAdminsOnly'),
+    Field('provisioningMethod', String, 'Provisioning Method',
+        hint:
+            'Automatic-SCIM / Manual / SelfService / InviteBased / '
+            'LDAP-Sync'),
+    Field('deprovisioningMethod', String, 'Deprovisioning Method',
+        hint:
+            'Automatic-SCIM / Manual / OnLeaver-Trigger / Timed-Expiry'),
+    Field('accessRequestProcess', String, 'Access Request Process',
+        hint:
+            'How to request access — ServiceNow ticket, Slack channel, '
+            'email'),
+    Field('accessApprover', String, 'Access Approver',
+        hint:
+            'Who approves access requests — manager, tool admin, auto'),
+    Field('adminContact', String, 'Admin Contact',
+        hint: 'Internal administrator or admin team'),
+    Field('adminPortalUrl', String, 'Admin Portal URL',
+        hint: 'URL for tool administration panel'),
+    Field('onboardingSteps', String, 'Onboarding Steps',
+        hint:
+            'Steps for new users — account creation, config import, '
+            'training requirement'),
+    Field('serviceAccountPolicy', String, 'Service Account Policy',
+        hint:
+            'Rules for non-human accounts — naming, rotation, scope '
+            'limits'),
+
+    // --- Integration ---
+    // --- Integration ---
+    Field('integratesWithTools', String, 'Integrates With',
+        hint:
+            'Other project tools this integrates with, e.g. '
+            'GitHub↔Jira, Slack↔PagerDuty'),
+    Field('apiAvailability', String, 'API Availability',
+        hint: 'REST / GraphQL / gRPC / WebSocket / SDK / CLI / None'),
+    Field('apiDocumentationUrl', String, 'API Documentation URL',
+        hint: 'Link to API reference or SDK docs'),
+    Field('apiAuthMethod', String, 'API Auth Method',
+        hint: 'OAuth2 / APIKey / PAT / ServiceAccount / mTLS'),
+    Field('webhooksSupported', String, 'Webhooks Supported',
+        hint: 'Yes / No — webhook event types available'),
+    Field('pluginExtensionList', String, 'Plugins / Extensions',
+        hint:
+            'Required or recommended plugins, e.g. ESLint, Dart, '
+            'GitLens'),
+    Field('dataExchangeFormat', String, 'Data Exchange Format',
+        hint:
+            'JSON / XML / CSV / Protobuf / Custom — for import/export'),
+    Field('dataImportCapability', String, 'Data Import Capability',
+        hint:
+            'Can import from other tools — formats, limitations'),
+    Field('dataExportCapability', String, 'Data Export Capability',
+        hint:
+            'Can export data — formats, completeness, scheduling'),
+    Field('automationCapability', String, 'Automation Capability',
+        hint:
+            'CI/CD hooks, scheduled tasks, scripting, CLI automation '
+            'support'),
+
+    // --- Support ---
+    // --- Support ---
+    Field('vendorSupportTier', String, 'Vendor Support Tier',
+        hint:
+            'CommunityOnly / Basic / Standard / Premium / '
+            'Enterprise24x7'),
+    Field('vendorSupportUrl', String, 'Vendor Support URL',
+        hint: 'Link to vendor support portal or ticketing'),
+    Field('vendorSla', String, 'Vendor SLA',
+        hint:
+            'Response/resolution SLA, e.g. P1: 1h response, 4h '
+            'resolution'),
+    Field('internalSupportTeam', String, 'Internal Support Team',
+        hint: 'Internal team providing L1/L2 support for this tool'),
+    Field('internalSupportChannel', String, 'Internal Support Channel',
+        hint: 'Slack channel, email alias, or ServiceNow queue'),
+    Field('escalationPath', String, 'Escalation Path',
+        hint:
+            'L1 Internal → L2 Internal → Vendor Support → Account '
+            'Manager'),
+    Field('knownIssues', String, 'Known Issues',
+        hint:
+            'Current known issues or limitations affecting the project'),
+
+    // --- Security & Compliance ---
+    // --- Security & Compliance ---
+    Field('securityClassification', String, 'Security Classification',
+        hint: 'Public / Internal / Confidential / Restricted'),
+    Field('dataResidency', String, 'Data Residency',
+        hint:
+            'Where data is stored geographically — EU, US, '
+            'vendor-managed, self-hosted'),
+    Field('dataClassification', String, 'Data Classification',
+        hint:
+            'What data flows through this tool — PII, source code, '
+            'secrets, public'),
+    Field('auditLogging', String, 'Audit Logging',
+        hint:
+            'Yes / No / Partial — what actions are logged, retention '
+            'period'),
+    Field('complianceCertifications', String, 'Compliance Certifications',
+        hint: 'SOC2 / ISO27001 / HIPAA / GDPR / FedRAMP / PCI-DSS'),
+    Field('securityReviewDate', String, 'Last Security Review Date',
+        hint: 'When the tool was last security-assessed'),
+    Field('securityReviewOutcome', String, 'Security Review Outcome',
+        hint: 'Approved / ConditionalApproval / Rejected / Pending'),
+    Field('vulnerabilityScanPolicy', String, 'Vulnerability Scan Policy',
+        hint:
+            'How the tool is scanned — vendor responsibility, internal '
+            'pen-test'),
+    Field('encryptionAtRest', String, 'Encryption at Rest',
+        hint:
+            'AES-256, vendor-managed keys, customer-managed keys'),
+    Field('encryptionInTransit', String, 'Encryption in Transit',
+        hint: 'TLS 1.2+, mTLS, certificate pinning'),
+    Field('dataRetentionPolicy', String, 'Data Retention Policy',
+        hint:
+            'How long data is retained, purge schedule, legal holds'),
+    Field('gdprCompliance', String, 'GDPR Compliance',
+        hint:
+            'DPA signed, data subject request process, right to '
+            'erasure'),
+    Field('ipRestrictions', String, 'IP Restrictions',
+        hint: 'IP allowlist, VPN-only access, geo-blocking'),
+
+    // --- Usage ---
+    // --- Usage ---
+    Field('userGroups', String, 'User Groups',
+        hint:
+            'Teams or roles using this tool — Backend, Frontend, QA, '
+            'DevOps, PM, All'),
+    Field('activeUserCount', String, 'Active User Count',
+        hint: 'Number of active users, e.g. 45 / 50 licenses'),
+    Field('usageFrequency', String, 'Usage Frequency',
+        hint: 'Daily / Weekly / PerSprint / OnDemand / Continuous'),
+    Field('peakUsagePeriod', String, 'Peak Usage Period',
+        hint:
+            'When usage spikes — release days, sprint planning, '
+            'incident response'),
+    Field('trainingRequired', String, 'Training Required',
+        hint:
+            'Yes / No — what training, how long, mandatory or optional'),
+    Field('trainingMaterial', String, 'Training Material',
+        hint:
+            'Links to training resources — vendor courses, internal '
+            'guides, videos'),
+    Field('proficiencyLevels', String, 'Proficiency Levels',
+        hint:
+            'Beginner / Intermediate / Advanced — expected proficiency '
+            'per role'),
+    Field('adoptionStatus', String, 'Adoption Status',
+        hint:
+            'Piloting / RollingOut / FullyAdopted / Declining / '
+            'Sunsetting'),
+    Field('adoptionPercentage', String, 'Adoption Percentage',
+        hint:
+            'Percentage of target users actively using the tool'),
+    Field('userSatisfactionScore', String, 'User Satisfaction Score',
+        hint: 'Latest survey score, e.g. 4.2/5, NPS +35'),
+
+    // --- Infrastructure ---
+    // --- Infrastructure ---
+    Field('hostingModel', String, 'Hosting Model',
+        hint: 'SaaS / OnPremise / Hybrid / SelfHostedCloud / PaaS'),
+    Field('instanceCount', String, 'Instance Count',
+        hint:
+            'Number of instances — 1 SaaS tenant, 3 on-prem servers, '
+            'etc.'),
+    Field('instanceUrls', String, 'Instance URLs',
+        hint:
+            'URLs for each instance, e.g. prod: tools.example.com, '
+            'dev: tools-dev.example.com'),
+    Field('resourceRequirements', String, 'Resource Requirements',
+        hint:
+            'CPU, memory, disk, network — for self-hosted deployments'),
+    Field('scalabilityLimits', String, 'Scalability Limits',
+        hint:
+            'Known limits — max users, max repos, max artifacts, max '
+            'concurrent builds'),
+    Field('backupResponsibility', String, 'Backup Responsibility',
+        hint:
+            'Vendor / Internal / Shared — backup strategy and frequency'),
+    Field('backupFrequency', String, 'Backup Frequency',
+        hint: 'Daily / Hourly / Continuous / PerRelease'),
+    Field('disasterRecoveryPlan', String, 'Disaster Recovery Plan',
+        hint:
+            'Failover strategy, RTO/RPO, tested restore process'),
+    Field('uptimeSla', String, 'Uptime SLA',
+        hint: 'Vendor-guaranteed uptime, e.g. 99.95%'),
+    Field('statusPageUrl', String, 'Status Page URL',
+        hint: 'Link to vendor status page for outage tracking'),
+    Field('maintenanceWindow', String, 'Maintenance Window',
+        hint:
+            'Scheduled maintenance times, e.g. Sun 02:00-06:00 UTC'),
+
+    // --- Lifecycle ---
+    // --- Lifecycle ---
+    Field('introductionDate', String, 'Introduction Date',
+        hint: 'When the tool was adopted or will be introduced'),
+    Field('lastEvaluationDate', String, 'Last Evaluation Date',
+        hint: 'When the tool was last formally reviewed'),
+    Field('nextEvaluationDate', String, 'Next Evaluation Date',
+        hint: 'When the next review is scheduled'),
+    Field('plannedRetirementDate', String, 'Planned Retirement Date',
+        hint: 'Scheduled end-of-use date, if known'),
+    Field('replacementTool', String, 'Replacement Tool',
+        hint: 'Tool that will replace this one upon retirement'),
+    Field('migrationPath', String, 'Migration Path',
+        hint:
+            'High-level migration plan — data export, re-training, '
+            'parallel run'),
+    Field('migrationEffort', String, 'Migration Effort',
+        hint: 'Estimated effort to migrate — person-days, complexity'),
+    Field('vendorRoadmapAlignment', String, 'Vendor Roadmap Alignment',
+        hint:
+            'How well vendor roadmap aligns with project needs — '
+            'Strong / Moderate / Weak'),
+    Field('endOfLifeRisk', String, 'End-of-Life Risk',
+        hint:
+            'Low / Medium / High — risk of vendor discontinuing the '
+            'product'),
+
+    // --- Cost ---
+    // --- Cost ---
+    Field('initialCost', String, 'Initial Cost',
+        hint: 'One-time setup, migration, and integration cost'),
+    Field('recurringCost', String, 'Recurring Cost',
+        hint: 'Annual or monthly ongoing cost'),
+    Field('costModel', String, 'Cost Model',
+        hint: 'PerUser / FlatRate / UsageBased / Tiered / Free'),
+    Field('costCenter', String, 'Cost Center',
+        hint: 'Cost center or billing code for chargeback'),
+    Field('budgetOwner', String, 'Budget Owner',
+        hint: 'Person or team responsible for the tool budget'),
+    Field('costTrend', String, 'Cost Trend',
+        hint:
+            'Increasing / Stable / Decreasing — recent cost trajectory '
+            'and drivers'),
+    Field('costOptimizationNotes', String, 'Cost Optimization Notes',
+        hint:
+            'Ways to reduce cost — right-sizing, license consolidation, '
+            'tier change'),
+
+    // --- Configuration ---
+    // --- Configuration ---
+    Field('standardConfiguration', String, 'Standard Configuration',
+        hint:
+            'Baseline settings all users must apply — e.g. '
+            '.editorconfig, analysis_options'),
+    Field('mandatoryPlugins', String, 'Mandatory Plugins',
+        hint:
+            'Plugins required for compliance — e.g. security scanner, '
+            'formatter'),
+    Field('recommendedPlugins', String, 'Recommended Plugins',
+        hint: 'Encouraged but optional plugins'),
+    Field('prohibitedFeatures', String, 'Prohibited Features',
+        hint:
+            'Features disabled for security/compliance — e.g. public '
+            'sharing, AI code completion'),
+    Field('configurationRepository', String, 'Configuration Repository',
+        hint:
+            'Where shared config files are stored — repo path, wiki '
+            'link'),
+    Field('configurationAsCode', String, 'Configuration as Code',
+        hint:
+            'Yes / No / Partial — whether tool config is '
+            'version-controlled'),
+
+    // --- Documentation ---
+    // --- Documentation ---
+    Field('vendorDocumentationUrl', String, 'Vendor Documentation URL',
+        hint: 'Link to official product documentation'),
+    Field('internalWikiUrl', String, 'Internal Wiki / Guide URL',
+        hint: 'Link to internal documentation, runbooks, or wiki'),
+    Field('quickStartGuideUrl', String, 'Quick-Start Guide URL',
+        hint: 'Link to internal quick-start guide for new users'),
+    Field('troubleshootingGuideUrl', String, 'Troubleshooting Guide URL',
+        hint: 'Link to common issues and solutions'),
+    Field('architectureDiagramUrl', String, 'Architecture Diagram URL',
+        hint:
+            'Link to diagram showing how this tool fits in the overall '
+            'toolchain'),
+
+    // --- Approval & Ownership ---
+    // --- Approval & Ownership ---
+    Field('approvalStatus', String, 'Approval Status',
+        hint:
+            'Proposed / UnderReview / Approved / Rejected / Deprecated'),
+    Field('approvedBy', String, 'Approved By',
+        hint: 'Name or role of the person who approved this tool'),
+    Field('approvalDate', String, 'Approval Date',
+        hint: 'When the tool was formally approved'),
+    Field('toolOwner', String, 'Tool Owner',
+        hint:
+            'Person or team accountable for the tool lifecycle'),
+    Field('toolChampion', String, 'Tool Champion',
+        hint:
+            'Internal advocate driving adoption and best practices'),
+
+    // --- Notes ---
+    // --- Notes ---
+    Field('notes', String, 'Notes',
+        hint: 'Additional notes, caveats, or context'),
   ])
   String? content;
+
+  /// Integration details narrative.
+  TextSection integrationNotes = TextSection();
 }
 
 /// 2.4.2. Environments [PD00-POP-TOO-ENV].

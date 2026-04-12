@@ -166,7 +166,7 @@ These sections exist in `tom_specs_model` but are missing from `pd_template.md`:
 | PD00-DEL-ACC-UAT | User Acceptance Testing | Review | ✅ Done |
 | PD00-ORG-JOB-STA | Staffing | Review | ✅ Done |
 | PD00-POP-TOO-ENV | Environments | Review | ✅ Done |
-| PD00-POP-TOO-TOO | Tools | Review | ⬜ Not Started |
+| PD00-POP-TOO-TOO | Tools | Review | ✅ Done |
 | PD00-SSP | System Strategy and Planning | Review | ⬜ Not Started |
 | PD00-SSP-FEA | Features | Review | ⬜ Not Started |
 | PD00-SSP-GOV | Governance | Review | ⬜ Not Started |
