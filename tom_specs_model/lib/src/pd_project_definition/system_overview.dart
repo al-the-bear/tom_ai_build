@@ -4403,9 +4403,58 @@ class IntegrationConstraintEntry {
 }
 
 /// 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON].
+///
+/// Documents external constraints (regulatory, contractual, budgetary,
+/// timeline) and dependencies on other projects, teams, or organizational
+/// initiatives. Follows PMBOK constraint management and dependency
+/// analysis best practices for comprehensive project planning.
 @SectionId('PD00-SYO-RES-CON')
 class ConstraintsAndDependencies {
-  @Unused()
+  @Form([
+    // --- Overview ---
+    Field('constraintDependencyOverview', String,
+        'Constraints and Dependencies Overview',
+        hint:
+            'High-level summary of the key constraints and '
+            'dependencies affecting this project'),
+    Field('totalConstraintCount', String, 'Total Constraint Count',
+        hint:
+            'Total number of identified constraints across all '
+            'categories'),
+    Field('totalDependencyCount', String, 'Total Dependency Count',
+        hint:
+            'Total number of identified dependencies on external '
+            'parties, projects, or systems'),
+    Field('criticalConstraintCount', String,
+        'Critical Constraint Count',
+        hint:
+            'Number of constraints classified as critical or '
+            'high-impact'),
+    Field('criticalDependencyCount', String,
+        'Critical Dependency Count',
+        hint:
+            'Number of dependencies on the critical path or with '
+            'high risk'),
+    // --- Management Approach ---
+    Field('constraintManagementApproach', String,
+        'Constraint Management Approach',
+        hint:
+            'How constraints are identified, tracked, and '
+            'managed throughout the project'),
+    Field('dependencyManagementApproach', String,
+        'Dependency Management Approach',
+        hint:
+            'How dependencies are tracked, coordinated, and '
+            'escalated when at risk'),
+    Field('monitoringFrequency', String, 'Monitoring Frequency',
+        hint:
+            'Weekly / Biweekly / Monthly / PerMilestone — how '
+            'often constraints and dependencies are reviewed'),
+    Field('escalationPath', String, 'Escalation Path',
+        hint:
+            'Escalation path when constraints are violated or '
+            'dependencies are at risk'),
+  ])
   String? content;
 
   /// 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
@@ -4416,45 +4465,499 @@ class ConstraintsAndDependencies {
 }
 
 /// 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
+///
+/// External constraints limiting project scope, schedule, budget, or
+/// approach. Includes regulatory, contractual, organizational, technical,
+/// and resource constraints. Each constraint must be analysed for impact
+/// and monitored throughout the project lifecycle.
 @SectionId('PD00-SYO-RES-CON-CON')
 class Constraints {
-  @Unused()
+  @Form([
+    // --- Overview ---
+    Field('constraintSummary', String, 'Constraint Summary',
+        hint:
+            'Summary of the major constraint categories affecting '
+            'this project'),
+    Field('primaryConstraintCategory', String,
+        'Primary Constraint Category',
+        hint:
+            'Budget / Timeline / Resources / Regulatory / '
+            'Technical / Organizational — dominant constraint type'),
+    Field('constraintImpactLevel', String,
+        'Overall Constraint Impact Level',
+        hint:
+            'Low / Medium / High / Critical — aggregate impact '
+            'of all constraints on project flexibility'),
+    Field('flexibilityAssessment', String, 'Flexibility Assessment',
+        hint:
+            'Where project has flexibility to absorb constraint '
+            'changes — scope, timeline, budget, quality'),
+    // --- Categories ---
+    Field('regulatoryConstraintCount', String,
+        'Regulatory Constraint Count',
+        hint:
+            'Number of regulatory or compliance constraints'),
+    Field('contractualConstraintCount', String,
+        'Contractual Constraint Count',
+        hint:
+            'Number of contractual or legal constraints'),
+    Field('budgetaryConstraintCount', String,
+        'Budgetary Constraint Count',
+        hint:
+            'Number of budget or financial constraints'),
+    Field('timelineConstraintCount', String,
+        'Timeline Constraint Count',
+        hint:
+            'Number of timeline or deadline constraints'),
+    Field('resourceConstraintCount', String,
+        'Resource Constraint Count',
+        hint:
+            'Number of resource or staffing constraints'),
+    Field('technicalConstraintCount', String,
+        'Technical Constraint Count',
+        hint:
+            'Number of technical or technology constraints'),
+  ])
   String? content;
 
   /// Contains 0+× Constraint.
   @SectionIdPattern('PD00-SYO-RES-CON-CON-xx')
   List<ConstraintEntry> items = [];
+
+  /// Constraint Summary narrative.
+  @Comment('Free-text narrative providing context and analysis '
+      'of the constraint landscape')
+  TextSection constraintNarrative = TextSection();
 }
 
 /// A constraint entry [PD00-SYO-RES-CON-CON-nn] (form).
+///
+/// Represents a single external constraint limiting project degrees of
+/// freedom. Common constraint types include regulatory requirements,
+/// contractual obligations, budget limits, timeline deadlines, resource
+/// caps, and technology mandates. Each constraint should be tracked,
+/// monitored, and have mitigation strategies where possible.
 class ConstraintEntry {
   @Form([
-    Field('constraint', String, 'Constraint'),
-    Field('type', String, 'Type'),
-    Field('impact', String, 'Impact assessment'),
-    Field('mitigation', String, 'Mitigation strategy'),
+    // --- Constraint Identity ---
+    Field('constraintId', String, 'Constraint ID',
+        hint:
+            'Unique identifier, e.g. CON-001, CON-REG-001',
+        required: true),
+    Field('constraintName', String, 'Constraint Name',
+        hint:
+            'Short descriptive name for the constraint, e.g. '
+            'GDPR Compliance Deadline',
+        required: true),
+    Field('constraintDescription', String, 'Description',
+        hint:
+            'Detailed description of the constraint and what '
+            'it limits or requires'),
+
+    // --- Constraint Classification ---
+    Field('constraintCategory', String, 'Constraint Category',
+        hint:
+            'Regulatory / Contractual / Budgetary / Timeline / '
+            'Resource / Technical / Organizational / Policy / '
+            'Environmental / Geographic',
+        required: true),
+    Field('constraintType', String, 'Constraint Type',
+        hint:
+            'Hard / Soft — hard constraints cannot be violated, '
+            'soft constraints can be negotiated'),
+    Field('constraintSource', String, 'Constraint Source',
+        hint:
+            'Source of the constraint — regulator, contract, '
+            'executive, legal, technical team, vendor'),
+    Field('sourceReference', String, 'Source Reference',
+        hint:
+            'Reference to the source document — regulation '
+            'number, contract clause, policy document'),
+
+    // --- Constraint Details ---
+    Field('constraintValue', String, 'Constraint Value',
+        hint:
+            'Specific value or limit — e.g. EUR 500K max, '
+            '6 months deadline, 10 FTE cap'),
+    Field('constraintEffectiveDate', String,
+        'Constraint Effective Date',
+        hint:
+            'Date from which the constraint applies, '
+            'e.g. 2026-01-01'),
+    Field('constraintExpiryDate', String, 'Constraint Expiry Date',
+        hint:
+            'Date until which the constraint applies, if '
+            'applicable — may be ongoing'),
+    Field('geographicScope', String, 'Geographic Scope',
+        hint:
+            'Geographic regions where constraint applies — '
+            'Global / EU / US / APAC / specific countries'),
+    Field('affectedDomains', String, 'Affected Domains',
+        hint:
+            'Business or technical domains affected — scope, '
+            'timeline, budget, technology, resources, quality'),
+
+    // --- Impact Assessment ---
+    Field('impactLevel', String, 'Impact Level',
+        hint:
+            'Low / Medium / High / Critical — impact on project '
+            'if constraint is violated or not met',
+        required: true),
+    Field('impactDescription', String, 'Impact Description',
+        hint:
+            'Description of what happens if constraint is '
+            'violated — penalties, delays, legal action'),
+    Field('affectedWorkPackages', String, 'Affected Work Packages',
+        hint:
+            'Work packages or deliverables directly affected '
+            'by this constraint'),
+    Field('affectedMilestones', String, 'Affected Milestones',
+        hint:
+            'Project milestones affected by this constraint'),
+    Field('scheduleImpact', String, 'Schedule Impact',
+        hint:
+            'How constraint affects project schedule — fixed '
+            'deadline, limited work window, blackout periods'),
+    Field('budgetImpact', String, 'Budget Impact',
+        hint:
+            'How constraint affects project budget — caps, '
+            'additional costs, penalties'),
+    Field('scopeImpact', String, 'Scope Impact',
+        hint:
+            'How constraint limits project scope — excluded '
+            'features, mandatory features, technology limits'),
+
+    // --- Mitigation & Response ---
+    Field('mitigationStrategy', String, 'Mitigation Strategy',
+        hint:
+            'Strategies to work within the constraint — '
+            'workarounds, alternatives, buffering'),
+    Field('negotiationPossibility', String,
+        'Negotiation Possibility',
+        hint:
+            'None / Limited / Possible — whether constraint '
+            'can be negotiated or relaxed'),
+    Field('negotiationApproach', String, 'Negotiation Approach',
+        hint:
+            'If negotiation is possible, describe the approach '
+            'and timing'),
+    Field('fallbackPlan', String, 'Fallback Plan',
+        hint:
+            'Contingency plan if constraint cannot be met — '
+            'descope, delay, alternative approach'),
+    Field('violationConsequences', String,
+        'Violation Consequences',
+        hint:
+            'Consequences of violating this constraint — '
+            'legal, financial, reputational'),
+
+    // --- Tracking & Monitoring ---
+    Field('trackingMethod', String, 'Tracking Method',
+        hint:
+            'How the constraint is monitored — dashboards, '
+            'reports, automated alerts, manual reviews'),
+    Field('reviewFrequency', String, 'Review Frequency',
+        hint:
+            'Weekly / Biweekly / Monthly / PerMilestone — '
+            'how often constraint status is reviewed'),
+    Field('constraintOwner', String, 'Constraint Owner',
+        hint:
+            'Person or role responsible for monitoring and '
+            'managing this constraint'),
+    Field('currentStatus', String, 'Current Status',
+        hint:
+            'OnTrack / AtRisk / Violated / Resolved / Expired — '
+            'current status of the constraint'),
+    Field('statusNotes', String, 'Status Notes',
+        hint:
+            'Notes on current status and recent changes'),
+
+    // --- Linkages ---
+    Field('relatedConstraints', String, 'Related Constraints',
+        hint:
+            'Other constraints that interact with or depend '
+            'on this one'),
+    Field('relatedRisks', String, 'Related Risks',
+        hint:
+            'Risks associated with this constraint — risk IDs'),
+    Field('relatedDependencies', String, 'Related Dependencies',
+        hint:
+            'Dependencies that relate to this constraint'),
   ])
   String? content;
 }
 
 /// 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
+///
+/// External dependencies on other projects, teams, vendors, systems, or
+/// organizational initiatives. Each dependency represents a point where
+/// this project relies on external parties to deliver. Dependencies
+/// should be tracked, risks assessed, and contingencies planned.
 @SectionId('PD00-SYO-RES-CON-DEP')
 class FrameworkDependencies {
-  @Unused()
+  @Form([
+    // --- Overview ---
+    Field('dependencySummary', String, 'Dependency Summary',
+        hint:
+            'Summary of the major dependency categories affecting '
+            'this project'),
+    Field('primaryDependencyCategory', String,
+        'Primary Dependency Category',
+        hint:
+            'Project / Team / Vendor / System / Regulatory / '
+            'Infrastructure — dominant dependency type'),
+    Field('dependencyRiskLevel', String,
+        'Overall Dependency Risk Level',
+        hint:
+            'Low / Medium / High / Critical — aggregate risk '
+            'from all dependencies'),
+    Field('criticalPathDependencyCount', String,
+        'Critical Path Dependency Count',
+        hint:
+            'Number of dependencies on the project critical path'),
+    // --- Categories ---
+    Field('projectDependencyCount', String,
+        'Project Dependency Count',
+        hint:
+            'Number of dependencies on other projects'),
+    Field('teamDependencyCount', String, 'Team Dependency Count',
+        hint:
+            'Number of dependencies on other internal teams'),
+    Field('vendorDependencyCount', String,
+        'Vendor Dependency Count',
+        hint:
+            'Number of dependencies on external vendors'),
+    Field('systemDependencyCount', String,
+        'System Dependency Count',
+        hint:
+            'Number of dependencies on existing systems'),
+    Field('regulatoryDependencyCount', String,
+        'Regulatory Dependency Count',
+        hint:
+            'Number of dependencies on regulatory approvals'),
+    Field('infrastructureDependencyCount', String,
+        'Infrastructure Dependency Count',
+        hint:
+            'Number of dependencies on infrastructure delivery'),
+    // --- Management ---
+    Field('dependencyCoordinationApproach', String,
+        'Dependency Coordination Approach',
+        hint:
+            'How dependencies are coordinated — regular syncs, '
+            'shared boards, liaison roles, escalation process'),
+    Field('earlyWarningMechanism', String,
+        'Early Warning Mechanism',
+        hint:
+            'How risks to dependencies are detected early — '
+            'status reports, automated monitoring, trigger criteria'),
+  ])
   String? content;
 
   /// Contains 0+× FrameworkDependency.
   @SectionIdPattern('PD00-SYO-RES-CON-DEP-xx')
   List<FrameworkDependencyEntry> items = [];
+
+  /// Dependency Summary narrative.
+  @Comment('Free-text narrative providing context and analysis '
+      'of the dependency landscape')
+  TextSection dependencyNarrative = TextSection();
 }
 
 /// A framework dependency entry [PD00-SYO-RES-CON-DEP-nn] (form).
+///
+/// Represents a single external dependency where this project relies on
+/// another party (project, team, vendor, system) to deliver something.
+/// Dependencies should be actively managed with clear expectations,
+/// tracking, and contingency plans for delays or failures.
 class FrameworkDependencyEntry {
   @Form([
-    Field('dependency', String, 'Dependency'),
-    Field('type', String, 'Type'),
-    Field('impact', String, 'Impact assessment'),
-    Field('mitigation', String, 'Mitigation strategy'),
+    // --- Dependency Identity ---
+    Field('dependencyId', String, 'Dependency ID',
+        hint:
+            'Unique identifier, e.g. DEP-001, DEP-VEN-001',
+        required: true),
+    Field('dependencyName', String, 'Dependency Name',
+        hint:
+            'Short descriptive name for the dependency, e.g. '
+            'CRM API delivery',
+        required: true),
+    Field('dependencyDescription', String, 'Description',
+        hint:
+            'Detailed description of what is being depended upon '
+            'and why it is needed'),
+
+    // --- Dependency Classification ---
+    Field('dependencyCategory', String, 'Dependency Category',
+        hint:
+            'Project / Team / Vendor / System / Regulatory / '
+            'Infrastructure / Data / Service / Partner',
+        required: true),
+    Field('dependencyType', String, 'Dependency Type',
+        hint:
+            'Finish-to-Start / Start-to-Start / Finish-to-Finish / '
+            'Start-to-Finish — scheduling relationship type'),
+    Field('criticalityLevel', String, 'Criticality Level',
+        hint:
+            'Low / Medium / High / Critical — how critical this '
+            'dependency is to project success',
+        required: true),
+    Field('onCriticalPath', String, 'On Critical Path',
+        hint:
+            'Yes / No — whether this dependency is on the '
+            'project critical path'),
+
+    // --- External Party Details ---
+    Field('externalPartyName', String, 'External Party Name',
+        hint:
+            'Name of the project, team, vendor, or system '
+            'being depended upon',
+        required: true),
+    Field('externalPartyType', String, 'External Party Type',
+        hint:
+            'InternalProject / InternalTeam / ExternalVendor / '
+            'SystemTeam / Regulator / Partner'),
+    Field('contactPerson', String, 'Contact Person',
+        hint:
+            'Primary contact at the external party for this '
+            'dependency'),
+    Field('contactEmail', String, 'Contact Email',
+        hint:
+            'Email address for the primary contact'),
+    Field('escalationContact', String, 'Escalation Contact',
+        hint:
+            'Escalation contact if primary is unresponsive or '
+            'dependency is at risk'),
+
+    // --- Deliverable Details ---
+    Field('deliverableDescription', String,
+        'Deliverable Description',
+        hint:
+            'Description of what must be delivered by the '
+            'external party'),
+    Field('deliverableSpecification', String,
+        'Deliverable Specification',
+        hint:
+            'Link to or reference for detailed specifications '
+            'of the deliverable'),
+    Field('qualityCriteria', String, 'Quality Criteria',
+        hint:
+            'Quality criteria the deliverable must meet — '
+            'acceptance criteria, standards'),
+    Field('deliveryFormat', String, 'Delivery Format',
+        hint:
+            'Format of the deliverable — API, data file, '
+            'documentation, software component, approval'),
+
+    // --- Timeline ---
+    Field('expectedDeliveryDate', String, 'Expected Delivery Date',
+        hint:
+            'Date when deliverable is expected, e.g. 2026-06-15',
+        required: true),
+    Field('latestAcceptableDate', String, 'Latest Acceptable Date',
+        hint:
+            'Latest date deliverable can be received without '
+            'schedule impact'),
+    Field('leadTimeRequired', String, 'Lead Time Required',
+        hint:
+            'Time needed after delivery to integrate or use '
+            'the deliverable, e.g. 2 weeks'),
+    Field('bufferDays', String, 'Buffer Days',
+        hint:
+            'Buffer built into schedule for potential delays'),
+    Field('dependentMilestones', String, 'Dependent Milestones',
+        hint:
+            'Project milestones that depend on this delivery'),
+
+    // --- Risk Assessment ---
+    Field('deliveryRiskLevel', String, 'Delivery Risk Level',
+        hint:
+            'Low / Medium / High / Critical — risk of delayed '
+            'or failed delivery',
+        required: true),
+    Field('primaryRiskFactors', String, 'Primary Risk Factors',
+        hint:
+            'Key factors driving delivery risk — vendor '
+            'reliability, technical complexity, resource constraints'),
+    Field('riskIndicators', String, 'Risk Indicators',
+        hint:
+            'Early warning indicators — missed interim deadlines, '
+            'quality issues, communication gaps'),
+    Field('impactOfDelay', String, 'Impact of Delay',
+        hint:
+            'Impact on project if delivery is delayed — '
+            'schedule slip, cost increase, scope reduction'),
+    Field('impactOfFailure', String, 'Impact of Failure',
+        hint:
+            'Impact on project if delivery fails entirely — '
+            'showstopper, workaround possible, alternative exists'),
+
+    // --- Mitigation & Contingency ---
+    Field('mitigationStrategy', String, 'Mitigation Strategy',
+        hint:
+            'Strategies to reduce delivery risk — regular '
+            'syncs, early reviews, contractual SLAs'),
+    Field('contingencyPlan', String, 'Contingency Plan',
+        hint:
+            'Backup plan if dependency fails or is delayed — '
+            'alternative vendor, internal development, descope'),
+    Field('contingencyTimeline', String, 'Contingency Timeline',
+        hint:
+            'When contingency plan would need to be activated — '
+            'trigger date or condition'),
+    Field('contractualProtection', String,
+        'Contractual Protection',
+        hint:
+            'Contractual protections in place — SLAs, penalties, '
+            'termination clauses'),
+    Field('alternativeOptions', String, 'Alternative Options',
+        hint:
+            'Alternative sources or approaches if primary '
+            'dependency fails'),
+
+    // --- Coordination & Tracking ---
+    Field('coordinationMechanism', String,
+        'Coordination Mechanism',
+        hint:
+            'How coordination occurs — weekly syncs, shared '
+            'board, status reports, dedicated liaison'),
+    Field('communicationFrequency', String,
+        'Communication Frequency',
+        hint:
+            'Daily / Weekly / Biweekly / Monthly — how often '
+            'status is communicated'),
+    Field('trackingMethod', String, 'Tracking Method',
+        hint:
+            'How progress is tracked — shared dashboard, '
+            'status emails, regular demos, milestone reviews'),
+    Field('dependencyOwner', String, 'Dependency Owner',
+        hint:
+            'Person or role responsible for managing this '
+            'dependency on our side'),
+    Field('currentStatus', String, 'Current Status',
+        hint:
+            'OnTrack / Delayed / AtRisk / Delivered / Failed — '
+            'current status of the dependency'),
+    Field('statusLastUpdated', String, 'Status Last Updated',
+        hint:
+            'Date of the most recent status update'),
+    Field('statusNotes', String, 'Status Notes',
+        hint:
+            'Notes on current status, recent progress, or '
+            'concerns'),
+
+    // --- Linkages ---
+    Field('relatedConstraints', String, 'Related Constraints',
+        hint:
+            'Constraints that relate to this dependency'),
+    Field('relatedRisks', String, 'Related Risks',
+        hint:
+            'Risks associated with this dependency — risk IDs'),
+    Field('relatedDependencies', String, 'Related Dependencies',
+        hint:
+            'Other dependencies that interact with this one'),
+    Field('affectedWorkPackages', String, 'Affected Work Packages',
+        hint:
+            'Work packages that depend on this delivery'),
   ])
   String? content;
 }
