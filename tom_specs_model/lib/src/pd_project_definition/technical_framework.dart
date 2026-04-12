@@ -51,9 +51,9 @@ class BasicTechnicalRequirements {
   /// 8.1.2. Architecture Style [PD00-TEC-BAS-ARC].
   ArchitectureStyle architectureStyle = ArchitectureStyle();
 
-  /// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT] — contains 0+× DesignPattern.
-  @SectionIdPattern('PD00-TEC-BAS-PAT-xx')
-  List<DesignPatternEntry> designPatternsAndStandards = [];
+  /// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
+  DesignPatternsAndStandards designPatternsAndStandards =
+      DesignPatternsAndStandards();
 }
 
 // =============================================================================
@@ -1067,11 +1067,476 @@ class ArchitectureDecisionRecord {
   String? content;
 }
 
-/// A design pattern or standard entry (form) [PD00-TEC-BAS-PAT-nn].
+// =============================================================================
+// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT]
+// =============================================================================
+
+/// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
+///
+/// Required design patterns, coding standards, development conventions, and
+/// applicable industry standards (ISO, OWASP, IEEE).
+@SectionId('PD00-TEC-BAS-PAT')
+class DesignPatternsAndStandards {
+  @Unused()
+  String? content;
+
+  /// Overview of design patterns and standards approach.
+  TextSection overview = TextSection();
+
+  /// Required design patterns catalog.
+  @SectionIdPattern('PD00-TEC-BAS-PAT-DES-xx')
+  List<DesignPatternEntry> designPatterns = [];
+
+  /// Coding standards and style guidelines.
+  @SectionIdPattern('PD00-TEC-BAS-PAT-COD-xx')
+  List<CodingStandardEntry> codingStandards = [];
+
+  /// Development conventions and best practices.
+  @SectionIdPattern('PD00-TEC-BAS-PAT-CON-xx')
+  List<DevelopmentConventionEntry> developmentConventions = [];
+
+  /// Industry standards compliance requirements.
+  @SectionIdPattern('PD00-TEC-BAS-PAT-IND-xx')
+  List<IndustryStandardEntry> industryStandards = [];
+
+  /// Code quality metrics and thresholds.
+  CodeQualityMetrics codeQualityMetrics = CodeQualityMetrics();
+
+  /// Documentation standards.
+  DocumentationStandards documentationStandards = DocumentationStandards();
+
+  /// Error handling and exception patterns.
+  ErrorHandlingStandards errorHandlingStandards = ErrorHandlingStandards();
+
+  /// Testing standards and requirements.
+  TestingStandards testingStandards = TestingStandards();
+}
+
+/// Design pattern entry — a specific design pattern to be used.
 class DesignPatternEntry {
   @Form([
-    Field('patternName', String, 'Pattern Name', required: true),
-    Field('purpose', String, 'Purpose'),
+    // Identity
+    Field('patternName', String, 'Pattern Name',
+        required: true,
+        hint: 'E.g., Repository, Factory, Observer, State, Command'),
+    Field('patternCategory', String, 'Category',
+        required: true,
+        hint: 'Creational, Structural, Behavioral, Architectural, UI'),
+    Field('patternSource', String, 'Source',
+        hint: 'GoF, Enterprise Patterns, DDD, UI Patterns'),
+
+    // Description
+    Field('purpose', String, 'Purpose',
+        required: true, hint: 'What problem this pattern solves'),
+    Field('applicability', String, 'When to Use',
+        hint: 'Situations where this pattern applies'),
+    Field('notApplicable', String, 'When NOT to Use',
+        hint: 'Situations where this pattern should be avoided'),
+
+    // Structure
+    Field('participants', String, 'Participants',
+        hint: 'Key classes/objects involved in this pattern'),
+    Field('collaborations', String, 'Collaborations',
+        hint: 'How participants interact'),
+    Field('variations', String, 'Variations',
+        hint: 'Supported variations of this pattern'),
+
+    // Implementation
+    Field('implementationGuidelines', String, 'Implementation Guidelines',
+        hint: 'How to implement this pattern in the project'),
+    Field('codeTemplate', String, 'Code Template/Example',
+        hint: 'Reference to template or example code'),
+    Field('frameworkSupport', String, 'Framework Support',
+        hint: 'How the framework supports this pattern'),
+
+    // Context
+    Field('usageScope', String, 'Usage Scope',
+        hint: 'Where in the architecture this pattern applies'),
+    Field('relatedPatterns', String, 'Related Patterns',
+        hint: 'Other patterns commonly used with this one'),
+
+    // Enforcement
+    Field('enforcementLevel', String, 'Enforcement Level',
+        hint: 'Mandatory, Recommended, Optional'),
+    Field('verificationMethod', String, 'Verification Method',
+        hint: 'How compliance is verified'),
+    Field('notes', String, 'Notes', hint: 'Additional pattern notes'),
+  ])
+  String? content;
+}
+
+/// Coding standard entry — a coding style or convention requirement.
+class CodingStandardEntry {
+  @Form([
+    // Identity
+    Field('standardName', String, 'Standard Name',
+        required: true, hint: 'E.g., Effective Dart, Clean Code, Project-specific'),
+    Field('standardCategory', String, 'Category',
+        required: true,
+        hint: 'Naming, Formatting, Comments, Structure, Imports'),
+    Field('applicableLanguage', String, 'Applicable Language',
+        hint: 'Which programming language(s) this applies to'),
+
+    // Description
+    Field('rule', String, 'Rule',
+        required: true, hint: 'Clear statement of the coding rule'),
+    Field('rationale', String, 'Rationale', hint: 'Why this rule matters'),
+    Field('examples', String, 'Examples', hint: 'Good and bad code examples'),
+
+    // Naming conventions
+    Field('namingConvention', String, 'Naming Convention',
+        hint: 'camelCase, PascalCase, snake_case rules'),
+    Field('prefixSuffix', String, 'Prefix/Suffix Rules',
+        hint: 'Required prefixes or suffixes'),
+
+    // Formatting
+    Field('indentation', String, 'Indentation',
+        hint: 'Spaces vs tabs, indentation size'),
+    Field('lineLength', String, 'Line Length', hint: 'Maximum line length'),
+    Field('bracingStyle', String, 'Bracing Style',
+        hint: 'Where braces should appear'),
+
+    // Enforcement
+    Field('linterRule', String, 'Linter Rule',
+        hint: 'Corresponding linter rule name'),
+    Field('severity', String, 'Severity',
+        hint: 'Error, Warning, Info'),
+    Field('enforcementMethod', String, 'Enforcement Method',
+        hint: 'Linter, Code review, CI check'),
+    Field('autoFixable', bool, 'Auto-Fixable',
+        hint: 'Can be automatically fixed'),
+    Field('notes', String, 'Notes', hint: 'Additional standard notes'),
+  ])
+  String? content;
+}
+
+/// Development convention entry — a development practice or workflow convention.
+class DevelopmentConventionEntry {
+  @Form([
+    // Identity
+    Field('conventionName', String, 'Convention Name',
+        required: true, hint: 'Name of the development convention'),
+    Field('conventionCategory', String, 'Category',
+        required: true,
+        hint:
+            'Version Control, Code Review, Branching, Commit, CI/CD, Deployment'),
+
+    // Description
+    Field('description', String, 'Description',
+        required: true, hint: 'What the convention requires'),
+    Field('rationale', String, 'Rationale',
+        hint: 'Why this convention is important'),
+    Field('workflow', String, 'Workflow',
+        hint: 'Step-by-step workflow if applicable'),
+
+    // Version control
+    Field('branchingStrategy', String, 'Branching Strategy',
+        hint: 'GitFlow, trunk-based, feature branches'),
+    Field('branchNaming', String, 'Branch Naming',
+        hint: 'Branch naming convention'),
+    Field('commitFormat', String, 'Commit Message Format',
+        hint: 'Conventional commits, custom format'),
+    Field('prProcess', String, 'PR Process',
+        hint: 'Pull request requirements'),
+
+    // Code review
+    Field('reviewRequirements', String, 'Review Requirements',
+        hint: 'Minimum reviewers, approval rules'),
+    Field('reviewChecklist', String, 'Review Checklist',
+        hint: 'Items to check during review'),
+
+    // Automation
+    Field('automationIntegration', String, 'Automation Integration',
+        hint: 'How this integrates with CI/CD'),
+    Field('triggers', String, 'Triggers',
+        hint: 'What triggers this convention'),
+
+    // Enforcement
+    Field('enforcementLevel', String, 'Enforcement Level',
+        hint: 'Mandatory, Recommended, Advisory'),
+    Field('enforcementMethod', String, 'Enforcement Method',
+        hint: 'Git hooks, CI checks, manual'),
+    Field('exceptions', String, 'Exceptions',
+        hint: 'Allowed exceptions to this convention'),
+    Field('notes', String, 'Notes', hint: 'Additional convention notes'),
+  ])
+  String? content;
+}
+
+/// Industry standard entry — compliance with industry standards.
+class IndustryStandardEntry {
+  @Form([
+    // Identity
+    Field('standardName', String, 'Standard Name',
+        required: true, hint: 'E.g., ISO 27001, OWASP, IEEE 830, GDPR'),
+    Field('standardBody', String, 'Standard Body',
+        hint: 'ISO, IEEE, OWASP, NIST, ECMA'),
+    Field('version', String, 'Version',
+        hint: 'Version of the standard'),
+    Field('publicationDate', String, 'Publication Date',
+        hint: 'Standard publication date'),
+
+    // Scope
+    Field('category', String, 'Category',
+        required: true,
+        hint: 'Security, Quality, Process, Documentation, Accessibility'),
+    Field('applicableAreas', String, 'Applicable Areas',
+        hint: 'Which parts of the system this applies to'),
+
+    // Compliance
+    Field('complianceLevel', String, 'Compliance Level',
+        required: true, hint: 'Full, Partial, Certified, In Progress'),
+    Field('applicableRequirements', String, 'Applicable Requirements',
+        hint: 'Specific sections or requirements that apply'),
+    Field('excludedRequirements', String, 'Excluded Requirements',
+        hint: 'Requirements that do not apply'),
+
+    // Certification
+    Field('certificationRequired', bool, 'Certification Required',
+        hint: 'Is formal certification required?'),
+    Field('certificationBody', String, 'Certification Body',
+        hint: 'Who provides certification'),
+    Field('certificationScope', String, 'Certification Scope',
+        hint: 'Scope of certification'),
+    Field('certificationTarget', String, 'Certification Target Date',
+        hint: 'Target date for certification'),
+
+    // Verification
+    Field('auditFrequency', String, 'Audit Frequency',
+        hint: 'How often compliance is audited'),
+    Field('verificationMethod', String, 'Verification Method',
+        hint: 'How compliance is verified'),
+    Field('evidenceRequired', String, 'Evidence Required',
+        hint: 'Documentation required for compliance'),
+
+    // Reference
+    Field('referenceUrl', String, 'Reference URL',
+        hint: 'Link to standard documentation'),
+    Field('notes', String, 'Notes', hint: 'Additional compliance notes'),
+  ])
+  String? content;
+}
+
+/// Code quality metrics and thresholds.
+class CodeQualityMetrics {
+  @Form([
+    // Coverage metrics
+    Field('testCoverageMinimum', String, 'Test Coverage Minimum',
+        hint: 'Minimum test coverage percentage'),
+    Field('branchCoverageMinimum', String, 'Branch Coverage Minimum',
+        hint: 'Minimum branch coverage percentage'),
+    Field('mutationScoreMinimum', String, 'Mutation Score Minimum',
+        hint: 'Minimum mutation testing score'),
+
+    // Complexity metrics
+    Field('cyclomaticComplexityMax', String, 'Cyclomatic Complexity Max',
+        hint: 'Maximum cyclomatic complexity per method'),
+    Field('cognitiveComplexityMax', String, 'Cognitive Complexity Max',
+        hint: 'Maximum cognitive complexity per method'),
+    Field('methodLengthMax', String, 'Method Length Max',
+        hint: 'Maximum lines of code per method'),
+    Field('classLengthMax', String, 'Class Length Max',
+        hint: 'Maximum lines of code per class'),
+
+    // Coupling metrics
+    Field('afferentCouplingMax', String, 'Afferent Coupling Max',
+        hint: 'Maximum incoming dependencies'),
+    Field('efferentCouplingMax', String, 'Efferent Coupling Max',
+        hint: 'Maximum outgoing dependencies'),
+    Field('instabilityRange', String, 'Instability Range',
+        hint: 'Acceptable instability range'),
+
+    // Code duplication
+    Field('duplicationMax', String, 'Code Duplication Max',
+        hint: 'Maximum code duplication percentage'),
+    Field('duplicationBlockSize', String, 'Duplication Block Size',
+        hint: 'Minimum lines to consider duplication'),
+
+    // Static analysis
+    Field('warningsAllowed', String, 'Warnings Allowed',
+        hint: 'Maximum allowed static analysis warnings'),
+    Field('criticalIssuesAllowed', String, 'Critical Issues Allowed',
+        hint: 'Maximum critical issues allowed (usually 0)'),
+    Field('technicalDebtTarget', String, 'Technical Debt Target',
+        hint: 'Target technical debt ratio'),
+
+    // Tools
+    Field('analysisTools', String, 'Analysis Tools',
+        hint: 'Tools used for quality measurement'),
+    Field('reportingFrequency', String, 'Reporting Frequency',
+        hint: 'How often metrics are reported'),
+    Field('trendMonitoring', String, 'Trend Monitoring',
+        hint: 'How quality trends are monitored'),
+    Field('notes', String, 'Notes', hint: 'Additional quality metrics notes'),
+  ])
+  String? content;
+}
+
+/// Documentation standards and requirements.
+class DocumentationStandards {
+  @Form([
+    // Code documentation
+    Field('publicApiDocRequired', bool, 'Public API Doc Required',
+        hint: 'All public APIs must be documented'),
+    Field('docCommentFormat', String, 'Doc Comment Format',
+        hint: 'Dartdoc, JSDoc, Javadoc format'),
+    Field('parameterDocRequired', bool, 'Parameter Doc Required',
+        hint: 'Parameters must be documented'),
+    Field('returnDocRequired', bool, 'Return Doc Required',
+        hint: 'Return values must be documented'),
+    Field('exampleRequired', bool, 'Example Required',
+        hint: 'Examples required for complex APIs'),
+
+    // Documentation content
+    Field('minimumDescription', String, 'Minimum Description',
+        hint: 'Minimum description length/content'),
+    Field('crossReferenceRequired', bool, 'Cross-Reference Required',
+        hint: 'Related items must be cross-referenced'),
+    Field('deprecationNotice', String, 'Deprecation Notice',
+        hint: 'How to document deprecations'),
+
+    // Architecture documentation
+    Field('architectureDocRequired', bool, 'Architecture Doc Required',
+        hint: 'Architecture documentation required'),
+    Field('diagramsRequired', String, 'Diagrams Required',
+        hint: 'Required diagram types'),
+    Field('readmeRequired', bool, 'README Required',
+        hint: 'README required for each package/module'),
+
+    // Changelog and versioning
+    Field('changelogRequired', bool, 'Changelog Required',
+        hint: 'Changelog must be maintained'),
+    Field('changelogFormat', String, 'Changelog Format',
+        hint: 'Keep a Changelog, custom format'),
+    Field('versioningScheme', String, 'Versioning Scheme',
+        hint: 'Semantic versioning, CalVer'),
+
+    // Review process
+    Field('docReviewRequired', bool, 'Doc Review Required',
+        hint: 'Documentation changes require review'),
+    Field('technicalWriterReview', bool, 'Technical Writer Review',
+        hint: 'Professional tech writer review'),
+
+    // Generation
+    Field('docGenerationTool', String, 'Doc Generation Tool',
+        hint: 'Tool for generating documentation'),
+    Field('publishingLocation', String, 'Publishing Location',
+        hint: 'Where documentation is published'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional documentation standards notes'),
+  ])
+  String? content;
+}
+
+/// Error handling and exception patterns.
+class ErrorHandlingStandards {
+  @Form([
+    // Error handling philosophy
+    Field('errorPhilosophy', String, 'Error Handling Philosophy',
+        hint: 'Exceptions, Result types, Either, Error codes'),
+    Field('failFastApproach', String, 'Fail-Fast Approach',
+        hint: 'When and how to fail fast'),
+    Field('gracefulDegradation', String, 'Graceful Degradation',
+        hint: 'How to degrade gracefully'),
+
+    // Exception types
+    Field('exceptionHierarchy', String, 'Exception Hierarchy',
+        hint: 'Base exception class structure'),
+    Field('customExceptions', String, 'Custom Exceptions',
+        hint: 'When to create custom exceptions'),
+    Field('exceptionNaming', String, 'Exception Naming',
+        hint: 'Naming convention for exceptions'),
+
+    // Error handling patterns
+    Field('catchAllPolicy', String, 'Catch-All Policy',
+        hint: 'Policy on catch-all handlers'),
+    Field('retryPolicy', String, 'Retry Policy',
+        hint: 'When and how to retry operations'),
+    Field('circuitBreakerPolicy', String, 'Circuit Breaker Policy',
+        hint: 'Circuit breaker implementation'),
+
+    // Error reporting
+    Field('errorLogging', String, 'Error Logging',
+        hint: 'How errors are logged'),
+    Field('errorTracking', String, 'Error Tracking',
+        hint: 'Error tracking service/approach'),
+    Field('sensitiveDataHandling', String, 'Sensitive Data Handling',
+        hint: 'How to handle sensitive data in errors'),
+
+    // User communication
+    Field('userErrorMessages', String, 'User Error Messages',
+        hint: 'User-facing error message standards'),
+    Field('errorCodes', String, 'Error Codes',
+        hint: 'Error code format and catalog'),
+    Field('localization', String, 'Localization',
+        hint: 'Error message localization'),
+
+    // Recovery
+    Field('recoveryStrategies', String, 'Recovery Strategies',
+        hint: 'Standard recovery strategies'),
+    Field('compensatingActions', String, 'Compensating Actions',
+        hint: 'How to handle partial failures'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional error handling notes'),
+  ])
+  String? content;
+}
+
+/// Testing standards and requirements.
+class TestingStandards {
+  @Form([
+    // Test types
+    Field('unitTestRequired', bool, 'Unit Test Required',
+        hint: 'Unit tests required for all code'),
+    Field('integrationTestRequired', bool, 'Integration Test Required',
+        hint: 'Integration tests required'),
+    Field('e2eTestRequired', bool, 'E2E Test Required',
+        hint: 'End-to-end tests required'),
+    Field('performanceTestRequired', bool, 'Performance Test Required',
+        hint: 'Performance tests required'),
+
+    // Test organization
+    Field('testNamingConvention', String, 'Test Naming Convention',
+        hint: 'How tests should be named'),
+    Field('testFileOrganization', String, 'Test File Organization',
+        hint: 'How test files are organized'),
+    Field('testDataManagement', String, 'Test Data Management',
+        hint: 'How test data is managed'),
+
+    // Test patterns
+    Field('arrangActAssert', bool, 'Arrange-Act-Assert',
+        hint: 'Use AAA pattern'),
+    Field('givenWhenThen', bool, 'Given-When-Then',
+        hint: 'Use GWT pattern for BDD'),
+    Field('mockingStrategy', String, 'Mocking Strategy',
+        hint: 'When and how to use mocks'),
+    Field('stubStrategy', String, 'Stub Strategy',
+        hint: 'When to use stubs vs mocks'),
+
+    // Quality
+    Field('testIsolation', String, 'Test Isolation',
+        hint: 'Test isolation requirements'),
+    Field('deterministicTests', bool, 'Deterministic Tests Required',
+        hint: 'Tests must be deterministic'),
+    Field('flakyTestPolicy', String, 'Flaky Test Policy',
+        hint: 'How to handle flaky tests'),
+
+    // Tools
+    Field('testFramework', String, 'Test Framework',
+        hint: 'Testing framework to use'),
+    Field('mockingFramework', String, 'Mocking Framework',
+        hint: 'Mocking framework to use'),
+    Field('coverageTools', String, 'Coverage Tools',
+        hint: 'Code coverage tools'),
+
+    // CI integration
+    Field('ciTestExecution', String, 'CI Test Execution',
+        hint: 'How tests run in CI'),
+    Field('parallelExecution', String, 'Parallel Execution',
+        hint: 'Test parallelization approach'),
+    Field('testReporting', String, 'Test Reporting',
+        hint: 'Test report format and location'),
+    Field('notes', String, 'Notes', hint: 'Additional testing standards notes'),
   ])
   String? content;
 }
