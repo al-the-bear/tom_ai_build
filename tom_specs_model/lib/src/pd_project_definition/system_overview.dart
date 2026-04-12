@@ -3731,35 +3731,286 @@ class MigrationMilestoneEntry {
 }
 
 /// Migration risks [PD00-SYO-SYR-MIG-RIS] — program-level risks.
+///
+/// Comprehensive migration risk management framework for program-level
+/// risks across the entire migration portfolio. Covers risk governance,
+/// assessment methodology, monitoring, and escalation procedures.
+/// Follows PMI risk management practices and enterprise risk frameworks.
 @SectionId('PD00-SYO-SYR-MIG-RIS')
 class MigrationRisks {
-  @Unused()
-  String? content;
+  // ─────────────────────────────────────────────────────────────────────────
+  // Risk Governance
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    // Risk governance structure
+    Field('riskGovernanceModel', String, 'Risk Governance Model',
+        hint: 'Centralized, federated, hybrid approach'),
+    Field('riskCommitteeCharter', String, 'Risk Committee Charter'),
+    Field('riskReviewFrequency', String, 'Risk Review Frequency',
+        hint: 'Weekly, bi-weekly, monthly cycles'),
+    Field('riskEscalationPath', String, 'Escalation Path',
+        hint: 'PM → Steering Committee → Executive Sponsor'),
+    Field('riskToleranceLevel', String, 'Risk Tolerance Level',
+        hint: 'Enterprise risk appetite for migration'),
+    Field('riskDecisionAuthority', String, 'Risk Decision Authority',
+        hint: 'Who approves risk acceptance/transfer'),
+    // Assessment methodology
+    Field('riskAssessmentFramework', String, 'Assessment Framework',
+        hint: 'PMBOK, ISO 31000, COSO, custom'),
+    Field('probabilityScale', String, 'Probability Scale',
+        hint: '1-5, percentage bands, qualitative'),
+    Field('impactScale', String, 'Impact Scale',
+        hint: '1-5, monetary, qualitative'),
+    Field('riskScoringMethod', String, 'Risk Scoring Method',
+        hint: 'P×I matrix, expected value, Monte Carlo'),
+    Field('riskCategoryTaxonomy', String, 'Risk Category Taxonomy',
+        hint: 'Technical, schedule, resource, business'),
+    // Thresholds and triggers
+    Field('criticalRiskThreshold', String, 'Critical Risk Threshold',
+        hint: 'Score ≥ X requires executive attention'),
+    Field('highRiskThreshold', String, 'High Risk Threshold'),
+    Field('mediumRiskThreshold', String, 'Medium Risk Threshold'),
+    Field('emergentRiskTriggers', String, 'Emergent Risk Triggers',
+        hint: 'Indicators requiring immediate risk review'),
+    // Reporting
+    Field('riskReportingCadence', String, 'Reporting Cadence'),
+    Field('riskDashboardTools', String, 'Dashboard Tools',
+        hint: 'Tools for risk visualization'),
+    Field('riskRegisterRepository', String, 'Risk Register Repository',
+        hint: 'Where risk register is maintained'),
+  ])
+  String? governanceContent;
 
   /// Risk overview at program level.
+  @ContentHelp('Executive summary of migration risk landscape: '
+      'critical risks, overall risk posture, trending analysis.')
   TextSection riskOverview = TextSection();
 
-  /// Contains 0+× MigrationRisk.
+  /// Risk assessment methodology narrative.
+  @ContentHelp('Detailed description of risk assessment approach, '
+      'including probability/impact criteria and scoring guidelines.')
+  TextSection assessmentMethodology = TextSection();
+
+  /// Risk categories and taxonomy.
+  @ContentHelp('Definition of risk categories used: technical, '
+      'organizational, schedule, budget, business, regulatory.')
+  TextSection riskCategories = TextSection();
+
+  /// Risk-based decision making criteria.
+  @ContentHelp('How risk scores influence Go/No-Go decisions, '
+      'resource allocation, and scheduling.')
+  TextSection riskBasedDecisions = TextSection();
+
+  /// Risk monitoring and control procedures.
+  @ContentHelp('Ongoing risk monitoring activities, status reviews, '
+      'and control effectiveness assessments.')
+  TextSection monitoringProcedures = TextSection();
+
+  /// Risk response strategies by category.
+  @ContentHelp('Standard response approaches: avoid, mitigate, '
+      'transfer, accept — with criteria for each.')
+  TextSection responseStrategies = TextSection();
+
+  /// Risk aggregation and portfolio view.
+  @ContentHelp('How individual system risks roll up to program level, '
+      'correlation analysis, compound risk assessment.')
+  TextSection riskAggregation = TextSection();
+
+  /// Risk matrix / heat map visualization.
+  @ContentHelp('Probability × Impact matrix showing risk distribution.')
+  DiagramSection riskMatrix = DiagramSection();
+
+  /// Risk timeline showing risk exposure over migration phases.
+  @ContentHelp('Timeline showing when risks are highest and mitigation points.')
+  GanttDiagramSection riskTimeline = GanttDiagramSection();
+
+  /// Contains 0+× MigrationRiskEntry.
   @SectionIdPattern('PD00-SYO-SYR-MIG-RIS-xx')
   List<MigrationRiskEntry> items = [];
 }
 
 /// A migration risk entry (form) [PD00-SYO-SYR-MIG-RIS-nn].
+///
+/// Detailed migration risk documentation following enterprise risk
+/// management practices. Captures full risk lifecycle from identification
+/// through resolution.
 class MigrationRiskEntry {
   @Form([
-    Field('riskId', String, 'Risk ID'),
-    Field('riskCategory', String, 'Risk Category'),
-    Field('riskDescription', String, 'Risk Description', required: true),
-    Field('probability', String, 'Probability (High >70%, Medium, Low <30%)'),
-    Field('impact', String, 'Impact (High, Medium, Low)'),
-    Field('riskScore', String, 'Risk Score'),
-    Field('affectedSystems', String, 'Affected Systems'),
-    Field('mitigation', String, 'Mitigation Strategy'),
-    Field('contingency', String, 'Contingency Plan'),
-    Field('owner', String, 'Risk Owner'),
-    Field('status', String, 'Status (Open, Mitigating, Closed, Realized)'),
+    // ─────────────────────────────────────────────────────────────────────
+    // Identification
+    // ─────────────────────────────────────────────────────────────────────
+    Field('riskId', String, 'Risk ID', required: true,
+        hint: 'Unique identifier (e.g., MIG-RISK-001)'),
+    Field('riskTitle', String, 'Risk Title', required: true,
+        hint: 'Concise risk name'),
+    Field('riskDescription', String, 'Risk Description', required: true,
+        hint: 'Detailed description of the risk event'),
+    Field('riskCategory', String, 'Risk Category',
+        hint: 'Technical, schedule, resource, business, regulatory'),
+    Field('riskSubcategory', String, 'Risk Subcategory',
+        hint: 'More specific categorization'),
+    Field('identifiedDate', String, 'Identified Date'),
+    Field('identifiedBy', String, 'Identified By',
+        hint: 'Person/role who identified the risk'),
+    Field('identificationMethod', String, 'Identification Method',
+        hint: 'Workshop, review, incident, expert judgment'),
+    Field('affectedSystems', String, 'Affected Systems',
+        hint: 'List of systems impacted'),
+    Field('affectedPhases', String, 'Affected Phases',
+        hint: 'Migration phases where risk applies'),
+    Field('affectedStreams', String, 'Affected Workstreams',
+        hint: 'Data, application, infrastructure, etc.'),
+    // ─────────────────────────────────────────────────────────────────────
+    // Probability Assessment
+    // ─────────────────────────────────────────────────────────────────────
+    Field('probabilityRating', String, 'Probability Rating',
+        hint: 'Very High (>80%), High (60-80%), Medium (40-60%), Low (20-40%), Very Low (<20%)'),
+    Field('probabilityScore', int, 'Probability Score (1-5)',
+        hint: 'Numeric score for calculations'),
+    Field('probabilityRationale', String, 'Probability Rationale',
+        hint: 'Why this probability was assigned'),
+    Field('probabilityTrend', String, 'Probability Trend',
+        hint: 'Increasing, stable, decreasing'),
+    // ─────────────────────────────────────────────────────────────────────
+    // Impact Assessment
+    // ─────────────────────────────────────────────────────────────────────
+    Field('overallImpactRating', String, 'Overall Impact Rating',
+        hint: 'Critical, High, Medium, Low, Minimal'),
+    Field('overallImpactScore', int, 'Overall Impact Score (1-5)'),
+    Field('scheduleImpact', String, 'Schedule Impact',
+        hint: 'Days/weeks delay if risk materializes'),
+    Field('scheduleImpactScore', int, 'Schedule Impact Score'),
+    Field('costImpact', String, 'Cost Impact',
+        hint: 'Budget impact if risk materializes'),
+    Field('costImpactScore', int, 'Cost Impact Score'),
+    Field('businessImpact', String, 'Business Impact',
+        hint: 'Business disruption level'),
+    Field('businessImpactScore', int, 'Business Impact Score'),
+    Field('reputationImpact', String, 'Reputation Impact',
+        hint: 'Customer/market perception impact'),
+    Field('dataIntegrityImpact', String, 'Data Integrity Impact',
+        hint: 'Risk to data quality/completeness'),
+    Field('complianceImpact', String, 'Compliance Impact',
+        hint: 'Regulatory/audit implications'),
+    Field('impactRationale', String, 'Impact Rationale',
+        hint: 'Justification for impact assessment'),
+    // ─────────────────────────────────────────────────────────────────────
+    // Risk Quantification
+    // ─────────────────────────────────────────────────────────────────────
+    Field('riskScore', int, 'Risk Score',
+        hint: 'Probability × Impact (1-25)'),
+    Field('riskPriority', String, 'Risk Priority',
+        hint: 'Critical, High, Medium, Low'),
+    Field('expectedMonetaryValue', String, 'Expected Monetary Value (EMV)',
+        hint: 'P × Cost Impact'),
+    Field('worstCaseScenario', String, 'Worst Case Scenario',
+        hint: 'Maximum potential impact'),
+    Field('bestCaseScenario', String, 'Best Case Scenario',
+        hint: 'Minimum impact if mitigated'),
+    Field('mostLikelyScenario', String, 'Most Likely Scenario'),
+    // ─────────────────────────────────────────────────────────────────────
+    // Mitigation
+    // ─────────────────────────────────────────────────────────────────────
+    Field('responseStrategy', String, 'Response Strategy',
+        hint: 'Avoid, mitigate, transfer, accept'),
+    Field('mitigationDescription', String, 'Mitigation Strategy',
+        hint: 'Primary mitigation approach'),
+    Field('mitigationActions', String, 'Mitigation Actions',
+        hint: 'Specific actions to reduce risk'),
+    Field('mitigationOwner', String, 'Mitigation Owner',
+        hint: 'Responsible for mitigation execution'),
+    Field('mitigationDueDate', String, 'Mitigation Due Date'),
+    Field('mitigationCost', String, 'Mitigation Cost',
+        hint: 'Cost to implement mitigation'),
+    Field('mitigationStatus', String, 'Mitigation Status',
+        hint: 'Not started, in progress, completed'),
+    Field('residualProbability', String, 'Residual Probability',
+        hint: 'Probability after mitigation'),
+    Field('residualImpact', String, 'Residual Impact',
+        hint: 'Impact after mitigation'),
+    Field('residualRiskScore', int, 'Residual Risk Score',
+        hint: 'Risk score after mitigation'),
+    // ─────────────────────────────────────────────────────────────────────
+    // Contingency
+    // ─────────────────────────────────────────────────────────────────────
+    Field('contingencyPlan', String, 'Contingency Plan',
+        hint: 'Actions if risk materializes'),
+    Field('contingencyTrigger', String, 'Contingency Trigger',
+        hint: 'What triggers contingency execution'),
+    Field('contingencyOwner', String, 'Contingency Owner'),
+    Field('contingencyBudget', String, 'Contingency Budget',
+        hint: 'Reserved budget for contingency'),
+    Field('rollbackProcedure', String, 'Rollback Procedure',
+        hint: 'Steps to revert if risk realized'),
+    Field('recoveryTimeObjective', String, 'Recovery Time Objective',
+        hint: 'Time to recover from risk event'),
+    // ─────────────────────────────────────────────────────────────────────
+    // Risk Indicators
+    // ─────────────────────────────────────────────────────────────────────
+    Field('earlyWarningIndicators', String, 'Early Warning Indicators',
+        hint: 'Signs risk is about to materialize'),
+    Field('riskTriggers', String, 'Risk Triggers',
+        hint: 'Events that would realize the risk'),
+    Field('keyRiskIndicators', String, 'Key Risk Indicators (KRIs)',
+        hint: 'Metrics to monitor risk'),
+    Field('monitoringFrequency', String, 'Monitoring Frequency',
+        hint: 'How often KRIs are checked'),
+    Field('thresholdValues', String, 'Threshold Values',
+        hint: 'Limits that trigger escalation'),
+    // ─────────────────────────────────────────────────────────────────────
+    // Ownership & Tracking
+    // ─────────────────────────────────────────────────────────────────────
+    Field('riskOwner', String, 'Risk Owner', required: true,
+        hint: 'Accountable for risk management'),
+    Field('riskDelegate', String, 'Risk Delegate',
+        hint: 'Day-to-day risk monitoring'),
+    Field('escalationContact', String, 'Escalation Contact',
+        hint: 'Escalation point if risk increases'),
+    Field('status', String, 'Risk Status',
+        hint: 'Open, mitigating, closed, realized, transferred'),
+    Field('statusDate', String, 'Status Date',
+        hint: 'Last status update'),
+    Field('statusNotes', String, 'Status Notes',
+        hint: 'Current status commentary'),
+    Field('nextReviewDate', String, 'Next Review Date'),
+    Field('closureDate', String, 'Closure Date',
+        hint: 'When risk was closed'),
+    Field('closureReason', String, 'Closure Reason',
+        hint: 'Why risk was closed: mitigated, accepted, transferred, expired'),
+    // ─────────────────────────────────────────────────────────────────────
+    // Related Items
+    // ─────────────────────────────────────────────────────────────────────
+    Field('relatedRisks', String, 'Related Risks',
+        hint: 'Risk IDs that are correlated'),
+    Field('relatedIssues', String, 'Related Issues',
+        hint: 'Issue IDs linked to this risk'),
+    Field('relatedRequirements', String, 'Related Requirements',
+        hint: 'Requirements impacted by risk'),
+    Field('relatedDecisions', String, 'Related Decisions',
+        hint: 'Decisions affecting this risk'),
+    Field('dependencyChain', String, 'Dependency Chain',
+        hint: 'Other risks this depends on'),
+    // ─────────────────────────────────────────────────────────────────────
+    // History
+    // ─────────────────────────────────────────────────────────────────────
+    Field('previousScores', String, 'Previous Scores',
+        hint: 'History of risk scores'),
+    Field('previousStatuses', String, 'Previous Statuses',
+        hint: 'Status change history'),
+    Field('lessonsLearned', String, 'Lessons Learned',
+        hint: 'Insights from risk handling'),
   ])
   String? content;
+
+  /// Additional risk analysis narrative.
+  @ContentHelp('Extended risk analysis, scenario modeling, '
+      'or historical context.')
+  TextSection analysisNarrative = TextSection();
+
+  /// Mitigation action items (detailed).
+  @ContentHelp('Detailed breakdown of mitigation action items '
+      'with owners and deadlines.')
+  TextSection mitigationDetails = TextSection();
 }
 
 // ---------------------------------------------------------------------------
