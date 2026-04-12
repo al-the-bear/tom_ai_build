@@ -213,12 +213,19 @@ These sections exist in `tom_specs_model` but are missing from `pd_template.md`:
 | PD00-USE-HLP-CON | Contextual Help | Review | ✅ Done |
 | PD00-USE-HLP-ONB | Onboarding | Review | ✅ Done |
 | PD00-USE-HLP-SUP | Support Access | Review | ✅ Done |
-| PD00-USE-MUL | Multi-tenancy | Review | ⬜ Not Started |
-| PD00-USE-MUL-LAN | Multi-language | Review | ⬜ Not Started |
-| PD00-USE-MUL-ROL | Multi-role | Review | ⬜ Not Started |
-| PD00-USE-PRO | Prototype | Review | ⬜ Not Started |
-| PD00-USE-PRO-TYP | Prototype Types | Review | ⬜ Not Started |
-| PD00-USE-RES | Responsiveness | Review | ⬜ Not Started |
+| PD00-USE-MUL | Multi-language and Rollout | Review | ✅ Done |
+| PD00-USE-MUL-LOC | Localization Process | Review | ✅ Done |
+| PD00-USE-MUL-TRA | Translation Process | Review | ✅ Done |
+| PD00-USE-MUL-DOC | Documentation and Training | Review | ✅ Done |
+| PD00-USE-MUL-LCS | Language Country Selection | Review | ✅ Done |
+| PD00-USE-MUL-REQ | Translation Requirements | Review | ✅ Done |
+| PD00-USE-PRO | Prototype | Review | ✅ Done |
+| PD00-USE-PRO-GOA | Prototype Goals | Review | ✅ Done |
+| PD00-USE-PRO-FEA | Feature Subset | Review | ✅ Done |
+| PD00-USE-PRO-TYP | Prototype Types | Review | ✅ Done |
+| PD00-USE-RES | Responsive Design | Review | ✅ Done |
+| PD00-USE-RES-BRE | Breakpoints | Review | ✅ Done |
+| PD00-USE-RES-BEH | Responsive Behavior | Review | ✅ Done |
 
 ---
 

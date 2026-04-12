@@ -3100,25 +3100,185 @@ class AccessibilityCheckEntry {
 // ---------------------------------------------------------------------------
 
 /// 10.10. Responsive Design [PD00-USE-RES].
+///
+/// Comprehensive responsive design specification covering breakpoints,
+/// adaptive layouts, and device-specific behavior for Flutter applications.
 @SectionId('PD00-USE-RES')
 class ResponsiveDesign {
-  @Unused()
-  String? content;
+  // ─────────────────────────────────────────────────────────────────────────
+  // Responsive Design Overview
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    // Philosophy
+    Field('responsivePhilosophy', String, 'Responsive Philosophy',
+        hint: 'Mobile-first, desktop-first, adaptive'),
+    Field('primaryTargetDevice', String, 'Primary Target Device',
+        hint: 'Mobile phone, tablet, desktop'),
+    Field('deviceAssumptions', String, 'Device Assumptions',
+        hint: 'Assumptions about target devices'),
+    // Framework approach
+    Field('responsiveFramework', String, 'Responsive Framework',
+        hint: 'LayoutBuilder, MediaQuery, responsive_framework'),
+    Field('breakpointPackage', String, 'Breakpoint Package',
+        hint: 'Custom, responsive_framework, flutter_screenutil'),
+    Field('orientationSupport', String, 'Orientation Support',
+        hint: 'Portrait only, landscape only, both'),
+    // Testing approach
+    Field('responsiveTestingApproach', String, 'Responsive Testing Approach',
+        hint: 'Device lab, emulator matrix, golden tests'),
+    Field('targetDeviceMatrix', String, 'Target Device Matrix',
+        hint: 'List of target devices for testing'),
+  ])
+  String? responsiveOverview;
 
-  /// 10.10.1. Breakpoints [PD00-USE-RES-BRE] — contains 0+× Breakpoint.
-  @SectionIdPattern('PD00-USE-RES-BRE-xx')
-  List<BreakpointEntry> breakpoints = [];
+  /// Responsive design narrative.
+  @ContentHelp('Overview of responsive design approach, '
+      'key decisions, and implementation strategy.')
+  TextSection responsiveNarrative = TextSection();
 
-  /// Responsive Behavior.
-  TextSection responsiveBehavior = TextSection();
+  /// 10.10.1. Breakpoints [PD00-USE-RES-BRE].
+  @SectionId('PD00-USE-RES-BRE')
+  BreakpointConfiguration breakpointConfig = BreakpointConfiguration();
+
+  /// 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
+  @SectionId('PD00-USE-RES-BEH')
+  ResponsiveBehavior responsiveBehavior = ResponsiveBehavior();
 }
 
-/// A breakpoint entry (form) [PD00-USE-RES-BRE-nn].
+/// 10.10.1. Breakpoints [PD00-USE-RES-BRE].
+///
+/// Breakpoint definitions for responsive layouts.
+@SectionId('PD00-USE-RES-BRE')
+class BreakpointConfiguration {
+  @Form([
+    // Standard breakpoints
+    Field('mobileMax', String, 'Mobile Max Width',
+        hint: 'Maximum width for mobile (e.g., 599)'),
+    Field('tabletMin', String, 'Tablet Min Width',
+        hint: 'Minimum width for tablet (e.g., 600)'),
+    Field('tabletMax', String, 'Tablet Max Width',
+        hint: 'Maximum width for tablet (e.g., 1023)'),
+    Field('desktopMin', String, 'Desktop Min Width',
+        hint: 'Minimum width for desktop (e.g., 1024)'),
+    Field('largeDesktopMin', String, 'Large Desktop Min Width',
+        hint: 'Minimum width for large screens (e.g., 1440)'),
+    // Additional breakpoints
+    Field('watchMax', String, 'Watch Max Width',
+        hint: 'Maximum width for wearables'),
+    Field('foldableBreakpoint', String, 'Foldable Breakpoint',
+        hint: 'Breakpoint for foldable devices'),
+    Field('customBreakpoints', String, 'Custom Breakpoints',
+        hint: 'Additional app-specific breakpoints'),
+    // Units and density
+    Field('breakpointUnit', String, 'Breakpoint Unit',
+        hint: 'Logical pixels, device pixels'),
+    Field('densityHandling', String, 'Density Handling',
+        hint: 'How pixel density is handled'),
+  ])
+  String? breakpointOverview;
+
+  /// Breakpoint entries.
+  @SectionIdPattern('PD00-USE-RES-BRE-xx')
+  List<BreakpointEntry> breakpoints = [];
+}
+
+/// A breakpoint entry [PD00-USE-RES-BRE-nn].
 class BreakpointEntry {
   @Form([
-    Field('breakpointName', String, 'Breakpoint Name', required: true),
-    Field('minWidth', String, 'Min Width'),
-    Field('layoutBehavior', String, 'Layout Behavior'),
+    Field('breakpointId', String, 'Breakpoint ID', required: true,
+        hint: 'Unique identifier (e.g., BP-MOBILE)'),
+    Field('breakpointName', String, 'Breakpoint Name', required: true,
+        hint: 'Mobile, Tablet, Desktop, Large Desktop'),
+    Field('minWidth', String, 'Min Width',
+        hint: 'Minimum width in logical pixels'),
+    Field('maxWidth', String, 'Max Width',
+        hint: 'Maximum width in logical pixels'),
+    Field('columns', int, 'Grid Columns',
+        hint: 'Number of grid columns at this breakpoint'),
+    Field('gutterWidth', String, 'Gutter Width',
+        hint: 'Space between columns'),
+    Field('marginWidth', String, 'Margin Width',
+        hint: 'Edge margins'),
+    Field('layoutBehavior', String, 'Layout Behavior',
+        hint: 'How layout changes at this breakpoint'),
+    Field('navigationPattern', String, 'Navigation Pattern',
+        hint: 'Bottom nav, drawer, rail, tabs'),
+    Field('typographyScale', String, 'Typography Scale',
+        hint: 'Font size scaling factor'),
+    Field('spacingScale', String, 'Spacing Scale',
+        hint: 'Spacing multiplier'),
+    Field('iconScale', String, 'Icon Scale',
+        hint: 'Icon size scaling factor'),
+  ])
+  String? content;
+}
+
+/// 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
+///
+/// How the UI adapts across breakpoints.
+@SectionId('PD00-USE-RES-BEH')
+class ResponsiveBehavior {
+  // ─────────────────────────────────────────────────────────────────────────
+  // Layout Adaptation
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    // Column layout
+    Field('mobileColumnLayout', String, 'Mobile Column Layout',
+        hint: 'Single column, stacked'),
+    Field('tabletColumnLayout', String, 'Tablet Column Layout',
+        hint: '2-column, master-detail'),
+    Field('desktopColumnLayout', String, 'Desktop Column Layout',
+        hint: '3-column, sidebar + main'),
+    // Navigation collapse
+    Field('mobileNavigation', String, 'Mobile Navigation',
+        hint: 'Bottom nav bar, hamburger drawer'),
+    Field('tabletNavigation', String, 'Tablet Navigation',
+        hint: 'Navigation rail, collapsible drawer'),
+    Field('desktopNavigation', String, 'Desktop Navigation',
+        hint: 'Full sidebar, top navigation'),
+    // Component visibility
+    Field('mobileHiddenElements', String, 'Mobile Hidden Elements',
+        hint: 'Elements hidden on mobile'),
+    Field('tabletHiddenElements', String, 'Tablet Hidden Elements'),
+    Field('desktopOnlyElements', String, 'Desktop Only Elements'),
+    // Touch optimization
+    Field('touchTargetMinSize', String, 'Touch Target Min Size',
+        hint: 'Minimum touch target (48dp recommended)'),
+    Field('hoverEffects', String, 'Hover Effects',
+        hint: 'When to show hover effects'),
+    Field('gesturePriority', String, 'Gesture Priority',
+        hint: 'Swipe, long-press on touch devices'),
+    // Content reflow
+    Field('contentReflowStrategy', String, 'Content Reflow Strategy',
+        hint: 'How content reflows across breakpoints'),
+    Field('imageScaling', String, 'Image Scaling',
+        hint: 'How images scale responsively'),
+    Field('tableResponsiveness', String, 'Table Responsiveness',
+        hint: 'Horizontal scroll, cards, hide columns'),
+    Field('formLayout', String, 'Form Layout',
+        hint: 'How forms adapt: single column, multi-column'),
+  ])
+  String? layoutAdaptation;
+
+  /// Responsive behavior narrative.
+  @ContentHelp('Detailed description of responsive behavior '
+      'across all breakpoints and device types.')
+  TextSection behaviorNarrative = TextSection();
+
+  /// Screen-specific responsive rules.
+  @SectionIdPattern('PD00-USE-RES-BEH-SCR-xx')
+  List<ResponsiveScreenRuleEntry> screenRules = [];
+}
+
+/// A screen-specific responsive rule entry [PD00-USE-RES-BEH-SCR-nn].
+class ResponsiveScreenRuleEntry {
+  @Form([
+    Field('screenId', String, 'Screen ID', required: true),
+    Field('screenName', String, 'Screen Name', required: true),
+    Field('mobileLayout', String, 'Mobile Layout'),
+    Field('tabletLayout', String, 'Tablet Layout'),
+    Field('desktopLayout', String, 'Desktop Layout'),
+    Field('specialConsiderations', String, 'Special Considerations'),
   ])
   String? content;
 }
@@ -3728,54 +3888,415 @@ class ComponentPropertyEntry {
 // ---------------------------------------------------------------------------
 
 /// 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
+///
+/// Comprehensive internationalization, localization, and system rollout
+/// specification covering translation workflows, locale handling, user
+/// documentation, training, and deployment planning.
 @SectionId('PD00-USE-MUL')
 class MultiLanguageAndRollout {
-  @Unused()
-  String? content;
+  // ─────────────────────────────────────────────────────────────────────────
+  // Multi-language Overview
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    // Scope
+    Field('supportedLanguages', String, 'Supported Languages',
+        hint: 'List of supported languages (e.g., en, de, fr, es)'),
+    Field('primaryLanguage', String, 'Primary Language',
+        hint: 'Default/fallback language'),
+    Field('futureLanguages', String, 'Future Languages',
+        hint: 'Languages planned for future support'),
+    Field('rtlLanguages', String, 'RTL Languages',
+        hint: 'Right-to-left languages supported'),
+    // Locale handling
+    Field('localeFormat', String, 'Locale Format',
+        hint: 'BCP 47, ISO 639-1, custom'),
+    Field('countryVariants', String, 'Country Variants',
+        hint: 'en-US vs en-GB, de-DE vs de-AT'),
+    Field('localeDetection', String, 'Locale Detection',
+        hint: 'Browser, OS, user setting, geo-IP'),
+    Field('localeFallbackChain', String, 'Locale Fallback Chain',
+        hint: 'Fallback order when locale not available'),
+    // Rollout approach
+    Field('rolloutStrategy', String, 'Rollout Strategy',
+        hint: 'Big bang, phased, pilot'),
+    Field('rolloutTimeline', String, 'Rollout Timeline',
+        hint: 'High-level rollout schedule'),
+    Field('rolloutRegions', String, 'Rollout Regions',
+        hint: 'Geographic rollout order'),
+  ])
+  String? multiLanguageOverview;
 
-  /// 10.12.1. Multi-language Support [PD00-USE-MUL-LAN].
-  MultiLanguageSupport multiLanguageSupport = MultiLanguageSupport();
+  /// Multi-language overview narrative.
+  @ContentHelp('Executive summary of internationalization and '
+      'localization approach for the system.')
+  TextSection overviewNarrative = TextSection();
 
-  /// 10.12.2. Rollout Support [PD00-USE-MUL-ROL].
-  RolloutSupport rolloutSupport = RolloutSupport();
+  /// 10.12.1. Localization Process [PD00-USE-MUL-LOC].
+  @SectionId('PD00-USE-MUL-LOC')
+  LocalizationProcess localizationProcess = LocalizationProcess();
+
+  /// 10.12.2. Translation Process [PD00-USE-MUL-TRA].
+  @SectionId('PD00-USE-MUL-TRA')
+  TranslationProcess translationProcess = TranslationProcess();
+
+  /// 10.12.3. Documentation and Training [PD00-USE-MUL-DOC].
+  @SectionId('PD00-USE-MUL-DOC')
+  DocumentationAndTraining documentationAndTraining = DocumentationAndTraining();
+
+  /// 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
+  @SectionId('PD00-USE-MUL-LCS')
+  LanguageCountrySelection languageCountrySelection = LanguageCountrySelection();
+
+  /// 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
+  @SectionId('PD00-USE-MUL-REQ')
+  TranslationRequirements translationRequirements = TranslationRequirements();
+
+  /// Supported locale entries.
+  @SectionIdPattern('PD00-USE-MUL-LOC-xx')
+  List<SupportedLocaleEntry> supportedLocales = [];
 }
 
-/// 10.12.1. Multi-language Support [PD00-USE-MUL-LAN].
-@SectionId('PD00-USE-MUL-LAN')
-class MultiLanguageSupport {
-  @Unused()
-  String? content;
+/// 10.12.1. Localization Process [PD00-USE-MUL-LOC].
+///
+/// Workflow for identifying and preparing content for localization.
+@SectionId('PD00-USE-MUL-LOC')
+class LocalizationProcess {
+  @Form([
+    // Content identification
+    Field('contentIdentification', String, 'Content Identification',
+        hint: 'How localizable content is identified'),
+    Field('stringExternalization', String, 'String Externalization',
+        hint: 'Approach to externalizing strings'),
+    Field('contentTagging', String, 'Content Tagging',
+        hint: 'How content is tagged for translation'),
+    Field('localizationScope', String, 'Localization Scope',
+        hint: 'UI text, images, audio, video, documents'),
+    // Review process
+    Field('reviewWorkflow', String, 'Review Workflow',
+        hint: 'Steps in the localization review'),
+    Field('stakeholderApproval', String, 'Stakeholder Approval',
+        hint: 'Who approves localized content'),
+    Field('qualityAssurance', String, 'Quality Assurance',
+        hint: 'QA process for localized content'),
+    // Formatting rules
+    Field('dateFormatRules', String, 'Date Format Rules',
+        hint: 'Locale-specific date formatting'),
+    Field('numberFormatRules', String, 'Number Format Rules',
+        hint: 'Locale-specific number formatting'),
+    Field('currencyFormatRules', String, 'Currency Format Rules',
+        hint: 'Locale-specific currency formatting'),
+    Field('addressFormatRules', String, 'Address Format Rules',
+        hint: 'Locale-specific address formatting'),
+    Field('phoneFormatRules', String, 'Phone Format Rules',
+        hint: 'Locale-specific phone number formatting'),
+    // Deployment
+    Field('localeDeployment', String, 'Locale Deployment',
+        hint: 'How locales are deployed'),
+    Field('localeToggling', String, 'Locale Toggling',
+        hint: 'Feature flags for locales'),
+    Field('perLocaleCustomization', String, 'Per-Locale Customization',
+        hint: 'Locale-specific features or content'),
+  ])
+  String? localizationProcessContent;
 
-  /// Localization Process.
-  TextSection localizationProcess = TextSection();
+  /// Localization process narrative.
+  TextSection localizationNarrative = TextSection();
 
-  /// Translation Process.
-  TextSection translationProcess = TextSection();
-
-  /// Language And Country Selection.
-  TextSection languageAndCountrySelection = TextSection();
-
-  /// Translation Handling Requirements.
-  TextSection translationHandlingRequirements = TextSection();
+  /// Localization workflow diagram.
+  FlowDiagramSection workflowDiagram = FlowDiagramSection();
 }
 
-/// 10.12.2. Rollout Support [PD00-USE-MUL-ROL].
-@SectionId('PD00-USE-MUL-ROL')
-class RolloutSupport {
-  @Unused()
+/// 10.12.2. Translation Process [PD00-USE-MUL-TRA].
+///
+/// Workflow for translating content.
+@SectionId('PD00-USE-MUL-TRA')
+class TranslationProcess {
+  @Form([
+    // Translation tools
+    Field('translationManagementSystem', String, 'Translation Management System',
+        hint: 'TMS tool (Phrase, Lokalise, Crowdin)'),
+    Field('translationMemory', String, 'Translation Memory',
+        hint: 'TM usage and maintenance'),
+    Field('machineTranslation', String, 'Machine Translation',
+        hint: 'MT usage (Google, DeepL, none)'),
+    Field('catTools', String, 'CAT Tools',
+        hint: 'Computer-assisted translation tools'),
+    // Workflow
+    Field('translationWorkflow', String, 'Translation Workflow',
+        hint: 'Steps: extract → translate → review → integrate'),
+    Field('reviewCycles', String, 'Review Cycles',
+        hint: 'Number of review rounds'),
+    Field('inCountryReview', String, 'In-Country Review',
+        hint: 'Native speaker review process'),
+    Field('contextualReview', String, 'Contextual Review',
+        hint: 'In-app review process'),
+    // Quality
+    Field('qualityChecks', String, 'Quality Checks',
+        hint: 'Automated quality checks'),
+    Field('linguisticQA', String, 'Linguistic QA',
+        hint: 'Linguistic quality assurance'),
+    Field('functionalQA', String, 'Functional QA',
+        hint: 'Functional testing of translations'),
+    // Terminology
+    Field('glossaryManagement', String, 'Glossary Management',
+        hint: 'Term base management'),
+    Field('styleGuide', String, 'Style Guide',
+        hint: 'Translation style guidelines'),
+    Field('brandVoice', String, 'Brand Voice',
+        hint: 'How brand voice is maintained'),
+    // Ongoing
+    Field('continuousLocalization', String, 'Continuous Localization',
+        hint: 'CI/CD integration for translations'),
+    Field('translationMemoryMaintenance', String, 'TM Maintenance',
+        hint: 'How translation memory is maintained'),
+  ])
+  String? translationProcessContent;
+
+  /// Translation process narrative.
+  TextSection translationNarrative = TextSection();
+
+  /// Translation vendor entries.
+  @SectionIdPattern('PD00-USE-MUL-TRA-VEN-xx')
+  List<TranslationVendorEntry> vendors = [];
+}
+
+/// A translation vendor entry [PD00-USE-MUL-TRA-VEN-nn].
+class TranslationVendorEntry {
+  @Form([
+    Field('vendorName', String, 'Vendor Name', required: true),
+    Field('vendorType', String, 'Vendor Type',
+        hint: 'LSP, freelance, in-house'),
+    Field('languages', String, 'Languages',
+        hint: 'Languages handled by vendor'),
+    Field('specializations', String, 'Specializations',
+        hint: 'Technical, legal, marketing'),
+    Field('turnaroundTime', String, 'Turnaround Time'),
+    Field('qualityRating', String, 'Quality Rating'),
+    Field('contactInfo', String, 'Contact Info'),
+  ])
   String? content;
+}
 
-  /// User Documentation.
-  TextSection userDocumentation = TextSection();
+/// 10.12.3. Documentation and Training [PD00-USE-MUL-DOC].
+///
+/// End-user documentation and training materials.
+@SectionId('PD00-USE-MUL-DOC')
+class DocumentationAndTraining {
+  // ─────────────────────────────────────────────────────────────────────────
+  // Documentation
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    // Documentation deliverables
+    Field('userGuide', bool, 'User Guide'),
+    Field('quickStartGuide', bool, 'Quick Start Guide'),
+    Field('onlineHelp', bool, 'Online Help'),
+    Field('videoTutorials', bool, 'Video Tutorials'),
+    Field('contextualHelp', bool, 'Contextual Help'),
+    Field('faq', bool, 'FAQ'),
+    Field('releaseNotes', bool, 'Release Notes'),
+    // Documentation format
+    Field('documentationFormat', String, 'Documentation Format',
+        hint: 'HTML, PDF, in-app, wiki'),
+    Field('documentationPlatform', String, 'Documentation Platform',
+        hint: 'GitBook, Notion, custom, Confluence'),
+    Field('documentationVersioning', String, 'Documentation Versioning',
+        hint: 'How docs are versioned with releases'),
+    // Localization
+    Field('documentationLanguages', String, 'Documentation Languages',
+        hint: 'Languages for documentation'),
+    Field('documentationTranslation', String, 'Documentation Translation',
+        hint: 'Translation approach for docs'),
+  ])
+  String? documentationContent;
 
-  /// Training Plan.
-  TextSection trainingPlan = TextSection();
+  // ─────────────────────────────────────────────────────────────────────────
+  // Training
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    // Training materials
+    Field('trainingMaterials', String, 'Training Materials',
+        hint: 'Slides, workbooks, exercises'),
+    Field('trainingFormat', String, 'Training Format',
+        hint: 'In-person, virtual, self-paced'),
+    Field('trainingDuration', String, 'Training Duration',
+        hint: 'Duration per role/module'),
+    // Training schedule
+    Field('trainingSchedule', String, 'Training Schedule',
+        hint: 'When training occurs'),
+    Field('trainTheTrainer', bool, 'Train-the-Trainer',
+        hint: 'Train internal trainers'),
+    Field('refresherTraining', String, 'Refresher Training',
+        hint: 'Ongoing training approach'),
+    // Knowledge transfer
+    Field('knowledgeTransferPlan', String, 'Knowledge Transfer Plan',
+        hint: 'How knowledge is transferred'),
+    Field('supportHandoff', String, 'Support Handoff',
+        hint: 'Transition to support team'),
+    Field('certificationProgram', String, 'Certification Program',
+        hint: 'User certification if applicable'),
+  ])
+  String? trainingContent;
 
-  /// Phased Deployment Strategy.
-  TextSection phasedDeploymentStrategy = TextSection();
+  /// Documentation and training narrative.
+  TextSection documentationNarrative = TextSection();
 
-  /// Communication Plan.
-  TextSection communicationPlan = TextSection();
+  /// Training module entries.
+  @SectionIdPattern('PD00-USE-MUL-DOC-MOD-xx')
+  List<TrainingModuleEntry> trainingModules = [];
+}
+
+/// A training module entry [PD00-USE-MUL-DOC-MOD-nn].
+class TrainingModuleEntry {
+  @Form([
+    Field('moduleId', String, 'Module ID', required: true),
+    Field('moduleName', String, 'Module Name', required: true),
+    Field('targetAudience', String, 'Target Audience',
+        hint: 'End users, admins, power users'),
+    Field('duration', String, 'Duration'),
+    Field('deliveryMethod', String, 'Delivery Method',
+        hint: 'In-person, virtual, self-paced'),
+    Field('prerequisites', String, 'Prerequisites'),
+    Field('learningObjectives', String, 'Learning Objectives'),
+    Field('assessmentMethod', String, 'Assessment Method'),
+  ])
+  String? content;
+}
+
+/// 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
+///
+/// UI specification for language and country selection.
+@SectionId('PD00-USE-MUL-LCS')
+class LanguageCountrySelection {
+  @Form([
+    // Picker design
+    Field('pickerLocation', String, 'Picker Location',
+        hint: 'Header, footer, settings, onboarding'),
+    Field('pickerStyle', String, 'Picker Style',
+        hint: 'Dropdown, modal, full page'),
+    Field('languageDisplay', String, 'Language Display',
+        hint: 'Native names, English names, flags'),
+    Field('countryDisplay', String, 'Country Display',
+        hint: 'How countries are displayed'),
+    Field('searchable', bool, 'Searchable',
+        hint: 'Can user search languages/countries'),
+    // Default behavior
+    Field('defaultLanguage', String, 'Default Language',
+        hint: 'How default language is determined'),
+    Field('defaultCountry', String, 'Default Country',
+        hint: 'How default country is determined'),
+    Field('autoDetection', String, 'Auto-Detection',
+        hint: 'Browser, OS, geo-IP detection'),
+    // Persistence
+    Field('persistenceMethod', String, 'Persistence Method',
+        hint: 'Cookie, localStorage, user profile'),
+    Field('crossDeviceSync', bool, 'Cross-Device Sync',
+        hint: 'Sync preference across devices'),
+    Field('anonymousPersistence', String, 'Anonymous Persistence',
+        hint: 'How preference persists for guests'),
+    // Fallback
+    Field('localeFallbackBehavior', String, 'Locale Fallback Behavior',
+        hint: 'What happens when locale unavailable'),
+    Field('partialLocalSupport', String, 'Partial Locale Support',
+        hint: 'UI in one locale, content in another'),
+    Field('missingTranslationDisplay', String, 'Missing Translation Display',
+        hint: 'How missing translations are shown'),
+    // UX considerations
+    Field('languageSwitchBehavior', String, 'Language Switch Behavior',
+        hint: 'Page reload, inline update'),
+    Field('confirmationRequired', bool, 'Confirmation Required',
+        hint: 'Confirm before switching'),
+    Field('contentRetention', String, 'Content Retention',
+        hint: 'What happens to in-progress content'),
+  ])
+  String? languageSelectionContent;
+
+  /// Language selection narrative.
+  TextSection languageSelectionNarrative = TextSection();
+
+  /// Language selection mockup.
+  DiagramSection languagePickerMockup = DiagramSection();
+}
+
+/// 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
+///
+/// Technical requirements for internationalization framework.
+@SectionId('PD00-USE-MUL-REQ')
+class TranslationRequirements {
+  @Form([
+    // I18N framework
+    Field('i18nFramework', String, 'I18N Framework',
+        hint: 'flutter_localizations, intl, easy_localization'),
+    Field('stringExternalizationFormat', String, 'String Externalization Format',
+        hint: 'ARB, JSON, YAML, Gettext'),
+    Field('localeHandling', String, 'Locale Handling',
+        hint: 'How locales are loaded and switched'),
+    // RTL support
+    Field('rtlSupport', bool, 'RTL Support'),
+    Field('rtlImplementation', String, 'RTL Implementation',
+        hint: 'How RTL is implemented'),
+    Field('bidirectionalText', String, 'Bidirectional Text',
+        hint: 'Handling mixed LTR/RTL content'),
+    Field('rtlMirroring', String, 'RTL Mirroring',
+        hint: 'UI element mirroring rules'),
+    // Formatting
+    Field('dateTimeFormatting', String, 'Date/Time Formatting',
+        hint: 'intl DateFormat, custom'),
+    Field('numberFormatting', String, 'Number Formatting',
+        hint: 'intl NumberFormat, custom'),
+    Field('currencyFormatting', String, 'Currency Formatting',
+        hint: 'Currency display and conversion'),
+    Field('measurementUnits', String, 'Measurement Units',
+        hint: 'Metric, imperial, locale-based'),
+    // Pluralization
+    Field('pluralizationRules', String, 'Pluralization Rules',
+        hint: 'ICU plural format, custom'),
+    Field('genderSupport', String, 'Gender Support',
+        hint: 'Grammatical gender handling'),
+    Field('contextualVariants', String, 'Contextual Variants',
+        hint: 'Formal/informal, regional variants'),
+    // Technical
+    Field('unicodeSupport', String, 'Unicode Support',
+        hint: 'Unicode handling and normalization'),
+    Field('fontFallback', String, 'Font Fallback',
+        hint: 'Font fallback for different scripts'),
+    Field('textDirection', String, 'Text Direction',
+        hint: 'Directionality handling'),
+    Field('keyboardLayouts', String, 'Keyboard Layouts',
+        hint: 'IME and keyboard support'),
+  ])
+  String? translationRequirementsContent;
+
+  /// Translation requirements narrative.
+  TextSection requirementsNarrative = TextSection();
+}
+
+/// A supported locale entry [PD00-USE-MUL-LOC-nn].
+class SupportedLocaleEntry {
+  @Form([
+    Field('localeCode', String, 'Locale Code', required: true,
+        hint: 'BCP 47 code (e.g., en-US)'),
+    Field('languageName', String, 'Language Name', required: true,
+        hint: 'English name'),
+    Field('nativeLanguageName', String, 'Native Language Name',
+        hint: 'Name in native language'),
+    Field('countryRegion', String, 'Country/Region',
+        hint: 'Country or region'),
+    Field('textDirection', String, 'Text Direction',
+        hint: 'LTR, RTL'),
+    Field('dateFormat', String, 'Date Format',
+        hint: 'Preferred date format'),
+    Field('numberFormat', String, 'Number Format',
+        hint: 'Decimal separator, thousand separator'),
+    Field('currency', String, 'Currency',
+        hint: 'Default currency for locale'),
+    Field('launchPhase', String, 'Launch Phase',
+        hint: 'When locale will be available'),
+    Field('translationCoverage', String, 'Translation Coverage',
+        hint: 'Percentage translated'),
+    Field('localeOwner', String, 'Locale Owner',
+        hint: 'Person responsible for locale'),
+  ])
+  String? content;
 }
 
 // ---------------------------------------------------------------------------
@@ -3783,43 +4304,339 @@ class RolloutSupport {
 // ---------------------------------------------------------------------------
 
 /// 10.13. Prototype [PD00-USE-PRO].
+///
+/// Comprehensive prototype planning covering goals, feature selection,
+/// prototype type, evaluation criteria, and stakeholder alignment.
 @SectionId('PD00-USE-PRO')
 class Prototype {
-  @Unused()
-  String? content;
+  // ─────────────────────────────────────────────────────────────────────────
+  // Prototype Overview
+  // ─────────────────────────────────────────────────────────────────────────
+  @Form([
+    // Purpose
+    Field('prototypePurpose', String, 'Prototype Purpose',
+        hint: 'Primary goal: validation, alignment, feasibility'),
+    Field('prototypeScope', String, 'Prototype Scope',
+        hint: 'What is included in prototype'),
+    Field('targetAudience', String, 'Target Audience',
+        hint: 'Who will evaluate the prototype'),
+    // Timeline
+    Field('prototypeTimeline', String, 'Prototype Timeline',
+        hint: 'Duration for prototype phase'),
+    Field('prototypeDeadline', String, 'Prototype Deadline',
+        hint: 'When prototype must be ready'),
+    Field('evaluationPeriod', String, 'Evaluation Period',
+        hint: 'How long for evaluation'),
+    // Resources
+    Field('prototypeTeam', String, 'Prototype Team',
+        hint: 'Who builds the prototype'),
+    Field('prototypeBudget', String, 'Prototype Budget',
+        hint: 'Budget allocation'),
+    Field('prototypeEnvironment', String, 'Prototype Environment',
+        hint: 'Where prototype is deployed'),
+    // Success criteria
+    Field('successCriteria', String, 'Success Criteria',
+        hint: 'How success is measured'),
+    Field('acceptanceCriteria', String, 'Acceptance Criteria',
+        hint: 'Required criteria to proceed'),
+    Field('stakeholderSignoff', String, 'Stakeholder Signoff',
+        hint: 'Who must approve prototype'),
+  ])
+  String? prototypeOverview;
 
-  /// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA] — contains 0+× PrototypeGoal.
-  @SectionIdPattern('PD00-USE-PRO-GOA-xx')
-  List<PrototypeGoalEntry> prototypeGoals = [];
+  /// Prototype overview narrative.
+  @ContentHelp('Executive summary of prototype approach, '
+      'objectives, and expected outcomes.')
+  TextSection overviewNarrative = TextSection();
 
-  /// Selected Feature Subset.
-  TextSection selectedFeatureSubset = TextSection();
+  /// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
+  @SectionId('PD00-USE-PRO-GOA')
+  PrototypeGoals prototypeGoals = PrototypeGoals();
+
+  /// 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
+  @SectionId('PD00-USE-PRO-FEA')
+  PrototypeFeatureSubset featureSubset = PrototypeFeatureSubset();
 
   /// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+  @SectionId('PD00-USE-PRO-TYP')
   PrototypeTypeSection prototypeType = PrototypeTypeSection();
+
+  /// Prototype schedule.
+  @ContentHelp('Detailed timeline for prototype development and evaluation.')
+  TextSection prototypeSchedule = TextSection();
+}
+
+/// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
+///
+/// What the prototype should validate.
+@SectionId('PD00-USE-PRO-GOA')
+class PrototypeGoals {
+  @Form([
+    // Validation goals
+    Field('usabilityValidation', bool, 'Usability Validation',
+        hint: 'Validate usability of key workflows'),
+    Field('stakeholderAlignment', bool, 'Stakeholder Alignment',
+        hint: 'Align stakeholders on UI/UX'),
+    Field('technicalFeasibility', bool, 'Technical Feasibility',
+        hint: 'Prove technical approach works'),
+    Field('performanceValidation', bool, 'Performance Validation',
+        hint: 'Validate performance targets'),
+    Field('integrationValidation', bool, 'Integration Validation',
+        hint: 'Validate third-party integrations'),
+    // Risk mitigation
+    Field('riskMitigation', String, 'Risk Mitigation',
+        hint: 'Risks the prototype addresses'),
+    Field('unknownsResolution', String, 'Unknowns Resolution',
+        hint: 'Unknowns to be resolved'),
+    Field('assumptionsTesting', String, 'Assumptions Testing',
+        hint: 'Assumptions to be tested'),
+    // User feedback
+    Field('userFeedbackGoals', String, 'User Feedback Goals',
+        hint: 'What feedback to gather'),
+    Field('usabilityTestingPlan', String, 'Usability Testing Plan',
+        hint: 'How usability testing is done'),
+    Field('feedbackIntegration', String, 'Feedback Integration',
+        hint: 'How feedback flows back'),
+  ])
+  String? goalsContent;
+
+  /// Prototype goals narrative.
+  TextSection goalsNarrative = TextSection();
+
+  /// Individual goal entries.
+  @SectionIdPattern('PD00-USE-PRO-GOA-xx')
+  List<PrototypeGoalEntry> goals = [];
+}
+
+/// A prototype goal entry [PD00-USE-PRO-GOA-nn].
+class PrototypeGoalEntry {
+  @Form([
+    Field('goalId', String, 'Goal ID', required: true),
+    Field('goalDescription', String, 'Goal Description', required: true),
+    Field('goalCategory', String, 'Goal Category',
+        hint: 'Usability, technical, business'),
+    Field('validationMethod', String, 'Validation Method',
+        hint: 'How goal is validated'),
+    Field('successMetric', String, 'Success Metric',
+        hint: 'How success is measured'),
+    Field('priority', String, 'Priority',
+        hint: 'Must-have, should-have, nice-to-have'),
+    Field('relatedRisks', String, 'Related Risks',
+        hint: 'Risks this goal addresses'),
+    Field('stakeholders', String, 'Stakeholders',
+        hint: 'Stakeholders interested in this goal'),
+  ])
+  String? content;
+}
+
+/// 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
+///
+/// Features included in the prototype.
+@SectionId('PD00-USE-PRO-FEA')
+class PrototypeFeatureSubset {
+  @Form([
+    // Selection criteria
+    Field('selectionCriteria', String, 'Selection Criteria',
+        hint: 'How features were selected'),
+    Field('riskBasedSelection', String, 'Risk-Based Selection',
+        hint: 'High-risk features included'),
+    Field('valueBasedSelection', String, 'Value-Based Selection',
+        hint: 'High-value features included'),
+    Field('uncertaintyBasedSelection', String, 'Uncertainty-Based Selection',
+        hint: 'Most uncertain features included'),
+    // Scope
+    Field('includedFeatures', String, 'Included Features',
+        hint: 'Features in prototype'),
+    Field('excludedFeatures', String, 'Excluded Features',
+        hint: 'Features not in prototype'),
+    Field('partialFeatures', String, 'Partial Features',
+        hint: 'Features partially implemented'),
+    // Fidelity
+    Field('prototypeFidelity', String, 'Prototype Fidelity',
+        hint: 'Low, medium, high fidelity'),
+    Field('interactiveFidelity', String, 'Interactive Fidelity',
+        hint: 'Level of interactivity'),
+    Field('dataFidelity', String, 'Data Fidelity',
+        hint: 'Real vs. mock data'),
+    Field('visualFidelity', String, 'Visual Fidelity',
+        hint: 'Production visuals vs. wireframes'),
+  ])
+  String? featureSubsetContent;
+
+  /// Feature subset narrative.
+  TextSection featureNarrative = TextSection();
+
+  /// Prototype feature entries.
+  @SectionIdPattern('PD00-USE-PRO-FEA-xx')
+  List<PrototypeFeatureEntry> features = [];
+}
+
+/// A prototype feature entry [PD00-USE-PRO-FEA-nn].
+class PrototypeFeatureEntry {
+  @Form([
+    Field('featureId', String, 'Feature ID', required: true),
+    Field('featureName', String, 'Feature Name', required: true),
+    Field('inclusionReason', String, 'Inclusion Reason',
+        hint: 'Why this feature is included'),
+    Field('fidelityLevel', String, 'Fidelity Level',
+        hint: 'Low, medium, high'),
+    Field('completenessLevel', String, 'Completeness Level',
+        hint: 'Full, partial, stub'),
+    Field('relatedGoals', String, 'Related Goals',
+        hint: 'Prototype goals this addresses'),
+    Field('implementationNotes', String, 'Implementation Notes'),
+    Field('knownLimitations', String, 'Known Limitations'),
+  ])
+  String? content;
 }
 
 /// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+///
+/// Classification and implications of the prototype type.
 @SectionId('PD00-USE-PRO-TYP')
 class PrototypeTypeSection {
-  @Unused()
-  String? content;
+  @Form([
+    Field('prototypeType', String, 'Prototype Type', required: true,
+        hint: 'Reusable, Training, Throwaway'),
+    Field('typeRationale', String, 'Type Rationale',
+        hint: 'Why this type was chosen'),
+    Field('typeImplications', String, 'Type Implications',
+        hint: 'Implications for development'),
+    Field('codeQualityExpectation', String, 'Code Quality Expectation',
+        hint: 'Production, demo, quick-and-dirty'),
+    Field('documentationRequirement', String, 'Documentation Requirement',
+        hint: 'Documentation needed'),
+    Field('transitionPlan', String, 'Transition Plan',
+        hint: 'How prototype transitions'),
+  ])
+  String? prototypeTypeOverview;
 
-  /// Reusable Prototype.
-  TextSection reusablePrototype = TextSection();
+  /// 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
+  @SectionId('PD00-USE-PRO-TYP-REU')
+  ReusablePrototype reusablePrototype = ReusablePrototype();
 
-  /// Training Prototype.
-  TextSection trainingPrototype = TextSection();
+  /// 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
+  @SectionId('PD00-USE-PRO-TYP-TRA')
+  TrainingPrototype trainingPrototype = TrainingPrototype();
 
-  /// Throwaway Prototype.
-  TextSection throwawayPrototype = TextSection();
+  /// 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
+  @SectionId('PD00-USE-PRO-TYP-THR')
+  ThrowawayPrototype throwawayPrototype = ThrowawayPrototype();
 }
 
-/// A prototype goal entry (form) [PD00-USE-PRO-GOA-nn].
-class PrototypeGoalEntry {
+/// 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
+///
+/// Prototype that becomes part of the final product.
+@SectionId('PD00-USE-PRO-TYP-REU')
+class ReusablePrototype {
   @Form([
-    Field('goal', String, 'Goal', required: true),
-    Field('description', String, 'Short description'),
+    // Code quality
+    Field('codeQualityRequirements', String, 'Code Quality Requirements',
+        hint: 'Standards prototype code must meet'),
+    Field('testCoverageRequirement', String, 'Test Coverage Requirement',
+        hint: 'Required test coverage'),
+    Field('codeReviewRequired', bool, 'Code Review Required'),
+    Field('documentationRequired', bool, 'Documentation Required'),
+    // Architecture
+    Field('architectureAlignment', String, 'Architecture Alignment',
+        hint: 'How prototype aligns with target architecture'),
+    Field('refactoringPlan', String, 'Refactoring Plan',
+        hint: 'Planned refactoring after prototype'),
+    Field('technicalDebt', String, 'Technical Debt',
+        hint: 'Acceptable technical debt'),
+    // Integration
+    Field('integrationPlan', String, 'Integration Plan',
+        hint: 'How prototype integrates into product'),
+    Field('featureBranchStrategy', String, 'Feature Branch Strategy',
+        hint: 'Git branching approach'),
+    Field('mergeCriteria', String, 'Merge Criteria',
+        hint: 'Criteria to merge prototype code'),
+    // Transition
+    Field('transitionTimeline', String, 'Transition Timeline'),
+    Field('teamHandoff', String, 'Team Handoff',
+        hint: 'Handoff to development team'),
   ])
-  String? content;
+  String? reusableContent;
+
+  /// Reusable prototype narrative.
+  TextSection reusableNarrative = TextSection();
+}
+
+/// 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
+///
+/// Prototype where concepts are reused but not code.
+@SectionId('PD00-USE-PRO-TYP-TRA')
+class TrainingPrototype {
+  @Form([
+    // Knowledge transfer
+    Field('designDecisionsCarriedForward', String, 'Design Decisions Carried Forward',
+        hint: 'What design decisions are preserved'),
+    Field('patternsDocumented', String, 'Patterns Documented',
+        hint: 'Patterns documented from prototype'),
+    Field('lessonsLearned', String, 'Lessons Learned',
+        hint: 'What was learned'),
+    // Code disposition
+    Field('codeDisposition', String, 'Code Disposition',
+        hint: 'What happens to prototype code'),
+    Field('reimplementationPlan', String, 'Reimplementation Plan',
+        hint: 'Plan for reimplementing features'),
+    Field('reimplementationEstimate', String, 'Reimplementation Estimate',
+        hint: 'Effort to reimplement'),
+    // Documentation
+    Field('documentationProduced', String, 'Documentation Produced',
+        hint: 'Documentation from prototype'),
+    Field('designSystemOutput', String, 'Design System Output',
+        hint: 'Design system artifacts'),
+    Field('componentSpecifications', String, 'Component Specifications',
+        hint: 'Component specs from prototype'),
+    // Team learning
+    Field('teamSkillsGained', String, 'Team Skills Gained',
+        hint: 'Skills team gained'),
+    Field('technologyInsights', String, 'Technology Insights',
+        hint: 'Technology insights gained'),
+  ])
+  String? trainingContent;
+
+  /// Training prototype narrative.
+  TextSection trainingNarrative = TextSection();
+}
+
+/// 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
+///
+/// Prototype evaluated and then discarded.
+@SectionId('PD00-USE-PRO-TYP-THR')
+class ThrowawayPrototype {
+  @Form([
+    // Evaluation
+    Field('evaluationCriteria', String, 'Evaluation Criteria',
+        hint: 'Criteria for evaluation'),
+    Field('evaluationMethod', String, 'Evaluation Method',
+        hint: 'How prototype is evaluated'),
+    Field('evaluationParticipants', String, 'Evaluation Participants',
+        hint: 'Who participates in evaluation'),
+    Field('evaluationTimeline', String, 'Evaluation Timeline'),
+    // Documentation
+    Field('findingsDocumentation', String, 'Findings Documentation',
+        hint: 'How findings are documented'),
+    Field('recommendationsOutput', String, 'Recommendations Output',
+        hint: 'Recommendations produced'),
+    Field('decisionsMade', String, 'Decisions Made',
+        hint: 'Decisions made based on prototype'),
+    // Disposal
+    Field('disposalPlan', String, 'Disposal Plan',
+        hint: 'How prototype is disposed'),
+    Field('archivingApproach', String, 'Archiving Approach',
+        hint: 'Whether/how prototype is archived'),
+    Field('nextSteps', String, 'Next Steps',
+        hint: 'What happens after evaluation'),
+    // Value capture
+    Field('insightsCaptured', String, 'Insights Captured',
+        hint: 'Key insights from prototype'),
+    Field('futureReference', String, 'Future Reference',
+        hint: 'What to preserve for future'),
+  ])
+  String? throwawayContent;
+
+  /// Throwaway prototype narrative.
+  TextSection throwawayNarrative = TextSection();
 }
