@@ -6102,8 +6102,8 @@ class OperationsRequirements {
   /// 8.5.1. Backup And Recovery [PD00-TEC-OPE-BAC].
   BackupAndRecoverySection backupAndRecovery = BackupAndRecoverySection();
 
-  /// Deployment Strategy.
-  TextSection deploymentStrategy = TextSection();
+  /// 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP].
+  DeploymentStrategySection deploymentStrategy = DeploymentStrategySection();
 
   /// Monitoring And Alerting.
   TextSection monitoringAndAlerting = TextSection();
@@ -6540,6 +6540,457 @@ class BackupCompliance {
         hint: 'Supporting eDiscovery'),
     Field('notes', String, 'Notes',
         hint: 'Additional compliance notes'),
+  ])
+  String? content;
+}
+
+// =============================================================================
+// 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP]
+// =============================================================================
+
+/// 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP].
+///
+/// Deployment model (containerized, VM-based, serverless), deployment pipeline,
+/// rollback strategy, and canary/blue-green deployment requirements.
+@SectionId('PD00-TEC-OPE-DEP')
+class DeploymentStrategySection {
+  @Unused()
+  String? content;
+
+  /// Overview of deployment strategy.
+  TextSection overview = TextSection();
+
+  /// Deployment model requirements.
+  DeploymentModelRequirements deploymentModel = DeploymentModelRequirements();
+
+  /// Environment strategy.
+  EnvironmentStrategy environments = EnvironmentStrategy();
+
+  /// CI/CD pipeline requirements.
+  CiCdPipelineRequirements cicdPipeline = CiCdPipelineRequirements();
+
+  /// Release strategy.
+  ReleaseStrategy releaseStrategy = ReleaseStrategy();
+
+  /// Rollback strategy.
+  RollbackStrategy rollbackStrategy = RollbackStrategy();
+
+  /// Configuration management.
+  ConfigurationManagement configurationManagement = ConfigurationManagement();
+
+  /// Infrastructure as Code requirements.
+  InfrastructureAsCode infrastructureAsCode = InfrastructureAsCode();
+
+  /// Deployment security requirements.
+  DeploymentSecurity deploymentSecurity = DeploymentSecurity();
+}
+
+/// Deployment model requirements.
+class DeploymentModelRequirements {
+  @Form([
+    // Primary model
+    Field('deploymentModel', String, 'Deployment Model',
+        hint: 'Containerized, VM-based, Serverless, Hybrid'),
+    Field('containerRuntime', String, 'Container Runtime',
+        hint: 'Docker, containerd, CRI-O'),
+    Field('orchestrationPlatform', String, 'Orchestration Platform',
+        hint: 'Kubernetes, ECS, Nomad'),
+    Field('serverlessProvider', String, 'Serverless Provider',
+        hint: 'AWS Lambda, Azure Functions, Cloud Run'),
+
+    // Container specifications
+    Field('containerRegistry', String, 'Container Registry',
+        hint: 'ECR, ACR, GCR, Docker Hub'),
+    Field('imageScanningRequired', bool, 'Image Scanning Required',
+        hint: 'Security scanning on push'),
+    Field('imageTaggingStrategy', String, 'Image Tagging Strategy',
+        hint: 'Semantic versioning, git SHA'),
+    Field('baseImagePolicy', String, 'Base Image Policy',
+        hint: 'Approved base images'),
+
+    // Resource allocation
+    Field('resourceRequirements', String, 'Resource Requirements',
+        hint: 'CPU, memory specifications'),
+    Field('scalingConfiguration', String, 'Scaling Configuration',
+        hint: 'HPA, VPA, cluster autoscaler'),
+    Field('replicaCount', String, 'Replica Count',
+        hint: 'Default and min/max replicas'),
+
+    // Networking
+    Field('serviceDiscovery', String, 'Service Discovery',
+        hint: 'DNS, service mesh'),
+    Field('ingressConfiguration', String, 'Ingress Configuration',
+        hint: 'Ingress controller, routes'),
+    Field('loadBalancing', String, 'Load Balancing',
+        hint: 'ALB, NLB, internal LB'),
+
+    // Storage
+    Field('persistentStorage', String, 'Persistent Storage',
+        hint: 'PVC, EBS, EFS requirements'),
+    Field('storageClass', String, 'Storage Class',
+        hint: 'SSD, HDD, performance tier'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional deployment model notes'),
+  ])
+  String? content;
+}
+
+/// Environment strategy.
+class EnvironmentStrategy {
+  @Form([
+    // Environment tiers
+    Field('environmentTiers', String, 'Environment Tiers',
+        hint: 'Dev, Test, Staging, Prod'),
+    Field('environmentParity', String, 'Environment Parity',
+        hint: 'How similar envs are to prod'),
+    Field('environmentIsolation', String, 'Environment Isolation',
+        hint: 'Network, account, cluster isolation'),
+
+    // Development
+    Field('devEnvironment', String, 'Development Environment',
+        hint: 'Dev environment setup'),
+    Field('localDevelopment', String, 'Local Development',
+        hint: 'Local dev environment'),
+    Field('devDataStrategy', String, 'Dev Data Strategy',
+        hint: 'Synthetic, anonymized, subset'),
+
+    // Testing
+    Field('testEnvironment', String, 'Test Environment',
+        hint: 'Test/QA environment'),
+    Field('integrationEnvironment', String, 'Integration Environment',
+        hint: 'Integration testing env'),
+    Field('performanceEnvironment', String, 'Performance Environment',
+        hint: 'Performance testing env'),
+
+    // Pre-production
+    Field('stagingEnvironment', String, 'Staging Environment',
+        hint: 'Pre-production staging'),
+    Field('stagingProdParity', bool, 'Staging-Prod Parity',
+        hint: 'Staging mirrors production'),
+    Field('stagingDataRefresh', String, 'Staging Data Refresh',
+        hint: 'How staging data is refreshed'),
+
+    // Production
+    Field('productionEnvironment', String, 'Production Environment',
+        hint: 'Production deployment'),
+    Field('multiRegion', bool, 'Multi-Region',
+        hint: 'Multi-region deployment'),
+    Field('activeActive', bool, 'Active-Active',
+        hint: 'Active-active configuration'),
+
+    // Feature environments
+    Field('ephemeralEnvironments', bool, 'Ephemeral Environments',
+        hint: 'Per-PR/feature environments'),
+    Field('environmentLifecycle', String, 'Environment Lifecycle',
+        hint: 'Auto-cleanup, retention'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional environment notes'),
+  ])
+  String? content;
+}
+
+/// CI/CD pipeline requirements.
+class CiCdPipelineRequirements {
+  @Form([
+    // Pipeline platform
+    Field('cicdPlatform', String, 'CI/CD Platform',
+        hint: 'GitHub Actions, GitLab CI, Jenkins'),
+    Field('pipelineAsCode', bool, 'Pipeline as Code',
+        hint: 'Pipeline definition in repo'),
+    Field('pipelineLocation', String, 'Pipeline Location',
+        hint: 'Where pipeline files are stored'),
+
+    // Build stage
+    Field('buildTriggers', String, 'Build Triggers',
+        hint: 'Push, PR, tag, schedule'),
+    Field('buildSteps', String, 'Build Steps',
+        hint: 'Compile, test, lint, scan'),
+    Field('buildCaching', String, 'Build Caching',
+        hint: 'Dependency caching strategy'),
+    Field('buildArtifacts', String, 'Build Artifacts',
+        hint: 'What artifacts are produced'),
+
+    // Quality gates
+    Field('codeQualityGates', String, 'Code Quality Gates',
+        hint: 'Linting, static analysis'),
+    Field('testCoverageThreshold', String, 'Test Coverage Threshold',
+        hint: 'Minimum coverage required'),
+    Field('securityScanRequired', bool, 'Security Scan Required',
+        hint: 'SAST, SCA in pipeline'),
+    Field('approvalRequired', bool, 'Approval Required',
+        hint: 'Manual approval gates'),
+
+    // Deployment stages
+    Field('deploymentStages', String, 'Deployment Stages',
+        hint: 'Ordered deployment stages'),
+    Field('autoDeployDev', bool, 'Auto-Deploy to Dev',
+        hint: 'Auto-deploy on merge'),
+    Field('autoDeployStaging', bool, 'Auto-Deploy to Staging',
+        hint: 'Auto-deploy to staging'),
+    Field('productionGate', String, 'Production Gate',
+        hint: 'Prod deployment gate'),
+
+    // Notifications
+    Field('pipelineNotifications', String, 'Pipeline Notifications',
+        hint: 'Slack, email, Teams alerts'),
+    Field('failureEscalation', String, 'Failure Escalation',
+        hint: 'Build failure response'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional CI/CD notes'),
+  ])
+  String? content;
+}
+
+/// Release strategy.
+class ReleaseStrategy {
+  @Form([
+    // Release methodology
+    Field('releaseMethodology', String, 'Release Methodology',
+        hint: 'Blue-green, Canary, Rolling, A/B'),
+    Field('releaseFrequency', String, 'Release Frequency',
+        hint: 'Daily, Weekly, Bi-weekly'),
+    Field('releaseSchedule', String, 'Release Schedule',
+        hint: 'When releases occur'),
+    Field('releaseWindow', String, 'Release Window',
+        hint: 'Allowed deployment times'),
+
+    // Blue-green deployment
+    Field('blueGreenEnabled', bool, 'Blue-Green Enabled',
+        hint: 'Uses blue-green deployment'),
+    Field('trafficSwitching', String, 'Traffic Switching',
+        hint: 'How traffic is switched'),
+    Field('warmupPeriod', String, 'Warmup Period',
+        hint: 'New version warmup time'),
+    Field('greenRetention', String, 'Green Retention',
+        hint: 'How long to keep old version'),
+
+    // Canary deployment
+    Field('canaryEnabled', bool, 'Canary Enabled',
+        hint: 'Uses canary deployment'),
+    Field('canaryPercentage', String, 'Canary Percentage',
+        hint: 'Initial canary traffic %'),
+    Field('canaryRampUpSteps', String, 'Canary Ramp-Up Steps',
+        hint: 'Percentage ramp-up steps'),
+    Field('canaryMetrics', String, 'Canary Metrics',
+        hint: 'Metrics for canary health'),
+    Field('canaryDuration', String, 'Canary Duration',
+        hint: 'Time at each step'),
+    Field('autoRollbackCriteria', String, 'Auto-Rollback Criteria',
+        hint: 'When to auto-rollback canary'),
+
+    // Feature flags
+    Field('featureFlagsEnabled', bool, 'Feature Flags Enabled',
+        hint: 'Uses feature flags'),
+    Field('featureFlagProvider', String, 'Feature Flag Provider',
+        hint: 'LaunchDarkly, Flagsmith, custom'),
+    Field('flagStrategy', String, 'Flag Strategy',
+        hint: 'How flags are managed'),
+
+    // Release management
+    Field('releaseNotes', String, 'Release Notes',
+        hint: 'Release notes process'),
+    Field('changelogGeneration', String, 'Changelog Generation',
+        hint: 'Auto or manual changelog'),
+    Field('releaseApproval', String, 'Release Approval',
+        hint: 'Who approves releases'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional release notes'),
+  ])
+  String? content;
+}
+
+/// Rollback strategy.
+class RollbackStrategy {
+  @Form([
+    // Rollback approach
+    Field('rollbackMethod', String, 'Rollback Method',
+        hint: 'Redeploy, traffic switch, restore'),
+    Field('autoRollbackEnabled', bool, 'Auto-Rollback Enabled',
+        hint: 'Automatic rollback on failure'),
+    Field('rollbackTriggers', String, 'Rollback Triggers',
+        hint: 'What triggers rollback'),
+    Field('rollbackTimeTarget', String, 'Rollback Time Target',
+        hint: 'Max time to complete rollback'),
+
+    // Health criteria
+    Field('healthCheckFailures', String, 'Health Check Failures',
+        hint: 'Failures before rollback'),
+    Field('errorRateThreshold', String, 'Error Rate Threshold',
+        hint: 'Error rate triggering rollback'),
+    Field('latencyThreshold', String, 'Latency Threshold',
+        hint: 'Latency triggering rollback'),
+    Field('customMetricThresholds', String, 'Custom Metric Thresholds',
+        hint: 'Business metrics for rollback'),
+
+    // Rollback targets
+    Field('rollbackTarget', String, 'Rollback Target',
+        hint: 'Previous version, specific version'),
+    Field('versionRetention', String, 'Version Retention',
+        hint: 'How many versions kept'),
+    Field('artifactStorage', String, 'Artifact Storage',
+        hint: 'Where rollback artifacts stored'),
+
+    // Data rollback
+    Field('dataRollbackStrategy', String, 'Data Rollback Strategy',
+        hint: 'How to handle data on rollback'),
+    Field('migrationRollback', String, 'Migration Rollback',
+        hint: 'Database migration rollback'),
+    Field('backwardCompatibility', String, 'Backward Compatibility',
+        hint: 'Data format compatibility'),
+
+    // Procedures
+    Field('manualRollbackProcedure', String, 'Manual Rollback Procedure',
+        hint: 'Steps for manual rollback'),
+    Field('rollbackValidation', String, 'Rollback Validation',
+        hint: 'Validating successful rollback'),
+    Field('postRollbackActions', String, 'Post-Rollback Actions',
+        hint: 'Actions after rollback'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional rollback notes'),
+  ])
+  String? content;
+}
+
+/// Configuration management.
+class ConfigurationManagement {
+  @Form([
+    // Configuration storage
+    Field('configStorage', String, 'Configuration Storage',
+        hint: 'ConfigMaps, SSM, Consul'),
+    Field('secretsManagement', String, 'Secrets Management',
+        hint: 'Vault, AWS Secrets, Azure KV'),
+    Field('configVersioning', bool, 'Config Versioning',
+        hint: 'Version controlled config'),
+    Field('configAudit', bool, 'Config Audit',
+        hint: 'Audit config changes'),
+
+    // Environment config
+    Field('envSpecificConfig', String, 'Environment-Specific Config',
+        hint: 'How env config differs'),
+    Field('configInheritance', String, 'Config Inheritance',
+        hint: 'Base + override pattern'),
+    Field('configValidation', String, 'Config Validation',
+        hint: 'Config validation process'),
+
+    // Configuration injection
+    Field('configInjectionMethod', String, 'Config Injection Method',
+        hint: 'Env vars, mounted files'),
+    Field('dynamicConfig', bool, 'Dynamic Config',
+        hint: 'Runtime config updates'),
+    Field('configReload', String, 'Config Reload',
+        hint: 'How apps reload config'),
+
+    // Feature configuration
+    Field('featureToggles', String, 'Feature Toggles',
+        hint: 'Feature toggle management'),
+    Field('experimentsConfig', String, 'Experiments Config',
+        hint: 'A/B test configuration'),
+    Field('tenantConfig', String, 'Tenant Configuration',
+        hint: 'Per-tenant configuration'),
+
+    // Security
+    Field('secretRotation', String, 'Secret Rotation',
+        hint: 'Secret rotation policy'),
+    Field('accessControl', String, 'Access Control',
+        hint: 'Who can manage config'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional config notes'),
+  ])
+  String? content;
+}
+
+/// Infrastructure as Code requirements.
+class InfrastructureAsCode {
+  @Form([
+    // IaC tooling
+    Field('iacTool', String, 'IaC Tool',
+        hint: 'Terraform, Pulumi, CloudFormation'),
+    Field('iacRepository', String, 'IaC Repository',
+        hint: 'Where IaC code lives'),
+    Field('iacModules', String, 'IaC Modules',
+        hint: 'Reusable modules strategy'),
+    Field('iacRegistry', String, 'IaC Registry',
+        hint: 'Private module registry'),
+
+    // State management
+    Field('stateStorage', String, 'State Storage',
+        hint: 'S3, GCS, Azure Blob'),
+    Field('stateLocking', bool, 'State Locking',
+        hint: 'Prevent concurrent changes'),
+    Field('stateEnvironmentSeparation', String, 'State Separation',
+        hint: 'Per-environment state files'),
+
+    // Execution
+    Field('planReview', String, 'Plan Review',
+        hint: 'Who reviews IaC plans'),
+    Field('applyApproval', String, 'Apply Approval',
+        hint: 'Approval for applying changes'),
+    Field('pipelineIntegration', String, 'Pipeline Integration',
+        hint: 'IaC in CI/CD pipeline'),
+
+    // Drift detection
+    Field('driftDetection', bool, 'Drift Detection',
+        hint: 'Detect manual changes'),
+    Field('driftRemediation', String, 'Drift Remediation',
+        hint: 'How to handle drift'),
+    Field('reconciliationSchedule', String, 'Reconciliation Schedule',
+        hint: 'When to check for drift'),
+
+    // Security
+    Field('sensitiveValueHandling', String, 'Sensitive Value Handling',
+        hint: 'Handling secrets in IaC'),
+    Field('policyAsCode', String, 'Policy as Code',
+        hint: 'OPA, Sentinel policies'),
+    Field('complianceChecks', String, 'Compliance Checks',
+        hint: 'Compliance validation'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional IaC notes'),
+  ])
+  String? content;
+}
+
+/// Deployment security requirements.
+class DeploymentSecurity {
+  @Form([
+    // Pipeline security
+    Field('pipelineSecrets', String, 'Pipeline Secrets',
+        hint: 'How secrets are injected'),
+    Field('serviceAccounts', String, 'Service Accounts',
+        hint: 'Deployment service accounts'),
+    Field('roleBindings', String, 'Role Bindings',
+        hint: 'Kubernetes RBAC'),
+    Field('leastPrivilege', bool, 'Least Privilege',
+        hint: 'Minimum required permissions'),
+
+    // Supply chain
+    Field('signedArtifacts', bool, 'Signed Artifacts',
+        hint: 'Artifact signing required'),
+    Field('imageSignature', String, 'Image Signature',
+        hint: 'Cosign, Notary'),
+    Field('sbomGeneration', bool, 'SBOM Generation',
+        hint: 'Software bill of materials'),
+    Field('supplyChainAttestation', String, 'Supply Chain Attestation',
+        hint: 'Provenance verification'),
+
+    // Runtime security
+    Field('podSecurityPolicy', String, 'Pod Security Policy',
+        hint: 'PSP/PSA configuration'),
+    Field('networkPolicies', String, 'Network Policies',
+        hint: 'Network segmentation'),
+    Field('seccompProfile', String, 'Seccomp Profile',
+        hint: 'Syscall restrictions'),
+    Field('readOnlyRootFilesystem', bool, 'Read-Only Root Filesystem',
+        hint: 'Immutable containers'),
+
+    // Access control
+    Field('deploymentApprovers', String, 'Deployment Approvers',
+        hint: 'Who can approve deployments'),
+    Field('emergencyAccess', String, 'Emergency Access',
+        hint: 'Break-glass procedures'),
+    Field('auditLogging', bool, 'Audit Logging',
+        hint: 'Log all deployments'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional deployment security notes'),
   ])
   String? content;
 }
