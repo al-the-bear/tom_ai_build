@@ -58,13 +58,13 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-ORG-JOB-CHA | Changed Roles | Medium | ✅ Done |
 | PD00-ORG-JOB-CHA-01 | Sample: Sales Team Lead | Low | ✅ Done |
 | PD00-ORG-WOR | Workplace Description | Medium | ✅ Done |
-| PD00-TAR-PRO | Business Process Descriptions | High | ⬜ Not Started |
-| PD00-TAR-PRO-VIS | Process Vision | Medium | ⬜ Not Started |
-| PD00-TAR-PRO-PRI | Design Principles | Medium | ⬜ Not Started |
-| PD00-TAR-PRO-CAT | Process Catalog | High | ⬜ Not Started |
-| PD00-TAR-PRO-CAT-01 | Sample: Customer Onboarding | Low | ⬜ Not Started |
-| PD00-TAR-PRO-FLO | Process Overview Diagram | Medium | ⬜ Not Started |
-| PD00-TAR-PRO-IMP | Improvement Summary | Medium | ⬜ Not Started |
+| PD00-TAR-PRO | Business Process Descriptions | High | ✅ Done |
+| PD00-TAR-PRO-VIS | Process Vision | Medium | ✅ Done |
+| PD00-TAR-PRO-PRI | Design Principles | Medium | ✅ Done |
+| PD00-TAR-PRO-CAT | Process Catalog | High | ✅ Done |
+| PD00-TAR-PRO-CAT-01 | Sample: Customer Onboarding | Low | ✅ Done |
+| PD00-TAR-PRO-FLO | Process Overview Diagram | Medium | ✅ Done |
+| PD00-TAR-PRO-IMP | Improvement Summary | Medium | ✅ Done |
 | PD00-TAR-STP | Process Steps and Actor Interactions | High | ⬜ Not Started |
 | PD00-TAR-STP-ACT | Actor Overview | Medium | ⬜ Not Started |
 | PD00-TAR-STP-ACT-01 | Sample: Back-Office Administrator | Low | ⬜ Not Started |
