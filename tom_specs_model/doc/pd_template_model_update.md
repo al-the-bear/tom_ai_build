@@ -88,7 +88,7 @@ These sections exist in `pd_template.md` but are missing from `tom_specs_model`:
 | PD00-TEC-BAS-PLA | Platform and Language | High | ✅ Done |
 | PD00-TEC-BAS-ARC | Architecture Style | High | ✅ Done |
 | PD00-TEC-BAS-PAT | Design Patterns and Standards | Medium | ✅ Done |
-| PD00-TEC-SOF-LAY | Layering and Module Structure | Medium | ⬜ Not Started |
+| PD00-TEC-SOF-LAY | Layering and Module Structure | Medium | ✅ Done |
 | PD00-TEC-SOF-DEV | Development Environment | Medium | ⬜ Not Started |
 | PD00-TEC-SOF-REU | Reusable Components | Medium | ⬜ Not Started |
 | PD00-TEC-STA-COM | Compatibility Requirements | Medium | ⬜ Not Started |

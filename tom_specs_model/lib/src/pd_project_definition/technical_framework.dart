@@ -1547,8 +1547,9 @@ class SoftwareDesignRequirements {
   @Unused()
   String? content;
 
-  /// Layering And Module Structure.
-  TextSection layeringAndModuleStructure = TextSection();
+  /// 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY].
+  LayeringAndModuleStructure layeringAndModuleStructure =
+      LayeringAndModuleStructure();
 
   /// Development Environment.
   TextSection developmentEnvironment = TextSection();
@@ -1556,6 +1557,544 @@ class SoftwareDesignRequirements {
   /// 8.2.3. Reusable Components [PD00-TEC-SOF-REU] — contains 0+× ReusableComponent.
   @SectionIdPattern('PD00-TEC-SOF-REU-xx')
   List<ReusableComponentEntry> reusableComponents = [];
+}
+
+// =============================================================================
+// 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY]
+// =============================================================================
+
+/// 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY].
+///
+/// Software layering (presentation, business logic, data access, infrastructure)
+/// and module structure (bounded contexts, packages, libraries).
+@SectionId('PD00-TEC-SOF-LAY')
+class LayeringAndModuleStructure {
+  @Unused()
+  String? content;
+
+  /// Overview of the layering and modularization approach.
+  TextSection overview = TextSection();
+
+  /// Software layer definitions.
+  @SectionIdPattern('PD00-TEC-SOF-LAY-LYR-xx')
+  List<SoftwareLayerEntry> softwareLayers = [];
+
+  /// Layer communication rules and constraints.
+  LayerCommunicationRules layerCommunicationRules = LayerCommunicationRules();
+
+  /// Bounded contexts (DDD) definitions.
+  @SectionIdPattern('PD00-TEC-SOF-LAY-CTX-xx')
+  List<BoundedContextEntry> boundedContexts = [];
+
+  /// Package organization and structure.
+  PackageOrganization packageOrganization = PackageOrganization();
+
+  /// Module catalog with dependency information.
+  @SectionIdPattern('PD00-TEC-SOF-LAY-MOD-xx')
+  List<ModuleEntry> modules = [];
+
+  /// Shared libraries and common code.
+  @SectionIdPattern('PD00-TEC-SOF-LAY-LIB-xx')
+  List<SharedLibraryEntry> sharedLibraries = [];
+
+  /// Dependency injection configuration.
+  DependencyInjectionStructure dependencyInjection =
+      DependencyInjectionStructure();
+
+  /// Cross-cutting concerns organization.
+  CrossCuttingConcerns crossCuttingConcerns = CrossCuttingConcerns();
+
+  /// Feature module definitions (vertical slices).
+  @SectionIdPattern('PD00-TEC-SOF-LAY-FEA-xx')
+  List<FeatureModuleEntry> featureModules = [];
+
+  /// Module versioning and compatibility strategy.
+  ModuleVersioningStrategy moduleVersioningStrategy =
+      ModuleVersioningStrategy();
+}
+
+/// Software layer entry — a horizontal layer in the architecture.
+class SoftwareLayerEntry {
+  @Form([
+    // Identity
+    Field('layerName', String, 'Layer Name',
+        required: true,
+        hint:
+            'E.g., Presentation, Application, Domain, Infrastructure, Data Access'),
+    Field('layerLevel', String, 'Level',
+        hint: 'Numeric level (0 = bottom, higher = top)'),
+    Field('layerPattern', String, 'Pattern',
+        hint: 'E.g., Clean Architecture, Onion, Hexagonal, N-Tier'),
+
+    // Responsibilities
+    Field('purpose', String, 'Purpose',
+        required: true, hint: 'Primary responsibility of this layer'),
+    Field('responsibilities', String, 'Key Responsibilities',
+        hint: 'Specific functions this layer handles'),
+    Field('prohibitions', String, 'Prohibitions',
+        hint: 'What this layer must NOT do'),
+
+    // Components
+    Field('typicalComponents', String, 'Typical Components',
+        hint: 'Types of classes/components in this layer'),
+    Field('namingConventions', String, 'Naming Conventions',
+        hint: 'Naming patterns for components in this layer'),
+    Field('folderStructure', String, 'Folder Structure',
+        hint: 'Directory organization for this layer'),
+
+    // Dependencies
+    Field('allowedDependencies', String, 'Allowed Dependencies',
+        hint: 'Layers this layer may depend on'),
+    Field('forbiddenDependencies', String, 'Forbidden Dependencies',
+        hint: 'Layers this layer must NOT depend on'),
+    Field('externalDependencies', String, 'External Dependencies',
+        hint: 'External packages allowed in this layer'),
+
+    // Technology
+    Field('frameworksUsed', String, 'Frameworks Used',
+        hint: 'Frameworks applicable to this layer'),
+    Field('implementationNotes', String, 'Implementation Notes',
+        hint: 'Specific implementation guidelines'),
+    Field('testingApproach', String, 'Testing Approach',
+        hint: 'How components in this layer are tested'),
+    Field('notes', String, 'Notes', hint: 'Additional layer notes'),
+  ])
+  String? content;
+}
+
+/// Layer communication rules and constraints.
+class LayerCommunicationRules {
+  @Form([
+    // Communication patterns
+    Field('communicationDirection', String, 'Communication Direction',
+        hint: 'Top-down only, bottom-up callbacks, etc.'),
+    Field('dependencyRule', String, 'Dependency Rule',
+        hint: 'Dependencies always point inward/downward'),
+    Field('abstractionPrinciple', String, 'Abstraction Principle',
+        hint: 'Dependency inversion, interface segregation'),
+
+    // Interface requirements
+    Field('interfaceRequirements', String, 'Interface Requirements',
+        hint: 'Whether interfaces required at boundaries'),
+    Field('dtoUsage', String, 'DTO Usage',
+        hint: 'Data Transfer Object patterns between layers'),
+    Field('mappingStrategy', String, 'Mapping Strategy',
+        hint: 'How data is mapped between layers'),
+
+    // Cross-layer communication
+    Field('eventPropagation', String, 'Event Propagation',
+        hint: 'How events flow across layers'),
+    Field('exceptionHandling', String, 'Exception Handling',
+        hint: 'How exceptions propagate across layers'),
+    Field('loggingPropagation', String, 'Logging Propagation',
+        hint: 'How logging context flows'),
+
+    // Validation
+    Field('validationResponsibility', String, 'Validation Responsibility',
+        hint: 'Which layer validates what'),
+    Field('boundaryEnforcement', String, 'Boundary Enforcement',
+        hint: 'How layer boundaries are enforced'),
+    Field('violationDetection', String, 'Violation Detection',
+        hint: 'How boundary violations are detected'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional layer communication notes'),
+  ])
+  String? content;
+}
+
+/// Bounded context entry — a DDD bounded context.
+class BoundedContextEntry {
+  @Form([
+    // Identity
+    Field('contextName', String, 'Context Name',
+        required: true, hint: 'E.g., Order, Inventory, Customer, Billing'),
+    Field('domainArea', String, 'Domain Area',
+        required: true, hint: 'Business domain this context covers'),
+    Field('owningTeam', String, 'Owning Team',
+        hint: 'Team responsible for this context'),
+
+    // Scope
+    Field('purpose', String, 'Purpose', hint: 'Why this context exists'),
+    Field('includedConcepts', String, 'Included Concepts',
+        hint: 'Domain concepts within this context'),
+    Field('excludedConcepts', String, 'Excluded Concepts',
+        hint: 'Domain concepts explicitly outside this context'),
+    Field('ubiquitousLanguage', String, 'Ubiquitous Language',
+        hint: 'Key terms and their definitions'),
+
+    // Boundaries
+    Field('boundaryType', String, 'Boundary Type',
+        hint: 'Conformist, Anti-corruption layer, Open-host, etc.'),
+    Field('upstreamContexts', String, 'Upstream Contexts',
+        hint: 'Contexts this one depends on'),
+    Field('downstreamContexts', String, 'Downstream Contexts',
+        hint: 'Contexts that depend on this one'),
+    Field('sharedKernel', String, 'Shared Kernel',
+        hint: 'Shared code with other contexts'),
+
+    // Implementation
+    Field('repositoryNamespace', String, 'Repository/Namespace',
+        hint: 'Code location for this context'),
+    Field('databaseSchema', String, 'Database Schema',
+        hint: 'Database schema or partition'),
+    Field('publishedEvents', String, 'Published Events',
+        hint: 'Domain events this context publishes'),
+    Field('consumedEvents', String, 'Consumed Events',
+        hint: 'Domain events this context subscribes to'),
+
+    // Integration
+    Field('apiEndpoints', String, 'API Endpoints',
+        hint: 'Public API endpoints exposed'),
+    Field('integrationPatterns', String, 'Integration Patterns',
+        hint: 'How this context integrates with others'),
+    Field('notes', String, 'Notes', hint: 'Additional context notes'),
+  ])
+  String? content;
+}
+
+/// Package organization and naming structure.
+class PackageOrganization {
+  @Form([
+    // Naming
+    Field('namingConvention', String, 'Naming Convention',
+        hint: 'Package/module naming pattern'),
+    Field('prefixStrategy', String, 'Prefix Strategy',
+        hint: 'Prefix for all packages (e.g., org name)'),
+    Field('suffixConventions', String, 'Suffix Conventions',
+        hint: 'Standard suffixes (_core, _ui, _api, etc.)'),
+
+    // Structure
+    Field('monorepoVsPolyrepo', String, 'Monorepo vs Polyrepo',
+        hint: 'Single vs multiple repositories'),
+    Field('directoryLayout', String, 'Directory Layout',
+        hint: 'Top-level directory organization'),
+    Field('featureGrouping', String, 'Feature Grouping',
+        hint: 'How features are grouped in structure'),
+
+    // Package types
+    Field('corePackages', String, 'Core Packages',
+        hint: 'Foundation packages required by all'),
+    Field('featurePackages', String, 'Feature Packages',
+        hint: 'Business feature packages'),
+    Field('sharedPackages', String, 'Shared Packages',
+        hint: 'Shared utility packages'),
+    Field('platformPackages', String, 'Platform Packages',
+        hint: 'Platform-specific packages'),
+
+    // Dependencies
+    Field('dependencyManagement', String, 'Dependency Management',
+        hint: 'How package dependencies are managed'),
+    Field('internalDependencyRules', String, 'Internal Dependency Rules',
+        hint: 'Rules for internal package dependencies'),
+    Field('externalDependencyPolicy', String, 'External Dependency Policy',
+        hint: 'Policy for external dependencies'),
+    Field('versioningStrategy', String, 'Versioning Strategy',
+        hint: 'Semantic versioning or other scheme'),
+
+    // Documentation
+    Field('packageDocumentation', String, 'Package Documentation',
+        hint: 'Required documentation per package'),
+    Field('dependencyDiagram', String, 'Dependency Diagram',
+        hint: 'Package dependency visualization'),
+    Field('notes', String, 'Notes', hint: 'Additional organization notes'),
+  ])
+  String? content;
+}
+
+/// Module entry — a discrete module or component.
+class ModuleEntry {
+  @Form([
+    // Identity
+    Field('moduleName', String, 'Module Name',
+        required: true, hint: 'Unique module identifier'),
+    Field('moduleType', String, 'Module Type',
+        hint: 'Core, Feature, Shared, Platform, Plugin'),
+    Field('version', String, 'Version', hint: 'Current module version'),
+
+    // Description
+    Field('purpose', String, 'Purpose',
+        required: true, hint: 'What this module provides'),
+    Field('functionality', String, 'Functionality',
+        hint: 'Specific features/functions'),
+    Field('publicApi', String, 'Public API',
+        hint: 'Key public interfaces/classes'),
+    Field('entryPoints', String, 'Entry Points',
+        hint: 'Main entry points to the module'),
+
+    // Dependencies
+    Field('requiredModules', String, 'Required Modules',
+        hint: 'Internal modules this depends on'),
+    Field('optionalModules', String, 'Optional Modules',
+        hint: 'Optional internal dependencies'),
+    Field('externalDependencies', String, 'External Dependencies',
+        hint: 'Third-party dependencies'),
+    Field('peerDependencies', String, 'Peer Dependencies',
+        hint: 'Required peer modules'),
+
+    // Ownership
+    Field('owningContext', String, 'Owning Context',
+        hint: 'Bounded context this belongs to'),
+    Field('owningTeam', String, 'Owning Team',
+        hint: 'Team responsible for this module'),
+    Field('maintainer', String, 'Maintainer', hint: 'Primary maintainer'),
+
+    // Configuration
+    Field('configurationOptions', String, 'Configuration Options',
+        hint: 'Available configuration settings'),
+    Field('featureFlags', String, 'Feature Flags',
+        hint: 'Feature flags controlling behavior'),
+    Field('environmentVariables', String, 'Environment Variables',
+        hint: 'Required environment variables'),
+
+    // Testing
+    Field('testCoverage', String, 'Test Coverage',
+        hint: 'Required test coverage level'),
+    Field('integrationTests', String, 'Integration Tests',
+        hint: 'Integration test requirements'),
+    Field('notes', String, 'Notes', hint: 'Additional module notes'),
+  ])
+  String? content;
+}
+
+/// Shared library entry — a reusable library or utility.
+class SharedLibraryEntry {
+  @Form([
+    // Identity
+    Field('libraryName', String, 'Library Name',
+        required: true, hint: 'Library identifier'),
+    Field('libraryType', String, 'Library Type',
+        hint: 'Utility, Domain, Infrastructure, UI'),
+    Field('version', String, 'Version', hint: 'Current version'),
+
+    // Description
+    Field('purpose', String, 'Purpose',
+        required: true, hint: 'What the library provides'),
+    Field('targetConsumers', String, 'Target Consumers',
+        hint: 'Modules/contexts that should use this'),
+    Field('usageGuidelines', String, 'Usage Guidelines',
+        hint: 'How to properly use this library'),
+
+    // API
+    Field('publicClasses', String, 'Public Classes',
+        hint: 'Key public classes/interfaces'),
+    Field('publicFunctions', String, 'Public Functions',
+        hint: 'Key public functions'),
+    Field('extensionPoints', String, 'Extension Points',
+        hint: 'How consumers can extend'),
+
+    // Constraints
+    Field('compatibilityRequirements', String, 'Compatibility Requirements',
+        hint: 'Platform/version requirements'),
+    Field('performanceCharacteristics', String, 'Performance Characteristics',
+        hint: 'Expected performance profile'),
+    Field('threadSafety', String, 'Thread Safety',
+        hint: 'Thread safety guarantees'),
+
+    // Maintenance
+    Field('deprecationPolicy', String, 'Deprecation Policy',
+        hint: 'How APIs are deprecated'),
+    Field('changelogLocation', String, 'Changelog Location',
+        hint: 'Where changes are documented'),
+    Field('notes', String, 'Notes', hint: 'Additional library notes'),
+  ])
+  String? content;
+}
+
+/// Dependency injection structure and configuration.
+class DependencyInjectionStructure {
+  @Form([
+    // Framework
+    Field('diFramework', String, 'DI Framework',
+        hint: 'GetIt, Riverpod, Provider, Injectable, etc.'),
+    Field('registrationPattern', String, 'Registration Pattern',
+        hint: 'How dependencies are registered'),
+    Field('scopeManagement', String, 'Scope Management',
+        hint: 'Singleton, factory, scoped, lazy'),
+
+    // Organization
+    Field('moduleRegistration', String, 'Module Registration',
+        hint: 'How modules register their dependencies'),
+    Field('registrationOrder', String, 'Registration Order',
+        hint: 'Order of dependency registration'),
+    Field('lazyInitialization', String, 'Lazy Initialization',
+        hint: 'Which dependencies are lazy'),
+
+    // Interface binding
+    Field('interfaceBindingRule', String, 'Interface Binding Rule',
+        hint: 'When to use interface bindings'),
+    Field('mockingStrategy', String, 'Mocking Strategy',
+        hint: 'How to swap implementations for testing'),
+    Field('overrideCapability', String, 'Override Capability',
+        hint: 'How to override registrations'),
+
+    // Configuration
+    Field('environmentConfiguration', String, 'Environment Configuration',
+        hint: 'Different configs per environment'),
+    Field('featureFlagIntegration', String, 'Feature Flag Integration',
+        hint: 'How feature flags affect DI'),
+    Field('conditionalRegistration', String, 'Conditional Registration',
+        hint: 'Platform/config conditional registration'),
+
+    // Troubleshooting
+    Field('debugSupport', String, 'Debug Support',
+        hint: 'Debugging DI issues'),
+    Field('circularDependencyHandling', String, 'Circular Dependency Handling',
+        hint: 'How circular deps are prevented/detected'),
+    Field('notes', String, 'Notes', hint: 'Additional DI notes'),
+  ])
+  String? content;
+}
+
+/// Cross-cutting concerns organization.
+class CrossCuttingConcerns {
+  @Form([
+    // Logging
+    Field('loggingStrategy', String, 'Logging Strategy',
+        hint: 'Centralized logging approach'),
+    Field('logLevels', String, 'Log Levels',
+        hint: 'Available log levels and usage'),
+    Field('logFormat', String, 'Log Format', hint: 'Log message format'),
+
+    // Error handling
+    Field('errorHandlingStrategy', String, 'Error Handling Strategy',
+        hint: 'Centralized error handling'),
+    Field('errorReporting', String, 'Error Reporting',
+        hint: 'How errors are reported/collected'),
+    Field('userNotification', String, 'User Notification',
+        hint: 'How users are notified of errors'),
+
+    // Security
+    Field('securityConcerns', String, 'Security Concerns',
+        hint: 'Cross-cutting security aspects'),
+    Field('authenticationIntegration', String, 'Authentication Integration',
+        hint: 'How auth flows through layers'),
+    Field('authorizationIntegration', String, 'Authorization Integration',
+        hint: 'How authz is checked across layers'),
+
+    // Caching
+    Field('cachingStrategy', String, 'Caching Strategy',
+        hint: 'Cross-cutting caching approach'),
+    Field('cacheInvalidation', String, 'Cache Invalidation',
+        hint: 'How cache is invalidated'),
+    Field('cacheLayers', String, 'Cache Layers',
+        hint: 'Where caching is applied'),
+
+    // Observability
+    Field('metricsCollection', String, 'Metrics Collection',
+        hint: 'Performance and business metrics'),
+    Field('tracing', String, 'Tracing', hint: 'Distributed tracing approach'),
+    Field('healthChecks', String, 'Health Checks',
+        hint: 'Health check implementation'),
+
+    // Other
+    Field('localization', String, 'Localization',
+        hint: 'i18n/l10n implementation'),
+    Field('validation', String, 'Validation',
+        hint: 'Cross-cutting validation'),
+    Field('notes', String, 'Notes', hint: 'Additional cross-cutting notes'),
+  ])
+  String? content;
+}
+
+/// Feature module entry — a vertical slice feature.
+class FeatureModuleEntry {
+  @Form([
+    // Identity
+    Field('featureName', String, 'Feature Name',
+        required: true, hint: 'Feature identifier'),
+    Field('featureArea', String, 'Feature Area',
+        hint: 'Business area this feature belongs to'),
+    Field('boundedContext', String, 'Bounded Context',
+        hint: 'Owning bounded context'),
+
+    // Description
+    Field('purpose', String, 'Purpose', hint: 'What the feature provides'),
+    Field('userStories', String, 'User Stories',
+        hint: 'Supported user stories/use cases'),
+    Field('businessValue', String, 'Business Value',
+        hint: 'Business value delivered'),
+
+    // Structure
+    Field('uiComponents', String, 'UI Components',
+        hint: 'Screens, widgets, views in this feature'),
+    Field('domainLogic', String, 'Domain Logic',
+        hint: 'Business logic in this feature'),
+    Field('dataAccess', String, 'Data Access',
+        hint: 'Data access components'),
+    Field('apiEndpoints', String, 'API Endpoints',
+        hint: 'API endpoints related to this feature'),
+
+    // Dependencies
+    Field('sharedDependencies', String, 'Shared Dependencies',
+        hint: 'Shared modules this feature uses'),
+    Field('featureDependencies', String, 'Feature Dependencies',
+        hint: 'Other features this depends on'),
+    Field('externalIntegrations', String, 'External Integrations',
+        hint: 'External systems integrated'),
+
+    // Configuration
+    Field('featureFlags', String, 'Feature Flags',
+        hint: 'Flags controlling this feature'),
+    Field('configurationOptions', String, 'Configuration Options',
+        hint: 'Feature-specific configuration'),
+    Field('enablementCriteria', String, 'Enablement Criteria',
+        hint: 'When this feature is available'),
+
+    // Navigation
+    Field('routeDefinitions', String, 'Route Definitions',
+        hint: 'Navigation routes for this feature'),
+    Field('deepLinkSupport', String, 'Deep Link Support',
+        hint: 'Deep linking patterns'),
+    Field('notes', String, 'Notes', hint: 'Additional feature notes'),
+  ])
+  String? content;
+}
+
+/// Module versioning and compatibility strategy.
+class ModuleVersioningStrategy {
+  @Form([
+    // Versioning scheme
+    Field('versioningScheme', String, 'Versioning Scheme',
+        hint: 'SemVer, CalVer, custom'),
+    Field('majorVersionPolicy', String, 'Major Version Policy',
+        hint: 'When to bump major version'),
+    Field('minorVersionPolicy', String, 'Minor Version Policy',
+        hint: 'When to bump minor version'),
+    Field('patchVersionPolicy', String, 'Patch Version Policy',
+        hint: 'When to bump patch version'),
+
+    // Compatibility
+    Field('backwardsCompatibility', String, 'Backwards Compatibility',
+        hint: 'Compatibility guarantees'),
+    Field('breakingChangePolicy', String, 'Breaking Change Policy',
+        hint: 'How breaking changes are handled'),
+    Field('deprecationTimeline', String, 'Deprecation Timeline',
+        hint: 'Timeline for deprecated APIs'),
+
+    // Release management
+    Field('releaseProcess', String, 'Release Process',
+        hint: 'How versions are released'),
+    Field('preReleaseLabels', String, 'Pre-Release Labels',
+        hint: 'alpha, beta, rc conventions'),
+    Field('releaseNotes', String, 'Release Notes',
+        hint: 'Release notes requirements'),
+
+    // Dependencies
+    Field('dependencyVersioning', String, 'Dependency Versioning',
+        hint: 'How dependency versions are specified'),
+    Field('lockfilePolicy', String, 'Lockfile Policy',
+        hint: 'Lockfile usage and update policy'),
+    Field('updateStrategy', String, 'Update Strategy',
+        hint: 'How dependencies are updated'),
+
+    // Coordination
+    Field('crossModuleCoordination', String, 'Cross-Module Coordination',
+        hint: 'Coordinating versions across modules'),
+    Field('versionConstraints', String, 'Version Constraints',
+        hint: 'Constraints between module versions'),
+    Field('notes', String, 'Notes', hint: 'Additional versioning notes'),
+  ])
+  String? content;
 }
 
 /// A reusable component entry (form) [PD00-TEC-SOF-REU-nn].
