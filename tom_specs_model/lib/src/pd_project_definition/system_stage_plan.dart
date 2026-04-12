@@ -1425,10 +1425,161 @@ class StageMigrationRiskEntry {
 }
 
 /// 13.6. Governance [PD00-SSP-GOV].
+///
+/// Governance framework for stage transitions, phase gate reviews,
+/// and key decision points. Covers governance structure, authority
+/// model, escalation paths, compliance requirements, and the
+/// ceremonies that control stage advancement. Aligns with PMBOK
+/// governance gates, SAFe Program Increment boundaries, PRINCE2
+/// stage gates, and TOGAF architecture governance.
 @SectionId('PD00-SSP-GOV')
 class StageGovernance {
-  @Unused()
+  @Form([
+    // --- Governance Model ---
+    Field('governanceModel', String, 'Governance Model',
+        hint:
+            'PhaseGate / Agile / Hybrid / Continuous / '
+            'Federated — overall governance approach',
+        required: true),
+    Field('governanceFramework', String, 'Governance Framework',
+        hint:
+            'PMBOK / PRINCE2 / SAFe / DAD / Custom — reference '
+            'framework',
+        required: true),
+    Field('governanceCharter', String, 'Governance Charter',
+        hint:
+            'Name or reference to the formal governance charter '
+            'document — defines authority, scope, and '
+            'accountability'),
+    // --- Authority & Oversight ---
+    Field('governanceBoardName', String, 'Governance Board Name',
+        hint:
+            'Name of the governing body — Steering Committee, '
+            'PMO, Architecture Review Board'),
+    Field('governanceBoardChair', String,
+        'Governance Board Chair',
+        hint:
+            'Person chairing the governance body — typically '
+            'sponsor, CTO, or program director'),
+    Field('boardMembers', String, 'Board Members',
+        hint:
+            'Roles or names on the board — comma-separated, '
+            'e.g. Sponsor, Product Owner, Enterprise Architect, '
+            'QA Lead'),
+    Field('decisionMakingModel', String, 'Decision-Making Model',
+        hint:
+            'Consensus / MajorityVote / DelegatedAuthority / '
+            'RACI-based / Unanimous',
+        required: true),
+    Field('quorumRequirement', String, 'Quorum Requirement',
+        hint:
+            'Minimum attendance for valid decisions — e.g. 3 of '
+            '5 members, or 60%'),
+    Field('delegatedAuthorityThreshold', String,
+        'Delegated Authority Threshold',
+        hint:
+            'Decisions the PM can make without board — e.g. '
+            'budget ≤\$10K, schedule ≤1 week, no scope change'),
+    // --- Escalation ---
+    Field('escalationPath', String, 'Escalation Path',
+        hint:
+            'Escalation chain — PM → Program Manager → Steering '
+            'Committee → Executive Sponsor'),
+    Field('escalationTriggers', String, 'Escalation Triggers',
+        hint:
+            'Conditions requiring escalation — budget overrun '
+            '≥10%, schedule slip ≥2 weeks, critical risk '
+            'materialized, scope dispute'),
+    Field('escalationTimeframe', String, 'Escalation Timeframe',
+        hint:
+            'Maximum time before escalation — e.g. 48 hours '
+            'for critical, 5 business days for advisory'),
+    // --- Cadence & Process ---
+    Field('governanceMeetingCadence', String,
+        'Governance Meeting Cadence',
+        hint:
+            'PerStage / Monthly / Quarterly / OnDemand — how '
+            'often the board convenes',
+        required: true),
+    Field('meetingDuration', String, 'Meeting Duration',
+        hint:
+            'Typical meeting length — e.g. 2 hours, half-day '
+            'for major gates'),
+    Field('meetingFormat', String, 'Meeting Format',
+        hint:
+            'InPerson / Virtual / Hybrid — preferred format'),
+    Field('agendaTemplate', String, 'Agenda Template',
+        hint:
+            'Standard agenda structure — StatusReview, '
+            'RiskReview, DecisionItems, ActionItems'),
+    Field('minutesDistribution', String, 'Minutes Distribution',
+        hint:
+            'How minutes are distributed — email, wiki, '
+            'SharePoint, within 24/48 hours'),
+    // --- Compliance & Audit ---
+    Field('complianceRequirements', String,
+        'Compliance Requirements',
+        hint:
+            'Regulatory or organizational compliance that '
+            'governance must satisfy — SOX, ISO 27001, GDPR, '
+            'internal audit policies'),
+    Field('auditTrailRequirement', String,
+        'Audit Trail Requirement',
+        hint:
+            'What must be recorded — decisions, rationale, '
+            'attendance, votes, action items',
+        required: true),
+    Field('documentRetentionPolicy', String,
+        'Document Retention Policy',
+        hint:
+            'How long governance records are retained — e.g. '
+            '7 years, project lifetime + 2 years'),
+    Field('externalAuditIntegration', String,
+        'External Audit Integration',
+        hint:
+            'Whether external auditors participate — None, '
+            'Annual, PerMajorGate'),
+    // --- Metrics & Reporting ---
+    Field('governanceKpis', String, 'Governance KPIs',
+        hint:
+            'Metrics tracked — gate pass rate, decision cycle '
+            'time, escalation frequency, rework rate'),
+    Field('reportingFrequency', String, 'Reporting Frequency',
+        hint:
+            'How often governance reports are published — '
+            'Weekly / Monthly / PerGate'),
+    Field('dashboardLocation', String, 'Dashboard Location',
+        hint:
+            'Where governance status is visible — URL, tool, '
+            'or distribution list'),
+    // --- Stage Transition Rules ---
+    Field('stageTransitionPolicy', String,
+        'Stage Transition Policy',
+        hint:
+            'Rules for moving between stages — all gates must '
+            'pass, conditional advancement allowed, rollback '
+            'policy',
+        required: true),
+    Field('conditionalAdvancementRules', String,
+        'Conditional Advancement Rules',
+        hint:
+            'Under what conditions a stage may advance with '
+            'open items — risk accepted, time-boxed remediation'),
+    Field('rollbackPolicy', String, 'Rollback Policy',
+        hint:
+            'Rules for reverting to a prior stage — triggers, '
+            'process, authority required'),
+    Field('emergencyBypassProcess', String,
+        'Emergency Bypass Process',
+        hint:
+            'How governance is handled in emergencies — '
+            'expedited review, post-hoc ratification, '
+            'emergency authority delegation'),
+  ])
   String? content;
+
+  /// Governance narrative and rationale.
+  TextSection governanceNarrative = TextSection();
 
   /// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
   PhaseGateReviews phaseGateReviews = PhaseGateReviews();
@@ -1438,71 +1589,513 @@ class StageGovernance {
 }
 
 /// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
+///
+/// Defines the phase gate review process: what is reviewed at each
+/// gate, who participates, what evidence is required, and what
+/// outcomes are possible (proceed, rework, cancel, conditional).
 @SectionId('PD00-SSP-GOV-GAT')
 class PhaseGateReviews {
-  @Unused()
+  @Form([
+    // --- Gate Framework ---
+    Field('gateNamingConvention', String,
+        'Gate Naming Convention',
+        hint:
+            'How gates are named — G0/G1/G2, Alpha/Beta/GA, '
+            'or stage-aligned like Stage1Exit'),
+    Field('totalGateCount', String, 'Total Gate Count',
+        hint: 'Number of formal gates in the stage plan'),
+    Field('gateReviewDuration', String,
+        'Typical Gate Review Duration',
+        hint:
+            'Default duration for a gate review session — '
+            'e.g. 2 hours, half-day'),
+    Field('gateReviewFormat', String, 'Gate Review Format',
+        hint:
+            'Presentation / Checklist / DemoAndReview / '
+            'DocumentReview / Mixed'),
+    // --- Standard Attendees ---
+    Field('mandatoryAttendees', String, 'Mandatory Attendees',
+        hint:
+            'Roles required at every gate — Sponsor, PM, '
+            'TechLead, QA Lead, Business Owner'),
+    Field('optionalAttendees', String, 'Optional Attendees',
+        hint:
+            'Roles invited as needed — Security, Legal, UX, '
+            'Operations'),
+    // --- Standard Evidence ---
+    Field('standardEvidencePackage', String,
+        'Standard Evidence Package',
+        hint:
+            'Artifacts required at every gate — status report, '
+            'test results, risk register, budget actuals, '
+            'demo recording'),
+    Field('evidenceSubmissionDeadline', String,
+        'Evidence Submission Deadline',
+        hint:
+            'When evidence must be submitted before the gate — '
+            'e.g. 3 business days prior'),
+    // --- Outcomes ---
+    Field('possibleOutcomes', String, 'Possible Outcomes',
+        hint:
+            'Proceed / ConditionalProceed / Rework / Hold / '
+            'Cancel — possible gate decisions',
+        required: true),
+    Field('conditionalProceedRules', String,
+        'Conditional Proceed Rules',
+        hint:
+            'Conditions under which conditional approval is '
+            'allowed — time-boxed remediation, risk accepted'),
+    Field('reworkProcessDefinition', String,
+        'Rework Process Definition',
+        hint:
+            'What happens on rework decision — scope, timeline, '
+            're-review scheduling'),
+    Field('cancelProcessDefinition', String,
+        'Cancel Process Definition',
+        hint:
+            'What happens on cancel — asset disposition, team '
+            'reassignment, lessons learned'),
+  ])
   String? content;
 
-  /// Contains 0+× PhaseGateReview.
+  /// Phase gate review process narrative.
+  TextSection gateReviewNarrative = TextSection();
+
+  /// Contains 0+× PhaseGateReviewEntry.
   @SectionIdPattern('PD00-SSP-GOV-GAT-xx')
   List<PhaseGateReviewEntry> items = [];
 }
 
 /// A phase gate review entry (form) [PD00-SSP-GOV-GAT-nn].
+///
+/// Defines a single phase gate with its criteria, participants,
+/// required evidence, entry/exit conditions, and review schedule.
 class PhaseGateReviewEntry {
   @Form([
-    Field('gateName', String, 'Gate Name', required: true),
-    Field('stage', String, 'Stage'),
-    Field('decisionAuthority', String, 'Decision Authority'),
+    // --- Gate Identity ---
+    Field('gateName', String, 'Gate Name',
+        hint:
+            'Formal gate name — e.g. G1-ConceptApproval, '
+            'G3-ReadyForRelease',
+        required: true),
+    Field('gateId', String, 'Gate ID',
+        hint: 'Unique gate identifier — e.g. G1, G2, G3'),
+    Field('gateDescription', String, 'Gate Description',
+        hint:
+            'Purpose of this gate — what it validates and why '
+            'it exists'),
+    Field('stage', String, 'Stage',
+        hint:
+            'Stage this gate is associated with — typically '
+            'at stage exit',
+        required: true),
+    Field('gatePosition', String, 'Gate Position',
+        hint:
+            'StageEntry / MidStage / StageExit / CrossStage — '
+            'when in the stage this gate occurs'),
+    // --- Authority & Participants ---
+    Field('decisionAuthority', String, 'Decision Authority',
+        hint:
+            'Person or body with final decision power — '
+            'Steering Committee, PM, Sponsor',
+        required: true),
+    Field('mandatoryParticipants', String,
+        'Mandatory Participants',
+        hint:
+            'Roles who must attend — comma-separated, e.g. '
+            'PM, TechLead, QA Lead, Business Owner'),
+    Field('advisoryParticipants', String,
+        'Advisory Participants',
+        hint:
+            'Roles who participate in advisory capacity — '
+            'not required for quorum'),
+    Field('externalParticipants', String,
+        'External Participants',
+        hint:
+            'External stakeholders — auditors, customer reps, '
+            'vendor contacts'),
+    // --- Schedule ---
+    Field('scheduledDate', String, 'Scheduled Date',
+        hint: 'Planned date for this gate review'),
+    Field('preparationLeadTime', String, 'Preparation Lead Time',
+        hint:
+            'Days needed to prepare — e.g. 5 business days '
+            'for evidence assembly'),
+    Field('reviewDuration', String, 'Review Duration',
+        hint:
+            'Expected duration — e.g. 2 hours, 4 hours, '
+            'full day'),
+    // --- Entry Conditions ---
+    Field('entryCriteria', String, 'Entry Criteria',
+        hint:
+            'Conditions that must be met before the gate can '
+            'be held — all evidence submitted, no P1 defects '
+            'open, prior gate passed'),
+    Field('entryChecklistComplete', String,
+        'Entry Checklist Complete',
+        hint:
+            'Yes / No / Partial — whether entry conditions '
+            'have been verified'),
+    // --- Evidence ---
+    Field('requiredEvidence', String, 'Required Evidence',
+        hint:
+            'Artifacts to be presented — test reports, demo, '
+            'architecture review, risk register update, '
+            'budget actuals'),
+    Field('evidenceFormat', String, 'Evidence Format',
+        hint:
+            'How evidence is presented — slide deck, live demo, '
+            'document review, dashboard walkthrough'),
+    Field('evidenceLocation', String, 'Evidence Location',
+        hint:
+            'Where evidence is stored — SharePoint folder, '
+            'wiki page, CI/CD artifacts'),
+    // --- Exit Conditions ---
+    Field('exitCriteria', String, 'Exit Criteria',
+        hint:
+            'What must be true for the gate to pass — '
+            'all criteria green, no critical open items, '
+            'stakeholder sign-off',
+        required: true),
+    Field('minimumPassThreshold', String,
+        'Minimum Pass Threshold',
+        hint:
+            'Quantified threshold — e.g. ≥80% criteria met, '
+            'no critical items, all Must-haves complete'),
+    // --- Outcome ---
+    Field('gateOutcome', String, 'Gate Outcome',
+        hint:
+            'Proceed / ConditionalProceed / Rework / Hold / '
+            'Cancel — actual decision (filled post-review)'),
+    Field('outcomeRationale', String, 'Outcome Rationale',
+        hint:
+            'Why this decision was made — captured in minutes'),
+    Field('conditionalItems', String, 'Conditional Items',
+        hint:
+            'Open items that must be resolved for conditional '
+            'advancement — with deadlines'),
+    Field('followUpActions', String, 'Follow-Up Actions',
+        hint:
+            'Actions assigned during review — owner, deadline, '
+            'status tracking'),
+    Field('nextGateReference', String, 'Next Gate Reference',
+        hint:
+            'Gate ID of the next gate in sequence — for '
+            'traceability'),
   ])
   String? content;
 
-  /// Contains 0+× ReviewCriterion.
+  /// Gate-specific narrative and context.
+  TextSection gateNarrative = TextSection();
+
+  /// Contains 0+× ReviewCriterionEntry.
   @SectionIdPattern('PD00-SSP-GOV-GAT-xx-RCR-xx')
   List<ReviewCriterionEntry> reviewCriteria = [];
 }
 
 /// A review criterion entry (form) [PD00-SSP-GOV-GAT-nn-RCR-nn].
+///
+/// A single criterion evaluated at a phase gate, with weight,
+/// evidence linkage, and assessment result.
 class ReviewCriterionEntry {
   @Form([
-    Field('criterion', String, 'Criterion', required: true),
-    Field('description', String, 'Short description'),
+    // --- Criterion Definition ---
+    Field('criterion', String, 'Criterion',
+        hint:
+            'What is being evaluated — e.g. All unit tests pass, '
+            'Security review complete, UX approval obtained',
+        required: true),
+    Field('criterionId', String, 'Criterion ID',
+        hint: 'Unique identifier — e.g. GRC-01'),
+    Field('description', String, 'Description',
+        hint:
+            'Detailed description of what this criterion covers'),
+    Field('category', String, 'Category',
+        hint:
+            'Quality / Security / Compliance / Performance / '
+            'Completeness / Business / Operational'),
+    // --- Assessment ---
+    Field('weight', String, 'Weight',
+        hint:
+            'Relative importance — percentage, 1-10, or '
+            'Critical/Major/Minor'),
+    Field('isMandatory', String, 'Is Mandatory',
+        hint:
+            'Yes / No — whether failure blocks gate passage '
+            'regardless of other criteria'),
+    Field('measurementMethod', String, 'Measurement Method',
+        hint:
+            'How this criterion is measured — automated test, '
+            'manual review, checklist, metric threshold'),
+    Field('acceptableThreshold', String, 'Acceptable Threshold',
+        hint:
+            'Pass threshold — e.g. ≥95% test coverage, 0 '
+            'critical defects, all stakeholders signed off'),
+    Field('evidenceRequired', String, 'Evidence Required',
+        hint:
+            'What evidence proves this criterion — test report, '
+            'sign-off email, audit log, screenshot'),
+    // --- Result (filled post-review) ---
+    Field('assessmentResult', String, 'Assessment Result',
+        hint:
+            'Pass / Fail / ConditionalPass / NotAssessed — '
+            'actual result after review'),
+    Field('assessmentNotes', String, 'Assessment Notes',
+        hint:
+            'Reviewer notes — findings, concerns, conditions'),
+    Field('remediationRequired', String, 'Remediation Required',
+        hint:
+            'What must be fixed if failed — description and '
+            'deadline'),
   ])
   String? content;
 }
 
 /// 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
+///
+/// Key decision points in the stage plan including go/no-go
+/// decisions, scope adjustments, resource reallocations, and
+/// technology selections. Each decision point has defined timing,
+/// criteria, authority, options, and impact analysis.
 @SectionId('PD00-SSP-GOV-DEC')
 class DecisionPoints {
-  @Unused()
+  @Form([
+    // --- Decision Framework ---
+    Field('totalDecisionPoints', String, 'Total Decision Points',
+        hint: 'Number of formal decision points defined'),
+    Field('decisionRecordingMethod', String,
+        'Decision Recording Method',
+        hint:
+            'How decisions are documented — ADR, decision log, '
+            'meeting minutes, wiki'),
+    Field('decisionTemplateReference', String,
+        'Decision Template Reference',
+        hint:
+            'Reference to the decision record template — ADR '
+            'template, DACI template'),
+    Field('decisionCategories', String, 'Decision Categories',
+        hint:
+            'GoNoGo / ScopeChange / ResourceReallocation / '
+            'TechnologySelection / VendorSelection / '
+            'ArchitectureChange / RiskResponse — comma-separated'),
+    Field('decisionTrackingTool', String,
+        'Decision Tracking Tool',
+        hint:
+            'Tool used to track decisions — Jira, Confluence, '
+            'ADR repository, DOORS'),
+    Field('decisionReviewCadence', String,
+        'Decision Review Cadence',
+        hint:
+            'How often past decisions are reviewed for '
+            'validity — Never / Quarterly / PerStage / '
+            'OnDemand'),
+  ])
   String? content;
 
-  /// Contains 0+× DecisionPoint.
+  /// Decision framework narrative.
+  TextSection decisionFrameworkNarrative = TextSection();
+
+  /// Contains 0+× DecisionPointEntry.
   @SectionIdPattern('PD00-SSP-GOV-DEC-xx')
   List<DecisionPointEntry> items = [];
 }
 
 /// A decision point entry (form) [PD00-SSP-GOV-DEC-nn].
+///
+/// A single formal decision point with defined timing, criteria,
+/// authority, available options with impact analysis, and recording
+/// of the actual decision and its rationale.
 class DecisionPointEntry {
   @Form([
-    Field('decisionPoint', String, 'Decision Point'),
-    Field('timing', String, 'Timing'),
-    Field('criteria', String, 'Criteria'),
-    Field('decisionAuthority', String, 'Decision Authority'),
+    // --- Decision Identity ---
+    Field('decisionId', String, 'Decision ID',
+        hint: 'Unique identifier — e.g. DEC-001, DP-G2-01',
+        required: true),
+    Field('decisionPoint', String, 'Decision Point',
+        hint:
+            'Short name — e.g. Go/No-Go for Production, '
+            'Technology Stack Selection',
+        required: true),
+    Field('decisionDescription', String, 'Decision Description',
+        hint:
+            'Detailed description of what needs to be decided'),
+    Field('decisionCategory', String, 'Decision Category',
+        hint:
+            'GoNoGo / ScopeChange / ResourceReallocation / '
+            'TechnologySelection / VendorSelection / '
+            'ArchitectureChange / RiskResponse',
+        required: true),
+    // --- Context & Timing ---
+    Field('stage', String, 'Stage',
+        hint: 'Stage where this decision occurs'),
+    Field('timing', String, 'Timing',
+        hint:
+            'When in the stage — StageEntry / MidStage / '
+            'StageExit / BeforeGate / AfterGate / OnDemand',
+        required: true),
+    Field('deadline', String, 'Decision Deadline',
+        hint:
+            'Latest date by which decision must be made — '
+            'after this date, default option applies'),
+    Field('triggerEvent', String, 'Trigger Event',
+        hint:
+            'What triggers this decision point — gate outcome, '
+            'risk materialization, milestone reached, '
+            'stakeholder request'),
+    // --- Stakeholders ---
+    Field('decisionAuthority', String, 'Decision Authority',
+        hint:
+            'Person or body making the final decision — DACI: '
+            'Driver, Approver, Contributor, Informed',
+        required: true),
+    Field('decisionDriver', String, 'Decision Driver',
+        hint:
+            'Person responsible for driving the decision to '
+            'conclusion — typically PM or Product Owner'),
+    Field('contributors', String, 'Contributors',
+        hint:
+            'People providing input — architects, analysts, '
+            'domain experts — comma-separated'),
+    Field('informedParties', String, 'Informed Parties',
+        hint:
+            'Stakeholders informed of the outcome — '
+            'comma-separated'),
+    // --- Criteria & Inputs ---
+    Field('decisionCriteria', String, 'Decision Criteria',
+        hint:
+            'Criteria for making this decision — cost, risk, '
+            'time, quality, strategic alignment, feasibility',
+        required: true),
+    Field('requiredInputs', String, 'Required Inputs',
+        hint:
+            'Information or artifacts needed — cost analysis, '
+            'risk assessment, prototype results, vendor '
+            'proposals'),
+    Field('constraintFactors', String, 'Constraint Factors',
+        hint:
+            'Constraints limiting the decision space — budget, '
+            'regulatory, technology, timeline'),
+    Field('riskIfDelayed', String, 'Risk if Delayed',
+        hint:
+            'Consequence of not making the decision on time — '
+            'schedule slip, cost increase, missed window'),
+    // --- Resolution (filled when decided) ---
+    Field('selectedOption', String, 'Selected Option',
+        hint:
+            'Which option was chosen — references option ID '
+            'or name'),
+    Field('decisionRationale', String, 'Decision Rationale',
+        hint:
+            'Why this option was selected — trade-off analysis '
+            'summary'),
+    Field('decisionDate', String, 'Decision Date',
+        hint: 'When the decision was formally made'),
+    Field('decisionRecordReference', String,
+        'Decision Record Reference',
+        hint:
+            'Link to the formal decision record — ADR number, '
+            'meeting minutes reference'),
+    Field('revisitDate', String, 'Revisit Date',
+        hint:
+            'When this decision should be revisited — if '
+            'conditions change, or after a defined period'),
+    Field('impactSummary', String, 'Impact Summary',
+        hint:
+            'Impact of the decision — affected stages, teams, '
+            'budget, schedule'),
   ])
   String? content;
 
-  /// Contains 0+× DecisionOption.
+  /// Decision context narrative.
+  TextSection decisionNarrative = TextSection();
+
+  /// Contains 0+× DecisionOptionEntry.
   @SectionIdPattern('PD00-SSP-GOV-DEC-xx-OPT-xx')
   List<DecisionOptionEntry> options = [];
 }
 
 /// A decision option entry (form) [PD00-SSP-GOV-DEC-nn-OPT-nn].
+///
+/// One of the available options for a decision point, with full
+/// impact analysis, feasibility assessment, and trade-off evaluation.
 class DecisionOptionEntry {
   @Form([
-    Field('option', String, 'Option'),
-    Field('description', String, 'Short description'),
-    Field('implications', String, 'Implications'),
+    // --- Option Identity ---
+    Field('optionId', String, 'Option ID',
+        hint: 'Unique within the decision — e.g. A, B, C',
+        required: true),
+    Field('option', String, 'Option Name',
+        hint:
+            'Short name — e.g. Build In-House, Buy Commercial, '
+            'Open Source + Customize',
+        required: true),
+    Field('description', String, 'Description',
+        hint: 'Detailed description of what this option entails'),
+    Field('isDefault', String, 'Is Default Option',
+        hint:
+            'Yes / No — whether this is the fallback if no '
+            'decision is reached by deadline'),
+    Field('isRecommended', String, 'Is Recommended',
+        hint:
+            'Yes / No — whether the analysis team recommends '
+            'this option'),
+    // --- Impact Analysis ---
+    Field('costImpact', String, 'Cost Impact',
+        hint:
+            'Estimated cost — one-time and recurring, relative '
+            'or absolute'),
+    Field('scheduleImpact', String, 'Schedule Impact',
+        hint:
+            'Effect on timeline — days/weeks of delay or '
+            'acceleration, or no impact'),
+    Field('qualityImpact', String, 'Quality Impact',
+        hint:
+            'Effect on quality — better/worse test coverage, '
+            'performance, reliability'),
+    Field('riskImpact', String, 'Risk Impact',
+        hint:
+            'New risks introduced or existing risks mitigated'),
+    Field('scopeImpact', String, 'Scope Impact',
+        hint:
+            'Features added, removed, or modified by this '
+            'choice'),
+    Field('resourceImpact', String, 'Resource Impact',
+        hint:
+            'Team changes — additional hires, skill gaps, '
+            'vendor engagement'),
+    // --- Feasibility ---
+    Field('technicalFeasibility', String,
+        'Technical Feasibility',
+        hint:
+            'High / Medium / Low — assessed technical '
+            'feasibility'),
+    Field('organizationalFeasibility', String,
+        'Organizational Feasibility',
+        hint:
+            'High / Medium / Low — organizational readiness '
+            'for this option'),
+    Field('feasibilityNotes', String, 'Feasibility Notes',
+        hint:
+            'Key factors — skill availability, technology '
+            'maturity, vendor reliability'),
+    // --- Trade-offs ---
+    Field('advantages', String, 'Advantages',
+        hint: 'Key benefits of this option — comma-separated'),
+    Field('disadvantages', String, 'Disadvantages',
+        hint:
+            'Key drawbacks of this option — comma-separated'),
+    Field('assumptions', String, 'Assumptions',
+        hint:
+            'Assumptions this option depends on — if invalid, '
+            'option may not be viable'),
+    Field('implications', String, 'Implications',
+        hint:
+            'Downstream consequences — architectural, '
+            'contractual, operational, political'),
+    Field('reversibility', String, 'Reversibility',
+        hint:
+            'Reversible / PartiallyReversible / Irreversible — '
+            'can the decision be undone'),
   ])
   String? content;
 }

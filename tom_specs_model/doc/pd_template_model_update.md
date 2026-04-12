@@ -169,9 +169,9 @@ These sections exist in `tom_specs_model` but are missing from `pd_template.md`:
 | PD00-POP-TOO-TOO | Tools | Review | ✅ Done |
 | PD00-SSP | System Strategy and Planning | Review | ✅ Done |
 | PD00-SSP-FEA | Features | Review | ✅ Done |
-| PD00-SSP-GOV | Governance | Review | ⬜ Not Started |
-| PD00-SSP-GOV-DEC | Decisions | Review | ⬜ Not Started |
-| PD00-SSP-GOV-GAT | Gates | Review | ⬜ Not Started |
+| PD00-SSP-GOV | Governance | Review | ✅ Done |
+| PD00-SSP-GOV-DEC | Decisions | Review | ✅ Done |
+| PD00-SSP-GOV-GAT | Gates | Review | ✅ Done |
 | PD00-SSP-MIG | Migration | Review | ⬜ Not Started |
 | PD00-SSP-MIG-PHA | Phases | Review | ⬜ Not Started |
 | PD00-SSP-MIG-RIS | Migration Risks | Review | ⬜ Not Started |
