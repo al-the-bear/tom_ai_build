@@ -5350,46 +5350,206 @@ class BoundaryAssumptionEntry {
 // ---------------------------------------------------------------------------
 
 /// 4.6. Framework Conditions [PD00-SYO-RES].
+///
+/// Documents the organizational and technical environment in which the system
+/// will operate. Covers organizational structure, functional responsibilities,
+/// technical constraints, and external dependencies. Follows TOGAF enterprise
+/// context patterns and PMBOK environmental factors analysis.
 @SectionId('PD00-SYO-RES')
 class FrameworkConditions {
-  @Unused()
-  String? content;
+  /// Framework conditions overview.
+  @ContentHelp('Provide executive summary of the operating environment: '
+      'organizational context, technical landscape, key constraints, '
+      'and critical dependencies affecting project execution.')
+  TextSection overview = TextSection();
 
   /// 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
-  OrganizationalEnvironment organizationalEnvironment = OrganizationalEnvironment();
+  OrganizationalEnvironment organizationalEnvironment =
+      OrganizationalEnvironment();
 
   /// 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN] — contains 0+×.
-  FunctionalResponsibilities functionalResponsibilities = FunctionalResponsibilities();
+  FunctionalResponsibilities functionalResponsibilities =
+      FunctionalResponsibilities();
 
   /// 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
   @Comment('Seeds → TR')
-  TechnicalFrameworkConditions technicalFrameworkConditions = TechnicalFrameworkConditions();
+  TechnicalFrameworkConditions technicalFrameworkConditions =
+      TechnicalFrameworkConditions();
 
   /// 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON] — contains 0+×.
-  ConstraintsAndDependencies constraintsAndDependencies = ConstraintsAndDependencies();
+  ConstraintsAndDependencies constraintsAndDependencies =
+      ConstraintsAndDependencies();
 }
 
 /// 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
+///
+/// Describes the organizational context in which the system will operate,
+/// including departments, reporting structures, decision authority, and
+/// organizational constraints. Follows organizational design principles
+/// and enterprise architecture governance patterns.
 @SectionId('PD00-SYO-RES-ORG')
 class OrganizationalEnvironment {
-  @Unused()
-  String? content;
+  // -------------------------------------------------------------------------
+  // Organizational Overview
+  // -------------------------------------------------------------------------
+  @Form([
+    // Enterprise Context
+    Field('organizationName', String, 'Organization Name'),
+    Field('organizationType', String,
+        'Organization Type (Enterprise, SMB, Startup, Government, Non-profit)'),
+    Field('industryVertical', String,
+        'Industry Vertical (Finance, Healthcare, Retail, Tech, etc.)'),
+    Field('geographicFootprint', String,
+        'Geographic Footprint (Local, National, Regional, Global)'),
+    Field('employeeCount', String, 'Employee Count'),
+    Field('revenueRange', String, 'Revenue Range'),
 
-  /// Structure.
+    // Organizational Maturity
+    Field('digitalMaturityLevel', String,
+        'Digital Maturity (Nascent, Developing, Defined, Optimizing, Leading)'),
+    Field('changeReadiness', String,
+        'Change Readiness (Low, Medium, High)'),
+    Field('projectManagementMaturity', String,
+        'PM Maturity (Ad-hoc, Repeatable, Defined, Managed, Optimizing)'),
+    Field('itGovernanceMaturity', String,
+        'IT Governance Maturity (Initial, Repeatable, Defined, Managed)'),
+
+    // Decision Making Context
+    Field('decisionMakingStyle', String,
+        'Decision Style (Centralized, Federated, Consensus, Delegated)'),
+    Field('approvalLevels', String, 'Approval Levels/Hierarchy'),
+    Field('escalationPath', String, 'Escalation Path'),
+    Field('budgetAuthority', String, 'Budget Authority Structure'),
+    Field('procurementProcess', String, 'Procurement Process Type'),
+  ])
+  String? organizationContent;
+
+  // -------------------------------------------------------------------------
+  // Organizational Structure
+  // -------------------------------------------------------------------------
+
+  /// Detailed organizational structure narrative.
+  @ContentHelp('Describe the organizational structure: departments involved, '
+      'reporting relationships, matrix structures, and how the project '
+      'intersects with existing organization.')
   TextSection structure = TextSection();
 
-  /// Decision Making.
+  /// Departments and business units affected.
+  @SectionIdPattern('PD00-SYO-RES-ORG-DEP-xx')
+  List<AffectedDepartmentEntry> affectedDepartments = [];
+
+  // -------------------------------------------------------------------------
+  // Decision Making & Governance
+  // -------------------------------------------------------------------------
+
+  /// Decision making processes and authority.
+  @ContentHelp('Describe decision-making processes: governance boards, '
+      'approval workflows, decision criteria, and timeline expectations '
+      'for different decision types.')
   TextSection decisionMaking = TextSection();
 
-  /// Cultural Considerations.
+  /// Key decision makers and their roles.
+  @SectionIdPattern('PD00-SYO-RES-ORG-DEC-xx')
+  List<DecisionMakerEntry> decisionMakers = [];
+
+  // -------------------------------------------------------------------------
+  // Cultural Context
+  // -------------------------------------------------------------------------
+
+  /// Cultural considerations and organizational dynamics.
+  @ContentHelp('Describe cultural factors: risk tolerance, innovation appetite, '
+      'collaboration patterns, communication preferences, and change '
+      'management considerations.')
   TextSection culturalConsiderations = TextSection();
+
+  /// Stakeholder communication preferences.
+  @ContentHelp('Describe stakeholder communication preferences: formal vs '
+      'informal, frequency, channels, and reporting expectations.')
+  TextSection communicationPreferences = TextSection();
+
+  // -------------------------------------------------------------------------
+  // Political Landscape
+  // -------------------------------------------------------------------------
+
+  /// Political dynamics and influence patterns.
+  @ContentHelp('Describe organizational politics: power centers, influence '
+      'networks, historical project outcomes, and potential resistance points.')
+  TextSection politicalLandscape = TextSection();
+
+  /// Change champions and sponsors.
+  @ContentHelp('Identify change champions, executive sponsors, and influential '
+      'stakeholders who can advocate for the project.')
+  TextSection changeAdvocates = TextSection();
+}
+
+/// An affected department entry [PD00-SYO-RES-ORG-DEP-nn].
+class AffectedDepartmentEntry {
+  @Form([
+    Field('departmentName', String, 'Department Name', required: true),
+    Field('departmentHead', String, 'Department Head'),
+    Field('employeeCount', int, 'Employee Count'),
+    Field('impactLevel', String, 'Impact Level (High, Medium, Low)'),
+    Field('roleInProject', String,
+        'Role (Sponsor, User, Data Owner, Operations, Support)'),
+    Field('currentSystems', String, 'Current Systems Used'),
+    Field('changeReadiness', String, 'Change Readiness (High, Medium, Low)'),
+    Field('keyContacts', String, 'Key Contacts'),
+    Field('specialConsiderations', String, 'Special Considerations'),
+  ])
+  String? content;
+}
+
+/// A decision maker entry [PD00-SYO-RES-ORG-DEC-nn].
+class DecisionMakerEntry {
+  @Form([
+    Field('name', String, 'Name', required: true),
+    Field('title', String, 'Title/Role'),
+    Field('department', String, 'Department'),
+    Field('decisionAuthority', String,
+        'Authority (Executive Sponsor, Steering Committee, Budget Owner, etc.)'),
+    Field('decisionDomains', String,
+        'Decision Domains (Scope, Budget, Timeline, Technology, Resources)'),
+    Field('influenceLevel', String, 'Influence Level (High, Medium, Low)'),
+    Field('approvalRequired', String, 'Approval Required For'),
+    Field('availabilityConstraints', String, 'Availability/Constraints'),
+    Field('stakeholderAlignment', String,
+        'Stakeholder Alignment (Supportive, Neutral, Skeptical)'),
+    Field('communicationPreference', String, 'Communication Preference'),
+  ])
+  String? content;
 }
 
 /// 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN].
+///
+/// Maps system functions to organizational units responsible for them.
+/// Identifies domain owners, data stewards, and operational contacts for
+/// each function area. Follows RACI matrix patterns and enterprise
+/// accountability frameworks.
 @SectionId('PD00-SYO-RES-FUN')
 class FunctionalResponsibilities {
-  @Unused()
+  @Form([
+    // Overview
+    Field('responsibilityMatrixApproach', String,
+        'Responsibility Matrix Approach',
+        hint: 'RACI, RASCI, DACI — methodology used for responsibility assignment'),
+    Field('governanceModel', String, 'Governance Model',
+        hint: 'Centralized, federated, distributed — how responsibilities are governed'),
+    Field('escalationProcess', String, 'Escalation Process',
+        hint: 'How responsibility conflicts or gaps are escalated'),
+    Field('reviewCadence', String, 'Review Cadence',
+        hint: 'How often responsibility assignments are reviewed'),
+    Field('totalFunctionCount', int, 'Total Function Count',
+        hint: 'Number of functional areas with assigned responsibilities'),
+    Field('unassignedAreas', String, 'Unassigned Areas',
+        hint: 'Functional areas without clear ownership'),
+  ])
   String? content;
+
+  /// Responsibility matrix overview narrative.
+  @ContentHelp('Describe the overall approach to functional responsibility '
+      'assignment: governance model, cross-functional coordination, '
+      'conflict resolution, and ongoing maintenance.')
+  TextSection matrixOverview = TextSection();
 
   /// Contains 0+× Responsibility.
   @SectionIdPattern('PD00-SYO-RES-FUN-xx')
@@ -5397,49 +5557,307 @@ class FunctionalResponsibilities {
 }
 
 /// A responsibility entry [PD00-SYO-RES-FUN-nn] (form).
+///
+/// Documents responsibility assignment for a specific functional area,
+/// following RACI principles (Responsible, Accountable, Consulted, Informed)
+/// with additional operational details for clear accountability.
 class ResponsibilityEntry {
   @Form([
-    Field('area', String, 'Area'),
-    Field('owner', String, 'Owner'),
-    Field('description', String, 'Short description'),
-    Field('scope', String, 'Scope'),
+    // Function Identification
+    Field('functionId', String, 'Function ID', required: true,
+        hint: 'Unique identifier, e.g. FUNC-001, FUNC-CRM-001'),
+    Field('functionName', String, 'Function Name', required: true,
+        hint: 'Short descriptive name, e.g. Customer Data Management'),
+    Field('functionArea', String, 'Functional Area',
+        hint: 'Business area — Sales, Marketing, Finance, HR, Operations, IT'),
+    Field('functionDescription', String, 'Description',
+        hint: 'Detailed description of the functional responsibility'),
+    Field('functionScope', String, 'Scope',
+        hint: 'Boundaries of this functional responsibility'),
+    Field('businessCriticality', String, 'Business Criticality',
+        hint: 'Critical, High, Medium, Low — importance to business'),
+
+    // RACI Assignment
+    Field('responsible', String, 'Responsible (R)',
+        hint: 'Role/team who does the work', required: true),
+    Field('accountable', String, 'Accountable (A)',
+        hint: 'Role/person ultimately accountable (one per function)'),
+    Field('consulted', String, 'Consulted (C)',
+        hint: 'Roles/teams who provide input'),
+    Field('informed', String, 'Informed (I)',
+        hint: 'Roles/teams who are kept updated'),
+
+    // Key Contacts
+    Field('domainOwner', String, 'Domain Owner',
+        hint: 'Business owner for this functional area'),
+    Field('datasteward', String, 'Data Steward',
+        hint: 'Person responsible for data quality and governance'),
+    Field('operationalContact', String, 'Operational Contact',
+        hint: 'Day-to-day operational contact'),
+    Field('technicalContact', String, 'Technical Contact',
+        hint: 'Technical SME for this area'),
+    Field('escalationContact', String, 'Escalation Contact',
+        hint: 'Contact for escalation of issues'),
+
+    // Related Systems
+    Field('primarySystems', String, 'Primary Systems',
+        hint: 'Systems primarily used for this function'),
+    Field('dataOwnership', String, 'Data Ownership',
+        hint: 'Data entities owned by this function'),
+    Field('processOwnership', String, 'Process Ownership',
+        hint: 'Business processes owned by this function'),
+
+    // Governance
+    Field('governanceLevel', String, 'Governance Level',
+        hint: 'Central, federated, local — where decisions are made'),
+    Field('decisionAuthority', String, 'Decision Authority',
+        hint: 'What decisions this function can make autonomously'),
+    Field('approvalRequired', String, 'Approval Required',
+        hint: 'What requires approval and from whom'),
+    Field('complianceRole', String, 'Compliance Role',
+        hint: 'Regulatory or compliance responsibilities'),
+
+    // Transition
+    Field('currentState', String, 'Current State',
+        hint: 'How responsibility is handled currently'),
+    Field('futureState', String, 'Future State',
+        hint: 'How responsibility will be handled post-implementation'),
+    Field('transitionPlan', String, 'Transition Plan',
+        hint: 'Plan for transitioning responsibility'),
+    Field('trainingNeeds', String, 'Training Needs',
+        hint: 'Training required for responsibility transition'),
   ])
   String? content;
 }
 
 /// 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+///
+/// Documents pre-existing technical constraints including mandated platforms,
+/// network restrictions, compliance requirements, existing infrastructure
+/// that must be reused, and technology standards to follow. Provides the
+/// technical landscape in which the solution must operate. Seeds detailed
+/// Technical Requirements (TR) document.
 @SectionId('PD00-SYO-RES-TEC')
 @Comment('Seeds → TR')
 class TechnicalFrameworkConditions {
-  @Unused()
-  String? content;
+  // -------------------------------------------------------------------------
+  // Technical Landscape Overview
+  // -------------------------------------------------------------------------
+  @Form([
+    // Enterprise Architecture Context
+    Field('architectureMaturity', String, 'Architecture Maturity',
+        hint: 'TOGAF maturity level or equivalent'),
+    Field('cloudStrategy', String, 'Cloud Strategy',
+        hint: 'Cloud-first, hybrid, on-premises, multi-cloud'),
+    Field('primaryCloudProvider', String, 'Primary Cloud Provider',
+        hint: 'AWS, Azure, GCP, private cloud, none'),
+    Field('secondaryCloudProviders', String, 'Secondary Cloud Providers'),
+    Field('technologyGovernance', String, 'Technology Governance',
+        hint: 'How technology decisions are governed'),
 
-  /// Existing Infrastructure.
+    // Platform Standards
+    Field('preferredLanguages', String, 'Preferred Languages',
+        hint: 'Mandated or preferred programming languages'),
+    Field('preferredFrameworks', String, 'Preferred Frameworks',
+        hint: 'Mandated or preferred frameworks'),
+    Field('preferredDatabases', String, 'Preferred Databases',
+        hint: 'Mandated or preferred database platforms'),
+    Field('messagingPlatforms', String, 'Messaging Platforms',
+        hint: 'Enterprise messaging/queue platforms'),
+    Field('integrationPlatforms', String, 'Integration Platforms',
+        hint: 'ESB, API gateway, iPaaS solutions'),
+
+    // Security & Compliance
+    Field('securityFramework', String, 'Security Framework',
+        hint: 'NIST, ISO 27001, SOC2, CIS — security framework used'),
+    Field('complianceRequirements', String, 'Compliance Requirements',
+        hint: 'GDPR, HIPAA, PCI-DSS, SOX, industry-specific'),
+    Field('dataClassificationScheme', String, 'Data Classification',
+        hint: 'Public, internal, confidential, restricted'),
+    Field('encryptionStandards', String, 'Encryption Standards',
+        hint: 'Required encryption algorithms and key lengths'),
+    Field('identityProvider', String, 'Identity Provider',
+        hint: 'Enterprise identity platform (Azure AD, Okta, etc.)'),
+
+    // Network & Infrastructure
+    Field('networkArchitecture', String, 'Network Architecture',
+        hint: 'Network topology, DMZ, segmentation approach'),
+    Field('firewallPolicies', String, 'Firewall Policies',
+        hint: 'Standard firewall rules and policies'),
+    Field('vpnRequirements', String, 'VPN Requirements',
+        hint: 'VPN requirements for remote access'),
+    Field('loadBalancingStandards', String, 'Load Balancing Standards'),
+    Field('cdnStrategy', String, 'CDN Strategy'),
+  ])
+  String? technicalOverviewContent;
+
+  // -------------------------------------------------------------------------
+  // Existing Infrastructure
+  // -------------------------------------------------------------------------
+
+  /// Existing infrastructure that must be reused or integrated with.
+  @ContentHelp('Describe existing infrastructure: data centers, servers, '
+      'networks, storage, systems that cannot be replaced, and infrastructure '
+      'that the new solution must integrate with or leverage.')
   TextSection existingInfrastructure = TextSection();
+
+  /// Data center and hosting environment details.
+  @ContentHelp('Describe data center locations, capacity, connectivity, '
+      'disaster recovery setup, and hosting environment constraints.')
+  TextSection datacenters = TextSection();
+
+  /// Network topology and connectivity constraints.
+  @ContentHelp('Describe network topology, bandwidth constraints, latency '
+      'requirements, VPN/private connectivity, and firewall restrictions.')
+  TextSection networkTopology = TextSection();
+
+  // -------------------------------------------------------------------------
+  // Technology Standards
+  // -------------------------------------------------------------------------
+
+  /// Technology standards that must be followed.
+  @ContentHelp('Overview of technology standards: adoption policy, '
+      'exception process, standard review cycle, and compliance monitoring.')
+  TextSection standardsOverview = TextSection();
 
   /// Technology standards [PD00-SYO-RES-TEC-STD] — contains 0+× TechnologyStandard.
   @SectionIdPattern('PD00-SYO-RES-TEC-STD-xx')
   List<TechnologyStandardEntry> technologyStandards = [];
 
+  // -------------------------------------------------------------------------
+  // Integration Constraints
+  // -------------------------------------------------------------------------
+
+  /// Integration constraints overview.
+  @ContentHelp('Overview of integration constraints: API standards, '
+      'protocol restrictions, message format requirements, and '
+      'integration platform mandates.')
+  TextSection integrationOverview = TextSection();
+
   /// Integration constraints [PD00-SYO-RES-TEC-INT] — contains 0+× IntegrationConstraint.
   @SectionIdPattern('PD00-SYO-RES-TEC-INT-xx')
   List<IntegrationConstraintEntry> integrationConstraints = [];
+
+  // -------------------------------------------------------------------------
+  // DevOps & Operations Standards
+  // -------------------------------------------------------------------------
+
+  /// DevOps and deployment standards.
+  @ContentHelp('Describe DevOps standards: CI/CD requirements, deployment '
+      'pipelines, environment management, and release processes.')
+  TextSection devopsStandards = TextSection();
+
+  /// Monitoring and observability requirements.
+  @ContentHelp('Describe monitoring requirements: logging standards, '
+      'metrics collection, alerting, and observability platforms.')
+  TextSection observabilityRequirements = TextSection();
+
+  /// Disaster recovery and business continuity requirements.
+  @ContentHelp('Describe DR/BC requirements: RTO, RPO, backup standards, '
+      'failover requirements, and recovery testing.')
+  TextSection disasterRecovery = TextSection();
 }
 
 /// A technology standard entry (form) [PD00-SYO-RES-TEC-STD-nn].
+///
+/// Documents a mandated or preferred technology standard that the solution
+/// must adhere to. Includes scope, compliance requirements, and exceptions.
 class TechnologyStandardEntry {
   @Form([
-    Field('standard', String, 'Standard'),
-    Field('description', String, 'Short description'),
+    // Standard Identification
+    Field('standardId', String, 'Standard ID', required: true,
+        hint: 'Unique identifier, e.g. STD-SEC-001, STD-DEV-001'),
+    Field('standardName', String, 'Standard Name', required: true,
+        hint: 'Short descriptive name'),
+    Field('standardCategory', String, 'Category',
+        hint: 'Security, Development, Infrastructure, Integration, Data, DevOps'),
+    Field('standardDescription', String, 'Description',
+        hint: 'Detailed description of the standard'),
+
+    // Standard Details
+    Field('mandateLevel', String, 'Mandate Level',
+        hint: 'Mandatory, Strongly Preferred, Preferred, Optional'),
+    Field('standardVersion', String, 'Version',
+        hint: 'Version of the standard'),
+    Field('sourceReference', String, 'Source Reference',
+        hint: 'Policy document, framework reference, or authority'),
+    Field('effectiveDate', String, 'Effective Date',
+        hint: 'Date the standard became effective'),
+    Field('reviewDate', String, 'Next Review Date',
+        hint: 'When standard will be reviewed'),
+
+    // Scope & Applicability
+    Field('applicabilityScope', String, 'Applicability Scope',
+        hint: 'Where the standard applies — all systems, specific domains, etc.'),
+    Field('technologiesCovered', String, 'Technologies Covered',
+        hint: 'Specific technologies this standard covers'),
+    Field('exceptions', String, 'Known Exceptions',
+        hint: 'Existing exceptions to this standard'),
+    Field('exceptionProcess', String, 'Exception Process',
+        hint: 'How to request an exception'),
+
+    // Compliance
+    Field('complianceMethod', String, 'Compliance Method',
+        hint: 'How compliance is verified — automated scan, review, audit'),
+    Field('complianceOwner', String, 'Compliance Owner',
+        hint: 'Role responsible for standard compliance'),
+    Field('violationConsequence', String, 'Violation Consequence',
+        hint: 'Consequences of non-compliance'),
+
+    // Impact
+    Field('projectImpact', String, 'Project Impact',
+        hint: 'How this standard impacts the project'),
+    Field('implementationNotes', String, 'Implementation Notes',
+        hint: 'Notes on implementing this standard'),
   ])
   String? content;
 }
 
 /// An integration constraint entry (form) [PD00-SYO-RES-TEC-INT-nn].
+///
+/// Documents a technical constraint on system integration, including
+/// protocol requirements, format restrictions, and platform mandates.
 class IntegrationConstraintEntry {
   @Form([
-    Field('constraint', String, 'Constraint'),
-    Field('impactedSystem', String, 'Impacted System'),
+    // Constraint Identification
+    Field('constraintId', String, 'Constraint ID', required: true,
+        hint: 'Unique identifier, e.g. INT-CON-001'),
+    Field('constraintName', String, 'Constraint Name', required: true,
+        hint: 'Short descriptive name'),
+    Field('constraintDescription', String, 'Description',
+        hint: 'Detailed description of the integration constraint'),
+
+    // Constraint Details
+    Field('constraintType', String, 'Constraint Type',
+        hint: 'Protocol, Format, Platform, Security, Performance, Availability'),
+    Field('constraintValue', String, 'Constraint Value',
+        hint: 'Specific constraint value or requirement'),
+    Field('constraintSource', String, 'Source',
+        hint: 'Source of the constraint — enterprise architecture, vendor, security'),
+
+    // Scope
+    Field('impactedSystems', String, 'Impacted Systems',
+        hint: 'Systems affected by this constraint'),
+    Field('impactedInterfaces', String, 'Impacted Interfaces',
+        hint: 'Specific interfaces affected'),
+    Field('integrationPattern', String, 'Affected Patterns',
+        hint: 'Integration patterns affected — sync, async, batch, event'),
+
+    // Impact & Mitigation
+    Field('impactLevel', String, 'Impact Level',
+        hint: 'High, Medium, Low — impact on integration design'),
+    Field('designImplications', String, 'Design Implications',
+        hint: 'How this constraint affects integration design'),
+    Field('workarounds', String, 'Workarounds',
+        hint: 'Potential workarounds or alternatives'),
+    Field('mitigationApproach', String, 'Mitigation Approach',
+        hint: 'How to work within this constraint'),
+
+    // Compliance
+    Field('complianceRequired', bool, 'Compliance Required',
+        hint: 'Whether compliance is mandatory'),
+    Field('validationMethod', String, 'Validation Method',
+        hint: 'How compliance is validated'),
   ])
   String? content;
 }
