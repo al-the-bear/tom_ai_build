@@ -562,29 +562,29 @@ All 317 sections from `pd_template.md` with content migration status.
 
 | # | Section ID | Section Name | Model Status | Content Status |
 |---|------------|--------------|--------------|----------------|
-| 249 | PD00-SSP | System Stage Plan | ✅ Exists | ⬜ |
-| 250 | PD00-SSP-STR | Staging Strategy | ✅ Exists | ⬜ |
-| 251 | PD00-SSP-STR-APP | Staging Approach | ✅ Exists | ⬜ |
-| 252 | PD00-SSP-STR-RAT | Rationale | ✅ Exists | ⬜ |
-| 253 | PD00-SSP-STA | Stage Overview | ✅ Exists | ⬜ |
-| 254 | PD00-SSP-STA-SUM | Stage Summary | ✅ Exists | ⬜ |
-| 255 | PD00-SSP-STA-DIA | Stage Timeline Diagram | ✅ Exists | ⬜ |
-| 256 | PD00-SSP-STG | Stages | ✅ Exists | ⬜ |
+| 249 | PD00-SSP | System Stage Plan | ✅ Exists | ✅ |
+| 250 | PD00-SSP-STR | Staging Strategy | ✅ Exists | ✅ |
+| 251 | PD00-SSP-STR-APP | Staging Approach | ✅ Exists | ✅ |
+| 252 | PD00-SSP-STR-RAT | Rationale | ✅ Exists | ✅ |
+| 253 | PD00-SSP-STA | Stage Overview | ✅ Exists | ✅ |
+| 254 | PD00-SSP-STA-SUM | Stage Summary | ✅ Exists | ✅ |
+| 255 | PD00-SSP-STA-DIA | Stage Timeline Diagram | ✅ Exists | ✅ |
+| 256 | PD00-SSP-STG | Stages | ✅ Exists | ✅ |
 | 257 | PD00-SSP-STG-01 | Sample: Stage 1 — Foundation | ✅ Exists | ⏭️ |
 | 258 | PD00-SSP-STG-01-FEA | Feature Scope | ✅ Exists | ⏭️ |
 | 259 | PD00-SSP-STG-01-SUB | Sub-stages and Milestones | ✅ Exists | ⏭️ |
 | 260 | PD00-SSP-STG-01-TIM | Timeline | ✅ Exists | ⏭️ |
 | 261 | PD00-SSP-STG-01-SUC | Success Criteria | ✅ Exists | ⏭️ |
 | 262 | PD00-SSP-STG-01-ROL | Rollout Plan | ✅ Exists | ⏭️ |
-| 263 | PD00-SSP-FEA | Feature Prioritization | ✅ Exists | ⬜ |
-| 264 | PD00-SSP-FEA-MOS | MoSCoW Analysis | ✅ Exists | ⬜ |
-| 265 | PD00-SSP-FEA-MAT | Feature-Stage Matrix | ✅ Exists | ⬜ |
-| 266 | PD00-SSP-MIG | Data Migration Strategy | ✅ Exists | ⬜ |
-| 267 | PD00-SSP-MIG-PHA | Migration Phases | ✅ Exists | ⬜ |
-| 268 | PD00-SSP-MIG-RIS | Migration Risks | ✅ Exists | ⬜ |
-| 269 | PD00-SSP-GOV | Governance | ✅ Exists | ⬜ |
-| 270 | PD00-SSP-GOV-GAT | Phase Gate Reviews | ✅ Exists | ⬜ |
-| 271 | PD00-SSP-GOV-DEC | Decision Points | ✅ Exists | ⬜ |
+| 263 | PD00-SSP-FEA | Feature Prioritization | ✅ Exists | ✅ |
+| 264 | PD00-SSP-FEA-MOS | MoSCoW Analysis | ✅ Exists | ✅ |
+| 265 | PD00-SSP-FEA-MAT | Feature-Stage Matrix | ✅ Exists | ✅ |
+| 266 | PD00-SSP-MIG | Data Migration Strategy | ✅ Exists | ✅ |
+| 267 | PD00-SSP-MIG-PHA | Migration Phases | ✅ Exists | ✅ |
+| 268 | PD00-SSP-MIG-RIS | Migration Risks | ✅ Exists | ✅ |
+| 269 | PD00-SSP-GOV | Governance | ✅ Exists | ✅ |
+| 270 | PD00-SSP-GOV-GAT | Phase Gate Reviews | ✅ Exists | ✅ |
+| 271 | PD00-SSP-GOV-DEC | Decision Points | ✅ Exists | ✅ |
 
 ### 2.14. Chapter 14: Delivery Scope and Acceptance [PD00-DEL]
 

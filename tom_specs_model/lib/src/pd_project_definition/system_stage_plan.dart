@@ -413,24 +413,31 @@ class StagingStrategy {
   String? content;
 
   /// 13.1.1. Staging Approach [PD00-SSP-STR-APP].
-  @Comment('Detailed description of the staging approach — how stages '
-      'are defined, sequenced, and executed')
+  @ContentHelp('Detailed description of the staging approach: how stages '
+      'are defined, sequenced, and executed. Cover big bang vs phased '
+      'rollout, geography-based vs function-based staging, pilot groups, '
+      'parallel operation periods, and cutover methodologies.')
   TextSection stagingApproach = TextSection();
 
   /// 13.1.2. Rationale [PD00-SSP-STR-RAT].
-  @Comment('Justification for the chosen staging approach — risk '
-      'reduction, early value delivery, resource optimization, '
-      'business continuity')
+  @ContentHelp('Justification for the chosen staging approach: risk '
+      'reduction benefits, early value delivery opportunities, resource '
+      'optimization factors, alternatives considered and why rejected, '
+      'alignment with organizational change capacity.')
   TextSection rationale = TextSection();
 
   /// 13.1.3. Key Assumptions [PD00-SSP-STR-ASM].
-  @Comment('Key assumptions underlying the staging strategy — '
-      'resource availability, technology readiness, stakeholder support')
+  @ContentHelp('Key assumptions underlying the staging strategy: '
+      'resource availability and skill mix, technology platform readiness, '
+      'stakeholder buy-in and support, data quality levels, '
+      'vendor commitment, infrastructure provisioning timelines.')
   TextSection keyAssumptions = TextSection();
 
   /// 13.1.4. Constraints [PD00-SSP-STR-CON].
-  @Comment('Constraints affecting the staging strategy — fixed dates, '
-      'budget limits, resource caps, regulatory requirements')
+  @ContentHelp('Constraints affecting the staging strategy: fixed '
+      'go-live dates, budget limits, resource caps, seasonal blackout '
+      'periods, regulatory compliance windows, vendor contract dates, '
+      'fiscal year boundaries, organizational freeze periods.')
   TextSection constraints = TextSection();
 }
 
@@ -797,25 +804,36 @@ class StageOverview {
   List<StageSummaryEntry> stageSummaries = [];
 
   /// Stage Summary narrative.
-  @Comment('Free-text overview that complements the structured '
-      'stage summary entries above')
+  @ContentHelp('Free-text overview complementing the structured stage '
+      'summaries: overall staging philosophy, key milestones across stages, '
+      'critical path highlights, aggregate risk profile, '
+      'resource allocation patterns, and major dependencies.')
   TextSection stageSummaryNarrative = TextSection();
 
   /// 13.2.2. Stage Timeline Diagram [PD00-SSP-STA-DIA] (mermaid-gantt).
+  @ContentHelp('Gantt chart showing all stages with start/end dates, '
+      'milestones, parallel activities, critical path, buffer allocations, '
+      'and key decision points. Show dependencies between stages.')
   GanttDiagramSection timelineDiagram = GanttDiagramSection();
 
   /// 13.2.3. Resource Allocation Diagram [PD00-SSP-STA-RAD]
   /// (mermaid-gantt).
-  @Comment('Gantt-style view of resource allocation across stages')
+  @ContentHelp('Gantt-style resource allocation across stages: '
+      'team assignments, role transitions, ramp-up/ramp-down periods, '
+      'shared resources, external consultants, training periods.')
   GanttDiagramSection resourceAllocationDiagram = GanttDiagramSection();
 
   /// 13.2.4. Budget Distribution Diagram [PD00-SSP-STA-BDD]
   /// (mermaid-flow).
-  @Comment('Visual breakdown of budget distribution across stages')
+  @ContentHelp('Visual budget distribution: percentage per stage, '
+      'capital vs operational split, contingency allocation, '
+      'major cost drivers per stage, cumulative spend curve.')
   FlowDiagramSection budgetDistributionDiagram = FlowDiagramSection();
 
   /// 13.2.5. Dependency Map [PD00-SSP-STA-DEP] (mermaid-flow).
-  @Comment('Visual map of cross-stage dependencies and critical paths')
+  @ContentHelp('Visual map of cross-stage dependencies and critical paths: '
+      'mandatory sequencing, shared resources, data dependencies, '
+      'integration touchpoints, and external milestones.')
   FlowDiagramSection dependencyMap = FlowDiagramSection();
 }
 
@@ -1204,6 +1222,10 @@ class StageEntry {
   String? content;
 
   /// Feature Scope narrative.
+  @ContentHelp('Detailed feature scope for this stage: what is included '
+      'and explicitly excluded, minimum viable scope, dependencies on '
+      'prior stages, features deferred to future stages, acceptance '
+      'criteria for scope completeness.')
   TextSection featureScope = TextSection();
 
   /// Sub-stages and Milestones [PD00-SSP-STG-nn-SUB] — contains 0+× SubStage.
@@ -1211,6 +1233,9 @@ class StageEntry {
   List<SubStageEntry> subStagesAndMilestones = [];
 
   /// Timeline narrative.
+  @ContentHelp('Stage timeline details: key milestones, buffer allocation, '
+      'critical path activities, dependencies on other stages, '
+      'schedule risks, compression options, and go/no-go checkpoints.')
   TextSection timeline = TextSection();
 
   /// Success Criteria [PD00-SSP-STG-nn-SUC] — contains 0+× StageSuccessCriterion.
@@ -1218,6 +1243,10 @@ class StageEntry {
   List<StageSuccessCriterionEntry> successCriteria = [];
 
   /// Rollout Plan narrative.
+  @ContentHelp('Stage rollout approach: user migration strategy, '
+      'data cutover procedure, parallel operation period, '
+      'rollback triggers and procedures, hypercare support model, '
+      'communication plan, and user training schedule.')
   TextSection rolloutPlan = TextSection();
 }
 
@@ -1472,6 +1501,10 @@ class FeaturePrioritization {
   String? content;
 
   /// Prioritization rationale narrative.
+  @ContentHelp('Rationale behind feature prioritization approach: '
+      'stakeholder input process, business value criteria, '
+      'technical feasibility factors, risk considerations, '
+      'trade-offs made, and how priorities map to stage planning.')
   TextSection prioritizationRationale = TextSection();
 
   /// 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
@@ -1525,6 +1558,10 @@ class MoscowAnalysis {
   String? content;
 
   /// MoSCoW rationale narrative.
+  @ContentHelp('Rationale for MoSCoW classification decisions: '
+      'criteria used to assign categories, stakeholder alignment '
+      'process, handling of contested classifications, '
+      'relationship to stage boundaries and MVP definition.')
   TextSection moscowRationale = TextSection();
 
   /// Contains 0+× MoscowEntry.
@@ -1631,6 +1668,10 @@ class FeatureStageMatrix {
   String? content;
 
   /// Feature-Stage matrix narrative.
+  @ContentHelp('Explanation of feature-to-stage mapping logic: '
+      'allocation criteria, dependency constraints, capacity '
+      'considerations, cross-stage feature splitting, '
+      'handling of scope changes and re-prioritizations.')
   TextSection matrixNarrative = TextSection();
 
   /// Contains 0+× FeatureStageMapping.
@@ -1999,6 +2040,10 @@ class FeatureDependencies {
   String? content;
 
   /// Dependency analysis narrative.
+  @ContentHelp('Analysis of feature dependencies: dependency types, '
+      'impact assessment methodology, critical dependency chains, '
+      'circular dependency resolution, cross-stage dependencies, '
+      'external system dependencies.')
   TextSection dependencyAnalysis = TextSection();
 
   /// Contains 0+× FeatureDependencyEntry.
@@ -2407,6 +2452,10 @@ class DataMigrationStrategy {
   String? content;
 
   /// Migration strategy narrative.
+  @ContentHelp('Overall data migration approach: migration methodology, '
+      'tool selection rationale, phasing strategy, dry run plan, '
+      'data quality assurance approach, rollback mechanisms, '
+      'parallel operation strategy, and hypercare support model.')
   TextSection migrationStrategyNarrative = TextSection();
 
   /// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
@@ -2470,6 +2519,10 @@ class MigrationPhases {
   String? content;
 
   /// Phase overview narrative.
+  @ContentHelp('Overview of migration phases: sequencing rationale, '
+      'parallel vs sequential execution, phase dependencies, '
+      'resource allocation across phases, quality gates between '
+      'phases, aggregate validation approach.')
   TextSection phaseOverview = TextSection();
 
   /// Contains 1+× MigrationPhaseEntry.
@@ -2827,6 +2880,10 @@ class StageMigrationRisks {
   String? content;
 
   /// Risk summary narrative.
+  @ContentHelp('Executive summary of migration risks: top risk categories, '
+      'aggregate risk level, key mitigation strategies, '
+      'contingency approaches, risk monitoring plan, '
+      'escalation triggers and paths.')
   TextSection riskSummary = TextSection();
 
   /// Contains 1+× StageMigrationRiskEntry.
@@ -3137,6 +3194,10 @@ class StageGovernance {
   String? content;
 
   /// Governance narrative and rationale.
+  @ContentHelp('Stage governance philosophy: decision-making framework, '
+      'authority levels, escalation paths, review cadence, '
+      'documentation requirements, communication protocols, '
+      'emergency bypass procedures.')
   TextSection governanceNarrative = TextSection();
 
   /// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
@@ -3217,6 +3278,10 @@ class PhaseGateReviews {
   String? content;
 
   /// Phase gate review process narrative.
+  @ContentHelp('Phase gate process description: gate objectives, '
+      'review rhythm, participant roles, evidence gathering, '
+      'decision criteria, proceed/rework/cancel definitions, '
+      'conditional approval handling.')
   TextSection gateReviewNarrative = TextSection();
 
   /// Contains 0+× PhaseGateReviewEntry.
@@ -3344,6 +3409,9 @@ class PhaseGateReviewEntry {
   String? content;
 
   /// Gate-specific narrative and context.
+  @ContentHelp('Context for this specific gate: strategic importance, '
+      'relationship to prior and subsequent gates, '
+      'unique considerations, historical lessons applied.')
   TextSection gateNarrative = TextSection();
 
   /// Contains 0+× ReviewCriterionEntry.
@@ -3451,6 +3519,10 @@ class DecisionPoints {
   String? content;
 
   /// Decision framework narrative.
+  @ContentHelp('Decision-making framework: authority matrix, '
+      'decision types and their governance levels, '
+      'RACI for key decisions, documentation requirements, '
+      'appeal processes, decision review cadence.')
   TextSection decisionFrameworkNarrative = TextSection();
 
   /// Contains 0+× DecisionPointEntry.
@@ -3565,6 +3637,10 @@ class DecisionPointEntry {
   String? content;
 
   /// Decision context narrative.
+  @ContentHelp('Context for this decision point: strategic background, '
+      'prior related decisions, constraints shaping options, '
+      'stakeholder perspectives, risk considerations, '
+      'organizational readiness factors.')
   TextSection decisionNarrative = TextSection();
 
   /// Contains 0+× DecisionOptionEntry.
