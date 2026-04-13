@@ -714,14 +714,132 @@ class CurrentBusinessProcesses {
   @ContentType('description', 'Overview of the business process landscape, '
       'including process categories, ownership, and interdependencies.')
   @ContentHelp('Describe the overall process landscape being analyzed. '
+      'Focus on workflow bottlenecks, manual steps, and replication of effort. '
       'Include a process map or hierarchy showing how processes relate. '
       'Identify which processes are in scope for this project.')
   String? content;
 
-  /// 1.2.1. Workflow Descriptions [PD00-CUR-PRO-WOR] — contains 1+× Business Process.
+  /// Process landscape diagram [PD00-CUR-PRO-DIA].
+  @SectionId('PD00-CUR-PRO-DIA')
+  @ContentType('mermaid-flowchart', 'Visual map of business processes showing '
+      'hierarchy, relationships, and data flows between processes')
+  @ContentHelp('Create a Mermaid flowchart showing the process landscape. '
+      'Group processes by category (Core, Support, Management). '
+      'Show handoffs and data flows between processes.')
+  String? processLandscapeDiagram;
+
+  /// Process scope summary [PD00-CUR-PRO-SCO].
+  @SectionId('PD00-CUR-PRO-SCO')
+  @Comment('Defines which processes are in/out of scope')
+  ProcessScopeSummary? scopeSummary;
+
+  /// Process interdependency matrix [PD00-CUR-PRO-INT].
+  @SectionId('PD00-CUR-PRO-INT')
+  @Comment('How processes depend on and interact with each other')
+  ProcessInterdependencyMatrix? interdependencyMatrix;
+
+  /// Process performance summary [PD00-CUR-PRO-SUM].
+  @SectionId('PD00-CUR-PRO-SUM')
+  @Comment('High-level summary of process performance')
+  ProcessPerformanceSummary? performanceSummary;
+
+  /// 1.2.nn. Business Processes [PD00-CUR-PRO-nn] — contains 1+× Business Process.
   @SectionIdPattern('PD00-CUR-PRO-xx')
   @Min(1)
   List<CurrentBusinessProcess> processes = [];
+}
+
+/// Process scope summary defining in-scope and out-of-scope processes.
+class ProcessScopeSummary {
+  @Form([
+    Field('totalProcessesIdentified', int, 'Total Processes Identified'),
+    Field('processesInScope', int, 'Processes In Scope'),
+    Field('processesOutOfScope', int, 'Processes Out of Scope'),
+    Field('scopeRationale', String, 'Scope Selection Rationale',
+        hint: 'Why these processes were selected for analysis'),
+    Field('deferredProcesses', String, 'Deferred Processes',
+        hint: 'Processes to be addressed in future phases'),
+  ])
+  String? content;
+
+  /// Processes in scope.
+  List<ProcessScopeEntry> inScopeProcesses = [];
+
+  /// Processes explicitly out of scope.
+  List<ProcessScopeEntry> outOfScopeProcesses = [];
+}
+
+/// A process scope entry indicating in/out of scope status.
+class ProcessScopeEntry {
+  @Form([
+    Field('processName', String, 'Process Name', required: true),
+    Field('scopeStatus', String, 'Scope Status',
+        hint: 'In-Scope / Out-of-Scope / Deferred / Partial'),
+    Field('rationale', String, 'Rationale - why this scope decision'),
+    Field('impactIfExcluded', String, 'Impact If Excluded'),
+    Field('phase', String, 'Target Phase if deferred'),
+  ])
+  String? content;
+}
+
+/// Process interdependency matrix showing how processes interact.
+class ProcessInterdependencyMatrix {
+  @ContentType('description', 'Overview of how processes depend on each other.')
+  @ContentHelp('Describe the overall pattern of process interdependencies. '
+      'Identify critical handoff points and areas of high coupling.')
+  String? content;
+
+  /// Interdependency diagram [PD00-CUR-PRO-INT-DIA].
+  @SectionId('PD00-CUR-PRO-INT-DIA')
+  @ContentType('mermaid-flowchart', 'Visual matrix of process dependencies')
+  @ContentHelp('Create a Mermaid flowchart showing process dependencies. '
+      'Use edge labels to describe the data/artifact exchanged.')
+  String? dependencyDiagram;
+
+  /// Individual process dependencies.
+  List<ProcessDependencyEntry> dependencies = [];
+}
+
+/// A single process dependency entry.
+class ProcessDependencyEntry {
+  @Form([
+    Field('sourceProcess', String, 'Source Process', required: true),
+    Field('targetProcess', String, 'Target Process', required: true),
+    Field('dependencyType', String, 'Dependency Type',
+        hint: 'Data / Control / Timing / Resource'),
+    Field('artifactExchanged', String, 'Artifact/Data Exchanged',
+        hint: 'What is passed from source to target'),
+    Field('couplingStrength', String, 'Coupling Strength',
+        hint: 'Tight / Moderate / Loose'),
+    Field('frequency', String, 'Interaction Frequency',
+        hint: 'Per transaction / Daily / Weekly / On-demand'),
+    Field('timing', String, 'Timing Requirement',
+        hint: 'Synchronous / Asynchronous / Batch'),
+    Field('failureImpact', String, 'Impact if Dependency Fails'),
+  ])
+  String? content;
+}
+
+/// Process performance summary with high-level metrics.
+class ProcessPerformanceSummary {
+  @Form([
+    Field('overallMaturity', String, 'Overall Process Maturity',
+        hint: 'Ad-hoc / Defined / Managed / Optimized'),
+    Field('automationLevel', String, 'Automation Level',
+        hint: 'Manual / Partially Automated / Highly Automated / Fully Automated'),
+    Field('manualStepsCount', int, 'Total Manual Steps Across Processes'),
+    Field('errorProneStepsCount', int, 'Error-Prone Steps Identified'),
+    Field('bottleneckCount', int, 'Bottlenecks Identified'),
+    Field('duplicatedEffortAreas', String, 'Areas of Duplicated Effort',
+        hint: 'Processes or steps where work is duplicated'),
+    Field('complianceGaps', int, 'Compliance Gaps Identified'),
+    Field('estimatedAnnualWaste', String, 'Estimated Annual Waste',
+        hint: 'Cost of inefficiencies in time or money'),
+  ])
+  String? content;
+
+  /// Key metrics summary.
+  List<ProcessMetricEntry> keyMetrics = [];
 }
 
 /// A current business process [PD00-CUR-PRO-nn].
