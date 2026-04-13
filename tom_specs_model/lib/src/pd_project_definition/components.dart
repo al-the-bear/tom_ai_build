@@ -14,7 +14,31 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 @SectionId('PD00-COM')
 @Comment('Seeds → TR')
 class ComponentsToUse {
-  @Unused()
+  @ContentHelp('''
+## Components to Use (Chapter 12)
+
+External and standard components planned for the system.
+
+### Subsections
+- **12.1 Component Strategy** — Build vs buy, governance, evaluation cadence
+- **12.2 Component Catalog** — Individual component specifications
+- **12.3 Component Role in System** — Mapping to architecture
+- **12.4 Runtime Dependencies** — Startup order, health checks, failover
+- **12.5 Maintenance Dependencies** — Version matrix, update sequences
+- **12.6 Risk Assessment** — Component risks and contingency plans
+
+### Seeds
+All subsections seed the **TR (Technical Requirements)** document.
+
+### Specification Depth
+Each component should specify:
+- Identity (name, version, vendor)
+- Licensing and costs
+- Integration interfaces
+- Security baseline
+- Support model
+- Risk profile
+''')
   String? content;
 
   /// 12.1. Component Strategy [PD00-COM-STR].
@@ -174,7 +198,27 @@ class ReuseGoalEntry {
 /// candidate components for adoption.
 @SectionId('PD00-COM-STR-EVA')
 class EvaluationCriteria {
-  @Unused()
+  @ContentHelp('''
+## Evaluation Criteria (12.1.2)
+
+Criteria for evaluating candidate components.
+
+### Standard Categories
+- **Technical** — Performance, scalability, security, API quality
+- **Commercial** — Cost, licensing, vendor stability
+- **Operational** — Support model, documentation, update frequency
+- **Strategic** — Alignment with stack, vendor relationship
+- **Compliance** — Regulatory requirements, certifications
+
+### Scoring Approach
+Each criterion includes:
+- Weight (% of total)
+- Scoring scale (1-5, Pass/Fail)
+- Minimum threshold
+- Eliminatory flag
+- Evidence requirements
+- Evaluation method
+''')
   String? content;
 
   /// Contains 0+× EvaluationCriterion.
@@ -500,7 +544,27 @@ class ComponentResponsibilitiesEntry {
 /// health-check dependencies, failover behavior, and version constraints.
 @SectionId('PD00-COM-RUN')
 class RuntimeDependencies {
-  @Unused()
+  @ContentHelp('''
+## Runtime Dependencies (12.4)
+
+Runtime dependencies between components.
+
+### Dependency Properties
+- **Startup order** — Boot sequence priority
+- **Health checks** — Verification method and interval
+- **Failover behavior** — Graceful degradation, circuit breaker
+- **Version constraints** — Required versions or ranges
+- **Criticality** — Impact if unavailable
+
+### Dependency Types
+- **Critical** — System cannot function without
+- **Optional** — Enhances functionality but not required
+- **Conditional** — Required only in specific configurations
+
+### Documentation
+For each dependency, document latency tolerance, caching
+strategy, and fallback alternatives.
+''')
   String? content;
 
   /// Contains 0+× Runtime Dependency.
@@ -514,7 +578,26 @@ class RuntimeDependencies {
 /// update sequences, and breaking-change handling.
 @SectionId('PD00-COM-MAI')
 class MaintenanceDependencies {
-  @Unused()
+  @ContentHelp('''
+## Maintenance Dependencies (12.5)
+
+Maintenance relationships and update coordination.
+
+### Compatibility Matrix
+- Version compatibility between components
+- Breaking change impact analysis
+- Required coordinated updates
+
+### Update Sequences
+- Dependent component update order
+- Rollback procedures
+- Compatibility windows
+
+### Lifecycle Management
+- End-of-life monitoring
+- Migration planning
+- Deprecation handling
+''')
   String? content;
 
   /// Contains 0+× Maintenance Dependency.
@@ -638,7 +721,28 @@ class MaintenanceDependencyEntry {
 /// monitoring, mitigation strategies, and contingency plans.
 @SectionId('PD00-COM-RIS')
 class ComponentRiskAssessment {
-  @Unused()
+  @ContentHelp('''
+## Risk Assessment (12.6)
+
+Component risk assessment and contingency planning.
+
+### Risk Categories
+- **Vendor risks** — Abandonment, acquisition, pricing changes
+- **Technical risks** — Security vulnerabilities, performance
+- **Licensing risks** — License changes, compliance issues
+- **Operational risks** — Support quality, documentation gaps
+
+### Risk Analysis
+Each risk includes:
+- Probability and impact
+- Current mitigation status
+- Monitoring approach
+- Escalation triggers
+
+### Subsections
+- **12.6.1 Component Risks** — Individual risk entries
+- **12.6.2 Contingency Plans** — Response plans for critical risks
+''')
   String? content;
 
   /// 12.6.1. Component Risks [PD00-COM-RIS-RIS] — contains 0+× Risk.
@@ -654,7 +758,26 @@ class ComponentRiskAssessment {
 /// Container for contingency plans addressing critical component risks.
 @SectionId('PD00-COM-RIS-CON')
 class ContingencyPlans {
-  @Unused()
+  @ContentHelp('''
+## Contingency Plans (12.6.2)
+
+Plans for responding to component risk events.
+
+### Plan Components
+- **Trigger conditions** — What activates the plan
+- **Immediate actions** — Containment steps
+- **Recovery actions** — Full restoration
+- **RTO/RPO** — Recovery time/point objectives
+- **Communication** — Internal and external messaging
+
+### Testing
+- Tabletop exercises
+- Simulated failures
+- Post-test improvements
+
+### Dependencies
+Document tools, access, and backups required to execute.
+''')
   String? content;
 
   /// Contains 0+× ContingencyPlan.
