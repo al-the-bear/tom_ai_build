@@ -1218,29 +1218,103 @@ class WorkflowExceptionEntry {
 
 /// 1.2.2. Process Metrics [PD00-CUR-PRO-MET].
 ///
-/// Quantitative metrics for measuring process performance.
+/// Quantitative metrics for measuring process performance. These metrics
+/// form the baseline against which improvements will be measured.
 @SectionIdPattern('PD00-CUR-PRO-xx-MET')
-@ContentHelp('Define measurable metrics that capture current process performance. '
-    'These metrics will serve as the baseline for measuring improvement.')
+@ContentHelp('Document current process performance including throughput, '
+    'cycle times, error rates, and manual intervention frequency. '
+    'These become the baseline against which improvements are measured.')
 class ProcessMetrics {
   @ContentType('description', 'Overview of process metrics and measurement approach.')
+  @ContentHelp('Describe the overall approach to measuring process performance. '
+      'Include data collection methods, measurement periods, and data quality notes.')
   String? content;
 
-  /// Efficiency metrics.
+  /// Metrics dashboard summary [PD00-CUR-PRO-xx-MET-SUM].
+  @Comment('Executive summary of key metrics')
+  MetricsDashboardSummary? dashboardSummary;
+
+  /// Efficiency metrics [PD00-CUR-PRO-xx-MET-EFF].
+  @Comment('Throughput, cycle times, utilization')
   ProcessMetricCategory efficiencyMetrics = ProcessMetricCategory();
 
-  /// Quality metrics.
+  /// Quality metrics [PD00-CUR-PRO-xx-MET-QUA].
+  @Comment('Error rates, defect rates, rework rates')
   ProcessMetricCategory qualityMetrics = ProcessMetricCategory();
 
-  /// Volume metrics.
+  /// Volume metrics [PD00-CUR-PRO-xx-MET-VOL].
+  @Comment('Transaction counts, throughput volumes')
   ProcessMetricCategory volumeMetrics = ProcessMetricCategory();
 
-  /// Cost metrics.
+  /// Cost metrics [PD00-CUR-PRO-xx-MET-COS].
+  @Comment('Cost per transaction, resource costs')
   ProcessMetricCategory costMetrics = ProcessMetricCategory();
+
+  /// Manual intervention metrics [PD00-CUR-PRO-xx-MET-MAN].
+  @Comment('Manual steps, human intervention frequency')
+  ProcessMetricCategory manualInterventionMetrics = ProcessMetricCategory();
 
   /// Individual metric entries.
   @SectionIdPattern('PD00-CUR-PRO-xx-MET-xx')
   List<ProcessMetricEntry> items = [];
+
+  /// Baseline comparison table [PD00-CUR-PRO-xx-MET-BAS].
+  @Comment('Summary table for baseline tracking')
+  MetricsBaselineTable? baselineTable;
+}
+
+/// Metrics dashboard summary for executive overview.
+class MetricsDashboardSummary {
+  @Form([
+    Field('measurementPeriod', String, 'Measurement Period',
+        hint: 'Time period covered by these metrics, e.g., Q1 2024'),
+    Field('dataQuality', String, 'Data Quality Assessment',
+        hint: 'High / Medium / Low - confidence in metric accuracy'),
+    Field('keyThroughput', String, 'Key Throughput Metric',
+        hint: 'Primary volume metric, e.g., 5000 orders/day'),
+    Field('averageCycleTime', String, 'Average Cycle Time',
+        hint: 'End-to-end processing time, e.g., 4.2 hours'),
+    Field('overallErrorRate', String, 'Overall Error Rate',
+        hint: 'Combined error rate, e.g., 3.2%'),
+    Field('manualInterventionRate', String, 'Manual Intervention Rate',
+        hint: 'Percentage of cases requiring manual handling'),
+    Field('processEfficiency', String, 'Process Efficiency',
+        hint: 'Value-add time vs total time ratio'),
+    Field('capacityUtilization', String, 'Capacity Utilization',
+        hint: 'Current volume vs maximum capacity'),
+    Field('complianceRate', String, 'SLA/Compliance Rate',
+        hint: 'Percentage meeting SLA targets'),
+    Field('trendSummary', String, 'Overall Trend',
+        hint: 'Improving / Stable / Declining'),
+  ])
+  String? content;
+}
+
+/// Baseline table for tracking metrics over time.
+class MetricsBaselineTable {
+  @ContentType('description', 'Baseline tracking approach and comparison periods.')
+  @ContentHelp('Document how baseline metrics will be used to measure improvement. '
+      'Include comparison periods and target improvement percentages.')
+  String? content;
+
+  /// Baseline entries.
+  List<MetricsBaselineEntry> entries = [];
+}
+
+/// A baseline entry for tracking metric changes.
+class MetricsBaselineEntry {
+  @Form([
+    Field('metricName', String, 'Metric Name', required: true),
+    Field('baselineValue', String, 'Baseline Value (current state)'),
+    Field('baselineDate', String, 'Baseline Date'),
+    Field('targetValue', String, 'Target Value'),
+    Field('targetDate', String, 'Target Date'),
+    Field('improvementTarget', String, 'Improvement Target',
+        hint: 'Percentage or absolute improvement expected'),
+    Field('trackingFrequency', String, 'Tracking Frequency',
+        hint: 'How often this metric will be re-measured'),
+  ])
+  String? content;
 }
 
 /// A category of process metrics.
