@@ -10,8 +10,47 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 /// 8. Technical Framework Concept [PD00-TEC]. Seeds → TR.
 @SectionId('PD00-TEC')
 @Comment('Seeds → TR')
+@ContentHelp('''
+Describe the complete technical foundation for building and operating
+the target system. This section seeds the Technical Requirements (TR)
+document where all technical decisions will be expanded into detailed
+implementation specifications.
+
+**Purpose**: Establish technical constraints, architectural decisions,
+and infrastructure requirements that guide all development work.
+
+**Structure Overview**:
+- **Basic Technical Requirements**: Platform, architecture style, patterns
+- **Software Design**: Layering, development environment, reusable components
+- **Standard Software**: Compatibility, standards compliance
+- **Hardware**: Server, client, network infrastructure
+- **Operations**: Backup, deployment, monitoring, maintenance
+- **Communication**: Protocols, external connectivity
+- **System Operation**: Administration, health checks, capacity
+- **Security**: IT security standards, privacy, auditing
+
+**Integration Points**: All subsections feed into TR document. Decisions
+must align with business requirements from PD00-TAR and system overview
+from PD00-SYS. Security requirements coordinate with PD00-ACC.
+''')
 class TechnicalFrameworkConcept {
-  @Unused()
+  @ContentHelp('''
+Provide an executive summary of the technical framework approach.
+
+**Include**:
+- Key architectural decisions and rationale
+- Critical technology choices and constraints
+- Major technical risks and mitigation strategies
+- Technology evaluation criteria used
+- Timeline for technical decisions and reviews
+
+**Best Practices**:
+- Reference industry standards (ISO 42010, TOGAF, IEEE 1471)
+- Document trade-offs explicitly (e.g., time-to-market vs. scalability)
+- Include technology radar assessment (Adopt, Trial, Assess, Hold)
+- Cross-reference with business drivers from project overview
+- Plan for technology obsolescence and migration paths
+''')
   String? content;
 
   /// 8.1. Basic Technical Requirements [PD00-TEC-BAS].
@@ -41,8 +80,47 @@ class TechnicalFrameworkConcept {
 
 /// 8.1. Basic Technical Requirements [PD00-TEC-BAS].
 @SectionId('PD00-TEC-BAS')
+@ContentHelp('''
+Define the foundational technical requirements that govern all system
+development. These decisions have far-reaching implications and should
+be made early with careful stakeholder alignment.
+
+**Subsections**:
+- **Platform and Language**: Runtime environments, programming languages,
+  frameworks, build toolchain, deployment targets
+- **Architecture Style**: Monolith, microservices, serverless, or hybrid;
+  component organization; communication patterns; scalability approach
+- **Design Patterns and Standards**: Required patterns, coding standards,
+  industry compliance (ISO, OWASP, IEEE), quality metrics
+
+**Decision Criteria**:
+- Business requirements alignment (performance, availability, cost)
+- Team capabilities and hiring market
+- Ecosystem maturity and vendor support
+- Long-term maintainability and evolution
+- Regulatory and compliance requirements
+
+**Reference Frameworks**: TOGAF, C4 Model, ISO/IEC 25010 (quality model),
+OWASP guidelines, IEEE 1471 architectural description.
+''')
 class BasicTechnicalRequirements {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of basic technical requirements and key decisions.
+
+**Include**:
+- Summary of platform and language choices
+- Architecture style justification
+- Key design patterns and standards adopted
+- Major technical constraints and their origins
+- Dependencies between technical choices
+
+**Best Practices**:
+- Use Architecture Decision Records (ADRs) for major decisions
+- Document rejected alternatives and reasons
+- Identify reversible vs. irreversible decisions
+- Plan technical debt management strategy
+- Establish technology evaluation criteria
+''')
   String? content;
 
   /// 8.1.1. Platform and Language [PD00-TEC-BAS-PLA].
@@ -65,8 +143,50 @@ class BasicTechnicalRequirements {
 /// Required platforms (operating system, runtime), programming languages,
 /// and framework choices with minimum versions and justification.
 @SectionId('PD00-TEC-BAS-PLA')
+@ContentHelp('''
+Specify all platform targets, programming languages, frameworks, build
+tools, and deployment configurations. These choices define the technical
+foundation and constrain future development options.
+
+**Coverage Areas**:
+- **Target Platforms**: OS (Linux, Windows, macOS), runtimes (Node.js,
+  JVM, .NET), containers (Docker, Kubernetes), cloud platforms (AWS,
+  Azure, GCP), mobile (iOS, Android), embedded systems
+- **Programming Languages**: Primary and secondary languages, version
+  requirements, SDK specifications, type safety requirements
+- **Frameworks**: UI frameworks (Flutter, React, Angular), backend
+  frameworks (Spring, Django, Express), testing frameworks, ORM/database
+- **Build Toolchain**: Build systems, code generators, bundlers, package
+  managers, CI/CD integration, artifact repositories
+- **Deployment Targets**: Production environments, staging, development,
+  edge deployment, app stores, container registries
+
+**Decision Factors**:
+- Performance requirements and benchmarks
+- Team expertise and learning curve
+- Ecosystem maturity and community support
+- License compatibility (MIT, Apache, GPL implications)
+- Long-term support and vendor viability
+- Cross-platform requirements and code sharing
+''')
 class PlatformAndLanguage {
-  @Unused()
+  @ContentHelp('''
+Provide a strategic overview of platform and technology selections.
+
+**Include**:
+- Executive summary of technology stack
+- Primary vs. secondary platform priorities
+- Polyglot strategy rationale (if using multiple languages)
+- Platform-specific considerations and trade-offs
+- Technology adoption timeline and migration paths
+
+**Best Practices**:
+- Document minimum viable versions with EOL dates
+- Specify LTS (Long-Term Support) requirements
+- Plan for breaking changes in major version upgrades
+- Consider developer experience and productivity
+- Evaluate total cost of ownership (licensing, training, tooling)
+''')
   String? content;
 
   /// General platform and technology overview.
@@ -518,8 +638,51 @@ class RuntimeEnvironment {
 /// microservices, event-driven, serverless, or hybrid. Includes justification
 /// based on project requirements, architectural principles, and design decisions.
 @SectionId('PD00-TEC-BAS-ARC')
+@ContentHelp('''
+Define the system's architectural style and structural organization.
+Architecture decisions have long-lasting impacts on maintainability,
+scalability, team structure, and operational complexity.
+
+**Architectural Styles**:
+- **Monolith**: Single deployable unit; simple operations, harder to scale
+  teams; suitable for small-medium applications
+- **Modular Monolith**: Monolith with internal module boundaries; clean
+  architecture within single deployment; migration path to microservices
+- **Microservices**: Independent services; team autonomy, operational
+  complexity; requires mature DevOps practices
+- **Event-Driven**: Loosely coupled via events; async communication,
+  eventual consistency; CQRS/Event Sourcing patterns
+- **Serverless**: FaaS (Functions as a Service); auto-scaling, cold starts,
+  vendor lock-in considerations
+- **Hybrid**: Combination of styles for different system parts
+
+**Architecture Artifacts**:
+- Component diagrams (C4 model: Context, Container, Component, Code)
+- Data flow diagrams and integration maps
+- Deployment topology and infrastructure architecture
+- Architecture Decision Records (ADRs)
+- Quality attribute scenarios (performance, security, availability)
+
+**Reference**: ISO/IEC 42010, TOGAF ADM, arc42 template, C4 model.
+''')
 class ArchitectureStyle {
-  @Unused()
+  @ContentHelp('''
+Provide the architectural vision and primary style selection rationale.
+
+**Include**:
+- Primary architectural style with justification
+- Key architectural drivers (business and technical)
+- Quality attribute requirements (availability, performance, security)
+- Architectural trade-offs accepted and their rationale
+- Evolution path and migration strategy
+
+**Best Practices**:
+- Use Architecture Trade-off Analysis Method (ATAM)
+- Document quality attribute scenarios with measurable targets
+- Consider Conway's Law and team organization
+- Plan for architectural fitness functions
+- Establish architectural governance process
+''')
   String? content;
 
   /// Architecture overview and primary style selection.
@@ -1076,8 +1239,52 @@ class ArchitectureDecisionRecord {
 /// Required design patterns, coding standards, development conventions, and
 /// applicable industry standards (ISO, OWASP, IEEE).
 @SectionId('PD00-TEC-BAS-PAT')
+@ContentHelp('''
+Specify required design patterns, coding standards, development conventions,
+and industry standards compliance. Consistent patterns improve code
+quality, maintainability, and team productivity.
+
+**Design Patterns**:
+- **Creational**: Factory, Builder, Singleton, Dependency Injection
+- **Structural**: Adapter, Decorator, Facade, Proxy, Composite
+- **Behavioral**: Observer, Strategy, Command, State, Chain of Responsibility
+- **Architectural**: Repository, Unit of Work, CQRS, Event Sourcing
+- **Concurrency**: Thread Pool, Producer-Consumer, Async/Await patterns
+- **Integration**: API Gateway, Circuit Breaker, Retry, Bulkhead
+
+**Coding Standards**:
+- Language-specific style guides (PEP 8, Google Style, Airbnb)
+- Naming conventions and code organization
+- Documentation requirements (doc comments, README standards)
+- Testing requirements (unit, integration, e2e coverage targets)
+- Code review checklist and approval criteria
+
+**Industry Standards**:
+- **Security**: OWASP Top 10, OWASP ASVS, CWE
+- **Quality**: ISO/IEC 25010, CMMI
+- **Documentation**: IEEE 830, ISO/IEC 26514
+- **Process**: ISO 27001, SOC 2, GDPR, HIPAA
+
+**Enforcement**: Linters, static analysis, automated checks in CI/CD.
+''')
 class DesignPatternsAndStandards {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of the design patterns and standards approach.
+
+**Include**:
+- Core pattern library with usage guidelines
+- Coding standards summary with enforcement mechanisms
+- Industry compliance requirements and evidence
+- Code quality metrics and thresholds
+- Exception handling and error patterns
+
+**Best Practices**:
+- Create pattern catalog with examples and anti-patterns
+- Automate standards enforcement in CI/CD pipeline
+- Document when NOT to use certain patterns
+- Plan regular pattern and standards reviews
+- Establish technical debt tracking for standards violations
+''')
   String? content;
 
   /// Overview of design patterns and standards approach.
@@ -1543,8 +1750,47 @@ class TestingStandards {
 
 /// 8.2. Software Design Requirements [PD00-TEC-SOF].
 @SectionId('PD00-TEC-SOF')
+@ContentHelp('''
+Define software architecture, development environment, and component
+reusability requirements. These decisions shape developer experience,
+productivity, and code maintainability.
+
+**Subsections**:
+- **Layering and Module Structure**: Clean architecture, DDD bounded
+  contexts, package organization, dependency rules
+- **Development Environment**: IDEs, build tools, version control, CI/CD
+  pipelines, code review process, local development setup
+- **Reusable Components**: Shared libraries, UI components, business logic
+  extraction, component governance and discovery
+
+**Key Considerations**:
+- Developer productivity and fast feedback loops
+- Onboarding time for new team members
+- Code sharing and duplication prevention
+- Build and test execution performance
+- Local development parity with production
+
+**Reference**: Clean Architecture (Uncle Bob), Domain-Driven Design,
+SOLID principles, Twelve-Factor App methodology.
+''')
 class SoftwareDesignRequirements {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of software design approach and key decisions.
+
+**Include**:
+- Software layering strategy summary
+- Development environment philosophy
+- Component reuse strategy and governance
+- Key design principles adopted
+- Developer experience priorities
+
+**Best Practices**:
+- Document dependency direction rules
+- Define clear module boundaries and contracts
+- Establish internal open-source practices for shared code
+- Plan for refactoring and architecture evolution
+- Create architecture fitness functions
+''')
   String? content;
 
   /// 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY].
@@ -1567,8 +1813,52 @@ class SoftwareDesignRequirements {
 /// Software layering (presentation, business logic, data access, infrastructure)
 /// and module structure (bounded contexts, packages, libraries).
 @SectionId('PD00-TEC-SOF-LAY')
+@ContentHelp('''
+Define software layering approach, module organization, and dependency
+management rules. Clear boundaries prevent spaghetti architecture and
+enable independent development and testing.
+
+**Common Layering Approaches**:
+- **Clean Architecture**: Entities → Use Cases → Interface Adapters →
+  Frameworks & Drivers (dependencies point inward)
+- **Hexagonal (Ports & Adapters)**: Domain core with ports (interfaces)
+  and adapters (implementations)
+- **Onion Architecture**: Domain Model → Domain Services → Application
+  Services → Infrastructure
+- **Traditional N-Tier**: Presentation → Business Logic → Data Access
+
+**Module Organization**:
+- **By Feature/Domain**: Vertical slices containing all layers for a feature
+- **By Layer**: Horizontal separation (all controllers, all repositories)
+- **Bounded Contexts (DDD)**: Independent modules with clear context maps
+- **Package-by-Component**: Self-contained components with public APIs
+
+**Dependency Rules**:
+- Define allowed and forbidden dependencies between layers/modules
+- Enforce with architecture tests (ArchUnit, deptry, import linters)
+- Use interfaces/abstractions for cross-cutting concerns
+- Keep domain logic independent of frameworks
+
+**Best Practices**: SOLID, DRY, KISS, YAGNI, Dependency Inversion.
+''')
 class LayeringAndModuleStructure {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of the layering and modularization strategy.
+
+**Include**:
+- Chosen layering approach with rationale
+- Module organization principles
+- Dependency rules and enforcement mechanism
+- Cross-cutting concerns handling (logging, auth, transactions)
+- Module communication patterns
+
+**Best Practices**:
+- Create layer/module diagrams with dependency arrows
+- Define public API contracts for each module
+- Use automated architecture tests
+- Document exception cases and technical debt
+- Plan for module extraction and scaling
+''')
   String? content;
 
   /// Overview of the layering and modularization approach.
@@ -2105,8 +2395,59 @@ class ModuleVersioningStrategy {
 /// Required IDEs, build tools, version control, CI/CD pipeline, code review
 /// process, and development workflow.
 @SectionId('PD00-TEC-SOF-DEV')
+@ContentHelp('''
+Specify development tools, workflows, and environment requirements.
+A well-defined development environment accelerates onboarding and
+ensures consistent quality across the team.
+
+**IDE and Editor Requirements**:
+- Recommended/required IDEs (VS Code, IntelliJ, Android Studio)
+- Required extensions and plugins
+- Code formatting and linting configuration
+- Shared editor settings and configuration files
+
+**Build Tools and Automation**:
+- Build systems (Gradle, Maven, Make, Bazel, Melos)
+- Code generation and preprocessing
+- Dependency management and lockfiles
+- Build profiles (debug, release, profile)
+
+**Version Control**:
+- Git workflow (trunk-based, Gitflow, GitHub Flow)
+- Branch naming and commit message conventions
+- Pull request / merge request requirements
+- Code ownership and CODEOWNERS
+
+**CI/CD Pipeline**:
+- Pipeline stages and gates
+- Automated testing requirements
+- Quality gates and metrics thresholds
+- Deployment automation and approvals
+
+**Local Development**:
+- Docker Compose / local Kubernetes setup
+- Database seeding and test data
+- Service stubbing and mocking
+- Hot reload and fast feedback loops
+''')
 class DevelopmentEnvironment {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of the development environment philosophy.
+
+**Include**:
+- Tooling philosophy and selection criteria
+- Developer onboarding target time
+- "Works on my machine" prevention strategy
+- Environment parity across dev/staging/production
+- Development metrics and productivity tracking
+
+**Best Practices**:
+- Use devcontainers or Nix for reproducible environments
+- Document "getting started" in under 30 minutes
+- Automate environment setup scripts
+- Establish development environment SLAs
+- Regular tooling retrospectives and updates
+''')
   String? content;
 
   /// Overview of development environment requirements.
@@ -2751,8 +3092,56 @@ class DevelopmentQualityGates {
 /// Components, libraries, or frameworks designed for reuse across projects
 /// or modules.
 @SectionId('PD00-TEC-SOF-REU')
+@ContentHelp('''
+Define strategy for creating and managing reusable components across
+projects and modules. Effective reuse reduces duplication, ensures
+consistency, and accelerates development.
+
+**Component Categories**:
+- **UI Components**: Design system components, widgets, layouts, themes
+- **Business Logic**: Domain services, validation rules, calculations
+- **Infrastructure**: Logging, caching, HTTP clients, database access
+- **Utilities**: String manipulation, date handling, formatters
+- **Third-Party Wrappers**: Abstraction layers over external libraries
+
+**Reusability Principles**:
+- Extract when used 3+ times (Rule of Three)
+- Prefer composition over inheritance
+- Design for extension, closed for modification (Open/Closed)
+- Keep components focused (Single Responsibility)
+- Version independently when appropriate
+
+**Component Governance**:
+- Ownership and maintenance responsibilities
+- Contribution and review process
+- Deprecation and migration policies
+- Documentation requirements
+- Testing and quality standards
+
+**Discovery and Registry**:
+- Component catalog and documentation portal
+- Searchable API documentation
+- Usage examples and integration guides
+- Version compatibility matrix
+''')
 class ReusableComponentsSection {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of the reusability strategy and component library.
+
+**Include**:
+- Reuse-first culture and policies
+- Component library organization
+- Contribution and adoption process
+- Success metrics (reuse rate, contribution rate)
+- Key shared components and their purposes
+
+**Best Practices**:
+- Start with "extract when needed" not "build speculatively"
+- Establish inner-source practices for contributions
+- Create component design guidelines
+- Track component usage and dependencies
+- Plan for breaking change management
+''')
   String? content;
 
   /// Overview of reusability strategy.
@@ -3204,8 +3593,51 @@ class ComponentRegistry {
 
 /// 8.3. Standard Application Software Requirements [PD00-TEC-STA].
 @SectionId('PD00-TEC-STA')
+@ContentHelp('''
+Define requirements for standard software, third-party components, and
+compatibility with existing IT infrastructure. Enterprise integration
+often requires alignment with established platforms and protocols.
+
+**Subsections**:
+- **Compatibility Requirements**: OS compatibility, browser support,
+  database compatibility, enterprise system integration
+- **Standards Compliance**: IT standards (ISO, IEEE, NIST), industry
+  protocols, regulatory requirements, certification needs
+
+**Evaluation Criteria for Commercial/Open-Source Software**:
+- Functional fit with requirements
+- Total cost of ownership (license, support, training)
+- Vendor stability and roadmap alignment
+- Community health and update frequency
+- Security track record and vulnerability response
+- Integration capabilities and API availability
+- Data portability and exit strategy
+
+**Enterprise Considerations**:
+- Existing enterprise licenses and preferred vendors
+- IT governance and procurement processes
+- Support agreements and SLAs
+- Training and documentation availability
+- Scalability and high-availability options
+''')
 class StandardSoftwareRequirements {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of standard software requirements approach.
+
+**Include**:
+- Build vs. buy decision criteria
+- Preferred vendor and technology partners
+- Compatibility priority matrix
+- Standards compliance roadmap
+- Migration plans for legacy systems
+
+**Best Practices**:
+- Create technology evaluation scorecards
+- Document vendor relationship management
+- Plan for software sunset and replacement
+- Maintain compatibility testing matrix
+- Establish proof-of-concept requirements
+''')
   String? content;
 
   /// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
@@ -3225,8 +3657,52 @@ class StandardSoftwareRequirements {
 /// Compatibility requirements with existing IT infrastructure, standard software,
 /// and enterprise systems.
 @SectionId('PD00-TEC-STA-COM')
+@ContentHelp('''
+Specify compatibility requirements with existing infrastructure, software,
+and enterprise systems. Compatibility ensures smooth integration and
+avoids costly surprises during deployment.
+
+**Compatibility Dimensions**:
+- **Operating System**: Desktop OS (Windows, macOS, Linux), server OS,
+  mobile OS (iOS, Android), embedded systems
+- **Browser**: Chrome, Firefox, Safari, Edge with version minimums;
+  progressive enhancement vs. graceful degradation strategy
+- **Database**: RDBMS (PostgreSQL, MySQL, SQL Server, Oracle), NoSQL
+  (MongoDB, Redis, Elasticsearch), compatibility modes and drivers
+- **Enterprise Systems**: ERP (SAP, Oracle), CRM (Salesforce), LDAP/AD,
+  SSO providers, message queues, API gateways
+
+**Compatibility Testing**:
+- Browser testing matrix and automation (Playwright, Selenium)
+- OS compatibility testing (virtual machines, device farms)
+- Database compatibility and migration testing
+- Integration testing with enterprise systems
+- Backward compatibility verification
+
+**Versioning Strategy**:
+- API versioning approach (URL, header, media type)
+- Database schema version management
+- Client version compatibility windows
+- Feature flags for gradual rollouts
+''')
 class CompatibilityRequirementsSection {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of compatibility requirements and testing strategy.
+
+**Include**:
+- Critical compatibility requirements
+- Testing approach and coverage
+- Known compatibility limitations
+- Browser/OS support policy
+- Deprecation and sunset timeline
+
+**Best Practices**:
+- Maintain live compatibility matrix
+- Automate compatibility testing in CI
+- Define clear support tiers (full, limited, best-effort)
+- Plan for mobile OS release cycles
+- Document workarounds for known issues
+''')
   String? content;
 
   /// Overview of compatibility strategy.
@@ -3810,8 +4286,52 @@ class InteroperabilityRequirements {
 /// Required compliance with IT standards, industry protocols, and interface
 /// specifications.
 @SectionId('PD00-TEC-STA-STD')
+@ContentHelp('''
+Specify compliance requirements with IT standards, industry protocols,
+regulatory frameworks, and certification requirements. Standards compliance
+is often mandatory for enterprise and regulated industries.
+
+**IT Standards**:
+- **ISO/IEC**: 27001 (InfoSec), 9001 (Quality), 22301 (Business Continuity),
+  25010 (Software Quality), 12207 (Lifecycle)
+- **IEEE**: 830 (Requirements), 1471 (Architecture), 29148 (Requirements)
+- **NIST**: Cybersecurity Framework, SP 800-53 controls
+
+**Industry Protocols**:
+- **API**: REST, GraphQL, gRPC, OpenAPI/Swagger specifications
+- **Data**: JSON, XML, Protocol Buffers, Avro schemas
+- **Security**: OAuth 2.0, OIDC, SAML, JWT, mTLS
+- **Messaging**: AMQP, MQTT, WebSocket, Server-Sent Events
+
+**Regulatory Compliance**:
+- **Privacy**: GDPR, CCPA, PIPEDA, LGPD, HIPAA
+- **Financial**: PCI-DSS, SOX, Basel III
+- **Industry**: FedRAMP, HITRUST, PSD2, MiFID II
+
+**Certification Requirements**:
+- SOC 2 Type I/II
+- ISO 27001 certification
+- Industry-specific certifications
+- Third-party security assessments
+''')
 class StandardsComplianceSection {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of standards compliance strategy and roadmap.
+
+**Include**:
+- Applicable standards and regulations
+- Current compliance status
+- Gap analysis and remediation plan
+- Certification timeline and budget
+- Ongoing compliance maintenance
+
+**Best Practices**:
+- Map standards to specific controls
+- Automate compliance evidence collection
+- Schedule regular compliance reviews
+- Train team on compliance requirements
+- Engage compliance consultants for audits
+''')
   String? content;
 
   /// Overview of standards compliance strategy.
@@ -4411,8 +4931,51 @@ class ComplianceVerificationSection {
 
 /// 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
 @SectionId('PD00-TEC-HAR')
+@ContentHelp('''
+Define hardware infrastructure requirements for servers, clients, and
+network. Hardware decisions impact performance, availability, cost,
+and operational complexity.
+
+**Subsections**:
+- **Server Requirements**: Compute (CPU, memory, GPU), storage, load
+  profiles, scaling, virtualization, cloud providers
+- **Client Requirements**: Browser requirements, desktop/mobile devices,
+  display specifications, accessibility devices
+- **Network Requirements**: Bandwidth, latency, availability, geographic
+  distribution, VPN, firewall, CDN
+
+**Deployment Models**:
+- **On-Premises**: Full control, capital expenditure, data sovereignty
+- **Cloud (IaaS)**: Virtual machines, managed infrastructure, OpEx model
+- **Cloud (PaaS)**: Managed services, less control, faster development
+- **Hybrid**: Mix of on-prem and cloud for compliance/optimization
+- **Edge**: Distributed compute for latency-sensitive applications
+
+**Capacity Planning Considerations**:
+- Current and projected user load
+- Data growth rate and retention
+- Peak vs. average utilization
+- Burst capacity requirements
+- Geographic distribution needs
+''')
 class HardwareRequirements {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of hardware strategy and infrastructure approach.
+
+**Include**:
+- Infrastructure strategy (cloud, on-prem, hybrid)
+- Key capacity requirements
+- Cost optimization approach
+- Disaster recovery infrastructure
+- Hardware refresh and upgrade plan
+
+**Best Practices**:
+- Use Infrastructure as Code (Terraform, Pulumi)
+- Plan for 3x peak capacity
+- Implement auto-scaling where possible
+- Document hardware assumptions and risks
+- Regular capacity reviews and forecasting
+''')
   String? content;
 
   /// 8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
@@ -4434,8 +4997,57 @@ class HardwareRequirements {
 /// Server compute requirements: CPU, memory, storage, expected load profile,
 /// and scaling requirements.
 @SectionId('PD00-TEC-HAR-SRV')
+@ContentHelp('''
+Specify server infrastructure requirements including compute, storage,
+scaling, and high availability. Server sizing directly impacts
+performance, cost, and reliability.
+
+**Compute Requirements**:
+- CPU: Core count, clock speed, architecture (x86, ARM, GPU)
+- Memory: RAM size, memory-to-CPU ratio, swap configuration
+- GPU: For ML/AI workloads, graphics processing, video transcoding
+
+**Storage Requirements**:
+- Storage type: SSD, NVMe, HDD, network storage (NAS, SAN)
+- IOPS and throughput requirements
+- Storage tiers (hot, warm, cold, archive)
+- Backup and snapshot storage
+
+**Environment Tiers**:
+- Production: Full capacity, HA, all security controls
+- Staging: Production-like for final testing
+- Development: Minimal resources, rapid iteration
+- Disaster Recovery: Standby capacity for failover
+
+**Scaling Strategy**:
+- Vertical scaling limits and upgrade paths
+- Horizontal scaling: stateless design, load balancing
+- Auto-scaling triggers and limits
+- Database scaling: read replicas, sharding
+
+**Cloud Provider Services**:
+- Compute: EC2, Cloud Compute, Azure VMs, Cloud Run, Lambda
+- Managed Kubernetes: EKS, GKE, AKS
+- Serverless: Lambda, Cloud Functions, Azure Functions
+''')
 class ServerRequirementsSection {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of server infrastructure strategy.
+
+**Include**:
+- Server tier definitions and sizing
+- Scaling strategy and limits
+- High availability approach
+- Cloud provider selection rationale
+- Cost estimates and optimization plan
+
+**Best Practices**:
+- Right-size instances based on actual usage
+- Use reserved instances for stable workloads
+- Implement cost allocation tagging
+- Plan for zone and region redundancy
+- Document capacity planning assumptions
+''')
   String? content;
 
   /// Overview of server infrastructure strategy.
@@ -4967,8 +5579,59 @@ class ServerOsRequirements {
 /// Minimum client requirements: browser versions, operating systems, screen
 /// resolution, network bandwidth, and device capabilities.
 @SectionId('PD00-TEC-HAR-CLI')
+@ContentHelp('''
+Specify client device requirements including browsers, operating systems,
+display specifications, and accessibility needs. Client requirements
+define the user experience boundary conditions.
+
+**Browser Requirements**:
+- Supported browsers with minimum versions
+- Browser feature requirements (WebGL, WebRTC, Service Workers)
+- Mobile browser considerations (Safari iOS, Chrome Android)
+- Progressive Web App (PWA) requirements
+
+**Desktop Requirements**:
+- Operating systems: Windows 10/11, macOS 12+, Linux distributions
+- Hardware minimums: CPU, RAM, disk space
+- Required software: .NET runtime, Java, etc.
+- Installation and update mechanisms
+
+**Mobile Requirements**:
+- iOS minimum version and device support
+- Android API level and device compatibility
+- Form factors: phone, tablet, foldable
+- App store requirements and restrictions
+
+**Display Requirements**:
+- Minimum screen resolution
+- Responsive design breakpoints
+- Touch vs. mouse/keyboard interactions
+- HiDPI and retina display support
+
+**Accessibility Requirements**:
+- WCAG 2.1 compliance level (A, AA, AAA)
+- Screen reader compatibility
+- Keyboard navigation
+- Color contrast and visual accommodations
+''')
 class ClientRequirementsSection {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of client requirements and support strategy.
+
+**Include**:
+- Browser support matrix and testing approach
+- Mobile device tier definitions
+- Accessibility compliance target
+- Progressive enhancement strategy
+- Client update and compatibility policy
+
+**Best Practices**:
+- Test on real devices, not just emulators
+- Use browser usage analytics for prioritization
+- Plan for evergreen browser updates
+- Document graceful degradation strategy
+- Regular accessibility audits
+''')
   String? content;
 
   /// Overview of client requirements strategy.
@@ -5514,8 +6177,59 @@ class ClientSecurityRequirements {
 /// Network requirements: bandwidth, latency, availability, VPN/firewall rules,
 /// and geographic distribution.
 @SectionId('PD00-TEC-HAR-NET')
+@ContentHelp('''
+Specify network infrastructure requirements including bandwidth, latency,
+availability, security, and geographic distribution. Network architecture
+underpins system performance and reliability.
+
+**Network Architecture**:
+- Internal networks: VPC/VLAN structure, subnets, routing
+- External connectivity: Internet, partner connections, VPN
+- Network topology: hub-spoke, mesh, star
+- Segmentation: DMZ, application tiers, database isolation
+
+**Performance Requirements**:
+- Bandwidth: Upload/download throughput per user/service
+- Latency: Maximum acceptable latency by operation type
+- Packet loss: Acceptable thresholds
+- Jitter: For real-time applications (VoIP, video)
+
+**Availability Requirements**:
+- Uptime target: 99.9%, 99.95%, 99.99%
+- Redundancy: Dual ISP, multiple availability zones
+- Failover: Automatic failover time requirements
+- Disaster recovery: Cross-region connectivity
+
+**Security Requirements**:
+- Firewall rules and network ACLs
+- DDoS protection and mitigation
+- Intrusion detection/prevention (IDS/IPS)
+- Network monitoring and traffic analysis
+
+**Geographic Distribution**:
+- CDN requirements for static assets
+- Edge computing requirements
+- Data residency constraints
+- Multi-region deployment topology
+''')
 class NetworkRequirementsSection {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of network strategy and architecture.
+
+**Include**:
+- Network architecture overview
+- Key performance and availability requirements
+- Security perimeter design
+- Geographic distribution strategy
+- Cost and capacity considerations
+
+**Best Practices**:
+- Design for zero-trust networking
+- Implement defense in depth
+- Use Infrastructure as Code for network config
+- Monitor network performance continuously
+- Plan for network capacity growth
+''')
   String? content;
 
   /// Overview of network infrastructure strategy.
@@ -6095,8 +6809,55 @@ class NetworkSecurityRequirements {
 
 /// 8.5. Operations Requirements [PD00-TEC-OPE].
 @SectionId('PD00-TEC-OPE')
+@ContentHelp('''
+Define operational requirements for running and maintaining the system
+in production. Operations excellence directly impacts system availability,
+user experience, and team efficiency.
+
+**Subsections**:
+- **Backup and Recovery**: Backup frequency, retention, RPO/RTO, disaster
+  recovery, backup verification
+- **Deployment Strategy**: Deployment model, CI/CD pipeline, release
+  strategy, rollback, configuration management
+- **Monitoring and Alerting**: Metrics, APM, logging, alerts, dashboards,
+  on-call, incident management
+- **Maintenance Windows**: Scheduled maintenance, emergency procedures,
+  change management, user communication
+
+**DevOps/SRE Principles**:
+- Automation over manual processes
+- Immutable infrastructure
+- Everything as code (IaC, GitOps)
+- Blameless postmortems
+- Continuous improvement
+
+**Operational Metrics**:
+- MTTR (Mean Time To Recovery)
+- MTBF (Mean Time Between Failures)
+- Change failure rate
+- Deployment frequency
+- Lead time for changes
+
+**Reference**: Google SRE book, DORA metrics, ITIL practices.
+''')
 class OperationsRequirements {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of operational philosophy and key requirements.
+
+**Include**:
+- Operations team structure and responsibilities
+- Key operational metrics and targets
+- Automation maturity and goals
+- On-call and incident management approach
+- Runbook and documentation strategy
+
+**Best Practices**:
+- Implement SLOs and error budgets
+- Automate toil reduction
+- Practice chaos engineering
+- Regular disaster recovery testing
+- Continuous operational improvement
+''')
   String? content;
 
   /// 8.5.1. Backup And Recovery [PD00-TEC-OPE-BAC].
@@ -6122,8 +6883,58 @@ class OperationsRequirements {
 /// Backup frequency, retention period, recovery point objective (RPO),
 /// recovery time objective (RTO), and backup verification procedures.
 @SectionId('PD00-TEC-OPE-BAC')
+@ContentHelp('''
+Specify backup, recovery, and disaster recovery requirements. Data
+protection is critical for business continuity and compliance.
+
+**Backup Strategy**:
+- **Full Backups**: Complete data copy, longer duration, periodic
+- **Incremental**: Changes since last backup, faster, continuous
+- **Differential**: Changes since last full, balance of both
+- **Snapshot**: Point-in-time copy, instant, storage overhead
+
+**RPO and RTO Definitions**:
+- **RPO (Recovery Point Objective)**: Maximum acceptable data loss
+  (e.g., 1 hour RPO = backups every hour)
+- **RTO (Recovery Time Objective)**: Maximum acceptable downtime
+  (e.g., 4 hour RTO = must restore within 4 hours)
+
+**Backup Requirements by Data Type**:
+- Database: Transaction logs, consistent snapshots
+- File storage: Object versioning, cross-region replication
+- Configuration: Version control, secrets backup
+- Application state: Stateful service backups
+
+**Disaster Recovery Tiers**:
+- **Tier 1**: Active-active, instant failover, highest cost
+- **Tier 2**: Hot standby, minutes to failover
+- **Tier 3**: Warm standby, hours to failover
+- **Tier 4**: Cold standby, days to recover
+
+**Backup Verification**:
+- Regular restore testing
+- Backup integrity validation
+- Cross-region restore drills
+- Documented recovery procedures
+''')
 class BackupAndRecoverySection {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of backup and recovery strategy.
+
+**Include**:
+- Backup architecture and technologies
+- RPO/RTO targets by system/data type
+- Disaster recovery strategy and tier
+- Testing and verification schedule
+- Compliance requirements for data retention
+
+**Best Practices**:
+- Automate backup verification
+- Test restores regularly (quarterly minimum)
+- Document step-by-step recovery procedures
+- Cross-train team on recovery operations
+- Review and update DR plan annually
+''')
   String? content;
 
   /// Overview of backup and recovery strategy.
@@ -6554,8 +7365,59 @@ class BackupCompliance {
 /// Deployment model (containerized, VM-based, serverless), deployment pipeline,
 /// rollback strategy, and canary/blue-green deployment requirements.
 @SectionId('PD00-TEC-OPE-DEP')
+@ContentHelp('''
+Specify deployment model, CI/CD pipeline, release strategy, and rollback
+procedures. Reliable deployments enable fast iteration and reduce risk.
+
+**Deployment Models**:
+- **Containerized**: Docker, Kubernetes orchestration
+- **VM-Based**: Traditional server deployment, AMI/image-based
+- **Serverless**: Function deployment, managed scaling
+- **Hybrid**: Mix of models for different components
+
+**CI/CD Pipeline Stages**:
+1. **Build**: Compile, lint, unit tests
+2. **Test**: Integration tests, security scans
+3. **Package**: Container image, artifact creation
+4. **Deploy to Staging**: Automated deployment, smoke tests
+5. **QA/Acceptance**: Manual or automated acceptance
+6. **Deploy to Production**: Gated deployment, monitoring
+
+**Release Strategies**:
+- **Rolling**: Gradual instance replacement
+- **Blue-Green**: Two identical environments, instant switch
+- **Canary**: Small percentage rollout, gradual increase
+- **Feature Flags**: Runtime feature toggling
+
+**Rollback Strategy**:
+- Automatic rollback on health check failure
+- Manual rollback procedures and triggers
+- Database migration rollback plan
+- Configuration rollback
+
+**Infrastructure as Code**:
+- Terraform, Pulumi, CloudFormation, ARM templates
+- GitOps workflow with ArgoCD, Flux
+- Environment promotion pipeline
+''')
 class DeploymentStrategySection {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of deployment strategy and pipeline.
+
+**Include**:
+- Deployment model and orchestration
+- CI/CD pipeline overview
+- Release strategy selection and rationale
+- Rollback procedures and triggers
+- Deployment metrics and goals
+
+**Best Practices**:
+- Deploy frequently in small batches
+- Automate everything, minimize manual steps
+- Implement comprehensive deployment testing
+- Monitor deployments with automated rollback
+- Document deployment runbooks
+''')
   String? content;
 
   /// Overview of deployment strategy.
@@ -7005,8 +7867,63 @@ class DeploymentSecurity {
 /// Monitoring requirements: metrics to collect, alert thresholds, dashboard
 /// requirements, on-call procedures, and escalation paths.
 @SectionId('PD00-TEC-OPE-MON')
+@ContentHelp('''
+Specify monitoring, alerting, logging, and observability requirements.
+Effective monitoring enables rapid issue detection and resolution.
+
+**Three Pillars of Observability**:
+- **Metrics**: Quantitative measurements (latency, throughput, errors)
+- **Logs**: Discrete events with context
+- **Traces**: Request flow across services
+
+**Monitoring Infrastructure**:
+- Metrics: Prometheus, Datadog, CloudWatch, New Relic
+- Logging: ELK Stack, Splunk, CloudWatch Logs, Loki
+- Tracing: Jaeger, Zipkin, AWS X-Ray, Honeycomb
+- APM: Datadog APM, New Relic APM, Dynatrace
+
+**Key Metrics**:
+- **SLIs (Service Level Indicators)**: Latency, availability, error rate
+- **SLOs (Service Level Objectives)**: Targets for SLIs
+- **Error Budgets**: Acceptable error margin
+- **Golden Signals**: Latency, traffic, errors, saturation
+
+**Alerting Requirements**:
+- Alert severity levels and response times
+- Notification channels (PagerDuty, Slack, email)
+- Alert routing and escalation
+- Alert fatigue prevention
+
+**Dashboards and Visualization**:
+- Operational dashboards for on-call
+- Business metrics dashboards
+- Real-time vs. historical views
+- SLO tracking dashboards
+
+**Incident Management**:
+- On-call rotation and coverage
+- Incident response procedures
+- Postmortem process
+- Runbook integration
+''')
 class MonitoringAndAlertingSection {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of monitoring and observability strategy.
+
+**Include**:
+- Monitoring architecture and tools
+- Key SLIs and SLOs
+- Alerting philosophy and coverage
+- On-call structure and escalation
+- Dashboard and visualization approach
+
+**Best Practices**:
+- Monitor user-facing metrics (SLIs)
+- Set meaningful alert thresholds
+- Implement structured logging
+- Create actionable runbooks for alerts
+- Regular monitoring coverage reviews
+''')
   String? content;
 
   /// Overview of monitoring strategy.
@@ -7543,8 +8460,59 @@ class SlaMonitoringRequirements {
 /// Maintenance window requirements: frequency, duration, notification period,
 /// and impact on users.
 @SectionId('PD00-TEC-OPE-MAI')
+@ContentHelp('''
+Specify maintenance window requirements including scheduling, duration,
+communication, and change management. Planned maintenance minimizes
+disruption while enabling necessary system updates.
+
+**Maintenance Categories**:
+- **Routine**: Regular patching, updates, housekeeping
+- **Scheduled**: Planned changes requiring downtime
+- **Emergency**: Unplanned urgent changes (security patches)
+- **Zero-Downtime**: Changes without user impact
+
+**Maintenance Window Scheduling**:
+- Preferred days and times (low-traffic periods)
+- Maximum frequency (weekly, monthly, quarterly)
+- Maximum duration limits
+- Blackout periods (year-end, high-traffic events)
+
+**User Communication**:
+- Notification lead time (24h, 72h, 1 week)
+- Communication channels (email, in-app, status page)
+- Status page updates during maintenance
+- Post-maintenance notification
+
+**Change Management**:
+- Change approval process
+- Risk assessment for changes
+- Rollback criteria and procedures
+- Post-change validation
+
+**Zero-Downtime Strategies**:
+- Blue-green deployment
+- Rolling updates
+- Database migration strategies
+- Feature flags for gradual rollout
+''')
 class MaintenanceWindowsSection {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of maintenance strategy and policies.
+
+**Include**:
+- Maintenance window schedule and policy
+- Communication and notification plan
+- Change management process
+- Zero-downtime goals and approach
+- Emergency maintenance procedures
+
+**Best Practices**:
+- Minimize maintenance windows through automation
+- Test changes in staging first
+- Have rollback plan for every change
+- Communicate early and often
+- Track maintenance metrics and trends
+''')
   String? content;
 
   /// Overview of maintenance strategy.
@@ -7843,8 +8811,53 @@ class PostMaintenanceValidation {
 
 /// 8.6. Communication Requirements [PD00-TEC-COM].
 @SectionId('PD00-TEC-COM')
+@ContentHelp('''
+Define network communication requirements including protocols, security,
+and external connectivity. Communication architecture affects performance,
+security, and integration capabilities.
+
+**Subsections**:
+- **Protocols and Standards**: Communication protocols, TLS/SSL, API
+  versioning, certificate management, data formats
+- **External Connectivity**: Partner integrations, cloud services, third-
+  party APIs, service mesh, API gateway
+
+**Communication Patterns**:
+- **Synchronous**: HTTP/REST, gRPC, GraphQL (request-response)
+- **Asynchronous**: Message queues, event streaming (fire-and-forget)
+- **Real-time**: WebSocket, Server-Sent Events, WebRTC
+- **Batch**: File transfer, scheduled data exchange
+
+**Security Considerations**:
+- Transport security (TLS 1.2/1.3, certificate pinning)
+- API authentication (API keys, OAuth, mTLS)
+- Data encryption in transit and at rest
+- Rate limiting and throttling
+
+**Integration Standards**:
+- API design guidelines (REST, OpenAPI, AsyncAPI)
+- Data format standards (JSON, Protocol Buffers, Avro)
+- Error handling and response formats
+- Idempotency and retry handling
+''')
 class CommunicationRequirements {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of communication architecture and strategy.
+
+**Include**:
+- Primary communication patterns
+- Security requirements overview
+- External integration landscape
+- API design principles
+- Performance requirements
+
+**Best Practices**:
+- Design for failure (circuit breakers, retries)
+- Use asynchronous where possible
+- Implement proper error handling
+- Version APIs for backward compatibility
+- Monitor communication health
+''')
   String? content;
 
   /// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
@@ -7858,8 +8871,57 @@ class CommunicationRequirements {
 
 /// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
 @SectionId('PD00-TEC-COM-PRO')
+@ContentHelp('''
+Specify communication protocols, security standards, and API conventions.
+Standardized protocols ensure interoperability and security.
+
+**Network Protocols**:
+- **Application Layer**: HTTP/1.1, HTTP/2, HTTP/3 (QUIC), gRPC, WebSocket
+- **Transport**: TCP, UDP, QUIC
+- **Security**: TLS 1.2/1.3, DTLS, SSH
+
+**API Protocols**:
+- **REST**: Resource-based, HTTP verbs, JSON/XML
+- **GraphQL**: Query language, single endpoint, flexible queries
+- **gRPC**: Binary protocol, Protocol Buffers, streaming support
+- **WebSocket**: Full-duplex, real-time, persistent connection
+
+**TLS/SSL Requirements**:
+- Minimum TLS version (TLS 1.2 or 1.3)
+- Cipher suites (AEAD, perfect forward secrecy)
+- Certificate requirements (CA-signed, validity period)
+- Certificate pinning considerations
+
+**Certificate Management**:
+- Certificate lifecycle (issuance, renewal, revocation)
+- Automated certificate management (cert-manager, Let's Encrypt)
+- Certificate monitoring and alerting
+- Key rotation procedures
+
+**API Versioning Strategy**:
+- URL versioning (/v1/, /v2/)
+- Header versioning (Accept-Version)
+- Content negotiation (media type)
+- Deprecation and sunset policies
+''')
 class ProtocolsAndStandardsSection {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of protocol and standards approach.
+
+**Include**:
+- Primary protocols and selection rationale
+- TLS/security configuration
+- Certificate management strategy
+- API versioning approach
+- Data format standards
+
+**Best Practices**:
+- Use TLS 1.3 where supported
+- Automate certificate renewal
+- Implement proper API versioning from start
+- Document protocol requirements clearly
+- Monitor protocol compliance
+''')
   String? content;
 
   /// Overview of communication protocols and standards.
@@ -8228,8 +9290,61 @@ class ProtocolComplianceRequirements {
 
 /// 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
 @SectionId('PD00-TEC-COM-EXT')
+@ContentHelp('''
+Specify requirements for external connectivity including partner
+integrations, cloud services, and third-party APIs. External connections
+require careful security and reliability considerations.
+
+**Partner Integrations**:
+- B2B connections (EDI, API, file exchange)
+- Partner onboarding process
+- SLA and support agreements
+- Data exchange formats and protocols
+- Security requirements (VPN, mTLS, IP whitelisting)
+
+**Cloud Service Integrations**:
+- Cloud provider services (storage, messaging, ML)
+- Multi-cloud considerations
+- Vendor lock-in mitigation
+- Cost management and optimization
+
+**Third-Party API Integrations**:
+- API consumption patterns and rate limits
+- Authentication and credential management
+- Error handling and fallback strategies
+- Dependency health monitoring
+- Vendor reliability and SLAs
+
+**Service Mesh and API Gateway**:
+- Traffic management (routing, load balancing)
+- Security (authentication, authorization)
+- Observability (tracing, logging, metrics)
+- Rate limiting and throttling
+
+**Resilience Patterns**:
+- Circuit breaker implementation
+- Retry with exponential backoff
+- Bulkhead isolation
+- Graceful degradation
+''')
 class ExternalConnectivitySection {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of external connectivity landscape.
+
+**Include**:
+- Key partner and integration landscape
+- Cloud service dependencies
+- Critical third-party APIs
+- Gateway and mesh architecture
+- Resilience strategy
+
+**Best Practices**:
+- Abstract external dependencies with adapters
+- Implement comprehensive error handling
+- Monitor external dependency health
+- Have fallback strategies for critical integrations
+- Regular vendor review and risk assessment
+''')
   String? content;
 
   /// Overview of external connectivity requirements.
@@ -8561,8 +9676,53 @@ class ConnectivityResilience {
 
 /// 8.7. System Operation and Monitoring [PD00-TEC-SYS].
 @SectionId('PD00-TEC-SYS')
+@ContentHelp('''
+Define system operation, monitoring, and capacity planning requirements.
+Day-to-day operations ensure the system runs reliably and efficiently.
+
+**Subsections**:
+- **System Operation**: Administration, maintenance procedures, user
+  provisioning, configuration management
+- **Monitoring**: Health checks, alerting, metrics, dashboards, SLA/SLO
+  tracking, incident management
+- **Capacity Planning**: Growth projections, scaling triggers, resource
+  baselines, capacity reviews
+
+**Operational Excellence**:
+- Runbook-driven operations
+- Automation-first approach
+- Self-healing capabilities
+- Proactive problem detection
+- Continuous improvement
+
+**Key Operational Concerns**:
+- System availability and uptime
+- Performance and response times
+- Resource utilization efficiency
+- Security posture maintenance
+- Compliance adherence
+
+**Reference**: AWS Well-Architected Operational Excellence pillar,
+Google SRE practices, Azure operational best practices.
+''')
 class SystemOperationAndMonitoring {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of operational approach and responsibilities.
+
+**Include**:
+- Operational model (dedicated ops, DevOps, SRE)
+- Key operational metrics and targets
+- Automation and tooling strategy
+- Team structure and responsibilities
+- Continuous improvement process
+
+**Best Practices**:
+- Document everything in runbooks
+- Automate repetitive tasks
+- Implement comprehensive monitoring
+- Practice incident response
+- Regular operational reviews
+''')
   String? content;
 
   /// 8.7.1. System Operation [PD00-TEC-SYS-OPE].
@@ -8577,8 +9737,57 @@ class SystemOperationAndMonitoring {
 
 /// 8.7.1. System Operation [PD00-TEC-SYS-OPE].
 @SectionId('PD00-TEC-SYS-OPE')
+@ContentHelp('''
+Specify day-to-day system operation requirements including administration,
+maintenance, and user management. Efficient operations reduce toil and
+improve system reliability.
+
+**Administration Areas**:
+- System configuration management
+- User provisioning and access control
+- Service lifecycle management
+- Log management and retention
+- Secret and credential management
+
+**Maintenance Procedures**:
+- Routine maintenance tasks
+- Patch management process
+- Database maintenance (vacuuming, indexing)
+- Storage management and cleanup
+- Certificate and key rotation
+
+**Operational Automation**:
+- Infrastructure as Code
+- Configuration management (Ansible, Chef, Puppet)
+- Scheduled jobs and batch processing
+- Auto-remediation and self-healing
+- Chatops and operational bots
+
+**Documentation Requirements**:
+- Runbooks for common operations
+- Troubleshooting guides
+- Architecture documentation
+- Change management records
+- Incident postmortems
+''')
 class SystemOperation {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of system operation approach.
+
+**Include**:
+- Key administrative functions
+- Maintenance procedures summary
+- Automation coverage and goals
+- Documentation standards
+- Operational team interfaces
+
+**Best Practices**:
+- Automate everything possible
+- Create self-service capabilities
+- Document procedures in runbooks
+- Review and update procedures regularly
+- Track operational metrics
+''')
   String? content;
 
   /// 8.7.1.1. Administration Requirements [PD00-TEC-SYS-ADM].
@@ -8591,8 +9800,63 @@ class SystemOperation {
 
 /// 8.7.1.1. Administration Requirements [PD00-TEC-SYS-ADM].
 @SectionId('PD00-TEC-SYS-ADM')
+@ContentHelp('''
+Specify system administration requirements including admin interfaces,
+configuration management, and user provisioning. Good administration
+tools reduce operational burden and error rates.
+
+**Admin Interface Requirements**:
+- Admin portal/dashboard functionality
+- Role-based access for admin functions
+- Audit logging of all admin actions
+- Bulk operations and batch processing
+- Search and reporting capabilities
+
+**Configuration Management**:
+- Centralized configuration store (Consul, etcd, Parameter Store)
+- Environment-specific configurations
+- Feature flags and toggles
+- Dynamic configuration refresh
+- Configuration versioning and rollback
+
+**User Provisioning**:
+- User lifecycle management (create, update, disable, delete)
+- Role and permission assignment
+- SCIM or directory synchronization
+- Service account management
+- Access review and certification
+
+**Secrets Management**:
+- Secrets storage (Vault, AWS Secrets Manager)
+- Secret rotation automation
+- Encryption key management
+- Service-to-service credentials
+- Developer access to secrets
+
+**Batch Operations**:
+- Batch user imports/exports
+- Bulk data operations
+- Scheduled maintenance scripts
+- Report generation
+''')
 class AdministrationRequirementsSection {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of administration requirements.
+
+**Include**:
+- Admin interface scope and features
+- Configuration management approach
+- User provisioning workflow
+- Secrets management strategy
+- Admin team access model
+
+**Best Practices**:
+- Implement least-privilege admin access
+- Audit all administrative actions
+- Automate common admin tasks
+- Provide self-service where safe
+- Regular admin access reviews
+''')
   String? content;
 
   /// Overview of administration requirements.
@@ -9653,8 +10917,61 @@ class ErrorBudgetTracking {
 
 /// 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].
 @SectionId('PD00-TEC-SYS-HEA')
+@ContentHelp('''
+Specify health check, diagnostics, and troubleshooting requirements.
+Health checks enable rapid problem detection and automated remediation.
+
+**Health Check Types**:
+- **Liveness**: Is the process alive? (restart if not)
+- **Readiness**: Is the service ready for traffic? (remove from LB if not)
+- **Startup**: Is the service still starting? (give more time)
+- **Deep Health**: Are all dependencies healthy?
+
+**Health Check Endpoints**:
+- Standard endpoints (/health, /ready, /live)
+- Response format (JSON with details)
+- Performance requirements (fast, non-blocking)
+- Authentication considerations
+
+**Diagnostics Capabilities**:
+- Real-time log access
+- Distributed tracing
+- Request/response capture (debug mode)
+- Performance profiling
+- Memory and CPU analysis
+
+**Troubleshooting Tools**:
+- Log search and filtering
+- Trace correlation
+- Error aggregation and analysis
+- Dependency graph visualization
+- Runbook integration
+
+**Self-Healing**:
+- Automatic restart on failure
+- Circuit breaker activation
+- Traffic rerouting
+- Resource scaling
+- Alerting and escalation
+''')
 class HealthChecksAndDiagnosticsSection {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of health check and diagnostics strategy.
+
+**Include**:
+- Health check architecture
+- Diagnostics capabilities
+- Troubleshooting workflow
+- Self-healing mechanisms
+- Integration with monitoring
+
+**Best Practices**:
+- Implement all three probe types
+- Keep health checks fast and reliable
+- Include dependency health in deep checks
+- Correlate logs and traces
+- Document troubleshooting procedures
+''')
   String? content;
 
   /// Overview of health check and diagnostic strategy.
@@ -9906,8 +11223,64 @@ class DependencyHealthMonitoring {
 
 /// 8.7.3. Capacity Planning [PD00-TEC-SYS-CAP].
 @SectionId('PD00-TEC-SYS-CAP')
+@ContentHelp('''
+Specify capacity planning requirements including growth projections,
+scaling triggers, and resource management. Proactive capacity planning
+prevents performance degradation and outages.
+
+**Growth Projections**:
+- User growth forecasts (monthly, yearly)
+- Data volume growth estimates
+- Transaction/request volume projections
+- Storage growth calculations
+- Geographic expansion plans
+
+**Capacity Metrics**:
+- CPU utilization thresholds
+- Memory consumption patterns
+- Storage capacity and growth rate
+- Network bandwidth utilization
+- Database connection pools
+
+**Scaling Triggers**:
+- Auto-scaling metric thresholds
+- Manual scaling decision criteria
+- Lead time for capacity additions
+- Burst capacity requirements
+- Cost vs. performance trade-offs
+
+**Resource Baselines**:
+- Current resource utilization
+- Peak vs. average patterns
+- Seasonal variations
+- Performance benchmarks
+- Efficiency metrics
+
+**Capacity Review Process**:
+- Review frequency (monthly, quarterly)
+- Forecasting methodology
+- Budget allocation process
+- Capacity planning tools
+- Stakeholder reporting
+''')
 class CapacityPlanningSection {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of capacity planning approach.
+
+**Include**:
+- Growth projections and assumptions
+- Key capacity metrics to track
+- Scaling strategy and triggers
+- Current capacity headroom
+- Planning and review cadence
+
+**Best Practices**:
+- Plan for 2-3x peak capacity
+- Use data-driven forecasting
+- Implement auto-scaling where possible
+- Regular capacity reviews
+- Budget for growth in advance
+''')
   String? content;
 
   /// Overview of capacity planning strategy.
@@ -10201,8 +11574,54 @@ class CapacityReviewProcess {
 
 /// 8.8. Security Requirements [PD00-TEC-SEC].
 @SectionId('PD00-TEC-SEC')
+@ContentHelp('''
+Define comprehensive security requirements including IT security standards,
+data protection, privacy, and security auditing. Security is foundational
+and must be considered throughout the system lifecycle.
+
+**Subsections**:
+- **IT Security Standards**: OWASP compliance, infrastructure hardening,
+  vulnerability management, security development lifecycle
+- **Data Protection and Privacy**: GDPR/CCPA compliance, data residency,
+  consent management, data subject rights, encryption
+- **Security Audit Requirements**: Penetration testing, code review,
+  dependency scanning, certifications, compliance audits
+
+**Security Principles**:
+- Defense in depth
+- Least privilege
+- Zero trust architecture
+- Secure by default
+- Fail securely
+
+**Security Domains**:
+- Application security (OWASP Top 10, secure coding)
+- Infrastructure security (network, cloud, endpoints)
+- Data security (encryption, access control, DLP)
+- Identity and access management (AuthN, AuthZ)
+- Incident response (detection, response, recovery)
+
+**Reference Frameworks**: NIST Cybersecurity Framework, ISO 27001,
+CIS Controls, OWASP ASVS, SOC 2 Trust Criteria.
+''')
 class TechnicalSecurityRequirements {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of security approach and governance.
+
+**Include**:
+- Security principles and philosophy
+- Key security domains and controls
+- Compliance and certification requirements
+- Security team and responsibilities
+- Security metrics and reporting
+
+**Best Practices**:
+- Shift security left (earlier in SDLC)
+- Automate security testing
+- Regular security training
+- Threat modeling for new features
+- Continuous security improvement
+''')
   String? content;
 
   /// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
@@ -10220,8 +11639,64 @@ class TechnicalSecurityRequirements {
 
 /// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
 @SectionId('PD00-TEC-SEC-ITS')
+@ContentHelp('''
+Specify IT security standards including application security, infrastructure
+security, vulnerability management, and security development practices.
+Following established standards reduces security risk systematically.
+
+**Application Security (OWASP)**:
+- OWASP Top 10 mitigation (injection, XSS, CSRF, etc.)
+- OWASP ASVS (Application Security Verification Standard)
+- Secure coding guidelines by language
+- Input validation and output encoding
+- Authentication and session management
+
+**Infrastructure Security**:
+- Server hardening (CIS Benchmarks)
+- Network security (firewall rules, segmentation)
+- Cloud security configuration (AWS/Azure/GCP best practices)
+- Container security (image scanning, runtime protection)
+- Endpoint security (device management, AV/EDR)
+
+**Security Development Lifecycle**:
+- Threat modeling during design
+- Security requirements in user stories
+- Security code review process
+- Security testing (SAST, DAST, IAST)
+- Secure deployment practices
+
+**Vulnerability Management**:
+- Vulnerability scanning frequency
+- CVE monitoring and response time
+- Patch management procedures
+- Risk-based prioritization
+- Vulnerability disclosure process
+
+**Incident Response**:
+- Incident detection mechanisms
+- Response playbooks
+- Communication templates
+- Recovery procedures
+- Postmortem process
+''')
 class ItSecurityStandardsSection {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of IT security standards approach.
+
+**Include**:
+- Security standards adopted (OWASP, CIS, NIST)
+- Application security requirements
+- Infrastructure security baseline
+- Vulnerability management program
+- Security development integration
+
+**Best Practices**:
+- Automate security testing in CI/CD
+- Regular security training for developers
+- Maintain security champions in teams
+- Track security metrics and trends
+- Continuous security improvement
+''')
   String? content;
 
   /// Overview of IT security standards strategy.
@@ -10528,8 +12003,63 @@ class IncidentResponsePlan {
 /// rights (erasure, portability, access), privacy impact assessments,
 /// and data processing agreements.
 @SectionId('PD00-TEC-SEC-PRI')
+@ContentHelp('''
+Specify data protection and privacy requirements including regulatory
+compliance, data residency, consent management, and data subject rights.
+Privacy compliance is mandatory in most jurisdictions.
+
+**Privacy Regulations**:
+- **GDPR** (EU): Consent, data minimization, right to erasure, DPO
+- **CCPA/CPRA** (California): Consumer rights, opt-out, data sales
+- **LGPD** (Brazil): Similar to GDPR, data protection officer
+- **PIPEDA** (Canada): Consent and purpose limitation
+- **Industry-specific**: HIPAA (health), FERPA (education), GLBA (finance)
+
+**Data Residency**:
+- Geographic data storage requirements
+- Cross-border data transfer mechanisms
+- Data localization requirements
+- Cloud region selection considerations
+- Data transfer impact assessments
+
+**Consent Management**:
+- Consent collection user experience
+- Granular consent options
+- Consent withdrawal mechanism
+- Consent record keeping
+- Cookie consent management
+
+**Data Subject Rights**:
+- **Right to Access**: Export user data in portable format
+- **Right to Rectification**: Update incorrect data
+- **Right to Erasure**: Delete all user data (right to be forgotten)
+- **Right to Portability**: Transfer data to another provider
+- **Right to Object**: Opt-out of processing
+
+**Privacy by Design**:
+- Data minimization
+- Purpose limitation
+- Privacy impact assessments (PIA/DPIA)
+- Privacy-preserving technologies
+''')
 class DataProtectionAndPrivacySection {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of data protection and privacy strategy.
+
+**Include**:
+- Applicable privacy regulations
+- Data residency requirements
+- Consent management approach
+- Data subject rights implementation
+- Privacy governance structure
+
+**Best Practices**:
+- Implement privacy by design from start
+- Maintain data inventory and mapping
+- Automate data subject requests
+- Regular privacy impact assessments
+- Privacy training for all staff
+''')
   String? content;
 
   /// Overview of data protection and privacy strategy.
@@ -10986,8 +12516,69 @@ class DataProtectionClassification {
 /// security-focused code review, dependency scanning, security certifications,
 /// compliance audit scheduling, and automated security testing integration.
 @SectionId('PD00-TEC-SEC-AUD')
+@ContentHelp('''
+Specify security audit requirements including penetration testing, code
+review, dependency scanning, and compliance audits. Regular auditing
+validates security controls and identifies weaknesses.
+
+**Penetration Testing**:
+- Testing scope (external, internal, web, mobile, API)
+- Testing frequency (annual, quarterly, per release)
+- Testing methodology (OWASP, PTES, NIST)
+- Findings remediation timeline by severity
+- Re-testing requirements
+
+**Security Code Review**:
+- Code review checklist for security
+- Manual review requirements
+- SAST tool integration
+- High-risk code identification
+- Security review gates
+
+**Dependency Scanning**:
+- Software composition analysis (SCA)
+- CVE monitoring and alerting
+- License compliance scanning
+- Dependency update policy
+- Vulnerable dependency remediation
+
+**Security Certifications**:
+- **SOC 2 Type II**: Trust services criteria (security, availability, etc.)
+- **ISO 27001**: Information security management system
+- **FedRAMP**: US government cloud security
+- **Industry-specific**: HIPAA, PCI-DSS, HITRUST
+
+**Compliance Audits**:
+- Internal audit schedule
+- External audit requirements
+- Evidence collection and retention
+- Gap remediation tracking
+- Continuous compliance monitoring
+
+**Automated Security Testing**:
+- CI/CD security gates
+- Dynamic security testing (DAST)
+- Infrastructure security scanning
+- Compliance as code
+''')
 class SecurityAuditRequirementsSection {
-  @Unused()
+  @ContentHelp('''
+Provide an overview of security audit strategy.
+
+**Include**:
+- Penetration testing program
+- Security code review process
+- Dependency scanning approach
+- Certification roadmap
+- Audit schedule and responsibilities
+
+**Best Practices**:
+- Integrate security testing in CI/CD
+- Act on audit findings promptly
+- Maintain audit evidence repository
+- Regular security review meetings
+- Continuous improvement from findings
+''')
   String? content;
 
   /// Overview of security audit strategy and approach.

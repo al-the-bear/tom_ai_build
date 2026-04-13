@@ -412,38 +412,38 @@ All 317 sections from `pd_template.md` with content migration status.
 
 | # | Section ID | Section Name | Model Status | Content Status |
 |---|------------|--------------|--------------|----------------|
-| 124 | PD00-TEC | Technical Framework Concept | ✅ Exists | ⬜ |
-| 125 | PD00-TEC-BAS | Basic Technical Requirements | ✅ Exists | ⬜ |
-| 126 | PD00-TEC-BAS-PLA | Platform and Language | ❓ Missing | ⬜ |
-| 127 | PD00-TEC-BAS-ARC | Architecture Style | ❓ Missing | ⬜ |
-| 128 | PD00-TEC-BAS-PAT | Design Patterns and Standards | ❓ Missing | ⬜ |
-| 129 | PD00-TEC-SOF | Software Design Requirements | ✅ Exists | ⬜ |
-| 130 | PD00-TEC-SOF-LAY | Layering and Module Structure | ❓ Missing | ⬜ |
-| 131 | PD00-TEC-SOF-DEV | Development Environment | ❓ Missing | ⬜ |
-| 132 | PD00-TEC-SOF-REU | Reusable Components | ❓ Missing | ⬜ |
-| 133 | PD00-TEC-STA | Standard Application Software Requirements | ✅ Exists | ⬜ |
+| 124 | PD00-TEC | Technical Framework Concept | ✅ Exists | ✅ |
+| 125 | PD00-TEC-BAS | Basic Technical Requirements | ✅ Exists | ✅ |
+| 126 | PD00-TEC-BAS-PLA | Platform and Language | ✅ Exists | ✅ |
+| 127 | PD00-TEC-BAS-ARC | Architecture Style | ✅ Exists | ✅ |
+| 128 | PD00-TEC-BAS-PAT | Design Patterns and Standards | ✅ Exists | ✅ |
+| 129 | PD00-TEC-SOF | Software Design Requirements | ✅ Exists | ✅ |
+| 130 | PD00-TEC-SOF-LAY | Layering and Module Structure | ✅ Exists | ✅ |
+| 131 | PD00-TEC-SOF-DEV | Development Environment | ✅ Exists | ✅ |
+| 132 | PD00-TEC-SOF-REU | Reusable Components | ✅ Exists | ✅ |
+| 133 | PD00-TEC-STA | Standard Application Software Requirements | ✅ Exists | ✅ |
 | 134 | PD00-TEC-STA-COM | Compatibility Requirements | ✅ Exists | ✅ |
 | 135 | PD00-TEC-STA-STD | Standards Compliance | ✅ Exists | ✅ |
-| 136 | PD00-TEC-HAR | Hardware Concept Requirements | ✅ Exists | ⬜ |
+| 136 | PD00-TEC-HAR | Hardware Concept Requirements | ✅ Exists | ✅ |
 | 137 | PD00-TEC-HAR-SRV | Server Requirements | ✅ Exists | ✅ |
 | 138 | PD00-TEC-HAR-CLI | Client Requirements | ✅ Exists | ✅ |
-| 139 | PD00-TEC-HAR-NET | Network Requirements | ❓ Missing | ⬜ |
-| 140 | PD00-TEC-OPE | Operations Requirements | ✅ Exists | ⬜ |
-| 141 | PD00-TEC-OPE-BAC | Backup and Recovery | ❓ Missing | ⬜ |
-| 142 | PD00-TEC-OPE-DEP | Deployment Strategy | ❓ Missing | ⬜ |
-| 143 | PD00-TEC-OPE-MON | Monitoring and Alerting | ❓ Missing | ⬜ |
-| 144 | PD00-TEC-OPE-MAI | Maintenance Windows | ❓ Missing | ⬜ |
-| 145 | PD00-TEC-COM | Communication Requirements | ✅ Exists | ⬜ |
-| 146 | PD00-TEC-COM-PRO | Protocols and Standards | ❓ Missing | ⬜ |
-| 147 | PD00-TEC-COM-EXT | External Connectivity | ❓ Missing | ⬜ |
-| 148 | PD00-TEC-SYS | System Operation and Monitoring | ✅ Exists | ⬜ |
-| 149 | PD00-TEC-SYS-ADM | Administration Requirements | ❓ Missing | ⬜ |
-| 150 | PD00-TEC-SYS-HEA | Health Checks and Diagnostics | ❓ Missing | ⬜ |
-| 151 | PD00-TEC-SYS-CAP | Capacity Planning | ❓ Missing | ⬜ |
-| 152 | PD00-TEC-SEC | Security Requirements | ✅ Exists | ⬜ |
-| 153 | PD00-TEC-SEC-ITS | IT Security Standards | ❓ Missing | ⬜ |
-| 154 | PD00-TEC-SEC-PRI | Data Protection and Privacy | ❓ Missing | ⬜ |
-| 155 | PD00-TEC-SEC-AUD | Security Audit Requirements | ❓ Missing | ⬜ |
+| 139 | PD00-TEC-HAR-NET | Network Requirements | ✅ Exists | ✅ |
+| 140 | PD00-TEC-OPE | Operations Requirements | ✅ Exists | ✅ |
+| 141 | PD00-TEC-OPE-BAC | Backup and Recovery | ✅ Exists | ✅ |
+| 142 | PD00-TEC-OPE-DEP | Deployment Strategy | ✅ Exists | ✅ |
+| 143 | PD00-TEC-OPE-MON | Monitoring and Alerting | ✅ Exists | ✅ |
+| 144 | PD00-TEC-OPE-MAI | Maintenance Windows | ✅ Exists | ✅ |
+| 145 | PD00-TEC-COM | Communication Requirements | ✅ Exists | ✅ |
+| 146 | PD00-TEC-COM-PRO | Protocols and Standards | ✅ Exists | ✅ |
+| 147 | PD00-TEC-COM-EXT | External Connectivity | ✅ Exists | ✅ |
+| 148 | PD00-TEC-SYS | System Operation and Monitoring | ✅ Exists | ✅ |
+| 149 | PD00-TEC-SYS-ADM | Administration Requirements | ✅ Exists | ✅ |
+| 150 | PD00-TEC-SYS-HEA | Health Checks and Diagnostics | ✅ Exists | ✅ |
+| 151 | PD00-TEC-SYS-CAP | Capacity Planning | ✅ Exists | ✅ |
+| 152 | PD00-TEC-SEC | Security Requirements | ✅ Exists | ✅ |
+| 153 | PD00-TEC-SEC-ITS | IT Security Standards | ✅ Exists | ✅ |
+| 154 | PD00-TEC-SEC-PRI | Data Protection and Privacy | ✅ Exists | ✅ |
+| 155 | PD00-TEC-SEC-AUD | Security Audit Requirements | ✅ Exists | ✅ |
 
 ### 2.9. Chapter 9: Access and Authorization Concept [PD00-ACC]
 
