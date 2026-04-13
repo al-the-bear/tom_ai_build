@@ -2801,32 +2801,35 @@ class TechnicalConstraintEntry {
 ///
 /// Overall project success criteria that determine whether the project
 /// has achieved its objectives. These criteria will be used during
-/// acceptance testing and project closure.
+/// acceptance testing and project closure. Based on SMART criteria,
+/// Balanced Scorecard, and PRINCE2 benefits management principles.
 @SectionId('PD00-SYO-GOA-SUC')
 @ContentHelp('Define criteria that collectively determine project success. '
-    'Each criterion should be objectively verifiable.')
+    'Each criterion should be objectively verifiable, measurable, and '
+    'time-bound. Criteria should cover business, technical, user, and '
+    'compliance dimensions.')
 class SuccessCriteria {
   @ContentType('description', 'Overview of success criteria and how they '
       'relate to project objectives. Define the acceptance process and '
       'sign-off requirements.')
   String? content;
 
-  /// Success criteria form.
-  @Form([
-    Field('acceptanceProcess', String,
-        'Acceptance Process (how criteria will be evaluated)'),
-    Field('signOffAuthority', String,
-        'Sign-off Authority (who approves project success)'),
-    Field('evaluationTiming', String,
-        'Evaluation Timing (when criteria will be evaluated)'),
-    Field('partialSuccessHandling', String,
-        'Partial Success Handling (what if some criteria not met)'),
-  ])
-  String? successCriteriaForm;
+  /// Success criteria summary.
+  SuccessCriteriaSummary summary = SuccessCriteriaSummary();
 
-  /// Success criterion entries — contains 0+× SuccessCriterionEntry.
+  /// Acceptance and evaluation framework.
+  SuccessCriteriaFramework framework = SuccessCriteriaFramework();
+
+  /// Success criterion entries — contains 1+× SuccessCriterionEntry.
   @SectionIdPattern('PD00-SYO-GOA-SUC-xx')
+  @Min(1)
+  @ContentHelp('Define individual success criteria. Include criteria for '
+      'business outcomes, user satisfaction, technical quality, and '
+      'compliance requirements.')
   List<SuccessCriterionEntry> items = [];
+
+  /// Success criteria by category.
+  SuccessCriteriaByCategory byCategory = SuccessCriteriaByCategory();
 
   /// Success criteria matrix — overall view.
   @SectionId('PD00-SYO-GOA-SUC-MAT')
@@ -2834,27 +2837,199 @@ class SuccessCriteria {
       'their weights, and evaluation status.')
   @ContentHelp('Create a summary matrix of all success criteria.')
   String? successCriteriaMatrix;
+
+  /// Post-implementation review plan.
+  PostImplementationReview postImplementationReview = PostImplementationReview();
+}
+
+/// Summary metrics for success criteria.
+@Form([
+  Field('totalCriteria', int, 'Total Number of Criteria'),
+  Field('criticalCount', int, 'Critical Criteria Count'),
+  Field('highPriorityCount', int, 'High Priority Count'),
+  Field('mediumPriorityCount', int, 'Medium Priority Count'),
+  Field('lowPriorityCount', int, 'Low Priority Count'),
+  Field('businessCriteriaCount', int, 'Business Criteria Count'),
+  Field('technicalCriteriaCount', int, 'Technical Criteria Count'),
+  Field('userCriteriaCount', int, 'User Satisfaction Criteria Count'),
+  Field('complianceCriteriaCount', int, 'Compliance Criteria Count'),
+  Field('minCriteriaMet', String, 'Minimum Criteria for Success',
+      hint: 'All critical + X% of others'),
+  Field('successThreshold', String, 'Overall Success Threshold',
+      hint: 'Percentage or formula for determining success'),
+])
+class SuccessCriteriaSummary {
+  /// Summary content.
+  @ContentType('aggregation', 'Summary statistics for success criteria.')
+  String? content;
+}
+
+/// Framework for evaluating and accepting success criteria.
+@Form([
+  Field('acceptanceProcess', String, 'Acceptance Process',
+      hint: 'How criteria will be evaluated'),
+  Field('signOffAuthority', String, 'Sign-off Authority',
+      hint: 'Who approves project success'),
+  Field('escalationPath', String, 'Escalation Path',
+      hint: 'Who to escalate when criteria not met'),
+  Field('evaluationTiming', String, 'Evaluation Timing',
+      hint: 'When criteria will be evaluated'),
+  Field('evaluationMilestones', String, 'Evaluation Milestones',
+      hint: 'Go-live, 30 days, 90 days, 1 year'),
+  Field('partialSuccessHandling', String, 'Partial Success Handling',
+      hint: 'What if some criteria not met'),
+  Field('criteriaWaiverProcess', String, 'Criteria Waiver Process',
+      hint: 'How criteria can be waived or modified'),
+  Field('evidenceRequirements', String, 'Evidence Requirements',
+      hint: 'What evidence is needed to prove criteria met'),
+  Field('independentVerification', String, 'Independent Verification',
+      hint: 'Whether third-party verification is required'),
+  Field('disputeResolution', String, 'Dispute Resolution',
+      hint: 'How disputes about criteria are resolved'),
+])
+class SuccessCriteriaFramework {
+  /// Framework content.
+  @ContentType('form', 'Acceptance and evaluation framework details.')
+  String? content;
+}
+
+/// Success criteria organized by category.
+class SuccessCriteriaByCategory {
+  /// Business outcome criteria overview.
+  @SectionId('PD00-SYO-GOA-SUC-BUS')
+  @ContentType('description', 'Overview of business-focused success criteria '
+      'including ROI, market impact, and strategic alignment.')
+  @ContentHelp('Describe how business outcomes will be measured.')
+  String? businessCriteria;
+
+  /// Technical quality criteria overview.
+  @SectionId('PD00-SYO-GOA-SUC-TEC')
+  @ContentType('description', 'Overview of technical quality criteria '
+      'including performance, reliability, and maintainability.')
+  @ContentHelp('Describe how technical quality will be measured.')
+  String? technicalCriteria;
+
+  /// User satisfaction criteria overview.
+  @SectionId('PD00-SYO-GOA-SUC-USR')
+  @ContentType('description', 'Overview of user-focused success criteria '
+      'including adoption, satisfaction, and productivity.')
+  @ContentHelp('Describe how user satisfaction will be measured.')
+  String? userCriteria;
+
+  /// Compliance criteria overview.
+  @SectionId('PD00-SYO-GOA-SUC-COM')
+  @ContentType('description', 'Overview of compliance-related success criteria '
+      'including regulatory, security, and audit requirements.')
+  @ContentHelp('Describe how compliance will be verified.')
+  String? complianceCriteria;
+
+  /// Timeline and budget criteria overview.
+  @SectionId('PD00-SYO-GOA-SUC-PRJ')
+  @ContentType('description', 'Overview of project management criteria '
+      'including timeline adherence, budget compliance, and scope management.')
+  @ContentHelp('Describe how project execution will be measured.')
+  String? projectCriteria;
 }
 
 /// A success criterion entry [PD00-SYO-GOA-SUC-nn] (form).
+///
+/// Individual success criterion with comprehensive measurement details,
+/// thresholds, and verification requirements.
 class SuccessCriterionEntry {
   @Form([
-    Field('criterionId', String, 'Criterion ID', required: true),
-    Field('criterionName', String, 'Criterion Name', required: true),
-    Field('description', String, 'Description'),
-    Field('category', String,
-        'Category (Business, Technical, User, Compliance, Budget, Timeline)'),
-    Field('metric', String, 'Metric (what is measured)'),
-    Field('targetValue', String, 'Target Value', required: true),
-    Field('measurementMethod', String, 'Measurement Method'),
-    Field('verificationPoint', String,
-        'Verification Point (when verified: go-live, 30 days, 90 days)'),
-    Field('weight', String,
-        'Weight (importance: Critical, High, Medium, Low)'),
-    Field('relatedGoals', String, 'Related Goals (which goals this supports)'),
-    Field('status', String, 'Status (Not Evaluated, Met, Not Met, Waived)'),
-    Field('evidence', String, 'Evidence (proof that criterion is met)'),
+    // Identification
+    Field('criterionId', String, 'Criterion ID', required: true,
+        hint: 'Unique identifier (e.g., SC-001)'),
+    Field('criterionName', String, 'Criterion Name', required: true,
+        hint: 'Short descriptive name'),
+    Field('description', String, 'Description',
+        hint: 'Detailed description of what success means'),
+    Field('category', String, 'Category', required: true,
+        hint: 'Business, Technical, User, Compliance, Budget, Timeline'),
+    Field('subcategory', String, 'Subcategory',
+        hint: 'More specific categorization'),
+
+    // Measurement
+    Field('metric', String, 'Metric', required: true,
+        hint: 'What is measured (e.g., response time, satisfaction score)'),
+    Field('baselineValue', String, 'Baseline Value',
+        hint: 'Current value before project'),
+    Field('minimumThreshold', String, 'Minimum Acceptable Threshold',
+        hint: 'Minimum value to be considered success'),
+    Field('targetValue', String, 'Target Value', required: true,
+        hint: 'Desired target value'),
+    Field('stretchGoal', String, 'Stretch Goal',
+        hint: 'Optimal value exceeding target'),
+    Field('unit', String, 'Unit of Measurement',
+        hint: 'e.g., %, seconds, count, currency'),
+
+    // Verification
+    Field('measurementMethod', String, 'Measurement Method',
+        hint: 'How metric will be measured'),
+    Field('dataSource', String, 'Data Source',
+        hint: 'Where measurement data comes from'),
+    Field('measurementFrequency', String, 'Measurement Frequency',
+        hint: 'How often measurement is taken'),
+    Field('responsibleParty', String, 'Responsible Party',
+        hint: 'Who is responsible for measurement'),
+    Field('verificationPoint', String, 'Verification Point',
+        hint: 'When verified: go-live, 30 days, 90 days'),
+    Field('evidenceType', String, 'Evidence Type',
+        hint: 'What evidence proves criterion met'),
+
+    // Importance
+    Field('weight', String, 'Weight',
+        hint: 'Importance: Critical, High, Medium, Low'),
+    Field('isMandatory', String, 'Mandatory',
+        hint: 'Yes/No - is this required for overall success'),
+    Field('consequenceIfNotMet', String, 'Consequence If Not Met',
+        hint: 'Impact if this criterion is not met'),
+
+    // Relationships
+    Field('relatedGoals', String, 'Related Goals',
+        hint: 'Which business/technical goals this supports'),
+    Field('relatedRequirements', String, 'Related Requirements',
+        hint: 'Requirement IDs that contribute to this criterion'),
+    Field('dependencies', String, 'Dependencies',
+        hint: 'Other criteria this depends on'),
+    Field('stakeholders', String, 'Key Stakeholders',
+        hint: 'Who cares most about this criterion'),
+
+    // Status
+    Field('status', String, 'Status',
+        hint: 'Not Evaluated, Met, Not Met, Waived'),
+    Field('currentValue', String, 'Current Value',
+        hint: 'Latest measured value'),
+    Field('trend', String, 'Trend',
+        hint: 'Improving, Stable, Declining'),
+    Field('evidence', String, 'Evidence',
+        hint: 'Proof that criterion is met'),
+    Field('evaluationNotes', String, 'Evaluation Notes',
+        hint: 'Notes from evaluation'),
   ])
+  String? content;
+}
+
+/// Post-implementation review plan for success criteria.
+@Form([
+  Field('reviewSchedule', String, 'Review Schedule',
+      hint: 'When post-implementation reviews occur'),
+  Field('reviewOwner', String, 'Review Owner',
+      hint: 'Who is responsible for organizing reviews'),
+  Field('participantRoles', String, 'Participant Roles',
+      hint: 'Who should participate in reviews'),
+  Field('reportingRequirements', String, 'Reporting Requirements',
+      hint: 'What reports are produced'),
+  Field('lessonsLearnedProcess', String, 'Lessons Learned Process',
+      hint: 'How lessons learned are captured'),
+  Field('benefitsTrackingDuration', String, 'Benefits Tracking Duration',
+      hint: 'How long benefits are tracked'),
+  Field('correctionActionProcess', String, 'Corrective Action Process',
+      hint: 'How shortfalls are addressed'),
+])
+class PostImplementationReview {
+  /// Post-implementation review content.
+  @ContentType('form', 'Post-implementation review planning.')
   String? content;
 }
 
