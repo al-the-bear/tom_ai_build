@@ -8,10 +8,19 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 
 /// 5. Organizational Framework [PD00-ORG].
+///
+/// Organizational changes and structures required for the new system.
+/// Covers organization structure changes, new and changed roles, staffing
+/// plans, competency frameworks, and workplace requirements. Follows
+/// organizational design best practices (McKinsey 7-S, Galbraith Star Model)
+/// and HR management standards (SHRM, CIPD).
 @SectionId('PD00-ORG')
 class OrganizationalFramework {
-  @Unused()
-  String? content;
+  /// Overview of organizational changes required for the new system.
+  @ContentHelp('Provide executive summary of organizational impact: '
+      'scope of restructuring, number of affected roles, key organizational '
+      'design principles, change management approach, and timeline overview.')
+  TextSection overview = TextSection();
 
   /// 5.1. New Organization Structure [PD00-ORG-STR].
   NewOrganizationStructure organizationStructure = NewOrganizationStructure();
@@ -31,10 +40,18 @@ class OrganizationalFramework {
 // ---------------------------------------------------------------------------
 
 /// 5.1. New Organization Structure [PD00-ORG-STR].
+///
+/// Organizational changes required by the new system including new teams,
+/// restructured departments, changed responsibilities, and new communication
+/// channels. Follows organizational design principles (span of control,
+/// decision rights, coordination mechanisms) and change management patterns.
 @SectionId('PD00-ORG-STR')
 class NewOrganizationStructure {
-  @Unused()
-  String? content;
+  /// Overview of the target organization structure.
+  @ContentHelp('Describe the vision for the new organization structure: '
+      'design principles, key structural changes, governance model, '
+      'decision-making framework, and expected benefits.')
+  TextSection overview = TextSection();
 
   /// 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
   ChangesFromCurrentStructure changesFromCurrentStructure =
@@ -46,10 +63,45 @@ class NewOrganizationStructure {
 }
 
 /// 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
+///
+/// Explicitly documents what changes from the current organization structure.
+/// Identifies affected departments, changed reporting lines, and new roles
+/// that need to be created. Provides traceability from current to future state.
 @SectionId('PD00-ORG-STR-CHA')
 class ChangesFromCurrentStructure {
-  @Unused()
-  String? content;
+  // -------------------------------------------------------------------------
+  // Change Overview
+  // -------------------------------------------------------------------------
+  @Form([
+    Field('changeScope', String, 'Change Scope',
+        hint: 'Departments and functions affected by restructuring'),
+    Field('changeDriver', String, 'Change Driver',
+        hint: 'System implementation, process optimization, strategy shift'),
+    Field('impactSummary', String, 'Impact Summary',
+        hint: 'Total affected headcount, key structural shifts'),
+    Field('designPrinciples', String, 'Design Principles',
+        hint: 'Guiding principles for organizational design changes'),
+    Field('governanceChanges', String, 'Governance Changes',
+        hint: 'Changes to decision-making authority and oversight'),
+    Field('reportingLineChanges', String, 'Reporting Line Changes',
+        hint: 'Summary of reporting relationship modifications'),
+    Field('communicationChannelChanges', String, 'Communication Channel Changes',
+        hint: 'New or modified formal communication flows'),
+    Field('collaborationModelChanges', String, 'Collaboration Model Changes',
+        hint: 'How teams will work together differently'),
+  ])
+  String? overviewContent;
+
+  /// Detailed description of structural changes.
+  @ContentHelp('Provide narrative description of the organizational '
+      'transformation: what the current structure looks like, what the '
+      'target structure will be, and how the transition will be managed.')
+  TextSection changeNarrative = TextSection();
+
+  /// Organization chart comparison (current vs future).
+  @ContentHelp('Visual representation comparing current and target '
+      'organization structures - attach or embed org chart diagrams.')
+  DiagramSection orgChartComparison = DiagramSection();
 
   /// Contains 0+× OrganizationalChange.
   @SectionIdPattern('PD00-ORG-STR-CHA-xx')
@@ -57,13 +109,96 @@ class ChangesFromCurrentStructure {
 }
 
 /// An organizational change entry (form) [PD00-ORG-STR-CHA-nn].
+///
+/// Documents a specific structural change including current state, target
+/// state, rationale, impact assessment, and transition requirements.
 class OrganizationalChangeEntry {
   @Form([
-    Field('area', String, 'Area'),
-    Field('currentState', String, 'Current State'),
-    Field('targetState', String, 'Target State'),
-    Field('rationale', String, 'Rationale'),
-    Field('impact', String, 'Impact assessment'),
+    // Change Identification
+    Field('changeId', String, 'Change ID (e.g., OC-001)', required: true,
+        hint: 'Unique identifier for this structural change'),
+    Field('changeName', String, 'Change Name', required: true,
+        hint: 'Short descriptive name for the change'),
+    Field('changeType', String, 'Change Type',
+        hint: 'Restructure, Merge, Split, Create, Eliminate, Relocate'),
+    Field('changeCategory', String, 'Change Category',
+        hint: 'Reporting Lines, Team Structure, Department, Division, Function'),
+    Field('priority', String, 'Priority',
+        hint: 'Critical, High, Medium, Low — implementation priority'),
+
+    // Scope
+    Field('affectedArea', String, 'Affected Area',
+        hint: 'Department, team, or function being changed'),
+    Field('currentState', String, 'Current State',
+        hint: 'How the area is currently organized'),
+    Field('targetState', String, 'Target State',
+        hint: 'How the area will be organized after change'),
+    Field('currentHeadcount', int, 'Current Headcount',
+        hint: 'Number of people in current structure'),
+    Field('targetHeadcount', int, 'Target Headcount',
+        hint: 'Number of people in target structure'),
+    Field('headcountDelta', int, 'Headcount Delta',
+        hint: 'Net change in headcount (positive = growth)'),
+
+    // Rationale
+    Field('rationale', String, 'Rationale',
+        hint: 'Business justification for this change'),
+    Field('expectedBenefits', String, 'Expected Benefits',
+        hint: 'Anticipated improvements from this change'),
+    Field('systemAlignment', String, 'System Alignment',
+        hint: 'How this change supports the new system'),
+    Field('processAlignment', String, 'Process Alignment',
+        hint: 'How this change supports new business processes'),
+
+    // Impact Assessment
+    Field('impactLevel', String, 'Impact Level',
+        hint: 'High, Medium, Low — severity of disruption'),
+    Field('affectedRoles', String, 'Affected Roles',
+        hint: 'Job titles impacted by this change'),
+    Field('affectedPeople', String, 'Affected People',
+        hint: 'Key individuals or groups affected'),
+    Field('reportingLineImpact', String, 'Reporting Line Impact',
+        hint: 'Changes to who reports to whom'),
+    Field('decisionRightsImpact', String, 'Decision Rights Impact',
+        hint: 'Changes to decision-making authority'),
+    Field('communicationImpact', String, 'Communication Impact',
+        hint: 'Changes to information flow'),
+    Field('collaborationImpact', String, 'Collaboration Impact',
+        hint: 'Changes to how people work together'),
+
+    // Transition
+    Field('effectiveDate', String, 'Effective Date',
+        hint: 'When this change takes effect'),
+    Field('transitionPeriod', String, 'Transition Period',
+        hint: 'Duration of transition (weeks/months)'),
+    Field('transitionOwner', String, 'Transition Owner',
+        hint: 'Person accountable for implementing this change'),
+    Field('communicationRequired', String, 'Communication Required',
+        hint: 'Announcements and messaging needed'),
+    Field('trainingRequired', String, 'Training Required',
+        hint: 'Training or enablement needed for new structure'),
+    Field('hrActionsRequired', String, 'HR Actions Required',
+        hint: 'Contract changes, promotions, transfers, etc.'),
+    Field('itActionsRequired', String, 'IT Actions Required',
+        hint: 'System access, email groups, org hierarchy updates'),
+
+    // Risks
+    Field('risks', String, 'Risks',
+        hint: 'Potential risks from this change'),
+    Field('mitigations', String, 'Mitigations',
+        hint: 'Actions to reduce risks'),
+    Field('dependencies', String, 'Dependencies',
+        hint: 'Other changes this depends on or enables'),
+
+    // Status
+    Field('status', String, 'Status',
+        hint: 'Proposed, Approved, In Progress, Completed, Cancelled'),
+    Field('approvalRequired', String, 'Approval Required',
+        hint: 'Who must approve this change'),
+    Field('approvalStatus', String, 'Approval Status',
+        hint: 'Pending, Approved, Rejected'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional context or considerations'),
   ])
   String? content;
 }
