@@ -914,16 +914,66 @@ class ProcessImprovementEntry {
 ///
 /// Container for workflow entries within a business process.
 @SectionIdPattern('PD00-CUR-PRO-xx-WOR')
+/// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR].
+///
+/// Container for workflow entries within a business process. Add one
+/// subsection per current workflow relevant to the project.
+@SectionIdPattern('PD00-CUR-PRO-xx-WOR')
 class WorkflowDescriptions {
   @ContentType('description', 'Overview of workflows within this process.')
   @ContentHelp('Describe how the workflows within this process relate to each '
-      'other. Include a workflow diagram showing the sequence and decision points.')
+      'other. Identify the primary workflow sequence and exception paths. '
+      'Include a workflow diagram showing the sequence and decision points.')
   String? content;
+
+  /// Workflow overview diagram [PD00-CUR-PRO-xx-WOR-DIA].
+  @ContentType('mermaid-flowchart', 'Visual overview of all workflows in this '
+      'process showing relationships and handoffs')
+  @ContentHelp('Create a Mermaid flowchart showing how workflows within this '
+      'process interact. Show the primary happy-path and exception branches. '
+      'Include decision points and actor swim-lanes if helpful.')
+  String? workflowOverviewDiagram;
+
+  /// Workflow summary table [PD00-CUR-PRO-xx-WOR-SUM].
+  @Comment('Quick reference summary of all workflows')
+  WorkflowSummaryTable? summaryTable;
 
   /// Individual workflow entries.
   @SectionIdPattern('PD00-CUR-PRO-xx-WOR-xx')
   @Min(1)
   List<CurrentWorkflowEntry> workflows = [];
+}
+
+/// Summary table of all workflows for quick reference.
+class WorkflowSummaryTable {
+  @Form([
+    Field('totalWorkflows', int, 'Total Workflows in Process'),
+    Field('primaryWorkflows', int, 'Primary/Happy-Path Workflows'),
+    Field('exceptionWorkflows', int, 'Exception/Error Handling Workflows'),
+    Field('averageCycleTime', String, 'Average Cycle Time Across Workflows'),
+    Field('automationPotential', String, 'Overall Automation Potential',
+        hint: 'Low / Medium / High / Full'),
+  ])
+  String? content;
+
+  /// Summary entries per workflow.
+  List<WorkflowSummaryEntry> entries = [];
+}
+
+/// Summary entry for a single workflow.
+class WorkflowSummaryEntry {
+  @Form([
+    Field('workflowName', String, 'Workflow Name', required: true),
+    Field('workflowType', String, 'Type'),
+    Field('frequency', String, 'Frequency'),
+    Field('averageCycleTime', String, 'Average Cycle Time'),
+    Field('stepCount', int, 'Number of Steps'),
+    Field('manualStepCount', int, 'Manual Steps'),
+    Field('errorProneStepCount', int, 'Error-Prone Steps'),
+    Field('primaryActors', String, 'Primary Actors'),
+    Field('automationPotential', String, 'Automation Potential'),
+  ])
+  String? content;
 }
 
 /// A current workflow entry [PD00-CUR-PRO-WOR-nn] (form).
@@ -943,6 +993,14 @@ class CurrentWorkflowEntry {
     Field('criticality', String, 'Business Criticality'),
   ])
   String? content;
+
+  /// Workflow diagram [PD00-CUR-PRO-xx-WOR-xx-DIA].
+  @ContentType('mermaid-flowchart', 'Visual representation of this workflow '
+      'showing steps, decisions, and actors in a BPMN-style diagram')
+  @ContentHelp('Create a Mermaid flowchart or sequence diagram showing the '
+      'workflow steps in order. Include decision points with branch conditions. '
+      'For multi-actor workflows, use swim-lanes (subgraphs) per actor.')
+  String? workflowDiagram;
 
   /// Workflow triggers and initiation.
   WorkflowTriggers triggers = WorkflowTriggers();
