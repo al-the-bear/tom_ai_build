@@ -1763,33 +1763,1040 @@ class GapEntry {
 // ---------------------------------------------------------------------------
 
 /// 1.4. Current Data Landscape [PD00-CUR-DAT].
+///
+/// Comprehensive documentation of the current data situation including where
+/// data lives, data quality issues, duplication, ownership, volumes, growth
+/// trends, retention policies, and governance structures.
 @SectionId('PD00-CUR-DAT')
 class CurrentDataLandscape {
-  @Unused()
+  @ContentHelp('''
+Executive overview of the current data landscape. Summarize the overall data
+situation, key data assets, major challenges, and strategic importance of data
+to the organization. Highlight critical data dependencies and risks.
+''')
   String? content;
 
-  /// 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC] — contains 0+× DataSource.
-  @SectionIdPattern('PD00-CUR-DAT-SRC-xx')
-  List<DataSourceEntry> dataSources = [];
+  /// Visual representation of the data landscape.
+  @ContentType('mermaid-flowchart', 'High-level diagram showing data domains, '
+      'major data stores, data flows, and integration points')
+  String? dataLandscapeOverviewDiagram;
 
-  /// Data Quality Assessment.
-  TextSection dataQualityAssessment = TextSection();
+  /// Data architecture summary diagram.
+  @ContentType('mermaid', 'ER-style or architectural diagram showing '
+      'relationships between major data entities and systems')
+  String? dataArchitectureDiagram;
+
+  /// Summary statistics and health indicators.
+  DataLandscapeSummary dataLandscapeSummary = DataLandscapeSummary();
+
+  /// 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC].
+  DataSourceInventory dataSourceInventory = DataSourceInventory();
+
+  /// 1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA].
+  DataQualityAssessment dataQualityAssessment = DataQualityAssessment();
+
+  /// 1.4.3. Data Duplication Analysis [PD00-CUR-DAT-DUP].
+  DataDuplicationAnalysis dataDuplicationAnalysis = DataDuplicationAnalysis();
+
+  /// 1.4.4. Data Ownership and Stewardship [PD00-CUR-DAT-OWN].
+  DataOwnership dataOwnership = DataOwnership();
+
+  /// 1.4.5. Data Volumes and Growth [PD00-CUR-DAT-VOL].
+  DataVolumesAndGrowth dataVolumesAndGrowth = DataVolumesAndGrowth();
+
+  /// 1.4.6. Retention Policies [PD00-CUR-DAT-RET].
+  DataRetentionPolicies retentionPolicies = DataRetentionPolicies();
+
+  /// 1.4.7. Data Governance [PD00-CUR-DAT-GOV].
+  DataGovernance dataGovernance = DataGovernance();
+
+  /// 1.4.8. Data Classification [PD00-CUR-DAT-CLA].
+  DataClassification dataClassification = DataClassification();
+
+  /// 1.4.9. Data Integration Points [PD00-CUR-DAT-INT].
+  DataIntegrationPoints dataIntegrationPoints = DataIntegrationPoints();
+
+  /// 1.4.10. Master Data Management [PD00-CUR-DAT-MDM].
+  MasterDataManagement masterDataManagement = MasterDataManagement();
 }
 
-/// A data source entry combining store, format, volume, and quality (form) [PD00-CUR-DAT-SRC-nn].
+/// Summary statistics and health indicators for data landscape.
+class DataLandscapeSummary {
+  @Form([
+    Field('totalDataSources', int, 'Total Data Sources',
+        hint: 'Number of distinct data sources/stores'),
+    Field('totalDataVolume', String, 'Total Data Volume',
+        hint: 'Aggregate data volume across all sources, e.g. 15 TB'),
+    Field('overallDataQualityScore', String, 'Overall Data Quality Score',
+        hint: 'Aggregate quality score, e.g. 72% or B+'),
+    Field('criticalDataAssets', int, 'Critical Data Assets',
+        hint: 'Number of data assets classified as business-critical'),
+    Field('dataGovernanceMaturity', String, 'Data Governance Maturity Level',
+        hint: 'Level 1-5 or Initial/Managed/Defined/Measured/Optimized'),
+    Field('knownDuplicationRate', String, 'Known Duplication Rate',
+        hint: 'Estimated percentage of duplicated data, e.g. 15%'),
+    Field('complianceStatus', String, 'Regulatory Compliance Status',
+        hint: 'Compliant / PartiallyCompliant / NonCompliant / Unknown'),
+    Field('dataSecurityRiskLevel', String, 'Data Security Risk Level',
+        hint: 'Low / Medium / High / Critical'),
+    Field('averageDataAge', String, 'Average Data Age',
+        hint: 'Average age of data across sources, e.g. 18 months'),
+    Field('dataDocumentationCoverage', String, 'Documentation Coverage',
+        hint: 'Percentage of data assets with adequate documentation'),
+  ])
+  String? content;
+}
+
+/// 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC].
+///
+/// Comprehensive inventory of all data sources, stores, and repositories
+/// in the current environment.
+@SectionId('PD00-CUR-DAT-SRC')
+class DataSourceInventory {
+  @ContentHelp('''
+Overview of the data source inventory. Describe the methodology used to
+catalog data sources, coverage of the inventory, and any known gaps.
+''')
+  String? content;
+
+  /// Visual map of data sources by domain/category.
+  @ContentType('mermaid', 'Diagram showing data sources grouped by '
+      'business domain or technical category')
+  String? dataSourceMapDiagram;
+
+  /// Contains 0+× DataSource.
+  @SectionIdPattern('PD00-CUR-DAT-SRC-xx')
+  List<DataSourceEntry> dataSources = [];
+}
+
+/// A data source entry (form) [PD00-CUR-DAT-SRC-nn].
+///
+/// Documents a specific data source/store with comprehensive details about
+/// technology, format, volume, quality, ownership, and access patterns.
 class DataSourceEntry {
   @Form([
-    Field('dataStoreName', String, 'Data Store Name', required: true),
-    Field('storeType', String, 'Store Type'),
-    Field('technology', String, 'Technology'),
-    Field('dataFormat', String, 'Data Format'),
-    Field('estimatedVolume', String, 'Estimated Volume'),
-    Field('growthRate', String, 'Growth Rate'),
-    Field('qualityLevel', String, 'Quality Level'),
-    Field('owner', String, 'Owner'),
+    // Identification
+    Field('dataSourceId', String, 'Data Source ID',
+        hint: 'Unique identifier, e.g. DS-001', required: true),
+    Field('dataStoreName', String, 'Data Store Name',
+        hint: 'Name of the data store or source', required: true),
+    Field('description', String, 'Description',
+        hint: 'Brief description of what data this source contains'),
+
+    // Classification
+    Field('sourceCategory', String, 'Source Category',
+        hint:
+            'Transactional / Analytical / Master / Reference / Archive / Staging'),
+    Field('businessDomain', String, 'Business Domain',
+        hint:
+            'Business domain, e.g. Sales, Finance, HR, Operations, Customer'),
+    Field('criticality', String, 'Business Criticality',
+        hint: 'Critical / High / Medium / Low'),
+
+    // Technical Details
+    Field('storeType', String, 'Store Type',
+        hint:
+            'Database / DataWarehouse / DataLake / FileSystem / API / SaaS / Spreadsheet'),
+    Field('technology', String, 'Technology/Platform',
+        hint:
+            'E.g. PostgreSQL, Oracle, SQL Server, MongoDB, S3, Salesforce, SAP'),
+    Field('version', String, 'Version',
+        hint: 'Software/platform version, e.g. PostgreSQL 14.5'),
+    Field('hostingLocation', String, 'Hosting Location',
+        hint: 'OnPremise / CloudAWS / CloudAzure / CloudGCP / SaaS / Hybrid'),
+    Field('dataFormat', String, 'Data Format',
+        hint: 'Relational / Document / Key-Value / CSV / JSON / XML / Parquet'),
+
+    // Volume and Performance
+    Field('estimatedVolume', String, 'Estimated Volume',
+        hint: 'E.g. 500 GB, 2 TB, 50 million records'),
+    Field('estimatedRecordCount', String, 'Estimated Record Count',
+        hint: 'Number of records/rows/documents'),
+    Field('growthRate', String, 'Growth Rate',
+        hint: 'E.g. 5% per month, 100 GB per quarter'),
+    Field('accessFrequency', String, 'Access Frequency',
+        hint: 'Realtime / Hourly / Daily / Weekly / Monthly / OnDemand'),
+    Field('peakLoadPeriods', String, 'Peak Load Periods',
+        hint: 'When the source experiences highest load'),
+
+    // Quality and Reliability
+    Field('dataQualityScore', String, 'Data Quality Score',
+        hint: 'Quality rating, e.g. 85%, A, High'),
+    Field('knownQualityIssues', String, 'Known Quality Issues',
+        hint: 'Summary of quality problems'),
+    Field('dataFreshness', String, 'Data Freshness',
+        hint: 'How current the data is, e.g. RealTime / Daily / Weekly'),
+    Field('reliabilityScore', String, 'Reliability Score',
+        hint: 'Uptime/reliability, e.g. 99.5%'),
+
+    // Ownership and Governance
+    Field('businessOwner', String, 'Business Owner',
+        hint: 'Department or role responsible for data'),
+    Field('technicalOwner', String, 'Technical Owner',
+        hint: 'Team or role responsible for technical management'),
+    Field('dataSteward', String, 'Data Steward',
+        hint: 'Person responsible for data quality and governance'),
+    Field('accessControlModel', String, 'Access Control Model',
+        hint: 'RBAC / ABAC / ACL / Open'),
+    Field('sensitivityLevel', String, 'Data Sensitivity Level',
+        hint:
+            'Public / Internal / Confidential / Restricted / PersonallyIdentifiable'),
+
+    // Integration
+    Field('integratedSystems', String, 'Integrated Systems',
+        hint: 'List of systems that read from or write to this source'),
+    Field('upstreamSources', String, 'Upstream Sources',
+        hint: 'Data sources that feed into this one'),
+    Field('downstreamConsumers', String, 'Downstream Consumers',
+        hint: 'Systems or processes that consume data from this source'),
+
+    // Lifecycle
+    Field('creationDate', String, 'Creation Date',
+        hint: 'When the data source was established'),
+    Field('lastMajorUpdate', String, 'Last Major Update',
+        hint: 'When the source was last significantly modified'),
+    Field('plannedDecommission', String, 'Planned Decommission',
+        hint: 'If scheduled for retirement, target date'),
+
+    // Documentation
+    Field('documentationStatus', String, 'Documentation Status',
+        hint: 'Complete / Partial / Minimal / None'),
+    Field('schemaDocumentationLink', String, 'Schema Documentation Link',
+        hint: 'Link to detailed schema documentation'),
   ])
   String? content;
 
-  /// Retention Policy.
-  TextSection retentionPolicy = TextSection();
+  /// Retention Policy for this data source.
+  DataSourceRetentionPolicy retentionPolicy = DataSourceRetentionPolicy();
+
+  /// Key data entities in this source.
+  @Min(1)
+  List<DataEntityEntry> keyEntities = [];
 }
+
+/// Retention policy specific to a data source.
+class DataSourceRetentionPolicy {
+  @Form([
+    Field('retentionPeriod', String, 'Retention Period',
+        hint: 'How long data is kept, e.g. 7 years, indefinite'),
+    Field('archivalPolicy', String, 'Archival Policy',
+        hint: 'How data is archived after active use'),
+    Field('deletionPolicy', String, 'Deletion Policy',
+        hint: 'How data is deleted/purged'),
+    Field('legalBasis', String, 'Legal Basis',
+        hint: 'Regulatory or legal requirement driving retention'),
+    Field('complianceNotes', String, 'Compliance Notes',
+        hint: 'Additional compliance considerations'),
+  ])
+  String? content;
+}
+
+/// Key data entity within a data source.
+class DataEntityEntry {
+  @Form([
+    Field('entityName', String, 'Entity Name',
+        hint: 'Name of the entity/table/collection', required: true),
+    Field('description', String, 'Description',
+        hint: 'What this entity represents'),
+    Field('recordCount', String, 'Record Count',
+        hint: 'Approximate number of records'),
+    Field('primaryKey', String, 'Primary Key',
+        hint: 'Key field(s) identifying unique records'),
+    Field('relationships', String, 'Key Relationships',
+        hint: 'Important relationships to other entities'),
+    Field('sensitiveFields', String, 'Sensitive Fields',
+        hint: 'Fields containing sensitive data'),
+  ])
+  String? content;
+}
+
+/// 1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA].
+///
+/// Comprehensive assessment of data quality across the organization,
+/// covering accuracy, completeness, consistency, timeliness, and validity.
+@SectionId('PD00-CUR-DAT-QUA')
+class DataQualityAssessment {
+  @ContentHelp('''
+Overview of data quality across the organization. Describe the assessment
+methodology, scope, key findings, and overall data quality posture.
+''')
+  String? content;
+
+  /// Data quality dimensions summary.
+  DataQualityDimensionsSummary dimensionsSummary =
+      DataQualityDimensionsSummary();
+
+  /// Quality issues by severity.
+  @ContentType('mermaid', 'Chart showing distribution of quality issues '
+      'by severity level')
+  String? qualityIssuesSeverityChart;
+
+  /// Data quality issues inventory.
+  @SectionIdPattern('PD00-CUR-DAT-QUA-xx')
+  @Min(1)
+  List<DataQualityIssueEntry> qualityIssues = [];
+
+  /// Quality improvement initiatives in progress.
+  List<DataQualityInitiativeEntry> improvementInitiatives = [];
+}
+
+/// Summary of data quality across standard dimensions.
+class DataQualityDimensionsSummary {
+  @Form([
+    Field('accuracyScore', String, 'Accuracy Score',
+        hint: 'Overall accuracy of data, e.g. 92%'),
+    Field('completenessScore', String, 'Completeness Score',
+        hint: 'Percentage of required data present, e.g. 88%'),
+    Field('consistencyScore', String, 'Consistency Score',
+        hint: 'Data consistency across sources, e.g. 79%'),
+    Field('timelinessScore', String, 'Timeliness Score',
+        hint: 'How current data is, e.g. 95%'),
+    Field('validityScore', String, 'Validity Score',
+        hint: 'Conformance to business rules, e.g. 85%'),
+    Field('uniquenessScore', String, 'Uniqueness Score',
+        hint: 'Absence of duplicate records, e.g. 91%'),
+    Field('integrityScore', String, 'Referential Integrity Score',
+        hint: 'Integrity of relationships, e.g. 88%'),
+    Field('assessmentDate', String, 'Assessment Date',
+        hint: 'When this assessment was performed'),
+    Field('assessmentScope', String, 'Assessment Scope',
+        hint: 'What was included in the assessment'),
+    Field('assessmentMethodology', String, 'Assessment Methodology',
+        hint: 'How the assessment was conducted'),
+  ])
+  String? content;
+}
+
+/// A data quality issue entry (form).
+class DataQualityIssueEntry {
+  @Form([
+    Field('issueId', String, 'Issue ID',
+        hint: 'Unique identifier, e.g. DQ-001', required: true),
+    Field('issueTitle', String, 'Issue Title',
+        hint: 'Brief description of the quality issue', required: true),
+    Field('description', String, 'Detailed Description',
+        hint: 'Full description of the issue and its manifestation'),
+    Field('affectedDataSource', String, 'Affected Data Source',
+        hint: 'Which data source(s) are impacted'),
+    Field('affectedEntities', String, 'Affected Entities',
+        hint: 'Which data entities/tables are impacted'),
+    Field('qualityDimension', String, 'Quality Dimension',
+        hint: 'Accuracy / Completeness / Consistency / Timeliness / Validity'),
+    Field('severity', String, 'Severity',
+        hint: 'Critical / High / Medium / Low'),
+    Field('impactDescription', String, 'Business Impact',
+        hint: 'How this quality issue affects business operations'),
+    Field('quantifiedImpact', String, 'Quantified Impact',
+        hint: 'Measurable impact, e.g. €50k/year, 10% error rate'),
+    Field('rootCause', String, 'Root Cause',
+        hint: 'Underlying cause of the quality issue'),
+    Field('affectedRecordCount', String, 'Affected Record Count',
+        hint: 'Number or percentage of records affected'),
+    Field('dateIdentified', String, 'Date Identified',
+        hint: 'When the issue was discovered'),
+    Field('currentWorkaround', String, 'Current Workaround',
+        hint: 'How users currently cope with this issue'),
+    Field('proposedResolution', String, 'Proposed Resolution',
+        hint: 'Recommended approach to fix the issue'),
+    Field('resolutionPriority', String, 'Resolution Priority',
+        hint: 'P1 / P2 / P3 / P4'),
+  ])
+  String? content;
+}
+
+/// Data quality improvement initiative entry.
+class DataQualityInitiativeEntry {
+  @Form([
+    Field('initiativeId', String, 'Initiative ID',
+        hint: 'Unique identifier'),
+    Field('initiativeName', String, 'Initiative Name',
+        hint: 'Name of the improvement initiative', required: true),
+    Field('description', String, 'Description',
+        hint: 'What the initiative aims to achieve'),
+    Field('targetIssues', String, 'Target Issues',
+        hint: 'Quality issues this initiative addresses'),
+    Field('status', String, 'Status',
+        hint: 'Planned / InProgress / Completed / OnHold'),
+    Field('expectedCompletion', String, 'Expected Completion',
+        hint: 'Target completion date'),
+    Field('expectedImprovement', String, 'Expected Improvement',
+        hint: 'Quantified improvement target'),
+  ])
+  String? content;
+}
+
+/// 1.4.3. Data Duplication Analysis [PD00-CUR-DAT-DUP].
+///
+/// Analysis of data duplication across systems, including redundant data
+/// stores, duplicated records, and synchronization challenges.
+@SectionId('PD00-CUR-DAT-DUP')
+class DataDuplicationAnalysis {
+  @ContentHelp('''
+Overview of data duplication across the organization. Describe the extent
+of duplication, its causes, impacts, and any ongoing deduplication efforts.
+''')
+  String? content;
+
+  /// Duplication analysis summary.
+  DataDuplicationSummary duplicationSummary = DataDuplicationSummary();
+
+  /// Visual representation of data redundancy.
+  @ContentType('mermaid', 'Diagram showing overlapping data stores and '
+      'duplicate data flows')
+  String? duplicationDiagram;
+
+  /// Individual duplication instances.
+  @SectionIdPattern('PD00-CUR-DAT-DUP-xx')
+  List<DataDuplicationEntry> duplicationInstances = [];
+}
+
+/// Summary of data duplication findings.
+class DataDuplicationSummary {
+  @Form([
+    Field('overallDuplicationRate', String, 'Overall Duplication Rate',
+        hint: 'Estimated percentage of duplicated data, e.g. 23%'),
+    Field('duplicateDataVolume', String, 'Duplicate Data Volume',
+        hint: 'Volume of duplicated data, e.g. 2.3 TB'),
+    Field('numberOfDuplicationInstances', int, 'Number of Known Duplications',
+        hint: 'Count of documented duplication cases'),
+    Field('storageWasteEstimate', String, 'Storage Waste Estimate',
+        hint: 'Cost of storing duplicate data, e.g. €15k/year'),
+    Field('synchronizationChallenges', int, 'Synchronization Challenges',
+        hint: 'Number of sync issues caused by duplication'),
+    Field('dataInconsistencyRisk', String, 'Data Inconsistency Risk',
+        hint: 'Low / Medium / High / Critical'),
+    Field('consolidationOpportunities', int, 'Consolidation Opportunities',
+        hint: 'Number of identified consolidation opportunities'),
+    Field('deduplicationPriority', String, 'Deduplication Priority',
+        hint: 'Organizational priority for deduplication efforts'),
+  ])
+  String? content;
+}
+
+/// A data duplication instance entry.
+class DataDuplicationEntry {
+  @Form([
+    Field('duplicationId', String, 'Duplication ID',
+        hint: 'Unique identifier', required: true),
+    Field('description', String, 'Description',
+        hint: 'Description of the duplication scenario'),
+    Field('dataElement', String, 'Data Element',
+        hint: 'What data is duplicated'),
+    Field('primarySource', String, 'Primary Source',
+        hint: 'Authoritative source for this data'),
+    Field('duplicateSources', String, 'Duplicate Sources',
+        hint: 'Other locations where this data exists'),
+    Field('duplicationType', String, 'Duplication Type',
+        hint: 'FullCopy / PartialCopy / Denormalized / CachedCopy'),
+    Field('synchronizationMethod', String, 'Synchronization Method',
+        hint: 'How duplicates are kept in sync, if at all'),
+    Field('syncFrequency', String, 'Sync Frequency',
+        hint: 'RealTime / Hourly / Daily / Manual / None'),
+    Field('knownInconsistencies', String, 'Known Inconsistencies',
+        hint: 'Documented cases of data drift between copies'),
+    Field('businessReason', String, 'Business Reason',
+        hint: 'Why this duplication exists'),
+    Field('consolidationFeasibility', String, 'Consolidation Feasibility',
+        hint: 'Easy / Moderate / Difficult / NotFeasible'),
+    Field('impactOfDuplication', String, 'Impact of Duplication',
+        hint: 'Negative effects of this duplication'),
+    Field('recommendedAction', String, 'Recommended Action',
+        hint: 'Proposed resolution'),
+  ])
+  String? content;
+}
+
+/// 1.4.4. Data Ownership and Stewardship [PD00-CUR-DAT-OWN].
+///
+/// Documentation of data ownership structures, stewardship roles,
+/// and accountability for data assets.
+@SectionId('PD00-CUR-DAT-OWN')
+class DataOwnership {
+  @ContentHelp('''
+Overview of data ownership and stewardship across the organization. Describe
+the ownership model, roles and responsibilities, and any gaps in accountability.
+''')
+  String? content;
+
+  /// Ownership model summary.
+  DataOwnershipSummary ownershipSummary = DataOwnershipSummary();
+
+  /// Data ownership matrix visualization.
+  @ContentType('mermaid', 'Matrix or diagram showing data domains and '
+      'their owners/stewards')
+  String? ownershipMatrixDiagram;
+
+  /// Data ownership assignments by domain.
+  @Min(1)
+  List<DataOwnershipEntry> ownershipAssignments = [];
+}
+
+/// Summary of data ownership model.
+class DataOwnershipSummary {
+  @Form([
+    Field('ownershipModel', String, 'Ownership Model',
+        hint: 'Centralized / Federated / Hybrid'),
+    Field('totalDataDomains', int, 'Total Data Domains',
+        hint: 'Number of defined data domains'),
+    Field('assignedOwnershipPercentage', String, 'Assigned Ownership',
+        hint: 'Percentage of data with clear ownership, e.g. 78%'),
+    Field('activeStewards', int, 'Active Data Stewards',
+        hint: 'Number of active data stewards'),
+    Field('ownershipGaps', int, 'Ownership Gaps',
+        hint: 'Number of data assets without clear ownership'),
+    Field('stewardshipMaturity', String, 'Stewardship Maturity',
+        hint: 'Initial / Developing / Established / Optimizing'),
+    Field('governanceCouncilExists', String, 'Governance Council',
+        hint: 'Yes / No — whether a data governance council exists'),
+    Field('escalationProcess', String, 'Escalation Process',
+        hint: 'Whether clear escalation paths exist'),
+  ])
+  String? content;
+}
+
+/// Data ownership assignment for a domain or asset.
+class DataOwnershipEntry {
+  @Form([
+    Field('dataDomain', String, 'Data Domain',
+        hint: 'Business area or data domain', required: true),
+    Field('dataAssets', String, 'Data Assets',
+        hint: 'Specific data assets in this domain'),
+    Field('businessOwner', String, 'Business Owner',
+        hint: 'Executive accountable for the data'),
+    Field('businessOwnerRole', String, 'Owner Role',
+        hint: 'Job title/role of the business owner'),
+    Field('dataSteward', String, 'Data Steward',
+        hint: 'Person responsible for day-to-day data management'),
+    Field('stewardRole', String, 'Steward Role',
+        hint: 'Job title/role of the data steward'),
+    Field('technicalCustodian', String, 'Technical Custodian',
+        hint: 'IT person/team responsible for technical data management'),
+    Field('qualityAccountable', String, 'Quality Accountable',
+        hint: 'Who is accountable for data quality'),
+    Field('accessApprover', String, 'Access Approver',
+        hint: 'Who approves access to this data'),
+    Field('coverageStatus', String, 'Coverage Status',
+        hint: 'Full / Partial / Minimal ownership coverage'),
+    Field('lastReviewDate', String, 'Last Review Date',
+        hint: 'When ownership was last reviewed'),
+  ])
+  String? content;
+}
+
+/// 1.4.5. Data Volumes and Growth [PD00-CUR-DAT-VOL].
+///
+/// Analysis of current data volumes, historical growth trends,
+/// and projections for future capacity needs.
+@SectionId('PD00-CUR-DAT-VOL')
+class DataVolumesAndGrowth {
+  @ContentHelp('''
+Overview of data volumes and growth patterns across the organization.
+Describe current total volumes, growth trends, capacity constraints,
+and forecasting methodology.
+''')
+  String? content;
+
+  /// Volume and growth summary.
+  DataVolumeSummary volumeSummary = DataVolumeSummary();
+
+  /// Growth trend visualization.
+  @ContentType('mermaid', 'Chart showing historical data growth and '
+      'projected future volumes')
+  String? growthTrendChart;
+
+  /// Volume details by data source.
+  @Min(1)
+  List<DataVolumeEntry> volumeBySource = [];
+}
+
+/// Summary of data volumes and growth trends.
+class DataVolumeSummary {
+  @Form([
+    Field('totalCurrentVolume', String, 'Total Current Volume',
+        hint: 'Total data volume, e.g. 45 TB'),
+    Field('structuredDataVolume', String, 'Structured Data Volume',
+        hint: 'Volume of structured data'),
+    Field('unstructuredDataVolume', String, 'Unstructured Data Volume',
+        hint: 'Volume of unstructured data'),
+    Field('annualGrowthRate', String, 'Annual Growth Rate',
+        hint: 'Year-over-year growth percentage, e.g. 25%'),
+    Field('monthlyGrowthRate', String, 'Monthly Growth Rate',
+        hint: 'Month-over-month growth, e.g. 2%'),
+    Field('peakGrowthPeriods', String, 'Peak Growth Periods',
+        hint: 'When data grows fastest, e.g. Q4, month-end'),
+    Field('projectedVolumeOneYear', String, 'Projected Volume (1 Year)',
+        hint: 'Expected volume in 12 months'),
+    Field('projectedVolumeThreeYears', String, 'Projected Volume (3 Years)',
+        hint: 'Expected volume in 36 months'),
+    Field('capacityUtilization', String, 'Current Capacity Utilization',
+        hint: 'Percentage of storage capacity used, e.g. 72%'),
+    Field('capacityConstraints', String, 'Capacity Constraints',
+        hint: 'Any current or anticipated capacity issues'),
+    Field('storageCost', String, 'Total Storage Cost',
+        hint: 'Annual cost of data storage, e.g. €250k/year'),
+    Field('costGrowthProjection', String, 'Cost Growth Projection',
+        hint: 'Expected storage cost growth'),
+  ])
+  String? content;
+}
+
+/// Volume details for a specific data source.
+class DataVolumeEntry {
+  @Form([
+    Field('dataSource', String, 'Data Source',
+        hint: 'Name of the data source', required: true),
+    Field('currentVolume', String, 'Current Volume',
+        hint: 'Current data volume'),
+    Field('recordCount', String, 'Record Count',
+        hint: 'Number of records/documents'),
+    Field('averageRecordSize', String, 'Average Record Size',
+        hint: 'Average size per record'),
+    Field('historicalGrowth', String, 'Historical Growth',
+        hint: 'Growth over past 12 months'),
+    Field('projectedGrowth', String, 'Projected Growth',
+        hint: 'Expected growth over next 12 months'),
+    Field('growthDrivers', String, 'Growth Drivers',
+        hint: 'What drives data growth in this source'),
+    Field('archivalRate', String, 'Archival Rate',
+        hint: 'How much data is archived periodically'),
+    Field('purgeRate', String, 'Purge Rate',
+        hint: 'How much data is deleted periodically'),
+  ])
+  String? content;
+}
+
+/// 1.4.6. Retention Policies [PD00-CUR-DAT-RET].
+///
+/// Documentation of data retention policies, legal requirements,
+/// archival strategies, and data lifecycle management.
+@SectionId('PD00-CUR-DAT-RET')
+class DataRetentionPolicies {
+  @ContentHelp('''
+Overview of data retention policies and lifecycle management. Describe the
+policy framework, regulatory drivers, implementation status, and any gaps.
+''')
+  String? content;
+
+  /// Retention policy summary.
+  RetentionPolicySummary policySummary = RetentionPolicySummary();
+
+  /// Retention policies by data category.
+  @SectionIdPattern('PD00-CUR-DAT-RET-xx')
+  @Min(1)
+  List<RetentionPolicyEntry> retentionPolicies = [];
+}
+
+/// Summary of retention policy framework.
+class RetentionPolicySummary {
+  @Form([
+    Field('policyFrameworkExists', String, 'Policy Framework Exists',
+        hint: 'Yes / Partial / No'),
+    Field('primaryRegulations', String, 'Primary Regulations',
+        hint: 'Key regulations driving retention, e.g. GDPR, SOX, HIPAA'),
+    Field('defaultRetentionPeriod', String, 'Default Retention Period',
+        hint: 'Default retention if not specified, e.g. 7 years'),
+    Field('policyComplianceRate', String, 'Policy Compliance Rate',
+        hint: 'Percentage of data following retention policies'),
+    Field('archivalSystemExists', String, 'Archival System',
+        hint: 'Yes / No — whether systematic archival exists'),
+    Field('automatedPurging', String, 'Automated Purging',
+        hint: 'Yes / Partial / Manual — purging automation level'),
+    Field('legalHoldProcess', String, 'Legal Hold Process',
+        hint: 'Whether legal hold process is defined'),
+    Field('retentionGaps', String, 'Retention Gaps',
+        hint: 'Number of data areas without retention policies'),
+    Field('lastPolicyReview', String, 'Last Policy Review',
+        hint: 'When retention policies were last reviewed'),
+  ])
+  String? content;
+}
+
+/// Retention policy for a specific data category.
+class RetentionPolicyEntry {
+  @Form([
+    Field('policyId', String, 'Policy ID',
+        hint: 'Unique identifier', required: true),
+    Field('dataCategory', String, 'Data Category',
+        hint: 'Category of data this policy applies to', required: true),
+    Field('appliesTo', String, 'Applies To',
+        hint: 'Specific data sources or entities'),
+    Field('retentionPeriod', String, 'Retention Period',
+        hint: 'How long data is retained, e.g. 7 years'),
+    Field('retentionTrigger', String, 'Retention Trigger',
+        hint: 'What starts the retention clock, e.g. creation date, last access'),
+    Field('legalBasis', String, 'Legal Basis',
+        hint: 'Regulation or law requiring this retention'),
+    Field('archivalMethod', String, 'Archival Method',
+        hint: 'How data is archived, e.g. cold storage, tape, cloud archive'),
+    Field('deletionMethod', String, 'Deletion Method',
+        hint: 'How data is deleted, e.g. logical delete, physical purge, secure wipe'),
+    Field('exceptionProcess', String, 'Exception Process',
+        hint: 'How exceptions to the policy are handled'),
+    Field('complianceStatus', String, 'Compliance Status',
+        hint: 'Compliant / PartiallyCompliant / NonCompliant'),
+    Field('implementationStatus', String, 'Implementation Status',
+        hint: 'Implemented / InProgress / Planned / NotImplemented'),
+    Field('responsibleParty', String, 'Responsible Party',
+        hint: 'Who is responsible for enforcing this policy'),
+  ])
+  String? content;
+}
+
+/// 1.4.7. Data Governance [PD00-CUR-DAT-GOV].
+///
+/// Current data governance structure, policies, processes, and maturity level.
+@SectionId('PD00-CUR-DAT-GOV')
+class DataGovernance {
+  @ContentHelp('''
+Overview of data governance in the organization. Describe the governance
+framework, organizational structure, policies, and current maturity level.
+''')
+  String? content;
+
+  /// Governance maturity assessment.
+  DataGovernanceMaturity governanceMaturity = DataGovernanceMaturity();
+
+  /// Governance organization structure.
+  @ContentType('mermaid', 'Organizational chart showing data governance '
+      'roles and reporting structure')
+  String? governanceOrgChart;
+
+  /// Data governance policies.
+  @Min(1)
+  List<DataGovernancePolicyEntry> governancePolicies = [];
+}
+
+/// Data governance maturity assessment.
+class DataGovernanceMaturity {
+  @Form([
+    Field('overallMaturityLevel', String, 'Overall Maturity Level',
+        hint: 'Level 1-5 or Initial/Managed/Defined/Measured/Optimized'),
+    Field('strategyMaturity', String, 'Strategy Maturity',
+        hint: 'Maturity of data governance strategy'),
+    Field('organizationMaturity', String, 'Organization Maturity',
+        hint: 'Maturity of governance organizational structure'),
+    Field('policyMaturity', String, 'Policy Maturity',
+        hint: 'Maturity of governance policies'),
+    Field('processMaturity', String, 'Process Maturity',
+        hint: 'Maturity of governance processes'),
+    Field('technologyMaturity', String, 'Technology Maturity',
+        hint: 'Maturity of supporting technology/tools'),
+    Field('cultureMaturity', String, 'Culture Maturity',
+        hint: 'Data-aware culture maturity'),
+    Field('assessmentDate', String, 'Assessment Date',
+        hint: 'When maturity was last assessed'),
+    Field('targetMaturityLevel', String, 'Target Maturity Level',
+        hint: 'Desired maturity level'),
+    Field('maturityGaps', String, 'Key Maturity Gaps',
+        hint: 'Areas needing most improvement'),
+  ])
+  String? content;
+}
+
+/// Data governance policy entry.
+class DataGovernancePolicyEntry {
+  @Form([
+    Field('policyId', String, 'Policy ID',
+        hint: 'Unique identifier'),
+    Field('policyName', String, 'Policy Name',
+        hint: 'Name of the governance policy', required: true),
+    Field('policyArea', String, 'Policy Area',
+        hint: 'DataQuality / DataSecurity / DataPrivacy / DataAccess / MDM'),
+    Field('description', String, 'Description',
+        hint: 'Brief description of the policy'),
+    Field('scope', String, 'Scope',
+        hint: 'What the policy applies to'),
+    Field('status', String, 'Status',
+        hint: 'Draft / Approved / InForce / UnderReview / Retired'),
+    Field('effectiveDate', String, 'Effective Date',
+        hint: 'When the policy became effective'),
+    Field('reviewFrequency', String, 'Review Frequency',
+        hint: 'How often the policy is reviewed'),
+    Field('policyOwner', String, 'Policy Owner',
+        hint: 'Who owns the policy'),
+    Field('enforcementMechanism', String, 'Enforcement Mechanism',
+        hint: 'How the policy is enforced'),
+    Field('complianceLevel', String, 'Compliance Level',
+        hint: 'Current compliance with this policy'),
+  ])
+  String? content;
+}
+
+/// 1.4.8. Data Classification [PD00-CUR-DAT-CLA].
+///
+/// Data classification framework, sensitivity levels, and current
+/// classification status of data assets.
+@SectionId('PD00-CUR-DAT-CLA')
+class DataClassification {
+  @ContentHelp('''
+Overview of data classification in the organization. Describe the classification
+framework, sensitivity levels, handling requirements, and current classification
+coverage.
+''')
+  String? content;
+
+  /// Classification framework summary.
+  DataClassificationSummary classificationSummary =
+      DataClassificationSummary();
+
+  /// Classification levels defined.
+  @Min(1)
+  List<DataClassificationLevelEntry> classificationLevels = [];
+
+  /// Classification status by data domain.
+  List<DataClassificationStatusEntry> classificationStatus = [];
+}
+
+/// Summary of data classification framework.
+class DataClassificationSummary {
+  @Form([
+    Field('classificationFrameworkExists', String, 'Framework Exists',
+        hint: 'Yes / Partial / No'),
+    Field('frameworkName', String, 'Framework Name',
+        hint: 'Name of classification framework if standardized'),
+    Field('numberOfLevels', int, 'Number of Levels',
+        hint: 'How many classification levels are defined'),
+    Field('classificationCoverage', String, 'Classification Coverage',
+        hint: 'Percentage of data that is classified'),
+    Field('autoClassificationExists', String, 'Auto-Classification',
+        hint: 'Yes / Partial / No — automated classification tools'),
+    Field('labelingImplemented', String, 'Labeling Implemented',
+        hint: 'Whether data is actively labeled'),
+    Field('handlingProceduresDocumented', String, 'Handling Procedures',
+        hint: 'Whether handling procedures per level are documented'),
+    Field('trainingProvided', String, 'Training Provided',
+        hint: 'Whether classification training is provided'),
+    Field('lastFrameworkReview', String, 'Last Framework Review',
+        hint: 'When the framework was last reviewed'),
+  ])
+  String? content;
+}
+
+/// A data classification level definition.
+class DataClassificationLevelEntry {
+  @Form([
+    Field('levelName', String, 'Level Name',
+        hint: 'E.g. Public, Internal, Confidential, Restricted', required: true),
+    Field('levelOrder', int, 'Level Order',
+        hint: 'Numeric order, 1=lowest sensitivity'),
+    Field('description', String, 'Description',
+        hint: 'What this level means'),
+    Field('dataExamples', String, 'Data Examples',
+        hint: 'Examples of data at this level'),
+    Field('handlingRequirements', String, 'Handling Requirements',
+        hint: 'How data at this level must be handled'),
+    Field('accessRestrictions', String, 'Access Restrictions',
+        hint: 'Who can access data at this level'),
+    Field('storageRequirements', String, 'Storage Requirements',
+        hint: 'How data at this level must be stored'),
+    Field('transmissionRequirements', String, 'Transmission Requirements',
+        hint: 'How data at this level can be transmitted'),
+    Field('disposalRequirements', String, 'Disposal Requirements',
+        hint: 'How data at this level must be disposed'),
+    Field('incidentResponseLevel', String, 'Incident Response',
+        hint: 'Response level if breached'),
+  ])
+  String? content;
+}
+
+/// Classification status for a data domain.
+class DataClassificationStatusEntry {
+  @Form([
+    Field('dataDomain', String, 'Data Domain',
+        hint: 'Business area or data domain', required: true),
+    Field('classificationStatus', String, 'Classification Status',
+        hint: 'Complete / InProgress / NotStarted'),
+    Field('percentageClassified', String, 'Percentage Classified',
+        hint: 'How much of this domain is classified'),
+    Field('highestSensitivityLevel', String, 'Highest Sensitivity',
+        hint: 'Highest classification level in this domain'),
+    Field('classificationOwner', String, 'Classification Owner',
+        hint: 'Who is responsible for classification'),
+    Field('lastReview', String, 'Last Review',
+        hint: 'When classification was last reviewed'),
+  ])
+  String? content;
+}
+
+/// 1.4.9. Data Integration Points [PD00-CUR-DAT-INT].
+///
+/// Documentation of data integration points, ETL processes, APIs,
+/// and data exchange mechanisms.
+@SectionId('PD00-CUR-DAT-INT')
+class DataIntegrationPoints {
+  @ContentHelp('''
+Overview of data integration across the organization. Describe the integration
+architecture, major data flows, technologies used, and integration challenges.
+''')
+  String? content;
+
+  /// Integration summary.
+  DataIntegrationSummary integrationSummary = DataIntegrationSummary();
+
+  /// Data flow diagram.
+  @ContentType('mermaid-flowchart', 'Diagram showing major data flows '
+      'and integration points between systems')
+  String? dataFlowDiagram;
+
+  /// Data integration points inventory.
+  @SectionIdPattern('PD00-CUR-DAT-INT-xx')
+  @Min(1)
+  List<DataIntegrationEntry> integrationPoints = [];
+}
+
+/// Summary of data integration landscape.
+class DataIntegrationSummary {
+  @Form([
+    Field('totalIntegrationPoints', int, 'Total Integration Points',
+        hint: 'Number of distinct data integration points'),
+    Field('integrationArchitecture', String, 'Integration Architecture',
+        hint: 'PointToPoint / Hub / ESB / EventDriven / Hybrid'),
+    Field('primaryIntegrationTool', String, 'Primary Integration Tool',
+        hint: 'Main ETL/integration platform'),
+    Field('realtimeIntegrations', int, 'Real-time Integrations',
+        hint: 'Number of real-time integrations'),
+    Field('batchIntegrations', int, 'Batch Integrations',
+        hint: 'Number of batch/scheduled integrations'),
+    Field('apiIntegrations', int, 'API Integrations',
+        hint: 'Number of API-based integrations'),
+    Field('integrationReliability', String, 'Overall Reliability',
+        hint: 'Success rate of integrations, e.g. 98.5%'),
+    Field('averageLatency', String, 'Average Latency',
+        hint: 'Typical integration latency'),
+    Field('knownBottlenecks', int, 'Known Bottlenecks',
+        hint: 'Number of integration bottlenecks'),
+    Field('integrationDebt', String, 'Integration Debt',
+        hint: 'Technical debt in integration layer'),
+  ])
+  String? content;
+}
+
+/// A data integration point entry.
+class DataIntegrationEntry {
+  @Form([
+    Field('integrationId', String, 'Integration ID',
+        hint: 'Unique identifier', required: true),
+    Field('integrationName', String, 'Integration Name',
+        hint: 'Name of the integration', required: true),
+    Field('description', String, 'Description',
+        hint: 'What data is exchanged and why'),
+    Field('sourceSystem', String, 'Source System',
+        hint: 'System providing the data'),
+    Field('targetSystem', String, 'Target System',
+        hint: 'System receiving the data'),
+    Field('integrationType', String, 'Integration Type',
+        hint: 'ETL / ELT / API / FileTransfer / EventStream / CDC'),
+    Field('dataVolume', String, 'Data Volume',
+        hint: 'Typical volume per execution'),
+    Field('frequency', String, 'Frequency',
+        hint: 'RealTime / NearRealTime / Hourly / Daily / Weekly / OnDemand'),
+    Field('technology', String, 'Technology',
+        hint: 'Integration technology used'),
+    Field('protocol', String, 'Protocol',
+        hint: 'Communication protocol, e.g. REST, SOAP, SFTP, Kafka'),
+    Field('dataTransformation', String, 'Data Transformation',
+        hint: 'Type/complexity of transformation'),
+    Field('errorHandling', String, 'Error Handling',
+        hint: 'How errors are handled'),
+    Field('monitoringStatus', String, 'Monitoring Status',
+        hint: 'None / Basic / Comprehensive'),
+    Field('reliability', String, 'Reliability',
+        hint: 'Success rate, e.g. 99.2%'),
+    Field('latency', String, 'Latency',
+        hint: 'Typical latency, e.g. 5 seconds, 2 hours'),
+    Field('sla', String, 'SLA',
+        hint: 'Service level agreement if defined'),
+    Field('businessOwner', String, 'Business Owner',
+        hint: 'Who owns this integration'),
+    Field('technicalOwner', String, 'Technical Owner',
+        hint: 'Who maintains this integration'),
+    Field('criticality', String, 'Business Criticality',
+        hint: 'Critical / High / Medium / Low'),
+    Field('knownIssues', String, 'Known Issues',
+        hint: 'Current problems with this integration'),
+  ])
+  String? content;
+}
+
+/// 1.4.10. Master Data Management [PD00-CUR-DAT-MDM].
+///
+/// Master data management practices, golden records, and data
+/// synchronization across systems.
+@SectionId('PD00-CUR-DAT-MDM')
+class MasterDataManagement {
+  @ContentHelp('''
+Overview of master data management in the organization. Describe the MDM
+strategy, master data domains, golden record sources, and synchronization
+approach.
+''')
+  String? content;
+
+  /// MDM maturity and status summary.
+  MdmSummary mdmSummary = MdmSummary();
+
+  /// Master data domains.
+  @SectionIdPattern('PD00-CUR-DAT-MDM-xx')
+  @Min(1)
+  List<MasterDataDomainEntry> masterDataDomains = [];
+}
+
+/// Summary of MDM status and maturity.
+class MdmSummary {
+  @Form([
+    Field('mdmMaturityLevel', String, 'MDM Maturity Level',
+        hint: 'Level 1-5 or Initial/Managed/Defined/Measured/Optimized'),
+    Field('mdmStrategy', String, 'MDM Strategy',
+        hint: 'Centralized / RegionalHubs / Federated / NoStrategy'),
+    Field('mdmPlatform', String, 'MDM Platform',
+        hint: 'Technology used for MDM if any'),
+    Field('totalMasterDataDomains', int, 'Total Master Data Domains',
+        hint: 'Number of defined master data domains'),
+    Field('goldenRecordCoverage', String, 'Golden Record Coverage',
+        hint: 'Percentage of master data with golden records'),
+    Field('dataQualityInMaster', String, 'Master Data Quality',
+        hint: 'Quality level of master data'),
+    Field('synchronizationApproach', String, 'Synchronization Approach',
+        hint: 'How master data is synchronized across systems'),
+    Field('dataMatchingCapability', String, 'Data Matching Capability',
+        hint: 'Level of deduplication/matching capability'),
+    Field('hierarchyManagement', String, 'Hierarchy Management',
+        hint: 'How organizational/product hierarchies are managed'),
+    Field('mdmGaps', String, 'Key MDM Gaps',
+        hint: 'Primary gaps in master data management'),
+  ])
+  String? content;
+}
+
+/// Master data domain entry.
+class MasterDataDomainEntry {
+  @Form([
+    Field('domainName', String, 'Domain Name',
+        hint: 'E.g. Customer, Product, Vendor, Employee, Location', required: true),
+    Field('description', String, 'Description',
+        hint: 'What this master data domain covers'),
+    Field('goldenRecordSource', String, 'Golden Record Source',
+        hint: 'Authoritative system for this master data'),
+    Field('recordCount', String, 'Record Count',
+        hint: 'Number of master records'),
+    Field('qualityScore', String, 'Quality Score',
+        hint: 'Quality of master data in this domain'),
+    Field('duplicateRate', String, 'Duplicate Rate',
+        hint: 'Estimated duplication, e.g. 3%'),
+    Field('consumingSystems', String, 'Consuming Systems',
+        hint: 'Systems that use this master data'),
+    Field('updateFrequency', String, 'Update Frequency',
+        hint: 'How often master data is updated'),
+    Field('governanceLevel', String, 'Governance Level',
+        hint: 'Level of governance for this domain'),
+    Field('domainOwner', String, 'Domain Owner',
+        hint: 'Who owns this master data domain'),
+    Field('dataSteward', String, 'Data Steward',
+        hint: 'Steward responsible for data quality'),
+    Field('knownIssues', String, 'Known Issues',
+        hint: 'Current issues with this master data'),
+    Field('improvementPlan', String, 'Improvement Plan',
+        hint: 'Plans to improve this domain'),
+  ])
+  String? content;
+}
+
