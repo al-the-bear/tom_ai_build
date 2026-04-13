@@ -2045,343 +2045,56 @@ class FeatureDependencyEntry {
 @SectionId('PD00-SSP-MIG')
 class DataMigrationStrategy {
   @Form([
-    // --- Strategic Approach ---
     Field('migrationApproach', String, 'Migration Approach',
-        hint:
-            'BigBang / Trickle / ParallelRun / Phased / Hybrid — '
-            'overall migration strategy',
+        hint: 'BigBang / Trickle / ParallelRun / Phased / Hybrid',
         required: true),
     Field('migrationMethodology', String, 'Migration Methodology',
-        hint:
-            'ETL-Centric / API-First / CDC-Based / '
-            'ReplicationBased / ManualAssisted / Hybrid — primary '
-            'technical methodology',
+        hint: 'ETL-Centric / API-First / CDC-Based / ReplicationBased / Hybrid',
         required: true),
-    Field('migrationRationale', String, 'Approach Rationale',
-        hint:
-            'Why this approach was chosen — risk tolerance, data '
-            'volume, downtime constraints, regulatory deadlines'),
-    Field('alternativesConsidered', String,
-        'Alternatives Considered',
-        hint:
-            'Other approaches evaluated and why rejected — e.g. '
-            'BigBang rejected due to 4-hour max downtime window'),
-    // --- Scope & Data Landscape ---
-    Field('dataLandscapeOverview', String,
-        'Data Landscape Overview',
-        hint:
-            'High-level description of the data ecosystem — '
-            'number of sources, total volume, data types '
-            '(structured, semi-structured, unstructured)',
-        required: true),
-    Field('totalSourceSystems', String, 'Total Source Systems',
-        hint:
-            'Number of source systems involved — e.g. 5 databases, '
-            '3 file stores, 2 SaaS APIs',
-        required: true),
-    Field('totalDataVolume', String, 'Total Data Volume',
-        hint:
-            'Aggregate data volume across all sources — e.g. '
-            '2.5 TB structured, 500 GB documents, 15M records'),
-    Field('totalEntitiesInScope', String,
-        'Total Entities in Scope',
-        hint:
-            'Number of distinct data entities/tables to migrate — '
-            'e.g. 120 tables across 5 schemas'),
-    Field('dataClassificationSummary', String,
-        'Data Classification Summary',
-        hint:
-            'Breakdown by classification — e.g. Public: 30%, '
-            'Internal: 45%, Confidential: 20%, Restricted: 5%'),
-    Field('excludedFromMigration', String,
-        'Excluded from Migration',
-        hint:
-            'Data explicitly out of scope — archived records '
-            'older than 7 years, deprecated modules, test data'),
-    // --- Source & Target Systems ---
-    Field('sourceSystemInventory', String,
-        'Source System Inventory',
-        hint:
-            'List of source systems — e.g. Oracle ERP 11g, '
-            'Salesforce CRM, SharePoint 2016, PostgreSQL 12 '
-            'data warehouse'),
-    Field('targetSystemDescription', String,
-        'Target System Description',
-        hint:
-            'Target platform and architecture — e.g. AWS Aurora '
-            'PostgreSQL 15, S3 for documents, OpenSearch for '
-            'full-text'),
-    Field('schemaTransformationComplexity', String,
-        'Schema Transformation Complexity',
-        hint:
-            'Low / Medium / High / VeryHigh — complexity of '
-            'schema changes between source and target',
-        required: true),
-    Field('dataModelChangeSummary', String,
-        'Data Model Change Summary',
-        hint:
-            'Key structural changes — table splits/merges, '
-            'normalization changes, new lookup tables, enum '
-            'standardization'),
-    // --- Data Quality ---
-    Field('dataQualityBaselineStatus', String,
-        'Data Quality Baseline Status',
-        hint:
-            'NotStarted / InProgress / Complete — whether source '
-            'data quality has been profiled',
-        required: true),
-    Field('dataQualityProfileTool', String,
-        'Data Quality Profiling Tool',
-        hint:
-            'Tool used for profiling — e.g. Great Expectations, '
-            'Talend DQ, Informatica Data Explorer, dbt tests'),
-    Field('knownDataQualityIssues', String,
-        'Known Data Quality Issues',
-        hint:
-            'Critical issues discovered — e.g. 12% null emails, '
-            '5% duplicate customers, inconsistent date formats'),
-    Field('dataCleansingStrategy', String,
-        'Data Cleansing Strategy',
-        hint:
-            'PreMigration / DuringMigration / PostMigration / '
-            'Hybrid — when and how data quality issues are '
-            'resolved'),
-    Field('dataQualityThresholds', String,
-        'Data Quality Thresholds',
-        hint:
-            'Minimum quality metrics for migration approval — '
-            'e.g. completeness ≥98%, accuracy ≥99%, uniqueness '
-            '≥99.5%'),
-    // --- Tooling & Technology ---
-    Field('primaryMigrationTool', String,
-        'Primary Migration Tool',
-        hint:
-            'Main tool or platform — e.g. AWS DMS, Apache NiFi, '
-            'Informatica PowerCenter, Talend, Azure Data Factory, '
-            'custom Python/Spark pipeline',
-        required: true),
-    Field('secondaryTools', String, 'Secondary Tools',
-        hint:
-            'Supporting tools — e.g. dbt for transformations, '
-            'Great Expectations for validation, Flyway for schema'),
-    Field('cdcTool', String, 'CDC Tool',
-        hint:
-            'Change Data Capture tool if applicable — e.g. '
-            'Debezium, Oracle GoldenGate, AWS DMS CDC, Striim'),
-    Field('orchestrationPlatform', String,
-        'Orchestration Platform',
-        hint:
-            'Workflow orchestration — e.g. Apache Airflow, '
-            'AWS Step Functions, Azure Data Factory, Prefect'),
-    Field('scriptingLanguage', String, 'Scripting Language',
-        hint:
-            'Primary language for custom migration logic — '
-            'Python / SQL / Spark / Dart / Java'),
-    Field('versionControlForMigrations', String,
-        'Version Control for Migrations',
-        hint:
-            'How migration scripts are versioned — Git repo, '
-            'Flyway migrations, Liquibase changesets, numbered SQL'),
-    // --- Environment Strategy ---
-    Field('migrationEnvironments', String,
-        'Migration Environments',
-        hint:
-            'Environments used for migration — e.g. Dev (subset), '
-            'Test (full copy), Staging (production-like), '
-            'Production',
-        required: true),
-    Field('environmentDataSubsetting', String,
-        'Environment Data Subsetting',
-        hint:
-            'Data subsetting strategy for lower environments — '
-            'percentage-based, date-range, referential-integrity-'
-            'aware, anonymized'),
-    Field('productionLikeEnvironmentReady', String,
-        'Production-Like Environment Ready',
-        hint:
-            'Yes / No / InProgress — whether a production-'
-            'equivalent environment exists for dress rehearsals'),
-    Field('environmentRefreshCadence', String,
-        'Environment Refresh Cadence',
-        hint:
-            'How often test environments are refreshed with '
-            'production data — weekly, per dry run, on demand'),
-    // --- Cutover Planning ---
-    Field('cutoverStrategy', String, 'Cutover Strategy',
-        hint:
-            'BigBang / PhaseByEntity / PhaseByModule / '
-            'BlueGreenSwitch / CanaryRollout — cutover execution '
-            'approach',
-        required: true),
-    Field('cutoverWindowDuration', String,
-        'Cutover Window Duration',
-        hint:
-            'Maximum allowed downtime — e.g. 4 hours, 8 hours, '
-            'zero-downtime required',
-        required: true),
-    Field('cutoverWindowTiming', String,
-        'Cutover Window Timing',
-        hint:
-            'Preferred timing — e.g. Saturday 22:00–Sunday 06:00 '
-            'UTC, holiday weekend, Q1 end'),
-    Field('cutoverRunbook', String, 'Cutover Runbook Status',
-        hint:
-            'NotStarted / InProgress / Complete / Tested — '
-            'status of the detailed cutover procedure document'),
-    Field('preFlightChecklist', String,
-        'Pre-Flight Checklist Status',
-        hint:
-            'NotStarted / InProgress / Complete — checklist of '
-            'conditions before committing to cutover'),
-    Field('goNoGoDecisionOwner', String,
-        'Go/No-Go Decision Owner',
-        hint:
-            'Person with final cutover authority — e.g. Program '
-            'Director, CTO, Steering Committee'),
-    Field('goNoGoCriteria', String, 'Go/No-Go Criteria',
-        hint:
-            'Key criteria for cutover approval — dry run passed, '
-            'data quality met, rollback tested, team available'),
-    // --- Rollback & Recovery ---
-    Field('rollbackStrategy', String, 'Rollback Strategy',
-        hint:
-            'FullRollback / PartialRollback / ForwardFix / '
-            'DualWrite — approach if migration fails',
-        required: true),
-    Field('rollbackTimeBudget', String, 'Rollback Time Budget',
-        hint:
-            'Maximum time to complete rollback — e.g. 2 hours, '
-            'must fit within cutover window'),
-    Field('rollbackTriggers', String, 'Rollback Triggers',
-        hint:
-            'Conditions that activate rollback — data loss '
-            'detected, validation failure >1%, system unresponsive'),
-    Field('rollbackTested', String, 'Rollback Tested',
-        hint:
-            'Yes / No / Partially — whether the rollback plan '
-            'has been exercised in a dry run'),
-    Field('pointOfNoReturn', String, 'Point of No Return',
-        hint:
-            'Step in the migration after which rollback is no '
-            'longer viable — e.g. after source decommission, '
-            'after cutover plus 24h'),
-    // --- Compliance & Governance ---
-    Field('dataPrivacyCompliance', String,
-        'Data Privacy Compliance',
-        hint:
-            'GDPR / CCPA / HIPAA / SOX / PCI-DSS / None — '
-            'applicable regulations',
-        required: true),
-    Field('gdprDataHandling', String, 'GDPR Data Handling',
-        hint:
-            'How personal data is handled during migration — '
-            'encryption in transit/at rest, pseudonymization, '
-            'consent re-verification, right-to-erasure queue'),
-    Field('dataResidencyRequirements', String,
-        'Data Residency Requirements',
-        hint:
-            'Geographic constraints — e.g. EU data must remain '
-            'in eu-west-1, no cross-border transfer without DPA'),
-    Field('auditTrailRequirements', String,
-        'Audit Trail Requirements',
-        hint:
-            'Logging requirements — every record transformation '
-            'logged, before/after snapshots, reconciliation logs'),
-    Field('dataRetentionDuringMigration', String,
-        'Data Retention During Migration',
-        hint:
-            'How long source data is retained post-migration — '
-            'e.g. 90 days parallel, 1 year archive, then purge'),
-    Field('migrationGovernanceBody', String,
-        'Migration Governance Body',
-        hint:
-            'Who oversees migration quality — Data Governance '
-            'Council, Migration Review Board, Steering Committee'),
-    // --- Success Metrics ---
-    Field('successMetrics', String, 'Success Metrics',
-        hint:
-            'Key metrics defining migration success — data '
-            'completeness ≥99.9%, zero data loss, validation '
-            'pass rate ≥99%, downtime ≤4h',
-        required: true),
-    Field('dataCompletenessTarget', String,
-        'Data Completeness Target',
-        hint:
-            'Target percentage — e.g. 99.99% of records migrated '
-            'with all required fields'),
-    Field('dataAccuracyTarget', String, 'Data Accuracy Target',
-        hint:
-            'Target accuracy — e.g. 99.9% field-level accuracy '
-            'validated by checksums and business rule checks'),
-    Field('performanceBenchmark', String,
-        'Performance Benchmark',
-        hint:
-            'Target throughput — e.g. 10K records/sec ETL, '
-            'full migration completes within 3 hours'),
-    Field('maxAcceptableDowntime', String,
-        'Max Acceptable Downtime',
-        hint:
-            'Business-defined downtime limit — e.g. 4 hours, '
-            'or zero for critical systems'),
-    // --- Stakeholders & Communication ---
     Field('migrationLead', String, 'Migration Lead',
-        hint:
-            'Person accountable for end-to-end migration — name '
-            'and role',
+        hint: 'Person accountable for end-to-end migration',
         required: true),
-    Field('dataOwnerSignoffRequired', String,
-        'Data Owner Sign-off Required',
-        hint:
-            'Yes / No — whether each data domain owner must '
-            'approve migration results'),
-    Field('businessSignoffProcess', String,
-        'Business Sign-off Process',
-        hint:
-            'How business validates migration — UAT, side-by-'
-            'side comparison, sample report reconciliation'),
-    Field('communicationPlan', String, 'Communication Plan',
-        hint:
-            'Stakeholder communication — weekly status, pre-'
-            'cutover briefing, post-migration report, escalation'),
-    Field('trainingForMigrationTeam', String,
-        'Training for Migration Team',
-        hint:
-            'Training needed — migration tool training, target '
-            'platform, rollback procedures, monitoring tools'),
-    // --- Budget & Resources ---
-    Field('migrationBudget', String, 'Migration Budget',
-        hint:
-            'Total budget for migration activities — tooling '
-            'licenses, cloud compute, contractor hours'),
-    Field('teamComposition', String, 'Team Composition',
-        hint:
-            'Key roles — Migration Architect, ETL Developer, '
-            'DBA, Data Analyst, QA Engineer, Business Validator'),
-    Field('externalVendorSupport', String,
-        'External Vendor Support',
-        hint:
-            'Third-party support — database vendor, migration '
-            'tool vendor, consulting firm, cloud provider PS'),
-    // --- Schedule Overview ---
-    Field('overallMigrationStart', String,
-        'Overall Migration Start',
-        hint: 'Planned start date of migration activities'),
-    Field('overallMigrationEnd', String, 'Overall Migration End',
-        hint: 'Planned completion date including hypercare'),
-    Field('dryRunCount', String, 'Planned Dry Run Count',
-        hint:
-            'Number of full dress rehearsals planned — e.g. 3 '
-            'dry runs before production cutover'),
-    Field('dryRunSchedule', String, 'Dry Run Schedule',
-        hint:
-            'Dates for each dry run — e.g. DR1: May 1, DR2: '
-            'May 15, DR3: May 29, Production: Jun 7'),
-    Field('hypercareDuration', String, 'Hypercare Duration',
-        hint:
-            'Post-migration intensive support — e.g. 2 weeks '
-            '24x7, then 2 weeks business hours'),
   ])
   String? content;
+
+  /// Strategic approach details.
+  final MigrationApproach approach = MigrationApproach();
+
+  /// Scope and data landscape.
+  final MigrationScope scope = MigrationScope();
+
+  /// Source and target system details.
+  final MigrationSystems systems = MigrationSystems();
+
+  /// Data quality strategy.
+  final MigrationDataQuality dataQuality = MigrationDataQuality();
+
+  /// Tooling and technology stack.
+  final MigrationTooling tooling = MigrationTooling();
+
+  /// Environment strategy.
+  final MigrationEnvironments environments = MigrationEnvironments();
+
+  /// Cutover planning.
+  final MigrationCutover cutover = MigrationCutover();
+
+  /// Rollback and recovery strategy.
+  final MigrationRollback rollback = MigrationRollback();
+
+  /// Compliance and governance.
+  final MigrationCompliance compliance = MigrationCompliance();
+
+  /// Success metrics.
+  final MigrationMetrics metrics = MigrationMetrics();
+
+  /// Stakeholder communication.
+  final MigrationStakeholders stakeholders = MigrationStakeholders();
+
+  /// Budget and resources.
+  final MigrationResources resources = MigrationResources();
+
+  /// Schedule overview.
+  final MigrationSchedule schedule = MigrationSchedule();
 
   /// Migration strategy narrative.
   @ContentHelp('Overall data migration approach: migration methodology, '
@@ -2395,6 +2108,232 @@ class DataMigrationStrategy {
 
   /// 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
   StageMigrationRisks migrationRisks = StageMigrationRisks();
+}
+
+/// Strategic approach for data migration.
+class MigrationApproach {
+  @Form([
+    Field('migrationRationale', String, 'Approach Rationale',
+        hint: 'Why this approach was chosen — risk tolerance, downtime constraints'),
+    Field('alternativesConsidered', String, 'Alternatives Considered',
+        hint: 'Other approaches evaluated and why rejected'),
+  ])
+  String? content;
+}
+
+/// Scope and data landscape for migration.
+class MigrationScope {
+  @Form([
+    Field('dataLandscapeOverview', String, 'Data Landscape Overview',
+        hint: 'High-level description of the data ecosystem',
+        required: true),
+    Field('totalSourceSystems', String, 'Total Source Systems',
+        hint: 'Number of source systems involved',
+        required: true),
+    Field('totalDataVolume', String, 'Total Data Volume',
+        hint: 'Aggregate data volume across all sources'),
+    Field('totalEntitiesInScope', String, 'Total Entities in Scope',
+        hint: 'Number of distinct data entities/tables to migrate'),
+    Field('dataClassificationSummary', String, 'Data Classification Summary',
+        hint: 'Breakdown by classification — Public, Internal, Confidential'),
+    Field('excludedFromMigration', String, 'Excluded from Migration',
+        hint: 'Data explicitly out of scope'),
+  ])
+  String? content;
+}
+
+/// Source and target systems for migration.
+class MigrationSystems {
+  @Form([
+    Field('sourceSystemInventory', String, 'Source System Inventory',
+        hint: 'List of source systems'),
+    Field('targetSystemDescription', String, 'Target System Description',
+        hint: 'Target platform and architecture'),
+    Field('schemaTransformationComplexity', String, 'Schema Transformation Complexity',
+        hint: 'Low / Medium / High / VeryHigh',
+        required: true),
+    Field('dataModelChangeSummary', String, 'Data Model Change Summary',
+        hint: 'Key structural changes — table splits/merges, normalization'),
+  ])
+  String? content;
+}
+
+/// Data quality strategy for migration.
+class MigrationDataQuality {
+  @Form([
+    Field('dataQualityBaselineStatus', String, 'Data Quality Baseline Status',
+        hint: 'NotStarted / InProgress / Complete',
+        required: true),
+    Field('dataQualityProfileTool', String, 'Data Quality Profiling Tool',
+        hint: 'Tool used for profiling'),
+    Field('knownDataQualityIssues', String, 'Known Data Quality Issues',
+        hint: 'Critical issues discovered'),
+    Field('dataCleansingStrategy', String, 'Data Cleansing Strategy',
+        hint: 'PreMigration / DuringMigration / PostMigration / Hybrid'),
+    Field('dataQualityThresholds', String, 'Data Quality Thresholds',
+        hint: 'Minimum quality metrics for migration approval'),
+  ])
+  String? content;
+}
+
+/// Tooling and technology for migration.
+class MigrationTooling {
+  @Form([
+    Field('primaryMigrationTool', String, 'Primary Migration Tool',
+        hint: 'Main tool or platform',
+        required: true),
+    Field('secondaryTools', String, 'Secondary Tools',
+        hint: 'Supporting tools'),
+    Field('cdcTool', String, 'CDC Tool',
+        hint: 'Change Data Capture tool if applicable'),
+    Field('orchestrationPlatform', String, 'Orchestration Platform',
+        hint: 'Workflow orchestration — Airflow, Step Functions'),
+    Field('scriptingLanguage', String, 'Scripting Language',
+        hint: 'Primary language for custom migration logic'),
+    Field('versionControlForMigrations', String, 'Version Control for Migrations',
+        hint: 'How migration scripts are versioned'),
+  ])
+  String? content;
+}
+
+/// Environment strategy for migration.
+class MigrationEnvironments {
+  @Form([
+    Field('migrationEnvironments', String, 'Migration Environments',
+        hint: 'Environments used for migration',
+        required: true),
+    Field('environmentDataSubsetting', String, 'Environment Data Subsetting',
+        hint: 'Data subsetting strategy for lower environments'),
+    Field('productionLikeEnvironmentReady', String, 'Production-Like Environment Ready',
+        hint: 'Yes / No / InProgress'),
+    Field('environmentRefreshCadence', String, 'Environment Refresh Cadence',
+        hint: 'How often test environments are refreshed'),
+  ])
+  String? content;
+}
+
+/// Cutover planning for migration.
+class MigrationCutover {
+  @Form([
+    Field('cutoverStrategy', String, 'Cutover Strategy',
+        hint: 'BigBang / PhaseByEntity / BlueGreenSwitch / CanaryRollout',
+        required: true),
+    Field('cutoverWindowDuration', String, 'Cutover Window Duration',
+        hint: 'Maximum allowed downtime',
+        required: true),
+    Field('cutoverWindowTiming', String, 'Cutover Window Timing',
+        hint: 'Preferred timing'),
+    Field('cutoverRunbook', String, 'Cutover Runbook Status',
+        hint: 'NotStarted / InProgress / Complete / Tested'),
+    Field('preFlightChecklist', String, 'Pre-Flight Checklist Status',
+        hint: 'NotStarted / InProgress / Complete'),
+    Field('goNoGoDecisionOwner', String, 'Go/No-Go Decision Owner',
+        hint: 'Person with final cutover authority'),
+    Field('goNoGoCriteria', String, 'Go/No-Go Criteria',
+        hint: 'Key criteria for cutover approval'),
+  ])
+  String? content;
+}
+
+/// Rollback and recovery for migration.
+class MigrationRollback {
+  @Form([
+    Field('rollbackStrategy', String, 'Rollback Strategy',
+        hint: 'FullRollback / PartialRollback / ForwardFix / DualWrite',
+        required: true),
+    Field('rollbackTimeBudget', String, 'Rollback Time Budget',
+        hint: 'Maximum time to complete rollback'),
+    Field('rollbackTriggers', String, 'Rollback Triggers',
+        hint: 'Conditions that activate rollback'),
+    Field('rollbackTested', String, 'Rollback Tested',
+        hint: 'Yes / No / Partially'),
+    Field('pointOfNoReturn', String, 'Point of No Return',
+        hint: 'Step after which rollback is no longer viable'),
+  ])
+  String? content;
+}
+
+/// Compliance and governance for migration.
+class MigrationCompliance {
+  @Form([
+    Field('dataPrivacyCompliance', String, 'Data Privacy Compliance',
+        hint: 'GDPR / CCPA / HIPAA / SOX / PCI-DSS / None',
+        required: true),
+    Field('gdprDataHandling', String, 'GDPR Data Handling',
+        hint: 'How personal data is handled during migration'),
+    Field('dataResidencyRequirements', String, 'Data Residency Requirements',
+        hint: 'Geographic constraints'),
+    Field('auditTrailRequirements', String, 'Audit Trail Requirements',
+        hint: 'Logging requirements'),
+    Field('dataRetentionDuringMigration', String, 'Data Retention During Migration',
+        hint: 'How long source data is retained post-migration'),
+    Field('migrationGovernanceBody', String, 'Migration Governance Body',
+        hint: 'Who oversees migration quality'),
+  ])
+  String? content;
+}
+
+/// Success metrics for migration.
+class MigrationMetrics {
+  @Form([
+    Field('successMetrics', String, 'Success Metrics',
+        hint: 'Key metrics defining migration success',
+        required: true),
+    Field('dataCompletenessTarget', String, 'Data Completeness Target',
+        hint: 'Target percentage'),
+    Field('dataAccuracyTarget', String, 'Data Accuracy Target',
+        hint: 'Target accuracy'),
+    Field('performanceBenchmark', String, 'Performance Benchmark',
+        hint: 'Target throughput'),
+    Field('maxAcceptableDowntime', String, 'Max Acceptable Downtime',
+        hint: 'Business-defined downtime limit'),
+  ])
+  String? content;
+}
+
+/// Stakeholder communication for migration.
+class MigrationStakeholders {
+  @Form([
+    Field('dataOwnerSignoffRequired', String, 'Data Owner Sign-off Required',
+        hint: 'Yes / No'),
+    Field('businessSignoffProcess', String, 'Business Sign-off Process',
+        hint: 'How business validates migration'),
+    Field('communicationPlan', String, 'Communication Plan',
+        hint: 'Stakeholder communication approach'),
+    Field('trainingForMigrationTeam', String, 'Training for Migration Team',
+        hint: 'Training needed'),
+  ])
+  String? content;
+}
+
+/// Budget and resources for migration.
+class MigrationResources {
+  @Form([
+    Field('migrationBudget', String, 'Migration Budget',
+        hint: 'Total budget for migration activities'),
+    Field('teamComposition', String, 'Team Composition',
+        hint: 'Key roles'),
+    Field('externalVendorSupport', String, 'External Vendor Support',
+        hint: 'Third-party support'),
+  ])
+  String? content;
+}
+
+/// Schedule overview for migration.
+class MigrationSchedule {
+  @Form([
+    Field('overallMigrationStart', String, 'Overall Migration Start',
+        hint: 'Planned start date of migration activities'),
+    Field('overallMigrationEnd', String, 'Overall Migration End',
+        hint: 'Planned completion date including hypercare'),
+    Field('dryRunCount', String, 'Planned Dry Run Count',
+        hint: 'Number of full dress rehearsals planned'),
+    Field('dryRunSchedule', String, 'Dry Run Schedule',
+        hint: 'Dates for each dry run'),
+    Field('hypercareDuration', String, 'Hypercare Duration',
+        hint: 'Post-migration intensive support period'),
+  ])
+  String? content;
 }
 
 /// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].

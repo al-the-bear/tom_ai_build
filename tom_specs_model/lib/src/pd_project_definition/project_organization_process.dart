@@ -1117,24 +1117,69 @@ class Environments {
 /// design, and PRINCE2 technical stage planning concerns.
 class EnvironmentEntry {
   @Form([
-    // --- Identity & Classification ---
     Field('environmentName', String, 'Environment Name',
         hint: 'Canonical name, e.g. Production, Staging-EU, Dev-Feature',
         required: true),
     Field('environmentId', String, 'Environment ID',
         hint: 'Unique code, e.g. ENV-PROD-01'),
     Field('environmentType', String, 'Environment Type',
-        hint:
-            'Development / Testing / Integration / QA / UAT / Staging / Production / DR / Sandbox / Demo'),
+        hint: 'Development / Testing / QA / UAT / Staging / Production / DR'),
+  ])
+  String? content;
+
+  /// Identity and classification details.
+  final EnvironmentIdentity identity = EnvironmentIdentity();
+
+  /// Infrastructure configuration.
+  final EnvironmentInfrastructure infrastructure = EnvironmentInfrastructure();
+
+  /// Access and security configuration.
+  final EnvironmentSecurity security = EnvironmentSecurity();
+
+  /// Data management policies.
+  final EnvironmentDataManagement dataManagement = EnvironmentDataManagement();
+
+  /// Configuration and versions.
+  final EnvironmentConfiguration configuration = EnvironmentConfiguration();
+
+  /// Availability and SLA targets.
+  final EnvironmentAvailability availability = EnvironmentAvailability();
+
+  /// Connectivity and network configuration.
+  final EnvironmentConnectivity connectivity = EnvironmentConnectivity();
+
+  /// Monitoring and observability.
+  final EnvironmentMonitoring monitoring = EnvironmentMonitoring();
+
+  /// Lifecycle and provisioning.
+  final EnvironmentLifecycle lifecycle = EnvironmentLifecycle();
+
+  /// Ownership and support contacts.
+  final EnvironmentOwnership ownership = EnvironmentOwnership();
+
+  /// Cost and billing.
+  final EnvironmentCost cost = EnvironmentCost();
+
+  /// Compliance and audit requirements.
+  final EnvironmentCompliance compliance = EnvironmentCompliance();
+}
+
+/// Identity and classification for environment entry.
+class EnvironmentIdentity {
+  @Form([
     Field('purpose', String, 'Purpose',
         hint: 'Business purpose — what this environment is used for'),
     Field('tierClassification', String, 'Tier Classification',
-        hint:
-            'Tier 0 (Prod) / Tier 1 (Staging) / Tier 2 (QA) / Tier 3 (Dev)'),
+        hint: 'Tier 0 (Prod) / Tier 1 (Staging) / Tier 2 (QA) / Tier 3 (Dev)'),
     Field('promotionPosition', String, 'Promotion Position',
         hint: 'Position in promotion path, e.g. 3 of 4 (before Prod)'),
+  ])
+  String? content;
+}
 
-    // --- Infrastructure ---
+/// Infrastructure configuration for environment entry.
+class EnvironmentInfrastructure {
+  @Form([
     Field('hostingModel', String, 'Hosting Model',
         hint: 'Cloud / OnPremise / Hybrid / CoLocated'),
     Field('cloudProvider', String, 'Cloud Provider',
@@ -1144,24 +1189,26 @@ class EnvironmentEntry {
     Field('availabilityZones', String, 'Availability Zones',
         hint: 'AZs used, e.g. eu-west-1a, eu-west-1b'),
     Field('computeResources', String, 'Compute Resources',
-        hint:
-            'Instance types, vCPU, RAM, e.g. 3x m5.xlarge (4 vCPU, 16 GB)'),
+        hint: 'Instance types, vCPU, RAM, e.g. 3x m5.xlarge (4 vCPU, 16 GB)'),
     Field('storageResources', String, 'Storage Resources',
         hint: 'Disk, object storage, managed DB storage sizes'),
     Field('networkConfiguration', String, 'Network Configuration',
         hint: 'VPC/VNet, subnets, CIDR ranges'),
     Field('containerPlatform', String, 'Container Platform',
-        hint:
-            'Kubernetes / ECS / Docker Compose / None — cluster details'),
+        hint: 'Kubernetes / ECS / Docker Compose / None — cluster details'),
+  ])
+  String? content;
+}
 
-    // --- Access & Security ---
+/// Access and security for environment entry.
+class EnvironmentSecurity {
+  @Form([
     Field('accessControlModel', String, 'Access Control Model',
         hint: 'RBAC / ABAC / NetworkBased / Combined'),
     Field('authenticationMethod', String, 'Authentication Method',
         hint: 'SSO, MFA, service accounts, API keys'),
     Field('authorizedRoles', String, 'Authorized Roles',
-        hint:
-            'Roles/teams with access, e.g. DevOps, QA, Developers'),
+        hint: 'Roles/teams with access, e.g. DevOps, QA, Developers'),
     Field('vpnRequired', String, 'VPN Required',
         hint: 'Yes / No — whether VPN/private network access is required'),
     Field('securityClassification', String, 'Security Classification',
@@ -1172,24 +1219,32 @@ class EnvironmentEntry {
         hint: 'TLS 1.3 / mTLS / VPN tunnel requirements'),
     Field('secretsManagement', String, 'Secrets Management',
         hint: 'Vault, AWS Secrets Manager, Azure Key Vault'),
+  ])
+  String? content;
+}
 
-    // --- Data Management ---
+/// Data management for environment entry.
+class EnvironmentDataManagement {
+  @Form([
     Field('dataClassification', String, 'Data Classification',
         hint: 'Production / Anonymized / Synthetic / Subset / Empty'),
     Field('dataRefreshStrategy', String, 'Data Refresh Strategy',
-        hint:
-            'How data is populated — snapshot restore, ETL, seed scripts'),
+        hint: 'How data is populated — snapshot restore, ETL, seed scripts'),
     Field('dataRefreshFrequency', String, 'Data Refresh Frequency',
         hint: 'Daily / Weekly / OnDemand / PerRelease'),
     Field('dataRetentionPolicy', String, 'Data Retention Policy',
         hint: 'How long data is kept, archival rules'),
     Field('backupStrategy', String, 'Backup Strategy',
-        hint:
-            'Backup frequency, retention period, tested restore cadence'),
+        hint: 'Backup frequency, retention period, tested restore cadence'),
     Field('dataResidency', String, 'Data Residency',
         hint: 'Geographic/legal constraints for data storage'),
+  ])
+  String? content;
+}
 
-    // --- Configuration & Versions ---
+/// Configuration and versions for environment entry.
+class EnvironmentConfiguration {
+  @Form([
     Field('operatingSystem', String, 'Operating System',
         hint: 'OS and version, e.g. Ubuntu 22.04 LTS'),
     Field('runtimeVersions', String, 'Runtime Versions',
@@ -1202,8 +1257,13 @@ class EnvironmentEntry {
         hint: 'Environment-specific feature flag overrides'),
     Field('configurationMethod', String, 'Configuration Method',
         hint: 'Env vars / Secrets Manager / Config files / Consul'),
+  ])
+  String? content;
+}
 
-    // --- Availability & SLA ---
+/// Availability and SLA for environment entry.
+class EnvironmentAvailability {
+  @Form([
     Field('uptimeRequirement', String, 'Uptime Requirement',
         hint: 'Target availability, e.g. 99.95%'),
     Field('maintenanceWindow', String, 'Maintenance Window',
@@ -1216,8 +1276,13 @@ class EnvironmentEntry {
         hint: 'Max acceptable downtime, e.g. 4 hours'),
     Field('disasterRecoveryPlan', String, 'Disaster Recovery Plan',
         hint: 'DR strategy — warm standby, pilot light, active-active'),
+  ])
+  String? content;
+}
 
-    // --- Connectivity & Network ---
+/// Connectivity and network for environment entry.
+class EnvironmentConnectivity {
+  @Form([
     Field('networkZone', String, 'Network Zone',
         hint: 'DMZ / Internal / Management / Restricted'),
     Field('firewallRules', String, 'Firewall Rules',
@@ -1230,8 +1295,13 @@ class EnvironmentEntry {
         hint: 'LB type and config, e.g. ALB with path-based routing'),
     Field('serviceDiscovery', String, 'Service Discovery',
         hint: 'DNS-based / Service mesh / Consul / K8s Services'),
+  ])
+  String? content;
+}
 
-    // --- Monitoring & Observability ---
+/// Monitoring and observability for environment entry.
+class EnvironmentMonitoring {
+  @Form([
     Field('monitoringTools', String, 'Monitoring Tools',
         hint: 'APM and infra monitoring, e.g. Datadog, CloudWatch'),
     Field('loggingPlatform', String, 'Logging Platform',
@@ -1242,8 +1312,13 @@ class EnvironmentEntry {
         hint: 'Monitoring/status dashboard URL'),
     Field('healthCheckEndpoints', String, 'Health Check Endpoints',
         hint: 'Health and readiness probe paths'),
+  ])
+  String? content;
+}
 
-    // --- Lifecycle & Provisioning ---
+/// Lifecycle and provisioning for environment entry.
+class EnvironmentLifecycle {
+  @Form([
     Field('provisioningMethod', String, 'Provisioning Method',
         hint: 'Manual / Terraform / CloudFormation / Pulumi / Helm'),
     Field('iacRepository', String, 'IaC Repository',
@@ -1256,8 +1331,13 @@ class EnvironmentEntry {
         hint: 'When the environment was or will be provisioned'),
     Field('plannedRetirementDate', String, 'Planned Retirement Date',
         hint: 'Scheduled decommission date, if known'),
+  ])
+  String? content;
+}
 
-    // --- Ownership & Support ---
+/// Ownership and support for environment entry.
+class EnvironmentOwnership {
+  @Form([
     Field('environmentOwner', String, 'Environment Owner',
         hint: 'Team or individual responsible for this environment'),
     Field('supportContact', String, 'Support Contact',
@@ -1266,8 +1346,13 @@ class EnvironmentEntry {
         hint: 'Escalation chain, e.g. L1 -> L2 -> Platform Lead'),
     Field('changeApprovalProcess', String, 'Change Approval Process',
         hint: 'How changes are approved — CAB, PR review, auto-deploy'),
+  ])
+  String? content;
+}
 
-    // --- Cost & Billing ---
+/// Cost and billing for environment entry.
+class EnvironmentCost {
+  @Form([
     Field('monthlyCostEstimate', String, 'Monthly Cost Estimate',
         hint: 'Estimated cost per month'),
     Field('billingModel', String, 'Billing Model',
@@ -1276,16 +1361,19 @@ class EnvironmentEntry {
         hint: 'Cost center or billing code for chargeback'),
     Field('budgetAlertThreshold', String, 'Budget Alert Threshold',
         hint: 'Spending threshold that triggers alerts'),
+  ])
+  String? content;
+}
 
-    // --- Compliance & Audit ---
+/// Compliance and audit for environment entry.
+class EnvironmentCompliance {
+  @Form([
     Field('complianceFrameworks', String, 'Compliance Frameworks',
         hint: 'SOC 2, HIPAA, GDPR, PCI-DSS, ISO 27001'),
     Field('auditLogging', String, 'Audit Logging',
         hint: 'Audit trail scope — access, changes, data operations'),
     Field('penetrationTestSchedule', String, 'Penetration Test Schedule',
         hint: 'Frequency and scope of security testing'),
-
-    // --- Notes ---
     Field('notes', String, 'Notes',
         hint: 'Additional environment-specific notes'),
   ])
