@@ -1356,10 +1356,32 @@ class ProcessMetricEntry {
 // ---------------------------------------------------------------------------
 
 /// 1.3. Pain Points and Gaps [PD00-CUR-PAI].
+///
+/// Comprehensive documentation of specific problems, inefficiencies,
+/// compliance gaps, and user frustrations in the current state.
+/// Each pain point includes business impact quantification and root cause.
 @SectionId('PD00-CUR-PAI')
 class PainPointsAndGaps {
-  @Unused()
+  @ContentHelp('''
+Executive overview of pain points and gaps in the current state.
+Summarize the most critical issues affecting operations, business outcomes,
+and technical capabilities. Highlight interdependencies between pain points.
+''')
   String? content;
+
+  /// Visual mapping of pain points and their relationships.
+  @ContentType('mermaid-flowchart', 'Diagram showing pain point categories, '
+      'relationships, and impact flow between operational, business, '
+      'and technical pain points')
+  String? painPointsOverviewDiagram;
+
+  /// Pain points priority matrix (urgency vs impact).
+  @ContentType('mermaid', 'Quadrant chart mapping pain points by urgency and '
+      'impact dimensions to guide prioritization decisions')
+  String? painPointsPriorityMatrix;
+
+  /// Summary statistics for all pain points.
+  PainPointsSummary painPointsSummary = PainPointsSummary();
 
   /// 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
   OperationalPainPoints operationalPainPoints = OperationalPainPoints();
@@ -1372,50 +1394,289 @@ class PainPointsAndGaps {
 
   /// 1.3.4. Gaps [PD00-CUR-PAI-GAP].
   Gaps gaps = Gaps();
+
+  /// Cross-reference between pain points and gaps.
+  PainPointGapCorrelation painPointGapCorrelation = PainPointGapCorrelation();
+}
+
+/// Summary statistics and metrics for all pain points.
+class PainPointsSummary {
+  @Form([
+    Field('totalPainPoints', int, 'Total Pain Points',
+        hint: 'Total number of documented pain points across all categories'),
+    Field('criticalCount', int, 'Critical Count',
+        hint: 'Number of pain points rated as critical severity'),
+    Field('highCount', int, 'High Severity Count',
+        hint: 'Number of pain points rated as high severity'),
+    Field('mediumCount', int, 'Medium Severity Count',
+        hint: 'Number of pain points rated as medium severity'),
+    Field('lowCount', int, 'Low Severity Count',
+        hint: 'Number of pain points rated as low severity'),
+    Field('totalEstimatedAnnualCost', String, 'Total Estimated Annual Cost',
+        hint: 'Aggregate annual cost of all documented pain points, e.g. €850k/year'),
+    Field('totalProductivityLoss', String, 'Total Productivity Loss',
+        hint: 'Aggregate productivity loss, e.g. 120 FTE hours/month'),
+    Field('mostAffectedProcess', String, 'Most Affected Process',
+        hint: 'Business process with the highest concentration of pain points'),
+    Field('mostAffectedStakeholder', String, 'Most Affected Stakeholder Group',
+        hint: 'User role or department most impacted by pain points'),
+    Field('averageResolutionComplexity', String, 'Average Resolution Complexity',
+        hint: 'Low / Medium / High / Very High'),
+  ])
+  String? content;
 }
 
 /// 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
+///
+/// Problems that affect day-to-day operations: downtime, slow response,
+/// data inconsistencies, manual workarounds, and process interruptions.
 @SectionId('PD00-CUR-PAI-OPE')
 class OperationalPainPoints {
-  @Unused()
+  @ContentHelp('''
+Overview of operational pain points affecting day-to-day activities.
+Include patterns of recurring issues, seasonal variations, and dependencies
+on specific systems or personnel.
+''')
   String? content;
+
+  /// Category-level summary for operational pain points.
+  OperationalPainPointsSummary categorySummary = OperationalPainPointsSummary();
 
   /// Contains 0+× PainPoint.
   @SectionIdPattern('PD00-CUR-PAI-OPE-xx')
   List<PainPointEntry> items = [];
 }
 
+/// Summary specific to operational pain points.
+class OperationalPainPointsSummary {
+  @Form([
+    Field('averageDowntimePerMonth', String, 'Average Downtime per Month',
+        hint: 'Total system/process downtime, e.g. 4.5 hours/month'),
+    Field('manualWorkaroundsCount', int, 'Number of Manual Workarounds',
+        hint: 'Count of documented manual workarounds in use'),
+    Field('dataInconsistencyFrequency', String, 'Data Inconsistency Frequency',
+        hint: 'How often data inconsistencies occur, e.g. Daily / Weekly / Monthly'),
+    Field('criticalProcessesAffected', int, 'Critical Processes Affected',
+        hint: 'Number of critical business processes impacted'),
+    Field('staffOverhead', String, 'Staff Overhead for Workarounds',
+        hint: 'FTE hours spent on operational workarounds, e.g. 40 hours/week'),
+  ])
+  String? content;
+}
+
 /// 1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
+///
+/// Problems that affect business outcomes: lost revenue, compliance risk,
+/// customer dissatisfaction, inability to scale, and missed opportunities.
 @SectionId('PD00-CUR-PAI-BUS')
 class BusinessPainPoints {
-  @Unused()
+  @ContentHelp('''
+Overview of business pain points affecting strategic outcomes and growth.
+Include revenue impact, compliance exposure, customer retention effects,
+and competitive positioning concerns.
+''')
   String? content;
+
+  /// Category-level summary for business pain points.
+  BusinessPainPointsSummary categorySummary = BusinessPainPointsSummary();
 
   /// Contains 0+× PainPoint.
   @SectionIdPattern('PD00-CUR-PAI-BUS-xx')
   List<PainPointEntry> items = [];
 }
 
+/// Summary specific to business pain points.
+class BusinessPainPointsSummary {
+  @Form([
+    Field('estimatedRevenueLoss', String, 'Estimated Annual Revenue Loss',
+        hint: 'Revenue lost due to business pain points, e.g. €250k/year'),
+    Field('complianceRiskExposure', String, 'Compliance Risk Exposure',
+        hint: 'Potential regulatory penalties or fines, e.g. up to €500k'),
+    Field('customerSatisfactionImpact', String, 'Customer Satisfaction Impact',
+        hint: 'NPS or CSAT impact, e.g. -15 NPS points'),
+    Field('marketShareImpact', String, 'Market Share Impact',
+        hint: 'Estimated market share loss, e.g. 2-3% market share'),
+    Field('missedOpportunitiesCost', String, 'Missed Opportunities Cost',
+        hint: 'Revenue from opportunities not pursued, e.g. €400k/year'),
+    Field('scalabilityConstraints', String, 'Scalability Constraints',
+        hint: 'Growth limitations, e.g. Cannot support >10k concurrent users'),
+  ])
+  String? content;
+}
+
 /// 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
+///
+/// Problems that affect development and maintenance: outdated technology,
+/// security vulnerabilities, lack of documentation, vendor lock-in,
+/// and technical debt.
 @SectionId('PD00-CUR-PAI-TEC')
 class TechnicalPainPoints {
-  @Unused()
+  @ContentHelp('''
+Overview of technical pain points affecting system development, maintenance,
+and evolution. Include technology obsolescence risks, security posture,
+integration complexity, and team capability constraints.
+''')
   String? content;
+
+  /// Category-level summary for technical pain points.
+  TechnicalPainPointsSummary categorySummary = TechnicalPainPointsSummary();
 
   /// Contains 0+× PainPoint.
   @SectionIdPattern('PD00-CUR-PAI-TEC-xx')
   List<PainPointEntry> items = [];
 }
 
+/// Summary specific to technical pain points.
+class TechnicalPainPointsSummary {
+  @Form([
+    Field('technicalDebtEstimate', String, 'Technical Debt Estimate',
+        hint: 'Estimated cost to address technical debt, e.g. €1.2M or 18 months'),
+    Field('securityVulnerabilityCount', int, 'Known Security Vulnerabilities',
+        hint: 'Number of documented security vulnerabilities'),
+    Field('criticalSecurityIssues', int, 'Critical Security Issues',
+        hint: 'Number of critical/high severity security vulnerabilities'),
+    Field('systemsAtEndOfLife', int, 'Systems at End of Life',
+        hint: 'Number of systems using unsupported or EOL technology'),
+    Field('undocumentedSystems', int, 'Undocumented Systems',
+        hint: 'Number of systems with inadequate documentation'),
+    Field('vendorLockInRisk', String, 'Vendor Lock-in Risk Level',
+        hint: 'Low / Medium / High — based on proprietary dependencies'),
+    Field('integrationComplexityScore', String, 'Integration Complexity Score',
+        hint: 'Overall integration complexity, e.g. High (47 point-to-point integrations)'),
+  ])
+  String? content;
+}
+
 /// A pain point entry (form) [PD00-CUR-PAI-nn].
+///
+/// Documents a specific problem in the current state with comprehensive details:
+/// root cause analysis, impact quantification, affected stakeholders,
+/// current workarounds, and proposed resolution approach.
 class PainPointEntry {
   @Form([
-    Field('painPoint', String, 'Pain Point', required: true),
-    Field('description', String, 'Short description'),
-    Field('impact', String, 'Impact assessment'),
-    Field('affectedProcess', String, 'Affected Process'),
-    Field('severity', String, 'Severity level'),
-    Field('workaround', String, 'Current workaround'),
+    // Identification
+    Field('painPointId', String, 'Pain Point ID',
+        hint: 'Unique identifier, e.g. PP-OPE-001', required: true),
+    Field('painPoint', String, 'Pain Point Name',
+        hint: 'Concise name for the pain point', required: true),
+    Field('description', String, 'Description',
+        hint: 'Detailed description of the problem and its manifestation'),
+
+    // Classification
+    Field('category', String, 'Category',
+        hint: 'Operational / Business / Technical'),
+    Field('subCategory', String, 'Sub-Category',
+        hint: 'More specific classification, e.g. Performance / DataQuality / Usability'),
+    Field('severity', String, 'Severity',
+        hint: 'Critical / High / Medium / Low'),
+    Field('urgency', String, 'Urgency',
+        hint: 'Immediate / ShortTerm / MediumTerm / LongTerm'),
+    Field('priority', String, 'Resolution Priority',
+        hint: 'P1-Critical / P2-High / P3-Medium / P4-Low'),
+
+    // Root Cause
+    Field('rootCause', String, 'Root Cause',
+        hint: 'Underlying cause of the pain point (from root cause analysis)'),
+    Field('rootCauseCategory', String, 'Root Cause Category',
+        hint: 'Process / Technology / People / Data / Integration / External'),
+    Field('contributingFactors', String, 'Contributing Factors',
+        hint: 'Additional factors that exacerbate the problem'),
+
+    // Impact Assessment
+    Field('affectedProcess', String, 'Affected Process',
+        hint: 'Primary business process impacted'),
+    Field('affectedSystems', String, 'Affected Systems',
+        hint: 'Systems involved or causing the pain point'),
+    Field('affectedStakeholders', String, 'Affected Stakeholders',
+        hint: 'User roles, departments, or external parties impacted'),
+    Field('userCount', int, 'Number of Users Affected',
+        hint: 'Approximate count of users experiencing this issue'),
+    Field('frequency', String, 'Frequency of Occurrence',
+        hint: 'Continuous / Daily / Weekly / Monthly / Sporadic'),
+    Field('businessImpact', String, 'Business Impact',
+        hint: 'Description of impact on business outcomes'),
+    Field('quantifiedCost', String, 'Quantified Annual Cost',
+        hint: 'Estimated annual cost, e.g. €75k/year or 200 FTE hours/month'),
+    Field('productivityLoss', String, 'Productivity Loss',
+        hint: 'Time lost per occurrence or period, e.g. 30 min/occurrence'),
+
+    // Evidence and Validation
+    Field('discoveryMethod', String, 'Discovery Method',
+        hint: 'UserFeedback / Incident / Audit / ProcessReview / Observation / Analytics'),
+    Field('dateIdentified', String, 'Date Identified',
+        hint: 'When the pain point was first documented, e.g. 2024-03'),
+    Field('validationStatus', String, 'Validation Status',
+        hint: 'Identified / Confirmed / Quantified / RootCauseAnalyzed'),
+    Field('evidenceSources', String, 'Evidence Sources',
+        hint: 'Data sources supporting this pain point, e.g. incident logs, surveys'),
+    Field('incidentReferences', String, 'Related Incidents',
+        hint: 'References to specific incidents, e.g. INC-2024-0145, INC-2024-0189'),
+
+    // Current State
+    Field('currentWorkaround', String, 'Current Workaround',
+        hint: 'How users currently work around this issue'),
+    Field('workaroundEffectiveness', String, 'Workaround Effectiveness',
+        hint: 'None / Poor / Partial / Adequate'),
+    Field('workaroundCost', String, 'Workaround Cost',
+        hint: 'Cost of maintaining the workaround, e.g. 5 FTE hours/week'),
+    Field('riskIfNotAddressed', String, 'Risk if Not Addressed',
+        hint: 'Consequences of leaving the pain point unresolved'),
+
+    // Resolution Planning
+    Field('proposedResolution', String, 'Proposed Resolution',
+        hint: 'High-level approach to resolve the pain point'),
+    Field('resolutionComplexity', String, 'Resolution Complexity',
+        hint: 'Low / Medium / High / VeryHigh'),
+    Field('estimatedResolutionEffort', String, 'Estimated Resolution Effort',
+        hint: 'Time or cost to resolve, e.g. 3 months, €50k'),
+    Field('expectedBenefit', String, 'Expected Benefit',
+        hint: 'Quantified benefit after resolution, e.g. €75k/year savings'),
+    Field('successCriteria', String, 'Success Criteria',
+        hint: 'How to measure that the pain point is resolved'),
+
+    // Relationships
+    Field('relatedPainPoints', String, 'Related Pain Points',
+        hint: 'IDs of related pain points, e.g. PP-OPE-003, PP-TEC-007'),
+    Field('relatedGaps', String, 'Related Gaps',
+        hint: 'Gap entries that this pain point stems from or causes'),
+    Field('dependsOn', String, 'Depends On',
+        hint: 'Other pain points that must be resolved first'),
+  ])
+  String? content;
+}
+
+/// Cross-reference analysis between pain points and gaps.
+class PainPointGapCorrelation {
+  @ContentHelp('''
+Analysis of relationships between documented pain points and capability gaps.
+Shows which gaps cause which pain points, and which pain points indicate
+underlying gaps that may not be explicitly documented.
+''')
+  String? content;
+
+  /// Visual correlation between pain points and gaps.
+  @ContentType('mermaid', 'Diagram showing cause-effect relationships '
+      'between capability gaps and resulting pain points')
+  String? correlationDiagram;
+
+  /// Tabular correlation data.
+  @Min(1)
+  List<PainPointGapCorrelationEntry> correlationEntries = [];
+}
+
+/// Individual pain point to gap correlation entry.
+class PainPointGapCorrelationEntry {
+  @Form([
+    Field('painPointId', String, 'Pain Point ID',
+        hint: 'Reference to pain point, e.g. PP-OPE-001', required: true),
+    Field('gapId', String, 'Gap ID',
+        hint: 'Reference to gap entry, e.g. GAP-001', required: true),
+    Field('correlationType', String, 'Correlation Type',
+        hint: 'CausedBy / ContributesTo / IndicatesGap / Exacerbates'),
+    Field('correlationStrength', String, 'Correlation Strength',
+        hint: 'Direct / Strong / Moderate / Weak'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional context on the relationship'),
   ])
   String? content;
 }
