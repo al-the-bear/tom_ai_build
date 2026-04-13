@@ -500,9 +500,109 @@ All 317 sections from `pd_template.md` with content migration status.
 | 199 | PD00-USE-PRI-REP-01 | Sample: Monthly Summary Report | ✅ Exists | ⏭️ |
 | 200 | PD00-USE-PRI-EXP | Export Formats | ✅ Exists | ✅ |
 
-### 2.11. Additional Chapters (11-14) — To Be Added
+### 2.11. Chapter 11: System Quality Goals [PD00-SYQ]
 
-Chapters 11-14 (Implementation, Commissioning, Deliverables) need to be extracted from pd_template.md and added here when model work progresses to those sections.
+| # | Section ID | Section Name | Model Status | Content Status |
+|---|------------|--------------|--------------|----------------|
+| 201 | PD00-SYQ | System Quality Goals | ✅ Exists | ⬜ |
+| 202 | PD00-SYQ-FRA | Quality Framework | ✅ Exists | ⬜ |
+| 203 | PD00-SYQ-FRA-OBJ | Quality Objectives Overview | ✅ Exists | ⬜ |
+| 204 | PD00-SYQ-FRA-CAT | Quality Categories | ✅ Exists | ⬜ |
+| 205 | PD00-SYQ-USE | User-Related Quality Criteria | ✅ Exists | ⬜ |
+| 206 | PD00-SYQ-USE-USA | Usability | ✅ Exists | ⬜ |
+| 207 | PD00-SYQ-USE-FUN | Functional Completeness | ✅ Exists | ⬜ |
+| 208 | PD00-SYQ-USE-COR | Correctness | ✅ Exists | ⬜ |
+| 209 | PD00-SYQ-TEC | Technical Quality Criteria | ✅ Exists | ⬜ |
+| 210 | PD00-SYQ-TEC-EFF | Efficiency | ✅ Exists | ⬜ |
+| 211 | PD00-SYQ-TEC-POR | Portability | ✅ Exists | ⬜ |
+| 212 | PD00-SYQ-TEC-FLE | Flexibility | ✅ Exists | ⬜ |
+| 213 | PD00-SYQ-TEC-SEC | Security | ✅ Exists | ⬜ |
+| 214 | PD00-SYQ-TEC-MAI | Maintainability | ✅ Exists | ⬜ |
+| 215 | PD00-SYQ-TEC-REL | Reliability | ✅ Exists | ⬜ |
+| 216 | PD00-SYQ-OPE | Operations Quality Criteria | ✅ Exists | ⬜ |
+| 217 | PD00-SYQ-OPE-AVA | Availability | ✅ Exists | ⬜ |
+| 218 | PD00-SYQ-OPE-SER | Service Level Requirements | ✅ Exists | ⬜ |
+| 219 | PD00-SYQ-OPE-MON | Monitoring and Prevention | ✅ Exists | ⬜ |
+| 220 | PD00-SYQ-OPE-ITS | IT Security Operations | ✅ Exists | ⬜ |
+| 221 | PD00-SYQ-DOC | Documentation Quality Criteria | ✅ Exists | ⬜ |
+| 222 | PD00-SYQ-DOC-REA | Readability | ✅ Exists | ⬜ |
+| 223 | PD00-SYQ-DOC-COM | Completeness | ✅ Exists | ⬜ |
+| 224 | PD00-SYQ-DOC-COR | Correctness | ✅ Exists | ⬜ |
+| 225 | PD00-SYQ-DOC-CHA | Changeability | ✅ Exists | ⬜ |
+| 226 | PD00-SYQ-PRI | Quality Prioritization | ✅ Exists | ⬜ |
+| 227 | PD00-SYQ-PRI-WEI | Weighted Quality Matrix | ✅ Exists | ⬜ |
+| 228 | PD00-SYQ-PRI-TRA | Trade-off Decisions | ✅ Exists | ⬜ |
+| 229 | PD00-SYQ-ACC | Acceptance Criteria Summary | ✅ Exists | ⬜ |
+| 230 | PD00-SYQ-ACC-MUS | Must-Pass Criteria | ✅ Exists | ⬜ |
+| 231 | PD00-SYQ-ACC-GAT | Quality Gate Checklist | ✅ Exists | ⬜ |
+
+### 2.12. Chapter 12: Components to Use [PD00-COM]
+
+| # | Section ID | Section Name | Model Status | Content Status |
+|---|------------|--------------|--------------|----------------|
+| 232 | PD00-COM | Components to Use | ✅ Exists | ⬜ |
+| 233 | PD00-COM-STR | Component Strategy | ✅ Exists | ⬜ |
+| 234 | PD00-COM-STR-GOA | Reuse Goals | ✅ Exists | ⬜ |
+| 235 | PD00-COM-STR-EVA | Evaluation Criteria | ✅ Exists | ⬜ |
+| 236 | PD00-COM-COM | Component Catalog | ✅ Exists | ⬜ |
+| 237 | PD00-COM-COM-01 | Sample: PostgreSQL 16 | ✅ Exists | ⏭️ |
+| 238 | PD00-COM-COM-01-INT | Interfaces | ✅ Exists | ⏭️ |
+| 239 | PD00-COM-COM-01-LIC | Licensing | ✅ Exists | ⏭️ |
+| 240 | PD00-COM-COM-01-USE | Usage Rights | ✅ Exists | ⏭️ |
+| 241 | PD00-COM-COM-01-RES | Responsibilities | ✅ Exists | ⏭️ |
+| 242 | PD00-COM-ROL | Component Role in System | ✅ Exists | ⬜ |
+| 243 | PD00-COM-RUN | Runtime Dependencies | ✅ Exists | ⬜ |
+| 244 | PD00-COM-MAI | Maintenance Dependencies | ✅ Exists | ⬜ |
+| 245 | PD00-COM-RIS | Risk Assessment | ✅ Exists | ⬜ |
+| 246 | PD00-COM-RIS-RIS | Component Risks | ✅ Exists | ⬜ |
+| 247 | PD00-COM-RIS-RIS-01 | Sample: Message Broker Abandonment | ✅ Exists | ⏭️ |
+| 248 | PD00-COM-RIS-CON | Contingency Plans | ✅ Exists | ⬜ |
+
+### 2.13. Chapter 13: System Stage Plan [PD00-SSP]
+
+| # | Section ID | Section Name | Model Status | Content Status |
+|---|------------|--------------|--------------|----------------|
+| 249 | PD00-SSP | System Stage Plan | ✅ Exists | ⬜ |
+| 250 | PD00-SSP-STR | Staging Strategy | ✅ Exists | ⬜ |
+| 251 | PD00-SSP-STR-APP | Staging Approach | ✅ Exists | ⬜ |
+| 252 | PD00-SSP-STR-RAT | Rationale | ✅ Exists | ⬜ |
+| 253 | PD00-SSP-STA | Stage Overview | ✅ Exists | ⬜ |
+| 254 | PD00-SSP-STA-SUM | Stage Summary | ✅ Exists | ⬜ |
+| 255 | PD00-SSP-STA-DIA | Stage Timeline Diagram | ✅ Exists | ⬜ |
+| 256 | PD00-SSP-STG | Stages | ✅ Exists | ⬜ |
+| 257 | PD00-SSP-STG-01 | Sample: Stage 1 — Foundation | ✅ Exists | ⏭️ |
+| 258 | PD00-SSP-STG-01-FEA | Feature Scope | ✅ Exists | ⏭️ |
+| 259 | PD00-SSP-STG-01-SUB | Sub-stages and Milestones | ✅ Exists | ⏭️ |
+| 260 | PD00-SSP-STG-01-TIM | Timeline | ✅ Exists | ⏭️ |
+| 261 | PD00-SSP-STG-01-SUC | Success Criteria | ✅ Exists | ⏭️ |
+| 262 | PD00-SSP-STG-01-ROL | Rollout Plan | ✅ Exists | ⏭️ |
+| 263 | PD00-SSP-FEA | Feature Prioritization | ✅ Exists | ⬜ |
+| 264 | PD00-SSP-FEA-MOS | MoSCoW Analysis | ✅ Exists | ⬜ |
+| 265 | PD00-SSP-FEA-MAT | Feature-Stage Matrix | ✅ Exists | ⬜ |
+| 266 | PD00-SSP-MIG | Data Migration Strategy | ✅ Exists | ⬜ |
+| 267 | PD00-SSP-MIG-PHA | Migration Phases | ✅ Exists | ⬜ |
+| 268 | PD00-SSP-MIG-RIS | Migration Risks | ✅ Exists | ⬜ |
+| 269 | PD00-SSP-GOV | Governance | ✅ Exists | ⬜ |
+| 270 | PD00-SSP-GOV-GAT | Phase Gate Reviews | ✅ Exists | ⬜ |
+| 271 | PD00-SSP-GOV-DEC | Decision Points | ✅ Exists | ⬜ |
+
+### 2.14. Chapter 14: Delivery Scope and Acceptance [PD00-DEL]
+
+| # | Section ID | Section Name | Model Status | Content Status |
+|---|------------|--------------|--------------|----------------|
+| 272 | PD00-DEL | Delivery Scope and Acceptance | ✅ Exists | ⬜ |
+| 273 | PD00-DEL-DEL | Delivery and Service Scope | ✅ Exists | ⬜ |
+| 274 | PD00-DEL-DEL-SOF | Software Deliverables | ✅ Exists | ⬜ |
+| 275 | PD00-DEL-DEL-DOC | Documentation Deliverables | ✅ Exists | ⬜ |
+| 276 | PD00-DEL-DEL-TRA | Training Deliverables | ✅ Exists | ⬜ |
+| 277 | PD00-DEL-DEL-SUP | Support Deliverables | ✅ Exists | ⬜ |
+| 278 | PD00-DEL-ACC | Acceptance Plan | ✅ Exists | ⬜ |
+| 279 | PD00-DEL-ACC-CRI | Acceptance Criteria | ✅ Exists | ⬜ |
+| 280 | PD00-DEL-ACC-PRO | Acceptance Process | ✅ Exists | ⬜ |
+| 281 | PD00-DEL-ACC-UAT | User Acceptance Testing | ✅ Exists | ⬜ |
+| 282 | PD00-DEL-ACC-DEF | Defect Resolution | ✅ Exists | ⬜ |
+| 283 | PD00-DEL-ACC-SIG | Sign-off Process | ✅ Exists | ⬜ |
+| 284 | PD00-DEL-ACC-WAR | Warranty | ✅ Exists | ⬜ |
 
 ---
 
@@ -510,11 +610,11 @@ Chapters 11-14 (Implementation, Commissioning, Deliverables) need to be extracte
 
 | Metric | Count |
 |--------|-------|
-| Total sections in template | 317 |
-| Sections documented here | 200 |
-| Sections in model (exists) | ~140 |
-| Sections missing from model | ~110 |
-| Sample sections (skippable) | ~30 |
+| Total sections in template | 284 |
+| Sections documented here | 284 |
+| Sections in model (exists) | ~240 |
+| Sections with content complete | ~200 |
+| Sample sections (skippable) | ~40 |
 | Sections unique to model | ~60 |
 
 ---
@@ -523,5 +623,6 @@ Chapters 11-14 (Implementation, Commissioning, Deliverables) need to be extracte
 
 | Date | Changes |
 |------|---------|
+| 2026-04-13 | Added tracking rows for chapters 11-14 (PD00-SYQ, PD00-COM, PD00-SSP, PD00-DEL) — 84 new rows (#201-284) |
 | 2025-01-24 | Initial tracking document created |
 
