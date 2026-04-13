@@ -1,17 +1,33 @@
 /// Section 2: Project Organization and Process [PD00-POP].
 ///
 /// Project-specific deviations from the standard TomSpecs methodology.
+/// Documents customizations to standard roles, quality gates, processes,
+/// and project-specific tooling decisions.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
-
-
 /// 2. Project Organization and Process [PD00-POP].
+///
+/// Project-specific deviations from the standard TomSpecs methodology.
+/// This section documents any customizations to standard roles, quality gates,
+/// and the creation or upgrade process for this particular project.
 @SectionId('PD00-POP')
 class ProjectOrganizationAndProcess {
-  @Unused()
+  @ContentHelp('''
+Executive summary of project-specific methodology deviations.
+Explain why this project requires deviations from standard TomSpecs practices,
+the overall impact on governance, and how deviations are tracked and approved.
+''')
   String? content;
+
+  /// Visual overview of methodology deviations.
+  @ContentType('mermaid-flowchart', 'Diagram showing how project-specific '
+      'methodology relates to standard TomSpecs, highlighting key deviations')
+  String? methodologyDeviationDiagram;
+
+  /// Summary of all methodology deviations.
+  MethodologyDeviationSummary deviationSummary = MethodologyDeviationSummary();
 
   /// 2.1. Role Adjustments [PD00-POP-ROL].
   RoleAdjustments roleAdjustments = RoleAdjustments();
@@ -26,27 +42,151 @@ class ProjectOrganizationAndProcess {
   ToolingAndEnvironments toolingAndEnvironments = ToolingAndEnvironments();
 }
 
+/// Summary of all methodology deviations for quick reference.
+class MethodologyDeviationSummary {
+  @Form([
+    Field('totalRoleAdjustments', int, 'Total Role Adjustments',
+        hint: 'Number of roles with deviations from standard'),
+    Field('totalQualityGateAdjustments', int, 'Total Quality Gate Adjustments',
+        hint: 'Number of quality gates with deviations'),
+    Field('totalProcessAdjustments', int, 'Total Process Adjustments',
+        hint: 'Number of process steps with deviations'),
+    Field('deviationRiskLevel', String, 'Overall Deviation Risk Level',
+        hint: 'Low / Medium / High — aggregate risk from all deviations'),
+    Field('deviationApprovalAuthority', String, 'Deviation Approval Authority',
+        hint: 'Who approved these methodology deviations'),
+    Field('deviationApprovalDate', String, 'Deviation Approval Date',
+        hint: 'When deviations were formally approved'),
+    Field('reviewSchedule', String, 'Deviation Review Schedule',
+        hint: 'How often deviations are reviewed for continued relevance'),
+    Field('nextReviewDate', String, 'Next Review Date',
+        hint: 'When deviations will be next reviewed'),
+    Field('standardsVersion', String, 'TomSpecs Standards Version',
+        hint: 'Version of TomSpecs standards this project deviates from'),
+    Field('deviationJustificationSummary', String, 'Justification Summary',
+        hint: 'High-level rationale for why deviations are needed'),
+  ])
+  String? content;
+}
+
 // ---------------------------------------------------------------------------
 // 2.1 Role Adjustments
 // ---------------------------------------------------------------------------
 
 /// 2.1. Role Adjustments [PD00-POP-ROL].
+///
+/// Documents any deviations from the standard TomSpecs roles defined in
+/// tom_roles.md. Includes merged, split, omitted, or modified roles
+/// and the rationale for each deviation.
 @SectionId('PD00-POP-ROL')
 class RoleAdjustments {
-  @Unused()
+  @ContentHelp('''
+Overview of role adjustments for this project. Explain why standard role
+definitions don't fit, what stakeholder or organizational factors drove
+the changes, and how role clarity is maintained despite deviations.
+''')
   String? content;
+
+  /// Role adjustment summary statistics.
+  RoleAdjustmentSummary adjustmentSummary = RoleAdjustmentSummary();
+
+  /// Visual comparison of standard vs adjusted roles.
+  @ContentType('mermaid', 'Diagram comparing standard TomSpecs roles '
+      'with project-specific role assignments')
+  String? roleComparisonDiagram;
 
   /// Contains 0+× RoleAdjustment.
   @SectionIdPattern('PD00-POP-ROL-xx')
   List<RoleAdjustmentEntry> items = [];
 }
 
+/// Summary of role adjustments.
+class RoleAdjustmentSummary {
+  @Form([
+    Field('standardRolesCount', int, 'Standard Roles Count',
+        hint: 'Number of roles in standard TomSpecs methodology'),
+    Field('adjustedRolesCount', int, 'Adjusted Roles Count',
+        hint: 'Number of roles that deviate from standard'),
+    Field('mergedRolesCount', int, 'Merged Roles Count',
+        hint: 'Number of roles merged together'),
+    Field('splitRolesCount', int, 'Split Roles Count',
+        hint: 'Number of standard roles split into multiple'),
+    Field('omittedRolesCount', int, 'Omitted Roles Count',
+        hint: 'Number of standard roles not used'),
+    Field('addedRolesCount', int, 'Added Roles Count',
+        hint: 'Number of project-specific roles added'),
+    Field('raciMatrixCompliance', String, 'RACI Matrix Compliance',
+        hint: 'Whether all activities still have clear RACI coverage'),
+    Field('governanceImpact', String, 'Governance Impact Assessment',
+        hint: 'Low / Medium / High — impact on project governance'),
+  ])
+  String? content;
+}
+
 /// A role adjustment entry (form) [PD00-POP-ROL-nn].
+///
+/// Documents a specific deviation from standard TomSpecs role definitions,
+/// including the type of adjustment, affected responsibilities, risk
+/// assessment, and mitigation measures.
 class RoleAdjustmentEntry {
   @Form([
-    Field('roleName', String, 'Role Name', required: true),
-    Field('adjustment', String, 'Adjustment'),
-    Field('rationale', String, 'Rationale'),
+    // Identification
+    Field('adjustmentId', String, 'Adjustment ID',
+        hint: 'Unique identifier, e.g. ROL-ADJ-001', required: true),
+    Field('standardRoleName', String, 'Standard Role Name',
+        hint: 'Original TomSpecs role being adjusted', required: true),
+    Field('adjustedRoleName', String, 'Adjusted Role Name',
+        hint: 'Name of the role after adjustment'),
+
+    // Adjustment Details
+    Field('adjustmentType', String, 'Adjustment Type',
+        hint: 'Merged / Split / Modified / Omitted / Added'),
+    Field('adjustmentDescription', String, 'Adjustment Description',
+        hint: 'Detailed description of what changed'),
+    Field('affectedResponsibilities', String, 'Affected Responsibilities',
+        hint: 'Which responsibilities are impacted by this change'),
+    Field('mergedWithRoles', String, 'Merged With Roles',
+        hint: 'If merged, which other roles it combines with'),
+    Field('splitIntoRoles', String, 'Split Into Roles',
+        hint: 'If split, names of the resulting roles'),
+
+    // Rationale
+    Field('rationale', String, 'Rationale',
+        hint: 'Business or organizational reason for the adjustment'),
+    Field('drivingFactors', String, 'Driving Factors',
+        hint: 'ProjectSize / TeamStructure / Skills / Regulatory / Budget'),
+    Field('stakeholderAgreement', String, 'Stakeholder Agreement',
+        hint: 'Who agreed to this adjustment'),
+
+    // Coverage
+    Field('assignedTo', String, 'Assigned To',
+        hint: 'Person or team fulfilling this adjusted role'),
+    Field('backupAssignment', String, 'Backup Assignment',
+        hint: 'Backup person or team when primary is unavailable'),
+    Field('raciImpact', String, 'RACI Impact',
+        hint: 'How this affects the RACI matrix for related activities'),
+
+    // Risk and Governance
+    Field('riskLevel', String, 'Risk Level',
+        hint: 'Low / Medium / High — risk introduced by this deviation'),
+    Field('riskDescription', String, 'Risk Description',
+        hint: 'What could go wrong due to this adjustment'),
+    Field('mitigationMeasures', String, 'Mitigation Measures',
+        hint: 'How risks from this adjustment are mitigated'),
+
+    // Governance
+    Field('approvalStatus', String, 'Approval Status',
+        hint: 'Proposed / Approved / Conditional / Rejected'),
+    Field('approvedBy', String, 'Approved By',
+        hint: 'Who approved this deviation'),
+    Field('approvalDate', String, 'Approval Date',
+        hint: 'When the deviation was approved'),
+    Field('reviewDate', String, 'Next Review Date',
+        hint: 'When this adjustment will be reviewed'),
+
+    // Notes
+    Field('notes', String, 'Notes',
+        hint: 'Additional context or considerations'),
   ])
   String? content;
 }
@@ -56,22 +196,120 @@ class RoleAdjustmentEntry {
 // ---------------------------------------------------------------------------
 
 /// 2.2. Quality Gate Adjustments [PD00-POP-QGA].
+///
+/// Documents any deviations from the standard quality gates defined in
+/// tom_quality_gates.md. Includes skipped, added, or modified gates
+/// and the rationale for each deviation.
 @SectionId('PD00-POP-QGA')
 class QualityGateAdjustments {
-  @Unused()
+  @ContentHelp('''
+Overview of quality gate adjustments for this project. Explain why standard
+gates are modified, what project characteristics drove the changes, and
+how quality assurance is maintained despite deviations.
+''')
   String? content;
+
+  /// Quality gate adjustment summary.
+  QualityGateAdjustmentSummary adjustmentSummary =
+      QualityGateAdjustmentSummary();
+
+  /// Visual representation of gate adjustments.
+  @ContentType('mermaid', 'Diagram showing quality gate flow with '
+      'adjustments highlighted')
+  String? gateFlowDiagram;
 
   /// Contains 0+× QualityGateAdjustment.
   @SectionIdPattern('PD00-POP-QGA-xx')
   List<QualityGateAdjustmentEntry> items = [];
 }
 
+/// Summary of quality gate adjustments.
+class QualityGateAdjustmentSummary {
+  @Form([
+    Field('standardGatesCount', int, 'Standard Gates Count',
+        hint: 'Number of gates in standard TomSpecs methodology'),
+    Field('adjustedGatesCount', int, 'Adjusted Gates Count',
+        hint: 'Number of gates with deviations'),
+    Field('skippedGatesCount', int, 'Skipped Gates Count',
+        hint: 'Number of standard gates bypassed'),
+    Field('addedGatesCount', int, 'Added Gates Count',
+        hint: 'Number of project-specific gates added'),
+    Field('modifiedCriteriaCount', int, 'Modified Criteria Count',
+        hint: 'Number of gates with modified pass criteria'),
+    Field('qualityRiskLevel', String, 'Quality Risk Level',
+        hint: 'Low / Medium / High — overall quality risk from deviations'),
+    Field('compensatingControls', String, 'Compensating Controls',
+        hint: 'Alternative quality measures in place'),
+    Field('auditImplications', String, 'Audit Implications',
+        hint: 'Impact on quality audits and compliance'),
+  ])
+  String? content;
+}
+
 /// A quality gate adjustment entry (form) [PD00-POP-QGA-nn].
+///
+/// Documents a specific deviation from standard quality gate definitions,
+/// including the type of change, impact on quality assurance, risk
+/// assessment, and compensating controls.
 class QualityGateAdjustmentEntry {
   @Form([
-    Field('gateName', String, 'Gate Name', required: true),
-    Field('adjustment', String, 'Adjustment'),
-    Field('rationale', String, 'Rationale'),
+    // Identification
+    Field('adjustmentId', String, 'Adjustment ID',
+        hint: 'Unique identifier, e.g. QGA-ADJ-001', required: true),
+    Field('standardGateName', String, 'Standard Gate Name',
+        hint: 'Original TomSpecs quality gate being adjusted', required: true),
+    Field('gatePhase', String, 'Gate Phase',
+        hint: 'Project phase this gate belongs to — Planning / Design / Build / Test / Deploy'),
+
+    // Adjustment Details
+    Field('adjustmentType', String, 'Adjustment Type',
+        hint: 'Skipped / Added / Modified / Deferred / Relaxed / Strengthened'),
+    Field('adjustmentDescription', String, 'Adjustment Description',
+        hint: 'Detailed description of what changed'),
+    Field('originalCriteria', String, 'Original Criteria',
+        hint: 'Standard pass/fail criteria for this gate'),
+    Field('adjustedCriteria', String, 'Adjusted Criteria',
+        hint: 'Modified pass/fail criteria after adjustment'),
+    Field('criteriaThresholdChange', String, 'Threshold Change',
+        hint: 'How thresholds were modified, e.g. 90% -> 80% coverage'),
+
+    // Rationale
+    Field('rationale', String, 'Rationale',
+        hint: 'Business or technical reason for the adjustment'),
+    Field('drivingFactors', String, 'Driving Factors',
+        hint: 'Timeline / Budget / Scope / Risk / Complexity / Regulatory'),
+    Field('temporaryOrPermanent', String, 'Temporary or Permanent',
+        hint: 'Temporary / Permanent — whether deviation is time-limited'),
+    Field('expirationDate', String, 'Expiration Date',
+        hint: 'If temporary, when this deviation expires'),
+
+    // Impact
+    Field('qualityImpact', String, 'Quality Impact',
+        hint: 'How this adjustment affects delivered quality'),
+    Field('riskLevel', String, 'Risk Level',
+        hint: 'Low / Medium / High — risk introduced by this deviation'),
+    Field('riskDescription', String, 'Risk Description',
+        hint: 'What quality issues could arise'),
+    Field('compensatingControls', String, 'Compensating Controls',
+        hint: 'Alternative quality measures to offset the deviation'),
+    Field('monitoringMeasures', String, 'Monitoring Measures',
+        hint: 'How quality is monitored despite the deviation'),
+
+    // Governance
+    Field('approvalStatus', String, 'Approval Status',
+        hint: 'Proposed / Approved / Conditional / Rejected'),
+    Field('approvedBy', String, 'Approved By',
+        hint: 'Who approved this deviation — typically QA lead or sponsor'),
+    Field('approvalDate', String, 'Approval Date',
+        hint: 'When the deviation was approved'),
+    Field('reviewDate', String, 'Next Review Date',
+        hint: 'When this adjustment will be reviewed'),
+    Field('auditTrailReference', String, 'Audit Trail Reference',
+        hint: 'Reference to approval documentation'),
+
+    // Notes
+    Field('notes', String, 'Notes',
+        hint: 'Additional context or considerations'),
   ])
   String? content;
 }
@@ -81,22 +319,138 @@ class QualityGateAdjustmentEntry {
 // ---------------------------------------------------------------------------
 
 /// 2.3. Process Adjustments [PD00-POP-PRC].
+///
+/// Documents any deviations from the standard tom_system_creation.md or
+/// tom_system_upgrade.md process. Includes skipped, reordered, or modified
+/// steps and the rationale for each deviation.
 @SectionId('PD00-POP-PRC')
 class ProcessAdjustments {
-  @Unused()
+  @ContentHelp('''
+Overview of process adjustments for this project. Explain why standard
+process steps are modified, what project constraints drove the changes,
+and how process integrity is maintained despite deviations.
+''')
   String? content;
+
+  /// Process adjustment summary.
+  ProcessAdjustmentSummary adjustmentSummary = ProcessAdjustmentSummary();
+
+  /// Visual representation of process adjustments.
+  @ContentType('mermaid-flowchart', 'Diagram showing process flow with '
+      'adjustments highlighted — skipped steps crossed out, '
+      'reordered steps with arrows, added steps in different color')
+  String? processFlowDiagram;
 
   /// Contains 0+× ProcessAdjustment.
   @SectionIdPattern('PD00-POP-PRC-xx')
   List<ProcessAdjustmentEntry> items = [];
 }
 
+/// Summary of process adjustments.
+class ProcessAdjustmentSummary {
+  @Form([
+    Field('baseProcess', String, 'Base Process',
+        hint: 'tom_system_creation / tom_system_upgrade'),
+    Field('baseProcessVersion', String, 'Base Process Version',
+        hint: 'Version of the standard process being adjusted'),
+    Field('totalStepsInBase', int, 'Total Steps in Base Process',
+        hint: 'Number of steps in the standard process'),
+    Field('adjustedStepsCount', int, 'Adjusted Steps Count',
+        hint: 'Number of steps with deviations'),
+    Field('skippedStepsCount', int, 'Skipped Steps Count',
+        hint: 'Number of standard steps bypassed'),
+    Field('addedStepsCount', int, 'Added Steps Count',
+        hint: 'Number of project-specific steps added'),
+    Field('reorderedStepsCount', int, 'Reordered Steps Count',
+        hint: 'Number of steps executed in different order'),
+    Field('parallelizedStepsCount', int, 'Parallelized Steps Count',
+        hint: 'Number of steps run in parallel instead of sequential'),
+    Field('processRiskLevel', String, 'Process Risk Level',
+        hint: 'Low / Medium / High — overall process risk from deviations'),
+    Field('processEfficiencyImpact', String, 'Efficiency Impact',
+        hint: 'Faster / Same / Slower — impact on timeline'),
+  ])
+  String? content;
+}
+
 /// A process adjustment entry (form) [PD00-POP-PRC-nn].
+///
+/// Documents a specific deviation from standard process steps, including
+/// the type of modification, dependencies affected, risk assessment,
+/// and implementation details.
 class ProcessAdjustmentEntry {
   @Form([
-    Field('processName', String, 'Process Name', required: true),
-    Field('adjustment', String, 'Adjustment'),
-    Field('rationale', String, 'Rationale'),
+    // Identification
+    Field('adjustmentId', String, 'Adjustment ID',
+        hint: 'Unique identifier, e.g. PRC-ADJ-001', required: true),
+    Field('standardStepName', String, 'Standard Step Name',
+        hint: 'Original process step being adjusted', required: true),
+    Field('stepPhase', String, 'Step Phase',
+        hint: 'Phase this step belongs to — Initiation / Planning / Execution / Closure'),
+    Field('originalPosition', String, 'Original Position',
+        hint: 'Original position in process, e.g. Step 5 of 12'),
+
+    // Adjustment Details
+    Field('adjustmentType', String, 'Adjustment Type',
+        hint: 'Skipped / Modified / Reordered / Parallelized / Added / Merged / Split'),
+    Field('adjustmentDescription', String, 'Adjustment Description',
+        hint: 'Detailed description of what changed'),
+    Field('newPosition', String, 'New Position',
+        hint: 'If reordered, new position in process'),
+    Field('parallelWith', String, 'Parallel With',
+        hint: 'If parallelized, which other steps run concurrently'),
+    Field('mergedWith', String, 'Merged With',
+        hint: 'If merged, which other steps are combined'),
+    Field('splitInto', String, 'Split Into',
+        hint: 'If split, names of the resulting sub-steps'),
+
+    // Rationale
+    Field('rationale', String, 'Rationale',
+        hint: 'Business or technical reason for the adjustment'),
+    Field('drivingFactors', String, 'Driving Factors',
+        hint: 'Timeline / Budget / Scope / Dependencies / Resources / Complexity'),
+    Field('dependencyImpact', String, 'Dependency Impact',
+        hint: 'How this affects step dependencies'),
+    Field('predecessorChanges', String, 'Predecessor Changes',
+        hint: 'Changes to prerequisite steps'),
+    Field('successorChanges', String, 'Successor Changes',
+        hint: 'Changes to dependent steps'),
+
+    // Implementation
+    Field('implementationApproach', String, 'Implementation Approach',
+        hint: 'How the adjusted step will be executed'),
+    Field('deliverableChanges', String, 'Deliverable Changes',
+        hint: 'How step deliverables are affected'),
+    Field('toolingChanges', String, 'Tooling Changes',
+        hint: 'Any tooling changes required'),
+    Field('resourceChanges', String, 'Resource Changes',
+        hint: 'Any staffing or skill changes required'),
+
+    // Risk and Impact
+    Field('riskLevel', String, 'Risk Level',
+        hint: 'Low / Medium / High — risk introduced by this deviation'),
+    Field('riskDescription', String, 'Risk Description',
+        hint: 'What could go wrong due to this adjustment'),
+    Field('mitigationMeasures', String, 'Mitigation Measures',
+        hint: 'How risks from this adjustment are mitigated'),
+    Field('timelineImpact', String, 'Timeline Impact',
+        hint: 'FasterByDays / NoChange / SlowerByDays — days saved or added'),
+    Field('budgetImpact', String, 'Budget Impact',
+        hint: 'CostReduction / NoChange / CostIncrease — with amount'),
+
+    // Governance
+    Field('approvalStatus', String, 'Approval Status',
+        hint: 'Proposed / Approved / Conditional / Rejected'),
+    Field('approvedBy', String, 'Approved By',
+        hint: 'Who approved this deviation'),
+    Field('approvalDate', String, 'Approval Date',
+        hint: 'When the deviation was approved'),
+    Field('reviewDate', String, 'Next Review Date',
+        hint: 'When this adjustment will be reviewed'),
+
+    // Notes
+    Field('notes', String, 'Notes',
+        hint: 'Additional context or considerations'),
   ])
   String? content;
 }
