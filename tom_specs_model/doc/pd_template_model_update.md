@@ -305,8 +305,8 @@ All 317 sections from `pd_template.md` with content migration status.
 
 | # | Section ID | Section Name | Model Status | Content Status |
 |---|------------|--------------|--------------|----------------|
-| 37 | PD00-SYO | System Overview | ✅ Exists | ⬜ |
-| 38 | PD00-SYO-SYD | System Description | ✅ Exists | ⬜ |
+| 37 | PD00-SYO | System Overview | ✅ Enhanced | ✅ |
+| 38 | PD00-SYO-SYD | System Description | ✅ Enhanced | ✅ |
 | 39 | PD00-SYO-SYD-PUR | System Purpose | ❓ Missing | ⬜ |
 | 40 | PD00-SYO-SYD-CON | System Context | ❓ Missing | ⬜ |
 | 41 | PD00-SYO-SYD-DES | Description of Task Area | ❓ Missing | ⬜ |

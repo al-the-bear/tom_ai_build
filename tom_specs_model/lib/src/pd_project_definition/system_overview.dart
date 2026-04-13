@@ -1,18 +1,41 @@
 /// Section 4: System Overview [PD00-SYO].
 ///
 /// High-level overview of the system: purpose, goals, scope, requirements,
-/// boundaries, and environment.
+/// boundaries, and environment. This chapter provides the foundational
+/// understanding of what the system is, why it's being built, and the
+/// context in which it will operate.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
-
-
 /// 4. System Overview [PD00-SYO].
+///
+/// High-level overview of the system to be built: its purpose, goals,
+/// scope boundaries, and the environment it operates in. This section
+/// establishes the foundation for all subsequent specification work.
 @SectionId('PD00-SYO')
 class SystemOverview {
-  @Unused()
+  @ContentHelp('''
+Executive summary of the system being specified.
+Provide a high-level overview that allows readers to quickly understand:
+- What system is being built
+- Why it is being built (business drivers)
+- Who will use it
+- What are the major scope boundaries
+- What are the key risks and assumptions
+
+This section should be readable by executives and stakeholders who need
+a quick understanding without reading the full specification.
+''')
   String? content;
+
+  /// System overview summary statistics.
+  SystemOverviewSummary summary = SystemOverviewSummary();
+
+  /// System context diagram showing major system boundaries.
+  @ContentType('mermaid', 'High-level context diagram showing the system, '
+      'its users, and external system interfaces')
+  String? systemContextDiagram;
 
   /// 4.1. System Description [PD00-SYO-SYD].
   SystemDescription systemDescription = SystemDescription();
@@ -39,15 +62,82 @@ class SystemOverview {
   RisksAndAssumptions risksAndAssumptions = RisksAndAssumptions();
 }
 
+/// System overview summary for quick reference.
+class SystemOverviewSummary {
+  @Form([
+    // Identity
+    Field('systemName', String, 'System Name',
+        hint: 'Official name of the system being built', required: true),
+    Field('systemAcronym', String, 'System Acronym',
+        hint: 'Short acronym if used'),
+    Field('systemVersion', String, 'System Version',
+        hint: 'Target version this specification covers'),
+    Field('projectCodeName', String, 'Project Code Name',
+        hint: 'Internal project code name if different'),
+
+    // Classification
+    Field('systemType', String, 'System Type',
+        hint: 'Web Application / Mobile App / API / Desktop / Embedded / Hybrid'),
+    Field('businessDomain', String, 'Business Domain',
+        hint: 'Primary business domain — Finance / Healthcare / Retail / etc.'),
+    Field('deploymentModel', String, 'Deployment Model',
+        hint: 'Cloud / On-premise / Hybrid / Edge'),
+
+    // Scale
+    Field('estimatedUserCount', int, 'Estimated User Count',
+        hint: 'Expected number of users at steady state'),
+    Field('userCategoryCount', int, 'User Category Count',
+        hint: 'Number of distinct user categories'),
+    Field('externalInterfaceCount', int, 'External Interface Count',
+        hint: 'Number of external system integrations'),
+    Field('functionalRequirementCount', int, 'Functional Requirement Count',
+        hint: 'Number of functional requirements identified'),
+    Field('nonFunctionalRequirementCount', int, 'Non-Functional Requirement Count',
+        hint: 'Number of non-functional requirements identified'),
+
+    // Status
+    Field('specificationVersion', String, 'Specification Version',
+        hint: 'Version of this specification document'),
+    Field('specificationDate', String, 'Specification Date',
+        hint: 'Date of this specification'),
+    Field('specificationStatus', String, 'Specification Status',
+        hint: 'Draft / Review / Approved / Superseded'),
+    Field('targetGoLiveDate', String, 'Target Go-Live Date',
+        hint: 'Planned production deployment date'),
+
+    // Complexity Indicators
+    Field('overallComplexity', String, 'Overall Complexity',
+        hint: 'Low / Medium / High / Very High — based on scope and integrations'),
+    Field('keyRisks', String, 'Key Risks Summary',
+        hint: 'Brief list of top 3 risks'),
+    Field('keyAssumptions', String, 'Key Assumptions Summary',
+        hint: 'Brief list of critical assumptions'),
+  ])
+  String? content;
+}
+
 // ---------------------------------------------------------------------------
 // 4.1 System Description
 // ---------------------------------------------------------------------------
 
 /// 4.1. System Description [PD00-SYO-SYD].
+///
+/// Concise description of the system to be created, its primary purpose,
+/// and the business domain it addresses. This section provides the
+/// foundation for understanding what the system does and who uses it.
 @SectionId('PD00-SYO-SYD')
 class SystemDescription {
-  @Unused()
+  @ContentHelp('''
+Concise description of the system to be created.
+Describe the primary purpose of the system and the business domain it
+addresses. Focus on WHAT the system does, not HOW it does it.
+This section should establish a shared vocabulary and mental model
+that all stakeholders can refer to.
+''')
   String? content;
+
+  /// System description summary.
+  SystemDescriptionSummary descriptionSummary = SystemDescriptionSummary();
 
   /// 4.1.1. System Purpose [PD00-SYO-SYD-PUR].
   SystemPurpose systemPurpose = SystemPurpose();
@@ -65,6 +155,57 @@ class SystemDescription {
 
   /// 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
   UserInteractionModel userInteractionModel = UserInteractionModel();
+}
+
+/// Summary statistics and classification for system description.
+///
+/// Provides structured classification of the system including its primary
+/// function, domain classification, technology stack, and key characteristics.
+@Form([
+  Field('primaryFunction', String, 'Primary function the system performs',
+      hint: 'e.g., Enterprise resource planning and management'),
+  Field('systemCategory', String, 'High-level category classification',
+      hint: 'Business Application, Consumer Application, Infrastructure, '
+          'Embedded, Platform/Framework, Data Processing, Integration, '
+          'Monitoring/Management, AI/ML, IoT, Development Tool, Security'),
+  Field('domainClassification', String, 'Primary business or technical domain',
+      hint: 'e.g., Healthcare, Finance, Manufacturing, E-commerce'),
+  Field('deploymentModel', String, 'Primary deployment approach',
+      hint: 'Cloud-native SaaS, Cloud-hosted PaaS, Hybrid Cloud, '
+          'On-premises, Edge/Distributed, Mobile-first, Desktop, Embedded'),
+  Field('architectureStyle', String, 'Primary architectural pattern',
+      hint: 'Microservices, Monolithic, Serverless, Event-driven, Layered, '
+          'Modular Monolith, Service-oriented, Peer-to-peer, Client-server'),
+  Field('primaryTechnologyStack', String, 'Main technologies and frameworks',
+      hint: 'e.g., Flutter/Dart, Firebase, PostgreSQL'),
+  Field('interfaceTypes', List, 'Types of user and system interfaces',
+      hint: 'Web UI, Mobile App, Desktop App, REST API, GraphQL API, '
+          'gRPC API, CLI, Voice Interface, Chat/Bot Interface, Hardware'),
+  Field('dataCharacteristics', String, 'Key data handling characteristics',
+      hint: 'e.g., Real-time processing, batch analytics, ACID transactions'),
+  Field('securityClassification', String, 'Overall security posture requirement',
+      hint: 'Public/Open, Internal Use, Confidential, Highly Confidential, '
+          'Regulated (HIPAA/GDPR/SOX), Government/Classified'),
+  Field('availabilityRequirement', String, 'Target availability level',
+      hint: '99.999% (Five 9s), 99.99% (Four 9s), 99.9% (Three 9s), '
+          '99%, Business Hours Only, Best Effort'),
+  Field('scalabilityModel', String, 'How the system scales',
+      hint: 'Horizontal Auto-scaling, Vertical Scaling, Manual Scaling, '
+          'Fixed Capacity, Edge Distribution, Federation'),
+  Field('expectedUserLoad', String, 'Anticipated concurrent user volume',
+      hint: 'Single User, Team (<100), Enterprise (100-1000), '
+          'Large Enterprise (1000-10000), Consumer (10000+)'),
+  Field('keyDifferentiators', String, 'What makes this system unique',
+      hint: 'e.g., AI-powered recommendations, real-time collaboration'),
+  Field('criticalCapabilities', String, 'Most important system capabilities',
+      hint: 'e.g., Multi-tenant data isolation, offline-first sync'),
+])
+class SystemDescriptionSummary {
+  /// Summary content for system description classification.
+  @ContentType('aggregation', 'Structured classification and characteristics '
+      'of the system based on category, domain, architecture, and '
+      'deployment model.')
+  String? content;
 }
 
 // ---------------------------------------------------------------------------
