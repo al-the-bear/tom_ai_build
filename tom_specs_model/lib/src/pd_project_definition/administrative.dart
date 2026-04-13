@@ -1,17 +1,30 @@
 /// Section 3: Administrative [PD00-ADM].
 ///
 /// Project administration: team, distribution, change procedure, references.
+/// Covers organizational aspects of the project including governance structure,
+/// staffing, communication channels, change management, and reference materials.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
-
-
 /// 3. Administrative [PD00-ADM].
+///
+/// Project-specific administrative information including team composition,
+/// distribution channels, procedural agreements, and reference documentation.
+/// This section defines WHO is involved, HOW they communicate, and WHAT
+/// procedures govern changes to project documentation.
 @SectionId('PD00-ADM')
 class Administrative {
-  @Unused()
+  @ContentHelp('''
+Executive summary of project administrative arrangements.
+Describe the overall governance model, communication approach, and key
+administrative agreements that govern this project. Highlight any deviations
+from standard organizational project governance procedures.
+''')
   String? content;
+
+  /// Administrative overview summary.
+  AdministrativeSummary summary = AdministrativeSummary();
 
   /// 3.1. Project Organization [PD00-ADM-PRO].
   ProjectOrganization projectOrganization = ProjectOrganization();
@@ -37,10 +50,41 @@ class Administrative {
 // 3.1 Project Organization
 // ---------------------------------------------------------------------------
 
+/// Administrative overview summary statistics.
+class AdministrativeSummary {
+  @Form([
+    Field('totalTeamMembers', int, 'Total Team Members',
+        hint: 'Number of people assigned to the project'),
+    Field('internalResources', int, 'Internal Resources',
+        hint: 'Number of internal staff'),
+    Field('externalResources', int, 'External Resources',
+        hint: 'Number of contractors, consultants, vendors'),
+    Field('steeringCommitteeSize', int, 'Steering Committee Size',
+        hint: 'Number of steering committee members'),
+    Field('distributionListSize', int, 'Distribution List Size',
+        hint: 'Total recipients across all distribution lists'),
+    Field('referenceDocumentsCount', int, 'Reference Documents Count',
+        hint: 'Number of referenced documents'),
+    Field('keyDecisionMaker', String, 'Key Decision Maker',
+        hint: 'Primary authority for project decisions'),
+    Field('projectManagerName', String, 'Project Manager',
+        hint: 'Name of the project manager'),
+    Field('governanceModel', String, 'Governance Model',
+        hint: 'Type of governance structure in place'),
+    Field('meetingCadenceOverview', String, 'Meeting Cadence Overview',
+        hint: 'Summary of regular meetings and frequency'),
+  ])
+  String? content;
+}
+
 /// 3.1. Project Organization [PD00-ADM-PRO].
 @SectionId('PD00-ADM-PRO')
 class ProjectOrganization {
-  @Unused()
+  @ContentHelp('''
+Overview of project organization structure including reporting lines,
+steering committee composition, and governance arrangements.
+Describe the organizational model and key decision-making paths.
+''')
   String? content;
 
   /// 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
@@ -308,23 +352,124 @@ class TeamMemberResponsibilityEntry {
 // ---------------------------------------------------------------------------
 
 /// 3.3. Distribution List [PD00-ADM-DIS].
+///
+/// Defines who receives which project documents and communications.
+/// Includes the communication matrix specifying information flow patterns,
+/// notification preferences, and access levels for different stakeholder groups.
 @SectionId('PD00-ADM-DIS')
 class DistributionList {
-  @Unused()
+  @ContentHelp('''
+Overview of project communication and distribution approach.
+Describe the different stakeholder groups, their information needs,
+and how documents and updates are distributed. Define the communication
+channels and frequency for different types of information.
+''')
   String? content;
+
+  /// Communication matrix overview.
+  CommunicationMatrix communicationMatrix = CommunicationMatrix();
 
   /// 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
   FullDistribution fullDistribution = FullDistribution();
 
   /// 3.3.2. Executive Summary [PD00-ADM-DIS-EXE].
   ExecutiveSummaryDistribution executiveSummary = ExecutiveSummaryDistribution();
+
+  /// 3.3.3. Custom Distribution Groups [PD00-ADM-DIS-CUS] — contains 0+× Group.
+  @SectionIdPattern('PD00-ADM-DIS-CUS-xx')
+  List<CustomDistributionGroup> customGroups = [];
+}
+
+/// Communication matrix defining stakeholder communication patterns.
+class CommunicationMatrix {
+  @Form([
+    Field('defaultCommunicationChannel', String, 'Default Communication Channel',
+        hint: 'Primary channel for project communications — Email / Portal / Teams'),
+    Field('documentRepository', String, 'Document Repository',
+        hint: 'Location where project documents are stored'),
+    Field('notificationTool', String, 'Notification Tool',
+        hint: 'Tool used for notifications — Email / Slack / Teams'),
+    Field('meetingPlatform', String, 'Meeting Platform',
+        hint: 'Platform for virtual meetings'),
+    Field('escalationChannel', String, 'Escalation Channel',
+        hint: 'Channel for urgent escalations'),
+    Field('languageOfCommunication', String, 'Language of Communication',
+        hint: 'Primary language for project documents and communications'),
+    Field('translationProcess', String, 'Translation Process',
+        hint: 'How documents are translated for non-primary speakers'),
+  ])
+  String? content;
+
+  /// Communication matrix diagram.
+  @ContentType('mermaid', 'Diagram showing communication flows between '
+      'stakeholder groups and information types')
+  String? communicationFlowDiagram;
+
+  /// Communication types and their distribution rules.
+  @SectionIdPattern('PD00-ADM-DIS-COM-xx')
+  List<CommunicationTypeEntry> communicationTypes = [];
+}
+
+/// A communication type with distribution rules.
+class CommunicationTypeEntry {
+  @Form([
+    Field('communicationType', String, 'Communication Type',
+        hint: 'Type of communication — StatusReport / MilestoneAlert / IssueNotification / MeetingMinutes / ChangeRequest', required: true),
+    Field('description', String, 'Description',
+        hint: 'What this communication type covers'),
+    Field('frequency', String, 'Frequency',
+        hint: 'Daily / Weekly / Bi-weekly / Monthly / Ad-hoc / Event-driven'),
+    Field('format', String, 'Format',
+        hint: 'Document / Email / Presentation / Dashboard'),
+    Field('distributionScope', String, 'Distribution Scope',
+        hint: 'All / Executive / Technical / Operations'),
+    Field('responsibleRole', String, 'Responsible Role',
+        hint: 'Who prepares this communication'),
+    Field('approvalRequired', String, 'Approval Required',
+        hint: 'None / Manager / SteeringCommittee'),
+    Field('retentionPeriod', String, 'Retention Period',
+        hint: 'How long to keep this communication'),
+    Field('confidentialityLevel', String, 'Confidentiality Level',
+        hint: 'Public / Internal / Confidential / Restricted'),
+  ])
+  String? content;
+}
+
+/// Custom distribution group for specific stakeholder needs.
+class CustomDistributionGroup {
+  @Form([
+    Field('groupName', String, 'Group Name', required: true,
+        hint: 'Name of the distribution group'),
+    Field('purpose', String, 'Purpose',
+        hint: 'Why this group exists'),
+    Field('informationScope', String, 'Information Scope',
+        hint: 'What information this group receives'),
+    Field('frequency', String, 'Communication Frequency',
+        hint: 'How often this group is contacted'),
+    Field('primaryChannel', String, 'Primary Channel',
+        hint: 'Main distribution channel for this group'),
+  ])
+  String? content;
+
+  /// Group members.
+  @SectionIdPattern('PD00-ADM-DIS-CUS-xx-MEM-xx')
+  List<DistributionRecipientEntry> members = [];
 }
 
 /// 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
+///
+/// Recipients who receive all project documents and communications.
 @SectionId('PD00-ADM-DIS-FUL')
 class FullDistribution {
-  @Unused()
+  @ContentHelp('''
+List of stakeholders who receive complete project documentation.
+These are typically core team members and key stakeholders who need
+full visibility into all project activities and decisions.
+''')
   String? content;
+
+  /// Full distribution summary.
+  DistributionGroupSummary groupSummary = DistributionGroupSummary();
 
   /// Contains 0+× DistributionRecipient.
   @SectionIdPattern('PD00-ADM-DIS-FUL-xx')
@@ -332,23 +477,111 @@ class FullDistribution {
 }
 
 /// 3.3.2. Executive Summary Distribution [PD00-ADM-DIS-EXE].
+///
+/// Recipients who receive only executive summaries and milestone reports.
 @SectionId('PD00-ADM-DIS-EXE')
 class ExecutiveSummaryDistribution {
-  @Unused()
+  @ContentHelp('''
+List of stakeholders who receive executive summaries only.
+These are typically senior executives and sponsors who need
+high-level progress updates without operational details.
+''')
   String? content;
+
+  /// Executive distribution summary.
+  DistributionGroupSummary groupSummary = DistributionGroupSummary();
 
   /// Contains 0+× DistributionRecipient.
   @SectionIdPattern('PD00-ADM-DIS-EXE-xx')
   List<DistributionRecipientEntry> items = [];
 }
 
+/// Summary statistics for a distribution group.
+class DistributionGroupSummary {
+  @Form([
+    Field('recipientCount', int, 'Recipient Count',
+        hint: 'Number of recipients in this group'),
+    Field('internalCount', int, 'Internal Recipients',
+        hint: 'Number of internal recipients'),
+    Field('externalCount', int, 'External Recipients',
+        hint: 'Number of external recipients'),
+    Field('primaryLanguage', String, 'Primary Language',
+        hint: 'Primary language of this group'),
+    Field('distributionFrequency', String, 'Distribution Frequency',
+        hint: 'Default frequency for this group'),
+  ])
+  String? content;
+}
+
 /// A distribution recipient entry (form) [PD00-ADM-DIS-nn].
+///
+/// Detailed information about a distribution list recipient including
+/// their role, contact information, preferences, and access levels.
 class DistributionRecipientEntry {
   @Form([
-    Field('name', String, 'Name', required: true),
-    Field('role', String, 'Role'),
-    Field('organization', String, 'Organization'),
-    Field('distributionMethod', String, 'Distribution Method'),
+    // Identity
+    Field('name', String, 'Name', required: true,
+        hint: 'Full name of the recipient'),
+    Field('role', String, 'Role',
+        hint: 'Project or organizational role'),
+    Field('organization', String, 'Organization',
+        hint: 'Department or company'),
+    Field('jobTitle', String, 'Job Title',
+        hint: "Recipient's job title"),
+
+    // Contact Information
+    Field('primaryEmail', String, 'Primary Email',
+        hint: 'Primary email address for distribution'),
+    Field('secondaryEmail', String, 'Secondary Email',
+        hint: 'Backup email if primary is unavailable'),
+    Field('phoneNumber', String, 'Phone Number',
+        hint: 'Phone for urgent communications'),
+    Field('preferredContactMethod', String, 'Preferred Contact Method',
+        hint: 'Email / Phone / Teams / Slack'),
+
+    // Distribution Preferences
+    Field('distributionMethod', String, 'Distribution Method',
+        hint: 'Email / Portal / Physical'),
+    Field('preferredFormat', String, 'Preferred Format',
+        hint: 'PDF / Word / HTML / Link'),
+    Field('preferredLanguage', String, 'Preferred Language',
+        hint: 'Language preference for documents'),
+    Field('digestPreference', String, 'Digest Preference',
+        hint: 'Individual / Daily Digest / Weekly Digest'),
+    Field('notificationPreference', String, 'Notification Preference',
+        hint: 'Immediate / Batched / Manual Check'),
+
+    // Access and Information Scope
+    Field('accessLevel', String, 'Access Level',
+        hint: 'Full / Summary / Specific Sections'),
+    Field('informationCategories', String, 'Information Categories',
+        hint: 'Categories of information received — comma-separated'),
+    Field('excludedCategories', String, 'Excluded Categories',
+        hint: 'Categories explicitly excluded — comma-separated'),
+    Field('documentSections', String, 'Document Sections',
+        hint: 'Specific sections received if not full document'),
+    Field('confidentialityCleared', String, 'Confidentiality Cleared',
+        hint: 'Cleared levels — Public / Internal / Confidential / Restricted'),
+
+    // Subscription Period
+    Field('subscriptionStartDate', String, 'Subscription Start Date',
+        hint: 'When this recipient joined the distribution list'),
+    Field('subscriptionEndDate', String, 'Subscription End Date',
+        hint: 'When distribution ends — ongoing if blank'),
+    Field('subscriptionStatus', String, 'Subscription Status',
+        hint: 'Active / Paused / Ended'),
+
+    // Backup and Delegation
+    Field('deputyName', String, 'Deputy Name',
+        hint: 'Person to contact or copy when recipient is unavailable'),
+    Field('outOfOfficeHandling', String, 'Out of Office Handling',
+        hint: 'Forward to Deputy / Hold / Continue'),
+
+    // Notes
+    Field('specialInstructions', String, 'Special Instructions',
+        hint: 'Any special distribution requirements'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional notes about this recipient'),
   ])
   String? content;
 }
@@ -358,24 +591,81 @@ class DistributionRecipientEntry {
 // ---------------------------------------------------------------------------
 
 /// 3.4. Change Procedure [PD00-ADM-CHA].
+///
+/// Procedure for requesting, evaluating, and approving changes to this
+/// Project Definition and other project documents. Defines the change
+/// control workflow, impact assessment criteria, and approval authorities.
 @SectionId('PD00-ADM-CHA')
 class ChangeProcedure {
-  @Unused()
+  @ContentHelp('''
+Overview of the change management process for project documents.
+Describe the philosophy for change control, when formal change requests
+are required, and how the process balances agility with governance needs.
+''')
   String? content;
+
+  /// Change procedure summary.
+  ChangeProcedureSummary summary = ChangeProcedureSummary();
 
   /// 3.4.1. Change Process [PD00-ADM-CHA-PRO].
   ChangeProcess changeProcess = ChangeProcess();
 
   /// 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
   ChangeImpactCriteria changeImpactCriteria = ChangeImpactCriteria();
+
+  /// 3.4.3. Change Control Board [PD00-ADM-CHA-CCB].
+  ChangeControlBoard changeControlBoard = ChangeControlBoard();
+
+  /// 3.4.4. Change Categories [PD00-ADM-CHA-CAT] — contains 0+× Category.
+  @SectionIdPattern('PD00-ADM-CHA-CAT-xx')
+  List<ChangeCategoryEntry> changeCategories = [];
+}
+
+/// Change procedure summary and metrics.
+class ChangeProcedureSummary {
+  @Form([
+    Field('changeRequestFormat', String, 'Change Request Format',
+        hint: 'Form / Email / Ticket / Document'),
+    Field('submissionChannel', String, 'Submission Channel',
+        hint: 'How change requests are submitted'),
+    Field('averageProcessingTime', String, 'Average Processing Time',
+        hint: 'Typical time from submission to decision'),
+    Field('emergencyChangeProcess', String, 'Emergency Change Process',
+        hint: 'How urgent changes are expedited'),
+    Field('changeFreezePeriods', String, 'Change Freeze Periods',
+        hint: 'Periods when changes are restricted'),
+    Field('retroactiveChangePolicy', String, 'Retroactive Change Policy',
+        hint: 'How already-implemented changes are documented'),
+  ])
+  String? content;
 }
 
 /// 3.4.1. Change Process [PD00-ADM-CHA-PRO].
+///
+/// Detailed workflow for change request processing from submission
+/// through evaluation, approval, implementation, and closure.
 @SectionId('PD00-ADM-CHA-PRO')
 class ChangeProcess {
+  @ContentHelp('''
+Detailed description of the change request workflow.
+Describe each step from submission through closure, including
+decision points, parallel activities, and notification triggers.
+''')
   @Form([
-    Field('approvalAuthority', String, 'Approval Authority'),
-    Field('escalationPath', String, 'Escalation Path'),
+    Field('processVersion', String, 'Process Version',
+        hint: 'Version of this change process'),
+    Field('effectiveDate', String, 'Effective Date',
+        hint: 'When this process became effective'),
+    Field('approvalAuthority', String, 'Approval Authority',
+        hint: 'Default authority for change decisions'),
+    Field('escalationPath', String, 'Escalation Path',
+        hint: 'Escalation path for disputed or complex changes'),
+    Field('defaultSla', String, 'Default SLA',
+        hint: 'Standard processing time commitment'),
+    Field('trackingTool', String, 'Tracking Tool',
+        hint: 'Tool used to track change requests'),
+    Field('auditRequirements', String, 'Audit Requirements',
+        hint: 'Documentation requirements for audit trail'),
   ])
   String? content;
 
@@ -390,26 +680,128 @@ class ChangeProcess {
   @SectionIdPattern('PD00-ADM-CHA-PRO-ROL-xx')
   List<ChangeRoleEntry> roles = [];
 
+  /// Decision criteria for change approval.
+  ChangeDecisionCriteria decisionCriteria = ChangeDecisionCriteria();
+
+  /// Notification rules during change process.
+  ChangeNotificationRules notificationRules = ChangeNotificationRules();
+}
+
+/// Decision criteria for evaluating change requests.
+class ChangeDecisionCriteria {
+  @Form([
+    Field('scopeImpactWeight', int, 'Scope Impact Weight',
+        hint: 'Weight for scope impact in decision — 0-100'),
+    Field('scheduleImpactWeight', int, 'Schedule Impact Weight',
+        hint: 'Weight for schedule impact — 0-100'),
+    Field('budgetImpactWeight', int, 'Budget Impact Weight',
+        hint: 'Weight for budget impact — 0-100'),
+    Field('qualityImpactWeight', int, 'Quality Impact Weight',
+        hint: 'Weight for quality impact — 0-100'),
+    Field('riskImpactWeight', int, 'Risk Impact Weight',
+        hint: 'Weight for risk impact — 0-100'),
+    Field('approvalThreshold', String, 'Approval Threshold',
+        hint: 'When combined score requires steering committee'),
+    Field('vetoPower', String, 'Veto Power',
+        hint: 'Who can veto an approved change'),
+  ])
+  String? content;
+}
+
+/// Notification rules for change process events.
+class ChangeNotificationRules {
+  @Form([
+    Field('submissionNotification', String, 'Submission Notification',
+        hint: 'Who is notified when a change is submitted'),
+    Field('assessmentNotification', String, 'Assessment Notification',
+        hint: 'Who is notified during assessment'),
+    Field('approvalNotification', String, 'Approval Notification',
+        hint: 'Who is notified of approval/rejection'),
+    Field('implementationNotification', String, 'Implementation Notification',
+        hint: 'Who is notified when change is implemented'),
+    Field('closureNotification', String, 'Closure Notification',
+        hint: 'Who is notified when change is closed'),
+    Field('escalationNotification', String, 'Escalation Notification',
+        hint: 'Who is notified on escalation'),
+  ])
+  String? content;
 }
 
 /// A role involved in the change process (form) [PD00-ADM-CHA-PRO-ROL-nn].
 class ChangeRoleEntry {
   @Form([
-    Field('roleName', String, 'Role Name', required: true),
-    Field('responsibility', String, 'Responsibility'),
+    Field('roleName', String, 'Role Name', required: true,
+        hint: 'Name of the role in change process'),
+    Field('responsibility', String, 'Responsibility',
+        hint: 'What this role does in the process'),
+    Field('authority', String, 'Authority Level',
+        hint: 'Decision authority this role has'),
+    Field('requiredCompetencies', String, 'Required Competencies',
+        hint: 'Skills needed for this role'),
+    Field('assignedTo', String, 'Assigned To',
+        hint: 'Person or team fulfilling this role'),
+    Field('backup', String, 'Backup',
+        hint: 'Backup person for this role'),
+    Field('availabilityRequirement', String, 'Availability Requirement',
+        hint: 'Response time expectation'),
   ])
   String? content;
 }
 
 /// A change process step entry (form) [PD00-ADM-CHA-PRO-STP-nn].
+///
+/// Detailed description of a single step in the change process workflow.
 class ChangeStepEntry {
   @Form([
-    Field('stepName', String, 'Step Name', required: true),
-    Field('description', String, 'Short description'),
-    Field('responsibleRole', String, 'Responsible Role'),
-    Field('inputArtifacts', String, 'Input Artifacts'),
-    Field('outputArtifacts', String, 'Output Artifacts'),
-    Field('approvalCriteria', String, 'Approval Criteria'),
+    // Identification
+    Field('stepNumber', int, 'Step Number',
+        hint: 'Order of this step in the process', required: true),
+    Field('stepName', String, 'Step Name', required: true,
+        hint: 'Name of the process step'),
+    Field('description', String, 'Description',
+        hint: 'Detailed description of what happens in this step'),
+
+    // Responsibility
+    Field('responsibleRole', String, 'Responsible Role',
+        hint: 'Role responsible for executing this step'),
+    Field('accountableRole', String, 'Accountable Role',
+        hint: 'Role accountable for step completion'),
+    Field('consultedRoles', String, 'Consulted Roles',
+        hint: 'Roles consulted during this step'),
+    Field('informedRoles', String, 'Informed Roles',
+        hint: 'Roles informed of step completion'),
+
+    // Inputs and Outputs
+    Field('inputArtifacts', String, 'Input Artifacts',
+        hint: 'Documents or data required to start this step'),
+    Field('outputArtifacts', String, 'Output Artifacts',
+        hint: 'Documents or decisions produced by this step'),
+    Field('tools', String, 'Tools Used',
+        hint: 'Tools or systems used in this step'),
+
+    // Criteria and Timing
+    Field('entryConditions', String, 'Entry Conditions',
+        hint: 'Conditions that must be met to start this step'),
+    Field('exitConditions', String, 'Exit Conditions',
+        hint: 'Conditions that must be met to complete this step'),
+    Field('approvalCriteria', String, 'Approval Criteria',
+        hint: 'Criteria for approval decisions in this step'),
+    Field('targetDuration', String, 'Target Duration',
+        hint: 'Expected time to complete this step'),
+    Field('maximumDuration', String, 'Maximum Duration',
+        hint: 'Maximum allowed time before escalation'),
+
+    // Decision Points
+    Field('decisionRequired', String, 'Decision Required',
+        hint: 'Yes / No — whether this step involves a decision'),
+    Field('decisionOptions', String, 'Decision Options',
+        hint: 'Possible outcomes of the decision'),
+    Field('nextStepIfApproved', String, 'Next Step If Approved',
+        hint: 'Where to go if decision is positive'),
+    Field('nextStepIfRejected', String, 'Next Step If Rejected',
+        hint: 'Where to go if decision is negative'),
+    Field('escalationTrigger', String, 'Escalation Trigger',
+        hint: 'What triggers escalation from this step'),
   ])
   String? content;
 
@@ -418,23 +810,208 @@ class ChangeStepEntry {
 }
 
 /// 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
+///
+/// Criteria for determining the impact level of change requests,
+/// which drives the approval path and stakeholder involvement.
 @SectionId('PD00-ADM-CHA-CRI')
 class ChangeImpactCriteria {
-  @Unused()
+  @ContentHelp('''
+Criteria for assessing change impact across different dimensions.
+Define thresholds that determine whether a change is minor, moderate,
+major, or critical, and the corresponding approval requirements.
+''')
   String? content;
+
+  /// Impact level definitions.
+  ImpactLevelDefinitions impactLevels = ImpactLevelDefinitions();
 
   /// Contains 0+× ChangeImpactCriterion.
   @SectionIdPattern('PD00-ADM-CHA-CRI-xx')
   List<ChangeImpactCriterionEntry> items = [];
 }
 
+/// Impact level definitions.
+class ImpactLevelDefinitions {
+  @Form([
+    Field('minorDefinition', String, 'Minor Impact Definition',
+        hint: 'What constitutes a minor change'),
+    Field('minorApproval', String, 'Minor Approval',
+        hint: 'Who approves minor changes'),
+    Field('moderateDefinition', String, 'Moderate Impact Definition',
+        hint: 'What constitutes a moderate change'),
+    Field('moderateApproval', String, 'Moderate Approval',
+        hint: 'Who approves moderate changes'),
+    Field('majorDefinition', String, 'Major Impact Definition',
+        hint: 'What constitutes a major change'),
+    Field('majorApproval', String, 'Major Approval',
+        hint: 'Who approves major changes'),
+    Field('criticalDefinition', String, 'Critical Impact Definition',
+        hint: 'What constitutes a critical change'),
+    Field('criticalApproval', String, 'Critical Approval',
+        hint: 'Who approves critical changes'),
+  ])
+  String? content;
+}
+
 /// A change impact criterion entry (form) [PD00-ADM-CHA-CRI-nn].
+///
+/// Detailed criterion for assessing change impact in a specific dimension.
 class ChangeImpactCriterionEntry {
   @Form([
-    Field('criterion', String, 'Criterion', required: true),
-    Field('impactLevel', String, 'Impact Level'),
-    Field('description', String, 'Short description'),
-    Field('approvalRequired', String, 'Approval Required'),
+    // Identification
+    Field('criterionId', String, 'Criterion ID',
+        hint: 'Unique identifier for this criterion', required: true),
+    Field('criterion', String, 'Criterion Name', required: true,
+        hint: 'Name of the impact dimension'),
+    Field('description', String, 'Description',
+        hint: 'Detailed description of this criterion'),
+    Field('category', String, 'Category',
+        hint: 'Scope / Schedule / Budget / Quality / Risk / Resource'),
+
+    // Thresholds
+    Field('minorThreshold', String, 'Minor Threshold',
+        hint: 'Threshold for minor impact — e.g. <5% budget'),
+    Field('moderateThreshold', String, 'Moderate Threshold',
+        hint: 'Threshold for moderate impact — e.g. 5-15% budget'),
+    Field('majorThreshold', String, 'Major Threshold',
+        hint: 'Threshold for major impact — e.g. 15-30% budget'),
+    Field('criticalThreshold', String, 'Critical Threshold',
+        hint: 'Threshold for critical impact — e.g. >30% budget'),
+
+    // Measurement
+    Field('measurementMethod', String, 'Measurement Method',
+        hint: 'How this criterion is measured or assessed'),
+    Field('measurementUnit', String, 'Measurement Unit',
+        hint: 'Unit of measurement — Days / Percentage / Currency'),
+    Field('baselineReference', String, 'Baseline Reference',
+        hint: 'What baseline this is measured against'),
+
+    // Approval Path
+    Field('approvalRequired', String, 'Approval Required',
+        hint: 'Level of approval required based on impact'),
+    Field('escalationRule', String, 'Escalation Rule',
+        hint: 'When to escalate based on this criterion'),
+    Field('notificationRequired', String, 'Notification Required',
+        hint: 'Who must be notified if threshold is exceeded'),
+
+    // Weighting
+    Field('weight', int, 'Weight',
+        hint: 'Relative weight in overall impact calculation — 0-100'),
+    Field('mandatory', String, 'Mandatory',
+        hint: 'Yes / No — whether this criterion must always be assessed'),
+
+    // Notes
+    Field('examples', String, 'Examples',
+        hint: 'Examples of changes at different impact levels'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional notes about this criterion'),
+  ])
+  String? content;
+}
+
+/// 3.4.3. Change Control Board [PD00-ADM-CHA-CCB].
+///
+/// Governance body responsible for major change decisions.
+@SectionId('PD00-ADM-CHA-CCB')
+class ChangeControlBoard {
+  @ContentHelp('''
+Description of the Change Control Board composition, authority,
+and operating procedures. Define meeting schedule, quorum requirements,
+and decision-making rules.
+''')
+  @Form([
+    Field('boardName', String, 'Board Name',
+        hint: 'Official name of the change control board'),
+    Field('purpose', String, 'Purpose',
+        hint: 'Primary purpose and authority of the board'),
+    Field('meetingFrequency', String, 'Meeting Frequency',
+        hint: 'How often the board meets — Weekly / Bi-weekly / Monthly'),
+    Field('meetingDay', String, 'Meeting Day',
+        hint: 'Day of week for regular meetings'),
+    Field('meetingTime', String, 'Meeting Time',
+        hint: 'Standard meeting time'),
+    Field('meetingDuration', String, 'Meeting Duration',
+        hint: 'Standard meeting duration'),
+    Field('quorumRequirement', String, 'Quorum Requirement',
+        hint: 'Minimum attendance for valid decisions'),
+    Field('votingRules', String, 'Voting Rules',
+        hint: 'How decisions are made — Consensus / Majority / Chair decides'),
+    Field('emergencyProcedure', String, 'Emergency Procedure',
+        hint: 'How emergency decisions are handled outside meetings'),
+    Field('minutesDistribution', String, 'Minutes Distribution',
+        hint: 'How meeting minutes are distributed'),
+    Field('decisionLog', String, 'Decision Log',
+        hint: 'Where decisions are recorded'),
+  ])
+  String? content;
+
+  /// CCB members — contains 1+× CCB Member.
+  @SectionIdPattern('PD00-ADM-CHA-CCB-xx')
+  @Min(1)
+  List<CcbMemberEntry> members = [];
+}
+
+/// A CCB member entry.
+class CcbMemberEntry {
+  @Form([
+    Field('name', String, 'Name', required: true,
+        hint: 'Name of the CCB member'),
+    Field('role', String, 'Role',
+        hint: 'Role in the organization'),
+    Field('ccbRole', String, 'CCB Role',
+        hint: 'Role on the CCB — Chair / Vice-Chair / Secretary / Member'),
+    Field('votingRights', String, 'Voting Rights',
+        hint: 'Voting / Advisory / Observer'),
+    Field('representedArea', String, 'Represented Area',
+        hint: 'Area or stakeholder group represented'),
+    Field('substitute', String, 'Substitute',
+        hint: 'Designated substitute when unavailable'),
+    Field('requiredForQuorum', String, 'Required for Quorum',
+        hint: 'Yes / No — whether this member is required for quorum'),
+  ])
+  String? content;
+}
+
+/// A change category entry [PD00-ADM-CHA-CAT-nn].
+///
+/// Defines a category of changes with specific handling rules.
+class ChangeCategoryEntry {
+  @Form([
+    // Identification
+    Field('categoryId', String, 'Category ID',
+        hint: 'Unique identifier for this category', required: true),
+    Field('categoryName', String, 'Category Name', required: true,
+        hint: 'Name of the change category'),
+    Field('description', String, 'Description',
+        hint: 'What types of changes fall into this category'),
+
+    // Scope
+    Field('scope', String, 'Scope',
+        hint: 'What is affected — Scope / Schedule / Budget / Quality / Technical'),
+    Field('examples', String, 'Examples',
+        hint: 'Examples of changes in this category'),
+
+    // Handling
+    Field('defaultImpactLevel', String, 'Default Impact Level',
+        hint: 'Typical impact level — Minor / Moderate / Major / Critical'),
+    Field('approvalPath', String, 'Approval Path',
+        hint: 'Who approves changes in this category'),
+    Field('expeditedProcessAllowed', String, 'Expedited Process Allowed',
+        hint: 'Yes / No — whether fast-track is available'),
+    Field('minimumLeadTime', String, 'Minimum Lead Time',
+        hint: 'Minimum time needed for assessment'),
+    Field('typicalProcessingTime', String, 'Typical Processing Time',
+        hint: 'Normal time for change processing'),
+
+    // Documentation
+    Field('requiredDocumentation', String, 'Required Documentation',
+        hint: 'Documents required for this category'),
+    Field('impactAssessmentDepth', String, 'Impact Assessment Depth',
+        hint: 'Checklist / Brief / Detailed / Full'),
+
+    // Notes
+    Field('specialConsiderations', String, 'Special Considerations',
+        hint: 'Special handling requirements'),
   ])
   String? content;
 }
