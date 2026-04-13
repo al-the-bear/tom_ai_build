@@ -307,9 +307,9 @@ All 317 sections from `pd_template.md` with content migration status.
 |---|------------|--------------|--------------|----------------|
 | 37 | PD00-SYO | System Overview | ✅ Enhanced | ✅ |
 | 38 | PD00-SYO-SYD | System Description | ✅ Enhanced | ✅ |
-| 39 | PD00-SYO-SYD-PUR | System Purpose | ❓ Missing | ⬜ |
-| 40 | PD00-SYO-SYD-CON | System Context | ❓ Missing | ⬜ |
-| 41 | PD00-SYO-SYD-DES | Description of Task Area | ❓ Missing | ⬜ |
+| 39 | PD00-SYO-SYD-PUR | System Purpose | ✅ Enhanced | ✅ |
+| 40 | PD00-SYO-SYD-CON | System Context | ✅ Enhanced | ✅ |
+| 41 | PD00-SYO-SYD-DES | Description of Task Area | ✅ Enhanced | ✅ |
 | 42 | PD00-SYO-SYD-USR | User Categories | ✅ Enhanced | ✅ |
 | 43 | PD00-SYO-SYD-USR-01 | Sample: Back-Office Administrator | ✅ Enhanced | ✅ |
 | 44 | PD00-SYO-SYD-USR-01-ROL | Role | ✅ Enhanced | ✅ |
