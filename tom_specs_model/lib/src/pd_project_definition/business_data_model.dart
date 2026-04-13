@@ -11,7 +11,23 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 @SectionId('PD00-BUS')
 @Comment('Seeds → BDM')
 class BusinessObjectAndDataModel {
-  @Unused()
+  @ContentHelp('''
+Conceptual overview of the business data the system manages. This chapter
+establishes the foundation for all data-related specifications and seeds the
+BDM (Business Data Model) document.
+
+**Key Components:**
+- **Data Model** — Entity definitions with attributes, keys, indexes, and relationships
+- **Business Object Model** — Domain objects with lifecycle states, operations, and invariants
+- **Function Model** — Business functions with decomposition and data access matrix
+
+**Best Practices:**
+- Follow Domain-Driven Design patterns (AggregateRoot, Entity, ValueObject)
+- Use SBVR-style business rule statements
+- Apply data classification framework (ISO 27001, NIST)
+- Document CRUD access patterns in function-to-data matrix
+- Include compliance frameworks (GDPR, HIPAA, SOX, PCI-DSS) for PII/PHI data
+''')
   String? content;
 
   /// 7.1. Data Model [PD00-BUS-DAT].
@@ -31,7 +47,25 @@ class BusinessObjectAndDataModel {
 /// 7.1. Data Model [PD00-BUS-DAT].
 @SectionId('PD00-BUS-DAT')
 class DataModel {
-  @Unused()
+  @ContentHelp('''
+Conceptual data model from a business perspective. Defines the entities,
+attributes, relationships, and constraints that represent core business data.
+
+**Subsections:**
+- Entity Overview — Comprehensive entity definitions with 7 form groups (41+ fields per entity)
+- Entity Relationships — Relationship specifications with cardinality and referential integrity
+- ER Diagram — Visual entity-relationship diagram (Mermaid)
+- Data Classification — Security classification framework with handling requirements
+
+**Entity Coverage per Entry:**
+- Core Identity (name, table, alias, description, stereotype)
+- Classification (category, bounded context, domain, ownership)
+- Volume Metrics (record count, growth rate, storage estimates)
+- Lifecycle Policy (retention, archival, anonymization, audit)
+- Compliance Requirements (sensitivity, PII/PHI, encryption, access)
+- Relationships Summary (parent, child, referenced, cross-domain)
+- Technical Characteristics (indexing, caching, consistency, scaling)
+''')
   String? content;
 
   /// 7.1.1. Entity Overview [PD00-BUS-DAT-ENT] — contains 1+× Data Entity.
@@ -459,7 +493,24 @@ class MigrationMappingEntry {
 /// 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
 @SectionId('PD00-BUS-DAT-REL')
 class EntityRelationships {
-  @Unused()
+  @ContentHelp('''
+Relationship specifications between data entities. Captures cardinality,
+referential integrity rules, and navigation patterns.
+
+**Per Relationship (29 fields):**
+- Identity — name, type, description, justification, implementation type
+- Participants — source/target entities with role names
+- Cardinality — source/target cardinality, participation (mandatory/optional)
+- Referential Integrity — ON DELETE/UPDATE actions, enforcement, cascade scope
+- Navigation — bidirectional/unidirectional, loading strategy, FK location
+- Relationship Attributes — for relationships with their own properties
+
+**Relationship Types:**
+- Association — general relationship between entities
+- Aggregation — "has-a" with independent lifecycle
+- Composition — "owns-a" with dependent lifecycle
+- Generalization — inheritance/specialization
+''')
   String? content;
 
   /// Contains 0+× EntityRelationship.
@@ -750,7 +801,26 @@ class AccessRestrictionEntry {
 /// 7.2. Business Object Model [PD00-BUS-BUS].
 @SectionId('PD00-BUS-BUS')
 class BusinessObjectModel {
-  @Unused()
+  @ContentHelp('''
+Key business objects, their properties, states, and behaviors. Following
+Domain-Driven Design patterns for rich domain modeling.
+
+**Object Catalog Structure (per entry):**
+- Core Identity — name, alias, category, DDD stereotype (AggregateRoot, Entity, ValueObject)
+- Domain Context — bounded context, owning domain, ubiquitous language term
+- Lifecycle Summary — key states, transitions, terminal states
+- Behavior & Rules — invariants, operations, validation, calculated properties
+- Ownership & Versioning — data owner, concurrency control, audit trail
+- Integration Points — APIs exposed, events published/subscribed
+
+**Sub-elements per Object:**
+- Attributes — business-level attribute specifications (12 fields each)
+- States — detailed state definitions with entry/exit conditions
+- Business Rules — rules governing the object (8 fields each)
+- Lifecycle Transitions — state transitions with guards and actions (13 fields each)
+- Operations — domain operations with pre/post conditions (13 fields each)
+- Invariants — conditions that must always hold (7 fields each)
+''')
   String? content;
 
   /// 7.2.1. Object Catalog [PD00-BUS-BUS-CAT] — contains 1+× Business Object.

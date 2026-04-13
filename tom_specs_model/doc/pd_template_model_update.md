@@ -390,23 +390,23 @@ All 317 sections from `pd_template.md` with content migration status.
 
 | # | Section ID | Section Name | Model Status | Content Status |
 |---|------------|--------------|--------------|----------------|
-| 107 | PD00-BUS | Business Object and Data Model | ✅ Exists | ⬜ |
-| 108 | PD00-BUS-DAT | Data Model | ✅ Exists | ⬜ |
-| 109 | PD00-BUS-DAT-ENT | Entity Overview | ❓ Missing | ⬜ |
-| 110 | PD00-BUS-DAT-ENT-01 | Sample: Customer | ❓ Missing | ⏭️ |
-| 111 | PD00-BUS-DAT-REL | Entity Relationships | ✅ Exists | ⬜ |
-| 112 | PD00-BUS-DAT-DIA | Entity-Relationship Diagram | ❓ Missing | ⬜ |
-| 113 | PD00-BUS-DAT-CLA | Data Classification | ✅ Exists | ⬜ |
-| 114 | PD00-BUS-BUS | Business Object Model | ✅ Exists | ⬜ |
-| 115 | PD00-BUS-BUS-CAT | Object Catalog | ❓ Missing | ⬜ |
-| 116 | PD00-BUS-BUS-CAT-01 | Sample: Order | ❓ Missing | ⏭️ |
-| 117 | PD00-BUS-BUS-CAT-01-LIF | Lifecycle State Transitions | ❓ Missing | ⬜ |
-| 118 | PD00-BUS-BUS-DIA | Business Object Diagram | ❓ Missing | ⬜ |
-| 119 | PD00-BUS-FUN | Function Model | ✅ Exists | ⬜ |
-| 120 | PD00-BUS-FUN-DEC | Function Decomposition | ❓ Missing | ⬜ |
-| 121 | PD00-BUS-FUN-MAT | Function-to-Data Matrix | ❓ Missing | ⬜ |
-| 122 | PD00-BUS-FUN-RUL | Business Rules | ❓ Missing | ⬜ |
-| 123 | PD00-BUS-FUN-RUL-01 | Sample: Credit Limit Check | ❓ Missing | ⏭️ |
+| 107 | PD00-BUS | Business Object and Data Model | ✅ Exists | ✅ |
+| 108 | PD00-BUS-DAT | Data Model | ✅ Exists | ✅ |
+| 109 | PD00-BUS-DAT-ENT | Entity Overview | ✅ List field | ✅ |
+| 110 | PD00-BUS-DAT-ENT-01 | Sample: Customer | ✅ Pattern | ⏭️ |
+| 111 | PD00-BUS-DAT-REL | Entity Relationships | ✅ Exists | ✅ |
+| 112 | PD00-BUS-DAT-DIA | Entity-Relationship Diagram | ✅ ErDiagramSection | ✅ |
+| 113 | PD00-BUS-DAT-CLA | Data Classification | ✅ Exists | ✅ |
+| 114 | PD00-BUS-BUS | Business Object Model | ✅ Exists | ✅ |
+| 115 | PD00-BUS-BUS-CAT | Object Catalog | ✅ List field | ✅ |
+| 116 | PD00-BUS-BUS-CAT-01 | Sample: Order | ✅ Pattern | ⏭️ |
+| 117 | PD00-BUS-BUS-CAT-01-LIF | Lifecycle State Transitions | ✅ Pattern | ✅ |
+| 118 | PD00-BUS-BUS-DIA | Business Object Diagram | ✅ DiagramSection | ✅ |
+| 119 | PD00-BUS-FUN | Function Model | ✅ Exists | ✅ |
+| 120 | PD00-BUS-FUN-DEC | Function Decomposition | ✅ List field | ✅ |
+| 121 | PD00-BUS-FUN-MAT | Function-to-Data Matrix | ✅ List field | ✅ |
+| 122 | PD00-BUS-FUN-RUL | Business Rules | ✅ List field | ✅ |
+| 123 | PD00-BUS-FUN-RUL-01 | Sample: Credit Limit Check | ✅ Pattern | ⏭️ |
 
 ### 2.8. Chapter 8: Technical Framework Concept [PD00-TEC]
 
