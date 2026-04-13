@@ -560,13 +560,65 @@ class Tooling {
 /// planning, and enterprise architecture concerns.
 class ToolEntry {
   @Form([
-    // --- Identity & Classification ---
-    // --- Identity & Classification ---
+    Field('toolId', String, 'Tool ID',
+        hint: 'Unique identifier, e.g. TOOL-IDE-001', required: true),
     Field('toolName', String, 'Tool Name',
         hint: 'Official product name, e.g. GitHub, Jira, VS Code',
         required: true),
-    Field('toolId', String, 'Tool ID',
-        hint: 'Unique identifier, e.g. TOOL-IDE-001'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional notes, caveats, or context'),
+  ])
+  String? content;
+
+  /// Identity and classification details.
+  final ToolIdentity identity = ToolIdentity();
+
+  /// Licensing terms and compliance.
+  final ToolLicensing licensing = ToolLicensing();
+
+  /// Version management and upgrade policies.
+  final ToolVersioning versioning = ToolVersioning();
+
+  /// Access control and provisioning.
+  final ToolAccess access = ToolAccess();
+
+  /// Integration with other tools and systems.
+  final ToolIntegration integration = ToolIntegration();
+
+  /// Vendor and internal support details.
+  final ToolSupport support = ToolSupport();
+
+  /// Security and compliance requirements.
+  final ToolSecurity security = ToolSecurity();
+
+  /// Usage patterns and adoption metrics.
+  final ToolUsage usage = ToolUsage();
+
+  /// Infrastructure and hosting details.
+  final ToolInfrastructure infrastructure = ToolInfrastructure();
+
+  /// Lifecycle management and roadmap.
+  final ToolLifecycle lifecycle = ToolLifecycle();
+
+  /// Cost structure and budget.
+  final ToolCost cost = ToolCost();
+
+  /// Configuration standards and policies.
+  final ToolConfiguration configuration = ToolConfiguration();
+
+  /// Documentation resources.
+  final ToolDocumentation documentation = ToolDocumentation();
+
+  /// Approval status and ownership.
+  final ToolApproval approval = ToolApproval();
+
+  /// Integration details narrative.
+  TextSection integrationNotes = TextSection();
+}
+
+/// Identity and classification for a tool.
+class ToolIdentity {
+  @Form([
     Field('vendorName', String, 'Vendor / Publisher',
         hint:
             'Company or organization, e.g. Microsoft, Atlassian, '
@@ -603,9 +655,13 @@ class ToolEntry {
             'Linear'),
     Field('selectionRationale', String, 'Selection Rationale',
         hint: 'Why this tool won over alternatives'),
+  ])
+  String? content;
+}
 
-    // --- Licensing ---
-    // --- Licensing ---
+/// Licensing terms and compliance for a tool.
+class ToolLicensing {
+  @Form([
     Field('licenseType', String, 'License Type',
         hint:
             'SPDX identifier or commercial name, e.g. MIT, Apache-2.0, '
@@ -631,13 +687,16 @@ class ToolEntry {
             'Where the license key is stored — vault path, admin portal '
             'URL (never the key itself)'),
     Field('openSourceObligations', String, 'Open-Source Obligations',
-        hint:
-            'Copyleft, attribution, source disclosure requirements'),
+        hint: 'Copyleft, attribution, source disclosure requirements'),
     Field('licenseComplianceStatus', String, 'License Compliance Status',
         hint: 'Compliant / UnderReview / AtRisk / NonCompliant'),
+  ])
+  String? content;
+}
 
-    // --- Versioning ---
-    // --- Versioning ---
+/// Version management and upgrade policies for a tool.
+class ToolVersioning {
+  @Form([
     Field('currentVersion', String, 'Current Version',
         hint: 'Version currently deployed or in use'),
     Field('minimumVersion', String, 'Minimum Version',
@@ -666,9 +725,13 @@ class ToolEntry {
             'rollback, migration'),
     Field('releaseNotesUrl', String, 'Release Notes URL',
         hint: 'Link to vendor changelog or release announcements'),
+  ])
+  String? content;
+}
 
-    // --- Access & Provisioning ---
-    // --- Access & Provisioning ---
+/// Access control and provisioning for a tool.
+class ToolAccess {
+  @Form([
     Field('accessUrl', String, 'Access URL',
         hint: 'Primary URL/endpoint to access the tool'),
     Field('accessMethod', String, 'Access Method',
@@ -686,15 +749,13 @@ class ToolEntry {
             'Automatic-SCIM / Manual / SelfService / InviteBased / '
             'LDAP-Sync'),
     Field('deprovisioningMethod', String, 'Deprovisioning Method',
-        hint:
-            'Automatic-SCIM / Manual / OnLeaver-Trigger / Timed-Expiry'),
+        hint: 'Automatic-SCIM / Manual / OnLeaver-Trigger / Timed-Expiry'),
     Field('accessRequestProcess', String, 'Access Request Process',
         hint:
             'How to request access — ServiceNow ticket, Slack channel, '
             'email'),
     Field('accessApprover', String, 'Access Approver',
-        hint:
-            'Who approves access requests — manager, tool admin, auto'),
+        hint: 'Who approves access requests — manager, tool admin, auto'),
     Field('adminContact', String, 'Admin Contact',
         hint: 'Internal administrator or admin team'),
     Field('adminPortalUrl', String, 'Admin Portal URL',
@@ -707,9 +768,13 @@ class ToolEntry {
         hint:
             'Rules for non-human accounts — naming, rotation, scope '
             'limits'),
+  ])
+  String? content;
+}
 
-    // --- Integration ---
-    // --- Integration ---
+/// Integration capabilities for a tool.
+class ToolIntegration {
+  @Form([
     Field('integratesWithTools', String, 'Integrates With',
         hint:
             'Other project tools this integrates with, e.g. '
@@ -727,21 +792,22 @@ class ToolEntry {
             'Required or recommended plugins, e.g. ESLint, Dart, '
             'GitLens'),
     Field('dataExchangeFormat', String, 'Data Exchange Format',
-        hint:
-            'JSON / XML / CSV / Protobuf / Custom — for import/export'),
+        hint: 'JSON / XML / CSV / Protobuf / Custom — for import/export'),
     Field('dataImportCapability', String, 'Data Import Capability',
-        hint:
-            'Can import from other tools — formats, limitations'),
+        hint: 'Can import from other tools — formats, limitations'),
     Field('dataExportCapability', String, 'Data Export Capability',
-        hint:
-            'Can export data — formats, completeness, scheduling'),
+        hint: 'Can export data — formats, completeness, scheduling'),
     Field('automationCapability', String, 'Automation Capability',
         hint:
             'CI/CD hooks, scheduled tasks, scripting, CLI automation '
             'support'),
+  ])
+  String? content;
+}
 
-    // --- Support ---
-    // --- Support ---
+/// Vendor and internal support for a tool.
+class ToolSupport {
+  @Form([
     Field('vendorSupportTier', String, 'Vendor Support Tier',
         hint:
             'CommunityOnly / Basic / Standard / Premium / '
@@ -763,9 +829,13 @@ class ToolEntry {
     Field('knownIssues', String, 'Known Issues',
         hint:
             'Current known issues or limitations affecting the project'),
+  ])
+  String? content;
+}
 
-    // --- Security & Compliance ---
-    // --- Security & Compliance ---
+/// Security and compliance for a tool.
+class ToolSecurity {
+  @Form([
     Field('securityClassification', String, 'Security Classification',
         hint: 'Public / Internal / Confidential / Restricted'),
     Field('dataResidency', String, 'Data Residency',
@@ -791,22 +861,24 @@ class ToolEntry {
             'How the tool is scanned — vendor responsibility, internal '
             'pen-test'),
     Field('encryptionAtRest', String, 'Encryption at Rest',
-        hint:
-            'AES-256, vendor-managed keys, customer-managed keys'),
+        hint: 'AES-256, vendor-managed keys, customer-managed keys'),
     Field('encryptionInTransit', String, 'Encryption in Transit',
         hint: 'TLS 1.2+, mTLS, certificate pinning'),
     Field('dataRetentionPolicy', String, 'Data Retention Policy',
-        hint:
-            'How long data is retained, purge schedule, legal holds'),
+        hint: 'How long data is retained, purge schedule, legal holds'),
     Field('gdprCompliance', String, 'GDPR Compliance',
         hint:
             'DPA signed, data subject request process, right to '
             'erasure'),
     Field('ipRestrictions', String, 'IP Restrictions',
         hint: 'IP allowlist, VPN-only access, geo-blocking'),
+  ])
+  String? content;
+}
 
-    // --- Usage ---
-    // --- Usage ---
+/// Usage patterns and adoption metrics for a tool.
+class ToolUsage {
+  @Form([
     Field('userGroups', String, 'User Groups',
         hint:
             'Teams or roles using this tool — Backend, Frontend, QA, '
@@ -835,13 +907,16 @@ class ToolEntry {
             'Piloting / RollingOut / FullyAdopted / Declining / '
             'Sunsetting'),
     Field('adoptionPercentage', String, 'Adoption Percentage',
-        hint:
-            'Percentage of target users actively using the tool'),
+        hint: 'Percentage of target users actively using the tool'),
     Field('userSatisfactionScore', String, 'User Satisfaction Score',
         hint: 'Latest survey score, e.g. 4.2/5, NPS +35'),
+  ])
+  String? content;
+}
 
-    // --- Infrastructure ---
-    // --- Infrastructure ---
+/// Infrastructure and hosting for a tool.
+class ToolInfrastructure {
+  @Form([
     Field('hostingModel', String, 'Hosting Model',
         hint: 'SaaS / OnPremise / Hybrid / SelfHostedCloud / PaaS'),
     Field('instanceCount', String, 'Instance Count',
@@ -865,18 +940,20 @@ class ToolEntry {
     Field('backupFrequency', String, 'Backup Frequency',
         hint: 'Daily / Hourly / Continuous / PerRelease'),
     Field('disasterRecoveryPlan', String, 'Disaster Recovery Plan',
-        hint:
-            'Failover strategy, RTO/RPO, tested restore process'),
+        hint: 'Failover strategy, RTO/RPO, tested restore process'),
     Field('uptimeSla', String, 'Uptime SLA',
         hint: 'Vendor-guaranteed uptime, e.g. 99.95%'),
     Field('statusPageUrl', String, 'Status Page URL',
         hint: 'Link to vendor status page for outage tracking'),
     Field('maintenanceWindow', String, 'Maintenance Window',
-        hint:
-            'Scheduled maintenance times, e.g. Sun 02:00-06:00 UTC'),
+        hint: 'Scheduled maintenance times, e.g. Sun 02:00-06:00 UTC'),
+  ])
+  String? content;
+}
 
-    // --- Lifecycle ---
-    // --- Lifecycle ---
+/// Lifecycle management for a tool.
+class ToolLifecycle {
+  @Form([
     Field('introductionDate', String, 'Introduction Date',
         hint: 'When the tool was adopted or will be introduced'),
     Field('lastEvaluationDate', String, 'Last Evaluation Date',
@@ -901,9 +978,13 @@ class ToolEntry {
         hint:
             'Low / Medium / High — risk of vendor discontinuing the '
             'product'),
+  ])
+  String? content;
+}
 
-    // --- Cost ---
-    // --- Cost ---
+/// Cost structure and budget for a tool.
+class ToolCost {
+  @Form([
     Field('initialCost', String, 'Initial Cost',
         hint: 'One-time setup, migration, and integration cost'),
     Field('recurringCost', String, 'Recurring Cost',
@@ -922,9 +1003,13 @@ class ToolEntry {
         hint:
             'Ways to reduce cost — right-sizing, license consolidation, '
             'tier change'),
+  ])
+  String? content;
+}
 
-    // --- Configuration ---
-    // --- Configuration ---
+/// Configuration standards for a tool.
+class ToolConfiguration {
+  @Form([
     Field('standardConfiguration', String, 'Standard Configuration',
         hint:
             'Baseline settings all users must apply — e.g. '
@@ -947,9 +1032,13 @@ class ToolEntry {
         hint:
             'Yes / No / Partial — whether tool config is '
             'version-controlled'),
+  ])
+  String? content;
+}
 
-    // --- Documentation ---
-    // --- Documentation ---
+/// Documentation resources for a tool.
+class ToolDocumentation {
+  @Form([
     Field('vendorDocumentationUrl', String, 'Vendor Documentation URL',
         hint: 'Link to official product documentation'),
     Field('internalWikiUrl', String, 'Internal Wiki / Guide URL',
@@ -962,9 +1051,13 @@ class ToolEntry {
         hint:
             'Link to diagram showing how this tool fits in the overall '
             'toolchain'),
+  ])
+  String? content;
+}
 
-    // --- Approval & Ownership ---
-    // --- Approval & Ownership ---
+/// Approval status and ownership for a tool.
+class ToolApproval {
+  @Form([
     Field('approvalStatus', String, 'Approval Status',
         hint:
             'Proposed / UnderReview / Approved / Rejected / Deprecated'),
@@ -973,21 +1066,11 @@ class ToolEntry {
     Field('approvalDate', String, 'Approval Date',
         hint: 'When the tool was formally approved'),
     Field('toolOwner', String, 'Tool Owner',
-        hint:
-            'Person or team accountable for the tool lifecycle'),
+        hint: 'Person or team accountable for the tool lifecycle'),
     Field('toolChampion', String, 'Tool Champion',
-        hint:
-            'Internal advocate driving adoption and best practices'),
-
-    // --- Notes ---
-    // --- Notes ---
-    Field('notes', String, 'Notes',
-        hint: 'Additional notes, caveats, or context'),
+        hint: 'Internal advocate driving adoption and best practices'),
   ])
   String? content;
-
-  /// Integration details narrative.
-  TextSection integrationNotes = TextSection();
 }
 
 /// 2.4.2. Environments [PD00-POP-TOO-ENV].
