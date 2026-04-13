@@ -1319,45 +1319,520 @@ class DomainEventEntry {
 }
 
 /// 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
+///
+/// Describes how different user categories interact with the system including
+/// access channels, interaction patterns, access levels, and session management.
+/// Based on user experience best practices and multi-channel interaction design.
 @SectionId('PD00-SYO-SYD-USI')
+@ContentHelp('Describe how different user categories interact with the system: '
+    'access channels (web, mobile, API, CLI), interaction patterns (real-time, '
+    'batch, notification-driven), access levels, session management, and '
+    'multi-channel considerations.')
 class UserInteractionModel {
-  @Unused()
+  @ContentType('description', 'High-level overview of user interaction model '
+      'explaining how users access and interact with the system across '
+      'different channels and contexts.')
   String? content;
 
-  /// Interaction channels (web, mobile, API, CLI, etc.) — contains 0+× InteractionChannel.
-  @SectionIdPattern('PD00-SYO-SYD-USI-CHA-xx')
-  List<InteractionChannelEntry> channels = [];
+  /// Interaction model summary.
+  UserInteractionModelSummary summary = UserInteractionModelSummary();
 
-  /// Interaction patterns (workflow, self-service, batch, etc.) — contains 0+× InteractionPattern.
-  @SectionIdPattern('PD00-SYO-SYD-USI-PAT-xx')
-  List<InteractionPatternEntry> interactionPatterns = [];
+  /// 4.1.5.1. Access Channels [PD00-SYO-SYD-USI-CHA].
+  AccessChannels accessChannels = AccessChannels();
 
-  /// Session Model.
-  TextSection sessionModel = TextSection();
+  /// 4.1.5.2. Interaction Patterns [PD00-SYO-SYD-USI-PAT].
+  InteractionPatterns interactionPatterns = InteractionPatterns();
 
-  /// Concurrency Model.
-  TextSection concurrencyModel = TextSection();
+  /// 4.1.5.3. Access Levels [PD00-SYO-SYD-USI-ACC].
+  AccessLevels accessLevels = AccessLevels();
+
+  /// 4.1.5.4. Session Model [PD00-SYO-SYD-USI-SES].
+  SessionModel sessionModel = SessionModel();
+
+  /// 4.1.5.5. Notification Model [PD00-SYO-SYD-USI-NOT].
+  NotificationModel notificationModel = NotificationModel();
+
+  /// 4.1.5.6. Multi-Channel Experience [PD00-SYO-SYD-USI-MUL].
+  MultiChannelExperience multiChannelExperience = MultiChannelExperience();
 }
 
-/// An interaction pattern entry (form) [PD00-SYO-SYD-USI-PAT-nn].
-class InteractionPatternEntry {
-  @Form([
-    Field('patternName', String, 'Pattern Name', required: true),
-    Field('description', String, 'Short description'),
-  ])
+/// Summary statistics for user interaction model.
+@Form([
+  Field('primaryAccessChannel', String, 'Primary Access Channel',
+      hint: 'Web, Mobile App, Desktop App, API, CLI'),
+  Field('channelCount', int, 'Number of Access Channels'),
+  Field('interactionPatternCount', int, 'Number of Interaction Patterns'),
+  Field('accessLevelCount', int, 'Number of Access Levels'),
+  Field('multiChannelSupport', String, 'Multi-Channel Support',
+      hint: 'None, Limited, Full'),
+  Field('offlineCapability', String, 'Offline Capability',
+      hint: 'None, Read-only, Full'),
+  Field('sessionManagement', String, 'Session Management Approach',
+      hint: 'Server-side, Client-side, Hybrid, Stateless'),
+  Field('notificationChannels', String, 'Notification Channels',
+      hint: 'e.g., Email, SMS, Push, In-app'),
+])
+class UserInteractionModelSummary {
+  /// Summary content for interaction model.
+  @ContentType('aggregation', 'Key metrics and classifications for '
+      'user interaction model.')
   String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 4.1.5.1 Access Channels
+// ---------------------------------------------------------------------------
+
+/// 4.1.5.1. Access Channels [PD00-SYO-SYD-USI-CHA].
+///
+/// Defines all channels through which users can access the system including
+/// web, mobile, desktop applications, APIs, and other interfaces.
+@SectionId('PD00-SYO-SYD-USI-CHA')
+@ContentHelp('Define all channels through which users can access the system. '
+    'For each channel, specify target users, features available, and '
+    'any channel-specific constraints.')
+class AccessChannels {
+  @ContentType('description', 'Overview of access channels and how they '
+      'relate to different user categories and use cases.')
+  String? content;
+
+  /// Channel architecture diagram.
+  @SectionId('PD00-SYO-SYD-USI-CHA-DIA')
+  @ContentType('mermaid-flowchart', 'Diagram showing access channels, '
+      'their relationships, and user flows')
+  @ContentHelp('Create a diagram showing how different channels connect '
+      'to the system and serve different user categories.')
+  String? channelDiagram;
+
+  /// Channel entries — contains 1+× InteractionChannelEntry.
+  @SectionIdPattern('PD00-SYO-SYD-USI-CHA-xx')
+  @Min(1)
+  @ContentHelp('Add one entry per access channel. Include both primary '
+      'and secondary channels.')
+  List<InteractionChannelEntry> channels = [];
 }
 
 /// An interaction channel entry (form) [PD00-SYO-SYD-USI-CHA-nn].
+///
+/// Comprehensive definition of an access channel including platform details,
+/// features, constraints, and user experience considerations.
 class InteractionChannelEntry {
   @Form([
-    Field('channelName', String, 'Channel Name', required: true),
-    Field('channelType', String, 'Channel Type'),
-    Field('targetUserCategories', String, 'Target User Categories'),
-    Field('description', String, 'Short description'),
-    Field('availabilityRequirement', String, 'Availability Requirement'),
+    Field('channelName', String, 'Channel Name', required: true,
+        hint: 'e.g., Customer Web Portal, Mobile App, Admin API'),
+    Field('channelId', String, 'Channel ID',
+        hint: 'Unique identifier for the channel'),
+    Field('channelType', String, 'Channel Type', required: true,
+        hint: 'Web, Mobile Native, Mobile Hybrid, Desktop, API, CLI, Voice, '
+            'Kiosk, Embedded, IoT'),
+    Field('platform', String, 'Platform/Technology',
+        hint: 'e.g., Flutter Web, Flutter iOS/Android, REST API'),
+    Field('targetUserCategories', String, 'Target User Categories',
+        hint: 'List of user category IDs this channel serves'),
+    Field('description', String, 'Description',
+        hint: 'Purpose and scope of this channel'),
+    Field('channelPriority', String, 'Channel Priority',
+        hint: 'Primary, Secondary, Tertiary'),
+    Field('featureScope', String, 'Feature Scope',
+        hint: 'Full, Limited, Read-only, Specialized'),
+    Field('featuresIncluded', String, 'Features Included',
+        hint: 'List of features available on this channel'),
+    Field('featuresExcluded', String, 'Features Excluded',
+        hint: 'Features not available on this channel'),
+    Field('availabilityRequirement', String, 'Availability Requirement',
+        hint: '24/7, Business Hours, On-demand'),
+    Field('performanceTarget', String, 'Performance Target',
+        hint: 'Response time, throughput expectations'),
+    Field('offlineCapability', String, 'Offline Capability',
+        hint: 'None, Read-only, Limited Write, Full'),
+    Field('syncStrategy', String, 'Data Sync Strategy',
+        hint: 'Real-time, Periodic, On-demand, Background'),
+    Field('authenticationMethod', String, 'Authentication Method',
+        hint: 'OAuth, SAML, API Key, JWT, Biometric, MFA'),
+    Field('deviceRequirements', String, 'Device Requirements',
+        hint: 'Minimum specifications, supported OS versions'),
+    Field('browserSupport', String, 'Browser Support',
+        hint: 'Supported browsers and versions (for web)'),
+    Field('accessibilityLevel', String, 'Accessibility Level',
+        hint: 'WCAG 2.1 Level A, AA, AAA'),
+    Field('localizationSupport', String, 'Localization Support',
+        hint: 'Languages supported on this channel'),
+    Field('brandingRequirements', String, 'Branding Requirements',
+        hint: 'Visual identity requirements for this channel'),
+    Field('analyticsRequirements', String, 'Analytics Requirements',
+        hint: 'Tracking and analytics needed'),
   ])
   String? content;
+
+  /// Channel-specific UI/UX specifications.
+  ChannelUxSpecification uxSpecification = ChannelUxSpecification();
+
+  /// Channel-specific integration requirements.
+  ChannelIntegrations integrations = ChannelIntegrations();
+}
+
+/// Channel-specific UX specification.
+@Form([
+  Field('navigationModel', String, 'Navigation Model',
+      hint: 'Tab-based, Drawer, Bottom Nav, Sidebar, etc.'),
+  Field('inputMethods', String, 'Input Methods',
+      hint: 'Touch, Keyboard, Voice, Gesture, Camera'),
+  Field('screenSizes', String, 'Screen Sizes Supported',
+      hint: 'Phone, Tablet, Desktop, TV, Watch'),
+  Field('orientationSupport', String, 'Orientation Support',
+      hint: 'Portrait, Landscape, Both'),
+  Field('darkModeSupport', String, 'Dark Mode Support',
+      hint: 'None, Optional, System-adaptive'),
+  Field('hapticFeedback', String, 'Haptic Feedback',
+      hint: 'Required, Optional, None'),
+  Field('gestureSupport', String, 'Gesture Support',
+      hint: 'Swipe, Pinch, Long-press, etc.'),
+  Field('keyboardShortcuts', String, 'Keyboard Shortcuts',
+      hint: 'List of required keyboard shortcuts'),
+])
+class ChannelUxSpecification {
+  /// UX specification content.
+  @ContentType('form', 'Channel-specific user experience specifications.')
+  String? content;
+}
+
+/// Channel-specific integration requirements.
+@Form([
+  Field('pushNotificationService', String, 'Push Notification Service',
+      hint: 'FCM, APNs, Web Push'),
+  Field('analyticsService', String, 'Analytics Service',
+      hint: 'Firebase Analytics, Mixpanel, etc.'),
+  Field('crashReporting', String, 'Crash Reporting',
+      hint: 'Crashlytics, Sentry, etc.'),
+  Field('deepLinking', String, 'Deep Linking',
+      hint: 'URL scheme, Universal Links, App Links'),
+  Field('socialIntegration', String, 'Social Integration',
+      hint: 'Social login, sharing capabilities'),
+  Field('paymentIntegration', String, 'Payment Integration',
+      hint: 'Apple Pay, Google Pay, Stripe, etc.'),
+  Field('biometricIntegration', String, 'Biometric Integration',
+      hint: 'Face ID, Touch ID, Fingerprint'),
+])
+class ChannelIntegrations {
+  /// Integration requirements content.
+  @ContentType('form', 'Channel-specific integration requirements.')
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 4.1.5.2 Interaction Patterns
+// ---------------------------------------------------------------------------
+
+/// 4.1.5.2. Interaction Patterns [PD00-SYO-SYD-USI-PAT].
+///
+/// Defines how users interact with the system including real-time interactions,
+/// batch processing, workflow-driven tasks, and notification-driven actions.
+@SectionId('PD00-SYO-SYD-USI-PAT')
+@ContentHelp('Define the interaction patterns used in the system: real-time '
+    'interactions, batch processing, workflow-driven tasks, notification-driven '
+    'actions, and scheduled operations.')
+class InteractionPatterns {
+  @ContentType('description', 'Overview of interaction patterns and when '
+      'each pattern is used.')
+  String? content;
+
+  /// Pattern entries — contains 1+× InteractionPatternEntry.
+  @SectionIdPattern('PD00-SYO-SYD-USI-PAT-xx')
+  @Min(1)
+  @ContentHelp('Add one entry per interaction pattern used in the system.')
+  List<InteractionPatternEntry> patterns = [];
+}
+
+/// An interaction pattern entry (form) [PD00-SYO-SYD-USI-PAT-nn].
+///
+/// Definition of a specific interaction pattern including timing, triggers,
+/// and user experience considerations.
+class InteractionPatternEntry {
+  @Form([
+    Field('patternName', String, 'Pattern Name', required: true,
+        hint: 'e.g., Real-time Form Submission, Batch Report Generation'),
+    Field('patternId', String, 'Pattern ID',
+        hint: 'Unique identifier'),
+    Field('patternType', String, 'Pattern Type', required: true,
+        hint: 'Synchronous, Asynchronous, Batch, Scheduled, Event-driven, '
+            'Workflow, Polling, Streaming'),
+    Field('description', String, 'Description',
+        hint: 'What this pattern involves'),
+    Field('triggerType', String, 'Trigger Type',
+        hint: 'User Action, System Event, Schedule, External Signal'),
+    Field('triggerDetails', String, 'Trigger Details',
+        hint: 'Specific conditions that trigger this pattern'),
+    Field('responseTime', String, 'Expected Response Time',
+        hint: 'Immediate, Seconds, Minutes, Hours, Days'),
+    Field('feedbackMechanism', String, 'Feedback Mechanism',
+        hint: 'Progress indicator, Status page, Email notification'),
+    Field('errorHandling', String, 'Error Handling',
+        hint: 'Retry, Rollback, Manual intervention, Notification'),
+    Field('useCases', String, 'Use Cases',
+        hint: 'List of use cases that follow this pattern'),
+    Field('userCategories', String, 'Applicable User Categories',
+        hint: 'Which user categories use this pattern'),
+    Field('frequency', String, 'Expected Frequency',
+        hint: 'How often this pattern occurs'),
+    Field('concurrencyHandling', String, 'Concurrency Handling',
+        hint: 'How concurrent requests are handled'),
+    Field('priority', String, 'Priority',
+        hint: 'High, Medium, Low - for resource allocation'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 4.1.5.3 Access Levels
+// ---------------------------------------------------------------------------
+
+/// 4.1.5.3. Access Levels [PD00-SYO-SYD-USI-ACC].
+///
+/// Defines the access level hierarchy and how permissions are structured
+/// across user categories and system functions.
+@SectionId('PD00-SYO-SYD-USI-ACC')
+@ContentHelp('Define access levels and how they relate to user categories, '
+    'features, and data. This establishes the authorization framework.')
+class AccessLevels {
+  @ContentType('description', 'Overview of access level architecture and '
+      'how permissions are structured.')
+  String? content;
+
+  /// Access level hierarchy diagram.
+  @SectionId('PD00-SYO-SYD-USI-ACC-DIA')
+  @ContentType('mermaid-flowchart', 'Access level hierarchy showing '
+      'inheritance and relationships')
+  @ContentHelp('Create a diagram showing the access level hierarchy.')
+  String? accessLevelDiagram;
+
+  /// Access level entries — contains 1+× AccessLevelEntry.
+  @SectionIdPattern('PD00-SYO-SYD-USI-ACC-xx')
+  @Min(1)
+  @ContentHelp('Define each access level in the system.')
+  List<AccessLevelEntry> levels = [];
+
+  /// Permission matrix linking access levels to features.
+  @SectionId('PD00-SYO-SYD-USI-ACC-MAT')
+  @ContentType('description', 'Matrix showing which access levels have '
+      'which permissions. Can be a table or detailed description.')
+  @ContentHelp('Create a permission matrix showing the relationship between '
+      'access levels, features, and permissions.')
+  String? permissionMatrix;
+}
+
+/// An access level entry (form) [PD00-SYO-SYD-USI-ACC-nn].
+class AccessLevelEntry {
+  @Form([
+    Field('levelName', String, 'Access Level Name', required: true,
+        hint: 'e.g., Administrator, Power User, Standard User, Guest'),
+    Field('levelId', String, 'Level ID',
+        hint: 'Unique identifier'),
+    Field('levelRank', int, 'Level Rank',
+        hint: 'Numeric rank (higher = more permissions)'),
+    Field('description', String, 'Description',
+        hint: 'What this access level provides'),
+    Field('inheritsFrom', String, 'Inherits From',
+        hint: 'Parent access level (if hierarchical)'),
+    Field('userCategories', String, 'Applicable User Categories',
+        hint: 'Which user categories can have this level'),
+    Field('featureAccess', String, 'Feature Access',
+        hint: 'List of features accessible at this level'),
+    Field('dataAccess', String, 'Data Access Scope',
+        hint: 'Own data, Team data, Department data, All data'),
+    Field('adminCapabilities', String, 'Administrative Capabilities',
+        hint: 'Admin functions available at this level'),
+    Field('apiAccess', String, 'API Access',
+        hint: 'API endpoints accessible'),
+    Field('restrictions', String, 'Restrictions',
+        hint: 'Explicit restrictions or limitations'),
+    Field('auditRequirements', String, 'Audit Requirements',
+        hint: 'Audit logging requirements for this level'),
+    Field('elevationProcess', String, 'Elevation Process',
+        hint: 'How users can request higher access'),
+  ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 4.1.5.4 Session Model
+// ---------------------------------------------------------------------------
+
+/// 4.1.5.4. Session Model [PD00-SYO-SYD-USI-SES].
+///
+/// Defines session management including authentication, timeouts, and
+/// multi-device session handling.
+@SectionId('PD00-SYO-SYD-USI-SES')
+@ContentHelp('Define session management: session lifecycle, timeouts, '
+    'multi-device handling, and session security.')
+class SessionModel {
+  @ContentType('description', 'Overview of session management approach.')
+  String? content;
+
+  /// Session configuration.
+  @Form([
+    Field('sessionType', String, 'Session Type',
+        hint: 'Server-side, Client-side (JWT), Hybrid'),
+    Field('sessionStorage', String, 'Session Storage',
+        hint: 'Cookie, LocalStorage, Secure Storage'),
+    Field('sessionTimeout', String, 'Session Timeout',
+        hint: 'Idle timeout duration'),
+    Field('absoluteTimeout', String, 'Absolute Timeout',
+        hint: 'Maximum session duration'),
+    Field('refreshMechanism', String, 'Token Refresh Mechanism',
+        hint: 'Sliding window, Explicit refresh, Re-authentication'),
+    Field('multiDevicePolicy', String, 'Multi-Device Policy',
+        hint: 'Single device, Multiple devices, Device limit'),
+    Field('concurrentSessionLimit', int, 'Concurrent Session Limit',
+        hint: 'Maximum simultaneous sessions'),
+    Field('sessionTermination', String, 'Session Termination',
+        hint: 'Manual logout, Timeout, Force logout'),
+    Field('rememberMeOption', String, 'Remember Me Option',
+        hint: 'Available, Not available, Configurable'),
+    Field('deviceTrust', String, 'Device Trust',
+        hint: 'Trusted devices concept support'),
+    Field('sessionRecovery', String, 'Session Recovery',
+        hint: 'How interrupted sessions are handled'),
+    Field('securityEvents', String, 'Security Events',
+        hint: 'Events that trigger session review/termination'),
+  ])
+  String? sessionConfiguration;
+}
+
+// ---------------------------------------------------------------------------
+// 4.1.5.5 Notification Model
+// ---------------------------------------------------------------------------
+
+/// 4.1.5.5. Notification Model [PD00-SYO-SYD-USI-NOT].
+///
+/// Defines how the system notifies users of events, updates, and actions
+/// across different channels.
+@SectionId('PD00-SYO-SYD-USI-NOT')
+@ContentHelp('Define notification strategy: channels, triggers, preferences, '
+    'and delivery mechanisms.')
+class NotificationModel {
+  @ContentType('description', 'Overview of notification strategy.')
+  String? content;
+
+  /// Notification channel entries — contains 1+× NotificationChannelEntry.
+  @SectionIdPattern('PD00-SYO-SYD-USI-NOT-CHA-xx')
+  @Min(1)
+  @ContentHelp('Define each notification channel.')
+  List<NotificationChannelEntry> channels = [];
+
+  /// Notification type entries — contains 1+× NotificationTypeEntry.
+  @SectionIdPattern('PD00-SYO-SYD-USI-NOT-TYP-xx')
+  @ContentHelp('Define each notification type.')
+  List<NotificationTypeEntry> notificationTypes = [];
+
+  /// User notification preferences.
+  UserNotificationPreferences preferences = UserNotificationPreferences();
+}
+
+/// A notification channel entry.
+class NotificationChannelEntry {
+  @Form([
+    Field('channelName', String, 'Channel Name', required: true,
+        hint: 'Email, SMS, Push Notification, In-App, Slack, Teams'),
+    Field('channelId', String, 'Channel ID'),
+    Field('description', String, 'Description'),
+    Field('deliveryMethod', String, 'Delivery Method',
+        hint: 'Immediate, Batched, Digest'),
+    Field('retryPolicy', String, 'Retry Policy',
+        hint: 'Retry attempts and intervals'),
+    Field('fallbackChannel', String, 'Fallback Channel',
+        hint: 'Alternative channel if delivery fails'),
+    Field('quietHoursSupport', String, 'Quiet Hours Support',
+        hint: 'Respects user quiet hours settings'),
+    Field('urgencyLevels', String, 'Supported Urgency Levels',
+        hint: 'Which urgency levels use this channel'),
+  ])
+  String? content;
+}
+
+/// A notification type entry.
+class NotificationTypeEntry {
+  @Form([
+    Field('notificationType', String, 'Notification Type', required: true,
+        hint: 'e.g., Order Confirmation, Password Reset, System Alert'),
+    Field('typeId', String, 'Type ID'),
+    Field('category', String, 'Category',
+        hint: 'Transactional, Marketing, System, Security'),
+    Field('urgency', String, 'Urgency Level',
+        hint: 'Critical, High, Medium, Low'),
+    Field('defaultChannels', String, 'Default Channels',
+        hint: 'Channels used by default'),
+    Field('userConfigurable', String, 'User Configurable',
+        hint: 'Can user change notification preferences for this type'),
+    Field('mandatoryChannels', String, 'Mandatory Channels',
+        hint: 'Channels that cannot be disabled'),
+    Field('triggerEvent', String, 'Trigger Event',
+        hint: 'System event that triggers this notification'),
+    Field('contentTemplate', String, 'Content Template',
+        hint: 'Template ID or description'),
+    Field('localized', String, 'Localized',
+        hint: 'Available in multiple languages'),
+  ])
+  String? content;
+}
+
+/// User notification preferences.
+@Form([
+  Field('globalOptOut', String, 'Global Opt-Out Support',
+      hint: 'Can users opt out of all non-essential notifications'),
+  Field('perTypeControl', String, 'Per-Type Control',
+      hint: 'Can users control individual notification types'),
+  Field('channelPreferences', String, 'Channel Preferences',
+      hint: 'Can users choose preferred channels'),
+  Field('frequencyControl', String, 'Frequency Control',
+      hint: 'Can users control notification frequency'),
+  Field('quietHours', String, 'Quiet Hours',
+      hint: 'Can users set do-not-disturb hours'),
+  Field('digestOption', String, 'Digest Option',
+      hint: 'Can users opt for daily/weekly digests'),
+])
+class UserNotificationPreferences {
+  /// Preferences content.
+  @ContentType('form', 'User notification preference options.')
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 4.1.5.6 Multi-Channel Experience
+// ---------------------------------------------------------------------------
+
+/// 4.1.5.6. Multi-Channel Experience [PD00-SYO-SYD-USI-MUL].
+///
+/// Defines how the system provides a consistent experience across channels
+/// and handles channel switching.
+@SectionId('PD00-SYO-SYD-USI-MUL')
+@ContentHelp('Define multi-channel experience: context handoff between '
+    'channels, data synchronization, and experience consistency.')
+class MultiChannelExperience {
+  @ContentType('description', 'Overview of multi-channel strategy.')
+  String? content;
+
+  /// Multi-channel configuration.
+  @Form([
+    Field('channelHandoff', String, 'Channel Handoff',
+        hint: 'How users switch between channels seamlessly'),
+    Field('contextPreservation', String, 'Context Preservation',
+        hint: 'What context is preserved when switching channels'),
+    Field('dataSynchronization', String, 'Data Synchronization',
+        hint: 'Real-time, Near-real-time, Eventual'),
+    Field('conflictResolution', String, 'Conflict Resolution',
+        hint: 'How conflicts from multi-channel edits are resolved'),
+    Field('consistentBranding', String, 'Consistent Branding',
+        hint: 'Brand consistency requirements across channels'),
+    Field('featureParity', String, 'Feature Parity',
+        hint: 'Degree of feature consistency across channels'),
+    Field('responsiveDesign', String, 'Responsive Design',
+        hint: 'Approach to responsive/adaptive design'),
+    Field('progressiveEnhancement', String, 'Progressive Enhancement',
+        hint: 'How features degrade on limited channels'),
+    Field('offlineFirst', String, 'Offline-First Strategy',
+        hint: 'Offline-first approach for applicable channels'),
+  ])
+  String? multiChannelConfiguration;
 }
 
 // ---------------------------------------------------------------------------
