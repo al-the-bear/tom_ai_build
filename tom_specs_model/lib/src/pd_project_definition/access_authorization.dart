@@ -11,7 +11,26 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 @SectionId('PD00-ACC')
 @Comment('Seeds → AC')
 class AccessAndAuthorizationConcept {
-  @Unused()
+  @ContentHelp('''
+Provide a high-level overview of the application's security architecture for
+protecting data and functions. This section serves as the entry point for all
+access and authorization concerns.
+
+**Key topics to address:**
+- Overall security philosophy (zero trust, defense in depth, least privilege)
+- Applicable security frameworks (NIST, ISO 27001, SOC 2, OWASP)
+- Regulatory requirements affecting access control (GDPR, HIPAA, PCI DSS)
+- Integration points with enterprise identity and access management (IAM)
+- Risk-based approach to authorization decisions
+
+**Cross-references:**
+- User Management → defines who accesses the system
+- Authentication → proves user identity
+- Authorization → controls what authenticated users can do
+- Resource Protection → secures data and APIs
+- Encryption → protects sensitive data
+- Audit → logs security events for compliance
+''')
   String? content;
 
   /// 9.1. User Management [PD00-ACC-USE].
@@ -36,7 +55,23 @@ class AccessAndAuthorizationConcept {
 /// 9.1. User Management [PD00-ACC-USE].
 @SectionId('PD00-ACC-USE')
 class UserManagement {
-  @Unused()
+  @ContentHelp('''
+Describe how users are organized, categorized, and managed throughout their
+relationship with the system. This section establishes the foundation for
+authentication and authorization by defining who the users are.
+
+**Key topics to address:**
+- User taxonomy (employees, customers, partners, service accounts)
+- User provisioning sources (self-registration, admin-created, SCIM, HR sync)
+- User directory integration (LDAP, Active Directory, cloud identity providers)
+- Account lifecycle governance and oversight responsibilities
+- User metadata and attribute management strategy
+
+**Industry context:**
+- NIST SP 800-63A covers identity proofing requirements
+- SCIM 2.0 (RFC 7643/7644) for cross-domain user management
+- SOC 2 CC6.1-CC6.3 for logical and physical access controls
+''')
   String? content;
 
   /// 9.1.1. User Categories [PD00-ACC-USE-CAT].
@@ -52,7 +87,27 @@ class UserManagement {
 /// 9.1.1. User Categories [PD00-ACC-USE-CAT].
 @SectionId('PD00-ACC-USE-CAT')
 class UserCategories {
-  @Unused()
+  @ContentHelp('''
+Define the distinct categories of users who interact with the system. Each
+category should reflect different trust levels, access patterns, and business
+relationships.
+
+**Typical user categories include:**
+- **End Users / Customers** — external users with limited, self-service access
+- **Internal Employees** — staff with role-based access to business functions
+- **Administrators** — privileged users managing system configuration
+- **Partners / B2B Users** — external parties with contractual access
+- **Service Accounts** — non-human identities for automation and integrations
+- **Support / Helpdesk** — staff with elevated access for user assistance
+- **Auditors** — read-only access for compliance and review
+
+**For each category, document:**
+- Estimated user count and growth projections
+- Authentication requirements (MFA, SSO, certificates)
+- Typical access patterns and session duration
+- Onboarding and offboarding processes
+- Data sensitivity level accessible by this category
+''')
   String? content;
 
   /// Contains 0+× UserCategoryDefinition.
@@ -78,7 +133,28 @@ class UserCategoryDefinition {
 /// for registration, activation, modification, deactivation, and deletion.
 @SectionId('PD00-ACC-USE-LIF')
 class UserLifecycleSection {
-  @Unused()
+  @ContentHelp('''
+Document the complete lifecycle of user accounts from creation to permanent
+deletion. A well-defined lifecycle ensures proper access control, auditability,
+and compliance with data retention requirements.
+
+**Lifecycle phases:**
+1. **Registration** — how users request or receive accounts
+2. **Activation** — approval workflows and initial credential issuance
+3. **Active Usage** — ongoing access and periodic re-verification
+4. **Modification** — attribute updates, role changes, transfers
+5. **Suspension** — temporary disablement (leave, investigation)
+6. **Deactivation** — permanent disablement (termination, contract end)
+7. **Deletion** — data removal per retention policies
+
+**Key considerations:**
+- Joiner-mover-leaver (JML) process integration with HR systems
+- Self-service vs. admin-driven operations
+- Approval workflows and segregation of duties
+- Grace periods and notification requirements
+- Compliance with GDPR right to erasure and data retention laws
+- Audit trail requirements for lifecycle events
+''')
   String? content;
 
   /// Overview (text).
@@ -589,7 +665,35 @@ class ServiceAccountLifecycle {
 /// 9.1.3. User Attributes [PD00-ACC-USE-ATT].
 @SectionId('PD00-ACC-USE-ATT')
 class UserAttributes {
-  @Unused()
+  @ContentHelp('''
+Define the user profile attributes captured and managed by the system. These
+attributes support authentication, authorization, personalization, and
+compliance requirements.
+
+**Core identity attributes:**
+- Unique identifier (UUID, employee ID, email)
+- Display name, legal name, preferred name
+- Email addresses (primary, secondary)
+- Phone numbers (mobile for MFA, business)
+- Account status and creation timestamps
+
+**Organizational attributes:**
+- Department, division, cost center
+- Job title, role, reporting hierarchy
+- Office location, timezone, locale preferences
+
+**Access control attributes:**
+- User category/type (customer, employee, partner)
+- Security clearance level
+- Group memberships and role assignments
+- Tenant/organization affiliation
+
+**Compliance considerations:**
+- PII classification per attribute (GDPR, CCPA)
+- Data minimization — collect only what is necessary
+- Attribute source (self-declared, HR system, IdP assertion)
+- Retention and deletion policies per attribute type
+''')
   String? content;
 
   /// Contains 0+× UserAttribute.
@@ -611,7 +715,31 @@ class UserAttributeEntry {
 /// 9.2. Identification and Authentication [PD00-ACC-IDE].
 @SectionId('PD00-ACC-IDE')
 class IdentificationAndAuthentication {
-  @Unused()
+  @ContentHelp('''
+Define how users prove their identity to the system. Authentication is the
+foundation of access control — all authorization decisions depend on reliable
+user identification.
+
+**Key topics to address:**
+- Authentication Assurance Levels (AAL) per NIST SP 800-63B:
+  - AAL1: Single-factor (passwords)
+  - AAL2: Two-factor (password + OTP, push notification)
+  - AAL3: Hardware-bound authenticators (FIDO2, PIV)
+- Authenticator types supported (what you know, have, are)
+- Credential lifecycle (issuance, rotation, recovery, revocation)
+- Session management and token handling
+
+**Industry standards:**
+- NIST SP 800-63B: Digital Identity Guidelines — Authentication
+- FIDO2/WebAuthn: Passwordless authentication
+- OAuth 2.0 / OpenID Connect: Federated authentication
+- OWASP Authentication Cheat Sheet
+
+**Business context:**
+- Balance security vs. user experience
+- Support for legacy systems and gradual migration
+- Regulatory requirements (PCI DSS, HIPAA, SOX)
+''')
   String? content;
 
   /// 9.2.1. Identification [PD00-ACC-IDE-IDN].
@@ -1064,7 +1192,28 @@ class IdentityAttributeMappingEntry {
 /// 9.2.2. Authentication [PD00-ACC-IDE-AUT].
 @SectionId('PD00-ACC-IDE-AUT')
 class Authentication {
-  @Unused()
+  @ContentHelp('''
+Overview of the authentication subsystem: methods supported, credential
+policies, session management, and authentication flows.
+
+**This section covers:**
+- Authentication methods (passwords, MFA, SSO, certificates, biometrics)
+- Authentication flow (login lifecycle, token issuance, session creation)
+- Password and credential policy (complexity, rotation, recovery)
+- Session management (timeouts, concurrent sessions, revocation)
+
+**Design principles:**
+- Defense in depth — multiple authentication layers
+- Fail-secure — authentication failures deny access
+- Secure by default — strongest available method for each user category
+- Transparency — clear feedback on authentication requirements
+
+**Implementation considerations:**
+- Support for both web and native application authentication
+- API authentication (tokens, API keys, mutual TLS)
+- Service-to-service authentication (workload identity)
+- Authentication event logging for security monitoring
+''')
   String? content;
 
   /// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
@@ -1089,7 +1238,30 @@ class Authentication {
 /// biometrics, API keys, and cryptographic authenticators.
 @SectionId('PD00-ACC-IDE-AUT-MET')
 class AuthenticationMethods {
-  @Unused()
+  @ContentHelp('''
+Document all authentication methods supported by the system and their
+applicability to different user categories and use cases.
+
+**Primary authentication methods:**
+- **Passwords**: Traditional knowledge-based authentication
+- **Multi-Factor Authentication (MFA)**:
+  - Something you have: TOTP, SMS, push notifications, hardware tokens
+  - Something you are: fingerprint, face recognition, voice
+- **Single Sign-On (SSO)**: SAML 2.0, OpenID Connect, WS-Federation
+- **Certificates**: X.509 client certificates, smart cards, PIV
+- **Passwordless**: FIDO2/WebAuthn, magic links, passkeys
+
+**Per-method considerations:**
+- Required AAL level (AAL1/AAL2/AAL3)
+- Supported platforms (web, mobile, desktop, API)
+- User enrollment and recovery procedures
+- Fallback authentication for method unavailability
+- Phishing resistance and replay attack protection
+
+**Reference:**
+- NIST SP 800-63B Section 5: Authenticator and Verifier Requirements
+- OWASP Authentication Cheat Sheet
+''')
   String? content;
 
   /// Authentication Methods Overview (text).
@@ -1421,7 +1593,31 @@ class AuthenticationMethodEntry {
 /// recovery. Aligned with OAuth 2.0/OIDC and NIST SP 800-63B flow patterns.
 @SectionId('PD00-ACC-IDE-FLO')
 class AuthenticationFlow {
-  @Unused()
+  @ContentHelp('''
+Document the end-to-end authentication flow from initial login request to
+established session. Include sequence diagrams for clarity.
+
+**Flow phases:**
+1. **Initiation**: User navigates to protected resource or login page
+2. **Identification**: Username/email entry, account lookup
+3. **Primary Authentication**: Password or primary credential verification
+4. **Step-Up Authentication**: MFA challenge if required
+5. **Token Issuance**: Generate access token, refresh token, ID token
+6. **Session Establishment**: Create server-side session, set cookies
+7. **Redirect**: Return user to requested resource
+
+**Error handling:**
+- Invalid credentials → lockout progression, brute-force protection
+- MFA failure → retry limits, fallback methods
+- Session conflicts → concurrent session policy enforcement
+- Token errors → silent refresh, re-authentication prompts
+
+**Security considerations:**
+- CSRF protection on login forms
+- Timing-safe credential comparison
+- Secure cookie attributes (HttpOnly, Secure, SameSite)
+- OAuth 2.0 PKCE for public clients
+''')
   String? content;
 
   /// Authentication Flow Overview (text).
@@ -1815,7 +2011,36 @@ class LoginFlowStepEntry {
 /// credential compromise detection, and service account credential management.
 @SectionId('PD00-ACC-IDE-POL')
 class PasswordAndCredentialPolicy {
-  @Unused()
+  @ContentHelp('''
+Define the complete password and credential policy. NIST SP 800-63B (2024
+revision) emphasizes length over complexity and discourages forced rotation.
+
+**Password requirements (NIST-aligned):**
+- Minimum length: 8 characters (15+ recommended for privileged accounts)
+- Maximum length: at least 64 characters
+- No composition rules (uppercase, digits, symbols not required)
+- Block common passwords (breach databases, dictionary words)
+- Allow all Unicode characters and spaces
+
+**Password storage:**
+- Use modern password hashing: Argon2id, bcrypt, or scrypt
+- Never store plaintext or reversibly encrypted passwords
+- Implement secure comparison to prevent timing attacks
+
+**Credential lifecycle:**
+- No periodic expiration unless compromise is suspected
+- Force reset on breach detection or password in known-compromised list
+- Secure credential recovery (not security questions)
+
+**Account lockout:**
+- Throttle repeated failures (exponential backoff or CAPTCHA)
+- Avoid hard lockouts that enable denial-of-service
+- Log and alert on brute-force patterns
+
+**MFA per user category:**
+- Define which user categories require MFA
+- Specify acceptable second factors per AAL level
+''')
   String? content;
 
   /// Password and Credential Policy Overview (text).
@@ -2282,7 +2507,38 @@ class MfaCategoryRequirementEntry {
 /// session requirements by Authentication Assurance Level (AAL).
 @SectionId('PD00-ACC-IDE-SES')
 class SessionManagement {
-  @Unused()
+  @ContentHelp('''
+Define session management policies that balance security with user experience.
+
+**Session timeouts:**
+- Idle timeout: 15–30 min for standard apps, 2–5 min for high-value operations
+- Absolute timeout: 4–24 hours maximum session lifetime
+- Re-authentication for sensitive actions (step-up authentication)
+
+**Concurrent session control:**
+- Maximum simultaneous sessions per user
+- Behavior on new login: terminate oldest, deny new, or allow all
+- Device binding and trusted device management
+
+**Session revocation:**
+- Immediate revocation on logout, password change, or admin action
+- Token blacklisting or short-lived tokens with refresh rotation
+- Propagation delay for distributed systems
+
+**Remember-me / persistent sessions:**
+- Extended validity with reduced privileges
+- Device fingerprinting and anomaly detection
+- Explicit user opt-in with clear security implications
+
+**Session security hardening:**
+- Secure cookie attributes: HttpOnly, Secure, SameSite=Lax/Strict
+- Session ID rotation after authentication
+- Protection against session fixation and hijacking
+
+**Reference:**
+- OWASP Session Management Cheat Sheet
+- NIST SP 800-63B Section 7: Session Management
+''')
   String? content;
 
   /// Session Management Overview (text).
@@ -2633,7 +2889,33 @@ class SessionLifecycleMonitoring {
 /// 9.3. Resource Protection [PD00-ACC-RES].
 @SectionId('PD00-ACC-RES')
 class ResourceProtection {
-  @Unused()
+  @ContentHelp('''
+Overview of resource protection strategies covering data, APIs, and file
+storage. Resource protection ensures that authenticated and authorized users
+can only access the specific resources they are entitled to.
+
+**Resource categories:**
+- **Data**: Database records, tenant data, PII, business-critical information
+- **APIs**: REST/GraphQL endpoints, internal services, webhooks
+- **Files**: User uploads, documents, media, configuration files
+
+**Protection layers:**
+1. Network layer: firewalls, WAF, DDoS protection
+2. Transport layer: TLS encryption, certificate validation
+3. Application layer: authentication, authorization, input validation
+4. Data layer: encryption at rest, row/column-level security, masking
+
+**Defense in depth:**
+- Multiple overlapping controls at each layer
+- Fail-secure defaults (deny access on error)
+- Principle of least privilege for all access
+- Continuous monitoring and anomaly detection
+
+**Compliance alignment:**
+- OWASP Top 10 and API Security Top 10
+- PCI DSS requirements for cardholder data
+- GDPR requirements for personal data protection
+''')
   String? content;
 
   /// 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
@@ -2654,7 +2936,39 @@ class ResourceProtection {
 /// Aligned with OWASP Database Security Cheat Sheet and least-privilege principles.
 @SectionId('PD00-ACC-RES-DAT')
 class DataLevelSecurity {
-  @Unused()
+  @ContentHelp('''
+Define data-level security controls that protect sensitive information
+within databases and data stores.
+
+**Database access controls:**
+- Application uses dedicated service accounts with minimal privileges
+- No shared credentials; secrets managed via vault or managed identities
+- Separation of read and write access where appropriate
+
+**Row-Level Security (RLS):**
+- Automatic filtering of queries based on user context (tenant, ownership)
+- Implemented at database level (PostgreSQL RLS, SQL Server RLS)
+- Or enforced at ORM/application layer with mandatory predicates
+
+**Column-Level Security:**
+- Sensitive columns encrypted or masked at database level
+- Dynamic masking for non-privileged users (shown as ****)
+- Tokenization for PCI data (card numbers, CVV)
+
+**Tenant data isolation:**
+- Strict segregation for multi-tenant applications
+- Separate schemas, row-level predicates, or separate databases
+- Cross-tenant access explicitly denied by default
+
+**Data masking:**
+- Production data never copied to non-production unmasked
+- Dynamic masking for support/debug access
+- Pseudonymization for analytics and testing
+
+**Audit logging:**
+- Log all data access to sensitive tables
+- Capture user identity, timestamp, query, affected rows
+''')
   String? content;
 
   /// Data-Level Security Overview (text).
@@ -2991,7 +3305,41 @@ class DataAccessAuditPolicy {
 /// Security Top 10 (2023) and OWASP REST Security Cheat Sheet.
 @SectionId('PD00-ACC-RES-API')
 class ApiSecurity {
-  @Unused()
+  @ContentHelp('''
+Define security controls for all APIs exposed by the system, including
+public-facing APIs, internal microservices, and webhooks.
+
+**API authentication (OWASP API1:2023):**
+- OAuth 2.0 with appropriate grant types (authorization code, client credentials)
+- API keys for simple integrations (with rotation and rate limiting)
+- Mutual TLS for service-to-service communication
+- JWT validation: signature, expiration, audience, issuer
+
+**API authorization (OWASP API5:2023):**
+- Function-level access control (which endpoints user can call)
+- Object-level access control (which resources user can access)
+- Field-level filtering in responses
+
+**Request validation (OWASP API8:2023):**
+- Schema validation (JSON Schema, OpenAPI)
+- Input sanitization against injection attacks
+- Rate limiting and quota enforcement
+- Request size limits
+
+**CORS security:**
+- Explicit allowed origins (no wildcard for credentialed requests)
+- Allowed methods and headers explicitly listed
+- Preflight caching configuration
+
+**Abuse protection:**
+- Rate limiting per user/IP/API key
+- DDoS protection at edge (WAF, CDN)
+- Anomaly detection for API abuse patterns
+
+**Reference:**
+- OWASP API Security Top 10 (2023)
+- OWASP REST Security Cheat Sheet
+''')
   String? content;
 
   /// API Security Overview (text).
@@ -3446,7 +3794,45 @@ class ApiSecurityMonitoring {
 /// Aligned with OWASP File Upload Cheat Sheet and defense-in-depth principles.
 @SectionId('PD00-ACC-RES-FIL')
 class FileAndStorageSecurity {
-  @Unused()
+  @ContentHelp('''
+Define security controls for user-uploaded files, generated documents,
+and all stored media.
+
+**File upload validation:**
+- Allowlist of permitted file extensions (not blocklist)
+- Content-type validation (check magic bytes, not just extension)
+- Maximum file size limits per file type
+- Filename sanitization (remove path traversal, special characters)
+- Re-encode/re-compress files to strip malicious payloads
+
+**Malware scanning:**
+- Scan all uploads before acceptance
+- Quarantine suspicious files for review
+- Block known-malicious file signatures
+
+**Storage encryption:**
+- Encrypt files at rest (AES-256-GCM or equivalent)
+- Server-side encryption with customer-managed keys (BYOK) option
+- Secure key management via HSM or cloud KMS
+
+**Access control:**
+- Signed URLs for time-limited access to private files
+- Authorization check before serving any file
+- No direct filesystem access to uploaded content
+
+**Download protection:**
+- Content-Disposition header to force downloads for executable types
+- X-Content-Type-Options: nosniff
+- Serve user content from separate domain (sandbox)
+
+**Storage lifecycle:**
+- Automatic deletion of orphaned files
+- Retention policies per file type and classification
+- Secure deletion (cryptographic erasure)
+
+**Reference:**
+- OWASP File Upload Cheat Sheet
+''')
   String? content;
 
   /// File and Storage Security Overview (text).
@@ -3902,7 +4288,40 @@ class StorageLifecyclePolicy {
 /// access constraints, and evaluation behavior.
 @SectionId('PD00-ACC-USA-MOD')
 class AuthorizationModel {
-  @Unused()
+  @ContentHelp('''
+Define the authorization model that governs who can do what in the system.
+
+**Access control models:**
+- **RBAC (Role-Based)**: Permissions assigned to roles; users assigned to roles
+  - Simple, auditable, good for well-defined job functions
+  - Risk of role explosion in complex organizations
+- **ABAC (Attribute-Based)**: Decisions based on user/resource/environment attributes
+  - Flexible, dynamic, supports complex policies
+  - XACML/ALFA policy languages; NIST SP 800-162
+- **ReBAC (Relationship-Based)**: Permissions based on relationships (e.g., "owner of")
+  - Natural for social apps, document sharing, organizational hierarchies
+  - Examples: Google Zanzibar, OpenFGA, Ory Keto
+- **Hybrid**: Combine models for different resource types
+
+**Permission granularity:**
+- Function-level: can user invoke this operation?
+- Data-level: can user access this resource instance?
+- Field-level: which fields can user read/write?
+
+**Permission composition:**
+- Additive: user gets union of all granted permissions
+- Deny-overrides: explicit deny supersedes grants
+- Most-specific-wins: closest match takes precedence
+
+**Evaluation behavior:**
+- Default-deny: no access unless explicitly granted
+- Fail-closed: errors result in access denied
+- Decision caching and invalidation strategy
+
+**Reference:**
+- NIST RBAC Model (NIST SP 800-207)
+- NIST ABAC Guide (NIST SP 800-162)
+''')
   String? content;
 
   /// Access Control Model Selection.
@@ -4206,7 +4625,34 @@ class PermissionEvaluationBehavior {
 /// Aligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.
 @SectionId('PD00-ACC-USA')
 class UserAuthorization {
-  @Unused()
+  @ContentHelp('''
+Define the complete authorization structure that controls what users can do.
+Aligned with Tom Core authorization model.
+
+**Authorization hierarchy:**
+1. **Groups**: Organizational containers for users (departments, teams, projects)
+2. **Roles**: Named collections of entitlements assigned to users or groups
+3. **Entitlements**: Atomic permissions representing specific actions
+4. **Resource Keys**: Fine-grained identifiers for protected resources
+
+**Key components:**
+- Authorization model (RBAC, ABAC, ReBAC, or hybrid)
+- Role definitions with assigned entitlements
+- Role hierarchy and inheritance rules
+- Tenant isolation for multi-tenant deployments
+
+**Design principles:**
+- Least privilege: users get minimum permissions needed
+- Separation of duties: critical operations require multiple approvals
+- Default deny: no access unless explicitly granted
+- Clear ownership: every role/entitlement has an owner
+
+**Compliance considerations:**
+- SOX: segregation of duties, access recertification
+- GDPR: data access controls, right to be forgotten
+- PCI DSS: need-to-know for cardholder data
+- SOC 2: logical access controls (CC6.1-CC6.3)
+''')
   String? content;
 
   /// 9.4.1. Authorization Model [PD00-ACC-USA-MOD].
@@ -4251,7 +4697,39 @@ class UserAuthorization {
 /// policies. Aligns with NIST hierarchical RBAC model.
 @SectionId('PD00-ACC-USA-ROH')
 class RoleHierarchy {
-  @Unused()
+  @ContentHelp('''
+Define role inheritance and combination rules. A well-designed role hierarchy
+simplifies administration and ensures consistent access control.
+
+**Inheritance rules:**
+- Senior roles inherit all permissions of junior roles
+- Example: Manager inherits Employee permissions
+- Maximum hierarchy depth (typically 3–5 levels)
+- Circular inheritance detection and prevention
+
+**Mutual exclusions (Separation of Duties):**
+- Roles that cannot be held simultaneously
+- Example: Payment Approver and Payment Initiator
+- Enforce at assignment time and during role evaluation
+
+**Role combination constraints:**
+- Required role combinations (must have both A and B)
+- Forbidden combinations (cannot have both X and Y)
+- Cardinality limits (max N users per role)
+
+**Role certification:**
+- Periodic review of role assignments
+- Manager/owner approval for sensitive roles
+- Automatic revocation of uncertified access
+
+**Implementation:**
+- Pre-compute effective permissions at assignment time (fast evaluation)
+- Or evaluate hierarchy at runtime (flexible but slower)
+- Cache invalidation on role/hierarchy changes
+
+**Reference:**
+- NIST RBAC Model — Hierarchical RBAC (RBAC₂)
+''')
   String? content;
 
   /// Role Hierarchy Policy.
@@ -4484,7 +4962,39 @@ class RoleCertificationPolicy {
 /// data-level isolation; this section focuses on authorization-level isolation.
 @SectionId('PD00-ACC-USA-TEN')
 class TenantIsolation {
-  @Unused()
+  @ContentHelp('''
+Define how multi-tenant authorization is structured at the application layer.
+Complements data-level tenant isolation (PD00-ACC-RES-DAT).
+
+**Tenant context establishment:**
+- How tenant is identified (subdomain, header, token claim, path)
+- Validation of tenant context (user belongs to claimed tenant)
+- Propagation through request lifecycle (thread-local, context object)
+
+**Cross-tenant access prevention:**
+- Default: all access is tenant-scoped
+- Authorization checks include tenant predicate
+- API responses filtered to current tenant only
+
+**Controlled cross-tenant access:**
+- Super-admin/platform-admin access across tenants
+- Partner/reseller access to managed tenants
+- Explicit grants with audit logging
+
+**Per-tenant customization:**
+- Custom roles and entitlements within tenant
+- Tenant-specific password policies
+- Tenant branding and configuration
+
+**Tenant lifecycle:**
+- Onboarding: default roles, admin user, initial configuration
+- Offboarding: data deletion, user deactivation, audit retention
+
+**Boundary enforcement:**
+- Mandatory tenant context on all protected endpoints
+- Fail-closed if tenant context is missing or invalid
+- Logging of tenant context for all operations
+''')
   String? content;
 
   /// Tenant Context Policy.
@@ -5037,7 +5547,40 @@ class ResourceKeyEntry {
 /// 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
 @SectionId('PD00-ACC-SEN')
 class SensitiveDataEncryption {
-  @Unused()
+  @ContentHelp('''
+Define encryption requirements for sensitive data both at rest and in transit.
+Encryption is a critical defense-in-depth layer that protects data even when
+other controls fail.
+
+**Data classification:**
+- Identify sensitive data categories (PII, PHI, financial, credentials)
+- Map each category to encryption requirements
+- Document regulatory drivers (GDPR, HIPAA, PCI DSS)
+
+**Encryption scope:**
+- **At Rest**: Stored data in databases, filesystems, backups
+- **In Transit**: Data moving over networks (internal and external)
+- **In Use**: Data in memory (future consideration for confidential computing)
+
+**Key management:**
+- Cryptographic key lifecycle (generation, storage, rotation, destruction)
+- Key hierarchy (master keys, data encryption keys)
+- Separation of duties (key custodians vs. data operators)
+
+**Algorithm selection:**
+- Use approved algorithms (AES-256-GCM, ChaCha20-Poly1305)
+- Avoid deprecated algorithms (DES, 3DES, RC4, MD5, SHA-1)
+- Plan for post-quantum cryptography migration
+
+**Compliance alignment:**
+- PCI DSS: encrypt cardholder data at rest and in transit
+- HIPAA: protect PHI with appropriate safeguards
+- GDPR: implement appropriate technical measures
+
+**Reference:**
+- OWASP Cryptographic Storage Cheat Sheet
+- NIST SP 800-175B: Cryptographic Standards and Guidelines
+''')
   String? content;
 
   /// 9.5.1. Encryption At Rest [PD00-ACC-SEN-RES].
@@ -5066,7 +5609,42 @@ class SensitiveDataEncryption {
 /// Cheat Sheet and NIST SP 800-111 (Storage Encryption).
 @SectionId('PD00-ACC-SEN-RES')
 class EncryptionAtRest {
-  @Unused()
+  @ContentHelp('''
+Define how stored data is encrypted to protect against unauthorized access,
+data breaches, and physical media theft.
+
+**Encryption layers:**
+1. **Full-disk encryption (FDE)**: Protects against physical theft
+2. **Database encryption (TDE)**: Transparent database-level encryption
+3. **Application encryption**: Field-level encryption for sensitive data
+4. **Hardware encryption**: HSM-backed encryption for highest assurance
+
+**Algorithm requirements:**
+- Symmetric: AES-256-GCM or AES-256-CBC with HMAC
+- Key derivation: PBKDF2, scrypt, or Argon2 for password-derived keys
+- Random IVs/nonces for each encryption operation
+
+**Data categories to encrypt:**
+- Credentials and secrets (highest priority)
+- PII: names, addresses, identifiers
+- Financial data: payment card numbers, bank details
+- Health data: PHI under HIPAA
+- Business confidential: trade secrets, contracts
+
+**Backup encryption:**
+- All backups encrypted with separate key set
+- Offline key escrow for disaster recovery
+- Test restoration of encrypted backups regularly
+
+**Compliance notes:**
+- PCI DSS 3.4: render PAN unreadable anywhere it is stored
+- HIPAA: encryption is addressable safeguard for PHI
+- GDPR: encryption as appropriate technical measure
+
+**Reference:**
+- OWASP Cryptographic Storage Cheat Sheet
+- NIST SP 800-111: Guide to Storage Encryption
+''')
   String? content;
 
   /// Encryption At Rest Policy.
@@ -5341,7 +5919,42 @@ class BackupEncryptionPolicy {
 /// with OWASP Transport Layer Security Cheat Sheet and NIST SP 800-52.
 @SectionId('PD00-ACC-SEN-TRA')
 class EncryptionInTransit {
-  @Unused()
+  @ContentHelp('''
+Define how data is protected while moving over networks, both externally
+(internet) and internally (service-to-service).
+
+**TLS configuration:**
+- Minimum version: TLS 1.2 (TLS 1.3 preferred)
+- Disable: SSLv2, SSLv3, TLS 1.0, TLS 1.1
+- Cipher suites: AEAD ciphers only (GCM, ChaCha20-Poly1305)
+- Disable: NULL, EXPORT, DES, RC4, CBC (for TLS 1.2 prefer GCM)
+- Forward secrecy: require ECDHE or DHE key exchange
+
+**Certificate management:**
+- Use certificates from trusted CAs (or well-managed internal PKI)
+- Minimum 2048-bit RSA or 256-bit ECDSA keys
+- Automated renewal before expiration (ACME/Let's Encrypt)
+- Certificate transparency logging
+
+**HSTS (HTTP Strict Transport Security):**
+- Enable with long max-age (1 year recommended)
+- Include subdomains
+- Consider HSTS preload list submission
+
+**Mutual TLS (mTLS):**
+- Client certificate authentication for service-to-service
+- Zero-trust network architecture
+- Certificate rotation automation
+
+**Internal communication:**
+- Encrypt all internal service-to-service traffic
+- Service mesh (Istio, Linkerd) for automatic mTLS
+- No plaintext communication even within VPC
+
+**Reference:**
+- OWASP Transport Layer Security Cheat Sheet
+- NIST SP 800-52: Guidelines for TLS Implementations
+''')
   String? content;
 
   /// TLS Protocol Policy.
@@ -5634,7 +6247,46 @@ class TransportSecurityPolicy {
 /// NIST SP 800-57 (Recommendation for Key Management).
 @SectionId('PD00-ACC-SEN-KEY')
 class KeyManagement {
-  @Unused()
+  @ContentHelp('''
+Define policies for the complete lifecycle of cryptographic keys. Proper
+key management is essential — poor key management can negate all encryption.
+
+**Key hierarchy:**
+- Master keys (KEKs): protect data encryption keys, stored in HSM
+- Data encryption keys (DEKs): encrypt actual data, wrapped by KEKs
+- Key-per-tenant: separate DEKs for tenant isolation (optional)
+
+**Key generation:**
+- Use cryptographically secure random number generators (CSPRNG)
+- Generate in HSM or FIPS 140-2/140-3 validated modules for compliance
+- Minimum key lengths: 256-bit symmetric, 2048-bit RSA, 256-bit ECC
+
+**Key storage:**
+- Never store keys alongside encrypted data
+- HSM for production master keys (FIPS 140-2 Level 3+)
+- Cloud KMS for managed key storage (AWS KMS, Azure Key Vault, GCP KMS)
+- Secret managers for application secrets (HashiCorp Vault, AWS Secrets Mgr)
+
+**Key rotation:**
+- Periodic rotation (e.g., annually for DEKs, less frequent for KEKs)
+- Immediate rotation on compromise or employee departure
+- Re-encryption of data with rotated keys (or envelope encryption)
+
+**Key escrow and backup:**
+- Secure backup of master keys for disaster recovery
+- Split key custody (M-of-N threshold schemes)
+- Geographic distribution of key backups
+
+**Compromise recovery:**
+- Immediate key revocation and rotation
+- Notification to affected parties
+- Re-encryption of all affected data
+- Forensic analysis to determine breach scope
+
+**Reference:**
+- OWASP Key Management Cheat Sheet
+- NIST SP 800-57: Recommendation for Key Management
+''')
   String? content;
 
   /// Key Generation Policy.
@@ -5838,7 +6490,44 @@ class KeyCompromiseRecoveryPolicy {
 /// Computer Security Log Management).
 @SectionId('PD00-ACC-AUD')
 class AuditAndLogging {
-  @Unused()
+  @ContentHelp('''
+Define security audit and logging requirements. Comprehensive logging enables
+incident detection, forensic investigation, and compliance reporting.
+
+**Logging objectives:**
+- Detect security incidents in real-time or near-real-time
+- Support forensic investigation after incidents
+- Demonstrate compliance to auditors
+- Enable trend analysis and security posture improvement
+
+**Key event categories:**
+- Authentication events (login success/failure, logout, MFA)
+- Authorization events (access granted/denied, privilege changes)
+- Data access events (CRUD operations on sensitive data)
+- Administrative events (config changes, user management)
+- Security events (input validation failures, anomalies)
+
+**Log format:**
+- Structured format (JSON) for machine parsing
+- Consistent timestamp format (ISO 8601 UTC)
+- Unique event IDs for correlation
+- Who, what, when, where, result for each event
+
+**Log protection:**
+- Immutable logs (append-only, write-once storage)
+- Integrity protection (hashing, signing)
+- Access control (limited read access, no delete)
+
+**Retention and compliance:**
+- Define retention periods per log type and regulation
+- PCI DSS: 1 year online, 3 months immediately available
+- HIPAA: 6 years for covered entity records
+- Secure deletion after retention period
+
+**Reference:**
+- OWASP Logging Cheat Sheet
+- NIST SP 800-92: Guide to Computer Security Log Management
+''')
   String? content;
 
   /// 9.6.1. Security Events [PD00-ACC-AUD-EVE].
@@ -5865,7 +6554,46 @@ class AuditAndLogging {
 /// input validation failures, and higher-risk functionality usage.
 @SectionId('PD00-ACC-AUD-EVE')
 class SecurityEventsDefinition {
-  @Unused()
+  @ContentHelp('''
+Define which security-relevant events must be captured in audit logs.
+Balance comprehensive coverage with log volume management.
+
+**Authentication events (OWASP ASVS V7.1):**
+- Login success and failure (with reason for failure)
+- Logout (user-initiated and timeout)
+- Password changes and resets
+- MFA enrollment, verification success/failure
+- Session creation, renewal, termination
+- Account lockout and unlock
+
+**Authorization events (OWASP ASVS V7.2):**
+- Access denied events (who tried to access what)
+- Privilege escalation (role changes, permission grants)
+- Sensitive data access (who accessed what PII/PHI)
+- Administrative actions (user creation, config changes)
+
+**Data events:**
+- CRUD operations on sensitive data
+- Bulk data exports or downloads
+- Data deletion (especially irreversible)
+- Schema changes
+
+**Security events:**
+- Input validation failures (potential attack indicators)
+- CSRF/XSS attempt detection
+- Rate limit breaches
+- Suspicious patterns (brute force, credential stuffing)
+
+**Implementation tips:**
+- Log at appropriate level (don't log sensitive data values)
+- Include enough context for investigation
+- Consider log sampling for high-volume, low-risk events
+- Alert on high-severity events in real-time
+
+**Reference:**
+- OWASP ASVS V7: Error Handling and Logging
+- OWASP Logging Cheat Sheet
+''')
   String? content;
 
   /// Security Event Logging Policy.
@@ -6055,7 +6783,45 @@ class SecurityEventEntry {
 /// result), log retention period, and tamper protection requirements.
 @SectionId('PD00-ACC-AUD-FMT')
 class AuditLogFormat {
-  @Unused()
+  @ContentHelp('''
+Define the structure and format of audit log entries for consistency,
+parsability, and forensic utility.
+
+**Essential fields (W5H):**
+- **When**: ISO 8601 timestamp in UTC (e.g., 2024-01-15T14:30:00.123Z)
+- **Who**: User ID, username, session ID, IP address, user agent
+- **What**: Action performed, event type, target resource
+- **Where**: Application, service, endpoint, server instance
+- **Result**: Success/failure, HTTP status, error code, error message
+- **How**: Method used (API, UI, batch), request ID for correlation
+
+**Format requirements:**
+- JSON preferred for machine parsing
+- Human-readable for investigation (pretty-print option)
+- Schema-validated for consistency
+- Version field for format evolution
+
+**Sensitive data handling:**
+- Never log passwords, tokens, or secrets
+- Mask or truncate PII (show last 4 of card numbers)
+- Log references to sensitive data, not the data itself
+
+**Log storage:**
+- Centralized log aggregation (ELK, Splunk, CloudWatch)
+- Separate storage from application data
+- Cross-region replication for availability
+
+**Log protection:**
+- Append-only storage (no modification or deletion)
+- Integrity verification (hash chains, signing)
+- Encryption at rest and in transit
+- Access logging for audit logs (who viewed logs)
+
+**Retention policy:**
+- Define per-event-type retention periods
+- Comply with regulatory requirements (PCI: 1y, HIPAA: 6y)
+- Secure deletion after retention period expires
+''')
   String? content;
 
   /// Event Attribute Policy.
@@ -6190,7 +6956,47 @@ class LogRetentionPolicy {
 /// privilege usage reports, anomaly detection, and regulatory audit support.
 @SectionId('PD00-ACC-AUD-COM')
 class ComplianceReporting {
-  @Unused()
+  @ContentHelp('''
+Define compliance reporting requirements to satisfy regulatory audits and
+internal governance.
+
+**Periodic access reviews:**
+- Quarterly/annual user access recertification
+- Manager certification of direct reports’ access
+- Privileged account review (monthly or more frequent)
+- Orphaned account detection and remediation
+- Dormant account reporting and deactivation
+
+**Privilege usage reports:**
+- Privileged action audit reports
+- Emergency access usage (break-glass)
+- Elevated privilege duration and justification
+- Segregation of duties violation reports
+
+**Anomaly detection:**
+- Unusual access patterns (time, location, volume)
+- Impossible travel detection
+- Behavioral analytics and UEBA integration
+- Automated alerting for high-risk anomalies
+
+**Regulatory audit support:**
+- Pre-built compliance reports (SOC 2, PCI, HIPAA)
+- Evidence collection automation
+- Audit trail export capabilities
+- Control attestation documentation
+
+**Report delivery:**
+- Automated scheduled reports to stakeholders
+- On-demand report generation
+- Dashboard views for continuous monitoring
+- Secure report storage and access control
+
+**Compliance frameworks:**
+- SOC 2: CC6.1–CC6.3 (access controls), CC7.1–CC7.5 (monitoring)
+- PCI DSS 10: Track and monitor access
+- HIPAA §164.312: Access controls and audit
+- ISO 27001: A.9 Access control, A.12 Logging
+''')
   String? content;
 
   /// Periodic Review Policy.

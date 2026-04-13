@@ -4,7 +4,7 @@ This document tracks the synchronization between `pd_template.md` (source of tru
 
 **Status:** Active  
 **Created:** 2025-01-24  
-**Last Updated:** 2026-04-12 (PD00-ACC-AUD-*: Audit and Logging restructure)
+**Last Updated:** 2026-04-13 (PD00-ACC-*: Add @ContentHelp to 27 Access and Authorization sections)
 
 ---
 
@@ -449,34 +449,34 @@ All 317 sections from `pd_template.md` with content migration status.
 
 | # | Section ID | Section Name | Model Status | Content Status |
 |---|------------|--------------|--------------|----------------|
-| 156 | PD00-ACC | Access and Authorization Concept | ✅ Exists | ⬜ |
-| 157 | PD00-ACC-USE | User Management | ✅ Exists | ⬜ |
-| 158 | PD00-ACC-USE-CAT | User Categories | ✅ Exists | ⬜ |
-| 159 | PD00-ACC-USE-LIF | User Lifecycle | ❓ Missing | ⬜ |
-| 160 | PD00-ACC-USE-ATT | User Attributes | ✅ Exists | ⬜ |
-| 161 | PD00-ACC-IDE | Identification and Authentication | ✅ Exists | ⬜ |
-| 162 | PD00-ACC-IDE-MET | Authentication Methods | ❓ Missing | ⬜ |
-| 163 | PD00-ACC-IDE-FLO | Authentication Flow | ❓ Missing | ⬜ |
-| 164 | PD00-ACC-IDE-POL | Password and Credential Policy | ❓ Missing | ⬜ |
-| 165 | PD00-ACC-IDE-SES | Session Management | ❓ Missing | ⬜ |
-| 166 | PD00-ACC-RES | Resource Protection | ✅ Exists | ⬜ |
-| 167 | PD00-ACC-RES-DAT | Data-Level Security | ❓ Missing | ⬜ |
-| 168 | PD00-ACC-RES-API | API Security | ❓ Missing | ⬜ |
-| 169 | PD00-ACC-RES-FIL | File and Storage Security | ❓ Missing | ⬜ |
-| 170 | PD00-ACC-USA | User Authorization | ✅ Exists | ⬜ |
+| 156 | PD00-ACC | Access and Authorization Concept | ✅ Exists | ✅ |
+| 157 | PD00-ACC-USE | User Management | ✅ Exists | ✅ |
+| 158 | PD00-ACC-USE-CAT | User Categories | ✅ Exists | ✅ |
+| 159 | PD00-ACC-USE-LIF | User Lifecycle | ✅ Exists | ✅ |
+| 160 | PD00-ACC-USE-ATT | User Attributes | ✅ Exists | ✅ |
+| 161 | PD00-ACC-IDE | Identification and Authentication | ✅ Exists | ✅ |
+| 162 | PD00-ACC-IDE-MET | Authentication Methods | ✅ Exists | ✅ |
+| 163 | PD00-ACC-IDE-FLO | Authentication Flow | ✅ Exists | ✅ |
+| 164 | PD00-ACC-IDE-POL | Password and Credential Policy | ✅ Exists | ✅ |
+| 165 | PD00-ACC-IDE-SES | Session Management | ✅ Exists | ✅ |
+| 166 | PD00-ACC-RES | Resource Protection | ✅ Exists | ✅ |
+| 167 | PD00-ACC-RES-DAT | Data-Level Security | ✅ Exists | ✅ |
+| 168 | PD00-ACC-RES-API | API Security | ✅ Exists | ✅ |
+| 169 | PD00-ACC-RES-FIL | File and Storage Security | ✅ Exists | ✅ |
+| 170 | PD00-ACC-USA | User Authorization | ✅ Exists | ✅ |
 | 171 | PD00-ACC-USA-MOD | Authorization Model | ✅ Detailed | ✅ |
 | 172 | PD00-ACC-USA-ROL | Role Definitions | ✅ Detailed | ✅ |
 | 173 | PD00-ACC-USA-ROL-01 | Sample: System Administrator | ✅ Covered | ✅ |
 | 174 | PD00-ACC-USA-ROH | Role Hierarchy | ✅ Detailed | ✅ |
-| 175 | PD00-ACC-USA-TEN | Tenant Isolation | ❓ Missing | ⬜ |
-| 176 | PD00-ACC-SEN | Sensitive Data Encryption | ✅ Exists | ⬜ |
-| 177 | PD00-ACC-SEN-RES | Encryption at Rest | ❓ Missing | ⬜ |
-| 178 | PD00-ACC-SEN-TRA | Encryption in Transit | ❓ Missing | ⬜ |
-| 179 | PD00-ACC-SEN-KEY | Key Management | ❓ Missing | ⬜ |
-| 180 | PD00-ACC-AUD | Audit and Logging | ✅ Exists | ⬜ |
-| 181 | PD00-ACC-AUD-EVE | Security Events | ❓ Missing | ⬜ |
-| 182 | PD00-ACC-AUD-FMT | Audit Log Format | ❓ Missing | ⬜ |
-| 183 | PD00-ACC-AUD-COM | Compliance Reporting | ❓ Missing | ⬜ |
+| 175 | PD00-ACC-USA-TEN | Tenant Isolation | ✅ Exists | ✅ |
+| 176 | PD00-ACC-SEN | Sensitive Data Encryption | ✅ Exists | ✅ |
+| 177 | PD00-ACC-SEN-RES | Encryption at Rest | ✅ Exists | ✅ |
+| 178 | PD00-ACC-SEN-TRA | Encryption in Transit | ✅ Exists | ✅ |
+| 179 | PD00-ACC-SEN-KEY | Key Management | ✅ Exists | ✅ |
+| 180 | PD00-ACC-AUD | Audit and Logging | ✅ Exists | ✅ |
+| 181 | PD00-ACC-AUD-EVE | Security Events | ✅ Exists | ✅ |
+| 182 | PD00-ACC-AUD-FMT | Audit Log Format | ✅ Exists | ✅ |
+| 183 | PD00-ACC-AUD-COM | Compliance Reporting | ✅ Exists | ✅ |
 
 ### 2.10. Chapter 10: User Interface Design and Prototype [PD00-USE]
 
