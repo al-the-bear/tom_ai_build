@@ -11,7 +11,51 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 @SectionId('PD00-USE')
 @Comment('Seeds → UP')
 class UserInterfaceDesign {
-  @Unused()
+  @ContentHelp('''
+Provide an executive overview of the User Interface Design, establishing the
+foundation for all visual and interactive aspects of the application.
+
+**Purpose:**
+This section bridges business requirements and visual implementation. It ensures
+the UI supports all business processes, respects authorization boundaries, and
+provides a consistent user experience across all application areas.
+
+**Section structure:**
+1. **Design Vision** — Goals, principles, and user personas that guide all UI decisions
+2. **Screen Descriptions** — Detailed inventory of all application screens
+3. **Screen Flow Structure** — Navigation paths and user journeys through the application
+4. **Print Layout** — Reports, exports, and print output formats
+5. **Data Structure Alignment** — Mapping of UI fields to data model entities
+6. **Authorization Compliance** — UI adaptation based on user roles and permissions
+7. **Error Handling** — User feedback for validation errors and system failures
+8. **Help Concept** — Contextual help, tooltips, onboarding, and documentation
+9. **Accessibility** — WCAG compliance, keyboard navigation, screen reader support
+10. **Responsive Design** — Layout adaptation for desktop, tablet, and mobile
+11. **UI Components** — Reusable component library and design system
+12. **Multi-language Support** — Internationalization and localization approach
+13. **Prototype** — Clickable prototype deliverables and fidelity levels
+
+**Flutter UI framework context:**
+This specification targets Flutter-based UI using the Tom UI framework:
+- Observable state binding via `TomObject<T>` and `TomClass`
+- Form system with typed fields, validation, and resource lookup
+- Action system for user interactions and command execution
+- Authorization-aware widgets with four-state visibility model
+- Resource-based text, icons, and configuration
+- Theming system for consistent visual styling
+
+**Specification depth:**
+The UI specification should be detailed enough to specify every screen, field,
+button, icon, label, tooltip, error message, layout breakpoint, and interaction
+pattern. The structure allows progressive refinement from high-level wireframes
+to pixel-perfect designs with exact typography and spacing.
+
+**Cross-references:**
+- Data Model (section 7) → field mappings and data types
+- Authorization Concept (section 9) → role-based UI visibility
+- Business Processes (section 6) → user task flows
+- Requirements (section 4) → functional requirements for each screen
+''')
   String? content;
 
   /// 10.1. Design Vision [PD00-USE-VIS]. Seeds → UP.
@@ -64,7 +108,27 @@ class UserInterfaceDesign {
 /// principles, and user personas that guide all UI decisions.
 @SectionId('PD00-USE-VIS')
 class DesignVision {
-  @Unused()
+  @ContentHelp('''
+## Design Vision (10.1)
+
+Overall design vision governing all UI decisions.
+
+### Subsections
+- **10.1.1 Design Goals** — Prioritized UI objectives (simplicity, efficiency, accessibility)
+- **10.1.2 Design Principles** — Guiding principles (progressive disclosure, direct manipulation)
+- **10.1.3 User Personas** — Distinct user archetypes with goals/pain points
+
+### Tom UI Framework Context
+Design vision informs:
+- Widget selection and customization
+- Color schemes and theming via `TomTheme`
+- Spacing and typography scales
+- Interaction patterns and feedback timing
+
+### Specification Notes
+Document the visual language and interaction vocabulary — how the Tom UI component 
+library will be configured and extended to express this vision.
+''')
   String? content;
 
   /// 10.1.1. Design Goals [PD00-USE-VIS-GOA].
@@ -87,7 +151,28 @@ class DesignVision {
 /// accessibility, consistency, delight. Goals are prioritized for the project.
 @SectionId('PD00-USE-VIS-GOA')
 class DesignGoals {
-  @Unused()
+  @ContentHelp('''
+## Design Goals (10.1.1)
+
+Prioritized UI objectives the system must achieve.
+
+### Goal Categories
+- **Usability** — Task completion, learnability, error prevention
+- **Performance** — Perceived speed, responsiveness, load times
+- **Accessibility** — WCAG compliance level, assistive tech support
+- **Aesthetics** — Visual appeal, brand alignment, delight
+- **Engagement** — User retention, feature adoption
+
+### Form Fields Guide
+**goalName**: Concise label ("Zero-Click Ordering")
+**measurementCriteria**: Specific test ("95% can complete in <3 clicks")
+**targetMetric**: Quantified target ("<2s load time on 3G")
+**relatedPrinciples**: Cross-reference to VIS-PRI entries
+
+### Tom UI Mapping
+Goals drive widget configuration — e.g., performance goals → lazy loading, 
+accessibility goals → semantic labels and focus management.
+''')
   String? content;
 
   /// Overview of the design goal framework and prioritization approach.
@@ -130,7 +215,31 @@ class DesignGoalEntry {
 /// manipulation, feedback, consistency, error prevention.
 @SectionId('PD00-USE-VIS-PRI')
 class DesignPrinciples {
-  @Unused()
+  @ContentHelp('''
+## Design Principles (10.1.2)
+
+Guiding principles for all UI decisions.
+
+### Principle Categories
+- **Visual** — Hierarchy, whitespace, color usage, typography
+- **Interaction** — Feedback, affordance, direct manipulation
+- **Accessibility** — Perceivable, operable, understandable, robust
+- **Information** — Progressive disclosure, chunking, scent
+- **Navigation** — Wayfinding, landmarks, predictability
+
+### Form Fields Guide
+**principleName**: Clear label ("Progressive Disclosure")
+**rationale**: Why it matters for this project
+**examples**: Concrete UI manifestations
+**exceptions**: When deviation is acceptable
+
+### Tom UI Mapping
+Principles configure shared behaviors:
+- Animation curves via `TomAnimations`
+- Feedback patterns via `TomFeedback`
+- Spacing/rhythm via `TomSpacing`
+- Typography scale via `TomTypography`
+''')
   String? content;
 
   /// Overview of the design principle framework.
@@ -175,7 +284,32 @@ class UiDesignPrincipleEntry {
 /// user archetype with goals, pain points, and context.
 @SectionId('PD00-USE-VIS-PER')
 class UserPersonas {
-  @Unused()
+  @ContentHelp('''
+## User Personas (10.1.3)
+
+User archetype definitions driving UI personalization.
+
+### Persona Structure
+Each persona includes:
+- Demographics and role context
+- Technical proficiency and device preferences
+- Goals, pain points, and key scenarios
+- Accessibility needs
+
+### Form Fields Guide
+**personaName**: Name + role ("Marco, Finance Manager")
+**technicalProficiency**: Beginner/Intermediate/Advanced with context
+**accessibilityNeeds**: Visual/Motor/Cognitive/None
+**quote**: Representative voice capturing their perspective
+
+### Tom UI Mapping
+Personas inform:
+- Default settings per user category
+- Feature visibility/hiding
+- Onboarding flows
+- Help topic prioritization
+- Responsive breakpoint priorities
+''')
   String? content;
 
   /// Overview of persona research methodology and usage.
@@ -236,7 +370,21 @@ class PersonaEntry {
 /// 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
 @SectionId('PD00-USE-VIS-PER-xx-GOA')
 class PersonaGoals {
-  @Unused()
+  @ContentHelp('''
+## Persona Goals (10.1.3.n.1)
+
+Specific goals for this persona that drive feature requirements.
+
+### Form Fields Guide
+**goal**: Clear action ("Quickly approve pending invoices")
+**priority**: Critical/High/Medium/Low
+**frequency**: Daily/Weekly/Monthly/Occasional
+**desiredOutcome**: Success state description
+
+### Mapping to Screens
+Goals link to screens via requiredScreens in PersonaScenarios.
+High-priority goals drive primary screen actions and dashboard widgets.
+''')
   String? content;
 
   /// Contains 0+× PersonaGoal.
@@ -263,7 +411,25 @@ class PersonaGoalEntry {
 /// 10.1.3.n.2. Persona Pain Points [PD00-USE-VIS-PER-nn-PAI].
 @SectionId('PD00-USE-VIS-PER-xx-PAI')
 class PersonaPainPoints {
-  @Unused()
+  @ContentHelp('''
+## Persona Pain Points (10.1.3.n.2)
+
+Frustrations and obstacles this persona faces.
+
+### Form Fields Guide
+**painPoint**: Specific frustration ("Manual data re-entry across systems")
+**severity**: Critical/High/Medium/Low
+**impact**: Effect on productivity/satisfaction
+**workaround**: Current coping strategy
+**desiredSolution**: What would help
+
+### Design Implications
+High-severity pain points become design priorities:
+- Automation opportunities
+- Error prevention patterns
+- Streamlined workflows
+- Contextual help placement
+''')
   String? content;
 
   /// Contains 0+× PersonaPainPoint.
@@ -294,7 +460,25 @@ class PersonaPainPointEntry {
 /// Key usage scenarios for this persona — helps map personas to screens/flows.
 @SectionId('PD00-USE-VIS-PER-xx-SCE')
 class PersonaScenarios {
-  @Unused()
+  @ContentHelp('''
+## Persona Scenarios (10.1.3.n.3)
+
+Key usage scenarios for this persona — maps personas to screens/flows.
+
+### Form Fields Guide
+**scenarioName**: Action-oriented ("Approve Pending Orders")
+**frequency**: Daily/Weekly/Monthly/Occasional
+**urgency**: Time-sensitive nature
+**context**: Where/when this occurs
+**requiredScreens**: SCR-INV references needed
+**successMetric**: Measurable outcome
+
+### Traceability
+Scenarios link to:
+- Screen Inventory (SCR-INV) via requiredScreens
+- Screen Flow (SCF) via navigation paths
+- Use Cases (UC-xxx) via related requirements
+''')
   String? content;
 
   /// Contains 0+× PersonaScenario.
@@ -329,7 +513,30 @@ class PersonaScenarioEntry {
 /// 10.2. Screen Descriptions [PD00-USE-SCR].
 @SectionId('PD00-USE-SCR')
 class ScreenDescriptions {
-  @Unused()
+  @ContentHelp('''
+## Screen Descriptions (10.2)
+
+Comprehensive screen specifications for the application.
+
+### Subsections
+- **10.2.1 Screen Inventory** — Individual screen definitions
+- **10.2.2 Information Architecture** — Content organization and hierarchy
+
+### Tom UI Framework Integration
+Screens map to Flutter route definitions and scaffold configurations.
+Each screen specifies:
+- Layout structure (zones, sections)
+- UI elements (fields, buttons, displays)
+- Actions and their authorization
+- State management requirements
+
+### Specification Depth
+Each screen should have enough detail to generate:
+- Route registration
+- Scaffold layout code
+- State holder classes
+- Authorization checks
+''')
   String? content;
 
   /// 10.2.1. Screen Inventory [PD00-USE-SCR-INV].
@@ -349,7 +556,37 @@ class ScreenDescriptions {
 /// screen including its purpose, layout zones, elements, actions, and states.
 @SectionId('PD00-USE-SCR-INV')
 class ScreenInventory {
-  @Unused()
+  @ContentHelp('''
+## Screen Inventory (10.2.1)
+
+Complete catalog of application screens.
+
+### Screen Categories
+- **List** — Data tables with filtering/sorting
+- **Detail** — Single record view
+- **Form** — Data entry/editing
+- **Dashboard** — Aggregated metrics and widgets
+- **Settings** — Configuration screens
+- **Wizard** — Multi-step guided flows
+- **Dialog** — Modal interactions
+- **Report** — Formatted output views
+- **Landing** — Entry points and navigation hubs
+
+### Screen Entry Structure
+Each ScreenEntry includes:
+- Identity (ID, name, route pattern)
+- Authorization (roles, permissions, effect)
+- Sections (layout zones)
+- Elements (fields, displays, actions)
+- States (loading, empty, error, success)
+
+### Tom UI Mapping
+Screens generate TomScaffold configurations with:
+- AppBar setup
+- Drawer/navigation
+- Body layout
+- FAB/action buttons
+''')
   String? content;
 
   /// Overview of the screen inventory structure and conventions.
@@ -444,7 +681,32 @@ class ScreenEntry {
 /// Logical zones within a screen that group related elements.
 @SectionId('PD00-USE-SCR-INV-xx-SEC')
 class ScreenSections {
-  @Unused()
+  @ContentHelp('''
+## Screen Sections (10.2.1.n.1)
+
+Logical zones within a screen that group related elements.
+
+### Section Types
+- **Header** — Title bar and global actions
+- **Toolbar** — Primary action buttons
+- **Filter-Bar** — Search and filter controls
+- **Content-Primary** — Main content area
+- **Content-Secondary** — Supporting content
+- **Sidebar** — Navigation or context panels
+- **Footer** — Status and secondary actions
+- **Tab-Panel** — Tabbed content containers
+- **Accordion-Panel** — Collapsible sections
+- **Drawer** — Slide-out panels
+- **Action-Bar** — Contextual action buttons
+- **Form-Group** — Logical field groupings
+
+### Tom UI Mapping
+Sections map to Flutter layout widgets:
+- Row/Column for directional layout
+- Wrap for responsive content
+- GridView for structured grids
+- Visibility for collapsible sections
+''')
   String? content;
 
   /// Contains 0+× ScreenSection.
@@ -706,7 +968,25 @@ class ElementValidationRuleEntry {
 /// Top-level actions available on the screen (toolbar, app bar, FAB).
 @SectionId('PD00-USE-SCR-INV-xx-ACT')
 class ScreenActions {
-  @Unused()
+  @ContentHelp('''
+## Screen Actions (10.2.1.n.2)
+
+Top-level actions available on the screen.
+
+### Action Placements
+- **App-Bar** — Always visible, max 2-3 icons
+- **Toolbar** — Below app bar, primary operations
+- **FAB** — Prominent single primary action
+- **Context-Menu** — Right-click/long-press
+- **Overflow-Menu** — Secondary actions in ... menu
+
+### Tom UI Mapping
+Actions integrate with `TomAction` system:
+- Authorization checks via permission field
+- Confirmation dialogs via confirmationRequired
+- Keyboard shortcuts via keyboardShortcut
+- Success/error feedback via message resources
+''')
   String? content;
 
   /// Contains 0+× ScreenAction.
@@ -763,7 +1043,31 @@ class ScreenActionEntry {
 /// Different visual/behavioral states the screen can be in.
 @SectionId('PD00-USE-SCR-INV-xx-STA')
 class ScreenStates {
-  @Unused()
+  @ContentHelp('''
+## Screen States (10.2.1.n.3)
+
+Visual/behavioral states the screen can be in.
+
+### Common Screen States
+- **Loading** — Data fetching in progress
+- **Empty** — No data to display
+- **Error** — Load/save failure
+- **Permission-Denied** — Unauthorized access
+- **First-Use** — Onboarding prompts
+- **Offline** — No connectivity
+- **Success** — Transient confirmation
+
+### State Display
+Each state specifies:
+- Message and icon resources
+- Illustration (empty state graphic)
+- Primary/secondary actions
+- Auto-retry behavior
+
+### Tom UI Mapping
+States map to `TomStateWidget` with standardized skeletons,
+empty states, and error displays.
+''')
   String? content;
 
   /// Contains 0+× ScreenState.
@@ -852,7 +1156,24 @@ class ScreenResponsiveRuleEntry {
 /// and how content is organized across the application.
 @SectionId('PD00-USE-SCR-INF')
 class InformationArchitecture {
-  @Unused()
+  @ContentHelp('''
+## Information Architecture (10.2.2)
+
+Overall content organization and navigation structure.
+
+### Components
+- **Site Map** — Full screen hierarchy
+- **Content Hierarchy** — Logical grouping of features
+- **Navigation Structure** — How users move between screens
+- **Global Entry Points** — External access points
+- **Architecture Diagram** — Visual representation (mermaid)
+
+### Design Principles
+- Maximum 3 clicks to any feature
+- Clear wayfinding landmarks
+- Consistent mental model
+- Graceful degradation for authorization
+''')
   String? content;
 
   /// Site map overview.
@@ -878,7 +1199,22 @@ class InformationArchitecture {
 /// 10.3. Screen Flow Structure [PD00-USE-SCF].
 @SectionId('PD00-USE-SCF')
 class ScreenFlowStructure {
-  @Unused()
+  @ContentHelp('''
+## Screen Flow Structure (10.3)
+
+Navigation model and screen flow diagrams.
+
+### Subsections
+- **10.3.1 Navigation Model** — Comprehensive navigation structure
+- **10.3.2 Screen Flow Diagram** — Mermaid flowchart
+
+### Tom UI Integration
+Screen flow drives:
+- Router configuration (go_router)
+- Transition animations
+- Navigation stack management
+- Deep link handling
+''')
   String? content;
 
   /// 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
@@ -898,7 +1234,27 @@ class ScreenFlowStructure {
 /// navigation, deep linking, navigation guards, and platform adaptation.
 @SectionId('PD00-USE-SCF-NAV')
 class NavigationModel {
-  @Unused()
+  @ContentHelp('''
+## Navigation Model (10.3.1)
+
+Comprehensive navigation structure definition.
+
+### Subsections
+- **10.3.1.1 Overview** — Strategy and landing screens
+- **10.3.1.2 Hierarchy** — Full navigation tree
+- **10.3.1.3 Primary** — Drawer/sidebar/bottom nav
+- **10.3.1.4 Secondary** — Tab bars, segmented controls
+- **10.3.1.5 Utility** — User menu, notifications, help
+- **10.3.1.6 Contextual** — Breadcrumbs, back, related links
+- **10.3.1.7 Deep Linking** — External URL entry points
+- **10.3.1.8 Guards** — Route protection (auth, unsaved)
+
+### Tom UI Mapping
+Navigation model generates:
+- `TomNavigator` configuration
+- `TomShell` scaffold setup
+- Route guards and redirects
+''')
   String? content;
 
   /// 10.3.1.1. Navigation Overview [PD00-USE-SCF-NAV-OVR].
@@ -966,7 +1322,28 @@ class NavigationOverview {
 /// Full navigation tree: groups and items forming the app's navigation structure.
 @SectionId('PD00-USE-SCF-NAV-HIE')
 class NavigationHierarchy {
-  @Unused()
+  @ContentHelp('''
+## Navigation Hierarchy (10.3.1.2)
+
+Full navigation tree: groups and items.
+
+### Structure
+- **Groups** — Logical groupings (Sales, Admin, Reports)
+- **Items** — Individual destinations within groups
+
+### Group Properties
+- Label, icon, description resources
+- Display order and collapsibility
+- Authorization (roles, permissions)
+- Badge aggregation from children
+
+### Item Properties
+- Target screen and route
+- Icons (normal and active variants)
+- Authorization and visibility conditions
+- Badges (count, dot, text)
+- Keyboard shortcuts
+''')
   String? content;
 
   /// Overview of the navigation hierarchy structure.
@@ -1131,7 +1508,29 @@ class PrimaryNavigation {
 /// In-page navigation: tab bars, segmented controls.
 @SectionId('PD00-USE-SCF-NAV-SEC')
 class SecondaryNavigation {
-  @Unused()
+  @ContentHelp('''
+## Secondary Navigation (10.3.1.4)
+
+In-page navigation: tab bars and segmented controls.
+
+### Tab Bar Properties
+- Host screen ID
+- Style (Material/Segmented/Pill/Scrollable)
+- Position (Top/Bottom/Left)
+- Default tab and persistence
+- Swipe and lazy loading behavior
+
+### Tab Item Properties
+- Label, icon, and content screen
+- Authorization and visibility
+- Badges for attention
+
+### Tom UI Mapping
+Tab bars map to `TomTabBar` with:
+- Swipe navigation on mobile
+- Lazy content loading
+- Permission-aware tab visibility
+''')
   String? content;
 
   /// Overview of secondary navigation patterns.
@@ -1214,7 +1613,29 @@ class TabItemEntry {
 /// Always-visible utility items: user menu, notifications, help, settings.
 @SectionId('PD00-USE-SCF-NAV-UTL')
 class UtilityNavigation {
-  @Unused()
+  @ContentHelp('''
+## Utility Navigation (10.3.1.5)
+
+Always-visible utility items in app bar.
+
+### Common Utilities
+- **User Menu** — Avatar with profile/settings/logout
+- **Notifications** — Bell with unread count
+- **Help** — Documentation access
+- **Settings** — Quick preferences
+
+### Item Properties
+- Position (AppBar-Leading/Trailing, Drawer-Footer)
+- Widget type (Icon-Button/Avatar/Dropdown/Popup)
+- Badge display (count, dot)
+- Interaction (Navigate/Popup/Drawer/Sheet/Dialog)
+
+### Menu Items
+Dropdown/popup menus have nested items with:
+- Label, icon, display order
+- Action type (Navigate/Action/External)
+- Danger styling and confirmation
+''')
   String? content;
 
   /// Contains 0+× UtilityNavigationItem.
@@ -1299,7 +1720,26 @@ class UtilityMenuItemEntry {
 /// Breadcrumbs, back navigation, related links.
 @SectionId('PD00-USE-SCF-NAV-CTX')
 class ContextualNavigation {
-  @Unused()
+  @ContentHelp('''
+## Contextual Navigation (10.3.1.6)
+
+Breadcrumbs, back navigation, related links.
+
+### Breadcrumbs
+- Platform visibility (desktop-only typical)
+- Max visible items before collapse
+- Home item configuration
+- Separator style
+- Position in page layout
+
+### Back Navigation
+- System back vs in-app back
+- Platform-specific behavior
+
+### Related Links
+- "See also" navigation
+- Cross-entity links
+''')
   String? content;
 
   /// 10.3.1.6.1. Breadcrumb Configuration [PD00-USE-SCF-NAV-CTX-BRD].
@@ -1349,7 +1789,25 @@ class BreadcrumbConfiguration {
 /// External entry points, URL patterns, share links.
 @SectionId('PD00-USE-SCF-NAV-DPL')
 class DeepLinking {
-  @Unused()
+  @ContentHelp('''
+## Deep Linking (10.3.1.7)
+
+External entry points and shareable URLs.
+
+### Pattern Properties
+- URL pattern with parameters
+- Target screen and description
+- Authentication requirements
+- Permission checks
+- Fallback routes
+- Share enablement
+
+### Use Cases
+- Email links to specific records
+- Push notification targets
+- External system integrations
+- Bookmarkable pages
+''')
   String? content;
 
   /// Deep linking strategy overview.
@@ -1391,7 +1849,29 @@ class DeepLinkPatternEntry {
 /// Route guards: unsaved changes, authentication redirects, permission checks.
 @SectionId('PD00-USE-SCF-NAV-GRD')
 class NavigationGuards {
-  @Unused()
+  @ContentHelp('''
+## Navigation Guards (10.3.1.8)
+
+Route protection for unsaved changes, auth, permissions.
+
+### Guard Types
+- **Unsaved-Changes** — Confirm discard
+- **Authentication** — Redirect to login
+- **Permission** — Block/redirect unauthorized
+- **Feature-Flag** — Hide unreleased features
+- **Onboarding** — Require initial setup
+- **Maintenance** — Show maintenance page
+
+### Guard Properties
+- Trigger condition (e.g., form.isDirty)
+- Routes/screens covered
+- Dialog resources (title, message, buttons)
+- Redirect target
+- Priority for multi-guard ordering
+
+### Tom UI Mapping
+Guards integrate with `TomRouter` middleware.
+''')
   String? content;
 
   /// Overview of navigation guard strategy.
