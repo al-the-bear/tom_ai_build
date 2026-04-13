@@ -11,7 +11,26 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 @SectionId('PD00-TAR')
 @Comment('Seeds → BP, UC')
 class TargetBusinessProcessModel {
-  @Unused()
+  @ContentHelp('''
+Overview of target business processes the system will support. This section
+establishes the process vision, documents key processes with their triggers,
+actors, inputs/outputs, and performance expectations, and defines actor
+interactions that seed use case development.
+
+**Key Activities:**
+- Define process vision and design principles
+- Create process catalog with comprehensive process definitions
+- Identify actors and their goals, permissions, and technology profiles
+- Document key interactions following Cockburn use case patterns
+- Map end-to-end scenarios showing user journeys
+
+**Best Practices:**
+- Follow BPMN 2.0 notation for process diagrams
+- Use APQC Process Classification Framework for process categorization
+- Apply Cockburn-style goal levels (summary/user/subfunction)
+- Define RACI for all process roles
+- Include performance KPIs and SLAs for each process
+''')
   String? content;
 
   /// 6.1. Business Process Descriptions [PD00-TAR-PRO]. Seeds → BP.
@@ -37,7 +56,20 @@ class TargetBusinessProcessModel {
 @SectionId('PD00-TAR-PRO')
 @Comment('Seeds → BP')
 class BusinessProcessDescriptions {
-  @Unused()
+  @ContentHelp('''
+Target business processes at a high level. Each process will be expanded with
+detailed workflows, triggers, decision points, and exception handling in the
+BP (Business Processes) document.
+
+**Subsections:**
+- Process Vision — overall transformation vision and success criteria
+- Design Principles — guiding principles for process design
+- Process Catalog — comprehensive process definitions (1+ required)
+- Process Overview Diagram — landscape and value chain views
+- Improvement Summary — expected benefits and business case
+
+**Seeds:** BP (Business Processes) document
+''')
   String? content;
 
   /// 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
@@ -822,7 +854,23 @@ class ImprovementBusinessCase {
 /// Process relationships and dependencies (supplementary section).
 @SectionId('PD00-TAR-PRO-REL')
 class ProcessRelationships {
-  @Unused()
+  @ContentHelp('''
+Process relationships map dependencies, data flows, and sequencing between
+processes. Understanding these relationships is critical for integration
+design and identifying optimization opportunities.
+
+**Relationship Types:**
+- Triggers — one process starts another
+- Feeds — output of one becomes input to another
+- Depends on — must complete before another starts
+- Parallel with — can run concurrently with another
+
+**Best Practices:**
+- Map all inter-process data exchanges
+- Identify timing dependencies and constraints
+- Document API/integration points between processes
+- Highlight bottleneck relationships for optimization
+''')
   String? content;
 
   /// Contains 0+× process relationship.
@@ -861,7 +909,24 @@ class ProcessRelationshipEntry {
 @SectionId('PD00-TAR-STP')
 @Comment('Seeds → UC')
 class ProcessStepsAndActorInteractions {
-  @Unused()
+  @ContentHelp('''
+Key process steps with their actor interactions. Each interaction will be
+expanded into a full use case with alternate paths, preconditions, and
+postconditions in the UC (Use Cases) document.
+
+**Subsections:**
+- Actor Overview — comprehensive actor definitions with goals and permissions
+- Interaction Catalog — use case seeds following Cockburn patterns (1+ required)
+- Key Scenarios — end-to-end user journey descriptions (1+ required)
+
+**Best Practices:**
+- Follow Cockburn goal levels: +summary, !user, -subfunction
+- Use active verb phrases for interaction names ("Submit Registration")
+- Include MoSCoW prioritization (must/should/could/won't)
+- Map interactions to processes (BP-xxx) and requirements (REQ-xxx)
+
+**Seeds:** UC (Use Cases) document
+''')
   String? content;
 
   /// Section overview.
@@ -939,7 +1004,24 @@ class ActorDiagramOverview {
 /// modeling conventions with Cockburn-style goal and scope annotations.
 @SectionId('PD00-TAR-STP-ACT')
 class ActorOverview {
-  @Unused()
+  @ContentHelp('''
+Actors represent roles that interact with the system. Following UML actor
+modeling conventions with Cockburn-style goal and scope annotations.
+
+**Actor Categories:**
+- Primary — actors who initiate interactions to achieve goals
+- Secondary — actors who support primary actors
+- Offstage — stakeholders with interests but no direct interaction
+- System — external systems that interact via APIs/integrations
+- Timer/Scheduled — time-triggered automated actors
+
+**For Each Actor Document:**
+- Identification (ID, name, type, category, organizational unit)
+- Characteristics (skills, usage patterns, accessibility needs)
+- Goals (summary/user/subfunction goals, pain points, motivations)
+- Permissions (security clearance, RBAC roles, approval limits)
+- Technology profile (channels, devices, authentication methods)
+''')
   String? content;
 
   /// Actor overview narrative.
@@ -1158,7 +1240,28 @@ class ActorInteractionsSummary {
 /// case following Cockburn's fully dressed use case template.
 @SectionId('PD00-TAR-STP-INT')
 class InteractionCatalog {
-  @Unused()
+  @ContentHelp('''
+Container for key interaction descriptions. Each interaction seeds a use case
+following Cockburn's fully dressed use case template.
+
+**For Each Interaction Document:**
+- Identification (use case name, goal level, design scope)
+- Scope & context (system boundary, assumptions, dependencies)
+- Stakeholders & interests (who cares and why)
+- Preconditions & triggers (what must be true, what starts it)
+- Postconditions & guarantees (minimal + success guarantees)
+- Main success scenario (numbered steps with actor/system actions)
+- Extensions (alternative and exception flows with branch points)
+- UI requirements preview (screens, forms, feedback)
+- Performance & security (response time, auth, audit)
+- Business rules & traceability (BR-xxx, REQ-xxx references)
+
+**Prioritize Using MoSCoW:**
+- Must Have — essential for MVP
+- Should Have — important but deferrable
+- Could Have — nice to have
+- Won't Have — explicitly out of scope
+''')
   String? content;
 
   /// Interaction catalog overview.
@@ -1555,7 +1658,29 @@ class InteractionTraceability {
 /// through sequences of interactions.
 @SectionId('PD00-TAR-STP-SCE')
 class KeyScenarios {
-  @Unused()
+  @ContentHelp('''
+End-to-end scenario descriptions showing how users achieve business goals
+through sequences of interactions. Scenarios bridge the gap between individual
+interactions and complete user journeys.
+
+**Scenario Types:**
+- Happy path — normal successful completion
+- Alternative flow — valid variations from main path
+- Exception/error — handling of failures and edge cases
+
+**For Each Scenario Document:**
+- Identification (ID, name, type, priority, complexity)
+- Context (preconditions, trigger, success/failure conditions)
+- Steps (numbered with actor, action, system response, UI element)
+- Alternative flows (branch points, conditions, outcomes)
+- Data requirements (input/output, test data, transformations)
+- Timing (total duration, user time, system time, wait time)
+- Validation (acceptance criteria, test scenario references)
+
+**Example Format:**
+"A new customer discovers the service, registers, completes verification,
+and places their first order."
+''')
   String? content;
 
   /// Scenario overview.

@@ -370,21 +370,21 @@ All 317 sections from `pd_template.md` with content migration status.
 
 | # | Section ID | Section Name | Model Status | Content Status |
 |---|------------|--------------|--------------|----------------|
-| 92 | PD00-TAR | Target Business Process Model | ✅ Exists | ⬜ |
-| 93 | PD00-TAR-PRO | Business Process Descriptions | ❓ Missing | ⬜ |
-| 94 | PD00-TAR-PRO-VIS | Process Vision | ❓ Missing | ⬜ |
-| 95 | PD00-TAR-PRO-PRI | Design Principles | ❓ Missing | ⬜ |
-| 96 | PD00-TAR-PRO-CAT | Process Catalog | ❓ Missing | ⬜ |
-| 97 | PD00-TAR-PRO-CAT-01 | Sample: Customer Onboarding | ❓ Missing | ⏭️ |
-| 98 | PD00-TAR-PRO-FLO | Process Overview Diagram | ❓ Missing | ⬜ |
-| 99 | PD00-TAR-PRO-IMP | Improvement Summary | ❓ Missing | ⬜ |
-| 100 | PD00-TAR-STP | Process Steps and Actor Interactions | ❓ Missing | ⬜ |
-| 101 | PD00-TAR-STP-ACT | Actor Overview | ❓ Missing | ⬜ |
-| 102 | PD00-TAR-STP-ACT-01 | Sample: Back-Office Administrator | ❓ Missing | ⏭️ |
-| 103 | PD00-TAR-STP-INT | Interaction Catalog | ❓ Missing | ⬜ |
-| 104 | PD00-TAR-STP-INT-01 | Sample: Submit Registration | ❓ Missing | ⏭️ |
-| 105 | PD00-TAR-STP-SCE | Key Scenarios | ❓ Missing | ⬜ |
-| 106 | PD00-TAR-STP-SCE-01 | Sample: New Customer Journey | ❓ Missing | ⏭️ |
+| 92 | PD00-TAR | Target Business Process Model | ✅ Exists | ✅ |
+| 93 | PD00-TAR-PRO | Business Process Descriptions | ✅ Exists | ✅ |
+| 94 | PD00-TAR-PRO-VIS | Process Vision | ✅ Exists | ✅ |
+| 95 | PD00-TAR-PRO-PRI | Design Principles | ✅ Exists | ✅ |
+| 96 | PD00-TAR-PRO-CAT | Process Catalog | ✅ Exists | ✅ |
+| 97 | PD00-TAR-PRO-CAT-01 | Sample: Customer Onboarding | ✅ Pattern | ⏭️ |
+| 98 | PD00-TAR-PRO-FLO | Process Overview Diagram | ✅ Exists | ✅ |
+| 99 | PD00-TAR-PRO-IMP | Improvement Summary | ✅ Exists | ✅ |
+| 100 | PD00-TAR-STP | Process Steps and Actor Interactions | ✅ Exists | ✅ |
+| 101 | PD00-TAR-STP-ACT | Actor Overview | ✅ Exists | ✅ |
+| 102 | PD00-TAR-STP-ACT-01 | Sample: Back-Office Administrator | ✅ Pattern | ⏭️ |
+| 103 | PD00-TAR-STP-INT | Interaction Catalog | ✅ Exists | ✅ |
+| 104 | PD00-TAR-STP-INT-01 | Sample: Submit Registration | ✅ Pattern | ⏭️ |
+| 105 | PD00-TAR-STP-SCE | Key Scenarios | ✅ Exists | ✅ |
+| 106 | PD00-TAR-STP-SCE-01 | Sample: New Customer Journey | ✅ Pattern | ⏭️ |
 
 ### 2.7. Chapter 7: Business Object and Data Model [PD00-BUS]
 
