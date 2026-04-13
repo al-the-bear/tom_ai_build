@@ -57,8 +57,8 @@ need decomposition into sub-sections to improve readability, maintainability, an
 | # | Class | Fields | File | Done |
 |---|-------|-------:|------|------|
 | 1 | ToolEntry | 129 | project_organization_process.dart | ✅ |
-| 2 | StageOverview | 75 | system_stage_plan.dart | ⬜ |
-| 3 | MigrationRiskEntry | 71 | system_overview.dart | ⬜ |
+| 2 | StageOverview | 75 | system_stage_plan.dart | ✅ |
+| 3 | MigrationRiskEntry | 71 | system_overview.dart | ✅ |
 | 4 | EnvironmentEntry | 69 | project_organization_process.dart | ⬜ |
 | 5 | DataMigrationStrategy | 65 | system_stage_plan.dart | ⬜ |
 | 6 | StagingStrategy | 65 | system_stage_plan.dart | ⬜ |

@@ -4627,13 +4627,61 @@ class MigrationRisks {
 /// through resolution.
 class MigrationRiskEntry {
   @Form([
-    // ─────────────────────────────────────────────────────────────────────
-    // Identification
-    // ─────────────────────────────────────────────────────────────────────
     Field('riskId', String, 'Risk ID', required: true,
         hint: 'Unique identifier (e.g., MIG-RISK-001)'),
     Field('riskTitle', String, 'Risk Title', required: true,
         hint: 'Concise risk name'),
+    Field('riskOwner', String, 'Risk Owner', required: true,
+        hint: 'Accountable for risk management'),
+  ])
+  String? content;
+
+  /// Risk identification details.
+  final MigrationRiskIdentification identification =
+      MigrationRiskIdentification();
+
+  /// Probability assessment.
+  final MigrationRiskProbability probability = MigrationRiskProbability();
+
+  /// Impact assessment.
+  final MigrationRiskImpact impact = MigrationRiskImpact();
+
+  /// Risk quantification.
+  final MigrationRiskQuantification quantification =
+      MigrationRiskQuantification();
+
+  /// Mitigation strategy.
+  final MigrationRiskMitigation mitigation = MigrationRiskMitigation();
+
+  /// Contingency planning.
+  final MigrationRiskContingency contingency = MigrationRiskContingency();
+
+  /// Risk indicators and monitoring.
+  final MigrationRiskIndicators indicators = MigrationRiskIndicators();
+
+  /// Ownership and tracking.
+  final MigrationRiskTracking tracking = MigrationRiskTracking();
+
+  /// Related items.
+  final MigrationRiskRelated related = MigrationRiskRelated();
+
+  /// History and lessons learned.
+  final MigrationRiskHistory history = MigrationRiskHistory();
+
+  /// Additional risk analysis narrative.
+  @ContentHelp('Extended risk analysis, scenario modeling, '
+      'or historical context.')
+  TextSection analysisNarrative = TextSection();
+
+  /// Mitigation action items (detailed).
+  @ContentHelp('Detailed breakdown of mitigation action items '
+      'with owners and deadlines.')
+  TextSection mitigationDetails = TextSection();
+}
+
+/// Risk identification details.
+class MigrationRiskIdentification {
+  @Form([
     Field('riskDescription', String, 'Risk Description', required: true,
         hint: 'Detailed description of the risk event'),
     Field('riskCategory', String, 'Risk Category',
@@ -4651,9 +4699,13 @@ class MigrationRiskEntry {
         hint: 'Migration phases where risk applies'),
     Field('affectedStreams', String, 'Affected Workstreams',
         hint: 'Data, application, infrastructure, etc.'),
-    // ─────────────────────────────────────────────────────────────────────
-    // Probability Assessment
-    // ─────────────────────────────────────────────────────────────────────
+  ])
+  String? content;
+}
+
+/// Probability assessment for migration risk.
+class MigrationRiskProbability {
+  @Form([
     Field('probabilityRating', String, 'Probability Rating',
         hint: 'Very High (>80%), High (60-80%), Medium (40-60%), Low (20-40%), Very Low (<20%)'),
     Field('probabilityScore', int, 'Probability Score (1-5)',
@@ -4662,9 +4714,13 @@ class MigrationRiskEntry {
         hint: 'Why this probability was assigned'),
     Field('probabilityTrend', String, 'Probability Trend',
         hint: 'Increasing, stable, decreasing'),
-    // ─────────────────────────────────────────────────────────────────────
-    // Impact Assessment
-    // ─────────────────────────────────────────────────────────────────────
+  ])
+  String? content;
+}
+
+/// Impact assessment for migration risk.
+class MigrationRiskImpact {
+  @Form([
     Field('overallImpactRating', String, 'Overall Impact Rating',
         hint: 'Critical, High, Medium, Low, Minimal'),
     Field('overallImpactScore', int, 'Overall Impact Score (1-5)'),
@@ -4685,9 +4741,13 @@ class MigrationRiskEntry {
         hint: 'Regulatory/audit implications'),
     Field('impactRationale', String, 'Impact Rationale',
         hint: 'Justification for impact assessment'),
-    // ─────────────────────────────────────────────────────────────────────
-    // Risk Quantification
-    // ─────────────────────────────────────────────────────────────────────
+  ])
+  String? content;
+}
+
+/// Risk quantification for migration risk.
+class MigrationRiskQuantification {
+  @Form([
     Field('riskScore', int, 'Risk Score',
         hint: 'Probability × Impact (1-25)'),
     Field('riskPriority', String, 'Risk Priority',
@@ -4699,9 +4759,13 @@ class MigrationRiskEntry {
     Field('bestCaseScenario', String, 'Best Case Scenario',
         hint: 'Minimum impact if mitigated'),
     Field('mostLikelyScenario', String, 'Most Likely Scenario'),
-    // ─────────────────────────────────────────────────────────────────────
-    // Mitigation
-    // ─────────────────────────────────────────────────────────────────────
+  ])
+  String? content;
+}
+
+/// Mitigation strategy for migration risk.
+class MigrationRiskMitigation {
+  @Form([
     Field('responseStrategy', String, 'Response Strategy',
         hint: 'Avoid, mitigate, transfer, accept'),
     Field('mitigationDescription', String, 'Mitigation Strategy',
@@ -4721,9 +4785,13 @@ class MigrationRiskEntry {
         hint: 'Impact after mitigation'),
     Field('residualRiskScore', int, 'Residual Risk Score',
         hint: 'Risk score after mitigation'),
-    // ─────────────────────────────────────────────────────────────────────
-    // Contingency
-    // ─────────────────────────────────────────────────────────────────────
+  ])
+  String? content;
+}
+
+/// Contingency planning for migration risk.
+class MigrationRiskContingency {
+  @Form([
     Field('contingencyPlan', String, 'Contingency Plan',
         hint: 'Actions if risk materializes'),
     Field('contingencyTrigger', String, 'Contingency Trigger',
@@ -4735,9 +4803,13 @@ class MigrationRiskEntry {
         hint: 'Steps to revert if risk realized'),
     Field('recoveryTimeObjective', String, 'Recovery Time Objective',
         hint: 'Time to recover from risk event'),
-    // ─────────────────────────────────────────────────────────────────────
-    // Risk Indicators
-    // ─────────────────────────────────────────────────────────────────────
+  ])
+  String? content;
+}
+
+/// Risk indicators and monitoring.
+class MigrationRiskIndicators {
+  @Form([
     Field('earlyWarningIndicators', String, 'Early Warning Indicators',
         hint: 'Signs risk is about to materialize'),
     Field('riskTriggers', String, 'Risk Triggers',
@@ -4748,11 +4820,13 @@ class MigrationRiskEntry {
         hint: 'How often KRIs are checked'),
     Field('thresholdValues', String, 'Threshold Values',
         hint: 'Limits that trigger escalation'),
-    // ─────────────────────────────────────────────────────────────────────
-    // Ownership & Tracking
-    // ─────────────────────────────────────────────────────────────────────
-    Field('riskOwner', String, 'Risk Owner', required: true,
-        hint: 'Accountable for risk management'),
+  ])
+  String? content;
+}
+
+/// Ownership and tracking for migration risk.
+class MigrationRiskTracking {
+  @Form([
     Field('riskDelegate', String, 'Risk Delegate',
         hint: 'Day-to-day risk monitoring'),
     Field('escalationContact', String, 'Escalation Contact',
@@ -4768,9 +4842,13 @@ class MigrationRiskEntry {
         hint: 'When risk was closed'),
     Field('closureReason', String, 'Closure Reason',
         hint: 'Why risk was closed: mitigated, accepted, transferred, expired'),
-    // ─────────────────────────────────────────────────────────────────────
-    // Related Items
-    // ─────────────────────────────────────────────────────────────────────
+  ])
+  String? content;
+}
+
+/// Related items for migration risk.
+class MigrationRiskRelated {
+  @Form([
     Field('relatedRisks', String, 'Related Risks',
         hint: 'Risk IDs that are correlated'),
     Field('relatedIssues', String, 'Related Issues',
@@ -4781,9 +4859,13 @@ class MigrationRiskEntry {
         hint: 'Decisions affecting this risk'),
     Field('dependencyChain', String, 'Dependency Chain',
         hint: 'Other risks this depends on'),
-    // ─────────────────────────────────────────────────────────────────────
-    // History
-    // ─────────────────────────────────────────────────────────────────────
+  ])
+  String? content;
+}
+
+/// History and lessons learned for migration risk.
+class MigrationRiskHistory {
+  @Form([
     Field('previousScores', String, 'Previous Scores',
         hint: 'History of risk scores'),
     Field('previousStatuses', String, 'Previous Statuses',
@@ -4792,16 +4874,6 @@ class MigrationRiskEntry {
         hint: 'Insights from risk handling'),
   ])
   String? content;
-
-  /// Additional risk analysis narrative.
-  @ContentHelp('Extended risk analysis, scenario modeling, '
-      'or historical context.')
-  TextSection analysisNarrative = TextSection();
-
-  /// Mitigation action items (detailed).
-  @ContentHelp('Detailed breakdown of mitigation action items '
-      'with owners and deadlines.')
-  TextSection mitigationDetails = TextSection();
 }
 
 // ---------------------------------------------------------------------------
