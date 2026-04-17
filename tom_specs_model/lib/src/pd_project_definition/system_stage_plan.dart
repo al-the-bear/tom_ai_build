@@ -878,232 +878,46 @@ class StageSummaryEntry {
 /// planning, and PRINCE2 stage boundary management.
 class StageEntry {
   @Form([
-    // --- Identity & Classification ---
     Field('stageNumber', String, 'Stage Number',
         hint: '1, 2, 3… — sequential stage number',
         required: true),
     Field('stageName', String, 'Stage Name',
-        hint:
-            'Descriptive name, e.g. Foundation, Core Operations, '
-            'Analytics',
+        hint: 'Descriptive name, e.g. Foundation, Core Operations',
         required: true),
-    Field('stageCodename', String, 'Codename',
-        hint: 'Optional internal codename, e.g. Atlas, Phoenix'),
-    Field('stageDescription', String, 'Description',
-        hint:
-            'Brief description of what this stage delivers and why'),
-    Field('businessObjective', String, 'Business Objective',
-        hint:
-            'Primary business outcome this stage achieves — ties '
-            'to project business case'),
-    Field('stageType', String, 'Stage Type',
-        hint:
-            'Foundation / Incremental / Enhancement / Optimization '
-            '/ Migration / Decommissioning'),
-    // --- Timeline & Schedule ---
-    Field('plannedStartDate', String, 'Planned Start Date',
-        required: true),
-    Field('plannedEndDate', String, 'Planned End Date',
-        required: true),
-    Field('targetGoLiveDate', String, 'Target Go-Live Date',
-        hint: 'Date when stage deliverables go live to end users',
-        required: true),
-    Field('actualStartDate', String, 'Actual Start Date',
-        hint: 'Populated when stage begins'),
-    Field('actualEndDate', String, 'Actual End Date',
-        hint: 'Populated when stage completes'),
-    Field('durationPlanned', String, 'Planned Duration',
-        hint: 'e.g. 12 weeks, 3 months'),
-    Field('bufferDays', String, 'Buffer Days',
-        hint:
-            'Schedule buffer allocated to this stage — management '
-            'reserve or feeding buffer'),
-    Field('leadTimeDays', String, 'Lead Time',
-        hint:
-            'Required lead time before stage can begin — '
-            'procurement, approvals, environment setup'),
-    Field('freezePeriods', String, 'Freeze Periods',
-        hint:
-            'Periods during which no changes can be deployed — '
-            'holiday freeze, audit periods'),
-    // --- Scope & Features ---
-    Field('scopeSummary', String, 'Scope Summary',
-        hint:
-            'High-level summary of features and capabilities '
-            'included in this stage'),
-    Field('includedFeatures', String, 'Included Features',
-        hint:
-            'Key features/capabilities explicitly included — '
-            'comma-separated or numbered'),
-    Field('excludedDeferred', String, 'Excluded/Deferred Items',
-        hint:
-            'Features explicitly excluded and deferred to later '
-            'stages'),
-    Field('mvpScope', String, 'MVP Scope',
-        hint:
-            'Minimum viable scope if schedule compression is '
-            'needed — what must ship'),
-    Field('stretchGoals', String, 'Stretch Goals',
-        hint:
-            'Additional scope if the stage runs ahead of schedule'),
-    Field('featureCount', String, 'Feature Count',
-        hint:
-            'Number of features, user stories, or epics in this '
-            'stage'),
-    Field('storyPointEstimate', String, 'Story Point Estimate',
-        hint: 'Total estimated effort in story points — SAFe PI'),
-    Field('technicalDebtItems', String, 'Technical Debt Items',
-        hint:
-            'Known technical debt to be addressed in this stage'),
-    // --- Dependencies ---
-    Field('prerequisiteStages', String, 'Prerequisite Stages',
-        hint:
-            'Stages that must complete before this stage can '
-            'start — e.g. Stage 1, Stage 2'),
-    Field('parallelStages', String, 'Parallel Stages',
-        hint: 'Stages running concurrently with this stage'),
-    Field('externalDependencies', String, 'External Dependencies',
-        hint:
-            'Dependencies on external systems, vendors, third '
-            'parties, or regulatory approvals'),
-    Field('blockingRisks', String, 'Blocking Risks',
-        hint:
-            'Risks that could block stage start or completion'),
-    // --- Resources & Budget ---
-    Field('teamSize', String, 'Team Size',
-        hint: 'Number of team members allocated to this stage'),
-    Field('keyRoles', String, 'Key Roles Required',
-        hint:
-            'Critical roles needed — e.g. Solution Architect, '
-            'DBA, UX Designer, Security Engineer'),
-    Field('budgetAllocation', String, 'Budget Allocation',
-        hint: 'Budget allocated to this stage'),
-    Field('infrastructureNeeds', String, 'Infrastructure Needs',
-        hint:
-            'Environments, servers, cloud resources, licenses '
-            'needed'),
-    Field('toolingRequirements', String, 'Tooling Requirements',
-        hint:
-            'Software licenses, development tools, or third-party '
-            'services needed'),
-    // --- Quality & Governance ---
-    Field('entryCriteria', String, 'Entry Criteria',
-        hint:
-            'Conditions that must be met before the stage can '
-            'begin — predecessor sign-off, environment ready'),
-    Field('exitCriteria', String, 'Exit Criteria',
-        hint:
-            'Conditions that must be met for the stage to be '
-            'considered complete — all tests pass, UAT signed off'),
-    Field('qualityGates', String, 'Quality Gates',
-        hint:
-            'Formal checkpoints within the stage — design review, '
-            'code review, security review, UAT signoff'),
-    Field('testingStrategy', String, 'Testing Strategy',
-        hint:
-            'Testing approach for this stage — unit, integration, '
-            'E2E, UAT, performance, security, accessibility'),
-    Field('acceptanceCriteriaSummary', String,
-        'Acceptance Criteria Summary',
-        hint:
-            'High-level criteria for business acceptance of this '
-            'stage'),
-    Field('toleranceLevels', String, 'Tolerance Levels',
-        hint:
-            'PRINCE2 tolerances — time ±X days, cost ±Y%, '
-            'scope flexibility, quality thresholds'),
-    // --- Deployment & Rollout ---
-    Field('deploymentApproach', String, 'Deployment Approach',
-        hint:
-            'BlueGreen / Canary / RollingUpdate / BigBang / '
-            'DarkLaunch / FeatureFlags'),
-    Field('rollbackPlan', String, 'Rollback Plan',
-        hint:
-            'Strategy if deployment fails — automated rollback, '
-            'manual procedure, forward-fix'),
-    Field('rollbackTriggers', String, 'Rollback Triggers',
-        hint:
-            'Conditions that trigger a rollback — error rate '
-            'threshold, SLA breach, data corruption'),
-    Field('parallelOperationPeriod', String,
-        'Parallel Operation Period',
-        hint:
-            'Duration of old and new system running in parallel'),
-    Field('dataMigrationScope', String, 'Data Migration Scope',
-        hint:
-            'Data entities and volumes to be migrated in this '
-            'stage'),
-    Field('cutoverPlanSummary', String, 'Cutover Plan Summary',
-        hint: 'Key steps for switching from old to new system'),
-    Field('hypercarePeriod', String, 'Hypercare Period',
-        hint:
-            'Duration and scope of intensive post-go-live support '
-            '— e.g. 2 weeks, 24x7 on-call'),
-    // --- Stakeholders & Communication ---
-    Field('stageOwner', String, 'Stage Owner',
-        hint: 'Person accountable for stage delivery'),
-    Field('businessSponsor', String, 'Business Sponsor',
-        hint:
-            'Business stakeholder sponsoring and funding this '
-            'stage'),
-    Field('technicalLead', String, 'Technical Lead',
-        hint: 'Technical authority for this stage'),
-    Field('qaLead', String, 'QA Lead',
-        hint: 'Quality assurance lead for this stage'),
-    Field('changeManager', String, 'Change Manager',
-        hint:
-            'Person managing organizational change for this stage'),
-    Field('announcementPlan', String, 'Announcement Plan',
-        hint:
-            'How and when the stage and go-live will be '
-            'communicated to affected users'),
-    Field('trainingRequirements', String, 'Training Requirements',
-        hint:
-            'Training needed for end users, support staff, '
-            'and operators'),
-    Field('documentationUpdates', String, 'Documentation Updates',
-        hint:
-            'User guides, runbooks, SOPs requiring updates for '
-            'this stage'),
-    // --- Risk ---
-    Field('topRisks', String, 'Top Risks',
-        hint:
-            'Key risks specific to this stage — comma-separated'),
-    Field('riskMitigationStrategies', String,
-        'Risk Mitigation Strategies',
-        hint: 'Planned responses to top risks'),
-    Field('contingencyTriggers', String, 'Contingency Triggers',
-        hint:
-            'Conditions that activate contingency plans — e.g. '
-            'schedule slip >2 weeks, budget overrun >10%'),
-    Field('escalationPath', String, 'Escalation Path',
-        hint:
-            'Escalation process if stage encounters critical '
-            'issues — who to contact, decision authority'),
-    // --- Status & Metrics ---
     Field('currentStatus', String, 'Current Status',
-        hint:
-            'Planned / Active / Completed / OnHold / Cancelled'),
-    Field('completionPercentage', String, 'Completion %',
-        hint: '0-100 — current progress'),
-    Field('healthIndicator', String, 'Health Indicator',
-        hint:
-            'Green / Amber / Red — overall stage health based on '
-            'schedule, budget, scope, quality'),
-    Field('scheduleVariance', String, 'Schedule Variance',
-        hint:
-            'Days ahead or behind plan — e.g. +5 days, -3 days'),
-    Field('keyPerformanceIndicators', String,
-        'Key Performance Indicators',
-        hint:
-            'KPIs to measure stage success — adoption rate, error '
-            'rate, throughput, user satisfaction'),
-    Field('successThreshold', String, 'Success Threshold',
-        hint:
-            'Minimum measurable outcome required to declare stage '
-            'successful'),
+        hint: 'Planned / Active / Completed / OnHold / Cancelled'),
   ])
   String? content;
+
+  /// Identity and classification.
+  final StageIdentity identity = StageIdentity();
+
+  /// Timeline and schedule.
+  final StageTimeline timeline = StageTimeline();
+
+  /// Scope and features.
+  final StageScope scope = StageScope();
+
+  /// Dependencies.
+  final StageDependencies dependencies = StageDependencies();
+
+  /// Resources and budget.
+  final StageResources resources = StageResources();
+
+  /// Quality and governance.
+  final StageQuality quality = StageQuality();
+
+  /// Deployment and rollout.
+  final StageDeployment deployment = StageDeployment();
+
+  /// Stakeholders and communication.
+  final StageStakeholders stakeholders = StageStakeholders();
+
+  /// Risk.
+  final StageRisk risk = StageRisk();
+
+  /// Status and metrics.
+  final StageMetrics metrics = StageMetrics();
 
   /// Feature Scope narrative.
   @ContentHelp('Detailed feature scope for this stage: what is included '
@@ -1120,7 +934,7 @@ class StageEntry {
   @ContentHelp('Stage timeline details: key milestones, buffer allocation, '
       'critical path activities, dependencies on other stages, '
       'schedule risks, compression options, and go/no-go checkpoints.')
-  TextSection timeline = TextSection();
+  TextSection timelineNarrative = TextSection();
 
   /// Success Criteria [PD00-SSP-STG-nn-SUC] — contains 0+× StageSuccessCriterion.
   @SectionIdPattern('PD00-SSP-STG-xx-SUC-xx')
@@ -1132,6 +946,197 @@ class StageEntry {
       'rollback triggers and procedures, hypercare support model, '
       'communication plan, and user training schedule.')
   TextSection rolloutPlan = TextSection();
+}
+
+/// Identity and classification for a stage entry.
+class StageIdentity {
+  @Form([
+    Field('stageCodename', String, 'Codename',
+        hint: 'Optional internal codename, e.g. Atlas, Phoenix'),
+    Field('stageDescription', String, 'Description',
+        hint: 'Brief description of what this stage delivers'),
+    Field('businessObjective', String, 'Business Objective',
+        hint: 'Primary business outcome this stage achieves'),
+    Field('stageType', String, 'Stage Type',
+        hint: 'Foundation / Incremental / Enhancement / Optimization / Migration'),
+  ])
+  String? content;
+}
+
+/// Timeline and schedule for a stage entry.
+class StageTimeline {
+  @Form([
+    Field('plannedStartDate', String, 'Planned Start Date',
+        required: true),
+    Field('plannedEndDate', String, 'Planned End Date',
+        required: true),
+    Field('targetGoLiveDate', String, 'Target Go-Live Date',
+        hint: 'Date when stage deliverables go live',
+        required: true),
+    Field('actualStartDate', String, 'Actual Start Date',
+        hint: 'Populated when stage begins'),
+    Field('actualEndDate', String, 'Actual End Date',
+        hint: 'Populated when stage completes'),
+    Field('durationPlanned', String, 'Planned Duration',
+        hint: 'e.g. 12 weeks, 3 months'),
+    Field('bufferDays', String, 'Buffer Days',
+        hint: 'Schedule buffer allocated to this stage'),
+    Field('leadTimeDays', String, 'Lead Time',
+        hint: 'Required lead time before stage can begin'),
+    Field('freezePeriods', String, 'Freeze Periods',
+        hint: 'Periods during which no changes can be deployed'),
+  ])
+  String? content;
+}
+
+/// Scope and features for a stage entry.
+class StageScope {
+  @Form([
+    Field('scopeSummary', String, 'Scope Summary',
+        hint: 'High-level summary of features included in this stage'),
+    Field('includedFeatures', String, 'Included Features',
+        hint: 'Key features explicitly included'),
+    Field('excludedDeferred', String, 'Excluded/Deferred Items',
+        hint: 'Features explicitly excluded and deferred'),
+    Field('mvpScope', String, 'MVP Scope',
+        hint: 'Minimum viable scope if schedule compression is needed'),
+    Field('stretchGoals', String, 'Stretch Goals',
+        hint: 'Additional scope if the stage runs ahead of schedule'),
+    Field('featureCount', String, 'Feature Count',
+        hint: 'Number of features or user stories in this stage'),
+    Field('storyPointEstimate', String, 'Story Point Estimate',
+        hint: 'Total estimated effort in story points'),
+    Field('technicalDebtItems', String, 'Technical Debt Items',
+        hint: 'Known technical debt to be addressed'),
+  ])
+  String? content;
+}
+
+/// Dependencies for a stage entry.
+class StageDependencies {
+  @Form([
+    Field('prerequisiteStages', String, 'Prerequisite Stages',
+        hint: 'Stages that must complete before this stage can start'),
+    Field('parallelStages', String, 'Parallel Stages',
+        hint: 'Stages running concurrently with this stage'),
+    Field('externalDependencies', String, 'External Dependencies',
+        hint: 'Dependencies on external systems, vendors, or approvals'),
+    Field('blockingRisks', String, 'Blocking Risks',
+        hint: 'Risks that could block stage start or completion'),
+  ])
+  String? content;
+}
+
+/// Resources and budget for a stage entry.
+class StageResources {
+  @Form([
+    Field('teamSize', String, 'Team Size',
+        hint: 'Number of team members allocated'),
+    Field('keyRoles', String, 'Key Roles Required',
+        hint: 'Critical roles needed'),
+    Field('budgetAllocation', String, 'Budget Allocation',
+        hint: 'Budget allocated to this stage'),
+    Field('infrastructureNeeds', String, 'Infrastructure Needs',
+        hint: 'Environments, servers, cloud resources needed'),
+    Field('toolingRequirements', String, 'Tooling Requirements',
+        hint: 'Software licenses or third-party services needed'),
+  ])
+  String? content;
+}
+
+/// Quality and governance for a stage entry.
+class StageQuality {
+  @Form([
+    Field('entryCriteria', String, 'Entry Criteria',
+        hint: 'Conditions that must be met before the stage can begin'),
+    Field('exitCriteria', String, 'Exit Criteria',
+        hint: 'Conditions that must be met for stage completion'),
+    Field('qualityGates', String, 'Quality Gates',
+        hint: 'Formal checkpoints within the stage'),
+    Field('testingStrategy', String, 'Testing Strategy',
+        hint: 'Testing approach for this stage'),
+    Field('acceptanceCriteriaSummary', String, 'Acceptance Criteria Summary',
+        hint: 'High-level criteria for business acceptance'),
+    Field('toleranceLevels', String, 'Tolerance Levels',
+        hint: 'PRINCE2 tolerances — time, cost, scope, quality'),
+  ])
+  String? content;
+}
+
+/// Deployment and rollout for a stage entry.
+class StageDeployment {
+  @Form([
+    Field('deploymentApproach', String, 'Deployment Approach',
+        hint: 'BlueGreen / Canary / RollingUpdate / BigBang'),
+    Field('rollbackPlan', String, 'Rollback Plan',
+        hint: 'Strategy if deployment fails'),
+    Field('rollbackTriggers', String, 'Rollback Triggers',
+        hint: 'Conditions that trigger a rollback'),
+    Field('parallelOperationPeriod', String, 'Parallel Operation Period',
+        hint: 'Duration of old and new system running in parallel'),
+    Field('dataMigrationScope', String, 'Data Migration Scope',
+        hint: 'Data entities and volumes to be migrated'),
+    Field('cutoverPlanSummary', String, 'Cutover Plan Summary',
+        hint: 'Key steps for switching from old to new system'),
+    Field('hypercarePeriod', String, 'Hypercare Period',
+        hint: 'Duration of intensive post-go-live support'),
+  ])
+  String? content;
+}
+
+/// Stakeholders and communication for a stage entry.
+class StageStakeholders {
+  @Form([
+    Field('stageOwner', String, 'Stage Owner',
+        hint: 'Person accountable for stage delivery'),
+    Field('businessSponsor', String, 'Business Sponsor',
+        hint: 'Business stakeholder sponsoring this stage'),
+    Field('technicalLead', String, 'Technical Lead',
+        hint: 'Technical authority for this stage'),
+    Field('qaLead', String, 'QA Lead',
+        hint: 'Quality assurance lead'),
+    Field('changeManager', String, 'Change Manager',
+        hint: 'Person managing organizational change'),
+    Field('announcementPlan', String, 'Announcement Plan',
+        hint: 'How and when go-live will be communicated'),
+    Field('trainingRequirements', String, 'Training Requirements',
+        hint: 'Training needed for end users and support staff'),
+    Field('documentationUpdates', String, 'Documentation Updates',
+        hint: 'User guides, runbooks, SOPs requiring updates'),
+  ])
+  String? content;
+}
+
+/// Risk for a stage entry.
+class StageRisk {
+  @Form([
+    Field('topRisks', String, 'Top Risks',
+        hint: 'Key risks specific to this stage'),
+    Field('riskMitigationStrategies', String, 'Risk Mitigation Strategies',
+        hint: 'Planned responses to top risks'),
+    Field('contingencyTriggers', String, 'Contingency Triggers',
+        hint: 'Conditions that activate contingency plans'),
+    Field('escalationPath', String, 'Escalation Path',
+        hint: 'Escalation process for critical issues'),
+  ])
+  String? content;
+}
+
+/// Status and metrics for a stage entry.
+class StageMetrics {
+  @Form([
+    Field('completionPercentage', String, 'Completion %',
+        hint: '0-100 — current progress'),
+    Field('healthIndicator', String, 'Health Indicator',
+        hint: 'Green / Amber / Red'),
+    Field('scheduleVariance', String, 'Schedule Variance',
+        hint: 'Days ahead or behind plan'),
+    Field('keyPerformanceIndicators', String, 'Key Performance Indicators',
+        hint: 'KPIs to measure stage success'),
+    Field('successThreshold', String, 'Success Threshold',
+        hint: 'Minimum outcome required to declare success'),
+  ])
+  String? content;
 }
 
 /// A sub-stage or milestone entry (form) [PD00-SSP-STG-nn-SUB-nn].
@@ -1670,176 +1675,177 @@ class FeaturePriorityRegister {
 /// stakeholders, traceability, and status.
 class FeaturePriorityEntry {
   @Form([
-    // --- Feature Identity ---
     Field('featureId', String, 'Feature ID',
         hint: 'Unique identifier — e.g. FEA-001',
         required: true),
     Field('featureName', String, 'Feature Name',
         hint: 'Short descriptive name',
         required: true),
+    Field('priorityRank', String, 'Priority Rank',
+        hint: 'Ordinal rank — 1 = highest',
+        required: true),
+  ])
+  String? content;
+
+  /// Feature identity.
+  final FeatureIdentity identity = FeatureIdentity();
+
+  /// Business value.
+  final FeatureBusinessValue businessValue = FeatureBusinessValue();
+
+  /// Effort and complexity.
+  final FeatureEffort effort = FeatureEffort();
+
+  /// Priority scoring.
+  final FeaturePriorityScoring priorityScoring = FeaturePriorityScoring();
+
+  /// Stage assignment.
+  final FeatureStageAssignment stageAssignment = FeatureStageAssignment();
+
+  /// Dependencies.
+  final FeatureDependenciesInfo dependencies = FeatureDependenciesInfo();
+
+  /// Stakeholders.
+  final FeatureStakeholders stakeholders = FeatureStakeholders();
+
+  /// Traceability.
+  final FeatureTraceability traceability = FeatureTraceability();
+
+  /// Status.
+  final FeatureStatus status = FeatureStatus();
+}
+
+/// Feature identity for a feature priority entry.
+class FeatureIdentity {
+  @Form([
     Field('featureDescription', String, 'Description',
         hint: 'Detailed description of the feature capability'),
     Field('featureCategory', String, 'Category',
-        hint:
-            'Functional / NonFunctional / Regulatory / UX / '
-            'Infrastructure / Security / DataManagement / '
-            'Integration',
+        hint: 'Functional / NonFunctional / Regulatory / UX / Infrastructure',
         required: true),
     Field('featureSubCategory', String, 'Sub-Category',
-        hint:
-            'Finer classification — e.g. Authentication, '
-            'Reporting, Caching'),
+        hint: 'Finer classification'),
     Field('featureType', String, 'Feature Type',
-        hint:
-            'New / Enhancement / BugFix / TechnicalDebt / '
-            'Enabler / Exploration'),
+        hint: 'New / Enhancement / BugFix / TechnicalDebt / Enabler'),
     Field('featureSize', String, 'Feature Size',
         hint: 'XS / S / M / L / XL — T-shirt sizing'),
     Field('epicLink', String, 'Epic Link',
-        hint:
-            'Parent epic or theme — for portfolio-level '
-            'tracking'),
-    // --- Business Value ---
+        hint: 'Parent epic or theme'),
+  ])
+  String? content;
+}
+
+/// Business value for a feature priority entry.
+class FeatureBusinessValue {
+  @Form([
     Field('businessValueScore', String, 'Business Value Score',
-        hint:
-            'Numeric score — 1-10 or Fibonacci — used in '
-            'weighted scoring',
+        hint: 'Numeric score — 1-10 or Fibonacci',
         required: true),
     Field('revenueImpact', String, 'Revenue Impact',
-        hint:
-            'None / Low / Medium / High / Critical — expected '
-            'revenue impact'),
+        hint: 'None / Low / Medium / High / Critical'),
     Field('revenueEstimate', String, 'Revenue Estimate',
-        hint:
-            'Estimated revenue or savings — e.g. \$50K/year, '
-            '5% conversion increase'),
+        hint: 'Estimated revenue or savings'),
     Field('costOfDelay', String, 'Cost of Delay',
-        hint:
-            'Daily/weekly/monthly cost of not delivering — '
-            'financial or qualitative'),
-    Field('costOfDelayCategory', String,
-        'Cost of Delay Category',
-        hint:
-            'StandardDecay / FixedDate / UrgentPenalty / None '
-            '— SAFe CoD categorization'),
+        hint: 'Cost of not delivering'),
+    Field('costOfDelayCategory', String, 'Cost of Delay Category',
+        hint: 'StandardDecay / FixedDate / UrgentPenalty / None'),
     Field('strategicAlignment', String, 'Strategic Alignment',
-        hint:
-            'Low / Medium / High / Critical — alignment with '
-            'business strategy and OKRs',
+        hint: 'Low / Medium / High / Critical',
         required: true),
-    Field('strategicObjectiveLink', String,
-        'Strategic Objective Link',
-        hint:
-            'Which business objective or OKR this supports — '
-            'e.g. O1-KR3'),
+    Field('strategicObjectiveLink', String, 'Strategic Objective Link',
+        hint: 'Which business objective or OKR this supports'),
     Field('customerImpact', String, 'Customer Impact',
-        hint:
-            'Low / Medium / High — impact on customer '
-            'experience or satisfaction'),
+        hint: 'Low / Medium / High'),
     Field('userBaseAffected', String, 'User Base Affected',
-        hint:
-            'Percentage or count of users — e.g. 80% of active '
-            'users, 500 enterprises'),
-    Field('marketCompetitiveness', String,
-        'Market Competitiveness',
-        hint:
-            'TableStakes / Differentiator / Innovative / '
-            'CatchUp — market positioning'),
-    Field('regulatoryRequirement', String,
-        'Regulatory Requirement',
-        hint:
-            'None / Recommended / Mandatory — whether compliance '
-            'depends on this feature'),
+        hint: 'Percentage or count of users'),
+    Field('marketCompetitiveness', String, 'Market Competitiveness',
+        hint: 'TableStakes / Differentiator / Innovative / CatchUp'),
+    Field('regulatoryRequirement', String, 'Regulatory Requirement',
+        hint: 'None / Recommended / Mandatory'),
     Field('regulatoryDeadline', String, 'Regulatory Deadline',
-        hint:
-            'Hard compliance deadline — e.g. GDPR by 2025-Q2'),
-    // --- Effort & Complexity ---
+        hint: 'Hard compliance deadline'),
+  ])
+  String? content;
+}
+
+/// Effort and complexity for a feature priority entry.
+class FeatureEffort {
+  @Form([
     Field('estimatedEffort', String, 'Estimated Effort',
-        hint:
-            'Story points, person-days, or T-shirt size — '
-            'primary effort metric',
+        hint: 'Story points, person-days, or T-shirt size',
         required: true),
     Field('complexityRating', String, 'Complexity Rating',
-        hint:
-            'Low / Medium / High / VeryHigh — technical and '
-            'organizational complexity'),
+        hint: 'Low / Medium / High / VeryHigh'),
     Field('complexityFactors', String, 'Complexity Factors',
-        hint:
-            'Key sources — integration count, data migration, '
-            'UI complexity, algorithm difficulty'),
+        hint: 'Key sources of complexity'),
     Field('riskLevel', String, 'Risk Level',
-        hint:
-            'Low / Medium / High — delivery risk for this '
-            'feature',
+        hint: 'Low / Medium / High',
         required: true),
     Field('riskFactors', String, 'Risk Factors',
-        hint:
-            'Specific risks — novel technology, unclear reqs, '
-            'external dependency, performance'),
+        hint: 'Specific risks'),
     Field('technicalDebtImpact', String, 'Technical Debt Impact',
-        hint:
-            'Creates / Reduces / Neutral — effect on technical '
-            'debt'),
+        hint: 'Creates / Reduces / Neutral'),
     Field('dependencyCount', String, 'Dependency Count',
         hint: 'Number of features this depends on or blocks'),
-    Field('integrationComplexity', String,
-        'Integration Complexity',
-        hint:
-            'None / Low / Medium / High — integrations required'),
-    // --- Priority Scoring ---
-    Field('weightedPriorityScore', String,
-        'Weighted Priority Score',
-        hint:
-            'Calculated score from weighted criteria — e.g. '
-            '8.5 out of 10',
-        required: true),
-    Field('priorityRank', String, 'Priority Rank',
-        hint: 'Ordinal rank — 1 = highest',
+    Field('integrationComplexity', String, 'Integration Complexity',
+        hint: 'None / Low / Medium / High'),
+  ])
+  String? content;
+}
+
+/// Priority scoring for a feature priority entry.
+class FeaturePriorityScoring {
+  @Form([
+    Field('weightedPriorityScore', String, 'Weighted Priority Score',
+        hint: 'Calculated score from weighted criteria',
         required: true),
     Field('moscowTier', String, 'MoSCoW Tier',
         hint: 'Must / Should / Could / Wont',
         required: true),
     Field('wsjfScore', String, 'WSJF Score',
-        hint:
-            'Weighted Shortest Job First score — CoD / JobSize'),
+        hint: 'Weighted Shortest Job First score — CoD / JobSize'),
     Field('kanoClassification', String, 'Kano Classification',
-        hint:
-            'Basic / Performance / Excitement / Indifferent / '
-            'Reverse'),
+        hint: 'Basic / Performance / Excitement / Indifferent'),
     Field('prioritizationNotes', String, 'Prioritization Notes',
         hint: 'Justification or context for the scoring'),
-    // --- Stage Assignment ---
+  ])
+  String? content;
+}
+
+/// Stage assignment for a feature priority entry.
+class FeatureStageAssignment {
+  @Form([
     Field('targetStage', String, 'Target Stage',
         hint: 'Planned delivery stage',
         required: true),
-    Field('earliestPossibleStage', String,
-        'Earliest Possible Stage',
-        hint:
-            'Earliest stage prerequisites allow — may differ '
-            'from target due to capacity'),
+    Field('earliestPossibleStage', String, 'Earliest Possible Stage',
+        hint: 'Earliest stage prerequisites allow'),
     Field('fallbackStage', String, 'Fallback Stage',
         hint: 'Stage to defer to if cut from target'),
-    Field('stageAssignmentRationale', String,
-        'Stage Assignment Rationale',
-        hint:
-            'Why this stage — dependency, value, risk, capacity'),
-    // --- Dependencies ---
+    Field('stageAssignmentRationale', String, 'Stage Assignment Rationale',
+        hint: 'Why this stage'),
+  ])
+  String? content;
+}
+
+/// Dependencies info for a feature priority entry.
+class FeatureDependenciesInfo {
+  @Form([
     Field('dependsOnFeatures', String, 'Depends on Features',
-        hint: 'Feature IDs this requires — comma-separated'),
+        hint: 'Feature IDs this requires'),
     Field('blocksFeatures', String, 'Blocks Features',
-        hint:
-            'Feature IDs blocked until this completes — '
-            'comma-separated'),
+        hint: 'Feature IDs blocked until this completes'),
     Field('externalDependencies', String, 'External Dependencies',
-        hint:
-            'External systems, APIs, vendors, or approvals — '
-            'comma-separated'),
-    Field('dependencyCriticalPath', String,
-        'On Dependency Critical Path',
-        hint:
-            'Yes / No — whether on the critical dependency '
-            'chain'),
-    // --- Stakeholders ---
+        hint: 'External systems, APIs, vendors, or approvals'),
+    Field('dependencyCriticalPath', String, 'On Dependency Critical Path',
+        hint: 'Yes / No'),
+  ])
+  String? content;
+}
+
+/// Stakeholders for a feature priority entry.
+class FeatureStakeholders {
+  @Form([
     Field('requestedBy', String, 'Requested By',
         hint: 'Person, team, or customer who requested this'),
     Field('businessOwner', String, 'Business Owner',
@@ -1850,46 +1856,46 @@ class FeaturePriorityEntry {
     Field('technicalOwner', String, 'Technical Owner',
         hint: 'Engineer or architect for delivery'),
     Field('approvalStatus', String, 'Approval Status',
-        hint:
-            'Proposed / Approved / ConditionallyApproved / '
-            'Rejected / Deferred'),
+        hint: 'Proposed / Approved / ConditionallyApproved / Rejected'),
     Field('approvedBy', String, 'Approved By',
         hint: 'Person or body who approved'),
     Field('approvalDate', String, 'Approval Date',
         hint: 'When approval was granted'),
-    // --- Traceability ---
+  ])
+  String? content;
+}
+
+/// Traceability for a feature priority entry.
+class FeatureTraceability {
+  @Form([
     Field('linkedRequirements', String, 'Linked Requirements',
-        hint: 'Requirement IDs — comma-separated'),
+        hint: 'Requirement IDs'),
     Field('linkedUseCases', String, 'Linked Use Cases',
-        hint: 'Use case IDs — comma-separated'),
-    Field('linkedBusinessProcesses', String,
-        'Linked Business Processes',
-        hint: 'Business process IDs — comma-separated'),
+        hint: 'Use case IDs'),
+    Field('linkedBusinessProcesses', String, 'Linked Business Processes',
+        hint: 'Business process IDs'),
     Field('linkedUserStories', String, 'Linked User Stories',
         hint: 'User story IDs in the backlog'),
-    Field('linkedArchitectureDecisions', String,
-        'Linked Architecture Decisions',
+    Field('linkedArchitectureDecisions', String, 'Linked Architecture Decisions',
         hint: 'ADR IDs affected by or affecting this feature'),
-    // --- Status ---
+  ])
+  String? content;
+}
+
+/// Status for a feature priority entry.
+class FeatureStatus {
+  @Form([
     Field('prioritizationStatus', String, 'Prioritization Status',
-        hint:
-            'Draft / UnderReview / Prioritized / Deferred / '
-            'Dropped',
+        hint: 'Draft / UnderReview / Prioritized / Deferred / Dropped',
         required: true),
     Field('deliveryStatus', String, 'Delivery Status',
-        hint:
-            'Backlog / Planned / InDevelopment / InTest / '
-            'Delivered / Cancelled'),
+        hint: 'Backlog / Planned / InDevelopment / InTest / Delivered'),
     Field('confidenceLevel', String, 'Confidence Level',
-        hint:
-            'High / Medium / Low — confidence feature can be '
-            'delivered as scoped and on time'),
+        hint: 'High / Medium / Low'),
     Field('lastReviewedDate', String, 'Last Reviewed Date',
         hint: 'When last reviewed in prioritization'),
     Field('changeHistory', String, 'Change History',
-        hint:
-            'Brief log of priority/stage changes — e.g. '
-            '"Moved Must→Should Q1, re-staged 2→3"'),
+        hint: 'Brief log of priority/stage changes'),
   ])
   String? content;
 }
