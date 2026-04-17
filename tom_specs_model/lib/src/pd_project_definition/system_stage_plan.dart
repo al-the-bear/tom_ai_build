@@ -109,308 +109,52 @@ class SystemStagePlan {
 @SectionId('PD00-SSP-STR')
 class StagingStrategy {
   @Form([
-    // --- Approach Selection ---
     Field('stagingApproachType', String, 'Staging Approach Type',
-        hint:
-            'BigBang / PhasedByFunction / PhasedByGeography / '
-            'PhasedByUserGroup / PhasedByBusinessUnit / '
-            'PhasedByModule / Hybrid / Pilot / Parallel',
+        hint: 'BigBang / PhasedByFunction / PhasedByGeography / Hybrid / Pilot',
         required: true),
-    Field('approachDescription', String, 'Approach Description',
-        hint:
-            'Brief description of how the staging approach will be '
-            'applied to this specific project'),
-    Field('alternativesConsidered', String, 'Alternatives Considered',
-        hint:
-            'Other staging approaches evaluated and why they were '
-            'rejected — list approach and reason'),
-    Field('selectionCriteria', String, 'Selection Criteria',
-        hint:
-            'Criteria used to select this approach — risk profile, '
-            'resource availability, business urgency, '
-            'stakeholder readiness'),
-
-    // --- Rationale & Justification ---
     Field('primaryRationale', String, 'Primary Rationale',
-        hint:
-            'Main reason for choosing this staging approach, '
-            'e.g. minimize business disruption',
+        hint: 'Main reason for choosing this staging approach',
         required: true),
-    Field('riskReductionRationale', String, 'Risk Reduction Rationale',
-        hint:
-            'How this approach reduces project and deployment risk'),
-    Field('earlyValueRationale', String, 'Early Value Rationale',
-        hint:
-            'How this approach enables early value delivery to '
-            'business stakeholders'),
-    Field('resourceOptimizationRationale', String,
-        'Resource Optimization Rationale',
-        hint:
-            'How this approach optimizes resource utilization and '
-            'prevents bottlenecks'),
-    Field('businessContinuityRationale', String,
-        'Business Continuity Rationale',
-        hint:
-            'How this approach ensures business operations continue '
-            'during transition'),
-
-    // --- Key Drivers ---
-    Field('primaryDrivers', String, 'Primary Drivers',
-        hint:
-            'Key factors driving the staging approach — '
-            'RiskReduction / EarlyBusinessValue / '
-            'RegulatoryDeadlines / ResourceConstraints / '
-            'TechnologyReadiness'),
-    Field('businessConstraints', String, 'Business Constraints',
-        hint:
-            'Business factors constraining staging — fiscal year, '
-            'seasonal cycles, market windows, contract dates, '
-            'peak business periods'),
-    Field('technicalConstraints', String, 'Technical Constraints',
-        hint:
-            'Technical factors constraining staging — infrastructure '
-            'readiness, integration dependencies, data readiness, '
-            'vendor schedules'),
-    Field('regulatoryConstraints', String, 'Regulatory Constraints',
-        hint:
-            'Regulatory or compliance factors — audit windows, '
-            'certification requirements, mandatory go-live dates'),
-    Field('geographicConstraints', String, 'Geographic Constraints',
-        hint:
-            'Regional or geographic factors — time zones, '
-            'local holidays, regional regulations, network latency'),
-    Field('seasonalConsiderations', String, 'Seasonal Considerations',
-        hint:
-            'Seasonal business factors — year-end freeze, '
-            'peak season blackouts, fiscal year boundaries'),
-
-    // --- Risk Assessment ---
     Field('overallRiskLevel', String, 'Overall Risk Level',
-        hint:
-            'Low / Medium / High / Critical — overall risk '
-            'assessment of the staging approach'),
-    Field('riskTolerance', String, 'Risk Tolerance',
-        hint:
-            'Low / Medium / High — acceptable level of risk per '
-            'stage transition'),
-    Field('deploymentRiskFactors', String, 'Deployment Risk Factors',
-        hint:
-            'Key risk factors specific to deployment — rollback '
-            'complexity, data corruption potential, downtime impact'),
-    Field('mitigationStrategies', String, 'Mitigation Strategies',
-        hint:
-            'Risk mitigation strategies — pilot groups, '
-            'feature flags, canary releases, blue-green deployment'),
-    Field('contingencyPlans', String, 'Contingency Plans',
-        hint:
-            'Backup plans if primary approach fails — rollback, '
-            'partial deployment, alternative timeline'),
-    Field('rollbackTriggers', String, 'Rollback Triggers',
-        hint:
-            'Criteria that would trigger a rollback — error rate '
-            'threshold, performance degradation, critical bugs'),
-
-    // --- Complexity Assessment ---
-    Field('complexityAssessment', String, 'Complexity Assessment',
-        hint:
-            'Low / Medium / High / VeryHigh — overall complexity '
-            'of the staging plan'),
-    Field('complexityFactors', String, 'Key Complexity Factors',
-        hint:
-            'Primary sources of complexity — data migration volume, '
-            'integration count, user base size, geographic spread'),
-    Field('integrationComplexity', String, 'Integration Complexity',
-        hint:
-            'Level of integration needed during staging — systems, '
-            'data flows, API contracts, third-party dependencies'),
-    Field('dataMigrationComplexity', String,
-        'Data Migration Complexity',
-        hint:
-            'Complexity of data migration — volume, transformation, '
-            'validation requirements, downtime requirements'),
-    Field('userImpactComplexity', String, 'User Impact Complexity',
-        hint:
-            'Complexity of user impact management — training, '
-            'communication, parallel support, workflow changes'),
-
-    // --- Readiness & Resources ---
-    Field('organizationalReadinessFactors', String,
-        'Organizational Readiness Factors',
-        hint:
-            'Key readiness factors — change management maturity, '
-            'training capacity, executive sponsorship strength'),
-    Field('organizationalReadinessLevel', String,
-        'Organizational Readiness Level',
-        hint:
-            'Low / Medium / High — overall organizational readiness '
-            'for staged deployment'),
-    Field('resourceConstraints', String, 'Resource Constraints',
-        hint:
-            'Staffing, budget, or infrastructure limits affecting '
-            'staging timeline'),
-    Field('skillAvailability', String, 'Skill Availability',
-        hint:
-            'Critical skills needed and their availability across '
-            'stages — e.g. DBA, cloud architect, UX designer'),
-    Field('trainingRequirements', String, 'Training Requirements',
-        hint:
-            'Training needed per stage — scope, timing, '
-            'delivery method, assessment criteria'),
-    Field('supportCapacity', String, 'Support Capacity',
-        hint:
-            'Support team capacity during transition — helpdesk, '
-            'on-site support, escalation paths'),
-
-    // --- Rollback & Cutover Strategy ---
-    Field('rollbackStrategyType', String, 'Rollback Strategy Type',
-        hint:
-            'FullRollback / PartialRollback / ForwardFix / '
-            'NoRollback — high-level rollback approach'),
-    Field('rollbackProcedure', String, 'Rollback Procedure',
-        hint:
-            'Overview of rollback procedure — triggers, steps, '
-            'decision authority, communication'),
-    Field('rollbackTimeWindow', String, 'Rollback Time Window',
-        hint:
-            'Maximum duration for rollback after deployment, '
-            'e.g. 72 hours, until next business day'),
-    Field('parallelOperationDuration', String,
-        'Parallel Operation Duration',
-        hint:
-            'Expected duration of parallel system operation during '
-            'transitions, e.g. 2 weeks per stage'),
-    Field('parallelOperationStrategy', String,
-        'Parallel Operation Strategy',
-        hint:
-            'How parallel systems will operate — data sync, '
-            'user routing, reconciliation'),
-    Field('cutoverMethodology', String, 'Cutover Methodology',
-        hint:
-            'PilotThenExpand / InstantCutover / GradualMigration / '
-            'BlueGreen / Canary / ShadowMode'),
-    Field('cutoverWindowPreference', String,
-        'Cutover Window Preference',
-        hint:
-            'Preferred timing for cutovers — weekends, holidays, '
-            'off-peak hours, maintenance windows'),
-    Field('cutoverDuration', String, 'Cutover Duration',
-        hint:
-            'Expected duration of cutover activities per stage, '
-            'e.g. 4 hours, 1 business day'),
-    Field('cutoverCriteria', String, 'Cutover Criteria',
-        hint:
-            'Criteria that must be met before cutover — testing '
-            'complete, data migrated, users trained'),
-
-    // --- Success Criteria & Metrics ---
-    Field('successCriteria', String, 'Success Criteria',
-        hint:
-            'Criteria for declaring a stage successful — user '
-            'adoption rate, error rate, performance metrics'),
-    Field('keyMetrics', String, 'Key Metrics',
-        hint:
-            'Metrics to track during staging — transaction '
-            'volumes, response times, error rates, user satisfaction'),
-    Field('stabilizationPeriod', String, 'Stabilization Period',
-        hint:
-            'Time period after deployment to monitor for issues, '
-            'e.g. 2 weeks'),
-    Field('goNoGoCheckpoints', String, 'Go/No-Go Checkpoints',
-        hint:
-            'Key decision points before each stage — what is '
-            'evaluated and by whom'),
-    Field('acceptanceCriteria', String, 'Acceptance Criteria',
-        hint:
-            'Formal acceptance criteria for stage completion — '
-            'sign-off requirements, validation tests'),
-
-    // --- Communication & Change Management ---
-    Field('communicationStrategyOverview', String,
-        'Communication Strategy Overview',
-        hint:
-            'How staging progress and transitions will be '
-            'communicated to stakeholders'),
-    Field('communicationChannels', String, 'Communication Channels',
-        hint:
-            'Channels for communication — email, intranet, '
-            'town halls, team meetings, dashboards'),
-    Field('communicationCadence', String, 'Communication Cadence',
-        hint:
-            'Frequency of communications — daily during cutover, '
-            'weekly during stabilization, monthly post-deployment'),
-    Field('changeManagementAlignment', String,
-        'Change Management Alignment',
-        hint:
-            'How staging aligns with organizational change '
-            'management plan — ADKAR, Kotter, Prosci'),
-    Field('changeChampions', String, 'Change Champions',
-        hint:
-            'Roles or individuals who will champion the change '
-            'within user groups'),
-    Field('feedbackMechanisms', String, 'Feedback Mechanisms',
-        hint:
-            'How user feedback will be collected during staging — '
-            'surveys, focus groups, support tickets'),
-
-    // --- Framework Alignment ---
-    Field('pmMethodologyAlignment', String, 'PM Methodology Alignment',
-        hint:
-            'PMBOK / PRINCE2 / SAFe / Scrum / Hybrid — project '
-            'management framework guiding stage gates'),
-    Field('piCadence', String, 'PI Planning Cadence',
-        hint:
-            'SAFe Program Increment cadence if applicable — e.g. '
-            '10-week PI, 5 iterations per PI'),
-    Field('stageBoundaryApproach', String, 'Stage Boundary Approach',
-        hint:
-            'PRINCE2 stage boundary management — formal review, '
-            'exception reporting, tolerance levels'),
-    Field('iterationCadence', String, 'Iteration Cadence',
-        hint:
-            'Iteration or sprint cadence within stages, e.g. '
-            '2-week sprints'),
-    Field('releaseTrainCadence', String, 'Release Train Cadence',
-        hint:
-            'SAFe release train cadence if applicable — PI, '
-            'iteration, inspection points'),
-
-    // --- Dependencies & Prerequisites ---
-    Field('criticalPrerequisites', String, 'Critical Prerequisites',
-        hint:
-            'Prerequisites that must be completed before staged '
-            'deployment can begin'),
-    Field('externalDependencies', String, 'External Dependencies',
-        hint:
-            'Dependencies on external parties — vendors, '
-            'regulators, partners'),
-    Field('internalDependencies', String, 'Internal Dependencies',
-        hint:
-            'Dependencies on internal projects or teams — '
-            'infrastructure, security, other applications'),
-    Field('dependencyRisks', String, 'Dependency Risks',
-        hint:
-            'Risks associated with dependencies and how they '
-            'will be managed'),
-
-    // --- Governance & Approvals ---
-    Field('governanceApproach', String, 'Governance Approach',
-        hint:
-            'How staging decisions will be governed — steering '
-            'committee, change board, project manager'),
-    Field('approvalAuthority', String, 'Approval Authority',
-        hint:
-            'Who has authority to approve stage transitions and '
-            'deployment decisions'),
-    Field('escalationPath', String, 'Escalation Path',
-        hint:
-            'Escalation path for issues and decisions during '
-            'staging'),
-    Field('exceptionHandling', String, 'Exception Handling',
-        hint:
-            'How exceptions to the staging plan will be handled '
-            'and approved'),
+        hint: 'Low / Medium / High / Critical'),
   ])
   String? content;
+
+  /// Approach selection details.
+  final StagingApproachSelection approachSelection = StagingApproachSelection();
+
+  /// Rationale and justification.
+  final StagingRationale rationale = StagingRationale();
+
+  /// Key drivers and constraints.
+  final StagingDrivers drivers = StagingDrivers();
+
+  /// Risk assessment.
+  final StagingRiskAssessment riskAssessment = StagingRiskAssessment();
+
+  /// Complexity assessment.
+  final StagingComplexity complexity = StagingComplexity();
+
+  /// Readiness and resources.
+  final StagingReadiness readiness = StagingReadiness();
+
+  /// Rollback and cutover strategy.
+  final StagingCutover cutover = StagingCutover();
+
+  /// Success criteria and metrics.
+  final StagingSuccessCriteria successCriteria = StagingSuccessCriteria();
+
+  /// Communication and change management.
+  final StagingCommunication communication = StagingCommunication();
+
+  /// Framework alignment.
+  final StagingFrameworkAlignment frameworkAlignment = StagingFrameworkAlignment();
+
+  /// Dependencies and prerequisites.
+  final StagingDependencies dependencies = StagingDependencies();
+
+  /// Governance and approvals.
+  final StagingGovernance governance = StagingGovernance();
 
   /// 13.1.1. Staging Approach [PD00-SSP-STR-APP].
   @ContentHelp('Detailed description of the staging approach: how stages '
@@ -424,7 +168,7 @@ class StagingStrategy {
       'reduction benefits, early value delivery opportunities, resource '
       'optimization factors, alternatives considered and why rejected, '
       'alignment with organizational change capacity.')
-  TextSection rationale = TextSection();
+  TextSection rationaleNarrative = TextSection();
 
   /// 13.1.3. Key Assumptions [PD00-SSP-STR-ASM].
   @ContentHelp('Key assumptions underlying the staging strategy: '
@@ -439,6 +183,214 @@ class StagingStrategy {
       'periods, regulatory compliance windows, vendor contract dates, '
       'fiscal year boundaries, organizational freeze periods.')
   TextSection constraints = TextSection();
+}
+
+/// Approach selection for staging strategy.
+class StagingApproachSelection {
+  @Form([
+    Field('approachDescription', String, 'Approach Description',
+        hint: 'Brief description of how the staging approach will be applied'),
+    Field('alternativesConsidered', String, 'Alternatives Considered',
+        hint: 'Other staging approaches evaluated and why rejected'),
+    Field('selectionCriteria', String, 'Selection Criteria',
+        hint: 'Criteria used to select this approach'),
+  ])
+  String? content;
+}
+
+/// Rationale and justification for staging strategy.
+class StagingRationale {
+  @Form([
+    Field('riskReductionRationale', String, 'Risk Reduction Rationale',
+        hint: 'How this approach reduces project and deployment risk'),
+    Field('earlyValueRationale', String, 'Early Value Rationale',
+        hint: 'How this approach enables early value delivery'),
+    Field('resourceOptimizationRationale', String, 'Resource Optimization Rationale',
+        hint: 'How this approach optimizes resource utilization'),
+    Field('businessContinuityRationale', String, 'Business Continuity Rationale',
+        hint: 'How this approach ensures business operations continue'),
+  ])
+  String? content;
+}
+
+/// Key drivers for staging strategy.
+class StagingDrivers {
+  @Form([
+    Field('primaryDrivers', String, 'Primary Drivers',
+        hint: 'Key factors driving the staging approach'),
+    Field('businessConstraints', String, 'Business Constraints',
+        hint: 'Business factors constraining staging'),
+    Field('technicalConstraints', String, 'Technical Constraints',
+        hint: 'Technical factors constraining staging'),
+    Field('regulatoryConstraints', String, 'Regulatory Constraints',
+        hint: 'Regulatory or compliance factors'),
+    Field('geographicConstraints', String, 'Geographic Constraints',
+        hint: 'Regional or geographic factors'),
+    Field('seasonalConsiderations', String, 'Seasonal Considerations',
+        hint: 'Seasonal business factors'),
+  ])
+  String? content;
+}
+
+/// Risk assessment for staging strategy.
+class StagingRiskAssessment {
+  @Form([
+    Field('riskTolerance', String, 'Risk Tolerance',
+        hint: 'Low / Medium / High — acceptable level of risk'),
+    Field('deploymentRiskFactors', String, 'Deployment Risk Factors',
+        hint: 'Key risk factors specific to deployment'),
+    Field('mitigationStrategies', String, 'Mitigation Strategies',
+        hint: 'Risk mitigation strategies'),
+    Field('contingencyPlans', String, 'Contingency Plans',
+        hint: 'Backup plans if primary approach fails'),
+    Field('rollbackTriggers', String, 'Rollback Triggers',
+        hint: 'Criteria that would trigger a rollback'),
+  ])
+  String? content;
+}
+
+/// Complexity assessment for staging strategy.
+class StagingComplexity {
+  @Form([
+    Field('complexityAssessment', String, 'Complexity Assessment',
+        hint: 'Low / Medium / High / VeryHigh'),
+    Field('complexityFactors', String, 'Key Complexity Factors',
+        hint: 'Primary sources of complexity'),
+    Field('integrationComplexity', String, 'Integration Complexity',
+        hint: 'Level of integration needed during staging'),
+    Field('dataMigrationComplexity', String, 'Data Migration Complexity',
+        hint: 'Complexity of data migration'),
+    Field('userImpactComplexity', String, 'User Impact Complexity',
+        hint: 'Complexity of user impact management'),
+  ])
+  String? content;
+}
+
+/// Readiness and resources for staging strategy.
+class StagingReadiness {
+  @Form([
+    Field('organizationalReadinessFactors', String, 'Organizational Readiness Factors',
+        hint: 'Key readiness factors'),
+    Field('organizationalReadinessLevel', String, 'Organizational Readiness Level',
+        hint: 'Low / Medium / High'),
+    Field('resourceConstraints', String, 'Resource Constraints',
+        hint: 'Staffing, budget, or infrastructure limits'),
+    Field('skillAvailability', String, 'Skill Availability',
+        hint: 'Critical skills needed and their availability'),
+    Field('trainingRequirements', String, 'Training Requirements',
+        hint: 'Training needed per stage'),
+    Field('supportCapacity', String, 'Support Capacity',
+        hint: 'Support team capacity during transition'),
+  ])
+  String? content;
+}
+
+/// Rollback and cutover strategy for staging.
+class StagingCutover {
+  @Form([
+    Field('rollbackStrategyType', String, 'Rollback Strategy Type',
+        hint: 'FullRollback / PartialRollback / ForwardFix / NoRollback'),
+    Field('rollbackProcedure', String, 'Rollback Procedure',
+        hint: 'Overview of rollback procedure'),
+    Field('rollbackTimeWindow', String, 'Rollback Time Window',
+        hint: 'Maximum duration for rollback after deployment'),
+    Field('parallelOperationDuration', String, 'Parallel Operation Duration',
+        hint: 'Expected duration of parallel system operation'),
+    Field('parallelOperationStrategy', String, 'Parallel Operation Strategy',
+        hint: 'How parallel systems will operate'),
+    Field('cutoverMethodology', String, 'Cutover Methodology',
+        hint: 'PilotThenExpand / InstantCutover / BlueGreen / Canary'),
+    Field('cutoverWindowPreference', String, 'Cutover Window Preference',
+        hint: 'Preferred timing for cutovers'),
+    Field('cutoverDuration', String, 'Cutover Duration',
+        hint: 'Expected duration of cutover activities'),
+    Field('cutoverCriteria', String, 'Cutover Criteria',
+        hint: 'Criteria that must be met before cutover'),
+  ])
+  String? content;
+}
+
+/// Success criteria for staging strategy.
+class StagingSuccessCriteria {
+  @Form([
+    Field('successCriteria', String, 'Success Criteria',
+        hint: 'Criteria for declaring a stage successful'),
+    Field('keyMetrics', String, 'Key Metrics',
+        hint: 'Metrics to track during staging'),
+    Field('stabilizationPeriod', String, 'Stabilization Period',
+        hint: 'Time period after deployment to monitor'),
+    Field('goNoGoCheckpoints', String, 'Go/No-Go Checkpoints',
+        hint: 'Key decision points before each stage'),
+    Field('acceptanceCriteria', String, 'Acceptance Criteria',
+        hint: 'Formal acceptance criteria for stage completion'),
+  ])
+  String? content;
+}
+
+/// Communication and change management for staging.
+class StagingCommunication {
+  @Form([
+    Field('communicationStrategyOverview', String, 'Communication Strategy Overview',
+        hint: 'How staging progress will be communicated'),
+    Field('communicationChannels', String, 'Communication Channels',
+        hint: 'Channels for communication'),
+    Field('communicationCadence', String, 'Communication Cadence',
+        hint: 'Frequency of communications'),
+    Field('changeManagementAlignment', String, 'Change Management Alignment',
+        hint: 'How staging aligns with change management plan'),
+    Field('changeChampions', String, 'Change Champions',
+        hint: 'Roles who will champion the change'),
+    Field('feedbackMechanisms', String, 'Feedback Mechanisms',
+        hint: 'How user feedback will be collected'),
+  ])
+  String? content;
+}
+
+/// Framework alignment for staging strategy.
+class StagingFrameworkAlignment {
+  @Form([
+    Field('pmMethodologyAlignment', String, 'PM Methodology Alignment',
+        hint: 'PMBOK / PRINCE2 / SAFe / Scrum / Hybrid'),
+    Field('piCadence', String, 'PI Planning Cadence',
+        hint: 'SAFe Program Increment cadence if applicable'),
+    Field('stageBoundaryApproach', String, 'Stage Boundary Approach',
+        hint: 'PRINCE2 stage boundary management'),
+    Field('iterationCadence', String, 'Iteration Cadence',
+        hint: 'Iteration or sprint cadence within stages'),
+    Field('releaseTrainCadence', String, 'Release Train Cadence',
+        hint: 'SAFe release train cadence if applicable'),
+  ])
+  String? content;
+}
+
+/// Dependencies for staging strategy.
+class StagingDependencies {
+  @Form([
+    Field('criticalPrerequisites', String, 'Critical Prerequisites',
+        hint: 'Prerequisites before staged deployment can begin'),
+    Field('externalDependencies', String, 'External Dependencies',
+        hint: 'Dependencies on external parties'),
+    Field('internalDependencies', String, 'Internal Dependencies',
+        hint: 'Dependencies on internal projects or teams'),
+    Field('dependencyRisks', String, 'Dependency Risks',
+        hint: 'Risks associated with dependencies'),
+  ])
+  String? content;
+}
+
+/// Governance for staging strategy.
+class StagingGovernance {
+  @Form([
+    Field('governanceApproach', String, 'Governance Approach',
+        hint: 'How staging decisions will be governed'),
+    Field('approvalAuthority', String, 'Approval Authority',
+        hint: 'Who has authority to approve stage transitions'),
+    Field('escalationPath', String, 'Escalation Path',
+        hint: 'Escalation path for issues and decisions'),
+    Field('exceptionHandling', String, 'Exception Handling',
+        hint: 'How exceptions to the staging plan will be handled'),
+  ])
+  String? content;
 }
 
 /// 13.2. Stage Overview [PD00-SSP-STA].
@@ -2411,145 +2363,142 @@ class MigrationPhases {
 /// results.
 class MigrationPhaseEntry {
   @Form([
-    // --- Phase Identity ---
     Field('phaseNumber', String, 'Phase Number',
         hint: '1, 2, 3… — sequential phase ordering',
         required: true),
     Field('phaseName', String, 'Phase Name',
-        hint:
-            'Descriptive name — e.g. Master Data, Transactional '
-            'History, Document Migration, Reference Data',
+        hint: 'Descriptive name — e.g. Master Data, Transactional History',
         required: true),
-    Field('phaseDescription', String, 'Phase Description',
-        hint:
-            'Detailed description of what this phase migrates '
-            'and why it is sequenced here'),
     Field('phaseType', String, 'Phase Type',
-        hint:
-            'MasterData / ReferenceData / Transactional / '
-            'Historical / Documents / BinaryAssets / Configuration '
-            '/ UserProfiles',
+        hint: 'MasterData / ReferenceData / Transactional / Historical / Documents',
         required: true),
+  ])
+  String? content;
+
+  /// Phase identity details.
+  final MigrationPhaseIdentity identity = MigrationPhaseIdentity();
+
+  /// Data scope.
+  final MigrationPhaseDataScope dataScope = MigrationPhaseDataScope();
+
+  /// Migration method.
+  final MigrationPhaseMethod method = MigrationPhaseMethod();
+
+  /// Transformation and mapping.
+  final MigrationPhaseTransformation transformation = MigrationPhaseTransformation();
+
+  /// Schedule and dependencies.
+  final MigrationPhaseSchedule schedule = MigrationPhaseSchedule();
+
+  /// Dry runs.
+  final MigrationPhaseDryRuns dryRuns = MigrationPhaseDryRuns();
+
+  /// Validation and reconciliation.
+  final MigrationPhaseValidation validation = MigrationPhaseValidation();
+
+  /// Acceptance criteria.
+  final MigrationPhaseAcceptance acceptance = MigrationPhaseAcceptance();
+
+  /// Rollback.
+  final MigrationPhaseRollback rollback = MigrationPhaseRollback();
+
+  /// Resources.
+  final MigrationPhaseResources resources = MigrationPhaseResources();
+
+  /// Status.
+  final MigrationPhaseStatus status = MigrationPhaseStatus();
+}
+
+/// Phase identity for migration phase.
+class MigrationPhaseIdentity {
+  @Form([
+    Field('phaseDescription', String, 'Phase Description',
+        hint: 'Detailed description of what this phase migrates'),
     Field('phaseObjective', String, 'Phase Objective',
-        hint:
-            'Primary goal — e.g. migrate all customer master data '
-            'with full address and contact history'),
+        hint: 'Primary goal of this migration phase'),
     Field('linkedProjectStage', String, 'Linked Project Stage',
-        hint:
-            'Which system stage this phase supports — '
-            'e.g. Stage 1 Foundation requires Phase 1 master data'),
-    // --- Data Scope ---
+        hint: 'Which system stage this phase supports'),
+  ])
+  String? content;
+}
+
+/// Data scope for migration phase.
+class MigrationPhaseDataScope {
+  @Form([
     Field('sourceSystems', String, 'Source Systems',
-        hint:
-            'Source system(s) for this phase — e.g. Oracle ERP '
-            '11g (CUSTOMERS, ADDRESSES, CONTACTS schemas)',
+        hint: 'Source system(s) for this phase',
         required: true),
     Field('sourceDatabase', String, 'Source Database / Store',
-        hint:
-            'Specific database, file store, or API — e.g. '
-            'PROD_ERP.dbo, S3://legacy-docs, Salesforce REST API'),
+        hint: 'Specific database, file store, or API'),
     Field('tablesOrEntities', String, 'Tables / Entities',
-        hint:
-            'List of tables, collections, or entities — e.g. '
-            'CUSTOMERS (1.2M rows), ORDERS (8.5M rows), '
-            'ORDER_LINES (34M rows)',
+        hint: 'List of tables, collections, or entities',
         required: true),
     Field('totalRecordCount', String, 'Total Record Count',
-        hint:
-            'Aggregate record count for this phase — e.g. 43.7M '
-            'records across 12 tables',
+        hint: 'Aggregate record count for this phase',
         required: true),
     Field('dataVolumeGB', String, 'Data Volume (GB)',
-        hint:
-            'Total data volume — e.g. 850 GB including LOBs and '
-            'attachments'),
+        hint: 'Total data volume'),
     Field('dataFormats', String, 'Data Formats',
-        hint:
-            'Source data formats — Relational/SQL, CSV, JSON, '
-            'XML, Parquet, BLOB, PDF, images, proprietary'),
+        hint: 'Source data formats'),
     Field('targetDestination', String, 'Target Destination',
-        hint:
-            'Target system and location — e.g. Aurora PostgreSQL '
-            'public.customers, S3://new-docs/migrated/'),
+        hint: 'Target system and location'),
     Field('dataClassification', String, 'Data Classification',
-        hint:
-            'Classification of data in this phase — Public / '
-            'Internal / Confidential / Restricted / PII / PHI',
+        hint: 'Public / Internal / Confidential / Restricted / PII / PHI',
         required: true),
     Field('piiFields', String, 'PII Fields Identified',
-        hint:
-            'Personal data fields requiring special handling — '
-            'e.g. email, phone, SSN, date_of_birth, address'),
+        hint: 'Personal data fields requiring special handling'),
     Field('dataOwner', String, 'Data Owner',
-        hint:
-            'Business owner of this data domain — person '
-            'accountable for data quality and sign-off'),
-    // --- Migration Method ---
+        hint: 'Business owner of this data domain'),
+  ])
+  String? content;
+}
+
+/// Migration method for migration phase.
+class MigrationPhaseMethod {
+  @Form([
     Field('migrationMethod', String, 'Migration Method',
-        hint:
-            'ETL / ELT / API / CDC / BulkLoad / '
-            'DatabaseReplication / ManualEntry / FileTransfer / '
-            'Hybrid',
+        hint: 'ETL / ELT / API / CDC / BulkLoad / DatabaseReplication',
         required: true),
     Field('etlToolUsed', String, 'ETL/Migration Tool',
-        hint:
-            'Specific tool — e.g. AWS DMS for CDC, Apache NiFi '
-            'for ETL, custom Python for file migration'),
+        hint: 'Specific tool used for migration'),
     Field('extractionMethod', String, 'Extraction Method',
-        hint:
-            'FullExtract / IncrementalExtract / CDC / '
-            'LogicalReplication / APIPolling / EventDriven',
+        hint: 'FullExtract / IncrementalExtract / CDC / LogicalReplication',
         required: true),
     Field('extractionSchedule', String, 'Extraction Schedule',
-        hint:
-            'When extraction runs — e.g. nightly at 02:00 UTC, '
-            'continuous CDC, one-time bulk on cutover day'),
+        hint: 'When extraction runs'),
     Field('loadStrategy', String, 'Load Strategy',
-        hint:
-            'BulkInsert / UpsertMerge / TruncateAndReload / '
-            'AppendOnly / SCD-Type2 — how data is loaded into '
-            'target'),
-    // --- Transformation & Mapping ---
-    Field('transformationRulesSummary', String,
-        'Transformation Rules Summary',
-        hint:
-            'Key transformations — e.g. currency conversion, date '
-            'format ISO 8601, address normalization, enum mapping, '
-            'composite key generation'),
+        hint: 'BulkInsert / UpsertMerge / TruncateAndReload / AppendOnly'),
+  ])
+  String? content;
+}
+
+/// Transformation and mapping for migration phase.
+class MigrationPhaseTransformation {
+  @Form([
+    Field('transformationRulesSummary', String, 'Transformation Rules Summary',
+        hint: 'Key transformations applied'),
     Field('mappingComplexity', String, 'Mapping Complexity',
-        hint:
-            'Low / Medium / High / VeryHigh — complexity of '
-            'source-to-target field mapping',
+        hint: 'Low / Medium / High / VeryHigh',
         required: true),
     Field('totalFieldMappings', String, 'Total Field Mappings',
-        hint:
-            'Number of field-level mappings — e.g. 245 fields '
-            'across 12 tables'),
-    Field('mappingDocumentLocation', String,
-        'Mapping Document Location',
-        hint:
-            'Where field mapping specifications are stored — '
-            'e.g. Confluence page, Excel workbook, dbt models'),
+        hint: 'Number of field-level mappings'),
+    Field('mappingDocumentLocation', String, 'Mapping Document Location',
+        hint: 'Where field mapping specifications are stored'),
     Field('dataCleansingRules', String, 'Data Cleansing Rules',
-        hint:
-            'Cleansing applied — e.g. trim whitespace, remove '
-            'duplicates, standardize phone format, fill missing '
-            'country from postal code'),
+        hint: 'Cleansing rules applied'),
     Field('dataEnrichmentRules', String, 'Data Enrichment Rules',
-        hint:
-            'Enrichment during migration — e.g. geocode addresses, '
-            'derive age from DOB, lookup currency codes, add '
-            'audit timestamps'),
+        hint: 'Enrichment during migration'),
     Field('defaultValueRules', String, 'Default Value Rules',
-        hint:
-            'Defaults for null or missing data — e.g. '
-            'status=ACTIVE for null, country=US when region=NA'),
-    Field('characterEncodingHandling', String,
-        'Character Encoding Handling',
-        hint:
-            'Encoding conversion — e.g. Latin-1 to UTF-8, handle '
-            'multibyte characters, emoji support'),
-    // --- Schedule & Dependencies ---
+        hint: 'Defaults for null or missing data'),
+    Field('characterEncodingHandling', String, 'Character Encoding Handling',
+        hint: 'Encoding conversion approach'),
+  ])
+  String? content;
+}
+
+/// Schedule and dependencies for migration phase.
+class MigrationPhaseSchedule {
+  @Form([
     Field('plannedStartDate', String, 'Planned Start Date',
         required: true),
     Field('plannedEndDate', String, 'Planned End Date',
@@ -2561,137 +2510,109 @@ class MigrationPhaseEntry {
     Field('actualEndDate', String, 'Actual End Date',
         hint: 'Populated when phase completes'),
     Field('prerequisitePhases', String, 'Prerequisite Phases',
-        hint:
-            'Phases that must complete first — e.g. Phase 1 '
-            '(master data must exist before transactions)'),
+        hint: 'Phases that must complete first'),
     Field('parallelPhases', String, 'Parallel Phases',
-        hint: 'Phases that can run concurrently with this one'),
+        hint: 'Phases that can run concurrently'),
     Field('externalDependencies', String, 'External Dependencies',
-        hint:
-            'Dependencies outside migration — e.g. network '
-            'connectivity to legacy DC, VPN to vendor, API '
-            'credentials provisioned'),
-    Field('infrastructureDependencies', String,
-        'Infrastructure Dependencies',
-        hint:
-            'Required infrastructure — e.g. target database '
-            'provisioned, replication agent installed, S3 bucket '
-            'created with IAM policy'),
-    // --- Dry Runs ---
+        hint: 'Dependencies outside migration'),
+    Field('infrastructureDependencies', String, 'Infrastructure Dependencies',
+        hint: 'Required infrastructure'),
+  ])
+  String? content;
+}
+
+/// Dry runs for migration phase.
+class MigrationPhaseDryRuns {
+  @Form([
     Field('dryRunsPlanned', String, 'Dry Runs Planned',
-        hint:
-            'Number of rehearsals — e.g. 2 partial + 1 full '
-            'production-equivalent'),
+        hint: 'Number of rehearsals'),
     Field('dryRunSchedule', String, 'Dry Run Schedule',
-        hint:
-            'Dates for rehearsals — e.g. DR1: Apr 15 (subset), '
-            'DR2: Apr 29 (full), DR3: May 10 (dress rehearsal)'),
+        hint: 'Dates for rehearsals'),
     Field('lastDryRunDate', String, 'Last Dry Run Date',
-        hint: 'Date of the most recent dry run execution'),
+        hint: 'Date of the most recent dry run'),
     Field('lastDryRunDuration', String, 'Last Dry Run Duration',
-        hint: 'How long the last dry run took — e.g. 2h 45m'),
+        hint: 'How long the last dry run took'),
     Field('lastDryRunResult', String, 'Last Dry Run Result',
-        hint:
-            'Passed / PassedWithIssues / Failed — outcome of '
-            'last rehearsal'),
+        hint: 'Passed / PassedWithIssues / Failed'),
     Field('dryRunIssuesFound', String, 'Dry Run Issues Found',
-        hint:
-            'Issues discovered — e.g. 3 mapping errors, 1 timeout '
-            'on large table, encoding issue in comments field'),
-    Field('dryRunIssuesResolved', String,
-        'Dry Run Issues Resolved',
-        hint:
-            'How many issues were fixed — e.g. 3/3 resolved, '
-            'next DR will verify'),
-    // --- Validation & Reconciliation ---
+        hint: 'Issues discovered'),
+    Field('dryRunIssuesResolved', String, 'Dry Run Issues Resolved',
+        hint: 'How many issues were fixed'),
+  ])
+  String? content;
+}
+
+/// Validation and reconciliation for migration phase.
+class MigrationPhaseValidation {
+  @Form([
     Field('validationApproach', String, 'Validation Approach',
-        hint:
-            'Automated / Manual / Hybrid — overall validation '
-            'methodology',
+        hint: 'Automated / Manual / Hybrid',
         required: true),
-    Field('rowCountReconciliation', String,
-        'Row Count Reconciliation',
-        hint:
-            'Source vs target row count comparison — expected '
-            '100% match or documented exceptions'),
+    Field('rowCountReconciliation', String, 'Row Count Reconciliation',
+        hint: 'Source vs target row count comparison'),
     Field('checksumValidation', String, 'Checksum Validation',
-        hint:
-            'Hash/checksum approach — e.g. MD5 per table, SHA-256 '
-            'per record, aggregate CRC comparison'),
-    Field('businessRuleValidation', String,
-        'Business Rule Validation',
-        hint:
-            'Business logic checks — e.g. order totals match, '
-            'customer balances reconcile, referential integrity '
-            'holds, date ranges valid'),
+        hint: 'Hash/checksum approach'),
+    Field('businessRuleValidation', String, 'Business Rule Validation',
+        hint: 'Business logic checks'),
     Field('samplingStrategy', String, 'Sampling Strategy',
-        hint:
-            'Statistical sampling — e.g. 5% random sample manual '
-            'review, stratified by entity type, targeted review '
-            'of edge cases'),
+        hint: 'Statistical sampling approach'),
     Field('dataIntegrityChecks', String, 'Data Integrity Checks',
-        hint:
-            'Referential integrity validation — foreign keys '
-            'valid, no orphan records, cascading relationships '
-            'intact'),
+        hint: 'Referential integrity validation'),
     Field('nullAnalysis', String, 'Null/Missing Data Analysis',
-        hint:
-            'How nulls are tracked — expected vs actual null '
-            'rates, mandatory field completeness report'),
+        hint: 'How nulls are tracked'),
     Field('validationToolUsed', String, 'Validation Tool',
-        hint:
-            'Tool for validation — e.g. Great Expectations, '
-            'custom SQL scripts, dbt tests, Informatica DQ'),
-    Field('validationReportLocation', String,
-        'Validation Report Location',
-        hint:
-            'Where validation results are stored — e.g. S3://'
-            'migration-reports/, Confluence, SharePoint'),
-    // --- Acceptance Criteria ---
+        hint: 'Tool for validation'),
+    Field('validationReportLocation', String, 'Validation Report Location',
+        hint: 'Where validation results are stored'),
+  ])
+  String? content;
+}
+
+/// Acceptance criteria for migration phase.
+class MigrationPhaseAcceptance {
+  @Form([
     Field('acceptanceCriteria', String, 'Acceptance Criteria',
-        hint:
-            'Conditions for phase sign-off — 100% row count match, '
-            'checksum pass, business rules pass, no critical '
-            'defects, data owner approved',
+        hint: 'Conditions for phase sign-off',
         required: true),
-    Field('acceptanceSignoffOwner', String,
-        'Acceptance Sign-off Owner',
-        hint:
-            'Person who signs off on phase completion — '
-            'data domain owner or business sponsor'),
-    Field('acceptanceSignoffDate', String,
-        'Acceptance Sign-off Date',
-        hint: 'Date when sign-off was granted (post-migration)'),
-    // --- Rollback ---
-    Field('phaseRollbackStrategy', String,
-        'Phase Rollback Strategy',
-        hint:
-            'Rollback approach specific to this phase — '
-            'TruncateAndRevert / RestoreFromBackup / '
-            'ReverseTransform / NoRollbackNeeded'),
-    Field('phaseRollbackTimeBudget', String,
-        'Rollback Time Budget',
-        hint:
-            'Maximum time to rollback this phase — e.g. 1 hour'),
-    // --- Resources ---
+    Field('acceptanceSignoffOwner', String, 'Acceptance Sign-off Owner',
+        hint: 'Person who signs off on phase completion'),
+    Field('acceptanceSignoffDate', String, 'Acceptance Sign-off Date',
+        hint: 'Date when sign-off was granted'),
+  ])
+  String? content;
+}
+
+/// Rollback for migration phase.
+class MigrationPhaseRollback {
+  @Form([
+    Field('phaseRollbackStrategy', String, 'Phase Rollback Strategy',
+        hint: 'TruncateAndRevert / RestoreFromBackup / ReverseTransform'),
+    Field('phaseRollbackTimeBudget', String, 'Rollback Time Budget',
+        hint: 'Maximum time to rollback this phase'),
+  ])
+  String? content;
+}
+
+/// Resources for migration phase.
+class MigrationPhaseResources {
+  @Form([
     Field('assignedTeamMembers', String, 'Assigned Team Members',
-        hint:
-            'Team members for this phase — e.g. 2 ETL developers, '
-            '1 DBA, 1 business analyst'),
+        hint: 'Team members for this phase'),
     Field('estimatedEffort', String, 'Estimated Effort',
-        hint:
-            'Person-days of effort — e.g. 40 person-days '
-            'development, 10 person-days testing'),
-    // --- Status ---
+        hint: 'Person-days of effort'),
+  ])
+  String? content;
+}
+
+/// Status for migration phase.
+class MigrationPhaseStatus {
+  @Form([
     Field('currentStatus', String, 'Current Status',
-        hint:
-            'NotStarted / InDesign / InDevelopment / InTesting / '
-            'DryRunning / ReadyForProduction / InExecution / '
-            'Completed / RolledBack'),
+        hint: 'NotStarted / InDesign / InDevelopment / InTesting / Completed'),
     Field('completionPercentage', String, 'Completion %',
         hint: '0-100 — current progress'),
     Field('notes', String, 'Notes',
-        hint: 'Additional context, caveats, or special instructions'),
+        hint: 'Additional context or special instructions'),
   ])
   String? content;
 }
