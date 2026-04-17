@@ -2010,102 +2010,43 @@ class ReportEntry {
         hint: 'Unique identifier, e.g. RPT-001', required: true),
     Field('reportName', String, 'Report Name',
         hint: 'Human-readable report title', required: true),
-    Field('description', String, 'Description',
-        hint: 'Business purpose and summary of the report'),
-    Field('reportCategory', String, 'Report Category',
-        hint:
-            'Operational / Analytical / Compliance / Financial / Management / Audit / Ad-hoc'),
     Field('reportType', String, 'Report Type',
-        hint:
-            'Tabular / Summary / Dashboard / KPI-Card / Chart-Only / Mixed / Letter / Invoice / Certificate / Label'),
-    Field('relatedUseCases', String, 'Related Use Cases',
-        hint: 'UC references this report serves'),
-    Field('relatedBusinessProcesses', String, 'Related Business Processes',
-        hint: 'BP references where this report is used'),
-    Field('relatedDataEntities', String, 'Related Data Entities',
-        hint: 'BDM entity references used as data sources'),
-    Field('dataSource', String, 'Data Source',
-        hint: 'Primary data source or query reference'),
-    Field('dataScope', String, 'Data Scope',
-        hint: 'What data is included, e.g. All orders for current fiscal year'),
-    Field('dataCurrency', String, 'Data Currency',
-        hint: 'Real-time / Near-real-time / Daily-snapshot / As-of-date'),
-    Field('generationTrigger', String, 'Generation Trigger',
-        hint: 'On-demand / Scheduled / Event-triggered / Batch'),
-    Field('format', String, 'Output Format',
-        hint: 'PDF / Excel / CSV / HTML / Word / Print / Multi-format'),
-    Field('interactivity', String, 'Interactivity',
-        hint: 'Static / Interactive / Drill-down / Parameterized'),
-    Field('pageSize', String, 'Page Size',
-        hint: 'Override: A4 / Letter / Legal / A3 / Custom'),
-    Field('orientation', String, 'Orientation',
-        hint: 'Override: Portrait / Landscape / Auto'),
-    Field('marginTop', String, 'Margin Top', hint: 'Override top margin'),
-    Field('marginBottom', String, 'Margin Bottom',
-        hint: 'Override bottom margin'),
-    Field('marginLeft', String, 'Margin Left', hint: 'Override left margin'),
-    Field('marginRight', String, 'Margin Right',
-        hint: 'Override right margin'),
-    Field('headerTemplate', String, 'Header Template',
-        hint: 'Page header override, e.g. {logo} {reportTitle} — {dateRange}'),
-    Field('footerTemplate', String, 'Footer Template',
-        hint: 'Page footer override'),
-    Field('coverPage', String, 'Cover Page',
-        hint: 'Yes / No — include a cover page'),
-    Field('coverPageTemplate', String, 'Cover Page Template',
-        hint: 'Cover page content template'),
-    Field('tableOfContents', String, 'Table of Contents',
-        hint: 'Yes / No — include TOC for multi-section reports'),
-    Field('defaultSortField', String, 'Default Sort Field',
-        hint: 'Default sort column or field'),
-    Field('defaultSortDirection', String, 'Default Sort Direction',
-        hint: 'Ascending / Descending'),
-    Field('defaultGroupBy', String, 'Default Group By',
-        hint: 'Default grouping field'),
-    Field('groupSummary', String, 'Group Summary',
-        hint: 'Yes / No — show subtotals per group'),
-    Field('grandTotal', String, 'Grand Total',
-        hint: 'Yes / No — show grand total row'),
-    Field('conditionalFormatting', String, 'Conditional Formatting',
-        hint:
-            'Description of conditional formatting rules applied globally'),
-    Field('highlightRules', String, 'Highlight Rules',
-        hint: 'Row/cell highlight rules, e.g. overdue items in red'),
-    Field('drillDownTarget', String, 'Drill-Down Target',
-        hint: 'Report or screen navigated to on row click'),
-    Field('drillThroughReports', String, 'Drill-Through Reports',
-        hint: 'Comma-separated report IDs reachable from this report'),
-    Field('parameterForm', String, 'Parameter Form',
-        hint: 'Description of user input form shown before generation'),
-    Field('emptyDataMessage', String, 'Empty Data Message',
-        hint: 'Message to display when report has no data'),
-    Field('maxRows', int, 'Maximum Rows',
-        hint: 'Row limit for performance; 0 = unlimited'),
-    Field('paginationStyle', String, 'Pagination Style',
-        hint: 'Page-break / Continuous / Scrollable'),
-    Field('rowsPerPage', int, 'Rows Per Page',
-        hint: 'For paginated tabular reports'),
-    Field('localization', String, 'Localization',
-        hint: 'Locales supported, e.g. de-DE, en-US, fr-FR'),
-    Field('brandingOverride', String, 'Branding Override',
-        hint: 'Override branding for this report, e.g. subsidiary logo'),
-    Field('accessLevel', String, 'Access Level',
-        hint: 'Public / Authenticated / Role-specific / Confidential'),
-    Field('requiredRoles', String, 'Required Roles',
-        hint: 'Roles permitted to generate this report'),
-    Field('dataLevelSecurity', String, 'Data-Level Security',
-        hint:
-            'Row/column level security rules, e.g. managers see only own department'),
-    Field('archiveRetention', String, 'Archive Retention',
-        hint: 'Retention policy for generated instances, e.g. 90 days'),
-    Field('signatureRequired', String, 'Signature Required',
-        hint: 'Yes / No — does the report require a digital signature'),
-    Field('approvalWorkflow', String, 'Approval Workflow',
-        hint: 'Approval steps before distribution, if any'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional design notes or open questions'),
+        hint: 'Tabular / Summary / Dashboard / KPI-Card / Chart-Only / Mixed'),
   ])
   String? content;
+
+  /// Identity and context.
+  final ReportIdentity identity = ReportIdentity();
+
+  /// Data source configuration.
+  final ReportDataSource dataSource = ReportDataSource();
+
+  /// Output format options.
+  final ReportFormat format = ReportFormat();
+
+  /// Page layout settings.
+  final ReportLayout layout = ReportLayout();
+
+  /// Header and footer templates.
+  final ReportHeaderFooter headerFooter = ReportHeaderFooter();
+
+  /// Sorting and grouping.
+  final ReportGrouping grouping = ReportGrouping();
+
+  /// Conditional formatting.
+  final ReportFormatting formatting = ReportFormatting();
+
+  /// Interactivity and parameters.
+  final ReportInteractivity interactivity = ReportInteractivity();
+
+  /// Pagination settings.
+  final ReportPagination pagination = ReportPagination();
+
+  /// Security and access.
+  final ReportSecurity security = ReportSecurity();
+
+  /// Lifecycle and archiving.
+  final ReportLifecycle lifecycle = ReportLifecycle();
 
   /// Contains 0+× Report Section.
   @SectionIdPattern('PD00-USE-PRI-REP-xx-SEC-xx')
@@ -2126,6 +2067,169 @@ class ReportEntry {
   /// Contains 0+× Recipient.
   @SectionIdPattern('PD00-USE-PRI-REP-xx-REC-xx')
   List<ReportRecipientEntry> recipients = [];
+}
+
+/// Report identity and context.
+class ReportIdentity {
+  @Form([
+    Field('description', String, 'Description',
+        hint: 'Business purpose and summary of the report'),
+    Field('reportCategory', String, 'Report Category',
+        hint: 'Operational / Analytical / Compliance / Financial / Audit'),
+    Field('relatedUseCases', String, 'Related Use Cases',
+        hint: 'UC references this report serves'),
+    Field('relatedBusinessProcesses', String, 'Related Business Processes',
+        hint: 'BP references where this report is used'),
+    Field('relatedDataEntities', String, 'Related Data Entities',
+        hint: 'BDM entity references used as data sources'),
+  ])
+  String? content;
+}
+
+/// Report data source configuration.
+class ReportDataSource {
+  @Form([
+    Field('dataSource', String, 'Data Source',
+        hint: 'Primary data source or query reference'),
+    Field('dataScope', String, 'Data Scope',
+        hint: 'What data is included, e.g. All orders for current fiscal year'),
+    Field('dataCurrency', String, 'Data Currency',
+        hint: 'Real-time / Near-real-time / Daily-snapshot / As-of-date'),
+    Field('generationTrigger', String, 'Generation Trigger',
+        hint: 'On-demand / Scheduled / Event-triggered / Batch'),
+  ])
+  String? content;
+}
+
+/// Report output format options.
+class ReportFormat {
+  @Form([
+    Field('format', String, 'Output Format',
+        hint: 'PDF / Excel / CSV / HTML / Word / Print / Multi-format'),
+    Field('interactivity', String, 'Interactivity',
+        hint: 'Static / Interactive / Drill-down / Parameterized'),
+    Field('pageSize', String, 'Page Size',
+        hint: 'Override: A4 / Letter / Legal / A3 / Custom'),
+    Field('orientation', String, 'Orientation',
+        hint: 'Override: Portrait / Landscape / Auto'),
+  ])
+  String? content;
+}
+
+/// Report page layout settings.
+class ReportLayout {
+  @Form([
+    Field('marginTop', String, 'Margin Top', hint: 'Override top margin'),
+    Field('marginBottom', String, 'Margin Bottom', hint: 'Override bottom margin'),
+    Field('marginLeft', String, 'Margin Left', hint: 'Override left margin'),
+    Field('marginRight', String, 'Margin Right', hint: 'Override right margin'),
+  ])
+  String? content;
+}
+
+/// Report header and footer templates.
+class ReportHeaderFooter {
+  @Form([
+    Field('headerTemplate', String, 'Header Template',
+        hint: 'Page header override, e.g. {logo} {reportTitle}'),
+    Field('footerTemplate', String, 'Footer Template',
+        hint: 'Page footer override'),
+    Field('coverPage', String, 'Cover Page',
+        hint: 'Yes / No — include a cover page'),
+    Field('coverPageTemplate', String, 'Cover Page Template',
+        hint: 'Cover page content template'),
+    Field('tableOfContents', String, 'Table of Contents',
+        hint: 'Yes / No — include TOC for multi-section reports'),
+  ])
+  String? content;
+}
+
+/// Report sorting and grouping.
+class ReportGrouping {
+  @Form([
+    Field('defaultSortField', String, 'Default Sort Field',
+        hint: 'Default sort column or field'),
+    Field('defaultSortDirection', String, 'Default Sort Direction',
+        hint: 'Ascending / Descending'),
+    Field('defaultGroupBy', String, 'Default Group By',
+        hint: 'Default grouping field'),
+    Field('groupSummary', String, 'Group Summary',
+        hint: 'Yes / No — show subtotals per group'),
+    Field('grandTotal', String, 'Grand Total',
+        hint: 'Yes / No — show grand total row'),
+  ])
+  String? content;
+}
+
+/// Report conditional formatting.
+class ReportFormatting {
+  @Form([
+    Field('conditionalFormatting', String, 'Conditional Formatting',
+        hint: 'Description of conditional formatting rules'),
+    Field('highlightRules', String, 'Highlight Rules',
+        hint: 'Row/cell highlight rules, e.g. overdue items in red'),
+  ])
+  String? content;
+}
+
+/// Report interactivity and parameters.
+class ReportInteractivity {
+  @Form([
+    Field('drillDownTarget', String, 'Drill-Down Target',
+        hint: 'Report or screen navigated to on row click'),
+    Field('drillThroughReports', String, 'Drill-Through Reports',
+        hint: 'Comma-separated report IDs reachable from this report'),
+    Field('parameterForm', String, 'Parameter Form',
+        hint: 'Description of user input form shown before generation'),
+    Field('emptyDataMessage', String, 'Empty Data Message',
+        hint: 'Message to display when report has no data'),
+  ])
+  String? content;
+}
+
+/// Report pagination settings.
+class ReportPagination {
+  @Form([
+    Field('maxRows', int, 'Maximum Rows',
+        hint: 'Row limit for performance; 0 = unlimited'),
+    Field('paginationStyle', String, 'Pagination Style',
+        hint: 'Page-break / Continuous / Scrollable'),
+    Field('rowsPerPage', int, 'Rows Per Page',
+        hint: 'For paginated tabular reports'),
+  ])
+  String? content;
+}
+
+/// Report security and access.
+class ReportSecurity {
+  @Form([
+    Field('localization', String, 'Localization',
+        hint: 'Locales supported, e.g. de-DE, en-US, fr-FR'),
+    Field('brandingOverride', String, 'Branding Override',
+        hint: 'Override branding for this report'),
+    Field('accessLevel', String, 'Access Level',
+        hint: 'Public / Authenticated / Role-specific / Confidential'),
+    Field('requiredRoles', String, 'Required Roles',
+        hint: 'Roles permitted to generate this report'),
+    Field('dataLevelSecurity', String, 'Data-Level Security',
+        hint: 'Row/column level security rules'),
+  ])
+  String? content;
+}
+
+/// Report lifecycle and archiving.
+class ReportLifecycle {
+  @Form([
+    Field('archiveRetention', String, 'Archive Retention',
+        hint: 'Retention policy for generated instances, e.g. 90 days'),
+    Field('signatureRequired', String, 'Signature Required',
+        hint: 'Yes / No — does the report require a digital signature'),
+    Field('approvalWorkflow', String, 'Approval Workflow',
+        hint: 'Approval steps before distribution, if any'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional design notes or open questions'),
+  ])
+  String? content;
 }
 
 /// A section within a report [PD00-USE-PRI-REP-nn-SEC-nn] (form).

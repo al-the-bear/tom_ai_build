@@ -502,156 +502,47 @@ class AcceptanceStepEntry {
 @SectionId('PD00-DEL-ACC-UAT')
 class UserAcceptanceTesting {
   @Form([
-    // --- Scope & Objectives ---
     Field('uatObjective', String, 'UAT Objective',
-        hint:
-            'Primary goal — e.g. validate business requirements before go-live'),
-    Field('scope', String, 'Scope Summary',
-        hint: 'Modules, features, and integrations included in UAT'),
-    Field('outOfScope', String, 'Out of Scope',
-        hint:
-            'Explicitly excluded items — e.g. load testing, data migration validation'),
+        hint: 'Primary goal — e.g. validate business requirements before go-live'),
     Field('uatApproach', String, 'UAT Approach',
-        hint: 'Scripted / Exploratory / Hybrid — describe the overall strategy'),
-    Field('testTypes', String, 'Test Types Included',
-        hint:
-            'Functional / Regression / Usability / Accessibility / End-to-End'),
-
-    // --- Environment ---
-    Field('environmentName', String, 'Environment Name',
-        hint: 'Name or identifier of the UAT environment'),
-    Field('environmentUrl', String, 'Environment URL',
-        hint: 'Access URL or endpoint'),
-    Field('environmentDescription', String, 'Environment Description',
-        hint:
-            'Hardware, OS, software stack, network configuration summary'),
-    Field('environmentRefreshPolicy', String, 'Environment Refresh Policy',
-        hint:
-            'How and when environment data is refreshed — e.g. nightly from staging'),
-    Field('environmentAccessControl', String, 'Access Control',
-        hint:
-            'Who has access, authentication method, credential management'),
-
-    // --- Test Data ---
-    Field('testDataStrategy', String, 'Test Data Strategy',
-        hint: 'Synthetic / MaskedProduction / Subset — describe approach'),
-    Field('testDataPreparation', String, 'Test Data Preparation',
-        hint: 'Who prepares test data, lead time, and tools used'),
-    Field('testDataPrivacy', String, 'Data Privacy Compliance',
-        hint: 'GDPR / HIPAA / PCI-DSS compliance for test data handling'),
-    Field('testDataRefreshCadence', String, 'Test Data Refresh Cadence',
-        hint: 'How often test data is refreshed between cycles'),
-
-    // --- Participants & Governance ---
+        hint: 'Scripted / Exploratory / Hybrid'),
     Field('uatLead', String, 'UAT Lead',
         hint: 'Name and role of the person coordinating UAT'),
-    Field('businessOwner', String, 'Business Owner',
-        hint: 'Stakeholder accountable for UAT sign-off'),
-    Field('testerRoles', String, 'Tester Roles',
-        hint:
-            'Business analysts, end-users, SMEs, external testers'),
-    Field('supportTeam', String, 'Support Team',
-        hint:
-            'Dev, QA, and ops contacts available during UAT execution'),
-    Field('raciSummary', String, 'RACI Summary',
-        hint:
-            'Responsible / Accountable / Consulted / Informed for key UAT activities'),
-    Field('escalationPath', String, 'Escalation Path',
-        hint:
-            'Escalation chain for blocking defects or decision disputes'),
-    Field('communicationPlan', String, 'Communication Plan',
-        hint: 'Status update frequency, channels, and audience'),
-
-    // --- Schedule & Cycles ---
-    Field('plannedStartDate', String, 'Planned Start Date',
-        hint: 'Target start date for UAT execution'),
-    Field('plannedEndDate', String, 'Planned End Date',
-        hint: 'Target completion date'),
-    Field('numberOfCycles', String, 'Number of Test Cycles',
-        hint: 'e.g. 2 cycles — initial execution + regression'),
-    Field('cycleDuration', String, 'Cycle Duration',
-        hint: 'Expected duration per cycle — e.g. 5 business days'),
-    Field('milestones', String, 'Key Milestones',
-        hint:
-            'Entry gate, mid-cycle checkpoint, exit gate, sign-off deadline'),
-
-    // --- Entry, Exit & Suspension Criteria ---
-    Field('entryCriteria', String, 'Entry Criteria',
-        hint:
-            'Prerequisites: system testing passed, environment ready, data loaded'),
-    Field('exitCriteria', String, 'Exit Criteria',
-        hint:
-            'Completion conditions: pass rate >= 95%, no Sev-1 open, sign-off obtained'),
-    Field('suspensionCriteria', String, 'Suspension Criteria',
-        hint:
-            'Conditions that halt UAT — e.g. environment down, critical blocker'),
-    Field('resumptionCriteria', String, 'Resumption Criteria',
-        hint: 'Conditions to restart after suspension'),
-
-    // --- Defect Management ---
-    Field('defectTool', String, 'Defect Tracking Tool',
-        hint:
-            'Jira / Azure DevOps / ServiceNow — tool and project/board details'),
-    Field('defectSeverityLevels', String, 'Severity Levels',
-        hint: 'Define Sev-1 through Sev-4 with examples'),
-    Field('defectResolutionSla', String, 'Resolution SLAs',
-        hint:
-            'Target fix times per severity — e.g. Sev-1 within 4 hours'),
-    Field('defectThreshold', String, 'Acceptable Defect Threshold',
-        hint: 'Max open defects per severity to proceed with sign-off'),
-    Field('defectTriageProcess', String, 'Triage Process',
-        hint:
-            'Frequency, participants, and decision-making for defect triage'),
-    Field('retestProcess', String, 'Retest Process',
-        hint:
-            'How fixed defects are retested and confirmed in UAT'),
-
-    // --- Reporting ---
-    Field('dailyStatusFormat', String, 'Daily Status Format',
-        hint:
-            'Contents: executed, passed, failed, blocked, open defects'),
-    Field('metricsTracked', String, 'Metrics Tracked',
-        hint:
-            'Pass rate, defect density, test coverage, cycle time, burndown'),
-    Field('dashboardTool', String, 'Dashboard Tool',
-        hint:
-            'Tool for real-time UAT metrics — e.g. Jira dashboard, Power BI'),
-    Field('finalReportContents', String, 'Final Report Contents',
-        hint:
-            'Summary, results matrix, open defects, risk assessment, recommendation'),
-
-    // --- Non-Functional Acceptance ---
-    Field('accessibilityAcceptance', String, 'Accessibility Acceptance',
-        hint:
-            'WCAG level, screen-reader compatibility, keyboard navigation checks'),
-    Field('performanceAcceptance', String, 'Performance Acceptance',
-        hint:
-            'Response time thresholds, concurrent users, load conditions during UAT'),
-    Field('securityAcceptance', String, 'Security Acceptance',
-        hint:
-            'Authentication, authorization, data-at-rest / in-transit checks'),
-    Field('regressionApproach', String, 'Regression Approach',
-        hint:
-            'Scope and method for regression testing during UAT cycles'),
-
-    // --- Sign-Off ---
-    Field('signOffAuthority', String, 'Sign-Off Authority',
-        hint: 'Role(s) authorized to provide formal UAT sign-off'),
-    Field('signOffCriteria', String, 'Sign-Off Criteria',
-        hint: 'Exit criteria + risk acceptance conditions for sign-off'),
-    Field('conditionalAcceptancePolicy', String,
-        'Conditional Acceptance Policy',
-        hint:
-            'Conditions under which UAT passes with known open defects'),
-
-    // --- Training & Readiness ---
-    Field('testerTraining', String, 'Tester Training',
-        hint:
-            'Training provided: system walkthrough, tool orientation, test guidelines'),
-    Field('userDocumentation', String, 'User Documentation Availability',
-        hint: 'Guides, FAQs, and quick-start docs available to testers'),
   ])
   String? content;
+
+  /// Scope and objectives.
+  final UatScope scope = UatScope();
+
+  /// Environment.
+  final UatEnvironment environment = UatEnvironment();
+
+  /// Test data.
+  final UatTestData testData = UatTestData();
+
+  /// Participants and governance.
+  final UatGovernance governance = UatGovernance();
+
+  /// Schedule and cycles.
+  final UatSchedule schedule = UatSchedule();
+
+  /// Entry, exit, and suspension criteria.
+  final UatCriteria criteria = UatCriteria();
+
+  /// Defect management.
+  final UatDefectManagement defectManagement = UatDefectManagement();
+
+  /// Reporting.
+  final UatReporting reporting = UatReporting();
+
+  /// Non-functional acceptance.
+  final UatNonFunctional nonFunctional = UatNonFunctional();
+
+  /// Sign-off.
+  final UatSignOff signOff = UatSignOff();
+
+  /// Training and readiness.
+  final UatTraining training = UatTraining();
 
   /// Narrative overview of the UAT approach and philosophy.
   @ContentHelp('Describe the UAT philosophy, how it integrates with prior '
@@ -665,6 +556,175 @@ class UserAcceptanceTesting {
   /// Contains 0+× TestScenario.
   @SectionIdPattern('PD00-DEL-ACC-UAT-xx')
   List<TestScenarioEntry> testScenarios = [];
+}
+
+/// Scope and objectives for UAT.
+class UatScope {
+  @Form([
+    Field('scope', String, 'Scope Summary',
+        hint: 'Modules, features, and integrations included in UAT'),
+    Field('outOfScope', String, 'Out of Scope',
+        hint: 'Explicitly excluded items'),
+    Field('testTypes', String, 'Test Types Included',
+        hint: 'Functional / Regression / Usability / Accessibility / End-to-End'),
+  ])
+  String? content;
+}
+
+/// Environment for UAT.
+class UatEnvironment {
+  @Form([
+    Field('environmentName', String, 'Environment Name',
+        hint: 'Name or identifier of the UAT environment'),
+    Field('environmentUrl', String, 'Environment URL',
+        hint: 'Access URL or endpoint'),
+    Field('environmentDescription', String, 'Environment Description',
+        hint: 'Hardware, OS, software stack, network configuration'),
+    Field('environmentRefreshPolicy', String, 'Environment Refresh Policy',
+        hint: 'How and when environment data is refreshed'),
+    Field('environmentAccessControl', String, 'Access Control',
+        hint: 'Who has access, authentication method'),
+  ])
+  String? content;
+}
+
+/// Test data for UAT.
+class UatTestData {
+  @Form([
+    Field('testDataStrategy', String, 'Test Data Strategy',
+        hint: 'Synthetic / MaskedProduction / Subset'),
+    Field('testDataPreparation', String, 'Test Data Preparation',
+        hint: 'Who prepares test data, lead time, and tools used'),
+    Field('testDataPrivacy', String, 'Data Privacy Compliance',
+        hint: 'GDPR / HIPAA / PCI-DSS compliance'),
+    Field('testDataRefreshCadence', String, 'Test Data Refresh Cadence',
+        hint: 'How often test data is refreshed'),
+  ])
+  String? content;
+}
+
+/// Governance for UAT.
+class UatGovernance {
+  @Form([
+    Field('businessOwner', String, 'Business Owner',
+        hint: 'Stakeholder accountable for UAT sign-off'),
+    Field('testerRoles', String, 'Tester Roles',
+        hint: 'Business analysts, end-users, SMEs, external testers'),
+    Field('supportTeam', String, 'Support Team',
+        hint: 'Dev, QA, and ops contacts available during UAT'),
+    Field('raciSummary', String, 'RACI Summary',
+        hint: 'Responsible / Accountable / Consulted / Informed'),
+    Field('escalationPath', String, 'Escalation Path',
+        hint: 'Escalation chain for blocking defects'),
+    Field('communicationPlan', String, 'Communication Plan',
+        hint: 'Status update frequency, channels, and audience'),
+  ])
+  String? content;
+}
+
+/// Schedule for UAT.
+class UatSchedule {
+  @Form([
+    Field('plannedStartDate', String, 'Planned Start Date',
+        hint: 'Target start date for UAT execution'),
+    Field('plannedEndDate', String, 'Planned End Date',
+        hint: 'Target completion date'),
+    Field('numberOfCycles', String, 'Number of Test Cycles',
+        hint: 'e.g. 2 cycles — initial execution + regression'),
+    Field('cycleDuration', String, 'Cycle Duration',
+        hint: 'Expected duration per cycle'),
+    Field('milestones', String, 'Key Milestones',
+        hint: 'Entry gate, mid-cycle checkpoint, exit gate'),
+  ])
+  String? content;
+}
+
+/// Criteria for UAT.
+class UatCriteria {
+  @Form([
+    Field('entryCriteria', String, 'Entry Criteria',
+        hint: 'Prerequisites: system testing passed, environment ready'),
+    Field('exitCriteria', String, 'Exit Criteria',
+        hint: 'Completion conditions: pass rate >= 95%, no Sev-1 open'),
+    Field('suspensionCriteria', String, 'Suspension Criteria',
+        hint: 'Conditions that halt UAT'),
+    Field('resumptionCriteria', String, 'Resumption Criteria',
+        hint: 'Conditions to restart after suspension'),
+  ])
+  String? content;
+}
+
+/// Defect management for UAT.
+class UatDefectManagement {
+  @Form([
+    Field('defectTool', String, 'Defect Tracking Tool',
+        hint: 'Jira / Azure DevOps / ServiceNow'),
+    Field('defectSeverityLevels', String, 'Severity Levels',
+        hint: 'Define Sev-1 through Sev-4 with examples'),
+    Field('defectResolutionSla', String, 'Resolution SLAs',
+        hint: 'Target fix times per severity'),
+    Field('defectThreshold', String, 'Acceptable Defect Threshold',
+        hint: 'Max open defects per severity to proceed'),
+    Field('defectTriageProcess', String, 'Triage Process',
+        hint: 'Frequency, participants, and decision-making'),
+    Field('retestProcess', String, 'Retest Process',
+        hint: 'How fixed defects are retested'),
+  ])
+  String? content;
+}
+
+/// Reporting for UAT.
+class UatReporting {
+  @Form([
+    Field('dailyStatusFormat', String, 'Daily Status Format',
+        hint: 'Contents: executed, passed, failed, blocked'),
+    Field('metricsTracked', String, 'Metrics Tracked',
+        hint: 'Pass rate, defect density, test coverage'),
+    Field('dashboardTool', String, 'Dashboard Tool',
+        hint: 'Tool for real-time UAT metrics'),
+    Field('finalReportContents', String, 'Final Report Contents',
+        hint: 'Summary, results matrix, open defects'),
+  ])
+  String? content;
+}
+
+/// Non-functional acceptance for UAT.
+class UatNonFunctional {
+  @Form([
+    Field('accessibilityAcceptance', String, 'Accessibility Acceptance',
+        hint: 'WCAG level, screen-reader compatibility'),
+    Field('performanceAcceptance', String, 'Performance Acceptance',
+        hint: 'Response time thresholds, concurrent users'),
+    Field('securityAcceptance', String, 'Security Acceptance',
+        hint: 'Authentication, authorization, data checks'),
+    Field('regressionApproach', String, 'Regression Approach',
+        hint: 'Scope and method for regression testing'),
+  ])
+  String? content;
+}
+
+/// Sign-off for UAT.
+class UatSignOff {
+  @Form([
+    Field('signOffAuthority', String, 'Sign-Off Authority',
+        hint: 'Role(s) authorized to provide formal UAT sign-off'),
+    Field('signOffCriteria', String, 'Sign-Off Criteria',
+        hint: 'Exit criteria + risk acceptance conditions'),
+    Field('conditionalAcceptancePolicy', String, 'Conditional Acceptance Policy',
+        hint: 'Conditions under which UAT passes with known defects'),
+  ])
+  String? content;
+}
+
+/// Training and readiness for UAT.
+class UatTraining {
+  @Form([
+    Field('testerTraining', String, 'Tester Training',
+        hint: 'Training provided: system walkthrough, tool orientation'),
+    Field('userDocumentation', String, 'User Documentation Availability',
+        hint: 'Guides, FAQs, and quick-start docs available'),
+  ])
+  String? content;
 }
 
 /// A UAT test cycle entry [PD00-DEL-ACC-UAT-CYC-nn].

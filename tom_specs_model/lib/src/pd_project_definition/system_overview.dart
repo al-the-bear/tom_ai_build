@@ -6303,193 +6303,181 @@ class FrameworkDependencies {
 /// tracking, and contingency plans for delays or failures.
 class FrameworkDependencyEntry {
   @Form([
-    // --- Dependency Identity ---
     Field('dependencyId', String, 'Dependency ID',
-        hint:
-            'Unique identifier, e.g. DEP-001, DEP-VEN-001',
-        required: true),
+        hint: 'Unique identifier, e.g. DEP-001', required: true),
     Field('dependencyName', String, 'Dependency Name',
-        hint:
-            'Short descriptive name for the dependency, e.g. '
-            'CRM API delivery',
-        required: true),
-    Field('dependencyDescription', String, 'Description',
-        hint:
-            'Detailed description of what is being depended upon '
-            'and why it is needed'),
+        hint: 'Short descriptive name for the dependency', required: true),
+    Field('criticalityLevel', String, 'Criticality Level',
+        hint: 'Low / Medium / High / Critical', required: true),
+  ])
+  String? content;
 
-    // --- Dependency Classification ---
+  /// Dependency identity details.
+  final DependencyIdentity identity = DependencyIdentity();
+
+  /// Dependency classification.
+  final DependencyClassification classification = DependencyClassification();
+
+  /// External party details.
+  final DependencyExternalParty externalParty = DependencyExternalParty();
+
+  /// Deliverable details.
+  final DependencyDeliverable deliverable = DependencyDeliverable();
+
+  /// Timeline.
+  final DependencyTimeline timeline = DependencyTimeline();
+
+  /// Risk assessment.
+  final DependencyRisk risk = DependencyRisk();
+
+  /// Mitigation and contingency.
+  final DependencyMitigation mitigation = DependencyMitigation();
+
+  /// Coordination and tracking.
+  final DependencyTracking tracking = DependencyTracking();
+
+  /// Linkages.
+  final DependencyLinkages linkages = DependencyLinkages();
+}
+
+/// Dependency identity details.
+class DependencyIdentity {
+  @Form([
+    Field('dependencyDescription', String, 'Description',
+        hint: 'Detailed description of what is being depended upon'),
+  ])
+  String? content;
+}
+
+/// Dependency classification.
+class DependencyClassification {
+  @Form([
     Field('dependencyCategory', String, 'Dependency Category',
-        hint:
-            'Project / Team / Vendor / System / Regulatory / '
-            'Infrastructure / Data / Service / Partner',
+        hint: 'Project / Team / Vendor / System / Regulatory / Infrastructure',
         required: true),
     Field('dependencyType', String, 'Dependency Type',
-        hint:
-            'Finish-to-Start / Start-to-Start / Finish-to-Finish / '
-            'Start-to-Finish — scheduling relationship type'),
-    Field('criticalityLevel', String, 'Criticality Level',
-        hint:
-            'Low / Medium / High / Critical — how critical this '
-            'dependency is to project success',
-        required: true),
+        hint: 'Finish-to-Start / Start-to-Start / Finish-to-Finish'),
     Field('onCriticalPath', String, 'On Critical Path',
-        hint:
-            'Yes / No — whether this dependency is on the '
-            'project critical path'),
+        hint: 'Yes / No — whether this dependency is on the critical path'),
+  ])
+  String? content;
+}
 
-    // --- External Party Details ---
+/// External party details.
+class DependencyExternalParty {
+  @Form([
     Field('externalPartyName', String, 'External Party Name',
-        hint:
-            'Name of the project, team, vendor, or system '
-            'being depended upon',
-        required: true),
+        hint: 'Name of the project, team, vendor, or system', required: true),
     Field('externalPartyType', String, 'External Party Type',
-        hint:
-            'InternalProject / InternalTeam / ExternalVendor / '
-            'SystemTeam / Regulator / Partner'),
+        hint: 'InternalProject / InternalTeam / ExternalVendor / Regulator'),
     Field('contactPerson', String, 'Contact Person',
-        hint:
-            'Primary contact at the external party for this '
-            'dependency'),
+        hint: 'Primary contact at the external party'),
     Field('contactEmail', String, 'Contact Email',
-        hint:
-            'Email address for the primary contact'),
+        hint: 'Email address for the primary contact'),
     Field('escalationContact', String, 'Escalation Contact',
-        hint:
-            'Escalation contact if primary is unresponsive or '
-            'dependency is at risk'),
+        hint: 'Escalation contact if primary is unresponsive'),
+  ])
+  String? content;
+}
 
-    // --- Deliverable Details ---
-    Field('deliverableDescription', String,
-        'Deliverable Description',
-        hint:
-            'Description of what must be delivered by the '
-            'external party'),
-    Field('deliverableSpecification', String,
-        'Deliverable Specification',
-        hint:
-            'Link to or reference for detailed specifications '
-            'of the deliverable'),
+/// Deliverable details.
+class DependencyDeliverable {
+  @Form([
+    Field('deliverableDescription', String, 'Deliverable Description',
+        hint: 'Description of what must be delivered'),
+    Field('deliverableSpecification', String, 'Deliverable Specification',
+        hint: 'Link to or reference for detailed specifications'),
     Field('qualityCriteria', String, 'Quality Criteria',
-        hint:
-            'Quality criteria the deliverable must meet — '
-            'acceptance criteria, standards'),
+        hint: 'Quality criteria the deliverable must meet'),
     Field('deliveryFormat', String, 'Delivery Format',
-        hint:
-            'Format of the deliverable — API, data file, '
-            'documentation, software component, approval'),
+        hint: 'Format of the deliverable — API, data file, documentation'),
+  ])
+  String? content;
+}
 
-    // --- Timeline ---
+/// Dependency timeline.
+class DependencyTimeline {
+  @Form([
     Field('expectedDeliveryDate', String, 'Expected Delivery Date',
-        hint:
-            'Date when deliverable is expected, e.g. 2026-06-15',
-        required: true),
+        hint: 'Date when deliverable is expected', required: true),
     Field('latestAcceptableDate', String, 'Latest Acceptable Date',
-        hint:
-            'Latest date deliverable can be received without '
-            'schedule impact'),
+        hint: 'Latest date deliverable can be received without impact'),
     Field('leadTimeRequired', String, 'Lead Time Required',
-        hint:
-            'Time needed after delivery to integrate or use '
-            'the deliverable, e.g. 2 weeks'),
+        hint: 'Time needed after delivery to integrate'),
     Field('bufferDays', String, 'Buffer Days',
-        hint:
-            'Buffer built into schedule for potential delays'),
+        hint: 'Buffer built into schedule for potential delays'),
     Field('dependentMilestones', String, 'Dependent Milestones',
-        hint:
-            'Project milestones that depend on this delivery'),
+        hint: 'Project milestones that depend on this delivery'),
+  ])
+  String? content;
+}
 
-    // --- Risk Assessment ---
+/// Dependency risk assessment.
+class DependencyRisk {
+  @Form([
     Field('deliveryRiskLevel', String, 'Delivery Risk Level',
-        hint:
-            'Low / Medium / High / Critical — risk of delayed '
-            'or failed delivery',
-        required: true),
+        hint: 'Low / Medium / High / Critical', required: true),
     Field('primaryRiskFactors', String, 'Primary Risk Factors',
-        hint:
-            'Key factors driving delivery risk — vendor '
-            'reliability, technical complexity, resource constraints'),
+        hint: 'Key factors driving delivery risk'),
     Field('riskIndicators', String, 'Risk Indicators',
-        hint:
-            'Early warning indicators — missed interim deadlines, '
-            'quality issues, communication gaps'),
+        hint: 'Early warning indicators'),
     Field('impactOfDelay', String, 'Impact of Delay',
-        hint:
-            'Impact on project if delivery is delayed — '
-            'schedule slip, cost increase, scope reduction'),
+        hint: 'Impact on project if delivery is delayed'),
     Field('impactOfFailure', String, 'Impact of Failure',
-        hint:
-            'Impact on project if delivery fails entirely — '
-            'showstopper, workaround possible, alternative exists'),
+        hint: 'Impact on project if delivery fails entirely'),
+  ])
+  String? content;
+}
 
-    // --- Mitigation & Contingency ---
+/// Dependency mitigation and contingency.
+class DependencyMitigation {
+  @Form([
     Field('mitigationStrategy', String, 'Mitigation Strategy',
-        hint:
-            'Strategies to reduce delivery risk — regular '
-            'syncs, early reviews, contractual SLAs'),
+        hint: 'Strategies to reduce delivery risk'),
     Field('contingencyPlan', String, 'Contingency Plan',
-        hint:
-            'Backup plan if dependency fails or is delayed — '
-            'alternative vendor, internal development, descope'),
+        hint: 'Backup plan if dependency fails or is delayed'),
     Field('contingencyTimeline', String, 'Contingency Timeline',
-        hint:
-            'When contingency plan would need to be activated — '
-            'trigger date or condition'),
-    Field('contractualProtection', String,
-        'Contractual Protection',
-        hint:
-            'Contractual protections in place — SLAs, penalties, '
-            'termination clauses'),
+        hint: 'When contingency plan would need to be activated'),
+    Field('contractualProtection', String, 'Contractual Protection',
+        hint: 'Contractual protections in place — SLAs, penalties'),
     Field('alternativeOptions', String, 'Alternative Options',
-        hint:
-            'Alternative sources or approaches if primary '
-            'dependency fails'),
+        hint: 'Alternative sources or approaches if primary fails'),
+  ])
+  String? content;
+}
 
-    // --- Coordination & Tracking ---
-    Field('coordinationMechanism', String,
-        'Coordination Mechanism',
-        hint:
-            'How coordination occurs — weekly syncs, shared '
-            'board, status reports, dedicated liaison'),
-    Field('communicationFrequency', String,
-        'Communication Frequency',
-        hint:
-            'Daily / Weekly / Biweekly / Monthly — how often '
-            'status is communicated'),
+/// Dependency coordination and tracking.
+class DependencyTracking {
+  @Form([
+    Field('coordinationMechanism', String, 'Coordination Mechanism',
+        hint: 'How coordination occurs — weekly syncs, shared board'),
+    Field('communicationFrequency', String, 'Communication Frequency',
+        hint: 'Daily / Weekly / Biweekly / Monthly'),
     Field('trackingMethod', String, 'Tracking Method',
-        hint:
-            'How progress is tracked — shared dashboard, '
-            'status emails, regular demos, milestone reviews'),
+        hint: 'How progress is tracked'),
     Field('dependencyOwner', String, 'Dependency Owner',
-        hint:
-            'Person or role responsible for managing this '
-            'dependency on our side'),
+        hint: 'Person or role responsible for managing this dependency'),
     Field('currentStatus', String, 'Current Status',
-        hint:
-            'OnTrack / Delayed / AtRisk / Delivered / Failed — '
-            'current status of the dependency'),
+        hint: 'OnTrack / Delayed / AtRisk / Delivered / Failed'),
     Field('statusLastUpdated', String, 'Status Last Updated',
-        hint:
-            'Date of the most recent status update'),
+        hint: 'Date of the most recent status update'),
     Field('statusNotes', String, 'Status Notes',
-        hint:
-            'Notes on current status, recent progress, or '
-            'concerns'),
+        hint: 'Notes on current status, recent progress, or concerns'),
+  ])
+  String? content;
+}
 
-    // --- Linkages ---
+/// Dependency linkages.
+class DependencyLinkages {
+  @Form([
     Field('relatedConstraints', String, 'Related Constraints',
-        hint:
-            'Constraints that relate to this dependency'),
+        hint: 'Constraints that relate to this dependency'),
     Field('relatedRisks', String, 'Related Risks',
-        hint:
-            'Risks associated with this dependency — risk IDs'),
+        hint: 'Risks associated with this dependency — risk IDs'),
     Field('relatedDependencies', String, 'Related Dependencies',
-        hint:
-            'Other dependencies that interact with this one'),
+        hint: 'Other dependencies that interact with this one'),
     Field('affectedWorkPackages', String, 'Affected Work Packages',
-        hint:
-            'Work packages that depend on this delivery'),
+        hint: 'Work packages that depend on this delivery'),
   ])
   String? content;
 }
