@@ -2638,67 +2638,146 @@ class ExportFormatEntry {
         hint: 'Unique identifier, e.g. EXP-001', required: true),
     Field('formatName', String, 'Format Name',
         hint: 'Human-readable name, e.g. Monthly Orders CSV', required: true),
+    Field('formatType', String, 'Format Type',
+        hint: 'CSV / Excel / PDF / JSON / XML / HTML / Fixed-Width'),
+  ])
+  String? content;
+
+  /// Identity and data source.
+  final ExportIdentity identity = ExportIdentity();
+
+  /// File format settings.
+  final ExportFileFormat fileFormat = ExportFileFormat();
+
+  /// Delimiter and quoting.
+  final ExportDelimiter delimiter = ExportDelimiter();
+
+  /// Data formatting.
+  final ExportDataFormat dataFormat = ExportDataFormat();
+
+  /// Size and splitting.
+  final ExportSizeSettings sizeSettings = ExportSizeSettings();
+
+  /// Security settings.
+  final ExportSecurity security = ExportSecurity();
+
+  /// Output and scheduling.
+  final ExportOutput output = ExportOutput();
+
+  /// Access and audit.
+  final ExportAccess access = ExportAccess();
+
+  /// Contains 0+× Export Field Mapping.
+  @SectionIdPattern('PD00-USE-PRI-EXP-xx-FLD-xx')
+  List<ExportFieldMappingEntry> fieldMappings = [];
+}
+
+/// Export identity and data source.
+class ExportIdentity {
+  @Form([
     Field('description', String, 'Description',
         hint: 'Business purpose of this export'),
-    Field('formatType', String, 'Format Type',
-        hint:
-            'CSV / Excel / PDF / JSON / XML / HTML / Fixed-Width / Parquet / ODS / Custom'),
     Field('relatedDataEntities', String, 'Related Data Entities',
         hint: 'BDM entity references included in export'),
     Field('dataSource', String, 'Data Source',
         hint: 'Data source or query reference'),
     Field('dataScope', String, 'Data Scope',
         hint: 'Scope of exported data'),
+  ])
+  String? content;
+}
+
+/// Export file format settings.
+class ExportFileFormat {
+  @Form([
     Field('fileNamingPattern', String, 'File Naming Pattern',
-        hint:
-            'Output filename pattern, e.g. orders_{date}_{sequence}.csv'),
+        hint: 'Output filename pattern, e.g. orders_{date}.csv'),
     Field('encoding', String, 'Encoding',
-        hint: 'UTF-8 / UTF-16 / ISO-8859-1 / Windows-1252 / ASCII'),
+        hint: 'UTF-8 / UTF-16 / ISO-8859-1 / ASCII'),
     Field('lineEnding', String, 'Line Ending', hint: 'CRLF / LF / CR'),
+  ])
+  String? content;
+}
+
+/// Export delimiter and quoting.
+class ExportDelimiter {
+  @Form([
     Field('delimiter', String, 'Delimiter',
-        hint:
-            'Column delimiter for CSV: Comma / Semicolon / Tab / Pipe / Custom'),
+        hint: 'Column delimiter: Comma / Semicolon / Tab / Pipe'),
     Field('quoteCharacter', String, 'Quote Character',
-        hint: 'Field quote character, e.g. double-quote or single-quote'),
+        hint: 'Field quote character'),
     Field('headerRow', String, 'Header Row',
         hint: 'Yes / No — include column header row'),
     Field('headerStyle', String, 'Header Style',
         hint: 'Display-Labels / Field-Names / Custom-Mapping'),
+  ])
+  String? content;
+}
+
+/// Export data formatting.
+class ExportDataFormat {
+  @Form([
     Field('dateFormat', String, 'Date Format',
-        hint: 'Date format for export, e.g. yyyy-MM-dd / ISO-8601'),
+        hint: 'Date format, e.g. yyyy-MM-dd / ISO-8601'),
     Field('numberFormat', String, 'Number Format',
-        hint:
-            'Number format: Locale-default / US(1,000.00) / EU(1.000,00) / Raw'),
+        hint: 'Locale-default / US / EU / Raw'),
     Field('decimalSeparator', String, 'Decimal Separator', hint: '. or ,'),
     Field('currencyFormat', String, 'Currency Format',
-        hint: 'Currency handling: Symbol-prefix / Code-suffix / Raw-number'),
+        hint: 'Symbol-prefix / Code-suffix / Raw-number'),
     Field('booleanTrueValue', String, 'Boolean True Value',
-        hint: 'String value for true, e.g. 1, true, Yes, Y'),
+        hint: 'String value for true, e.g. 1, true, Yes'),
     Field('booleanFalseValue', String, 'Boolean False Value',
-        hint: 'String value for false, e.g. 0, false, No, N'),
+        hint: 'String value for false, e.g. 0, false, No'),
     Field('nullHandling', String, 'Null Handling',
-        hint: 'Empty-string / Null-literal / Custom-value / Omit-field'),
+        hint: 'Empty-string / Null-literal / Custom-value'),
+  ])
+  String? content;
+}
+
+/// Export size settings.
+class ExportSizeSettings {
+  @Form([
     Field('maxRows', int, 'Maximum Rows',
         hint: 'Row limit; 0 = unlimited'),
     Field('splitLargeFiles', String, 'Split Large Files',
-        hint:
-            'Yes / No — split into chunks when exceeding row/size limit'),
+        hint: 'Yes / No — split into chunks'),
     Field('splitThreshold', String, 'Split Threshold',
         hint: 'Split point, e.g. 100000 rows or 50MB'),
+  ])
+  String? content;
+}
+
+/// Export security settings.
+class ExportSecurity {
+  @Form([
     Field('compressionFormat', String, 'Compression Format',
         hint: 'None / ZIP / GZIP / BZIP2'),
     Field('encryptionEnabled', String, 'Encryption Enabled',
         hint: 'Yes / No'),
     Field('encryptionMethod', String, 'Encryption Method',
         hint: 'AES-256 / Password-Protected-ZIP / PGP / None'),
+  ])
+  String? content;
+}
+
+/// Export output and scheduling.
+class ExportOutput {
+  @Form([
     Field('outputDestination', String, 'Output Destination',
         hint: 'Download / File-Share / S3 / SFTP / API / Email'),
     Field('outputPath', String, 'Output Path',
-        hint: 'Path or URL for file-share/S3/SFTP destination'),
+        hint: 'Path or URL for destination'),
     Field('schedulingEnabled', String, 'Scheduling Enabled',
         hint: 'Yes / No — can this export be scheduled'),
     Field('schedulingExpression', String, 'Scheduling Expression',
         hint: 'Cron-like expression for automated export'),
+  ])
+  String? content;
+}
+
+/// Export access and audit.
+class ExportAccess {
+  @Form([
     Field('accessLevel', String, 'Access Level',
         hint: 'Public / Authenticated / Role-specific'),
     Field('requiredRoles', String, 'Required Roles',
@@ -2706,14 +2785,10 @@ class ExportFormatEntry {
     Field('auditLogging', String, 'Audit Logging',
         hint: 'Yes / No — log export executions'),
     Field('previewAvailable', String, 'Preview Available',
-        hint: 'Yes / No — allow user to preview before downloading'),
+        hint: 'Yes / No — allow user to preview'),
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
   String? content;
-
-  /// Contains 0+× Export Field Mapping.
-  @SectionIdPattern('PD00-USE-PRI-EXP-xx-FLD-xx')
-  List<ExportFieldMappingEntry> fieldMappings = [];
 }
 
 /// A field mapping within an export [PD00-USE-PRI-EXP-nn-FLD-nn] (form).

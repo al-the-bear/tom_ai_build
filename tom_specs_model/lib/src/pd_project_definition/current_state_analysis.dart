@@ -1554,35 +1554,70 @@ class TechnicalPainPointsSummary {
 /// current workarounds, and proposed resolution approach.
 class PainPointEntry {
   @Form([
-    // Identification
     Field('painPointId', String, 'Pain Point ID',
         hint: 'Unique identifier, e.g. PP-OPE-001', required: true),
     Field('painPoint', String, 'Pain Point Name',
         hint: 'Concise name for the pain point', required: true),
-    Field('description', String, 'Description',
-        hint: 'Detailed description of the problem and its manifestation'),
+    Field('severity', String, 'Severity',
+        hint: 'Critical / High / Medium / Low'),
+  ])
+  String? content;
 
-    // Classification
+  /// Classification.
+  final PainPointClassification classification = PainPointClassification();
+
+  /// Root cause analysis.
+  final PainPointRootCause rootCause = PainPointRootCause();
+
+  /// Impact assessment.
+  final PainPointImpact impact = PainPointImpact();
+
+  /// Evidence and validation.
+  final PainPointEvidence evidence = PainPointEvidence();
+
+  /// Current state and workarounds.
+  final PainPointWorkaround workaround = PainPointWorkaround();
+
+  /// Resolution planning.
+  final PainPointResolution resolution = PainPointResolution();
+
+  /// Relationships.
+  final PainPointRelationships relationships = PainPointRelationships();
+}
+
+/// Classification for pain point.
+class PainPointClassification {
+  @Form([
+    Field('description', String, 'Description',
+        hint: 'Detailed description of the problem'),
     Field('category', String, 'Category',
         hint: 'Operational / Business / Technical'),
     Field('subCategory', String, 'Sub-Category',
-        hint: 'More specific classification, e.g. Performance / DataQuality / Usability'),
-    Field('severity', String, 'Severity',
-        hint: 'Critical / High / Medium / Low'),
+        hint: 'E.g. Performance / DataQuality / Usability'),
     Field('urgency', String, 'Urgency',
         hint: 'Immediate / ShortTerm / MediumTerm / LongTerm'),
     Field('priority', String, 'Resolution Priority',
         hint: 'P1-Critical / P2-High / P3-Medium / P4-Low'),
+  ])
+  String? content;
+}
 
-    // Root Cause
+/// Root cause for pain point.
+class PainPointRootCause {
+  @Form([
     Field('rootCause', String, 'Root Cause',
-        hint: 'Underlying cause of the pain point (from root cause analysis)'),
+        hint: 'Underlying cause of the pain point'),
     Field('rootCauseCategory', String, 'Root Cause Category',
         hint: 'Process / Technology / People / Data / Integration / External'),
     Field('contributingFactors', String, 'Contributing Factors',
         hint: 'Additional factors that exacerbate the problem'),
+  ])
+  String? content;
+}
 
-    // Impact Assessment
+/// Impact assessment for pain point.
+class PainPointImpact {
+  @Form([
     Field('affectedProcess', String, 'Affected Process',
         hint: 'Primary business process impacted'),
     Field('affectedSystems', String, 'Affected Systems',
@@ -1596,49 +1631,69 @@ class PainPointEntry {
     Field('businessImpact', String, 'Business Impact',
         hint: 'Description of impact on business outcomes'),
     Field('quantifiedCost', String, 'Quantified Annual Cost',
-        hint: 'Estimated annual cost, e.g. €75k/year or 200 FTE hours/month'),
+        hint: 'Estimated annual cost, e.g. €75k/year'),
     Field('productivityLoss', String, 'Productivity Loss',
-        hint: 'Time lost per occurrence or period, e.g. 30 min/occurrence'),
+        hint: 'Time lost per occurrence, e.g. 30 min/occurrence'),
+  ])
+  String? content;
+}
 
-    // Evidence and Validation
+/// Evidence for pain point.
+class PainPointEvidence {
+  @Form([
     Field('discoveryMethod', String, 'Discovery Method',
-        hint: 'UserFeedback / Incident / Audit / ProcessReview / Observation / Analytics'),
+        hint: 'UserFeedback / Incident / Audit / ProcessReview'),
     Field('dateIdentified', String, 'Date Identified',
-        hint: 'When the pain point was first documented, e.g. 2024-03'),
+        hint: 'When the pain point was first documented'),
     Field('validationStatus', String, 'Validation Status',
         hint: 'Identified / Confirmed / Quantified / RootCauseAnalyzed'),
     Field('evidenceSources', String, 'Evidence Sources',
-        hint: 'Data sources supporting this pain point, e.g. incident logs, surveys'),
+        hint: 'Data sources supporting this pain point'),
     Field('incidentReferences', String, 'Related Incidents',
-        hint: 'References to specific incidents, e.g. INC-2024-0145, INC-2024-0189'),
+        hint: 'References to specific incidents'),
+  ])
+  String? content;
+}
 
-    // Current State
+/// Workaround for pain point.
+class PainPointWorkaround {
+  @Form([
     Field('currentWorkaround', String, 'Current Workaround',
         hint: 'How users currently work around this issue'),
     Field('workaroundEffectiveness', String, 'Workaround Effectiveness',
         hint: 'None / Poor / Partial / Adequate'),
     Field('workaroundCost', String, 'Workaround Cost',
-        hint: 'Cost of maintaining the workaround, e.g. 5 FTE hours/week'),
+        hint: 'Cost of maintaining the workaround'),
     Field('riskIfNotAddressed', String, 'Risk if Not Addressed',
         hint: 'Consequences of leaving the pain point unresolved'),
+  ])
+  String? content;
+}
 
-    // Resolution Planning
+/// Resolution for pain point.
+class PainPointResolution {
+  @Form([
     Field('proposedResolution', String, 'Proposed Resolution',
         hint: 'High-level approach to resolve the pain point'),
     Field('resolutionComplexity', String, 'Resolution Complexity',
         hint: 'Low / Medium / High / VeryHigh'),
     Field('estimatedResolutionEffort', String, 'Estimated Resolution Effort',
-        hint: 'Time or cost to resolve, e.g. 3 months, €50k'),
+        hint: 'Time or cost to resolve'),
     Field('expectedBenefit', String, 'Expected Benefit',
-        hint: 'Quantified benefit after resolution, e.g. €75k/year savings'),
+        hint: 'Quantified benefit after resolution'),
     Field('successCriteria', String, 'Success Criteria',
         hint: 'How to measure that the pain point is resolved'),
+  ])
+  String? content;
+}
 
-    // Relationships
+/// Relationships for pain point.
+class PainPointRelationships {
+  @Form([
     Field('relatedPainPoints', String, 'Related Pain Points',
-        hint: 'IDs of related pain points, e.g. PP-OPE-003, PP-TEC-007'),
+        hint: 'IDs of related pain points'),
     Field('relatedGaps', String, 'Related Gaps',
-        hint: 'Gap entries that this pain point stems from or causes'),
+        hint: 'Gap entries that this pain point stems from'),
     Field('dependsOn', String, 'Depends On',
         hint: 'Other pain points that must be resolved first'),
   ])
@@ -1875,96 +1930,35 @@ catalog data sources, coverage of the inventory, and any known gaps.
 /// technology, format, volume, quality, ownership, and access patterns.
 class DataSourceEntry {
   @Form([
-    // Identification
     Field('dataSourceId', String, 'Data Source ID',
         hint: 'Unique identifier, e.g. DS-001', required: true),
     Field('dataStoreName', String, 'Data Store Name',
         hint: 'Name of the data store or source', required: true),
-    Field('description', String, 'Description',
-        hint: 'Brief description of what data this source contains'),
-
-    // Classification
-    Field('sourceCategory', String, 'Source Category',
-        hint:
-            'Transactional / Analytical / Master / Reference / Archive / Staging'),
-    Field('businessDomain', String, 'Business Domain',
-        hint:
-            'Business domain, e.g. Sales, Finance, HR, Operations, Customer'),
     Field('criticality', String, 'Business Criticality',
         hint: 'Critical / High / Medium / Low'),
-
-    // Technical Details
-    Field('storeType', String, 'Store Type',
-        hint:
-            'Database / DataWarehouse / DataLake / FileSystem / API / SaaS / Spreadsheet'),
-    Field('technology', String, 'Technology/Platform',
-        hint:
-            'E.g. PostgreSQL, Oracle, SQL Server, MongoDB, S3, Salesforce, SAP'),
-    Field('version', String, 'Version',
-        hint: 'Software/platform version, e.g. PostgreSQL 14.5'),
-    Field('hostingLocation', String, 'Hosting Location',
-        hint: 'OnPremise / CloudAWS / CloudAzure / CloudGCP / SaaS / Hybrid'),
-    Field('dataFormat', String, 'Data Format',
-        hint: 'Relational / Document / Key-Value / CSV / JSON / XML / Parquet'),
-
-    // Volume and Performance
-    Field('estimatedVolume', String, 'Estimated Volume',
-        hint: 'E.g. 500 GB, 2 TB, 50 million records'),
-    Field('estimatedRecordCount', String, 'Estimated Record Count',
-        hint: 'Number of records/rows/documents'),
-    Field('growthRate', String, 'Growth Rate',
-        hint: 'E.g. 5% per month, 100 GB per quarter'),
-    Field('accessFrequency', String, 'Access Frequency',
-        hint: 'Realtime / Hourly / Daily / Weekly / Monthly / OnDemand'),
-    Field('peakLoadPeriods', String, 'Peak Load Periods',
-        hint: 'When the source experiences highest load'),
-
-    // Quality and Reliability
-    Field('dataQualityScore', String, 'Data Quality Score',
-        hint: 'Quality rating, e.g. 85%, A, High'),
-    Field('knownQualityIssues', String, 'Known Quality Issues',
-        hint: 'Summary of quality problems'),
-    Field('dataFreshness', String, 'Data Freshness',
-        hint: 'How current the data is, e.g. RealTime / Daily / Weekly'),
-    Field('reliabilityScore', String, 'Reliability Score',
-        hint: 'Uptime/reliability, e.g. 99.5%'),
-
-    // Ownership and Governance
-    Field('businessOwner', String, 'Business Owner',
-        hint: 'Department or role responsible for data'),
-    Field('technicalOwner', String, 'Technical Owner',
-        hint: 'Team or role responsible for technical management'),
-    Field('dataSteward', String, 'Data Steward',
-        hint: 'Person responsible for data quality and governance'),
-    Field('accessControlModel', String, 'Access Control Model',
-        hint: 'RBAC / ABAC / ACL / Open'),
-    Field('sensitivityLevel', String, 'Data Sensitivity Level',
-        hint:
-            'Public / Internal / Confidential / Restricted / PersonallyIdentifiable'),
-
-    // Integration
-    Field('integratedSystems', String, 'Integrated Systems',
-        hint: 'List of systems that read from or write to this source'),
-    Field('upstreamSources', String, 'Upstream Sources',
-        hint: 'Data sources that feed into this one'),
-    Field('downstreamConsumers', String, 'Downstream Consumers',
-        hint: 'Systems or processes that consume data from this source'),
-
-    // Lifecycle
-    Field('creationDate', String, 'Creation Date',
-        hint: 'When the data source was established'),
-    Field('lastMajorUpdate', String, 'Last Major Update',
-        hint: 'When the source was last significantly modified'),
-    Field('plannedDecommission', String, 'Planned Decommission',
-        hint: 'If scheduled for retirement, target date'),
-
-    // Documentation
-    Field('documentationStatus', String, 'Documentation Status',
-        hint: 'Complete / Partial / Minimal / None'),
-    Field('schemaDocumentationLink', String, 'Schema Documentation Link',
-        hint: 'Link to detailed schema documentation'),
   ])
   String? content;
+
+  /// Classification.
+  final DataSourceClassification classification = DataSourceClassification();
+
+  /// Technical details.
+  final DataSourceTechnical technical = DataSourceTechnical();
+
+  /// Volume and performance.
+  final DataSourceVolume volume = DataSourceVolume();
+
+  /// Quality and reliability.
+  final DataSourceQuality quality = DataSourceQuality();
+
+  /// Ownership and governance.
+  final DataSourceOwnership ownership = DataSourceOwnership();
+
+  /// Integration.
+  final DataSourceIntegration integration = DataSourceIntegration();
+
+  /// Lifecycle.
+  final DataSourceLifecycle lifecycle = DataSourceLifecycle();
 
   /// Retention Policy for this data source.
   DataSourceRetentionPolicy retentionPolicy = DataSourceRetentionPolicy();
@@ -1972,6 +1966,115 @@ class DataSourceEntry {
   /// Key data entities in this source.
   @Min(1)
   List<DataEntityEntry> keyEntities = [];
+}
+
+/// Classification for data source.
+class DataSourceClassification {
+  @Form([
+    Field('description', String, 'Description',
+        hint: 'Brief description of what data this source contains'),
+    Field('sourceCategory', String, 'Source Category',
+        hint: 'Transactional / Analytical / Master / Reference / Archive'),
+    Field('businessDomain', String, 'Business Domain',
+        hint: 'E.g. Sales, Finance, HR, Operations, Customer'),
+  ])
+  String? content;
+}
+
+/// Technical details for data source.
+class DataSourceTechnical {
+  @Form([
+    Field('storeType', String, 'Store Type',
+        hint: 'Database / DataWarehouse / DataLake / FileSystem / API'),
+    Field('technology', String, 'Technology/Platform',
+        hint: 'E.g. PostgreSQL, Oracle, MongoDB, S3, Salesforce'),
+    Field('version', String, 'Version',
+        hint: 'Software/platform version'),
+    Field('hostingLocation', String, 'Hosting Location',
+        hint: 'OnPremise / CloudAWS / CloudAzure / CloudGCP / SaaS'),
+    Field('dataFormat', String, 'Data Format',
+        hint: 'Relational / Document / Key-Value / CSV / JSON / XML'),
+  ])
+  String? content;
+}
+
+/// Volume and performance for data source.
+class DataSourceVolume {
+  @Form([
+    Field('estimatedVolume', String, 'Estimated Volume',
+        hint: 'E.g. 500 GB, 2 TB, 50 million records'),
+    Field('estimatedRecordCount', String, 'Estimated Record Count',
+        hint: 'Number of records/rows/documents'),
+    Field('growthRate', String, 'Growth Rate',
+        hint: 'E.g. 5% per month, 100 GB per quarter'),
+    Field('accessFrequency', String, 'Access Frequency',
+        hint: 'Realtime / Hourly / Daily / Weekly / Monthly'),
+    Field('peakLoadPeriods', String, 'Peak Load Periods',
+        hint: 'When the source experiences highest load'),
+  ])
+  String? content;
+}
+
+/// Quality and reliability for data source.
+class DataSourceQuality {
+  @Form([
+    Field('dataQualityScore', String, 'Data Quality Score',
+        hint: 'Quality rating, e.g. 85%, A, High'),
+    Field('knownQualityIssues', String, 'Known Quality Issues',
+        hint: 'Summary of quality problems'),
+    Field('dataFreshness', String, 'Data Freshness',
+        hint: 'How current the data is, e.g. RealTime / Daily'),
+    Field('reliabilityScore', String, 'Reliability Score',
+        hint: 'Uptime/reliability, e.g. 99.5%'),
+  ])
+  String? content;
+}
+
+/// Ownership and governance for data source.
+class DataSourceOwnership {
+  @Form([
+    Field('businessOwner', String, 'Business Owner',
+        hint: 'Department or role responsible for data'),
+    Field('technicalOwner', String, 'Technical Owner',
+        hint: 'Team or role responsible for technical management'),
+    Field('dataSteward', String, 'Data Steward',
+        hint: 'Person responsible for data quality'),
+    Field('accessControlModel', String, 'Access Control Model',
+        hint: 'RBAC / ABAC / ACL / Open'),
+    Field('sensitivityLevel', String, 'Data Sensitivity Level',
+        hint: 'Public / Internal / Confidential / Restricted'),
+  ])
+  String? content;
+}
+
+/// Integration for data source.
+class DataSourceIntegration {
+  @Form([
+    Field('integratedSystems', String, 'Integrated Systems',
+        hint: 'Systems that read from or write to this source'),
+    Field('upstreamSources', String, 'Upstream Sources',
+        hint: 'Data sources that feed into this one'),
+    Field('downstreamConsumers', String, 'Downstream Consumers',
+        hint: 'Systems that consume data from this source'),
+  ])
+  String? content;
+}
+
+/// Lifecycle for data source.
+class DataSourceLifecycle {
+  @Form([
+    Field('creationDate', String, 'Creation Date',
+        hint: 'When the data source was established'),
+    Field('lastMajorUpdate', String, 'Last Major Update',
+        hint: 'When the source was last significantly modified'),
+    Field('plannedDecommission', String, 'Planned Decommission',
+        hint: 'If scheduled for retirement, target date'),
+    Field('documentationStatus', String, 'Documentation Status',
+        hint: 'Complete / Partial / Minimal / None'),
+    Field('schemaDocumentationLink', String, 'Schema Documentation Link',
+        hint: 'Link to detailed schema documentation'),
+  ])
+  String? content;
 }
 
 /// Retention policy specific to a data source.

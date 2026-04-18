@@ -114,19 +114,51 @@ class ChangesFromCurrentStructure {
 /// state, rationale, impact assessment, and transition requirements.
 class OrganizationalChangeEntry {
   @Form([
-    // Change Identification
     Field('changeId', String, 'Change ID (e.g., OC-001)', required: true,
         hint: 'Unique identifier for this structural change'),
     Field('changeName', String, 'Change Name', required: true,
         hint: 'Short descriptive name for the change'),
     Field('changeType', String, 'Change Type',
         hint: 'Restructure, Merge, Split, Create, Eliminate, Relocate'),
-    Field('changeCategory', String, 'Change Category',
-        hint: 'Reporting Lines, Team Structure, Department, Division, Function'),
-    Field('priority', String, 'Priority',
-        hint: 'Critical, High, Medium, Low — implementation priority'),
+  ])
+  String? content;
 
-    // Scope
+  /// Change identification details.
+  final OrgChangeIdentification identification = OrgChangeIdentification();
+
+  /// Scope of the change.
+  final OrgChangeScope scope = OrgChangeScope();
+
+  /// Rationale for the change.
+  final OrgChangeRationale rationale = OrgChangeRationale();
+
+  /// Impact assessment.
+  final OrgChangeImpact impact = OrgChangeImpact();
+
+  /// Transition planning.
+  final OrgChangeTransition transition = OrgChangeTransition();
+
+  /// Risks and mitigations.
+  final OrgChangeRisks risks = OrgChangeRisks();
+
+  /// Status tracking.
+  final OrgChangeStatus status = OrgChangeStatus();
+}
+
+/// Identification details for organizational change.
+class OrgChangeIdentification {
+  @Form([
+    Field('changeCategory', String, 'Change Category',
+        hint: 'Reporting Lines, Team Structure, Department, Division'),
+    Field('priority', String, 'Priority',
+        hint: 'Critical, High, Medium, Low'),
+  ])
+  String? content;
+}
+
+/// Scope for organizational change.
+class OrgChangeScope {
+  @Form([
     Field('affectedArea', String, 'Affected Area',
         hint: 'Department, team, or function being changed'),
     Field('currentState', String, 'Current State',
@@ -138,9 +170,14 @@ class OrganizationalChangeEntry {
     Field('targetHeadcount', int, 'Target Headcount',
         hint: 'Number of people in target structure'),
     Field('headcountDelta', int, 'Headcount Delta',
-        hint: 'Net change in headcount (positive = growth)'),
+        hint: 'Net change in headcount'),
+  ])
+  String? content;
+}
 
-    // Rationale
+/// Rationale for organizational change.
+class OrgChangeRationale {
+  @Form([
     Field('rationale', String, 'Rationale',
         hint: 'Business justification for this change'),
     Field('expectedBenefits', String, 'Expected Benefits',
@@ -149,8 +186,13 @@ class OrganizationalChangeEntry {
         hint: 'How this change supports the new system'),
     Field('processAlignment', String, 'Process Alignment',
         hint: 'How this change supports new business processes'),
+  ])
+  String? content;
+}
 
-    // Impact Assessment
+/// Impact assessment for organizational change.
+class OrgChangeImpact {
+  @Form([
     Field('impactLevel', String, 'Impact Level',
         hint: 'High, Medium, Low — severity of disruption'),
     Field('affectedRoles', String, 'Affected Roles',
@@ -165,32 +207,47 @@ class OrganizationalChangeEntry {
         hint: 'Changes to information flow'),
     Field('collaborationImpact', String, 'Collaboration Impact',
         hint: 'Changes to how people work together'),
+  ])
+  String? content;
+}
 
-    // Transition
+/// Transition for organizational change.
+class OrgChangeTransition {
+  @Form([
     Field('effectiveDate', String, 'Effective Date',
         hint: 'When this change takes effect'),
     Field('transitionPeriod', String, 'Transition Period',
-        hint: 'Duration of transition (weeks/months)'),
+        hint: 'Duration of transition'),
     Field('transitionOwner', String, 'Transition Owner',
-        hint: 'Person accountable for implementing this change'),
+        hint: 'Person accountable for implementing'),
     Field('communicationRequired', String, 'Communication Required',
         hint: 'Announcements and messaging needed'),
     Field('trainingRequired', String, 'Training Required',
-        hint: 'Training or enablement needed for new structure'),
+        hint: 'Training or enablement needed'),
     Field('hrActionsRequired', String, 'HR Actions Required',
-        hint: 'Contract changes, promotions, transfers, etc.'),
+        hint: 'Contract changes, promotions, transfers'),
     Field('itActionsRequired', String, 'IT Actions Required',
-        hint: 'System access, email groups, org hierarchy updates'),
+        hint: 'System access, email groups, org hierarchy'),
+  ])
+  String? content;
+}
 
-    // Risks
+/// Risks for organizational change.
+class OrgChangeRisks {
+  @Form([
     Field('risks', String, 'Risks',
         hint: 'Potential risks from this change'),
     Field('mitigations', String, 'Mitigations',
         hint: 'Actions to reduce risks'),
     Field('dependencies', String, 'Dependencies',
         hint: 'Other changes this depends on or enables'),
+  ])
+  String? content;
+}
 
-    // Status
+/// Status for organizational change.
+class OrgChangeStatus {
+  @Form([
     Field('status', String, 'Status',
         hint: 'Proposed, Approved, In Progress, Completed, Cancelled'),
     Field('approvalRequired', String, 'Approval Required',
