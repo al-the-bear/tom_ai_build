@@ -253,17 +253,35 @@ class QualityGateAdjustmentSummary {
 /// assessment, and compensating controls.
 class QualityGateAdjustmentEntry {
   @Form([
-    // Identification
     Field('adjustmentId', String, 'Adjustment ID',
         hint: 'Unique identifier, e.g. QGA-ADJ-001', required: true),
     Field('standardGateName', String, 'Standard Gate Name',
         hint: 'Original TomSpecs quality gate being adjusted', required: true),
-    Field('gatePhase', String, 'Gate Phase',
-        hint: 'Project phase this gate belongs to — Planning / Design / Build / Test / Deploy'),
-
-    // Adjustment Details
     Field('adjustmentType', String, 'Adjustment Type',
-        hint: 'Skipped / Added / Modified / Deferred / Relaxed / Strengthened'),
+        hint: 'Skipped / Added / Modified / Deferred / Relaxed'),
+  ])
+  String? content;
+
+  /// Gate details.
+  final QualityGateAdjustmentDetails details = QualityGateAdjustmentDetails();
+
+  /// Rationale.
+  final QualityGateAdjustmentRationale rationale =
+      QualityGateAdjustmentRationale();
+
+  /// Impact assessment.
+  final QualityGateAdjustmentImpact impact = QualityGateAdjustmentImpact();
+
+  /// Governance.
+  final QualityGateAdjustmentGovernance governance =
+      QualityGateAdjustmentGovernance();
+}
+
+/// Gate details.
+class QualityGateAdjustmentDetails {
+  @Form([
+    Field('gatePhase', String, 'Gate Phase',
+        hint: 'Project phase — Planning / Design / Build / Test / Deploy'),
     Field('adjustmentDescription', String, 'Adjustment Description',
         hint: 'Detailed description of what changed'),
     Field('originalCriteria', String, 'Original Criteria',
@@ -271,43 +289,56 @@ class QualityGateAdjustmentEntry {
     Field('adjustedCriteria', String, 'Adjusted Criteria',
         hint: 'Modified pass/fail criteria after adjustment'),
     Field('criteriaThresholdChange', String, 'Threshold Change',
-        hint: 'How thresholds were modified, e.g. 90% -> 80% coverage'),
+        hint: 'How thresholds were modified'),
+  ])
+  String? content;
+}
 
-    // Rationale
+/// Rationale.
+class QualityGateAdjustmentRationale {
+  @Form([
     Field('rationale', String, 'Rationale',
         hint: 'Business or technical reason for the adjustment'),
     Field('drivingFactors', String, 'Driving Factors',
-        hint: 'Timeline / Budget / Scope / Risk / Complexity / Regulatory'),
+        hint: 'Timeline / Budget / Scope / Risk / Complexity'),
     Field('temporaryOrPermanent', String, 'Temporary or Permanent',
         hint: 'Temporary / Permanent — whether deviation is time-limited'),
     Field('expirationDate', String, 'Expiration Date',
         hint: 'If temporary, when this deviation expires'),
+  ])
+  String? content;
+}
 
-    // Impact
+/// Impact assessment.
+class QualityGateAdjustmentImpact {
+  @Form([
     Field('qualityImpact', String, 'Quality Impact',
         hint: 'How this adjustment affects delivered quality'),
     Field('riskLevel', String, 'Risk Level',
-        hint: 'Low / Medium / High — risk introduced by this deviation'),
+        hint: 'Low / Medium / High'),
     Field('riskDescription', String, 'Risk Description',
         hint: 'What quality issues could arise'),
     Field('compensatingControls', String, 'Compensating Controls',
         hint: 'Alternative quality measures to offset the deviation'),
     Field('monitoringMeasures', String, 'Monitoring Measures',
         hint: 'How quality is monitored despite the deviation'),
+  ])
+  String? content;
+}
 
-    // Governance
+/// Governance.
+class QualityGateAdjustmentGovernance {
+  @Form([
     Field('approvalStatus', String, 'Approval Status',
         hint: 'Proposed / Approved / Conditional / Rejected'),
     Field('approvedBy', String, 'Approved By',
-        hint: 'Who approved this deviation — typically QA lead or sponsor'),
+        hint: 'Who approved this deviation'),
     Field('approvalDate', String, 'Approval Date',
         hint: 'When the deviation was approved'),
     Field('reviewDate', String, 'Next Review Date',
         hint: 'When this adjustment will be reviewed'),
     Field('auditTrailReference', String, 'Audit Trail Reference',
         hint: 'Reference to approval documentation'),
-
-    // Notes
     Field('notes', String, 'Notes',
         hint: 'Additional context or considerations'),
   ])

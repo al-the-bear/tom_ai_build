@@ -410,82 +410,35 @@ class DeliveryAcceptanceCriterionEntry {
 @SectionId('PD00-DEL-ACC-PRO')
 class AcceptanceProcess {
   @Form([
-    // --- Process Overview ---
     Field('processName', String, 'Process Name',
         hint: 'e.g. "Formal Acceptance Process v2"'),
     Field('processOwner', String, 'Process Owner',
         hint: 'Role responsible for managing the acceptance process'),
-    Field('processDescription', String, 'Process Description',
-        hint:
-            'High-level workflow: initiation → testing → review → sign-off'),
     Field('acceptanceType', String, 'Acceptance Type',
-        hint:
-            'Formal / Informal / Staged / Conditional — type of acceptance'),
-
-    // --- Participants & Governance ---
-    Field('acceptanceBoard', String, 'Acceptance Board',
-        hint:
-            'Members of the acceptance board — roles or named individuals'),
-    Field('technicalReviewers', String, 'Technical Reviewers',
-        hint: 'Technical staff who verify technical acceptance criteria'),
-    Field('businessReviewers', String, 'Business Reviewers',
-        hint: 'Business stakeholders who verify business acceptance'),
-    Field('participants', String, 'All Participants',
-        hint: 'Complete list of roles involved in the acceptance process'),
-    Field('raciMatrix', String, 'RACI Matrix',
-        hint:
-            'Responsible / Accountable / Consulted / Informed per activity'),
-
-    // --- Timeline & Schedule ---
-    Field('plannedDuration', String, 'Planned Duration',
-        hint: 'Expected total duration of acceptance process'),
-    Field('acceptanceWindowStart', String, 'Acceptance Window Start',
-        hint: 'Earliest date acceptance can begin'),
-    Field('acceptanceWindowEnd', String, 'Acceptance Window End',
-        hint: 'Latest date acceptance must conclude'),
-    Field('milestones', String, 'Key Milestones',
-        hint:
-            'Entry gate, mid-point review, final review, sign-off deadline'),
-
-    // --- Decision Framework ---
-    Field('decisionCriteria', String, 'Decision Criteria',
-        hint:
-            'How accept/reject/conditional decisions are made'),
-    Field('defectThreshold', String, 'Acceptable Defect Threshold',
-        hint:
-            'Maximum open defects by severity to proceed — '
-            'e.g. 0 Sev-1, <= 3 Sev-2, unlimited Sev-4'),
-    Field('conditionalAcceptanceRules', String,
-        'Conditional Acceptance Rules',
-        hint:
-            'Conditions under which acceptance with known issues is allowed'),
-    Field('rejectionCriteria', String, 'Rejection Criteria',
-        hint: 'Conditions that automatically block acceptance'),
-
-    // --- Escalation ---
-    Field('escalationProcess', String, 'Escalation Process',
-        hint:
-            'Escalation path for disputes, blockers, or disagreements'),
-    Field('escalationLevels', String, 'Escalation Levels',
-        hint:
-            'L1: Project Manager, L2: Steering Committee, '
-            'L3: Executive Sponsor'),
-    Field('disputeResolution', String, 'Dispute Resolution',
-        hint:
-            'How disagreements about acceptance results are resolved'),
-
-    // --- Documentation ---
-    Field('acceptanceReportTemplate', String, 'Acceptance Report Template',
-        hint: 'Template or format for the formal acceptance report'),
-    Field('evidencePackageContents', String, 'Evidence Package Contents',
-        hint:
-            'What must be in the evidence package: test results, '
-            'reports, demonstrations, certificates'),
-    Field('archivalRequirements', String, 'Archival Requirements',
-        hint:
-            'How acceptance evidence is archived — location, retention'),
+        hint: 'Formal / Informal / Staged / Conditional'),
   ])
   String? content;
+
+  /// Process overview.
+  final AcceptanceProcessOverview overview = AcceptanceProcessOverview();
+
+  /// Participants and governance.
+  final AcceptanceProcessParticipants participants =
+      AcceptanceProcessParticipants();
+
+  /// Timeline and schedule.
+  final AcceptanceProcessTimeline timeline = AcceptanceProcessTimeline();
+
+  /// Decision framework.
+  final AcceptanceProcessDecision decision = AcceptanceProcessDecision();
+
+  /// Escalation.
+  final AcceptanceProcessEscalation escalation =
+      AcceptanceProcessEscalation();
+
+  /// Documentation.
+  final AcceptanceProcessDocumentation documentation =
+      AcceptanceProcessDocumentation();
 
   /// Acceptance process narrative description.
   @ContentHelp('Detailed walkthrough of the acceptance process: '
@@ -496,6 +449,89 @@ class AcceptanceProcess {
   /// Contains 0+× AcceptanceStep.
   @SectionIdPattern('PD00-DEL-ACC-PRO-xx')
   List<AcceptanceStepEntry> steps = [];
+}
+
+/// Process overview.
+class AcceptanceProcessOverview {
+  @Form([
+    Field('processDescription', String, 'Process Description',
+        hint: 'High-level workflow: initiation → testing → review → sign-off'),
+  ])
+  String? content;
+}
+
+/// Participants and governance.
+class AcceptanceProcessParticipants {
+  @Form([
+    Field('acceptanceBoard', String, 'Acceptance Board',
+        hint: 'Members of the acceptance board'),
+    Field('technicalReviewers', String, 'Technical Reviewers',
+        hint: 'Technical staff who verify technical acceptance criteria'),
+    Field('businessReviewers', String, 'Business Reviewers',
+        hint: 'Business stakeholders who verify business acceptance'),
+    Field('participants', String, 'All Participants',
+        hint: 'Complete list of roles involved'),
+    Field('raciMatrix', String, 'RACI Matrix',
+        hint: 'Responsible / Accountable / Consulted / Informed'),
+  ])
+  String? content;
+}
+
+/// Timeline and schedule.
+class AcceptanceProcessTimeline {
+  @Form([
+    Field('plannedDuration', String, 'Planned Duration',
+        hint: 'Expected total duration of acceptance process'),
+    Field('acceptanceWindowStart', String, 'Acceptance Window Start',
+        hint: 'Earliest date acceptance can begin'),
+    Field('acceptanceWindowEnd', String, 'Acceptance Window End',
+        hint: 'Latest date acceptance must conclude'),
+    Field('milestones', String, 'Key Milestones',
+        hint: 'Entry gate, mid-point review, final review, sign-off'),
+  ])
+  String? content;
+}
+
+/// Decision framework.
+class AcceptanceProcessDecision {
+  @Form([
+    Field('decisionCriteria', String, 'Decision Criteria',
+        hint: 'How accept/reject/conditional decisions are made'),
+    Field('defectThreshold', String, 'Acceptable Defect Threshold',
+        hint: 'Maximum open defects by severity to proceed'),
+    Field('conditionalAcceptanceRules', String,
+        'Conditional Acceptance Rules',
+        hint: 'Conditions under which acceptance with known issues is allowed'),
+    Field('rejectionCriteria', String, 'Rejection Criteria',
+        hint: 'Conditions that automatically block acceptance'),
+  ])
+  String? content;
+}
+
+/// Escalation.
+class AcceptanceProcessEscalation {
+  @Form([
+    Field('escalationProcess', String, 'Escalation Process',
+        hint: 'Escalation path for disputes or blockers'),
+    Field('escalationLevels', String, 'Escalation Levels',
+        hint: 'L1: Project Manager, L2: Steering Committee, L3: Sponsor'),
+    Field('disputeResolution', String, 'Dispute Resolution',
+        hint: 'How disagreements about acceptance are resolved'),
+  ])
+  String? content;
+}
+
+/// Documentation.
+class AcceptanceProcessDocumentation {
+  @Form([
+    Field('acceptanceReportTemplate', String, 'Acceptance Report Template',
+        hint: 'Template for the formal acceptance report'),
+    Field('evidencePackageContents', String, 'Evidence Package Contents',
+        hint: 'What must be in the evidence package'),
+    Field('archivalRequirements', String, 'Archival Requirements',
+        hint: 'How acceptance evidence is archived'),
+  ])
+  String? content;
 }
 
 /// An acceptance step entry (form) [PD00-DEL-ACC-PRO-nn].

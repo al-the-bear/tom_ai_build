@@ -945,63 +945,102 @@ class IdentityVerificationPolicy {
 class IdentityProviderEntry {
   @Form([
     Field('providerName', String, 'Provider Name',
-        hint: 'Human-readable name, e.g. Corporate Azure AD, Partner ADFS',
+        hint: 'Human-readable name, e.g. Corporate Azure AD',
         required: true),
     Field('providerType', String, 'Provider Type',
-        hint:
-            'SAML / OIDC / LDAP / ActiveDirectory / OAuth2 / WS-Federation / Custom'),
+        hint: 'SAML / OIDC / LDAP / ActiveDirectory / OAuth2'),
+    Field('enabled', String, 'Enabled',
+        hint: 'Yes / No — whether this provider is currently active'),
+  ])
+  String? content;
+
+  /// Provider details.
+  final IdentityProviderDetails details = IdentityProviderDetails();
+
+  /// Endpoint configuration.
+  final IdentityProviderEndpoints endpoints = IdentityProviderEndpoints();
+
+  /// Attribute mapping.
+  final IdentityProviderMapping mapping = IdentityProviderMapping();
+
+  /// Trust and security.
+  final IdentityProviderTrust trust = IdentityProviderTrust();
+
+  /// Certificates and encryption.
+  final IdentityProviderSecurity security = IdentityProviderSecurity();
+}
+
+/// Provider details.
+class IdentityProviderDetails {
+  @Form([
     Field('providerProduct', String, 'Provider Product',
-        hint:
-            'Specific product, e.g. Azure AD, Okta, Keycloak, PingFederate, Auth0'),
+        hint: 'Specific product, e.g. Azure AD, Okta, Keycloak'),
     Field('protocolVersion', String, 'Protocol Version',
-        hint: 'Protocol version, e.g. SAML 2.0, OIDC 1.0, LDAPv3'),
+        hint: 'Protocol version, e.g. SAML 2.0, OIDC 1.0'),
+    Field('description', String, 'Description',
+        hint: 'Detailed description of this identity provider'),
+  ])
+  String? content;
+}
+
+/// Endpoint configuration.
+class IdentityProviderEndpoints {
+  @Form([
     Field('endpointUrl', String, 'Endpoint URL',
-        hint: 'Primary endpoint URL for authentication/authorization'),
+        hint: 'Primary endpoint URL for authentication'),
     Field('metadataUrl', String, 'Metadata URL',
-        hint:
-            'SAML metadata URL or OIDC discovery endpoint'),
+        hint: 'SAML metadata URL or OIDC discovery endpoint'),
     Field('issuerIdentifier', String, 'Issuer Identifier',
-        hint: 'Issuer URI used in tokens (OIDC iss claim, SAML Issuer)'),
+        hint: 'Issuer URI used in tokens'),
     Field('clientId', String, 'Client ID',
         hint: 'Application/client identifier registered at this IdP'),
     Field('scopes', String, 'Scopes',
-        hint:
-            'OAuth2/OIDC scopes requested, e.g. openid profile email groups'),
+        hint: 'OAuth2/OIDC scopes requested'),
+  ])
+  String? content;
+}
+
+/// Attribute mapping.
+class IdentityProviderMapping {
+  @Form([
     Field('attributeMapping', String, 'Attribute Mapping',
-        hint:
-            'How IdP claims/attributes map to application user attributes'),
+        hint: 'How IdP claims/attributes map to application user attributes'),
     Field('groupClaimName', String, 'Group Claim Name',
-        hint:
-            'Claim/attribute containing group memberships, e.g. groups, memberOf, roles'),
+        hint: 'Claim/attribute containing group memberships'),
     Field('defaultRoles', String, 'Default Roles',
         hint: 'Roles assigned by default to users from this IdP'),
     Field('justInTimeProvisioning', String, 'Just-In-Time Provisioning',
-        hint:
-            'Yes / No — whether accounts are auto-created on first login'),
+        hint: 'Yes / No — whether accounts are auto-created on first login'),
     Field('accountLinkingStrategy', String, 'Account Linking Strategy',
-        hint:
-            'EmailMatch / ExternalId / ManualLink / None — how IdP identities link to existing accounts'),
+        hint: 'EmailMatch / ExternalId / ManualLink / None'),
+  ])
+  String? content;
+}
+
+/// Trust and security.
+class IdentityProviderTrust {
+  @Form([
     Field('trustLevel', String, 'Trust Level',
-        hint: 'Full / High / Medium / Low — trust in identities from this provider'),
+        hint: 'Full / High / Medium / Low'),
     Field('federationAgreement', String, 'Federation Agreement',
-        hint:
-            'Reference to legal/technical federation agreement governing this IdP'),
+        hint: 'Reference to federation agreement governing this IdP'),
+    Field('mfaCapability', String, 'MFA Capability',
+        hint: 'Supported / Required / NotSupported'),
+    Field('failoverIdp', String, 'Failover IdP',
+        hint: 'Backup identity provider if unavailable'),
+  ])
+  String? content;
+}
+
+/// Certificates and encryption.
+class IdentityProviderSecurity {
+  @Form([
     Field('certificateManagement', String, 'Certificate Management',
-        hint:
-            'How signing/encryption certificates are managed, e.g. AutoRotate, ManualUpload, JWKS'),
+        hint: 'How signing/encryption certificates are managed'),
     Field('tokenSigningAlgorithm', String, 'Token Signing Algorithm',
         hint: 'RS256 / RS384 / RS512 / ES256 / EdDSA'),
     Field('encryptionRequired', String, 'Encryption Required',
         hint: 'Yes / No — whether assertions/tokens must be encrypted'),
-    Field('mfaCapability', String, 'MFA Capability',
-        hint:
-            'Supported / Required / NotSupported — whether IdP enforces/supports MFA'),
-    Field('failoverIdp', String, 'Failover IdP',
-        hint: 'Backup identity provider if this one is unavailable'),
-    Field('enabled', String, 'Enabled',
-        hint: 'Yes / No — whether this provider is currently active'),
-    Field('description', String, 'Description',
-        hint: 'Detailed description of this identity provider'),
   ])
   String? content;
 }

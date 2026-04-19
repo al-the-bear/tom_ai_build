@@ -2285,53 +2285,21 @@ class ReportSectionEntry {
     Field('title', String, 'Title',
         hint: 'Section heading displayed in the report', required: true),
     Field('sectionType', String, 'Section Type',
-        hint:
-            'Table / Chart / Summary / Text / KPI-Card / Image / Separator / Page-Header / Page-Footer / Cover / TOC / Mixed'),
-    Field('purpose', String, 'Purpose',
-        hint: 'What this section communicates'),
-    Field('dataSource', String, 'Data Source',
-        hint: 'Data source or query for this section (if different from report)'),
-    Field('dataScope', String, 'Data Scope',
-        hint: 'Scope filter applied to the section data'),
-    Field('displayOrder', int, 'Display Order',
-        hint: 'Position within the report'),
-    Field('pageBreakBefore', String, 'Page Break Before',
-        hint: 'Yes / No — force page break before this section'),
-    Field('pageBreakAfter', String, 'Page Break After',
-        hint: 'Yes / No — force page break after this section'),
-    Field('repeatOnNewPage', String, 'Repeat on New Page',
-        hint:
-            'Yes / No — repeat section header on each new page (for long tables)'),
-    Field('orientation', String, 'Orientation',
-        hint: 'Override: Portrait / Landscape (for this section only)'),
-    Field('conditionalVisibility', String, 'Conditional Visibility',
-        hint: 'Condition when section is shown, e.g. data.rows > 0'),
-    Field('backgroundColor', String, 'Background Color',
-        hint: 'Background color or shading'),
-    Field('borderStyle', String, 'Border Style',
-        hint: 'None / Thin / Medium / Thick / Custom'),
-    Field('sortField', String, 'Sort Field',
-        hint: 'Default sort for this section data'),
-    Field('sortDirection', String, 'Sort Direction',
-        hint: 'Ascending / Descending'),
-    Field('groupByField', String, 'Group By Field',
-        hint: 'Field used for grouping rows'),
-    Field('showGroupSubtotals', String, 'Show Group Subtotals',
-        hint: 'Yes / No'),
-    Field('showSectionTotal', String, 'Show Section Total',
-        hint: 'Yes / No — show totals row at section end'),
-    Field('aggregationFields', String, 'Aggregation Fields',
-        hint:
-            'Comma-separated fields with aggregation, e.g. amount:sum, quantity:avg'),
-    Field('maxRows', int, 'Max Rows',
-        hint: 'Row limit for this section; 0 = unlimited'),
-    Field('overflowBehavior', String, 'Overflow Behavior',
-        hint: 'Truncate / Continue-next-page / Scroll (interactive only)'),
-    Field('textContent', String, 'Text Content',
-        hint: 'Static text or template for text-type sections'),
-    Field('notes', String, 'Notes', hint: 'Design notes'),
+        hint: 'Table / Chart / Summary / Text / KPI-Card / Mixed'),
   ])
   String? content;
+
+  /// Data source configuration.
+  final ReportSectionData data = ReportSectionData();
+
+  /// Layout and page settings.
+  final ReportSectionLayout layout = ReportSectionLayout();
+
+  /// Sorting and grouping.
+  final ReportSectionSorting sorting = ReportSectionSorting();
+
+  /// Aggregation and limits.
+  final ReportSectionAggregation aggregation = ReportSectionAggregation();
 
   /// Contains 0+× Report Column.
   @SectionIdPattern('PD00-USE-PRI-REP-xx-SEC-xx-COL-xx')
@@ -2340,6 +2308,75 @@ class ReportSectionEntry {
   /// Contains 0+× Report Chart.
   @SectionIdPattern('PD00-USE-PRI-REP-xx-SEC-xx-CHT-xx')
   List<ReportChartEntry> charts = [];
+}
+
+/// Data source configuration.
+class ReportSectionData {
+  @Form([
+    Field('purpose', String, 'Purpose',
+        hint: 'What this section communicates'),
+    Field('dataSource', String, 'Data Source',
+        hint: 'Data source or query for this section'),
+    Field('dataScope', String, 'Data Scope',
+        hint: 'Scope filter applied to the section data'),
+    Field('textContent', String, 'Text Content',
+        hint: 'Static text or template for text-type sections'),
+    Field('notes', String, 'Notes', hint: 'Design notes'),
+  ])
+  String? content;
+}
+
+/// Layout and page settings.
+class ReportSectionLayout {
+  @Form([
+    Field('displayOrder', int, 'Display Order',
+        hint: 'Position within the report'),
+    Field('pageBreakBefore', String, 'Page Break Before',
+        hint: 'Yes / No — force page break before this section'),
+    Field('pageBreakAfter', String, 'Page Break After',
+        hint: 'Yes / No — force page break after this section'),
+    Field('repeatOnNewPage', String, 'Repeat on New Page',
+        hint: 'Yes / No — repeat section header on each new page'),
+    Field('orientation', String, 'Orientation',
+        hint: 'Override: Portrait / Landscape'),
+    Field('conditionalVisibility', String, 'Conditional Visibility',
+        hint: 'Condition when section is shown'),
+    Field('backgroundColor', String, 'Background Color',
+        hint: 'Background color or shading'),
+    Field('borderStyle', String, 'Border Style',
+        hint: 'None / Thin / Medium / Thick / Custom'),
+  ])
+  String? content;
+}
+
+/// Sorting and grouping.
+class ReportSectionSorting {
+  @Form([
+    Field('sortField', String, 'Sort Field',
+        hint: 'Default sort for this section data'),
+    Field('sortDirection', String, 'Sort Direction',
+        hint: 'Ascending / Descending'),
+    Field('groupByField', String, 'Group By Field',
+        hint: 'Field used for grouping rows'),
+    Field('showGroupSubtotals', String, 'Show Group Subtotals',
+        hint: 'Yes / No'),
+  ])
+  String? content;
+}
+
+/// Aggregation and limits.
+class ReportSectionAggregation {
+  @Form([
+    Field('showSectionTotal', String, 'Show Section Total',
+        hint: 'Yes / No — show totals row at section end'),
+    Field('aggregationFields', String, 'Aggregation Fields',
+        hint: 'Comma-separated fields with aggregation'),
+    Field('maxRows', int, 'Max Rows',
+        hint: 'Row limit for this section; 0 = unlimited'),
+    Field('overflowBehavior', String, 'Overflow Behavior',
+        hint: 'Truncate / Continue-next-page / Scroll'),
+  ])
+  String? content;
 }
 
 /// A column in a tabular report section [PD00-USE-PRI-REP-nn-SEC-nn-COL-nn]
@@ -4144,57 +4181,29 @@ class UiComponents {
 /// Design system and component catalog specification.
 @SectionId('PD00-USE-COM-LIB')
 class ComponentLibrary {
-  // ─────────────────────────────────────────────────────────────────────────
-  // Design System Foundations
-  // ─────────────────────────────────────────────────────────────────────────
   @Form([
-    // Color system
     Field('primaryColor', String, 'Primary Color',
         hint: 'Primary brand color (hex or semantic name)'),
-    Field('secondaryColor', String, 'Secondary Color'),
-    Field('tertiaryColor', String, 'Tertiary Color'),
-    Field('errorColor', String, 'Error Color'),
-    Field('warningColor', String, 'Warning Color'),
-    Field('successColor', String, 'Success Color'),
-    Field('infoColor', String, 'Info Color'),
-    Field('surfaceColors', String, 'Surface Colors',
-        hint: 'Background, card, dialog surfaces'),
-    Field('colorTokenFormat', String, 'Color Token Format',
-        hint: 'CSS variables, Dart constants, theme data'),
-    // Typography system
     Field('fontFamilyPrimary', String, 'Primary Font Family'),
-    Field('fontFamilySecondary', String, 'Secondary Font Family'),
-    Field('fontFamilyMonospace', String, 'Monospace Font Family'),
-    Field('typographyScale', String, 'Typography Scale',
-        hint: 'Material type scale, custom scale'),
-    Field('fontSizeUnit', String, 'Font Size Unit',
-        hint: 'Logical pixels, rem, sp'),
-    // Spacing system
     Field('spacingScale', String, 'Spacing Scale',
         hint: '4px base, 8px base, custom scale'),
-    Field('spacingTokens', String, 'Spacing Tokens',
-        hint: 'xxs, xs, sm, md, lg, xl, xxl'),
-    // Elevation system
-    Field('elevationLevels', String, 'Elevation Levels',
-        hint: 'Number of elevation levels'),
-    Field('elevationImplementation', String, 'Elevation Implementation',
-        hint: 'Shadows, borders, color shifts'),
-    // Border radius
-    Field('cornerRadiusScale', String, 'Corner Radius Scale',
-        hint: 'Rounded levels: none, sm, md, lg, full'),
-    Field('borderStyleDefaults', String, 'Border Style Defaults'),
-    // Icons
-    Field('iconLibrary', String, 'Icon Library',
-        hint: 'Material Icons, Cupertino, custom'),
-    Field('iconSizeScale', String, 'Icon Size Scale',
-        hint: 'Small, medium, large sizes'),
-    // Animation
-    Field('animationDurations', String, 'Animation Durations',
-        hint: 'Fast, normal, slow durations'),
-    Field('animationCurves', String, 'Animation Curves',
-        hint: 'Easing curves: ease, easeInOut, custom'),
   ])
   String? designFoundations;
+
+  /// Color system.
+  final ComponentLibraryColors colors = ComponentLibraryColors();
+
+  /// Typography system.
+  final ComponentLibraryTypography typography = ComponentLibraryTypography();
+
+  /// Spacing and elevation.
+  final ComponentLibrarySpacing spacing = ComponentLibrarySpacing();
+
+  /// Borders and corners.
+  final ComponentLibraryBorders borders = ComponentLibraryBorders();
+
+  /// Icons and animation.
+  final ComponentLibraryVisuals visuals = ComponentLibraryVisuals();
 
   /// Design system narrative.
   @ContentHelp('Comprehensive description of the design system foundations, '
@@ -4213,6 +4222,74 @@ class ComponentLibrary {
   /// Typography styles.
   @SectionIdPattern('PD00-USE-COM-LIB-TYP-xx')
   List<TypographyStyleEntry> typographyStyles = [];
+}
+
+/// Color system.
+class ComponentLibraryColors {
+  @Form([
+    Field('secondaryColor', String, 'Secondary Color'),
+    Field('tertiaryColor', String, 'Tertiary Color'),
+    Field('errorColor', String, 'Error Color'),
+    Field('warningColor', String, 'Warning Color'),
+    Field('successColor', String, 'Success Color'),
+    Field('infoColor', String, 'Info Color'),
+    Field('surfaceColors', String, 'Surface Colors',
+        hint: 'Background, card, dialog surfaces'),
+    Field('colorTokenFormat', String, 'Color Token Format',
+        hint: 'CSS variables, Dart constants, theme data'),
+  ])
+  String? content;
+}
+
+/// Typography system.
+class ComponentLibraryTypography {
+  @Form([
+    Field('fontFamilySecondary', String, 'Secondary Font Family'),
+    Field('fontFamilyMonospace', String, 'Monospace Font Family'),
+    Field('typographyScale', String, 'Typography Scale',
+        hint: 'Material type scale, custom scale'),
+    Field('fontSizeUnit', String, 'Font Size Unit',
+        hint: 'Logical pixels, rem, sp'),
+  ])
+  String? content;
+}
+
+/// Spacing and elevation.
+class ComponentLibrarySpacing {
+  @Form([
+    Field('spacingTokens', String, 'Spacing Tokens',
+        hint: 'xxs, xs, sm, md, lg, xl, xxl'),
+    Field('elevationLevels', String, 'Elevation Levels',
+        hint: 'Number of elevation levels'),
+    Field('elevationImplementation', String, 'Elevation Implementation',
+        hint: 'Shadows, borders, color shifts'),
+  ])
+  String? content;
+}
+
+/// Borders and corners.
+class ComponentLibraryBorders {
+  @Form([
+    Field('cornerRadiusScale', String, 'Corner Radius Scale',
+        hint: 'Rounded levels: none, sm, md, lg, full'),
+    Field('borderStyleDefaults', String, 'Border Style Defaults'),
+  ])
+  String? content;
+}
+
+/// Icons and animation.
+class ComponentLibraryVisuals {
+  @Form([
+    Field('iconLibrary', String, 'Icon Library',
+        hint: 'Material Icons, Cupertino, custom'),
+    Field('iconSizeScale', String, 'Icon Size Scale',
+        hint: 'Small, medium, large sizes'),
+    Field('animationDurations', String, 'Animation Durations',
+        hint: 'Fast, normal, slow durations'),
+    Field('animationCurves', String, 'Animation Curves',
+        hint: 'Easing curves: ease, easeInOut, custom'),
+  ])
+  String? content;
 }
 
 /// A color palette entry [PD00-USE-COM-LIB-COL-nn].

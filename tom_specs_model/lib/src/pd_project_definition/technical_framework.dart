@@ -334,16 +334,46 @@ class ProgrammingLanguageEntry {
 /// Framework or library requirement entry.
 class FrameworkRequirementEntry {
   @Form([
-    // Identity
     Field('frameworkName', String, 'Framework/Library Name',
         required: true, hint: 'E.g., Flutter, Angular, Django, Spring Boot'),
     Field('frameworkCategory', String, 'Category',
-        hint:
-            'UI Framework, Backend Framework, Testing, State Management, ORM'),
+        hint: 'UI Framework, Backend Framework, Testing, State Management'),
+    Field('purpose', String, 'Purpose',
+        required: true, hint: 'What problem this framework solves'),
+  ])
+  String? content;
+
+  /// Identity details.
+  final FrameworkIdentity identity = FrameworkIdentity();
+
+  /// Version requirements.
+  final FrameworkVersion version = FrameworkVersion();
+
+  /// Scope and plugins.
+  final FrameworkScope scope = FrameworkScope();
+
+  /// Compatibility.
+  final FrameworkCompatibility compatibility = FrameworkCompatibility();
+
+  /// Support status.
+  final FrameworkSupport support = FrameworkSupport();
+
+  /// Justification.
+  final FrameworkJustification justification = FrameworkJustification();
+}
+
+/// Identity details.
+class FrameworkIdentity {
+  @Form([
     Field('publisher', String, 'Publisher', hint: 'Framework publisher/owner'),
     Field('license', String, 'License', hint: 'License type (MIT, Apache, etc.)'),
+  ])
+  String? content;
+}
 
-    // Version requirements
+/// Version requirements.
+class FrameworkVersion {
+  @Form([
     Field('minimumVersion', String, 'Minimum Version',
         required: true, hint: 'Earliest supported version'),
     Field('recommendedVersion', String, 'Recommended Version',
@@ -352,40 +382,56 @@ class FrameworkRequirementEntry {
         hint: 'Latest tested/supported version'),
     Field('versionConstraint', String, 'Version Constraint',
         hint: 'E.g., ^3.0.0, >=2.0.0 <4.0.0'),
+  ])
+  String? content;
+}
 
-    // Scope and purpose
-    Field('purpose', String, 'Purpose',
-        required: true, hint: 'What problem this framework solves'),
+/// Scope and plugins.
+class FrameworkScope {
+  @Form([
     Field('usageScope', String, 'Usage Scope',
         hint: 'Core, Feature-specific, Development-only, Testing-only'),
     Field('integrationPoints', String, 'Integration Points',
         hint: 'Where this framework integrates in the architecture'),
-
-    // Requirements
     Field('requiredPlugins', String, 'Required Plugins/Extensions',
         hint: 'Mandatory plugins or extensions'),
     Field('optionalPlugins', String, 'Optional Plugins/Extensions',
         hint: 'Recommended optional plugins'),
     Field('excludedFeatures', String, 'Excluded Features',
         hint: 'Framework features that should not be used'),
+  ])
+  String? content;
+}
 
-    // Compatibility
+/// Compatibility.
+class FrameworkCompatibility {
+  @Form([
     Field('compatibleWith', String, 'Compatible With',
         hint: 'Other frameworks/versions this is compatible with'),
     Field('conflictsWith', String, 'Conflicts With',
         hint: 'Known conflicts with other frameworks'),
     Field('deprecationWarnings', String, 'Deprecation Warnings',
         hint: 'Known deprecations to address'),
+  ])
+  String? content;
+}
 
-    // Support
+/// Support status.
+class FrameworkSupport {
+  @Form([
     Field('supportStatus', String, 'Support Status',
         hint: 'Active, Maintenance, Deprecated'),
     Field('communitySize', String, 'Community Size',
         hint: 'Small, Medium, Large'),
     Field('documentationQuality', String, 'Documentation Quality',
         hint: 'Excellent, Good, Fair, Poor'),
+  ])
+  String? content;
+}
 
-    // Justification
+/// Justification.
+class FrameworkJustification {
+  @Form([
     Field('justification', String, 'Justification',
         required: true, hint: 'Reason for selecting this framework'),
     Field('alternativesConsidered', String, 'Alternatives Considered',
