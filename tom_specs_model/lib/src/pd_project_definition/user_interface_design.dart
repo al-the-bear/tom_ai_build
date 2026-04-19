@@ -2364,8 +2364,29 @@ class ReportChartEntry {
     Field('title', String, 'Title',
         hint: 'Chart title', required: true),
     Field('chartType', String, 'Chart Type',
-        hint:
-            'Bar / Stacked-Bar / Grouped-Bar / Horizontal-Bar / Line / Area / Pie / Donut / Scatter / Bubble / Gauge / Treemap / Heatmap / Waterfall / Funnel / Radar / Combo / KPI-Card / Sparkline'),
+        hint: 'Bar / Line / Pie / Donut / Scatter / Gauge / Heatmap'),
+  ])
+  String? content;
+
+  /// Axes configuration.
+  final ReportChartAxes axes = ReportChartAxes();
+
+  /// Series and colors.
+  final ReportChartSeries series = ReportChartSeries();
+
+  /// Display options.
+  final ReportChartDisplay display = ReportChartDisplay();
+
+  /// Interaction.
+  final ReportChartInteraction interaction = ReportChartInteraction();
+
+  /// Layout.
+  final ReportChartLayout layout = ReportChartLayout();
+}
+
+/// Axes for report chart.
+class ReportChartAxes {
+  @Form([
     Field('dataSource', String, 'Data Source',
         hint: 'Data source or query if different from section'),
     Field('xAxisField', String, 'X-Axis Field',
@@ -2386,38 +2407,63 @@ class ReportChartEntry {
         hint: 'Field for dual-axis charts'),
     Field('secondaryYAxisLabel', String, 'Secondary Y-Axis Label',
         hint: 'Label for secondary axis'),
+  ])
+  String? content;
+}
+
+/// Series for report chart.
+class ReportChartSeries {
+  @Form([
     Field('seriesField', String, 'Series Field',
         hint: 'Field used to split data into series'),
     Field('seriesColors', String, 'Series Colors',
-        hint:
-            'Comma-separated color assignments, e.g. Revenue:#003366,Cost:#CC0000'),
+        hint: 'Comma-separated color assignments'),
     Field('colorScheme', String, 'Color Scheme',
-        hint:
-            'Named palette or auto, e.g. Corporate / Pastel / Sequential-Blue'),
+        hint: 'Named palette, e.g. Corporate / Pastel / Sequential-Blue'),
     Field('legendPosition', String, 'Legend Position',
         hint: 'Top / Bottom / Left / Right / None'),
+  ])
+  String? content;
+}
+
+/// Display for report chart.
+class ReportChartDisplay {
+  @Form([
     Field('showDataLabels', String, 'Show Data Labels',
         hint: 'Yes / No / On-Hover'),
     Field('dataLabelFormat', String, 'Data Label Format',
-        hint: 'Format for data labels, e.g. {value} ({percentage}%)'),
+        hint: 'Format for data labels'),
     Field('thresholdLines', String, 'Threshold Lines',
-        hint:
-            'Reference lines, e.g. Target:500000:green, Budget:400000:orange'),
+        hint: 'Reference lines, e.g. Target:500000:green'),
     Field('trendLine', String, 'Trend Line',
         hint: 'None / Linear / Moving-Average / Polynomial'),
     Field('goalValue', String, 'Goal Value',
         hint: 'Target/goal value for gauge/KPI charts'),
+    Field('emptyDataMessage', String, 'Empty Data Message',
+        hint: 'Message when chart has no data'),
+  ])
+  String? content;
+}
+
+/// Interaction for report chart.
+class ReportChartInteraction {
+  @Form([
     Field('interactive', String, 'Interactive',
         hint: 'Yes / No — tooltips, zoom, click events'),
     Field('drillDownTarget', String, 'Drill-Down Target',
         hint: 'Report or screen navigated to on chart element click'),
+    Field('notes', String, 'Notes', hint: 'Design notes'),
+  ])
+  String? content;
+}
+
+/// Layout for report chart.
+class ReportChartLayout {
+  @Form([
     Field('width', String, 'Width',
         hint: 'Chart width: Full / Half / Third / Custom(400px)'),
     Field('height', String, 'Height',
         hint: 'Chart height, e.g. 300px / Auto'),
-    Field('emptyDataMessage', String, 'Empty Data Message',
-        hint: 'Message when chart has no data'),
-    Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
   String? content;
 }

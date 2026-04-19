@@ -289,73 +289,37 @@ class ComponentEntry {
         hint: 'Unique identifier, e.g. CMP-DB-001'),
     Field('componentName', String, 'Component Name',
         hint: 'Official product/library name', required: true),
-    Field('version', String, 'Version',
-        hint: 'Current version in use or targeted'),
     Field('category', String, 'Category',
-        hint:
-            'Database / Framework / Library / Service / Middleware / Infrastructure / Tool'),
-    Field('purpose', String, 'Business Purpose',
-        hint: 'Why this component is needed in business terms'),
-    Field('vendorName', String, 'Vendor / Publisher',
-        hint: 'Company or organization behind the component'),
-    Field('vendorStability', String, 'Vendor Stability Assessment',
-        hint:
-            'Financial health, market position, acquisition risk'),
-    Field('maturityLevel', String, 'Maturity Level',
-        hint: 'Emerging / Growing / Mature / Declining / EndOfLife'),
-    Field('communitySize', String, 'Community Health',
-        hint:
-            'GitHub stars, contributors, forum activity, Stack Overflow presence'),
-    Field('releaseFrequency', String, 'Release Cadence',
-        hint:
-            'How often new versions are published, e.g. Monthly, Quarterly'),
-    Field('supportModel', String, 'Support Model',
-        hint: 'CommunityOnly / VendorPaid / Hybrid / ManagedService'),
-    Field('supportTier', String, 'Support Tier',
-        hint:
-            'Contracted support level, e.g. Enterprise Gold 24/7'),
-    Field('securityTrackingUrl', String, 'Security Advisory URL',
-        hint: 'CVE feed or security bulletin URL for this component'),
-    Field('performanceBenchmark', String, 'Performance Characteristics',
-        hint:
-            'Key throughput/latency figures relevant to our use case'),
-    Field('scalabilityLimit', String, 'Scalability Ceiling',
-        hint:
-            'Known upper limits, e.g. Tested to 10K concurrent connections'),
-    Field('deploymentModel', String, 'Deployment Model',
-        hint:
-            'OnPremise / SaaS / PaaS / Hybrid / Container / Serverless'),
-    Field('resourceFootprint', String, 'Resource Requirements',
-        hint: 'CPU, memory, disk, network baseline requirements'),
-    Field('totalCostFirstYear', String, 'First-Year TCO',
-        hint:
-            'Total cost including license, infra, integration, training'),
-    Field('totalCostOngoing', String, 'Annual Ongoing TCO',
-        hint: 'Recurring annual cost after first year'),
-    Field('complianceCertifications', String, 'Compliance Certifications',
-        hint: 'SOC2, ISO 27001, HIPAA, FedRAMP, PCI-DSS, etc.'),
-    Field('trainingRequirement', String, 'Training Requirement',
-        hint:
-            'Estimated ramp-up effort, e.g. 2-day course per developer'),
-    Field('replacementDifficulty', String, 'Replacement Difficulty',
-        hint: 'Low / Medium / High / Extreme — with justification'),
-    Field('lockInFactors', String, 'Lock-In Factors',
-        hint:
-            'Proprietary formats, data migration cost, API coupling depth'),
-    Field('integrationComplexity', String, 'Integration Complexity',
-        hint:
-            'Effort to integrate with existing stack — Low / Medium / High'),
-    Field('documentationQuality', String, 'Documentation Quality',
-        hint: 'Poor / Adequate / Good / Excellent — with specifics'),
-    Field('documentationUrl', String, 'Documentation URL',
-        hint: 'Link to official documentation'),
-    Field('approvalStatus', String, 'Approval Status',
-        hint:
-            'Proposed / UnderReview / Approved / Rejected / Deprecated'),
-    Field('approvedBy', String, 'Approved By',
-        hint: 'Name/role of person who approved this component'),
+        hint: 'Database / Framework / Library / Service / Middleware'),
   ])
   String? content;
+
+  /// Vendor information.
+  final ComponentVendor vendor = ComponentVendor();
+
+  /// Maturity and community.
+  final ComponentMaturity maturity = ComponentMaturity();
+
+  /// Support.
+  final ComponentSupport support = ComponentSupport();
+
+  /// Security and performance.
+  final ComponentPerformance performance = ComponentPerformance();
+
+  /// Deployment.
+  final ComponentDeployment deployment = ComponentDeployment();
+
+  /// Cost.
+  final ComponentCost cost = ComponentCost();
+
+  /// Compliance and training.
+  final ComponentCompliance compliance = ComponentCompliance();
+
+  /// Risk assessment.
+  final ComponentRisk risk = ComponentRisk();
+
+  /// Documentation.
+  final ComponentDocs docs = ComponentDocs();
 
   /// Interfaces [PD00-COM-COM-nn-INT] — contains 0+× ComponentInterface.
   @SectionIdPattern('PD00-COM-COM-xx-INT-xx')
@@ -369,6 +333,119 @@ class ComponentEntry {
 
   /// Responsibilities [PD00-COM-COM-nn-RES] (form).
   ComponentResponsibilitiesEntry? responsibilities;
+}
+
+/// Vendor for component.
+class ComponentVendor {
+  @Form([
+    Field('version', String, 'Version',
+        hint: 'Current version in use or targeted'),
+    Field('purpose', String, 'Business Purpose',
+        hint: 'Why this component is needed in business terms'),
+    Field('vendorName', String, 'Vendor / Publisher',
+        hint: 'Company or organization behind the component'),
+    Field('vendorStability', String, 'Vendor Stability Assessment',
+        hint: 'Financial health, market position, acquisition risk'),
+  ])
+  String? content;
+}
+
+/// Maturity for component.
+class ComponentMaturity {
+  @Form([
+    Field('maturityLevel', String, 'Maturity Level',
+        hint: 'Emerging / Growing / Mature / Declining / EndOfLife'),
+    Field('communitySize', String, 'Community Health',
+        hint: 'GitHub stars, contributors, forum activity'),
+    Field('releaseFrequency', String, 'Release Cadence',
+        hint: 'How often new versions are published'),
+  ])
+  String? content;
+}
+
+/// Support for component.
+class ComponentSupport {
+  @Form([
+    Field('supportModel', String, 'Support Model',
+        hint: 'CommunityOnly / VendorPaid / Hybrid / ManagedService'),
+    Field('supportTier', String, 'Support Tier',
+        hint: 'Contracted support level, e.g. Enterprise Gold 24/7'),
+    Field('securityTrackingUrl', String, 'Security Advisory URL',
+        hint: 'CVE feed or security bulletin URL'),
+  ])
+  String? content;
+}
+
+/// Performance for component.
+class ComponentPerformance {
+  @Form([
+    Field('performanceBenchmark', String, 'Performance Characteristics',
+        hint: 'Key throughput/latency figures'),
+    Field('scalabilityLimit', String, 'Scalability Ceiling',
+        hint: 'Known upper limits'),
+  ])
+  String? content;
+}
+
+/// Deployment for component.
+class ComponentDeployment {
+  @Form([
+    Field('deploymentModel', String, 'Deployment Model',
+        hint: 'OnPremise / SaaS / PaaS / Hybrid / Container / Serverless'),
+    Field('resourceFootprint', String, 'Resource Requirements',
+        hint: 'CPU, memory, disk, network baseline requirements'),
+  ])
+  String? content;
+}
+
+/// Cost for component.
+class ComponentCost {
+  @Form([
+    Field('totalCostFirstYear', String, 'First-Year TCO',
+        hint: 'Total cost including license, infra, integration, training'),
+    Field('totalCostOngoing', String, 'Annual Ongoing TCO',
+        hint: 'Recurring annual cost after first year'),
+  ])
+  String? content;
+}
+
+/// Compliance for component.
+class ComponentCompliance {
+  @Form([
+    Field('complianceCertifications', String, 'Compliance Certifications',
+        hint: 'SOC2, ISO 27001, HIPAA, FedRAMP, PCI-DSS, etc.'),
+    Field('trainingRequirement', String, 'Training Requirement',
+        hint: 'Estimated ramp-up effort'),
+  ])
+  String? content;
+}
+
+/// Risk for component.
+class ComponentRisk {
+  @Form([
+    Field('replacementDifficulty', String, 'Replacement Difficulty',
+        hint: 'Low / Medium / High / Extreme — with justification'),
+    Field('lockInFactors', String, 'Lock-In Factors',
+        hint: 'Proprietary formats, data migration cost'),
+    Field('integrationComplexity', String, 'Integration Complexity',
+        hint: 'Effort to integrate — Low / Medium / High'),
+  ])
+  String? content;
+}
+
+/// Docs for component.
+class ComponentDocs {
+  @Form([
+    Field('documentationQuality', String, 'Documentation Quality',
+        hint: 'Poor / Adequate / Good / Excellent'),
+    Field('documentationUrl', String, 'Documentation URL',
+        hint: 'Link to official documentation'),
+    Field('approvalStatus', String, 'Approval Status',
+        hint: 'Proposed / UnderReview / Approved / Rejected / Deprecated'),
+    Field('approvedBy', String, 'Approved By',
+        hint: 'Name/role of person who approved this component'),
+  ])
+  String? content;
 }
 
 /// A component interface entry (form) [PD00-COM-COM-nn-INT-nn].

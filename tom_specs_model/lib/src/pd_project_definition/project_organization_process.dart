@@ -380,19 +380,49 @@ class ProcessAdjustmentSummary {
 /// and implementation details.
 class ProcessAdjustmentEntry {
   @Form([
-    // Identification
     Field('adjustmentId', String, 'Adjustment ID',
         hint: 'Unique identifier, e.g. PRC-ADJ-001', required: true),
     Field('standardStepName', String, 'Standard Step Name',
         hint: 'Original process step being adjusted', required: true),
+    Field('adjustmentType', String, 'Adjustment Type',
+        hint: 'Skipped / Modified / Reordered / Parallelized / Added'),
+  ])
+  String? content;
+
+  /// Identification details.
+  final ProcessAdjustmentIdentity identity = ProcessAdjustmentIdentity();
+
+  /// Adjustment details.
+  final ProcessAdjustmentDetails details = ProcessAdjustmentDetails();
+
+  /// Rationale.
+  final ProcessAdjustmentRationale rationale = ProcessAdjustmentRationale();
+
+  /// Implementation.
+  final ProcessAdjustmentImplementation implementation =
+      ProcessAdjustmentImplementation();
+
+  /// Risk and impact.
+  final ProcessAdjustmentRisk risk = ProcessAdjustmentRisk();
+
+  /// Governance.
+  final ProcessAdjustmentGovernance governance = ProcessAdjustmentGovernance();
+}
+
+/// Identity for process adjustment.
+class ProcessAdjustmentIdentity {
+  @Form([
     Field('stepPhase', String, 'Step Phase',
-        hint: 'Phase this step belongs to — Initiation / Planning / Execution / Closure'),
+        hint: 'Phase this step belongs to — Initiation / Planning / Execution'),
     Field('originalPosition', String, 'Original Position',
         hint: 'Original position in process, e.g. Step 5 of 12'),
+  ])
+  String? content;
+}
 
-    // Adjustment Details
-    Field('adjustmentType', String, 'Adjustment Type',
-        hint: 'Skipped / Modified / Reordered / Parallelized / Added / Merged / Split'),
+/// Details for process adjustment.
+class ProcessAdjustmentDetails {
+  @Form([
     Field('adjustmentDescription', String, 'Adjustment Description',
         hint: 'Detailed description of what changed'),
     Field('newPosition', String, 'New Position',
@@ -403,20 +433,30 @@ class ProcessAdjustmentEntry {
         hint: 'If merged, which other steps are combined'),
     Field('splitInto', String, 'Split Into',
         hint: 'If split, names of the resulting sub-steps'),
+  ])
+  String? content;
+}
 
-    // Rationale
+/// Rationale for process adjustment.
+class ProcessAdjustmentRationale {
+  @Form([
     Field('rationale', String, 'Rationale',
         hint: 'Business or technical reason for the adjustment'),
     Field('drivingFactors', String, 'Driving Factors',
-        hint: 'Timeline / Budget / Scope / Dependencies / Resources / Complexity'),
+        hint: 'Timeline / Budget / Scope / Dependencies / Resources'),
     Field('dependencyImpact', String, 'Dependency Impact',
         hint: 'How this affects step dependencies'),
     Field('predecessorChanges', String, 'Predecessor Changes',
         hint: 'Changes to prerequisite steps'),
     Field('successorChanges', String, 'Successor Changes',
         hint: 'Changes to dependent steps'),
+  ])
+  String? content;
+}
 
-    // Implementation
+/// Implementation for process adjustment.
+class ProcessAdjustmentImplementation {
+  @Form([
     Field('implementationApproach', String, 'Implementation Approach',
         hint: 'How the adjusted step will be executed'),
     Field('deliverableChanges', String, 'Deliverable Changes',
@@ -425,8 +465,13 @@ class ProcessAdjustmentEntry {
         hint: 'Any tooling changes required'),
     Field('resourceChanges', String, 'Resource Changes',
         hint: 'Any staffing or skill changes required'),
+  ])
+  String? content;
+}
 
-    // Risk and Impact
+/// Risk for process adjustment.
+class ProcessAdjustmentRisk {
+  @Form([
     Field('riskLevel', String, 'Risk Level',
         hint: 'Low / Medium / High — risk introduced by this deviation'),
     Field('riskDescription', String, 'Risk Description',
@@ -434,11 +479,18 @@ class ProcessAdjustmentEntry {
     Field('mitigationMeasures', String, 'Mitigation Measures',
         hint: 'How risks from this adjustment are mitigated'),
     Field('timelineImpact', String, 'Timeline Impact',
-        hint: 'FasterByDays / NoChange / SlowerByDays — days saved or added'),
+        hint: 'FasterByDays / NoChange / SlowerByDays'),
     Field('budgetImpact', String, 'Budget Impact',
-        hint: 'CostReduction / NoChange / CostIncrease — with amount'),
+        hint: 'CostReduction / NoChange / CostIncrease'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional context or considerations'),
+  ])
+  String? content;
+}
 
-    // Governance
+/// Governance for process adjustment.
+class ProcessAdjustmentGovernance {
+  @Form([
     Field('approvalStatus', String, 'Approval Status',
         hint: 'Proposed / Approved / Conditional / Rejected'),
     Field('approvedBy', String, 'Approved By',
@@ -447,10 +499,6 @@ class ProcessAdjustmentEntry {
         hint: 'When the deviation was approved'),
     Field('reviewDate', String, 'Next Review Date',
         hint: 'When this adjustment will be reviewed'),
-
-    // Notes
-    Field('notes', String, 'Notes',
-        hint: 'Additional context or considerations'),
   ])
   String? content;
 }

@@ -2937,19 +2937,50 @@ class SuccessCriteriaByCategory {
 /// thresholds, and verification requirements.
 class SuccessCriterionEntry {
   @Form([
-    // Identification
     Field('criterionId', String, 'Criterion ID', required: true,
         hint: 'Unique identifier (e.g., SC-001)'),
     Field('criterionName', String, 'Criterion Name', required: true,
         hint: 'Short descriptive name'),
-    Field('description', String, 'Description',
-        hint: 'Detailed description of what success means'),
     Field('category', String, 'Category', required: true,
         hint: 'Business, Technical, User, Compliance, Budget, Timeline'),
+  ])
+  String? content;
+
+  /// Identification details.
+  final SuccessCriterionIdentity identity = SuccessCriterionIdentity();
+
+  /// Measurement.
+  final SuccessCriterionMeasurement measurement = SuccessCriterionMeasurement();
+
+  /// Verification.
+  final SuccessCriterionVerification verification =
+      SuccessCriterionVerification();
+
+  /// Importance.
+  final SuccessCriterionImportance importance = SuccessCriterionImportance();
+
+  /// Relationships.
+  final SuccessCriterionRelationships relationships =
+      SuccessCriterionRelationships();
+
+  /// Status.
+  final SuccessCriterionStatus status = SuccessCriterionStatus();
+}
+
+/// Identity for success criterion.
+class SuccessCriterionIdentity {
+  @Form([
+    Field('description', String, 'Description',
+        hint: 'Detailed description of what success means'),
     Field('subcategory', String, 'Subcategory',
         hint: 'More specific categorization'),
+  ])
+  String? content;
+}
 
-    // Measurement
+/// Measurement for success criterion.
+class SuccessCriterionMeasurement {
+  @Form([
     Field('metric', String, 'Metric', required: true,
         hint: 'What is measured (e.g., response time, satisfaction score)'),
     Field('baselineValue', String, 'Baseline Value',
@@ -2962,8 +2993,13 @@ class SuccessCriterionEntry {
         hint: 'Optimal value exceeding target'),
     Field('unit', String, 'Unit of Measurement',
         hint: 'e.g., %, seconds, count, currency'),
+  ])
+  String? content;
+}
 
-    // Verification
+/// Verification for success criterion.
+class SuccessCriterionVerification {
+  @Form([
     Field('measurementMethod', String, 'Measurement Method',
         hint: 'How metric will be measured'),
     Field('dataSource', String, 'Data Source',
@@ -2976,16 +3012,26 @@ class SuccessCriterionEntry {
         hint: 'When verified: go-live, 30 days, 90 days'),
     Field('evidenceType', String, 'Evidence Type',
         hint: 'What evidence proves criterion met'),
+  ])
+  String? content;
+}
 
-    // Importance
+/// Importance for success criterion.
+class SuccessCriterionImportance {
+  @Form([
     Field('weight', String, 'Weight',
         hint: 'Importance: Critical, High, Medium, Low'),
     Field('isMandatory', String, 'Mandatory',
         hint: 'Yes/No - is this required for overall success'),
     Field('consequenceIfNotMet', String, 'Consequence If Not Met',
         hint: 'Impact if this criterion is not met'),
+  ])
+  String? content;
+}
 
-    // Relationships
+/// Relationships for success criterion.
+class SuccessCriterionRelationships {
+  @Form([
     Field('relatedGoals', String, 'Related Goals',
         hint: 'Which business/technical goals this supports'),
     Field('relatedRequirements', String, 'Related Requirements',
@@ -2994,8 +3040,13 @@ class SuccessCriterionEntry {
         hint: 'Other criteria this depends on'),
     Field('stakeholders', String, 'Key Stakeholders',
         hint: 'Who cares most about this criterion'),
+  ])
+  String? content;
+}
 
-    // Status
+/// Status for success criterion.
+class SuccessCriterionStatus {
+  @Form([
     Field('status', String, 'Status',
         hint: 'Not Evaluated, Met, Not Met, Waived'),
     Field('currentValue', String, 'Current Value',
