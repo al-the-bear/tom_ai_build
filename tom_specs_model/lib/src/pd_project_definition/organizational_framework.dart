@@ -1981,36 +1981,82 @@ class InitialTrainingEntry {
     Field('trainingId', String, 'Training ID', required: true),
     Field('trainingName', String, 'Training Name', required: true),
     Field('description', String, 'Description'),
+  ])
+  String? content;
+
+  /// Target and prerequisites.
+  final InitialTrainingAudience audience = InitialTrainingAudience();
+
+  /// Learning content.
+  final InitialTrainingContent learningContent = InitialTrainingContent();
+
+  /// Delivery details.
+  final InitialTrainingDelivery delivery = InitialTrainingDelivery();
+
+  /// Schedule information.
+  final InitialTrainingSchedule schedule = InitialTrainingSchedule();
+
+  /// Assessment and certification.
+  final InitialTrainingAssessment assessment = InitialTrainingAssessment();
+}
+
+/// Target and prerequisites.
+class InitialTrainingAudience {
+  @Form([
     Field('targetAudience', String, 'Target Audience — who takes this'),
     Field('prerequisiteTraining', String,
         'Prerequisite Training — training required first'),
     Field('prerequisiteKnowledge', String,
         'Prerequisite Knowledge — skills needed'),
+  ])
+  String? content;
+}
+
+/// Learning content.
+class InitialTrainingContent {
+  @Form([
     Field('learningObjectives', String,
         'Learning Objectives — what participants will learn'),
+    Field('materials', String, 'Materials — what is provided'),
+    Field('practiceEnvironment', String,
+        'Practice Environment — sandbox, simulation'),
+  ])
+  String? content;
+}
+
+/// Delivery details.
+class InitialTrainingDelivery {
+  @Form([
     Field('format', String,
         'Format — classroom, online, hands-on, blended'),
     Field('duration', String, 'Duration — hours/days'),
     Field('deliveryMethod', String,
         'Delivery Method — live, self-paced, instructor-led'),
     Field('classSize', int, 'Class Size — max participants'),
+    Field('location', String, 'Location — training site, virtual'),
+    Field('trainer', String, 'Trainer — who delivers'),
+    Field('mandatory', String, 'Mandatory — required or optional'),
+  ])
+  String? content;
+}
+
+/// Schedule information.
+class InitialTrainingSchedule {
+  @Form([
     Field('schedule', String,
         'Schedule — when offered relative to go-live'),
-    Field('frequency', String,
-        'Frequency — one-time, recurring schedule'),
-    Field('location', String,
-        'Location — training site, virtual'),
-    Field('mandatory', String, 'Mandatory — required or optional'),
-    Field('trainer', String, 'Trainer — who delivers'),
-    Field('materials', String, 'Materials — what is provided'),
-    Field('practiceEnvironment', String,
-        'Practice Environment — sandbox, simulation'),
+    Field('frequency', String, 'Frequency — one-time, recurring schedule'),
+  ])
+  String? content;
+}
+
+/// Assessment and certification.
+class InitialTrainingAssessment {
+  @Form([
     Field('assessmentMethod', String,
         'Assessment Method — test, practical, none'),
-    Field('passingCriteria', String,
-        'Passing Criteria — minimum score'),
-    Field('retakePolicy', String,
-        'Retake Policy — if assessment failed'),
+    Field('passingCriteria', String, 'Passing Criteria — minimum score'),
+    Field('retakePolicy', String, 'Retake Policy — if assessment failed'),
     Field('competencyEarned', String,
         'Competency Earned — skill/competency certified'),
     Field('expirationPeriod', String,

@@ -1184,42 +1184,72 @@ class SignOffProcess {
 @SectionId('PD00-DEL-ACC-WAR')
 class WarrantyTerms {
   @Form([
-    // --- Duration & Activation ---
     Field('warrantyDuration', String, 'Warranty Duration',
         hint: 'Length of warranty period — e.g. 90 days, 6 months',
         required: true),
     Field('warrantyStartTrigger', String, 'Warranty Start Trigger',
-        hint:
-            'What starts the warranty — sign-off date, go-live date, '
-            'production deployment date'),
+        hint: 'What starts the warranty — sign-off date, go-live date'),
+    Field('warrantyScope', String, 'Warranty Scope',
+        hint: 'What is covered: defect fixes, configuration issues',
+        required: true),
+  ])
+  String? content;
+
+  /// Duration and activation.
+  final WarrantyDuration duration = WarrantyDuration();
+
+  /// Scope of coverage.
+  final WarrantyCoverage coverage = WarrantyCoverage();
+
+  /// Service levels.
+  final WarrantyServiceLevels serviceLevels = WarrantyServiceLevels();
+
+  /// Process for defect handling.
+  final WarrantyProcess process = WarrantyProcess();
+
+  /// Transition to support.
+  final WarrantyTransition transition = WarrantyTransition();
+
+  /// Financial terms.
+  final WarrantyFinancial financial = WarrantyFinancial();
+
+  /// Warranty terms narrative.
+  @ContentHelp('Detailed warranty terms description: legal context, '
+      'relationship to contract, scenarios and examples, '
+      'common issues and their warranty status, '
+      'handover checklist for transition to support.')
+  TextSection warrantyNarrative = TextSection();
+}
+
+/// Duration and activation.
+class WarrantyDuration {
+  @Form([
     Field('warrantyEndDate', String, 'Warranty End Date',
         hint: 'Calculated or fixed end date of warranty'),
     Field('extensionPolicy', String, 'Extension Policy',
-        hint:
-            'Conditions for warranty extension — e.g. unresolved Sev-1 '
-            'extends by fix duration'),
+        hint: 'Conditions for warranty extension'),
+  ])
+  String? content;
+}
 
-    // --- Scope ---
-    Field('warrantyScope', String, 'Warranty Scope',
-        hint:
-            'What is covered: defect fixes, configuration issues, '
-            'performance degradation, data corruption'),
+/// Scope of coverage.
+class WarrantyCoverage {
+  @Form([
     Field('exclusions', String, 'Exclusions',
-        hint:
-            'What is NOT covered: new features, user errors, '
-            'infrastructure failures, third-party issues'),
+        hint: 'What is NOT covered: new features, user errors'),
     Field('coveredDeliverables', String, 'Covered Deliverables',
-        hint:
-            'Which deliverables are under warranty — all or specific list'),
+        hint: 'Which deliverables are under warranty'),
     Field('environmentsCovered', String, 'Environments Covered',
-        hint:
-            'Production only, or also staging/UAT environments'),
+        hint: 'Production only, or also staging/UAT'),
+  ])
+  String? content;
+}
 
-    // --- Service Levels ---
+/// Service levels.
+class WarrantyServiceLevels {
+  @Form([
     Field('supportHours', String, 'Support Hours',
-        hint:
-            'Hours during which warranty support is available — '
-            'e.g. 8×5 business hours, 24×7 for Sev-1'),
+        hint: 'Hours during which warranty support is available'),
     Field('responseTimeSev1', String, 'Response Time Sev-1',
         hint: 'Initial response time — e.g. 1 hour'),
     Field('responseTimeSev2', String, 'Response Time Sev-2',
@@ -1229,58 +1259,48 @@ class WarrantyTerms {
     Field('resolutionTimeSev2', String, 'Resolution Time Sev-2',
         hint: 'Target fix time — e.g. 2 business days'),
     Field('escalationContacts', String, 'Escalation Contacts',
-        hint:
-            'Named contacts or roles for escalation during warranty'),
-
-    // --- Process ---
-    Field('defectReportingChannel', String, 'Defect Reporting Channel',
-        hint:
-            'How to report warranty defects — ticketing system, '
-            'email, phone'),
-    Field('fixDeliveryMechanism', String, 'Fix Delivery Mechanism',
-        hint:
-            'How fixes are delivered — hotfix, patch release, '
-            'scheduled release'),
-    Field('regressionTestingPolicy', String, 'Regression Testing Policy',
-        hint:
-            'Who performs regression testing on warranty fixes'),
-    Field('communicationCadence', String, 'Communication Cadence',
-        hint:
-            'Status reporting during warranty — weekly report, '
-            'on-demand dashboard'),
-
-    // --- Transition ---
-    Field('transitionToSupport', String, 'Transition to Standard Support',
-        hint:
-            'How warranty transitions to ongoing support — '
-            'handover activities, knowledge transfer'),
-    Field('postWarrantyTerms', String, 'Post-Warranty Terms',
-        hint:
-            'Support terms after warranty expires — SLA, '
-            'pricing, contract reference'),
-    Field('knowledgeTransferPlan', String, 'Knowledge Transfer Plan',
-        hint:
-            'Activities to ensure support team can maintain system '
-            'after warranty'),
-
-    // --- Financial ---
-    Field('warrantyCost', String, 'Warranty Cost',
-        hint:
-            'Whether warranty is included in project price or '
-            'priced separately'),
-    Field('penaltyForSlaBreaches', String, 'Penalty for SLA Breaches',
-        hint:
-            'Contractual penalties for failing to meet warranty SLAs'),
-    Field('additionalWorkCharging', String, 'Additional Work Charging',
-        hint:
-            'How out-of-scope requests during warranty are charged'),
+        hint: 'Named contacts or roles for escalation'),
   ])
   String? content;
+}
 
-  /// Warranty terms narrative.
-  @ContentHelp('Detailed warranty terms description: legal context, '
-      'relationship to contract, scenarios and examples, '
-      'common issues and their warranty status, '
-      'handover checklist for transition to support.')
-  TextSection warrantyNarrative = TextSection();
+/// Process for defect handling.
+class WarrantyProcess {
+  @Form([
+    Field('defectReportingChannel', String, 'Defect Reporting Channel',
+        hint: 'How to report warranty defects'),
+    Field('fixDeliveryMechanism', String, 'Fix Delivery Mechanism',
+        hint: 'How fixes are delivered — hotfix, patch release'),
+    Field('regressionTestingPolicy', String, 'Regression Testing Policy',
+        hint: 'Who performs regression testing on warranty fixes'),
+    Field('communicationCadence', String, 'Communication Cadence',
+        hint: 'Status reporting during warranty'),
+  ])
+  String? content;
+}
+
+/// Transition to support.
+class WarrantyTransition {
+  @Form([
+    Field('transitionToSupport', String, 'Transition to Standard Support',
+        hint: 'How warranty transitions to ongoing support'),
+    Field('postWarrantyTerms', String, 'Post-Warranty Terms',
+        hint: 'Support terms after warranty expires'),
+    Field('knowledgeTransferPlan', String, 'Knowledge Transfer Plan',
+        hint: 'Activities to ensure support team can maintain system'),
+  ])
+  String? content;
+}
+
+/// Financial terms.
+class WarrantyFinancial {
+  @Form([
+    Field('warrantyCost', String, 'Warranty Cost',
+        hint: 'Whether warranty is included in project price'),
+    Field('penaltyForSlaBreaches', String, 'Penalty for SLA Breaches',
+        hint: 'Contractual penalties for failing to meet warranty SLAs'),
+    Field('additionalWorkCharging', String, 'Additional Work Charging',
+        hint: 'How out-of-scope requests during warranty are charged'),
+  ])
+  String? content;
 }

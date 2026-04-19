@@ -2352,49 +2352,95 @@ class ReportColumnEntry {
         hint: 'Internal field reference', required: true),
     Field('displayLabel', String, 'Display Label',
         hint: 'Column header text shown in report', required: true),
+  ])
+  String? content;
+
+  /// Data source and type.
+  final ReportColumnDataSource dataSource = ReportColumnDataSource();
+
+  /// Display formatting.
+  final ReportColumnFormatting formatting = ReportColumnFormatting();
+
+  /// Aggregation settings.
+  final ReportColumnAggregation aggregation = ReportColumnAggregation();
+
+  /// Interaction options.
+  final ReportColumnInteraction interaction = ReportColumnInteraction();
+
+  /// Visibility and layout.
+  final ReportColumnLayout layout = ReportColumnLayout();
+}
+
+/// Data source and type.
+class ReportColumnDataSource {
+  @Form([
     Field('dataSourceField', String, 'Data Source Field',
         hint: 'Path to the data field, e.g. order.customer.name'),
     Field('dataType', String, 'Data Type',
-        hint:
-            'String / Integer / Decimal / Currency / Date / DateTime / Boolean / Percentage / Duration / Enum'),
+        hint: 'String / Integer / Decimal / Currency / Date / Boolean'),
+  ])
+  String? content;
+}
+
+/// Display formatting.
+class ReportColumnFormatting {
+  @Form([
     Field('displayOrder', int, 'Display Order',
         hint: 'Column position left to right'),
     Field('width', String, 'Width',
-        hint: 'Auto / Fixed(120px) / Proportion(25%) / Min(80px)'),
+        hint: 'Auto / Fixed(120px) / Proportion(25%)'),
     Field('alignment', String, 'Alignment', hint: 'Left / Center / Right'),
     Field('verticalAlignment', String, 'Vertical Alignment',
         hint: 'Top / Middle / Bottom'),
     Field('formatPattern', String, 'Format Pattern',
-        hint:
-            'Display format, e.g. #,##0.00 for numbers, dd.MM.yyyy for dates'),
+        hint: 'Display format, e.g. #,##0.00'),
     Field('currencyCode', String, 'Currency Code',
-        hint: 'Currency code if type is Currency, e.g. EUR, USD'),
+        hint: 'Currency code if type is Currency'),
     Field('nullDisplay', String, 'Null Display',
-        hint: 'What to show for null/empty values, e.g. — or N/A'),
+        hint: 'What to show for null/empty values'),
     Field('booleanTrueDisplay', String, 'Boolean True Display',
         hint: 'Display for true, e.g. Yes / ✓'),
     Field('booleanFalseDisplay', String, 'Boolean False Display',
         hint: 'Display for false, e.g. No / —'),
+  ])
+  String? content;
+}
+
+/// Aggregation settings.
+class ReportColumnAggregation {
+  @Form([
     Field('aggregation', String, 'Aggregation',
-        hint:
-            'None / Sum / Average / Count / Min / Max / Median / Count-Distinct'),
+        hint: 'None / Sum / Average / Count / Min / Max'),
     Field('aggregationLabel', String, 'Aggregation Label',
-        hint: 'Custom label for the aggregation row, e.g. Total Amount'),
+        hint: 'Custom label for the aggregation row'),
     Field('conditionalFormattingRules', String, 'Conditional Formatting Rules',
-        hint:
-            'Rules for value-based formatting, e.g. value < 0 → red; value > 1000 → bold'),
+        hint: 'Rules for value-based formatting'),
     Field('hyperlinkTarget', String, 'Hyperlink Target',
-        hint: 'Make column values clickable, target screen/report/URL'),
+        hint: 'Make column values clickable'),
+  ])
+  String? content;
+}
+
+/// Interaction options.
+class ReportColumnInteraction {
+  @Form([
     Field('sortable', String, 'Sortable',
-        hint: 'Yes / No — can user sort by this column (interactive reports)'),
+        hint: 'Yes / No — can user sort by this column'),
     Field('filterable', String, 'Filterable',
         hint: 'Yes / No — can user filter by this column'),
+  ])
+  String? content;
+}
+
+/// Visibility and layout.
+class ReportColumnLayout {
+  @Form([
     Field('visible', String, 'Visible', hint: 'Yes / No / Conditional'),
     Field('visibilityCondition', String, 'Visibility Condition',
         hint: 'When this column is shown'),
     Field('wordWrap', String, 'Word Wrap', hint: 'Yes / No — wrap long text'),
     Field('truncateAt', int, 'Truncate At',
-        hint: 'Character limit before truncation with ellipsis'),
+        hint: 'Character limit before truncation'),
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
   String? content;

@@ -1277,118 +1277,40 @@ class StageSuccessCriterionEntry {
 @SectionId('PD00-SSP-FEA')
 class FeaturePrioritization {
   @Form([
-    // --- Methodology & Approach ---
     Field('prioritizationMethodology', String,
         'Prioritization Methodology',
-        hint:
-            'MoSCoW / WSJF / ValueVsEffort / Kano / '
-            'WeightedScoring / StackRank / Hybrid',
+        hint: 'MoSCoW / WSJF / ValueVsEffort / Kano / Hybrid',
         required: true),
-    Field('secondaryMethodology', String, 'Secondary Methodology',
-        hint:
-            'Optional complementary method — e.g. Kano for UX '
-            'features alongside MoSCoW for core'),
-    Field('scoringModelDescription', String,
-        'Scoring Model Description',
-        hint:
-            'How priority scores are calculated — criteria, '
-            'weights, scale (1-5, Fibonacci, T-shirt)'),
-    Field('prioritizationCriteria', String,
-        'Prioritization Criteria',
-        hint:
-            'Comma-separated criteria — BusinessValue, '
-            'CostOfDelay, Risk, Effort, StrategicAlignment, '
-            'Urgency, Dependency'),
-    Field('criteriaWeights', String, 'Criteria Weights',
-        hint:
-            'Weight per criterion — e.g. BusinessValue:30%, '
-            'CostOfDelay:25%, Risk:20%, Effort:15%, '
-            'Alignment:10%'),
-    // --- Stakeholder Involvement ---
     Field('prioritizationOwner', String, 'Prioritization Owner',
-        hint:
-            'Role or person with final authority — Product Owner, '
-            'Steering Committee'),
-    Field('stakeholderParticipants', String,
-        'Stakeholder Participants',
-        hint:
-            'Roles involved — PM, Architects, Business Analysts, '
-            'UX, Customer Reps'),
-    Field('stakeholderVotingMethod', String,
-        'Stakeholder Voting Method',
-        hint:
-            'DotVoting / PlanningPoker / ConsensusBuilding / '
-            'DelegatedAuthority / Delphi'),
-    Field('conflictResolutionProcess', String,
-        'Conflict Resolution Process',
-        hint:
-            'How disagreements are resolved — escalation to '
-            'sponsor, majority vote, data-driven'),
-    // --- Cadence & Triggers ---
+        hint: 'Role or person with final authority', required: true),
     Field('reviewCadence', String, 'Review Cadence',
-        hint:
-            'How often prioritization is reviewed — EveryPI / '
-            'Monthly / PerStage / OnDemand',
-        required: true),
-    Field('rePrioritizationTriggers', String,
-        'Re-Prioritization Triggers',
-        hint:
-            'Events forcing re-prioritization — budget change, '
-            'regulatory mandate, competitive pressure, scope '
-            'change, dependency failure'),
-    Field('lastPrioritizationDate', String,
-        'Last Prioritization Date',
-        hint: 'When features were last formally prioritized'),
-    Field('nextReviewDate', String, 'Next Scheduled Review',
-        hint: 'Next planned prioritization review session'),
-    // --- Capacity Constraints ---
-    Field('teamVelocity', String, 'Team Velocity',
-        hint:
-            'Current velocity in story points per sprint or '
-            'features per PI'),
-    Field('budgetCap', String, 'Budget Cap',
-        hint:
-            'Total budget available for feature delivery across '
-            'all stages'),
-    Field('maxFeaturesPerStage', String, 'Max Features Per Stage',
-        hint:
-            'Capacity limit based on team size and velocity'),
-    Field('resourceBottlenecks', String, 'Resource Bottlenecks',
-        hint:
-            'Scarce resources constraining delivery — e.g. DBA, '
-            'Security review, UX design'),
-    // --- Backlog Health ---
-    Field('totalFeaturesInBacklog', String,
-        'Total Features in Backlog',
-        hint: 'Total feature count across all priority tiers'),
-    Field('featuresFullyPrioritized', String,
-        'Features Fully Prioritized',
-        hint: 'Count with complete priority scoring'),
-    Field('featuresUnprioritized', String,
-        'Features Unprioritized',
-        hint: 'Features awaiting prioritization'),
-    Field('backlogGroomingStatus', String,
-        'Backlog Grooming Status',
-        hint:
-            'Current / Stale / NeedsReview — health of the '
-            'feature backlog'),
-    Field('averageFeatureAge', String, 'Average Feature Age',
-        hint:
-            'Mean time features spend in backlog before delivery '
-            'or removal — e.g. 3 months'),
-    // --- Traceability ---
-    Field('traceabilityToBusinessCase', String,
-        'Traceability to Business Case',
-        hint:
-            'How features link to business case — tagging, OKR '
-            'mapping, epic hierarchy'),
-    Field('traceabilityToRequirements', String,
-        'Traceability to Requirements',
-        hint:
-            'How features map to requirements — by ID, by use '
-            'case, by business process'),
+        hint: 'How often prioritization is reviewed', required: true),
   ])
   String? content;
+
+  /// Methodology and scoring.
+  final FeaturePrioritizationMethodology methodology =
+      FeaturePrioritizationMethodology();
+
+  /// Stakeholder involvement.
+  final FeaturePrioritizationStakeholder stakeholder =
+      FeaturePrioritizationStakeholder();
+
+  /// Cadence and triggers.
+  final FeaturePrioritizationCadence cadence =
+      FeaturePrioritizationCadence();
+
+  /// Capacity constraints.
+  final FeaturePrioritizationCapacity capacity =
+      FeaturePrioritizationCapacity();
+
+  /// Backlog health.
+  final FeaturePrioritizationBacklog backlog =
+      FeaturePrioritizationBacklog();
+
+  /// Traceability.
+  final FeaturePrioritizationTraceability traceability =
+      FeaturePrioritizationTraceability();
 
   /// Prioritization rationale narrative.
   @ContentHelp('Rationale behind feature prioritization approach: '
@@ -1409,6 +1331,92 @@ class FeaturePrioritization {
 
   /// 13.4.4. Feature Dependencies [PD00-SSP-FEA-DEP].
   FeatureDependencies featureDependencies = FeatureDependencies();
+}
+
+/// Methodology and scoring.
+class FeaturePrioritizationMethodology {
+  @Form([
+    Field('secondaryMethodology', String, 'Secondary Methodology',
+        hint: 'Optional complementary method'),
+    Field('scoringModelDescription', String, 'Scoring Model Description',
+        hint: 'How priority scores are calculated'),
+    Field('prioritizationCriteria', String, 'Prioritization Criteria',
+        hint: 'Comma-separated criteria — BusinessValue, CostOfDelay, Risk'),
+    Field('criteriaWeights', String, 'Criteria Weights',
+        hint: 'Weight per criterion'),
+  ])
+  String? content;
+}
+
+/// Stakeholder involvement.
+class FeaturePrioritizationStakeholder {
+  @Form([
+    Field('stakeholderParticipants', String, 'Stakeholder Participants',
+        hint: 'Roles involved — PM, Architects, Business Analysts'),
+    Field('stakeholderVotingMethod', String, 'Stakeholder Voting Method',
+        hint: 'DotVoting / PlanningPoker / ConsensusBuilding'),
+    Field('conflictResolutionProcess', String, 'Conflict Resolution Process',
+        hint: 'How disagreements are resolved'),
+  ])
+  String? content;
+}
+
+/// Cadence and triggers.
+class FeaturePrioritizationCadence {
+  @Form([
+    Field('rePrioritizationTriggers', String, 'Re-Prioritization Triggers',
+        hint: 'Events forcing re-prioritization'),
+    Field('lastPrioritizationDate', String, 'Last Prioritization Date',
+        hint: 'When features were last formally prioritized'),
+    Field('nextReviewDate', String, 'Next Scheduled Review',
+        hint: 'Next planned prioritization review session'),
+  ])
+  String? content;
+}
+
+/// Capacity constraints.
+class FeaturePrioritizationCapacity {
+  @Form([
+    Field('teamVelocity', String, 'Team Velocity',
+        hint: 'Current velocity in story points per sprint'),
+    Field('budgetCap', String, 'Budget Cap',
+        hint: 'Total budget available for feature delivery'),
+    Field('maxFeaturesPerStage', String, 'Max Features Per Stage',
+        hint: 'Capacity limit based on team size and velocity'),
+    Field('resourceBottlenecks', String, 'Resource Bottlenecks',
+        hint: 'Scarce resources constraining delivery'),
+  ])
+  String? content;
+}
+
+/// Backlog health.
+class FeaturePrioritizationBacklog {
+  @Form([
+    Field('totalFeaturesInBacklog', String, 'Total Features in Backlog',
+        hint: 'Total feature count across all priority tiers'),
+    Field('featuresFullyPrioritized', String, 'Features Fully Prioritized',
+        hint: 'Count with complete priority scoring'),
+    Field('featuresUnprioritized', String, 'Features Unprioritized',
+        hint: 'Features awaiting prioritization'),
+    Field('backlogGroomingStatus', String, 'Backlog Grooming Status',
+        hint: 'Current / Stale / NeedsReview'),
+    Field('averageFeatureAge', String, 'Average Feature Age',
+        hint: 'Mean time features spend in backlog'),
+  ])
+  String? content;
+}
+
+/// Traceability.
+class FeaturePrioritizationTraceability {
+  @Form([
+    Field('traceabilityToBusinessCase', String,
+        'Traceability to Business Case',
+        hint: 'How features link to business case'),
+    Field('traceabilityToRequirements', String,
+        'Traceability to Requirements',
+        hint: 'How features map to requirements'),
+  ])
+  String? content;
 }
 
 /// 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
@@ -3102,118 +3110,32 @@ class PhaseGateReviews {
 /// required evidence, entry/exit conditions, and review schedule.
 class PhaseGateReviewEntry {
   @Form([
-    // --- Gate Identity ---
     Field('gateName', String, 'Gate Name',
-        hint:
-            'Formal gate name — e.g. G1-ConceptApproval, '
-            'G3-ReadyForRelease',
-        required: true),
+        hint: 'Formal gate name — e.g. G1-ConceptApproval', required: true),
     Field('gateId', String, 'Gate ID',
         hint: 'Unique gate identifier — e.g. G1, G2, G3'),
-    Field('gateDescription', String, 'Gate Description',
-        hint:
-            'Purpose of this gate — what it validates and why '
-            'it exists'),
     Field('stage', String, 'Stage',
-        hint:
-            'Stage this gate is associated with — typically '
-            'at stage exit',
-        required: true),
-    Field('gatePosition', String, 'Gate Position',
-        hint:
-            'StageEntry / MidStage / StageExit / CrossStage — '
-            'when in the stage this gate occurs'),
-    // --- Authority & Participants ---
-    Field('decisionAuthority', String, 'Decision Authority',
-        hint:
-            'Person or body with final decision power — '
-            'Steering Committee, PM, Sponsor',
-        required: true),
-    Field('mandatoryParticipants', String,
-        'Mandatory Participants',
-        hint:
-            'Roles who must attend — comma-separated, e.g. '
-            'PM, TechLead, QA Lead, Business Owner'),
-    Field('advisoryParticipants', String,
-        'Advisory Participants',
-        hint:
-            'Roles who participate in advisory capacity — '
-            'not required for quorum'),
-    Field('externalParticipants', String,
-        'External Participants',
-        hint:
-            'External stakeholders — auditors, customer reps, '
-            'vendor contacts'),
-    // --- Schedule ---
-    Field('scheduledDate', String, 'Scheduled Date',
-        hint: 'Planned date for this gate review'),
-    Field('preparationLeadTime', String, 'Preparation Lead Time',
-        hint:
-            'Days needed to prepare — e.g. 5 business days '
-            'for evidence assembly'),
-    Field('reviewDuration', String, 'Review Duration',
-        hint:
-            'Expected duration — e.g. 2 hours, 4 hours, '
-            'full day'),
-    // --- Entry Conditions ---
-    Field('entryCriteria', String, 'Entry Criteria',
-        hint:
-            'Conditions that must be met before the gate can '
-            'be held — all evidence submitted, no P1 defects '
-            'open, prior gate passed'),
-    Field('entryChecklistComplete', String,
-        'Entry Checklist Complete',
-        hint:
-            'Yes / No / Partial — whether entry conditions '
-            'have been verified'),
-    // --- Evidence ---
-    Field('requiredEvidence', String, 'Required Evidence',
-        hint:
-            'Artifacts to be presented — test reports, demo, '
-            'architecture review, risk register update, '
-            'budget actuals'),
-    Field('evidenceFormat', String, 'Evidence Format',
-        hint:
-            'How evidence is presented — slide deck, live demo, '
-            'document review, dashboard walkthrough'),
-    Field('evidenceLocation', String, 'Evidence Location',
-        hint:
-            'Where evidence is stored — SharePoint folder, '
-            'wiki page, CI/CD artifacts'),
-    // --- Exit Conditions ---
-    Field('exitCriteria', String, 'Exit Criteria',
-        hint:
-            'What must be true for the gate to pass — '
-            'all criteria green, no critical open items, '
-            'stakeholder sign-off',
-        required: true),
-    Field('minimumPassThreshold', String,
-        'Minimum Pass Threshold',
-        hint:
-            'Quantified threshold — e.g. ≥80% criteria met, '
-            'no critical items, all Must-haves complete'),
-    // --- Outcome ---
-    Field('gateOutcome', String, 'Gate Outcome',
-        hint:
-            'Proceed / ConditionalProceed / Rework / Hold / '
-            'Cancel — actual decision (filled post-review)'),
-    Field('outcomeRationale', String, 'Outcome Rationale',
-        hint:
-            'Why this decision was made — captured in minutes'),
-    Field('conditionalItems', String, 'Conditional Items',
-        hint:
-            'Open items that must be resolved for conditional '
-            'advancement — with deadlines'),
-    Field('followUpActions', String, 'Follow-Up Actions',
-        hint:
-            'Actions assigned during review — owner, deadline, '
-            'status tracking'),
-    Field('nextGateReference', String, 'Next Gate Reference',
-        hint:
-            'Gate ID of the next gate in sequence — for '
-            'traceability'),
+        hint: 'Stage this gate is associated with', required: true),
   ])
   String? content;
+
+  /// Gate identity.
+  final PhaseGateIdentity identity = PhaseGateIdentity();
+
+  /// Authority and participants.
+  final PhaseGateAuthority authority = PhaseGateAuthority();
+
+  /// Schedule.
+  final PhaseGateSchedule schedule = PhaseGateSchedule();
+
+  /// Entry conditions.
+  final PhaseGateEntry entry = PhaseGateEntry();
+
+  /// Evidence.
+  final PhaseGateEvidence evidence = PhaseGateEvidence();
+
+  /// Exit conditions and outcome.
+  final PhaseGateExit exit = PhaseGateExit();
 
   /// Gate-specific narrative and context.
   @ContentHelp('Context for this specific gate: strategic importance, '
@@ -3224,6 +3146,90 @@ class PhaseGateReviewEntry {
   /// Contains 0+× ReviewCriterionEntry.
   @SectionIdPattern('PD00-SSP-GOV-GAT-xx-RCR-xx')
   List<ReviewCriterionEntry> reviewCriteria = [];
+}
+
+/// Gate identity.
+class PhaseGateIdentity {
+  @Form([
+    Field('gateDescription', String, 'Gate Description',
+        hint: 'Purpose of this gate — what it validates'),
+    Field('gatePosition', String, 'Gate Position',
+        hint: 'StageEntry / MidStage / StageExit / CrossStage'),
+  ])
+  String? content;
+}
+
+/// Authority and participants.
+class PhaseGateAuthority {
+  @Form([
+    Field('decisionAuthority', String, 'Decision Authority',
+        hint: 'Person or body with final decision power', required: true),
+    Field('mandatoryParticipants', String, 'Mandatory Participants',
+        hint: 'Roles who must attend — comma-separated'),
+    Field('advisoryParticipants', String, 'Advisory Participants',
+        hint: 'Roles who participate in advisory capacity'),
+    Field('externalParticipants', String, 'External Participants',
+        hint: 'External stakeholders — auditors, customer reps'),
+  ])
+  String? content;
+}
+
+/// Schedule.
+class PhaseGateSchedule {
+  @Form([
+    Field('scheduledDate', String, 'Scheduled Date',
+        hint: 'Planned date for this gate review'),
+    Field('preparationLeadTime', String, 'Preparation Lead Time',
+        hint: 'Days needed to prepare — e.g. 5 business days'),
+    Field('reviewDuration', String, 'Review Duration',
+        hint: 'Expected duration — e.g. 2 hours, 4 hours'),
+  ])
+  String? content;
+}
+
+/// Entry conditions.
+class PhaseGateEntry {
+  @Form([
+    Field('entryCriteria', String, 'Entry Criteria',
+        hint: 'Conditions that must be met before the gate'),
+    Field('entryChecklistComplete', String, 'Entry Checklist Complete',
+        hint: 'Yes / No / Partial — whether entry conditions verified'),
+  ])
+  String? content;
+}
+
+/// Evidence.
+class PhaseGateEvidence {
+  @Form([
+    Field('requiredEvidence', String, 'Required Evidence',
+        hint: 'Artifacts to be presented — test reports, demo'),
+    Field('evidenceFormat', String, 'Evidence Format',
+        hint: 'How evidence is presented — slide deck, live demo'),
+    Field('evidenceLocation', String, 'Evidence Location',
+        hint: 'Where evidence is stored — SharePoint folder, wiki'),
+  ])
+  String? content;
+}
+
+/// Exit conditions and outcome.
+class PhaseGateExit {
+  @Form([
+    Field('exitCriteria', String, 'Exit Criteria',
+        hint: 'What must be true for the gate to pass', required: true),
+    Field('minimumPassThreshold', String, 'Minimum Pass Threshold',
+        hint: 'Quantified threshold — e.g. ≥80% criteria met'),
+    Field('gateOutcome', String, 'Gate Outcome',
+        hint: 'Proceed / ConditionalProceed / Rework / Hold / Cancel'),
+    Field('outcomeRationale', String, 'Outcome Rationale',
+        hint: 'Why this decision was made'),
+    Field('conditionalItems', String, 'Conditional Items',
+        hint: 'Open items for conditional advancement'),
+    Field('followUpActions', String, 'Follow-Up Actions',
+        hint: 'Actions assigned during review'),
+    Field('nextGateReference', String, 'Next Gate Reference',
+        hint: 'Gate ID of the next gate in sequence'),
+  ])
+  String? content;
 }
 
 /// A review criterion entry (form) [PD00-SSP-GOV-GAT-nn-RCR-nn].
