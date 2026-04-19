@@ -2774,6 +2774,23 @@ class ReportFilterEntry {
         hint: 'Internal reference name', required: true),
     Field('displayLabel', String, 'Display Label',
         hint: 'Label shown in parameter form', required: true),
+  ])
+  String? content;
+
+  /// Input and value configuration.
+  ReportFilterEntryInput input = ReportFilterEntryInput();
+
+  /// Scope and validation behavior.
+  ReportFilterEntryBehavior behavior = ReportFilterEntryBehavior();
+
+  /// Presentation options.
+  ReportFilterEntryPresentation presentation =
+      ReportFilterEntryPresentation();
+}
+
+/// Input and value configuration for a report filter.
+class ReportFilterEntryInput {
+  @Form([
     Field('dataType', String, 'Data Type',
         hint:
             'String / Integer / Decimal / Date / DateTime / DateRange / Boolean / Enum / Entity-Ref'),
@@ -2792,6 +2809,13 @@ class ReportFilterEntry {
         hint: 'Filter ID of parent filter for cascading dropdowns'),
     Field('multiSelect', String, 'Multi-Select',
         hint: 'Yes / No — allow selecting multiple values'),
+  ])
+  String? content;
+}
+
+/// Scope and validation behavior for a report filter.
+class ReportFilterEntryBehavior {
+  @Form([
     Field('required', String, 'Required',
         hint: 'Yes / No — must user provide a value'),
     Field('appliedScope', String, 'Applied Scope',
@@ -2806,6 +2830,13 @@ class ReportFilterEntry {
         hint: 'Validation expression, e.g. startDate <= endDate'),
     Field('dependsOn', String, 'Depends On',
         hint: 'Other filter IDs this filter depends on'),
+  ])
+  String? content;
+}
+
+/// Presentation options for a report filter.
+class ReportFilterEntryPresentation {
+  @Form([
     Field('hiddenFilter', String, 'Hidden Filter',
         hint: 'Yes / No — filter applied programmatically, not shown to user'),
     Field('quickFilterBar', String, 'Quick Filter Bar',
@@ -2920,6 +2951,25 @@ class ReportDistributionEntry {
         required: true),
     Field('description', String, 'Description',
         hint: 'Purpose of this distribution channel'),
+  ])
+  String? content;
+
+  /// Recipient and format settings.
+  ReportDistributionEntryRecipients recipients =
+      ReportDistributionEntryRecipients();
+
+  /// Message and attachment content.
+  ReportDistributionEntryContent contentSettings =
+      ReportDistributionEntryContent();
+
+  /// Delivery conditions and lifecycle settings.
+  ReportDistributionEntryDelivery delivery =
+      ReportDistributionEntryDelivery();
+}
+
+/// Recipient and format settings for report distribution.
+class ReportDistributionEntryRecipients {
+  @Form([
     Field('formatPerChannel', String, 'Format Per Channel',
         hint:
             'Output format for this channel, e.g. PDF for email, Excel for file-share'),
@@ -2929,6 +2979,13 @@ class ReportDistributionEntry {
         hint: 'Comma-separated recipient IDs or addresses'),
     Field('recipientRoles', String, 'Recipient Roles',
         hint: 'Roles whose members receive the report'),
+  ])
+  String? content;
+}
+
+/// Message and attachment content for report distribution.
+class ReportDistributionEntryContent {
+  @Form([
     Field('subjectTemplate', String, 'Subject Template',
         hint:
             'Email/notification subject, e.g. {reportName} — {dateRange}'),
@@ -2939,6 +2996,13 @@ class ReportDistributionEntry {
     Field('attachmentFileNamePattern', String, 'Attachment File Name Pattern',
         hint:
             'Pattern for attachment filename, e.g. {reportName}_{date}.pdf'),
+  ])
+  String? content;
+}
+
+/// Delivery conditions and lifecycle settings for report distribution.
+class ReportDistributionEntryDelivery {
+  @Form([
     Field('compressionEnabled', String, 'Compression Enabled',
         hint: 'Yes / No — compress attachment (ZIP)'),
     Field('passwordProtect', String, 'Password Protect',

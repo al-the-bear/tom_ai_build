@@ -1120,35 +1120,67 @@ class ReferenceDocumentEntry {
     Field('documentTitle', String, 'Document Title', required: true),
     Field('documentId', String, 'Document ID (internal reference number)'),
     Field('version', String, 'Version'),
-    Field('author', String, 'Author / Issuing Organization'),
-    Field('date', String, 'Publication / Effective Date'),
-    Field('purpose', String, 'Purpose / Relevance to Project'),
-    Field('location', String, 'Location (URL, repository, or physical)'),
-    Field('documentType', String,
-        'Document Type (Standard, Policy, Regulation, Specification, etc.)'),
-    Field('classification', String,
-        'Classification (Public, Internal, Confidential, Restricted)'),
-    Field('status', String,
-        'Status (Current, Draft, Under Review, Superseded, Archived)'),
-    Field('applicability', String,
-        'Applicability (which project phases or components this applies to)'),
-    Field('supersedes', String, 'Supersedes Document (if replacing older doc)'),
-    Field('supersededBy', String, 'Superseded By (if this doc is deprecated)'),
-    Field('validUntil', String, 'Valid Until (expiration or review date)'),
-    Field('lastReviewedDate', String, 'Last Reviewed Date'),
-    Field('accessRestrictions', String,
-        'Access Restrictions (who can access, special permissions required)'),
-    Field('language', String, 'Language'),
-    Field('format', String, 'Format (PDF, Word, HTML, Confluence, etc.)'),
-    Field('notes', String, 'Additional Notes'),
   ])
   String? content;
+
+  /// Document metadata and relevance.
+  ReferenceDocumentEntryMetadata metadata = ReferenceDocumentEntryMetadata();
+
+  /// Governance and applicability information.
+  ReferenceDocumentEntryGovernance governance =
+    ReferenceDocumentEntryGovernance();
+
+  /// Lifecycle and usage details.
+  ReferenceDocumentEntryLifecycle lifecycle =
+    ReferenceDocumentEntryLifecycle();
 
   /// Key sections or chapters within the document relevant to this project.
   DocumentRelevantSections relevantSections = DocumentRelevantSections();
 
   /// Relationship to other reference documents.
   DocumentRelationships relationships = DocumentRelationships();
+}
+
+/// Document metadata and relevance.
+class ReferenceDocumentEntryMetadata {
+  @Form([
+    Field('author', String, 'Author / Issuing Organization'),
+    Field('date', String, 'Publication / Effective Date'),
+    Field('purpose', String, 'Purpose / Relevance to Project'),
+    Field('location', String, 'Location (URL, repository, or physical)'),
+    Field('documentType', String,
+        'Document Type (Standard, Policy, Regulation, Specification, etc.)'),
+  ])
+  String? content;
+}
+
+/// Governance and applicability information.
+class ReferenceDocumentEntryGovernance {
+  @Form([
+    Field('classification', String,
+        'Classification (Public, Internal, Confidential, Restricted)'),
+    Field('status', String,
+        'Status (Current, Draft, Under Review, Superseded, Archived)'),
+    Field('applicability', String,
+        'Applicability (which project phases or components this applies to)'),
+    Field('validUntil', String, 'Valid Until (expiration or review date)'),
+    Field('lastReviewedDate', String, 'Last Reviewed Date'),
+    Field('accessRestrictions', String,
+        'Access Restrictions (who can access, special permissions required)'),
+  ])
+  String? content;
+}
+
+/// Lifecycle and usage details.
+class ReferenceDocumentEntryLifecycle {
+  @Form([
+    Field('supersedes', String, 'Supersedes Document (if replacing older doc)'),
+    Field('supersededBy', String, 'Superseded By (if this doc is deprecated)'),
+    Field('language', String, 'Language'),
+    Field('format', String, 'Format (PDF, Word, HTML, Confluence, etc.)'),
+    Field('notes', String, 'Additional Notes'),
+  ])
+  String? content;
 }
 
 /// Key sections within a reference document relevant to the project.

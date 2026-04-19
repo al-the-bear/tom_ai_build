@@ -1149,7 +1149,6 @@ class DefectResolutionReporting {
 @SectionId('PD00-DEL-ACC-SIG')
 class SignOffProcess {
   @Form([
-    // --- Authority & Governance ---
     Field('signOffAuthority', String, 'Sign-Off Authority',
         hint:
             'Primary role/body authorized to sign — '
@@ -1163,81 +1162,123 @@ class SignOffProcess {
         hint:
             'Role for business acceptance — '
             'e.g. Business Owner, Product Owner'),
-    Field('operationsSignOff', String, 'Operations Sign-Off',
-        hint:
-            'Role for operational readiness — '
-            'e.g. Operations Manager, SRE Lead'),
-    Field('quorumRequirements', String, 'Quorum Requirements',
-        hint:
-            'Minimum signatories — e.g. all 3 boards, or 2-of-3'),
-
-    // --- Documents & Evidence ---
-    Field('signOffDocumentTemplate', String, 'Sign-Off Document Template',
-        hint:
-            'Standard form/template used for formal sign-off'),
-    Field('requiredAttachments', String, 'Required Attachments',
-        hint:
-            'Evidence package: test reports, acceptance report, '
-            'risk assessment, open defect list'),
-    Field('signOffCriteria', String, 'Sign-Off Criteria',
-        hint:
-            'Criteria that must be demonstrated before sign-off '
-            'can proceed'),
-    Field('preSignOffChecklistItems', String, 'Pre-Sign-Off Checklist',
-        hint:
-            'Final verification checklist — all items must be confirmed'),
-
-    // --- Conditional & Partial ---
-    Field('conditionalAcceptancePolicy', String,
-        'Conditional Acceptance Policy',
-        hint:
-            'Conditions allowing sign-off with known issues or '
-            'outstanding items — action plan required'),
-    Field('partialAcceptancePolicy', String, 'Partial Acceptance Policy',
-        hint:
-            'Whether acceptance of individual deliverables '
-            'is possible — scope and implications'),
-    Field('rejectionProcess', String, 'Rejection Process',
-        hint:
-            'What happens on rejection — rework, resubmission timeline, '
-            'impact on project'),
-
-    // --- Legal & Contractual ---
-    Field('legalImplications', String, 'Legal Implications',
-        hint:
-            'What sign-off means legally — warranties activate, '
-            'payment milestones trigger, liability transfers'),
-    Field('contractualReferences', String, 'Contractual References',
-        hint:
-            'Contract clauses governing acceptance — section numbers'),
-    Field('paymentLinkage', String, 'Payment Linkage',
-        hint:
-            'Payment milestones triggered by sign-off — '
-            'amounts and timing'),
-    Field('warrantyActivation', String, 'Warranty Activation',
-        hint:
-            'When warranty period starts — from sign-off date, '
-            'from go-live date'),
-
-    // --- Timeline ---
-    Field('signOffDeadline', String, 'Sign-Off Deadline',
-        hint: 'Final date by which sign-off must be obtained'),
-    Field('reviewPeriod', String, 'Review Period',
-        hint:
-            'Time allowed for review before sign-off — '
-            'e.g. 5 business days after evidence delivery'),
-    Field('silentAcceptancePolicy', String, 'Silent Acceptance Policy',
-        hint:
-            'Whether non-response constitutes acceptance — '
-            'Yes/No, after what period'),
   ])
   String? content;
+
+  /// Signatory and quorum governance.
+  SignOffProcessGovernance governance = SignOffProcessGovernance();
+
+  /// Evidence and checklist requirements.
+  SignOffProcessEvidence evidence = SignOffProcessEvidence();
+
+  /// Conditional or partial acceptance policies.
+  SignOffProcessAcceptance acceptance = SignOffProcessAcceptance();
+
+  /// Legal and contractual consequences.
+  SignOffProcessContractual contractual = SignOffProcessContractual();
+
+  /// Review timeline.
+  SignOffProcessTimeline timeline = SignOffProcessTimeline();
 
   /// Sign-off process narrative.
   @ContentHelp('Detailed walkthrough of the sign-off ceremony: '
       'how the meeting is conducted, document review procedure, '
       'voting mechanism, dissent handling, and record keeping.')
   TextSection signOffNarrative = TextSection();
+}
+
+/// Signatory and quorum governance.
+class SignOffProcessGovernance {
+    @Form([
+        Field('operationsSignOff', String, 'Operations Sign-Off',
+                hint:
+                        'Role for operational readiness — '
+                        'e.g. Operations Manager, SRE Lead'),
+        Field('quorumRequirements', String, 'Quorum Requirements',
+                hint:
+                        'Minimum signatories — e.g. all 3 boards, or 2-of-3'),
+    ])
+    String? content;
+}
+
+/// Evidence and checklist requirements.
+class SignOffProcessEvidence {
+    @Form([
+        Field('signOffDocumentTemplate', String, 'Sign-Off Document Template',
+                hint:
+                        'Standard form/template used for formal sign-off'),
+        Field('requiredAttachments', String, 'Required Attachments',
+                hint:
+                        'Evidence package: test reports, acceptance report, '
+                        'risk assessment, open defect list'),
+        Field('signOffCriteria', String, 'Sign-Off Criteria',
+                hint:
+                        'Criteria that must be demonstrated before sign-off '
+                        'can proceed'),
+        Field('preSignOffChecklistItems', String, 'Pre-Sign-Off Checklist',
+                hint:
+                        'Final verification checklist — all items must be confirmed'),
+    ])
+    String? content;
+}
+
+/// Conditional or partial acceptance policies.
+class SignOffProcessAcceptance {
+    @Form([
+        Field('conditionalAcceptancePolicy', String,
+                'Conditional Acceptance Policy',
+                hint:
+                        'Conditions allowing sign-off with known issues or '
+                        'outstanding items — action plan required'),
+        Field('partialAcceptancePolicy', String, 'Partial Acceptance Policy',
+                hint:
+                        'Whether acceptance of individual deliverables '
+                        'is possible — scope and implications'),
+        Field('rejectionProcess', String, 'Rejection Process',
+                hint:
+                        'What happens on rejection — rework, resubmission timeline, '
+                        'impact on project'),
+    ])
+    String? content;
+}
+
+/// Legal and contractual consequences.
+class SignOffProcessContractual {
+    @Form([
+        Field('legalImplications', String, 'Legal Implications',
+                hint:
+                        'What sign-off means legally — warranties activate, '
+                        'payment milestones trigger, liability transfers'),
+        Field('contractualReferences', String, 'Contractual References',
+                hint:
+                        'Contract clauses governing acceptance — section numbers'),
+        Field('paymentLinkage', String, 'Payment Linkage',
+                hint:
+                        'Payment milestones triggered by sign-off — '
+                        'amounts and timing'),
+        Field('warrantyActivation', String, 'Warranty Activation',
+                hint:
+                        'When warranty period starts — from sign-off date, '
+                        'from go-live date'),
+    ])
+    String? content;
+}
+
+/// Review timeline.
+class SignOffProcessTimeline {
+    @Form([
+        Field('signOffDeadline', String, 'Sign-Off Deadline',
+                hint: 'Final date by which sign-off must be obtained'),
+        Field('reviewPeriod', String, 'Review Period',
+                hint:
+                        'Time allowed for review before sign-off — '
+                        'e.g. 5 business days after evidence delivery'),
+        Field('silentAcceptancePolicy', String, 'Silent Acceptance Policy',
+                hint:
+                        'Whether non-response constitutes acceptance — '
+                        'Yes/No, after what period'),
+    ])
+    String? content;
 }
 
 // ═══════════════════════════════════════════════════════════════════════════

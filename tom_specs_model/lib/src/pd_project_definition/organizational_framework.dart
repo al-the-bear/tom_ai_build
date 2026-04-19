@@ -881,22 +881,55 @@ class StaffingEntry {
         hint: 'Job family or career track — e.g. Engineering, Finance'),
     Field('jobLevel', String, 'Job Level',
         hint: 'Grade or level — e.g. Senior, L5, Manager'),
+  ])
+  String? content;
+
+  /// Organization and employment placement.
+  StaffingEntryOrganization organization = StaffingEntryOrganization();
+
+  /// Capacity and competency requirements.
+  StaffingEntryCapacity capacity = StaffingEntryCapacity();
+
+  /// Recruitment workflow and urgency.
+  StaffingEntryRecruitment recruitment = StaffingEntryRecruitment();
+
+  /// Ownership and compensation details.
+  StaffingEntryOwnership ownership = StaffingEntryOwnership();
+}
+
+/// Organization and employment placement.
+class StaffingEntryOrganization {
+  @Form([
     Field('department', String, 'Department',
         hint: 'Organizational unit'),
     Field('location', String, 'Location',
         hint: 'Site, region, or remote designation'),
+    Field('employmentType', String, 'Employment Type',
+        hint: 'Permanent / Contract / PartTime / Temporary'),
+  ])
+  String? content;
+}
+
+/// Capacity and competency requirements.
+class StaffingEntryCapacity {
+  @Form([
     Field('fteCount', double, 'FTE Count',
         hint: 'Full-time equivalent — e.g. 1.0, 0.5'),
     Field('headcount', int, 'Headcount',
         hint: 'Number of positions to fill'),
-    Field('employmentType', String, 'Employment Type',
-        hint: 'Permanent / Contract / PartTime / Temporary'),
     Field('requiredSkills', String, 'Required Skills & Competencies',
         hint:
             'Key skills, certifications, and competencies — e.g. SQL, GDPR awareness, PMP'),
     Field('backfillRequired', String, 'Backfill Required',
         hint:
             'Yes / No — whether this replaces an existing person (affects knowledge transfer)'),
+  ])
+  String? content;
+}
+
+/// Recruitment workflow and urgency.
+class StaffingEntryRecruitment {
+  @Form([
     Field('approvalStatus', String, 'Approval Status',
         hint: 'Draft / Approved / OnHold / Cancelled'),
     Field('sourcingMethod', String, 'Sourcing Method',
@@ -908,6 +941,13 @@ class StaffingEntry {
         hint: 'When this position should be filled'),
     Field('urgency', String, 'Urgency',
         hint: 'Critical / High / Medium / Low'),
+  ])
+  String? content;
+}
+
+/// Ownership and compensation details.
+class StaffingEntryOwnership {
+  @Form([
     Field('hiringManager', String, 'Hiring Manager',
         hint: 'Name or role of the hiring manager'),
     Field('recruiter', String, 'Recruiter',

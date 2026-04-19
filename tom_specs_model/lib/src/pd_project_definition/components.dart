@@ -741,15 +741,47 @@ class RuntimeDependencyEntry {
         hint: 'Component or service depended upon', required: true),
     Field('version', String, 'Required Version',
         hint: 'Version or version range required'),
-    Field('versionConstraint', String, 'Version Constraint',
-        hint: 'Pinned / Range / Minimum, e.g. >=3.2 <4.0'),
     Field('dependencyType', String, 'Dependency Type',
         hint: 'Runtime / Optional / Peer / Conditional'),
+  ])
+  String? content;
+
+  /// Versioning and business criticality.
+  RuntimeDependencyEntryClassification classification =
+      RuntimeDependencyEntryClassification();
+
+  /// Startup and health behavior.
+  RuntimeDependencyEntryStartup startup = RuntimeDependencyEntryStartup();
+
+  /// Resilience behavior.
+  RuntimeDependencyEntryResilience resilience =
+      RuntimeDependencyEntryResilience();
+
+  /// Data flow and network characteristics.
+  RuntimeDependencyEntryIntegration integration =
+      RuntimeDependencyEntryIntegration();
+
+  /// Compatibility and transitive risk notes.
+  RuntimeDependencyEntryRisk risk = RuntimeDependencyEntryRisk();
+}
+
+/// Versioning and business criticality.
+class RuntimeDependencyEntryClassification {
+  @Form([
+    Field('versionConstraint', String, 'Version Constraint',
+        hint: 'Pinned / Range / Minimum, e.g. >=3.2 <4.0'),
     Field('criticality', String, 'Criticality',
         hint:
             'Critical / High / Medium / Low — impact if unavailable'),
     Field('purpose', String, 'Purpose',
         hint: 'Why this dependency exists'),
+  ])
+  String? content;
+}
+
+/// Startup and health behavior.
+class RuntimeDependencyEntryStartup {
+  @Form([
     Field('startupOrder', int, 'Startup Order',
         hint: 'Boot sequence priority (1 = first)'),
     Field('startupTimeout', String, 'Startup Timeout',
@@ -759,12 +791,29 @@ class RuntimeDependencyEntry {
             'How to verify this dependency is healthy — endpoint, ping, query'),
     Field('healthCheckInterval', String, 'Health Check Interval',
         hint: 'How often health is verified, e.g. 30s'),
+  ])
+  String? content;
+}
+
+/// Resilience behavior.
+class RuntimeDependencyEntryResilience {
+  @Form([
     Field('failoverBehavior', String, 'Failover Behavior',
         hint:
             'GracefulDegradation / CircuitBreaker / Retry / FailFast'),
     Field('fallbackComponent', String, 'Fallback / Alternative',
         hint:
             'What to use if this dependency fails or is unavailable'),
+    Field('cacheStrategy', String, 'Caching Strategy',
+        hint:
+            'How responses/data from this dependency are cached'),
+  ])
+  String? content;
+}
+
+/// Data flow and network characteristics.
+class RuntimeDependencyEntryIntegration {
+  @Form([
     Field('dataFlowDirection', String, 'Data Flow',
         hint:
             'ReadOnly / WriteOnly / Bidirectional / EventDriven'),
@@ -773,9 +822,13 @@ class RuntimeDependencyEntry {
             'Local / LAN / Internet — and impact of network partition'),
     Field('latencyTolerance', String, 'Latency Tolerance',
         hint: 'Max acceptable latency to this dependency'),
-    Field('cacheStrategy', String, 'Caching Strategy',
-        hint:
-            'How responses/data from this dependency are cached'),
+  ])
+  String? content;
+}
+
+/// Compatibility and transitive risk notes.
+class RuntimeDependencyEntryRisk {
+  @Form([
     Field('transitiveRisk', String, 'Transitive Dependency Risk',
         hint:
             'Key risks from this dependency\'s own dependencies'),

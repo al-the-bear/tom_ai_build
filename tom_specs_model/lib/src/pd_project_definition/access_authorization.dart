@@ -1613,6 +1613,29 @@ class AuthenticationMethodEntry {
     Field('authenticationFactor', String, 'Authentication Factor',
         hint:
             'Knowledge | Possession | Inherence — NIST factor category'),
+  ])
+  String? content;
+
+  /// Security posture of the authentication method.
+  AuthenticationMethodEntrySecurity security =
+      AuthenticationMethodEntrySecurity();
+
+  /// Usage scope of the authentication method.
+  AuthenticationMethodEntryApplicability applicability =
+      AuthenticationMethodEntryApplicability();
+
+  /// Enrollment and activation workflow.
+  AuthenticationMethodEntryEnrollment enrollment =
+      AuthenticationMethodEntryEnrollment();
+
+  /// Operational controls and lifecycle settings.
+  AuthenticationMethodEntryOperations operations =
+      AuthenticationMethodEntryOperations();
+}
+
+/// Security posture of the authentication method.
+class AuthenticationMethodEntrySecurity {
+  @Form([
     Field('assuranceLevel', String, 'Assurance Level',
         hint: 'AAL1 | AAL2 | AAL3 — NIST authentication assurance level'),
     Field('phishingResistant', String, 'Phishing Resistant',
@@ -1621,12 +1644,34 @@ class AuthenticationMethodEntry {
     Field('replayResistant', String, 'Replay Resistant',
         hint:
             'Yes | No — whether this method resists replay attacks'),
+    Field('hardwareRequirement', String, 'Hardware Requirement',
+        hint:
+            'None | SecurityKey | SmartCard | TPM | HSM — required hardware'),
+    Field('fipsValidationLevel', String, 'FIPS Validation Level',
+        hint:
+            'None | Level1 | Level2 | Level3 — FIPS 140 validation level if applicable'),
+    Field('securityLevel', String, 'Security Level',
+        hint: 'Low | Medium | High | Critical — overall security classification'),
+  ])
+  String? content;
+}
+
+/// Usage scope of the authentication method.
+class AuthenticationMethodEntryApplicability {
+  @Form([
     Field('applicableUserCategories', String, 'Applicable User Categories',
         hint:
             'InternalUsers | ExternalUsers | Admins | ServiceAccounts | All'),
     Field('primaryOrSecondary', String, 'Primary or Secondary',
         hint:
             'Primary | Secondary | Either — role in authentication flow'),
+  ])
+  String? content;
+}
+
+/// Enrollment and activation workflow.
+class AuthenticationMethodEntryEnrollment {
+  @Form([
     Field('enrollmentProcess', String, 'Enrollment Process',
         hint:
             'How users enroll in this method (self-service, admin-provisioned, automated)'),
@@ -1639,6 +1684,13 @@ class AuthenticationMethodEntry {
     Field('fallbackMethod', String, 'Fallback Method',
         hint:
             'Alternative method when this one is unavailable (recovery codes, admin reset)'),
+  ])
+  String? content;
+}
+
+/// Operational controls and lifecycle settings.
+class AuthenticationMethodEntryOperations {
+  @Form([
     Field('maxFailedAttempts', String, 'Max Failed Attempts',
         hint:
             'Maximum consecutive failed attempts before lockout (e.g., 5, 10, 100)'),
@@ -1648,14 +1700,6 @@ class AuthenticationMethodEntry {
     Field('reauthenticationTimeout', String, 'Reauthentication Timeout',
         hint:
             'Session timeout requiring reauthentication (e.g., 15min, 12h, 30d per AAL)'),
-    Field('hardwareRequirement', String, 'Hardware Requirement',
-        hint:
-            'None | SecurityKey | SmartCard | TPM | HSM — required hardware'),
-    Field('fipsValidationLevel', String, 'FIPS Validation Level',
-        hint:
-            'None | Level1 | Level2 | Level3 — FIPS 140 validation level if applicable'),
-    Field('securityLevel', String, 'Security Level',
-        hint: 'Low | Medium | High | Critical — overall security classification'),
     Field('description', String, 'Description',
         hint: 'Detailed description of this authentication method'),
   ])
