@@ -216,37 +216,79 @@ class QualityFramework {
 /// to other categories.
 class QualityCategoryEntry {
   @Form([
-    // Category identification
     Field('categoryId', String, 'Category ID',
         hint: 'Unique identifier (e.g., QC-USER-01)'),
     Field('categoryName', String, 'Category Name', required: true,
         hint: 'User-Related, Technical, Operational, Documentation'),
+    Field('categoryWeight', int, 'Category Weight (1-100)',
+        hint: 'Relative importance in overall quality'),
+  ])
+  String? content;
+
+  /// Description and priority context.
+  QualityCategoryEntryDefinition definition = QualityCategoryEntryDefinition();
+
+  /// Category relationships.
+  QualityCategoryEntryRelationships relationships =
+      QualityCategoryEntryRelationships();
+
+  /// Governance ownership.
+  QualityCategoryEntryGovernance governance =
+      QualityCategoryEntryGovernance();
+
+  /// Measurement targets.
+  QualityCategoryEntryMetrics metrics = QualityCategoryEntryMetrics();
+
+  /// Detailed category definition.
+  @ContentHelp('Extended description of category scope, boundaries, '
+      'and quality attributes included.')
+  TextSection categoryDetails = TextSection();
+}
+
+/// Description and priority context.
+class QualityCategoryEntryDefinition {
+  @Form([
     Field('categoryDescription', String, 'Description',
         hint: 'Purpose and scope of this category'),
     Field('categoryScope', String, 'Scope',
         hint: 'What aspects of quality this covers'),
-    // Importance and weighting
-    Field('categoryWeight', int, 'Category Weight (1-100)',
-        hint: 'Relative importance in overall quality'),
     Field('categoryPriority', String, 'Priority',
         hint: 'Critical, high, medium, low'),
     Field('categoryRationale', String, 'Priority Rationale',
         hint: 'Why this priority level'),
-    // Relationships
+  ])
+  String? content;
+}
+
+/// Category relationships.
+class QualityCategoryEntryRelationships {
+  @Form([
     Field('parentCategory', String, 'Parent Category',
         hint: 'Higher-level category if hierarchical'),
     Field('relatedCategories', String, 'Related Categories',
         hint: 'Categories that interact with this one'),
     Field('conflictingCategories', String, 'Conflicting Categories',
         hint: 'Categories that may trade off against this'),
-    // Governance
+  ])
+  String? content;
+}
+
+/// Governance ownership.
+class QualityCategoryEntryGovernance {
+  @Form([
     Field('categoryOwner', String, 'Category Owner',
         hint: 'Role responsible for this quality area'),
     Field('reviewFrequency', String, 'Review Frequency',
         hint: 'How often category metrics are reviewed'),
     Field('escalationThreshold', String, 'Escalation Threshold',
         hint: 'When category issues escalate'),
-    // Measurement
+  ])
+  String? content;
+}
+
+/// Measurement targets.
+class QualityCategoryEntryMetrics {
+  @Form([
     Field('primaryMetric', String, 'Primary Metric',
         hint: 'Main metric for this category'),
     Field('secondaryMetrics', String, 'Secondary Metrics',
@@ -257,11 +299,6 @@ class QualityCategoryEntry {
         hint: 'Starting baseline value'),
   ])
   String? content;
-
-  /// Detailed category definition.
-  @ContentHelp('Extended description of category scope, boundaries, '
-      'and quality attributes included.')
-  TextSection categoryDetails = TextSection();
 }
 
 /// 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
@@ -644,14 +681,37 @@ class FlexibilityQuality {
 /// 11.3.4. Security quality [PD00-SYQ-TEC-SEC].
 class SecurityQuality {
   @Form([
-    // Encryption
     Field('encryptionAtRest', String, 'Encryption at Rest',
         hint: 'AES-256, database-level, disk-level'),
     Field('encryptionInTransit', String, 'Encryption in Transit',
         hint: 'TLS 1.2+, certificate requirements'),
     Field('keyManagement', String, 'Key Management',
         hint: 'HSM, KMS, key rotation policy'),
-    // Authentication
+  ])
+  String? content;
+
+  /// Authentication controls.
+  SecurityQualityAuthentication authentication =
+      SecurityQualityAuthentication();
+
+  /// Authorization controls.
+  SecurityQualityAuthorization authorization =
+      SecurityQualityAuthorization();
+
+  /// Vulnerability management expectations.
+  SecurityQualityVulnerability vulnerability =
+      SecurityQualityVulnerability();
+
+  /// Compliance and verification settings.
+  SecurityQualityCompliance compliance = SecurityQualityCompliance();
+
+  /// Detailed security requirements narrative.
+  TextSection narrative = TextSection();
+}
+
+/// Authentication controls.
+class SecurityQualityAuthentication {
+  @Form([
     Field('authenticationMethod', String, 'Authentication Method',
         hint: 'OAuth2, SAML, OIDC, MFA'),
     Field('mfaRequirement', String, 'MFA Requirement',
@@ -660,35 +720,49 @@ class SecurityQuality {
         hint: 'Complexity, rotation, history'),
     Field('sessionManagement', String, 'Session Management',
         hint: 'Timeout, concurrent sessions'),
-    // Authorization
+  ])
+  String? content;
+}
+
+/// Authorization controls.
+class SecurityQualityAuthorization {
+  @Form([
     Field('authorizationModel', String, 'Authorization Model',
         hint: 'RBAC, ABAC, ACL'),
     Field('authorizationCoverage', String, 'Authorization Coverage',
         hint: 'All resources, sensitive resources'),
     Field('privilegeEscalationPrevention', String, 'Privilege Escalation',
         hint: 'Controls to prevent escalation'),
-    // Vulnerability management
+  ])
+  String? content;
+}
+
+/// Vulnerability management expectations.
+class SecurityQualityVulnerability {
+  @Form([
     Field('vulnerabilityScanFrequency', String, 'Vulnerability Scan Frequency',
         hint: 'Continuous, weekly, per-release'),
     Field('penetrationTestFrequency', String, 'Penetration Test Frequency',
         hint: 'Annual, semi-annual, per-release'),
     Field('cveResponseTime', String, 'CVE Response Time',
         hint: 'Critical: 24h, high: 7d'),
-    // Compliance
+  ])
+  String? content;
+}
+
+/// Compliance and verification settings.
+class SecurityQualityCompliance {
+  @Form([
     Field('securityCompliance', String, 'Security Compliance',
         hint: 'SOC2, ISO 27001, GDPR'),
     Field('securityCertifications', String, 'Security Certifications',
         hint: 'Required certifications'),
     Field('securityAuditFrequency', String, 'Security Audit Frequency',
         hint: 'Annual, continuous'),
-    // Verification
     Field('securityVerification', String, 'Security Verification',
         hint: 'SAST, DAST, security review'),
   ])
   String? content;
-
-  /// Detailed security requirements narrative.
-  TextSection narrative = TextSection();
 }
 
 /// 11.3.5. Maintainability quality [PD00-SYQ-TEC-MAI].
@@ -882,47 +956,30 @@ class AvailabilityQuality {
 /// 11.4.2. Service level quality [PD00-SYQ-OPE-SER].
 class ServiceLevelQuality {
   @Form([
-    // Support response
     Field('supportTierStructure', String, 'Support Tier Structure',
         hint: 'L1/L2/L3, single tier'),
     Field('criticalResponseTime', String, 'Critical Response Time',
         hint: 'Response time for P1 issues'),
     Field('highResponseTime', String, 'High Response Time',
         hint: 'Response time for P2 issues'),
-    Field('mediumResponseTime', String, 'Medium Response Time',
-        hint: 'Response time for P3 issues'),
-    Field('lowResponseTime', String, 'Low Response Time',
-        hint: 'Response time for P4 issues'),
-    // Resolution targets
-    Field('criticalResolutionTime', String, 'Critical Resolution Time',
-        hint: 'Resolution target for P1'),
-    Field('highResolutionTime', String, 'High Resolution Time',
-        hint: 'Resolution target for P2'),
-    Field('mediumResolutionTime', String, 'Medium Resolution Time',
-        hint: 'Resolution target for P3'),
-    Field('lowResolutionTime', String, 'Low Resolution Time',
-        hint: 'Resolution target for P4'),
-    // Escalation
-    Field('escalationTimeframes', String, 'Escalation Timeframes',
-        hint: 'When issues escalate'),
-    Field('escalationContacts', String, 'Escalation Contacts',
-        hint: 'Who to escalate to'),
-    Field('executiveEscalation', String, 'Executive Escalation',
-        hint: 'When executive escalation occurs'),
-    // On-call
-    Field('onCallCoverage', String, 'On-Call Coverage',
-        hint: '24/7, business hours, regional'),
-    Field('onCallRotation', String, 'On-Call Rotation',
-        hint: 'Weekly, bi-weekly'),
-    Field('onCallCompensation', String, 'On-Call Compensation',
-        hint: 'Compensation model'),
-    // Service restoration
-    Field('serviceRestorationPriority', String, 'Service Restoration Priority',
-        hint: 'Order of restoration'),
-    Field('communicationDuringOutage', String, 'Communication During Outage',
-        hint: 'Status page, email, SMS'),
   ])
   String? content;
+
+  /// Remaining response targets.
+  ServiceLevelQualityResponse response = ServiceLevelQualityResponse();
+
+  /// Resolution targets.
+  ServiceLevelQualityResolution resolution = ServiceLevelQualityResolution();
+
+  /// Escalation rules.
+  ServiceLevelQualityEscalation escalation = ServiceLevelQualityEscalation();
+
+  /// On-call support expectations.
+  ServiceLevelQualityOnCall onCall = ServiceLevelQualityOnCall();
+
+  /// Restoration and communication priorities.
+  ServiceLevelQualityRestoration restoration =
+      ServiceLevelQualityRestoration();
 
   /// Detailed service level requirements narrative.
   TextSection narrative = TextSection();
@@ -930,6 +987,69 @@ class ServiceLevelQuality {
   /// Service Level Agreement entries.
   @SectionIdPattern('PD00-SYQ-OPE-SER-SLA-xx')
   List<ServiceLevelAgreementEntry> slaEntries = [];
+}
+
+/// Remaining response targets.
+class ServiceLevelQualityResponse {
+    @Form([
+        Field('mediumResponseTime', String, 'Medium Response Time',
+                hint: 'Response time for P3 issues'),
+        Field('lowResponseTime', String, 'Low Response Time',
+                hint: 'Response time for P4 issues'),
+    ])
+    String? content;
+}
+
+/// Resolution targets.
+class ServiceLevelQualityResolution {
+    @Form([
+        Field('criticalResolutionTime', String, 'Critical Resolution Time',
+                hint: 'Resolution target for P1'),
+        Field('highResolutionTime', String, 'High Resolution Time',
+                hint: 'Resolution target for P2'),
+        Field('mediumResolutionTime', String, 'Medium Resolution Time',
+                hint: 'Resolution target for P3'),
+        Field('lowResolutionTime', String, 'Low Resolution Time',
+                hint: 'Resolution target for P4'),
+    ])
+    String? content;
+}
+
+/// Escalation rules.
+class ServiceLevelQualityEscalation {
+    @Form([
+        Field('escalationTimeframes', String, 'Escalation Timeframes',
+                hint: 'When issues escalate'),
+        Field('escalationContacts', String, 'Escalation Contacts',
+                hint: 'Who to escalate to'),
+        Field('executiveEscalation', String, 'Executive Escalation',
+                hint: 'When executive escalation occurs'),
+    ])
+    String? content;
+}
+
+/// On-call support expectations.
+class ServiceLevelQualityOnCall {
+    @Form([
+        Field('onCallCoverage', String, 'On-Call Coverage',
+                hint: '24/7, business hours, regional'),
+        Field('onCallRotation', String, 'On-Call Rotation',
+                hint: 'Weekly, bi-weekly'),
+        Field('onCallCompensation', String, 'On-Call Compensation',
+                hint: 'Compensation model'),
+    ])
+    String? content;
+}
+
+/// Restoration and communication priorities.
+class ServiceLevelQualityRestoration {
+    @Form([
+        Field('serviceRestorationPriority', String, 'Service Restoration Priority',
+                hint: 'Order of restoration'),
+        Field('communicationDuringOutage', String, 'Communication During Outage',
+                hint: 'Status page, email, SMS'),
+    ])
+    String? content;
 }
 
 /// A service level agreement entry [PD00-SYQ-OPE-SER-SLA-nn].

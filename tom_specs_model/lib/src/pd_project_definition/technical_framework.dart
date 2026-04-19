@@ -5107,7 +5107,6 @@ class OsCompatibilityEntry {
 /// Browser compatibility entry.
 class BrowserCompatibilityEntry {
   @Form([
-    // Identity
     Field('browserName', String, 'Browser',
         required: true, hint: 'E.g., Chrome, Firefox, Safari, Edge'),
     Field('browserEngine', String, 'Browser Engine',
@@ -5116,32 +5115,64 @@ class BrowserCompatibilityEntry {
         required: true, hint: 'Minimum supported version'),
     Field('maxVersion', String, 'Maximum Version',
         hint: 'Maximum tested version'),
+  ])
+  String? content;
 
-    // Support
+  /// Support level and priority.
+  BrowserCompatibilityEntrySupport support = BrowserCompatibilityEntrySupport();
+
+  /// Feature support requirements.
+  BrowserCompatibilityEntryFeatures features = BrowserCompatibilityEntryFeatures();
+
+  /// Mobile and PWA support.
+  BrowserCompatibilityEntryMobile mobile = BrowserCompatibilityEntryMobile();
+
+  /// Testing notes.
+  BrowserCompatibilityEntryTesting testing = BrowserCompatibilityEntryTesting();
+}
+
+/// Support level and priority.
+class BrowserCompatibilityEntrySupport {
+  @Form([
     Field('supportLevel', String, 'Support Level',
         hint: 'Full, Partial, Polyfill required, Unsupported'),
     Field('priority', String, 'Priority',
         hint: 'Primary, Secondary, Edge case'),
     Field('userShare', String, 'User Share',
         hint: 'Expected user share percentage'),
+  ])
+  String? content;
+}
 
-    // Features
+/// Feature support requirements.
+class BrowserCompatibilityEntryFeatures {
+  @Form([
     Field('requiredFeatures', String, 'Required Features',
         hint: 'JS features, APIs required'),
     Field('polyfills', String, 'Polyfills Required',
         hint: 'Polyfills needed'),
     Field('gracefulDegradation', String, 'Graceful Degradation',
         hint: 'Fallback behavior'),
+  ])
+  String? content;
+}
 
-    // Mobile browsers
+/// Mobile and PWA support.
+class BrowserCompatibilityEntryMobile {
+  @Form([
     Field('mobileSupport', String, 'Mobile Support',
         hint: 'Mobile browser support level'),
     Field('pwa', String, 'PWA Support',
         hint: 'Progressive Web App support'),
     Field('offlineSupport', String, 'Offline Support',
         hint: 'Offline capability'),
+  ])
+  String? content;
+}
 
-    // Testing
+/// Testing notes.
+class BrowserCompatibilityEntryTesting {
+  @Form([
     Field('testPlatforms', String, 'Test Platforms',
         hint: 'Where browser is tested'),
     Field('automatedTesting', String, 'Automated Testing',
@@ -5938,7 +5969,6 @@ class SecurityStandardComplianceEntry {
 /// Accessibility standard entry (WCAG, Section 508, ADA).
 class AccessibilityStandardEntry {
   @Form([
-    // Identity
     Field('standardName', String, 'Standard Name',
         required: true, hint: 'E.g., WCAG 2.1, Section 508, EN 301 549'),
     Field('version', String, 'Version', hint: 'Standard version'),
@@ -5946,16 +5976,40 @@ class AccessibilityStandardEntry {
         required: true, hint: 'A, AA, AAA for WCAG'),
     Field('jurisdiction', String, 'Jurisdiction',
         hint: 'Legal requirement region'),
+  ])
+  String? content;
 
-    // Scope
+  /// Scope and affected users.
+  AccessibilityStandardEntryScope scope = AccessibilityStandardEntryScope();
+
+  /// Conformance requirements.
+  AccessibilityStandardEntryRequirements requirements =
+      AccessibilityStandardEntryRequirements();
+
+  /// Testing approach.
+  AccessibilityStandardEntryTesting testing = AccessibilityStandardEntryTesting();
+
+  /// Documentation artifacts.
+  AccessibilityStandardEntryDocumentation documentation =
+      AccessibilityStandardEntryDocumentation();
+}
+
+/// Scope and affected users.
+class AccessibilityStandardEntryScope {
+  @Form([
     Field('applicableContent', String, 'Applicable Content',
         hint: 'Web, mobile, documents'),
     Field('userGroups', String, 'User Groups',
         hint: 'Disability types accommodated'),
     Field('assistiveTechnologies', String, 'Assistive Technologies',
         hint: 'Screen readers, etc. supported'),
+  ])
+  String? content;
+}
 
-    // Requirements
+/// Conformance requirements.
+class AccessibilityStandardEntryRequirements {
+  @Form([
     Field('perceivableRequirements', String, 'Perceivable Requirements',
         hint: 'Alt text, captions, contrast'),
     Field('operableRequirements', String, 'Operable Requirements',
@@ -5964,16 +6018,26 @@ class AccessibilityStandardEntry {
         hint: 'Readable, predictable'),
     Field('robustRequirements', String, 'Robust Requirements',
         hint: 'Compatible with AT'),
+  ])
+  String? content;
+}
 
-    // Testing
+/// Testing approach.
+class AccessibilityStandardEntryTesting {
+  @Form([
     Field('testingApproach', String, 'Testing Approach',
         hint: 'Manual, automated, user testing'),
     Field('testingTools', String, 'Testing Tools',
         hint: 'axe, WAVE, NVDA, VoiceOver'),
     Field('userTesting', String, 'User Testing',
         hint: 'Testing with disabled users'),
+  ])
+  String? content;
+}
 
-    // Documentation
+/// Documentation artifacts.
+class AccessibilityStandardEntryDocumentation {
+  @Form([
     Field('vpat', String, 'VPAT/ACR',
         hint: 'Accessibility conformance report'),
     Field('accessibilityStatement', String, 'Accessibility Statement',
@@ -6486,27 +6550,21 @@ class ServerEnvironmentEntry {
 /// Server role entry (application server, database server, web server).
 class ServerRoleEntry {
   @Form([
-    // Identity
     Field('roleName', String, 'Role Name',
         required: true, hint: 'E.g., Application Server, Database Server'),
     Field('roleType', String, 'Role Type',
         hint: 'App, Web, Database, Cache, Queue, Gateway'),
     Field('roleAbbreviation', String, 'Abbreviation',
         hint: 'Short code for role'),
-
     // Software
-    Field('primarySoftware', String, 'Primary Software',
-        hint: 'Main software running on server'),
-    Field('softwareVersion', String, 'Software Version',
-        hint: 'Required software version'),
+    Field('softwareStack', String, 'Software Stack',
+        hint: 'Software installed on this server'),
     Field('runtimeEnvironment', String, 'Runtime Environment',
-        hint: 'Runtime (JVM, Node.js, .NET)'),
+        hint: 'JVM, Node.js, .NET, Python'),
+    Field('osType', String, 'Operating System',
+        hint: 'Linux distro, Windows Server'),
 
-    // Compute
-    Field('minCpuCores', int, 'Minimum CPU Cores',
-        hint: 'Minimum required CPU cores'),
-    Field('recommendedCpuCores', int, 'Recommended CPU Cores',
-        hint: 'Recommended CPU cores'),
+    // Capacity
     Field('cpuArchitecture', String, 'CPU Architecture',
         hint: 'x64, ARM64'),
     Field('minMemoryGb', int, 'Minimum Memory (GB)',
@@ -7022,7 +7080,6 @@ Provide an overview of client requirements and support strategy.
 /// Browser requirement entry.
 class BrowserRequirementEntry {
   @Form([
-    // Identity
     Field('browserName', String, 'Browser Name',
         required: true, hint: 'E.g., Chrome, Firefox, Safari, Edge'),
     Field('browserEngine', String, 'Browser Engine',
@@ -7031,16 +7088,38 @@ class BrowserRequirementEntry {
         required: true, hint: 'Minimum supported version'),
     Field('recommendedVersion', String, 'Recommended Version',
         hint: 'Recommended version'),
+  ])
+  String? content;
 
-    // Support level
+  /// Support level and user share.
+  BrowserRequirementEntrySupport support = BrowserRequirementEntrySupport();
+
+  /// Required and optional features.
+  BrowserRequirementEntryFeatures features = BrowserRequirementEntryFeatures();
+
+  /// Testing strategy.
+  BrowserRequirementEntryTesting testing = BrowserRequirementEntryTesting();
+
+  /// Known issues and workarounds.
+  BrowserRequirementEntryIssues issues = BrowserRequirementEntryIssues();
+}
+
+/// Support level and user share.
+class BrowserRequirementEntrySupport {
+  @Form([
     Field('supportLevel', String, 'Support Level',
         hint: 'Full, Partial, Best-effort'),
     Field('priority', String, 'Priority',
         hint: 'Primary, Secondary, Edge case'),
     Field('expectedUserShare', String, 'Expected User Share',
         hint: 'Percentage of users'),
+  ])
+  String? content;
+}
 
-    // Features
+/// Required and optional features.
+class BrowserRequirementEntryFeatures {
+  @Form([
     Field('requiredFeatures', String, 'Required Features',
         hint: 'JS, CSS features required'),
     Field('optionalFeatures', String, 'Optional Features',
@@ -7049,16 +7128,26 @@ class BrowserRequirementEntry {
         hint: 'Required polyfills'),
     Field('cssSupport', String, 'CSS Support',
         hint: 'CSS features required'),
+  ])
+  String? content;
+}
 
-    // Testing
+/// Testing strategy.
+class BrowserRequirementEntryTesting {
+  @Form([
     Field('testPlatform', String, 'Test Platform',
         hint: 'BrowserStack, Sauce Labs'),
     Field('automatedTesting', bool, 'Automated Testing',
         hint: 'Include in automated tests'),
     Field('manualTestingFrequency', String, 'Manual Testing Frequency',
         hint: 'How often manually tested'),
+  ])
+  String? content;
+}
 
-    // Known issues
+/// Known issues and workarounds.
+class BrowserRequirementEntryIssues {
+  @Form([
     Field('knownLimitations', String, 'Known Limitations',
         hint: 'Browser-specific limitations'),
     Field('workarounds', String, 'Workarounds',
@@ -7320,15 +7409,35 @@ class ClientHardwareRequirements {
 /// Client accessibility requirements.
 class ClientAccessibilityRequirements {
   @Form([
-    // Screen readers
     Field('screenReaderSupport', String, 'Screen Reader Support',
         hint: 'NVDA, VoiceOver, JAWS'),
     Field('ariaCompliance', String, 'ARIA Compliance',
         hint: 'ARIA landmark/role support'),
     Field('semanticHtml', bool, 'Semantic HTML',
         hint: 'Proper semantic structure'),
+  ])
+  String? content;
 
-    // Visual
+  /// Visual accessibility support.
+  ClientAccessibilityRequirementsVisual visual =
+      ClientAccessibilityRequirementsVisual();
+
+  /// Motor accessibility support.
+  ClientAccessibilityRequirementsMotor motor =
+      ClientAccessibilityRequirementsMotor();
+
+  /// Cognitive accessibility support.
+  ClientAccessibilityRequirementsCognitive cognitive =
+      ClientAccessibilityRequirementsCognitive();
+
+  /// Standards and notes.
+  ClientAccessibilityRequirementsStandards standards =
+      ClientAccessibilityRequirementsStandards();
+}
+
+/// Visual accessibility support.
+class ClientAccessibilityRequirementsVisual {
+  @Form([
     Field('colorBlindSupport', bool, 'Color Blind Support',
         hint: 'Color-blind friendly'),
     Field('highContrastMode', bool, 'High Contrast Mode',
@@ -7337,8 +7446,13 @@ class ClientAccessibilityRequirements {
         hint: 'Browser zoom support'),
     Field('fontScaling', String, 'Font Scaling',
         hint: 'Dynamic font scaling'),
+  ])
+  String? content;
+}
 
-    // Motor
+/// Motor accessibility support.
+class ClientAccessibilityRequirementsMotor {
+  @Form([
     Field('keyboardNavigation', bool, 'Keyboard Navigation',
         hint: 'Full keyboard access'),
     Field('focusIndicators', bool, 'Focus Indicators',
@@ -7347,16 +7461,26 @@ class ClientAccessibilityRequirements {
         hint: 'Minimum touch targets'),
     Field('voiceControl', String, 'Voice Control',
         hint: 'Voice input support'),
+  ])
+  String? content;
+}
 
-    // Cognitive
+/// Cognitive accessibility support.
+class ClientAccessibilityRequirementsCognitive {
+  @Form([
     Field('simplifiedMode', bool, 'Simplified Mode',
         hint: 'Reduced complexity mode'),
     Field('readingLevel', String, 'Reading Level',
         hint: 'Content reading level'),
     Field('animationControls', bool, 'Animation Controls',
         hint: 'Reduce motion option'),
+  ])
+  String? content;
+}
 
-    // Standards
+/// Standards and notes.
+class ClientAccessibilityRequirementsStandards {
+  @Form([
     Field('wcagLevel', String, 'WCAG Conformance',
         hint: 'A, AA, or AAA'),
     Field('additionalStandards', String, 'Additional Standards',
@@ -9748,15 +9872,33 @@ class LogManagementRequirements {
 /// Alerting requirements.
 class AlertingRequirements {
   @Form([
-    // Alert channels
     Field('alertChannels', String, 'Alert Channels',
         hint: 'Email, Slack, PagerDuty'),
     Field('primaryChannel', String, 'Primary Channel',
         hint: 'Primary alert channel'),
     Field('secondaryChannel', String, 'Secondary Channel',
         hint: 'Fallback channel'),
+  ])
+  String? content;
 
-    // Alert routing
+  /// Routing rules.
+  AlertingRequirementsRouting routing = AlertingRequirementsRouting();
+
+  /// De-duplication behavior.
+  AlertingRequirementsDeduplication deduplication =
+      AlertingRequirementsDeduplication();
+
+  /// Suppression rules.
+  AlertingRequirementsSuppression suppression =
+      AlertingRequirementsSuppression();
+
+  /// Response automation.
+  AlertingRequirementsResponse response = AlertingRequirementsResponse();
+}
+
+/// Routing rules.
+class AlertingRequirementsRouting {
+  @Form([
     Field('routingRules', String, 'Routing Rules',
         hint: 'How alerts are routed'),
     Field('teamRouting', String, 'Team Routing',
@@ -9765,24 +9907,39 @@ class AlertingRequirements {
         hint: 'Service-based routing'),
     Field('severityRouting', String, 'Severity Routing',
         hint: 'Severity-based routing'),
+  ])
+  String? content;
+}
 
-    // De-duplication
+/// De-duplication behavior.
+class AlertingRequirementsDeduplication {
+  @Form([
     Field('alertDeduplication', String, 'Alert De-duplication',
         hint: 'De-dup strategy'),
     Field('alertGrouping', String, 'Alert Grouping',
         hint: 'Related alert grouping'),
     Field('flappingDetection', bool, 'Flapping Detection',
         hint: 'Detect flapping alerts'),
+  ])
+  String? content;
+}
 
-    // Suppression
+/// Suppression rules.
+class AlertingRequirementsSuppression {
+  @Form([
     Field('maintenanceWindows', String, 'Maintenance Windows',
         hint: 'Scheduled suppression'),
     Field('dependencyAlerts', String, 'Dependency Alerts',
         hint: 'Dependency-based suppression'),
     Field('manualSuppression', bool, 'Manual Suppression',
         hint: 'Allow manual suppression'),
+  ])
+  String? content;
+}
 
-    // Response
+/// Response automation.
+class AlertingRequirementsResponse {
+  @Form([
     Field('autoRemediation', bool, 'Auto-Remediation',
         hint: 'Automatic remediation'),
     Field('runbookLinks', bool, 'Runbook Links',
@@ -10576,41 +10733,12 @@ class ProtocolEntry {
         hint: 'Request-response, streaming, pub-sub, event-driven'),
     Field('protocolVersion', String, 'Protocol Version',
         hint: 'HTTP/2, MQTT 5.0, gRPC 1.x'),
-  ])
-  String? content;
-
-  /// Protocol transport and security.
-  final ProtocolTransport transport = ProtocolTransport();
-
-  /// Authentication and serialization.
-  final ProtocolAuthSerialization authSerialization =
-      ProtocolAuthSerialization();
-
-  /// Performance settings.
-  final ProtocolPerformance performance = ProtocolPerformance();
-
-  /// Reliability and delivery.
-  final ProtocolReliability reliability = ProtocolReliability();
-
-  /// Usage and notes.
-  final ProtocolUsage usage = ProtocolUsage();
-}
-
-/// Protocol transport and security.
-class ProtocolTransport {
-  @Form([
-    Field('purpose', String, 'Purpose',
-        hint: 'Primary use case for this protocol'),
     Field('transportLayer', String, 'Transport Layer',
         hint: 'TCP, UDP, QUIC'),
-    Field('defaultPort', int, 'Default Port',
-        hint: 'Standard port number'),
-    Field('alternatePort', int, 'Alternate Port',
-        hint: 'Alternative port if needed'),
-    Field('encryptionRequired', bool, 'Encryption Required',
-        hint: 'TLS mandatory for this protocol'),
-    Field('minimumTlsVersion', String, 'Minimum TLS Version',
-        hint: 'TLS 1.2, TLS 1.3'),
+    Field('directionality', String, 'Directionality',
+        hint: 'Client-to-server, bidirectional, server-push'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional protocol notes'),
   ])
   String? content;
 }
@@ -11683,7 +11811,6 @@ Provide an overview of administration requirements.
 /// Admin interface requirements.
 class AdminInterfaceRequirements {
   @Form([
-    // Access
     Field('adminPortalType', String, 'Admin Portal Type',
         required: true, hint: 'Web dashboard, CLI, API, mobile'),
     Field('adminPortalUrl', String, 'Admin Portal URL',
@@ -11692,8 +11819,24 @@ class AdminInterfaceRequirements {
         hint: 'VPN-only, IP-restricted, MFA-required'),
     Field('authenticationMethod', String, 'Authentication Method',
         hint: 'SSO, LDAP, local credentials'),
+  ])
+  String? content;
 
-    // Dashboard
+  /// Dashboard widget requirements.
+  AdminInterfaceRequirementsDashboard dashboard =
+      AdminInterfaceRequirementsDashboard();
+
+  /// Data management tooling.
+  AdminInterfaceRequirementsData data = AdminInterfaceRequirementsData();
+
+  /// Operational controls.
+  AdminInterfaceRequirementsOperations operations =
+      AdminInterfaceRequirementsOperations();
+}
+
+/// Dashboard widget requirements.
+class AdminInterfaceRequirementsDashboard {
+  @Form([
     Field('dashboardOverview', String, 'Dashboard Overview',
         hint: 'Key metrics displayed on landing page'),
     Field('systemHealthWidget', bool, 'System Health Widget',
@@ -11704,8 +11847,13 @@ class AdminInterfaceRequirements {
         hint: 'Recent alerts and warnings'),
     Field('resourceUsageWidget', bool, 'Resource Usage Widget',
         hint: 'CPU, memory, storage gauges'),
+  ])
+  String? content;
+}
 
-    // Data management
+/// Data management tooling.
+class AdminInterfaceRequirementsData {
+  @Form([
     Field('dataExport', String, 'Data Export',
         hint: 'Export formats (CSV, JSON, PDF)'),
     Field('dataImport', String, 'Data Import',
@@ -11714,8 +11862,13 @@ class AdminInterfaceRequirements {
         hint: 'Global search, advanced filters'),
     Field('auditLogViewer', bool, 'Audit Log Viewer',
         hint: 'View admin action audit trail'),
+  ])
+  String? content;
+}
 
-    // Operations
+/// Operational controls.
+class AdminInterfaceRequirementsOperations {
+  @Form([
     Field('maintenanceModeToggle', bool, 'Maintenance Mode Toggle',
         hint: 'Enable/disable maintenance mode'),
     Field('featureFlagManagement', bool, 'Feature Flag Management',
