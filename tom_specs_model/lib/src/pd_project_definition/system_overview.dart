@@ -2355,45 +2355,22 @@ class BusinessGoalEntry {
         required: true),
     Field('goalName', String, 'Goal Name (concise objective statement)',
         required: true),
-    Field('description', String,
-        'Description (detailed explanation of what this goal means)'),
     Field('goalCategory', String,
         'Goal Category (Strategic, Tactical, Operational)', required: true),
-    Field('goalType', String,
-        'Goal Type (Revenue, Cost Reduction, Efficiency, Quality, Compliance, '
-            'Growth, Customer Satisfaction, Market Position, Innovation)'),
-    Field('priority', String, 'Priority (Critical, High, Medium, Low)',
-        required: true),
-    Field('successMetric', String,
-        'Primary Success Metric (what is measured)', required: true),
-    Field('currentValue', String,
-        'Current Value (baseline measurement before project)'),
-    Field('targetValue', String, 'Target Value (desired end state)',
-        required: true),
-    Field('measurementMethod', String,
-        'Measurement Method (how the metric is captured)'),
-    Field('measurementFrequency', String,
-        'Measurement Frequency (Daily, Weekly, Monthly, Quarterly)'),
-    Field('targetDate', String, 'Target Date (when goal should be achieved)',
-        required: true),
-    Field('owner', String, 'Goal Owner (accountable person or role)',
-        required: true),
-    Field('stakeholders', String,
-        'Contributing Stakeholders (roles involved in achieving this goal)'),
-    Field('businessJustification', String,
-        'Business Justification (why this goal matters)'),
-    Field('strategicAlignment', String,
-        'Strategic Alignment (link to corporate strategy or OKR)'),
-    Field('impactAreas', String,
-        'Impact Areas (departments, processes, or systems affected)'),
-    Field('estimatedValue', String,
-        'Estimated Value (monetary or quantitative benefit)'),
-    Field('riskOfNotAchieving', String,
-        'Risk of Not Achieving (consequences of failure)'),
-    Field('status', String,
-        'Status (Not Started, In Progress, On Track, At Risk, Achieved)'),
   ])
   String? content;
+
+  /// Goal definition and priority.
+  BusinessGoalEntryDefinition definition = BusinessGoalEntryDefinition();
+
+  /// Success metric and measurement.
+  BusinessGoalEntryMeasurement measurement = BusinessGoalEntryMeasurement();
+
+  /// Ownership and timeline.
+  BusinessGoalEntryGovernance governance = BusinessGoalEntryGovernance();
+
+  /// Business rationale and impact.
+  BusinessGoalEntryStrategy strategy = BusinessGoalEntryStrategy();
 
   /// 4.2.1.n.1. Key Results [PD00-SYO-GOA-BUS-nn-KR].
   GoalKeyResults keyResults = GoalKeyResults();
@@ -2409,6 +2386,69 @@ class BusinessGoalEntry {
 
   /// 4.2.1.n.5. Resources [PD00-SYO-GOA-BUS-nn-RES].
   GoalResources resources = GoalResources();
+}
+
+/// Goal definition and priority.
+class BusinessGoalEntryDefinition {
+  @Form([
+    Field('description', String,
+        'Description (detailed explanation of what this goal means)'),
+    Field('goalType', String,
+        'Goal Type (Revenue, Cost Reduction, Efficiency, Quality, Compliance, '
+            'Growth, Customer Satisfaction, Market Position, Innovation)'),
+    Field('priority', String, 'Priority (Critical, High, Medium, Low)',
+        required: true),
+  ])
+  String? content;
+}
+
+/// Success metric and measurement.
+class BusinessGoalEntryMeasurement {
+  @Form([
+    Field('successMetric', String,
+        'Primary Success Metric (what is measured)', required: true),
+    Field('currentValue', String,
+        'Current Value (baseline measurement before project)'),
+    Field('targetValue', String, 'Target Value (desired end state)',
+        required: true),
+    Field('measurementMethod', String,
+        'Measurement Method (how the metric is captured)'),
+    Field('measurementFrequency', String,
+        'Measurement Frequency (Daily, Weekly, Monthly, Quarterly)'),
+  ])
+  String? content;
+}
+
+/// Ownership and timeline.
+class BusinessGoalEntryGovernance {
+  @Form([
+    Field('targetDate', String, 'Target Date (when goal should be achieved)',
+        required: true),
+    Field('owner', String, 'Goal Owner (accountable person or role)',
+        required: true),
+    Field('stakeholders', String,
+        'Contributing Stakeholders (roles involved in achieving this goal)'),
+    Field('status', String,
+        'Status (Not Started, In Progress, On Track, At Risk, Achieved)'),
+  ])
+  String? content;
+}
+
+/// Business rationale and impact.
+class BusinessGoalEntryStrategy {
+  @Form([
+    Field('businessJustification', String,
+        'Business Justification (why this goal matters)'),
+    Field('strategicAlignment', String,
+        'Strategic Alignment (link to corporate strategy or OKR)'),
+    Field('impactAreas', String,
+        'Impact Areas (departments, processes, or systems affected)'),
+    Field('estimatedValue', String,
+        'Estimated Value (monetary or quantitative benefit)'),
+    Field('riskOfNotAchieving', String,
+        'Risk of Not Achieving (consequences of failure)'),
+  ])
+  String? content;
 }
 
 /// 4.2.1.n.1. Key Results [PD00-SYO-GOA-BUS-nn-KR].
@@ -4182,35 +4222,20 @@ class OrganizationalRequirementEntry {
     Field('title', String, 'Title', required: true),
     Field('description', String,
         'Description (detailed statement)', required: true),
-    Field('category', String,
-        'Category (Training, Process Change, Role Change, Support, '
-            'Communication, Policy, Governance, Culture, Staffing)',
-        required: true),
-    Field('subcategory', String, 'Subcategory'),
-    Field('priority', String,
-        'Priority (Must, Should, Could, Won\'t-This-Time)', required: true),
-    Field('source', String, 'Source', required: true),
-    Field('rationale', String, 'Rationale'),
-    Field('impactedGroups', String,
-        'Impacted Groups (departments, roles, user categories)'),
-    Field('impactedUserCount', String, 'Estimated Impacted Users'),
-    Field('changeType', String,
-        'Change Type (Behavioral, Procedural, Structural, Cultural)'),
-    Field('changeComplexity', String,
-        'Change Complexity (Low, Medium, High)'),
-    Field('resistance', String,
-        'Expected Resistance (Low, Medium, High)'),
-    Field('timeline', String, 'Timeline (when change must occur)'),
-    Field('dependencies', String, 'Dependencies (other changes needed first)'),
-    Field('owner', String, 'Change Owner'),
-    Field('sponsor', String, 'Executive Sponsor'),
-    Field('successCriteria', String, 'Success Criteria'),
-    Field('measurementMethod', String, 'Measurement Method'),
-    Field('status', String,
-        'Status (Draft, Proposed, Approved, In Progress, Completed)',
-        required: true),
   ])
   String? content;
+
+  /// Requirement classification and source.
+  OrganizationalRequirementEntryClassification classification =
+      OrganizationalRequirementEntryClassification();
+
+  /// Impact and change profile.
+  OrganizationalRequirementEntryImpact impact =
+      OrganizationalRequirementEntryImpact();
+
+  /// Planning, ownership, and success tracking.
+  OrganizationalRequirementEntryPlanning planning =
+      OrganizationalRequirementEntryPlanning();
 
   /// 4.3.4.n.1. Acceptance Criteria [PD00-SYO-REQ-ORG-nn-ACR].
   RequirementAcceptanceCriteria acceptanceCriteria =
@@ -4222,6 +4247,54 @@ class OrganizationalRequirementEntry {
 
   /// 4.3.4.n.3. Dependencies [PD00-SYO-REQ-ORG-nn-DEP].
   RequirementDependencies dependencies = RequirementDependencies();
+}
+
+/// Requirement classification and source.
+class OrganizationalRequirementEntryClassification {
+    @Form([
+        Field('category', String,
+                'Category (Training, Process Change, Role Change, Support, '
+                        'Communication, Policy, Governance, Culture, Staffing)',
+                required: true),
+        Field('subcategory', String, 'Subcategory'),
+        Field('priority', String,
+                'Priority (Must, Should, Could, Won\'t-This-Time)', required: true),
+        Field('source', String, 'Source', required: true),
+        Field('rationale', String, 'Rationale'),
+    ])
+    String? content;
+}
+
+/// Impact and change profile.
+class OrganizationalRequirementEntryImpact {
+    @Form([
+        Field('impactedGroups', String,
+                'Impacted Groups (departments, roles, user categories)'),
+        Field('impactedUserCount', String, 'Estimated Impacted Users'),
+        Field('changeType', String,
+                'Change Type (Behavioral, Procedural, Structural, Cultural)'),
+        Field('changeComplexity', String,
+                'Change Complexity (Low, Medium, High)'),
+        Field('resistance', String,
+                'Expected Resistance (Low, Medium, High)'),
+    ])
+    String? content;
+}
+
+/// Planning, ownership, and success tracking.
+class OrganizationalRequirementEntryPlanning {
+    @Form([
+        Field('timeline', String, 'Timeline (when change must occur)'),
+        Field('dependencies', String, 'Dependencies (other changes needed first)'),
+        Field('owner', String, 'Change Owner'),
+        Field('sponsor', String, 'Executive Sponsor'),
+        Field('successCriteria', String, 'Success Criteria'),
+        Field('measurementMethod', String, 'Measurement Method'),
+        Field('status', String,
+                'Status (Draft, Proposed, Approved, In Progress, Completed)',
+                required: true),
+    ])
+    String? content;
 }
 
 /// 4.3.4.n.2. Implementation Plan [PD00-SYO-REQ-ORG-nn-IMP].
@@ -6045,52 +6118,30 @@ class TechnicalFrameworkConditions {
   // Technical Landscape Overview
   // -------------------------------------------------------------------------
   @Form([
-    // Enterprise Architecture Context
     Field('architectureMaturity', String, 'Architecture Maturity',
         hint: 'TOGAF maturity level or equivalent'),
     Field('cloudStrategy', String, 'Cloud Strategy',
         hint: 'Cloud-first, hybrid, on-premises, multi-cloud'),
     Field('primaryCloudProvider', String, 'Primary Cloud Provider',
         hint: 'AWS, Azure, GCP, private cloud, none'),
-    Field('secondaryCloudProviders', String, 'Secondary Cloud Providers'),
-    Field('technologyGovernance', String, 'Technology Governance',
-        hint: 'How technology decisions are governed'),
-
-    // Platform Standards
-    Field('preferredLanguages', String, 'Preferred Languages',
-        hint: 'Mandated or preferred programming languages'),
-    Field('preferredFrameworks', String, 'Preferred Frameworks',
-        hint: 'Mandated or preferred frameworks'),
-    Field('preferredDatabases', String, 'Preferred Databases',
-        hint: 'Mandated or preferred database platforms'),
-    Field('messagingPlatforms', String, 'Messaging Platforms',
-        hint: 'Enterprise messaging/queue platforms'),
-    Field('integrationPlatforms', String, 'Integration Platforms',
-        hint: 'ESB, API gateway, iPaaS solutions'),
-
-    // Security & Compliance
-    Field('securityFramework', String, 'Security Framework',
-        hint: 'NIST, ISO 27001, SOC2, CIS — security framework used'),
-    Field('complianceRequirements', String, 'Compliance Requirements',
-        hint: 'GDPR, HIPAA, PCI-DSS, SOX, industry-specific'),
-    Field('dataClassificationScheme', String, 'Data Classification',
-        hint: 'Public, internal, confidential, restricted'),
-    Field('encryptionStandards', String, 'Encryption Standards',
-        hint: 'Required encryption algorithms and key lengths'),
-    Field('identityProvider', String, 'Identity Provider',
-        hint: 'Enterprise identity platform (Azure AD, Okta, etc.)'),
-
-    // Network & Infrastructure
-    Field('networkArchitecture', String, 'Network Architecture',
-        hint: 'Network topology, DMZ, segmentation approach'),
-    Field('firewallPolicies', String, 'Firewall Policies',
-        hint: 'Standard firewall rules and policies'),
-    Field('vpnRequirements', String, 'VPN Requirements',
-        hint: 'VPN requirements for remote access'),
-    Field('loadBalancingStandards', String, 'Load Balancing Standards'),
-    Field('cdnStrategy', String, 'CDN Strategy'),
   ])
   String? technicalOverviewContent;
+
+  /// Architecture governance context.
+  TechnicalFrameworkConditionsGovernance governance =
+      TechnicalFrameworkConditionsGovernance();
+
+  /// Platform standards and preferred technologies.
+  TechnicalFrameworkConditionsStandards standards =
+      TechnicalFrameworkConditionsStandards();
+
+  /// Security and compliance requirements.
+  TechnicalFrameworkConditionsSecurity security =
+      TechnicalFrameworkConditionsSecurity();
+
+  /// Network and infrastructure standards.
+  TechnicalFrameworkConditionsNetwork network =
+      TechnicalFrameworkConditionsNetwork();
 
   // -------------------------------------------------------------------------
   // Existing Infrastructure
@@ -6142,6 +6193,66 @@ class TechnicalFrameworkConditions {
   // -------------------------------------------------------------------------
   // DevOps & Operations Standards
   // -------------------------------------------------------------------------
+
+}
+
+/// Architecture governance context.
+class TechnicalFrameworkConditionsGovernance {
+    @Form([
+        Field('secondaryCloudProviders', String, 'Secondary Cloud Providers'),
+        Field('technologyGovernance', String, 'Technology Governance',
+                hint: 'How technology decisions are governed'),
+    ])
+    String? content;
+}
+
+/// Platform standards and preferred technologies.
+class TechnicalFrameworkConditionsStandards {
+    @Form([
+        Field('preferredLanguages', String, 'Preferred Languages',
+                hint: 'Mandated or preferred programming languages'),
+        Field('preferredFrameworks', String, 'Preferred Frameworks',
+                hint: 'Mandated or preferred frameworks'),
+        Field('preferredDatabases', String, 'Preferred Databases',
+                hint: 'Mandated or preferred database platforms'),
+        Field('messagingPlatforms', String, 'Messaging Platforms',
+                hint: 'Enterprise messaging/queue platforms'),
+        Field('integrationPlatforms', String, 'Integration Platforms',
+                hint: 'ESB, API gateway, iPaaS solutions'),
+    ])
+    String? content;
+}
+
+/// Security and compliance requirements.
+class TechnicalFrameworkConditionsSecurity {
+    @Form([
+        Field('securityFramework', String, 'Security Framework',
+                hint: 'NIST, ISO 27001, SOC2, CIS — security framework used'),
+        Field('complianceRequirements', String, 'Compliance Requirements',
+                hint: 'GDPR, HIPAA, PCI-DSS, SOX, industry-specific'),
+        Field('dataClassificationScheme', String, 'Data Classification',
+                hint: 'Public, internal, confidential, restricted'),
+        Field('encryptionStandards', String, 'Encryption Standards',
+                hint: 'Required encryption algorithms and key lengths'),
+        Field('identityProvider', String, 'Identity Provider',
+                hint: 'Enterprise identity platform (Azure AD, Okta, etc.)'),
+    ])
+    String? content;
+}
+
+/// Network and infrastructure standards.
+class TechnicalFrameworkConditionsNetwork {
+    @Form([
+        Field('networkArchitecture', String, 'Network Architecture',
+                hint: 'Network topology, DMZ, segmentation approach'),
+        Field('firewallPolicies', String, 'Firewall Policies',
+                hint: 'Standard firewall rules and policies'),
+        Field('vpnRequirements', String, 'VPN Requirements',
+                hint: 'VPN requirements for remote access'),
+        Field('loadBalancingStandards', String, 'Load Balancing Standards'),
+        Field('cdnStrategy', String, 'CDN Strategy'),
+    ])
+    String? content;
 
   /// DevOps and deployment standards.
   @ContentHelp('Describe DevOps standards: CI/CD requirements, deployment '

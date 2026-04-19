@@ -1472,43 +1472,85 @@ class MustPassCriteria {
 /// A must-pass criterion entry (form) [PD00-SYQ-ACC-MUS-nn].
 class MustPassCriterionEntry {
   @Form([
-    // Criterion identification
     Field('criterionId', String, 'Criterion ID',
         hint: 'Unique identifier (e.g., MP-001)'),
     Field('criterionName', String, 'Criterion Name', required: true),
+    Field('verificationMethod', String, 'Verification Method', required: true,
+        hint: 'Test, demonstration, analysis, inspection'),
+  ])
+  String? content;
+
+  /// Classification and intent of the criterion.
+  MustPassCriterionEntryDefinition definition =
+      MustPassCriterionEntryDefinition();
+
+  /// Verification and threshold details.
+  MustPassCriterionEntryVerification verification =
+      MustPassCriterionEntryVerification();
+
+  /// Responsibility and dependency information.
+  MustPassCriterionEntryGovernance governance =
+      MustPassCriterionEntryGovernance();
+
+  /// Execution status and defects.
+  MustPassCriterionEntryStatus status = MustPassCriterionEntryStatus();
+
+  /// Additional criterion details.
+  @ContentHelp('Extended description of criterion including '
+      'edge cases and special considerations.')
+  TextSection details = TextSection();
+}
+
+/// Classification and intent of the criterion.
+class MustPassCriterionEntryDefinition {
+  @Form([
     Field('criterionDescription', String, 'Description',
         hint: 'What must be achieved'),
     Field('qualityCategory', String, 'Quality Category',
         hint: 'User, Technical, Operations, Documentation'),
     Field('qualityAttribute', String, 'Quality Attribute',
         hint: 'Specific attribute this relates to'),
-    // Verification
-    Field('verificationMethod', String, 'Verification Method', required: true,
-        hint: 'Test, demonstration, analysis, inspection'),
+  ])
+  String? content;
+}
+
+/// Verification and threshold details.
+class MustPassCriterionEntryVerification {
+  @Form([
     Field('verificationProcedure', String, 'Verification Procedure',
         hint: 'Steps to verify'),
     Field('verificationEvidence', String, 'Verification Evidence',
         hint: 'What evidence is required'),
-    // Threshold
     Field('acceptanceThreshold', String, 'Acceptance Threshold', required: true,
         hint: 'Pass/fail criteria'),
     Field('measurementMethod', String, 'Measurement Method',
         hint: 'How threshold is measured'),
     Field('toleranceAllowed', String, 'Tolerance Allowed',
         hint: 'Any acceptable variance'),
-    // Responsibility
+  ])
+  String? content;
+}
+
+/// Responsibility and dependency information.
+class MustPassCriterionEntryGovernance {
+  @Form([
     Field('responsibleParty', String, 'Responsible Party',
         hint: 'Who is responsible for verification'),
     Field('reviewerParty', String, 'Reviewer Party',
         hint: 'Who reviews the evidence'),
     Field('approverParty', String, 'Approver Party',
         hint: 'Who approves the result'),
-    // Dependencies
     Field('dependsOnCriteria', String, 'Depends On',
         hint: 'Other criteria this depends on'),
     Field('blockedByCriteria', String, 'Blocked By',
         hint: 'Criteria that block this'),
-    // Status
+  ])
+  String? content;
+}
+
+/// Execution status and defects.
+class MustPassCriterionEntryStatus {
+  @Form([
     Field('criterionStatus', String, 'Status',
         hint: 'Not tested, passed, failed, waived'),
     Field('testDate', String, 'Test Date'),
@@ -1517,11 +1559,6 @@ class MustPassCriterionEntry {
         hint: 'Defects blocking pass'),
   ])
   String? content;
-
-  /// Additional criterion details.
-  @ContentHelp('Extended description of criterion including '
-      'edge cases and special considerations.')
-  TextSection details = TextSection();
 }
 
 /// 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].

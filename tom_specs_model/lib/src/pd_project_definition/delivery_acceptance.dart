@@ -1024,7 +1024,6 @@ class UatTestStepEntry {
 @SectionId('PD00-DEL-ACC-DEF')
 class DefectResolution {
   @Form([
-    // --- Classification ---
     Field('severityScheme', String, 'Severity Scheme',
         hint:
             'Severity levels defined — e.g. Sev-1 Critical, Sev-2 Major, '
@@ -1036,12 +1035,35 @@ class DefectResolution {
     Field('classificationAuthority', String, 'Classification Authority',
         hint:
             'Who decides severity/priority — UAT lead, business owner, or joint'),
+  ])
+  String? content;
+
+  /// Classification refinement and SLA targets.
+  DefectResolutionSla sla = DefectResolutionSla();
+
+  /// Acceptance thresholds and deferral rules.
+  DefectResolutionThresholds thresholds = DefectResolutionThresholds();
+
+  /// Triage, retest, and escalation process.
+  DefectResolutionProcess process = DefectResolutionProcess();
+
+  /// Reporting and closure rules.
+  DefectResolutionReporting reporting = DefectResolutionReporting();
+
+  /// Defect management narrative.
+  @ContentHelp('Detailed description of the defect lifecycle: '
+      'from discovery through classification, assignment, fix, '
+      'retest, and closure. Include workflow diagrams if applicable.')
+  TextSection defectManagementNarrative = TextSection();
+}
+
+/// Classification refinement and SLA targets.
+class DefectResolutionSla {
+  @Form([
     Field('reclassificationProcess', String, 'Reclassification Process',
         hint:
             'How severity can be changed after initial assignment — '
             'who, when, criteria'),
-
-    // --- Resolution SLAs ---
     Field('sev1ResolutionTime', String, 'Sev-1 Resolution Time',
         hint: 'Target fix time — e.g. 4 hours, next business day'),
     Field('sev2ResolutionTime', String, 'Sev-2 Resolution Time',
@@ -1052,8 +1074,13 @@ class DefectResolution {
         hint: 'Target fix time — e.g. next release, or backlog'),
     Field('slaExceptions', String, 'SLA Exceptions',
         hint: 'Conditions under which SLAs are suspended — holidays, force majeure'),
+  ])
+  String? content;
+}
 
-    // --- Blocking Thresholds ---
+/// Acceptance thresholds and deferral rules.
+class DefectResolutionThresholds {
+  @Form([
     Field('blockingThreshold', String, 'Blocking Threshold',
         hint:
             'Max open defects that block acceptance — '
@@ -1066,8 +1093,13 @@ class DefectResolution {
         hint:
             'When defects can be deferred to post-go-live — '
             'criteria and approval process'),
+  ])
+  String? content;
+}
 
-    // --- Process ---
+/// Triage, retest, and escalation process.
+class DefectResolutionProcess {
+  @Form([
     Field('defectTrackingTool', String, 'Defect Tracking Tool',
         hint: 'Jira / Azure DevOps / ServiceNow — tool details'),
     Field('triageProcess', String, 'Triage Process',
@@ -1084,8 +1116,13 @@ class DefectResolution {
     Field('escalationPath', String, 'Escalation Path',
         hint:
             'Escalation for overdue defects — levels and timing'),
+  ])
+  String? content;
+}
 
-    // --- Reporting ---
+/// Reporting and closure rules.
+class DefectResolutionReporting {
+  @Form([
     Field('reportingFrequency', String, 'Reporting Frequency',
         hint: 'Daily / Per Triage / Weekly — defect status reporting'),
     Field('metricsTracked', String, 'Metrics Tracked',
@@ -1098,12 +1135,6 @@ class DefectResolution {
             'evidence documented, reporter confirmed'),
   ])
   String? content;
-
-  /// Defect management narrative.
-  @ContentHelp('Detailed description of the defect lifecycle: '
-      'from discovery through classification, assignment, fix, '
-      'retest, and closure. Include workflow diagrams if applicable.')
-  TextSection defectManagementNarrative = TextSection();
 }
 
 // ═══════════════════════════════════════════════════════════════════════════

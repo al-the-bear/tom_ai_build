@@ -1091,6 +1091,22 @@ class ScreenActionEntry {
     Field('actionType', String, 'Action Type',
         hint:
             'Submit/Save/Cancel/Delete/Navigate/Export/Import/Print/Refresh'),
+  ])
+  String? content;
+
+  /// Visual presentation of the action.
+  ScreenActionEntryVisual visual = ScreenActionEntryVisual();
+
+  /// Visibility, enablement, and permission rules.
+  ScreenActionEntryConditions conditions = ScreenActionEntryConditions();
+
+  /// Confirmation, navigation, and feedback behavior.
+  ScreenActionEntryBehavior behavior = ScreenActionEntryBehavior();
+}
+
+/// Visual presentation of the action.
+class ScreenActionEntryVisual {
+  @Form([
     Field('labelResource', String, 'Label Resource',
         hint: 'Resource key for button label'),
     Field('iconResource', String, 'Icon Resource',
@@ -1099,12 +1115,26 @@ class ScreenActionEntry {
         hint: 'App-Bar/Toolbar/FAB/Context-Menu/Overflow-Menu'),
     Field('buttonStyle', String, 'Button Style',
         hint: 'Primary/Secondary/Tertiary/Danger/Icon-Only/Text-Only'),
+  ])
+  String? content;
+}
+
+/// Visibility, enablement, and permission rules.
+class ScreenActionEntryConditions {
+  @Form([
     Field('visibilityCondition', String, 'Visibility Condition',
         hint: 'When this action is shown'),
     Field('enabledCondition', String, 'Enabled Condition',
         hint: 'When this action is active'),
     Field('requiredPermission', String, 'Required Permission',
         hint: 'Permission needed to use this action'),
+  ])
+  String? content;
+}
+
+/// Confirmation, navigation, and feedback behavior.
+class ScreenActionEntryBehavior {
+  @Form([
     Field('confirmationRequired', String, 'Confirmation Required',
         hint: 'Yes/No'),
     Field('confirmationMessageResource', String, 'Confirmation Message',
