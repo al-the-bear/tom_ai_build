@@ -1147,7 +1147,6 @@ class StageMetrics {
 /// scheduling granularity and quality gates within a stage.
 class SubStageEntry {
   @Form([
-    // --- Identity ---
     Field('name', String, 'Name',
         hint: 'Descriptive name for this sub-stage or milestone',
         required: true),
@@ -1157,11 +1156,39 @@ class SubStageEntry {
             '/ Iteration / Hardening'),
     Field('sequenceNumber', String, 'Sequence Number',
         hint: 'Order within the parent stage — 1, 2, 3…'),
+  ])
+  String? content;
+
+  /// Description and objectives.
+  SubStageEntryOverview overview = SubStageEntryOverview();
+
+  /// Timeline and sequencing.
+  SubStageEntryTimeline timeline = SubStageEntryTimeline();
+
+  /// Scope and deliverables.
+  SubStageEntryScope scope = SubStageEntryScope();
+
+  /// Resources and quality focus.
+  SubStageEntryExecution execution = SubStageEntryExecution();
+
+  /// Current status.
+  SubStageEntryStatus status = SubStageEntryStatus();
+}
+
+/// Description and objectives.
+class SubStageEntryOverview {
+  @Form([
     Field('description', String, 'Description',
         hint: 'Brief description of this sub-stage or milestone'),
     Field('objective', String, 'Objective',
         hint: 'What this sub-stage aims to achieve'),
-    // --- Timeline ---
+  ])
+  String? content;
+}
+
+/// Timeline and sequencing.
+class SubStageEntryTimeline {
+  @Form([
     Field('targetStartDate', String, 'Target Start Date'),
     Field('targetEndDate', String, 'Target End Date'),
     Field('actualStartDate', String, 'Actual Start Date'),
@@ -1172,7 +1199,13 @@ class SubStageEntry {
         hint:
             'Name or number of the sub-stage that must complete '
             'before this one'),
-    // --- Scope & Deliverables ---
+  ])
+  String? content;
+}
+
+/// Scope and deliverables.
+class SubStageEntryScope {
+  @Form([
     Field('deliverables', String, 'Deliverables',
         hint:
             'Key outputs expected from this sub-stage — '
@@ -1183,14 +1216,19 @@ class SubStageEntry {
         hint:
             'Which user groups are included — e.g. internal only, '
             'pilot group, beta testers, all users'),
-    // --- Resources & Environment ---
+  ])
+  String? content;
+}
+
+/// Resources and quality focus.
+class SubStageEntryExecution {
+  @Form([
     Field('assignedTeam', String, 'Assigned Team',
         hint: 'Team or team members assigned to this sub-stage'),
     Field('environmentNeeded', String, 'Environment Needed',
         hint:
             'Environment required — e.g. dev, staging, UAT, '
             'production-like, production'),
-    // --- Quality ---
     Field('qualityGate', String, 'Quality Gate',
         hint:
             'Quality checkpoint at the end of this sub-stage — '
@@ -1199,7 +1237,13 @@ class SubStageEntry {
         hint:
             'Primary testing activities — smoke, regression, '
             'performance, UAT, security'),
-    // --- Status ---
+  ])
+  String? content;
+}
+
+/// Current status.
+class SubStageEntryStatus {
+  @Form([
     Field('currentStatus', String, 'Current Status',
         hint:
             'NotStarted / InProgress / Completed / Blocked / '

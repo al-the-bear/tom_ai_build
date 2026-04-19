@@ -1592,46 +1592,92 @@ class QualityGateChecklist {
 /// A quality gate check entry (form) [PD00-SYQ-ACC-GAT-nn].
 class QualityGateCheckEntry {
   @Form([
-    // Check identification
     Field('checkId', String, 'Check ID',
         hint: 'Unique identifier (e.g., QGC-001)'),
     Field('checkItem', String, 'Check Item', required: true,
         hint: 'What is being checked'),
+    Field('verificationMethod', String, 'Verification Method', required: true,
+        hint: 'How check is verified'),
+  ])
+  String? content;
+
+  /// Check definition and categorization.
+  QualityGateCheckEntryDefinition definition =
+      QualityGateCheckEntryDefinition();
+
+  /// Verification criteria and evidence.
+  QualityGateCheckEntryVerification verification =
+      QualityGateCheckEntryVerification();
+
+  /// Responsibility and timing.
+  QualityGateCheckEntryExecution execution = QualityGateCheckEntryExecution();
+
+  /// Status and observations.
+  QualityGateCheckEntryStatus status = QualityGateCheckEntryStatus();
+
+  /// Blocking behavior.
+  QualityGateCheckEntryBlocking blocking = QualityGateCheckEntryBlocking();
+}
+
+/// Check definition and categorization.
+class QualityGateCheckEntryDefinition {
+  @Form([
     Field('checkDescription', String, 'Check Description',
         hint: 'Detailed description of check'),
     Field('checkCategory', String, 'Check Category',
         hint: 'Category of check'),
     Field('qualityCategory', String, 'Quality Category',
         hint: 'User, Technical, Operations, Documentation'),
-    // Verification
-    Field('verificationMethod', String, 'Verification Method', required: true,
-        hint: 'How check is verified'),
+  ])
+  String? content;
+}
+
+/// Verification criteria and evidence.
+class QualityGateCheckEntryVerification {
+  @Form([
     Field('verificationCriteria', String, 'Verification Criteria',
         hint: 'Pass/fail criteria'),
     Field('evidenceRequired', String, 'Evidence Required',
         hint: 'What evidence is needed'),
     Field('automatedCheck', bool, 'Automated Check',
         hint: 'Is check automated'),
-    // Responsibility
+  ])
+  String? content;
+}
+
+/// Responsibility and timing.
+class QualityGateCheckEntryExecution {
+  @Form([
     Field('responsibleParty', String, 'Responsible Party', required: true,
         hint: 'Who performs the check'),
     Field('reviewerParty', String, 'Reviewer Party',
         hint: 'Who reviews the result'),
-    // Timing
     Field('checkTiming', String, 'Check Timing',
         hint: 'When check is performed'),
     Field('checkDuration', String, 'Check Duration',
         hint: 'Expected time to complete'),
     Field('checkDependencies', String, 'Dependencies',
         hint: 'What must be complete first'),
-    // Status
+  ])
+  String? content;
+}
+
+/// Status and observations.
+class QualityGateCheckEntryStatus {
+  @Form([
     Field('checkStatus', String, 'Status',
         hint: 'Not started, in progress, passed, failed'),
     Field('checkDate', String, 'Check Date'),
     Field('checkResult', String, 'Check Result'),
     Field('checkNotes', String, 'Notes',
         hint: 'Additional observations'),
-    // Blocking
+  ])
+  String? content;
+}
+
+/// Blocking behavior.
+class QualityGateCheckEntryBlocking {
+  @Form([
     Field('isBlocking', bool, 'Is Blocking',
         hint: 'Does failure block acceptance'),
     Field('blockingRationale', String, 'Blocking Rationale',

@@ -690,59 +690,125 @@ class DependencyManagement {
 /// Runtime environment constraints.
 class RuntimeEnvironment {
   @Form([
-    // Memory
     Field('minimumMemory', String, 'Minimum Memory',
         hint: 'Minimum RAM for runtime'),
     Field('recommendedMemory', String, 'Recommended Memory',
         hint: 'Recommended RAM for optimal performance'),
-    Field('memoryLimits', String, 'Memory Limits',
-        hint: 'Hard memory limits or caps'),
-
-    // CPU
     Field('minimumCpuCores', String, 'Minimum CPU Cores',
         hint: 'Minimum CPU cores required'),
+    Field('minimumDiskSpace', String, 'Minimum Disk Space',
+        hint: 'Minimum disk space for installation'),
+  ])
+  String? content;
+
+  /// Memory limits.
+  RuntimeEnvironmentMemory memory = RuntimeEnvironmentMemory();
+
+  /// CPU and graphics requirements.
+  RuntimeEnvironmentCpu cpu = RuntimeEnvironmentCpu();
+
+  /// Storage requirements.
+  RuntimeEnvironmentStorage storage = RuntimeEnvironmentStorage();
+
+  /// Network requirements.
+  RuntimeEnvironmentNetwork network = RuntimeEnvironmentNetwork();
+
+  /// Environment variables.
+  RuntimeEnvironmentVariables variables = RuntimeEnvironmentVariables();
+
+  /// Runtime dependencies.
+  RuntimeEnvironmentDependencies dependencies =
+      RuntimeEnvironmentDependencies();
+
+  /// Scaling characteristics.
+  RuntimeEnvironmentScaling scaling = RuntimeEnvironmentScaling();
+
+  /// Additional notes.
+  RuntimeEnvironmentNotes runtimeNotes = RuntimeEnvironmentNotes();
+}
+
+/// Memory limits.
+class RuntimeEnvironmentMemory {
+  @Form([
+    Field('memoryLimits', String, 'Memory Limits',
+        hint: 'Hard memory limits or caps'),
+  ])
+  String? content;
+}
+
+/// CPU and graphics requirements.
+class RuntimeEnvironmentCpu {
+  @Form([
     Field('cpuArchitecture', String, 'CPU Architecture',
         hint: 'Required CPU architecture'),
     Field('gpuRequirements', String, 'GPU Requirements',
         hint: 'GPU/graphics requirements if any'),
+  ])
+  String? content;
+}
 
-    // Storage
-    Field('minimumDiskSpace', String, 'Minimum Disk Space',
-        hint: 'Minimum disk space for installation'),
+/// Storage requirements.
+class RuntimeEnvironmentStorage {
+  @Form([
     Field('temporarySpace', String, 'Temporary Space',
         hint: 'Temporary storage requirements'),
     Field('storageType', String, 'Storage Type',
         hint: 'SSD required, HDD acceptable'),
+  ])
+  String? content;
+}
 
-    // Network
+/// Network requirements.
+class RuntimeEnvironmentNetwork {
+  @Form([
     Field('networkRequirements', String, 'Network Requirements',
         hint: 'Connectivity requirements'),
     Field('bandwidthRequirements', String, 'Bandwidth Requirements',
         hint: 'Minimum bandwidth'),
     Field('latencyRequirements', String, 'Latency Requirements',
         hint: 'Maximum acceptable latency'),
+  ])
+  String? content;
+}
 
-    // Environment variables
+/// Environment variables.
+class RuntimeEnvironmentVariables {
+  @Form([
     Field('requiredEnvVariables', String, 'Required Environment Variables',
         hint: 'Mandatory environment variables'),
     Field('optionalEnvVariables', String, 'Optional Environment Variables',
         hint: 'Optional configuration variables'),
+  ])
+  String? content;
+}
 
-    // Runtime dependencies
+/// Runtime dependencies.
+class RuntimeEnvironmentDependencies {
+  @Form([
     Field('systemDependencies', String, 'System Dependencies',
         hint: 'Required system libraries or services'),
     Field('externalServices', String, 'External Services',
         hint: 'Required external services (DB, cache, etc.)'),
+  ])
+  String? content;
+}
 
-    // Scaling
+/// Scaling characteristics.
+class RuntimeEnvironmentScaling {
+  @Form([
     Field('horizontalScaling', String, 'Horizontal Scaling',
         hint: 'Horizontal scaling support'),
     Field('verticalScaling', String, 'Vertical Scaling',
         hint: 'Vertical scaling support'),
     Field('autoScalingRules', String, 'Auto-Scaling Rules',
         hint: 'Auto-scaling triggers and limits'),
+  ])
+  String? content;
+}
 
-    // Notes
+/// Additional notes.
+class RuntimeEnvironmentNotes {
+  @Form([
     Field('notes', String, 'Notes',
         hint: 'Additional runtime environment notes'),
   ])
@@ -2243,14 +2309,33 @@ class PackageOrganization {
 /// Module entry — a discrete module or component.
 class ModuleEntry {
   @Form([
-    // Identity
     Field('moduleName', String, 'Module Name',
         required: true, hint: 'Unique module identifier'),
     Field('moduleType', String, 'Module Type',
         hint: 'Core, Feature, Shared, Platform, Plugin'),
     Field('version', String, 'Version', hint: 'Current module version'),
+  ])
+  String? content;
 
-    // Description
+  /// Purpose and API.
+  ModuleEntryDescription description = ModuleEntryDescription();
+
+  /// Dependency information.
+  ModuleEntryDependencies dependencies = ModuleEntryDependencies();
+
+  /// Ownership information.
+  ModuleEntryOwnership ownership = ModuleEntryOwnership();
+
+  /// Configuration settings.
+  ModuleEntryConfiguration configuration = ModuleEntryConfiguration();
+
+  /// Testing and notes.
+  ModuleEntryTesting testing = ModuleEntryTesting();
+}
+
+/// Purpose and API.
+class ModuleEntryDescription {
+  @Form([
     Field('purpose', String, 'Purpose',
         required: true, hint: 'What this module provides'),
     Field('functionality', String, 'Functionality',
@@ -2259,8 +2344,13 @@ class ModuleEntry {
         hint: 'Key public interfaces/classes'),
     Field('entryPoints', String, 'Entry Points',
         hint: 'Main entry points to the module'),
+  ])
+  String? content;
+}
 
-    // Dependencies
+/// Dependency information.
+class ModuleEntryDependencies {
+  @Form([
     Field('requiredModules', String, 'Required Modules',
         hint: 'Internal modules this depends on'),
     Field('optionalModules', String, 'Optional Modules',
@@ -2269,23 +2359,38 @@ class ModuleEntry {
         hint: 'Third-party dependencies'),
     Field('peerDependencies', String, 'Peer Dependencies',
         hint: 'Required peer modules'),
+  ])
+  String? content;
+}
 
-    // Ownership
+/// Ownership information.
+class ModuleEntryOwnership {
+  @Form([
     Field('owningContext', String, 'Owning Context',
         hint: 'Bounded context this belongs to'),
     Field('owningTeam', String, 'Owning Team',
         hint: 'Team responsible for this module'),
     Field('maintainer', String, 'Maintainer', hint: 'Primary maintainer'),
+  ])
+  String? content;
+}
 
-    // Configuration
+/// Configuration settings.
+class ModuleEntryConfiguration {
+  @Form([
     Field('configurationOptions', String, 'Configuration Options',
         hint: 'Available configuration settings'),
     Field('featureFlags', String, 'Feature Flags',
         hint: 'Feature flags controlling behavior'),
     Field('environmentVariables', String, 'Environment Variables',
         hint: 'Required environment variables'),
+  ])
+  String? content;
+}
 
-    // Testing
+/// Testing and notes.
+class ModuleEntryTesting {
+  @Form([
     Field('testCoverage', String, 'Test Coverage',
         hint: 'Required test coverage level'),
     Field('integrationTests', String, 'Integration Tests',
@@ -3670,31 +3775,63 @@ class InfrastructureComponentEntry {
 /// Third-party library entry.
 class ThirdPartyLibraryEntry {
   @Form([
-    // Identity
     Field('libraryName', String, 'Library Name',
         required: true, hint: 'Package name'),
     Field('packageSource', String, 'Package Source',
         hint: 'pub.dev, npm, Maven, GitHub'),
     Field('version', String, 'Version',
         required: true, hint: 'Version constraint'),
-    Field('homepage', String, 'Homepage', hint: 'Library homepage URL'),
+  ])
+  String? content;
 
-    // Evaluation
+  /// Evaluation and selection.
+  ThirdPartyLibraryEntryEvaluation evaluation =
+      ThirdPartyLibraryEntryEvaluation();
+
+  /// Licensing details.
+  ThirdPartyLibraryEntryLicense licenseInfo =
+      ThirdPartyLibraryEntryLicense();
+
+  /// Risk profile.
+  ThirdPartyLibraryEntryRisk risk = ThirdPartyLibraryEntryRisk();
+
+  /// Usage and upgrade strategy.
+  ThirdPartyLibraryEntryUsage usage = ThirdPartyLibraryEntryUsage();
+
+  /// Monitoring and notes.
+  ThirdPartyLibraryEntryMonitoring monitoring =
+      ThirdPartyLibraryEntryMonitoring();
+}
+
+/// Evaluation and selection.
+class ThirdPartyLibraryEntryEvaluation {
+  @Form([
+    Field('homepage', String, 'Homepage', hint: 'Library homepage URL'),
     Field('purpose', String, 'Purpose', hint: 'Why this library is used'),
     Field('alternatives', String, 'Alternatives Considered',
         hint: 'Other options evaluated'),
     Field('selectionRationale', String, 'Selection Rationale',
         hint: 'Why this was chosen'),
+  ])
+  String? content;
+}
 
-    // License
+/// Licensing details.
+class ThirdPartyLibraryEntryLicense {
+  @Form([
     Field('license', String, 'License',
         required: true, hint: 'MIT, Apache, GPL, BSD'),
     Field('licenseCompliance', String, 'License Compliance',
         hint: 'Compliance status'),
     Field('attributionRequired', bool, 'Attribution Required',
         hint: 'Requires attribution'),
+  ])
+  String? content;
+}
 
-    // Risk
+/// Risk profile.
+class ThirdPartyLibraryEntryRisk {
+  @Form([
     Field('maintenanceStatus', String, 'Maintenance Status',
         hint: 'Active, Maintained, Stale, Abandoned'),
     Field('communitySize', String, 'Community Size',
@@ -3703,16 +3840,26 @@ class ThirdPartyLibraryEntry {
         hint: 'Known security issues'),
     Field('vendorLockIn', String, 'Vendor Lock-In Risk',
         hint: 'Lock-in considerations'),
+  ])
+  String? content;
+}
 
-    // Usage
+/// Usage and upgrade strategy.
+class ThirdPartyLibraryEntryUsage {
+  @Form([
     Field('usageScope', String, 'Usage Scope',
         hint: 'Where in project this is used'),
     Field('wrapperRequired', bool, 'Wrapper Required',
         hint: 'Should be wrapped in abstraction'),
     Field('upgradeStrategy', String, 'Upgrade Strategy',
         hint: 'How upgrades are handled'),
+  ])
+  String? content;
+}
 
-    // Monitoring
+/// Monitoring and notes.
+class ThirdPartyLibraryEntryMonitoring {
+  @Form([
     Field('updateNotifications', String, 'Update Notifications',
         hint: 'How updates are monitored'),
     Field('deprecationHandling', String, 'Deprecation Handling',
@@ -7369,17 +7516,33 @@ class RpoRtoRequirements {
 /// Backup infrastructure requirements.
 class BackupInfrastructure {
   @Form([
-    // Primary storage
     Field('primaryStorage', String, 'Primary Backup Storage',
         hint: 'Primary storage system'),
     Field('storageType', String, 'Storage Type',
         hint: 'Object, block, tape'),
     Field('storageCapacity', String, 'Storage Capacity',
         hint: 'Required capacity'),
+  ])
+  String? content;
+
+  /// Performance and secondary storage.
+  BackupInfrastructureStorage storage = BackupInfrastructureStorage();
+
+  /// Backup software configuration.
+  BackupInfrastructureSoftware software = BackupInfrastructureSoftware();
+
+  /// Network requirements.
+  BackupInfrastructureNetwork network = BackupInfrastructureNetwork();
+
+  /// Security controls.
+  BackupInfrastructureSecurity security = BackupInfrastructureSecurity();
+}
+
+/// Performance and secondary storage.
+class BackupInfrastructureStorage {
+  @Form([
     Field('storagePerformance', String, 'Storage Performance',
         hint: 'IOPS, throughput'),
-
-    // Secondary/off-site
     Field('secondaryStorage', String, 'Secondary Storage',
         hint: 'Secondary storage location'),
     Field('geographicSeparation', String, 'Geographic Separation',
@@ -7388,8 +7551,13 @@ class BackupInfrastructure {
         hint: 'AWS S3, Azure Blob, GCS'),
     Field('crossRegionReplication', bool, 'Cross-Region Replication',
         hint: 'Replicate across regions'),
+  ])
+  String? content;
+}
 
-    // Backup software
+/// Backup software configuration.
+class BackupInfrastructureSoftware {
+  @Form([
     Field('backupSoftware', String, 'Backup Software',
         hint: 'Backup solution used'),
     Field('agentBased', bool, 'Agent-Based',
@@ -7398,16 +7566,26 @@ class BackupInfrastructure {
         hint: 'Snapshot-based backup'),
     Field('deduplication', bool, 'Deduplication',
         hint: 'Enable deduplication'),
+  ])
+  String? content;
+}
 
-    // Network requirements
+/// Network requirements.
+class BackupInfrastructureNetwork {
+  @Form([
     Field('backupNetwork', String, 'Backup Network',
         hint: 'Dedicated backup network'),
     Field('bandwidthRequired', String, 'Bandwidth Required',
         hint: 'Network bandwidth'),
     Field('encryptionInTransit', bool, 'Encryption in Transit',
         hint: 'Encrypt backup traffic'),
+  ])
+  String? content;
+}
 
-    // Security
+/// Security controls.
+class BackupInfrastructureSecurity {
+  @Form([
     Field('accessControl', String, 'Access Control',
         hint: 'Who can access backups'),
     Field('encryptionAlgorithm', String, 'Encryption Algorithm',
@@ -12635,28 +12813,61 @@ class ConsentManagementRequirements {
 /// restriction, portability, objection, and automated decision-making.
 class DataSubjectRightsManagement {
   @Form([
-    // Right of access (Art. 15)
     Field('rightOfAccessProcess', String, 'Right of Access Process',
         required: true,
         hint: 'How data subjects request and receive copies of their data'),
     Field('accessRequestTimeline', String, 'Access Request Timeline',
         required: true,
         hint: 'Response timeline — GDPR requires within 1 month'),
-    Field('accessDataFormat', String, 'Access Data Format',
-        hint:
-            'Format for providing data (structured, machine-readable, PDF)'),
     Field('identityVerification', String, 'Identity Verification',
         required: true,
         hint: 'How requester identity is verified before disclosure'),
+  ])
+  String? content;
 
-    // Right to rectification (Art. 16)
+  /// Access and rectification handling.
+  DataSubjectRightsManagementAccess access =
+      DataSubjectRightsManagementAccess();
+
+  /// Erasure handling.
+  DataSubjectRightsManagementErasure erasure =
+      DataSubjectRightsManagementErasure();
+
+  /// Portability handling.
+  DataSubjectRightsManagementPortability portability =
+      DataSubjectRightsManagementPortability();
+
+  /// Restriction and objection handling.
+  DataSubjectRightsManagementRestriction restriction =
+      DataSubjectRightsManagementRestriction();
+
+  /// Automated decision safeguards.
+  DataSubjectRightsManagementAutomation automation =
+      DataSubjectRightsManagementAutomation();
+
+  /// Operational workflow and tracking.
+  DataSubjectRightsManagementOperations operations =
+      DataSubjectRightsManagementOperations();
+}
+
+/// Access and rectification handling.
+class DataSubjectRightsManagementAccess {
+  @Form([
+    Field('accessDataFormat', String, 'Access Data Format',
+        hint:
+            'Format for providing data (structured, machine-readable, PDF)'),
     Field('rectificationProcess', String, 'Rectification Process',
         hint:
             'How data subjects request correction of inaccurate personal data'),
     Field('rectificationPropagation', String, 'Rectification Propagation',
         hint: 'How corrections propagate to recipients of the data'),
+  ])
+  String? content;
+}
 
-    // Right to erasure (Art. 17)
+/// Erasure handling.
+class DataSubjectRightsManagementErasure {
+  @Form([
     Field('erasureProcess', String, 'Right to Erasure Process',
         required: true,
         hint: 'How erasure requests are processed — "right to be forgotten"'),
@@ -12667,8 +12878,13 @@ class DataSubjectRightsManagement {
             'Legal retention obligations that override erasure (tax, fraud)'),
     Field('erasureVerification', String, 'Erasure Verification',
         hint: 'How complete erasure is verified across all systems'),
+  ])
+  String? content;
+}
 
-    // Right to data portability (Art. 20)
+/// Portability handling.
+class DataSubjectRightsManagementPortability {
+  @Form([
     Field('portabilityProcess', String, 'Data Portability Process',
         required: true,
         hint: 'How data is exported in structured, machine-readable format'),
@@ -12676,22 +12892,37 @@ class DataSubjectRightsManagement {
         hint: 'Export formats: JSON, CSV, XML, API-based transfer'),
     Field('portabilityDirectTransfer', String, 'Direct Transfer',
         hint: 'Whether direct controller-to-controller transfer is supported'),
+  ])
+  String? content;
+}
 
-    // Right to restriction (Art. 18) and objection (Art. 21)
+/// Restriction and objection handling.
+class DataSubjectRightsManagementRestriction {
+  @Form([
     Field('restrictionProcess', String, 'Restriction of Processing',
         hint: 'How processing restriction is applied while disputes are resolved'),
     Field('objectionProcess', String, 'Right to Object',
         hint:
             'How objections to processing are handled (direct marketing, profiling)'),
+  ])
+  String? content;
+}
 
-    // Automated decisions (Art. 22)
+/// Automated decision safeguards.
+class DataSubjectRightsManagementAutomation {
+  @Form([
     Field('automatedDecisionMaking', String, 'Automated Decision-Making',
         hint:
             'Safeguards for automated decisions with legal or significant effects'),
     Field('humanReviewProcess', String, 'Human Review Process',
         hint: 'Process for requesting human review of automated decisions'),
+  ])
+  String? content;
+}
 
-    // Operations
+/// Operational workflow and tracking.
+class DataSubjectRightsManagementOperations {
+  @Form([
     Field('dsarWorkflow', String, 'DSAR Workflow',
         hint: 'Data Subject Access Request end-to-end workflow and tooling'),
     Field('dsarTracking', String, 'DSAR Tracking',
