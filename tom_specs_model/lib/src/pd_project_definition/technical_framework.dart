@@ -483,7 +483,6 @@ class FrameworkJustification {
 /// Build toolchain requirement entry.
 class BuildToolchainEntry {
   @Form([
-    // Identity
     Field('toolName', String, 'Tool Name',
         required: true, hint: 'E.g., Gradle, CMake, Webpack, Dart build_runner'),
     Field('toolCategory', String, 'Category',
@@ -491,46 +490,94 @@ class BuildToolchainEntry {
             'Build System, Compiler, Bundler, Code Generator, Task Runner, Package Manager'),
     Field('platform', String, 'Platform',
         hint: 'Which platform(s) this tool is used for'),
+  ])
+  String? content;
 
-    // Version requirements
+  /// Version requirements.
+  BuildToolchainEntryVersions versions = BuildToolchainEntryVersions();
+
+  /// Configuration and plugins.
+  BuildToolchainEntryConfiguration configuration =
+      BuildToolchainEntryConfiguration();
+
+  /// Build profile settings.
+  BuildToolchainEntryProfiles profiles = BuildToolchainEntryProfiles();
+
+  /// Integration touchpoints.
+  BuildToolchainEntryIntegration integration =
+      BuildToolchainEntryIntegration();
+
+  /// Output artifact settings.
+  BuildToolchainEntryOutputs outputs = BuildToolchainEntryOutputs();
+
+  /// Performance and rationale.
+  BuildToolchainEntryOperations operations = BuildToolchainEntryOperations();
+}
+
+/// Version requirements.
+class BuildToolchainEntryVersions {
+  @Form([
     Field('minimumVersion', String, 'Minimum Version',
         required: true, hint: 'Earliest supported version'),
     Field('recommendedVersion', String, 'Recommended Version',
         hint: 'Preferred target version'),
+  ])
+  String? content;
+}
 
-    // Configuration
+/// Configuration and plugins.
+class BuildToolchainEntryConfiguration {
+  @Form([
     Field('configurationFile', String, 'Configuration File',
         hint: 'Primary configuration file name'),
     Field('requiredPlugins', String, 'Required Plugins',
         hint: 'Mandatory build plugins'),
     Field('optionalPlugins', String, 'Optional Plugins',
         hint: 'Recommended optional plugins'),
+  ])
+  String? content;
+}
 
-    // Build profiles
+/// Build profile settings.
+class BuildToolchainEntryProfiles {
+  @Form([
     Field('buildProfiles', String, 'Build Profiles',
         hint: 'E.g., Debug, Release, Profile, Production'),
     Field('defaultProfile', String, 'Default Profile',
         hint: 'Default build profile'),
+  ])
+  String? content;
+}
 
-    // Integration
+/// Integration touchpoints.
+class BuildToolchainEntryIntegration {
+  @Form([
     Field('cicdIntegration', String, 'CI/CD Integration',
         hint: 'Integration with CI/CD pipelines'),
     Field('ideIntegration', String, 'IDE Integration',
         hint: 'Integration with development IDEs'),
+  ])
+  String? content;
+}
 
-    // Outputs
+/// Output artifact settings.
+class BuildToolchainEntryOutputs {
+  @Form([
     Field('outputArtifacts', String, 'Output Artifacts',
         hint: 'Types of artifacts produced'),
     Field('outputLocations', String, 'Output Locations',
         hint: 'Where build artifacts are stored'),
+  ])
+  String? content;
+}
 
-    // Performance
+/// Performance and rationale.
+class BuildToolchainEntryOperations {
+  @Form([
     Field('cachingStrategy', String, 'Caching Strategy',
         hint: 'Build caching approach'),
     Field('parallelization', String, 'Parallelization',
         hint: 'Parallel build capabilities'),
-
-    // Justification
     Field('justification', String, 'Justification',
         hint: 'Reason for selecting this tool'),
     Field('notes', String, 'Notes', hint: 'Additional toolchain notes'),
@@ -1043,47 +1090,91 @@ class ComponentOrganization {
 /// Architecture component/service entry.
 class ArchitectureComponentEntry {
   @Form([
-    // Identity
     Field('componentName', String, 'Component Name',
         required: true, hint: 'Unique name for this component'),
     Field('componentType', String, 'Component Type',
         required: true,
         hint: 'Service, Module, Library, Package, Microservice, Function'),
     Field('domain', String, 'Domain', hint: 'Business domain this belongs to'),
+  ])
+  String? content;
 
-    // Purpose
+  /// Purpose and ownership boundaries.
+  ArchitectureComponentEntryPurpose purpose =
+      ArchitectureComponentEntryPurpose();
+
+  /// Public and private boundaries.
+  ArchitectureComponentEntryBoundaries boundaries =
+      ArchitectureComponentEntryBoundaries();
+
+  /// Dependency relationships.
+  ArchitectureComponentEntryDependencies dependencies =
+      ArchitectureComponentEntryDependencies();
+
+  /// Technical delivery characteristics.
+  ArchitectureComponentEntryTechnical technical =
+      ArchitectureComponentEntryTechnical();
+
+  /// Team ownership and service expectations.
+  ArchitectureComponentEntryOwnership ownership =
+      ArchitectureComponentEntryOwnership();
+}
+
+/// Purpose and ownership boundaries.
+class ArchitectureComponentEntryPurpose {
+  @Form([
     Field('purpose', String, 'Purpose',
         required: true, hint: 'What this component does'),
     Field('responsibilities', String, 'Responsibilities',
         hint: 'List of responsibilities'),
     Field('notResponsibleFor', String, 'Not Responsible For',
         hint: 'Explicitly out of scope'),
+  ])
+  String? content;
+}
 
-    // Boundaries
+/// Public and private boundaries.
+class ArchitectureComponentEntryBoundaries {
+  @Form([
     Field('publicInterface', String, 'Public Interface',
         hint: 'Exposed APIs or interfaces'),
     Field('privateImplementation', String, 'Private Implementation',
         hint: 'Internal implementation details'),
     Field('dataOwnership', String, 'Data Ownership',
         hint: 'Data entities this component owns'),
+  ])
+  String? content;
+}
 
-    // Dependencies
+/// Dependency relationships.
+class ArchitectureComponentEntryDependencies {
+  @Form([
     Field('upstreamDependencies', String, 'Upstream Dependencies',
         hint: 'Components this depends on'),
     Field('downstreamDependents', String, 'Downstream Dependents',
         hint: 'Components that depend on this'),
     Field('externalDependencies', String, 'External Dependencies',
         hint: 'External systems this integrates with'),
+  ])
+  String? content;
+}
 
-    // Technical details
+/// Technical delivery characteristics.
+class ArchitectureComponentEntryTechnical {
+  @Form([
     Field('technology', String, 'Technology Stack',
         hint: 'Specific technologies used'),
     Field('deploymentUnit', String, 'Deployment Unit',
         hint: 'Is this separately deployable?'),
     Field('scalingCharacteristics', String, 'Scaling Characteristics',
         hint: 'How this component scales'),
+  ])
+  String? content;
+}
 
-    // Team ownership
+/// Team ownership and service expectations.
+class ArchitectureComponentEntryOwnership {
+  @Form([
     Field('teamOwnership', String, 'Team Ownership',
         hint: 'Team responsible for this component'),
     Field('serviceLevel', String, 'Service Level',
@@ -2492,15 +2583,33 @@ class LayerCommunicationRules {
 /// Bounded context entry — a DDD bounded context.
 class BoundedContextEntry {
   @Form([
-    // Identity
     Field('contextName', String, 'Context Name',
         required: true, hint: 'E.g., Order, Inventory, Customer, Billing'),
     Field('domainArea', String, 'Domain Area',
         required: true, hint: 'Business domain this context covers'),
     Field('owningTeam', String, 'Owning Team',
         hint: 'Team responsible for this context'),
+  ])
+  String? content;
 
-    // Scope
+  /// Scope and language definitions.
+  BoundedContextEntryScope scope = BoundedContextEntryScope();
+
+  /// Boundary relationships.
+  BoundedContextEntryBoundaries boundaries = BoundedContextEntryBoundaries();
+
+  /// Implementation footprint.
+  BoundedContextEntryImplementation implementation =
+      BoundedContextEntryImplementation();
+
+  /// Integration and notes.
+  BoundedContextEntryIntegration integration =
+      BoundedContextEntryIntegration();
+}
+
+/// Scope and language definitions.
+class BoundedContextEntryScope {
+  @Form([
     Field('purpose', String, 'Purpose', hint: 'Why this context exists'),
     Field('includedConcepts', String, 'Included Concepts',
         hint: 'Domain concepts within this context'),
@@ -2508,8 +2617,13 @@ class BoundedContextEntry {
         hint: 'Domain concepts explicitly outside this context'),
     Field('ubiquitousLanguage', String, 'Ubiquitous Language',
         hint: 'Key terms and their definitions'),
+  ])
+  String? content;
+}
 
-    // Boundaries
+/// Boundary relationships.
+class BoundedContextEntryBoundaries {
+  @Form([
     Field('boundaryType', String, 'Boundary Type',
         hint: 'Conformist, Anti-corruption layer, Open-host, etc.'),
     Field('upstreamContexts', String, 'Upstream Contexts',
@@ -2518,8 +2632,13 @@ class BoundedContextEntry {
         hint: 'Contexts that depend on this one'),
     Field('sharedKernel', String, 'Shared Kernel',
         hint: 'Shared code with other contexts'),
+  ])
+  String? content;
+}
 
-    // Implementation
+/// Implementation footprint.
+class BoundedContextEntryImplementation {
+  @Form([
     Field('repositoryNamespace', String, 'Repository/Namespace',
         hint: 'Code location for this context'),
     Field('databaseSchema', String, 'Database Schema',
@@ -2528,8 +2647,13 @@ class BoundedContextEntry {
         hint: 'Domain events this context publishes'),
     Field('consumedEvents', String, 'Consumed Events',
         hint: 'Domain events this context subscribes to'),
+  ])
+  String? content;
+}
 
-    // Integration
+/// Integration and notes.
+class BoundedContextEntryIntegration {
+  @Form([
     Field('apiEndpoints', String, 'API Endpoints',
         hint: 'Public API endpoints exposed'),
     Field('integrationPatterns', String, 'Integration Patterns',
@@ -5713,35 +5837,73 @@ class DocumentationStandardsSection {
 /// Coding standards section.
 class CodingStandardsSection {
   @Form([
-    // Style
     Field('primaryLanguages', String, 'Primary Languages',
         hint: 'Main programming languages'),
     Field('styleGuide', String, 'Style Guide',
         hint: 'Official style guide'),
+    Field('linterTool', String, 'Linter Tool',
+        hint: 'Required linter'),
+  ])
+  String? content;
+
+  /// Formatting and layout rules.
+  CodingStandardsSectionFormatting formatting =
+      CodingStandardsSectionFormatting();
+
+  /// Naming and structure rules.
+  CodingStandardsSectionNaming naming = CodingStandardsSectionNaming();
+
+  /// Static quality checks.
+  CodingStandardsSectionQuality quality = CodingStandardsSectionQuality();
+
+  /// Development practices.
+  CodingStandardsSectionPractices practices =
+      CodingStandardsSectionPractices();
+
+  /// Review expectations.
+  CodingStandardsSectionReview review = CodingStandardsSectionReview();
+}
+
+/// Formatting and layout rules.
+class CodingStandardsSectionFormatting {
+  @Form([
     Field('indentation', String, 'Indentation',
         hint: 'Spaces vs tabs, count'),
     Field('lineLength', String, 'Max Line Length',
         hint: 'Maximum line length'),
+    Field('formatterTool', String, 'Formatter Tool',
+        hint: 'Code formatter'),
+  ])
+  String? content;
+}
 
-    // Naming
+/// Naming and structure rules.
+class CodingStandardsSectionNaming {
+  @Form([
     Field('namingConventions', String, 'Naming Conventions',
         hint: 'Variable, class, method naming'),
     Field('fileNaming', String, 'File Naming',
         hint: 'File naming conventions'),
     Field('directoryStructure', String, 'Directory Structure',
         hint: 'Required directory layout'),
+  ])
+  String? content;
+}
 
-    // Quality
-    Field('linterTool', String, 'Linter Tool',
-        hint: 'Required linter'),
-    Field('formatterTool', String, 'Formatter Tool',
-        hint: 'Code formatter'),
+/// Static quality checks.
+class CodingStandardsSectionQuality {
+  @Form([
     Field('staticAnalysis', String, 'Static Analysis',
         hint: 'Static analysis tools'),
     Field('complexityLimits', String, 'Complexity Limits',
         hint: 'Cyclomatic complexity limits'),
+  ])
+  String? content;
+}
 
-    // Practices
+/// Development practices.
+class CodingStandardsSectionPractices {
+  @Form([
     Field('errorHandling', String, 'Error Handling',
         hint: 'Error handling patterns'),
     Field('loggingStandard', String, 'Logging Standard',
@@ -5750,8 +5912,13 @@ class CodingStandardsSection {
         hint: 'Required test coverage'),
     Field('securityPractices', String, 'Security Practices',
         hint: 'Secure coding practices'),
+  ])
+  String? content;
+}
 
-    // Review
+/// Review expectations.
+class CodingStandardsSectionReview {
+  @Form([
     Field('codeReviewChecklist', String, 'Code Review Checklist',
         hint: 'Review checklist'),
     Field('pairProgramming', String, 'Pair Programming',
@@ -8546,15 +8713,33 @@ class EnvironmentStrategy {
 /// CI/CD pipeline requirements.
 class CiCdPipelineRequirements {
   @Form([
-    // Pipeline platform
     Field('cicdPlatform', String, 'CI/CD Platform',
         hint: 'GitHub Actions, GitLab CI, Jenkins'),
     Field('pipelineAsCode', bool, 'Pipeline as Code',
         hint: 'Pipeline definition in repo'),
     Field('pipelineLocation', String, 'Pipeline Location',
         hint: 'Where pipeline files are stored'),
+  ])
+  String? content;
 
-    // Build stage
+  /// Build stage settings.
+  CiCdPipelineRequirementsBuild build = CiCdPipelineRequirementsBuild();
+
+  /// Quality gate settings.
+  CiCdPipelineRequirementsQuality quality = CiCdPipelineRequirementsQuality();
+
+  /// Deployment stage settings.
+  CiCdPipelineRequirementsDeployment deployment =
+      CiCdPipelineRequirementsDeployment();
+
+  /// Notification and escalation settings.
+  CiCdPipelineRequirementsNotifications notifications =
+      CiCdPipelineRequirementsNotifications();
+}
+
+/// Build stage settings.
+class CiCdPipelineRequirementsBuild {
+  @Form([
     Field('buildTriggers', String, 'Build Triggers',
         hint: 'Push, PR, tag, schedule'),
     Field('buildSteps', String, 'Build Steps',
@@ -8563,8 +8748,13 @@ class CiCdPipelineRequirements {
         hint: 'Dependency caching strategy'),
     Field('buildArtifacts', String, 'Build Artifacts',
         hint: 'What artifacts are produced'),
+  ])
+  String? content;
+}
 
-    // Quality gates
+/// Quality gate settings.
+class CiCdPipelineRequirementsQuality {
+  @Form([
     Field('codeQualityGates', String, 'Code Quality Gates',
         hint: 'Linting, static analysis'),
     Field('testCoverageThreshold', String, 'Test Coverage Threshold',
@@ -8573,8 +8763,13 @@ class CiCdPipelineRequirements {
         hint: 'SAST, SCA in pipeline'),
     Field('approvalRequired', bool, 'Approval Required',
         hint: 'Manual approval gates'),
+  ])
+  String? content;
+}
 
-    // Deployment stages
+/// Deployment stage settings.
+class CiCdPipelineRequirementsDeployment {
+  @Form([
     Field('deploymentStages', String, 'Deployment Stages',
         hint: 'Ordered deployment stages'),
     Field('autoDeployDev', bool, 'Auto-Deploy to Dev',
@@ -8583,8 +8778,13 @@ class CiCdPipelineRequirements {
         hint: 'Auto-deploy to staging'),
     Field('productionGate', String, 'Production Gate',
         hint: 'Prod deployment gate'),
+  ])
+  String? content;
+}
 
-    // Notifications
+/// Notification and escalation settings.
+class CiCdPipelineRequirementsNotifications {
+  @Form([
     Field('pipelineNotifications', String, 'Pipeline Notifications',
         hint: 'Slack, email, Teams alerts'),
     Field('failureEscalation', String, 'Failure Escalation',
@@ -9082,15 +9282,35 @@ class MetricsCollectionRequirements {
 /// Application performance monitoring.
 class ApplicationPerformanceMonitoring {
   @Form([
-    // APM platform
     Field('apmPlatform', String, 'APM Platform',
         hint: 'Datadog APM, New Relic, Dynatrace'),
     Field('instrumentationMethod', String, 'Instrumentation Method',
         hint: 'Auto, manual, hybrid'),
     Field('samplingRate', String, 'Sampling Rate',
         hint: 'Trace sampling percentage'),
+  ])
+  String? content;
 
-    // Tracing
+  /// Tracing settings.
+  ApplicationPerformanceMonitoringTracing tracing =
+      ApplicationPerformanceMonitoringTracing();
+
+  /// Profiling settings.
+  ApplicationPerformanceMonitoringProfiling profiling =
+      ApplicationPerformanceMonitoringProfiling();
+
+  /// Error tracking settings.
+  ApplicationPerformanceMonitoringErrors errors =
+      ApplicationPerformanceMonitoringErrors();
+
+  /// User and synthetic monitoring settings.
+  ApplicationPerformanceMonitoringUserSignals userSignals =
+      ApplicationPerformanceMonitoringUserSignals();
+}
+
+/// Tracing settings.
+class ApplicationPerformanceMonitoringTracing {
+  @Form([
     Field('distributedTracing', bool, 'Distributed Tracing',
         hint: 'End-to-end tracing'),
     Field('traceContext', String, 'Trace Context',
@@ -9099,8 +9319,13 @@ class ApplicationPerformanceMonitoring {
         hint: 'What spans to collect'),
     Field('traceRetention', String, 'Trace Retention',
         hint: 'Trace data retention'),
+  ])
+  String? content;
+}
 
-    // Profiling
+/// Profiling settings.
+class ApplicationPerformanceMonitoringProfiling {
+  @Form([
     Field('continuousProfiling', bool, 'Continuous Profiling',
         hint: 'Production profiling'),
     Field('cpuProfiling', bool, 'CPU Profiling',
@@ -9109,8 +9334,13 @@ class ApplicationPerformanceMonitoring {
         hint: 'Memory profile collection'),
     Field('profilingOverhead', String, 'Profiling Overhead',
         hint: 'Acceptable overhead'),
+  ])
+  String? content;
+}
 
-    // Error tracking
+/// Error tracking settings.
+class ApplicationPerformanceMonitoringErrors {
+  @Form([
     Field('errorTracking', bool, 'Error Tracking',
         hint: 'Exception collection'),
     Field('errorGrouping', String, 'Error Grouping',
@@ -9119,8 +9349,13 @@ class ApplicationPerformanceMonitoring {
         hint: 'Stack trace mapping'),
     Field('errorContext', String, 'Error Context',
         hint: 'Context data with errors'),
+  ])
+  String? content;
+}
 
-    // RUM
+/// User and synthetic monitoring settings.
+class ApplicationPerformanceMonitoringUserSignals {
+  @Form([
     Field('realUserMonitoring', bool, 'Real User Monitoring',
         hint: 'Client-side monitoring'),
     Field('syntheticMonitoring', bool, 'Synthetic Monitoring',

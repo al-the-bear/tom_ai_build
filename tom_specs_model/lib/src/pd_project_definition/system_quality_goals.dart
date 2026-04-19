@@ -311,41 +311,87 @@ class UserQualityCriteria {
 /// 11.2.1. Usability quality [PD00-SYQ-USE-USA].
 class UsabilityQuality {
   @Form([
-    // Operability
     Field('operabilityTarget', String, 'Operability Target',
         hint: 'Ease of operation: intuitive, training-required'),
+    Field('ergonomicsStandard', String, 'Ergonomics Standard',
+        hint: 'ISO 9241, platform guidelines'),
+    Field('learnabilityTarget', String, 'Learnability Target',
+        hint: 'Time to proficiency: <1 hour, <1 day'),
+  ])
+  String? content;
+
+  /// Operability verification and ergonomics goals.
+  UsabilityQualityOperability operability = UsabilityQualityOperability();
+
+  /// Learnability and onboarding expectations.
+  UsabilityQualityLearnability learnability = UsabilityQualityLearnability();
+
+  /// Clarity and complexity constraints.
+  UsabilityQualityClarity clarity = UsabilityQualityClarity();
+
+  /// Interaction control settings.
+  UsabilityQualityInteraction interaction = UsabilityQualityInteraction();
+
+  /// Perceived and measured responsiveness targets.
+  UsabilityQualityPerformance performance = UsabilityQualityPerformance();
+
+  /// Detailed usability requirements narrative.
+  TextSection narrative = TextSection();
+}
+
+/// Operability verification and ergonomics goals.
+class UsabilityQualityOperability {
+  @Form([
     Field('operabilityMetric', String, 'Operability Metric',
         hint: 'Task completion rate, error rate'),
     Field('operabilityVerification', String, 'Operability Verification',
         hint: 'Usability testing, heuristic evaluation'),
-    // Ergonomics
-    Field('ergonomicsStandard', String, 'Ergonomics Standard',
-        hint: 'ISO 9241, platform guidelines'),
     Field('ergonomicsTarget', String, 'Ergonomics Target',
         hint: 'Reduce cognitive load, minimize clicks'),
-    // Learnability
-    Field('learnabilityTarget', String, 'Learnability Target',
-        hint: 'Time to proficiency: <1 hour, <1 day'),
+  ])
+  String? content;
+}
+
+/// Learnability and onboarding expectations.
+class UsabilityQualityLearnability {
+  @Form([
     Field('learnabilityVerification', String, 'Learnability Verification',
         hint: 'First-use testing, training time measurement'),
     Field('onboardingRequirement', String, 'Onboarding Requirement',
         hint: 'Self-service, guided tour, training required'),
-    // Functional clarity
+  ])
+  String? content;
+}
+
+/// Clarity and complexity constraints.
+class UsabilityQualityClarity {
+  @Form([
     Field('functionalClarityTarget', String, 'Functional Clarity Target',
         hint: 'Labels, icons, workflows self-explanatory'),
     Field('helpSystemRequirement', String, 'Help System Requirement',
         hint: 'Contextual help, tooltips, documentation'),
-    // Complexity
     Field('complexityLimit', String, 'Complexity Limit',
         hint: 'Max steps per workflow, max form fields'),
     Field('cognitiveLoadTarget', String, 'Cognitive Load Target',
         hint: 'Info per screen, decision points'),
-    // Controllability
+  ])
+  String? content;
+}
+
+/// Interaction control settings.
+class UsabilityQualityInteraction {
+  @Form([
     Field('undoRequirement', String, 'Undo Requirement',
         hint: 'All actions, critical actions, none'),
     Field('customizationLevel', String, 'Customization Level',
         hint: 'User preferences, layout, workflow'),
-    // Response time
+  ])
+  String? content;
+}
+
+/// Perceived and measured responsiveness targets.
+class UsabilityQualityPerformance {
+  @Form([
     Field('responseTimeP50', String, 'Response Time P50',
         hint: 'Median response time target (e.g., <200ms)'),
     Field('responseTimeP95', String, 'Response Time P95',
@@ -356,9 +402,6 @@ class UsabilityQuality {
         hint: 'Loading indicators, optimistic updates'),
   ])
   String? content;
-
-  /// Detailed usability requirements narrative.
-  TextSection narrative = TextSection();
 }
 
 /// 11.2.2. Functional completeness quality [PD00-SYQ-USE-FUN].
@@ -1000,17 +1043,50 @@ class MonitoringQualityOperations {
 /// 11.4.4. IT Security Operations quality [PD00-SYQ-OPE-ITS].
 class ItSecurityOperationsQuality {
   @Form([
-    // Access protection
     Field('accessControlModel', String, 'Access Control Model',
         hint: 'RBAC, ABAC, zero-trust'),
+    Field('drPlanRequired', bool, 'DR Plan Required'),
+    Field('incidentResponsePlan', String, 'Incident Response Plan',
+        hint: 'NIST, custom'),
+  ])
+  String? content;
+
+  /// Access protection controls.
+  ItSecurityOperationsQualityAccess access =
+      ItSecurityOperationsQualityAccess();
+
+  /// Disaster recovery planning details.
+  ItSecurityOperationsQualityRecovery recovery =
+      ItSecurityOperationsQualityRecovery();
+
+  /// Penetration testing and remediation.
+  ItSecurityOperationsQualityTesting testing =
+      ItSecurityOperationsQualityTesting();
+
+  /// Incident handling and reporting.
+  ItSecurityOperationsQualityIncident incident =
+      ItSecurityOperationsQualityIncident();
+
+  /// Detailed IT security operations narrative.
+  TextSection narrative = TextSection();
+}
+
+/// Access protection controls.
+class ItSecurityOperationsQualityAccess {
+  @Form([
     Field('privilegedAccessManagement', String, 'Privileged Access Management',
         hint: 'PAM solution, just-in-time'),
     Field('accessReviewFrequency', String, 'Access Review Frequency',
         hint: 'Quarterly, annually'),
     Field('accessAuditLogging', String, 'Access Audit Logging',
         hint: 'What access is logged'),
-    // Disaster recovery
-    Field('drPlanRequired', bool, 'DR Plan Required'),
+  ])
+  String? content;
+}
+
+/// Disaster recovery planning details.
+class ItSecurityOperationsQualityRecovery {
+  @Form([
     Field('drTestingFrequency', String, 'DR Testing Frequency',
         hint: 'Annual, semi-annual'),
     Field('drRecoveryTargets', String, 'DR Recovery Targets',
@@ -1019,7 +1095,13 @@ class ItSecurityOperationsQuality {
         hint: 'Multi-region, hot/warm/cold'),
     Field('drCommunicationPlan', String, 'DR Communication Plan',
         hint: 'How stakeholders are notified'),
-    // Penetration testing
+  ])
+  String? content;
+}
+
+/// Penetration testing and remediation.
+class ItSecurityOperationsQualityTesting {
+  @Form([
     Field('penetrationTestScope', String, 'Penetration Test Scope',
         hint: 'Internal, external, both'),
     Field('penetrationTestFrequency', String, 'Penetration Test Frequency',
@@ -1027,9 +1109,13 @@ class ItSecurityOperationsQuality {
     Field('vulnerabilitySlaResolution', String, 'Vulnerability SLA',
         hint: 'Resolution timeframes by severity'),
     Field('bugBountyProgram', bool, 'Bug Bounty Program'),
-    // Incident response
-    Field('incidentResponsePlan', String, 'Incident Response Plan',
-        hint: 'NIST, custom'),
+  ])
+  String? content;
+}
+
+/// Incident handling and reporting.
+class ItSecurityOperationsQualityIncident {
+  @Form([
     Field('securityIncidentClassification', String, 'Incident Classification',
         hint: 'Severity levels'),
     Field('securityIncidentNotification', String, 'Incident Notification',
@@ -1040,9 +1126,6 @@ class ItSecurityOperationsQuality {
         hint: 'Breach notification requirements'),
   ])
   String? content;
-
-  /// Detailed IT security operations narrative.
-  TextSection narrative = TextSection();
 }
 
 /// 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
