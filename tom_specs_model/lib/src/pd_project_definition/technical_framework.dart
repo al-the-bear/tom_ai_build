@@ -1284,46 +1284,86 @@ class DataArchitectureSecurity {
 /// Scalability and performance architecture.
 class ScalabilityArchitecture {
   @Form([
-    // Scalability model
     Field('scalabilityModel', String, 'Scalability Model',
         hint: 'Horizontal, Vertical, Both'),
     Field('elasticityApproach', String, 'Elasticity Approach',
         hint: 'Manual, Auto-scaling, Serverless'),
     Field('scalingTriggers', String, 'Scaling Triggers',
         hint: 'What triggers scaling actions'),
+  ])
+  String? content;
 
-    // Capacity
+  /// Capacity planning assumptions.
+  ScalabilityArchitectureCapacity capacity = ScalabilityArchitectureCapacity();
+
+  /// Performance targets.
+  ScalabilityArchitectureTargets targets = ScalabilityArchitectureTargets();
+
+  /// Performance patterns.
+  ScalabilityArchitecturePatterns patterns = ScalabilityArchitecturePatterns();
+
+  /// Resource optimization controls.
+  ScalabilityArchitectureOptimization optimization =
+      ScalabilityArchitectureOptimization();
+
+  /// Testing and benchmarks.
+  ScalabilityArchitectureTesting testing = ScalabilityArchitectureTesting();
+}
+
+/// Capacity planning assumptions.
+class ScalabilityArchitectureCapacity {
+  @Form([
     Field('expectedLoad', String, 'Expected Load',
         hint: 'Expected concurrent users/requests'),
     Field('peakLoad', String, 'Peak Load', hint: 'Peak load expectations'),
     Field('growthProjection', String, 'Growth Projection',
         hint: 'Expected growth over time'),
+  ])
+  String? content;
+}
 
-    // Performance targets
+/// Performance targets.
+class ScalabilityArchitectureTargets {
+  @Form([
     Field('responseTimeTargets', String, 'Response Time Targets',
         hint: 'Target response times by tier'),
     Field('throughputTargets', String, 'Throughput Targets',
         hint: 'Target transactions per second'),
     Field('availabilityTarget', String, 'Availability Target',
         hint: 'Target availability (e.g., 99.9%)'),
+  ])
+  String? content;
+}
 
-    // Performance patterns
+/// Performance patterns.
+class ScalabilityArchitecturePatterns {
+  @Form([
     Field('cachingStrategy', String, 'Caching Strategy',
         hint: 'Multi-level caching approach'),
     Field('loadBalancing', String, 'Load Balancing',
         hint: 'Load balancing approach'),
     Field('queueingStrategy', String, 'Queueing Strategy',
         hint: 'Request queueing and throttling'),
+  ])
+  String? content;
+}
 
-    // Resource optimization
+/// Resource optimization controls.
+class ScalabilityArchitectureOptimization {
+  @Form([
     Field('connectionPooling', String, 'Connection Pooling',
         hint: 'Connection pool management'),
     Field('resourceLimits', String, 'Resource Limits',
         hint: 'Per-component resource limits'),
     Field('gracefulDegradation', String, 'Graceful Degradation',
         hint: 'How system degrades under load'),
+  ])
+  String? content;
+}
 
-    // Testing
+/// Testing and benchmarks.
+class ScalabilityArchitectureTesting {
+  @Form([
     Field('performanceTesting', String, 'Performance Testing',
         hint: 'Performance testing approach'),
     Field('loadTesting', String, 'Load Testing', hint: 'Load testing approach'),
@@ -2785,22 +2825,48 @@ class CrossCuttingConcerns {
 /// Feature module entry — a vertical slice feature.
 class FeatureModuleEntry {
   @Form([
-    // Identity
     Field('featureName', String, 'Feature Name',
         required: true, hint: 'Feature identifier'),
     Field('featureArea', String, 'Feature Area',
         hint: 'Business area this feature belongs to'),
     Field('boundedContext', String, 'Bounded Context',
         hint: 'Owning bounded context'),
+  ])
+  String? content;
 
-    // Description
+  /// Purpose and value.
+  FeatureModuleEntryDescription description = FeatureModuleEntryDescription();
+
+  /// Structural scope.
+  FeatureModuleEntryStructure structure = FeatureModuleEntryStructure();
+
+  /// Dependencies.
+  FeatureModuleEntryDependencies dependencies =
+      FeatureModuleEntryDependencies();
+
+  /// Feature configuration.
+  FeatureModuleEntryConfiguration configuration =
+      FeatureModuleEntryConfiguration();
+
+  /// Navigation and notes.
+  FeatureModuleEntryNavigation navigation = FeatureModuleEntryNavigation();
+}
+
+/// Purpose and value.
+class FeatureModuleEntryDescription {
+  @Form([
     Field('purpose', String, 'Purpose', hint: 'What the feature provides'),
     Field('userStories', String, 'User Stories',
         hint: 'Supported user stories/use cases'),
     Field('businessValue', String, 'Business Value',
         hint: 'Business value delivered'),
+  ])
+  String? content;
+}
 
-    // Structure
+/// Structural scope.
+class FeatureModuleEntryStructure {
+  @Form([
     Field('uiComponents', String, 'UI Components',
         hint: 'Screens, widgets, views in this feature'),
     Field('domainLogic', String, 'Domain Logic',
@@ -2809,24 +2875,39 @@ class FeatureModuleEntry {
         hint: 'Data access components'),
     Field('apiEndpoints', String, 'API Endpoints',
         hint: 'API endpoints related to this feature'),
+  ])
+  String? content;
+}
 
-    // Dependencies
+/// Dependencies.
+class FeatureModuleEntryDependencies {
+  @Form([
     Field('sharedDependencies', String, 'Shared Dependencies',
         hint: 'Shared modules this feature uses'),
     Field('featureDependencies', String, 'Feature Dependencies',
         hint: 'Other features this depends on'),
     Field('externalIntegrations', String, 'External Integrations',
         hint: 'External systems integrated'),
+  ])
+  String? content;
+}
 
-    // Configuration
+/// Feature configuration.
+class FeatureModuleEntryConfiguration {
+  @Form([
     Field('featureFlags', String, 'Feature Flags',
         hint: 'Flags controlling this feature'),
     Field('configurationOptions', String, 'Configuration Options',
         hint: 'Feature-specific configuration'),
     Field('enablementCriteria', String, 'Enablement Criteria',
         hint: 'When this feature is available'),
+  ])
+  String? content;
+}
 
-    // Navigation
+/// Navigation and notes.
+class FeatureModuleEntryNavigation {
+  @Form([
     Field('routeDefinitions', String, 'Route Definitions',
         hint: 'Navigation routes for this feature'),
     Field('deepLinkSupport', String, 'Deep Link Support',
@@ -3352,15 +3433,36 @@ class CodeReviewProcessMerge {
 /// Local development setup configuration.
 class LocalDevelopmentSetup {
   @Form([
-    // Prerequisites
     Field('systemRequirements', String, 'System Requirements',
         hint: 'OS, RAM, disk space requirements'),
     Field('prerequisiteSoftware', String, 'Prerequisite Software',
         hint: 'Required software before setup'),
     Field('sdkVersions', String, 'SDK Versions',
         hint: 'Required SDK versions'),
+  ])
+  String? content;
 
-    // Setup
+  /// Setup workflow.
+  LocalDevelopmentSetupWorkflow workflow = LocalDevelopmentSetupWorkflow();
+
+  /// Dependencies and local services.
+  LocalDevelopmentSetupDependencies dependencies =
+      LocalDevelopmentSetupDependencies();
+
+  /// Running configuration.
+  LocalDevelopmentSetupRunning running = LocalDevelopmentSetupRunning();
+
+  /// Test setup.
+  LocalDevelopmentSetupTesting testing = LocalDevelopmentSetupTesting();
+
+  /// Troubleshooting details.
+  LocalDevelopmentSetupTroubleshooting troubleshooting =
+      LocalDevelopmentSetupTroubleshooting();
+}
+
+/// Setup workflow.
+class LocalDevelopmentSetupWorkflow {
+  @Form([
     Field('cloneInstructions', String, 'Clone Instructions',
         hint: 'How to clone the repository'),
     Field('setupScript', String, 'Setup Script',
@@ -3369,32 +3471,52 @@ class LocalDevelopmentSetup {
         hint: 'Manual steps if needed'),
     Field('configurationFiles', String, 'Configuration Files',
         hint: 'Config files to create/modify'),
+  ])
+  String? content;
+}
 
-    // Dependencies
+/// Dependencies and local services.
+class LocalDevelopmentSetupDependencies {
+  @Form([
     Field('dependencyInstallation', String, 'Dependency Installation',
         hint: 'How to install dependencies'),
     Field('localServices', String, 'Local Services',
         hint: 'Required local services (DB, Redis)'),
     Field('dockerCompose', String, 'Docker Compose',
         hint: 'Docker Compose for services'),
+  ])
+  String? content;
+}
 
-    // Running
+/// Running configuration.
+class LocalDevelopmentSetupRunning {
+  @Form([
     Field('runCommands', String, 'Run Commands',
         hint: 'Commands to run the application'),
     Field('hotReload', bool, 'Hot Reload Available',
         hint: 'Hot reload support'),
     Field('watchMode', String, 'Watch Mode',
         hint: 'File watching configuration'),
+  ])
+  String? content;
+}
 
-    // Testing
+/// Test setup.
+class LocalDevelopmentSetupTesting {
+  @Form([
     Field('runTestsLocally', String, 'Run Tests Locally',
         hint: 'How to run tests locally'),
     Field('testDatabaseSetup', String, 'Test Database Setup',
         hint: 'Test database configuration'),
     Field('mockServices', String, 'Mock Services',
         hint: 'How to use mock services'),
+  ])
+  String? content;
+}
 
-    // Troubleshooting
+/// Troubleshooting details.
+class LocalDevelopmentSetupTroubleshooting {
+  @Form([
     Field('commonIssues', String, 'Common Issues',
         hint: 'Common setup issues and solutions'),
     Field('supportChannel', String, 'Support Channel',
@@ -4081,45 +4203,89 @@ class BusinessComponentEntryReuse {
 /// Infrastructure component entry.
 class InfrastructureComponentEntry {
   @Form([
-    // Identity
     Field('componentName', String, 'Component Name',
         required: true, hint: 'Infrastructure component name'),
     Field('componentType', String, 'Component Type',
         hint: 'Logging, Caching, Messaging, Storage, Network'),
     Field('layer', String, 'Layer', hint: 'Infrastructure layer'),
+  ])
+  String? content;
 
-    // Description
+  /// Purpose and technology choices.
+  InfrastructureComponentEntryDescription description =
+      InfrastructureComponentEntryDescription();
+
+  /// Configuration requirements.
+  InfrastructureComponentEntryConfiguration configuration =
+      InfrastructureComponentEntryConfiguration();
+
+  /// Integration lifecycle.
+  InfrastructureComponentEntryIntegration integration =
+      InfrastructureComponentEntryIntegration();
+
+  /// Operational behavior.
+  InfrastructureComponentEntryOperations operations =
+      InfrastructureComponentEntryOperations();
+
+  /// Resiliency behavior.
+  InfrastructureComponentEntryResiliency resiliency =
+      InfrastructureComponentEntryResiliency();
+}
+
+/// Purpose and technology choices.
+class InfrastructureComponentEntryDescription {
+  @Form([
     Field('purpose', String, 'Purpose',
         hint: 'What infrastructure need this addresses'),
     Field('capabilities', String, 'Capabilities',
         hint: 'Infrastructure capabilities provided'),
     Field('technologyStack', String, 'Technology Stack',
         hint: 'Underlying technologies'),
+  ])
+  String? content;
+}
 
-    // Configuration
+/// Configuration requirements.
+class InfrastructureComponentEntryConfiguration {
+  @Form([
     Field('configurationOptions', String, 'Configuration Options',
         hint: 'Available configuration'),
     Field('environmentVariables', String, 'Environment Variables',
         hint: 'Required environment variables'),
     Field('secrets', String, 'Secrets', hint: 'Required secrets'),
+  ])
+  String? content;
+}
 
-    // Integration
+/// Integration lifecycle.
+class InfrastructureComponentEntryIntegration {
+  @Form([
     Field('serviceInterface', String, 'Service Interface',
         hint: 'Public service interface'),
     Field('initializationProcess', String, 'Initialization Process',
         hint: 'How to initialize'),
     Field('shutdownProcess', String, 'Shutdown Process',
         hint: 'Graceful shutdown procedure'),
+  ])
+  String? content;
+}
 
-    // Operations
+/// Operational behavior.
+class InfrastructureComponentEntryOperations {
+  @Form([
     Field('monitoring', String, 'Monitoring',
         hint: 'Monitoring and observability'),
     Field('healthCheck', String, 'Health Check',
         hint: 'Health check implementation'),
     Field('scalability', String, 'Scalability',
         hint: 'Scaling considerations'),
+  ])
+  String? content;
+}
 
-    // Resiliency
+/// Resiliency behavior.
+class InfrastructureComponentEntryResiliency {
+  @Form([
     Field('failureHandling', String, 'Failure Handling',
         hint: 'How failures are handled'),
     Field('retryPolicy', String, 'Retry Policy',
@@ -9417,7 +9583,6 @@ class ScheduledMaintenancePolicy {
 /// Maintenance window entry.
 class MaintenanceWindowEntry {
   @Form([
-    // Identity
     Field('windowName', String, 'Window Name',
         required: true, hint: 'Maintenance window name'),
     Field('windowType', String, 'Window Type',
@@ -9426,8 +9591,25 @@ class MaintenanceWindowEntry {
         hint: 'Critical, Standard, Low'),
     Field('description', String, 'Description',
         hint: 'What maintenance is performed'),
+  ])
+  String? content;
 
-    // Schedule
+  /// Schedule details.
+  MaintenanceWindowEntrySchedule schedule = MaintenanceWindowEntrySchedule();
+
+  /// Scope details.
+  MaintenanceWindowEntryScope scope = MaintenanceWindowEntryScope();
+
+  /// Impact details.
+  MaintenanceWindowEntryImpact impact = MaintenanceWindowEntryImpact();
+
+  /// Rollback details.
+  MaintenanceWindowEntryRollback rollback = MaintenanceWindowEntryRollback();
+}
+
+/// Schedule details.
+class MaintenanceWindowEntrySchedule {
+  @Form([
     Field('frequency', String, 'Frequency',
         hint: 'Weekly, Monthly, Quarterly'),
     Field('dayOfWeek', String, 'Day of Week',
@@ -9438,16 +9620,26 @@ class MaintenanceWindowEntry {
         hint: 'Window end time'),
     Field('duration', String, 'Duration',
         hint: 'Expected duration'),
+  ])
+  String? content;
+}
 
-    // Scope
+/// Scope details.
+class MaintenanceWindowEntryScope {
+  @Form([
     Field('affectedSystems', String, 'Affected Systems',
         hint: 'Which systems are affected'),
     Field('affectedServices', String, 'Affected Services',
         hint: 'Which services impacted'),
     Field('affectedRegions', String, 'Affected Regions',
         hint: 'Geographic scope'),
+  ])
+  String? content;
+}
 
-    // Impact
+/// Impact details.
+class MaintenanceWindowEntryImpact {
+  @Form([
     Field('userImpact', String, 'User Impact',
         hint: 'How users are affected'),
     Field('serviceAvailability', String, 'Service Availability',
@@ -9456,8 +9648,13 @@ class MaintenanceWindowEntry {
         hint: 'Data access during window'),
     Field('workarounds', String, 'Workarounds',
         hint: 'Workarounds during maintenance'),
+  ])
+  String? content;
+}
 
-    // Rollback
+/// Rollback details.
+class MaintenanceWindowEntryRollback {
+  @Form([
     Field('rollbackPlan', String, 'Rollback Plan',
         hint: 'How to roll back if needed'),
     Field('rollbackDecisionPoint', String, 'Rollback Decision Point',
@@ -10457,19 +10654,46 @@ class ThirdPartyApiIntegrations {
 /// Network security and access control.
 class NetworkSecurityPolicy {
   @Form([
-    // Firewall
     Field('firewallType', String, 'Firewall Type',
         hint: 'WAF, network firewall, host-based'),
     Field('wafProvider', String, 'WAF Provider',
         hint: 'AWS WAF, Cloudflare, Azure Front Door'),
+    Field('defaultDenyPolicy', bool, 'Default Deny Policy',
+        hint: 'Deny all except explicit allow'),
+  ])
+  String? content;
+
+  /// Firewall rule details.
+  NetworkSecurityPolicyFirewall firewall = NetworkSecurityPolicyFirewall();
+
+  /// IP management controls.
+  NetworkSecurityPolicyIpManagement ipManagement =
+      NetworkSecurityPolicyIpManagement();
+
+  /// VPN configuration.
+  NetworkSecurityPolicyVpn vpn = NetworkSecurityPolicyVpn();
+
+  /// DDoS protections.
+  NetworkSecurityPolicyDdos ddos = NetworkSecurityPolicyDdos();
+
+  /// DNS controls and notes.
+  NetworkSecurityPolicyDns dns = NetworkSecurityPolicyDns();
+}
+
+/// Firewall rule details.
+class NetworkSecurityPolicyFirewall {
+  @Form([
     Field('ingressRules', String, 'Ingress Rules',
         hint: 'Allowed inbound traffic rules'),
     Field('egressRules', String, 'Egress Rules',
         hint: 'Allowed outbound traffic rules'),
-    Field('defaultDenyPolicy', bool, 'Default Deny Policy',
-        hint: 'Deny all except explicit allow'),
+  ])
+  String? content;
+}
 
-    // IP management
+/// IP management controls.
+class NetworkSecurityPolicyIpManagement {
+  @Form([
     Field('staticIpRequired', bool, 'Static IP Required',
         hint: 'Fixed outbound IP addresses'),
     Field('ipAllowListing', String, 'IP Allow-Listing',
@@ -10478,8 +10702,13 @@ class NetworkSecurityPolicy {
         hint: 'Blocked IP ranges'),
     Field('geoBlocking', String, 'Geo-Blocking',
         hint: 'Country or region-based access control'),
+  ])
+  String? content;
+}
 
-    // VPN
+/// VPN configuration.
+class NetworkSecurityPolicyVpn {
+  @Form([
     Field('vpnRequired', bool, 'VPN Required',
         hint: 'Site-to-site or client VPN'),
     Field('vpnType', String, 'VPN Type',
@@ -10488,14 +10717,24 @@ class NetworkSecurityPolicy {
         hint: 'Hub-spoke, mesh, point-to-point'),
     Field('vpnHighAvailability', bool, 'VPN High Availability',
         hint: 'Redundant VPN tunnels'),
+  ])
+  String? content;
+}
 
-    // DDoS
+/// DDoS protections.
+class NetworkSecurityPolicyDdos {
+  @Form([
     Field('ddosProtection', String, 'DDoS Protection',
         hint: 'AWS Shield, Cloudflare, Azure DDoS'),
     Field('rateLimitingAtEdge', String, 'Rate Limiting at Edge',
         hint: 'Edge-level request throttling'),
+  ])
+  String? content;
+}
 
-    // DNS
+/// DNS controls and notes.
+class NetworkSecurityPolicyDns {
+  @Form([
     Field('dnsProvider', String, 'DNS Provider',
         hint: 'Route 53, Cloudflare DNS, Azure DNS'),
     Field('dnssecEnabled', bool, 'DNSSEC Enabled',
@@ -11929,7 +12168,6 @@ Provide an overview of health check and diagnostics strategy.
 /// Health check endpoint requirements.
 class HealthCheckEndpoints {
   @Form([
-    // Endpoint types
     Field('livenessEndpoint', String, 'Liveness Endpoint',
         required: true, hint: '/health/live — is the process running'),
     Field('readinessEndpoint', String, 'Readiness Endpoint',
@@ -11938,10 +12176,26 @@ class HealthCheckEndpoints {
         hint: '/health/startup — has initialization completed'),
     Field('deepHealthEndpoint', String, 'Deep Health Endpoint',
         hint: '/health/deep — checks all dependencies'),
-
-    // Configuration
     Field('healthCheckProtocol', String, 'Protocol',
         hint: 'HTTP, gRPC, TCP'),
+  ])
+  String? content;
+
+  /// Response configuration.
+  HealthCheckEndpointsConfiguration configuration =
+      HealthCheckEndpointsConfiguration();
+
+  /// Timing thresholds.
+  HealthCheckEndpointsTiming timing = HealthCheckEndpointsTiming();
+
+  /// Response content settings.
+  HealthCheckEndpointsContent contentSettings =
+      HealthCheckEndpointsContent();
+}
+
+/// Response configuration.
+class HealthCheckEndpointsConfiguration {
+  @Form([
     Field('healthCheckPort', int, 'Port',
         hint: 'Dedicated health check port'),
     Field('responseFormat', String, 'Response Format',
@@ -11950,8 +12204,13 @@ class HealthCheckEndpoints {
         hint: 'HTTP 200 for healthy'),
     Field('failureStatusCode', int, 'Failure Status Code',
         hint: 'HTTP 503 for unhealthy'),
+  ])
+  String? content;
+}
 
-    // Timing
+/// Timing thresholds.
+class HealthCheckEndpointsTiming {
+  @Form([
     Field('checkInterval', String, 'Check Interval',
         hint: 'How often health is checked (e.g. 10s, 30s)'),
     Field('checkTimeout', String, 'Check Timeout',
@@ -11960,8 +12219,13 @@ class HealthCheckEndpoints {
         hint: 'Consecutive failures before unhealthy'),
     Field('successThreshold', int, 'Success Threshold',
         hint: 'Consecutive successes to become healthy'),
+  ])
+  String? content;
+}
 
-    // Content
+/// Response content settings.
+class HealthCheckEndpointsContent {
+  @Form([
     Field('includeComponentStatus', bool, 'Include Component Status',
         hint: 'Show status of individual components'),
     Field('includeVersion', bool, 'Include Version',
