@@ -1096,45 +1096,89 @@ class ArchitectureComponentEntry {
 /// Communication patterns between components.
 class CommunicationPatterns {
   @Form([
-    // Primary patterns
     Field('primaryPattern', String, 'Primary Communication Pattern',
         hint: 'Synchronous REST, Async messaging, Event-driven, RPC'),
     Field('secondaryPatterns', String, 'Secondary Patterns',
         hint: 'Additional patterns used'),
-
-    // Synchronous communication
     Field('syncProtocols', String, 'Synchronous Protocols',
         hint: 'REST, gRPC, GraphQL, SOAP'),
+  ])
+  String? content;
+
+  /// Synchronous communication details.
+  CommunicationPatternsSynchronous synchronous =
+      CommunicationPatternsSynchronous();
+
+  /// Asynchronous communication details.
+  CommunicationPatternsAsynchronous asynchronous =
+      CommunicationPatternsAsynchronous();
+
+  /// Data exchange contracts.
+  CommunicationPatternsDataExchange dataExchange =
+      CommunicationPatternsDataExchange();
+
+  /// Reliability controls.
+  CommunicationPatternsReliability reliability =
+      CommunicationPatternsReliability();
+
+  /// Observability settings.
+  CommunicationPatternsObservability observability =
+      CommunicationPatternsObservability();
+}
+
+/// Synchronous communication details.
+class CommunicationPatternsSynchronous {
+  @Form([
     Field('syncPatterns', String, 'Synchronous Patterns',
         hint: 'Request-response, Service mesh'),
     Field('apiGateway', String, 'API Gateway',
         hint: 'Central gateway pattern details'),
+  ])
+  String? content;
+}
 
-    // Asynchronous communication
+/// Asynchronous communication details.
+class CommunicationPatternsAsynchronous {
+  @Form([
     Field('asyncProtocols', String, 'Asynchronous Protocols',
         hint: 'Message brokers, event streaming'),
     Field('messageFormats', String, 'Message Formats',
         hint: 'JSON, Protobuf, Avro, MessagePack'),
     Field('eventPatterns', String, 'Event Patterns',
         hint: 'Pub/Sub, Event sourcing, CQRS'),
+  ])
+  String? content;
+}
 
-    // Data exchange
+/// Data exchange contracts.
+class CommunicationPatternsDataExchange {
+  @Form([
     Field('dataContracts', String, 'Data Contracts',
         hint: 'API contracts and schemas'),
     Field('schemaEvolution', String, 'Schema Evolution',
         hint: 'How schemas evolve over time'),
     Field('serialization', String, 'Serialization',
         hint: 'Serialization approach'),
+  ])
+  String? content;
+}
 
-    // Reliability
+/// Reliability controls.
+class CommunicationPatternsReliability {
+  @Form([
     Field('retryPolicies', String, 'Retry Policies',
         hint: 'Retry and backoff strategies'),
     Field('circuitBreakers', String, 'Circuit Breakers',
         hint: 'Circuit breaker patterns'),
     Field('timeouts', String, 'Timeouts', hint: 'Timeout strategies'),
     Field('idempotency', String, 'Idempotency', hint: 'Idempotency guarantees'),
+  ])
+  String? content;
+}
 
-    // Observability
+/// Observability settings.
+class CommunicationPatternsObservability {
+  @Form([
     Field('tracing', String, 'Distributed Tracing',
         hint: 'Tracing approach'),
     Field('logging', String, 'Logging Strategy', hint: 'Logging approach'),
@@ -1147,46 +1191,85 @@ class CommunicationPatterns {
 /// Data architecture decisions.
 class DataArchitecture {
   @Form([
-    // Data strategy
     Field('dataStrategy', String, 'Data Strategy',
         hint: 'Centralized, Distributed, Federated, Mesh'),
     Field('dataOwnership', String, 'Data Ownership Model',
         hint: 'How data ownership is assigned'),
     Field('dataGovernance', String, 'Data Governance',
         hint: 'Governance policies'),
+  ])
+  String? content;
 
-    // Storage
+  /// Storage decisions.
+  DataArchitectureStorage storage = DataArchitectureStorage();
+
+  /// Data access patterns.
+  DataArchitectureAccess access = DataArchitectureAccess();
+
+  /// Consistency model and transactions.
+  DataArchitectureConsistency consistency = DataArchitectureConsistency();
+
+  /// Lifecycle controls.
+  DataArchitectureLifecycle lifecycle = DataArchitectureLifecycle();
+
+  /// Privacy and security controls.
+  DataArchitectureSecurity security = DataArchitectureSecurity();
+}
+
+/// Storage decisions.
+class DataArchitectureStorage {
+  @Form([
     Field('primaryStorage', String, 'Primary Storage',
         hint: 'Main database type and technology'),
     Field('secondaryStorage', String, 'Secondary Storage',
         hint: 'Additional storage (cache, search, etc.)'),
     Field('storageTopology', String, 'Storage Topology',
         hint: 'Single, Replicated, Sharded, Multi-region'),
+  ])
+  String? content;
+}
 
-    // Data access
+/// Data access patterns.
+class DataArchitectureAccess {
+  @Form([
     Field('dataAccessPatterns', String, 'Data Access Patterns',
         hint: 'CRUD, CQRS, Event sourcing'),
     Field('queryPatterns', String, 'Query Patterns',
         hint: 'How data is queried'),
     Field('caching', String, 'Caching Strategy', hint: 'Caching approach'),
+  ])
+  String? content;
+}
 
-    // Consistency
+/// Consistency model and transactions.
+class DataArchitectureConsistency {
+  @Form([
     Field('consistencyModel', String, 'Consistency Model',
         hint: 'Strong, Eventual, Causal'),
     Field('transactionScope', String, 'Transaction Scope',
         hint: 'Local, Distributed, Saga'),
     Field('conflictResolution', String, 'Conflict Resolution',
         hint: 'How conflicts are resolved'),
+  ])
+  String? content;
+}
 
-    // Data lifecycle
+/// Lifecycle controls.
+class DataArchitectureLifecycle {
+  @Form([
     Field('dataRetention', String, 'Data Retention',
         hint: 'Retention policies'),
     Field('archiving', String, 'Archiving Strategy',
         hint: 'How old data is archived'),
     Field('dataRecovery', String, 'Data Recovery',
         hint: 'Recovery point and time objectives'),
+  ])
+  String? content;
+}
 
-    // Privacy and security
+/// Privacy and security controls.
+class DataArchitectureSecurity {
+  @Form([
     Field('dataClassification', String, 'Data Classification',
         hint: 'Classification levels'),
     Field('encryptionStrategy', String, 'Encryption Strategy',
@@ -1309,47 +1392,90 @@ class IntegrationArchitecture {
 /// Deployment topology and infrastructure.
 class DeploymentTopology {
   @Form([
-    // Topology
     Field('topologyType', String, 'Topology Type',
         hint: 'Single-tier, Multi-tier, Distributed, Cloud-native'),
     Field('deploymentModel', String, 'Deployment Model',
         hint: 'On-premise, Cloud, Hybrid, Multi-cloud'),
     Field('cloudProviders', String, 'Cloud Providers',
         hint: 'Cloud providers used'),
+  ])
+  String? content;
 
-    // Infrastructure
+  /// Infrastructure layout.
+  DeploymentTopologyInfrastructure infrastructure =
+      DeploymentTopologyInfrastructure();
+
+  /// Environment layout.
+  DeploymentTopologyEnvironments environmentsConfig =
+      DeploymentTopologyEnvironments();
+
+  /// High-availability settings.
+  DeploymentTopologyAvailability availability =
+      DeploymentTopologyAvailability();
+
+  /// Geographic distribution.
+  DeploymentTopologyGeography geography = DeploymentTopologyGeography();
+
+  /// Infrastructure-as-code strategy.
+  DeploymentTopologyInfrastructureAsCode infrastructureAsCode =
+      DeploymentTopologyInfrastructureAsCode();
+}
+
+/// Infrastructure layout.
+class DeploymentTopologyInfrastructure {
+  @Form([
     Field('computeModel', String, 'Compute Model',
         hint: 'VMs, Containers, Serverless, Kubernetes'),
     Field('networkTopology', String, 'Network Topology',
         hint: 'Network architecture'),
     Field('storageInfrastructure', String, 'Storage Infrastructure',
         hint: 'Storage systems used'),
+  ])
+  String? content;
+}
 
-    // Environments
+/// Environment layout.
+class DeploymentTopologyEnvironments {
+  @Form([
     Field('environments', String, 'Environments',
         hint: 'Dev, Test, Staging, Production'),
     Field('environmentIsolation', String, 'Environment Isolation',
         hint: 'How environments are isolated'),
     Field('configurationManagement', String, 'Configuration Management',
         hint: 'How configuration differs per environment'),
+  ])
+  String? content;
+}
 
-    // High availability
+/// High-availability settings.
+class DeploymentTopologyAvailability {
+  @Form([
     Field('redundancyModel', String, 'Redundancy Model',
         hint: 'Active-passive, Active-active'),
     Field('failoverStrategy', String, 'Failover Strategy',
         hint: 'How failover is handled'),
     Field('disasterRecovery', String, 'Disaster Recovery',
         hint: 'DR strategy and targets'),
+  ])
+  String? content;
+}
 
-    // Geographic distribution
+/// Geographic distribution.
+class DeploymentTopologyGeography {
+  @Form([
     Field('geographicDistribution', String, 'Geographic Distribution',
         hint: 'Single-region, Multi-region, Global'),
     Field('dataResidency', String, 'Data Residency',
         hint: 'Data residency requirements'),
     Field('latencyConsiderations', String, 'Latency Considerations',
         hint: 'Geographic latency requirements'),
+  ])
+  String? content;
+}
 
-    // Infrastructure as Code
+/// Infrastructure-as-code strategy.
+class DeploymentTopologyInfrastructureAsCode {
+  @Form([
     Field('iacApproach', String, 'IaC Approach',
         hint: 'Terraform, CloudFormation, Pulumi'),
     Field('immutableInfrastructure', String, 'Immutable Infrastructure',
@@ -1747,15 +1873,36 @@ class IndustryStandardEntry {
 /// Code quality metrics and thresholds.
 class CodeQualityMetrics {
   @Form([
-    // Coverage metrics
     Field('testCoverageMinimum', String, 'Test Coverage Minimum',
         hint: 'Minimum test coverage percentage'),
     Field('branchCoverageMinimum', String, 'Branch Coverage Minimum',
         hint: 'Minimum branch coverage percentage'),
     Field('mutationScoreMinimum', String, 'Mutation Score Minimum',
         hint: 'Minimum mutation testing score'),
+  ])
+  String? content;
 
-    // Complexity metrics
+  /// Complexity limits.
+  CodeQualityMetricsComplexity complexity = CodeQualityMetricsComplexity();
+
+  /// Coupling metrics.
+  CodeQualityMetricsCoupling coupling = CodeQualityMetricsCoupling();
+
+  /// Duplication thresholds.
+  CodeQualityMetricsDuplication duplication =
+      CodeQualityMetricsDuplication();
+
+  /// Static analysis thresholds.
+  CodeQualityMetricsStaticAnalysis staticAnalysis =
+      CodeQualityMetricsStaticAnalysis();
+
+  /// Tooling and reporting.
+  CodeQualityMetricsTooling tooling = CodeQualityMetricsTooling();
+}
+
+/// Complexity limits.
+class CodeQualityMetricsComplexity {
+  @Form([
     Field('cyclomaticComplexityMax', String, 'Cyclomatic Complexity Max',
         hint: 'Maximum cyclomatic complexity per method'),
     Field('cognitiveComplexityMax', String, 'Cognitive Complexity Max',
@@ -1764,30 +1911,50 @@ class CodeQualityMetrics {
         hint: 'Maximum lines of code per method'),
     Field('classLengthMax', String, 'Class Length Max',
         hint: 'Maximum lines of code per class'),
+  ])
+  String? content;
+}
 
-    // Coupling metrics
+/// Coupling metrics.
+class CodeQualityMetricsCoupling {
+  @Form([
     Field('afferentCouplingMax', String, 'Afferent Coupling Max',
         hint: 'Maximum incoming dependencies'),
     Field('efferentCouplingMax', String, 'Efferent Coupling Max',
         hint: 'Maximum outgoing dependencies'),
     Field('instabilityRange', String, 'Instability Range',
         hint: 'Acceptable instability range'),
+  ])
+  String? content;
+}
 
-    // Code duplication
+/// Duplication thresholds.
+class CodeQualityMetricsDuplication {
+  @Form([
     Field('duplicationMax', String, 'Code Duplication Max',
         hint: 'Maximum code duplication percentage'),
     Field('duplicationBlockSize', String, 'Duplication Block Size',
         hint: 'Minimum lines to consider duplication'),
+  ])
+  String? content;
+}
 
-    // Static analysis
+/// Static analysis thresholds.
+class CodeQualityMetricsStaticAnalysis {
+  @Form([
     Field('warningsAllowed', String, 'Warnings Allowed',
         hint: 'Maximum allowed static analysis warnings'),
     Field('criticalIssuesAllowed', String, 'Critical Issues Allowed',
         hint: 'Maximum critical issues allowed (usually 0)'),
     Field('technicalDebtTarget', String, 'Technical Debt Target',
         hint: 'Target technical debt ratio'),
+  ])
+  String? content;
+}
 
-    // Tools
+/// Tooling and reporting.
+class CodeQualityMetricsTooling {
+  @Form([
     Field('analysisTools', String, 'Analysis Tools',
         hint: 'Tools used for quality measurement'),
     Field('reportingFrequency', String, 'Reporting Frequency',
@@ -1802,49 +1969,91 @@ class CodeQualityMetrics {
 /// Documentation standards and requirements.
 class DocumentationStandards {
   @Form([
-    // Code documentation
     Field('publicApiDocRequired', bool, 'Public API Doc Required',
         hint: 'All public APIs must be documented'),
     Field('docCommentFormat', String, 'Doc Comment Format',
         hint: 'Dartdoc, JSDoc, Javadoc format'),
     Field('parameterDocRequired', bool, 'Parameter Doc Required',
         hint: 'Parameters must be documented'),
+  ])
+  String? content;
+
+  /// Code documentation requirements.
+  DocumentationStandardsCodeDocs codeDocs = DocumentationStandardsCodeDocs();
+
+  /// Content requirements.
+  DocumentationStandardsContent contentRequirements =
+      DocumentationStandardsContent();
+
+  /// Architecture documentation requirements.
+  DocumentationStandardsArchitecture architecture =
+      DocumentationStandardsArchitecture();
+
+  /// Changelog and versioning requirements.
+  DocumentationStandardsVersioning versioning =
+      DocumentationStandardsVersioning();
+
+  /// Review and publication settings.
+  DocumentationStandardsProcess process = DocumentationStandardsProcess();
+}
+
+/// Code documentation requirements.
+class DocumentationStandardsCodeDocs {
+  @Form([
     Field('returnDocRequired', bool, 'Return Doc Required',
         hint: 'Return values must be documented'),
     Field('exampleRequired', bool, 'Example Required',
         hint: 'Examples required for complex APIs'),
+  ])
+  String? content;
+}
 
-    // Documentation content
+/// Content requirements.
+class DocumentationStandardsContent {
+  @Form([
     Field('minimumDescription', String, 'Minimum Description',
         hint: 'Minimum description length/content'),
     Field('crossReferenceRequired', bool, 'Cross-Reference Required',
         hint: 'Related items must be cross-referenced'),
     Field('deprecationNotice', String, 'Deprecation Notice',
         hint: 'How to document deprecations'),
+  ])
+  String? content;
+}
 
-    // Architecture documentation
+/// Architecture documentation requirements.
+class DocumentationStandardsArchitecture {
+  @Form([
     Field('architectureDocRequired', bool, 'Architecture Doc Required',
         hint: 'Architecture documentation required'),
     Field('diagramsRequired', String, 'Diagrams Required',
         hint: 'Required diagram types'),
     Field('readmeRequired', bool, 'README Required',
         hint: 'README required for each package/module'),
+  ])
+  String? content;
+}
 
-    // Changelog and versioning
+/// Changelog and versioning requirements.
+class DocumentationStandardsVersioning {
+  @Form([
     Field('changelogRequired', bool, 'Changelog Required',
         hint: 'Changelog must be maintained'),
     Field('changelogFormat', String, 'Changelog Format',
         hint: 'Keep a Changelog, custom format'),
     Field('versioningScheme', String, 'Versioning Scheme',
         hint: 'Semantic versioning, CalVer'),
+  ])
+  String? content;
+}
 
-    // Review process
+/// Review and publication settings.
+class DocumentationStandardsProcess {
+  @Form([
     Field('docReviewRequired', bool, 'Doc Review Required',
         hint: 'Documentation changes require review'),
     Field('technicalWriterReview', bool, 'Technical Writer Review',
         hint: 'Professional tech writer review'),
-
-    // Generation
     Field('docGenerationTool', String, 'Doc Generation Tool',
         hint: 'Tool for generating documentation'),
     Field('publishingLocation', String, 'Publishing Location',
@@ -3062,22 +3271,44 @@ class DeploymentEnvironmentEntry {
 /// Code review process configuration.
 class CodeReviewProcess {
   @Form([
-    // Pull requests
     Field('prRequired', bool, 'PR Required', hint: 'All changes via PR'),
     Field('prTemplate', String, 'PR Template', hint: 'Pull request template'),
     Field('prNamingConvention', String, 'PR Naming Convention',
         hint: 'PR title format'),
     Field('draftPrSupport', bool, 'Draft PR Support', hint: 'Use draft PRs'),
+  ])
+  String? content;
 
-    // Review requirements
+  /// Reviewer requirements.
+  CodeReviewProcessRequirements requirements =
+      CodeReviewProcessRequirements();
+
+  /// Review workflow.
+  CodeReviewProcessWorkflow workflow = CodeReviewProcessWorkflow();
+
+  /// Automation requirements.
+  CodeReviewProcessAutomation automation = CodeReviewProcessAutomation();
+
+  /// Merge policy.
+  CodeReviewProcessMerge merge = CodeReviewProcessMerge();
+}
+
+/// Reviewer requirements.
+class CodeReviewProcessRequirements {
+  @Form([
     Field('minimumReviewers', String, 'Minimum Reviewers',
         hint: 'Required number of approvals'),
     Field('codeOwners', String, 'Code Owners',
         hint: 'CODEOWNERS file usage'),
     Field('automaticReviewerAssignment', String, 'Auto-Assignment',
         hint: 'How reviewers are assigned'),
+  ])
+  String? content;
+}
 
-    // Review process
+/// Review workflow.
+class CodeReviewProcessWorkflow {
+  @Form([
     Field('reviewChecklist', String, 'Review Checklist',
         hint: 'Standard review checklist'),
     Field('inlineComments', bool, 'Inline Comments Required',
@@ -3086,8 +3317,13 @@ class CodeReviewProcess {
         hint: 'Format for code suggestions'),
     Field('discussionResolution', String, 'Discussion Resolution',
         hint: 'How discussions are resolved'),
+  ])
+  String? content;
+}
 
-    // Automation
+/// Automation requirements.
+class CodeReviewProcessAutomation {
+  @Form([
     Field('automatedChecks', String, 'Automated Checks',
         hint: 'Required automated checks'),
     Field('lintingRequired', bool, 'Linting Required',
@@ -3095,8 +3331,13 @@ class CodeReviewProcess {
     Field('testsRequired', bool, 'Tests Required', hint: 'Tests must pass'),
     Field('coverageThreshold', String, 'Coverage Threshold',
         hint: 'Minimum coverage for approval'),
+  ])
+  String? content;
+}
 
-    // Merge
+/// Merge policy.
+class CodeReviewProcessMerge {
+  @Form([
     Field('mergeStrategy', String, 'Merge Strategy',
         hint: 'Squash, merge, rebase'),
     Field('deleteSourceBranch', bool, 'Delete Source Branch',
@@ -3319,47 +3560,91 @@ class DeveloperOnboarding {
 /// Development quality gates and metrics.
 class DevelopmentQualityGates {
   @Form([
-    // Code quality
     Field('staticAnalysis', String, 'Static Analysis',
         hint: 'Required static analysis tools'),
     Field('linterConfiguration', String, 'Linter Configuration',
         hint: 'Linter rules and configuration'),
     Field('formatterConfiguration', String, 'Formatter Configuration',
         hint: 'Code formatter settings'),
+  ])
+  String? content;
 
-    // Coverage
+  /// Coverage requirements.
+  DevelopmentQualityGatesCoverage coverage =
+      DevelopmentQualityGatesCoverage();
+
+  /// Complexity thresholds.
+  DevelopmentQualityGatesComplexity complexity =
+      DevelopmentQualityGatesComplexity();
+
+  /// Security checks.
+  DevelopmentQualityGatesSecurity security =
+      DevelopmentQualityGatesSecurity();
+
+  /// Documentation requirements.
+  DevelopmentQualityGatesDocumentation documentation =
+      DevelopmentQualityGatesDocumentation();
+
+  /// Performance checks.
+  DevelopmentQualityGatesPerformance performance =
+      DevelopmentQualityGatesPerformance();
+}
+
+/// Coverage requirements.
+class DevelopmentQualityGatesCoverage {
+  @Form([
     Field('unitTestCoverageMinimum', String, 'Unit Test Coverage Minimum',
         hint: 'Minimum unit test coverage'),
     Field('integrationTestRequirement', String, 'Integration Test Requirement',
         hint: 'Integration test requirements'),
     Field('coverageExclusions', String, 'Coverage Exclusions',
         hint: 'What is excluded from coverage'),
+  ])
+  String? content;
+}
 
-    // Complexity
+/// Complexity thresholds.
+class DevelopmentQualityGatesComplexity {
+  @Form([
     Field('complexityThresholds', String, 'Complexity Thresholds',
         hint: 'Max cyclomatic complexity'),
     Field('fileSizeLimit', String, 'File Size Limit',
         hint: 'Maximum lines per file'),
     Field('functionSizeLimit', String, 'Function Size Limit',
         hint: 'Maximum lines per function'),
+  ])
+  String? content;
+}
 
-    // Security
+/// Security checks.
+class DevelopmentQualityGatesSecurity {
+  @Form([
     Field('dependencyScanning', String, 'Dependency Scanning',
         hint: 'Vulnerability scanning'),
     Field('secretsScanning', bool, 'Secrets Scanning',
         hint: 'Check for leaked secrets'),
     Field('licenseCompliance', String, 'License Compliance',
         hint: 'OSS license checking'),
+  ])
+  String? content;
+}
 
-    // Documentation
+/// Documentation requirements.
+class DevelopmentQualityGatesDocumentation {
+  @Form([
     Field('apiDocumentation', String, 'API Documentation',
         hint: 'Required API documentation'),
     Field('changelogRequired', bool, 'Changelog Required',
         hint: 'Must update changelog'),
     Field('readmeRequired', bool, 'README Required',
         hint: 'README for new features'),
+  ])
+  String? content;
+}
 
-    // Performance
+/// Performance checks.
+class DevelopmentQualityGatesPerformance {
+  @Form([
     Field('performanceBudgets', String, 'Performance Budgets',
         hint: 'Performance constraints'),
     Field('bundleSizeLimit', String, 'Bundle Size Limit',
