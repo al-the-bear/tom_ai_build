@@ -2712,11 +2712,29 @@ class ReportScheduleEntry {
         hint: 'Human-readable name, e.g. Monthly Financial Close',
         required: true),
     Field('frequency', String, 'Frequency',
-        hint:
-            'Daily / Weekly / Bi-weekly / Monthly / Quarterly / Semi-annually / Annually / On-demand / Event-triggered'),
+        hint: 'Daily / Weekly / Bi-weekly / Monthly / Quarterly / Semi-annually / Annually / On-demand / Event-triggered'),
+  ])
+  String? content;
+
+  /// Timing configuration.
+  ReportScheduleEntryTiming timing = ReportScheduleEntryTiming();
+
+  /// Retry configuration.
+  ReportScheduleEntryRetry retry = ReportScheduleEntryRetry();
+
+  /// Notification settings.
+  ReportScheduleEntryNotifications notifications =
+      ReportScheduleEntryNotifications();
+
+  /// Output configuration.
+  ReportScheduleEntryOutput output = ReportScheduleEntryOutput();
+}
+
+/// Timing configuration for report schedule.
+class ReportScheduleEntryTiming {
+  @Form([
     Field('scheduleExpression', String, 'Schedule Expression',
-        hint:
-            'Cron-like expression or recurrence rule, e.g. 0 6 1 * * (1st of month at 06:00)'),
+        hint: 'Cron-like expression or recurrence rule, e.g. 0 6 1 * * (1st of month at 06:00)'),
     Field('timezone', String, 'Timezone',
         hint: 'Timezone for schedule, e.g. Europe/Berlin'),
     Field('startDate', String, 'Start Date',
@@ -2727,28 +2745,46 @@ class ReportScheduleEntry {
         hint: 'Time window for generation, e.g. 02:00–06:00 (off-peak)'),
     Field('generationTimeout', String, 'Generation Timeout',
         hint: 'Max duration before timeout, e.g. 30min'),
+  ])
+  String? content;
+}
+
+/// Retry configuration for report schedule.
+class ReportScheduleEntryRetry {
+  @Form([
     Field('retryOnFailure', String, 'Retry On Failure', hint: 'Yes / No'),
     Field('maxRetries', int, 'Max Retries',
         hint: 'Number of retry attempts'),
     Field('retryDelay', String, 'Retry Delay',
         hint: 'Delay between retries, e.g. 5min / 15min / Exponential'),
+  ])
+  String? content;
+}
+
+/// Notification settings for report schedule.
+class ReportScheduleEntryNotifications {
+  @Form([
     Field('notifyOnCompletion', String, 'Notify On Completion',
         hint: 'Yes / No — send notification when report is ready'),
     Field('completionRecipients', String, 'Completion Recipients',
-        hint:
-            'Recipients for completion notification (if different from report recipients)'),
+        hint: 'Recipients for completion notification (if different from report recipients)'),
     Field('notifyOnFailure', String, 'Notify On Failure',
         hint: 'Yes / No — send alert on generation failure'),
     Field('failureRecipients', String, 'Failure Recipients',
         hint: 'Recipients for failure alerts'),
+  ])
+  String? content;
+}
+
+/// Output configuration for report schedule.
+class ReportScheduleEntryOutput {
+  @Form([
     Field('filterOverrides', String, 'Filter Overrides',
-        hint:
-            'Parameter values for scheduled run, e.g. dateRange=last_month'),
+        hint: 'Parameter values for scheduled run, e.g. dateRange=last_month'),
     Field('outputFormat', String, 'Output Format',
         hint: 'Override format for this schedule, e.g. PDF'),
     Field('outputDestination', String, 'Output Destination',
-        hint:
-            'Where to store generated output: Archive / File-Share / Dashboard / S3-Bucket'),
+        hint: 'Where to store generated output: Archive / File-Share / Dashboard / S3-Bucket'),
     Field('priority', String, 'Priority',
         hint: 'Low / Normal / High / Critical — queue priority'),
     Field('enabled', String, 'Enabled',
@@ -3337,51 +3373,26 @@ class SystemErrorDisplay {
   // System Error Handling
   // ─────────────────────────────────────────────────────────────────────────
   @Form([
-    // Error types
     Field('networkErrorHandling', String, 'Network Error Handling',
         hint: 'How connectivity issues are displayed'),
-    Field('serverErrorHandling', String, 'Server Error Handling',
-        hint: 'How 5xx errors are presented'),
-    Field('timeoutHandling', String, 'Timeout Handling',
-        hint: 'How request timeouts are displayed'),
-    Field('authenticationErrorHandling', String, 'Authentication Error',
-        hint: 'Session expired, unauthorized'),
-    Field('permissionErrorHandling', String, 'Permission Error',
-        hint: 'Forbidden access display'),
-    Field('maintenanceModeHandling', String, 'Maintenance Mode',
-        hint: 'Scheduled downtime display'),
-    // Display method
     Field('systemErrorDisplayMethod', String, 'Display Method',
         hint: 'Modal, snackbar, banner, full-page'),
-    Field('errorModalStyle', String, 'Error Modal Style',
-        hint: 'Dialog design for error modals'),
-    Field('snackbarPosition', String, 'Snackbar Position',
-        hint: 'Bottom, top, bottom-left, top-right'),
-    Field('snackbarDuration', String, 'Snackbar Duration',
-        hint: 'Auto-dismiss time or persistent'),
-    Field('bannerPosition', String, 'Banner Position',
-        hint: 'Top of page, top of content'),
-    Field('fullPageErrorTemplate', String, 'Full Page Error Template',
-        hint: 'Design for full-page errors (500, 503)'),
-    // Content
-    Field('showTechnicalDetails', bool, 'Show Technical Details',
-        hint: 'Display error codes, request IDs'),
-    Field('showRetryOption', bool, 'Show Retry Option'),
-    Field('showContactSupport', bool, 'Show Contact Support'),
-    Field('showStatusPageLink', bool, 'Show Status Page Link'),
-    Field('offlineModeMessage', String, 'Offline Mode Message',
-        hint: 'Message when app detects offline state'),
-    // Fallback behavior
     Field('gracefulDegradation', String, 'Graceful Degradation',
         hint: 'How features degrade on partial failure'),
-    Field('cachedDataFallback', String, 'Cached Data Fallback',
-        hint: 'Show stale data with indicator'),
-    Field('retryStrategy', String, 'Retry Strategy',
-        hint: 'Automatic retry with backoff'),
-    Field('maxRetryAttempts', int, 'Max Retry Attempts'),
-    Field('retryDelaySeconds', int, 'Retry Delay (seconds)'),
   ])
   String? systemErrorContent;
+
+  /// Error type handling configuration.
+  SystemErrorDisplayErrorTypes errorTypes = SystemErrorDisplayErrorTypes();
+
+  /// Display method settings.
+  SystemErrorDisplayMethods displayMethods = SystemErrorDisplayMethods();
+
+  /// Content options.
+  SystemErrorDisplayContent displayContent = SystemErrorDisplayContent();
+
+  /// Fallback behavior.
+  SystemErrorDisplayFallback fallback = SystemErrorDisplayFallback();
 
   /// System error display narrative.
   @ContentHelp('Detailed specification of system error presentation '
@@ -3396,6 +3407,67 @@ class SystemErrorDisplay {
   /// Error codes catalog.
   @SectionIdPattern('PD00-USE-ERR-SYS-CODE-xx')
   List<SystemErrorCodeEntry> errorCodes = [];
+}
+
+/// Error type handling configuration.
+class SystemErrorDisplayErrorTypes {
+  @Form([
+    Field('serverErrorHandling', String, 'Server Error Handling',
+        hint: 'How 5xx errors are presented'),
+    Field('timeoutHandling', String, 'Timeout Handling',
+        hint: 'How request timeouts are displayed'),
+    Field('authenticationErrorHandling', String, 'Authentication Error',
+        hint: 'Session expired, unauthorized'),
+    Field('permissionErrorHandling', String, 'Permission Error',
+        hint: 'Forbidden access display'),
+    Field('maintenanceModeHandling', String, 'Maintenance Mode',
+        hint: 'Scheduled downtime display'),
+  ])
+  String? content;
+}
+
+/// Display method settings for system errors.
+class SystemErrorDisplayMethods {
+  @Form([
+    Field('errorModalStyle', String, 'Error Modal Style',
+        hint: 'Dialog design for error modals'),
+    Field('snackbarPosition', String, 'Snackbar Position',
+        hint: 'Bottom, top, bottom-left, top-right'),
+    Field('snackbarDuration', String, 'Snackbar Duration',
+        hint: 'Auto-dismiss time or persistent'),
+    Field('bannerPosition', String, 'Banner Position',
+        hint: 'Top of page, top of content'),
+    Field('fullPageErrorTemplate', String, 'Full Page Error Template',
+        hint: 'Design for full-page errors (500, 503)'),
+  ])
+  String? content;
+}
+
+/// Content options for system error display.
+class SystemErrorDisplayContent {
+  @Form([
+    Field('showTechnicalDetails', bool, 'Show Technical Details',
+        hint: 'Display error codes, request IDs'),
+    Field('showRetryOption', bool, 'Show Retry Option'),
+    Field('showContactSupport', bool, 'Show Contact Support'),
+    Field('showStatusPageLink', bool, 'Show Status Page Link'),
+    Field('offlineModeMessage', String, 'Offline Mode Message',
+        hint: 'Message when app detects offline state'),
+  ])
+  String? content;
+}
+
+/// Fallback behavior for system errors.
+class SystemErrorDisplayFallback {
+  @Form([
+    Field('cachedDataFallback', String, 'Cached Data Fallback',
+        hint: 'Show stale data with indicator'),
+    Field('retryStrategy', String, 'Retry Strategy',
+        hint: 'Automatic retry with backoff'),
+    Field('maxRetryAttempts', int, 'Max Retry Attempts'),
+    Field('retryDelaySeconds', int, 'Retry Delay (seconds)'),
+  ])
+  String? content;
 }
 
 /// A system error code entry [PD00-USE-ERR-SYS-CODE-nn].

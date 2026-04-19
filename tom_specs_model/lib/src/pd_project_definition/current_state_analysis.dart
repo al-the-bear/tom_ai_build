@@ -1804,59 +1804,86 @@ class GapEntry {
   @Form([
     Field('gapName', String, 'Gap Name',
         hint: 'Concise name for the identified gap', required: true),
-    Field('description', String, 'Description',
-        hint: 'Detailed description of what is missing or inadequate'),
     Field('gapCategory', String, 'Gap Category',
-        hint:
-            'Functional / Process / Data / Integration / Compliance / Security / Performance / Usability'),
+        hint: 'Functional / Process / Data / Integration / Compliance / Security / Performance / Usability'),
     Field('severity', String, 'Severity',
         hint: 'Critical / High / Medium / Low'),
+  ])
+  String? content;
+
+  /// Gap description and business impact.
+  GapEntryDescription description = GapEntryDescription();
+
+  /// Discovery and validation.
+  GapEntryDiscovery discovery = GapEntryDiscovery();
+
+  /// Current workarounds.
+  GapEntryWorkaround workaround = GapEntryWorkaround();
+
+  /// Resolution planning.
+  GapEntryResolution resolution = GapEntryResolution();
+}
+
+/// Gap description and business impact.
+class GapEntryDescription {
+  @Form([
+    Field('description', String, 'Description',
+        hint: 'Detailed description of what is missing or inadequate'),
     Field('priority', String, 'Priority',
         hint: 'MustAddress / ShouldAddress / NiceToHave'),
     Field('businessImpact', String, 'Business Impact',
-        hint:
-            'How this gap affects business outcomes, revenue, or operations'),
+        hint: 'How this gap affects business outcomes, revenue, or operations'),
     Field('quantifiedCost', String, 'Quantified Cost of Gap',
-        hint:
-            'Estimated annual cost or productivity loss, e.g. ~€120k/year in manual processing'),
+        hint: 'Estimated annual cost or productivity loss, e.g. ~€120k/year in manual processing'),
     Field('affectedProcess', String, 'Affected Process',
         hint: 'Primary business process impacted by this gap'),
     Field('affectedStakeholders', String, 'Affected Stakeholders',
-        hint:
-            'Roles, departments, or external parties impacted'),
+        hint: 'Roles, departments, or external parties impacted'),
+  ])
+  String? content;
+}
+
+/// Discovery and validation for gap.
+class GapEntryDiscovery {
+  @Form([
     Field('complianceDriver', String, 'Regulatory/Compliance Driver',
-        hint:
-            'Regulation or standard making this gap critical, e.g. GDPR Art. 17, SOX Section 404'),
+        hint: 'Regulation or standard making this gap critical, e.g. GDPR Art. 17, SOX Section 404'),
     Field('discoveryMethod', String, 'Discovery Method',
-        hint:
-            'Audit / UserFeedback / Incident / ProcessReview / Benchmarking / RegulatoryChange'),
+        hint: 'Audit / UserFeedback / Incident / ProcessReview / Benchmarking / RegulatoryChange'),
     Field('gapAge', String, 'Gap Age',
-        hint:
-            'How long this gap has been known, e.g. Since 2023-Q2, 18 months'),
+        hint: 'How long this gap has been known, e.g. Since 2023-Q2, 18 months'),
     Field('validationStatus', String, 'Validation Status',
         hint: 'Identified / Confirmed / Quantified / Accepted'),
     Field('relatedPainPoints', String, 'Related Pain Points',
-        hint:
-            'References to pain point entries that stem from this gap'),
+        hint: 'References to pain point entries that stem from this gap'),
+  ])
+  String? content;
+}
+
+/// Current workarounds for gap.
+class GapEntryWorkaround {
+  @Form([
     Field('interimWorkaround', String, 'Interim Workaround',
         hint: 'Current workaround in place and its limitations'),
     Field('workaroundCost', String, 'Workaround Cost',
-        hint:
-            'Cost or effort of maintaining the workaround, e.g. 2 FTE hours/week'),
+        hint: 'Cost or effort of maintaining the workaround, e.g. 2 FTE hours/week'),
     Field('riskIfNotAddressed', String, 'Risk if Not Addressed',
-        hint:
-            'Consequences and risk level if gap remains unresolved'),
+        hint: 'Consequences and risk level if gap remains unresolved'),
+  ])
+  String? content;
+}
+
+/// Resolution planning for gap.
+class GapEntryResolution {
+  @Form([
     Field('proposedResolution', String, 'Proposed Resolution',
         hint: 'High-level approach to closing the gap'),
     Field('expectedTimeline', String, 'Expected Resolution Timeline',
-        hint:
-            'Target timeframe, e.g. Phase 1 — Q3 2026, 6-9 months'),
+        hint: 'Target timeframe, e.g. Phase 1 — Q3 2026, 6-9 months'),
     Field('successCriteria', String, 'Success Criteria',
-        hint:
-            'Measurable criteria that confirm the gap is closed'),
+        hint: 'Measurable criteria that confirm the gap is closed'),
     Field('dependsOnGaps', String, 'Depends on Other Gaps',
-        hint:
-            'Other gaps that must be resolved first, by name or ID'),
+        hint: 'Other gaps that must be resolved first, by name or ID'),
   ])
   String? content;
 }

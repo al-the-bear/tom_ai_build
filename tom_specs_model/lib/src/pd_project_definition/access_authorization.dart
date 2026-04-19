@@ -1117,66 +1117,104 @@ class SingleSignOnPolicy {
 class SelfRegistrationPolicy {
   @Form([
     Field('selfRegistrationEnabled', String, 'Self-Registration Enabled',
-        hint:
-            'Yes / No / InviteOnly — whether users can create their own identity'),
+        hint: 'Yes / No / InviteOnly — whether users can create their own identity'),
     Field('registrationFlowType', String, 'Registration Flow Type',
-        hint:
-            'SingleStep / MultiStep / Wizard / SocialOneTap / InvitationBased'),
+        hint: 'SingleStep / MultiStep / Wizard / SocialOneTap / InvitationBased'),
     Field('requiredFields', String, 'Required Fields',
-        hint:
-            'Fields required at registration, e.g. email, fullName, password, phone'),
+        hint: 'Fields required at registration, e.g. email, fullName, password, phone'),
+  ])
+  String? content;
+
+  /// Field configuration.
+  SelfRegistrationPolicyFields fields = SelfRegistrationPolicyFields();
+
+  /// Bot protection settings.
+  SelfRegistrationPolicyBotProtection botProtection =
+      SelfRegistrationPolicyBotProtection();
+
+  /// Verification requirements.
+  SelfRegistrationPolicyVerification verification =
+      SelfRegistrationPolicyVerification();
+
+  /// Approval workflow.
+  SelfRegistrationPolicyApproval approval = SelfRegistrationPolicyApproval();
+
+  /// Security restrictions.
+  SelfRegistrationPolicySecurity security = SelfRegistrationPolicySecurity();
+
+  /// Additional registration details (text).
+  TextSection registrationDetails = TextSection();
+}
+
+/// Field configuration for self-registration.
+class SelfRegistrationPolicyFields {
+  @Form([
     Field('optionalFields', String, 'Optional Fields',
-        hint:
-            'Fields available but not required, e.g. organization, jobTitle, avatar'),
+        hint: 'Fields available but not required, e.g. organization, jobTitle, avatar'),
+    Field('termsAcceptanceRequired', String, 'Terms Acceptance Required',
+        hint: 'Yes / No — whether ToS/privacy policy acceptance is required'),
+  ])
+  String? content;
+}
+
+/// Bot protection settings for self-registration.
+class SelfRegistrationPolicyBotProtection {
+  @Form([
     Field('captchaRequired', String, 'Captcha Required',
         hint: 'Yes / No / Adaptive — whether CAPTCHA/bot protection is required'),
     Field('captchaProvider', String, 'Captcha Provider',
         hint: 'reCAPTCHAv2 / reCAPTCHAv3 / hCaptcha / Turnstile / Custom'),
+  ])
+  String? content;
+}
+
+/// Verification requirements for self-registration.
+class SelfRegistrationPolicyVerification {
+  @Form([
     Field('emailVerificationRequired', String, 'Email Verification Required',
-        hint:
-            'Yes / No — whether email must be verified before account is active'),
+        hint: 'Yes / No — whether email must be verified before account is active'),
     Field('emailVerificationMethod', String, 'Email Verification Method',
         hint: 'ClickLink / EnterCode / MagicLink'),
     Field('phoneVerificationRequired', String, 'Phone Verification Required',
         hint: 'Yes / No — whether phone must be verified'),
     Field('phoneVerificationMethod', String, 'Phone Verification Method',
         hint: 'SMS / VoiceCall / WhatsApp'),
+  ])
+  String? content;
+}
+
+/// Approval workflow for self-registration.
+class SelfRegistrationPolicyApproval {
+  @Form([
     Field('approvalRequired', String, 'Approval Required',
-        hint:
-            'Yes / No / Conditional — whether admin approval is needed before activation'),
+        hint: 'Yes / No / Conditional — whether admin approval is needed before activation'),
     Field('approvalWorkflow', String, 'Approval Workflow',
-        hint:
-            'SingleApprover / DualApproval / ManagerApproval / AutoApprove'),
+        hint: 'SingleApprover / DualApproval / ManagerApproval / AutoApprove'),
     Field('defaultRole', String, 'Default Role',
-        hint:
-            'Role assigned to newly self-registered users, e.g. BasicUser, Viewer, Pending'),
+        hint: 'Role assigned to newly self-registered users, e.g. BasicUser, Viewer, Pending'),
     Field('defaultGroup', String, 'Default Group',
         hint: 'Group assigned to newly self-registered users'),
-    Field('termsAcceptanceRequired', String, 'Terms Acceptance Required',
-        hint:
-            'Yes / No — whether ToS/privacy policy acceptance is required'),
+    Field('accountActivationDelay', String, 'Account Activation Delay',
+        hint: 'Delay between registration and account becoming usable, e.g. immediate, afterVerification, 24h'),
+    Field('welcomeNotification', String, 'Welcome Notification',
+        hint: 'Yes / No — whether a welcome email/message is sent after registration'),
+  ])
+  String? content;
+}
+
+/// Security restrictions for self-registration.
+class SelfRegistrationPolicySecurity {
+  @Form([
     Field('allowedEmailDomains', String, 'Allowed Email Domains',
-        hint:
-            'Domain restrictions for registration, e.g. *, company.com, *.edu'),
+        hint: 'Domain restrictions for registration, e.g. *, company.com, *.edu'),
     Field('blockedEmailDomains', String, 'Blocked Email Domains',
-        hint:
-            'Domains blocked from registration, e.g. tempmail.com, guerrillamail.com'),
+        hint: 'Domains blocked from registration, e.g. tempmail.com, guerrillamail.com'),
     Field('duplicateDetectionMethod', String, 'Duplicate Detection Method',
         hint: 'EmailUniqueness / PhoneUniqueness / NameFuzzyMatch / None'),
     Field('rateLimiting', String, 'Rate Limiting',
-        hint:
-            'Registration rate limits, e.g. 5/hour per IP, 10/day per domain'),
-    Field('accountActivationDelay', String, 'Account Activation Delay',
-        hint:
-            'Delay between registration and account becoming usable, e.g. immediate, afterVerification, 24h'),
-    Field('welcomeNotification', String, 'Welcome Notification',
-        hint:
-            'Yes / No — whether a welcome email/message is sent after registration'),
+        hint: 'Registration rate limits, e.g. 5/hour per IP, 10/day per domain'),
   ])
   String? content;
-
-  /// Additional registration details (text).
-  TextSection registrationDetails = TextSection();
 }
 
 /// An identity attribute mapping entry (form) [PD00-ACC-IDE-IDN-MAP-nn].

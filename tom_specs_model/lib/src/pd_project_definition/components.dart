@@ -457,32 +457,75 @@ class ComponentInterfaceEntry {
     Field('interfaceName', String, 'Interface Name',
         hint: 'Human-readable name, e.g. Order Service REST API'),
     Field('interfaceType', String, 'Interface Type',
-        hint:
-            'REST / GraphQL / gRPC / WebSocket / MessageQueue / SDK / CLI / File'),
+        hint: 'REST / GraphQL / gRPC / WebSocket / MessageQueue / SDK / CLI / File'),
     Field('protocol', String, 'Protocol',
         hint: 'HTTP/1.1 / HTTP/2 / AMQP / MQTT / TCP / UDP'),
+  ])
+  String? content;
+
+  /// Network configuration.
+  ComponentInterfaceEntryNetwork network = ComponentInterfaceEntryNetwork();
+
+  /// Security settings.
+  ComponentInterfaceEntrySecurity security = ComponentInterfaceEntrySecurity();
+
+  /// Data format configuration.
+  ComponentInterfaceEntryData data = ComponentInterfaceEntryData();
+
+  /// SLA and monitoring.
+  ComponentInterfaceEntrySla sla = ComponentInterfaceEntrySla();
+
+  /// Operations and documentation.
+  ComponentInterfaceEntryOperations operations =
+      ComponentInterfaceEntryOperations();
+}
+
+/// Network configuration for component interface.
+class ComponentInterfaceEntryNetwork {
+  @Form([
     Field('port', int, 'Default Port',
         hint: 'Default network port, e.g. 443, 5432, 6379'),
     Field('basePath', String, 'Base Path / Endpoint',
         hint: 'Root URL or queue name, e.g. /api/v2, orders.events'),
+    Field('rateLimitRequests', int, 'Rate Limit (req/min)',
+        hint: 'Maximum requests per minute allowed'),
+  ])
+  String? content;
+}
+
+/// Security settings for component interface.
+class ComponentInterfaceEntrySecurity {
+  @Form([
     Field('authenticationMethod', String, 'Authentication',
         hint: 'OAuth2 / APIKey / mTLS / SAML / BasicAuth / None'),
     Field('authorizationModel', String, 'Authorization Model',
-        hint:
-            'RBAC / ABAC / ScopeBased / ACL — how permissions are enforced'),
+        hint: 'RBAC / ABAC / ScopeBased / ACL — how permissions are enforced'),
+    Field('tlsRequired', String, 'TLS Requirement',
+        hint: 'Required / Optional / NotSupported, minimum TLS version'),
+  ])
+  String? content;
+}
+
+/// Data format configuration for component interface.
+class ComponentInterfaceEntryData {
+  @Form([
     Field('dataFormatRequest', String, 'Request Format',
         hint: 'JSON / XML / Protobuf / Avro / CSV / Binary'),
     Field('dataFormatResponse', String, 'Response Format',
         hint: 'JSON / XML / Protobuf / Avro / CSV / Binary'),
-    Field('rateLimitRequests', int, 'Rate Limit (req/min)',
-        hint: 'Maximum requests per minute allowed'),
     Field('versioningScheme', String, 'Versioning Scheme',
         hint: 'URLPath / Header / QueryParam / ContentNegotiation'),
     Field('currentApiVersion', String, 'Current API Version',
         hint: 'Currently active version, e.g. v2.3'),
     Field('backwardCompatibility', String, 'Backward Compatibility Policy',
-        hint:
-            'How breaking changes are handled and communicated'),
+        hint: 'How breaking changes are handled and communicated'),
+  ])
+  String? content;
+}
+
+/// SLA and monitoring for component interface.
+class ComponentInterfaceEntrySla {
+  @Form([
     Field('slaAvailability', String, 'Availability SLA',
         hint: 'Target uptime, e.g. 99.95%'),
     Field('slaLatencyP99', String, 'P99 Latency SLA',
@@ -491,11 +534,15 @@ class ComponentInterfaceEntry {
         hint: 'URL or mechanism for liveness/readiness probes'),
     Field('monitoringEndpoint', String, 'Metrics Endpoint',
         hint: 'Prometheus, StatsD, or custom metrics endpoint'),
+  ])
+  String? content;
+}
+
+/// Operations and documentation for component interface.
+class ComponentInterfaceEntryOperations {
+  @Form([
     Field('retryPolicy', String, 'Recommended Retry Policy',
-        hint:
-            'Exponential backoff params, max retries, idempotency'),
-    Field('tlsRequired', String, 'TLS Requirement',
-        hint: 'Required / Optional / NotSupported, minimum TLS version'),
+        hint: 'Exponential backoff params, max retries, idempotency'),
     Field('documentationUrl', String, 'API Documentation URL',
         hint: 'Link to OpenAPI spec, SDK docs, or integration guide'),
     Field('description', String, 'Description',
@@ -980,11 +1027,39 @@ class ComponentRiskEntry {
         hint: 'Component ID this risk applies to'),
     Field('riskTitle', String, 'Risk Title',
         hint: 'Short descriptive name'),
+  ])
+  String? content;
+
+  /// Risk description and categorization.
+  ComponentRiskEntryDescription description = ComponentRiskEntryDescription();
+
+  /// Risk assessment.
+  ComponentRiskEntryAssessment assessment = ComponentRiskEntryAssessment();
+
+  /// Detection and monitoring.
+  ComponentRiskEntryDetection detection = ComponentRiskEntryDetection();
+
+  /// Mitigation strategy.
+  ComponentRiskEntryMitigation mitigation = ComponentRiskEntryMitigation();
+
+  /// Governance and ownership.
+  ComponentRiskEntryGovernance governance = ComponentRiskEntryGovernance();
+}
+
+/// Risk description and categorization.
+class ComponentRiskEntryDescription {
+  @Form([
     Field('riskDescription', String, 'Risk Description',
         hint: 'Detailed explanation of the risk scenario'),
     Field('riskCategory', String, 'Risk Category',
-        hint:
-            'Technical / Vendor / Security / Compliance / Operational / Financial'),
+        hint: 'Technical / Vendor / Security / Compliance / Operational / Financial'),
+  ])
+  String? content;
+}
+
+/// Risk assessment for component risk.
+class ComponentRiskEntryAssessment {
+  @Form([
     Field('probability', String, 'Probability',
         hint: 'VeryLow / Low / Medium / High / VeryHigh'),
     Field('impact', String, 'Business Impact',
@@ -992,38 +1067,52 @@ class ComponentRiskEntry {
     Field('riskScore', int, 'Risk Score',
         hint: 'Calculated score (probability × impact)'),
     Field('riskTrend', String, 'Risk Trend',
-        hint:
-            'Increasing / Stable / Decreasing — direction since last review'),
+        hint: 'Increasing / Stable / Decreasing — direction since last review'),
+  ])
+  String? content;
+}
+
+/// Detection and monitoring for component risk.
+class ComponentRiskEntryDetection {
+  @Form([
     Field('detectionMethod', String, 'Detection Method',
         hint: 'How we would know this risk is materializing'),
     Field('earlyWarningIndicators', String, 'Early Warning Indicators',
-        hint:
-            'Metrics or signals that precede this risk event'),
+        hint: 'Metrics or signals that precede this risk event'),
     Field('monitoringMechanism', String, 'Monitoring',
-        hint:
-            'Dashboards, alerts, or scans that track this risk'),
+        hint: 'Dashboards, alerts, or scans that track this risk'),
+  ])
+  String? content;
+}
+
+/// Mitigation strategy for component risk.
+class ComponentRiskEntryMitigation {
+  @Form([
     Field('mitigationStrategy', String, 'Mitigation Strategy',
         hint: 'Actions to reduce probability or impact'),
     Field('mitigationStatus', String, 'Mitigation Status',
-        hint:
-            'NotStarted / InProgress / Implemented / Verified'),
+        hint: 'NotStarted / InProgress / Implemented / Verified'),
     Field('mitigationCost', String, 'Mitigation Cost',
         hint: 'Budget required to implement mitigation'),
     Field('residualRisk', String, 'Residual Risk Level',
-        hint:
-            'Risk level remaining after mitigation — Low / Medium / High'),
+        hint: 'Risk level remaining after mitigation — Low / Medium / High'),
+    Field('contingencyTrigger', String, 'Contingency Trigger',
+        hint: 'Condition activating the contingency plan, e.g. No release for 12 months'),
+  ])
+  String? content;
+}
+
+/// Governance and ownership for component risk.
+class ComponentRiskEntryGovernance {
+  @Form([
     Field('riskOwner', String, 'Risk Owner',
         hint: 'Person accountable for managing this risk'),
     Field('reviewFrequency', String, 'Review Frequency',
         hint: 'How often this risk is reassessed'),
-    Field('contingencyTrigger', String, 'Contingency Trigger',
-        hint:
-            'Condition activating the contingency plan, e.g. No release for 12 months'),
     Field('relatedRisks', String, 'Related Risks',
         hint: 'Other risk IDs that correlate or cascade'),
     Field('acceptanceCriteria', String, 'Risk Acceptance Criteria',
-        hint:
-            'Under what conditions is this risk formally accepted'),
+        hint: 'Under what conditions is this risk formally accepted'),
   ])
   String? content;
 }
