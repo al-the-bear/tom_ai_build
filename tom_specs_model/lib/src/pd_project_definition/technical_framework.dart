@@ -1469,47 +1469,89 @@ class ScalabilityArchitectureTesting {
 /// Integration architecture with external systems.
 class IntegrationArchitecture {
   @Form([
-    // Integration strategy
     Field('integrationStrategy', String, 'Integration Strategy',
         hint: 'Point-to-point, Hub-and-spoke, ESB, API-led'),
     Field('integrationPatterns', String, 'Integration Patterns',
         hint: 'Adapters, Facades, Gateways'),
     Field('apiManagement', String, 'API Management',
         hint: 'How APIs are managed'),
+  ])
+  String? content;
 
-    // External systems
+  /// External system landscape.
+  IntegrationArchitectureSystems systems = IntegrationArchitectureSystems();
+
+  /// Data exchange approach.
+  IntegrationArchitectureData data = IntegrationArchitectureData();
+
+  /// Security model for integrations.
+  IntegrationArchitectureSecurity security =
+      IntegrationArchitectureSecurity();
+
+  /// Reliability controls.
+  IntegrationArchitectureReliability reliability =
+      IntegrationArchitectureReliability();
+
+  /// Monitoring and SLA management.
+  IntegrationArchitectureOperations operations =
+      IntegrationArchitectureOperations();
+}
+
+/// External system landscape.
+class IntegrationArchitectureSystems {
+  @Form([
     Field('externalSystemCount', String, 'External System Count',
         hint: 'Number of external integrations'),
     Field('integrationTypes', String, 'Integration Types',
         hint: 'REST, SOAP, File, Database, Events'),
     Field('realTimeIntegrations', String, 'Real-Time Integrations',
         hint: 'Integrations requiring real-time sync'),
+  ])
+  String? content;
+}
 
-    // Data exchange
+/// Data exchange approach.
+class IntegrationArchitectureData {
+  @Form([
     Field('dataTransformation', String, 'Data Transformation',
         hint: 'How data is transformed between systems'),
     Field('masterDataManagement', String, 'Master Data Management',
         hint: 'How master data is managed across systems'),
     Field('dataSynchronization', String, 'Data Synchronization',
         hint: 'Synchronization patterns and frequency'),
+  ])
+  String? content;
+}
 
-    // Security
+/// Security model for integrations.
+class IntegrationArchitectureSecurity {
+  @Form([
     Field('authenticationApproach', String, 'Authentication Approach',
         hint: 'How integrations are authenticated'),
     Field('authorizationApproach', String, 'Authorization Approach',
         hint: 'How integrations are authorized'),
     Field('secureTransport', String, 'Secure Transport',
         hint: 'Transport security (TLS, VPN)'),
+  ])
+  String? content;
+}
 
-    // Reliability
+/// Reliability controls.
+class IntegrationArchitectureReliability {
+  @Form([
     Field('errorHandling', String, 'Error Handling',
         hint: 'How integration errors are handled'),
     Field('retryStrategy', String, 'Retry Strategy',
         hint: 'Retry policies for failed integrations'),
     Field('compensatingActions', String, 'Compensating Actions',
         hint: 'Actions when integration fails'),
+  ])
+  String? content;
+}
 
-    // Monitoring
+/// Monitoring and SLA management.
+class IntegrationArchitectureOperations {
+  @Form([
     Field('integrationMonitoring', String, 'Integration Monitoring',
         hint: 'How integrations are monitored'),
     Field('slaManagement', String, 'SLA Management',
@@ -1950,7 +1992,6 @@ class DevelopmentConventionEntry {
 /// Industry standard entry — compliance with industry standards.
 class IndustryStandardEntry {
   @Form([
-    // Identity
     Field('standardName', String, 'Standard Name',
         required: true, hint: 'E.g., ISO 27001, OWASP, IEEE 830, GDPR'),
     Field('standardBody', String, 'Standard Body',
@@ -1959,23 +2000,56 @@ class IndustryStandardEntry {
         hint: 'Version of the standard'),
     Field('publicationDate', String, 'Publication Date',
         hint: 'Standard publication date'),
-
-    // Scope
     Field('category', String, 'Category',
         required: true,
         hint: 'Security, Quality, Process, Documentation, Accessibility'),
-    Field('applicableAreas', String, 'Applicable Areas',
-        hint: 'Which parts of the system this applies to'),
-
-    // Compliance
     Field('complianceLevel', String, 'Compliance Level',
         required: true, hint: 'Full, Partial, Certified, In Progress'),
+  ])
+  String? content;
+
+  /// Scope details.
+  IndustryStandardEntryScope scope = IndustryStandardEntryScope();
+
+  /// Requirement applicability.
+  IndustryStandardEntryCompliance compliance =
+      IndustryStandardEntryCompliance();
+
+  /// Certification details.
+  IndustryStandardEntryCertification certification =
+      IndustryStandardEntryCertification();
+
+  /// Verification settings.
+  IndustryStandardEntryVerification verification =
+      IndustryStandardEntryVerification();
+
+  /// Reference metadata.
+  IndustryStandardEntryReference reference = IndustryStandardEntryReference();
+}
+
+/// Scope details.
+class IndustryStandardEntryScope {
+  @Form([
+    Field('applicableAreas', String, 'Applicable Areas',
+        hint: 'Which parts of the system this applies to'),
+  ])
+  String? content;
+}
+
+/// Requirement applicability.
+class IndustryStandardEntryCompliance {
+  @Form([
     Field('applicableRequirements', String, 'Applicable Requirements',
         hint: 'Specific sections or requirements that apply'),
     Field('excludedRequirements', String, 'Excluded Requirements',
         hint: 'Requirements that do not apply'),
+  ])
+  String? content;
+}
 
-    // Certification
+/// Certification details.
+class IndustryStandardEntryCertification {
+  @Form([
     Field('certificationRequired', bool, 'Certification Required',
         hint: 'Is formal certification required?'),
     Field('certificationBody', String, 'Certification Body',
@@ -1984,16 +2058,26 @@ class IndustryStandardEntry {
         hint: 'Scope of certification'),
     Field('certificationTarget', String, 'Certification Target Date',
         hint: 'Target date for certification'),
+  ])
+  String? content;
+}
 
-    // Verification
+/// Verification settings.
+class IndustryStandardEntryVerification {
+  @Form([
     Field('auditFrequency', String, 'Audit Frequency',
         hint: 'How often compliance is audited'),
     Field('verificationMethod', String, 'Verification Method',
         hint: 'How compliance is verified'),
     Field('evidenceRequired', String, 'Evidence Required',
         hint: 'Documentation required for compliance'),
+  ])
+  String? content;
+}
 
-    // Reference
+/// Reference metadata.
+class IndustryStandardEntryReference {
+  @Form([
     Field('referenceUrl', String, 'Reference URL',
         hint: 'Link to standard documentation'),
     Field('notes', String, 'Notes', hint: 'Additional compliance notes'),
@@ -2198,47 +2282,91 @@ class DocumentationStandardsProcess {
 /// Error handling and exception patterns.
 class ErrorHandlingStandards {
   @Form([
-    // Error handling philosophy
     Field('errorPhilosophy', String, 'Error Handling Philosophy',
         hint: 'Exceptions, Result types, Either, Error codes'),
     Field('failFastApproach', String, 'Fail-Fast Approach',
         hint: 'When and how to fail fast'),
     Field('gracefulDegradation', String, 'Graceful Degradation',
         hint: 'How to degrade gracefully'),
+  ])
+  String? content;
 
-    // Exception types
+  /// Exception type conventions.
+  ErrorHandlingStandardsExceptions exceptions =
+      ErrorHandlingStandardsExceptions();
+
+  /// Handling pattern defaults.
+  ErrorHandlingStandardsPatterns patterns =
+      ErrorHandlingStandardsPatterns();
+
+  /// Reporting standards.
+  ErrorHandlingStandardsReporting reporting =
+      ErrorHandlingStandardsReporting();
+
+  /// User-facing communication rules.
+  ErrorHandlingStandardsUserCommunication userCommunication =
+      ErrorHandlingStandardsUserCommunication();
+
+  /// Recovery guidance.
+  ErrorHandlingStandardsRecovery recovery =
+      ErrorHandlingStandardsRecovery();
+}
+
+/// Exception type conventions.
+class ErrorHandlingStandardsExceptions {
+  @Form([
     Field('exceptionHierarchy', String, 'Exception Hierarchy',
         hint: 'Base exception class structure'),
     Field('customExceptions', String, 'Custom Exceptions',
         hint: 'When to create custom exceptions'),
     Field('exceptionNaming', String, 'Exception Naming',
         hint: 'Naming convention for exceptions'),
+  ])
+  String? content;
+}
 
-    // Error handling patterns
+/// Handling pattern defaults.
+class ErrorHandlingStandardsPatterns {
+  @Form([
     Field('catchAllPolicy', String, 'Catch-All Policy',
         hint: 'Policy on catch-all handlers'),
     Field('retryPolicy', String, 'Retry Policy',
         hint: 'When and how to retry operations'),
     Field('circuitBreakerPolicy', String, 'Circuit Breaker Policy',
         hint: 'Circuit breaker implementation'),
+  ])
+  String? content;
+}
 
-    // Error reporting
+/// Reporting standards.
+class ErrorHandlingStandardsReporting {
+  @Form([
     Field('errorLogging', String, 'Error Logging',
         hint: 'How errors are logged'),
     Field('errorTracking', String, 'Error Tracking',
         hint: 'Error tracking service/approach'),
     Field('sensitiveDataHandling', String, 'Sensitive Data Handling',
         hint: 'How to handle sensitive data in errors'),
+  ])
+  String? content;
+}
 
-    // User communication
+/// User-facing communication rules.
+class ErrorHandlingStandardsUserCommunication {
+  @Form([
     Field('userErrorMessages', String, 'User Error Messages',
         hint: 'User-facing error message standards'),
     Field('errorCodes', String, 'Error Codes',
         hint: 'Error code format and catalog'),
     Field('localization', String, 'Localization',
         hint: 'Error message localization'),
+  ])
+  String? content;
+}
 
-    // Recovery
+/// Recovery guidance.
+class ErrorHandlingStandardsRecovery {
+  @Form([
     Field('recoveryStrategies', String, 'Recovery Strategies',
         hint: 'Standard recovery strategies'),
     Field('compensatingActions', String, 'Compensating Actions',
@@ -2898,45 +3026,85 @@ class DependencyInjectionStructure {
 /// Cross-cutting concerns organization.
 class CrossCuttingConcerns {
   @Form([
-    // Logging
     Field('loggingStrategy', String, 'Logging Strategy',
         hint: 'Centralized logging approach'),
     Field('logLevels', String, 'Log Levels',
         hint: 'Available log levels and usage'),
     Field('logFormat', String, 'Log Format', hint: 'Log message format'),
+  ])
+  String? content;
 
-    // Error handling
+  /// Error handling concerns.
+  CrossCuttingConcernsErrors errors = CrossCuttingConcernsErrors();
+
+  /// Security concerns.
+  CrossCuttingConcernsSecurity security = CrossCuttingConcernsSecurity();
+
+  /// Caching approach.
+  CrossCuttingConcernsCaching caching = CrossCuttingConcernsCaching();
+
+  /// Observability capabilities.
+  CrossCuttingConcernsObservability observability =
+      CrossCuttingConcernsObservability();
+
+  /// Other shared capabilities.
+  CrossCuttingConcernsShared shared = CrossCuttingConcernsShared();
+}
+
+/// Error handling concerns.
+class CrossCuttingConcernsErrors {
+  @Form([
     Field('errorHandlingStrategy', String, 'Error Handling Strategy',
         hint: 'Centralized error handling'),
     Field('errorReporting', String, 'Error Reporting',
         hint: 'How errors are reported/collected'),
     Field('userNotification', String, 'User Notification',
         hint: 'How users are notified of errors'),
+  ])
+  String? content;
+}
 
-    // Security
+/// Security concerns.
+class CrossCuttingConcernsSecurity {
+  @Form([
     Field('securityConcerns', String, 'Security Concerns',
         hint: 'Cross-cutting security aspects'),
     Field('authenticationIntegration', String, 'Authentication Integration',
         hint: 'How auth flows through layers'),
     Field('authorizationIntegration', String, 'Authorization Integration',
         hint: 'How authz is checked across layers'),
+  ])
+  String? content;
+}
 
-    // Caching
+/// Caching approach.
+class CrossCuttingConcernsCaching {
+  @Form([
     Field('cachingStrategy', String, 'Caching Strategy',
         hint: 'Cross-cutting caching approach'),
     Field('cacheInvalidation', String, 'Cache Invalidation',
         hint: 'How cache is invalidated'),
     Field('cacheLayers', String, 'Cache Layers',
         hint: 'Where caching is applied'),
+  ])
+  String? content;
+}
 
-    // Observability
+/// Observability capabilities.
+class CrossCuttingConcernsObservability {
+  @Form([
     Field('metricsCollection', String, 'Metrics Collection',
         hint: 'Performance and business metrics'),
     Field('tracing', String, 'Tracing', hint: 'Distributed tracing approach'),
     Field('healthChecks', String, 'Health Checks',
         hint: 'Health check implementation'),
+  ])
+  String? content;
+}
 
-    // Other
+/// Other shared capabilities.
+class CrossCuttingConcernsShared {
+  @Form([
     Field('localization', String, 'Localization',
         hint: 'i18n/l10n implementation'),
     Field('validation', String, 'Validation',
@@ -3686,46 +3854,87 @@ class LocalDevelopmentSetupTroubleshooting {
 /// Debugging configuration.
 class DebuggingConfiguration {
   @Form([
-    // Debugger
     Field('debuggerTool', String, 'Debugger Tool',
         hint: 'IDE debugger, DevTools, custom'),
     Field('debuggerConfiguration', String, 'Debugger Configuration',
         hint: 'Launch configurations'),
     Field('remoteDebugging', String, 'Remote Debugging',
         hint: 'Remote debugging setup'),
+  ])
+  String? content;
 
-    // Breakpoints
+  /// Breakpoint and watch setup.
+  DebuggingConfigurationBreakpoints breakpoints =
+      DebuggingConfigurationBreakpoints();
+
+  /// Logging setup for debugging.
+  DebuggingConfigurationLogging logging = DebuggingConfigurationLogging();
+
+  /// State and runtime inspection.
+  DebuggingConfigurationInspection inspection =
+      DebuggingConfigurationInspection();
+
+  /// Flutter-specific tooling.
+  DebuggingConfigurationFlutter flutter = DebuggingConfigurationFlutter();
+
+  /// Error tracking details.
+  DebuggingConfigurationErrors errors = DebuggingConfigurationErrors();
+}
+
+/// Breakpoint and watch setup.
+class DebuggingConfigurationBreakpoints {
+  @Form([
     Field('breakpointTypes', String, 'Breakpoint Types',
         hint: 'Line, conditional, exception breakpoints'),
     Field('logPoints', String, 'Log Points', hint: 'Non-breaking log points'),
     Field('watchExpressions', String, 'Watch Expressions',
         hint: 'Standard watch expressions'),
+  ])
+  String? content;
+}
 
-    // Logging
+/// Logging setup for debugging.
+class DebuggingConfigurationLogging {
+  @Form([
     Field('loggingConfiguration', String, 'Logging Configuration',
         hint: 'Debug logging setup'),
     Field('logLevels', String, 'Log Levels',
         hint: 'Available log levels'),
     Field('structuredLogging', bool, 'Structured Logging',
         hint: 'JSON/structured logs'),
+  ])
+  String? content;
+}
 
-    // Inspection
+/// State and runtime inspection.
+class DebuggingConfigurationInspection {
+  @Form([
     Field('stateInspection', String, 'State Inspection',
         hint: 'How to inspect app state'),
     Field('networkInspection', String, 'Network Inspection',
         hint: 'Network call debugging'),
     Field('performanceInspection', String, 'Performance Inspection',
         hint: 'Performance profiling tools'),
+  ])
+  String? content;
+}
 
-    // Flutter-specific
+/// Flutter-specific tooling.
+class DebuggingConfigurationFlutter {
+  @Form([
     Field('widgetInspector', String, 'Widget Inspector',
         hint: 'Flutter widget inspector'),
     Field('devToolsFeatures', String, 'DevTools Features',
         hint: 'Required DevTools features'),
     Field('repaintRainbow', bool, 'Repaint Rainbow',
         hint: 'Visual repaint debugging'),
+  ])
+  String? content;
+}
 
-    // Error tracking
+/// Error tracking details.
+class DebuggingConfigurationErrors {
+  @Form([
     Field('errorTrackingSetup', String, 'Error Tracking Setup',
         hint: 'Error tracking in development'),
     Field('crashReporting', String, 'Crash Reporting',
@@ -3786,47 +3995,87 @@ class EnvironmentManagement {
 /// Developer onboarding requirements.
 class DeveloperOnboarding {
   @Form([
-    // Documentation
     Field('onboardingGuide', String, 'Onboarding Guide',
         hint: 'Location of onboarding documentation'),
     Field('architectureOverview', String, 'Architecture Overview',
         hint: 'System architecture docs'),
     Field('codingStandardsDocs', String, 'Coding Standards Docs',
         hint: 'Where to find coding standards'),
+  ])
+  String? content;
 
-    // Setup
+  /// Setup expectations.
+  DeveloperOnboardingSetup setup = DeveloperOnboardingSetup();
+
+  /// Access provisioning.
+  DeveloperOnboardingAccess access = DeveloperOnboardingAccess();
+
+  /// Learning support.
+  DeveloperOnboardingLearning learning = DeveloperOnboardingLearning();
+
+  /// Early task expectations.
+  DeveloperOnboardingFirstTasks firstTasks = DeveloperOnboardingFirstTasks();
+
+  /// Completion verification.
+  DeveloperOnboardingVerification verification =
+      DeveloperOnboardingVerification();
+}
+
+/// Setup expectations.
+class DeveloperOnboardingSetup {
+  @Form([
     Field('estimatedSetupTime', String, 'Estimated Setup Time',
         hint: 'How long initial setup takes'),
     Field('automatedSetup', bool, 'Automated Setup',
         hint: 'Setup is automated'),
     Field('setupVideoGuide', String, 'Setup Video Guide',
         hint: 'Video walkthrough if available'),
+  ])
+  String? content;
+}
 
-    // Access
+/// Access provisioning.
+class DeveloperOnboardingAccess {
+  @Form([
     Field('requiredAccess', String, 'Required Access',
         hint: 'Access needed (repos, services, tools)'),
     Field('accessRequestProcess', String, 'Access Request Process',
         hint: 'How to request access'),
     Field('vpnSetup', String, 'VPN Setup',
         hint: 'VPN configuration if needed'),
+  ])
+  String? content;
+}
 
-    // Learning
+/// Learning support.
+class DeveloperOnboardingLearning {
+  @Form([
     Field('requiredReading', String, 'Required Reading',
         hint: 'Must-read documentation'),
     Field('codeWalkthrough', String, 'Code Walkthrough',
         hint: 'Guided code tour'),
     Field('pairProgrammingBuddy', bool, 'Pair Programming Buddy',
         hint: 'Assigned onboarding buddy'),
+  ])
+  String? content;
+}
 
-    // First tasks
+/// Early task expectations.
+class DeveloperOnboardingFirstTasks {
+  @Form([
     Field('starterTasks', String, 'Starter Tasks',
         hint: 'Good first issues'),
     Field('shadowingPeriod', String, 'Shadowing Period',
         hint: 'Time spent shadowing'),
     Field('firstPrExpectation', String, 'First PR Expectation',
         hint: 'Expected time to first PR'),
+  ])
+  String? content;
+}
 
-    // Verification
+/// Completion verification.
+class DeveloperOnboardingVerification {
+  @Form([
     Field('onboardingChecklist', String, 'Onboarding Checklist',
         hint: 'Checklist to complete'),
     Field('completionCriteria', String, 'Completion Criteria',
@@ -8659,47 +8908,86 @@ class DeploymentModelRequirements {
 /// Environment strategy.
 class EnvironmentStrategy {
   @Form([
-    // Environment tiers
     Field('environmentTiers', String, 'Environment Tiers',
         hint: 'Dev, Test, Staging, Prod'),
     Field('environmentParity', String, 'Environment Parity',
         hint: 'How similar envs are to prod'),
     Field('environmentIsolation', String, 'Environment Isolation',
         hint: 'Network, account, cluster isolation'),
+  ])
+  String? content;
 
-    // Development
+  /// Development environment setup.
+  EnvironmentStrategyDevelopment development = EnvironmentStrategyDevelopment();
+
+  /// Test environment setup.
+  EnvironmentStrategyTesting testing = EnvironmentStrategyTesting();
+
+  /// Staging configuration.
+  EnvironmentStrategyStaging staging = EnvironmentStrategyStaging();
+
+  /// Production configuration.
+  EnvironmentStrategyProduction production = EnvironmentStrategyProduction();
+
+  /// Ephemeral environment strategy.
+  EnvironmentStrategyEphemeral ephemeral = EnvironmentStrategyEphemeral();
+}
+
+/// Development environment setup.
+class EnvironmentStrategyDevelopment {
+  @Form([
     Field('devEnvironment', String, 'Development Environment',
         hint: 'Dev environment setup'),
     Field('localDevelopment', String, 'Local Development',
         hint: 'Local dev environment'),
     Field('devDataStrategy', String, 'Dev Data Strategy',
         hint: 'Synthetic, anonymized, subset'),
+  ])
+  String? content;
+}
 
-    // Testing
+/// Test environment setup.
+class EnvironmentStrategyTesting {
+  @Form([
     Field('testEnvironment', String, 'Test Environment',
         hint: 'Test/QA environment'),
     Field('integrationEnvironment', String, 'Integration Environment',
         hint: 'Integration testing env'),
     Field('performanceEnvironment', String, 'Performance Environment',
         hint: 'Performance testing env'),
+  ])
+  String? content;
+}
 
-    // Pre-production
+/// Staging configuration.
+class EnvironmentStrategyStaging {
+  @Form([
     Field('stagingEnvironment', String, 'Staging Environment',
         hint: 'Pre-production staging'),
     Field('stagingProdParity', bool, 'Staging-Prod Parity',
         hint: 'Staging mirrors production'),
     Field('stagingDataRefresh', String, 'Staging Data Refresh',
         hint: 'How staging data is refreshed'),
+  ])
+  String? content;
+}
 
-    // Production
+/// Production configuration.
+class EnvironmentStrategyProduction {
+  @Form([
     Field('productionEnvironment', String, 'Production Environment',
         hint: 'Production deployment'),
     Field('multiRegion', bool, 'Multi-Region',
         hint: 'Multi-region deployment'),
     Field('activeActive', bool, 'Active-Active',
         hint: 'Active-active configuration'),
+  ])
+  String? content;
+}
 
-    // Feature environments
+/// Ephemeral environment strategy.
+class EnvironmentStrategyEphemeral {
+  @Form([
     Field('ephemeralEnvironments', bool, 'Ephemeral Environments',
         hint: 'Per-PR/feature environments'),
     Field('environmentLifecycle', String, 'Environment Lifecycle',
@@ -13663,7 +13951,6 @@ class DataResidencyRequirements {
 /// Consent collection, tracking and management requirements [PD00-TEC-SEC-PRI].
 class ConsentManagementRequirements {
   @Form([
-    // Consent collection
     Field('consentCollectionMethod', String, 'Collection Method',
         required: true,
         hint:
@@ -13671,6 +13958,39 @@ class ConsentManagementRequirements {
     Field('consentGranularity', String, 'Consent Granularity',
         required: true,
         hint: 'Per-purpose consent, bundled consent, tiered consent model'),
+    Field('consentRecordStorage', String, 'Consent Record Storage',
+        required: true,
+        hint: 'How consent records are stored with timestamp and version'),
+    Field('consentWithdrawalProcess', String, 'Withdrawal Process',
+        required: true,
+        hint: 'How users can withdraw consent — must be as easy as giving it'),
+  ])
+  String? content;
+
+  /// Collection requirements.
+  ConsentManagementRequirementsCollection collection =
+      ConsentManagementRequirementsCollection();
+
+  /// Consent record storage rules.
+  ConsentManagementRequirementsStorage storage =
+      ConsentManagementRequirementsStorage();
+
+  /// Preference management workflow.
+  ConsentManagementRequirementsManagement management =
+      ConsentManagementRequirementsManagement();
+
+  /// Cookie and tracking rules.
+  ConsentManagementRequirementsTracking tracking =
+      ConsentManagementRequirementsTracking();
+
+  /// Compliance evidence and reporting.
+  ConsentManagementRequirementsCompliance compliance =
+      ConsentManagementRequirementsCompliance();
+}
+
+/// Collection requirements.
+class ConsentManagementRequirementsCollection {
+  @Form([
     Field('consentLanguage', String, 'Consent Language',
         hint:
             'Plain language requirements, multi-language support, reading level'),
@@ -13679,20 +13999,24 @@ class ConsentManagementRequirements {
     Field('ageVerification', String, 'Age Verification',
         hint:
             'Minimum age requirements, parental consent for minors (COPPA, GDPR Art. 8)'),
+  ])
+  String? content;
+}
 
-    // Consent storage
-    Field('consentRecordStorage', String, 'Consent Record Storage',
-        required: true,
-        hint: 'How consent records are stored with timestamp and version'),
+/// Consent record storage rules.
+class ConsentManagementRequirementsStorage {
+  @Form([
     Field('consentVersioning', String, 'Consent Versioning',
         hint: 'Tracking consent policy versions and re-consent triggers'),
     Field('consentProofRetention', String, 'Consent Proof Retention',
         hint: 'How long consent proof is retained after withdrawal'),
+  ])
+  String? content;
+}
 
-    // Consent management
-    Field('consentWithdrawalProcess', String, 'Withdrawal Process',
-        required: true,
-        hint: 'How users can withdraw consent — must be as easy as giving it'),
+/// Preference management workflow.
+class ConsentManagementRequirementsManagement {
+  @Form([
     Field('consentPreferenceCenter', String, 'Preference Center',
         hint: 'Self-service UI for managing consent preferences'),
     Field('consentPropagation', String, 'Consent Propagation',
@@ -13700,8 +14024,13 @@ class ConsentManagementRequirements {
             'How consent changes propagate to downstream systems and processors'),
     Field('consentSynchronization', String, 'Cross-Platform Sync',
         hint: 'Synchronizing consent across web, mobile, and third parties'),
+  ])
+  String? content;
+}
 
-    // Cookie and tracking
+/// Cookie and tracking rules.
+class ConsentManagementRequirementsTracking {
+  @Form([
     Field('cookieConsentRequirements', String, 'Cookie Consent',
         hint:
             'Cookie categories (essential, functional, analytics, marketing)'),
@@ -13710,8 +14039,13 @@ class ConsentManagementRequirements {
             'Analytics, advertising pixels, fingerprinting consent requirements'),
     Field('thirdPartyConsentSharing', String, 'Third-Party Consent Sharing',
         hint: 'How consent status is communicated to third-party integrations'),
+  ])
+  String? content;
+}
 
-    // Compliance
+/// Compliance evidence and reporting.
+class ConsentManagementRequirementsCompliance {
+  @Form([
     Field('consentAuditTrail', String, 'Consent Audit Trail',
         hint: 'Audit logging of all consent events for regulatory evidence'),
     Field('consentComplianceReporting', String, 'Compliance Reporting',
