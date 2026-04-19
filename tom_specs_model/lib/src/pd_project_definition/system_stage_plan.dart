@@ -3350,101 +3350,118 @@ class DecisionPoints {
 /// of the actual decision and its rationale.
 class DecisionPointEntry {
   @Form([
-    // --- Decision Identity ---
     Field('decisionId', String, 'Decision ID',
         hint: 'Unique identifier — e.g. DEC-001, DP-G2-01',
         required: true),
     Field('decisionPoint', String, 'Decision Point',
-        hint:
-            'Short name — e.g. Go/No-Go for Production, '
+        hint: 'Short name — e.g. Go/No-Go for Production, '
             'Technology Stack Selection',
         required: true),
-    Field('decisionDescription', String, 'Decision Description',
-        hint:
-            'Detailed description of what needs to be decided'),
     Field('decisionCategory', String, 'Decision Category',
-        hint:
-            'GoNoGo / ScopeChange / ResourceReallocation / '
+        hint: 'GoNoGo / ScopeChange / ResourceReallocation / '
             'TechnologySelection / VendorSelection / '
             'ArchitectureChange / RiskResponse',
         required: true),
-    // --- Context & Timing ---
+  ])
+  String? content;
+
+  /// Context and timing information.
+  DecisionPointEntryContext context = DecisionPointEntryContext();
+
+  /// Stakeholder assignments.
+  DecisionPointEntryStakeholders stakeholders =
+      DecisionPointEntryStakeholders();
+
+  /// Criteria and required inputs.
+  DecisionPointEntryCriteria criteria = DecisionPointEntryCriteria();
+
+  /// Resolution details (filled when decided).
+  DecisionPointEntryResolution resolution = DecisionPointEntryResolution();
+}
+
+/// Context and timing for decision point.
+class DecisionPointEntryContext {
+  @Form([
+    Field('decisionDescription', String, 'Decision Description',
+        hint: 'Detailed description of what needs to be decided'),
     Field('stage', String, 'Stage',
         hint: 'Stage where this decision occurs'),
     Field('timing', String, 'Timing',
-        hint:
-            'When in the stage — StageEntry / MidStage / '
+        hint: 'When in the stage — StageEntry / MidStage / '
             'StageExit / BeforeGate / AfterGate / OnDemand',
         required: true),
     Field('deadline', String, 'Decision Deadline',
-        hint:
-            'Latest date by which decision must be made — '
+        hint: 'Latest date by which decision must be made — '
             'after this date, default option applies'),
     Field('triggerEvent', String, 'Trigger Event',
-        hint:
-            'What triggers this decision point — gate outcome, '
+        hint: 'What triggers this decision point — gate outcome, '
             'risk materialization, milestone reached, '
             'stakeholder request'),
-    // --- Stakeholders ---
+  ])
+  String? content;
+}
+
+/// Stakeholder assignments for decision point.
+class DecisionPointEntryStakeholders {
+  @Form([
     Field('decisionAuthority', String, 'Decision Authority',
-        hint:
-            'Person or body making the final decision — DACI: '
+        hint: 'Person or body making the final decision — DACI: '
             'Driver, Approver, Contributor, Informed',
         required: true),
     Field('decisionDriver', String, 'Decision Driver',
-        hint:
-            'Person responsible for driving the decision to '
+        hint: 'Person responsible for driving the decision to '
             'conclusion — typically PM or Product Owner'),
     Field('contributors', String, 'Contributors',
-        hint:
-            'People providing input — architects, analysts, '
+        hint: 'People providing input — architects, analysts, '
             'domain experts — comma-separated'),
     Field('informedParties', String, 'Informed Parties',
-        hint:
-            'Stakeholders informed of the outcome — '
+        hint: 'Stakeholders informed of the outcome — '
             'comma-separated'),
-    // --- Criteria & Inputs ---
+  ])
+  String? content;
+}
+
+/// Criteria and inputs for decision point.
+class DecisionPointEntryCriteria {
+  @Form([
     Field('decisionCriteria', String, 'Decision Criteria',
-        hint:
-            'Criteria for making this decision — cost, risk, '
+        hint: 'Criteria for making this decision — cost, risk, '
             'time, quality, strategic alignment, feasibility',
         required: true),
     Field('requiredInputs', String, 'Required Inputs',
-        hint:
-            'Information or artifacts needed — cost analysis, '
+        hint: 'Information or artifacts needed — cost analysis, '
             'risk assessment, prototype results, vendor '
             'proposals'),
     Field('constraintFactors', String, 'Constraint Factors',
-        hint:
-            'Constraints limiting the decision space — budget, '
+        hint: 'Constraints limiting the decision space — budget, '
             'regulatory, technology, timeline'),
     Field('riskIfDelayed', String, 'Risk if Delayed',
-        hint:
-            'Consequence of not making the decision on time — '
+        hint: 'Consequence of not making the decision on time — '
             'schedule slip, cost increase, missed window'),
-    // --- Resolution (filled when decided) ---
+  ])
+  String? content;
+}
+
+/// Resolution details for decision point.
+class DecisionPointEntryResolution {
+  @Form([
     Field('selectedOption', String, 'Selected Option',
-        hint:
-            'Which option was chosen — references option ID '
+        hint: 'Which option was chosen — references option ID '
             'or name'),
     Field('decisionRationale', String, 'Decision Rationale',
-        hint:
-            'Why this option was selected — trade-off analysis '
+        hint: 'Why this option was selected — trade-off analysis '
             'summary'),
     Field('decisionDate', String, 'Decision Date',
         hint: 'When the decision was formally made'),
     Field('decisionRecordReference', String,
         'Decision Record Reference',
-        hint:
-            'Link to the formal decision record — ADR number, '
+        hint: 'Link to the formal decision record — ADR number, '
             'meeting minutes reference'),
     Field('revisitDate', String, 'Revisit Date',
-        hint:
-            'When this decision should be revisited — if '
+        hint: 'When this decision should be revisited — if '
             'conditions change, or after a defined period'),
     Field('impactSummary', String, 'Impact Summary',
-        hint:
-            'Impact of the decision — affected stages, teams, '
+        hint: 'Impact of the decision — affected stages, teams, '
             'budget, schedule'),
   ])
   String? content;

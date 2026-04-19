@@ -3073,10 +3073,29 @@ class ExportTemplateEntry {
     Field('templateName', String, 'Template Name',
         hint: 'Human-readable name, e.g. Standard Customer Export',
         required: true),
-    Field('description', String, 'Description',
-        hint: 'Purpose and use cases for this template'),
     Field('baseFormatType', String, 'Base Format Type',
         hint: 'CSV / Excel / PDF / JSON / XML / HTML'),
+  ])
+  String? content;
+
+  /// Format configuration.
+  ExportTemplateEntryFormat format = ExportTemplateEntryFormat();
+
+  /// Field and filter settings.
+  ExportTemplateEntryFields fields = ExportTemplateEntryFields();
+
+  /// Layout configuration.
+  ExportTemplateEntryLayout layout = ExportTemplateEntryLayout();
+
+  /// Access and metadata.
+  ExportTemplateEntryAccess access = ExportTemplateEntryAccess();
+}
+
+/// Format configuration for export template.
+class ExportTemplateEntryFormat {
+  @Form([
+    Field('description', String, 'Description',
+        hint: 'Purpose and use cases for this template'),
     Field('encoding', String, 'Encoding',
         hint: 'Default encoding for this template'),
     Field('delimiter', String, 'Delimiter', hint: 'Default delimiter'),
@@ -3084,6 +3103,13 @@ class ExportTemplateEntry {
     Field('dateFormat', String, 'Date Format', hint: 'Default date format'),
     Field('numberFormat', String, 'Number Format',
         hint: 'Default number format'),
+  ])
+  String? content;
+}
+
+/// Field and filter settings for export template.
+class ExportTemplateEntryFields {
+  @Form([
     Field('fieldSet', String, 'Field Set',
         hint: 'Comma-separated field names included in this template'),
     Field('defaultFilters', String, 'Default Filters',
@@ -3092,6 +3118,13 @@ class ExportTemplateEntry {
         hint: 'Default sort column'),
     Field('defaultSortDirection', String, 'Default Sort Direction',
         hint: 'Ascending / Descending'),
+  ])
+  String? content;
+}
+
+/// Layout configuration for export template.
+class ExportTemplateEntryLayout {
+  @Form([
     Field('headerConfig', String, 'Header Config',
         hint: 'Header content template for PDF/Excel exports'),
     Field('footerConfig', String, 'Footer Config',
@@ -3100,13 +3133,19 @@ class ExportTemplateEntry {
         hint: 'Template-specific branding (for PDF)'),
     Field('compressionFormat', String, 'Compression Format',
         hint: 'None / ZIP / GZIP'),
+  ])
+  String? content;
+}
+
+/// Access and metadata for export template.
+class ExportTemplateEntryAccess {
+  @Form([
     Field('accessLevel', String, 'Access Level',
         hint: 'Public / Authenticated / Role-specific'),
     Field('requiredRoles', String, 'Required Roles',
         hint: 'Roles permitted to use this template'),
     Field('reusableAcrossReports', String, 'Reusable Across Reports',
-        hint:
-            'Yes / No — can this template be used by multiple reports/exports'),
+        hint: 'Yes / No — can this template be used by multiple reports/exports'),
     Field('version', String, 'Version',
         hint: 'Template version, e.g. 1.0'),
     Field('notes', String, 'Notes', hint: 'Design notes'),

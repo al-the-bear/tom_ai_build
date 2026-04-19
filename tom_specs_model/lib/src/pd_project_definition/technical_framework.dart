@@ -504,29 +504,65 @@ class BuildToolchainEntry {
 /// Deployment target specification entry.
 class DeploymentTargetEntry {
   @Form([
-    // Identity
     Field('targetName', String, 'Target Name',
         required: true, hint: 'E.g., Production Web, iOS App Store, Docker Hub'),
     Field('targetCategory', String, 'Category',
         hint: 'Web, Mobile App, Desktop App, Cloud Service, Container, Embedded'),
     Field('targetEnvironment', String, 'Environment',
         hint: 'Development, Staging, Production'),
+  ])
+  String? content;
 
-    // Platform specifics
+  /// Platform specifics.
+  DeploymentTargetEntryPlatform platform = DeploymentTargetEntryPlatform();
+
+  /// Build output configuration.
+  DeploymentTargetEntryBuildOutput buildOutput =
+      DeploymentTargetEntryBuildOutput();
+
+  /// Platform requirements.
+  DeploymentTargetEntryRequirements requirements =
+      DeploymentTargetEntryRequirements();
+
+  /// Deployment process configuration.
+  DeploymentTargetEntryProcess process = DeploymentTargetEntryProcess();
+
+  /// Compliance and notes.
+  DeploymentTargetEntryCompliance compliance =
+      DeploymentTargetEntryCompliance();
+}
+
+/// Platform specifics for deployment target.
+class DeploymentTargetEntryPlatform {
+  @Form([
     Field('platformTarget', String, 'Platform Target',
         hint: 'Specific platform/OS this deployment targets'),
     Field('distributionChannel', String, 'Distribution Channel',
         hint: 'App Store, Play Store, Web hosting, Container registry'),
+  ])
+  String? content;
+}
 
-    // Build output
+/// Build output configuration for deployment target.
+class DeploymentTargetEntryBuildOutput {
+  @Form([
     Field('artifactFormat', String, 'Artifact Format',
         hint: 'E.g., APK, AAB, IPA, EXE, Docker image, WASM'),
     Field('artifactNaming', String, 'Artifact Naming',
         hint: 'Naming convention for artifacts'),
     Field('signingRequirements', String, 'Signing Requirements',
         hint: 'Code signing requirements'),
+    Field('sizeLimit', String, 'Size Limit',
+        hint: 'Maximum artifact size'),
+    Field('performanceTargets', String, 'Performance Targets',
+        hint: 'Startup time, memory footprint targets'),
+  ])
+  String? content;
+}
 
-    // Requirements
+/// Platform requirements for deployment target.
+class DeploymentTargetEntryRequirements {
+  @Form([
     Field('minimumOsVersion', String, 'Minimum OS Version',
         hint: 'Minimum target OS version'),
     Field('targetSdkVersion', String, 'Target SDK Version',
@@ -535,28 +571,30 @@ class DeploymentTargetEntry {
         hint: 'Platform permissions needed'),
     Field('requiredCapabilities', String, 'Required Capabilities',
         hint: 'Platform capabilities needed'),
+  ])
+  String? content;
+}
 
-    // Size and performance
-    Field('sizeLimit', String, 'Size Limit',
-        hint: 'Maximum artifact size'),
-    Field('performanceTargets', String, 'Performance Targets',
-        hint: 'Startup time, memory footprint targets'),
-
-    // Deployment process
+/// Deployment process configuration.
+class DeploymentTargetEntryProcess {
+  @Form([
     Field('deploymentMethod', String, 'Deployment Method',
         hint: 'Manual, CI/CD, Blue-green, Rolling'),
     Field('rollbackStrategy', String, 'Rollback Strategy',
         hint: 'How to rollback failed deployments'),
     Field('featureFlagsSupport', String, 'Feature Flags Support',
         hint: 'Feature flag implementation'),
+  ])
+  String? content;
+}
 
-    // Compliance
+/// Compliance and notes for deployment target.
+class DeploymentTargetEntryCompliance {
+  @Form([
     Field('complianceRequirements', String, 'Compliance Requirements',
         hint: 'Store guidelines, regulatory requirements'),
     Field('privacyRequirements', String, 'Privacy Requirements',
         hint: 'Privacy manifest, tracking transparency'),
-
-    // Notes
     Field('priority', String, 'Priority',
         hint: 'Primary, Secondary, Future'),
     Field('targetLaunchDate', String, 'Target Launch Date',
@@ -3324,23 +3362,48 @@ class SharedLibraryComponentEntry {
 /// UI component entry — a reusable UI widget or pattern.
 class UiComponentEntry {
   @Form([
-    // Identity
     Field('componentName', String, 'Component Name',
         required: true, hint: 'Widget or pattern name'),
     Field('componentCategory', String, 'Category',
         hint: 'Input, Display, Navigation, Layout, Feedback, Data'),
-    Field('version', String, 'Version', hint: 'Component version'),
-
-    // Description
     Field('purpose', String, 'Purpose', hint: 'What this component does'),
+  ])
+  String? content;
+
+  /// Description and use cases.
+  UiComponentEntryDescription description = UiComponentEntryDescription();
+
+  /// Design specifications.
+  UiComponentEntryDesign design = UiComponentEntryDesign();
+
+  /// Interaction and accessibility.
+  UiComponentEntryInteraction interaction = UiComponentEntryInteraction();
+
+  /// Component API.
+  UiComponentEntryApi api = UiComponentEntryApi();
+
+  /// Implementation details.
+  UiComponentEntryImplementation implementation =
+      UiComponentEntryImplementation();
+}
+
+/// Description and use cases for UI component.
+class UiComponentEntryDescription {
+  @Form([
+    Field('version', String, 'Version', hint: 'Component version'),
     Field('visualDescription', String, 'Visual Description',
         hint: 'How it looks and behaves'),
     Field('useCases', String, 'Use Cases',
         hint: 'When to use this component'),
     Field('antiPatterns', String, 'Anti-Patterns',
         hint: 'When NOT to use this component'),
+  ])
+  String? content;
+}
 
-    // Design
+/// Design specifications for UI component.
+class UiComponentEntryDesign {
+  @Form([
     Field('designTokens', String, 'Design Tokens Used',
         hint: 'Colors, spacing, typography tokens'),
     Field('variants', String, 'Variants',
@@ -3349,16 +3412,26 @@ class UiComponentEntry {
         hint: 'Supported states (disabled, loading, error)'),
     Field('responsiveBehavior', String, 'Responsive Behavior',
         hint: 'How component adapts to screen sizes'),
+  ])
+  String? content;
+}
 
-    // Interaction
+/// Interaction and accessibility for UI component.
+class UiComponentEntryInteraction {
+  @Form([
     Field('interactionPatterns', String, 'Interaction Patterns',
         hint: 'Touch, keyboard, mouse behaviors'),
     Field('accessibility', String, 'Accessibility',
         hint: 'A11y features and requirements'),
     Field('animations', String, 'Animations',
         hint: 'Animation specifications'),
+  ])
+  String? content;
+}
 
-    // API
+/// Component API for UI component.
+class UiComponentEntryApi {
+  @Form([
     Field('requiredProperties', String, 'Required Properties',
         hint: 'Required parameters'),
     Field('optionalProperties', String, 'Optional Properties',
@@ -3367,8 +3440,13 @@ class UiComponentEntry {
         hint: 'Event callbacks supported'),
     Field('slots', String, 'Slots/Children',
         hint: 'Child content areas'),
+  ])
+  String? content;
+}
 
-    // Implementation
+/// Implementation details for UI component.
+class UiComponentEntryImplementation {
+  @Form([
     Field('flutterWidget', String, 'Flutter Widget Class',
         hint: 'Implementing Flutter widget'),
     Field('exampleCode', String, 'Example Code',

@@ -3196,48 +3196,34 @@ class FunctionalRequirementEntry {
     Field('requirementId', String,
         'Requirement ID (unique, e.g., REQ-F001)', required: true),
     Field('title', String, 'Title (concise statement)', required: true),
-    Field('description', String,
-        'Description (The system shall... detailed statement)', required: true),
-    Field('requirementType', String,
-        'Requirement Type (Feature, User Story, Business Rule, Report, '
-            'Integration, Calculation, Workflow, Notification, Search, '
-            'Data Entry, Data Display, Data Export, Batch Process)'),
-    Field('category', String,
-        'Category (functional area grouping)'),
-    Field('priority', String,
-        'Priority (Must, Should, Could, Won\'t-This-Time)', required: true),
-    Field('businessValue', String,
-        'Business Value (High, Medium, Low) - benefit to business'),
-    Field('effort', String,
-        'Estimated Effort (Small, Medium, Large, XLarge)'),
-    Field('source', String,
-        'Source (who requested: stakeholder name, workshop, document)',
-        required: true),
-    Field('requestDate', String, 'Request Date'),
-    Field('rationale', String,
-        'Rationale (why this requirement is needed)'),
-    Field('fitCriterion', String,
-        'Fit Criterion (measurable condition for acceptance)'),
-    Field('customerSatisfaction', String,
-        'Customer Satisfaction (1-5 scale if delivered)'),
-    Field('customerDissatisfaction', String,
-        'Customer Dissatisfaction (1-5 scale if NOT delivered)'),
-    Field('assumptions', String,
-        'Assumptions (conditions assumed to be true)'),
-    Field('constraints', String,
-        'Constraints (limitations on implementation)'),
-    Field('riskLevel', String,
-        'Risk Level (High, Medium, Low) - risk of not meeting'),
-    Field('conflictsWith', String,
-        'Conflicts With (IDs of conflicting requirements)'),
     Field('status', String,
         'Status (Draft, Proposed, Approved, Implemented, Verified, Deferred)',
         required: true),
-    Field('version', String, 'Version'),
-    Field('lastModified', String, 'Last Modified Date'),
-    Field('modifiedBy', String, 'Modified By'),
   ])
   String? content;
+
+  /// Requirement details: description, type, category.
+  FunctionalRequirementEntryDetails details =
+      FunctionalRequirementEntryDetails();
+
+  /// Priority and effort assessment.
+  FunctionalRequirementEntryPriority priority =
+      FunctionalRequirementEntryPriority();
+
+  /// Source and rationale.
+  FunctionalRequirementEntrySource source = FunctionalRequirementEntrySource();
+
+  /// Verification criteria.
+  FunctionalRequirementEntryVerification verification =
+      FunctionalRequirementEntryVerification();
+
+  /// Assumptions and constraints.
+  FunctionalRequirementEntryConstraints constraints =
+      FunctionalRequirementEntryConstraints();
+
+  /// Version metadata.
+  FunctionalRequirementEntryMetadata metadata =
+      FunctionalRequirementEntryMetadata();
 
   /// 4.3.1.n.1. Acceptance Criteria [PD00-SYO-REQ-FUN-nn-ACR].
   RequirementAcceptanceCriteria acceptanceCriteria =
@@ -3260,6 +3246,85 @@ class FunctionalRequirementEntry {
 
   /// 4.3.1.n.7. Test Cases [PD00-SYO-REQ-FUN-nn-TST].
   RequirementTestCases testCases = RequirementTestCases();
+}
+
+/// Requirement details: description, type, category.
+class FunctionalRequirementEntryDetails {
+  @Form([
+    Field('description', String,
+        'Description (The system shall... detailed statement)', required: true),
+    Field('requirementType', String,
+        'Requirement Type (Feature, User Story, Business Rule, Report, '
+            'Integration, Calculation, Workflow, Notification, Search, '
+            'Data Entry, Data Display, Data Export, Batch Process)'),
+    Field('category', String,
+        'Category (functional area grouping)'),
+  ])
+  String? content;
+}
+
+/// Priority and effort assessment.
+class FunctionalRequirementEntryPriority {
+  @Form([
+    Field('priority', String,
+        'Priority (Must, Should, Could, Won\'t-This-Time)', required: true),
+    Field('businessValue', String,
+        'Business Value (High, Medium, Low) - benefit to business'),
+    Field('effort', String,
+        'Estimated Effort (Small, Medium, Large, XLarge)'),
+    Field('riskLevel', String,
+        'Risk Level (High, Medium, Low) - risk of not meeting'),
+  ])
+  String? content;
+}
+
+/// Source and rationale for requirement.
+class FunctionalRequirementEntrySource {
+  @Form([
+    Field('source', String,
+        'Source (who requested: stakeholder name, workshop, document)',
+        required: true),
+    Field('requestDate', String, 'Request Date'),
+    Field('rationale', String,
+        'Rationale (why this requirement is needed)'),
+  ])
+  String? content;
+}
+
+/// Verification criteria for requirement.
+class FunctionalRequirementEntryVerification {
+  @Form([
+    Field('fitCriterion', String,
+        'Fit Criterion (measurable condition for acceptance)'),
+    Field('customerSatisfaction', String,
+        'Customer Satisfaction (1-5 scale if delivered)'),
+    Field('customerDissatisfaction', String,
+        'Customer Dissatisfaction (1-5 scale if NOT delivered)'),
+  ])
+  String? content;
+}
+
+/// Assumptions and constraints for requirement.
+class FunctionalRequirementEntryConstraints {
+  @Form([
+    Field('assumptions', String,
+        'Assumptions (conditions assumed to be true)'),
+    Field('constraints', String,
+        'Constraints (limitations on implementation)'),
+    Field('conflictsWith', String,
+        'Conflicts With (IDs of conflicting requirements)'),
+  ])
+  String? content;
+}
+
+/// Version metadata for requirement.
+class FunctionalRequirementEntryMetadata {
+  @Form([
+    Field('version', String, 'Version'),
+    Field('lastModified', String, 'Last Modified Date'),
+    Field('modifiedBy', String, 'Modified By'),
+  ])
+  String? content;
 }
 
 /// 4.3.1.n.1. Acceptance Criteria [PD00-SYO-REQ-FUN-nn-ACR].

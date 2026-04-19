@@ -1296,21 +1296,52 @@ class TradeOffDecisions {
 /// A trade-off decision entry (form) [PD00-SYQ-PRI-TRA-nn].
 class TradeOffDecisionEntry {
   @Form([
-    // Decision identification
     Field('decisionId', String, 'Decision ID',
         hint: 'Unique identifier (e.g., TRADEOFF-001)'),
     Field('decisionTitle', String, 'Decision Title', required: true),
-    Field('decisionDate', String, 'Decision Date'),
     Field('decisionStatus', String, 'Status',
         hint: 'Proposed, approved, implemented, reversed'),
-    // Qualities in conflict
+  ])
+  String? content;
+
+  /// Qualities in conflict.
+  TradeOffDecisionEntryQualities qualities = TradeOffDecisionEntryQualities();
+
+  /// Rationale for trade-off.
+  TradeOffDecisionEntryRationale rationale = TradeOffDecisionEntryRationale();
+
+  /// Impact assessment.
+  TradeOffDecisionEntryImpact impact = TradeOffDecisionEntryImpact();
+
+  /// Mitigation measures.
+  TradeOffDecisionEntryMitigation mitigation =
+      TradeOffDecisionEntryMitigation();
+
+  /// Approval and governance.
+  TradeOffDecisionEntryApproval approval = TradeOffDecisionEntryApproval();
+
+  /// Detailed trade-off analysis.
+  @ContentHelp('Extended analysis of trade-off decision including '
+      'quantitative impact assessment.')
+  TextSection detailedAnalysis = TextSection();
+}
+
+/// Qualities in conflict for trade-off decision.
+class TradeOffDecisionEntryQualities {
+  @Form([
     Field('prioritizedQuality', String, 'Prioritized Quality', required: true,
         hint: 'Quality attribute given priority'),
     Field('deprioritizedQuality', String, 'Deprioritized Quality', required: true,
         hint: 'Quality attribute traded off'),
     Field('additionalQualitiesAffected', String, 'Additional Qualities Affected',
         hint: 'Other qualities impacted'),
-    // Rationale
+  ])
+  String? content;
+}
+
+/// Rationale for trade-off decision.
+class TradeOffDecisionEntryRationale {
+  @Form([
     Field('businessRationale', String, 'Business Rationale',
         hint: 'Business reason for trade-off'),
     Field('technicalRationale', String, 'Technical Rationale',
@@ -1319,7 +1350,13 @@ class TradeOffDecisionEntry {
         hint: 'Constraints that drove decision'),
     Field('alternativesConsidered', String, 'Alternatives Considered',
         hint: 'Other approaches evaluated'),
-    // Impact
+  ])
+  String? content;
+}
+
+/// Impact assessment for trade-off decision.
+class TradeOffDecisionEntryImpact {
+  @Form([
     Field('impactOnRequirements', String, 'Impact on Requirements',
         hint: 'Requirements affected'),
     Field('impactOnArchitecture', String, 'Impact on Architecture',
@@ -1330,14 +1367,27 @@ class TradeOffDecisionEntry {
         hint: 'Cost implications'),
     Field('impactOnUserExperience', String, 'Impact on User Experience',
         hint: 'UX implications'),
-    // Mitigation
+  ])
+  String? content;
+}
+
+/// Mitigation measures for trade-off decision.
+class TradeOffDecisionEntryMitigation {
+  @Form([
     Field('mitigationMeasures', String, 'Mitigation Measures',
         hint: 'How deprioritized quality is mitigated'),
     Field('acceptanceCriteria', String, 'Acceptance Criteria',
         hint: 'Minimum acceptable level'),
     Field('monitoringApproach', String, 'Monitoring Approach',
         hint: 'How impact is monitored'),
-    // Approval
+  ])
+  String? content;
+}
+
+/// Approval and governance for trade-off decision.
+class TradeOffDecisionEntryApproval {
+  @Form([
+    Field('decisionDate', String, 'Decision Date'),
     Field('approvedBy', String, 'Approved By',
         hint: 'Who approved the trade-off'),
     Field('stakeholdersConsulted', String, 'Stakeholders Consulted',
@@ -1346,11 +1396,6 @@ class TradeOffDecisionEntry {
         hint: 'When decision will be reviewed'),
   ])
   String? content;
-
-  /// Detailed trade-off analysis.
-  @ContentHelp('Extended analysis of trade-off decision including '
-      'quantitative impact assessment.')
-  TextSection detailedAnalysis = TextSection();
 }
 
 /// 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
