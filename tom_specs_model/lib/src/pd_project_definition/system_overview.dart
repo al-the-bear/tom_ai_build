@@ -3418,13 +3418,13 @@ class RequirementBusinessRules {
       'with this requirement.')
   String? content;
 
-  /// Business rule entries — contains 0+× BusinessRuleEntry.
+    /// Business rule entries — contains 0+× RequirementBusinessRuleEntry.
   @SectionIdPattern('PD00-SYO-REQ-FUN-xx-BRU-xx')
-  List<BusinessRuleEntry> rules = [];
+    List<RequirementBusinessRuleEntry> rules = [];
 }
 
 /// A business rule entry (form).
-class BusinessRuleEntry {
+class RequirementBusinessRuleEntry {
   @Form([
     Field('ruleId', String, 'Rule ID', required: true),
     Field('ruleName', String, 'Rule Name', required: true),
@@ -3524,10 +3524,10 @@ class RequirementUiSpecification {
   @ContentHelp('Define each field in the UI.')
   List<ScreenFieldEntry> fields = [];
 
-  /// Screen action entries — contains 0+× ScreenActionEntry.
+    /// Screen action entries — contains 0+× RequirementScreenActionEntry.
   @SectionIdPattern('PD00-SYO-REQ-FUN-xx-UI-ACT-xx')
   @ContentHelp('Define actions available in the UI.')
-  List<ScreenActionEntry> actions = [];
+    List<RequirementScreenActionEntry> actions = [];
 
   /// Screen behavior entries — contains 0+× ScreenBehaviorEntry.
   @SectionIdPattern('PD00-SYO-REQ-FUN-xx-UI-BEH-xx')
@@ -3632,7 +3632,7 @@ class FieldValidationRule {
 /// A screen action entry (form).
 ///
 /// Defines an action (button, link, menu item) in the user interface.
-class ScreenActionEntry {
+class RequirementScreenActionEntry {
   @Form([
     Field('actionId', String, 'Action ID', required: true),
     Field('actionLabel', String, 'Action Label (button text)', required: true),
@@ -4361,9 +4361,9 @@ class SystemToReplaceEntry {
   /// Data migration scope and assessment.
   SystemDataScope dataScope = SystemDataScope();
 
-  /// Contains 0+× SystemDependencyEntry — integrations with other systems.
+    /// Contains 0+× ReplacementSystemDependencyEntry — integrations with other systems.
   @SectionIdPattern('PD00-SYO-SYR-INV-xx-DEP-xx')
-  List<SystemDependencyEntry> dependencies = [];
+    List<ReplacementSystemDependencyEntry> dependencies = [];
 
   /// User impact and change management needs.
   SystemUserImpact userImpact = SystemUserImpact();
@@ -4561,7 +4561,7 @@ class DataEntityMigrationEntry {
 /// A system dependency entry [PD00-SYO-SYR-INV-nn-DEP-nn].
 ///
 /// Documents integrations and dependencies with other systems.
-class SystemDependencyEntry {
+class ReplacementSystemDependencyEntry {
   @Form([
     Field('integrationId', String, 'Integration ID'),
     Field('connectedSystem', String, 'Connected System', required: true),

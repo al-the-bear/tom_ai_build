@@ -3306,7 +3306,7 @@ Provide an overview of the reusability strategy and component library.
 
   /// UI component library entries.
   @SectionIdPattern('PD00-TEC-SOF-REU-UIC-xx')
-  List<UiComponentEntry> uiComponents = [];
+    List<ReusableUiComponentEntry> uiComponents = [];
 
   /// Business logic components.
   @SectionIdPattern('PD00-TEC-SOF-REU-BUS-xx')
@@ -3459,7 +3459,7 @@ class SharedLibraryComponentEntryOwnership {
 }
 
 /// UI component entry — a reusable UI widget or pattern.
-class UiComponentEntry {
+class ReusableUiComponentEntry {
   @Form([
     Field('componentName', String, 'Component Name',
         required: true, hint: 'Widget or pattern name'),
@@ -3470,24 +3470,26 @@ class UiComponentEntry {
   String? content;
 
   /// Description and use cases.
-  UiComponentEntryDescription description = UiComponentEntryDescription();
+    ReusableUiComponentEntryDescription description =
+            ReusableUiComponentEntryDescription();
 
   /// Design specifications.
-  UiComponentEntryDesign design = UiComponentEntryDesign();
+    ReusableUiComponentEntryDesign design = ReusableUiComponentEntryDesign();
 
   /// Interaction and accessibility.
-  UiComponentEntryInteraction interaction = UiComponentEntryInteraction();
+    ReusableUiComponentEntryInteraction interaction =
+            ReusableUiComponentEntryInteraction();
 
   /// Component API.
-  UiComponentEntryApi api = UiComponentEntryApi();
+    ReusableUiComponentEntryApi api = ReusableUiComponentEntryApi();
 
   /// Implementation details.
-  UiComponentEntryImplementation implementation =
-      UiComponentEntryImplementation();
+    ReusableUiComponentEntryImplementation implementation =
+            ReusableUiComponentEntryImplementation();
 }
 
 /// Description and use cases for UI component.
-class UiComponentEntryDescription {
+class ReusableUiComponentEntryDescription {
   @Form([
     Field('version', String, 'Version', hint: 'Component version'),
     Field('visualDescription', String, 'Visual Description',
@@ -3501,7 +3503,7 @@ class UiComponentEntryDescription {
 }
 
 /// Design specifications for UI component.
-class UiComponentEntryDesign {
+class ReusableUiComponentEntryDesign {
   @Form([
     Field('designTokens', String, 'Design Tokens Used',
         hint: 'Colors, spacing, typography tokens'),
@@ -3516,7 +3518,7 @@ class UiComponentEntryDesign {
 }
 
 /// Interaction and accessibility for UI component.
-class UiComponentEntryInteraction {
+class ReusableUiComponentEntryInteraction {
   @Form([
     Field('interactionPatterns', String, 'Interaction Patterns',
         hint: 'Touch, keyboard, mouse behaviors'),
@@ -3529,7 +3531,7 @@ class UiComponentEntryInteraction {
 }
 
 /// Component API for UI component.
-class UiComponentEntryApi {
+class ReusableUiComponentEntryApi {
   @Form([
     Field('requiredProperties', String, 'Required Properties',
         hint: 'Required parameters'),
@@ -3544,7 +3546,7 @@ class UiComponentEntryApi {
 }
 
 /// Implementation details for UI component.
-class UiComponentEntryImplementation {
+class ReusableUiComponentEntryImplementation {
   @Form([
     Field('flutterWidget', String, 'Flutter Widget Class',
         hint: 'Implementing Flutter widget'),

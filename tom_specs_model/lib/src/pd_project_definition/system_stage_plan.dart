@@ -2058,7 +2058,7 @@ class DataMigrationStrategy {
   final MigrationStakeholders stakeholders = MigrationStakeholders();
 
   /// Budget and resources.
-  final MigrationResources resources = MigrationResources();
+    final StageMigrationResources resources = StageMigrationResources();
 
   /// Schedule overview.
   final MigrationSchedule schedule = MigrationSchedule();
@@ -2274,7 +2274,7 @@ class MigrationStakeholders {
 }
 
 /// Budget and resources for migration.
-class MigrationResources {
+class StageMigrationResources {
   @Form([
     Field('migrationBudget', String, 'Migration Budget',
         hint: 'Total budget for migration activities'),

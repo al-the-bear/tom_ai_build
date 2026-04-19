@@ -75,7 +75,7 @@ authentication and authorization by defining who the users are.
   String? content;
 
   /// 9.1.1. User Categories [PD00-ACC-USE-CAT].
-  UserCategories userCategories = UserCategories();
+    AccessUserCategories userCategories = AccessUserCategories();
 
   /// 9.1.2. User Lifecycle [PD00-ACC-USE-LIF].
   UserLifecycleSection userLifecycle = UserLifecycleSection();
@@ -86,7 +86,7 @@ authentication and authorization by defining who the users are.
 
 /// 9.1.1. User Categories [PD00-ACC-USE-CAT].
 @SectionId('PD00-ACC-USE-CAT')
-class UserCategories {
+class AccessUserCategories {
   @ContentHelp('''
 Define the distinct categories of users who interact with the system. Each
 category should reflect different trust levels, access patterns, and business

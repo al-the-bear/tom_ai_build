@@ -309,11 +309,11 @@ class TeamMemberSkills {
   String? content;
 
   /// Individual skill entries.
-  List<SkillEntry> skillDetails = [];
+  List<TeamMemberSkillEntry> skillDetails = [];
 }
 
 /// A skill entry with proficiency level.
-class SkillEntry {
+class TeamMemberSkillEntry {
   @Form([
     Field('skillName', String, 'Skill Name', required: true),
     Field('proficiencyLevel', String, 'Proficiency (Expert/Advanced/Intermediate/Beginner)'),

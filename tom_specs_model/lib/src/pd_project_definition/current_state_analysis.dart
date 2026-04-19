@@ -968,11 +968,11 @@ class ProcessPainPoints {
   String? content;
 
   /// Process improvement opportunities.
-  List<ProcessImprovementEntry> improvements = [];
+    List<CurrentProcessImprovementEntry> improvements = [];
 }
 
 /// A process improvement opportunity.
-class ProcessImprovementEntry {
+class CurrentProcessImprovementEntry {
   @Form([
     Field('improvementArea', String, 'Improvement Area', required: true),
     Field('currentState', String, 'Current State'),
@@ -1967,7 +1967,7 @@ to the organization. Highlight critical data dependencies and risks.
   DataGovernance dataGovernance = DataGovernance();
 
   /// 1.4.8. Data Classification [PD00-CUR-DAT-CLA].
-  DataClassification dataClassification = DataClassification();
+    CurrentDataClassification dataClassification = CurrentDataClassification();
 
   /// 1.4.9. Data Integration Points [PD00-CUR-DAT-INT].
   DataIntegrationPoints dataIntegrationPoints = DataIntegrationPoints();
@@ -2066,7 +2066,7 @@ class DataSourceEntry {
 
   /// Key data entities in this source.
   @Min(1)
-  List<DataEntityEntry> keyEntities = [];
+    List<DataSourceEntityEntry> keyEntities = [];
 }
 
 /// Classification for data source.
@@ -2196,7 +2196,7 @@ class DataSourceRetentionPolicy {
 }
 
 /// Key data entity within a data source.
-class DataEntityEntry {
+class DataSourceEntityEntry {
   @Form([
     Field('entityName', String, 'Entity Name',
         hint: 'Name of the entity/table/collection', required: true),
@@ -2731,7 +2731,7 @@ class DataGovernancePolicyEntry {
 /// Data classification framework, sensitivity levels, and current
 /// classification status of data assets.
 @SectionId('PD00-CUR-DAT-CLA')
-class DataClassification {
+class CurrentDataClassification {
   @ContentHelp('''
 Overview of data classification in the organization. Describe the classification
 framework, sensitivity levels, handling requirements, and current classification
