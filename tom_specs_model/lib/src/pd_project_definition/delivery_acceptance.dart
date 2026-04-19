@@ -135,102 +135,142 @@ response times, coverage period, and handover criteria.
 /// ownership, and acceptance linkage.
 class DeliverableEntry {
   @Form([
-    // --- Identification ---
     Field('deliverableId', String, 'Deliverable ID',
         hint: 'Unique identifier — e.g. DEL-SOF-001', required: true),
     Field('deliverableName', String, 'Deliverable Name',
-        hint: 'Concise name — e.g. "Customer Management API"',
-        required: true),
+        hint: 'Concise name — e.g. "Customer Management API"', required: true),
+    Field('priority', String, 'Priority',
+        hint: 'Critical / High / Medium / Low'),
+  ])
+  String? content;
+
+  /// Identification details.
+  final DeliverableIdentity identity = DeliverableIdentity();
+
+  /// Delivery logistics.
+  final DeliverableLogistics logistics = DeliverableLogistics();
+
+  /// Version and compatibility.
+  final DeliverableVersion version = DeliverableVersion();
+
+  /// Quality and acceptance.
+  final DeliverableQuality quality = DeliverableQuality();
+
+  /// Ownership and responsibility.
+  final DeliverableOwnership ownership = DeliverableOwnership();
+
+  /// Dependencies.
+  final DeliverableDependencies dependencies = DeliverableDependencies();
+
+  /// Licensing and legal.
+  final DeliverableLegal legal = DeliverableLegal();
+
+  /// Documentation.
+  final DeliverableDocumentation documentation = DeliverableDocumentation();
+}
+
+/// Identity for deliverable.
+class DeliverableIdentity {
+  @Form([
     Field('description', String, 'Description',
         hint: 'What this deliverable contains and its purpose'),
     Field('category', String, 'Category',
-        hint:
-            'Application / Library / Tool / Configuration / '
-            'Document / Training / Support'),
-    Field('priority', String, 'Priority',
-        hint: 'Critical / High / Medium / Low — delivery priority'),
+        hint: 'Application / Library / Tool / Configuration / Document'),
+  ])
+  String? content;
+}
 
-    // --- Delivery Logistics ---
+/// Logistics for deliverable.
+class DeliverableLogistics {
+  @Form([
     Field('deliveryFormat', String, 'Delivery Format',
-        hint:
-            'Docker Image / NPM Package / Dart Package / APK / '
-            'IPA / PDF / HTML / ZIP / Source Code'),
+        hint: 'Docker Image / NPM Package / Dart Package / APK / IPA'),
     Field('deliveryMechanism', String, 'Delivery Mechanism',
-        hint:
-            'Container Registry / Artifact Repository / App Store / '
-            'File Transfer / Git Repository / CDN'),
+        hint: 'Container Registry / Artifact Repository / App Store'),
     Field('deliveryEnvironment', String, 'Target Environment',
-        hint:
-            'Production / Staging / All Environments — where this is deployed'),
+        hint: 'Production / Staging / All Environments'),
     Field('plannedDeliveryDate', String, 'Planned Delivery Date',
-        hint: 'Target date — e.g. 2026-Q3 or specific date'),
+        hint: 'Target date — e.g. 2026-Q3'),
     Field('deliveryStage', String, 'Delivery Stage',
         hint: 'Stage in which this deliverable is delivered'),
     Field('deliveryFrequency', String, 'Delivery Frequency',
-        hint:
-            'OneTime / PerRelease / Continuous / OnDemand — '
-            'how often updates are delivered'),
+        hint: 'OneTime / PerRelease / Continuous / OnDemand'),
+  ])
+  String? content;
+}
 
-    // --- Version & Compatibility ---
+/// Version for deliverable.
+class DeliverableVersion {
+  @Form([
     Field('versionRequirement', String, 'Version Requirement',
-        hint: 'Minimum version or version range — e.g. >= 2.0.0'),
+        hint: 'Minimum version or version range'),
     Field('compatibilityConstraints', String, 'Compatibility Constraints',
-        hint:
-            'Platform, OS, browser, or dependency version requirements'),
+        hint: 'Platform, OS, browser, or dependency version requirements'),
     Field('backwardCompatibility', String, 'Backward Compatibility',
-        hint:
-            'Yes / No / Partial — whether older versions remain supported'),
+        hint: 'Yes / No / Partial'),
+  ])
+  String? content;
+}
 
-    // --- Quality & Acceptance ---
+/// Quality for deliverable.
+class DeliverableQuality {
+  @Form([
     Field('qualityStandard', String, 'Quality Standard',
-        hint:
-            'Quality standards applied — e.g. ISO 25010, WCAG 2.1 AA'),
+        hint: 'Quality standards applied — e.g. ISO 25010, WCAG 2.1 AA'),
     Field('acceptanceCriteria', String, 'Acceptance Criteria',
-        hint:
-            'Specific criteria for accepting this deliverable — '
-            'functional, performance, documentation completeness'),
+        hint: 'Specific criteria for accepting this deliverable'),
     Field('verificationMethod', String, 'Verification Method',
-        hint:
-            'Testing / Inspection / Review / Demonstration — '
-            'how acceptance is verified'),
+        hint: 'Testing / Inspection / Review / Demonstration'),
     Field('testCoverage', String, 'Required Test Coverage',
-        hint: 'Minimum test coverage — e.g. 80% unit, 90% integration'),
+        hint: 'Minimum test coverage — e.g. 80% unit'),
+  ])
+  String? content;
+}
 
-    // --- Ownership & Responsibility ---
+/// Ownership for deliverable.
+class DeliverableOwnership {
+  @Form([
     Field('responsibleParty', String, 'Responsible Party',
-        hint: 'Team or role responsible for creating the deliverable'),
+        hint: 'Team or role responsible for creating'),
     Field('reviewer', String, 'Reviewer',
         hint: 'Who reviews and approves before delivery'),
     Field('recipient', String, 'Recipient',
-        hint: 'Who receives the deliverable — role or organization'),
+        hint: 'Who receives the deliverable'),
     Field('maintenanceOwner', String, 'Maintenance Owner',
         hint: 'Who maintains the deliverable post-delivery'),
+  ])
+  String? content;
+}
 
-    // --- Dependencies ---
+/// Dependencies for deliverable.
+class DeliverableDependencies {
+  @Form([
     Field('dependsOn', String, 'Depends On',
-        hint:
-            'Other deliverable IDs or external items this depends on'),
+        hint: 'Other deliverable IDs this depends on'),
     Field('prerequisiteForDelivery', String, 'Prerequisites',
-        hint:
-            'Conditions that must be met before delivery — '
-            'e.g. environment ready, sign-off on prior stage'),
+        hint: 'Conditions that must be met before delivery'),
+  ])
+  String? content;
+}
 
-    // --- Licensing & Legal ---
+/// Legal for deliverable.
+class DeliverableLegal {
+  @Form([
     Field('licenseType', String, 'License Type',
-        hint:
-            'Commercial / OpenSource / Proprietary / Mixed — '
-            'licensing terms'),
+        hint: 'Commercial / OpenSource / Proprietary / Mixed'),
     Field('intellectualProperty', String, 'IP Ownership',
-        hint:
-            'Who owns the IP — client, vendor, shared'),
+        hint: 'Who owns the IP — client, vendor, shared'),
     Field('thirdPartyComponents', String, 'Third-Party Components',
-        hint:
-            'Third-party libraries or data included and their licenses'),
+        hint: 'Third-party libraries included and their licenses'),
+  ])
+  String? content;
+}
 
-    // --- Documentation ---
+/// Documentation for deliverable.
+class DeliverableDocumentation {
+  @Form([
     Field('associatedDocumentation', String, 'Associated Documentation',
-        hint:
-            'Related documentation deliverable IDs — e.g. DEL-DOC-003'),
+        hint: 'Related documentation deliverable IDs'),
     Field('releaseNotes', String, 'Release Notes Required',
         hint: 'Yes / No — whether release notes accompany delivery'),
     Field('notes', String, 'Notes',
@@ -772,96 +812,140 @@ class UatTestCycleEntry {
 /// Level Test Case / Level Test Procedure structures.
 class TestScenarioEntry {
   @Form([
-    // --- Identification ---
     Field('scenarioId', String, 'Scenario ID',
         hint: 'Unique identifier — e.g. UAT-SC-001', required: true),
     Field('scenarioName', String, 'Scenario Name',
-        hint:
-            'Concise name describing the user journey or business process',
-        required: true),
-    Field('description', String, 'Description',
-        hint: 'Detailed narrative of what is tested and why'),
+        hint: 'Concise name describing the user journey', required: true),
     Field('priority', String, 'Priority',
-        hint: 'Critical / High / Medium / Low — based on business impact'),
-    Field('complexity', String, 'Complexity',
-        hint: 'Simple / Medium / Complex — affects effort estimation'),
-    Field('category', String, 'Category',
-        hint:
-            'Functional / Regression / Integration / End-to-End / Negative / Exploratory'),
-
-    // --- Business Context ---
-    Field('businessProcessRef', String, 'Business Process Reference',
-        hint: 'ID or name of the business process being validated'),
-    Field('businessRulesValidated', String, 'Business Rules Validated',
-        hint:
-            'Business rules this scenario verifies — comma-separated'),
-    Field('userRolePerforming', String, 'User Role Performing Test',
-        hint:
-            'Persona or role executing — e.g. Finance Manager, Customer'),
-    Field('regulatoryRelevance', String, 'Regulatory Relevance',
-        hint:
-            'Compliance or regulatory requirements addressed, if any'),
-
-    // --- Traceability ---
-    Field('requirementRef', String, 'Requirement Reference',
-        hint: 'Requirement ID(s) — e.g. REQ-042, REQ-043'),
-    Field('useCaseRef', String, 'Use Case Reference',
-        hint: 'Related use case ID — e.g. UC-012'),
-    Field('acceptanceCriterionRef', String, 'Acceptance Criterion Reference',
-        hint: 'Linked criterion ID from 14.2.1'),
-    Field('designRef', String, 'Design / Screen Reference',
-        hint:
-            'UI screens, wireframes, or mockup references involved'),
-
-    // --- Preconditions & Setup ---
-    Field('preconditions', String, 'Preconditions',
-        hint:
-            'System state, data, and configuration required before execution'),
-    Field('testDataRequirements', String, 'Test Data Requirements',
-        hint:
-            'Specific data needed — e.g. active customer with 3+ orders'),
-    Field('environmentRequirements', String, 'Environment Requirements',
-        hint:
-            'Special environment config if different from default UAT env'),
-    Field('dependsOnScenarios', String, 'Depends on Scenarios',
-        hint:
-            'Scenario IDs that must pass before this one can execute'),
-
-    // --- Execution ---
-    Field('testStepsSummary', String, 'Test Steps Summary',
-        hint:
-            'High-level step sequence — detailed steps in sub-entries'),
-    Field('expectedResult', String, 'Expected Result',
-        hint: 'Overall expected outcome of the scenario'),
-    Field('acceptanceCriteria', String, 'Acceptance Criteria',
-        hint: 'Specific pass/fail conditions for this scenario'),
-    Field('estimatedDuration', String, 'Estimated Duration',
-        hint: 'Expected execution time — e.g. 30 minutes'),
-    Field('assignedTesterRole', String, 'Assigned Tester Role',
-        hint: 'Role or name of the person assigned to execute'),
-
-    // --- Post-Execution ---
-    Field('postconditions', String, 'Postconditions',
-        hint: 'Expected system state after successful execution'),
-    Field('cleanupSteps', String, 'Cleanup Steps',
-        hint:
-            'Actions to reset environment or data after execution'),
-    Field('defectThreshold', String, 'Defect Threshold',
-        hint: 'Max defects for pass — e.g. 0 Sev-1, <= 2 Sev-3'),
-
-    // --- Notes ---
-    Field('assumptions', String, 'Assumptions',
-        hint: 'Assumptions made when designing this scenario'),
-    Field('risksAndMitigations', String, 'Risks & Mitigations',
-        hint: 'Known risks and mitigation strategies for execution'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional context, workarounds, or known issues'),
+        hint: 'Critical / High / Medium / Low'),
   ])
   String? content;
+
+  /// Identification.
+  final TestScenarioIdentification identification = TestScenarioIdentification();
+
+  /// Business context.
+  final TestScenarioBusiness business = TestScenarioBusiness();
+
+  /// Traceability.
+  final TestScenarioTraceability traceability = TestScenarioTraceability();
+
+  /// Preconditions and setup.
+  final TestScenarioSetup setup = TestScenarioSetup();
+
+  /// Execution.
+  final TestScenarioExecution execution = TestScenarioExecution();
+
+  /// Post-execution.
+  final TestScenarioPostExecution postExecution = TestScenarioPostExecution();
+
+  /// Notes.
+  final TestScenarioNotes notes = TestScenarioNotes();
 
   /// Contains 0+× UatTestStep for this scenario.
   @SectionIdPattern('PD00-DEL-ACC-UAT-xx-STP-xx')
   List<UatTestStepEntry> testSteps = [];
+}
+
+/// Identification for test scenario.
+class TestScenarioIdentification {
+  @Form([
+    Field('description', String, 'Description',
+        hint: 'Detailed narrative of what is tested and why'),
+    Field('complexity', String, 'Complexity',
+        hint: 'Simple / Medium / Complex'),
+    Field('category', String, 'Category',
+        hint: 'Functional / Regression / Integration / End-to-End'),
+  ])
+  String? content;
+}
+
+/// Business context for test scenario.
+class TestScenarioBusiness {
+  @Form([
+    Field('businessProcessRef', String, 'Business Process Reference',
+        hint: 'ID or name of the business process being validated'),
+    Field('businessRulesValidated', String, 'Business Rules Validated',
+        hint: 'Business rules this scenario verifies'),
+    Field('userRolePerforming', String, 'User Role Performing Test',
+        hint: 'Persona or role executing'),
+    Field('regulatoryRelevance', String, 'Regulatory Relevance',
+        hint: 'Compliance requirements addressed'),
+  ])
+  String? content;
+}
+
+/// Traceability for test scenario.
+class TestScenarioTraceability {
+  @Form([
+    Field('requirementRef', String, 'Requirement Reference',
+        hint: 'Requirement ID(s) — e.g. REQ-042'),
+    Field('useCaseRef', String, 'Use Case Reference',
+        hint: 'Related use case ID'),
+    Field('acceptanceCriterionRef', String, 'Acceptance Criterion Reference',
+        hint: 'Linked criterion ID'),
+    Field('designRef', String, 'Design / Screen Reference',
+        hint: 'UI screens or mockup references'),
+  ])
+  String? content;
+}
+
+/// Setup for test scenario.
+class TestScenarioSetup {
+  @Form([
+    Field('preconditions', String, 'Preconditions',
+        hint: 'System state required before execution'),
+    Field('testDataRequirements', String, 'Test Data Requirements',
+        hint: 'Specific data needed'),
+    Field('environmentRequirements', String, 'Environment Requirements',
+        hint: 'Special environment config'),
+    Field('dependsOnScenarios', String, 'Depends on Scenarios',
+        hint: 'Scenario IDs that must pass before this one'),
+  ])
+  String? content;
+}
+
+/// Execution for test scenario.
+class TestScenarioExecution {
+  @Form([
+    Field('testStepsSummary', String, 'Test Steps Summary',
+        hint: 'High-level step sequence'),
+    Field('expectedResult', String, 'Expected Result',
+        hint: 'Overall expected outcome'),
+    Field('acceptanceCriteria', String, 'Acceptance Criteria',
+        hint: 'Specific pass/fail conditions'),
+    Field('estimatedDuration', String, 'Estimated Duration',
+        hint: 'Expected execution time'),
+    Field('assignedTesterRole', String, 'Assigned Tester Role',
+        hint: 'Role or name of the person assigned'),
+  ])
+  String? content;
+}
+
+/// Post-execution for test scenario.
+class TestScenarioPostExecution {
+  @Form([
+    Field('postconditions', String, 'Postconditions',
+        hint: 'Expected system state after execution'),
+    Field('cleanupSteps', String, 'Cleanup Steps',
+        hint: 'Actions to reset environment'),
+    Field('defectThreshold', String, 'Defect Threshold',
+        hint: 'Max defects for pass'),
+  ])
+  String? content;
+}
+
+/// Notes for test scenario.
+class TestScenarioNotes {
+  @Form([
+    Field('assumptions', String, 'Assumptions',
+        hint: 'Assumptions made when designing'),
+    Field('risksAndMitigations', String, 'Risks & Mitigations',
+        hint: 'Known risks and mitigation strategies'),
+    Field('notes', String, 'Notes',
+        hint: 'Additional context or known issues'),
+  ])
+  String? content;
 }
 
 /// A UAT test step entry [PD00-DEL-ACC-UAT-nn-STP-mm].

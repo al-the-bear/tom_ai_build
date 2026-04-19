@@ -731,140 +731,141 @@ class StageOverviewConstraints {
 /// section 13.3.
 class StageSummaryEntry {
   @Form([
-    // --- Stage Identity ---
     Field('stageNumber', String, 'Stage Number',
-        hint: '1, 2, 3… — sequential stage number',
-        required: true),
+        hint: '1, 2, 3… — sequential stage number', required: true),
     Field('stageName', String, 'Stage Name',
-        hint:
-            'Descriptive name, e.g. Foundation / Core Operations / '
-            'Analytics / Full Rollout',
+        hint: 'Descriptive name, e.g. Foundation / Core Operations',
         required: true),
-    Field('stageCodename', String, 'Stage Codename',
-        hint: 'Optional internal codename, e.g. Atlas, Phoenix'),
-    Field('stageTheme', String, 'Stage Theme',
-        hint:
-            'High-level theme or focus area — Infrastructure / '
-            'CoreBusiness / Integration / Optimization / Expansion'),
-
-    // --- Timeline ---
-    Field('plannedStartDate', String, 'Planned Start Date',
-        hint: 'Planned start date, e.g. 2026-04-01',
-        required: true),
-    Field('plannedEndDate', String, 'Planned End Date',
-        hint: 'Planned end date, e.g. 2026-07-31',
-        required: true),
-    Field('durationWeeks', String, 'Duration (Weeks)',
-        hint: 'Planned duration in weeks, e.g. 16 weeks'),
-    Field('bufferWeeks', String, 'Buffer (Weeks)',
-        hint:
-            'Buffer time included at end of stage, '
-            'e.g. 2 weeks'),
-    Field('overlapWithPrevious', String, 'Overlap with Previous Stage',
-        hint:
-            'Duration of overlap with preceding stage, '
-            'e.g. None / 2 weeks / 10%'),
-
-    // --- Scope ---
     Field('scopeSummary', String, 'Scope Summary',
-        hint:
-            'One-line summary of what this stage delivers, '
-            'e.g. Core user management and authentication',
-        required: true),
+        hint: 'One-line summary of what this stage delivers', required: true),
+  ])
+  String? content;
+
+  /// Identity and theme.
+  final StageSummaryIdentity identity = StageSummaryIdentity();
+
+  /// Timeline.
+  final StageSummaryTimeline timeline = StageSummaryTimeline();
+
+  /// Scope.
+  final StageSummaryScope scope = StageSummaryScope();
+
+  /// Resources and budget.
+  final StageSummaryResources resources = StageSummaryResources();
+
+  /// Dependencies and risks.
+  final StageSummaryDependencies dependencies = StageSummaryDependencies();
+
+  /// Quality and acceptance.
+  final StageSummaryQuality quality = StageSummaryQuality();
+
+  /// Status.
+  final StageSummaryStatus status = StageSummaryStatus();
+}
+
+/// Identity for stage summary.
+class StageSummaryIdentity {
+  @Form([
+    Field('stageCodename', String, 'Stage Codename',
+        hint: 'Optional internal codename'),
+    Field('stageTheme', String, 'Stage Theme',
+        hint: 'High-level theme — Infrastructure / CoreBusiness'),
+  ])
+  String? content;
+}
+
+/// Timeline for stage summary.
+class StageSummaryTimeline {
+  @Form([
+    Field('plannedStartDate', String, 'Planned Start Date',
+        hint: 'Planned start date, e.g. 2026-04-01', required: true),
+    Field('plannedEndDate', String, 'Planned End Date',
+        hint: 'Planned end date, e.g. 2026-07-31', required: true),
+    Field('durationWeeks', String, 'Duration (Weeks)',
+        hint: 'Planned duration in weeks'),
+    Field('bufferWeeks', String, 'Buffer (Weeks)',
+        hint: 'Buffer time included at end'),
+    Field('overlapWithPrevious', String, 'Overlap with Previous Stage',
+        hint: 'Duration of overlap with preceding stage'),
+  ])
+  String? content;
+}
+
+/// Scope for stage summary.
+class StageSummaryScope {
+  @Form([
     Field('featureCount', String, 'Feature Count',
-        hint:
-            'Number of features or capabilities delivered '
-            'in this stage'),
+        hint: 'Number of features delivered'),
     Field('epicCount', String, 'Epic Count',
         hint: 'Number of epics or major work packages'),
     Field('storyPointEstimate', String, 'Story Point Estimate',
-        hint:
-            'Total estimated story points or effort units '
-            'for this stage'),
+        hint: 'Total estimated story points'),
     Field('keyDeliverables', String, 'Key Deliverables',
-        hint:
-            'Top 3-5 deliverables of this stage — comma-separated, '
-            'e.g. User Portal, Admin Dashboard, API Gateway'),
+        hint: 'Top 3-5 deliverables — comma-separated'),
     Field('outOfScopeItems', String, 'Out of Scope Items',
-        hint:
-            'Key items explicitly excluded from this stage — '
-            'deferred to later stages'),
+        hint: 'Key items excluded from this stage'),
+  ])
+  String? content;
+}
 
-    // --- Resources & Budget ---
+/// Resources for stage summary.
+class StageSummaryResources {
+  @Form([
     Field('teamSize', String, 'Team Size',
-        hint:
-            'Number of team members assigned to this stage, '
-            'e.g. 12 FTEs'),
+        hint: 'Number of team members, e.g. 12 FTEs'),
     Field('keyRoles', String, 'Key Roles',
-        hint:
-            'Critical roles for this stage — architect, '
-            'UX designer, backend lead, QA lead'),
+        hint: 'Critical roles — architect, UX designer, backend lead'),
     Field('estimatedBudget', String, 'Estimated Budget',
-        hint:
-            'Budget for this stage including all cost categories, '
-            'e.g. EUR 600K'),
+        hint: 'Budget for this stage, e.g. EUR 600K'),
     Field('budgetPercentOfTotal', String, 'Budget Percentage of Total',
-        hint:
-            'This stage budget as percentage of total programme '
-            'budget, e.g. 25%'),
+        hint: 'Stage budget as percentage of total'),
     Field('externalCostPercent', String, 'External Cost Percentage',
-        hint:
-            'Percentage of stage budget going to external vendors '
-            'or contractors'),
+        hint: 'Percentage going to external vendors'),
+  ])
+  String? content;
+}
 
-    // --- Dependencies & Risks ---
+/// Dependencies for stage summary.
+class StageSummaryDependencies {
+  @Form([
     Field('predecessorStages', String, 'Predecessor Stages',
-        hint:
-            'Stages that must complete before this one, '
-            'e.g. Stage 1 / None'),
+        hint: 'Stages that must complete before this one'),
     Field('successorStages', String, 'Successor Stages',
-        hint:
-            'Stages that depend on this one completing, '
-            'e.g. Stage 3, Stage 4'),
+        hint: 'Stages that depend on this one'),
     Field('externalDependencies', String, 'External Dependencies',
-        hint:
-            'External factors this stage depends on — vendor '
-            'delivery, regulatory approval, hardware procurement'),
+        hint: 'External factors this stage depends on'),
     Field('primaryRisk', String, 'Primary Risk',
-        hint:
-            'Single biggest risk for this stage — brief '
-            'description'),
+        hint: 'Single biggest risk for this stage'),
     Field('riskLevel', String, 'Risk Level',
-        hint:
-            'Low / Medium / High / Critical — overall risk '
-            'level for this stage'),
+        hint: 'Low / Medium / High / Critical'),
+  ])
+  String? content;
+}
 
-    // --- Quality & Acceptance ---
+/// Quality for stage summary.
+class StageSummaryQuality {
+  @Form([
     Field('qualityTarget', String, 'Quality Target',
-        hint:
-            'Specific quality target — defect density, '
-            'test pass rate, code coverage'),
-    Field('acceptanceCriteriaCount', String,
-        'Acceptance Criteria Count',
-        hint:
-            'Number of formal acceptance criteria for stage '
-            'completion'),
+        hint: 'Specific quality target — defect density, test pass rate'),
+    Field('acceptanceCriteriaCount', String, 'Acceptance Criteria Count',
+        hint: 'Number of formal acceptance criteria'),
     Field('gateReviewType', String, 'Gate Review Type',
-        hint:
-            'Formal / Informal / Automated — type of stage '
-            'gate review'),
+        hint: 'Formal / Informal / Automated'),
+  ])
+  String? content;
+}
 
-    // --- Status ---
+/// Status for stage summary.
+class StageSummaryStatus {
+  @Form([
     Field('currentStatus', String, 'Current Status',
-        hint:
-            'NotStarted / InPlanning / InProgress / OnHold / '
-            'Completed / Cancelled — current stage status'),
+        hint: 'NotStarted / InPlanning / InProgress / Completed'),
     Field('percentComplete', String, 'Percent Complete',
-        hint:
-            'Completion percentage, e.g. 0% / 45% / 100%'),
+        hint: 'Completion percentage'),
     Field('statusComment', String, 'Status Comment',
-        hint:
-            'Brief comment on current status — e.g. on track, '
-            '2 weeks behind due to resource constraints'),
+        hint: 'Brief comment on current status'),
     Field('trafficLightStatus', String, 'Traffic Light Status',
-        hint:
-            'Green / Amber / Red — traffic-light indicator '
-            'for this stage'),
+        hint: 'Green / Amber / Red'),
   ])
   String? content;
 }

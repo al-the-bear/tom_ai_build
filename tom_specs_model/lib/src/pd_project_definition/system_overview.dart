@@ -6071,150 +6071,131 @@ class Constraints {
 /// monitored, and have mitigation strategies where possible.
 class ConstraintEntry {
   @Form([
-    // --- Constraint Identity ---
     Field('constraintId', String, 'Constraint ID',
-        hint:
-            'Unique identifier, e.g. CON-001, CON-REG-001',
-        required: true),
+        hint: 'Unique identifier, e.g. CON-001', required: true),
     Field('constraintName', String, 'Constraint Name',
-        hint:
-            'Short descriptive name for the constraint, e.g. '
-            'GDPR Compliance Deadline',
-        required: true),
-    Field('constraintDescription', String, 'Description',
-        hint:
-            'Detailed description of the constraint and what '
-            'it limits or requires'),
+        hint: 'Short descriptive name for the constraint', required: true),
+    Field('impactLevel', String, 'Impact Level',
+        hint: 'Low / Medium / High / Critical', required: true),
+  ])
+  String? content;
 
-    // --- Constraint Classification ---
+  /// Classification.
+  final ConstraintClassification classification = ConstraintClassification();
+
+  /// Details.
+  final ConstraintDetails details = ConstraintDetails();
+
+  /// Impact assessment.
+  final ConstraintImpact impact = ConstraintImpact();
+
+  /// Mitigation and response.
+  final ConstraintMitigation mitigation = ConstraintMitigation();
+
+  /// Tracking and monitoring.
+  final ConstraintTracking tracking = ConstraintTracking();
+
+  /// Linkages.
+  final ConstraintLinkages linkages = ConstraintLinkages();
+}
+
+/// Classification for constraint.
+class ConstraintClassification {
+  @Form([
+    Field('constraintDescription', String, 'Description',
+        hint: 'Detailed description of the constraint'),
     Field('constraintCategory', String, 'Constraint Category',
-        hint:
-            'Regulatory / Contractual / Budgetary / Timeline / '
-            'Resource / Technical / Organizational / Policy / '
-            'Environmental / Geographic',
+        hint: 'Regulatory / Contractual / Budgetary / Timeline / Resource',
         required: true),
     Field('constraintType', String, 'Constraint Type',
-        hint:
-            'Hard / Soft — hard constraints cannot be violated, '
-            'soft constraints can be negotiated'),
+        hint: 'Hard / Soft — hard constraints cannot be violated'),
     Field('constraintSource', String, 'Constraint Source',
-        hint:
-            'Source of the constraint — regulator, contract, '
-            'executive, legal, technical team, vendor'),
+        hint: 'Source of the constraint — regulator, contract'),
     Field('sourceReference', String, 'Source Reference',
-        hint:
-            'Reference to the source document — regulation '
-            'number, contract clause, policy document'),
+        hint: 'Reference to the source document'),
+  ])
+  String? content;
+}
 
-    // --- Constraint Details ---
+/// Details for constraint.
+class ConstraintDetails {
+  @Form([
     Field('constraintValue', String, 'Constraint Value',
-        hint:
-            'Specific value or limit — e.g. EUR 500K max, '
-            '6 months deadline, 10 FTE cap'),
-    Field('constraintEffectiveDate', String,
-        'Constraint Effective Date',
-        hint:
-            'Date from which the constraint applies, '
-            'e.g. 2026-01-01'),
+        hint: 'Specific value or limit — e.g. EUR 500K max'),
+    Field('constraintEffectiveDate', String, 'Constraint Effective Date',
+        hint: 'Date from which the constraint applies'),
     Field('constraintExpiryDate', String, 'Constraint Expiry Date',
-        hint:
-            'Date until which the constraint applies, if '
-            'applicable — may be ongoing'),
+        hint: 'Date until which the constraint applies'),
     Field('geographicScope', String, 'Geographic Scope',
-        hint:
-            'Geographic regions where constraint applies — '
-            'Global / EU / US / APAC / specific countries'),
+        hint: 'Geographic regions where constraint applies'),
     Field('affectedDomains', String, 'Affected Domains',
-        hint:
-            'Business or technical domains affected — scope, '
-            'timeline, budget, technology, resources, quality'),
+        hint: 'Business or technical domains affected'),
+  ])
+  String? content;
+}
 
-    // --- Impact Assessment ---
-    Field('impactLevel', String, 'Impact Level',
-        hint:
-            'Low / Medium / High / Critical — impact on project '
-            'if constraint is violated or not met',
-        required: true),
+/// Impact assessment for constraint.
+class ConstraintImpact {
+  @Form([
     Field('impactDescription', String, 'Impact Description',
-        hint:
-            'Description of what happens if constraint is '
-            'violated — penalties, delays, legal action'),
+        hint: 'Description of what happens if constraint is violated'),
     Field('affectedWorkPackages', String, 'Affected Work Packages',
-        hint:
-            'Work packages or deliverables directly affected '
-            'by this constraint'),
+        hint: 'Work packages affected by this constraint'),
     Field('affectedMilestones', String, 'Affected Milestones',
-        hint:
-            'Project milestones affected by this constraint'),
+        hint: 'Project milestones affected'),
     Field('scheduleImpact', String, 'Schedule Impact',
-        hint:
-            'How constraint affects project schedule — fixed '
-            'deadline, limited work window, blackout periods'),
+        hint: 'How constraint affects project schedule'),
     Field('budgetImpact', String, 'Budget Impact',
-        hint:
-            'How constraint affects project budget — caps, '
-            'additional costs, penalties'),
+        hint: 'How constraint affects project budget'),
     Field('scopeImpact', String, 'Scope Impact',
-        hint:
-            'How constraint limits project scope — excluded '
-            'features, mandatory features, technology limits'),
+        hint: 'How constraint limits project scope'),
+  ])
+  String? content;
+}
 
-    // --- Mitigation & Response ---
+/// Mitigation for constraint.
+class ConstraintMitigation {
+  @Form([
     Field('mitigationStrategy', String, 'Mitigation Strategy',
-        hint:
-            'Strategies to work within the constraint — '
-            'workarounds, alternatives, buffering'),
-    Field('negotiationPossibility', String,
-        'Negotiation Possibility',
-        hint:
-            'None / Limited / Possible — whether constraint '
-            'can be negotiated or relaxed'),
+        hint: 'Strategies to work within the constraint'),
+    Field('negotiationPossibility', String, 'Negotiation Possibility',
+        hint: 'None / Limited / Possible'),
     Field('negotiationApproach', String, 'Negotiation Approach',
-        hint:
-            'If negotiation is possible, describe the approach '
-            'and timing'),
+        hint: 'If negotiation is possible, describe the approach'),
     Field('fallbackPlan', String, 'Fallback Plan',
-        hint:
-            'Contingency plan if constraint cannot be met — '
-            'descope, delay, alternative approach'),
-    Field('violationConsequences', String,
-        'Violation Consequences',
-        hint:
-            'Consequences of violating this constraint — '
-            'legal, financial, reputational'),
+        hint: 'Contingency plan if constraint cannot be met'),
+    Field('violationConsequences', String, 'Violation Consequences',
+        hint: 'Consequences of violating this constraint'),
+  ])
+  String? content;
+}
 
-    // --- Tracking & Monitoring ---
+/// Tracking for constraint.
+class ConstraintTracking {
+  @Form([
     Field('trackingMethod', String, 'Tracking Method',
-        hint:
-            'How the constraint is monitored — dashboards, '
-            'reports, automated alerts, manual reviews'),
+        hint: 'How the constraint is monitored'),
     Field('reviewFrequency', String, 'Review Frequency',
-        hint:
-            'Weekly / Biweekly / Monthly / PerMilestone — '
-            'how often constraint status is reviewed'),
+        hint: 'Weekly / Biweekly / Monthly / PerMilestone'),
     Field('constraintOwner', String, 'Constraint Owner',
-        hint:
-            'Person or role responsible for monitoring and '
-            'managing this constraint'),
+        hint: 'Person responsible for monitoring'),
     Field('currentStatus', String, 'Current Status',
-        hint:
-            'OnTrack / AtRisk / Violated / Resolved / Expired — '
-            'current status of the constraint'),
+        hint: 'OnTrack / AtRisk / Violated / Resolved / Expired'),
     Field('statusNotes', String, 'Status Notes',
-        hint:
-            'Notes on current status and recent changes'),
+        hint: 'Notes on current status'),
+  ])
+  String? content;
+}
 
-    // --- Linkages ---
+/// Linkages for constraint.
+class ConstraintLinkages {
+  @Form([
     Field('relatedConstraints', String, 'Related Constraints',
-        hint:
-            'Other constraints that interact with or depend '
-            'on this one'),
+        hint: 'Other constraints that interact with this one'),
     Field('relatedRisks', String, 'Related Risks',
-        hint:
-            'Risks associated with this constraint — risk IDs'),
+        hint: 'Risks associated with this constraint'),
     Field('relatedDependencies', String, 'Related Dependencies',
-        hint:
-            'Dependencies that relate to this constraint'),
+        hint: 'Dependencies that relate to this constraint'),
   ])
   String? content;
 }

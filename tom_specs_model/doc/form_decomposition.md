@@ -72,10 +72,10 @@ need decomposition into sub-sections to improve readability, maintainability, an
 | 14 | OrganizationalChangeEntry | 36 | organizational_framework.dart | ✅ |
 | 15 | ExportFormatEntry | 36 | user_interface_design.dart | ✅ |
 | 16 | DataSourceEntry | 33 | current_state_analysis.dart | ✅ |
-| 17 | ConstraintEntry | 32 | system_overview.dart | ⬜ |
-| 18 | StageSummaryEntry | 32 | system_stage_plan.dart | ⬜ |
-| 19 | DeliverableEntry | 30 | delivery_acceptance.dart | ⬜ |
-| 20 | TestScenarioEntry | 29 | delivery_acceptance.dart | ⬜ |
+| 17 | ConstraintEntry | 32 | system_overview.dart | ✅ |
+| 18 | StageSummaryEntry | 32 | system_stage_plan.dart | ✅ |
+| 19 | DeliverableEntry | 30 | delivery_acceptance.dart | ✅ |
+| 20 | TestScenarioEntry | 29 | delivery_acceptance.dart | ✅ |
 | 21 | ProcessAdjustmentEntry | 29 | project_organization_process.dart | ⬜ |
 | 22 | SuccessCriterionEntry | 29 | system_overview.dart | ⬜ |
 | 23 | ReportChartEntry | 29 | user_interface_design.dart | ⬜ |
