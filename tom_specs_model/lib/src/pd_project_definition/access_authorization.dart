@@ -832,6 +832,25 @@ class IdentitySourceEntry {
     Field('sourceProduct', String, 'Source Product',
         hint:
             'Specific product/service, e.g. Azure AD, Okta, Google Workspace'),
+  ])
+  String? content;
+
+  /// Connectivity and trust details.
+  IdentitySourceEntryConnection connection = IdentitySourceEntryConnection();
+
+  /// Synchronization and provisioning details.
+  IdentitySourceEntryLifecycle lifecycle = IdentitySourceEntryLifecycle();
+
+  /// Attribute mapping details.
+  IdentitySourceEntryMapping mapping = IdentitySourceEntryMapping();
+
+  /// Operational behavior.
+  IdentitySourceEntryOperations operations = IdentitySourceEntryOperations();
+}
+
+/// Connectivity and trust details.
+class IdentitySourceEntryConnection {
+  @Form([
     Field('sourceEndpoint', String, 'Source Endpoint',
         hint: 'Connection endpoint URL or hostname'),
     Field('sourceProtocol', String, 'Source Protocol',
@@ -846,6 +865,13 @@ class IdentitySourceEntry {
     Field('authoritative', String, 'Authoritative Source',
         hint:
             'Yes / No — whether this source is the golden record for identity attributes'),
+  ])
+  String? content;
+}
+
+/// Synchronization and provisioning details.
+class IdentitySourceEntryLifecycle {
+  @Form([
     Field('synchronizationMode', String, 'Synchronization Mode',
         hint:
             'RealTime / Scheduled / OnDemand / EventDriven / Manual'),
@@ -860,12 +886,26 @@ class IdentitySourceEntry {
     Field('conflictResolution', String, 'Conflict Resolution',
         hint:
             'SourceWins / TargetWins / MostRecent / ManualReview / MergeAttributes'),
+  ])
+  String? content;
+}
+
+/// Attribute mapping details.
+class IdentitySourceEntryMapping {
+  @Form([
     Field('attributeFilter', String, 'Attribute Filter',
         hint:
             'Which attributes are imported, e.g. all, name+email+groups, custom list'),
     Field('groupMappingEnabled', String, 'Group Mapping Enabled',
         hint:
             'Yes / No — whether groups/roles from this source are mapped to application roles'),
+  ])
+  String? content;
+}
+
+/// Operational behavior.
+class IdentitySourceEntryOperations {
+  @Form([
     Field('failoverBehavior', String, 'Failover Behavior',
         hint:
             'RetryWithBackoff / FallbackToCache / FailClosed / FailOpen'),
@@ -1059,6 +1099,28 @@ class SingleSignOnPolicy {
             'EnterpriseWide / ApplicationSpecific / CrossDomain / BusinessUnit'),
     Field('ssoProtocol', String, 'SSO Protocol',
         hint: 'SAML2.0 / OIDC / OAuth2 / WS-Federation / Kerberos / CAS'),
+  ])
+  String? content;
+
+  /// Gateway and federation setup.
+  SingleSignOnPolicyFederation federation = SingleSignOnPolicyFederation();
+
+  /// Session and logout behavior.
+  SingleSignOnPolicySession session = SingleSignOnPolicySession();
+
+  /// Access and consent behavior.
+  SingleSignOnPolicyAccess access = SingleSignOnPolicyAccess();
+
+  /// Platform integration and monitoring.
+  SingleSignOnPolicyOperations operations = SingleSignOnPolicyOperations();
+
+  /// Additional SSO details (text).
+  TextSection ssoDetails = TextSection();
+}
+
+/// Gateway and federation setup.
+class SingleSignOnPolicyFederation {
+  @Form([
     Field('ssoGatewayProduct', String, 'SSO Gateway Product',
         hint:
             'Product/service acting as SSO hub, e.g. Keycloak, PingGateway, Azure AD'),
@@ -1071,14 +1133,13 @@ class SingleSignOnPolicy {
     Field('identityFederationEnabled', String, 'Identity Federation Enabled',
         hint:
             'Yes / No — whether identities federate across organizational boundaries'),
-    Field('accountLinkingStrategy', String, 'Account Linking Strategy',
-        hint:
-            'AutomaticByEmail / AutomaticByExternalId / UserInitiated / AdminManaged / None'),
-    Field('consentRequirements', String, 'Consent Requirements',
-        hint:
-            'None / FirstLoginOnly / PerApplication / PerScope / Periodic'),
-    Field('ssoPortalUrl', String, 'SSO Portal URL',
-        hint: 'URL for the central SSO portal or application launcher'),
+  ])
+  String? content;
+}
+
+/// Session and logout behavior.
+class SingleSignOnPolicySession {
+  @Form([
     Field('logoutPropagation', String, 'Logout Propagation',
         hint:
             'SingleLogout / LocalOnly / BestEffort — how logout propagates across SSO-connected apps'),
@@ -1090,9 +1151,31 @@ class SingleSignOnPolicy {
     Field('ssoIdleTimeout', String, 'SSO Idle Timeout',
         hint:
             'Idle timeout before SSO session expires, e.g. 30min, 1h, 4h'),
+  ])
+  String? content;
+}
+
+/// Access and consent behavior.
+class SingleSignOnPolicyAccess {
+  @Form([
+    Field('accountLinkingStrategy', String, 'Account Linking Strategy',
+        hint:
+            'AutomaticByEmail / AutomaticByExternalId / UserInitiated / AdminManaged / None'),
+    Field('consentRequirements', String, 'Consent Requirements',
+        hint:
+            'None / FirstLoginOnly / PerApplication / PerScope / Periodic'),
+    Field('ssoPortalUrl', String, 'SSO Portal URL',
+        hint: 'URL for the central SSO portal or application launcher'),
     Field('ssoBypassRules', String, 'SSO Bypass Rules',
         hint:
             'Scenarios where SSO is bypassed, e.g. ServiceAccounts, LocalAdminFallback, BreakGlass'),
+  ])
+  String? content;
+}
+
+/// Platform integration and monitoring.
+class SingleSignOnPolicyOperations {
+  @Form([
     Field('desktopSsoIntegration', String, 'Desktop SSO Integration',
         hint:
             'Kerberos / WindowsIntegrated / None — integration with desktop/OS authentication'),
@@ -1104,9 +1187,6 @@ class SingleSignOnPolicy {
             'How SSO health and usage is monitored, e.g. IdPHealthCheck, LoginSuccessRate'),
   ])
   String? content;
-
-  /// Additional SSO details (text).
-  TextSection ssoDetails = TextSection();
 }
 
 /// Self-registration policy (form) [PD00-ACC-IDE-IDN-REG].
@@ -5423,61 +5503,21 @@ class AuthorizationRoleEntry {
         hint:
             'Business | Technical | Administrative | System | Compliance | '
             'Custom — classification of the role by function'),
-    Field('roleScope', String, 'Role Scope',
-        hint:
-            'Global | Tenant | Department | Project | Team | Custom — '
-            'organizational scope where this role is applicable'),
-    Field('inheritsFrom', String, 'Inherits From',
-        hint:
-            'Parent role name or "none" for top-level roles; child roles '
-            'inherit all permissions of the parent'),
-    Field('permissionSet', String, 'Permission Set',
-        hint:
-            'Comma-separated permission keys summarizing the role\'s access '
-            '(e.g. user.manage, config.read, audit.read)'),
-    Field('riskLevel', String, 'Risk Level',
-        hint:
-            'Critical | High | Medium | Low — privilege risk classification '
-            'for access review prioritization'),
-    Field('maxHolders', int, 'Maximum Holders',
-        hint:
-            'Maximum number of users who can hold this role concurrently; '
-            '0 = unlimited'),
-    Field('activationType', String, 'Activation Type',
-        hint:
-            'AlwaysActive | OnDemand | TimeLimited | Scheduled — whether the '
-            'role is permanently active or requires activation'),
-    Field('activationDuration', String, 'Activation Duration',
-        hint:
-            'Maximum duration for on-demand or time-limited activation '
-            '(e.g. 8h, 24h, 7d)'),
-    Field('approvalRequired', bool, 'Approval Required',
-        hint: 'Yes | No — whether role assignment requires explicit approval'),
-    Field('approver', String, 'Approver',
-        hint:
-            'Role or person responsible for approving role assignments '
-            '(e.g. Line Manager, Security Officer, System Owner)'),
-    Field('provisioningMethod', String, 'Provisioning Method',
-        hint:
-            'Manual | Automatic | ApprovalBased | SelfService | RuleBased — '
-            'how the role is assigned to users'),
-    Field('reviewFrequency', String, 'Review Frequency',
-        hint:
-            'Monthly | Quarterly | SemiAnnual | Annual | OnChange | Never — '
-            'how often role assignments are reviewed for appropriateness'),
-    Field('dataAccessScope', String, 'Data Access Scope',
-        hint:
-            'AllData | TenantData | DepartmentData | TeamData | OwnData | '
-            'None — breadth of data accessible through this role'),
-    Field('isDefault', bool, 'Default Role',
-        hint: 'Yes | No — automatically assigned to new users upon creation'),
-    Field('isSystem', bool, 'System Role',
-        hint:
-            'Yes | No — system-defined role that cannot be modified or '
-            'deleted by administrators'),
-    Field('notes', String, 'Notes', hint: 'Additional role definition notes'),
   ])
   String? content;
+
+  /// Scope and inheritance metadata.
+  AuthorizationRoleEntryStructure structure = AuthorizationRoleEntryStructure();
+
+  /// Risk and activation controls.
+  AuthorizationRoleEntryGovernance governance =
+      AuthorizationRoleEntryGovernance();
+
+  /// Provisioning and review settings.
+  AuthorizationRoleEntryLifecycle lifecycle = AuthorizationRoleEntryLifecycle();
+
+  /// Data access and role status flags.
+  AuthorizationRoleEntryStatus status = AuthorizationRoleEntryStatus();
 
   /// Contains 0+× ResponsibilityReference.
   @SectionIdPattern('PD00-ACC-USA-ROL-xx-RSP-xx')
@@ -5502,6 +5542,87 @@ class AuthorizationRoleEntry {
   /// Contains 0+× RoleHolder.
   @SectionIdPattern('PD00-ACC-USA-ROL-xx-HOL-xx')
   List<RoleHolderEntry> typicalHolders = [];
+}
+
+/// Scope and inheritance metadata.
+class AuthorizationRoleEntryStructure {
+    @Form([
+        Field('roleScope', String, 'Role Scope',
+                hint:
+                        'Global | Tenant | Department | Project | Team | Custom — '
+                        'organizational scope where this role is applicable'),
+        Field('inheritsFrom', String, 'Inherits From',
+                hint:
+                        'Parent role name or "none" for top-level roles; child roles '
+                        'inherit all permissions of the parent'),
+        Field('permissionSet', String, 'Permission Set',
+                hint:
+                        'Comma-separated permission keys summarizing the role\'s access '
+                        '(e.g. user.manage, config.read, audit.read)'),
+    ])
+    String? content;
+}
+
+/// Risk and activation controls.
+class AuthorizationRoleEntryGovernance {
+    @Form([
+        Field('riskLevel', String, 'Risk Level',
+                hint:
+                        'Critical | High | Medium | Low — privilege risk classification '
+                        'for access review prioritization'),
+        Field('maxHolders', int, 'Maximum Holders',
+                hint:
+                        'Maximum number of users who can hold this role concurrently; '
+                        '0 = unlimited'),
+        Field('activationType', String, 'Activation Type',
+                hint:
+                        'AlwaysActive | OnDemand | TimeLimited | Scheduled — whether the '
+                        'role is permanently active or requires activation'),
+        Field('activationDuration', String, 'Activation Duration',
+                hint:
+                        'Maximum duration for on-demand or time-limited activation '
+                        '(e.g. 8h, 24h, 7d)'),
+        Field('approvalRequired', bool, 'Approval Required',
+                hint: 'Yes | No — whether role assignment requires explicit approval'),
+        Field('approver', String, 'Approver',
+                hint:
+                        'Role or person responsible for approving role assignments '
+                        '(e.g. Line Manager, Security Officer, System Owner)'),
+    ])
+    String? content;
+}
+
+/// Provisioning and review settings.
+class AuthorizationRoleEntryLifecycle {
+    @Form([
+        Field('provisioningMethod', String, 'Provisioning Method',
+                hint:
+                        'Manual | Automatic | ApprovalBased | SelfService | RuleBased — '
+                        'how the role is assigned to users'),
+        Field('reviewFrequency', String, 'Review Frequency',
+                hint:
+                        'Monthly | Quarterly | SemiAnnual | Annual | OnChange | Never — '
+                        'how often role assignments are reviewed for appropriateness'),
+    ])
+    String? content;
+}
+
+/// Data access and role status flags.
+class AuthorizationRoleEntryStatus {
+    @Form([
+        Field('dataAccessScope', String, 'Data Access Scope',
+                hint:
+                        'AllData | TenantData | DepartmentData | TeamData | OwnData | '
+                        'None — breadth of data accessible through this role'),
+        Field('isDefault', bool, 'Default Role',
+                hint: 'Yes | No — automatically assigned to new users upon creation'),
+        Field('isSystem', bool, 'System Role',
+                hint:
+                        'Yes | No — system-defined role that cannot be modified or '
+                        'deleted by administrators'),
+        Field('notes', String, 'Notes', hint: 'Additional role definition notes'),
+    ])
+    String? content;
 }
 
 /// A responsibility reference entry (form) [PD00-ACC-USA-ROL-nn-RSP-nn].

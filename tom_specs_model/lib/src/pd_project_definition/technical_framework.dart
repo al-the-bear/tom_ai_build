@@ -3154,21 +3154,46 @@ class BuildToolsConfiguration {
 /// Version control configuration.
 class VersionControlConfiguration {
   @Form([
-    // System
     Field('vcsSystem', String, 'VCS System', hint: 'Git, Mercurial, SVN'),
     Field('vcsVersion', String, 'VCS Version', hint: 'Minimum version required'),
     Field('hostingPlatform', String, 'Hosting Platform',
         hint: 'GitHub, GitLab, Bitbucket, Azure DevOps'),
+  ])
+  String? content;
 
-    // Repository structure
+  /// Repository structure settings.
+  VersionControlConfigurationRepository repository =
+      VersionControlConfigurationRepository();
+
+  /// Branching policy.
+  VersionControlConfigurationBranching branching =
+      VersionControlConfigurationBranching();
+
+  /// Commit and merge policy.
+  VersionControlConfigurationCommits commits =
+      VersionControlConfigurationCommits();
+
+  /// Tagging and file attribute settings.
+  VersionControlConfigurationMetadata metadata =
+      VersionControlConfigurationMetadata();
+}
+
+/// Repository structure settings.
+class VersionControlConfigurationRepository {
+  @Form([
     Field('repositoryStructure', String, 'Repository Structure',
         hint: 'Monorepo, polyrepo, hybrid'),
     Field('submodulePolicy', String, 'Submodule Policy',
         hint: 'Use of Git submodules'),
     Field('lfsUsage', String, 'LFS Usage',
         hint: 'Git LFS for large files'),
+  ])
+  String? content;
+}
 
-    // Branching
+/// Branching policy.
+class VersionControlConfigurationBranching {
+  @Form([
     Field('branchingStrategy', String, 'Branching Strategy',
         hint: 'GitFlow, trunk-based, GitHub Flow'),
     Field('mainBranchName', String, 'Main Branch Name',
@@ -3179,22 +3204,30 @@ class VersionControlConfiguration {
         hint: 'release/v1.2.3'),
     Field('hotfixPolicy', String, 'Hotfix Policy',
         hint: 'Hotfix branch workflow'),
+  ])
+  String? content;
+}
 
-    // Commits
+/// Commit and merge policy.
+class VersionControlConfigurationCommits {
+  @Form([
     Field('commitMessageFormat', String, 'Commit Message Format',
         hint: 'Conventional Commits, custom format'),
     Field('commitSigningRequired', bool, 'Commit Signing Required',
         hint: 'GPG signing requirement'),
     Field('squashMergePolicy', String, 'Squash/Merge Policy',
         hint: 'When to squash vs merge'),
+  ])
+  String? content;
+}
 
-    // Tags
+/// Tagging and file attribute settings.
+class VersionControlConfigurationMetadata {
+  @Form([
     Field('tagNamingConvention', String, 'Tag Naming Convention',
         hint: 'v1.2.3, yyyy-MM-dd, custom'),
     Field('tagSigningRequired', bool, 'Tag Signing Required',
         hint: 'GPG signing for tags'),
-
-    // Ignore and attributes
     Field('gitignoreTemplate', String, 'Gitignore Template',
         hint: 'Standard gitignore file'),
     Field('gitattributes', String, 'Git Attributes',

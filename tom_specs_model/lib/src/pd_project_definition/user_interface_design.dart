@@ -610,42 +610,20 @@ class ScreenEntry {
         hint: 'Human-readable screen title'),
     Field('purpose', String, 'Purpose',
         hint: 'Business purpose — what the user accomplishes here'),
-    Field('screenCategory', String, 'Screen Category',
-        hint:
-            'List/Detail/Form/Dashboard/Settings/Wizard/Dialog/Report/Landing'),
-    Field('parentScreenId', String, 'Parent Screen ID',
-        hint: 'Parent screen if this is a sub-screen or drill-down'),
-    Field('routePattern', String, 'Route Pattern',
-        hint: 'Navigation route path, e.g., /orders/:id/edit'),
-    Field('accessLevel', String, 'Access Level',
-        hint: 'Public/Authenticated/Role-specific'),
-    Field('requiredRoles', String, 'Required Roles',
-        hint: 'Authorization roles that may access this screen'),
-    Field('requiredPermissions', String, 'Required Permissions',
-        hint: 'Specific permissions needed'),
-    Field('permissionEffect', String, 'Permission Effect',
-        hint: 'Hide-Screen/Show-Readonly/Show-With-Restrictions'),
-    Field('relatedUseCases', String, 'Related Use Cases',
-        hint: 'UC references this screen serves'),
-    Field('relatedRequirements', String, 'Related Requirements',
-        hint: 'RC references this screen satisfies'),
-    Field('relatedBusinessProcesses', String, 'Related Business Processes',
-        hint: 'BP references where this screen appears'),
-    Field('dataEntities', String, 'Data Entities',
-        hint: 'BDM entity references displayed/edited'),
-    Field('primaryAction', String, 'Primary Action',
-        hint: 'Main user action on this screen'),
-    Field('pageTitleResource', String, 'Page Title Resource',
-        hint: 'Resource key for the screen title text'),
-    Field('pageIconResource', String, 'Page Icon Resource',
-        hint: 'Resource key for the screen icon'),
-    Field('helpTopicId', String, 'Help Topic ID',
-        hint: 'Link to help/documentation topic'),
-    Field('layout', String, 'Layout',
-        hint:
-            'Layout description, e.g., Responsive grid — 3 col desktop, 1 col mobile'),
   ])
   String? content;
+
+  /// Classification and routing metadata.
+  ScreenEntryClassification classification = ScreenEntryClassification();
+
+  /// Access control settings.
+  ScreenEntryAccess access = ScreenEntryAccess();
+
+  /// Traceability metadata.
+  ScreenEntryTraceability traceability = ScreenEntryTraceability();
+
+  /// Presentation metadata.
+  ScreenEntryPresentation presentation = ScreenEntryPresentation();
 
   /// Screen design rationale and notes.
   TextSection designNotes = TextSection();
@@ -670,6 +648,68 @@ class ScreenEntry {
   /// Contains 0+× ScreenResponsiveRule.
   @SectionIdPattern('PD00-USE-SCR-INV-xx-RSP-xx')
   List<ScreenResponsiveRuleEntry> responsiveRules = [];
+}
+
+/// Classification and routing metadata.
+class ScreenEntryClassification {
+  @Form([
+    Field('screenCategory', String, 'Screen Category',
+        hint:
+            'List/Detail/Form/Dashboard/Settings/Wizard/Dialog/Report/Landing'),
+    Field('parentScreenId', String, 'Parent Screen ID',
+        hint: 'Parent screen if this is a sub-screen or drill-down'),
+    Field('routePattern', String, 'Route Pattern',
+        hint: 'Navigation route path, e.g., /orders/:id/edit'),
+  ])
+  String? content;
+}
+
+/// Access control settings.
+class ScreenEntryAccess {
+  @Form([
+    Field('accessLevel', String, 'Access Level',
+        hint: 'Public/Authenticated/Role-specific'),
+    Field('requiredRoles', String, 'Required Roles',
+        hint: 'Authorization roles that may access this screen'),
+    Field('requiredPermissions', String, 'Required Permissions',
+        hint: 'Specific permissions needed'),
+    Field('permissionEffect', String, 'Permission Effect',
+        hint: 'Hide-Screen/Show-Readonly/Show-With-Restrictions'),
+  ])
+  String? content;
+}
+
+/// Traceability metadata.
+class ScreenEntryTraceability {
+  @Form([
+    Field('relatedUseCases', String, 'Related Use Cases',
+        hint: 'UC references this screen serves'),
+    Field('relatedRequirements', String, 'Related Requirements',
+        hint: 'RC references this screen satisfies'),
+    Field('relatedBusinessProcesses', String, 'Related Business Processes',
+        hint: 'BP references where this screen appears'),
+    Field('dataEntities', String, 'Data Entities',
+        hint: 'BDM entity references displayed/edited'),
+    Field('primaryAction', String, 'Primary Action',
+        hint: 'Main user action on this screen'),
+  ])
+  String? content;
+}
+
+/// Presentation metadata.
+class ScreenEntryPresentation {
+  @Form([
+    Field('pageTitleResource', String, 'Page Title Resource',
+        hint: 'Resource key for the screen title text'),
+    Field('pageIconResource', String, 'Page Icon Resource',
+        hint: 'Resource key for the screen icon'),
+    Field('helpTopicId', String, 'Help Topic ID',
+        hint: 'Link to help/documentation topic'),
+    Field('layout', String, 'Layout',
+        hint:
+            'Layout description, e.g., Responsive grid — 3 col desktop, 1 col mobile'),
+  ])
+  String? content;
 }
 
 // ---------------------------------------------------------------------------
@@ -3451,55 +3491,27 @@ class ErrorHandlingConcept {
 ///
 /// Field validation error display and feedback mechanisms.
 class ValidationFeedback {
-  // ─────────────────────────────────────────────────────────────────────────
-  // Validation Display
-  // ─────────────────────────────────────────────────────────────────────────
   @Form([
-    // Timing
     Field('validationTiming', String, 'Validation Timing',
         hint: 'Real-time, on-blur, on-submit, debounced'),
     Field('debounceDelay', String, 'Debounce Delay',
         hint: 'Milliseconds before validation triggers'),
     Field('validationSequence', String, 'Validation Sequence',
         hint: 'Field-by-field, all-at-once, progressive'),
-    // Display location
-    Field('errorMessagePlacement', String, 'Error Message Placement',
-        hint: 'Inline below field, above field, tooltip, summary'),
-    Field('summaryPosition', String, 'Error Summary Position',
-        hint: 'Top of form, bottom of form, modal'),
-    Field('fieldHighlighting', String, 'Field Highlighting',
-        hint: 'Border color, background color, icon'),
-    Field('fieldErrorIcon', String, 'Field Error Icon',
-        hint: 'Icon displayed on invalid fields'),
-    Field('fieldErrorIconPosition', String, 'Icon Position',
-        hint: 'Leading, trailing, inside field, outside'),
-    // Message format
-    Field('messageFormat', String, 'Message Format',
-        hint: 'Text only, icon + text, structured'),
-    Field('maxMessageLength', String, 'Max Message Length',
-        hint: 'Character limit for inline messages'),
-    Field('multipleErrorsDisplay', String, 'Multiple Errors Display',
-        hint: 'First only, all, expandable list'),
-    Field('errorPersistence', String, 'Error Persistence',
-        hint: 'Until fixed, until field accessed, timed'),
-    // Helpful guidance
-    Field('showRequirements', bool, 'Show Requirements',
-        hint: 'Display field requirements before error'),
-    Field('showSuggestions', bool, 'Show Suggestions',
-        hint: 'Suggest corrections for common errors'),
-    Field('showExamples', bool, 'Show Examples',
-        hint: 'Show example valid input'),
-    // Animation
-    Field('errorAnimation', String, 'Error Animation',
-        hint: 'Shake, fade-in, bounce, none'),
-    Field('clearAnimation', String, 'Clear Animation',
-        hint: 'Animation when error is resolved'),
-    Field('scrollToError', bool, 'Scroll to Error',
-        hint: 'Auto-scroll to first error on submit'),
-    Field('focusOnError', bool, 'Focus on Error',
-        hint: 'Move focus to first invalid field'),
   ])
   String? validationDisplayContent;
+
+  /// Display placement details.
+  ValidationFeedbackPlacement placement = ValidationFeedbackPlacement();
+
+  /// Message formatting details.
+  ValidationFeedbackMessages messages = ValidationFeedbackMessages();
+
+  /// Guidance settings.
+  ValidationFeedbackGuidance guidance = ValidationFeedbackGuidance();
+
+  /// Animation and focus behavior.
+  ValidationFeedbackBehavior behavior = ValidationFeedbackBehavior();
 
   /// Validation feedback narrative.
   @ContentHelp('Detailed specification of validation feedback behavior '
@@ -3514,6 +3526,66 @@ class ValidationFeedback {
   @ContentHelp('Validation rules organized by field type: '
       'text, email, phone, date, number, etc.')
   TextSection fieldValidationRules = TextSection();
+}
+
+/// Display placement details.
+class ValidationFeedbackPlacement {
+    @Form([
+        Field('errorMessagePlacement', String, 'Error Message Placement',
+                hint: 'Inline below field, above field, tooltip, summary'),
+        Field('summaryPosition', String, 'Error Summary Position',
+                hint: 'Top of form, bottom of form, modal'),
+        Field('fieldHighlighting', String, 'Field Highlighting',
+                hint: 'Border color, background color, icon'),
+        Field('fieldErrorIcon', String, 'Field Error Icon',
+                hint: 'Icon displayed on invalid fields'),
+        Field('fieldErrorIconPosition', String, 'Icon Position',
+                hint: 'Leading, trailing, inside field, outside'),
+    ])
+    String? content;
+}
+
+/// Message formatting details.
+class ValidationFeedbackMessages {
+    @Form([
+        Field('messageFormat', String, 'Message Format',
+                hint: 'Text only, icon + text, structured'),
+        Field('maxMessageLength', String, 'Max Message Length',
+                hint: 'Character limit for inline messages'),
+        Field('multipleErrorsDisplay', String, 'Multiple Errors Display',
+                hint: 'First only, all, expandable list'),
+        Field('errorPersistence', String, 'Error Persistence',
+                hint: 'Until fixed, until field accessed, timed'),
+    ])
+    String? content;
+}
+
+/// Guidance settings.
+class ValidationFeedbackGuidance {
+    @Form([
+        Field('showRequirements', bool, 'Show Requirements',
+                hint: 'Display field requirements before error'),
+        Field('showSuggestions', bool, 'Show Suggestions',
+                hint: 'Suggest corrections for common errors'),
+        Field('showExamples', bool, 'Show Examples',
+                hint: 'Show example valid input'),
+    ])
+    String? content;
+}
+
+/// Animation and focus behavior.
+class ValidationFeedbackBehavior {
+    @Form([
+        Field('errorAnimation', String, 'Error Animation',
+                hint: 'Shake, fade-in, bounce, none'),
+        Field('clearAnimation', String, 'Clear Animation',
+                hint: 'Animation when error is resolved'),
+        Field('scrollToError', bool, 'Scroll to Error',
+                hint: 'Auto-scroll to first error on submit'),
+        Field('focusOnError', bool, 'Focus on Error',
+                hint: 'Move focus to first invalid field'),
+    ])
+    String? content;
 }
 
 /// A validation message template [PD00-USE-ERR-VAL-MSG-nn].
@@ -3968,47 +4040,29 @@ class FieldHelpEntry {
 /// 10.8.2. Onboarding Help [PD00-USE-HLP-ONB].
 class OnboardingHelp {
   @Form([
-    // Welcome experience
     Field('welcomeFlowEnabled', bool, 'Welcome Flow Enabled'),
     Field('welcomeFlowStyle', String, 'Welcome Flow Style',
         hint: 'Modal wizard, full-page, inline'),
     Field('welcomeFlowSkippable', bool, 'Welcome Flow Skippable'),
     Field('welcomeFlowDuration', String, 'Welcome Flow Duration',
         hint: 'Expected completion time'),
-    // Feature tours
-    Field('featureToursEnabled', bool, 'Feature Tours Enabled'),
-    Field('featureTourStyle', String, 'Feature Tour Style',
-        hint: 'Spotlight, coach marks, carousel'),
-    Field('featureTourTrigger', String, 'Feature Tour Trigger',
-        hint: 'First visit, after action, manual'),
-    Field('featureTourProgress', bool, 'Feature Tour Progress',
-        hint: 'Show progress indicator'),
-    // Sample data
-    Field('sampleDataAvailable', bool, 'Sample Data Available'),
-    Field('sampleDataScope', String, 'Sample Data Scope',
-        hint: 'What sample data is provided'),
-    Field('sampleDataClear', String, 'Sample Data Clear',
-        hint: 'How users remove sample data'),
-    // Getting started
-    Field('gettingStartedChecklist', bool, 'Getting Started Checklist'),
-    Field('checklistItems', String, 'Checklist Items',
-        hint: 'Setup tasks to complete'),
-    Field('checklistProgress', String, 'Checklist Progress',
-        hint: 'How progress is shown'),
-    Field('checklistRewards', String, 'Checklist Rewards',
-        hint: 'Gamification elements'),
-    // Progressive disclosure
-    Field('progressiveDisclosure', String, 'Progressive Disclosure',
-        hint: 'How features are revealed over time'),
-    Field('skillLevelAdaptation', String, 'Skill Level Adaptation',
-        hint: 'Adapt to user skill level'),
-    // Re-engagement
-    Field('returnUserWelcome', String, 'Return User Welcome',
-        hint: 'Message for returning users'),
-    Field('whatsNewFeature', bool, 'What\'s New Feature',
-        hint: 'Show new features to returning users'),
   ])
   String? onboardingContent;
+
+  /// Feature tour settings.
+  OnboardingHelpTours tours = OnboardingHelpTours();
+
+  /// Sample data settings.
+  OnboardingHelpSampleData sampleData = OnboardingHelpSampleData();
+
+  /// Getting started checklist configuration.
+  OnboardingHelpChecklist checklist = OnboardingHelpChecklist();
+
+  /// Progressive disclosure configuration.
+  OnboardingHelpDisclosure disclosure = OnboardingHelpDisclosure();
+
+  /// Returning user experience.
+  OnboardingHelpReengagement reengagement = OnboardingHelpReengagement();
 
   /// Onboarding narrative.
   TextSection onboardingNarrative = TextSection();
@@ -4016,6 +4070,68 @@ class OnboardingHelp {
   /// Feature tour definitions.
   @SectionIdPattern('PD00-USE-HLP-ONB-TOUR-xx')
   List<FeatureTourEntry> featureTours = [];
+}
+
+/// Feature tour settings.
+class OnboardingHelpTours {
+    @Form([
+        Field('featureToursEnabled', bool, 'Feature Tours Enabled'),
+        Field('featureTourStyle', String, 'Feature Tour Style',
+                hint: 'Spotlight, coach marks, carousel'),
+        Field('featureTourTrigger', String, 'Feature Tour Trigger',
+                hint: 'First visit, after action, manual'),
+        Field('featureTourProgress', bool, 'Feature Tour Progress',
+                hint: 'Show progress indicator'),
+    ])
+    String? content;
+}
+
+/// Sample data settings.
+class OnboardingHelpSampleData {
+    @Form([
+        Field('sampleDataAvailable', bool, 'Sample Data Available'),
+        Field('sampleDataScope', String, 'Sample Data Scope',
+                hint: 'What sample data is provided'),
+        Field('sampleDataClear', String, 'Sample Data Clear',
+                hint: 'How users remove sample data'),
+    ])
+    String? content;
+}
+
+/// Getting started checklist configuration.
+class OnboardingHelpChecklist {
+    @Form([
+        Field('gettingStartedChecklist', bool, 'Getting Started Checklist'),
+        Field('checklistItems', String, 'Checklist Items',
+                hint: 'Setup tasks to complete'),
+        Field('checklistProgress', String, 'Checklist Progress',
+                hint: 'How progress is shown'),
+        Field('checklistRewards', String, 'Checklist Rewards',
+                hint: 'Gamification elements'),
+    ])
+    String? content;
+}
+
+/// Progressive disclosure configuration.
+class OnboardingHelpDisclosure {
+    @Form([
+        Field('progressiveDisclosure', String, 'Progressive Disclosure',
+                hint: 'How features are revealed over time'),
+        Field('skillLevelAdaptation', String, 'Skill Level Adaptation',
+                hint: 'Adapt to user skill level'),
+    ])
+    String? content;
+}
+
+/// Returning user experience.
+class OnboardingHelpReengagement {
+    @Form([
+        Field('returnUserWelcome', String, 'Return User Welcome',
+                hint: 'Message for returning users'),
+        Field('whatsNewFeature', bool, 'What\'s New Feature',
+                hint: 'Show new features to returning users'),
+    ])
+    String? content;
 }
 
 /// A feature tour entry [PD00-USE-HLP-ONB-TOUR-nn].
