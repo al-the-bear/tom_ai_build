@@ -870,23 +870,58 @@ class ContingencyPlanEntry {
   @Form([
     Field('contingencyId', String, 'Contingency Plan ID',
         hint: 'Unique identifier, e.g. CP-001'),
+    Field('planTitle', String, 'Plan Title',
+        hint: 'Short name for this contingency plan', required: true),
+    Field('triggerCondition', String, 'Trigger Condition',
+        hint: 'Specific event or threshold that activates this plan'),
+  ])
+  String? content;
+
+  /// Reference links to risk and component.
+  ContingencyPlanEntryReferences references = ContingencyPlanEntryReferences();
+
+  /// Action steps: trigger detection, immediate, and recovery.
+  ContingencyPlanEntryActions actions = ContingencyPlanEntryActions();
+
+  /// Responsibility and recovery targets.
+  ContingencyPlanEntryResponsibility responsibility =
+      ContingencyPlanEntryResponsibility();
+
+  /// Communication plans.
+  ContingencyPlanEntryCommunication communication =
+      ContingencyPlanEntryCommunication();
+
+  /// Testing and resources.
+  ContingencyPlanEntryTesting testing = ContingencyPlanEntryTesting();
+}
+
+/// Reference links for contingency plan.
+class ContingencyPlanEntryReferences {
+  @Form([
     Field('riskRef', String, 'Associated Risk',
         hint: 'Risk ID this plan addresses'),
     Field('componentRef', String, 'Component',
         hint: 'Component ID this plan covers'),
-    Field('planTitle', String, 'Plan Title',
-        hint: 'Short name for this contingency plan', required: true),
-    Field('triggerCondition', String, 'Trigger Condition',
-        hint:
-            'Specific event or threshold that activates this plan'),
+  ])
+  String? content;
+}
+
+/// Action steps for contingency plan.
+class ContingencyPlanEntryActions {
+  @Form([
     Field('triggerDetection', String, 'Trigger Detection',
-        hint:
-            'How the trigger is detected — alert, manual report, monitoring'),
+        hint: 'How the trigger is detected — alert, manual report, monitoring'),
     Field('immediateActions', String, 'Immediate Actions',
-        hint:
-            'First steps within minutes of trigger (containment)'),
+        hint: 'First steps within minutes of trigger (containment)'),
     Field('recoveryActions', String, 'Recovery Actions',
         hint: 'Steps to restore full operation'),
+  ])
+  String? content;
+}
+
+/// Responsibility and recovery targets for contingency plan.
+class ContingencyPlanEntryResponsibility {
+  @Form([
     Field('responsibleParty', String, 'Responsible Party',
         hint: 'Primary person/team who executes this plan'),
     Field('supportTeams', String, 'Support Teams',
@@ -895,30 +930,40 @@ class ContingencyPlanEntry {
         hint: 'Maximum acceptable downtime'),
     Field('targetRecoveryPoint', String, 'Target Recovery Point (RPO)',
         hint: 'Maximum acceptable data loss window'),
+  ])
+  String? content;
+}
+
+/// Communication plans for contingency.
+class ContingencyPlanEntryCommunication {
+  @Form([
     Field('communicationPlan', String, 'Communication Plan',
         hint: 'Who is notified, how, and in what order'),
     Field('customerCommunication', String, 'Customer Communication',
         hint: 'External messaging template or process'),
+  ])
+  String? content;
+}
+
+/// Testing and resources for contingency plan.
+class ContingencyPlanEntryTesting {
+  @Form([
     Field('testingFrequency', String, 'Testing Frequency',
-        hint:
-            'How often this plan is tested — quarterly, annually'),
+        hint: 'How often this plan is tested — quarterly, annually'),
     Field('lastTestedDate', String, 'Last Tested Date',
         hint: 'When this plan was last exercised'),
     Field('lastTestResult', String, 'Last Test Result',
         hint: 'Pass / Fail and key findings from last test'),
     Field('dependencies', String, 'Plan Dependencies',
-        hint:
-            'What this plan requires to execute — tools, access, backups'),
+        hint: 'What this plan requires to execute — tools, access, backups'),
     Field('estimatedCost', String, 'Execution Cost',
         hint: 'Estimated cost of executing this contingency'),
     Field('priority', String, 'Priority',
-        hint:
-            'Relative priority if multiple plans compete for resources'),
+        hint: 'Relative priority if multiple plans compete for resources'),
     Field('fallbackPlan', String, 'Fallback Plan',
         hint: 'What to do if this contingency plan itself fails'),
     Field('documentLocation', String, 'Runbook Location',
-        hint:
-            'Where the detailed step-by-step runbook is stored'),
+        hint: 'Where the detailed step-by-step runbook is stored'),
   ])
   String? content;
 }

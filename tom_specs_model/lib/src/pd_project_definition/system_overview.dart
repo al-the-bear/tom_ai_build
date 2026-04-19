@@ -3746,6 +3746,43 @@ class TechnicalRequirementEntry {
     Field('requirementId', String,
         'Requirement ID (unique, e.g., REQ-T001)', required: true),
     Field('title', String, 'Title', required: true),
+    Field('status', String,
+        'Status (Draft, Proposed, Approved, Verified, Deferred)', required: true),
+  ])
+  String? content;
+
+  /// Requirement details: description, category, priority.
+  TechnicalRequirementEntryDetails details = TechnicalRequirementEntryDetails();
+
+  /// Measurement specifications.
+  TechnicalRequirementEntryMeasurement measurement =
+      TechnicalRequirementEntryMeasurement();
+
+  /// Verification approach and tools.
+  TechnicalRequirementEntryVerification verification =
+      TechnicalRequirementEntryVerification();
+
+  /// Impact assessment.
+  TechnicalRequirementEntryImpact impact = TechnicalRequirementEntryImpact();
+
+  /// Assumptions and constraints.
+  TechnicalRequirementEntryConstraints constraints =
+      TechnicalRequirementEntryConstraints();
+
+  /// 4.3.2.n.1. Acceptance Criteria [PD00-SYO-REQ-TEC-nn-ACR].
+  RequirementAcceptanceCriteria acceptanceCriteria =
+      RequirementAcceptanceCriteria();
+
+  /// 4.3.2.n.2. Dependencies [PD00-SYO-REQ-TEC-nn-DEP].
+  RequirementDependencies dependencies = RequirementDependencies();
+
+  /// 4.3.2.n.3. Traceability [PD00-SYO-REQ-TEC-nn-TRC].
+  RequirementTraceability traceability = RequirementTraceability();
+}
+
+/// Technical requirement details: description, category, priority.
+class TechnicalRequirementEntryDetails {
+  @Form([
     Field('description', String,
         'Description (The system shall... detailed statement)', required: true),
     Field('category', String,
@@ -3758,6 +3795,13 @@ class TechnicalRequirementEntry {
         'Priority (Critical, High, Medium, Low)', required: true),
     Field('source', String, 'Source (who requested)', required: true),
     Field('rationale', String, 'Rationale'),
+  ])
+  String? content;
+}
+
+/// Measurement specifications for technical requirement.
+class TechnicalRequirementEntryMeasurement {
+  @Form([
     Field('metric', String, 'Metric (what is measured)'),
     Field('currentValue', String, 'Current Value (baseline)'),
     Field('targetValue', String, 'Target Value', required: true),
@@ -3765,31 +3809,40 @@ class TechnicalRequirementEntry {
     Field('measurementEnvironment', String,
         'Measurement Environment (production, staging, load test)'),
     Field('measurementFrequency', String, 'Measurement Frequency'),
+  ])
+  String? content;
+}
+
+/// Verification approach for technical requirement.
+class TechnicalRequirementEntryVerification {
+  @Form([
     Field('verificationApproach', String,
         'Verification Approach (how verified: test, inspection, analysis)'),
     Field('verificationTool', String, 'Verification Tool'),
     Field('verificationTiming', String,
         'Verification Timing (unit test, integration, acceptance, production)'),
+  ])
+  String? content;
+}
+
+/// Impact assessment for technical requirement.
+class TechnicalRequirementEntryImpact {
+  @Form([
     Field('architectureImpact', String,
         'Architecture Impact (how this affects system design)'),
     Field('estimatedEffort', String, 'Estimated Implementation Effort'),
     Field('riskIfNotMet', String, 'Risk If Not Met'),
-    Field('assumptions', String, 'Assumptions'),
-    Field('constraints', String, 'Constraints'),
-    Field('status', String,
-        'Status (Draft, Proposed, Approved, Verified, Deferred)', required: true),
   ])
   String? content;
+}
 
-  /// 4.3.2.n.1. Acceptance Criteria [PD00-SYO-REQ-TEC-nn-ACR].
-  RequirementAcceptanceCriteria acceptanceCriteria =
-      RequirementAcceptanceCriteria();
-
-  /// 4.3.2.n.2. Dependencies [PD00-SYO-REQ-TEC-nn-DEP].
-  RequirementDependencies dependencies = RequirementDependencies();
-
-  /// 4.3.2.n.3. Traceability [PD00-SYO-REQ-TEC-nn-TRC].
-  RequirementTraceability traceability = RequirementTraceability();
+/// Assumptions and constraints for technical requirement.
+class TechnicalRequirementEntryConstraints {
+  @Form([
+    Field('assumptions', String, 'Assumptions'),
+    Field('constraints', String, 'Constraints'),
+  ])
+  String? content;
 }
 
 // ---------------------------------------------------------------------------

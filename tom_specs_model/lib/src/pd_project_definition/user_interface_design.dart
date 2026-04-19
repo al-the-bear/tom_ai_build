@@ -1408,6 +1408,30 @@ class NavigationItemEntry {
         hint: 'Unique identifier, e.g., nav-customers'),
     Field('label', String, 'Label Resource', required: true,
         hint: 'Resource key for display label'),
+    Field('targetRoute', String, 'Target Route',
+        hint: 'Route path, e.g., /customers'),
+  ])
+  String? content;
+
+  /// Display properties: icons, labels, descriptions.
+  NavigationItemEntryDisplay display = NavigationItemEntryDisplay();
+
+  /// Routing configuration.
+  NavigationItemEntryRouting routing = NavigationItemEntryRouting();
+
+  /// Access control settings.
+  NavigationItemEntryAccess access = NavigationItemEntryAccess();
+
+  /// Badge configuration.
+  NavigationItemEntryBadge badge = NavigationItemEntryBadge();
+
+  /// Interaction settings.
+  NavigationItemEntryInteraction interaction = NavigationItemEntryInteraction();
+}
+
+/// Display properties for navigation item.
+class NavigationItemEntryDisplay {
+  @Form([
     Field('shortLabel', String, 'Short Label Resource',
         hint: 'Abbreviated label for bottom nav/compact mode'),
     Field('icon', String, 'Icon Resource',
@@ -1416,16 +1440,28 @@ class NavigationItemEntry {
         hint: 'Icon variant when selected (filled vs outlined)'),
     Field('description', String, 'Description Resource',
         hint: 'Tooltip or subtitle text'),
+  ])
+  String? content;
+}
+
+/// Routing configuration for navigation item.
+class NavigationItemEntryRouting {
+  @Form([
     Field('targetScreenId', String, 'Target Screen ID',
         hint: 'Reference to Screen Inventory SCR-xxx'),
-    Field('targetRoute', String, 'Target Route',
-        hint: 'Route path, e.g., /customers'),
     Field('targetRouteParams', String, 'Route Parameters',
         hint: 'Default params, e.g., {status: active}'),
     Field('displayOrder', int, 'Display Order',
         hint: 'Position within parent group'),
     Field('isDefault', String, 'Is Default',
         hint: 'Yes/No — default selected item in group'),
+  ])
+  String? content;
+}
+
+/// Access control for navigation item.
+class NavigationItemEntryAccess {
+  @Form([
     Field('visibilityCondition', String, 'Visibility Condition',
         hint: 'Business condition for visibility'),
     Field('enabledCondition', String, 'Enabled Condition',
@@ -1436,12 +1472,26 @@ class NavigationItemEntry {
         hint: 'Specific permissions'),
     Field('permissionBehavior', String, 'Permission Behavior',
         hint: 'Hide/Disable/Show-Locked-Icon'),
+  ])
+  String? content;
+}
+
+/// Badge configuration for navigation item.
+class NavigationItemEntryBadge {
+  @Form([
     Field('badgeType', String, 'Badge Type',
         hint: 'None/Count/Dot/Text/Icon'),
     Field('badgeSource', String, 'Badge Source',
         hint: 'Data binding for badge, e.g., inbox.unreadCount'),
     Field('badgeColor', String, 'Badge Color',
         hint: 'Error/Warning/Info/Success/Neutral'),
+  ])
+  String? content;
+}
+
+/// Interaction settings for navigation item.
+class NavigationItemEntryInteraction {
+  @Form([
     Field('keyboardShortcut', String, 'Keyboard Shortcut',
         hint: 'Global shortcut, e.g., Ctrl+Shift+C'),
     Field('searchKeywords', String, 'Search Keywords',
@@ -3347,56 +3397,32 @@ class ErrorRecovery {
   // Recovery Mechanisms
   // ─────────────────────────────────────────────────────────────────────────
   @Form([
-    // Data preservation
     Field('formDataPreservation', String, 'Form Data Preservation',
         hint: 'How unsaved form data is preserved on error'),
-    Field('draftAutoSave', bool, 'Draft Auto-Save',
-        hint: 'Automatic draft saving before submission'),
-    Field('draftSaveInterval', String, 'Draft Save Interval',
-        hint: 'How often drafts are auto-saved'),
-    Field('draftStorageMethod', String, 'Draft Storage Method',
-        hint: 'LocalStorage, IndexedDB, server-side'),
-    Field('draftRetentionPeriod', String, 'Draft Retention Period',
-        hint: 'How long drafts are kept'),
-    Field('draftRecoveryPrompt', String, 'Draft Recovery Prompt',
-        hint: 'How users are notified of recoverable drafts'),
-    // Retry mechanisms
-    Field('automaticRetryEnabled', bool, 'Automatic Retry Enabled'),
-    Field('retryBackoffStrategy', String, 'Retry Backoff Strategy',
-        hint: 'Exponential, linear, fixed'),
-    Field('maxAutomaticRetries', int, 'Max Automatic Retries'),
-    Field('manualRetryButton', bool, 'Manual Retry Button'),
-    Field('retryButtonLabel', String, 'Retry Button Label',
-        hint: 'Button text (e.g., "Try Again")'),
-    Field('retryFeedback', String, 'Retry Feedback',
-        hint: 'How retry attempts are indicated'),
-    // Guided recovery
-    Field('stepByStepRecovery', bool, 'Step-by-Step Recovery',
-        hint: 'Guided recovery wizard'),
-    Field('alternativeActions', String, 'Alternative Actions',
-        hint: 'What else user can do'),
-    Field('skipOption', bool, 'Skip Option',
-        hint: 'Allow skipping failed operation'),
-    Field('cancelOption', bool, 'Cancel Option',
-        hint: 'Allow canceling and returning'),
-    // Support contact
-    Field('supportContactMethod', String, 'Support Contact Method',
-        hint: 'Chat, email, phone, ticket'),
-    Field('supportAvailability', String, 'Support Availability',
-        hint: 'When support is available'),
-    Field('errorReportSubmission', bool, 'Error Report Submission',
-        hint: 'Allow user to submit error report'),
-    Field('includeDebugInfo', bool, 'Include Debug Info',
-        hint: 'Include technical details in report'),
-    // Session handling
     Field('sessionRecovery', String, 'Session Recovery',
         hint: 'How expired sessions are handled'),
-    Field('reauthenticationFlow', String, 'Reauthentication Flow',
-        hint: 'Inline login, redirect, modal'),
-    Field('preserveContextOnReauth', bool, 'Preserve Context on Reauth',
-        hint: 'Return to original location after reauth'),
+    Field('supportContactMethod', String, 'Support Contact Method',
+        hint: 'Chat, email, phone, ticket'),
   ])
   String? recoveryMechanismsContent;
+
+  /// Data preservation: draft auto-save settings.
+  ErrorRecoveryDataPreservation dataPreservation =
+      ErrorRecoveryDataPreservation();
+
+  /// Retry mechanisms configuration.
+  ErrorRecoveryRetryMechanisms retryMechanisms =
+      ErrorRecoveryRetryMechanisms();
+
+  /// Guided recovery options.
+  ErrorRecoveryGuidedRecovery guidedRecovery = ErrorRecoveryGuidedRecovery();
+
+  /// Support contact details.
+  ErrorRecoverySupportContact supportContact = ErrorRecoverySupportContact();
+
+  /// Session handling configuration.
+  ErrorRecoverySessionHandling sessionHandling =
+      ErrorRecoverySessionHandling();
 
   /// Error recovery narrative.
   @ContentHelp('Detailed specification of error recovery flows '
@@ -3410,6 +3436,78 @@ class ErrorRecovery {
   /// Common recovery scenarios.
   @SectionIdPattern('PD00-USE-ERR-REC-SCE-xx')
   List<RecoveryScenarioEntry> recoveryScenarios = [];
+}
+
+/// Data preservation: draft auto-save settings.
+class ErrorRecoveryDataPreservation {
+  @Form([
+    Field('draftAutoSave', bool, 'Draft Auto-Save',
+        hint: 'Automatic draft saving before submission'),
+    Field('draftSaveInterval', String, 'Draft Save Interval',
+        hint: 'How often drafts are auto-saved'),
+    Field('draftStorageMethod', String, 'Draft Storage Method',
+        hint: 'LocalStorage, IndexedDB, server-side'),
+    Field('draftRetentionPeriod', String, 'Draft Retention Period',
+        hint: 'How long drafts are kept'),
+    Field('draftRecoveryPrompt', String, 'Draft Recovery Prompt',
+        hint: 'How users are notified of recoverable drafts'),
+  ])
+  String? content;
+}
+
+/// Retry mechanisms configuration.
+class ErrorRecoveryRetryMechanisms {
+  @Form([
+    Field('automaticRetryEnabled', bool, 'Automatic Retry Enabled'),
+    Field('retryBackoffStrategy', String, 'Retry Backoff Strategy',
+        hint: 'Exponential, linear, fixed'),
+    Field('maxAutomaticRetries', int, 'Max Automatic Retries'),
+    Field('manualRetryButton', bool, 'Manual Retry Button'),
+    Field('retryButtonLabel', String, 'Retry Button Label',
+        hint: 'Button text (e.g., "Try Again")'),
+    Field('retryFeedback', String, 'Retry Feedback',
+        hint: 'How retry attempts are indicated'),
+  ])
+  String? content;
+}
+
+/// Guided recovery options.
+class ErrorRecoveryGuidedRecovery {
+  @Form([
+    Field('stepByStepRecovery', bool, 'Step-by-Step Recovery',
+        hint: 'Guided recovery wizard'),
+    Field('alternativeActions', String, 'Alternative Actions',
+        hint: 'What else user can do'),
+    Field('skipOption', bool, 'Skip Option',
+        hint: 'Allow skipping failed operation'),
+    Field('cancelOption', bool, 'Cancel Option',
+        hint: 'Allow canceling and returning'),
+  ])
+  String? content;
+}
+
+/// Support contact details.
+class ErrorRecoverySupportContact {
+  @Form([
+    Field('supportAvailability', String, 'Support Availability',
+        hint: 'When support is available'),
+    Field('errorReportSubmission', bool, 'Error Report Submission',
+        hint: 'Allow user to submit error report'),
+    Field('includeDebugInfo', bool, 'Include Debug Info',
+        hint: 'Include technical details in report'),
+  ])
+  String? content;
+}
+
+/// Session handling configuration.
+class ErrorRecoverySessionHandling {
+  @Form([
+    Field('reauthenticationFlow', String, 'Reauthentication Flow',
+        hint: 'Inline login, redirect, modal'),
+    Field('preserveContextOnReauth', bool, 'Preserve Context on Reauth',
+        hint: 'Return to original location after reauth'),
+  ])
+  String? content;
 }
 
 /// A recovery scenario entry [PD00-USE-ERR-REC-SCE-nn].
@@ -3674,41 +3772,88 @@ class TourStepEntry {
 /// 10.8.3. Support Access [PD00-USE-HLP-SUP].
 class SupportAccess {
   @Form([
-    // Help center
     Field('helpCenterAvailable', bool, 'Help Center Available'),
+    Field('liveChatAvailable', bool, 'Live Chat Available'),
+    Field('ticketSubmission', bool, 'Ticket Submission'),
+  ])
+  String? supportAccessContent;
+
+  /// Help center configuration.
+  SupportAccessHelpCenter helpCenter = SupportAccessHelpCenter();
+
+  /// Live support settings.
+  SupportAccessLiveSupport liveSupport = SupportAccessLiveSupport();
+
+  /// Ticket system configuration.
+  SupportAccessTickets tickets = SupportAccessTickets();
+
+  /// Contact methods.
+  SupportAccessContactMethods contactMethods = SupportAccessContactMethods();
+
+  /// Self-service and feedback options.
+  SupportAccessSelfService selfService = SupportAccessSelfService();
+
+  /// Support access narrative.
+  TextSection supportAccessNarrative = TextSection();
+}
+
+/// Help center configuration.
+class SupportAccessHelpCenter {
+  @Form([
     Field('helpCenterLocation', String, 'Help Center Location',
         hint: 'In-app, external, hybrid'),
     Field('helpCenterSearch', bool, 'Help Center Search',
         hint: 'Searchable knowledge base'),
     Field('helpArticleCategories', String, 'Article Categories',
         hint: 'How help is organized'),
-    // Live support
-    Field('liveChatAvailable', bool, 'Live Chat Available'),
+  ])
+  String? content;
+}
+
+/// Live support settings.
+class SupportAccessLiveSupport {
+  @Form([
     Field('liveChatHours', String, 'Live Chat Hours',
         hint: 'Availability hours'),
     Field('chatbotFirstLine', bool, 'Chatbot First Line',
         hint: 'Chatbot before human'),
     Field('chatbotCapabilities', String, 'Chatbot Capabilities',
         hint: 'What chatbot can handle'),
-    // Ticket submission
-    Field('ticketSubmission', bool, 'Ticket Submission'),
+  ])
+  String? content;
+}
+
+/// Ticket system configuration.
+class SupportAccessTickets {
+  @Form([
     Field('ticketFormFields', String, 'Ticket Form Fields',
         hint: 'Required ticket information'),
     Field('ticketAttachments', bool, 'Ticket Attachments',
         hint: 'Allow file attachments'),
     Field('ticketResponseSla', String, 'Ticket Response SLA',
         hint: 'Expected response time'),
-    // Contact methods
+  ])
+  String? content;
+}
+
+/// Contact methods.
+class SupportAccessContactMethods {
+  @Form([
     Field('emailSupport', bool, 'Email Support'),
     Field('phoneSupport', bool, 'Phone Support'),
     Field('phoneNumber', String, 'Phone Number'),
     Field('communityForum', bool, 'Community Forum'),
-    // Self-service
+  ])
+  String? content;
+}
+
+/// Self-service and feedback options.
+class SupportAccessSelfService {
+  @Form([
     Field('faqSection', bool, 'FAQ Section'),
     Field('troubleshootingGuides', bool, 'Troubleshooting Guides'),
     Field('videoTutorials', bool, 'Video Tutorials'),
     Field('releaseNotes', bool, 'Release Notes'),
-    // Feedback
     Field('feedbackButton', bool, 'Feedback Button',
         hint: 'Always-visible feedback option'),
     Field('featureRequests', bool, 'Feature Requests',
@@ -3716,10 +3861,7 @@ class SupportAccess {
     Field('bugReporting', bool, 'Bug Reporting',
         hint: 'Report bugs from app'),
   ])
-  String? supportAccessContent;
-
-  /// Support access narrative.
-  TextSection supportAccessNarrative = TextSection();
+  String? content;
 }
 
 // ---------------------------------------------------------------------------

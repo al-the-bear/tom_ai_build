@@ -130,17 +130,36 @@ class RoleAdjustmentSummary {
 /// assessment, and mitigation measures.
 class RoleAdjustmentEntry {
   @Form([
-    // Identification
     Field('adjustmentId', String, 'Adjustment ID',
         hint: 'Unique identifier, e.g. ROL-ADJ-001', required: true),
     Field('standardRoleName', String, 'Standard Role Name',
         hint: 'Original TomSpecs role being adjusted', required: true),
-    Field('adjustedRoleName', String, 'Adjusted Role Name',
-        hint: 'Name of the role after adjustment'),
-
-    // Adjustment Details
     Field('adjustmentType', String, 'Adjustment Type',
         hint: 'Merged / Split / Modified / Omitted / Added'),
+  ])
+  String? content;
+
+  /// Adjustment details: name changes, affected responsibilities.
+  RoleAdjustmentEntryDetails details = RoleAdjustmentEntryDetails();
+
+  /// Rationale for the adjustment.
+  RoleAdjustmentEntryRationale rationale = RoleAdjustmentEntryRationale();
+
+  /// Coverage: assignments and RACI impact.
+  RoleAdjustmentEntryCoverage coverage = RoleAdjustmentEntryCoverage();
+
+  /// Risk assessment.
+  RoleAdjustmentEntryRisk risk = RoleAdjustmentEntryRisk();
+
+  /// Governance: approval and review.
+  RoleAdjustmentEntryGovernance governance = RoleAdjustmentEntryGovernance();
+}
+
+/// Adjustment details for role.
+class RoleAdjustmentEntryDetails {
+  @Form([
+    Field('adjustedRoleName', String, 'Adjusted Role Name',
+        hint: 'Name of the role after adjustment'),
     Field('adjustmentDescription', String, 'Adjustment Description',
         hint: 'Detailed description of what changed'),
     Field('affectedResponsibilities', String, 'Affected Responsibilities',
@@ -149,32 +168,52 @@ class RoleAdjustmentEntry {
         hint: 'If merged, which other roles it combines with'),
     Field('splitIntoRoles', String, 'Split Into Roles',
         hint: 'If split, names of the resulting roles'),
+  ])
+  String? content;
+}
 
-    // Rationale
+/// Rationale for role adjustment.
+class RoleAdjustmentEntryRationale {
+  @Form([
     Field('rationale', String, 'Rationale',
         hint: 'Business or organizational reason for the adjustment'),
     Field('drivingFactors', String, 'Driving Factors',
         hint: 'ProjectSize / TeamStructure / Skills / Regulatory / Budget'),
     Field('stakeholderAgreement', String, 'Stakeholder Agreement',
         hint: 'Who agreed to this adjustment'),
+  ])
+  String? content;
+}
 
-    // Coverage
+/// Coverage: assignments and RACI impact.
+class RoleAdjustmentEntryCoverage {
+  @Form([
     Field('assignedTo', String, 'Assigned To',
         hint: 'Person or team fulfilling this adjusted role'),
     Field('backupAssignment', String, 'Backup Assignment',
         hint: 'Backup person or team when primary is unavailable'),
     Field('raciImpact', String, 'RACI Impact',
         hint: 'How this affects the RACI matrix for related activities'),
+  ])
+  String? content;
+}
 
-    // Risk and Governance
+/// Risk assessment for role adjustment.
+class RoleAdjustmentEntryRisk {
+  @Form([
     Field('riskLevel', String, 'Risk Level',
         hint: 'Low / Medium / High — risk introduced by this deviation'),
     Field('riskDescription', String, 'Risk Description',
         hint: 'What could go wrong due to this adjustment'),
     Field('mitigationMeasures', String, 'Mitigation Measures',
         hint: 'How risks from this adjustment are mitigated'),
+  ])
+  String? content;
+}
 
-    // Governance
+/// Governance: approval and review.
+class RoleAdjustmentEntryGovernance {
+  @Form([
     Field('approvalStatus', String, 'Approval Status',
         hint: 'Proposed / Approved / Conditional / Rejected'),
     Field('approvedBy', String, 'Approved By',
@@ -183,8 +222,6 @@ class RoleAdjustmentEntry {
         hint: 'When the deviation was approved'),
     Field('reviewDate', String, 'Next Review Date',
         hint: 'When this adjustment will be reviewed'),
-
-    // Notes
     Field('notes', String, 'Notes',
         hint: 'Additional context or considerations'),
   ])
