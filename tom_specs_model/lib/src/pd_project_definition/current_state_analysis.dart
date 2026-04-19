@@ -402,6 +402,28 @@ class ExternalServiceDependencyEntry {
     Field('serviceProvider', String, 'Service Provider/Vendor'),
     Field('serviceType', String, 'Service Type',
         hint: 'SaaS / PaaS / IaaS / API Service / Data Feed / Payment Gateway / etc.'),
+  ])
+  String? content;
+
+  /// Internal dependency and contract details.
+  ExternalServiceDependencyEntryRelationship relationship =
+      ExternalServiceDependencyEntryRelationship();
+
+  /// Availability and data handling details.
+  ExternalServiceDependencyEntryOperations operations =
+      ExternalServiceDependencyEntryOperations();
+
+  /// Risk and fallback considerations.
+  ExternalServiceDependencyEntryRisk risk =
+      ExternalServiceDependencyEntryRisk();
+
+  @Reference('Primary Dependent System')
+  ExistingSystemEntry? primaryDependentSystem;
+}
+
+/// Internal dependency and contract details.
+class ExternalServiceDependencyEntryRelationship {
+  @Form([
     Field('dependentSystems', String, 'Dependent Internal Systems',
         hint: 'List of internal systems that use this external service'),
     Field('criticality', String, 'Criticality',
@@ -409,6 +431,13 @@ class ExternalServiceDependencyEntry {
     Field('contractStatus', String, 'Contract Status',
         hint: 'Active / Renewal Due / Negotiating / Month-to-Month'),
     Field('contractExpiry', String, 'Contract Expiry Date'),
+  ])
+  String? content;
+}
+
+/// Availability and data handling details.
+class ExternalServiceDependencyEntryOperations {
+  @Form([
     Field('slaGuarantee', String, 'SLA Guarantee',
         hint: 'Vendor-provided availability guarantee, e.g., 99.9%'),
     Field('actualAvailability', String, 'Actual Availability',
@@ -419,6 +448,13 @@ class ExternalServiceDependencyEntry {
         hint: 'Where vendor stores/processes data - relevant for compliance'),
     Field('securityCertifications', String, 'Vendor Security Certifications',
         hint: 'SOC2, ISO 27001, HIPAA, etc.'),
+  ])
+  String? content;
+}
+
+/// Risk and fallback considerations.
+class ExternalServiceDependencyEntryRisk {
+  @Form([
     Field('vendorLockIn', String, 'Vendor Lock-In Risk',
         hint: 'None / Low / Moderate / High / Severe'),
     Field('switchingCost', String, 'Switching Cost',
@@ -433,9 +469,6 @@ class ExternalServiceDependencyEntry {
         hint: 'How incidents are reported and tracked'),
   ])
   String? content;
-
-  @Reference('Primary Dependent System')
-  ExistingSystemEntry? primaryDependentSystem;
 }
 
 /// 1.1.3.3. Shared Infrastructure Dependencies [PD00-CUR-SYS-DEP-SHR].

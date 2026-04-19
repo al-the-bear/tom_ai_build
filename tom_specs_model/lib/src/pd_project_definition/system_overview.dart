@@ -4924,48 +4924,26 @@ class MigrationMilestoneEntry {
 /// Follows PMI risk management practices and enterprise risk frameworks.
 @SectionId('PD00-SYO-SYR-MIG-RIS')
 class MigrationRisks {
-  // ─────────────────────────────────────────────────────────────────────────
-  // Risk Governance
-  // ─────────────────────────────────────────────────────────────────────────
   @Form([
-    // Risk governance structure
     Field('riskGovernanceModel', String, 'Risk Governance Model',
         hint: 'Centralized, federated, hybrid approach'),
     Field('riskCommitteeCharter', String, 'Risk Committee Charter'),
     Field('riskReviewFrequency', String, 'Risk Review Frequency',
         hint: 'Weekly, bi-weekly, monthly cycles'),
-    Field('riskEscalationPath', String, 'Escalation Path',
-        hint: 'PM → Steering Committee → Executive Sponsor'),
-    Field('riskToleranceLevel', String, 'Risk Tolerance Level',
-        hint: 'Enterprise risk appetite for migration'),
-    Field('riskDecisionAuthority', String, 'Risk Decision Authority',
-        hint: 'Who approves risk acceptance/transfer'),
-    // Assessment methodology
-    Field('riskAssessmentFramework', String, 'Assessment Framework',
-        hint: 'PMBOK, ISO 31000, COSO, custom'),
-    Field('probabilityScale', String, 'Probability Scale',
-        hint: '1-5, percentage bands, qualitative'),
-    Field('impactScale', String, 'Impact Scale',
-        hint: '1-5, monetary, qualitative'),
-    Field('riskScoringMethod', String, 'Risk Scoring Method',
-        hint: 'P×I matrix, expected value, Monte Carlo'),
-    Field('riskCategoryTaxonomy', String, 'Risk Category Taxonomy',
-        hint: 'Technical, schedule, resource, business'),
-    // Thresholds and triggers
-    Field('criticalRiskThreshold', String, 'Critical Risk Threshold',
-        hint: 'Score ≥ X requires executive attention'),
-    Field('highRiskThreshold', String, 'High Risk Threshold'),
-    Field('mediumRiskThreshold', String, 'Medium Risk Threshold'),
-    Field('emergentRiskTriggers', String, 'Emergent Risk Triggers',
-        hint: 'Indicators requiring immediate risk review'),
-    // Reporting
-    Field('riskReportingCadence', String, 'Reporting Cadence'),
-    Field('riskDashboardTools', String, 'Dashboard Tools',
-        hint: 'Tools for risk visualization'),
-    Field('riskRegisterRepository', String, 'Risk Register Repository',
-        hint: 'Where risk register is maintained'),
   ])
   String? governanceContent;
+
+  /// Governance and decision authority.
+  MigrationRisksGovernance governance = MigrationRisksGovernance();
+
+  /// Assessment methodology settings.
+  MigrationRisksAssessment assessment = MigrationRisksAssessment();
+
+  /// Threshold and trigger settings.
+  MigrationRisksThresholds thresholds = MigrationRisksThresholds();
+
+  /// Reporting settings.
+  MigrationRisksReporting reporting = MigrationRisksReporting();
 
   /// Risk overview at program level.
   @ContentHelp('Executive summary of migration risk landscape: '
@@ -5013,6 +4991,61 @@ class MigrationRisks {
   /// Contains 0+× MigrationRiskEntry.
   @SectionIdPattern('PD00-SYO-SYR-MIG-RIS-xx')
   List<MigrationRiskEntry> items = [];
+}
+
+/// Governance and decision authority.
+class MigrationRisksGovernance {
+    @Form([
+        Field('riskEscalationPath', String, 'Escalation Path',
+                hint: 'PM → Steering Committee → Executive Sponsor'),
+        Field('riskToleranceLevel', String, 'Risk Tolerance Level',
+                hint: 'Enterprise risk appetite for migration'),
+        Field('riskDecisionAuthority', String, 'Risk Decision Authority',
+                hint: 'Who approves risk acceptance/transfer'),
+    ])
+    String? content;
+}
+
+/// Assessment methodology settings.
+class MigrationRisksAssessment {
+    @Form([
+        Field('riskAssessmentFramework', String, 'Assessment Framework',
+                hint: 'PMBOK, ISO 31000, COSO, custom'),
+        Field('probabilityScale', String, 'Probability Scale',
+                hint: '1-5, percentage bands, qualitative'),
+        Field('impactScale', String, 'Impact Scale',
+                hint: '1-5, monetary, qualitative'),
+        Field('riskScoringMethod', String, 'Risk Scoring Method',
+                hint: 'P×I matrix, expected value, Monte Carlo'),
+        Field('riskCategoryTaxonomy', String, 'Risk Category Taxonomy',
+                hint: 'Technical, schedule, resource, business'),
+    ])
+    String? content;
+}
+
+/// Threshold and trigger settings.
+class MigrationRisksThresholds {
+    @Form([
+        Field('criticalRiskThreshold', String, 'Critical Risk Threshold',
+                hint: 'Score ≥ X requires executive attention'),
+        Field('highRiskThreshold', String, 'High Risk Threshold'),
+        Field('mediumRiskThreshold', String, 'Medium Risk Threshold'),
+        Field('emergentRiskTriggers', String, 'Emergent Risk Triggers',
+                hint: 'Indicators requiring immediate risk review'),
+    ])
+    String? content;
+}
+
+/// Reporting settings.
+class MigrationRisksReporting {
+    @Form([
+        Field('riskReportingCadence', String, 'Reporting Cadence'),
+        Field('riskDashboardTools', String, 'Dashboard Tools',
+                hint: 'Tools for risk visualization'),
+        Field('riskRegisterRepository', String, 'Risk Register Repository',
+                hint: 'Where risk register is maintained'),
+    ])
+    String? content;
 }
 
 /// A migration risk entry (form) [PD00-SYO-SYR-MIG-RIS-nn].
@@ -6309,17 +6342,34 @@ class TechnicalFrameworkConditionsNetwork {
 /// must adhere to. Includes scope, compliance requirements, and exceptions.
 class TechnologyStandardEntry {
   @Form([
-    // Standard Identification
     Field('standardId', String, 'Standard ID', required: true,
         hint: 'Unique identifier, e.g. STD-SEC-001, STD-DEV-001'),
     Field('standardName', String, 'Standard Name', required: true,
         hint: 'Short descriptive name'),
     Field('standardCategory', String, 'Category',
         hint: 'Security, Development, Infrastructure, Integration, Data, DevOps'),
+  ])
+  String? content;
+
+  /// Standard details and sources.
+  TechnologyStandardEntryDetails details = TechnologyStandardEntryDetails();
+
+  /// Scope and applicability.
+  TechnologyStandardEntryScope scope = TechnologyStandardEntryScope();
+
+  /// Compliance settings.
+  TechnologyStandardEntryCompliance compliance =
+      TechnologyStandardEntryCompliance();
+
+  /// Project impact notes.
+  TechnologyStandardEntryImpact impact = TechnologyStandardEntryImpact();
+}
+
+/// Standard details and sources.
+class TechnologyStandardEntryDetails {
+  @Form([
     Field('standardDescription', String, 'Description',
         hint: 'Detailed description of the standard'),
-
-    // Standard Details
     Field('mandateLevel', String, 'Mandate Level',
         hint: 'Mandatory, Strongly Preferred, Preferred, Optional'),
     Field('standardVersion', String, 'Version',
@@ -6330,8 +6380,13 @@ class TechnologyStandardEntry {
         hint: 'Date the standard became effective'),
     Field('reviewDate', String, 'Next Review Date',
         hint: 'When standard will be reviewed'),
+  ])
+  String? content;
+}
 
-    // Scope & Applicability
+/// Scope and applicability.
+class TechnologyStandardEntryScope {
+  @Form([
     Field('applicabilityScope', String, 'Applicability Scope',
         hint: 'Where the standard applies — all systems, specific domains, etc.'),
     Field('technologiesCovered', String, 'Technologies Covered',
@@ -6340,16 +6395,26 @@ class TechnologyStandardEntry {
         hint: 'Existing exceptions to this standard'),
     Field('exceptionProcess', String, 'Exception Process',
         hint: 'How to request an exception'),
+  ])
+  String? content;
+}
 
-    // Compliance
+/// Compliance settings.
+class TechnologyStandardEntryCompliance {
+  @Form([
     Field('complianceMethod', String, 'Compliance Method',
         hint: 'How compliance is verified — automated scan, review, audit'),
     Field('complianceOwner', String, 'Compliance Owner',
         hint: 'Role responsible for standard compliance'),
     Field('violationConsequence', String, 'Violation Consequence',
         hint: 'Consequences of non-compliance'),
+  ])
+  String? content;
+}
 
-    // Impact
+/// Project impact notes.
+class TechnologyStandardEntryImpact {
+  @Form([
     Field('projectImpact', String, 'Project Impact',
         hint: 'How this standard impacts the project'),
     Field('implementationNotes', String, 'Implementation Notes',

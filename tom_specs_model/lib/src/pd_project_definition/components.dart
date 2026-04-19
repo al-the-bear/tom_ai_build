@@ -14,7 +14,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 @SectionId('PD00-COM')
 @Comment('Seeds → TR')
 class ComponentsToUse {
-  @ContentHelp('''
+    @ContentHelp('''
 ## Components to Use (Chapter 12)
 
 External and standard components planned for the system.
@@ -39,27 +39,27 @@ Each component should specify:
 - Support model
 - Risk profile
 ''')
-  String? content;
+    String? content;
 
-  /// 12.1. Component Strategy [PD00-COM-STR].
-  ComponentStrategy strategy = ComponentStrategy();
+    /// 12.1. Component Strategy [PD00-COM-STR].
+    ComponentStrategy strategy = ComponentStrategy();
 
-  /// 12.2. Component Catalog [PD00-COM-COM] — contains 0+× Component.
-  @SectionIdPattern('PD00-COM-COM-xx')
-  List<ComponentEntry> componentCatalog = [];
+    /// 12.2. Component Catalog [PD00-COM-COM] — contains 0+× Component.
+    @SectionIdPattern('PD00-COM-COM-xx')
+    List<ComponentEntry> componentCatalog = [];
 
-  /// 12.3. Component Role In System [PD00-COM-ROL].
-  @SectionId('PD00-COM-ROL')
-  TextSection componentRoleInSystem = TextSection();
+    /// 12.3. Component Role In System [PD00-COM-ROL].
+    @SectionId('PD00-COM-ROL')
+    TextSection componentRoleInSystem = TextSection();
 
-  /// 12.4. Runtime Dependencies [PD00-COM-RUN].
-  RuntimeDependencies runtimeDependencies = RuntimeDependencies();
+    /// 12.4. Runtime Dependencies [PD00-COM-RUN].
+    RuntimeDependencies runtimeDependencies = RuntimeDependencies();
 
-  /// 12.5. Maintenance Dependencies [PD00-COM-MAI].
-  MaintenanceDependencies maintenanceDependencies = MaintenanceDependencies();
+    /// 12.5. Maintenance Dependencies [PD00-COM-MAI].
+    MaintenanceDependencies maintenanceDependencies = MaintenanceDependencies();
 
-  /// 12.6. Risk Assessment [PD00-COM-RIS].
-  ComponentRiskAssessment riskAssessment = ComponentRiskAssessment();
+    /// 12.6. Risk Assessment [PD00-COM-RIS].
+    ComponentRiskAssessment riskAssessment = ComponentRiskAssessment();
 }
 
 // ---------------------------------------------------------------------------
@@ -73,77 +73,127 @@ Each component should specify:
 /// management.
 @SectionId('PD00-COM-STR')
 class ComponentStrategy {
-  @Form([
-    Field('buildVsBuyPhilosophy', String, 'Build vs. Buy Philosophy',
-        hint:
-            'BuildFirst / BuyFirst / BestOfBreed / CaseByCase — default stance for component decisions'),
-    Field('buildVsBuyThreshold', String, 'Build vs. Buy Decision Threshold',
-        hint:
-            'Criteria for when to build, e.g. "Build if <40h and core differentiator"'),
-    Field('preferredVendors', String, 'Preferred Vendors',
-        hint:
-            'Strategically aligned vendors, e.g. AWS, Confluent, Elastic'),
-    Field('prohibitedVendors', String, 'Prohibited Vendors',
-        hint:
-            'Vendors excluded for compliance, legal, or strategic reasons'),
-    Field(
-        'technologyStackAlignment', String, 'Technology Stack Alignment',
-        hint:
-            'Target stack, e.g. Dart/Flutter, PostgreSQL, Redis, Kubernetes'),
-    Field('stackDeviationProcess', String, 'Stack Deviation Process',
-        hint:
-            'How to request approval for off-stack choices'),
-    Field('governanceModel', String, 'Governance Model',
-        hint:
-            'How component decisions are made — Architecture Review Board, tech leads, etc.'),
-    Field('governanceFrequency', String, 'Governance Review Cadence',
-        hint:
-            'How often the component portfolio is reviewed, e.g. quarterly, biannually'),
-    Field('evaluationCadence', String, 'Component Evaluation Cadence',
-        hint:
-            'How often new/existing components are formally evaluated'),
-    Field('portfolioVisibility', String, 'Portfolio Visibility',
-        hint:
-            'Where the component catalog is published — wiki, CMDB, internal portal'),
-    Field('componentRegistryUrl', String, 'Component Registry URL',
-        hint: 'Link to the authoritative component catalog'),
-    Field('maxComponentOverlap', int, 'Max Allowed Overlap',
-        hint:
-            'Maximum number of components for the same purpose, e.g. 2 DB engines'),
-    Field('consolidationTargets', String, 'Consolidation Targets',
-        hint:
-            'Components targeted for elimination or merger'),
-    Field('openSourcePolicy', String, 'Open-Source Policy',
-        hint:
-            'Permitted licenses, contribution policy, CLA stance'),
-    Field('securityBaselineRequirement', String, 'Security Baseline',
-        hint:
-            'Minimum security requirements all components must meet'),
-    Field(
-        'complianceBaselineRequirement', String, 'Compliance Baseline',
-        hint:
-            'Minimum compliance certifications required for all components'),
-    Field('vendorDiversityGoal', String, 'Vendor Diversity Goal',
-        hint:
-            'Strategy to avoid over-reliance on a single vendor'),
-    Field('sunsetPolicy', String, 'Sunset Policy',
-        hint:
-            'How end-of-life components are retired — timeline, migration support'),
-    Field('pilotProcessDescription', String, 'Pilot Process',
-        hint:
-            'How new components are piloted before full adoption'),
-    Field('totalPortfolioBudget', String, 'Total Component Budget',
-        hint:
-            'Annual budget ceiling for all component costs'),
-  ])
-  String? content;
+    @Form([
+        Field('buildVsBuyPhilosophy', String, 'Build vs. Buy Philosophy',
+                hint:
+                        'BuildFirst / BuyFirst / BestOfBreed / CaseByCase — default stance for component decisions'),
+        Field('buildVsBuyThreshold', String, 'Build vs. Buy Decision Threshold',
+                hint:
+                        'Criteria for when to build, e.g. "Build if <40h and core differentiator"'),
+        Field(
+                'technologyStackAlignment', String, 'Technology Stack Alignment',
+                hint:
+                        'Target stack, e.g. Dart/Flutter, PostgreSQL, Redis, Kubernetes'),
+    ])
+    String? content;
 
-  /// 12.1.1. Reuse Goals [PD00-COM-STR-GOA] — contains 0+× ReuseGoal.
-  @SectionIdPattern('PD00-COM-STR-GOA-xx')
-  List<ReuseGoalEntry> reuseGoals = [];
+    /// Vendor preferences and exceptions.
+    ComponentStrategyVendors vendors = ComponentStrategyVendors();
 
-  /// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
-  EvaluationCriteria evaluationCriteria = EvaluationCriteria();
+    /// Governance and evaluation process.
+    ComponentStrategyGovernance governance = ComponentStrategyGovernance();
+
+    /// Portfolio management settings.
+    ComponentStrategyPortfolio portfolio = ComponentStrategyPortfolio();
+
+    /// Policy and baseline requirements.
+    ComponentStrategyPolicies policies = ComponentStrategyPolicies();
+
+    /// Budget and pilot planning.
+    ComponentStrategyPlanning planning = ComponentStrategyPlanning();
+
+    /// 12.1.1. Reuse Goals [PD00-COM-STR-GOA] — contains 0+× ReuseGoal.
+    @SectionIdPattern('PD00-COM-STR-GOA-xx')
+    List<ReuseGoalEntry> reuseGoals = [];
+
+    /// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
+    EvaluationCriteria evaluationCriteria = EvaluationCriteria();
+}
+
+/// Vendor preferences and exceptions.
+class ComponentStrategyVendors {
+    @Form([
+        Field('preferredVendors', String, 'Preferred Vendors',
+                hint:
+                        'Strategically aligned vendors, e.g. AWS, Confluent, Elastic'),
+        Field('prohibitedVendors', String, 'Prohibited Vendors',
+                hint:
+                        'Vendors excluded for compliance, legal, or strategic reasons'),
+        Field('stackDeviationProcess', String, 'Stack Deviation Process',
+                hint:
+                        'How to request approval for off-stack choices'),
+    ])
+    String? content;
+}
+
+/// Governance and evaluation process.
+class ComponentStrategyGovernance {
+    @Form([
+        Field('governanceModel', String, 'Governance Model',
+                hint:
+                        'How component decisions are made — Architecture Review Board, tech leads, etc.'),
+        Field('governanceFrequency', String, 'Governance Review Cadence',
+                hint:
+                        'How often the component portfolio is reviewed, e.g. quarterly, biannually'),
+        Field('evaluationCadence', String, 'Component Evaluation Cadence',
+                hint:
+                        'How often new/existing components are formally evaluated'),
+    ])
+    String? content;
+}
+
+/// Portfolio management settings.
+class ComponentStrategyPortfolio {
+    @Form([
+        Field('portfolioVisibility', String, 'Portfolio Visibility',
+                hint:
+                        'Where the component catalog is published — wiki, CMDB, internal portal'),
+        Field('componentRegistryUrl', String, 'Component Registry URL',
+                hint: 'Link to the authoritative component catalog'),
+        Field('maxComponentOverlap', int, 'Max Allowed Overlap',
+                hint:
+                        'Maximum number of components for the same purpose, e.g. 2 DB engines'),
+        Field('consolidationTargets', String, 'Consolidation Targets',
+                hint:
+                        'Components targeted for elimination or merger'),
+    ])
+    String? content;
+}
+
+/// Policy and baseline requirements.
+class ComponentStrategyPolicies {
+    @Form([
+        Field('openSourcePolicy', String, 'Open-Source Policy',
+                hint:
+                        'Permitted licenses, contribution policy, CLA stance'),
+        Field('securityBaselineRequirement', String, 'Security Baseline',
+                hint:
+                        'Minimum security requirements all components must meet'),
+        Field(
+                'complianceBaselineRequirement', String, 'Compliance Baseline',
+                hint:
+                        'Minimum compliance certifications required for all components'),
+        Field('vendorDiversityGoal', String, 'Vendor Diversity Goal',
+                hint:
+                        'Strategy to avoid over-reliance on a single vendor'),
+        Field('sunsetPolicy', String, 'Sunset Policy',
+                hint:
+                        'How end-of-life components are retired — timeline, migration support'),
+    ])
+    String? content;
+}
+
+/// Budget and pilot planning.
+class ComponentStrategyPlanning {
+    @Form([
+        Field('pilotProcessDescription', String, 'Pilot Process',
+                hint:
+                        'How new components are piloted before full adoption'),
+        Field('totalPortfolioBudget', String, 'Total Component Budget',
+                hint:
+                        'Annual budget ceiling for all component costs'),
+    ])
+    String? content;
 }
 
 /// A reuse goal entry (form) [PD00-COM-STR-GOA-nn].
@@ -563,6 +613,31 @@ class ComponentLicensingEntry {
     Field('licenseName', String, 'License Name / SPDX',
         hint:
             'SPDX identifier or commercial license name, e.g. Apache-2.0, Enterprise v3'),
+    Field('contractTermLength', String, 'Contract Term',
+        hint: 'Duration of the agreement, e.g. 3 years'),
+  ])
+  String? content;
+
+  /// Cost and renewal details.
+  ComponentLicensingEntryCosts costs = ComponentLicensingEntryCosts();
+
+  /// Usage rights and obligations.
+  ComponentLicensingEntryRights rights = ComponentLicensingEntryRights();
+
+  /// Compliance restrictions.
+  ComponentLicensingEntryCompliance compliance =
+      ComponentLicensingEntryCompliance();
+
+  /// Metering and capacity rules.
+  ComponentLicensingEntryCapacity capacity = ComponentLicensingEntryCapacity();
+
+  /// Contract termination terms.
+  ComponentLicensingEntryContract contract = ComponentLicensingEntryContract();
+}
+
+/// Cost and renewal details.
+class ComponentLicensingEntryCosts {
+  @Form([
     Field('costInitial', String, 'Initial License Cost',
         hint: 'One-time purchase or setup fee'),
     Field('costRecurring', String, 'Recurring Cost',
@@ -571,6 +646,13 @@ class ComponentLicensingEntry {
         hint: 'Next renewal deadline'),
     Field('autoRenewal', String, 'Auto-Renewal',
         hint: 'Yes / No — and cancellation notice period'),
+  ])
+  String? content;
+}
+
+/// Usage rights and obligations.
+class ComponentLicensingEntryRights {
+  @Form([
     Field('redistributionRights', String, 'Redistribution Rights',
         hint:
             'Can the component be redistributed to end users or partners?'),
@@ -582,6 +664,13 @@ class ComponentLicensingEntry {
     Field('copyleftScope', String, 'Copyleft Scope',
         hint:
             'FileLevel / LibraryLevel / ProjectWide — copyleft impact'),
+  ])
+  String? content;
+}
+
+/// Compliance restrictions.
+class ComponentLicensingEntryCompliance {
+  @Form([
     Field('auditRights', String, 'Vendor Audit Rights',
         hint:
             'Can vendor audit our usage? Frequency and notice period'),
@@ -590,6 +679,13 @@ class ComponentLicensingEntry {
             'Countries or regions where use is prohibited or restricted'),
     Field('exportControlClassification', String, 'Export Control',
         hint: 'ECCN classification or export restriction category'),
+  ])
+  String? content;
+}
+
+/// Metering and capacity rules.
+class ComponentLicensingEntryCapacity {
+  @Form([
     Field('usageMetricTracked', String, 'Usage Metric',
         hint:
             'What is metered — API calls, users, data volume, CPU hours'),
@@ -598,8 +694,13 @@ class ComponentLicensingEntry {
     Field('overagePolicy', String, 'Overage Policy',
         hint:
             'What happens when capacity is exceeded — throttle, surcharge, block'),
-    Field('contractTermLength', String, 'Contract Term',
-        hint: 'Duration of the agreement, e.g. 3 years'),
+  ])
+  String? content;
+}
+
+/// Contract termination terms.
+class ComponentLicensingEntryContract {
+  @Form([
     Field('terminationClause', String, 'Termination Terms',
         hint: 'Early termination penalties and data export rights'),
   ])
@@ -619,17 +720,53 @@ class ComponentResponsibilitiesEntry {
     Field('escalationPath', String, 'Escalation Path',
         hint:
             'Ordered escalation chain with roles and timeframes'),
+  ])
+  String? content;
+
+  /// Vendor support details.
+  ComponentResponsibilitiesEntrySupport support =
+      ComponentResponsibilitiesEntrySupport();
+
+  /// SLA commitments.
+  ComponentResponsibilitiesEntrySla sla = ComponentResponsibilitiesEntrySla();
+
+  /// Security and update operations.
+  ComponentResponsibilitiesEntryOperations operations =
+      ComponentResponsibilitiesEntryOperations();
+
+  /// Governance and planning.
+  ComponentResponsibilitiesEntryGovernance governance =
+      ComponentResponsibilitiesEntryGovernance();
+}
+
+/// Vendor support details.
+class ComponentResponsibilitiesEntrySupport {
+  @Form([
     Field('vendorSupportContact', String, 'Vendor Support Contact',
         hint: 'How to reach vendor support — portal, email, phone'),
     Field('vendorSupportHours', String, 'Vendor Support Hours',
         hint:
             'Availability window, e.g. 24/7 or Mon-Fri 9-17 CET'),
+  ])
+  String? content;
+}
+
+/// SLA commitments.
+class ComponentResponsibilitiesEntrySla {
+  @Form([
     Field('slaUptimeTarget', String, 'Uptime SLA Target',
         hint: 'Internal uptime commitment, e.g. 99.9%'),
     Field('slaResponseCritical', String, 'Critical Issue Response Time',
         hint: 'Max time to acknowledge a P1/critical incident'),
     Field('slaResolutionCritical', String, 'Critical Issue Resolution Time',
         hint: 'Max time to resolve or workaround a P1 incident'),
+  ])
+  String? content;
+}
+
+/// Security and update operations.
+class ComponentResponsibilitiesEntryOperations {
+  @Form([
     Field('patchCadence', String, 'Patch Application Cadence',
         hint:
             'How quickly patches are applied, e.g. Critical: 24h, Normal: 14d'),
@@ -644,6 +781,13 @@ class ComponentResponsibilitiesEntry {
         hint: 'Who approves upgrades and configuration changes'),
     Field('monitoringOwner', String, 'Monitoring Owner',
         hint: 'Who maintains dashboards and alerts'),
+  ])
+  String? content;
+}
+
+/// Governance and planning.
+class ComponentResponsibilitiesEntryGovernance {
+  @Form([
     Field('knowledgeBaseLocation', String, 'Knowledge Base',
         hint: 'Where runbooks, FAQs, and tribal knowledge are stored'),
     Field('budgetAllocationAnnual', String, 'Annual Budget',

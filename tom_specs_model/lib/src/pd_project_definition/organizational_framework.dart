@@ -2179,30 +2179,81 @@ class CertificationEntry {
     Field('certificationId', String, 'Certification ID', required: true),
     Field('certificationName', String, 'Certification Name', required: true),
     Field('issuingBody', String, 'Issuing Body — who certifies'),
-    Field('description', String, 'Description'),
-    Field('targetRoles', String, 'Target Roles — who needs this'),
-    Field('mandatory', String, 'Mandatory — required or recommended'),
-    Field('prerequisites', String, 'Prerequisites'),
-    Field('preparationPath', String,
-        'Preparation Path — how to prepare'),
-    Field('examFormat', String,
-        'Exam Format — multiple choice, practical, etc.'),
-    Field('examDuration', String, 'Exam Duration'),
-    Field('passingScore', String, 'Passing Score'),
-    Field('validityPeriod', String, 'Validity Period — how long valid'),
-    Field('renewalRequirements', String,
-        'Renewal Requirements — CEUs, retake'),
-    Field('examCost', String, 'Exam Cost'),
-    Field('examLocation', String,
-        'Exam Location — testing center, online'),
-    Field('companySponsored', String,
-        'Company Sponsored — paid by company'),
-    Field('studyTimeAllotted', String,
-        'Study Time Allotted — work time for study'),
-    Field('failureConsequence', String,
-        'Failure Consequence — impact on role'),
   ])
   String? content;
+
+    /// Description and audience.
+    CertificationEntryOverview overview = CertificationEntryOverview();
+
+    /// Preparation requirements.
+    CertificationEntryPreparation preparation = CertificationEntryPreparation();
+
+    /// Exam details.
+    CertificationEntryExam exam = CertificationEntryExam();
+
+    /// Validity and renewal details.
+    CertificationEntryMaintenance maintenance =
+            CertificationEntryMaintenance();
+
+    /// Sponsorship and consequences.
+    CertificationEntrySupport support = CertificationEntrySupport();
+}
+
+/// Description and audience.
+class CertificationEntryOverview {
+    @Form([
+        Field('description', String, 'Description'),
+        Field('targetRoles', String, 'Target Roles — who needs this'),
+        Field('mandatory', String, 'Mandatory — required or recommended'),
+    ])
+    String? content;
+}
+
+/// Preparation requirements.
+class CertificationEntryPreparation {
+    @Form([
+        Field('prerequisites', String, 'Prerequisites'),
+        Field('preparationPath', String,
+                'Preparation Path — how to prepare'),
+    ])
+    String? content;
+}
+
+/// Exam details.
+class CertificationEntryExam {
+    @Form([
+        Field('examFormat', String,
+                'Exam Format — multiple choice, practical, etc.'),
+        Field('examDuration', String, 'Exam Duration'),
+        Field('passingScore', String, 'Passing Score'),
+        Field('examCost', String, 'Exam Cost'),
+        Field('examLocation', String,
+                'Exam Location — testing center, online'),
+    ])
+    String? content;
+}
+
+/// Validity and renewal details.
+class CertificationEntryMaintenance {
+    @Form([
+        Field('validityPeriod', String, 'Validity Period — how long valid'),
+        Field('renewalRequirements', String,
+                'Renewal Requirements — CEUs, retake'),
+    ])
+    String? content;
+}
+
+/// Sponsorship and consequences.
+class CertificationEntrySupport {
+    @Form([
+        Field('companySponsored', String,
+                'Company Sponsored — paid by company'),
+        Field('studyTimeAllotted', String,
+                'Study Time Allotted — work time for study'),
+        Field('failureConsequence', String,
+                'Failure Consequence — impact on role'),
+    ])
+    String? content;
 }
 
 /// Training materials and resources.

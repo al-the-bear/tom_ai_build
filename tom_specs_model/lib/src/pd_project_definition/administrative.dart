@@ -929,53 +929,86 @@ class ImpactLevelDefinitions {
 /// Detailed criterion for assessing change impact in a specific dimension.
 class ChangeImpactCriterionEntry {
   @Form([
-    // Identification
     Field('criterionId', String, 'Criterion ID',
         hint: 'Unique identifier for this criterion', required: true),
     Field('criterion', String, 'Criterion Name', required: true,
         hint: 'Name of the impact dimension'),
-    Field('description', String, 'Description',
-        hint: 'Detailed description of this criterion'),
     Field('category', String, 'Category',
         hint: 'Scope / Schedule / Budget / Quality / Risk / Resource'),
+  ])
+  String? content;
 
-    // Thresholds
-    Field('minorThreshold', String, 'Minor Threshold',
-        hint: 'Threshold for minor impact — e.g. <5% budget'),
-    Field('moderateThreshold', String, 'Moderate Threshold',
-        hint: 'Threshold for moderate impact — e.g. 5-15% budget'),
-    Field('majorThreshold', String, 'Major Threshold',
-        hint: 'Threshold for major impact — e.g. 15-30% budget'),
-    Field('criticalThreshold', String, 'Critical Threshold',
-        hint: 'Threshold for critical impact — e.g. >30% budget'),
+  /// Threshold levels.
+  ChangeImpactCriterionEntryThresholds thresholds =
+    ChangeImpactCriterionEntryThresholds();
 
-    // Measurement
-    Field('measurementMethod', String, 'Measurement Method',
-        hint: 'How this criterion is measured or assessed'),
-    Field('measurementUnit', String, 'Measurement Unit',
-        hint: 'Unit of measurement — Days / Percentage / Currency'),
-    Field('baselineReference', String, 'Baseline Reference',
-        hint: 'What baseline this is measured against'),
+  /// Measurement configuration.
+  ChangeImpactCriterionEntryMeasurement measurement =
+    ChangeImpactCriterionEntryMeasurement();
 
-    // Approval Path
-    Field('approvalRequired', String, 'Approval Required',
-        hint: 'Level of approval required based on impact'),
-    Field('escalationRule', String, 'Escalation Rule',
-        hint: 'When to escalate based on this criterion'),
-    Field('notificationRequired', String, 'Notification Required',
-        hint: 'Who must be notified if threshold is exceeded'),
+  /// Approval path rules.
+  ChangeImpactCriterionEntryApproval approval =
+    ChangeImpactCriterionEntryApproval();
 
-    // Weighting
-    Field('weight', int, 'Weight',
-        hint: 'Relative weight in overall impact calculation — 0-100'),
-    Field('mandatory', String, 'Mandatory',
-        hint: 'Yes / No — whether this criterion must always be assessed'),
+  /// Weighting and supporting notes.
+  ChangeImpactCriterionEntryGovernance governance =
+    ChangeImpactCriterionEntryGovernance();
+}
 
-    // Notes
-    Field('examples', String, 'Examples',
-        hint: 'Examples of changes at different impact levels'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional notes about this criterion'),
+/// Threshold levels for change impact.
+class ChangeImpactCriterionEntryThresholds {
+  @Form([
+  Field('description', String, 'Description',
+    hint: 'Detailed description of this criterion'),
+  Field('minorThreshold', String, 'Minor Threshold',
+    hint: 'Threshold for minor impact — e.g. <5% budget'),
+  Field('moderateThreshold', String, 'Moderate Threshold',
+    hint: 'Threshold for moderate impact — e.g. 5-15% budget'),
+  Field('majorThreshold', String, 'Major Threshold',
+    hint: 'Threshold for major impact — e.g. 15-30% budget'),
+  Field('criticalThreshold', String, 'Critical Threshold',
+    hint: 'Threshold for critical impact — e.g. >30% budget'),
+  ])
+  String? content;
+}
+
+/// Measurement configuration for change impact.
+class ChangeImpactCriterionEntryMeasurement {
+  @Form([
+  Field('measurementMethod', String, 'Measurement Method',
+    hint: 'How this criterion is measured or assessed'),
+  Field('measurementUnit', String, 'Measurement Unit',
+    hint: 'Unit of measurement — Days / Percentage / Currency'),
+  Field('baselineReference', String, 'Baseline Reference',
+    hint: 'What baseline this is measured against'),
+  ])
+  String? content;
+}
+
+/// Approval path rules for change impact.
+class ChangeImpactCriterionEntryApproval {
+  @Form([
+  Field('approvalRequired', String, 'Approval Required',
+    hint: 'Level of approval required based on impact'),
+  Field('escalationRule', String, 'Escalation Rule',
+    hint: 'When to escalate based on this criterion'),
+  Field('notificationRequired', String, 'Notification Required',
+    hint: 'Who must be notified if threshold is exceeded'),
+  ])
+  String? content;
+}
+
+/// Weighting and supporting notes for change impact.
+class ChangeImpactCriterionEntryGovernance {
+  @Form([
+  Field('weight', int, 'Weight',
+    hint: 'Relative weight in overall impact calculation — 0-100'),
+  Field('mandatory', String, 'Mandatory',
+    hint: 'Yes / No — whether this criterion must always be assessed'),
+  Field('examples', String, 'Examples',
+    hint: 'Examples of changes at different impact levels'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional notes about this criterion'),
   ])
   String? content;
 }
