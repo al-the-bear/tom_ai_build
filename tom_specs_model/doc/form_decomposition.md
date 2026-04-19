@@ -80,10 +80,10 @@ need decomposition into sub-sections to improve readability, maintainability, an
 | 22 | SuccessCriterionEntry | 29 | system_overview.dart | ✅ |
 | 23 | ReportChartEntry | 29 | user_interface_design.dart | ✅ |
 | 24 | ComponentEntry | 28 | components.dart | ✅ |
-| 25 | StageGovernance | 28 | system_stage_plan.dart | ⬜ |
-| 26 | StageMigrationRiskEntry | 28 | system_stage_plan.dart | ⬜ |
-| 27 | PrintLayout | 28 | user_interface_design.dart | ⬜ |
-| 28 | ExternalPartnerConnectionEntry | 27 | technical_framework.dart | ⬜ |
+| 25 | StageGovernance | 28 | system_stage_plan.dart | ✅ |
+| 26 | StageMigrationRiskEntry | 28 | system_stage_plan.dart | ✅ |
+| 27 | PrintLayout | 28 | user_interface_design.dart | ✅ |
+| 28 | ExternalPartnerConnectionEntry | 27 | technical_framework.dart | ✅ |
 | 29 | SystemIntegrationEntry | 26 | current_state_analysis.dart | ⬜ |
 | 30 | ResponsibilityEntry | 26 | system_overview.dart | ⬜ |
 | 31 | DistributionRecipientEntry | 25 | administrative.dart | ⬜ |

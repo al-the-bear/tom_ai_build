@@ -1927,63 +1927,23 @@ class PrintLayout {
         hint: 'A4 / Letter / Legal / A3 / Custom'),
     Field('defaultOrientation', String, 'Default Orientation',
         hint: 'Portrait / Landscape'),
-    Field('defaultMarginTop', String, 'Default Margin Top',
-        hint: 'Top margin, e.g. 20mm'),
-    Field('defaultMarginBottom', String, 'Default Margin Bottom',
-        hint: 'Bottom margin, e.g. 20mm'),
-    Field('defaultMarginLeft', String, 'Default Margin Left',
-        hint: 'Left margin, e.g. 15mm'),
-    Field('defaultMarginRight', String, 'Default Margin Right',
-        hint: 'Right margin, e.g. 15mm'),
-    Field('brandingLogoResource', String, 'Branding Logo Resource',
-        hint: 'Resource key or path for company logo on printed output'),
-    Field('brandingColorPrimary', String, 'Branding Primary Color',
-        hint: 'Primary brand color for headings and accents, e.g. #003366'),
-    Field('brandingColorSecondary', String, 'Branding Secondary Color',
-        hint: 'Secondary brand color for subheadings and rules'),
-    Field('brandingFontFamily', String, 'Branding Font Family',
-        hint: 'Font family for printed output, e.g. Helvetica, Arial'),
-    Field('brandingFontSizeBase', String, 'Branding Base Font Size',
-        hint: 'Base font size, e.g. 10pt'),
-    Field('watermarkText', String, 'Watermark Text',
-        hint: 'Text watermark on every page, e.g. DRAFT, CONFIDENTIAL'),
-    Field('watermarkImageResource', String, 'Watermark Image Resource',
-        hint: 'Resource key for image watermark'),
-    Field('watermarkOpacity', String, 'Watermark Opacity',
-        hint: 'Watermark opacity, e.g. 0.1'),
-    Field('confidentialityMarking', String, 'Confidentiality Marking',
-        hint: 'Default classification label: Internal / Confidential / Public'),
-    Field('confidentialityPosition', String, 'Confidentiality Position',
-        hint: 'Header / Footer / Both / Watermark'),
-    Field('defaultHeaderContent', String, 'Default Header Content',
-        hint:
-            'Default page header template, e.g. {logo} {reportTitle} {date}'),
-    Field('defaultFooterContent', String, 'Default Footer Content',
-        hint:
-            'Default page footer template, e.g. {companyName} — Page {page}/{pages}'),
-    Field('defaultDateFormat', String, 'Default Date Format',
-        hint: 'Date format for printed reports, e.g. dd.MM.yyyy'),
-    Field('defaultNumberFormat', String, 'Default Number Format',
-        hint: 'Number format, e.g. #,##0.00'),
-    Field('defaultCurrencyFormat', String, 'Default Currency Format',
-        hint: 'Currency format, e.g. €#,##0.00'),
-    Field('defaultTimezone', String, 'Default Timezone',
-        hint: 'Timezone for report timestamps, e.g. Europe/Berlin'),
-    Field('defaultLocale', String, 'Default Locale',
-        hint: 'Locale for formatting, e.g. de-DE'),
-    Field('archivePolicy', String, 'Archive Policy',
-        hint:
-            'How generated reports are archived: None / 30-days / 1-year / Permanent'),
-    Field('reportNamingConvention', String, 'Report Naming Convention',
-        hint:
-            'File naming pattern for generated reports, e.g. {reportId}_{date}_{version}'),
-    Field('batchGenerationSupport', String, 'Batch Generation Support',
-        hint:
-            'Yes / No — support generating multiple reports in one batch run'),
-    Field('maxConcurrentReports', int, 'Max Concurrent Reports',
-        hint: 'Maximum number of reports generated concurrently'),
   ])
   String? content;
+
+  /// Page margins and setup.
+  final PrintLayoutPageSetup pageSetup = PrintLayoutPageSetup();
+
+  /// Branding configuration.
+  final PrintLayoutBranding branding = PrintLayoutBranding();
+
+  /// Watermark and confidentiality.
+  final PrintLayoutWatermark watermark = PrintLayoutWatermark();
+
+  /// Header and footer settings.
+  final PrintLayoutHeaderFooter headerFooter = PrintLayoutHeaderFooter();
+
+  /// Archive and batch settings.
+  final PrintLayoutArchive archive = PrintLayoutArchive();
 
   /// 10.4.1. Reports [PD00-USE-PRI-REP] — contains 0+× Report.
   @SectionIdPattern('PD00-USE-PRI-REP-xx')
@@ -1997,6 +1957,91 @@ class PrintLayout {
   /// Template.
   @SectionIdPattern('PD00-USE-PRI-TPL-xx')
   List<ExportTemplateEntry> exportTemplates = [];
+}
+
+/// Page margins and setup.
+class PrintLayoutPageSetup {
+  @Form([
+    Field('defaultMarginTop', String, 'Default Margin Top',
+        hint: 'Top margin, e.g. 20mm'),
+    Field('defaultMarginBottom', String, 'Default Margin Bottom',
+        hint: 'Bottom margin, e.g. 20mm'),
+    Field('defaultMarginLeft', String, 'Default Margin Left',
+        hint: 'Left margin, e.g. 15mm'),
+    Field('defaultMarginRight', String, 'Default Margin Right',
+        hint: 'Right margin, e.g. 15mm'),
+  ])
+  String? content;
+}
+
+/// Branding configuration.
+class PrintLayoutBranding {
+  @Form([
+    Field('brandingLogoResource', String, 'Branding Logo Resource',
+        hint: 'Resource key or path for company logo'),
+    Field('brandingColorPrimary', String, 'Branding Primary Color',
+        hint: 'Primary brand color, e.g. #003366'),
+    Field('brandingColorSecondary', String, 'Branding Secondary Color',
+        hint: 'Secondary brand color for subheadings'),
+    Field('brandingFontFamily', String, 'Branding Font Family',
+        hint: 'Font family, e.g. Helvetica, Arial'),
+    Field('brandingFontSizeBase', String, 'Branding Base Font Size',
+        hint: 'Base font size, e.g. 10pt'),
+  ])
+  String? content;
+}
+
+/// Watermark and confidentiality.
+class PrintLayoutWatermark {
+  @Form([
+    Field('watermarkText', String, 'Watermark Text',
+        hint: 'Text watermark, e.g. DRAFT, CONFIDENTIAL'),
+    Field('watermarkImageResource', String, 'Watermark Image Resource',
+        hint: 'Resource key for image watermark'),
+    Field('watermarkOpacity', String, 'Watermark Opacity',
+        hint: 'Watermark opacity, e.g. 0.1'),
+    Field('confidentialityMarking', String, 'Confidentiality Marking',
+        hint: 'Internal / Confidential / Public'),
+    Field('confidentialityPosition', String, 'Confidentiality Position',
+        hint: 'Header / Footer / Both / Watermark'),
+  ])
+  String? content;
+}
+
+/// Header and footer settings.
+class PrintLayoutHeaderFooter {
+  @Form([
+    Field('defaultHeaderContent', String, 'Default Header Content',
+        hint: 'Header template, e.g. {logo} {reportTitle} {date}'),
+    Field('defaultFooterContent', String, 'Default Footer Content',
+        hint: 'Footer template, e.g. {companyName} — Page {page}/{pages}'),
+    Field('defaultDateFormat', String, 'Default Date Format',
+        hint: 'Date format, e.g. dd.MM.yyyy'),
+    Field('defaultNumberFormat', String, 'Default Number Format',
+        hint: 'Number format, e.g. #,##0.00'),
+    Field('defaultCurrencyFormat', String, 'Default Currency Format',
+        hint: 'Currency format, e.g. €#,##0.00'),
+    Field('defaultTimezone', String, 'Default Timezone',
+        hint: 'Timezone, e.g. Europe/Berlin'),
+    Field('defaultLocale', String, 'Default Locale',
+        hint: 'Locale, e.g. de-DE'),
+  ])
+  String? content;
+}
+
+/// Archive and batch settings.
+class PrintLayoutArchive {
+  @Form([
+    Field('archivePolicy', String, 'Archive Policy',
+        hint: 'None / 30-days / 1-year / Permanent'),
+    Field('reportNamingConvention', String, 'Report Naming Convention',
+        hint: 'File naming pattern, e.g. {reportId}_{date}_{version}'),
+    Field('batchGenerationSupport', String, 'Batch Generation Support',
+        hint: 'Yes / No — support batch report generation'),
+    Field('maxConcurrentReports', int, 'Max Concurrent Reports',
+        hint: 'Maximum concurrent reports'),
+  ])
+  String? content;
 }
 
 // ---------------------------------------------------------------------------

@@ -2699,141 +2699,155 @@ class StageMigrationRisks {
 /// ownership, monitoring approach, and residual risk after mitigation.
 class StageMigrationRiskEntry {
   @Form([
-    // --- Risk Identity ---
     Field('riskId', String, 'Risk ID',
         hint: 'Unique identifier — e.g. MIG-R001, MIG-R002',
         required: true),
     Field('riskName', String, 'Risk Name',
-        hint:
-            'Short descriptive name — e.g. Data Loss During '
-            'Cutover, PII Exposure in Staging',
-        required: true),
-    Field('riskDescription', String, 'Risk Description',
-        hint:
-            'Detailed description of the risk scenario — what '
-            'could go wrong, under what circumstances',
+        hint: 'Short descriptive name — e.g. Data Loss During Cutover',
         required: true),
     Field('riskCategory', String, 'Risk Category',
-        hint:
-            'DataLoss / DataCorruption / DowntimeOverrun / '
-            'PerformanceDegradation / ComplianceViolation / '
-            'SecurityBreach / ToolFailure / '
-            'ResourceUnavailability / ScopeCreep / '
-            'DependencyFailure',
+        hint: 'DataLoss / DataCorruption / DowntimeOverrun / SecurityBreach',
         required: true),
-    // --- Probability & Impact ---
+  ])
+  String? content;
+
+  /// Risk identity and description.
+  final StageMigrationRiskIdentity identity = StageMigrationRiskIdentity();
+
+  /// Probability and impact assessment.
+  final StageMigrationRiskProbabilityImpact probabilityImpact =
+      StageMigrationRiskProbabilityImpact();
+
+  /// Mitigation planning.
+  final StageMigrationRiskMitigation mitigation =
+      StageMigrationRiskMitigation();
+
+  /// Contingency actions.
+  final StageMigrationRiskContingency contingency =
+      StageMigrationRiskContingency();
+
+  /// Monitoring and detection.
+  final StageMigrationRiskMonitoring monitoring =
+      StageMigrationRiskMonitoring();
+
+  /// Ownership and accountability.
+  final StageMigrationRiskOwnership ownership = StageMigrationRiskOwnership();
+
+  /// Residual risk assessment.
+  final StageMigrationRiskResidual residual = StageMigrationRiskResidual();
+
+  /// Status and review.
+  final StageMigrationRiskStatus status = StageMigrationRiskStatus();
+}
+
+/// Risk identity and description.
+class StageMigrationRiskIdentity {
+  @Form([
+    Field('riskDescription', String, 'Risk Description',
+        hint: 'Detailed description of the risk scenario',
+        required: true),
+  ])
+  String? content;
+}
+
+/// Probability and impact assessment.
+class StageMigrationRiskProbabilityImpact {
+  @Form([
     Field('probability', String, 'Probability',
-        hint:
-            'VeryLow / Low / Medium / High / VeryHigh — '
-            'likelihood this risk materializes',
+        hint: 'VeryLow / Low / Medium / High / VeryHigh',
         required: true),
     Field('impact', String, 'Impact',
-        hint:
-            'Negligible / Minor / Moderate / Major / Critical — '
-            'severity if risk materializes',
+        hint: 'Negligible / Minor / Moderate / Major / Critical',
         required: true),
     Field('riskScore', String, 'Risk Score',
-        hint:
-            'Calculated risk rating — Probability x Impact on a '
-            '1-25 scale, or qualitative Low/Medium/High/Critical'),
+        hint: 'Calculated risk rating — Probability x Impact'),
     Field('impactAreas', String, 'Impact Areas',
-        hint:
-            'What is affected — DataIntegrity / '
-            'SystemAvailability / Compliance / Budget / Schedule '
-            '/ Reputation — comma-separated'),
+        hint: 'DataIntegrity / SystemAvailability / Compliance / Budget'),
     Field('affectedPhases', String, 'Affected Phases',
-        hint:
-            'Which migration phases are exposed — e.g. Phase 2, '
-            'Phase 3, or All Phases'),
-    // --- Mitigation ---
+        hint: 'Which migration phases are exposed'),
+  ])
+  String? content;
+}
+
+/// Mitigation planning.
+class StageMigrationRiskMitigation {
+  @Form([
     Field('mitigationStrategy', String, 'Mitigation Strategy',
-        hint:
-            'Planned actions to reduce probability or impact — '
-            'e.g. implement checksums at every step, run 3 dry '
-            'runs, encrypt all PII in transit and at rest',
+        hint: 'Planned actions to reduce probability or impact',
         required: true),
     Field('mitigationOwner', String, 'Mitigation Owner',
-        hint:
-            'Person responsible for implementing mitigation — '
-            'name and role'),
+        hint: 'Person responsible for implementing mitigation'),
     Field('mitigationStatus', String, 'Mitigation Status',
-        hint:
-            'NotStarted / InProgress / Implemented / Verified — '
-            'current state of mitigation actions'),
+        hint: 'NotStarted / InProgress / Implemented / Verified'),
     Field('mitigationDeadline', String, 'Mitigation Deadline',
-        hint:
-            'Date by which mitigation must be in place — '
-            'typically before the associated migration phase'),
-    // --- Contingency ---
+        hint: 'Date by which mitigation must be in place'),
+  ])
+  String? content;
+}
+
+/// Contingency actions.
+class StageMigrationRiskContingency {
+  @Form([
     Field('contingencyPlan', String, 'Contingency Plan',
-        hint:
-            'Actions if risk materializes despite mitigation — '
-            'e.g. activate rollback, switch to manual migration, '
-            'invoke vendor emergency support',
+        hint: 'Actions if risk materializes despite mitigation',
         required: true),
     Field('contingencyTrigger', String, 'Contingency Trigger',
-        hint:
-            'Measurable condition that activates contingency — '
-            'e.g. data mismatch >0.1%, downtime exceeds 2 hours, '
-            'error rate >5% during load'),
+        hint: 'Measurable condition that activates contingency'),
     Field('contingencyBudget', String, 'Contingency Budget',
-        hint:
-            'Reserved budget for contingency — e.g. 15K for '
-            'vendor emergency support, 40 person-hours reserve'),
-    // --- Monitoring & Detection ---
+        hint: 'Reserved budget for contingency'),
+  ])
+  String? content;
+}
+
+/// Monitoring and detection.
+class StageMigrationRiskMonitoring {
+  @Form([
     Field('triggerIndicators', String, 'Trigger Indicators',
-        hint:
-            'Early warning signs — e.g. dry run failures, '
-            'increasing error counts, source system performance '
-            'degradation, team availability drops'),
+        hint: 'Early warning signs — dry run failures, error counts'),
     Field('monitoringApproach', String, 'Monitoring Approach',
-        hint:
-            'How risk is tracked — automated dashboards, daily '
-            'status checks, checkpoint reviews, alerting rules'),
+        hint: 'How risk is tracked — dashboards, status checks'),
     Field('monitoringFrequency', String, 'Monitoring Frequency',
-        hint:
-            'Continuous / Daily / Weekly / PerPhase / PerDryRun '
-            '— how often risk indicators are checked'),
+        hint: 'Continuous / Daily / Weekly / PerPhase / PerDryRun'),
     Field('alertThresholds', String, 'Alert Thresholds',
-        hint:
-            'Thresholds triggering alerts — e.g. error rate >1% '
-            'yellow, >5% red; latency >2x baseline'),
-    // --- Ownership & Accountability ---
+        hint: 'Thresholds triggering alerts'),
+  ])
+  String? content;
+}
+
+/// Ownership and accountability.
+class StageMigrationRiskOwnership {
+  @Form([
     Field('riskOwner', String, 'Risk Owner',
-        hint:
-            'Person accountable for managing this risk — name '
-            'and role',
+        hint: 'Person accountable for managing this risk',
         required: true),
     Field('escalationPath', String, 'Escalation Path',
-        hint:
-            'Escalation chain if risk materializes — e.g. '
-            'Migration Lead → Program Manager → Steering '
-            'Committee'),
-    // --- Residual Risk ---
+        hint: 'Escalation chain if risk materializes'),
+  ])
+  String? content;
+}
+
+/// Residual risk assessment.
+class StageMigrationRiskResidual {
+  @Form([
     Field('residualProbability', String, 'Residual Probability',
-        hint:
-            'VeryLow / Low / Medium / High — probability after '
-            'mitigation is in place'),
+        hint: 'VeryLow / Low / Medium / High — after mitigation'),
     Field('residualImpact', String, 'Residual Impact',
-        hint:
-            'Negligible / Minor / Moderate / Major — impact after '
-            'mitigation is in place'),
-    Field('residualRiskAcceptable', String,
-        'Residual Risk Acceptable',
-        hint:
-            'Yes / No / Conditional — whether the residual risk '
-            'is within tolerance'),
-    // --- Status & Review ---
+        hint: 'Negligible / Minor / Moderate / Major — after mitigation'),
+    Field('residualRiskAcceptable', String, 'Residual Risk Acceptable',
+        hint: 'Yes / No / Conditional'),
+  ])
+  String? content;
+}
+
+/// Status and review.
+class StageMigrationRiskStatus {
+  @Form([
     Field('currentStatus', String, 'Current Status',
-        hint:
-            'Open / Mitigated / Materialized / Closed / '
-            'Accepted — current risk state'),
+        hint: 'Open / Mitigated / Materialized / Closed / Accepted'),
     Field('lastReviewDate', String, 'Last Review Date',
         hint: 'When this risk was last reviewed'),
     Field('notes', String, 'Notes',
-        hint:
-            'Additional context — lessons learned, related '
-            'incidents, historical data from similar migrations'),
+        hint: 'Additional context — lessons learned, related incidents'),
   ])
   String? content;
 }
@@ -2849,148 +2863,38 @@ class StageMigrationRiskEntry {
 @SectionId('PD00-SSP-GOV')
 class StageGovernance {
   @Form([
-    // --- Governance Model ---
     Field('governanceModel', String, 'Governance Model',
-        hint:
-            'PhaseGate / Agile / Hybrid / Continuous / '
-            'Federated — overall governance approach',
+        hint: 'PhaseGate / Agile / Hybrid / Continuous / Federated',
         required: true),
     Field('governanceFramework', String, 'Governance Framework',
-        hint:
-            'PMBOK / PRINCE2 / SAFe / DAD / Custom — reference '
-            'framework',
+        hint: 'PMBOK / PRINCE2 / SAFe / DAD / Custom',
         required: true),
-    Field('governanceCharter', String, 'Governance Charter',
-        hint:
-            'Name or reference to the formal governance charter '
-            'document — defines authority, scope, and '
-            'accountability'),
-    // --- Authority & Oversight ---
-    Field('governanceBoardName', String, 'Governance Board Name',
-        hint:
-            'Name of the governing body — Steering Committee, '
-            'PMO, Architecture Review Board'),
-    Field('governanceBoardChair', String,
-        'Governance Board Chair',
-        hint:
-            'Person chairing the governance body — typically '
-            'sponsor, CTO, or program director'),
-    Field('boardMembers', String, 'Board Members',
-        hint:
-            'Roles or names on the board — comma-separated, '
-            'e.g. Sponsor, Product Owner, Enterprise Architect, '
-            'QA Lead'),
     Field('decisionMakingModel', String, 'Decision-Making Model',
-        hint:
-            'Consensus / MajorityVote / DelegatedAuthority / '
-            'RACI-based / Unanimous',
+        hint: 'Consensus / MajorityVote / DelegatedAuthority / RACI-based',
         required: true),
-    Field('quorumRequirement', String, 'Quorum Requirement',
-        hint:
-            'Minimum attendance for valid decisions — e.g. 3 of '
-            '5 members, or 60%'),
-    Field('delegatedAuthorityThreshold', String,
-        'Delegated Authority Threshold',
-        hint:
-            'Decisions the PM can make without board — e.g. '
-            'budget ≤\$10K, schedule ≤1 week, no scope change'),
-    // --- Escalation ---
-    Field('escalationPath', String, 'Escalation Path',
-        hint:
-            'Escalation chain — PM → Program Manager → Steering '
-            'Committee → Executive Sponsor'),
-    Field('escalationTriggers', String, 'Escalation Triggers',
-        hint:
-            'Conditions requiring escalation — budget overrun '
-            '≥10%, schedule slip ≥2 weeks, critical risk '
-            'materialized, scope dispute'),
-    Field('escalationTimeframe', String, 'Escalation Timeframe',
-        hint:
-            'Maximum time before escalation — e.g. 48 hours '
-            'for critical, 5 business days for advisory'),
-    // --- Cadence & Process ---
-    Field('governanceMeetingCadence', String,
-        'Governance Meeting Cadence',
-        hint:
-            'PerStage / Monthly / Quarterly / OnDemand — how '
-            'often the board convenes',
-        required: true),
-    Field('meetingDuration', String, 'Meeting Duration',
-        hint:
-            'Typical meeting length — e.g. 2 hours, half-day '
-            'for major gates'),
-    Field('meetingFormat', String, 'Meeting Format',
-        hint:
-            'InPerson / Virtual / Hybrid — preferred format'),
-    Field('agendaTemplate', String, 'Agenda Template',
-        hint:
-            'Standard agenda structure — StatusReview, '
-            'RiskReview, DecisionItems, ActionItems'),
-    Field('minutesDistribution', String, 'Minutes Distribution',
-        hint:
-            'How minutes are distributed — email, wiki, '
-            'SharePoint, within 24/48 hours'),
-    // --- Compliance & Audit ---
-    Field('complianceRequirements', String,
-        'Compliance Requirements',
-        hint:
-            'Regulatory or organizational compliance that '
-            'governance must satisfy — SOX, ISO 27001, GDPR, '
-            'internal audit policies'),
-    Field('auditTrailRequirement', String,
-        'Audit Trail Requirement',
-        hint:
-            'What must be recorded — decisions, rationale, '
-            'attendance, votes, action items',
-        required: true),
-    Field('documentRetentionPolicy', String,
-        'Document Retention Policy',
-        hint:
-            'How long governance records are retained — e.g. '
-            '7 years, project lifetime + 2 years'),
-    Field('externalAuditIntegration', String,
-        'External Audit Integration',
-        hint:
-            'Whether external auditors participate — None, '
-            'Annual, PerMajorGate'),
-    // --- Metrics & Reporting ---
-    Field('governanceKpis', String, 'Governance KPIs',
-        hint:
-            'Metrics tracked — gate pass rate, decision cycle '
-            'time, escalation frequency, rework rate'),
-    Field('reportingFrequency', String, 'Reporting Frequency',
-        hint:
-            'How often governance reports are published — '
-            'Weekly / Monthly / PerGate'),
-    Field('dashboardLocation', String, 'Dashboard Location',
-        hint:
-            'Where governance status is visible — URL, tool, '
-            'or distribution list'),
-    // --- Stage Transition Rules ---
-    Field('stageTransitionPolicy', String,
-        'Stage Transition Policy',
-        hint:
-            'Rules for moving between stages — all gates must '
-            'pass, conditional advancement allowed, rollback '
-            'policy',
-        required: true),
-    Field('conditionalAdvancementRules', String,
-        'Conditional Advancement Rules',
-        hint:
-            'Under what conditions a stage may advance with '
-            'open items — risk accepted, time-boxed remediation'),
-    Field('rollbackPolicy', String, 'Rollback Policy',
-        hint:
-            'Rules for reverting to a prior stage — triggers, '
-            'process, authority required'),
-    Field('emergencyBypassProcess', String,
-        'Emergency Bypass Process',
-        hint:
-            'How governance is handled in emergencies — '
-            'expedited review, post-hoc ratification, '
-            'emergency authority delegation'),
   ])
   String? content;
+
+  /// Governance model details.
+  final StageGovernanceModel model = StageGovernanceModel();
+
+  /// Authority and oversight.
+  final StageGovernanceAuthority authority = StageGovernanceAuthority();
+
+  /// Escalation paths and triggers.
+  final StageGovernanceEscalation escalation = StageGovernanceEscalation();
+
+  /// Meeting cadence and process.
+  final StageGovernanceCadence cadence = StageGovernanceCadence();
+
+  /// Compliance and audit requirements.
+  final StageGovernanceCompliance compliance = StageGovernanceCompliance();
+
+  /// Metrics and reporting.
+  final StageGovernanceMetrics metrics = StageGovernanceMetrics();
+
+  /// Stage transition rules.
+  final StageGovernanceTransition transition = StageGovernanceTransition();
 
   /// Governance narrative and rationale.
   @ContentHelp('Stage governance philosophy: decision-making framework, '
@@ -3004,6 +2908,110 @@ class StageGovernance {
 
   /// 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
   DecisionPoints decisionPoints = DecisionPoints();
+}
+
+/// Governance model details.
+class StageGovernanceModel {
+  @Form([
+    Field('governanceCharter', String, 'Governance Charter',
+        hint: 'Name or reference to the formal governance charter document'),
+  ])
+  String? content;
+}
+
+/// Authority and oversight.
+class StageGovernanceAuthority {
+  @Form([
+    Field('governanceBoardName', String, 'Governance Board Name',
+        hint: 'Steering Committee, PMO, Architecture Review Board'),
+    Field('governanceBoardChair', String, 'Governance Board Chair',
+        hint: 'Person chairing the governance body'),
+    Field('boardMembers', String, 'Board Members',
+        hint: 'Roles or names on the board — comma-separated'),
+    Field('quorumRequirement', String, 'Quorum Requirement',
+        hint: 'Minimum attendance for valid decisions'),
+    Field('delegatedAuthorityThreshold', String,
+        'Delegated Authority Threshold',
+        hint: 'Decisions the PM can make without board'),
+  ])
+  String? content;
+}
+
+/// Escalation paths and triggers.
+class StageGovernanceEscalation {
+  @Form([
+    Field('escalationPath', String, 'Escalation Path',
+        hint: 'PM → Program Manager → Steering Committee'),
+    Field('escalationTriggers', String, 'Escalation Triggers',
+        hint: 'Conditions requiring escalation'),
+    Field('escalationTimeframe', String, 'Escalation Timeframe',
+        hint: 'Maximum time before escalation'),
+  ])
+  String? content;
+}
+
+/// Meeting cadence and process.
+class StageGovernanceCadence {
+  @Form([
+    Field('governanceMeetingCadence', String, 'Governance Meeting Cadence',
+        hint: 'PerStage / Monthly / Quarterly / OnDemand',
+        required: true),
+    Field('meetingDuration', String, 'Meeting Duration',
+        hint: 'Typical meeting length'),
+    Field('meetingFormat', String, 'Meeting Format',
+        hint: 'InPerson / Virtual / Hybrid'),
+    Field('agendaTemplate', String, 'Agenda Template',
+        hint: 'Standard agenda structure'),
+    Field('minutesDistribution', String, 'Minutes Distribution',
+        hint: 'How minutes are distributed'),
+  ])
+  String? content;
+}
+
+/// Compliance and audit requirements.
+class StageGovernanceCompliance {
+  @Form([
+    Field('complianceRequirements', String, 'Compliance Requirements',
+        hint: 'SOX, ISO 27001, GDPR, internal audit policies'),
+    Field('auditTrailRequirement', String, 'Audit Trail Requirement',
+        hint: 'What must be recorded — decisions, rationale, attendance',
+        required: true),
+    Field('documentRetentionPolicy', String, 'Document Retention Policy',
+        hint: 'How long governance records are retained'),
+    Field('externalAuditIntegration', String, 'External Audit Integration',
+        hint: 'None / Annual / PerMajorGate'),
+  ])
+  String? content;
+}
+
+/// Metrics and reporting.
+class StageGovernanceMetrics {
+  @Form([
+    Field('governanceKpis', String, 'Governance KPIs',
+        hint: 'Gate pass rate, decision cycle time, escalation frequency'),
+    Field('reportingFrequency', String, 'Reporting Frequency',
+        hint: 'Weekly / Monthly / PerGate'),
+    Field('dashboardLocation', String, 'Dashboard Location',
+        hint: 'Where governance status is visible'),
+  ])
+  String? content;
+}
+
+/// Stage transition rules.
+class StageGovernanceTransition {
+  @Form([
+    Field('stageTransitionPolicy', String, 'Stage Transition Policy',
+        hint: 'Rules for moving between stages',
+        required: true),
+    Field('conditionalAdvancementRules', String,
+        'Conditional Advancement Rules',
+        hint: 'Conditions for advancing with open items'),
+    Field('rollbackPolicy', String, 'Rollback Policy',
+        hint: 'Rules for reverting to a prior stage'),
+    Field('emergencyBypassProcess', String, 'Emergency Bypass Process',
+        hint: 'Expedited review, post-hoc ratification'),
+  ])
+  String? content;
 }
 
 /// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].

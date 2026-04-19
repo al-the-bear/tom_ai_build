@@ -9373,15 +9373,39 @@ Provide an overview of external connectivity landscape.
 /// An external partner connection entry (form) [PD00-TEC-COM-EXT-nn].
 class ExternalPartnerConnectionEntry {
   @Form([
-    // Partner identity
     Field('partnerName', String, 'Partner Name',
         required: true, hint: 'Name of the external partner or system'),
     Field('partnerType', String, 'Partner Type',
         hint: 'Vendor, customer, regulatory body, payment provider'),
     Field('connectionPurpose', String, 'Connection Purpose',
         hint: 'Business purpose of this integration'),
+  ])
+  String? content;
 
-    // Protocol and endpoint
+  /// Protocol and endpoint.
+  final ExternalPartnerProtocol protocol = ExternalPartnerProtocol();
+
+  /// Authentication settings.
+  final ExternalPartnerAuthentication authentication =
+      ExternalPartnerAuthentication();
+
+  /// Network configuration.
+  final ExternalPartnerNetwork network = ExternalPartnerNetwork();
+
+  /// Reliability and SLA.
+  final ExternalPartnerReliability reliability = ExternalPartnerReliability();
+
+  /// Data handling.
+  final ExternalPartnerDataHandling dataHandling =
+      ExternalPartnerDataHandling();
+
+  /// Operations and contacts.
+  final ExternalPartnerOperations operations = ExternalPartnerOperations();
+}
+
+/// Protocol and endpoint.
+class ExternalPartnerProtocol {
+  @Form([
     Field('protocol', String, 'Protocol',
         hint: 'REST, SOAP, SFTP, AS2, EDI'),
     Field('endpointUrl', String, 'Endpoint URL',
@@ -9390,16 +9414,26 @@ class ExternalPartnerConnectionEntry {
         hint: 'Inbound, outbound, bidirectional'),
     Field('dataFormat', String, 'Data Format',
         hint: 'JSON, XML, CSV, EDI X12, EDIFACT'),
+  ])
+  String? content;
+}
 
-    // Authentication
+/// Authentication settings.
+class ExternalPartnerAuthentication {
+  @Form([
     Field('authenticationMethod', String, 'Authentication Method',
         hint: 'API key, OAuth 2.0, client certificate, SAML'),
     Field('credentialStorage', String, 'Credential Storage',
         hint: 'Vault, secrets manager, environment variable'),
     Field('credentialRotation', String, 'Credential Rotation',
         hint: 'Rotation frequency and process'),
+  ])
+  String? content;
+}
 
-    // Network
+/// Network configuration.
+class ExternalPartnerNetwork {
+  @Form([
     Field('networkRoute', String, 'Network Route',
         hint: 'Public internet, VPN, private link, dedicated line'),
     Field('ipWhitelisting', bool, 'IP Whitelisting',
@@ -9408,8 +9442,13 @@ class ExternalPartnerConnectionEntry {
         hint: 'Allowed IP ranges'),
     Field('firewallRules', String, 'Firewall Rules',
         hint: 'Required firewall rule changes'),
+  ])
+  String? content;
+}
 
-    // Reliability
+/// Reliability and SLA.
+class ExternalPartnerReliability {
+  @Form([
     Field('sla', String, 'SLA',
         hint: 'Partner system availability SLA'),
     Field('expectedLatency', String, 'Expected Latency',
@@ -9422,16 +9461,26 @@ class ExternalPartnerConnectionEntry {
         hint: 'Retry count, backoff policy'),
     Field('circuitBreakerEnabled', bool, 'Circuit Breaker',
         hint: 'Circuit breaker for partner failures'),
+  ])
+  String? content;
+}
 
-    // Data handling
+/// Data handling.
+class ExternalPartnerDataHandling {
+  @Form([
     Field('dataClassification', String, 'Data Classification',
         hint: 'Confidentiality level of exchanged data'),
     Field('encryptionRequirements', String, 'Encryption Requirements',
         hint: 'Encryption in transit and at rest'),
     Field('dataRetention', String, 'Data Retention',
         hint: 'Retention of exchanged data'),
+  ])
+  String? content;
+}
 
-    // Operations
+/// Operations and contacts.
+class ExternalPartnerOperations {
+  @Form([
     Field('contactPerson', String, 'Contact Person',
         hint: 'Technical contact at partner'),
     Field('escalationProcess', String, 'Escalation Process',
