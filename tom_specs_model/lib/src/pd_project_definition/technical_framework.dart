@@ -1364,7 +1364,6 @@ class DeploymentTopology {
 /// Architecture Decision Record (ADR) entry.
 class ArchitectureDecisionRecord {
   @Form([
-    // Identity
     Field('decisionId', String, 'Decision ID',
         required: true, hint: 'Unique identifier (e.g., ADR-001)'),
     Field('title', String, 'Title',
@@ -1374,16 +1373,42 @@ class ArchitectureDecisionRecord {
     Field('status', String, 'Status',
         required: true,
         hint: 'Proposed, Accepted, Deprecated, Superseded'),
+  ])
+  String? content;
 
-    // Context
+  /// Decision context and constraints.
+  ArchitectureDecisionRecordContext contextDetails =
+      ArchitectureDecisionRecordContext();
+
+  /// Decision outcome and rationale.
+  ArchitectureDecisionRecordOutcome outcome =
+      ArchitectureDecisionRecordOutcome();
+
+  /// Consequences and review.
+  ArchitectureDecisionRecordConsequences consequences =
+      ArchitectureDecisionRecordConsequences();
+
+  /// Related decision links.
+  ArchitectureDecisionRecordRelations relations =
+      ArchitectureDecisionRecordRelations();
+}
+
+/// Decision context and constraints.
+class ArchitectureDecisionRecordContext {
+  @Form([
     Field('context', String, 'Context',
         required: true, hint: 'What prompted this decision'),
     Field('problem', String, 'Problem Statement',
         hint: 'The specific problem being addressed'),
     Field('constraints', String, 'Constraints',
         hint: 'Constraints that influenced the decision'),
+  ])
+  String? content;
+}
 
-    // Decision
+/// Decision outcome and rationale.
+class ArchitectureDecisionRecordOutcome {
+  @Form([
     Field('decision', String, 'Decision',
         required: true, hint: 'What was decided'),
     Field('rationale', String, 'Rationale',
@@ -1392,27 +1417,35 @@ class ArchitectureDecisionRecord {
         hint: 'Other options that were evaluated'),
     Field('decisionMakers', String, 'Decision Makers',
         hint: 'Who made this decision'),
+  ])
+  String? content;
+}
 
-    // Consequences
+/// Consequences and review.
+class ArchitectureDecisionRecordConsequences {
+  @Form([
     Field('consequences', String, 'Consequences',
         hint: 'Impact of this decision'),
     Field('positiveConsequences', String, 'Positive Consequences',
         hint: 'Benefits of this decision'),
     Field('negativeConsequences', String, 'Negative Consequences',
         hint: 'Drawbacks of this decision'),
+    Field('reviewDate', String, 'Review Date',
+        hint: 'When this decision should be reviewed'),
+    Field('notes', String, 'Notes', hint: 'Additional decision notes'),
+  ])
+  String? content;
+}
 
-    // Related
+/// Related decision links.
+class ArchitectureDecisionRecordRelations {
+  @Form([
     Field('relatedDecisions', String, 'Related Decisions',
         hint: 'Other ADRs related to this one'),
     Field('supersedes', String, 'Supersedes',
         hint: 'Previous decisions this supersedes'),
     Field('supersededBy', String, 'Superseded By',
         hint: 'Decision that supersedes this one'),
-
-    // Review
-    Field('reviewDate', String, 'Review Date',
-        hint: 'When this decision should be reviewed'),
-    Field('notes', String, 'Notes', hint: 'Additional decision notes'),
   ])
   String? content;
 }
@@ -3667,47 +3700,89 @@ class ReusableUiComponentEntryImplementation {
 /// Business logic component entry.
 class BusinessComponentEntry {
   @Form([
-    // Identity
     Field('componentName', String, 'Component Name',
         required: true, hint: 'Business component name'),
     Field('componentType', String, 'Component Type',
         hint: 'Service, Repository, UseCase, Validator, Calculator'),
     Field('boundedContext', String, 'Bounded Context',
         hint: 'Domain area this belongs to'),
+  ])
+  String? content;
 
-    // Description
+  /// Purpose and business rules.
+  BusinessComponentEntryDescription description =
+      BusinessComponentEntryDescription();
+
+  /// Public interface details.
+  BusinessComponentEntryInterface interface =
+      BusinessComponentEntryInterface();
+
+  /// Dependency mapping.
+  BusinessComponentEntryDependencies dependencies =
+      BusinessComponentEntryDependencies();
+
+  /// Testing details.
+  BusinessComponentEntryTesting testing = BusinessComponentEntryTesting();
+
+  /// Reuse and customization notes.
+  BusinessComponentEntryReuse reuse = BusinessComponentEntryReuse();
+}
+
+/// Purpose and business rules.
+class BusinessComponentEntryDescription {
+  @Form([
     Field('purpose', String, 'Purpose',
         hint: 'Business problem this solves'),
     Field('businessRules', String, 'Business Rules',
         hint: 'Key business rules implemented'),
     Field('capabilities', String, 'Capabilities',
         hint: 'What operations this provides'),
+  ])
+  String? content;
+}
 
-    // Interface
+/// Public interface details.
+class BusinessComponentEntryInterface {
+  @Form([
     Field('publicInterface', String, 'Public Interface',
         hint: 'Key public methods'),
     Field('inputTypes', String, 'Input Types', hint: 'Expected inputs'),
     Field('outputTypes', String, 'Output Types', hint: 'Produced outputs'),
     Field('errorHandling', String, 'Error Handling',
         hint: 'How errors are handled'),
+  ])
+  String? content;
+}
 
-    // Dependencies
+/// Dependency mapping.
+class BusinessComponentEntryDependencies {
+  @Form([
     Field('requiredServices', String, 'Required Services',
         hint: 'Services this depends on'),
     Field('dataAccess', String, 'Data Access',
         hint: 'Data repositories used'),
     Field('externalIntegrations', String, 'External Integrations',
         hint: 'External systems accessed'),
+  ])
+  String? content;
+}
 
-    // Testing
+/// Testing details.
+class BusinessComponentEntryTesting {
+  @Form([
     Field('testStrategy', String, 'Test Strategy',
         hint: 'How this is tested'),
     Field('mockableInterfaces', String, 'Mockable Interfaces',
         hint: 'Interfaces for testing'),
     Field('testDataRequirements', String, 'Test Data Requirements',
         hint: 'Required test data'),
+  ])
+  String? content;
+}
 
-    // Reusability
+/// Reuse and customization notes.
+class BusinessComponentEntryReuse {
+  @Form([
     Field('reuseScenarios', String, 'Reuse Scenarios',
         hint: 'Where this can be reused'),
     Field('customizationPoints', String, 'Customization Points',
@@ -10572,15 +10647,28 @@ class UserProvisioningTools {
 /// Batch job management.
 class BatchJobManagement {
   @Form([
-    // Scheduling
     Field('schedulingEngine', String, 'Scheduling Engine',
         required: true, hint: 'Cron, Quartz, cloud scheduler, Airflow'),
     Field('scheduleDefinition', String, 'Schedule Definition',
         hint: 'Cron expression, calendar-based, event-driven'),
     Field('timeZoneHandling', String, 'Time Zone Handling',
         hint: 'UTC, local, configurable per job'),
+  ])
+  String? content;
 
-    // Job types
+  /// Supported job categories.
+  BatchJobManagementJobTypes jobTypes = BatchJobManagementJobTypes();
+
+  /// Execution controls.
+  BatchJobManagementExecution execution = BatchJobManagementExecution();
+
+  /// Monitoring and manual controls.
+  BatchJobManagementMonitoring monitoring = BatchJobManagementMonitoring();
+}
+
+/// Supported job categories.
+class BatchJobManagementJobTypes {
+  @Form([
     Field('dataProcessingJobs', String, 'Data Processing Jobs',
         hint: 'ETL, aggregation, cleanup'),
     Field('reportGenerationJobs', String, 'Report Generation Jobs',
@@ -10591,8 +10679,13 @@ class BatchJobManagement {
         hint: 'Database cleanup, log rotation, temp file purge'),
     Field('integrationSyncJobs', String, 'Integration Sync Jobs',
         hint: 'External system synchronization'),
+  ])
+  String? content;
+}
 
-    // Execution
+/// Execution controls.
+class BatchJobManagementExecution {
+  @Form([
     Field('concurrencyControl', String, 'Concurrency Control',
         hint: 'Max parallel jobs, queue depth'),
     Field('priorityLevels', String, 'Priority Levels',
@@ -10603,8 +10696,13 @@ class BatchJobManagement {
         hint: 'Safe to re-run on failure'),
     Field('timeout', String, 'Timeout',
         hint: 'Maximum job execution time'),
+  ])
+  String? content;
+}
 
-    // Monitoring
+/// Monitoring and manual controls.
+class BatchJobManagementMonitoring {
+  @Form([
     Field('jobDashboard', bool, 'Job Dashboard',
         hint: 'Visual job status overview'),
     Field('executionHistory', bool, 'Execution History',

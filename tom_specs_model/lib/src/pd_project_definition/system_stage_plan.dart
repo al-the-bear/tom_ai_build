@@ -3528,7 +3528,6 @@ class DecisionPointEntryResolution {
 /// impact analysis, feasibility assessment, and trade-off evaluation.
 class DecisionOptionEntry {
   @Form([
-    // --- Option Identity ---
     Field('optionId', String, 'Option ID',
         hint: 'Unique within the decision — e.g. A, B, C',
         required: true),
@@ -3539,6 +3538,26 @@ class DecisionOptionEntry {
         required: true),
     Field('description', String, 'Description',
         hint: 'Detailed description of what this option entails'),
+  ])
+  String? content;
+
+  /// Recommendation flags.
+  DecisionOptionEntrySelection selection = DecisionOptionEntrySelection();
+
+  /// Impact analysis.
+  DecisionOptionEntryImpact impact = DecisionOptionEntryImpact();
+
+  /// Feasibility assessment.
+  DecisionOptionEntryFeasibility feasibility =
+      DecisionOptionEntryFeasibility();
+
+  /// Trade-offs and reversibility.
+  DecisionOptionEntryTradeOffs tradeOffs = DecisionOptionEntryTradeOffs();
+}
+
+/// Recommendation flags.
+class DecisionOptionEntrySelection {
+  @Form([
     Field('isDefault', String, 'Is Default Option',
         hint:
             'Yes / No — whether this is the fallback if no '
@@ -3547,7 +3566,13 @@ class DecisionOptionEntry {
         hint:
             'Yes / No — whether the analysis team recommends '
             'this option'),
-    // --- Impact Analysis ---
+  ])
+  String? content;
+}
+
+/// Impact analysis.
+class DecisionOptionEntryImpact {
+  @Form([
     Field('costImpact', String, 'Cost Impact',
         hint:
             'Estimated cost — one-time and recurring, relative '
@@ -3571,9 +3596,14 @@ class DecisionOptionEntry {
         hint:
             'Team changes — additional hires, skill gaps, '
             'vendor engagement'),
-    // --- Feasibility ---
-    Field('technicalFeasibility', String,
-        'Technical Feasibility',
+  ])
+  String? content;
+}
+
+/// Feasibility assessment.
+class DecisionOptionEntryFeasibility {
+  @Form([
+    Field('technicalFeasibility', String, 'Technical Feasibility',
         hint:
             'High / Medium / Low — assessed technical '
             'feasibility'),
@@ -3586,7 +3616,13 @@ class DecisionOptionEntry {
         hint:
             'Key factors — skill availability, technology '
             'maturity, vendor reliability'),
-    // --- Trade-offs ---
+  ])
+  String? content;
+}
+
+/// Trade-offs and reversibility.
+class DecisionOptionEntryTradeOffs {
+  @Form([
     Field('advantages', String, 'Advantages',
         hint: 'Key benefits of this option — comma-separated'),
     Field('disadvantages', String, 'Disadvantages',

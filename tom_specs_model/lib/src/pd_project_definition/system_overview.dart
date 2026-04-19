@@ -65,7 +65,6 @@ a quick understanding without reading the full specification.
 /// System overview summary for quick reference.
 class SystemOverviewSummary {
   @Form([
-    // Identity
     Field('systemName', String, 'System Name',
         hint: 'Official name of the system being built', required: true),
     Field('systemAcronym', String, 'System Acronym',
@@ -74,16 +73,40 @@ class SystemOverviewSummary {
         hint: 'Target version this specification covers'),
     Field('projectCodeName', String, 'Project Code Name',
         hint: 'Internal project code name if different'),
+  ])
+  String? content;
 
-    // Classification
+  /// System classification.
+  SystemOverviewSummaryClassification classification =
+      SystemOverviewSummaryClassification();
+
+  /// Scale indicators.
+  SystemOverviewSummaryScale scale = SystemOverviewSummaryScale();
+
+  /// Specification status.
+  SystemOverviewSummaryStatus status = SystemOverviewSummaryStatus();
+
+  /// Complexity indicators.
+  SystemOverviewSummaryComplexity complexity =
+      SystemOverviewSummaryComplexity();
+}
+
+/// System classification.
+class SystemOverviewSummaryClassification {
+  @Form([
     Field('systemType', String, 'System Type',
         hint: 'Web Application / Mobile App / API / Desktop / Embedded / Hybrid'),
     Field('businessDomain', String, 'Business Domain',
         hint: 'Primary business domain — Finance / Healthcare / Retail / etc.'),
     Field('deploymentModel', String, 'Deployment Model',
         hint: 'Cloud / On-premise / Hybrid / Edge'),
+  ])
+  String? content;
+}
 
-    // Scale
+/// Scale indicators.
+class SystemOverviewSummaryScale {
+  @Form([
     Field('estimatedUserCount', int, 'Estimated User Count',
         hint: 'Expected number of users at steady state'),
     Field('userCategoryCount', int, 'User Category Count',
@@ -94,8 +117,13 @@ class SystemOverviewSummary {
         hint: 'Number of functional requirements identified'),
     Field('nonFunctionalRequirementCount', int, 'Non-Functional Requirement Count',
         hint: 'Number of non-functional requirements identified'),
+  ])
+  String? content;
+}
 
-    // Status
+/// Specification status.
+class SystemOverviewSummaryStatus {
+  @Form([
     Field('specificationVersion', String, 'Specification Version',
         hint: 'Version of this specification document'),
     Field('specificationDate', String, 'Specification Date',
@@ -104,8 +132,13 @@ class SystemOverviewSummary {
         hint: 'Draft / Review / Approved / Superseded'),
     Field('targetGoLiveDate', String, 'Target Go-Live Date',
         hint: 'Planned production deployment date'),
+  ])
+  String? content;
+}
 
-    // Complexity Indicators
+/// Complexity indicators.
+class SystemOverviewSummaryComplexity {
+  @Form([
     Field('overallComplexity', String, 'Overall Complexity',
         hint: 'Low / Medium / High / Very High — based on scope and integrations'),
     Field('keyRisks', String, 'Key Risks Summary',

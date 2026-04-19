@@ -18,53 +18,27 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 @SectionId('PD00-SYQ')
 @Comment('Seeds → BQP')
 class SystemQualityGoals {
-  // ─────────────────────────────────────────────────────────────────────────
-  // Quality Governance
-  // ─────────────────────────────────────────────────────────────────────────
   @Form([
-    // Governance structure
     Field('qualityApproach', String, 'Quality Approach',
         hint: 'Overall quality philosophy: proactive, reactive, hybrid'),
     Field('qualityStandards', String, 'Applicable Quality Standards',
         hint: 'ISO 25010, ISO 9001, CMMI, industry-specific'),
     Field('qualityOwner', String, 'Quality Owner',
         hint: 'Role accountable for quality outcomes'),
-    Field('qualityReviewBoard', String, 'Quality Review Board',
-        hint: 'Governance body for quality decisions'),
-    Field('qualityMeetingCadence', String, 'Quality Meeting Cadence',
-        hint: 'Weekly, bi-weekly, sprint-aligned'),
-    Field('qualityEscalationPath', String, 'Escalation Path',
-        hint: 'How quality issues escalate to leadership'),
-    // Baseline and targets
-    Field('qualityBaselineDate', String, 'Quality Baseline Date',
-        hint: 'When quality targets were baselined'),
-    Field('qualityBaselineVersion', String, 'Baseline Version'),
-    Field('overallQualityTargetLevel', String, 'Overall Quality Target Level',
-        hint: 'High, production-grade, MVP-acceptable'),
-    Field('qualityRiskTolerance', String, 'Quality Risk Tolerance',
-        hint: 'Low (zero defects), medium, high tolerance'),
-    // Measurement approach
-    Field('qualityMetricsFramework', String, 'Metrics Framework',
-        hint: 'How quality is measured: GQM, balanced scorecard'),
-    Field('qualityReportingFrequency', String, 'Reporting Frequency',
-        hint: 'Daily, weekly, sprint, release'),
-    Field('qualityDashboardTool', String, 'Quality Dashboard Tool',
-        hint: 'SonarQube, custom dashboard, spreadsheet'),
-    Field('defectTrackingSystem', String, 'Defect Tracking System',
-        hint: 'Jira, Azure DevOps, GitHub Issues'),
-    Field('qualityTrendAnalysis', String, 'Trend Analysis Approach',
-        hint: 'How quality trends are tracked over time'),
-    // Resources
-    Field('qualityBudget', String, 'Quality Budget',
-        hint: 'Budget allocated for QA activities'),
-    Field('qaTeamSize', String, 'QA Team Size',
-        hint: 'Number of dedicated QA resources'),
-    Field('testAutomationTarget', String, 'Test Automation Target %',
-        hint: 'Target percentage of automated tests'),
-    Field('qualityTrainingPlan', String, 'Quality Training Plan',
-        hint: 'Training for team on quality practices'),
   ])
   String? governanceContent;
+
+  /// Governance board and escalation details.
+  SystemQualityGoalsGovernance governance = SystemQualityGoalsGovernance();
+
+  /// Baseline and target settings.
+  SystemQualityGoalsBaseline baseline = SystemQualityGoalsBaseline();
+
+  /// Measurement and reporting approach.
+  SystemQualityGoalsMeasurement measurement = SystemQualityGoalsMeasurement();
+
+  /// Quality resources and enablement.
+  SystemQualityGoalsResources resources = SystemQualityGoalsResources();
 
   /// Executive summary of quality goals and approach.
   @ContentHelp('High-level overview of quality objectives, expected quality '
@@ -111,6 +85,65 @@ class SystemQualityGoals {
 
   /// 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
   AcceptanceCriteriaSummary acceptanceCriteria = AcceptanceCriteriaSummary();
+}
+
+/// Governance board and escalation details.
+class SystemQualityGoalsGovernance {
+    @Form([
+        Field('qualityReviewBoard', String, 'Quality Review Board',
+                hint: 'Governance body for quality decisions'),
+        Field('qualityMeetingCadence', String, 'Quality Meeting Cadence',
+                hint: 'Weekly, bi-weekly, sprint-aligned'),
+        Field('qualityEscalationPath', String, 'Escalation Path',
+                hint: 'How quality issues escalate to leadership'),
+    ])
+    String? content;
+}
+
+/// Baseline and target settings.
+class SystemQualityGoalsBaseline {
+    @Form([
+        Field('qualityBaselineDate', String, 'Quality Baseline Date',
+                hint: 'When quality targets were baselined'),
+        Field('qualityBaselineVersion', String, 'Baseline Version'),
+        Field('overallQualityTargetLevel', String, 'Overall Quality Target Level',
+                hint: 'High, production-grade, MVP-acceptable'),
+        Field('qualityRiskTolerance', String, 'Quality Risk Tolerance',
+                hint: 'Low (zero defects), medium, high tolerance'),
+    ])
+    String? content;
+}
+
+/// Measurement and reporting approach.
+class SystemQualityGoalsMeasurement {
+    @Form([
+        Field('qualityMetricsFramework', String, 'Metrics Framework',
+                hint: 'How quality is measured: GQM, balanced scorecard'),
+        Field('qualityReportingFrequency', String, 'Reporting Frequency',
+                hint: 'Daily, weekly, sprint, release'),
+        Field('qualityDashboardTool', String, 'Quality Dashboard Tool',
+                hint: 'SonarQube, custom dashboard, spreadsheet'),
+        Field('defectTrackingSystem', String, 'Defect Tracking System',
+                hint: 'Jira, Azure DevOps, GitHub Issues'),
+        Field('qualityTrendAnalysis', String, 'Trend Analysis Approach',
+                hint: 'How quality trends are tracked over time'),
+    ])
+    String? content;
+}
+
+/// Quality resources and enablement.
+class SystemQualityGoalsResources {
+    @Form([
+        Field('qualityBudget', String, 'Quality Budget',
+                hint: 'Budget allocated for QA activities'),
+        Field('qaTeamSize', String, 'QA Team Size',
+                hint: 'Number of dedicated QA resources'),
+        Field('testAutomationTarget', String, 'Test Automation Target %',
+                hint: 'Target percentage of automated tests'),
+        Field('qualityTrainingPlan', String, 'Quality Training Plan',
+                hint: 'Training for team on quality practices'),
+    ])
+    String? content;
 }
 
 /// 11.1. Quality Framework [PD00-SYQ-FRA].
@@ -879,14 +912,34 @@ class ServiceLevelAgreementEntry {
 /// 11.4.3. Monitoring quality [PD00-SYQ-OPE-MON].
 class MonitoringQuality {
   @Form([
-    // Scalability monitoring
     Field('scalabilityMonitoringApproach', String, 'Scalability Monitoring',
         hint: 'Auto-scaling triggers, capacity alerts'),
     Field('capacityPlanningProcess', String, 'Capacity Planning Process',
         hint: 'How capacity is planned'),
     Field('growthProjections', String, 'Growth Projections',
         hint: 'Expected growth rate'),
-    // Component monitoring
+  ])
+  String? content;
+
+  /// Component monitoring coverage.
+  MonitoringQualityCoverage coverage = MonitoringQualityCoverage();
+
+  /// Alert automation capabilities.
+  MonitoringQualityAutomation automation = MonitoringQualityAutomation();
+
+  /// Alerting strategy and channels.
+  MonitoringQualityAlerting alerting = MonitoringQualityAlerting();
+
+  /// Planning and observability settings.
+  MonitoringQualityOperations operations = MonitoringQualityOperations();
+
+  /// Detailed monitoring requirements narrative.
+  TextSection narrative = TextSection();
+}
+
+/// Component monitoring coverage.
+class MonitoringQualityCoverage {
+  @Form([
     Field('infrastructureMonitoring', String, 'Infrastructure Monitoring',
         hint: 'Servers, containers, network'),
     Field('applicationMonitoring', String, 'Application Monitoring',
@@ -895,14 +948,26 @@ class MonitoringQuality {
         hint: 'Queries, connections, storage'),
     Field('thirdPartyMonitoring', String, 'Third-Party Monitoring',
         hint: 'External service monitoring'),
-    // Automation
+  ])
+  String? content;
+}
+
+/// Alert automation capabilities.
+class MonitoringQualityAutomation {
+  @Form([
     Field('alertAutomation', String, 'Alert Automation',
         hint: 'Automated response to alerts'),
     Field('selfHealingCapability', String, 'Self-Healing Capability',
         hint: 'Auto-recovery mechanisms'),
     Field('runbookAutomation', String, 'Runbook Automation',
         hint: 'Automated runbook execution'),
-    // Alerting
+  ])
+  String? content;
+}
+
+/// Alerting strategy and channels.
+class MonitoringQualityAlerting {
+  @Form([
     Field('alertingStrategy', String, 'Alerting Strategy',
         hint: 'Threshold-based, anomaly detection'),
     Field('alertPrioritization', String, 'Alert Prioritization',
@@ -911,12 +976,17 @@ class MonitoringQuality {
         hint: 'Slack, PagerDuty, email, SMS'),
     Field('alertFatiguePrevention', String, 'Alert Fatigue Prevention',
         hint: 'De-duplication, correlation'),
-    // Resource planning
+  ])
+  String? content;
+}
+
+/// Planning and observability settings.
+class MonitoringQualityOperations {
+  @Form([
     Field('resourcePlanningFrequency', String, 'Resource Planning Frequency',
         hint: 'Quarterly, annually'),
     Field('proactiveMaintenanceSchedule', String, 'Proactive Maintenance',
         hint: 'Scheduled maintenance activities'),
-    // Observability
     Field('observabilityPillars', String, 'Observability Pillars',
         hint: 'Logs, metrics, traces'),
     Field('distributedTracingRequirement', String, 'Distributed Tracing',
@@ -925,9 +995,6 @@ class MonitoringQuality {
         hint: 'How long logs are kept'),
   ])
   String? content;
-
-  /// Detailed monitoring requirements narrative.
-  TextSection narrative = TextSection();
 }
 
 /// 11.4.4. IT Security Operations quality [PD00-SYQ-OPE-ITS].
