@@ -625,78 +625,126 @@ class SystemIntegrationEntry {
         hint: 'Descriptive name, e.g. Real-time inventory sync',
         required: true),
     Field('integrationType', String, 'Integration Type',
-        hint:
-            'RealTime / Batch / EventDriven / RequestResponse / Manual'),
+        hint: 'RealTime / Batch / EventDriven / RequestResponse / Manual'),
     Field('integrationPattern', String, 'Integration Pattern',
-        hint:
-            'PointToPoint / HubSpoke / PubSub / ESB / ApiGateway / EtlPipeline'),
-    Field('protocol', String, 'Protocol',
-        hint: 'REST / SOAP / gRPC / SFTP / JDBC / AMQP / Kafka / Custom'),
-    Field('direction', String, 'Direction',
-        hint: 'Inbound / Outbound / Bidirectional'),
-    Field('frequency', String, 'Frequency',
-        hint:
-            'Continuous / Hourly / Daily / Weekly / OnDemand / EventTriggered'),
-    Field('middlewareUsed', String, 'Middleware / Platform',
-        hint:
-            'Integration platform or middleware, e.g. MuleSoft, Azure Service Bus, none'),
-    Field('authenticationMethod', String, 'Authentication Method',
-        hint: 'OAuth2 / APIKey / mTLS / BasicAuth / SAML / None'),
-    Field('dataExchanged', String, 'Data Exchanged',
-        hint: 'Key data entities or payloads exchanged'),
-    Field('messageFormat', String, 'Message Format',
-        hint: 'JSON / XML / CSV / Avro / Protobuf / EDI / Custom'),
-    Field('schemaVersion', String, 'Schema Version',
-        hint:
-            'Current schema or API version, e.g. v2.3, 2024-01 schema'),
-    Field('transformationRequired', String, 'Transformation Required',
-        hint: 'Yes / No — whether data mapping or transformation occurs'),
-    Field('dataMappingComplexity', String, 'Data Mapping Complexity',
-        hint:
-            'Simple / Moderate / Complex — degree of data transformation needed'),
-    Field('errorHandling', String, 'Error Handling',
-        hint:
-            'Retry / DeadLetter / Alert / ManualIntervention — how errors are handled'),
-    Field('retryPolicy', String, 'Retry Policy',
-        hint:
-            'Retry mechanism and limits, e.g. 3 retries with exponential backoff'),
-    Field('throughputCapacity', String, 'Throughput Capacity',
-        hint:
-            'Maximum supported throughput, e.g. 10k msg/sec, 500 records/batch'),
-    Field('currentUtilization', String, 'Current Utilization',
-        hint: 'Typical load vs capacity, e.g. ~60% of capacity'),
-    Field('peakLoadHandling', String, 'Peak Load Handling',
-        hint:
-            'Scales / Queues / Throttles / Degrades — behavior under peak load'),
-    Field('monitoringAlerting', String, 'Monitoring & Alerting',
-        hint: 'Monitoring tools and alert thresholds in place'),
-    Field('failoverBehavior', String, 'Failover Behavior',
-        hint:
-            'AutomaticFailover / ManualFailover / NoFailover'),
-    Field('integrationAge', String, 'Integration Age',
-        hint:
-            'When this integration was established, e.g. 2019, 7 years'),
-    Field('documentationQuality', String, 'Documentation Quality',
-        hint:
-            'Comprehensive / Adequate / Minimal / Undocumented'),
-    Field('maintenanceOwner', String, 'Maintenance Owner',
-        hint: 'Team or role responsible for this integration'),
-    Field('securityClassification', String, 'Security Classification',
-        hint: 'Public / Internal / Confidential / Restricted'),
-    Field('complianceRequirements', String, 'Compliance Requirements',
-        hint:
-            'Applicable regulations, e.g. PCI-DSS, GDPR data transfer'),
-    Field('technicalDebt', String, 'Technical Debt',
-        hint:
-            'None / Low / Moderate / High — maintenance burden and known issues'),
+        hint: 'PointToPoint / HubSpoke / PubSub / ESB / ApiGateway'),
   ])
   String? content;
+
+  /// Protocol and transport details.
+  final SystemIntegrationProtocol protocol = SystemIntegrationProtocol();
+
+  /// Data exchange configuration.
+  final SystemIntegrationDataExchange dataExchange =
+      SystemIntegrationDataExchange();
+
+  /// Error handling and retry.
+  final SystemIntegrationErrorHandling errorHandling =
+      SystemIntegrationErrorHandling();
+
+  /// Throughput and capacity.
+  final SystemIntegrationThroughput throughput = SystemIntegrationThroughput();
+
+  /// Monitoring and failover.
+  final SystemIntegrationMonitoring monitoring =
+      SystemIntegrationMonitoring();
+
+  /// Ownership and documentation.
+  final SystemIntegrationOwnership ownership = SystemIntegrationOwnership();
 
   @Reference('Source System')
   ExistingSystemEntry? sourceSystem;
 
   @Reference('Target System')
   ExistingSystemEntry? targetSystem;
+}
+
+/// Protocol and transport details.
+class SystemIntegrationProtocol {
+  @Form([
+    Field('protocol', String, 'Protocol',
+        hint: 'REST / SOAP / gRPC / SFTP / JDBC / AMQP / Kafka / Custom'),
+    Field('direction', String, 'Direction',
+        hint: 'Inbound / Outbound / Bidirectional'),
+    Field('frequency', String, 'Frequency',
+        hint: 'Continuous / Hourly / Daily / Weekly / OnDemand'),
+    Field('middlewareUsed', String, 'Middleware / Platform',
+        hint: 'MuleSoft, Azure Service Bus, none'),
+    Field('authenticationMethod', String, 'Authentication Method',
+        hint: 'OAuth2 / APIKey / mTLS / BasicAuth / SAML / None'),
+  ])
+  String? content;
+}
+
+/// Data exchange configuration.
+class SystemIntegrationDataExchange {
+  @Form([
+    Field('dataExchanged', String, 'Data Exchanged',
+        hint: 'Key data entities or payloads exchanged'),
+    Field('messageFormat', String, 'Message Format',
+        hint: 'JSON / XML / CSV / Avro / Protobuf / EDI / Custom'),
+    Field('schemaVersion', String, 'Schema Version',
+        hint: 'Current schema or API version'),
+    Field('transformationRequired', String, 'Transformation Required',
+        hint: 'Yes / No'),
+    Field('dataMappingComplexity', String, 'Data Mapping Complexity',
+        hint: 'Simple / Moderate / Complex'),
+  ])
+  String? content;
+}
+
+/// Error handling and retry.
+class SystemIntegrationErrorHandling {
+  @Form([
+    Field('errorHandling', String, 'Error Handling',
+        hint: 'Retry / DeadLetter / Alert / ManualIntervention'),
+    Field('retryPolicy', String, 'Retry Policy',
+        hint: '3 retries with exponential backoff'),
+  ])
+  String? content;
+}
+
+/// Throughput and capacity.
+class SystemIntegrationThroughput {
+  @Form([
+    Field('throughputCapacity', String, 'Throughput Capacity',
+        hint: '10k msg/sec, 500 records/batch'),
+    Field('currentUtilization', String, 'Current Utilization',
+        hint: 'Typical load vs capacity'),
+    Field('peakLoadHandling', String, 'Peak Load Handling',
+        hint: 'Scales / Queues / Throttles / Degrades'),
+  ])
+  String? content;
+}
+
+/// Monitoring and failover.
+class SystemIntegrationMonitoring {
+  @Form([
+    Field('monitoringAlerting', String, 'Monitoring & Alerting',
+        hint: 'Monitoring tools and alert thresholds'),
+    Field('failoverBehavior', String, 'Failover Behavior',
+        hint: 'AutomaticFailover / ManualFailover / NoFailover'),
+  ])
+  String? content;
+}
+
+/// Ownership and documentation.
+class SystemIntegrationOwnership {
+  @Form([
+    Field('integrationAge', String, 'Integration Age',
+        hint: 'When established, e.g. 2019, 7 years'),
+    Field('documentationQuality', String, 'Documentation Quality',
+        hint: 'Comprehensive / Adequate / Minimal / Undocumented'),
+    Field('maintenanceOwner', String, 'Maintenance Owner',
+        hint: 'Team or role responsible'),
+    Field('securityClassification', String, 'Security Classification',
+        hint: 'Public / Internal / Confidential / Restricted'),
+    Field('complianceRequirements', String, 'Compliance Requirements',
+        hint: 'PCI-DSS, GDPR data transfer'),
+    Field('technicalDebt', String, 'Technical Debt',
+        hint: 'None / Low / Moderate / High'),
+  ])
+  String? content;
 }
 
 // ---------------------------------------------------------------------------

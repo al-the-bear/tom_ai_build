@@ -519,17 +519,38 @@ class DistributionGroupSummary {
 /// their role, contact information, preferences, and access levels.
 class DistributionRecipientEntry {
   @Form([
-    // Identity
     Field('name', String, 'Name', required: true,
         hint: 'Full name of the recipient'),
     Field('role', String, 'Role',
         hint: 'Project or organizational role'),
     Field('organization', String, 'Organization',
         hint: 'Department or company'),
+  ])
+  String? content;
+
+  /// Contact information.
+  final DistributionRecipientContact contact = DistributionRecipientContact();
+
+  /// Distribution preferences.
+  final DistributionRecipientPreferences preferences =
+      DistributionRecipientPreferences();
+
+  /// Access and information scope.
+  final DistributionRecipientAccess access = DistributionRecipientAccess();
+
+  /// Subscription period.
+  final DistributionRecipientSubscription subscription =
+      DistributionRecipientSubscription();
+
+  /// Backup and delegation.
+  final DistributionRecipientBackup backup = DistributionRecipientBackup();
+}
+
+/// Contact information.
+class DistributionRecipientContact {
+  @Form([
     Field('jobTitle', String, 'Job Title',
         hint: "Recipient's job title"),
-
-    // Contact Information
     Field('primaryEmail', String, 'Primary Email',
         hint: 'Primary email address for distribution'),
     Field('secondaryEmail', String, 'Secondary Email',
@@ -538,8 +559,13 @@ class DistributionRecipientEntry {
         hint: 'Phone for urgent communications'),
     Field('preferredContactMethod', String, 'Preferred Contact Method',
         hint: 'Email / Phone / Teams / Slack'),
+  ])
+  String? content;
+}
 
-    // Distribution Preferences
+/// Distribution preferences.
+class DistributionRecipientPreferences {
+  @Form([
     Field('distributionMethod', String, 'Distribution Method',
         hint: 'Email / Portal / Physical'),
     Field('preferredFormat', String, 'Preferred Format',
@@ -550,34 +576,47 @@ class DistributionRecipientEntry {
         hint: 'Individual / Daily Digest / Weekly Digest'),
     Field('notificationPreference', String, 'Notification Preference',
         hint: 'Immediate / Batched / Manual Check'),
+  ])
+  String? content;
+}
 
-    // Access and Information Scope
+/// Access and information scope.
+class DistributionRecipientAccess {
+  @Form([
     Field('accessLevel', String, 'Access Level',
         hint: 'Full / Summary / Specific Sections'),
     Field('informationCategories', String, 'Information Categories',
-        hint: 'Categories of information received — comma-separated'),
+        hint: 'Categories of information received'),
     Field('excludedCategories', String, 'Excluded Categories',
-        hint: 'Categories explicitly excluded — comma-separated'),
+        hint: 'Categories explicitly excluded'),
     Field('documentSections', String, 'Document Sections',
         hint: 'Specific sections received if not full document'),
     Field('confidentialityCleared', String, 'Confidentiality Cleared',
-        hint: 'Cleared levels — Public / Internal / Confidential / Restricted'),
+        hint: 'Public / Internal / Confidential / Restricted'),
+  ])
+  String? content;
+}
 
-    // Subscription Period
+/// Subscription period.
+class DistributionRecipientSubscription {
+  @Form([
     Field('subscriptionStartDate', String, 'Subscription Start Date',
         hint: 'When this recipient joined the distribution list'),
     Field('subscriptionEndDate', String, 'Subscription End Date',
         hint: 'When distribution ends — ongoing if blank'),
     Field('subscriptionStatus', String, 'Subscription Status',
         hint: 'Active / Paused / Ended'),
+  ])
+  String? content;
+}
 
-    // Backup and Delegation
+/// Backup and delegation.
+class DistributionRecipientBackup {
+  @Form([
     Field('deputyName', String, 'Deputy Name',
-        hint: 'Person to contact or copy when recipient is unavailable'),
+        hint: 'Person to contact when recipient is unavailable'),
     Field('outOfOfficeHandling', String, 'Out of Office Handling',
         hint: 'Forward to Deputy / Hold / Continue'),
-
-    // Notes
     Field('specialInstructions', String, 'Special Instructions',
         hint: 'Any special distribution requirements'),
     Field('notes', String, 'Notes',

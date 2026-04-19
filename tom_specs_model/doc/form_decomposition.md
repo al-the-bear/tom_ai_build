@@ -84,11 +84,11 @@ need decomposition into sub-sections to improve readability, maintainability, an
 | 26 | StageMigrationRiskEntry | 28 | system_stage_plan.dart | ✅ |
 | 27 | PrintLayout | 28 | user_interface_design.dart | ✅ |
 | 28 | ExternalPartnerConnectionEntry | 27 | technical_framework.dart | ✅ |
-| 29 | SystemIntegrationEntry | 26 | current_state_analysis.dart | ⬜ |
-| 30 | ResponsibilityEntry | 26 | system_overview.dart | ⬜ |
-| 31 | DistributionRecipientEntry | 25 | administrative.dart | ⬜ |
-| 32 | ScreenFieldEntry | 25 | system_overview.dart | ⬜ |
-| 33 | ProtocolEntry | 25 | technical_framework.dart | ⬜ |
+| 29 | SystemIntegrationEntry | 26 | current_state_analysis.dart | ✅ |
+| 30 | ResponsibilityEntry | 26 | system_overview.dart | ✅ |
+| 31 | DistributionRecipientEntry | 25 | administrative.dart | ✅ |
+| 32 | ScreenFieldEntry | 25 | system_overview.dart | ✅ |
+| 33 | ProtocolEntry | 25 | technical_framework.dart | ✅ |
 | 34 | ReportColumnEntry | 25 | user_interface_design.dart | ⬜ |
 | 35 | WarrantyTerms | 24 | delivery_acceptance.dart | ⬜ |
 | 36 | InitialTrainingEntry | 24 | organizational_framework.dart | ⬜ |

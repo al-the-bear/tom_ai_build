@@ -8953,17 +8953,37 @@ Provide an overview of protocol and standards approach.
 /// A protocol or standard entry (form) [PD00-TEC-COM-PRO-nn].
 class ProtocolEntry {
   @Form([
-    // Identity
     Field('protocolName', String, 'Protocol Name',
         required: true, hint: 'HTTP/2, WebSocket, gRPC, MQTT, AMQP'),
     Field('protocolType', String, 'Protocol Type',
         hint: 'Request-response, streaming, pub-sub, event-driven'),
     Field('protocolVersion', String, 'Protocol Version',
         hint: 'HTTP/2, MQTT 5.0, gRPC 1.x'),
+  ])
+  String? content;
+
+  /// Protocol transport and security.
+  final ProtocolTransport transport = ProtocolTransport();
+
+  /// Authentication and serialization.
+  final ProtocolAuthSerialization authSerialization =
+      ProtocolAuthSerialization();
+
+  /// Performance settings.
+  final ProtocolPerformance performance = ProtocolPerformance();
+
+  /// Reliability and delivery.
+  final ProtocolReliability reliability = ProtocolReliability();
+
+  /// Usage and notes.
+  final ProtocolUsage usage = ProtocolUsage();
+}
+
+/// Protocol transport and security.
+class ProtocolTransport {
+  @Form([
     Field('purpose', String, 'Purpose',
         hint: 'Primary use case for this protocol'),
-
-    // Transport
     Field('transportLayer', String, 'Transport Layer',
         hint: 'TCP, UDP, QUIC'),
     Field('defaultPort', int, 'Default Port',
@@ -8974,22 +8994,30 @@ class ProtocolEntry {
         hint: 'TLS mandatory for this protocol'),
     Field('minimumTlsVersion', String, 'Minimum TLS Version',
         hint: 'TLS 1.2, TLS 1.3'),
+  ])
+  String? content;
+}
 
-    // Authentication
+/// Authentication and serialization.
+class ProtocolAuthSerialization {
+  @Form([
     Field('authenticationMethod', String, 'Authentication Method',
         hint: 'API key, OAuth 2.0, mTLS, JWT'),
     Field('authorizationScheme', String, 'Authorization Scheme',
         hint: 'Bearer token, Basic, custom'),
-
-    // Serialization
     Field('messageFormat', String, 'Message Format',
         hint: 'JSON, Protocol Buffers, XML, Avro'),
     Field('encoding', String, 'Encoding',
         hint: 'UTF-8, Base64, binary'),
     Field('compressionSupport', String, 'Compression Support',
         hint: 'gzip, brotli, none'),
+  ])
+  String? content;
+}
 
-    // Performance
+/// Performance settings.
+class ProtocolPerformance {
+  @Form([
     Field('maxMessageSize', String, 'Max Message Size',
         hint: 'Maximum payload size'),
     Field('connectionPooling', bool, 'Connection Pooling',
@@ -9000,16 +9028,26 @@ class ProtocolEntry {
         hint: 'Connection establishment timeout'),
     Field('requestTimeout', String, 'Request Timeout',
         hint: 'Individual request timeout'),
+  ])
+  String? content;
+}
 
-    // Reliability
+/// Reliability and delivery.
+class ProtocolReliability {
+  @Form([
     Field('retryPolicy', String, 'Retry Policy',
         hint: 'Exponential backoff, fixed interval'),
     Field('idempotencySupport', bool, 'Idempotency Support',
         hint: 'Support for idempotent operations'),
     Field('deliveryGuarantee', String, 'Delivery Guarantee',
         hint: 'At-most-once, at-least-once, exactly-once'),
+  ])
+  String? content;
+}
 
-    // Usage
+/// Usage and notes.
+class ProtocolUsage {
+  @Form([
     Field('usedBy', String, 'Used By',
         hint: 'Components or services using this protocol'),
     Field('directionality', String, 'Directionality',

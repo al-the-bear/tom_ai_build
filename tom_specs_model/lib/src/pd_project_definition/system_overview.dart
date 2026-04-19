@@ -3436,29 +3436,68 @@ class ScreenFieldEntry {
   @Form([
     Field('fieldId', String, 'Field ID', required: true),
     Field('fieldLabel', String, 'Field Label (display text)', required: true),
-    Field('fieldType', String,
-        'Field Type (Text, Number, Date, DateTime, Dropdown, Checkbox, '
-            'Radio, Switch, TextArea, RichText, File, Image, Lookup, '
-            'Autocomplete, MultiSelect, Slider, Rating, Currency, '
-            'Phone, Email, URL, Address, Signature)',
-        required: true),
+    Field('fieldType', String, 'Field Type', required: true,
+        hint: 'Text, Number, Date, Dropdown, Checkbox, etc.'),
+  ])
+  String? content;
+
+  /// Data binding and defaults.
+  final ScreenFieldDataBinding dataBinding = ScreenFieldDataBinding();
+
+  /// Conditional behavior.
+  final ScreenFieldConditions conditions = ScreenFieldConditions();
+
+  /// Validation rules.
+  final ScreenFieldValidation validation = ScreenFieldValidation();
+
+  /// UI and layout.
+  final ScreenFieldLayout layout = ScreenFieldLayout();
+
+  /// Field validation rules — contains 0+× FieldValidationRule.
+  @SectionIdPattern('PD00-SYO-REQ-FUN-xx-UI-FLD-xx-VAL-xx')
+  List<FieldValidationRule> validationRules = [];
+}
+
+/// Data binding and defaults.
+class ScreenFieldDataBinding {
+  @Form([
     Field('dataBinding', String, 'Data Binding (entity.attribute)'),
     Field('defaultValue', String, 'Default Value'),
     Field('placeholder', String, 'Placeholder Text'),
     Field('helpText', String, 'Help Text / Tooltip'),
+  ])
+  String? content;
+}
+
+/// Conditional behavior.
+class ScreenFieldConditions {
+  @Form([
     Field('required', String, 'Required (Yes, No, Conditional)'),
-    Field('requiredCondition', String,
-        'Required Condition (if conditional)'),
+    Field('requiredCondition', String, 'Required Condition'),
     Field('readOnly', String, 'Read Only (Yes, No, Conditional)'),
     Field('readOnlyCondition', String, 'Read Only Condition'),
     Field('visible', String, 'Visible (Yes, No, Conditional)'),
     Field('visibilityCondition', String, 'Visibility Condition'),
+  ])
+  String? content;
+}
+
+/// Validation rules.
+class ScreenFieldValidation {
+  @Form([
     Field('minLength', String, 'Minimum Length'),
     Field('maxLength', String, 'Maximum Length'),
     Field('minValue', String, 'Minimum Value'),
     Field('maxValue', String, 'Maximum Value'),
     Field('pattern', String, 'Validation Pattern (regex)'),
     Field('validationMessage', String, 'Custom Validation Message'),
+  ])
+  String? content;
+}
+
+/// UI and layout.
+class ScreenFieldLayout {
+  @Form([
     Field('dropdownSource', String, 'Dropdown Source (static, API, entity)'),
     Field('dropdownValues', String, 'Static Dropdown Values'),
     Field('dependsOn', String, 'Depends On (field IDs that affect this)'),
@@ -3467,10 +3506,6 @@ class ScreenFieldEntry {
     Field('grouping', String, 'Field Grouping / Section'),
   ])
   String? content;
-
-  /// Field validation rules — contains 0+× FieldValidationRule.
-  @SectionIdPattern('PD00-SYO-REQ-FUN-xx-UI-FLD-xx-VAL-xx')
-  List<FieldValidationRule> validationRules = [];
 }
 
 /// A field validation rule (form).
@@ -5686,61 +5721,101 @@ class FunctionalResponsibilities {
 /// with additional operational details for clear accountability.
 class ResponsibilityEntry {
   @Form([
-    // Function Identification
     Field('functionId', String, 'Function ID', required: true,
-        hint: 'Unique identifier, e.g. FUNC-001, FUNC-CRM-001'),
+        hint: 'Unique identifier, e.g. FUNC-001'),
     Field('functionName', String, 'Function Name', required: true,
-        hint: 'Short descriptive name, e.g. Customer Data Management'),
+        hint: 'Short descriptive name'),
     Field('functionArea', String, 'Functional Area',
-        hint: 'Business area — Sales, Marketing, Finance, HR, Operations, IT'),
+        hint: 'Sales, Marketing, Finance, HR, Operations, IT'),
+  ])
+  String? content;
+
+  /// Function details and scope.
+  final ResponsibilityFunctionDetails functionDetails =
+      ResponsibilityFunctionDetails();
+
+  /// RACI assignment.
+  final ResponsibilityRaci raci = ResponsibilityRaci();
+
+  /// Key contacts.
+  final ResponsibilityContacts contacts = ResponsibilityContacts();
+
+  /// Related systems and data.
+  final ResponsibilitySystems systems = ResponsibilitySystems();
+
+  /// Governance and transition.
+  final ResponsibilityGovernance governance = ResponsibilityGovernance();
+}
+
+/// Function details and scope.
+class ResponsibilityFunctionDetails {
+  @Form([
     Field('functionDescription', String, 'Description',
         hint: 'Detailed description of the functional responsibility'),
     Field('functionScope', String, 'Scope',
         hint: 'Boundaries of this functional responsibility'),
     Field('businessCriticality', String, 'Business Criticality',
-        hint: 'Critical, High, Medium, Low — importance to business'),
+        hint: 'Critical, High, Medium, Low'),
+  ])
+  String? content;
+}
 
-    // RACI Assignment
+/// RACI assignment.
+class ResponsibilityRaci {
+  @Form([
     Field('responsible', String, 'Responsible (R)',
         hint: 'Role/team who does the work', required: true),
     Field('accountable', String, 'Accountable (A)',
-        hint: 'Role/person ultimately accountable (one per function)'),
+        hint: 'Role/person ultimately accountable'),
     Field('consulted', String, 'Consulted (C)',
         hint: 'Roles/teams who provide input'),
     Field('informed', String, 'Informed (I)',
         hint: 'Roles/teams who are kept updated'),
+  ])
+  String? content;
+}
 
-    // Key Contacts
+/// Key contacts.
+class ResponsibilityContacts {
+  @Form([
     Field('domainOwner', String, 'Domain Owner',
         hint: 'Business owner for this functional area'),
     Field('datasteward', String, 'Data Steward',
-        hint: 'Person responsible for data quality and governance'),
+        hint: 'Person responsible for data quality'),
     Field('operationalContact', String, 'Operational Contact',
         hint: 'Day-to-day operational contact'),
     Field('technicalContact', String, 'Technical Contact',
         hint: 'Technical SME for this area'),
     Field('escalationContact', String, 'Escalation Contact',
         hint: 'Contact for escalation of issues'),
+  ])
+  String? content;
+}
 
-    // Related Systems
+/// Related systems and data.
+class ResponsibilitySystems {
+  @Form([
     Field('primarySystems', String, 'Primary Systems',
         hint: 'Systems primarily used for this function'),
     Field('dataOwnership', String, 'Data Ownership',
         hint: 'Data entities owned by this function'),
     Field('processOwnership', String, 'Process Ownership',
         hint: 'Business processes owned by this function'),
+  ])
+  String? content;
+}
 
-    // Governance
+/// Governance and transition.
+class ResponsibilityGovernance {
+  @Form([
     Field('governanceLevel', String, 'Governance Level',
-        hint: 'Central, federated, local — where decisions are made'),
+        hint: 'Central, federated, local'),
     Field('decisionAuthority', String, 'Decision Authority',
         hint: 'What decisions this function can make autonomously'),
     Field('approvalRequired', String, 'Approval Required',
         hint: 'What requires approval and from whom'),
     Field('complianceRole', String, 'Compliance Role',
         hint: 'Regulatory or compliance responsibilities'),
-
-    // Transition
     Field('currentState', String, 'Current State',
         hint: 'How responsibility is handled currently'),
     Field('futureState', String, 'Future State',
