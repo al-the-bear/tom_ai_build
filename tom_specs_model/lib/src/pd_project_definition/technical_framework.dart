@@ -273,53 +273,90 @@ class TargetPlatformEntry {
 /// Programming language requirement entry.
 class ProgrammingLanguageEntry {
   @Form([
-    // Identity
     Field('languageName', String, 'Language Name',
         required: true, hint: 'E.g., Dart, TypeScript, Python, Rust'),
     Field('languageVariant', String, 'Variant',
         hint: 'E.g., Sound null safety, Strict mode'),
-
-    // Version requirements
     Field('minimumVersion', String, 'Minimum Version',
         required: true, hint: 'Earliest supported language version'),
+  ])
+  String? content;
+
+  /// Version requirements.
+  ProgrammingLanguageEntryVersion version = ProgrammingLanguageEntryVersion();
+
+  /// SDK configuration.
+  ProgrammingLanguageEntrySdk sdk = ProgrammingLanguageEntrySdk();
+
+  /// Usage context.
+  ProgrammingLanguageEntryUsage usage = ProgrammingLanguageEntryUsage();
+
+  /// Quality settings.
+  ProgrammingLanguageEntryQuality quality = ProgrammingLanguageEntryQuality();
+
+  /// Justification and notes.
+  ProgrammingLanguageEntryJustification justification =
+      ProgrammingLanguageEntryJustification();
+}
+
+/// Version requirements for programming language.
+class ProgrammingLanguageEntryVersion {
+  @Form([
     Field('recommendedVersion', String, 'Recommended Version',
         hint: 'Preferred target version'),
     Field('maximumVersion', String, 'Maximum Version',
         hint: 'Latest tested/supported version'),
+  ])
+  String? content;
+}
 
-    // SDK and tooling
+/// SDK configuration for programming language.
+class ProgrammingLanguageEntrySdk {
+  @Form([
     Field('sdkName', String, 'SDK Name', hint: 'E.g., Dart SDK, Node.js'),
     Field('sdkMinVersion', String, 'SDK Min Version',
         hint: 'Minimum SDK version'),
     Field('sdkRecommendedVersion', String, 'SDK Recommended Version',
         hint: 'Recommended SDK version'),
+  ])
+  String? content;
+}
 
-    // Usage context
+/// Usage context for programming language.
+class ProgrammingLanguageEntryUsage {
+  @Form([
     Field('usageContext', String, 'Usage Context',
-        hint:
-            'Backend, Frontend, Full-stack, Scripting, Build tools, Testing'),
+        hint: 'Backend, Frontend, Full-stack, Scripting, Build tools, Testing'),
     Field('codebasePercentage', String, 'Codebase %',
         hint: 'Approximate percentage of codebase'),
     Field('isPrimaryLanguage', bool, 'Primary Language',
         hint: 'Is this the main implementation language?'),
-
-    // Features
     Field('requiredFeatures', String, 'Required Language Features',
         hint: 'Specific language features needed'),
     Field('enabledLanguageOptions', String, 'Enabled Options',
         hint: 'Compiler/interpreter options to enable'),
     Field('disabledLanguageOptions', String, 'Disabled Options',
         hint: 'Compiler/interpreter options to disable'),
+  ])
+  String? content;
+}
 
-    // Quality
+/// Quality settings for programming language.
+class ProgrammingLanguageEntryQuality {
+  @Form([
     Field('lintingRules', String, 'Linting Rules',
         hint: 'Required linting configuration'),
     Field('staticAnalysis', String, 'Static Analysis',
         hint: 'Static analysis requirements'),
     Field('codeStyle', String, 'Code Style',
         hint: 'Code style/formatting standard'),
+  ])
+  String? content;
+}
 
-    // Justification
+/// Justification and notes for programming language.
+class ProgrammingLanguageEntryJustification {
+  @Form([
     Field('justification', String, 'Justification',
         required: true, hint: 'Reason for selecting this language'),
     Field('alternativesConsidered', String, 'Alternatives Considered',
@@ -7131,15 +7168,31 @@ class BackupDataClassification {
 /// Backup policy entry.
 class BackupPolicyEntry {
   @Form([
-    // Identity
     Field('policyName', String, 'Policy Name',
         required: true, hint: 'Policy identifier'),
     Field('dataScope', String, 'Data Scope',
         hint: 'What this policy covers'),
     Field('priority', String, 'Priority',
         hint: 'Critical, High, Medium, Low'),
+  ])
+  String? content;
 
-    // Backup type
+  /// Backup type configuration.
+  BackupPolicyEntryType backupType = BackupPolicyEntryType();
+
+  /// Schedule settings.
+  BackupPolicyEntrySchedule schedule = BackupPolicyEntrySchedule();
+
+  /// Retention policies.
+  BackupPolicyEntryRetention retention = BackupPolicyEntryRetention();
+
+  /// Storage configuration.
+  BackupPolicyEntryStorage storage = BackupPolicyEntryStorage();
+}
+
+/// Backup type configuration.
+class BackupPolicyEntryType {
+  @Form([
     Field('backupType', String, 'Backup Type',
         hint: 'Full, Incremental, Differential'),
     Field('fullBackupFrequency', String, 'Full Backup Frequency',
@@ -7148,16 +7201,26 @@ class BackupPolicyEntry {
         hint: 'Hourly, Every 6 hours'),
     Field('differentialFrequency', String, 'Differential Frequency',
         hint: 'If using differential'),
+  ])
+  String? content;
+}
 
-    // Schedule
+/// Schedule settings for backup policy.
+class BackupPolicyEntrySchedule {
+  @Form([
     Field('backupWindow', String, 'Backup Window',
         hint: 'When backups run'),
     Field('maxDuration', String, 'Max Duration',
         hint: 'Maximum backup duration'),
     Field('timezone', String, 'Timezone',
         hint: 'Backup schedule timezone'),
+  ])
+  String? content;
+}
 
-    // Retention
+/// Retention policies for backup.
+class BackupPolicyEntryRetention {
+  @Form([
     Field('retentionPeriod', String, 'Retention Period',
         hint: 'How long to keep backups'),
     Field('dailyRetention', String, 'Daily Retention',
@@ -7168,8 +7231,13 @@ class BackupPolicyEntry {
         hint: 'Monthly backup retention'),
     Field('yearlyRetention', String, 'Yearly Retention',
         hint: 'Annual backup retention'),
+  ])
+  String? content;
+}
 
-    // Storage
+/// Storage configuration for backup policy.
+class BackupPolicyEntryStorage {
+  @Form([
     Field('storageLocation', String, 'Storage Location',
         hint: 'Where backups are stored'),
     Field('offSiteReplication', bool, 'Off-Site Replication',
@@ -7178,8 +7246,6 @@ class BackupPolicyEntry {
         hint: 'Encrypt backups'),
     Field('compressionEnabled', bool, 'Compression Enabled',
         hint: 'Compress backups'),
-
-    // Verification
     Field('verificationRequired', bool, 'Verification Required',
         hint: 'Verify backup integrity'),
     Field('notes', String, 'Notes',
@@ -7731,17 +7797,33 @@ class CiCdPipelineRequirements {
 /// Release strategy.
 class ReleaseStrategy {
   @Form([
-    // Release methodology
     Field('releaseMethodology', String, 'Release Methodology',
         hint: 'Blue-green, Canary, Rolling, A/B'),
     Field('releaseFrequency', String, 'Release Frequency',
         hint: 'Daily, Weekly, Bi-weekly'),
     Field('releaseSchedule', String, 'Release Schedule',
         hint: 'When releases occur'),
+  ])
+  String? content;
+
+  /// Blue-green deployment configuration.
+  ReleaseStrategyBlueGreen blueGreen = ReleaseStrategyBlueGreen();
+
+  /// Canary deployment configuration.
+  ReleaseStrategyCanary canary = ReleaseStrategyCanary();
+
+  /// Feature flags configuration.
+  ReleaseStrategyFeatureFlags featureFlags = ReleaseStrategyFeatureFlags();
+
+  /// Release management.
+  ReleaseStrategyManagement management = ReleaseStrategyManagement();
+}
+
+/// Blue-green deployment configuration.
+class ReleaseStrategyBlueGreen {
+  @Form([
     Field('releaseWindow', String, 'Release Window',
         hint: 'Allowed deployment times'),
-
-    // Blue-green deployment
     Field('blueGreenEnabled', bool, 'Blue-Green Enabled',
         hint: 'Uses blue-green deployment'),
     Field('trafficSwitching', String, 'Traffic Switching',
@@ -7750,8 +7832,13 @@ class ReleaseStrategy {
         hint: 'New version warmup time'),
     Field('greenRetention', String, 'Green Retention',
         hint: 'How long to keep old version'),
+  ])
+  String? content;
+}
 
-    // Canary deployment
+/// Canary deployment configuration.
+class ReleaseStrategyCanary {
+  @Form([
     Field('canaryEnabled', bool, 'Canary Enabled',
         hint: 'Uses canary deployment'),
     Field('canaryPercentage', String, 'Canary Percentage',
@@ -7764,16 +7851,26 @@ class ReleaseStrategy {
         hint: 'Time at each step'),
     Field('autoRollbackCriteria', String, 'Auto-Rollback Criteria',
         hint: 'When to auto-rollback canary'),
+  ])
+  String? content;
+}
 
-    // Feature flags
+/// Feature flags configuration.
+class ReleaseStrategyFeatureFlags {
+  @Form([
     Field('featureFlagsEnabled', bool, 'Feature Flags Enabled',
         hint: 'Uses feature flags'),
     Field('featureFlagProvider', String, 'Feature Flag Provider',
         hint: 'LaunchDarkly, Flagsmith, custom'),
     Field('flagStrategy', String, 'Flag Strategy',
         hint: 'How flags are managed'),
+  ])
+  String? content;
+}
 
-    // Release management
+/// Release management configuration.
+class ReleaseStrategyManagement {
+  @Form([
     Field('releaseNotes', String, 'Release Notes',
         hint: 'Release notes process'),
     Field('changelogGeneration', String, 'Changelog Generation',

@@ -1425,6 +1425,32 @@ class InteractionChannelEntry {
     Field('channelType', String, 'Channel Type', required: true,
         hint: 'Web, Mobile Native, Mobile Hybrid, Desktop, API, CLI, Voice, '
             'Kiosk, Embedded, IoT'),
+  ])
+  String? content;
+
+  /// Platform and targeting.
+  InteractionChannelEntryPlatform platform = InteractionChannelEntryPlatform();
+
+  /// Feature scope.
+  InteractionChannelEntryFeatures features = InteractionChannelEntryFeatures();
+
+  /// Access and sync.
+  InteractionChannelEntryAccess access = InteractionChannelEntryAccess();
+
+  /// Compliance and requirements.
+  InteractionChannelEntryCompliance compliance =
+      InteractionChannelEntryCompliance();
+
+  /// Channel-specific UI/UX specifications.
+  ChannelUxSpecification uxSpecification = ChannelUxSpecification();
+
+  /// Channel-specific integration requirements.
+  ChannelIntegrations integrations = ChannelIntegrations();
+}
+
+/// Platform and targeting for interaction channel.
+class InteractionChannelEntryPlatform {
+  @Form([
     Field('platform', String, 'Platform/Technology',
         hint: 'e.g., Flutter Web, Flutter iOS/Android, REST API'),
     Field('targetUserCategories', String, 'Target User Categories',
@@ -1433,12 +1459,26 @@ class InteractionChannelEntry {
         hint: 'Purpose and scope of this channel'),
     Field('channelPriority', String, 'Channel Priority',
         hint: 'Primary, Secondary, Tertiary'),
+  ])
+  String? content;
+}
+
+/// Feature scope for interaction channel.
+class InteractionChannelEntryFeatures {
+  @Form([
     Field('featureScope', String, 'Feature Scope',
         hint: 'Full, Limited, Read-only, Specialized'),
     Field('featuresIncluded', String, 'Features Included',
         hint: 'List of features available on this channel'),
     Field('featuresExcluded', String, 'Features Excluded',
         hint: 'Features not available on this channel'),
+  ])
+  String? content;
+}
+
+/// Access and sync for interaction channel.
+class InteractionChannelEntryAccess {
+  @Form([
     Field('availabilityRequirement', String, 'Availability Requirement',
         hint: '24/7, Business Hours, On-demand'),
     Field('performanceTarget', String, 'Performance Target',
@@ -1449,6 +1489,13 @@ class InteractionChannelEntry {
         hint: 'Real-time, Periodic, On-demand, Background'),
     Field('authenticationMethod', String, 'Authentication Method',
         hint: 'OAuth, SAML, API Key, JWT, Biometric, MFA'),
+  ])
+  String? content;
+}
+
+/// Compliance and requirements for interaction channel.
+class InteractionChannelEntryCompliance {
+  @Form([
     Field('deviceRequirements', String, 'Device Requirements',
         hint: 'Minimum specifications, supported OS versions'),
     Field('browserSupport', String, 'Browser Support',
@@ -1463,12 +1510,6 @@ class InteractionChannelEntry {
         hint: 'Tracking and analytics needed'),
   ])
   String? content;
-
-  /// Channel-specific UI/UX specifications.
-  ChannelUxSpecification uxSpecification = ChannelUxSpecification();
-
-  /// Channel-specific integration requirements.
-  ChannelIntegrations integrations = ChannelIntegrations();
 }
 
 /// Channel-specific UX specification.
@@ -3961,41 +4002,24 @@ class SecurityRequirementEntry {
     Field('title', String, 'Title', required: true),
     Field('description', String,
         'Description (The system shall... detailed statement)', required: true),
-    Field('category', String,
-        'Category (Authentication, Authorization, Data Protection, '
-            'Encryption, Audit Logging, Input Validation, Session Management, '
-            'Error Handling, Communication Security, Configuration, '
-            'Cryptography, Data Retention, Privacy)',
-        required: true),
-    Field('subcategory', String, 'Subcategory'),
-    Field('priority', String,
-        'Priority (Critical, High, Medium, Low)', required: true),
-    Field('source', String, 'Source', required: true),
-    Field('rationale', String, 'Rationale'),
-    Field('threatMitigated', String,
-        'Threat Mitigated (what attack is prevented)'),
-    Field('owaspCategory', String,
-        'OWASP Category (if applicable, e.g., A01:2021 Broken Access Control)'),
-    Field('cisControl', String, 'CIS Control (if applicable)'),
-    Field('nistControl', String, 'NIST Control (if applicable)'),
-    Field('iso27001Control', String, 'ISO 27001 Control (if applicable)'),
-    Field('complianceReference', String,
-        'Compliance Reference (GDPR Article, PCI-DSS requirement, etc.)'),
-    Field('dataClassification', String,
-        'Data Classification Affected (Public, Internal, Confidential, '
-            'Restricted, PII, PHI)'),
-    Field('implementationApproach', String, 'Implementation Approach'),
-    Field('verificationMethod', String,
-        'Verification Method (Penetration test, Code review, Security scan)'),
-    Field('verificationFrequency', String,
-        'Verification Frequency (Continuous, Release, Quarterly, Annual)'),
-    Field('residualRisk', String, 'Residual Risk (after mitigation)'),
-    Field('riskOwner', String, 'Risk Owner'),
-    Field('status', String,
-        'Status (Draft, Proposed, Approved, Implemented, Verified)',
-        required: true),
   ])
   String? content;
+
+  /// Category and classification.
+  SecurityRequirementEntryClassification classification =
+      SecurityRequirementEntryClassification();
+
+  /// Compliance framework mapping.
+  SecurityRequirementEntryCompliance compliance =
+      SecurityRequirementEntryCompliance();
+
+  /// Implementation and verification.
+  SecurityRequirementEntryVerification verification =
+      SecurityRequirementEntryVerification();
+
+  /// Status and ownership.
+  SecurityRequirementEntryStatus statusInfo =
+      SecurityRequirementEntryStatus();
 
   /// 4.3.3.n.1. Acceptance Criteria [PD00-SYO-REQ-SEC-nn-ACR].
   RequirementAcceptanceCriteria acceptanceCriteria =
@@ -4009,6 +4033,67 @@ class SecurityRequirementEntry {
 
   /// 4.3.3.n.4. Traceability [PD00-SYO-REQ-SEC-nn-TRC].
   RequirementTraceability traceability = RequirementTraceability();
+}
+
+/// Category and classification for security requirement.
+class SecurityRequirementEntryClassification {
+  @Form([
+    Field('category', String,
+        'Category (Authentication, Authorization, Data Protection, '
+            'Encryption, Audit Logging, Input Validation, Session Management, '
+            'Error Handling, Communication Security, Configuration, '
+            'Cryptography, Data Retention, Privacy)',
+        required: true),
+    Field('subcategory', String, 'Subcategory'),
+    Field('priority', String,
+        'Priority (Critical, High, Medium, Low)', required: true),
+    Field('source', String, 'Source', required: true),
+    Field('rationale', String, 'Rationale'),
+    Field('threatMitigated', String,
+        'Threat Mitigated (what attack is prevented)'),
+    Field('dataClassification', String,
+        'Data Classification Affected (Public, Internal, Confidential, '
+            'Restricted, PII, PHI)'),
+  ])
+  String? content;
+}
+
+/// Compliance framework mapping for security requirement.
+class SecurityRequirementEntryCompliance {
+  @Form([
+    Field('owaspCategory', String,
+        'OWASP Category (if applicable, e.g., A01:2021 Broken Access Control)'),
+    Field('cisControl', String, 'CIS Control (if applicable)'),
+    Field('nistControl', String, 'NIST Control (if applicable)'),
+    Field('iso27001Control', String, 'ISO 27001 Control (if applicable)'),
+    Field('complianceReference', String,
+        'Compliance Reference (GDPR Article, PCI-DSS requirement, etc.)'),
+  ])
+  String? content;
+}
+
+/// Implementation and verification for security requirement.
+class SecurityRequirementEntryVerification {
+  @Form([
+    Field('implementationApproach', String, 'Implementation Approach'),
+    Field('verificationMethod', String,
+        'Verification Method (Penetration test, Code review, Security scan)'),
+    Field('verificationFrequency', String,
+        'Verification Frequency (Continuous, Release, Quarterly, Annual)'),
+  ])
+  String? content;
+}
+
+/// Status and ownership for security requirement.
+class SecurityRequirementEntryStatus {
+  @Form([
+    Field('residualRisk', String, 'Residual Risk (after mitigation)'),
+    Field('riskOwner', String, 'Risk Owner'),
+    Field('status', String,
+        'Status (Draft, Proposed, Approved, Implemented, Verified)',
+        required: true),
+  ])
+  String? content;
 }
 
 /// 4.3.3.n.2. Security Controls [PD00-SYO-REQ-SEC-nn-CTL].

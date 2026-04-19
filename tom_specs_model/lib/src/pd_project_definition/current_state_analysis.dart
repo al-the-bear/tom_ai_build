@@ -551,67 +551,93 @@ class SystemDependencyEntry {
         hint: 'Data / Functional / Operational / Temporal / Transactional'),
     Field('direction', String, 'Direction',
         hint: 'Upstream / Downstream / Bidirectional'),
-    Field('mechanism', String, 'Dependency Mechanism',
-        hint:
-            'API / DatabaseLink / FileTransfer / MessageQueue / SharedStorage / Manual / ETL'),
-    Field('couplingStrength', String, 'Coupling Strength',
-        hint:
-            'Tight / Moderate / Loose — degree of coupling between systems'),
-    Field('criticality', String, 'Criticality',
-        hint: 'Critical / High / Medium / Low'),
-    Field('dataExchanged', String, 'Data Exchanged',
-        hint:
-            'Key data entities or types flowing through this dependency'),
-    Field('dataVolume', String, 'Data Volume',
-        hint:
-            'Typical volume, e.g. ~5k records/day, 200 MB/hour'),
-    Field('dataFreshness', String, 'Data Freshness Requirements',
-        hint:
-            'RealTime / NearRealTime / Hourly / Daily / OnDemand'),
-    Field('failureImpact', String, 'Failure Impact',
-        hint:
-            'What happens when this dependency fails — business consequences'),
-    Field('cascadeRisk', String, 'Failure Cascade Risk',
-        hint:
-            'None / Contained / ModerateCascade / SevereCascade — propagation to other systems'),
-    Field('latencyRequirement', String, 'Latency Requirement',
-        hint:
-            'Maximum acceptable latency, e.g. <500ms, within same business day'),
-    Field('availabilityRequirement', String, 'Availability Requirement',
-        hint:
-            'Required uptime, e.g. 99.9%, business hours only'),
-    Field('sla', String, 'SLA',
-        hint:
-            'Formal SLA reference or key terms, e.g. 4h response, 24h resolution'),
-    Field('monitoringStatus', String, 'Monitoring Status',
-        hint:
-            'Monitored / PartiallyMonitored / Unmonitored'),
-    Field('documentationStatus', String, 'Documentation Status',
-        hint:
-            'Documented / PartiallyDocumented / Undocumented'),
-    Field('dependencyOwner', String, 'Dependency Owner',
-        hint:
-            'Team or role responsible for maintaining this dependency'),
-    Field('technicalDebt', String, 'Technical Debt Assessment',
-        hint:
-            'None / Low / Moderate / High — accumulated technical debt'),
-    Field('technicalDebtDetails', String, 'Technical Debt Details',
-        hint:
-            'Description of known issues, outdated protocols, or maintenance burden'),
-    Field('plannedChanges', String, 'Planned Changes',
-        hint:
-            'Any known upcoming changes to this dependency'),
-    Field('fallbackProcedure', String, 'Fallback Procedure',
-        hint:
-            'Manual or automated fallback when this dependency is unavailable'),
   ])
   String? content;
+
+  /// Mechanism and coupling.
+  SystemDependencyEntryMechanism mechanism = SystemDependencyEntryMechanism();
+
+  /// Data exchange characteristics.
+  SystemDependencyEntryDataExchange dataExchange =
+      SystemDependencyEntryDataExchange();
+
+  /// Reliability and SLA.
+  SystemDependencyEntryReliability reliability =
+      SystemDependencyEntryReliability();
+
+  /// Operations and documentation.
+  SystemDependencyEntryOperations operations =
+      SystemDependencyEntryOperations();
 
   @Reference('Source System')
   ExistingSystemEntry? sourceSystem;
 
   @Reference('Target System')
   ExistingSystemEntry? targetSystem;
+}
+
+/// Mechanism and coupling for system dependency.
+class SystemDependencyEntryMechanism {
+  @Form([
+    Field('mechanism', String, 'Dependency Mechanism',
+        hint: 'API / DatabaseLink / FileTransfer / MessageQueue / SharedStorage / Manual / ETL'),
+    Field('couplingStrength', String, 'Coupling Strength',
+        hint: 'Tight / Moderate / Loose — degree of coupling between systems'),
+    Field('criticality', String, 'Criticality',
+        hint: 'Critical / High / Medium / Low'),
+  ])
+  String? content;
+}
+
+/// Data exchange characteristics for system dependency.
+class SystemDependencyEntryDataExchange {
+  @Form([
+    Field('dataExchanged', String, 'Data Exchanged',
+        hint: 'Key data entities or types flowing through this dependency'),
+    Field('dataVolume', String, 'Data Volume',
+        hint: 'Typical volume, e.g. ~5k records/day, 200 MB/hour'),
+    Field('dataFreshness', String, 'Data Freshness Requirements',
+        hint: 'RealTime / NearRealTime / Hourly / Daily / OnDemand'),
+  ])
+  String? content;
+}
+
+/// Reliability and SLA for system dependency.
+class SystemDependencyEntryReliability {
+  @Form([
+    Field('failureImpact', String, 'Failure Impact',
+        hint: 'What happens when this dependency fails — business consequences'),
+    Field('cascadeRisk', String, 'Failure Cascade Risk',
+        hint: 'None / Contained / ModerateCascade / SevereCascade — propagation to other systems'),
+    Field('latencyRequirement', String, 'Latency Requirement',
+        hint: 'Maximum acceptable latency, e.g. <500ms, within same business day'),
+    Field('availabilityRequirement', String, 'Availability Requirement',
+        hint: 'Required uptime, e.g. 99.9%, business hours only'),
+    Field('sla', String, 'SLA',
+        hint: 'Formal SLA reference or key terms, e.g. 4h response, 24h resolution'),
+    Field('fallbackProcedure', String, 'Fallback Procedure',
+        hint: 'Manual or automated fallback when this dependency is unavailable'),
+  ])
+  String? content;
+}
+
+/// Operations and documentation for system dependency.
+class SystemDependencyEntryOperations {
+  @Form([
+    Field('monitoringStatus', String, 'Monitoring Status',
+        hint: 'Monitored / PartiallyMonitored / Unmonitored'),
+    Field('documentationStatus', String, 'Documentation Status',
+        hint: 'Documented / PartiallyDocumented / Undocumented'),
+    Field('dependencyOwner', String, 'Dependency Owner',
+        hint: 'Team or role responsible for maintaining this dependency'),
+    Field('technicalDebt', String, 'Technical Debt Assessment',
+        hint: 'None / Low / Moderate / High — accumulated technical debt'),
+    Field('technicalDebtDetails', String, 'Technical Debt Details',
+        hint: 'Description of known issues, outdated protocols, or maintenance burden'),
+    Field('plannedChanges', String, 'Planned Changes',
+        hint: 'Any known upcoming changes to this dependency'),
+  ])
+  String? content;
 }
 
 /// A system integration entry (form) [PD00-CUR-SYS-DEP-INT-nn].
