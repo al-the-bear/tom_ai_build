@@ -9175,17 +9175,43 @@ class ReleaseStrategyManagement {
 /// Rollback strategy.
 class RollbackStrategy {
   @Form([
-    // Rollback approach
     Field('rollbackMethod', String, 'Rollback Method',
         hint: 'Redeploy, traffic switch, restore'),
     Field('autoRollbackEnabled', bool, 'Auto-Rollback Enabled',
         hint: 'Automatic rollback on failure'),
+  ])
+  String? content;
+
+  /// Trigger and timing conditions.
+  RollbackStrategyTriggers triggers = RollbackStrategyTriggers();
+
+  /// Health-based rollback thresholds.
+  RollbackStrategyHealth health = RollbackStrategyHealth();
+
+  /// Rollback target and artifact retention.
+  RollbackStrategyTargets targets = RollbackStrategyTargets();
+
+  /// Data rollback safeguards.
+  RollbackStrategyData data = RollbackStrategyData();
+
+  /// Manual procedure and follow-up.
+  RollbackStrategyOperations operations = RollbackStrategyOperations();
+}
+
+/// Trigger and timing conditions.
+class RollbackStrategyTriggers {
+  @Form([
     Field('rollbackTriggers', String, 'Rollback Triggers',
         hint: 'What triggers rollback'),
     Field('rollbackTimeTarget', String, 'Rollback Time Target',
         hint: 'Max time to complete rollback'),
+  ])
+  String? content;
+}
 
-    // Health criteria
+/// Health-based rollback thresholds.
+class RollbackStrategyHealth {
+  @Form([
     Field('healthCheckFailures', String, 'Health Check Failures',
         hint: 'Failures before rollback'),
     Field('errorRateThreshold', String, 'Error Rate Threshold',
@@ -9194,24 +9220,39 @@ class RollbackStrategy {
         hint: 'Latency triggering rollback'),
     Field('customMetricThresholds', String, 'Custom Metric Thresholds',
         hint: 'Business metrics for rollback'),
+  ])
+  String? content;
+}
 
-    // Rollback targets
+/// Rollback target and artifact retention.
+class RollbackStrategyTargets {
+  @Form([
     Field('rollbackTarget', String, 'Rollback Target',
         hint: 'Previous version, specific version'),
     Field('versionRetention', String, 'Version Retention',
         hint: 'How many versions kept'),
     Field('artifactStorage', String, 'Artifact Storage',
         hint: 'Where rollback artifacts stored'),
+  ])
+  String? content;
+}
 
-    // Data rollback
+/// Data rollback safeguards.
+class RollbackStrategyData {
+  @Form([
     Field('dataRollbackStrategy', String, 'Data Rollback Strategy',
         hint: 'How to handle data on rollback'),
     Field('migrationRollback', String, 'Migration Rollback',
         hint: 'Database migration rollback'),
     Field('backwardCompatibility', String, 'Backward Compatibility',
         hint: 'Data format compatibility'),
+  ])
+  String? content;
+}
 
-    // Procedures
+/// Manual procedure and follow-up.
+class RollbackStrategyOperations {
+  @Form([
     Field('manualRollbackProcedure', String, 'Manual Rollback Procedure',
         hint: 'Steps for manual rollback'),
     Field('rollbackValidation', String, 'Rollback Validation',
@@ -11154,47 +11195,98 @@ class CloudServiceIntegrations {
 /// Third-party API integrations.
 class ThirdPartyApiIntegrations {
   @Form([
-    // Payment
     Field('paymentGateways', String, 'Payment Gateways',
         hint: 'Stripe, PayPal, Adyen'),
     Field('paymentCompliance', String, 'Payment Compliance',
         hint: 'PCI DSS level, tokenization'),
+  ])
+  String? content;
 
-    // Analytics and monitoring
+  /// Analytics and monitoring providers.
+  ThirdPartyApiIntegrationsAnalytics analytics =
+      ThirdPartyApiIntegrationsAnalytics();
+
+  /// Communication providers.
+  ThirdPartyApiIntegrationsCommunication communication =
+      ThirdPartyApiIntegrationsCommunication();
+
+  /// Mapping and location providers.
+  ThirdPartyApiIntegrationsLocation location =
+      ThirdPartyApiIntegrationsLocation();
+
+  /// Document and media providers.
+  ThirdPartyApiIntegrationsMedia media = ThirdPartyApiIntegrationsMedia();
+
+  /// AI and translation providers.
+  ThirdPartyApiIntegrationsAi ai = ThirdPartyApiIntegrationsAi();
+
+  /// Compliance and fallback controls.
+  ThirdPartyApiIntegrationsOperations operations =
+      ThirdPartyApiIntegrationsOperations();
+}
+
+/// Analytics and monitoring providers.
+class ThirdPartyApiIntegrationsAnalytics {
+  @Form([
     Field('analyticsServices', String, 'Analytics Services',
         hint: 'Google Analytics, Mixpanel, Amplitude'),
     Field('errorTrackingServices', String, 'Error Tracking Services',
         hint: 'Sentry, Bugsnag, Datadog APM'),
+  ])
+  String? content;
+}
 
-    // Communication
+/// Communication providers.
+class ThirdPartyApiIntegrationsCommunication {
+  @Form([
     Field('smsProviders', String, 'SMS Providers',
         hint: 'Twilio, MessageBird, Vonage'),
     Field('chatIntegrations', String, 'Chat Integrations',
         hint: 'Slack, Teams, Telegram bots'),
     Field('videoConferencing', String, 'Video Conferencing',
         hint: 'Zoom, Teams, Jitsi APIs'),
+  ])
+  String? content;
+}
 
-    // Maps and location
+/// Mapping and location providers.
+class ThirdPartyApiIntegrationsLocation {
+  @Form([
     Field('mappingServices', String, 'Mapping Services',
         hint: 'Google Maps, Mapbox, HERE'),
     Field('geocodingServices', String, 'Geocoding Services',
         hint: 'Address validation and geocoding'),
+  ])
+  String? content;
+}
 
-    // Document and media
+/// Document and media providers.
+class ThirdPartyApiIntegrationsMedia {
+  @Form([
     Field('documentGeneration', String, 'Document Generation',
         hint: 'PDF generation, document signing'),
     Field('mediaProcessing', String, 'Media Processing',
         hint: 'Image resizing, video transcoding'),
     Field('ocrServices', String, 'OCR Services',
         hint: 'Document scanning and text extraction'),
+  ])
+  String? content;
+}
 
-    // AI and ML
+/// AI and translation providers.
+class ThirdPartyApiIntegrationsAi {
+  @Form([
     Field('aiServices', String, 'AI/ML Services',
         hint: 'OpenAI, Claude, Bedrock, Vertex AI'),
     Field('translationServices', String, 'Translation Services',
         hint: 'Google Translate, DeepL'),
+  ])
+  String? content;
+}
 
-    // Compliance
+/// Compliance and fallback controls.
+class ThirdPartyApiIntegrationsOperations {
+  @Form([
     Field('apiKeyManagement', String, 'API Key Management',
         hint: 'Storage, rotation, access control'),
     Field('usageMonitoring', String, 'Usage Monitoring',
@@ -12843,7 +12935,6 @@ class ApplicationDiagnostics {
 /// Log aggregation and analysis requirements.
 class LogAggregationRequirements {
   @Form([
-    // Platform
     Field('logPlatform', String, 'Log Platform',
         required: true, hint: 'ELK Stack, Loki/Grafana, CloudWatch, Datadog'),
     Field('logFormat', String, 'Log Format',
@@ -12852,10 +12943,27 @@ class LogAggregationRequirements {
         hint: 'TRACE, DEBUG, INFO, WARN, ERROR, FATAL'),
     Field('defaultLogLevel', String, 'Default Log Level',
         hint: 'Production default level (e.g. INFO)'),
+  ])
+  String? content;
+
+  /// Dynamic configuration and collection settings.
+  LogAggregationRequirementsCollection collection =
+      LogAggregationRequirementsCollection();
+
+  /// Retention and archival settings.
+  LogAggregationRequirementsRetention retention =
+      LogAggregationRequirementsRetention();
+
+  /// Search and analysis capabilities.
+  LogAggregationRequirementsAnalysis analysis =
+      LogAggregationRequirementsAnalysis();
+}
+
+/// Dynamic configuration and collection settings.
+class LogAggregationRequirementsCollection {
+  @Form([
     Field('dynamicLogLevelChange', bool, 'Dynamic Log Level Change',
         hint: 'Change log level without restart'),
-
-    // Collection
     Field('logCollectionMethod', String, 'Log Collection Method',
         hint: 'Sidecar, agent, direct push, stdout'),
     Field('logShippingProtocol', String, 'Log Shipping Protocol',
@@ -12864,16 +12972,26 @@ class LogAggregationRequirements {
         hint: 'Buffer size, flush interval'),
     Field('logSampling', String, 'Log Sampling',
         hint: 'Sample rate for high-volume logs'),
+  ])
+  String? content;
+}
 
-    // Retention
+/// Retention and archival settings.
+class LogAggregationRequirementsRetention {
+  @Form([
     Field('retentionPeriod', String, 'Retention Period',
         hint: 'Hot: 7d, warm: 30d, cold: 1y'),
     Field('archivalPolicy', String, 'Archival Policy',
         hint: 'S3 Glacier, cold storage'),
     Field('complianceRetention', String, 'Compliance Retention',
         hint: 'Regulatory retention requirements'),
+  ])
+  String? content;
+}
 
-    // Search and analysis
+/// Search and analysis capabilities.
+class LogAggregationRequirementsAnalysis {
+  @Form([
     Field('fullTextSearch', bool, 'Full-Text Search',
         hint: 'Search across all log streams'),
     Field('correlationByTraceId', bool, 'Correlation by Trace ID',

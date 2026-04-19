@@ -343,7 +343,6 @@ Each criterion must be:
 /// acceptance test design.
 class DeliveryAcceptanceCriterionEntry {
   @Form([
-    // --- Criterion Definition ---
     Field('criterionId', String, 'Criterion ID',
         hint: 'Unique identifier — e.g. AC-001', required: true),
     Field('criterion', String, 'Criterion Statement',
@@ -353,14 +352,46 @@ class DeliveryAcceptanceCriterionEntry {
         hint:
             'Functional / Performance / Security / Usability / '
             'Documentation / Training / Operational / Compliance'),
+  ])
+  String? content;
+
+  /// Priority and description.
+  DeliveryAcceptanceCriterionEntryDefinition definition =
+      DeliveryAcceptanceCriterionEntryDefinition();
+
+  /// Verification method and evidence.
+  DeliveryAcceptanceCriterionEntryVerification verification =
+      DeliveryAcceptanceCriterionEntryVerification();
+
+  /// Traceability links.
+  DeliveryAcceptanceCriterionEntryTraceability traceability =
+      DeliveryAcceptanceCriterionEntryTraceability();
+
+  /// Responsibility assignments.
+  DeliveryAcceptanceCriterionEntryOwnership ownership =
+      DeliveryAcceptanceCriterionEntryOwnership();
+
+  /// Current status and notes.
+  DeliveryAcceptanceCriterionEntryStatus status =
+      DeliveryAcceptanceCriterionEntryStatus();
+}
+
+/// Priority and description.
+class DeliveryAcceptanceCriterionEntryDefinition {
+  @Form([
     Field('priority', String, 'Priority',
         hint:
             'MustPass / ShouldPass / NiceToPass — relative importance'),
     Field('description', String, 'Detailed Description',
         hint:
             'Extended explanation including context and boundaries'),
+  ])
+  String? content;
+}
 
-    // --- Verification ---
+/// Verification method and evidence.
+class DeliveryAcceptanceCriterionEntryVerification {
+  @Form([
     Field('verificationMethod', String, 'Verification Method',
         hint:
             'Testing / Demonstration / Inspection / Analysis / '
@@ -377,22 +408,37 @@ class DeliveryAcceptanceCriterionEntry {
     Field('evidenceRequired', String, 'Evidence Required',
         hint:
             'Documentation of proof — test report, screenshot, certificate'),
+  ])
+  String? content;
+}
 
-    // --- Traceability ---
+/// Traceability links.
+class DeliveryAcceptanceCriterionEntryTraceability {
+  @Form([
     Field('requirementRef', String, 'Requirement Reference',
         hint: 'Linked requirement ID(s) — e.g. REQ-042'),
     Field('deliverableRef', String, 'Deliverable Reference',
         hint: 'Linked deliverable ID — e.g. DEL-SOF-001'),
     Field('testScenarioRef', String, 'Test Scenario Reference',
         hint: 'UAT scenario ID that validates this criterion'),
+  ])
+  String? content;
+}
 
-    // --- Responsibility ---
+/// Responsibility assignments.
+class DeliveryAcceptanceCriterionEntryOwnership {
+  @Form([
     Field('verifier', String, 'Verifier',
         hint: 'Role or person who performs verification'),
     Field('approver', String, 'Approver',
         hint: 'Role or person who confirms acceptance'),
+  ])
+  String? content;
+}
 
-    // --- Status ---
+/// Current status and notes.
+class DeliveryAcceptanceCriterionEntryStatus {
+  @Form([
     Field('currentStatus', String, 'Current Status',
         hint:
             'NotTested / Passed / Failed / Conditional / Deferred'),

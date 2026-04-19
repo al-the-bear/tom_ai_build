@@ -933,6 +933,36 @@ class IdentityVerificationPolicy {
     Field('verificationMode', String, 'Verification Mode',
         hint:
             'FullyAutomated / SemiAutomated / ManualReview / Hybrid'),
+  ])
+  String? content;
+
+  /// Required proofing artifacts.
+  IdentityVerificationPolicyDocuments documents =
+      IdentityVerificationPolicyDocuments();
+
+  /// Contact and provider verification.
+  IdentityVerificationPolicyMethods methods =
+      IdentityVerificationPolicyMethods();
+
+  /// Workflow and approval settings.
+  IdentityVerificationPolicyWorkflow workflow =
+      IdentityVerificationPolicyWorkflow();
+
+  /// Reverification and retention settings.
+  IdentityVerificationPolicyLifecycle lifecycle =
+      IdentityVerificationPolicyLifecycle();
+
+  /// Failure handling rules.
+  IdentityVerificationPolicyFailure failure =
+      IdentityVerificationPolicyFailure();
+
+  /// Additional verification details (text).
+  TextSection verificationDetails = TextSection();
+}
+
+/// Required proofing artifacts.
+class IdentityVerificationPolicyDocuments {
+  @Form([
     Field('requiredDocuments', String, 'Required Documents',
         hint:
             'Document types required for proofing, e.g. Government ID, Passport, Utility Bill, None'),
@@ -942,6 +972,13 @@ class IdentityVerificationPolicy {
     Field('biometricVerification', String, 'Biometric Verification',
         hint:
             'None / FaceMatch / Fingerprint / LivenessDetection'),
+  ])
+  String? content;
+}
+
+/// Contact and provider verification.
+class IdentityVerificationPolicyMethods {
+  @Form([
     Field('emailVerification', String, 'Email Verification',
         hint: 'Required / Optional / NotApplicable'),
     Field('phoneVerification', String, 'Phone Verification',
@@ -949,12 +986,28 @@ class IdentityVerificationPolicy {
     Field('verificationServiceProvider', String, 'Verification Provider',
         hint:
             'Third-party provider, e.g. Jumio, Onfido, LexisNexis, Internal'),
+  ])
+  String? content;
+}
+
+/// Workflow and approval settings.
+class IdentityVerificationPolicyWorkflow {
+  @Form([
     Field('verificationSteps', String, 'Verification Steps',
         hint:
             'Ordered proofing steps, e.g. EmailConfirm → DocUpload → FaceMatch → AdminApproval'),
     Field('supervisorApprovalRequired', String, 'Supervisor Approval Required',
         hint:
             'Yes / No / ForExternalOnly — whether a supervisor must approve identity proofing'),
+    Field('proofingChannels', String, 'Proofing Channels',
+        hint: 'InPerson / Remote / Hybrid — where identity proofing occurs'),
+  ])
+  String? content;
+}
+
+/// Reverification and retention settings.
+class IdentityVerificationPolicyLifecycle {
+  @Form([
     Field('reverificationTriggers', String, 'Re-verification Triggers',
         hint:
             'Events triggering re-proofing, e.g. RoleChange, SuspiciousActivity, Periodic, DataBreach'),
@@ -964,8 +1017,13 @@ class IdentityVerificationPolicy {
     Field('verificationRecordRetention', String, 'Record Retention',
         hint:
             'How long verification evidence is retained, e.g. 5y, 7y, permanent'),
-    Field('proofingChannels', String, 'Proofing Channels',
-        hint: 'InPerson / Remote / Hybrid — where identity proofing occurs'),
+  ])
+  String? content;
+}
+
+/// Failure handling rules.
+class IdentityVerificationPolicyFailure {
+  @Form([
     Field('failedVerificationPolicy', String, 'Failed Verification Policy',
         hint:
             'Deny / RetryLimited / ManualEscalation / AlternativeProofing'),
@@ -973,9 +1031,6 @@ class IdentityVerificationPolicy {
         hint: 'Maximum proofing attempts before lockout, e.g. 3, 5'),
   ])
   String? content;
-
-  /// Additional verification details (text).
-  TextSection verificationDetails = TextSection();
 }
 
 /// An identity provider entry (form) [PD00-ACC-IDE-IDN-IDP-nn].

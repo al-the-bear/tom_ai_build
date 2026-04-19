@@ -4493,31 +4493,63 @@ class SystemTechnicalAssessment {
     Field('databasePlatform', String, 'Database Platform'),
     Field('hostingEnvironment', String,
         'Hosting (On-premises, Cloud, Hybrid, SaaS)'),
-    Field('operatingSystem', String, 'Operating System'),
-    Field('middlewareComponents', String, 'Middleware Components'),
-    Field('deploymentDate', String, 'Initial Deployment Date'),
-    Field('systemAge', int, 'System Age (Years)'),
-    Field('lastMajorUpgrade', String, 'Last Major Upgrade'),
-    Field('vendorSupportStatus', String,
-        'Support Status (Full, Extended, End of Life)'),
-    Field('endOfSupportDate', String, 'End of Support Date'),
-    Field('technicalDebtRating', String,
-        'Technical Debt (Low, Medium, High, Critical)'),
-    Field('securityPosture', String, 'Security Posture'),
-    Field('performanceStatus', String,
-        'Performance (Acceptable, Degraded, Poor)'),
-    Field('scalabilityLimitations', String, 'Scalability Limitations'),
-    Field('maintainability', String, 'Maintainability Rating'),
-    Field('documentationQuality', String,
-        'Documentation (Complete, Partial, Outdated, Missing)'),
   ])
   String? content;
+
+  /// Platform and age details.
+  SystemTechnicalAssessmentPlatform platform =
+      SystemTechnicalAssessmentPlatform();
+
+  /// Support and lifecycle details.
+  SystemTechnicalAssessmentLifecycle lifecycle =
+      SystemTechnicalAssessmentLifecycle();
+
+  /// Technical quality indicators.
+  SystemTechnicalAssessmentQuality quality = SystemTechnicalAssessmentQuality();
 
   /// Known technical issues and deficiencies.
   TextSection knownIssues = TextSection();
 
   /// Security vulnerabilities and compliance gaps.
   TextSection securityConcerns = TextSection();
+}
+
+/// Platform and age details.
+class SystemTechnicalAssessmentPlatform {
+    @Form([
+        Field('operatingSystem', String, 'Operating System'),
+        Field('middlewareComponents', String, 'Middleware Components'),
+        Field('deploymentDate', String, 'Initial Deployment Date'),
+        Field('systemAge', int, 'System Age (Years)'),
+        Field('lastMajorUpgrade', String, 'Last Major Upgrade'),
+    ])
+    String? content;
+}
+
+/// Support and lifecycle details.
+class SystemTechnicalAssessmentLifecycle {
+    @Form([
+        Field('vendorSupportStatus', String,
+                'Support Status (Full, Extended, End of Life)'),
+        Field('endOfSupportDate', String, 'End of Support Date'),
+    ])
+    String? content;
+}
+
+/// Technical quality indicators.
+class SystemTechnicalAssessmentQuality {
+    @Form([
+        Field('technicalDebtRating', String,
+                'Technical Debt (Low, Medium, High, Critical)'),
+        Field('securityPosture', String, 'Security Posture'),
+        Field('performanceStatus', String,
+                'Performance (Acceptable, Degraded, Poor)'),
+        Field('scalabilityLimitations', String, 'Scalability Limitations'),
+        Field('maintainability', String, 'Maintainability Rating'),
+        Field('documentationQuality', String,
+                'Documentation (Complete, Partial, Outdated, Missing)'),
+    ])
+    String? content;
 }
 
 /// Business criticality assessment [PD00-SYO-SYR-INV-nn-BUS].

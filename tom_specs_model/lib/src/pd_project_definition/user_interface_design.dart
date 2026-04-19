@@ -3280,6 +3280,28 @@ class ExportFieldMappingEntry {
         required: true),
     Field('targetFieldName', String, 'Target Field Name',
         hint: 'Column/field name in output file', required: true),
+  ])
+  String? content;
+
+  /// Ordering and formatting settings.
+  ExportFieldMappingEntryFormatting formatting =
+      ExportFieldMappingEntryFormatting();
+
+  /// Transformation rules.
+  ExportFieldMappingEntryTransformation transformation =
+      ExportFieldMappingEntryTransformation();
+
+  /// Inclusion and defaults.
+  ExportFieldMappingEntryInclusion inclusion =
+      ExportFieldMappingEntryInclusion();
+
+  /// Fixed-width and quoting rules.
+  ExportFieldMappingEntryLayout layout = ExportFieldMappingEntryLayout();
+}
+
+/// Ordering and formatting settings.
+class ExportFieldMappingEntryFormatting {
+  @Form([
     Field('displayOrder', int, 'Display Order',
         hint: 'Position in the export output (column order)'),
     Field('dataType', String, 'Data Type',
@@ -3288,6 +3310,13 @@ class ExportFieldMappingEntry {
     Field('formatPattern', String, 'Format Pattern',
         hint:
             'Output format, e.g. dd.MM.yyyy for dates, #,##0.00 for numbers'),
+  ])
+  String? content;
+}
+
+/// Transformation rules.
+class ExportFieldMappingEntryTransformation {
+  @Form([
     Field('transformationRule', String, 'Transformation Rule',
         hint:
             'Value transformation: None / Uppercase / Lowercase / Trim / Truncate(n) / Map / Concatenate / Calculate / Custom'),
@@ -3295,6 +3324,13 @@ class ExportFieldMappingEntry {
         hint: 'Expression for transform, e.g. firstName + lastName'),
     Field('valueMapping', String, 'Value Mapping',
         hint: 'Value substitution map, e.g. ACTIVE→A, INACTIVE→I'),
+  ])
+  String? content;
+}
+
+/// Inclusion and defaults.
+class ExportFieldMappingEntryInclusion {
+  @Form([
     Field('defaultValue', String, 'Default Value',
         hint: 'Value to use when source is null/empty'),
     Field('includeInExport', String, 'Include In Export',
@@ -3303,6 +3339,13 @@ class ExportFieldMappingEntry {
         hint: 'Condition for conditional inclusion'),
     Field('maxLength', int, 'Max Length',
         hint: 'Truncate output to this character length'),
+  ])
+  String? content;
+}
+
+/// Fixed-width and quoting rules.
+class ExportFieldMappingEntryLayout {
+  @Form([
     Field('paddingChar', String, 'Padding Char',
         hint: 'For fixed-width: padding character, e.g. space or 0'),
     Field('paddingDirection', String, 'Padding Direction',
@@ -5644,14 +5687,36 @@ class LanguageCountrySelection {
 @SectionId('PD00-USE-MUL-REQ')
 class TranslationRequirements {
   @Form([
-    // I18N framework
     Field('i18nFramework', String, 'I18N Framework',
         hint: 'flutter_localizations, intl, easy_localization'),
     Field('stringExternalizationFormat', String, 'String Externalization Format',
         hint: 'ARB, JSON, YAML, Gettext'),
     Field('localeHandling', String, 'Locale Handling',
         hint: 'How locales are loaded and switched'),
-    // RTL support
+  ])
+  String? translationRequirementsContent;
+
+  /// RTL and bidirectional support.
+  TranslationRequirementsRtl rtl = TranslationRequirementsRtl();
+
+  /// Locale-specific formatting rules.
+  TranslationRequirementsFormatting formatting =
+      TranslationRequirementsFormatting();
+
+  /// Pluralization and variants.
+  TranslationRequirementsVariants variants = TranslationRequirementsVariants();
+
+  /// Technical text and font support.
+  TranslationRequirementsTechnical technical =
+      TranslationRequirementsTechnical();
+
+  /// Translation requirements narrative.
+  TextSection requirementsNarrative = TextSection();
+}
+
+/// RTL and bidirectional support.
+class TranslationRequirementsRtl {
+  @Form([
     Field('rtlSupport', bool, 'RTL Support'),
     Field('rtlImplementation', String, 'RTL Implementation',
         hint: 'How RTL is implemented'),
@@ -5659,7 +5724,13 @@ class TranslationRequirements {
         hint: 'Handling mixed LTR/RTL content'),
     Field('rtlMirroring', String, 'RTL Mirroring',
         hint: 'UI element mirroring rules'),
-    // Formatting
+  ])
+  String? content;
+}
+
+/// Locale-specific formatting rules.
+class TranslationRequirementsFormatting {
+  @Form([
     Field('dateTimeFormatting', String, 'Date/Time Formatting',
         hint: 'intl DateFormat, custom'),
     Field('numberFormatting', String, 'Number Formatting',
@@ -5668,14 +5739,26 @@ class TranslationRequirements {
         hint: 'Currency display and conversion'),
     Field('measurementUnits', String, 'Measurement Units',
         hint: 'Metric, imperial, locale-based'),
-    // Pluralization
+  ])
+  String? content;
+}
+
+/// Pluralization and variants.
+class TranslationRequirementsVariants {
+  @Form([
     Field('pluralizationRules', String, 'Pluralization Rules',
         hint: 'ICU plural format, custom'),
     Field('genderSupport', String, 'Gender Support',
         hint: 'Grammatical gender handling'),
     Field('contextualVariants', String, 'Contextual Variants',
         hint: 'Formal/informal, regional variants'),
-    // Technical
+  ])
+  String? content;
+}
+
+/// Technical text and font support.
+class TranslationRequirementsTechnical {
+  @Form([
     Field('unicodeSupport', String, 'Unicode Support',
         hint: 'Unicode handling and normalization'),
     Field('fontFallback', String, 'Font Fallback',
@@ -5685,10 +5768,7 @@ class TranslationRequirements {
     Field('keyboardLayouts', String, 'Keyboard Layouts',
         hint: 'IME and keyboard support'),
   ])
-  String? translationRequirementsContent;
-
-  /// Translation requirements narrative.
-  TextSection requirementsNarrative = TextSection();
+  String? content;
 }
 
 /// A supported locale entry [PD00-USE-MUL-LOC-nn].
