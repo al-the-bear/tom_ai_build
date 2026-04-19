@@ -1813,25 +1813,46 @@ class ErrorHandlingStandards {
 /// Testing standards and requirements.
 class TestingStandards {
   @Form([
-    // Test types
     Field('unitTestRequired', bool, 'Unit Test Required',
         hint: 'Unit tests required for all code'),
     Field('integrationTestRequired', bool, 'Integration Test Required',
         hint: 'Integration tests required'),
     Field('e2eTestRequired', bool, 'E2E Test Required',
         hint: 'End-to-end tests required'),
+  ])
+  String? content;
+
+  /// Additional test types and organization.
+  TestingStandardsOrganization organization = TestingStandardsOrganization();
+
+  /// Preferred testing patterns.
+  TestingStandardsPatterns patterns = TestingStandardsPatterns();
+
+  /// Quality requirements for tests.
+  TestingStandardsQuality quality = TestingStandardsQuality();
+
+  /// Testing tools and CI integration.
+  TestingStandardsTooling tooling = TestingStandardsTooling();
+}
+
+/// Additional test types and organization.
+class TestingStandardsOrganization {
+  @Form([
     Field('performanceTestRequired', bool, 'Performance Test Required',
         hint: 'Performance tests required'),
-
-    // Test organization
     Field('testNamingConvention', String, 'Test Naming Convention',
         hint: 'How tests should be named'),
     Field('testFileOrganization', String, 'Test File Organization',
         hint: 'How test files are organized'),
     Field('testDataManagement', String, 'Test Data Management',
         hint: 'How test data is managed'),
+  ])
+  String? content;
+}
 
-    // Test patterns
+/// Preferred testing patterns.
+class TestingStandardsPatterns {
+  @Form([
     Field('arrangActAssert', bool, 'Arrange-Act-Assert',
         hint: 'Use AAA pattern'),
     Field('givenWhenThen', bool, 'Given-When-Then',
@@ -1840,24 +1861,32 @@ class TestingStandards {
         hint: 'When and how to use mocks'),
     Field('stubStrategy', String, 'Stub Strategy',
         hint: 'When to use stubs vs mocks'),
+  ])
+  String? content;
+}
 
-    // Quality
+/// Quality requirements for tests.
+class TestingStandardsQuality {
+  @Form([
     Field('testIsolation', String, 'Test Isolation',
         hint: 'Test isolation requirements'),
     Field('deterministicTests', bool, 'Deterministic Tests Required',
         hint: 'Tests must be deterministic'),
     Field('flakyTestPolicy', String, 'Flaky Test Policy',
         hint: 'How to handle flaky tests'),
+  ])
+  String? content;
+}
 
-    // Tools
+/// Testing tools and CI integration.
+class TestingStandardsTooling {
+  @Form([
     Field('testFramework', String, 'Test Framework',
         hint: 'Testing framework to use'),
     Field('mockingFramework', String, 'Mocking Framework',
         hint: 'Mocking framework to use'),
     Field('coverageTools', String, 'Coverage Tools',
         hint: 'Code coverage tools'),
-
-    // CI integration
     Field('ciTestExecution', String, 'CI Test Execution',
         hint: 'How tests run in CI'),
     Field('parallelExecution', String, 'Parallel Execution',
@@ -3346,16 +3375,36 @@ class ReusabilityPrinciples {
 /// Shared library component entry.
 class SharedLibraryComponentEntry {
   @Form([
-    // Identity
     Field('componentName', String, 'Component Name',
         required: true, hint: 'Unique library name'),
     Field('componentType', String, 'Component Type',
         hint: 'Core, Utility, Domain, Integration, Extension'),
     Field('version', String, 'Version', hint: 'Current version'),
+  ])
+  String? content;
+
+  /// Purpose and consumers.
+  SharedLibraryComponentEntryDescription description =
+      SharedLibraryComponentEntryDescription();
+
+  /// Technical API details.
+  SharedLibraryComponentEntryTechnical technical =
+      SharedLibraryComponentEntryTechnical();
+
+  /// Quality and documentation.
+  SharedLibraryComponentEntryQuality quality =
+      SharedLibraryComponentEntryQuality();
+
+  /// Ownership and lifecycle.
+  SharedLibraryComponentEntryOwnership ownership =
+      SharedLibraryComponentEntryOwnership();
+}
+
+/// Purpose and consumers for shared library component.
+class SharedLibraryComponentEntryDescription {
+  @Form([
     Field('packageName', String, 'Package/Module Name',
         hint: 'Package identifier'),
-
-    // Description
     Field('purpose', String, 'Purpose',
         required: true, hint: 'What problem this component solves'),
     Field('functionality', String, 'Functionality',
@@ -3363,8 +3412,13 @@ class SharedLibraryComponentEntry {
     Field('targetConsumers', String, 'Target Consumers',
         hint: 'Who should use this component'),
     Field('useCases', String, 'Use Cases', hint: 'Example use cases'),
+  ])
+  String? content;
+}
 
-    // Technical
+/// Technical API details for shared library component.
+class SharedLibraryComponentEntryTechnical {
+  @Form([
     Field('publicApi', String, 'Public API',
         hint: 'Key public classes/functions'),
     Field('extensionPoints', String, 'Extension Points',
@@ -3373,21 +3427,29 @@ class SharedLibraryComponentEntry {
         hint: 'Available configuration'),
     Field('dependencies', String, 'Dependencies',
         hint: 'Required dependencies'),
+  ])
+  String? content;
+}
 
-    // Quality
+/// Quality and documentation for shared library component.
+class SharedLibraryComponentEntryQuality {
+  @Form([
     Field('testCoverage', String, 'Test Coverage', hint: 'Current coverage'),
     Field('documentationUrl', String, 'Documentation URL',
         hint: 'Link to documentation'),
     Field('examplesLocation', String, 'Examples Location',
         hint: 'Where to find examples'),
+  ])
+  String? content;
+}
 
-    // Ownership
+/// Ownership and lifecycle for shared library component.
+class SharedLibraryComponentEntryOwnership {
+  @Form([
     Field('owner', String, 'Owner', hint: 'Team/person responsible'),
     Field('maintainers', String, 'Maintainers', hint: 'List of maintainers'),
     Field('supportChannel', String, 'Support Channel',
         hint: 'Where to get help'),
-
-    // Status
     Field('maturityLevel', String, 'Maturity Level',
         hint: 'Experimental, Beta, Stable, Deprecated'),
     Field('lastUpdated', String, 'Last Updated', hint: 'Last update date'),

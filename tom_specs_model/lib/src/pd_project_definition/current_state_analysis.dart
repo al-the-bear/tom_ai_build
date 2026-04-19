@@ -2884,12 +2884,39 @@ class DataIntegrationEntry {
         hint: 'Name of the integration', required: true),
     Field('description', String, 'Description',
         hint: 'What data is exchanged and why'),
+  ])
+  String? content;
+
+  /// Endpoints and type.
+  DataIntegrationEntryEndpoints endpoints = DataIntegrationEntryEndpoints();
+
+  /// Volume and transport.
+  DataIntegrationEntryTransport transport = DataIntegrationEntryTransport();
+
+  /// Reliability and monitoring.
+  DataIntegrationEntryReliability reliabilityInfo =
+      DataIntegrationEntryReliability();
+
+  /// Ownership and issues.
+  DataIntegrationEntryOwnership ownership = DataIntegrationEntryOwnership();
+}
+
+/// Endpoints and type for data integration.
+class DataIntegrationEntryEndpoints {
+  @Form([
     Field('sourceSystem', String, 'Source System',
         hint: 'System providing the data'),
     Field('targetSystem', String, 'Target System',
         hint: 'System receiving the data'),
     Field('integrationType', String, 'Integration Type',
         hint: 'ETL / ELT / API / FileTransfer / EventStream / CDC'),
+  ])
+  String? content;
+}
+
+/// Volume and transport for data integration.
+class DataIntegrationEntryTransport {
+  @Form([
     Field('dataVolume', String, 'Data Volume',
         hint: 'Typical volume per execution'),
     Field('frequency', String, 'Frequency',
@@ -2900,6 +2927,13 @@ class DataIntegrationEntry {
         hint: 'Communication protocol, e.g. REST, SOAP, SFTP, Kafka'),
     Field('dataTransformation', String, 'Data Transformation',
         hint: 'Type/complexity of transformation'),
+  ])
+  String? content;
+}
+
+/// Reliability and monitoring for data integration.
+class DataIntegrationEntryReliability {
+  @Form([
     Field('errorHandling', String, 'Error Handling',
         hint: 'How errors are handled'),
     Field('monitoringStatus', String, 'Monitoring Status',
@@ -2910,6 +2944,13 @@ class DataIntegrationEntry {
         hint: 'Typical latency, e.g. 5 seconds, 2 hours'),
     Field('sla', String, 'SLA',
         hint: 'Service level agreement if defined'),
+  ])
+  String? content;
+}
+
+/// Ownership and issues for data integration.
+class DataIntegrationEntryOwnership {
+  @Form([
     Field('businessOwner', String, 'Business Owner',
         hint: 'Who owns this integration'),
     Field('technicalOwner', String, 'Technical Owner',

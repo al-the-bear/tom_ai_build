@@ -765,44 +765,21 @@ class ScreenElementEntry {
             'Action-Button/Text-Field/Number-Field/Date-Field/Select-Field/'
             'Checkbox/Toggle/Data-Display/Data-Table/Card/Chart/Status-Indicator/'
             'Icon/Label/Link/Image/Divider/Spacer/Tab-Bar/Badge'),
-    Field('labelResource', String, 'Label Resource',
-        hint: 'Resource key for display label'),
-    Field('hintResource', String, 'Hint Resource',
-        hint: 'Resource key for tooltip/helper text'),
-    Field('descriptionResource', String, 'Description Resource',
-        hint: 'Resource key for extended description'),
-    Field('iconResource', String, 'Icon Resource',
-        hint: 'Resource key for icon'),
-    Field('iconPosition', String, 'Icon Position',
-        hint: 'Leading/Trailing/Above/Below/Only'),
-    Field('placementOrder', int, 'Placement Order',
-        hint: 'Order within parent section'),
-    Field('width', String, 'Width',
-        hint: 'Fill/Auto/Fixed(200)/Proportion(1/3)'),
-    Field('alignment', String, 'Alignment',
-        hint: 'Start/Center/End/Stretch'),
-    Field('visibilityCondition', String, 'Visibility Condition',
-        hint: 'When this element is shown'),
-    Field('enabledCondition', String, 'Enabled Condition',
-        hint: 'When this element is interactive'),
-    Field('readonlyCondition', String, 'Readonly Condition',
-        hint: 'When this element is read-only'),
-    Field('requiredPermission', String, 'Required Permission',
-        hint: 'Permission needed to see/interact'),
-    Field('permissionEffect', String, 'Permission Effect',
-        hint: 'Hide/Disable/Readonly'),
-    Field('styleVariant', String, 'Style Variant',
-        hint: 'Primary/Secondary/Danger/Subtle/Custom'),
-    Field('accessibilityLabel', String, 'Accessibility Label',
-        hint: 'Override for screen readers'),
-    Field('dataBinding', String, 'Data Binding',
-        hint: 'Path to bound data field, e.g., order.customerName'),
-    Field('defaultValue', String, 'Default Value',
-        hint: 'Default value or expression'),
-    Field('notes', String, 'Design Notes',
-        hint: 'Design rationale or open questions'),
   ])
   String? content;
+
+  /// Labels and icon resources.
+  ScreenElementEntryResources resources = ScreenElementEntryResources();
+
+  /// Placement and layout settings.
+  ScreenElementEntryLayout layout = ScreenElementEntryLayout();
+
+  /// Visibility and permission rules.
+  ScreenElementEntryBehavior behavior = ScreenElementEntryBehavior();
+
+  /// Styling and data binding.
+  ScreenElementEntryPresentation presentation =
+      ScreenElementEntryPresentation();
 
   /// 10.2.1.n.m.k.1. Element Action [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-ACN].
   ScreenElementAction? elementAction;
@@ -816,6 +793,70 @@ class ScreenElementEntry {
   /// Contains 0+× ElementValidationRule.
   @SectionIdPattern('PD00-USE-SCR-INV-xx-SEC-xx-ELE-xx-VAL-xx')
   List<ElementValidationRuleEntry> validationRules = [];
+}
+
+/// Labels and icon resources for screen element.
+class ScreenElementEntryResources {
+  @Form([
+    Field('labelResource', String, 'Label Resource',
+        hint: 'Resource key for display label'),
+    Field('hintResource', String, 'Hint Resource',
+        hint: 'Resource key for tooltip/helper text'),
+    Field('descriptionResource', String, 'Description Resource',
+        hint: 'Resource key for extended description'),
+    Field('iconResource', String, 'Icon Resource',
+        hint: 'Resource key for icon'),
+    Field('iconPosition', String, 'Icon Position',
+        hint: 'Leading/Trailing/Above/Below/Only'),
+  ])
+  String? content;
+}
+
+/// Placement and layout settings for screen element.
+class ScreenElementEntryLayout {
+  @Form([
+    Field('placementOrder', int, 'Placement Order',
+        hint: 'Order within parent section'),
+    Field('width', String, 'Width',
+        hint: 'Fill/Auto/Fixed(200)/Proportion(1/3)'),
+    Field('alignment', String, 'Alignment',
+        hint: 'Start/Center/End/Stretch'),
+  ])
+  String? content;
+}
+
+/// Visibility and permission rules for screen element.
+class ScreenElementEntryBehavior {
+  @Form([
+    Field('visibilityCondition', String, 'Visibility Condition',
+        hint: 'When this element is shown'),
+    Field('enabledCondition', String, 'Enabled Condition',
+        hint: 'When this element is interactive'),
+    Field('readonlyCondition', String, 'Readonly Condition',
+        hint: 'When this element is read-only'),
+    Field('requiredPermission', String, 'Required Permission',
+        hint: 'Permission needed to see/interact'),
+    Field('permissionEffect', String, 'Permission Effect',
+        hint: 'Hide/Disable/Readonly'),
+  ])
+  String? content;
+}
+
+/// Styling and data binding for screen element.
+class ScreenElementEntryPresentation {
+  @Form([
+    Field('styleVariant', String, 'Style Variant',
+        hint: 'Primary/Secondary/Danger/Subtle/Custom'),
+    Field('accessibilityLabel', String, 'Accessibility Label',
+        hint: 'Override for screen readers'),
+    Field('dataBinding', String, 'Data Binding',
+        hint: 'Path to bound data field, e.g., order.customerName'),
+    Field('defaultValue', String, 'Default Value',
+        hint: 'Default value or expression'),
+    Field('notes', String, 'Design Notes',
+        hint: 'Design rationale or open questions'),
+  ])
+  String? content;
 }
 
 /// Action specification for an action-type element (form).
@@ -867,10 +908,44 @@ class ScreenElementFieldSpec {
             'Email/Phone/URL/Password/Rich-Text/Color/File'),
     Field('placeholderResource', String, 'Placeholder Resource',
         hint: 'Resource key for placeholder text'),
+  ])
+  String? content;
+
+  /// Prefix, suffix, and formatting.
+  ScreenElementFieldSpecFormatting formatting =
+      ScreenElementFieldSpecFormatting();
+
+  /// Length and value constraints.
+  ScreenElementFieldSpecConstraints constraints =
+      ScreenElementFieldSpecConstraints();
+
+  /// Validation behavior.
+  ScreenElementFieldSpecValidation validation =
+      ScreenElementFieldSpecValidation();
+
+  /// Selection and input assistance.
+  ScreenElementFieldSpecSelection selection =
+      ScreenElementFieldSpecSelection();
+}
+
+/// Prefix, suffix, and formatting for field spec.
+class ScreenElementFieldSpecFormatting {
+  @Form([
     Field('prefixResource', String, 'Prefix Resource',
         hint: 'Prefix text/icon resource, e.g., currency symbol'),
     Field('suffixResource', String, 'Suffix Resource',
         hint: 'Suffix text/icon resource, e.g., unit label'),
+    Field('inputMask', String, 'Input Mask',
+        hint: 'Pattern, e.g., ##/##/####'),
+    Field('displayFormat', String, 'Display Format',
+        hint: 'Format pattern, e.g., #,##0.00'),
+  ])
+  String? content;
+}
+
+/// Length and value constraints for field spec.
+class ScreenElementFieldSpecConstraints {
+  @Form([
     Field('maxLength', int, 'Max Length',
         hint: 'Character limit'),
     Field('minLength', int, 'Min Length',
@@ -881,14 +956,30 @@ class ScreenElementFieldSpec {
         hint: 'Maximum allowed value for numeric/date fields'),
     Field('decimalPlaces', int, 'Decimal Places',
         hint: 'Number of decimal places'),
-    Field('inputMask', String, 'Input Mask',
-        hint: 'Pattern, e.g., ##/##/####'),
-    Field('displayFormat', String, 'Display Format',
-        hint: 'Format pattern, e.g., #,##0.00'),
+  ])
+  String? content;
+}
+
+/// Validation behavior for field spec.
+class ScreenElementFieldSpecValidation {
+  @Form([
     Field('validationTrigger', String, 'Validation Trigger',
         hint: 'On-Change/On-Blur/On-Submit/Debounced'),
     Field('errorDisplayMode', String, 'Error Display Mode',
         hint: 'Below-Field/Tooltip/Inline/Banner'),
+    Field('required', String, 'Required',
+        hint: 'Yes/No/Conditional'),
+    Field('requiredCondition', String, 'Required Condition',
+        hint: 'Condition when field becomes required'),
+    Field('clearButton', String, 'Clear Button',
+        hint: 'Yes/No — show clear/reset affordance'),
+  ])
+  String? content;
+}
+
+/// Selection and input assistance for field spec.
+class ScreenElementFieldSpecSelection {
+  @Form([
     Field('autocompleteSource', String, 'Autocomplete Source',
         hint: 'Source reference for autocomplete suggestions'),
     Field('optionsSource', String, 'Options Source',
@@ -899,12 +990,6 @@ class ScreenElementFieldSpec {
         hint:
             'Dropdown/Radio-Group/Chip-Group/Segmented-Button/Autocomplete/'
             'Dialog-Picker'),
-    Field('required', String, 'Required',
-        hint: 'Yes/No/Conditional'),
-    Field('requiredCondition', String, 'Required Condition',
-        hint: 'Condition when field becomes required'),
-    Field('clearButton', String, 'Clear Button',
-        hint: 'Yes/No — show clear/reset affordance'),
   ])
   String? content;
 }

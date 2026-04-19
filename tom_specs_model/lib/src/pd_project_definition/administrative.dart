@@ -792,60 +792,92 @@ class ChangeRoleEntry {
 /// Detailed description of a single step in the change process workflow.
 class ChangeStepEntry {
   @Form([
-    // Identification
     Field('stepNumber', int, 'Step Number',
         hint: 'Order of this step in the process', required: true),
     Field('stepName', String, 'Step Name', required: true,
         hint: 'Name of the process step'),
     Field('description', String, 'Description',
         hint: 'Detailed description of what happens in this step'),
-
-    // Responsibility
-    Field('responsibleRole', String, 'Responsible Role',
-        hint: 'Role responsible for executing this step'),
-    Field('accountableRole', String, 'Accountable Role',
-        hint: 'Role accountable for step completion'),
-    Field('consultedRoles', String, 'Consulted Roles',
-        hint: 'Roles consulted during this step'),
-    Field('informedRoles', String, 'Informed Roles',
-        hint: 'Roles informed of step completion'),
-
-    // Inputs and Outputs
-    Field('inputArtifacts', String, 'Input Artifacts',
-        hint: 'Documents or data required to start this step'),
-    Field('outputArtifacts', String, 'Output Artifacts',
-        hint: 'Documents or decisions produced by this step'),
-    Field('tools', String, 'Tools Used',
-        hint: 'Tools or systems used in this step'),
-
-    // Criteria and Timing
-    Field('entryConditions', String, 'Entry Conditions',
-        hint: 'Conditions that must be met to start this step'),
-    Field('exitConditions', String, 'Exit Conditions',
-        hint: 'Conditions that must be met to complete this step'),
-    Field('approvalCriteria', String, 'Approval Criteria',
-        hint: 'Criteria for approval decisions in this step'),
-    Field('targetDuration', String, 'Target Duration',
-        hint: 'Expected time to complete this step'),
-    Field('maximumDuration', String, 'Maximum Duration',
-        hint: 'Maximum allowed time before escalation'),
-
-    // Decision Points
-    Field('decisionRequired', String, 'Decision Required',
-        hint: 'Yes / No — whether this step involves a decision'),
-    Field('decisionOptions', String, 'Decision Options',
-        hint: 'Possible outcomes of the decision'),
-    Field('nextStepIfApproved', String, 'Next Step If Approved',
-        hint: 'Where to go if decision is positive'),
-    Field('nextStepIfRejected', String, 'Next Step If Rejected',
-        hint: 'Where to go if decision is negative'),
-    Field('escalationTrigger', String, 'Escalation Trigger',
-        hint: 'What triggers escalation from this step'),
   ])
   String? content;
 
+  /// Responsibility assignments.
+  ChangeStepEntryResponsibility responsibility =
+    ChangeStepEntryResponsibility();
+
+  /// Inputs and outputs.
+  ChangeStepEntryArtifacts artifacts = ChangeStepEntryArtifacts();
+
+  /// Criteria and timing.
+  ChangeStepEntryCriteria criteria = ChangeStepEntryCriteria();
+
+  /// Decision paths.
+  ChangeStepEntryDecision decision = ChangeStepEntryDecision();
+
   /// Subflow diagram for this step (e.g. Mermaid or image reference).
   FlowDiagramSection? subflowDiagram;
+}
+
+/// Responsibility assignments for change step.
+class ChangeStepEntryResponsibility {
+  @Form([
+  Field('responsibleRole', String, 'Responsible Role',
+    hint: 'Role responsible for executing this step'),
+  Field('accountableRole', String, 'Accountable Role',
+    hint: 'Role accountable for step completion'),
+  Field('consultedRoles', String, 'Consulted Roles',
+    hint: 'Roles consulted during this step'),
+  Field('informedRoles', String, 'Informed Roles',
+    hint: 'Roles informed of step completion'),
+  ])
+  String? content;
+}
+
+/// Inputs and outputs for change step.
+class ChangeStepEntryArtifacts {
+  @Form([
+  Field('inputArtifacts', String, 'Input Artifacts',
+    hint: 'Documents or data required to start this step'),
+  Field('outputArtifacts', String, 'Output Artifacts',
+    hint: 'Documents or decisions produced by this step'),
+  Field('tools', String, 'Tools Used',
+    hint: 'Tools or systems used in this step'),
+  ])
+  String? content;
+}
+
+/// Criteria and timing for change step.
+class ChangeStepEntryCriteria {
+  @Form([
+  Field('entryConditions', String, 'Entry Conditions',
+    hint: 'Conditions that must be met to start this step'),
+  Field('exitConditions', String, 'Exit Conditions',
+    hint: 'Conditions that must be met to complete this step'),
+  Field('approvalCriteria', String, 'Approval Criteria',
+    hint: 'Criteria for approval decisions in this step'),
+  Field('targetDuration', String, 'Target Duration',
+    hint: 'Expected time to complete this step'),
+  Field('maximumDuration', String, 'Maximum Duration',
+    hint: 'Maximum allowed time before escalation'),
+  ])
+  String? content;
+}
+
+/// Decision paths for change step.
+class ChangeStepEntryDecision {
+  @Form([
+  Field('decisionRequired', String, 'Decision Required',
+    hint: 'Yes / No — whether this step involves a decision'),
+  Field('decisionOptions', String, 'Decision Options',
+    hint: 'Possible outcomes of the decision'),
+  Field('nextStepIfApproved', String, 'Next Step If Approved',
+    hint: 'Where to go if decision is positive'),
+  Field('nextStepIfRejected', String, 'Next Step If Rejected',
+    hint: 'Where to go if decision is negative'),
+  Field('escalationTrigger', String, 'Escalation Trigger',
+    hint: 'What triggers escalation from this step'),
+  ])
+  String? content;
 }
 
 /// 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
