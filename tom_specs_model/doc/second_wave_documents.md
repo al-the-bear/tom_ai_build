@@ -846,3 +846,203 @@ export 'src/bp_business_processes/bp_business_processes.dart';
 - **Outliner root type.** Once a document class exists, the outliner can run with `--root-type <DocName>` against `tom_specs_model` to validate that the new class tree traverses cleanly. Also run with `--root-type ProjectDefinition` after each §7 step.
 - **UC decision pending.** Resolve the UC question (§5.4) before starting — either implement UC in this wave or explicitly reroute PD00-TAR-STP.
 - **Mapping doc out of date.** Section 1 lists the known IDs that have drifted between `hbsg_tom_resulttype_mapping.md` and the current model. Update the mapping doc after §7 lands so it stops contradicting the code.
+
+---
+
+## 11. Step-by-Step Implementation Plan
+
+End-to-end ordered sequence across the work defined in §7, §8, and §9. Each step identifies the driving section, what needs to be done, and the exit condition. Steps run sequentially unless marked parallelizable. Commit one step per commit so regressions are bisectable; run the outliner after every step.
+
+### Phase A — PD00 Completion (§7)
+
+#### Step 1 — Track 2 promotions, shape-only (§7.2, §8.2)
+
+**What:**
+- Add `@SectionId('PD00-TAR-STP-OVE')` to `ProcessStepsOverview` and `@SectionId('PD00-TAR-STP-DIA')` to `ActorRelationshipDiagram` ([target_business_process.dart](../lib/src/pd_project_definition/target_business_process.dart)) — the only two untagged classes among the promotions.
+- Add `@DetailedIn(...)` to the 5 promoted classes per §7.2 table.
+- Update the field-level doc comments in parent classes to carry the section ID (including the PD00-TAR-PRO-REL fix).
+
+**Why first:** no structural change. The outliner output must be byte-identical before/after. Serves as a smoke test that the annotation infrastructure is wired up (imports, analyzer picks up annotations, etc.).
+
+**Exit:** `dart analyze` clean; `outliner --root-type ProjectDefinition` output unchanged.
+
+#### Step 2 — Reclassify PD00-CUR and add its three inferred children (§7.3, §4, §3)
+
+**What:**
+- Drop `@Unused()` on `CurrentStateAnalysis.content`.
+- Add `CurrentOperationalMetrics` (`PD00-CUR-MET`) and `CurrentStateRiskAssessment` (`PD00-CUR-RIS`) child classes. (The third CUR-family item, `dependenciesAndIntegrations`, is a promotion already covered in Step 1.)
+- Add `@MapsTo(CurrentSituation)` on `CurrentStateAnalysis`; `@DetailedIn(CurrentSituation)` on each of the six existing children (SYS, PRO, PAI, DAT, plus SYS-DEP promoted, plus MET, RIS).
+- Remove PD00-CUR from §4's PD-only list in any version of the doc that references it.
+
+**Why:** PD00-CUR is the only subtree that moves from PD-only into a DocSpec target. Isolating it in a single step keeps the change auditable.
+
+**Exit:** outliner shows PD00-CUR subtree unchanged except for the two new children; CS wave (not yet created) has a complete PD-side source.
+
+#### Step 3 — Add PD00-ROL top-level and its children (§7.1, §3)
+
+**What:**
+- Create `lib/src/pd_project_definition/system_rollout.dart` with `SystemRollout` root class (`@SectionId('PD00-ROL')`, `@MapsTo(SystemRollout)`).
+- Create the 8 child classes listed in §5.9 rows 4–11 (6 T1 + 2 T3). Each gets `@SectionId('PD00-ROL-XXX')` + `@DetailedIn(SystemRollout)`.
+- Add `systemRollout: SystemRollout()` field to `ProjectDefinition` (after `userInterfaceDesign`, before `systemQualityGoals`).
+- Update `pd_project_definition.dart` to export the new file.
+
+**Why:** `PD00-ROL` is the only net-new top-level on `ProjectDefinition`. Isolating it prevents accidental collateral damage on existing sections.
+
+**Exit:** outliner shows `PD00-ROL` as a new top-level with 8 children; rest of tree unchanged.
+
+#### Step 4 — Track 1 extensions in existing sections (§7.1)
+
+**What:** Add the remaining 15 HBSG-backed sections to their existing parents. Parallelizable — each parent is independent:
+
+| Parent | New children |
+| --- | --- |
+| PD00-TAR-PRO | DET, CRO, EXC |
+| PD00-TAR-STP | E2E |
+| PD00-BUS-DAT | DIC |
+| PD00-TEC | ARC |
+| PD00-USE | WIR |
+| PD00-ACC | ROL |
+| PD00-SYQ | TST |
+| PD00-SSP | IDV, UPG |
+| PD00-SYO-SYB | INV, PAT, TST, DEP, MIG |
+
+Each new class: `@SectionId('PD00-X-Y...')` + `@DetailedIn(TargetDoc)`.
+
+**Why:** these additions don't touch each other. Commit per parent for clean git history.
+
+**Exit:** each added class reachable from its parent; outliner runs clean with `ProjectDefinition` root.
+
+#### Step 5 — Track 3 remaining additions (§7.3)
+
+**What:** Add the 10 inferred sections that weren't already added in Steps 2–3. Parallelizable:
+
+| Parent | New children |
+| --- | --- |
+| PD00-SYO-REQ | REL, COV |
+| PD00-TAR-PRO | MET |
+| PD00-TAR-STP | TRC |
+| PD00-BUS-DAT | VAL, CON |
+| PD00-ACC | CMP |
+| PD00-SYO-SYB | OPE, ERR |
+
+**Why:** these are my inferred additions — lower confidence than Track 1. Isolating them in Step 5 makes them easy to review or roll back independently of HBSG-backed work.
+
+**Exit:** same as Step 4.
+
+#### Step 6 — Complete `@MapsTo` / `@DetailedIn` coverage (§8.1, §8.2, §8.3)
+
+**What:** Sweep the PD00 tree to ensure the invariants in §8.6 hold:
+- `@MapsTo(D)` on every seed class in §6 per document.
+- `@DetailedIn(D)` on every class referenced in §5 "Source" columns.
+- Shape-B cases (mixed parent): verify child has both annotations per §8.3.
+
+**Why:** Steps 1–5 add individual annotations locally; Step 6 is the audit that nothing was missed. Best done by a simple grep-based checker per target doc.
+
+**Exit:** §8.6 invariants hold mechanically. A temporary shell script (or quick extension to `tom_specs_clitool/lib/src/validator.dart` per Step 22) can assert this.
+
+#### Step 7 — Update `_ai/quests/tom_specs/hbsg_tom_resulttype_mapping.md` (§1)
+
+**What:** Reconcile the mapping doc with the completed PD00 model. Specifically:
+- Replace `PD00-SYS` with `PD00-SYO` throughout.
+- Remove `PD00-CUR` from the PD-only column; add it as a CS source.
+- Add the 35 new PD00 section IDs to the leaf section mapping appendix.
+- Update version header (to v3.6) and append a changelog entry.
+
+**Why:** the mapping doc remains the authoritative external reference. Leaving it out of sync is a bigger cost than the work. Do it now while the changes are fresh.
+
+**Exit:** mapping doc version bumped; §1's naming reconciliation table's "existing" rows no longer describe drift.
+
+**Phase A exit criterion:** PD00 model is complete. `dart analyze` clean on tom_specs_core, tom_specs_model. Outliner runs clean on `ProjectDefinition`. §8.6 invariants hold.
+
+### Phase B — Document Root Classes (§9)
+
+All Phase B steps follow the template in §9.1. Order per §9.2: smallest single-source first, multi-source last. One commit per document root.
+
+#### Step 8 — BSI root class (§5.12, §9.2)
+
+**What:** Create `lib/src/bsi_business_system_interactions/` with `BusinessSystemInteractions` root class. 10 top-level fields typed against `PD00-SYO-SYB-*` classes. Add package export.
+
+**Why first:** smallest single-source doc. Validates the §9.1 template end-to-end.
+
+**Exit:** `outliner --root-type BusinessSystemInteractions` matches §5.12; `dart analyze` green.
+
+#### Step 9 — CS root class (§5.1, §9.2)
+
+**What:** `CurrentSituation` class with 9 top-levels from two seeds (PD00-CUR and PD00-SYO-SYR).
+
+**Why:** CS is the simplest multi-source doc (only two seeds). Smooths the path to bigger multi-source docs later.
+
+**Exit:** outliner renders 9 top-levels matching §5.1.
+
+#### Steps 10–15 — RC, BP, UC, BDM, AC, PPP (§5.2, §5.3, §5.4, §5.5, §5.6, §5.11)
+
+**What:** Create root classes one per step, in that order.
+
+- **Step 10 RC (§5.2):** 7 top-levels under `PD00-SYO-REQ`.
+- **Step 11 BP (§5.3):** 10 top-levels under `PD00-TAR-PRO`.
+- **Step 12 UC (§5.4):** 7 top-levels under `PD00-TAR-STP`. Do only after the UC decision (§5.4 note) is final.
+- **Step 13 BDM (§5.5):** 12 top-levels at `PD00-BUS-{DAT,BUS,FUN}-*` — the "go one level deeper" case.
+- **Step 14 AC (§5.6):** 9 top-levels under `PD00-ACC` with one promoted (PD00-ACC-IDE-FLO).
+- **Step 15 PPP (§5.11):** 9 top-levels under `PD00-SSP` with two promoted (PD00-SSP-GOV-GAT, -DEC).
+
+**Why:** these are all single-source docs. Shared pattern; low risk once BSI and CS are done.
+
+**Exit (each step):** outliner `--root-type <DocName>` matches the corresponding §5 row.
+
+#### Steps 16–19 — Multi-source docs TR, UP, SR, BQP (§5.7, §5.8, §5.9, §5.10)
+
+**What:** Larger aggregations. The doc root class pulls fields from multiple PD00 branches.
+
+- **Step 16 TR (§5.7):** 12 top-levels from PD00-TEC (flatten) + PD00-COM (whole) + PD00-SYO-RES-TEC + PD00-USE-MUL-REQ.
+- **Step 17 UP (§5.8):** 13 top-levels from 11 existing PD00-USE-* + PD00-USE-WIR + PD00-USE-SCR-INF (promoted).
+- **Step 18 SR (§5.9):** 11 top-levels from PD00-USE-MUL-{LOC,TRA,DOC} + PD00-ROL children.
+- **Step 19 BQP (§5.10):** 14 top-levels from PD00-SYQ + PD00-DEL-ACC.
+
+**Why:** multi-source aggregation requires careful import hygiene. Saved for last once the template is proven.
+
+**Exit (each step):** outliner matches §5; `dart analyze` green.
+
+**Phase B exit criterion:** 12 document root classes exist and compile; each produces a valid outliner outline matching §5; `ProjectDefinition` outline is unchanged (purely additive).
+
+### Phase C — Cross-cutting follow-ups
+
+#### Step 20 — Validator for §8.6 invariants (§8.6, tom_specs_clitool)
+
+**What:** Extend `tom_specs_clitool/lib/src/validator.dart` with:
+- **Detail-count check:** for each `@Document`-tagged class `D`, count `@DetailedIn(D)` occurrences; assert == §6 "Total tops" for that doc.
+- **Ancestor check:** every class carrying `@DetailedIn(D)` must carry `@MapsTo(D)` on itself or an ancestor.
+- **Map-uniqueness check:** no duplicate `@MapsTo` annotations per (class, doc) pair.
+
+Wire the validator into a test in `tom_specs_clitool/test/`.
+
+**Why:** mechanically enforces the annotation invariants defined in §8.6 so the annotations stay consistent as PD00 evolves.
+
+**Exit:** validator passes against the fully-annotated model; test runs in CI.
+
+#### Step 21 — Decide on `@SecondLevelSectionId` adoption (§8.4, §9.4)
+
+**What:** Decision point. Either:
+- **Adopt:** go through each target-doc top-level in §5 and add one `@SecondLevelSectionId(Doc, '<CODE>-<SUFFIX>')` per entry. ~125 annotations total across 12 docs.
+- **Defer:** leave as-is; global `PD00-*` IDs remain the only IDs.
+
+**Why:** the short-ID scheme was reserved in annotation form but left unapplied on purpose (§9.4). Adopting it needs one bulk pass; it can happen any time after Phase B, so it's listed last.
+
+**Exit:** either all §5 top-levels carry `@SecondLevelSectionId`, or this step is explicitly marked deferred in the quest notes.
+
+#### Step 22 — Update session resume and quest overview (quest docs)
+
+**What:** Update `_ai/quests/tom_specs/session_resume.tom_specs.md` and `overview.tom_specs.md` to describe the completed second-wave implementation (PD00 completion + 12 document root classes). Add a "Completed Work" entry; revise "What The Quest Is Working On Now" to describe what follows (e.g., content filling, template generation, first project use).
+
+**Why:** keeps the quest docs authoritative about the state of the work; a next-session pickup should see the current state immediately.
+
+**Exit:** quest docs reflect the second wave as complete.
+
+### Final quality gate
+
+After all steps:
+
+- `dart analyze` green on tom_specs_core, tom_specs_model, tom_specs_clitool.
+- Outliner runs clean with every valid `--root-type`: `ProjectDefinition` and all 12 document classes.
+- Validator passes.
+- `hbsg_tom_resulttype_mapping.md` in sync with the model.
+- Quest docs updated.
