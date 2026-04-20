@@ -18,12 +18,12 @@ library;
 // Step 8 — BSI (Business System Interactions).
 export 'bsi_business_system_interactions/bsi_business_system_interactions.dart';
 
+// Step 9 — CS (Current Situation).
+export 'cs_current_situation/cs_current_situation.dart';
+
 // ---------------------------------------------------------------------------
 // Remaining stubs (replaced as their Phase B step runs).
 // ---------------------------------------------------------------------------
-
-/// Stub for CS (Current Situation). Phase B Step 9.
-class CurrentSituation {}
 
 /// Stub for RC (Requirements Catalog). Phase B Step 10.
 class RequirementsCatalog {}
