@@ -5,6 +5,7 @@
 /// Each document has its own subfolder, e.g. `src/pd_project_definition/`.
 library;
 
+export 'src/bsi_business_system_interactions/bsi_business_system_interactions.dart';
 export 'src/common/common.dart';
 export 'src/docspecs_project.dart';
 export 'src/document_stubs.dart';

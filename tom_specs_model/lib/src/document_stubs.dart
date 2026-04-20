@@ -1,48 +1,58 @@
-/// Phase 3 DocSpec root-class stubs.
+/// Phase 3 DocSpec root-class stubs and re-exports.
 ///
-/// Placeholder empty classes defined early so that `@DetailedIn(<DocName>)`
-/// and `@MapsTo(<DocName>)` type references on PD00 classes compile during
-/// Phase A of the second-wave implementation plan (see
-/// `doc/second_wave_documents.md` §11, Phase A).
+/// This file bridges the annotation-time Type references on PD00 classes
+/// (`@DetailedIn(<DocName>)` / `@MapsTo(<DocName>)` / `@SecondLevelSectionId(<DocName>, ...)`)
+/// to the actual target-doc root classes.
 ///
-/// Phase B (Steps 8–19) replaces each stub with the full document root
-/// class in its own folder under `lib/src/<code>_<name>/`.
+/// As each Phase 3 document root class is created (Phase B Steps 8–19,
+/// §9 of `doc/second_wave_documents.md`), the matching stub here is
+/// replaced with an `export` pointing at the real class in its own
+/// folder under `lib/src/<code>_<name>/`. Classes still listed as stubs
+/// below are placeholders until their Phase B step runs.
 library;
 
-/// Stub for CS (Current Situation). Phase B adds fields per §5.1.
+// ---------------------------------------------------------------------------
+// Document roots implemented in Phase B — re-exports from their folders.
+// ---------------------------------------------------------------------------
+
+// Step 8 — BSI (Business System Interactions).
+export 'bsi_business_system_interactions/bsi_business_system_interactions.dart';
+
+// ---------------------------------------------------------------------------
+// Remaining stubs (replaced as their Phase B step runs).
+// ---------------------------------------------------------------------------
+
+/// Stub for CS (Current Situation). Phase B Step 9.
 class CurrentSituation {}
 
-/// Stub for RC (Requirements Catalog). Phase B adds fields per §5.2.
+/// Stub for RC (Requirements Catalog). Phase B Step 10.
 class RequirementsCatalog {}
 
-/// Stub for BP (Business Processes). Phase B adds fields per §5.3.
+/// Stub for BP (Business Processes). Phase B Step 11.
 class BusinessProcesses {}
 
-/// Stub for UC (Use Cases). Phase B adds fields per §5.4.
+/// Stub for UC (Use Cases). Phase B Step 12.
 class UseCases {}
 
-/// Stub for BDM (Business Data Model). Phase B adds fields per §5.5.
+/// Stub for BDM (Business Data Model). Phase B Step 13.
 class BusinessDataModel {}
 
-/// Stub for AC (Authorization Concept). Phase B adds fields per §5.6.
+/// Stub for AC (Authorization Concept). Phase B Step 14.
 class AuthorizationConcept {}
 
-/// Stub for TR (Technical Requirements). Phase B adds fields per §5.7.
+/// Stub for PPP (Project Phase Plan). Phase B Step 15.
+class ProjectPhasePlan {}
+
+/// Stub for TR (Technical Requirements). Phase B Step 16.
 /// Distinct from PD00-SYO-REQ-TEC class `TechnicalRequirements`.
 class TechnicalRequirementsSpec {}
 
-/// Stub for UP (UI Prototype). Phase B adds fields per §5.8.
+/// Stub for UP (UI Prototype). Phase B Step 17.
 class UiPrototype {}
 
-/// Stub for SR (System Rollout). Phase B adds fields per §5.9.
+/// Stub for SR (System Rollout). Phase B Step 18.
 /// Distinct from PD00-ROL class `SystemRolloutConcept`.
 class SystemRollout {}
 
-/// Stub for BQP (Business Quality Plan). Phase B adds fields per §5.10.
+/// Stub for BQP (Business Quality Plan). Phase B Step 19.
 class BusinessQualityPlan {}
-
-/// Stub for PPP (Project Phase Plan). Phase B adds fields per §5.11.
-class ProjectPhasePlan {}
-
-/// Stub for BSI (Business System Interactions). Phase B adds fields per §5.12.
-class BusinessSystemInteractions {}
