@@ -223,250 +223,245 @@ class <DocName> {
 
 In the tables:
 - **Top-level entry** — field name proposed on the new document class.
-- **Origin** — `seeded (flat)` means the entry is a direct child of the seed node promoted one level up; `seeded (whole)` means the seed node itself is used as a single entry.
-- **Source** — PD00 section ID. **New** in the Source column flags a PD00 section that does not exist yet and must be added first; those additions are consolidated in §7 PD00 Completion Plan.
+- **Origin** — `existing` means a PD00 class already carries this `@SectionId`; `promote` means an existing class that needs a tag or is lifted to a top-level from a deeper position; `new` means a PD00 section that must be created (see §7).
+- **Source** — the PD00 section ID of the class this field types to. Every entry has a PD00-* source; no doc-scoped IDs.
+- **Track** — reference to the §7 track that covers the PD00-side work: **T1** HBSG-backed new section, **T2** promote existing class, **T3** inferred new section.
 
 ### 5.1. CS — Current Situation
 
-**Seed nodes:** PD00-CUR (whole; extended with new children) + PD00-SYO-SYR (2 children). Two-source; flatten each. `PD00-CUR` was previously listed as PD-only — moving its subtree to CS is part of the completeness work in §7.
+**Seed nodes:** PD00-CUR (whole) + PD00-SYO-SYR (whole). `PD00-CUR` moves off the PD-only list (see §3). Integration points that I initially proposed as a new `PD00-CUR-INT` already exist as `PD00-CUR-SYS-DEP` — promoted to a CS top-level directly.
 
-| # | Top-level entry | Origin | Source |
-| --- | --- | --- | --- |
-| 1 | `existingSystemsLandscape` | seeded (flat) | PD00-CUR-SYS |
-| 2 | `currentBusinessProcesses` | seeded (flat) | PD00-CUR-PRO |
-| 3 | `painPointsAndGaps` | seeded (flat) | PD00-CUR-PAI |
-| 4 | `currentDataLandscape` | seeded (flat) | PD00-CUR-DAT |
-| 5 | `currentIntegrationPoints` | seeded (flat) | PD00-CUR-INT **(new)** |
-| 6 | `operationalMetrics` | seeded (flat) | PD00-CUR-MET **(new)** |
-| 7 | `riskAssessment` | seeded (flat) | PD00-CUR-RIS **(new)** |
-| 8 | `replacementInventory` | seeded (flat) | PD00-SYO-SYR-INV |
-| 9 | `migrationConsiderations` | seeded (flat) | PD00-SYO-SYR-MIG |
+| # | Top-level entry | Origin | Source | Track |
+| --- | --- | --- | --- | --- |
+| 1 | `existingSystemsLandscape` | existing | PD00-CUR-SYS | — |
+| 2 | `currentBusinessProcesses` | existing | PD00-CUR-PRO | — |
+| 3 | `painPointsAndGaps` | existing | PD00-CUR-PAI | — |
+| 4 | `currentDataLandscape` | existing | PD00-CUR-DAT | — |
+| 5 | `dependenciesAndIntegrations` | promote | PD00-CUR-SYS-DEP | T2 |
+| 6 | `operationalMetrics` | new | PD00-CUR-MET | T3 |
+| 7 | `currentStateRisks` | new | PD00-CUR-RIS | T3 |
+| 8 | `replacementInventory` | existing | PD00-SYO-SYR-INV | — |
+| 9 | `migrationConsiderations` | existing | PD00-SYO-SYR-MIG | — |
 
 **Count: 9.**
 
 ### 5.2. RC — Requirements Catalog
 
-**Seed nodes:** PD00-SYO-REQ (4 existing + 5 new children). Single-source; flatten.
+**Seed nodes:** PD00-SYO-REQ. The three process/prioritization/change-control items live as `@Form` fields on `RequirementsOverview` and stay at that level (not promoted).
 
-| # | Top-level entry | Origin | Source |
-| --- | --- | --- | --- |
-| 1 | `functionalRequirements` | seeded (flat) | PD00-SYO-REQ-FUN |
-| 2 | `technicalRequirements` | seeded (flat) | PD00-SYO-REQ-TEC |
-| 3 | `securityRequirements` | seeded (flat) | PD00-SYO-REQ-SEC |
-| 4 | `organizationalRequirements` | seeded (flat) | PD00-SYO-REQ-ORG |
-| 5 | `traceabilityMatrix` | seeded (flat) | PD00-SYO-REQ-TRC |
-| 6 | `requirementsProcess` | seeded (flat) | PD00-SYO-REQ-PRO **(new)** |
-| 7 | `prioritizationScheme` | seeded (flat) | PD00-SYO-REQ-PRI **(new)** |
-| 8 | `changeControlLog` | seeded (flat) | PD00-SYO-REQ-CHA **(new)** |
-| 9 | `requirementRelationships` | seeded (flat) | PD00-SYO-REQ-REL **(new)** |
-| 10 | `requirementCoverage` | seeded (flat) | PD00-SYO-REQ-COV **(new)** |
+| # | Top-level entry | Origin | Source | Track |
+| --- | --- | --- | --- | --- |
+| 1 | `functionalRequirements` | existing | PD00-SYO-REQ-FUN | — |
+| 2 | `technicalRequirements` | existing | PD00-SYO-REQ-TEC | — |
+| 3 | `securityRequirements` | existing | PD00-SYO-REQ-SEC | — |
+| 4 | `organizationalRequirements` | existing | PD00-SYO-REQ-ORG | — |
+| 5 | `traceabilityMatrix` | existing | PD00-SYO-REQ-TRC | — |
+| 6 | `requirementRelationships` | new | PD00-SYO-REQ-REL | T3 |
+| 7 | `requirementCoverage` | new | PD00-SYO-REQ-COV | T3 |
 
-**Count: 10.**
+**Count: 7.**
 
 ### 5.3. BP — Business Processes
 
-**Seed nodes:** PD00-TAR-PRO (5 existing sectioned children, 1 existing flat field to be tagged, and 4 new children). Single-source; flatten.
+**Seed nodes:** PD00-TAR-PRO. `PD00-TAR-PRO-REL` is already a proper `@SectionId` class ([target_business_process.dart:1032](../lib/src/pd_project_definition/target_business_process.dart#L1032)) — only the field reference in the parent needs its doc comment updated.
 
-| # | Top-level entry | Origin | Source |
-| --- | --- | --- | --- |
-| 1 | `processVision` | seeded (flat) | PD00-TAR-PRO-VIS |
-| 2 | `designPrinciples` | seeded (flat) | PD00-TAR-PRO-PRI |
-| 3 | `processCatalog` | seeded (flat) | PD00-TAR-PRO-CAT |
-| 4 | `processOverviewDiagram` | seeded (flat) | PD00-TAR-PRO-FLO |
-| 5 | `improvementSummary` | seeded (flat) | PD00-TAR-PRO-IMP |
-| 6 | `processRelationships` | seeded (flat) | PD00-TAR-PRO-REL **(promote existing untagged field)** |
-| 7 | `detailedWorkflows` | seeded (flat) | PD00-TAR-PRO-DET **(new)** |
-| 8 | `crossProcessAnalysis` | seeded (flat) | PD00-TAR-PRO-CRO **(new)** |
-| 9 | `exceptionHandling` | seeded (flat) | PD00-TAR-PRO-EXC **(new)** |
-| 10 | `processMetricsAndKpis` | seeded (flat) | PD00-TAR-PRO-MET **(new)** |
+| # | Top-level entry | Origin | Source | Track |
+| --- | --- | --- | --- | --- |
+| 1 | `processVision` | existing | PD00-TAR-PRO-VIS | — |
+| 2 | `designPrinciples` | existing | PD00-TAR-PRO-PRI | — |
+| 3 | `processCatalog` | existing | PD00-TAR-PRO-CAT | — |
+| 4 | `processOverviewDiagram` | existing | PD00-TAR-PRO-FLO | — |
+| 5 | `improvementSummary` | existing | PD00-TAR-PRO-IMP | — |
+| 6 | `processRelationships` | existing | PD00-TAR-PRO-REL | — |
+| 7 | `detailedWorkflows` | new | PD00-TAR-PRO-DET | T1 |
+| 8 | `crossProcessAnalysis` | new | PD00-TAR-PRO-CRO | T1 |
+| 9 | `exceptionHandling` | new | PD00-TAR-PRO-EXC | T1 |
+| 10 | `processMetricsAndKpis` | new | PD00-TAR-PRO-MET | T3 |
 
 **Count: 10.**
 
 ### 5.4. UC — Use Cases
 
-**Seed nodes:** PD00-TAR-STP (3 existing sectioned children + 2 untagged fields to promote + 5 new children). Single-source; flatten.
+**Seed nodes:** PD00-TAR-STP. Four sections I originally proposed as new (CAT / ALT / PRE / per-entry traceability) duplicate content already held at interaction-catalog-entry level and are dropped.
 
-| # | Top-level entry | Origin | Source |
-| --- | --- | --- | --- |
-| 1 | `processStepsOverview` | seeded (flat) | PD00-TAR-STP-OVE **(promote existing untagged field)** |
-| 2 | `actorOverview` | seeded (flat) | PD00-TAR-STP-ACT |
-| 3 | `interactionCatalog` | seeded (flat) | PD00-TAR-STP-INT |
-| 4 | `keyScenarios` | seeded (flat) | PD00-TAR-STP-SCE |
-| 5 | `actorRelationshipDiagram` | seeded (flat) | PD00-TAR-STP-DIA **(promote existing untagged field)** |
-| 6 | `useCaseCatalog` | seeded (flat) | PD00-TAR-STP-CAT **(new — fully-dressed Cockburn UCs)** |
-| 7 | `alternateFlows` | seeded (flat) | PD00-TAR-STP-ALT **(new)** |
-| 8 | `preconditionsAndPostconditions` | seeded (flat) | PD00-TAR-STP-PRE **(new)** |
-| 9 | `endToEndTestScenarios` | seeded (flat) | PD00-TAR-STP-E2E **(new)** |
-| 10 | `useCaseTraceability` | seeded (flat) | PD00-TAR-STP-TRC **(new)** |
+| # | Top-level entry | Origin | Source | Track |
+| --- | --- | --- | --- | --- |
+| 1 | `processStepsOverview` | promote | PD00-TAR-STP-OVE | T2 |
+| 2 | `actorOverview` | existing | PD00-TAR-STP-ACT | — |
+| 3 | `interactionCatalog` | existing | PD00-TAR-STP-INT | — |
+| 4 | `keyScenarios` | existing | PD00-TAR-STP-SCE | — |
+| 5 | `actorRelationshipDiagram` | promote | PD00-TAR-STP-DIA | T2 |
+| 6 | `endToEndTestScenarios` | new | PD00-TAR-STP-E2E | T1 |
+| 7 | `useCaseTraceability` | new | PD00-TAR-STP-TRC | T3 |
 
-**Count: 10.**
+**Count: 7.**
 
 <a id="note-on-uc"></a>
 **Note on UC:** The initial request listed 11 DocSpecs and omitted UC, but `PD00-TAR-STP` has UC as its only defined target in the mapping. If UC is dropped, PD00-TAR-STP needs re-routing (merge into BP, or defer). No other option leaves PD00-TAR-STP mapped.
 
 ### 5.5. BDM — Business Data Model
 
-**Seed nodes:** PD00-BUS (3 existing + 8 new children). Single-source; flatten.
+**Seed nodes:** PD00-BUS. Applying "go one level deeper": the existing `DAT/BUS/FUN` children are not BDM top-levels themselves — their *own* sub-sections (which are richer and already `@SectionId`'d) become BDM top-levels. This avoids the "DataClassification lives inside DataModel AND is a top-level" duplication.
 
-| # | Top-level entry | Origin | Source |
-| --- | --- | --- | --- |
-| 1 | `dataModel` | seeded (flat) | PD00-BUS-DAT |
-| 2 | `businessObjectModel` | seeded (flat) | PD00-BUS-BUS |
-| 3 | `functionModel` | seeded (flat) | PD00-BUS-FUN |
-| 4 | `dataDictionary` | seeded (flat) | PD00-BUS-DIC **(new)** |
-| 5 | `businessRules` | seeded (flat) | PD00-BUS-RUL **(new)** |
-| 6 | `validationConstraints` | seeded (flat) | PD00-BUS-VAL **(new)** |
-| 7 | `lifecycleStates` | seeded (flat) | PD00-BUS-LIF **(new)** |
-| 8 | `dataClassification` | seeded (flat) | PD00-BUS-CLA **(new)** |
-| 9 | `relationshipModel` | seeded (flat) | PD00-BUS-REL **(new)** |
-| 10 | `integrityConstraints` | seeded (flat) | PD00-BUS-CON **(new)** |
-| 11 | `migrationMapping` | seeded (flat) | PD00-BUS-MIG **(new)** |
+PD00-BUS, PD00-BUS-DAT, PD00-BUS-BUS, PD00-BUS-FUN all carry `@MapsTo(BusinessDataModel)` but not `@DetailedIn`.
 
-**Count: 11.**
+| # | Top-level entry | Origin | Source | Track |
+| --- | --- | --- | --- | --- |
+| 1 | `entities` | existing | PD00-BUS-DAT-ENT (list) | — |
+| 2 | `entityRelationships` | existing | PD00-BUS-DAT-REL | — |
+| 3 | `erDiagram` | existing | PD00-BUS-DAT-DIA | — |
+| 4 | `dataClassification` | existing | PD00-BUS-DAT-CLA | — |
+| 5 | `objectCatalog` | existing | PD00-BUS-BUS-CAT (list) | — |
+| 6 | `objectDiagram` | existing | PD00-BUS-BUS-DIA | — |
+| 7 | `functionDecomposition` | existing | PD00-BUS-FUN-DEC (list) | — |
+| 8 | `functionToDataMatrix` | existing | PD00-BUS-FUN-MAT (list) | — |
+| 9 | `businessRules` | existing | PD00-BUS-FUN-RUL (list) | — |
+| 10 | `dataDictionary` | new | PD00-BUS-DAT-DIC | T1 |
+| 11 | `validationConstraints` | new | PD00-BUS-DAT-VAL | T3 |
+| 12 | `integrityConstraints` | new | PD00-BUS-DAT-CON | T3 |
+
+**Count: 12.** Dropped as duplicates: `lifecycleStates` (covered per-object inside PD00-BUS-BUS-CAT entries), `migrationMapping` (covered per-entity inside PD00-BUS-DAT-ENT entries).
 
 ### 5.6. AC — Authorization Concept
 
-**Seed nodes:** PD00-ACC (6 existing + 4 new children). Single-source; flatten.
+**Seed nodes:** PD00-ACC. `PD00-ACC-IDE-FLO` already exists deeper — promoted to an AC top-level for auth flows.
 
-| # | Top-level entry | Origin | Source |
-| --- | --- | --- | --- |
-| 1 | `userManagement` | seeded (flat) | PD00-ACC-USE |
-| 2 | `authentication` | seeded (flat) | PD00-ACC-IDE |
-| 3 | `resourceProtection` | seeded (flat) | PD00-ACC-RES |
-| 4 | `authorization` | seeded (flat) | PD00-ACC-USA |
-| 5 | `encryption` | seeded (flat) | PD00-ACC-SEN |
-| 6 | `auditAndLogging` | seeded (flat) | PD00-ACC-AUD |
-| 7 | `roleMatrix` | seeded (flat) | PD00-ACC-ROL **(new)** |
-| 8 | `permissionCatalog` | seeded (flat) | PD00-ACC-PER **(new)** |
-| 9 | `authorizationFlows` | seeded (flat) | PD00-ACC-FLO **(new)** |
-| 10 | `complianceFramework` | seeded (flat) | PD00-ACC-CMP **(new — NIST/SOC2/ISO27001/OWASP)** |
+| # | Top-level entry | Origin | Source | Track |
+| --- | --- | --- | --- | --- |
+| 1 | `userManagement` | existing | PD00-ACC-USE | — |
+| 2 | `identificationAndAuthentication` | existing | PD00-ACC-IDE | — |
+| 3 | `resourceProtection` | existing | PD00-ACC-RES | — |
+| 4 | `userAuthorization` | existing | PD00-ACC-USA | — |
+| 5 | `sensitiveDataEncryption` | existing | PD00-ACC-SEN | — |
+| 6 | `auditAndLogging` | existing | PD00-ACC-AUD | — |
+| 7 | `roleMatrix` | new | PD00-ACC-ROL | T1 |
+| 8 | `authorizationFlows` | promote | PD00-ACC-IDE-FLO | T2 |
+| 9 | `complianceFramework` | new | PD00-ACC-CMP | T3 |
 
-**Count: 10.**
+**Count: 9.** Dropped as duplicate: `permissionCatalog` (covered by `PermissionGranularityPolicy` / `PermissionCompositionStrategy` deeper inside USA).
 
 ### 5.7. TR — Technical Requirements
 
-**Seed nodes (multi-source):** PD00-TEC (8 existing + 3 new children) + PD00-COM (whole) + PD00-SYO-RES-TEC + PD00-USE-MUL-REQ. Decision: flatten PD00-TEC (the largest bundle) but keep PD00-COM as a single entry (its 6 children are tightly coupled and read as one concern).
+**Seed nodes (multi-source):** PD00-TEC (flatten) + PD00-COM (whole) + PD00-SYO-RES-TEC + PD00-USE-MUL-REQ.
 
-| # | Top-level entry | Origin | Source |
-| --- | --- | --- | --- |
-| 1 | `basicTechnicalRequirements` | seeded (flat) | PD00-TEC-BAS |
-| 2 | `softwareDesignRequirements` | seeded (flat) | PD00-TEC-SOF |
-| 3 | `standardSoftwareRequirements` | seeded (flat) | PD00-TEC-STA |
-| 4 | `hardwareRequirements` | seeded (flat) | PD00-TEC-HAR |
-| 5 | `operationsRequirements` | seeded (flat) | PD00-TEC-OPE |
-| 6 | `communicationRequirements` | seeded (flat) | PD00-TEC-COM |
-| 7 | `systemOperationAndMonitoring` | seeded (flat) | PD00-TEC-SYS |
-| 8 | `technicalSecurityRequirements` | seeded (flat) | PD00-TEC-SEC |
-| 9 | `systemArchitecture` | seeded (flat) | PD00-TEC-ARC **(new)** |
-| 10 | `infrastructureRequirements` | seeded (flat) | PD00-TEC-INF **(new)** |
-| 11 | `integrationProtocols` | seeded (flat) | PD00-TEC-INT **(new)** |
-| 12 | `componentsToUse` | seeded (whole) | PD00-COM |
-| 13 | `technicalFrameworkConditions` | seeded (whole) | PD00-SYO-RES-TEC |
-| 14 | `translationRequirements` | seeded (whole) | PD00-USE-MUL-REQ |
+| # | Top-level entry | Origin | Source | Track |
+| --- | --- | --- | --- | --- |
+| 1 | `basicTechnicalRequirements` | existing | PD00-TEC-BAS | — |
+| 2 | `softwareDesignRequirements` | existing | PD00-TEC-SOF | — |
+| 3 | `standardSoftwareRequirements` | existing | PD00-TEC-STA | — |
+| 4 | `hardwareRequirements` | existing | PD00-TEC-HAR | — |
+| 5 | `operationsRequirements` | existing | PD00-TEC-OPE | — |
+| 6 | `communicationRequirements` | existing | PD00-TEC-COM | — |
+| 7 | `systemOperationAndMonitoring` | existing | PD00-TEC-SYS | — |
+| 8 | `technicalSecurityRequirements` | existing | PD00-TEC-SEC | — |
+| 9 | `systemArchitecture` | new | PD00-TEC-ARC | T1 |
+| 10 | `componentsToUse` | existing | PD00-COM (whole) | — |
+| 11 | `technicalFrameworkConditions` | existing | PD00-SYO-RES-TEC (whole) | — |
+| 12 | `translationRequirements` | existing | PD00-USE-MUL-REQ (whole) | — |
 
-**Count: 14.**
+**Count: 12.** Dropped as duplicates: `infrastructureRequirements` (covered by `InfrastructureComponentEntry` inside PD00-TEC-HAR), `integrationProtocols` (covered by PD00-TEC-COM already).
 
 ### 5.8. UP — UI Prototype
 
-**Seed nodes (multi-source):** 10 existing sectioned children of PD00-USE + PD00-USE-MUL-LCS + 2 new PD00-USE children.
+**Seed nodes:** 11 existing PD00-USE children + 1 new + 1 promoted. `PD00-USE-SCR-INF` (InformationArchitecture) already exists deeper — promoted to UP top-level.
 
-| # | Top-level entry | Origin | Source |
-| --- | --- | --- | --- |
-| 1 | `designVision` | seeded (whole) | PD00-USE-VIS |
-| 2 | `screens` | seeded (whole) | PD00-USE-SCR |
-| 3 | `screenFlow` | seeded (whole) | PD00-USE-SCF |
-| 4 | `printLayout` | seeded (whole) | PD00-USE-PRI |
-| 5 | `errorHandling` | seeded (whole) | PD00-USE-ERR |
-| 6 | `helpConcept` | seeded (whole) | PD00-USE-HLP |
-| 7 | `accessibility` | seeded (whole) | PD00-USE-ACC |
-| 8 | `responsiveDesign` | seeded (whole) | PD00-USE-RES |
-| 9 | `uiComponents` | seeded (whole) | PD00-USE-COM |
-| 10 | `languageCountrySelection` | seeded (whole) | PD00-USE-MUL-LCS |
-| 11 | `prototype` | seeded (whole) | PD00-USE-PRO |
-| 12 | `wireframesAndMockups` | seeded (whole) | PD00-USE-WIR **(new)** |
-| 13 | `informationArchitecture` | seeded (whole) | PD00-USE-INF **(new)** |
+| # | Top-level entry | Origin | Source | Track |
+| --- | --- | --- | --- | --- |
+| 1 | `designVision` | existing | PD00-USE-VIS | — |
+| 2 | `screens` | existing | PD00-USE-SCR | — |
+| 3 | `screenFlow` | existing | PD00-USE-SCF | — |
+| 4 | `printLayout` | existing | PD00-USE-PRI | — |
+| 5 | `errorHandling` | existing | PD00-USE-ERR | — |
+| 6 | `helpConcept` | existing | PD00-USE-HLP | — |
+| 7 | `accessibility` | existing | PD00-USE-ACC | — |
+| 8 | `responsiveDesign` | existing | PD00-USE-RES | — |
+| 9 | `uiComponents` | existing | PD00-USE-COM | — |
+| 10 | `languageCountrySelection` | existing | PD00-USE-MUL-LCS | — |
+| 11 | `prototype` | existing | PD00-USE-PRO | — |
+| 12 | `wireframesAndMockups` | new | PD00-USE-WIR | T1 |
+| 13 | `informationArchitecture` | promote | PD00-USE-SCR-INF | T2 |
 
 **Count: 13.**
 
 ### 5.9. SR — System Rollout
 
-**Seed nodes (multi-source):** PD00-USE-MUL-{LOC, TRA, DOC} + PD00-ROL (a **new top-level section** in ProjectDefinition — see §7). Decision: keep the three MUL process sections as single top-levels (internal structure is coherent) and flatten the new PD00-ROL so each rollout concern is its own top-level.
+**Seed nodes (multi-source):** PD00-USE-MUL-{LOC, TRA, DOC} + the new PD00-ROL top-level (8 children).
 
-| # | Top-level entry | Origin | Source |
-| --- | --- | --- | --- |
-| 1 | `localizationProcess` | seeded (whole) | PD00-USE-MUL-LOC |
-| 2 | `translationProcess` | seeded (whole) | PD00-USE-MUL-TRA |
-| 3 | `documentationAndTraining` | seeded (whole) | PD00-USE-MUL-DOC |
-| 4 | `rolloutPlan` | seeded (flat) | PD00-ROL-PLN **(new)** |
-| 5 | `migrationPlan` | seeded (flat) | PD00-ROL-MIG **(new)** |
-| 6 | `userManuals` | seeded (flat) | PD00-ROL-DOC **(new)** |
-| 7 | `trainingMaterials` | seeded (flat) | PD00-ROL-TRN **(new)** |
-| 8 | `pilotPlan` | seeded (flat) | PD00-ROL-PIL **(new)** |
-| 9 | `cutoverProcedures` | seeded (flat) | PD00-ROL-CUT **(new)** |
-| 10 | `knowledgeTransfer` | seeded (flat) | PD00-ROL-KNO **(new)** |
-| 11 | `warrantyAndSupport` | seeded (flat) | PD00-ROL-WAR **(new)** |
+| # | Top-level entry | Origin | Source | Track |
+| --- | --- | --- | --- | --- |
+| 1 | `localizationProcess` | existing | PD00-USE-MUL-LOC | — |
+| 2 | `translationProcess` | existing | PD00-USE-MUL-TRA | — |
+| 3 | `documentationAndTraining` | existing | PD00-USE-MUL-DOC | — |
+| 4 | `rolloutPlan` | new | PD00-ROL-PLN | T1 |
+| 5 | `migrationPlan` | new | PD00-ROL-MIG | T1 |
+| 6 | `userManuals` | new | PD00-ROL-DOC | T1 |
+| 7 | `trainingMaterials` | new | PD00-ROL-TRN | T1 |
+| 8 | `pilotPlan` | new | PD00-ROL-PIL | T3 |
+| 9 | `cutoverProcedures` | new | PD00-ROL-CUT | T3 |
+| 10 | `knowledgeTransfer` | new | PD00-ROL-KNO | T1 |
+| 11 | `warrantyAndSupport` | new | PD00-ROL-WAR | T1 |
 
 **Count: 11.**
 
 ### 5.10. BQP — Business Quality Plan
 
-**Seed nodes (multi-source):** PD00-SYQ (7 existing + 1 new child) + PD00-DEL-ACC (6 existing children). Flatten both.
+**Seed nodes (multi-source):** PD00-SYQ + PD00-DEL-ACC. Flatten both.
 
-| # | Top-level entry | Origin | Source |
-| --- | --- | --- | --- |
-| 1 | `qualityFramework` | seeded (flat) | PD00-SYQ-FRA |
-| 2 | `userQualityCriteria` | seeded (flat) | PD00-SYQ-USE |
-| 3 | `technicalQualityCriteria` | seeded (flat) | PD00-SYQ-TEC |
-| 4 | `operationsQualityCriteria` | seeded (flat) | PD00-SYQ-OPE |
-| 5 | `documentationQualityCriteria` | seeded (flat) | PD00-SYQ-DOC |
-| 6 | `qualityPrioritization` | seeded (flat) | PD00-SYQ-PRI |
-| 7 | `acceptanceCriteriaSummary` | seeded (flat) | PD00-SYQ-ACC |
-| 8 | `testStrategy` | seeded (flat) | PD00-SYQ-TST **(new)** |
-| 9 | `acceptanceCriteria` | seeded (flat) | PD00-DEL-ACC-CRI |
-| 10 | `acceptanceProcess` | seeded (flat) | PD00-DEL-ACC-PRO |
-| 11 | `userAcceptanceTesting` | seeded (flat) | PD00-DEL-ACC-UAT |
-| 12 | `defectResolution` | seeded (flat) | PD00-DEL-ACC-DEF |
-| 13 | `signOffProcess` | seeded (flat) | PD00-DEL-ACC-SIG |
-| 14 | `warranty` | seeded (flat) | PD00-DEL-ACC-WAR |
+| # | Top-level entry | Origin | Source | Track |
+| --- | --- | --- | --- | --- |
+| 1 | `qualityFramework` | existing | PD00-SYQ-FRA | — |
+| 2 | `userQualityCriteria` | existing | PD00-SYQ-USE | — |
+| 3 | `technicalQualityCriteria` | existing | PD00-SYQ-TEC | — |
+| 4 | `operationsQualityCriteria` | existing | PD00-SYQ-OPE | — |
+| 5 | `documentationQualityCriteria` | existing | PD00-SYQ-DOC | — |
+| 6 | `qualityPrioritization` | existing | PD00-SYQ-PRI | — |
+| 7 | `acceptanceCriteriaSummary` | existing | PD00-SYQ-ACC | — |
+| 8 | `testStrategy` | new | PD00-SYQ-TST | T1 |
+| 9 | `acceptanceCriteria` | existing | PD00-DEL-ACC-CRI | — |
+| 10 | `acceptanceProcess` | existing | PD00-DEL-ACC-PRO | — |
+| 11 | `userAcceptanceTesting` | existing | PD00-DEL-ACC-UAT | — |
+| 12 | `defectResolution` | existing | PD00-DEL-ACC-DEF | — |
+| 13 | `signOffProcess` | existing | PD00-DEL-ACC-SIG | — |
+| 14 | `warranty` | existing | PD00-DEL-ACC-WAR | — |
 
 **Count: 14.**
 
 ### 5.11. PPP — Project Phase Plan
 
-**Seed nodes:** PD00-SSP (6 existing + 5 new children). Single-source; flatten.
+**Seed nodes:** PD00-SSP. Gate criteria and decision processes already exist at `PD00-SSP-GOV-*` — promoted. Initial-development-flow and upgrade-cycle are genuinely new (anticipated in mapping).
 
-| # | Top-level entry | Origin | Source |
-| --- | --- | --- | --- |
-| 1 | `stagingStrategy` | seeded (flat) | PD00-SSP-STR |
-| 2 | `stageOverview` | seeded (flat) | PD00-SSP-STA |
-| 3 | `stages` | seeded (flat) | PD00-SSP-STG (list) |
-| 4 | `featurePrioritization` | seeded (flat) | PD00-SSP-FEA |
-| 5 | `dataMigrationStrategy` | seeded (flat) | PD00-SSP-MIG |
-| 6 | `stageGovernance` | seeded (flat) | PD00-SSP-GOV |
-| 7 | `phaseDefinitions` | seeded (flat) | PD00-SSP-PHD **(new)** |
-| 8 | `gateCriteria` | seeded (flat) | PD00-SSP-GAT **(new)** |
-| 9 | `resourcePlanning` | seeded (flat) | PD00-SSP-RES **(new)** |
-| 10 | `initialDevelopmentFlow` | seeded (flat) | PD00-SSP-IDV **(new)** |
-| 11 | `upgradeCycleFramework` | seeded (flat) | PD00-SSP-UPG **(new — links to tom_system_upgrade.md)** |
+PD00-SSP and PD00-SSP-GOV carry `@MapsTo(ProjectPhasePlan)`; GOV itself is not a top-level.
 
-**Count: 11.**
+| # | Top-level entry | Origin | Source | Track |
+| --- | --- | --- | --- | --- |
+| 1 | `stagingStrategy` | existing | PD00-SSP-STR | — |
+| 2 | `stageOverview` | existing | PD00-SSP-STA | — |
+| 3 | `stages` | existing | PD00-SSP-STG (list) | — |
+| 4 | `featurePrioritization` | existing | PD00-SSP-FEA | — |
+| 5 | `dataMigrationStrategy` | existing | PD00-SSP-MIG | — |
+| 6 | `gateCriteria` | existing | PD00-SSP-GOV-GAT | — |
+| 7 | `decisionProcesses` | existing | PD00-SSP-GOV-DEC | — |
+| 8 | `initialDevelopmentFlow` | new | PD00-SSP-IDV | T1 |
+| 9 | `upgradeCycleFramework` | new | PD00-SSP-UPG | T1 |
+
+**Count: 9.** Dropped as duplicates: `phaseDefinitions` (covered by PD00-SSP-STA + stages list), `resourcePlanning` (covered by `StageOverviewResources` inside PD00-SSP-STA).
 
 ### 5.12. BSI — Business System Interactions
 
-**Seed nodes:** PD00-SYO-SYB (3 existing + 7 new children). Single-source; flatten.
+**Seed nodes:** PD00-SYO-SYB. All seven new additions anticipated by the mapping doc plus two inferred cross-boundary sections.
 
-| # | Top-level entry | Origin | Source |
-| --- | --- | --- | --- |
-| 1 | `externalInterfaces` | seeded (flat) | PD00-SYO-SYB-INT |
-| 2 | `outOfScope` | seeded (flat) | PD00-SYO-SYB-OUT |
-| 3 | `boundaryAssumptions` | seeded (flat) | PD00-SYO-SYB-ASS |
-| 4 | `systemInventory` | seeded (flat) | PD00-SYO-SYB-INV **(new)** |
-| 5 | `interactionPatterns` | seeded (flat) | PD00-SYO-SYB-PAT **(new — sync/async/batch)** |
-| 6 | `testingStrategy` | seeded (flat) | PD00-SYO-SYB-TST **(new)** |
-| 7 | `dependencyAnalysis` | seeded (flat) | PD00-SYO-SYB-DEP **(new)** |
-| 8 | `migrationInteractions` | seeded (flat) | PD00-SYO-SYB-MIG **(new — back-ref to PD00-SYO-SYR)** |
-| 9 | `operationalConsiderations` | seeded (flat) | PD00-SYO-SYB-OPE **(new)** |
-| 10 | `errorHandlingAcrossBoundaries` | seeded (flat) | PD00-SYO-SYB-ERR **(new)** |
+| # | Top-level entry | Origin | Source | Track |
+| --- | --- | --- | --- | --- |
+| 1 | `externalInterfaces` | existing | PD00-SYO-SYB-INT | — |
+| 2 | `outOfScope` | existing | PD00-SYO-SYB-OUT | — |
+| 3 | `boundaryAssumptions` | existing | PD00-SYO-SYB-ASS | — |
+| 4 | `systemInventory` | new | PD00-SYO-SYB-INV | T1 |
+| 5 | `interactionPatterns` | new | PD00-SYO-SYB-PAT | T1 |
+| 6 | `testingStrategy` | new | PD00-SYO-SYB-TST | T1 |
+| 7 | `dependencyAnalysis` | new | PD00-SYO-SYB-DEP | T1 |
+| 8 | `migrationInteractions` | new | PD00-SYO-SYB-MIG | T1 |
+| 9 | `operationalConsiderations` | new | PD00-SYO-SYB-OPE | T3 |
+| 10 | `crossBoundaryErrorHandling` | new | PD00-SYO-SYB-ERR | T3 |
 
 **Count: 10.**
 
@@ -476,24 +471,24 @@ In the tables:
 
 PD-side seeds and resulting target-document top-level counts (all within 7–15):
 
-After the PD00 Completion Plan (§7) is applied, every top-level entry in every target document is sourced from PD00. The count columns below reflect the post-completion state: "Existing" counts PD00 children already in the model; "New" counts PD00 children that §7 adds.
+Counts after §7 applies: "Existing" = PD00 classes already in the model; "Promote" = existing classes that just need annotation or `@SectionId`; "New" = PD00 sections §7 has to create.
 
-| Doc | Seed nodes | Existing | New | Total tops |
-| --- | --- | --- | --- | --- |
-| CS  | PD00-CUR, PD00-SYO-SYR | 6 | 3 | 9 |
-| RC  | PD00-SYO-REQ | 5 | 5 | 10 |
-| BP  | PD00-TAR-PRO | 5 | 5 | 10 |
-| UC  | PD00-TAR-STP | 3 | 7 | 10 |
-| BDM | PD00-BUS | 3 | 8 | 11 |
-| AC  | PD00-ACC | 6 | 4 | 10 |
-| TR  | PD00-TEC, PD00-COM, PD00-SYO-RES-TEC, PD00-USE-MUL-REQ | 11 | 3 | 14 |
-| UP  | 10× PD00-USE-* + PD00-USE-MUL-LCS | 11 | 2 | 13 |
-| SR  | PD00-USE-MUL-{LOC,TRA,DOC}, PD00-ROL | 3 | 8 | 11 |
-| BQP | PD00-SYQ, PD00-DEL-ACC | 13 | 1 | 14 |
-| PPP | PD00-SSP | 6 | 5 | 11 |
-| BSI | PD00-SYO-SYB | 3 | 7 | 10 |
+| Doc | Seed nodes | Existing | Promote (T2) | New (T1+T3) | Total tops |
+| --- | --- | --- | --- | --- | --- |
+| CS  | PD00-CUR, PD00-SYO-SYR | 6 | 1 | 2 | 9 |
+| RC  | PD00-SYO-REQ | 5 | 0 | 2 | 7 |
+| BP  | PD00-TAR-PRO | 6 | 0 | 4 | 10 |
+| UC  | PD00-TAR-STP | 3 | 2 | 2 | 7 |
+| BDM | PD00-BUS | 9 | 0 | 3 | 12 |
+| AC  | PD00-ACC | 6 | 1 | 2 | 9 |
+| TR  | PD00-TEC, PD00-COM, PD00-SYO-RES-TEC, PD00-USE-MUL-REQ | 11 | 0 | 1 | 12 |
+| UP  | 11× PD00-USE-* | 11 | 1 | 1 | 13 |
+| SR  | PD00-USE-MUL-{LOC,TRA,DOC}, PD00-ROL | 3 | 0 | 8 | 11 |
+| BQP | PD00-SYQ, PD00-DEL-ACC | 13 | 0 | 1 | 14 |
+| PPP | PD00-SSP | 7 | 0 | 2 | 9 |
+| BSI | PD00-SYO-SYB | 3 | 0 | 7 | 10 |
 
-Every PD00 subtree that has a Phase 3 target is covered exactly once, with no overlap between target documents. Total new PD00 sections required: **58** (including 7 "promote existing untagged field" conversions) plus **1 new top-level section** `PD00-ROL`. Details in §7.
+Every PD00 subtree that has a Phase 3 target is covered exactly once; no target-doc top-level duplicates a class already reachable via another top-level's subtree. Across the 12 documents §7 creates **35 new PD00 sections** (22 HBSG-backed + 13 inferred) plus **1 new top-level section** `PD00-ROL`; **5 promotions** reuse classes that already exist deeper in the tree. Details in §7.
 
 ---
 
@@ -501,150 +496,120 @@ Every PD00 subtree that has a Phase 3 target is covered exactly once, with no ov
 
 Before any Phase 3 document class is created, the PD00 object model has to carry every section that a Phase 3 document lifts to a top-level entry. If a target-document section has no PD00 home, it is because PD00 is incomplete; the fix is always to add the section to the correct PD00 parent first, not to leave a doc-scoped ID in the target.
 
-This section is the ordered task list for that completion work. **Every `(new)` flag in §5 points back to one row here.**
+This section is the ordered task list for that completion work, split into three tracks:
 
-### 7.1. New Top-Level PD00 Section
+- **Track 1 — HBSG-backed new sections.** Anticipated by `hbsg_tom_resulttype_mapping.md`. Highest confidence.
+- **Track 2 — Promotions of existing classes.** Classes already in the model, used directly as target-doc top-levels. No new PD00 sections, just annotations (and `@SectionId` where missing).
+- **Track 3 — Inferred new sections.** My additions, checked for duplicates, for the 7–15 sizing rule.
 
-One new top-level section is added directly on `ProjectDefinition`:
+Every `new` or `promote` row in §5 points back to one row here.
 
-| New PD00 ID | Class name | Purpose | Mapping |
+### 7.1. Track 1 — HBSG-Backed New Sections
+
+**22 new `@SectionId` classes plus 1 new top-level section on `ProjectDefinition`.** Each new class carries `@SectionId('PD00-…')` and `@DetailedIn(TargetDoc)`. The parent class gets `@MapsTo(TargetDoc)` if its subtree maps fully.
+
+#### New top-level on `ProjectDefinition`
+
+| New PD00 ID | Class name | Feeds | HBSG origin |
 | --- | --- | --- | --- |
-| PD00-ROL | `SystemRollout` | Rollout-related planning that flows to SR (rollout plan, migration, pilot, cutover, knowledge transfer, warranty). Kept separate from `PD00-USE-MUL` — MUL stays focused on multi-language/localization. | `@MapsTo(SystemRollout)` |
+| PD00-ROL | `SystemRollout` | SR | DR22/DR23/DR15/DR17/EK09/EK10 covered by SR. Separate from `PD00-USE-MUL` which stays focused on multi-language. |
 
-### 7.2. New Children of Existing PD00 Sections
+`PD00-ROL` gets `@MapsTo(SystemRollout)`; not itself a top-level (its 8 children are).
 
-58 new subsections, grouped by parent. "Promote" means the content already exists as an untagged field on the parent class and just needs a `@SectionId`, class extraction if currently inline, and the `@DetailedIn` annotation.
+#### New sections under existing parents
 
-#### PD00-CUR (Current State Analysis) — now flows to CS
-
-| New PD00 ID | Class name | Feeds | Notes |
+| New PD00 ID | Class name | Feeds | HBSG origin |
 | --- | --- | --- | --- |
-| PD00-CUR-INT | `CurrentIntegrationPoints` | CS | Integration touchpoints in the current system landscape |
-| PD00-CUR-MET | `OperationalMetrics` | CS | Throughput, volume, uptime baselines of the as-is systems |
-| PD00-CUR-RIS | `CurrentStateRiskAssessment` | CS | Risks tied to the current state and replacement |
+| PD00-TAR-PRO-DET | `DetailedProcessWorkflows` | BP | AS07-DET |
+| PD00-TAR-PRO-CRO | `CrossProcessAnalysis` | BP | AS07-CRO |
+| PD00-TAR-PRO-EXC | `ProcessExceptionHandling` | BP | AS07-EXC |
+| PD00-TAR-STP-E2E | `EndToEndTestScenarios` | UC | AS24 |
+| PD00-BUS-DAT-DIC | `DataDictionary` | BDM | AS08-DAT Data Dictionary |
+| PD00-TEC-ARC | `SystemArchitecture` | TR | AS09-SOF / DR30 |
+| PD00-USE-WIR | `WireframesAndMockups` | UP | AS10-WIR |
+| PD00-ACC-ROL | `RoleMatrix` | AC | AS22-AUM |
+| PD00-SYQ-TST | `TestStrategy` | BQP | AS23 |
+| PD00-SYO-SYB-INV | `SystemLandscapeInventory` | BSI | BSI-LAN-INV |
+| PD00-SYO-SYB-PAT | `InteractionPatterns` | BSI | BSI-PAT |
+| PD00-SYO-SYB-TST | `InteractionTestingStrategy` | BSI | BSI-TST |
+| PD00-SYO-SYB-DEP | `InteractionDependencyAnalysis` | BSI | BSI-DEP |
+| PD00-SYO-SYB-MIG | `MigrationInteractions` | BSI | BSI-MIG |
+| PD00-SSP-IDV | `InitialDevelopmentFlow` | PPP | PPP-IDV (mapping "new in PPP") |
+| PD00-SSP-UPG | `UpgradeCycleFramework` | PPP | PPP-UPG (mapping "new in PPP"); links `tom_system_upgrade.md` |
+| PD00-ROL-PLN | `RolloutPlan` | SR | DR23 Rollout Plan |
+| PD00-ROL-MIG | `MigrationPlan` | SR | DR22 Migration Plan |
+| PD00-ROL-DOC | `UserManuals` | SR | DR15 User Manual |
+| PD00-ROL-TRN | `TrainingMaterials` | SR | DR17 Training Materials |
+| PD00-ROL-KNO | `KnowledgeTransfer` | SR | EK09 Handover Agreement |
+| PD00-ROL-WAR | `WarrantyAndSupport` | SR | EK10 Post-acceptance warranty |
 
-PD00-CUR itself gains `@MapsTo(CurrentSituation)`; each of its four existing children and three new children get `@DetailedIn(CurrentSituation)`. Remove "PD00-CUR" from the PD-only list.
+### 7.2. Track 2 — Promotions of Existing Classes
 
-#### PD00-SYO-REQ (Requirements Overview) — flows to RC
+**5 existing classes are pulled up to be target-doc top-levels directly** (no new PD00 sections). The class keeps its hierarchical PD00 section ID; the work is purely annotation-based, plus `@SectionId` where the class is currently untagged.
 
-| New PD00 ID | Class name | Feeds | Notes |
+| Existing PD00 ID | Class name | Feeds | Action |
 | --- | --- | --- | --- |
-| PD00-SYO-REQ-PRO | `RequirementsProcess` | RC | Elicitation, refinement, stewardship workflow |
-| PD00-SYO-REQ-PRI | `PrioritizationScheme` | RC | MoSCoW / weighted-scoring / etc. |
-| PD00-SYO-REQ-CHA | `ChangeControlLog` | RC | Requirement-change audit trail |
-| PD00-SYO-REQ-REL | `RequirementRelationships` | RC | Dependency / conflict graph |
-| PD00-SYO-REQ-COV | `RequirementCoverage` | RC | Coverage against goals, use cases, tests |
+| PD00-CUR-SYS-DEP | `DependenciesAndIntegrations` | CS | Add `@DetailedIn(CurrentSituation)`. Class is already `@SectionId`-tagged. |
+| PD00-TAR-STP-OVE | `ProcessStepsOverview` | UC | Add `@SectionId('PD00-TAR-STP-OVE')` (currently untagged) + `@DetailedIn(UseCases)`. Update parent field doc comment. |
+| PD00-TAR-STP-DIA | `ActorRelationshipDiagram` | UC | Add `@SectionId('PD00-TAR-STP-DIA')` + `@DetailedIn(UseCases)`. |
+| PD00-USE-SCR-INF | `InformationArchitecture` | UP | Add `@DetailedIn(UiPrototype)`. Class is already `@SectionId`-tagged under `PD00-USE-SCR`. |
+| PD00-ACC-IDE-FLO | `AuthorizationFlows` class at [access_authorization.dart:1916](../lib/src/pd_project_definition/access_authorization.dart#L1916) | AC | Add `@DetailedIn(AuthorizationConcept)`. Class is already `@SectionId`-tagged under `PD00-ACC-IDE`. |
 
-#### PD00-SYO-SYB (System Boundaries) — flows to BSI
+Per §8.3 rule: the parent of each promoted class (e.g. `PD00-TAR-STP`, `PD00-USE-SCR`, `PD00-ACC-IDE`) does **not** get `@MapsTo(...)` if the parent's remaining subtree also goes to the same doc — `@MapsTo` sits at the shallowest point (PD00-TAR-STP, PD00-USE, PD00-ACC). It's only the *promoted child* that additionally gets `@DetailedIn`.
 
-| New PD00 ID | Class name | Feeds | Notes |
+**Note on PD00-TAR-PRO-REL:** Already a properly `@SectionId`-tagged class at [target_business_process.dart:1032](../lib/src/pd_project_definition/target_business_process.dart#L1032). The only defect is the field reference in `BusinessProcessDescriptions` lacking the section number in its doc comment. Fix that one line; no promotion required.
+
+### 7.3. Track 3 — Inferred New Sections
+
+**13 new sections** that are not directly in HBSG but close gaps for target-doc coverage. Each is validated against the model to avoid duplicates with existing deeper classes.
+
+| New PD00 ID | Class name | Feeds | Rationale |
 | --- | --- | --- | --- |
-| PD00-SYO-SYB-INV | `SystemLandscapeInventory` | BSI | Complete external-system inventory |
-| PD00-SYO-SYB-PAT | `InteractionPatterns` | BSI | Sync / async / batch pattern catalog |
-| PD00-SYO-SYB-TST | `InteractionTestingStrategy` | BSI | Contract / integration / failure testing |
-| PD00-SYO-SYB-DEP | `InteractionDependencyAnalysis` | BSI | Critical path, degraded-mode behavior |
-| PD00-SYO-SYB-MIG | `MigrationInteractions` | BSI | Interactions specific to migration; back-refs PD00-SYO-SYR |
-| PD00-SYO-SYB-OPE | `InteractionOperationalConsiderations` | BSI | SLAs, rate limits, change windows |
-| PD00-SYO-SYB-ERR | `CrossBoundaryErrorHandling` | BSI | Failure propagation across boundaries |
+| PD00-CUR-MET | `CurrentOperationalMetrics` | CS | Throughput / volume / uptime baselines for as-is systems. No adjacent class. |
+| PD00-CUR-RIS | `CurrentStateRiskAssessment` | CS | Current-state risk register (distinct from `PD00-SYO-RIS` which is target-side). |
+| PD00-SYO-REQ-REL | `RequirementRelationships` | RC | Cross-requirement dependency / conflict graph. |
+| PD00-SYO-REQ-COV | `RequirementCoverage` | RC | Coverage against goals / use cases / tests. |
+| PD00-SYO-SYB-OPE | `CrossBoundaryOperationalConsiderations` | BSI | SLAs / rate limits / change windows at system-boundary scope (per-interface equivalents exist inside each interface entry). |
+| PD00-SYO-SYB-ERR | `CrossBoundaryErrorHandling` | BSI | Failure-propagation policy at boundary scope (not per-interface). |
+| PD00-TAR-PRO-MET | `ProcessMetricsAndKpis` | BP | Process-level KPIs / SLAs / measurement strategy. |
+| PD00-TAR-STP-TRC | `UseCaseTraceability` | UC | UC ↔ RC ↔ BP ↔ tests traceability matrix. |
+| PD00-BUS-DAT-VAL | `ValidationConstraints` | BDM | Cross-entity validation policy (per-field validation lives in entity forms). |
+| PD00-BUS-DAT-CON | `IntegrityConstraints` | BDM | Cross-entity integrity rules. |
+| PD00-ACC-CMP | `ComplianceFramework` | AC | NIST / SOC 2 / ISO 27001 / OWASP alignment (currently referenced only in `@ContentHelp`). |
+| PD00-ROL-PIL | `PilotPlan` | SR | Pilot scope and success criteria. |
+| PD00-ROL-CUT | `CutoverProcedures` | SR | Cutover runbook. |
 
-#### PD00-TAR-PRO (Business Process Descriptions) — flows to BP
+#### Dropped proposals (duplicates with existing content)
 
-| New PD00 ID | Class name | Feeds | Notes |
-| --- | --- | --- | --- |
-| PD00-TAR-PRO-REL | `ProcessRelationships` | BP | **Promote** — existing `processRelationships` untagged field |
-| PD00-TAR-PRO-DET | `DetailedProcessWorkflows` | BP | Per-process workflow detail beyond the catalog overview |
-| PD00-TAR-PRO-CRO | `CrossProcessAnalysis` | BP | Hand-offs and shared data between processes |
-| PD00-TAR-PRO-EXC | `ProcessExceptionHandling` | BP | Exception flows, escalation |
-| PD00-TAR-PRO-MET | `ProcessMetricsAndKpis` | BP | Process KPIs, SLAs, measurement |
+| Originally proposed | Reason dropped |
+| --- | --- |
+| PD00-CUR-INT (Integration Points) | Already `PD00-CUR-SYS-DEP` — promoted via Track 2 instead. |
+| PD00-SYO-REQ-PRO / -PRI / -CHA | Already `@Form` fields on `RequirementsOverview` (`requirementsProcess`, `prioritizationMethod`, `changeControlProcess`). Kept as fields. |
+| PD00-TAR-STP-CAT, -ALT, -PRE | `InteractionCatalog` (PD00-TAR-STP-INT) and `PreconditionsAndTriggers` inside each interaction entry already cover these. |
+| PD00-BUS-LIF | Per-object lifecycle lives inside `PD00-BUS-BUS-CAT` entries (`LifecycleTransitionEntry`). |
+| PD00-BUS-CLA, PD00-BUS-REL | Already exist as `PD00-BUS-DAT-CLA` and `PD00-BUS-DAT-REL`. BDM top-levels point at those IDs directly. |
+| PD00-BUS-MIG | Per-entity migration lives inside `PD00-BUS-DAT-ENT` entries (`MigrationMappingEntry`). |
+| PD00-BUS-RUL | Already `PD00-BUS-FUN-RUL` (list). BDM top-level points there. |
+| PD00-TEC-INF | `InfrastructureComponentEntry` already lives inside `PD00-TEC-HAR`. |
+| PD00-TEC-INT | Overlaps with `PD00-TEC-COM` (Communication Requirements). |
+| PD00-ACC-FLO | Already `PD00-ACC-IDE-FLO` — promoted via Track 2. |
+| PD00-ACC-PER | `PermissionGranularityPolicy` / `PermissionCompositionStrategy` / `PermissionEvaluationBehavior` already live inside `PD00-ACC-USA`. |
+| PD00-SSP-PHD | Covered by `PD00-SSP-STA` + stages list. |
+| PD00-SSP-GAT | Already `PD00-SSP-GOV-GAT` — PPP top-level points there. |
+| PD00-SSP-RES | `StageOverviewResources` already lives inside `PD00-SSP-STA`. |
+| PD00-USE-INF | Already `PD00-USE-SCR-INF` — promoted via Track 2. |
 
-#### PD00-TAR-STP (Process Steps and Actor Interactions) — flows to UC
+### 7.4. Execution Order
 
-| New PD00 ID | Class name | Feeds | Notes |
-| --- | --- | --- | --- |
-| PD00-TAR-STP-OVE | `ProcessStepsOverview` | UC | **Promote** — existing `overview` field |
-| PD00-TAR-STP-DIA | `ActorRelationshipDiagram` | UC | **Promote** — existing `actorRelationshipDiagram` field |
-| PD00-TAR-STP-CAT | `UseCaseCatalog` | UC | Fully-dressed Cockburn-style use cases |
-| PD00-TAR-STP-ALT | `AlternateFlows` | UC | Alternate and exception flows per use case |
-| PD00-TAR-STP-PRE | `PreconditionsAndPostconditions` | UC | Formal pre/post conditions |
-| PD00-TAR-STP-E2E | `EndToEndTestScenarios` | UC | HBSG AS24 content — E2E scenarios derived from use cases |
-| PD00-TAR-STP-TRC | `UseCaseTraceability` | UC | UC ↔ RC ↔ BP ↔ tests traceability |
+Recommended order so the outliner stays green after each step:
 
-#### PD00-BUS (Business Object and Data Model) — flows to BDM
-
-| New PD00 ID | Class name | Feeds | Notes |
-| --- | --- | --- | --- |
-| PD00-BUS-DIC | `DataDictionary` | BDM | Attribute-level dictionary beyond the entity overview |
-| PD00-BUS-RUL | `BusinessRules` | BDM | SBVR-style business-rule statements |
-| PD00-BUS-VAL | `ValidationConstraints` | BDM | Field-level validation constraints |
-| PD00-BUS-LIF | `EntityLifecycleStates` | BDM | State machines for entities with non-trivial lifecycles |
-| PD00-BUS-CLA | `DataClassification` | BDM | Security classification, PII/PHI handling |
-| PD00-BUS-REL | `RelationshipModel` | BDM | Entity relationships with cardinality / integrity |
-| PD00-BUS-CON | `IntegrityConstraints` | BDM | Cross-entity integrity constraints |
-| PD00-BUS-MIG | `DataMigrationMapping` | BDM | Legacy-to-target data mapping |
-
-#### PD00-TEC (Technical Framework Concept) — flows to TR
-
-| New PD00 ID | Class name | Feeds | Notes |
-| --- | --- | --- | --- |
-| PD00-TEC-ARC | `SystemArchitecture` | TR | Detailed internal architecture (layers, packages, patterns) |
-| PD00-TEC-INF | `InfrastructureRequirements` | TR | Concrete infrastructure specs beyond HAR-level constraints |
-| PD00-TEC-INT | `IntegrationProtocols` | TR | Protocols, framing, payload formats for integrations |
-
-#### PD00-ACC (Access and Authorization Concept) — flows to AC
-
-| New PD00 ID | Class name | Feeds | Notes |
-| --- | --- | --- | --- |
-| PD00-ACC-ROL | `RoleMatrix` | AC | Role-to-permission assignment matrix |
-| PD00-ACC-PER | `PermissionCatalog` | AC | Enumerable permission catalog |
-| PD00-ACC-FLO | `AuthorizationFlows` | AC | OAuth / SSO / step-up flows |
-| PD00-ACC-CMP | `ComplianceFramework` | AC | NIST / SOC 2 / ISO 27001 / OWASP alignment |
-
-#### PD00-USE (User Interface Design and Prototype) — flows to UP
-
-| New PD00 ID | Class name | Feeds | Notes |
-| --- | --- | --- | --- |
-| PD00-USE-WIR | `WireframesAndMockups` | UP | Wireframe inventory beyond screen descriptions |
-| PD00-USE-INF | `InformationArchitecture` | UP | IA taxonomy / content model |
-
-#### PD00-ROL (new top-level) — flows to SR
-
-| New PD00 ID | Class name | Feeds | Notes |
-| --- | --- | --- | --- |
-| PD00-ROL-PLN | `RolloutPlan` | SR | Geographic / user-group rollout plan (DR23) |
-| PD00-ROL-MIG | `MigrationPlan` | SR | System migration plan (DR22) |
-| PD00-ROL-DOC | `UserManuals` | SR | End-user manuals (DR15) |
-| PD00-ROL-TRN | `TrainingMaterials` | SR | Training materials (DR17) |
-| PD00-ROL-PIL | `PilotPlan` | SR | Pilot scope and success criteria |
-| PD00-ROL-CUT | `CutoverProcedures` | SR | Cutover runbook |
-| PD00-ROL-KNO | `KnowledgeTransfer` | SR | Handover to operations (EK09) |
-| PD00-ROL-WAR | `WarrantyAndSupport` | SR | Warranty terms (EK10) |
-
-#### PD00-SYQ (System Quality Goals) — flows to BQP
-
-| New PD00 ID | Class name | Feeds | Notes |
-| --- | --- | --- | --- |
-| PD00-SYQ-TST | `TestStrategy` | BQP | Overall test strategy (HBSG AS23) |
-
-#### PD00-SSP (System Stage Plan) — flows to PPP
-
-| New PD00 ID | Class name | Feeds | Notes |
-| --- | --- | --- | --- |
-| PD00-SSP-PHD | `PhaseDefinitions` | PPP | Per-phase deliverable and scope definitions |
-| PD00-SSP-GAT | `GateCriteria` | PPP | Phase-gate entry/exit criteria |
-| PD00-SSP-RES | `ResourcePlanning` | PPP | Resource and capacity planning per phase |
-| PD00-SSP-IDV | `InitialDevelopmentFlow` | PPP | Inter-phase dependencies during initial build |
-| PD00-SSP-UPG | `UpgradeCycleFramework` | PPP | Upgrade-cycle entry; links `tom_system_upgrade.md` |
-
-### 7.3. Execution Order
-
-Recommended order for the PD00 completion work so the outliner stays green after each step:
-
-1. **Shape-only promotions first** — give `@SectionId` and a class extraction to the existing untagged fields: `PD00-TAR-PRO-REL`, `PD00-TAR-STP-OVE`, `PD00-TAR-STP-DIA`. No new content, just structural upgrades. Outliner should emit the same structure after promotion as before.
-2. **Reclassify `PD00-CUR`** — drop `@Unused()` on `content`, add the three new children (`INT`, `MET`, `RIS`), and update the PD-only list. This is the only change that moves a whole existing subtree from PD-only to a DocSpec target, so do it in isolation.
-3. **Add `PD00-ROL`** — new top-level section with its 8 children. Add as a field on `ProjectDefinition`. Update `pd_project_definition.dart` exports and the root aggregation.
-4. **Extend existing sections with new children** in any order — RC, BP, UC, BDM, AC, TR, UP, BQP, PPP, BSI additions are independent of each other.
-5. **Annotate with `@MapsTo` / `@DetailedIn`** (§8) — can run concurrently with step 4 per subtree.
-6. **Run the outliner** with `--root-type ProjectDefinition` after every grouped addition. Structure should remain valid the whole time.
+1. **Track 2 promotions first** — add `@SectionId` to the two untagged classes (`ProcessStepsOverview`, `ActorRelationshipDiagram`), and add `@DetailedIn(...)` to all five promoted classes plus the `@MapsTo(...)` on their parent seeds. No structural change; outliner output must be unchanged.
+2. **Reclassify `PD00-CUR`** — drop `@Unused()` on `content`, add the two Track-3 new children (`MET`, `RIS`), update §4 PD-only list. Single-concern commit.
+3. **Add `PD00-ROL`** (Track 1, top-level) — new field on `ProjectDefinition` with its 8 children (6 T1 + 2 T3). Update `pd_project_definition.dart` exports.
+4. **Track 1 extensions in existing sections** — BP, UC, BDM, TR, UP, AC, BQP, PPP, BSI additions are independent; parallelizable.
+5. **Track 3 remaining additions** — add the remaining inferred sections per target doc.
+6. **Annotate with `@MapsTo` / `@DetailedIn`** (§8) — can run concurrently with steps 3–5 per subtree.
+7. **Run the outliner** with `--root-type ProjectDefinition` after every grouped addition.
 
 Only after §7 is complete should any Phase 3 document class be introduced — at that point every target-document top-level entry has a PD00 class to point to.
 
@@ -675,71 +640,204 @@ Children promoted by flattening do *not* carry `@MapsTo` — only the seed (thei
 
 ### 8.3. When a class carries both
 
-A class has both `@MapsTo` and `@DetailedIn` when the seed node is kept whole in the target document, i.e., the seed is both the 1:1 mapping point and the top-level entry.
+A class carries both `@MapsTo` and `@DetailedIn` whenever the same class is both the 1:1 mapping point *and* a top-level entry in the target document. Two shapes produce this:
 
-Examples (from §5):
+- **Shape A — Whole seed promoted.** The seed node is used directly as a top-level (`seeded (whole)` in §5). The seed class is both the mapping point and the top-level.
+- **Shape B — Mixed parent; child is the mapping point.** The parent is mixed (subtree splits between target docs, or parts stay PD-only), so `@MapsTo` does not live on the parent. If one of the children (a) has its own subtree fully flowing to the target doc *and* (b) is taken over as a target-doc top-level, that child carries both `@MapsTo` and `@DetailedIn`.
 
-- `BusinessObjectAndDataModel` (PD00-BUS): `@MapsTo(BusinessDataModel)` — but **not** `@DetailedIn`, because the seed is flattened into 3 top-levels in §5.5.
-- `DataModel`, `BusinessObjectModel`, `FunctionModel`: each carries `@DetailedIn(BusinessDataModel)`; none carries `@MapsTo` (their parent does).
-- `ComponentsToUse` (PD00-COM): carries **both** `@MapsTo(TechnicalRequirements)` **and** `@DetailedIn(TechnicalRequirements)` — PD00-COM is kept whole as TR's `componentsToUse` top-level (§5.7 row 12).
-- `TechnicalFrameworkConditions` (PD00-SYO-RES-TEC): both (§5.7 row 13).
-- `TranslationRequirements` (PD00-USE-MUL-REQ): both (§5.7 row 14).
-- Every `PD00-USE-*` class flowing to UP (§5.8): all 13 carry both (11 existing + 2 added in §7).
-- `LocalizationProcess`, `TranslationProcess`, `DocumentationAndTraining` (§5.9): all three carry both.
-- `CurrentStateAnalysis` (PD00-CUR): `@MapsTo(CurrentSituation)` only — flattened into 7 CS top-levels (§5.1).
-- Each PD00-CUR-* child: `@DetailedIn(CurrentSituation)` only.
-- `SystemStagePlan` (PD00-SSP): `@MapsTo(ProjectPhasePlan)` only — flattened into 11 PPP top-levels.
-- `SystemRollout` (PD00-ROL, new in §7): `@MapsTo(SystemRollout)` only — flattened into 8 SR top-levels.
+Worked micro-example (illustrating Shape B with a fictional `PD00-SYO-SYS`):
 
-### 8.4. Worked example: the BDM branch
+> Assume `PD00-SYO-SYS` has only two children, `PD00-SYO-SYS-RE1` and `PD00-SYO-SYS-RE2`, and both flow to TR as separate top-levels.
+>
+> - **Parent not mixed case** — if nothing else under `PD00-SYO-SYS` goes elsewhere and `PD00-SYO-SYS` is flattened to its two children: `PD00-SYO-SYS` gets `@MapsTo(TR)` (seed), children get `@DetailedIn(TR)` only.
+> - **Parent not mixed, seed kept whole** — if `PD00-SYO-SYS` is taken over whole as a single TR top-level: `PD00-SYO-SYS` gets both `@MapsTo(TR)` + `@DetailedIn(TR)`; children get nothing.
+> - **Parent mixed** — if `PD00-SYO-SYS` has additional children going to another doc (or PD-only): `PD00-SYO-SYS` gets no `@MapsTo`. `RE1` and `RE2` each get both `@MapsTo(TR)` + `@DetailedIn(TR)`, because each child is itself the shallowest point whose subtree fully flows to TR *and* each is a TR top-level.
+
+Examples from the current plan:
+
+- `BusinessObjectAndDataModel` (PD00-BUS): `@MapsTo(BusinessDataModel)` — not `@DetailedIn`, because §5.5 flattens two levels deep into DAT/BUS/FUN children.
+- `DataModel`, `BusinessObjectModel`, `FunctionModel`: `@MapsTo(BusinessDataModel)` — each fully flows to BDM. Not `@DetailedIn`, because BDM flattens another level further.
+- Every PD00-BUS-{DAT,BUS,FUN}-* class used as a BDM top-level: `@DetailedIn(BusinessDataModel)` only.
+- `ComponentsToUse` (PD00-COM): Shape A — both annotations, kept whole as TR top-level 10 (§5.7).
+- `TechnicalFrameworkConditions` (PD00-SYO-RES-TEC): Shape B — parent `PD00-SYO-RES` is mixed (other RES-* children are PD-only), so RES-TEC gets both.
+- `TranslationRequirements` (PD00-USE-MUL-REQ): Shape B — parent `PD00-USE-MUL` is mixed (LCS → UP, LOC/TRA/DOC → SR), so MUL-REQ gets both.
+- Every PD00-USE-* class flowing to UP (§5.8): all 13 carry both (Shape A).
+- `LocalizationProcess`, `TranslationProcess`, `DocumentationAndTraining` (§5.9): Shape B via `PD00-USE-MUL` (mixed). All three carry both.
+- `CurrentStateAnalysis` (PD00-CUR): `@MapsTo(CurrentSituation)` only — flattened. Each PD00-CUR-* child: `@DetailedIn(CurrentSituation)` only.
+- `SystemStagePlan` (PD00-SSP): `@MapsTo(ProjectPhasePlan)` only — flattened into PPP top-levels.
+- `SystemRollout` (PD00-ROL): `@MapsTo(SystemRollout)` only — flattened into 8 SR top-levels.
+
+### 8.4. `@SecondLevelSectionId` (document-scoped short IDs)
+
+`@SecondLevelSectionId(DocClass, 'XXX-YYY')` (defined in [tom_specs_core/lib/src/annotations/second_level_section_id.dart](../../tom_specs_core/lib/src/annotations/second_level_section_id.dart)) is available for future use. Phase 3 documents initially inherit the global `PD00-…` section IDs as-is; the short-ID scheme can be introduced later by adding one of these annotations per target-doc participation on the relevant classes. A class may carry multiple `@SecondLevelSectionId` annotations when it is a top-level in more than one document.
+
+Example (not applied yet):
+
+```dart
+@SectionId('PD00-BUS-DAT-CLA')
+@DetailedIn(BusinessDataModel)
+@SecondLevelSectionId(BusinessDataModel, 'BDM-CLA')   // optional, for future use
+class DataClassification { ... }
+```
+
+### 8.5. Worked example: the BDM branch
+
+Per §5.5 BDM flattens two levels — top-levels in BDM are at `PD00-BUS-{DAT,BUS,FUN}-*`, not at the seed's direct children.
 
 ```dart
 import 'package:tom_specs_core/tom_specs_core.dart';
-import 'package:tom_specs_model/src/bdm_business_data_model/business_data_model.dart';
 
 @SectionId('PD00-BUS')
 @MapsTo(BusinessDataModel)
-class BusinessObjectAndDataModel {
-  // …seed of BDM. Not itself a top-level of BDM — flattened one level.
-  DataModel dataModel = DataModel();
-  BusinessObjectModel businessObjectModel = BusinessObjectModel();
-  FunctionModel functionModel = FunctionModel();
-}
+class BusinessObjectAndDataModel { ... }      // seed — not a top-level
 
 @SectionId('PD00-BUS-DAT')
-@DetailedIn(BusinessDataModel)
-class DataModel { /* top-level in BDM */ }
+@MapsTo(BusinessDataModel)
+class DataModel { ... }                        // maps fully to BDM, still not a top-level
 
-@SectionId('PD00-BUS-BUS')
+@SectionId('PD00-BUS-DAT-REL')
 @DetailedIn(BusinessDataModel)
-class BusinessObjectModel { /* top-level in BDM */ }
+class EntityRelationships { ... }              // BDM top-level
 
-@SectionId('PD00-BUS-FUN')
+@SectionId('PD00-BUS-DAT-CLA')
 @DetailedIn(BusinessDataModel)
-class FunctionModel { /* top-level in BDM */ }
+class DataClassification { ... }               // BDM top-level
+
+@SectionId('PD00-BUS-FUN-RUL')
+@DetailedIn(BusinessDataModel)
+class BusinessRuleCatalog { ... }              // BDM top-level
 ```
 
-And for a whole-seed case:
+And for a whole-seed case (Shape A):
 
 ```dart
 @SectionId('PD00-COM')
 @MapsTo(TechnicalRequirements)
 @DetailedIn(TechnicalRequirements)
-class ComponentsToUse { /* whole subtree is TR's componentsToUse top-level */ }
+class ComponentsToUse { ... }                  // seed kept whole → both annotations
 ```
 
-### 8.5. Mechanical invariants (validator can enforce)
+And for a mixed-parent case (Shape B), e.g. `PD00-USE-MUL-REQ`:
 
-- Every class that appears in any §5 "Source" column of type `PD00-…` has exactly one `@DetailedIn`.
-- Every seed node listed in §6 has exactly one `@MapsTo`.
-- For each target DocSpec `D`, the count of `@DetailedIn(D)` in the PD00 tree equals `D`'s "Seeded tops" column in §6.
-- No class carries `@DetailedIn` without either (a) also carrying `@MapsTo`, or (b) having a parent that carries `@MapsTo` for the same target.
+```dart
+// Parent PD00-USE-MUL is mixed — no @MapsTo on it.
+@SectionId('PD00-USE-MUL-REQ')
+@MapsTo(TechnicalRequirements)
+@DetailedIn(TechnicalRequirements)
+class TranslationRequirements { ... }          // both annotations on the child
+```
+
+### 8.6. Mechanical invariants (validator can enforce)
+
+- Every class that appears in any §5 "Source" column has exactly one `@DetailedIn`.
+- Every seed class listed in §6 (the classes named in "Seed nodes") has exactly one `@MapsTo`.
+- For each target DocSpec `D`, the count of `@DetailedIn(D)` in the PD00 tree equals `D`'s "Total tops" column in §6.
+- No class carries `@DetailedIn` without either (a) also carrying `@MapsTo`, or (b) having an ancestor (not necessarily direct parent) that carries `@MapsTo` for the same target.
+- `@SecondLevelSectionId(D, ...)` on a class implies `@DetailedIn(D)` on the same class.
 
 These invariants are additions the outliner / validator can check once the annotations are applied.
 
 ---
 
-## 9. Implementation Notes
+## 9. Document Root Class Implementation Plan
+
+Runs *after* §7 (PD00 completion) is done. Creates the 12 Phase 3 document classes that the §5 tables define. Each document root class is a thin aggregation over existing PD00 classes — no new section content is authored here; the content already lives in PD00.
+
+### 9.1. Per-document deliverables
+
+For each target document `D` in {CS, RC, BP, UC, BDM, AC, TR, UP, SR, BQP, PPP, BSI} create:
+
+1. Folder `tom_specs_model/lib/src/<code>_<name>/` (e.g. `bdm_business_data_model/`).
+2. One Dart file `bdm_business_data_model.dart` (or equivalent per document) containing the document root class. Keep it small — it is an aggregation, not new content.
+3. An entry in the package's top-level export file `lib/tom_specs_model.dart`.
+
+The document root class shape:
+
+```dart
+library;
+
+import 'package:tom_specs_core/tom_specs_core.dart';
+import 'package:tom_specs_model/src/pd_project_definition/pd_project_definition.dart';
+import 'package:tom_specs_model/src/common/document_header.dart';
+
+@Document(
+  name: 'Business Data Model',
+  description: 'Complete data model specification: entities, relationships, '
+      'dictionary, rules, and constraints for the target system.',
+  basedOn: [ProjectDefinition],
+)
+@SectionId('BDM00')
+class BusinessDataModel {
+  @ContentHelp('Executive overview of the Business Data Model.')
+  String? content;
+
+  /// Standard TomSpecs document header.
+  DocumentHeader header = DocumentHeader();
+
+  // ─── Top-level entries (from §5.5) ────────────────────────────────────────
+  // Each field types against the existing PD00 class — no new classes are
+  // created here. Fields are listed in the order from §5.5.
+
+  List<DataEntityEntry> entities = [];              // PD00-BUS-DAT-ENT
+  EntityRelationships entityRelationships = EntityRelationships();  // PD00-BUS-DAT-REL
+  ErDiagramSection erDiagram = ErDiagramSection(); // PD00-BUS-DAT-DIA
+  DataClassification dataClassification = DataClassification();     // PD00-BUS-DAT-CLA
+  List<BusinessObjectEntry> objectCatalog = [];    // PD00-BUS-BUS-CAT
+  // …etc per §5.5…
+}
+```
+
+Key points:
+
+- `@SectionId('<CODE>00')` uses the document code and `00` suffix as the root section ID (e.g., `BDM00`, `RC00`, `TR00`). This is the global ID for the document root; it is distinct from PD00.
+- Every field types against an **existing class in `pd_project_definition/`**. Initially there are no new classes inside the target-doc folder — the folder holds only the document root class. (Target-doc-specific helper types can be added later if needed.)
+- Fields inherit the global `PD00-…` section IDs via the classes they type against. No document-scoped short IDs are introduced at this point.
+- `@SecondLevelSectionId(…)` is available (see §8.4) but not applied in this first pass. A follow-up PR can add it per top-level entry if the short-ID scheme is adopted.
+
+### 9.2. Order of document creation
+
+Recommended order so each document root exercises the outliner incrementally:
+
+1. **Smallest first** to validate the pattern: **BSI** (10 top-levels, single seed), then **CS** (9, two seeds).
+2. **Medium single-source** next: **RC** (7), **UC** (7), **BP** (10), **BDM** (12), **AC** (9), **PPP** (9).
+3. **Multi-source docs** last, where the aggregation is most complex: **TR** (12), **UP** (13), **SR** (11), **BQP** (14).
+
+After each document's root class is added, run:
+
+```sh
+dart run bin/outliner.dart --package <target> --root-type <DocName>
+```
+
+against `tom_specs_model`. The outline should render the 7–15 top-levels listed in §5 for that document.
+
+### 9.3. Package exports
+
+Update `lib/tom_specs_model.dart` with one new export per document:
+
+```dart
+export 'src/cs_current_situation/cs_current_situation.dart';
+export 'src/rc_requirements_catalog/rc_requirements_catalog.dart';
+export 'src/bp_business_processes/bp_business_processes.dart';
+// …one per DocSpec…
+```
+
+### 9.4. What this phase does *not* do
+
+- **Does not introduce document-scoped short IDs.** Section IDs on every class remain the global `PD00-…` IDs. Short-ID introduction is a separate later decision (see §8.4).
+- **Does not rewrite or fork PD00 classes.** Document roots reference existing classes by type; they do not copy or extend them.
+- **Does not add new sections.** All new sections were added in §7. If more are needed later, they go through the three-track process.
+- **Does not change the outliner.** The outliner already supports arbitrary `--root-type`; no tool changes required.
+
+### 9.5. Exit criteria for this phase
+
+- All 12 document root classes exist, compile, and pass `dart analyze`.
+- Each runs clean through the outliner with its own `--root-type`.
+- The `ProjectDefinition` outline is unchanged — the aggregation is purely additive.
+- `@MapsTo` / `@DetailedIn` counts per target match §6 and §8.6 invariants.
+
+---
+
+## 10. Implementation Notes
 
 - **PD00 completion is step 1.** No Phase 3 document class is created before §7 is finished — a class referencing a non-existent PD00 class would not compile and would defeat the completeness rule that motivated §7.
 - **Reuse, don't duplicate.** The seeded fields type against the existing PD00 classes (`BusinessObjectAndDataModel`, `SystemStagePlan`, etc.). The target document class imports `package:tom_specs_model/.../pd_project_definition/...` and uses the same types. No expansion-only sections exist anymore — every target top-level types against a PD00 class.
