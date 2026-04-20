@@ -2769,7 +2769,6 @@ Provide an overview of the layering and modularization strategy.
 /// Software layer entry — a horizontal layer in the architecture.
 class SoftwareLayerEntry {
   @Form([
-    // Identity
     Field('layerName', String, 'Layer Name',
         required: true,
         hint:
@@ -2778,32 +2777,66 @@ class SoftwareLayerEntry {
         hint: 'Numeric level (0 = bottom, higher = top)'),
     Field('layerPattern', String, 'Pattern',
         hint: 'E.g., Clean Architecture, Onion, Hexagonal, N-Tier'),
+  ])
+  String? content;
 
-    // Responsibilities
+  /// Responsibilities and constraints.
+  SoftwareLayerEntryResponsibilities responsibilities =
+      SoftwareLayerEntryResponsibilities();
+
+  /// Typical components and organization.
+  SoftwareLayerEntryComponents components = SoftwareLayerEntryComponents();
+
+  /// Dependency rules.
+  SoftwareLayerEntryDependencies dependencies =
+      SoftwareLayerEntryDependencies();
+
+  /// Technology and testing notes.
+  SoftwareLayerEntryTechnology technology = SoftwareLayerEntryTechnology();
+}
+
+/// Responsibilities and constraints.
+class SoftwareLayerEntryResponsibilities {
+  @Form([
     Field('purpose', String, 'Purpose',
         required: true, hint: 'Primary responsibility of this layer'),
     Field('responsibilities', String, 'Key Responsibilities',
         hint: 'Specific functions this layer handles'),
     Field('prohibitions', String, 'Prohibitions',
         hint: 'What this layer must NOT do'),
+  ])
+  String? content;
+}
 
-    // Components
+/// Typical components and organization.
+class SoftwareLayerEntryComponents {
+  @Form([
     Field('typicalComponents', String, 'Typical Components',
         hint: 'Types of classes/components in this layer'),
     Field('namingConventions', String, 'Naming Conventions',
         hint: 'Naming patterns for components in this layer'),
     Field('folderStructure', String, 'Folder Structure',
         hint: 'Directory organization for this layer'),
+  ])
+  String? content;
+}
 
-    // Dependencies
+/// Dependency rules.
+class SoftwareLayerEntryDependencies {
+  @Form([
     Field('allowedDependencies', String, 'Allowed Dependencies',
         hint: 'Layers this layer may depend on'),
     Field('forbiddenDependencies', String, 'Forbidden Dependencies',
         hint: 'Layers this layer must NOT depend on'),
     Field('externalDependencies', String, 'External Dependencies',
         hint: 'External packages allowed in this layer'),
+  ])
+  String? content;
+}
 
-    // Technology
+/// Technology and testing notes.
+class SoftwareLayerEntryTechnology {
+  @Form([
     Field('frameworksUsed', String, 'Frameworks Used',
         hint: 'Frameworks applicable to this layer'),
     Field('implementationNotes', String, 'Implementation Notes',
@@ -3847,38 +3880,69 @@ class PipelineStageEntry {
 /// Pipeline job entry.
 class PipelineJobEntry {
   @Form([
-    // Identity
     Field('jobName', String, 'Job Name', required: true, hint: 'Job identifier'),
     Field('parentStage', String, 'Parent Stage', hint: 'Stage this job belongs to'),
     Field('description', String, 'Description', hint: 'What this job does'),
-
-    // Environment
-    Field('runnerType', String, 'Runner Type',
-        hint: 'Self-hosted, cloud, container'),
-    Field('containerImage', String, 'Container Image',
-        hint: 'Docker image if containerized'),
-    Field('environmentVariables', String, 'Environment Variables',
-        hint: 'Required environment variables'),
-
-    // Steps
-    Field('setupSteps', String, 'Setup Steps',
-        hint: 'Checkout, install dependencies'),
-    Field('mainSteps', String, 'Main Steps', hint: 'Main job steps'),
-    Field('cleanupSteps', String, 'Cleanup Steps', hint: 'Cleanup after job'),
-
-    // Dependencies
-    Field('dependsOn', String, 'Depends On', hint: 'Other jobs this depends on'),
-    Field('services', String, 'Services', hint: 'Required services (DB, cache)'),
-    Field('caching', String, 'Caching', hint: 'Cache configuration'),
-
-    // Outputs
-    Field('testReports', String, 'Test Reports', hint: 'Test report locations'),
-    Field('coverageReports', String, 'Coverage Reports',
-        hint: 'Coverage report locations'),
-    Field('artifacts', String, 'Artifacts', hint: 'Produced artifacts'),
-    Field('notes', String, 'Notes', hint: 'Additional job notes'),
   ])
   String? content;
+
+    /// Execution environment.
+    PipelineJobEntryEnvironment environment = PipelineJobEntryEnvironment();
+
+    /// Job steps.
+    PipelineJobEntrySteps steps = PipelineJobEntrySteps();
+
+    /// Job dependencies.
+    PipelineJobEntryDependencies dependencies = PipelineJobEntryDependencies();
+
+    /// Outputs and notes.
+    PipelineJobEntryOutputs outputs = PipelineJobEntryOutputs();
+}
+
+/// Execution environment.
+class PipelineJobEntryEnvironment {
+    @Form([
+        Field('runnerType', String, 'Runner Type',
+                hint: 'Self-hosted, cloud, container'),
+        Field('containerImage', String, 'Container Image',
+                hint: 'Docker image if containerized'),
+        Field('environmentVariables', String, 'Environment Variables',
+                hint: 'Required environment variables'),
+    ])
+    String? content;
+}
+
+/// Job steps.
+class PipelineJobEntrySteps {
+    @Form([
+        Field('setupSteps', String, 'Setup Steps',
+                hint: 'Checkout, install dependencies'),
+        Field('mainSteps', String, 'Main Steps', hint: 'Main job steps'),
+        Field('cleanupSteps', String, 'Cleanup Steps', hint: 'Cleanup after job'),
+    ])
+    String? content;
+}
+
+/// Job dependencies.
+class PipelineJobEntryDependencies {
+    @Form([
+        Field('dependsOn', String, 'Depends On', hint: 'Other jobs this depends on'),
+        Field('services', String, 'Services', hint: 'Required services (DB, cache)'),
+        Field('caching', String, 'Caching', hint: 'Cache configuration'),
+    ])
+    String? content;
+}
+
+/// Outputs and notes.
+class PipelineJobEntryOutputs {
+    @Form([
+        Field('testReports', String, 'Test Reports', hint: 'Test report locations'),
+        Field('coverageReports', String, 'Coverage Reports',
+                hint: 'Coverage report locations'),
+        Field('artifacts', String, 'Artifacts', hint: 'Produced artifacts'),
+        Field('notes', String, 'Notes', hint: 'Additional job notes'),
+    ])
+    String? content;
 }
 
 /// Deployment environment entry.
@@ -7673,7 +7737,6 @@ class ComputeResourceRequirementsSpecial {
 /// Server storage requirements.
 class ServerStorageRequirements {
   @Form([
-    // Primary storage
     Field('primaryStorageType', String, 'Primary Storage Type',
         hint: 'SSD, NVMe, HDD'),
     Field('primaryStorageCapacity', String, 'Primary Storage Capacity',
@@ -7682,38 +7745,71 @@ class ServerStorageRequirements {
         hint: 'Required IOPS'),
     Field('readWriteRatio', String, 'Read/Write Ratio',
         hint: 'Expected R/W ratio'),
+  ])
+  String? content;
 
-    // Database storage
+  /// Database storage requirements.
+  ServerStorageRequirementsDatabase database =
+      ServerStorageRequirementsDatabase();
+
+  /// File storage requirements.
+  ServerStorageRequirementsFileStorage fileStorage =
+      ServerStorageRequirementsFileStorage();
+
+  /// Backup storage requirements.
+  ServerStorageRequirementsBackup backup = ServerStorageRequirementsBackup();
+
+  /// Performance requirements and notes.
+  ServerStorageRequirementsPerformance performance =
+      ServerStorageRequirementsPerformance();
+}
+
+/// Database storage requirements.
+class ServerStorageRequirementsDatabase {
+  @Form([
     Field('databaseStorageType', String, 'Database Storage Type',
         hint: 'Storage for databases'),
     Field('databaseStorageCapacity', String, 'Database Storage Capacity',
         hint: 'Database storage size'),
-    Field('databaseIops', String, 'Database IOPS',
-        hint: 'Database IOPS'),
+    Field('databaseIops', String, 'Database IOPS', hint: 'Database IOPS'),
+  ])
+  String? content;
+}
 
-    // File storage
+/// File storage requirements.
+class ServerStorageRequirementsFileStorage {
+  @Form([
     Field('fileStorageType', String, 'File Storage Type',
         hint: 'NAS, SAN, object storage'),
     Field('fileStorageCapacity', String, 'File Storage Capacity',
         hint: 'File storage size'),
     Field('networkFileSystem', String, 'Network File System',
         hint: 'NFS, SMB, etc.'),
+  ])
+  String? content;
+}
 
-    // Backup storage
+/// Backup storage requirements.
+class ServerStorageRequirementsBackup {
+  @Form([
     Field('backupStorageType', String, 'Backup Storage Type',
         hint: 'Backup storage medium'),
     Field('backupStorageCapacity', String, 'Backup Storage Capacity',
         hint: 'Backup storage size'),
     Field('backupRetention', String, 'Backup Retention',
         hint: 'Retention period'),
+  ])
+  String? content;
+}
 
-    // Performance
+/// Performance requirements and notes.
+class ServerStorageRequirementsPerformance {
+  @Form([
     Field('throughputRequired', String, 'Throughput Required',
         hint: 'MB/s throughput'),
     Field('latencyRequirement', String, 'Latency Requirement',
         hint: 'Maximum latency'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional storage notes'),
+    Field('notes', String, 'Notes', hint: 'Additional storage notes'),
   ])
   String? content;
 }
@@ -12372,15 +12468,35 @@ class IncidentManagementRequirementsMetrics {
 /// SLA monitoring requirements.
 class SlaMonitoringRequirements {
   @Form([
-    // SLA targets
     Field('availabilitySla', String, 'Availability SLA',
         hint: '99.9%, 99.99%'),
     Field('performanceSla', String, 'Performance SLA',
         hint: 'Latency SLA'),
     Field('errorRateSla', String, 'Error Rate SLA',
         hint: 'Maximum error rate'),
+  ])
+  String? content;
 
-    // Monitoring
+  /// Monitoring mechanics.
+  SlaMonitoringRequirementsMonitoring monitoring =
+      SlaMonitoringRequirementsMonitoring();
+
+  /// Error-budget policy.
+  SlaMonitoringRequirementsErrorBudget errorBudget =
+      SlaMonitoringRequirementsErrorBudget();
+
+  /// Customer-specific SLA rules.
+  SlaMonitoringRequirementsCustomer customer =
+      SlaMonitoringRequirementsCustomer();
+
+  /// Reporting and review.
+  SlaMonitoringRequirementsReporting reporting =
+      SlaMonitoringRequirementsReporting();
+}
+
+/// Monitoring mechanics.
+class SlaMonitoringRequirementsMonitoring {
+  @Form([
     Field('slaTracking', String, 'SLA Tracking',
         hint: 'How SLAs are tracked'),
     Field('slaReporting', String, 'SLA Reporting',
@@ -12389,30 +12505,44 @@ class SlaMonitoringRequirements {
         hint: 'Alert on SLA breach'),
     Field('slaBurnRate', bool, 'SLA Burn Rate',
         hint: 'Track error budget burn'),
+  ])
+  String? content;
+}
 
-    // Error budget
+/// Error-budget policy.
+class SlaMonitoringRequirementsErrorBudget {
+  @Form([
     Field('errorBudgetPolicy', String, 'Error Budget Policy',
         hint: 'Error budget handling'),
     Field('budgetExhaustionAction', String, 'Budget Exhaustion Action',
         hint: 'Action when budget spent'),
     Field('budgetResetPeriod', String, 'Budget Reset Period',
         hint: 'Monthly, quarterly reset'),
+  ])
+  String? content;
+}
 
-    // Customer SLAs
+/// Customer-specific SLA rules.
+class SlaMonitoringRequirementsCustomer {
+  @Form([
     Field('customerSlaTiers', String, 'Customer SLA Tiers',
         hint: 'Different SLA tiers'),
     Field('slaExclusions', String, 'SLA Exclusions',
         hint: 'What is excluded'),
     Field('slaCredits', String, 'SLA Credits',
         hint: 'Credit policy for misses'),
+  ])
+  String? content;
+}
 
-    // Reporting
+/// Reporting and review.
+class SlaMonitoringRequirementsReporting {
+  @Form([
     Field('slaReportRecipients', String, 'SLA Report Recipients',
         hint: 'Who receives reports'),
     Field('slaReviewMeetings', String, 'SLA Review Meetings',
         hint: 'SLA review cadence'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional SLA notes'),
+    Field('notes', String, 'Notes', hint: 'Additional SLA notes'),
   ])
   String? content;
 }
@@ -15873,27 +16003,56 @@ class PeakLoadPatterns {
 /// Scaling triggers and thresholds.
 class ScalingTriggersAndThresholds {
   @Form([
-    // CPU scaling
     Field('cpuScaleUpThreshold', String, 'CPU Scale-Up Threshold',
         required: true, hint: 'CPU % triggering scale-up (e.g. 70%)'),
     Field('cpuScaleDownThreshold', String, 'CPU Scale-Down Threshold',
         hint: 'CPU % triggering scale-down (e.g. 30%)'),
+  ])
+  String? content;
 
-    // Memory scaling
+  /// Memory-based thresholds.
+  ScalingTriggersAndThresholdsMemory memory =
+      ScalingTriggersAndThresholdsMemory();
+
+  /// Request-based thresholds.
+  ScalingTriggersAndThresholdsRequest request =
+      ScalingTriggersAndThresholdsRequest();
+
+  /// Scaling behavior.
+  ScalingTriggersAndThresholdsBehavior behavior =
+      ScalingTriggersAndThresholdsBehavior();
+
+  /// Scaling types and providers.
+  ScalingTriggersAndThresholdsType type = ScalingTriggersAndThresholdsType();
+}
+
+/// Memory-based thresholds.
+class ScalingTriggersAndThresholdsMemory {
+  @Form([
     Field('memoryScaleUpThreshold', String, 'Memory Scale-Up Threshold',
         hint: 'Memory % triggering scale-up'),
     Field('memoryScaleDownThreshold', String, 'Memory Scale-Down Threshold',
         hint: 'Memory % triggering scale-down'),
+  ])
+  String? content;
+}
 
-    // Request-based scaling
+/// Request-based thresholds.
+class ScalingTriggersAndThresholdsRequest {
+  @Form([
     Field('requestRateScaleUpThreshold', String, 'Request Rate Scale-Up',
         hint: 'RPS threshold for scaling up'),
     Field('responseTimeScaleUpThreshold', String, 'Response Time Scale-Up',
         hint: 'Latency threshold triggering scale-up'),
     Field('queueDepthScaleUpThreshold', String, 'Queue Depth Scale-Up',
         hint: 'Message queue depth triggering scale-up'),
+  ])
+  String? content;
+}
 
-    // Scaling behavior
+/// Scaling behavior.
+class ScalingTriggersAndThresholdsBehavior {
+  @Form([
     Field('scalingCooldownPeriod', String, 'Scaling Cooldown Period',
         hint: 'Minimum time between scaling events'),
     Field('minInstances', int, 'Minimum Instances',
@@ -15902,8 +16061,13 @@ class ScalingTriggersAndThresholds {
         hint: 'Maximum number of running instances'),
     Field('scalingStepSize', String, 'Scaling Step Size',
         hint: 'Instances added per scale-up event'),
+  ])
+  String? content;
+}
 
-    // Scaling type
+/// Scaling types and providers.
+class ScalingTriggersAndThresholdsType {
+  @Form([
     Field('horizontalScaling', bool, 'Horizontal Scaling',
         hint: 'Add more instances'),
     Field('verticalScaling', bool, 'Vertical Scaling',
@@ -16159,7 +16323,6 @@ Provide an overview of IT security standards approach.
 /// A security standard entry (form) [PD00-TEC-SEC-ITS-nn].
 class SecurityStandardEntry {
   @Form([
-    // Identity
     Field('standardName', String, 'Standard Name',
         required: true, hint: 'E.g., OWASP Top 10, ISO 27001, SOC 2, NIST CSF'),
     Field('standardVersion', String, 'Standard Version',
@@ -16168,16 +16331,37 @@ class SecurityStandardEntry {
         hint: 'Framework, Certification, Guideline, Benchmark'),
     Field('issuingBody', String, 'Issuing Body',
         hint: 'Organization that publishes the standard'),
+  ])
+  String? content;
 
-    // Scope
+  /// Applicability and regulatory scope.
+  SecurityStandardEntryScope scope = SecurityStandardEntryScope();
+
+  /// Implementation status and planning.
+  SecurityStandardEntryImplementation implementation =
+      SecurityStandardEntryImplementation();
+
+  /// Verification and ownership.
+  SecurityStandardEntryVerification verification =
+      SecurityStandardEntryVerification();
+}
+
+/// Applicability and regulatory scope.
+class SecurityStandardEntryScope {
+  @Form([
     Field('applicabilityScope', String, 'Applicability Scope',
         hint: 'Which systems, services, or data this applies to'),
     Field('mandatoryOrVoluntary', String, 'Mandatory / Voluntary',
         hint: 'Regulatory requirement or best-practice adoption'),
     Field('regulatoryDriver', String, 'Regulatory Driver',
         hint: 'Regulation requiring this standard (e.g. GDPR, PCI-DSS)'),
+  ])
+  String? content;
+}
 
-    // Implementation
+/// Implementation status and planning.
+class SecurityStandardEntryImplementation {
+  @Form([
     Field('implementationStatus', String, 'Implementation Status',
         hint: 'Planned, In Progress, Implemented, Certified'),
     Field('targetComplianceDate', String, 'Target Compliance Date',
@@ -16186,8 +16370,13 @@ class SecurityStandardEntry {
         hint: 'Key control areas to implement'),
     Field('gapAnalysis', String, 'Gap Analysis',
         hint: 'Summary of current gaps against the standard'),
+  ])
+  String? content;
+}
 
-    // Verification
+/// Verification and ownership.
+class SecurityStandardEntryVerification {
+  @Form([
     Field('certificationRequired', bool, 'Certification Required',
         hint: 'Whether formal certification is needed'),
     Field('assessmentFrequency', String, 'Assessment Frequency',
@@ -16291,7 +16480,6 @@ class InfrastructureSecurityHardening {
 /// Security development lifecycle.
 class SecurityDevelopmentLifecycle {
   @Form([
-    // Design phase
     Field('threatModeling', String, 'Threat Modeling',
         required: true, hint: 'STRIDE, PASTA, Attack Trees methodology'),
     Field('threatModelingFrequency', String, 'Threat Modeling Frequency',
@@ -16300,8 +16488,25 @@ class SecurityDevelopmentLifecycle {
         hint: 'Mandatory security review of architecture'),
     Field('securityRequirementsProcess', String, 'Security Requirements Process',
         hint: 'How security requirements are gathered'),
+  ])
+  String? content;
 
-    // Development phase
+  /// Development-phase controls.
+  SecurityDevelopmentLifecycleDevelopment development =
+      SecurityDevelopmentLifecycleDevelopment();
+
+  /// Testing-phase controls.
+  SecurityDevelopmentLifecycleTesting testing =
+      SecurityDevelopmentLifecycleTesting();
+
+  /// Release-phase controls.
+  SecurityDevelopmentLifecycleRelease release =
+      SecurityDevelopmentLifecycleRelease();
+}
+
+/// Development-phase controls.
+class SecurityDevelopmentLifecycleDevelopment {
+  @Form([
     Field('secureCodeTraining', String, 'Secure Code Training',
         hint: 'Developer security training frequency'),
     Field('staticAnalysis', String, 'Static Analysis (SAST)',
@@ -16312,8 +16517,13 @@ class SecurityDevelopmentLifecycle {
         hint: 'SCA tool for known vulnerabilities'),
     Field('licenseScannerPolicy', String, 'License Compliance Scanning',
         hint: 'OSS license compatibility checking'),
+  ])
+  String? content;
+}
 
-    // Testing phase
+/// Testing-phase controls.
+class SecurityDevelopmentLifecycleTesting {
+  @Form([
     Field('dynamicAnalysis', String, 'Dynamic Analysis (DAST)',
         hint: 'DAST tool and test frequency'),
     Field('interactiveAnalysis', String, 'Interactive Analysis (IAST)',
@@ -16322,8 +16532,13 @@ class SecurityDevelopmentLifecycle {
         hint: 'Automated security tests in pipeline'),
     Field('manualCodeReview', String, 'Manual Code Review',
         hint: 'Security-focused code review process'),
+  ])
+  String? content;
+}
 
-    // Release phase
+/// Release-phase controls.
+class SecurityDevelopmentLifecycleRelease {
+  @Form([
     Field('preReleaseSecurityGate', bool, 'Pre-Release Security Gate',
         hint: 'Security sign-off before production deploy'),
     Field('securityChangeLog', bool, 'Security Change Log',
@@ -16526,7 +16741,6 @@ Provide an overview of data protection and privacy strategy.
 /// Privacy regulation compliance requirements [PD00-TEC-SEC-PRI].
 class PrivacyRegulationCompliance {
   @Form([
-    // Regulation scope
     Field('applicableRegulations', String, 'Applicable Regulations',
         required: true,
         hint: 'GDPR, CCPA/CPRA, LGPD, PIPA, PIPEDA, PDPA, etc.'),
@@ -16536,8 +16750,27 @@ class PrivacyRegulationCompliance {
         hint: 'Other jurisdictions where data subjects reside'),
     Field('regulatoryAuthority', String, 'Supervisory Authority',
         hint: 'Lead data protection authority for GDPR purposes'),
+  ])
+  String? content;
 
-    // GDPR specifics
+  /// GDPR-specific requirements.
+  PrivacyRegulationComplianceGdpr gdpr = PrivacyRegulationComplianceGdpr();
+
+  /// Data Protection Officer details.
+  PrivacyRegulationComplianceDpo dpo = PrivacyRegulationComplianceDpo();
+
+  /// Records and documentation.
+  PrivacyRegulationComplianceRecords records =
+      PrivacyRegulationComplianceRecords();
+
+  /// Cross-border transfer controls.
+  PrivacyRegulationComplianceTransfers transfers =
+      PrivacyRegulationComplianceTransfers();
+}
+
+/// GDPR-specific requirements.
+class PrivacyRegulationComplianceGdpr {
+  @Form([
     Field('gdprLawfulBasis', String, 'GDPR Lawful Basis',
         hint:
             'Consent, contract, legal obligation, vital interests, public task, legitimate interests'),
@@ -16549,16 +16782,26 @@ class PrivacyRegulationCompliance {
     Field(
         'gdprLeadSupervisoryAuthority', String, 'Lead Supervisory Authority',
         hint: 'Lead supervisory authority for cross-border processing'),
+  ])
+  String? content;
+}
 
-    // Data Protection Officer
+/// Data Protection Officer details.
+class PrivacyRegulationComplianceDpo {
+  @Form([
     Field('dpoRequired', String, 'DPO Required',
         hint: 'Whether a Data Protection Officer is required'),
     Field('dpoContactDetails', String, 'DPO Contact Details',
         hint: 'Name, email, and reporting line of DPO'),
     Field('dpoResponsibilities', String, 'DPO Responsibilities',
         hint: 'Monitoring compliance, advising on DPIA, liaison with authority'),
+  ])
+  String? content;
+}
 
-    // Records and documentation
+/// Records and documentation.
+class PrivacyRegulationComplianceRecords {
+  @Form([
     Field('recordsOfProcessing', String, 'Records of Processing Activities',
         required: true,
         hint: 'ROPA maintenance process — Article 30 GDPR'),
@@ -16566,8 +16809,13 @@ class PrivacyRegulationCompliance {
         hint: 'Transparency notices, layered privacy policies'),
     Field('dataProtectionTraining', String, 'Data Protection Training',
         hint: 'Staff training frequency, content, and certification'),
+  ])
+  String? content;
+}
 
-    // Cross-border transfers
+/// Cross-border transfer controls.
+class PrivacyRegulationComplianceTransfers {
+  @Form([
     Field('crossBorderTransferMechanism', String, 'Transfer Mechanism',
         hint:
             'Standard contractual clauses, adequacy decisions, binding corporate rules'),
@@ -17241,7 +17489,6 @@ Provide an overview of security audit strategy.
 /// Penetration testing requirements and schedule [PD00-TEC-SEC-AUD].
 class PenetrationTestingRequirements {
   @Form([
-    // Scope and approach
     Field('pentestScope', String, 'Penetration Test Scope',
         required: true,
         hint:
@@ -17253,8 +17500,25 @@ class PenetrationTestingRequirements {
         hint: 'Black box, grey box, white box, or combination'),
     Field('pentestProvider', String, 'Testing Provider',
         hint: 'Internal red team, external firm, or both'),
+  ])
+  String? content;
 
-    // Frequency and scheduling
+  /// Frequency and scheduling.
+  PenetrationTestingRequirementsScheduling scheduling =
+      PenetrationTestingRequirementsScheduling();
+
+  /// Execution rules.
+  PenetrationTestingRequirementsExecution execution =
+      PenetrationTestingRequirementsExecution();
+
+  /// Reporting and remediation.
+  PenetrationTestingRequirementsReporting reporting =
+      PenetrationTestingRequirementsReporting();
+}
+
+/// Frequency and scheduling.
+class PenetrationTestingRequirementsScheduling {
+  @Form([
     Field('pentestFrequency', String, 'Testing Frequency',
         required: true,
         hint: 'Annual, semi-annual, quarterly, after major releases'),
@@ -17263,8 +17527,13 @@ class PenetrationTestingRequirements {
     Field('triggerBasedTesting', String, 'Trigger-Based Testing',
         hint:
             'Events triggering unscheduled tests: major changes, incidents, new integrations'),
+  ])
+  String? content;
+}
 
-    // Execution
+/// Execution rules.
+class PenetrationTestingRequirementsExecution {
+  @Form([
     Field('testingEnvironment', String, 'Testing Environment',
         hint: 'Production, staging, dedicated pentest environment'),
     Field('rulesOfEngagement', String, 'Rules of Engagement',
@@ -17273,8 +17542,13 @@ class PenetrationTestingRequirements {
         hint: 'Phishing, vishing, physical access testing if applicable'),
     Field('dosTestingAllowed', String, 'DoS Testing Allowed',
         hint: 'Whether denial-of-service testing is in scope'),
+  ])
+  String? content;
+}
 
-    // Reporting
+/// Reporting and remediation.
+class PenetrationTestingRequirementsReporting {
+  @Form([
     Field('findingSeverityScale', String, 'Finding Severity Scale',
         hint: 'CVSS, custom scale (Critical/High/Medium/Low/Info)'),
     Field('reportingFormat', String, 'Reporting Format',
@@ -17440,30 +17714,68 @@ class SecurityCertificationRequirements {
         hint: 'Target dates for achieving each certification'),
     Field('certificationScope', String, 'Certification Scope',
         hint: 'Which systems, processes, and data are in scope'),
+  ])
+  String? content;
+
+  /// ISO 27001 requirements.
+  SecurityCertificationRequirementsIso27001 iso27001 =
+      SecurityCertificationRequirementsIso27001();
+
+  /// SOC 2 requirements.
+  SecurityCertificationRequirementsSoc2 soc2 =
+      SecurityCertificationRequirementsSoc2();
+
+  /// Industry-specific requirements.
+  SecurityCertificationRequirementsIndustry industry =
+      SecurityCertificationRequirementsIndustry();
+
+  /// Maintenance and budget.
+  SecurityCertificationRequirementsMaintenance maintenance =
+      SecurityCertificationRequirementsMaintenance();
+}
+
+/// ISO 27001 requirements.
+class SecurityCertificationRequirementsIso27001 {
+  @Form([
     Field('iso27001Controls', String, 'ISO 27001 Controls',
         hint: 'Annex A controls applicable, Statement of Applicability'),
     Field('ismsScope', String, 'ISMS Scope',
         hint: 'Information Security Management System boundary definition'),
     Field('riskAssessmentMethodology', String, 'Risk Assessment Methodology',
         hint: 'Risk assessment approach for ISO 27001 compliance'),
+  ])
+  String? content;
+}
 
-    // SOC 2
+/// SOC 2 requirements.
+class SecurityCertificationRequirementsSoc2 {
+  @Form([
     Field('soc2TrustServiceCriteria', String, 'SOC 2 Trust Criteria',
         hint: 'Security, Availability, Processing Integrity, Confidentiality, Privacy'),
     Field('soc2ReportType', String, 'SOC 2 Report Type',
         hint: 'Type I (point in time) or Type II (over period)'),
     Field('soc2AuditPeriod', String, 'SOC 2 Audit Period',
         hint: 'Observation window for Type II audit'),
+  ])
+  String? content;
+}
 
-    // Industry-specific
+/// Industry-specific requirements.
+class SecurityCertificationRequirementsIndustry {
+  @Form([
     Field('pciDssLevel', String, 'PCI DSS Level',
         hint: 'PCI DSS compliance level based on transaction volume'),
     Field('hipaaRequirements', String, 'HIPAA Requirements',
         hint: 'PHI handling, BAA requirements if applicable'),
     Field('industrySpecificCompliance', String, 'Industry-Specific Compliance',
         hint: 'FINRA, FDA 21 CFR Part 11, NERC CIP, etc.'),
+  ])
+  String? content;
+}
 
-    // Maintenance
+/// Maintenance and budget.
+class SecurityCertificationRequirementsMaintenance {
+  @Form([
     Field('recertificationCycle', String, 'Recertification Cycle',
         hint: 'Annual surveillance audits, triennial recertification'),
     Field('continuousComplianceMonitoring', String, 'Continuous Monitoring',
