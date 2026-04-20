@@ -2880,23 +2880,46 @@ class BoundedContextEntryIntegration {
 /// Package organization and naming structure.
 class PackageOrganization {
   @Form([
-    // Naming
     Field('namingConvention', String, 'Naming Convention',
         hint: 'Package/module naming pattern'),
     Field('prefixStrategy', String, 'Prefix Strategy',
         hint: 'Prefix for all packages (e.g., org name)'),
     Field('suffixConventions', String, 'Suffix Conventions',
         hint: 'Standard suffixes (_core, _ui, _api, etc.)'),
+  ])
+  String? content;
 
-    // Structure
+  /// Repository and directory structure.
+  PackageOrganizationStructure structure = PackageOrganizationStructure();
+
+  /// Package categorization.
+  PackageOrganizationTypes types = PackageOrganizationTypes();
+
+  /// Dependency management rules.
+  PackageOrganizationDependencies dependencies =
+      PackageOrganizationDependencies();
+
+  /// Documentation expectations.
+  PackageOrganizationDocumentation documentation =
+      PackageOrganizationDocumentation();
+}
+
+/// Repository and directory structure.
+class PackageOrganizationStructure {
+  @Form([
     Field('monorepoVsPolyrepo', String, 'Monorepo vs Polyrepo',
         hint: 'Single vs multiple repositories'),
     Field('directoryLayout', String, 'Directory Layout',
         hint: 'Top-level directory organization'),
     Field('featureGrouping', String, 'Feature Grouping',
         hint: 'How features are grouped in structure'),
+  ])
+  String? content;
+}
 
-    // Package types
+/// Package categorization.
+class PackageOrganizationTypes {
+  @Form([
     Field('corePackages', String, 'Core Packages',
         hint: 'Foundation packages required by all'),
     Field('featurePackages', String, 'Feature Packages',
@@ -2905,8 +2928,13 @@ class PackageOrganization {
         hint: 'Shared utility packages'),
     Field('platformPackages', String, 'Platform Packages',
         hint: 'Platform-specific packages'),
+  ])
+  String? content;
+}
 
-    // Dependencies
+/// Dependency management rules.
+class PackageOrganizationDependencies {
+  @Form([
     Field('dependencyManagement', String, 'Dependency Management',
         hint: 'How package dependencies are managed'),
     Field('internalDependencyRules', String, 'Internal Dependency Rules',
@@ -2915,8 +2943,13 @@ class PackageOrganization {
         hint: 'Policy for external dependencies'),
     Field('versioningStrategy', String, 'Versioning Strategy',
         hint: 'Semantic versioning or other scheme'),
+  ])
+  String? content;
+}
 
-    // Documentation
+/// Documentation expectations.
+class PackageOrganizationDocumentation {
+  @Form([
     Field('packageDocumentation', String, 'Package Documentation',
         hint: 'Required documentation per package'),
     Field('dependencyDiagram', String, 'Dependency Diagram',
@@ -6136,7 +6169,6 @@ class InterfaceSpecificationEntryTooling {
 /// Regulatory compliance entry (GDPR, HIPAA, PCI-DSS, SOX).
 class RegulatoryComplianceEntry {
   @Form([
-    // Identity
     Field('regulationName', String, 'Regulation Name',
         required: true, hint: 'E.g., GDPR, HIPAA, PCI-DSS, SOX'),
     Field('jurisdiction', String, 'Jurisdiction',
@@ -6145,8 +6177,29 @@ class RegulatoryComplianceEntry {
         hint: 'Authority enforcing regulation'),
     Field('effectiveDate', String, 'Effective Date',
         hint: 'When regulation took effect'),
+  ])
+  String? content;
 
-    // Applicability
+  /// Applicability analysis.
+  RegulatoryComplianceEntryApplicability applicability =
+      RegulatoryComplianceEntryApplicability();
+
+  /// Compliance requirements.
+  RegulatoryComplianceEntryRequirements requirements =
+      RegulatoryComplianceEntryRequirements();
+
+  /// Penalties and reporting.
+  RegulatoryComplianceEntryPenalties penalties =
+      RegulatoryComplianceEntryPenalties();
+
+  /// Ownership and review.
+  RegulatoryComplianceEntryOwnership ownership =
+      RegulatoryComplianceEntryOwnership();
+}
+
+/// Applicability analysis.
+class RegulatoryComplianceEntryApplicability {
+  @Form([
     Field('applicabilityReason', String, 'Why Applicable',
         hint: 'Why this regulation applies'),
     Field('dataCategories', String, 'Data Categories',
@@ -6155,8 +6208,13 @@ class RegulatoryComplianceEntry {
         hint: 'Business processes affected'),
     Field('userRights', String, 'User Rights',
         hint: 'Rights granted to users'),
+  ])
+  String? content;
+}
 
-    // Requirements
+/// Compliance requirements.
+class RegulatoryComplianceEntryRequirements {
+  @Form([
     Field('keyRequirements', String, 'Key Requirements',
         hint: 'Main requirements to meet'),
     Field('technicalControls', String, 'Technical Controls',
@@ -6165,14 +6223,24 @@ class RegulatoryComplianceEntry {
         hint: 'Required procedures'),
     Field('documentationRequired', String, 'Documentation Required',
         hint: 'Required documentation'),
+  ])
+  String? content;
+}
 
-    // Penalties
+/// Penalties and reporting.
+class RegulatoryComplianceEntryPenalties {
+  @Form([
     Field('penaltiesForNonCompliance', String, 'Penalties',
         hint: 'Consequences of non-compliance'),
     Field('reportingObligations', String, 'Reporting Obligations',
         hint: 'Breach reporting requirements'),
+  ])
+  String? content;
+}
 
-    // Ownership
+/// Ownership and review.
+class RegulatoryComplianceEntryOwnership {
+  @Form([
     Field('dpo', String, 'DPO/Compliance Officer',
         hint: 'Responsible officer'),
     Field('legalReview', String, 'Legal Review',
@@ -6317,7 +6385,6 @@ class AccessibilityStandardEntryDocumentation {
 /// Quality standard entry (CMMI, ISO 9001).
 class QualityStandardEntry {
   @Form([
-    // Identity
     Field('standardName', String, 'Standard Name',
         required: true, hint: 'E.g., CMMI, ISO 9001, Six Sigma'),
     Field('maturityLevel', String, 'Maturity Level',
@@ -6325,16 +6392,41 @@ class QualityStandardEntry {
     Field('version', String, 'Version', hint: 'Standard version'),
     Field('scope', String, 'Scope',
         hint: 'Organization-wide or project-specific'),
+  ])
+  String? content;
 
-    // Processes
+  /// Process coverage.
+  QualityStandardEntryProcesses processes = QualityStandardEntryProcesses();
+
+  /// Improvement implementation.
+  QualityStandardEntryImplementation implementation =
+      QualityStandardEntryImplementation();
+
+  /// Certification status.
+  QualityStandardEntryCertification certification =
+      QualityStandardEntryCertification();
+
+  /// Maintenance expectations.
+  QualityStandardEntryMaintenance maintenance =
+      QualityStandardEntryMaintenance();
+}
+
+/// Process coverage.
+class QualityStandardEntryProcesses {
+  @Form([
     Field('processAreas', String, 'Process Areas',
         hint: 'Covered process areas'),
     Field('qualityObjectives', String, 'Quality Objectives',
         hint: 'Measurable quality goals'),
     Field('kpis', String, 'KPIs',
         hint: 'Key performance indicators'),
+  ])
+  String? content;
+}
 
-    // Implementation
+/// Improvement implementation.
+class QualityStandardEntryImplementation {
+  @Form([
     Field('currentLevel', String, 'Current Level',
         hint: 'Current maturity'),
     Field('targetLevel', String, 'Target Level',
@@ -6343,16 +6435,26 @@ class QualityStandardEntry {
         hint: 'Identified gaps'),
     Field('improvementPlan', String, 'Improvement Plan',
         hint: 'Plan to close gaps'),
+  ])
+  String? content;
+}
 
-    // Certification
+/// Certification status.
+class QualityStandardEntryCertification {
+  @Form([
     Field('certificationBody', String, 'Certification Body',
         hint: 'Who certifies'),
     Field('certificationStatus', String, 'Certification Status',
         hint: 'Current certification'),
     Field('certificationExpiry', String, 'Certification Expiry',
         hint: 'When certification expires'),
+  ])
+  String? content;
+}
 
-    // Maintenance
+/// Maintenance expectations.
+class QualityStandardEntryMaintenance {
+  @Form([
     Field('auditFrequency', String, 'Audit Frequency',
         hint: 'How often audited'),
     Field('continuousImprovement', String, 'Continuous Improvement',
@@ -7079,15 +7181,33 @@ class LoadProfileRequirements {
 /// Scaling requirements.
 class ScalingRequirements {
   @Form([
-    // Strategy
     Field('scalingStrategy', String, 'Scaling Strategy',
         hint: 'Horizontal, Vertical, Both'),
     Field('scalingApproach', String, 'Scaling Approach',
         hint: 'Manual, Auto, Scheduled'),
     Field('scalingTriggers', String, 'Scaling Triggers',
         hint: 'What triggers scaling'),
+  ])
+  String? content;
 
-    // Horizontal scaling
+  /// Horizontal scaling configuration.
+  ScalingRequirementsHorizontal horizontal = ScalingRequirementsHorizontal();
+
+  /// Vertical scaling configuration.
+  ScalingRequirementsVertical vertical = ScalingRequirementsVertical();
+
+  /// Auto-scaling thresholds.
+  ScalingRequirementsAutoScaling autoScaling =
+      ScalingRequirementsAutoScaling();
+
+  /// Budget and timing constraints.
+  ScalingRequirementsConstraints constraints =
+      ScalingRequirementsConstraints();
+}
+
+/// Horizontal scaling configuration.
+class ScalingRequirementsHorizontal {
+  @Form([
     Field('minInstances', int, 'Minimum Instances',
         hint: 'Minimum server count'),
     Field('maxInstances', int, 'Maximum Instances',
@@ -7096,16 +7216,26 @@ class ScalingRequirements {
         hint: 'Time to add capacity'),
     Field('sessionHandling', String, 'Session Handling',
         hint: 'Sticky, distributed'),
+  ])
+  String? content;
+}
 
-    // Vertical scaling
+/// Vertical scaling configuration.
+class ScalingRequirementsVertical {
+  @Form([
     Field('canVerticallyScale', bool, 'Can Vertically Scale',
         hint: 'Allow CPU/RAM increases'),
     Field('maxCpuCores', int, 'Max CPU Cores',
         hint: 'Maximum CPU cores'),
     Field('maxMemoryGb', int, 'Max Memory (GB)',
         hint: 'Maximum RAM'),
+  ])
+  String? content;
+}
 
-    // Auto-scaling
+/// Auto-scaling thresholds.
+class ScalingRequirementsAutoScaling {
+  @Form([
     Field('cpuThresholdScale', String, 'CPU Scale Threshold',
         hint: 'CPU % to trigger scale'),
     Field('memoryThresholdScale', String, 'Memory Scale Threshold',
@@ -7114,8 +7244,13 @@ class ScalingRequirements {
         hint: 'Time between scale events'),
     Field('scaleDownPolicy', String, 'Scale Down Policy',
         hint: 'How to scale down'),
+  ])
+  String? content;
+}
 
-    // Constraints
+/// Budget and timing constraints.
+class ScalingRequirementsConstraints {
+  @Form([
     Field('budgetConstraint', String, 'Budget Constraint',
         hint: 'Cost limits for scaling'),
     Field('scalingWindow', String, 'Scaling Window',
@@ -8010,7 +8145,6 @@ class ClientAccessibilityRequirementsStandards {
 /// Progressive Web App (PWA) requirements.
 class PwaRequirements {
   @Form([
-    // Manifest
     Field('pwaEnabled', bool, 'PWA Enabled',
         hint: 'PWA functionality enabled'),
     Field('appName', String, 'App Name',
@@ -8021,32 +8155,64 @@ class PwaRequirements {
         hint: 'Theme color hex'),
     Field('backgroundColor', String, 'Background Color',
         hint: 'Splash background color'),
+  ])
+  String? content;
 
-    // Icons
+  /// Icon requirements.
+  PwaRequirementsIcons icons = PwaRequirementsIcons();
+
+  /// Installation behavior.
+  PwaRequirementsInstallation installation = PwaRequirementsInstallation();
+
+  /// Offline support.
+  PwaRequirementsOffline offline = PwaRequirementsOffline();
+
+  /// Update handling.
+  PwaRequirementsUpdates updates = PwaRequirementsUpdates();
+}
+
+/// Icon requirements.
+class PwaRequirementsIcons {
+  @Form([
     Field('iconSizes', String, 'Icon Sizes',
         hint: '192x192, 512x512'),
     Field('maskableIcon', bool, 'Maskable Icon',
         hint: 'Adaptive icon support'),
     Field('splashScreen', String, 'Splash Screen',
         hint: 'Splash screen config'),
+  ])
+  String? content;
+}
 
-    // Installation
+/// Installation behavior.
+class PwaRequirementsInstallation {
+  @Form([
     Field('installPrompt', String, 'Install Prompt',
         hint: 'Installation prompt strategy'),
     Field('standaloneMode', bool, 'Standalone Mode',
         hint: 'Standalone display mode'),
     Field('startUrl', String, 'Start URL',
         hint: 'PWA start URL'),
+  ])
+  String? content;
+}
 
-    // Offline
+/// Offline support.
+class PwaRequirementsOffline {
+  @Form([
     Field('serviceWorkerStrategy', String, 'Service Worker Strategy',
         hint: 'Cache-first, network-first'),
     Field('offlinePages', String, 'Offline Pages',
         hint: 'Pages available offline'),
     Field('backgroundSync', bool, 'Background Sync',
         hint: 'Background sync support'),
+  ])
+  String? content;
+}
 
-    // Updates
+/// Update handling.
+class PwaRequirementsUpdates {
+  @Form([
     Field('updateStrategy', String, 'Update Strategy',
         hint: 'How updates are handled'),
     Field('cacheVersion', String, 'Cache Versioning',
@@ -9216,13 +9382,26 @@ class BackupPolicyEntryStorage {
 /// RPO and RTO requirements.
 class RpoRtoRequirements {
   @Form([
-    // Overall targets
     Field('overallRpo', String, 'Overall RPO',
         hint: 'Maximum acceptable data loss'),
     Field('overallRto', String, 'Overall RTO',
         hint: 'Maximum acceptable downtime'),
+  ])
+  String? content;
 
-    // By tier
+  /// Tier-based targets.
+  RpoRtoRequirementsByTier byTier = RpoRtoRequirementsByTier();
+
+  /// System-specific recovery targets.
+  RpoRtoRequirementsSystems systems = RpoRtoRequirementsSystems();
+
+  /// Degraded-mode guidance.
+  RpoRtoRequirementsDegraded degraded = RpoRtoRequirementsDegraded();
+}
+
+/// Tier-based targets.
+class RpoRtoRequirementsByTier {
+  @Form([
     Field('criticalRpo', String, 'Critical Data RPO',
         hint: 'RPO for critical data'),
     Field('criticalRto', String, 'Critical Data RTO',
@@ -9239,8 +9418,13 @@ class RpoRtoRequirements {
         hint: 'RPO for low priority'),
     Field('lowRto', String, 'Low Priority RTO',
         hint: 'RTO for low priority'),
+  ])
+  String? content;
+}
 
-    // Specific system requirements
+/// System-specific recovery targets.
+class RpoRtoRequirementsSystems {
+  @Form([
     Field('databaseRpo', String, 'Database RPO',
         hint: 'Database-specific RPO'),
     Field('databaseRto', String, 'Database RTO',
@@ -9249,8 +9433,13 @@ class RpoRtoRequirements {
         hint: 'Application state RPO'),
     Field('applicationRto', String, 'Application RTO',
         hint: 'Application recovery time'),
+  ])
+  String? content;
+}
 
-    // Degraded operation
+/// Degraded-mode guidance.
+class RpoRtoRequirementsDegraded {
+  @Form([
     Field('degradedOperationAllowed', bool, 'Degraded Operation Allowed',
         hint: 'Allow partial restoration'),
     Field('minimalFunctionality', String, 'Minimal Functionality',
@@ -9351,7 +9540,6 @@ class BackupInfrastructureSecurity {
 /// Recovery procedures.
 class RecoveryProcedures {
   @Form([
-    // Recovery types
     Field('granularRecovery', String, 'Granular Recovery',
         hint: 'File/item-level recovery'),
     Field('volumeRecovery', String, 'Volume Recovery',
@@ -9360,32 +9548,64 @@ class RecoveryProcedures {
         hint: 'Complete system restore'),
     Field('bareMetalRecovery', bool, 'Bare Metal Recovery',
         hint: 'Hardware replacement'),
+  ])
+  String? content;
 
-    // Database recovery
+  /// Database recovery behavior.
+  RecoveryProceduresDatabase database = RecoveryProceduresDatabase();
+
+  /// Application recovery behavior.
+  RecoveryProceduresApplication application = RecoveryProceduresApplication();
+
+  /// Recovery automation.
+  RecoveryProceduresAutomation automation = RecoveryProceduresAutomation();
+
+  /// Validation after recovery.
+  RecoveryProceduresValidation validation = RecoveryProceduresValidation();
+}
+
+/// Database recovery behavior.
+class RecoveryProceduresDatabase {
+  @Form([
     Field('databaseRecovery', String, 'Database Recovery',
         hint: 'Database restore process'),
     Field('pointInTimeRecovery', bool, 'Point-in-Time Recovery',
         hint: 'Restore to specific time'),
     Field('transactionLogRecovery', bool, 'Transaction Log Recovery',
         hint: 'Log-based recovery'),
+  ])
+  String? content;
+}
 
-    // Application recovery
+/// Application recovery behavior.
+class RecoveryProceduresApplication {
+  @Form([
     Field('applicationRecovery', String, 'Application Recovery',
         hint: 'App restoration process'),
     Field('configurationRecovery', String, 'Configuration Recovery',
         hint: 'Config restoration'),
     Field('stateRecovery', String, 'State Recovery',
         hint: 'Session/state restoration'),
+  ])
+  String? content;
+}
 
-    // Automation
+/// Recovery automation.
+class RecoveryProceduresAutomation {
+  @Form([
     Field('automatedRecovery', bool, 'Automated Recovery',
         hint: 'Auto-failover enabled'),
     Field('recoveryScripts', String, 'Recovery Scripts',
         hint: 'Scripted recovery'),
     Field('runbookLocation', String, 'Runbook Location',
         hint: 'Where runbooks are stored'),
+  ])
+  String? content;
+}
 
-    // Validation
+/// Validation after recovery.
+class RecoveryProceduresValidation {
+  @Form([
     Field('postRecoveryValidation', String, 'Post-Recovery Validation',
         hint: 'Validation procedures'),
     Field('sanityChecks', String, 'Sanity Checks',
@@ -11174,15 +11394,34 @@ Provide an overview of maintenance strategy and policies.
 /// Scheduled maintenance policy.
 class ScheduledMaintenancePolicy {
   @Form([
-    // Policy
     Field('maintenancePolicy', String, 'Maintenance Policy',
         hint: 'Overall maintenance approach'),
     Field('zeroDowntimeGoal', bool, 'Zero-Downtime Goal',
         hint: 'Strive for zero downtime'),
     Field('maintenanceAgreement', String, 'Maintenance Agreement',
         hint: 'SLA for maintenance windows'),
+  ])
+  String? content;
 
-    // Scheduling
+  /// Scheduling preferences.
+  ScheduledMaintenancePolicyScheduling scheduling =
+      ScheduledMaintenancePolicyScheduling();
+
+  /// Duration constraints.
+  ScheduledMaintenancePolicyDuration duration =
+      ScheduledMaintenancePolicyDuration();
+
+  /// Notice requirements.
+  ScheduledMaintenancePolicyNotice notice = ScheduledMaintenancePolicyNotice();
+
+  /// Approval requirements.
+  ScheduledMaintenancePolicyApproval approval =
+      ScheduledMaintenancePolicyApproval();
+}
+
+/// Scheduling preferences.
+class ScheduledMaintenancePolicyScheduling {
+  @Form([
     Field('preferredDay', String, 'Preferred Day',
         hint: 'Preferred day of week'),
     Field('preferredTime', String, 'Preferred Time',
@@ -11193,24 +11432,39 @@ class ScheduledMaintenancePolicy {
         hint: 'Max maintenance per month'),
     Field('blackoutPeriods', String, 'Blackout Periods',
         hint: 'When maintenance is forbidden'),
+  ])
+  String? content;
+}
 
-    // Duration
+/// Duration constraints.
+class ScheduledMaintenancePolicyDuration {
+  @Form([
     Field('maxDuration', String, 'Maximum Duration',
         hint: 'Max window duration'),
     Field('typicalDuration', String, 'Typical Duration',
         hint: 'Typical window length'),
     Field('extensionPolicy', String, 'Extension Policy',
         hint: 'How to extend if needed'),
+  ])
+  String? content;
+}
 
-    // Advance notice
+/// Notice requirements.
+class ScheduledMaintenancePolicyNotice {
+  @Form([
     Field('standardNotice', String, 'Standard Notice Period',
         hint: 'Days advance notice'),
     Field('minimumNotice', String, 'Minimum Notice Period',
         hint: 'Minimum advance notice'),
     Field('noticeChannels', String, 'Notice Channels',
         hint: 'How users are notified'),
+  ])
+  String? content;
+}
 
-    // Approval
+/// Approval requirements.
+class ScheduledMaintenancePolicyApproval {
+  @Form([
     Field('approvalRequired', bool, 'Approval Required',
         hint: 'Requires approval'),
     Field('approvalAuthority', String, 'Approval Authority',
@@ -15377,7 +15631,6 @@ class DataSubjectRightsManagementOperations {
 /// Privacy impact assessment and DPIA process [PD00-TEC-SEC-PRI].
 class PrivacyImpactAssessmentProcess {
   @Form([
-    // When required
     Field('dpiaThreshold', String, 'DPIA Threshold',
         required: true,
         hint:
@@ -15387,11 +15640,28 @@ class PrivacyImpactAssessmentProcess {
     Field('mandatoryDpiaScenarios', String, 'Mandatory DPIA Scenarios',
         hint:
             'Systematic monitoring, sensitive data at scale, automated decisions'),
-
-    // Assessment process
     Field('dpiaMethodology', String, 'DPIA Methodology',
         required: true,
         hint: 'Framework used: ICO template, CNIL PIA tool, NIST privacy'),
+  ])
+  String? content;
+
+  /// Assessment process inputs.
+  PrivacyImpactAssessmentProcessAssessment assessment =
+      PrivacyImpactAssessmentProcessAssessment();
+
+  /// Mitigation measures.
+  PrivacyImpactAssessmentProcessMitigation mitigation =
+      PrivacyImpactAssessmentProcessMitigation();
+
+  /// Review and approval workflow.
+  PrivacyImpactAssessmentProcessReview review =
+      PrivacyImpactAssessmentProcessReview();
+}
+
+/// Assessment process inputs.
+class PrivacyImpactAssessmentProcessAssessment {
+  @Form([
     Field('dpiaStakeholders', String, 'DPIA Stakeholders',
         hint:
             'Who participates: DPO, engineering, legal, business, external advisor'),
@@ -15400,8 +15670,13 @@ class PrivacyImpactAssessmentProcess {
             'Documenting data flows, storage, access, and sharing for each processing activity'),
     Field('riskAssessmentCriteria', String, 'Risk Assessment Criteria',
         hint: 'Likelihood and severity matrix, residual risk thresholds'),
+  ])
+  String? content;
+}
 
-    // Mitigation
+/// Mitigation measures.
+class PrivacyImpactAssessmentProcessMitigation {
+  @Form([
     Field('mitigationMeasures', String, 'Mitigation Measures',
         hint:
             'Technical and organizational measures to reduce identified risks'),
@@ -15421,8 +15696,13 @@ class PrivacyImpactAssessmentProcess {
     Field('anonymization', String, 'Anonymization',
         hint:
             'Techniques for irreversible de-identification: k-anonymity, differential privacy'),
+  ])
+  String? content;
+}
 
-    // Review and approval
+/// Review and approval workflow.
+class PrivacyImpactAssessmentProcessReview {
+  @Form([
     Field('dpiaApprovalProcess', String, 'Approval Process',
         hint: 'Who reviews and approves the DPIA before processing begins'),
     Field('supervisoryConsultation', String, 'Supervisory Consultation',
