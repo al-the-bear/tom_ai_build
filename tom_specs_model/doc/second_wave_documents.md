@@ -36,10 +36,10 @@ Every section in a second-wave DocSpec must trace to a PD00-* ID. HBSG reference
 | AS07-CRO | `PD00-TAR-PRO-CRO` | new (§7) |
 | AS07-EXC | `PD00-TAR-PRO-EXC` | new (§7) |
 | AS08-CON / AS08-BUO / AS08-BUS | `PD00-BUS-DAT` / `PD00-BUS-BUS` | existing (duplicate rows dropped) |
-| AS08-DAT | `PD00-BUS-DIC` | new (§7) |
+| AS08-DAT | `PD00-BUS-DAT-DIC` | new (§7) |
 | AS09-SOF / DR30 | `PD00-TEC-ARC` | new (§7) |
 | AS10-WIR | `PD00-USE-WIR` | new (§7) |
-| AS10-INF | `PD00-USE-INF` | new (§7) |
+| AS10-INF | `PD00-USE-SCR-INF` | existing (reachable via `screens` top-level) |
 | AS22-AUM | `PD00-ACC-ROL` | new (§7) |
 | AS23 | `PD00-SYQ-TST` | new (§7) |
 | AS24 | `PD00-TAR-STP-E2E` | new (§7) |
@@ -229,7 +229,7 @@ In the tables:
 
 ### 5.1. CS — Current Situation
 
-**Seed nodes:** PD00-CUR (whole) + PD00-SYO-SYR (whole). `PD00-CUR` moves off the PD-only list (see §3). Integration points that I initially proposed as a new `PD00-CUR-INT` already exist as `PD00-CUR-SYS-DEP` — promoted to a CS top-level directly.
+**Seed nodes:** PD00-CUR (whole) + PD00-SYO-SYR (whole). `PD00-CUR` moves off the PD-only list (see §3). Detailed integration content (PD00-CUR-SYS-DEP) is accessible as a sub-section of `existingSystemsLandscape` and is not a separate top-level — promoting it would duplicate content.
 
 | # | Top-level entry | Origin | Source | Track |
 | --- | --- | --- | --- | --- |
@@ -237,13 +237,12 @@ In the tables:
 | 2 | `currentBusinessProcesses` | existing | PD00-CUR-PRO | — |
 | 3 | `painPointsAndGaps` | existing | PD00-CUR-PAI | — |
 | 4 | `currentDataLandscape` | existing | PD00-CUR-DAT | — |
-| 5 | `dependenciesAndIntegrations` | promote | PD00-CUR-SYS-DEP | T2 |
-| 6 | `operationalMetrics` | new | PD00-CUR-MET | T3 |
-| 7 | `currentStateRisks` | new | PD00-CUR-RIS | T3 |
-| 8 | `replacementInventory` | existing | PD00-SYO-SYR-INV | — |
-| 9 | `migrationConsiderations` | existing | PD00-SYO-SYR-MIG | — |
+| 5 | `operationalMetrics` | new | PD00-CUR-MET | T3 |
+| 6 | `currentStateRisks` | new | PD00-CUR-RIS | T3 |
+| 7 | `replacementInventory` | existing | PD00-SYO-SYR-INV | — |
+| 8 | `migrationConsiderations` | existing | PD00-SYO-SYR-MIG | — |
 
-**Count: 9.**
+**Count: 8.**
 
 ### 5.2. RC — Requirements Catalog
 
@@ -324,7 +323,7 @@ PD00-BUS, PD00-BUS-DAT, PD00-BUS-BUS, PD00-BUS-FUN all carry `@MapsTo(BusinessDa
 
 ### 5.6. AC — Authorization Concept
 
-**Seed nodes:** PD00-ACC. `PD00-ACC-IDE-FLO` already exists deeper — promoted to an AC top-level for auth flows.
+**Seed nodes:** PD00-ACC. `PD00-ACC-IDE-FLO` is accessible inside `identificationAndAuthentication` (PD00-ACC-IDE) and is not a separate top-level — promoting it would duplicate content.
 
 | # | Top-level entry | Origin | Source | Track |
 | --- | --- | --- | --- | --- |
@@ -335,10 +334,9 @@ PD00-BUS, PD00-BUS-DAT, PD00-BUS-BUS, PD00-BUS-FUN all carry `@MapsTo(BusinessDa
 | 5 | `sensitiveDataEncryption` | existing | PD00-ACC-SEN | — |
 | 6 | `auditAndLogging` | existing | PD00-ACC-AUD | — |
 | 7 | `roleMatrix` | new | PD00-ACC-ROL | T1 |
-| 8 | `authorizationFlows` | promote | PD00-ACC-IDE-FLO | T2 |
-| 9 | `complianceFramework` | new | PD00-ACC-CMP | T3 |
+| 8 | `complianceFramework` | new | PD00-ACC-CMP | T3 |
 
-**Count: 9.** Dropped as duplicate: `permissionCatalog` (covered by `PermissionGranularityPolicy` / `PermissionCompositionStrategy` deeper inside USA).
+**Count: 8.** Dropped as duplicate: `permissionCatalog` (covered by `PermissionGranularityPolicy` / `PermissionCompositionStrategy` deeper inside USA); `authorizationFlows` (covered by PD00-ACC-IDE subtree).
 
 ### 5.7. TR — Technical Requirements
 
@@ -363,7 +361,7 @@ PD00-BUS, PD00-BUS-DAT, PD00-BUS-BUS, PD00-BUS-FUN all carry `@MapsTo(BusinessDa
 
 ### 5.8. UP — UI Prototype
 
-**Seed nodes:** 11 existing PD00-USE children + 1 new + 1 promoted. `PD00-USE-SCR-INF` (InformationArchitecture) already exists deeper — promoted to UP top-level.
+**Seed nodes:** 11 existing PD00-USE children + 1 new. `PD00-USE-SCR-INF` (InformationArchitecture) is accessible inside `screens` (PD00-USE-SCR) — not a separate top-level.
 
 | # | Top-level entry | Origin | Source | Track |
 | --- | --- | --- | --- | --- |
@@ -379,9 +377,8 @@ PD00-BUS, PD00-BUS-DAT, PD00-BUS-BUS, PD00-BUS-FUN all carry `@MapsTo(BusinessDa
 | 10 | `languageCountrySelection` | existing | PD00-USE-MUL-LCS | — |
 | 11 | `prototype` | existing | PD00-USE-PRO | — |
 | 12 | `wireframesAndMockups` | new | PD00-USE-WIR | T1 |
-| 13 | `informationArchitecture` | promote | PD00-USE-SCR-INF | T2 |
 
-**Count: 13.**
+**Count: 12.**
 
 ### 5.9. SR — System Rollout
 
@@ -475,20 +472,20 @@ Counts after §7 applies: "Existing" = PD00 classes already in the model; "Promo
 
 | Doc | Seed nodes | Existing | Promote (T2) | New (T1+T3) | Total tops |
 | --- | --- | --- | --- | --- | --- |
-| CS  | PD00-CUR, PD00-SYO-SYR | 6 | 1 | 2 | 9 |
+| CS  | PD00-CUR, PD00-SYO-SYR | 6 | 0 | 2 | 8 |
 | RC  | PD00-SYO-REQ | 5 | 0 | 2 | 7 |
 | BP  | PD00-TAR-PRO | 6 | 0 | 4 | 10 |
 | UC  | PD00-TAR-STP | 3 | 2 | 2 | 7 |
 | BDM | PD00-BUS | 9 | 0 | 3 | 12 |
-| AC  | PD00-ACC | 6 | 1 | 2 | 9 |
+| AC  | PD00-ACC | 6 | 0 | 2 | 8 |
 | TR  | PD00-TEC, PD00-COM, PD00-SYO-RES-TEC, PD00-USE-MUL-REQ | 11 | 0 | 1 | 12 |
-| UP  | 11× PD00-USE-* | 11 | 1 | 1 | 13 |
+| UP  | 11× PD00-USE-* | 11 | 0 | 1 | 12 |
 | SR  | PD00-USE-MUL-{LOC,TRA,DOC}, PD00-ROL | 3 | 0 | 8 | 11 |
 | BQP | PD00-SYQ, PD00-DEL-ACC | 13 | 0 | 1 | 14 |
 | PPP | PD00-SSP | 7 | 0 | 2 | 9 |
 | BSI | PD00-SYO-SYB | 3 | 0 | 7 | 10 |
 
-Every PD00 subtree that has a Phase 3 target is covered exactly once; no target-doc top-level duplicates a class already reachable via another top-level's subtree. Across the 12 documents §7 creates **35 new PD00 sections** (22 HBSG-backed + 13 inferred) plus **1 new top-level section** `PD00-ROL`; **5 promotions** reuse classes that already exist deeper in the tree. Details in §7.
+Every PD00 subtree that has a Phase 3 target is covered exactly once; no target-doc top-level duplicates a class already reachable via another top-level's subtree. Across the 12 documents §7 creates **35 new PD00 sections** (22 HBSG-backed + 13 inferred) plus **1 new top-level section** `PD00-ROL`; **2 promotions** reuse existing untagged classes. Details in §7.
 
 ---
 
@@ -545,17 +542,14 @@ Every `new` or `promote` row in §5 points back to one row here.
 
 ### 7.2. Track 2 — Promotions of Existing Classes
 
-**5 existing classes are pulled up to be target-doc top-levels directly** (no new PD00 sections). The class keeps its hierarchical PD00 section ID; the work is purely annotation-based, plus `@SectionId` where the class is currently untagged.
+**2 existing untagged classes get `@SectionId` + `@DetailedIn`** and become target-doc top-levels. These are the only promotions that don't duplicate content already accessible through an existing top-level.
 
 | Existing PD00 ID | Class name | Feeds | Action |
 | --- | --- | --- | --- |
-| PD00-CUR-SYS-DEP | `DependenciesAndIntegrations` | CS | Add `@DetailedIn(CurrentSituation)`. Class is already `@SectionId`-tagged. |
-| PD00-TAR-STP-OVE | `ProcessStepsOverview` | UC | Add `@SectionId('PD00-TAR-STP-OVE')` (currently untagged) + `@DetailedIn(UseCases)`. Update parent field doc comment. |
-| PD00-TAR-STP-DIA | `ActorRelationshipDiagram` | UC | Add `@SectionId('PD00-TAR-STP-DIA')` + `@DetailedIn(UseCases)`. |
-| PD00-USE-SCR-INF | `InformationArchitecture` | UP | Add `@DetailedIn(UiPrototype)`. Class is already `@SectionId`-tagged under `PD00-USE-SCR`. |
-| PD00-ACC-IDE-FLO | `AuthorizationFlows` class at [access_authorization.dart:1916](../lib/src/pd_project_definition/access_authorization.dart#L1916) | AC | Add `@DetailedIn(AuthorizationConcept)`. Class is already `@SectionId`-tagged under `PD00-ACC-IDE`. |
+| PD00-TAR-STP-OVE | `ProcessStepsOverview` | UC | Add `@SectionId('PD00-TAR-STP-OVE')` (currently untagged) + `@DetailedIn(UseCases)`. |
+| PD00-TAR-STP-DIA | `ActorRelationshipDiagram` | UC | Add `@SectionId('PD00-TAR-STP-DIA')` (currently untagged) + `@DetailedIn(UseCases)`. |
 
-Per §8.3 rule: the parent of each promoted class (e.g. `PD00-TAR-STP`, `PD00-USE-SCR`, `PD00-ACC-IDE`) does **not** get `@MapsTo(...)` if the parent's remaining subtree also goes to the same doc — `@MapsTo` sits at the shallowest point (PD00-TAR-STP, PD00-USE, PD00-ACC). It's only the *promoted child* that additionally gets `@DetailedIn`.
+**Why only two promotions:** The earlier draft listed five, but three of the proposed promotions (`PD00-CUR-SYS-DEP`, `PD00-USE-SCR-INF`, `PD00-ACC-IDE-FLO`) each live inside a parent that is *itself* a target-doc top-level (PD00-CUR-SYS, PD00-USE-SCR, PD00-ACC-IDE respectively). Promoting them as additional top-levels would duplicate content — the classes would be reachable both via the top-level parent's subtree and directly. Per the completeness rule in §2, they stay accessible through the parent subtree; the "dropped as duplicate" list in §7.3 tracks them.
 
 **Note on PD00-TAR-PRO-REL:** Already a properly `@SectionId`-tagged class at [target_business_process.dart:1032](../lib/src/pd_project_definition/target_business_process.dart#L1032). The only defect is the field reference in `BusinessProcessDescriptions` lacking the section number in its doc comment. Fix that one line; no promotion required.
 
@@ -583,7 +577,7 @@ Per §8.3 rule: the parent of each promoted class (e.g. `PD00-TAR-STP`, `PD00-US
 
 | Originally proposed | Reason dropped |
 | --- | --- |
-| PD00-CUR-INT (Integration Points) | Already `PD00-CUR-SYS-DEP` — promoted via Track 2 instead. |
+| PD00-CUR-INT (Integration Points) | Content lives in `PD00-CUR-SYS-DEP`, accessible via the `existingSystemsLandscape` top-level (PD00-CUR-SYS). |
 | PD00-SYO-REQ-PRO / -PRI / -CHA | Already `@Form` fields on `RequirementsOverview` (`requirementsProcess`, `prioritizationMethod`, `changeControlProcess`). Kept as fields. |
 | PD00-TAR-STP-CAT, -ALT, -PRE | `InteractionCatalog` (PD00-TAR-STP-INT) and `PreconditionsAndTriggers` inside each interaction entry already cover these. |
 | PD00-BUS-LIF | Per-object lifecycle lives inside `PD00-BUS-BUS-CAT` entries (`LifecycleTransitionEntry`). |
@@ -592,12 +586,12 @@ Per §8.3 rule: the parent of each promoted class (e.g. `PD00-TAR-STP`, `PD00-US
 | PD00-BUS-RUL | Already `PD00-BUS-FUN-RUL` (list). BDM top-level points there. |
 | PD00-TEC-INF | `InfrastructureComponentEntry` already lives inside `PD00-TEC-HAR`. |
 | PD00-TEC-INT | Overlaps with `PD00-TEC-COM` (Communication Requirements). |
-| PD00-ACC-FLO | Already `PD00-ACC-IDE-FLO` — promoted via Track 2. |
+| PD00-ACC-FLO | Content lives in `PD00-ACC-IDE-FLO`, accessible via the `identificationAndAuthentication` top-level (PD00-ACC-IDE). |
 | PD00-ACC-PER | `PermissionGranularityPolicy` / `PermissionCompositionStrategy` / `PermissionEvaluationBehavior` already live inside `PD00-ACC-USA`. |
 | PD00-SSP-PHD | Covered by `PD00-SSP-STA` + stages list. |
 | PD00-SSP-GAT | Already `PD00-SSP-GOV-GAT` — PPP top-level points there. |
 | PD00-SSP-RES | `StageOverviewResources` already lives inside `PD00-SSP-STA`. |
-| PD00-USE-INF | Already `PD00-USE-SCR-INF` — promoted via Track 2. |
+| PD00-USE-INF | Content lives in `PD00-USE-SCR-INF`, accessible via the `screens` top-level (PD00-USE-SCR). |
 
 ### 7.4. Execution Order
 
@@ -855,16 +849,16 @@ End-to-end ordered sequence across the work defined in §7, §8, and §9. Each s
 
 ### Phase A — PD00 Completion (§7)
 
-#### Step 1 — Track 2 promotions, shape-only (§7.2, §8.2)
+#### Step 1 — Track 2 promotions + PD00-TAR-PRO-REL fix (§7.2, §8.2)
 
 **What:**
-- Add `@SectionId('PD00-TAR-STP-OVE')` to `ProcessStepsOverview` and `@SectionId('PD00-TAR-STP-DIA')` to `ActorRelationshipDiagram` ([target_business_process.dart](../lib/src/pd_project_definition/target_business_process.dart)) — the only two untagged classes among the promotions.
-- Add `@DetailedIn(...)` to the 5 promoted classes per §7.2 table.
-- Update the field-level doc comments in parent classes to carry the section ID (including the PD00-TAR-PRO-REL fix).
+- Add `@SectionId('PD00-TAR-STP-OVE')` + `@DetailedIn(UseCases)` to `ProcessStepsOverview` ([target_business_process.dart:1127](../lib/src/pd_project_definition/target_business_process.dart#L1127)).
+- Add `@SectionId('PD00-TAR-STP-DIA')` + `@DetailedIn(UseCases)` to `ActorRelationshipDiagram` ([target_business_process.dart:1150](../lib/src/pd_project_definition/target_business_process.dart#L1150)).
+- Update the field-level doc comment on `BusinessProcessDescriptions.processRelationships` to carry the `[PD00-TAR-PRO-REL]` section ID (the class already carries `@SectionId`).
 
-**Why first:** no structural change. The outliner output must be byte-identical before/after. Serves as a smoke test that the annotation infrastructure is wired up (imports, analyzer picks up annotations, etc.).
+**Why first:** smallest viable change. Exercises the annotation infrastructure (imports of `tom_specs_core`, analyzer picks up annotations, `@DetailedIn(UseCases)` resolves via the Step 0 stub). Outliner output gains two newly-tagged sections; everything else unchanged.
 
-**Exit:** `dart analyze` clean; `outliner --root-type ProjectDefinition` output unchanged.
+**Exit:** `dart analyze` clean; outliner renders the two new `@SectionId`s under PD00-TAR-STP.
 
 #### Step 2 — Reclassify PD00-CUR and add its three inferred children (§7.3, §4, §3)
 

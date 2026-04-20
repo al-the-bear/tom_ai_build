@@ -7,6 +7,8 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
+import '../document_stubs.dart';
+
 /// 6. Target Business Process Model [PD00-TAR].
 @SectionId('PD00-TAR')
 @Comment('Seeds → BP, UC')
@@ -87,7 +89,7 @@ BP (Business Processes) document.
   /// 6.1.5. Improvement Summary [PD00-TAR-PRO-IMP].
   ProcessImprovementSummary improvementSummary = ProcessImprovementSummary();
 
-  /// Process relationships and dependencies.
+  /// 6.1.6. Process Relationships [PD00-TAR-PRO-REL].
   ProcessRelationships processRelationships = ProcessRelationships();
 }
 
@@ -1123,7 +1125,9 @@ postconditions in the UC (Use Cases) document.
       ActorRelationshipDiagram();
 }
 
-/// Process steps overview.
+/// 6.2. Process Steps Overview [PD00-TAR-STP-OVE].
+@SectionId('PD00-TAR-STP-OVE')
+@DetailedIn(UseCases)
 class ProcessStepsOverview {
   @Form([
     Field('useCaseScope', String,
@@ -1146,7 +1150,9 @@ class ProcessStepsOverview {
   String? content;
 }
 
-/// Actor relationship diagram.
+/// 6.2. Actor Relationship Diagram [PD00-TAR-STP-DIA].
+@SectionId('PD00-TAR-STP-DIA')
+@DetailedIn(UseCases)
 class ActorRelationshipDiagram {
   /// Diagram overview.
   ActorDiagramOverview overview = ActorDiagramOverview();
