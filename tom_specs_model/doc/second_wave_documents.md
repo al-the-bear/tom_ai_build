@@ -24,6 +24,30 @@ Before reading the map, note a naming gap between the mapping document and the c
 | `PD00-SYS-RES-TEC` | `PD00-SYO-RES-TEC` | Same content |
 | `PD00-USE-DAT`, `PD00-USE-AUT` | not present as `@SectionId` classes | Replaced in the model by the untagged `dataStructureAlignment` and `authorizationCompliance` fields inside `UserInterfaceDesign` |
 
+### HBSG ID Replacement Table
+
+No HBSG ID (AS-xx, DR-xx, EK-xx) appears in any target-document outline below. Every HBSG reference used in earlier drafts has been replaced with either the PD00 ID where that content lives today, or a target-document-scoped ID (`<DOC>-xxx`) for genuinely new expansion content. Replacements applied in §5:
+
+| Old HBSG ref | Replaced with | Reason |
+| --- | --- | --- |
+| AS01-CUR | `PD00-CUR-SYS` | Content already present in model as `ExistingSystemsLandscape` |
+| AS01-PAI | `PD00-CUR-PAI` | Content already present as `PainPointsAndGaps` |
+| AS07-DET | `BP-DET` | New in BP; no PD00 equivalent |
+| AS07-CRO | `BP-CRO` | New in BP |
+| AS07-EXC | `BP-EXC` | New in BP |
+| AS08-CON / AS08-BUO / AS08-BUS | *(rows dropped — duplicated PD00-BUS seeded entries)* | Conceptual data / business objects are already covered by `dataModel`, `businessObjectModel`, `functionModel` |
+| AS08-DAT | `BDM-DIC` | Data dictionary recast as BDM-only expansion |
+| AS09-SOF / DR30 | `TR-ARC` | Detailed system architecture is TR expansion |
+| AS10-WIR | `UP-WIR` | Wireframes are UP-only expansion |
+| AS10-INF | `UP-INF` | Information architecture is UP-only expansion |
+| AS22-AUM (parenthetical) | *(removed)* | Role matrix retained as `AC-ROL`; AS22 reference deleted |
+| AS23 | `BQP-TST` | Test strategy is BQP expansion |
+| AS24 | `UC-E2E` | End-to-end scenarios framed as UC expansion |
+| DR15 / DR17 / DR22 / DR23 | *(dropped — SR IDs retained)* | SR owns user manuals, training, migration, rollout |
+| EK09 / EK10 | *(dropped — SR IDs retained)* | SR owns knowledge-transfer and warranty content |
+
+### Model-Added PD00 Sections
+
 The model has also added these sections that the mapping does not yet list; the target documents proposed here extend the mapping accordingly:
 
 | Added in model | Parent | Proposed target |
@@ -204,8 +228,8 @@ In the tables:
 | --- | --- | --- | --- |
 | 1 | `replacementInventory` | seeded (flat) | PD00-SYO-SYR-INV |
 | 2 | `migrationConsiderations` | seeded (flat) | PD00-SYO-SYR-MIG |
-| 3 | `currentSystemsLandscape` | expansion | AS01-CUR |
-| 4 | `painPointsAndIssues` | expansion | AS01-PAI |
+| 3 | `currentSystemsLandscape` | expansion | PD00-CUR-SYS |
+| 4 | `painPointsAndIssues` | expansion | PD00-CUR-PAI |
 | 5 | `currentDataFlows` | expansion | CS-DAT |
 | 6 | `currentIntegrationPoints` | expansion | CS-INT |
 | 7 | `currentArchitectureAssessment` | expansion | CS-ARC |
@@ -245,9 +269,9 @@ In the tables:
 | 4 | `processOverviewDiagram` | seeded (flat) | PD00-TAR-PRO-FLO |
 | 5 | `improvementSummary` | seeded (flat) | PD00-TAR-PRO-IMP |
 | 6 | `processRelationships` | seeded (flat) | (untagged field) |
-| 7 | `detailedWorkflows` | expansion | AS07-DET |
-| 8 | `crossProcessAnalysis` | expansion | AS07-CRO |
-| 9 | `exceptionHandling` | expansion | AS07-EXC |
+| 7 | `detailedWorkflows` | expansion | BP-DET |
+| 8 | `crossProcessAnalysis` | expansion | BP-CRO |
+| 9 | `exceptionHandling` | expansion | BP-EXC |
 | 10 | `processMetricsAndKpis` | expansion | BP-MET |
 
 **Count: 10.**
@@ -266,7 +290,7 @@ In the tables:
 | 6 | `useCaseCatalog` | expansion | UC-CAT (fully-dressed Cockburn UCs) |
 | 7 | `alternateFlows` | expansion | UC-ALT |
 | 8 | `preconditionsAndPostconditions` | expansion | UC-PRE |
-| 9 | `endToEndTestScenarios` | expansion | AS24 |
+| 9 | `endToEndTestScenarios` | expansion | UC-E2E |
 | 10 | `useCaseTraceability` | expansion | UC-TRC |
 
 **Count: 10.**
@@ -283,14 +307,14 @@ In the tables:
 | 1 | `dataModel` | seeded (flat) | PD00-BUS-DAT |
 | 2 | `businessObjectModel` | seeded (flat) | PD00-BUS-BUS |
 | 3 | `functionModel` | seeded (flat) | PD00-BUS-FUN |
-| 4 | `conceptualDataModel` | expansion | AS08-CON |
-| 5 | `entityDefinitions` | expansion | AS08-BUO |
-| 6 | `businessObjectOverview` | expansion | AS08-BUS |
-| 7 | `dataDictionary` | expansion | AS08-DAT |
-| 8 | `businessRules` | expansion | BDM-RUL |
-| 9 | `validationConstraints` | expansion | BDM-VAL |
-| 10 | `lifecycleStates` | expansion | BDM-LIF |
-| 11 | `dataClassification` | expansion | BDM-CLA |
+| 4 | `dataDictionary` | expansion | BDM-DIC |
+| 5 | `businessRules` | expansion | BDM-RUL |
+| 6 | `validationConstraints` | expansion | BDM-VAL |
+| 7 | `lifecycleStates` | expansion | BDM-LIF |
+| 8 | `dataClassification` | expansion | BDM-CLA |
+| 9 | `relationshipModel` | expansion | BDM-REL |
+| 10 | `integrityConstraints` | expansion | BDM-CON |
+| 11 | `migrationMapping` | expansion | BDM-MIG |
 
 **Count: 11.**
 
@@ -306,7 +330,7 @@ In the tables:
 | 4 | `authorization` | seeded (flat) | PD00-ACC-USA |
 | 5 | `encryption` | seeded (flat) | PD00-ACC-SEN |
 | 6 | `auditAndLogging` | seeded (flat) | PD00-ACC-AUD |
-| 7 | `roleMatrix` | expansion | AC-ROL (AS22-AUM permission matrix) |
+| 7 | `roleMatrix` | expansion | AC-ROL |
 | 8 | `permissionCatalog` | expansion | AC-PER |
 | 9 | `authorizationFlows` | expansion | AC-FLO |
 | 10 | `complianceFramework` | expansion | AC-CMP (NIST/SOC2/ISO27001/OWASP) |
@@ -330,7 +354,7 @@ In the tables:
 | 9 | `componentsToUse` | seeded (whole) | PD00-COM |
 | 10 | `technicalFrameworkConditions` | seeded (whole) | PD00-SYO-RES-TEC |
 | 11 | `translationRequirements` | seeded (whole) | PD00-USE-MUL-REQ |
-| 12 | `systemArchitecture` | expansion | AS09-SOF (detailed) / DR30 |
+| 12 | `systemArchitecture` | expansion | TR-ARC |
 | 13 | `infrastructureRequirements` | expansion | TR-INF |
 | 14 | `integrationProtocols` | expansion | TR-INT |
 
@@ -353,8 +377,8 @@ In the tables:
 | 9 | `uiComponents` | seeded (whole) | PD00-USE-COM |
 | 10 | `languageCountrySelection` | seeded (whole) | PD00-USE-MUL-LCS |
 | 11 | `prototype` | seeded (whole) | PD00-USE-PRO |
-| 12 | `wireframesAndMockups` | expansion | AS10-WIR |
-| 13 | `informationArchitecture` | expansion | AS10-INF |
+| 12 | `wireframesAndMockups` | expansion | UP-WIR |
+| 13 | `informationArchitecture` | expansion | UP-INF |
 
 **Count: 13.**
 
@@ -367,14 +391,14 @@ In the tables:
 | 1 | `localizationProcess` | seeded (whole) | PD00-USE-MUL-LOC |
 | 2 | `translationProcess` | seeded (whole) | PD00-USE-MUL-TRA |
 | 3 | `documentationAndTraining` | seeded (whole) | PD00-USE-MUL-DOC |
-| 4 | `rolloutPlan` | expansion | SR-ROL / DR23 |
-| 5 | `migrationPlan` | expansion | SR-MIG / DR22 |
-| 6 | `userManuals` | expansion | SR-DOC / DR15 |
-| 7 | `trainingMaterials` | expansion | SR-TRN / DR17 |
+| 4 | `rolloutPlan` | expansion | SR-ROL |
+| 5 | `migrationPlan` | expansion | SR-MIG |
+| 6 | `userManuals` | expansion | SR-DOC |
+| 7 | `trainingMaterials` | expansion | SR-TRN |
 | 8 | `pilotPlan` | expansion | SR-PIL |
 | 9 | `cutoverProcedures` | expansion | SR-CUT |
-| 10 | `knowledgeTransfer` | expansion | SR-KNO / EK09 |
-| 11 | `warrantyAndSupport` | expansion | SR-WAR / EK10 |
+| 10 | `knowledgeTransfer` | expansion | SR-KNO |
+| 11 | `warrantyAndSupport` | expansion | SR-WAR |
 
 **Count: 11.**
 
@@ -397,7 +421,7 @@ In the tables:
 | 11 | `defectResolution` | seeded (flat) | PD00-DEL-ACC-DEF |
 | 12 | `signOffProcess` | seeded (flat) | PD00-DEL-ACC-SIG |
 | 13 | `warranty` | seeded (flat) | PD00-DEL-ACC-WAR |
-| 14 | `testStrategy` | expansion | AS23 |
+| 14 | `testStrategy` | expansion | BQP-TST |
 
 **Count: 14.**
 
@@ -465,7 +489,94 @@ Every PD00 subtree that has a Phase 3 target is covered exactly once, with no ov
 
 ---
 
-## 7. Implementation Notes
+## 7. Annotation Rules: `@MapsTo` and `@DetailedIn`
+
+Two annotations record the PD00 → DocSpec structure directly on the PD00 class tree so the mapping is discoverable from code and mechanically verifiable by the outliner. Both live in `tom_specs_core` (see [lib/src/annotations/maps_to.dart](../../tom_specs_core/lib/src/annotations/maps_to.dart) and [lib/src/annotations/detailed_in.dart](../../tom_specs_core/lib/src/annotations/detailed_in.dart)).
+
+### 7.1. `@MapsTo(DocumentClass)`
+
+**Meaning.** This class is the **1:1 mapping point** between PD00 and the named DocSpec. Its entire subtree flows to that document and nothing else.
+
+**Where it goes.** On the shallowest PD00 class whose whole subtree is the source for a single target DocSpec — that is the **seed node** identified by the cut-depth rule in §2. If a PD00 subtree splits between multiple targets, no class in the split has `@MapsTo`; instead, each child that itself maps 1:1 carries `@MapsTo` individually.
+
+**Count.** One `@MapsTo` per entry in §6 column "Seed nodes". A multi-source target document (TR, UP, SR, BQP) has multiple seed classes, each with its own `@MapsTo(SameDocumentClass)`.
+
+### 7.2. `@DetailedIn(DocumentClass)`
+
+**Meaning.** This class's content is **taken over as a top-level entry** in the named DocSpec. It marks the take-off level from PD00 into the target document's top level.
+
+**Where it goes.** On the class that appears as a direct top-level entry of the target DocSpec (per §5 tables):
+
+- **Seed kept whole** (Origin `seeded (whole)` in §5): the seed class carries `@DetailedIn`.
+- **Seed flattened one level** (Origin `seeded (flat)` in §5): each direct child of the seed that becomes a top-level entry carries `@DetailedIn`.
+
+Children promoted by flattening do *not* carry `@MapsTo` — only the seed (their parent) does.
+
+### 7.3. When a class carries both
+
+A class has both `@MapsTo` and `@DetailedIn` when the seed node is kept whole in the target document, i.e., the seed is both the 1:1 mapping point and the top-level entry.
+
+Examples (from §5):
+
+- `BusinessObjectAndDataModel` (PD00-BUS): `@MapsTo(BusinessDataModel)` — but **not** `@DetailedIn`, because the seed is flattened into 3 top-levels in §5.5.
+- `DataModel`, `BusinessObjectModel`, `FunctionModel`: each carries `@DetailedIn(BusinessDataModel)`; none carries `@MapsTo` (their parent does).
+- `ComponentsToUse` (PD00-COM): carries **both** `@MapsTo(TechnicalRequirements)` **and** `@DetailedIn(TechnicalRequirements)` — PD00-COM is kept whole as TR's `componentsToUse` top-level (§5.7 row 9).
+- `TechnicalFrameworkConditions` (PD00-SYO-RES-TEC): both (§5.7 row 10).
+- `TranslationRequirements` (PD00-USE-MUL-REQ): both (§5.7 row 11).
+- Every `PD00-USE-*` class flowing to UP (§5.8): all 11 carry both.
+- `LocalizationProcess`, `TranslationProcess`, `DocumentationAndTraining` (§5.9): all three carry both.
+- `SystemStagePlan` (PD00-SSP): `@MapsTo(ProjectPhasePlan)` only — flattened into 6 PPP top-levels.
+- `StagingStrategy`, `StageOverview`, `FeaturePrioritization`, `DataMigrationStrategy`, `StageGovernance`, and the `stages` list type: each carries `@DetailedIn(ProjectPhasePlan)`.
+
+### 7.4. Worked example: the BDM branch
+
+```dart
+import 'package:tom_specs_core/tom_specs_core.dart';
+import 'package:tom_specs_model/src/bdm_business_data_model/business_data_model.dart';
+
+@SectionId('PD00-BUS')
+@MapsTo(BusinessDataModel)
+class BusinessObjectAndDataModel {
+  // …seed of BDM. Not itself a top-level of BDM — flattened one level.
+  DataModel dataModel = DataModel();
+  BusinessObjectModel businessObjectModel = BusinessObjectModel();
+  FunctionModel functionModel = FunctionModel();
+}
+
+@SectionId('PD00-BUS-DAT')
+@DetailedIn(BusinessDataModel)
+class DataModel { /* top-level in BDM */ }
+
+@SectionId('PD00-BUS-BUS')
+@DetailedIn(BusinessDataModel)
+class BusinessObjectModel { /* top-level in BDM */ }
+
+@SectionId('PD00-BUS-FUN')
+@DetailedIn(BusinessDataModel)
+class FunctionModel { /* top-level in BDM */ }
+```
+
+And for a whole-seed case:
+
+```dart
+@SectionId('PD00-COM')
+@MapsTo(TechnicalRequirements)
+@DetailedIn(TechnicalRequirements)
+class ComponentsToUse { /* whole subtree is TR's componentsToUse top-level */ }
+```
+
+### 7.5. Mechanical invariants (validator can enforce)
+
+- Every class that appears in any §5 "Source" column of type `PD00-…` has exactly one `@DetailedIn`.
+- Every seed node listed in §6 has exactly one `@MapsTo`.
+- For each target DocSpec `D`, the count of `@DetailedIn(D)` in the PD00 tree equals `D`'s "Seeded tops" column in §6.
+- No class carries `@DetailedIn` without either (a) also carrying `@MapsTo`, or (b) having a parent that carries `@MapsTo` for the same target.
+
+These invariants are additions the outliner / validator can check once the annotations are applied.
+
+---
+
+## 8. Implementation Notes
 
 - **Reuse, don't duplicate.** The seeded fields type against the existing PD00 classes (`BusinessObjectAndDataModel`, `SystemStagePlan`, etc.). The target document class imports `package:tom_specs_model/.../pd_project_definition/...` and uses the same types. Expansion-only sections are authored as new classes inside `lib/src/<doc>_<name>/`.
 - **One folder per document.** Add `lib/src/cs_current_situation/`, `lib/src/rc_requirements_catalog/`, … mirroring `pd_project_definition/`. Top-level file exports the root class (e.g., `CurrentSituation`, `RequirementsCatalog`).
