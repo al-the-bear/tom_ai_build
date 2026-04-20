@@ -6254,7 +6254,6 @@ class RegulatoryComplianceEntryOwnership {
 /// Security standard compliance entry (SOC2, ISO 27001, CIS).
 class SecurityStandardComplianceEntry {
   @Form([
-    // Identity
     Field('standardName', String, 'Standard Name',
         required: true, hint: 'E.g., SOC 2, ISO 27001, CIS Controls'),
     Field('standardType', String, 'Standard Type',
@@ -6262,16 +6261,42 @@ class SecurityStandardComplianceEntry {
     Field('version', String, 'Version', hint: 'Standard version'),
     Field('trustServiceCriteria', String, 'Trust Service Criteria',
         hint: 'For SOC 2: Security, Availability, etc.'),
+  ])
+  String? content;
 
-    // Scope
+  /// Scope details.
+  SecurityStandardComplianceEntryScope scope =
+      SecurityStandardComplianceEntryScope();
+
+  /// Control definitions.
+  SecurityStandardComplianceEntryControls controls =
+      SecurityStandardComplianceEntryControls();
+
+  /// Assessment schedule.
+  SecurityStandardComplianceEntryAssessment assessment =
+      SecurityStandardComplianceEntryAssessment();
+
+  /// Overall status.
+  SecurityStandardComplianceEntryStatus status =
+      SecurityStandardComplianceEntryStatus();
+}
+
+/// Scope details.
+class SecurityStandardComplianceEntryScope {
+  @Form([
     Field('systemsInScope', String, 'Systems in Scope',
         hint: 'Systems covered'),
     Field('dataInScope', String, 'Data in Scope',
         hint: 'Data categories covered'),
     Field('exclusions', String, 'Exclusions',
         hint: 'What is excluded'),
+  ])
+  String? content;
+}
 
-    // Controls
+/// Control definitions.
+class SecurityStandardComplianceEntryControls {
+  @Form([
     Field('controlFramework', String, 'Control Framework',
         hint: 'Framework used'),
     Field('controlCategories', String, 'Control Categories',
@@ -6280,8 +6305,13 @@ class SecurityStandardComplianceEntry {
         hint: 'Critical controls'),
     Field('compensatingControls', String, 'Compensating Controls',
         hint: 'Alternative controls'),
+  ])
+  String? content;
+}
 
-    // Assessment
+/// Assessment schedule.
+class SecurityStandardComplianceEntryAssessment {
+  @Form([
     Field('assessmentFrequency', String, 'Assessment Frequency',
         hint: 'How often assessed'),
     Field('lastAuditDate', String, 'Last Audit Date',
@@ -6290,8 +6320,13 @@ class SecurityStandardComplianceEntry {
         hint: 'Date of next audit'),
     Field('auditor', String, 'Auditor',
         hint: 'External auditor'),
+  ])
+  String? content;
+}
 
-    // Status
+/// Overall status.
+class SecurityStandardComplianceEntryStatus {
+  @Form([
     Field('complianceStatus', String, 'Compliance Status',
         hint: 'Current compliance status'),
     Field('notes', String, 'Notes',
@@ -6948,7 +6983,6 @@ Provide an overview of server infrastructure strategy.
 /// Server environment entry (development, staging, production, DR).
 class ServerEnvironmentEntry {
   @Form([
-    // Identity
     Field('environmentName', String, 'Environment Name',
         required: true, hint: 'E.g., Development, Staging, Production'),
     Field('environmentType', String, 'Environment Type',
@@ -6957,8 +6991,25 @@ class ServerEnvironmentEntry {
         hint: 'dev, stg, prod, dr'),
     Field('purpose', String, 'Purpose',
         hint: 'Primary purpose of this environment'),
+  ])
+  String? content;
 
-    // Location
+  /// Location details.
+  ServerEnvironmentEntryLocation location = ServerEnvironmentEntryLocation();
+
+  /// Scale expectations.
+  ServerEnvironmentEntryScale scale = ServerEnvironmentEntryScale();
+
+  /// Access rules.
+  ServerEnvironmentEntryAccess access = ServerEnvironmentEntryAccess();
+
+  /// Lifecycle rules.
+  ServerEnvironmentEntryLifecycle lifecycle = ServerEnvironmentEntryLifecycle();
+}
+
+/// Location details.
+class ServerEnvironmentEntryLocation {
+  @Form([
     Field('region', String, 'Region',
         hint: 'Geographic region'),
     Field('dataCenter', String, 'Data Center',
@@ -6967,24 +7018,39 @@ class ServerEnvironmentEntry {
         hint: 'Availability zone'),
     Field('cloudRegion', String, 'Cloud Region',
         hint: 'Cloud provider region'),
+  ])
+  String? content;
+}
 
-    // Scale
+/// Scale expectations.
+class ServerEnvironmentEntryScale {
+  @Form([
     Field('serverCount', int, 'Server Count',
         hint: 'Number of servers in environment'),
     Field('expectedUsers', String, 'Expected Users',
         hint: 'Concurrent users expected'),
     Field('expectedLoad', String, 'Expected Load',
         hint: 'Requests per second'),
+  ])
+  String? content;
+}
 
-    // Access
+/// Access rules.
+class ServerEnvironmentEntryAccess {
+  @Form([
     Field('accessRestrictions', String, 'Access Restrictions',
         hint: 'Who can access this environment'),
     Field('networkSegment', String, 'Network Segment',
         hint: 'VPC/network segment'),
     Field('vpnRequired', bool, 'VPN Required',
         hint: 'VPN access required'),
+  ])
+  String? content;
+}
 
-    // Lifecycle
+/// Lifecycle rules.
+class ServerEnvironmentEntryLifecycle {
+  @Form([
     Field('refreshSchedule', String, 'Refresh Schedule',
         hint: 'Data refresh schedule'),
     Field('retentionPolicy', String, 'Retention Policy',
@@ -7004,31 +7070,64 @@ class ServerRoleEntry {
         hint: 'App, Web, Database, Cache, Queue, Gateway'),
     Field('roleAbbreviation', String, 'Abbreviation',
         hint: 'Short code for role'),
-    // Software
+  ])
+  String? content;
+
+  /// Software stack details.
+  ServerRoleEntrySoftware software = ServerRoleEntrySoftware();
+
+  /// Capacity requirements.
+  ServerRoleEntryCapacity capacity = ServerRoleEntryCapacity();
+
+  /// Storage requirements.
+  ServerRoleEntryStorage storage = ServerRoleEntryStorage();
+
+  /// Networking requirements.
+  ServerRoleEntryNetworking networking = ServerRoleEntryNetworking();
+}
+
+/// Software stack details.
+class ServerRoleEntrySoftware {
+  @Form([
     Field('softwareStack', String, 'Software Stack',
         hint: 'Software installed on this server'),
     Field('runtimeEnvironment', String, 'Runtime Environment',
         hint: 'JVM, Node.js, .NET, Python'),
     Field('osType', String, 'Operating System',
         hint: 'Linux distro, Windows Server'),
+  ])
+  String? content;
+}
 
-    // Capacity
+/// Capacity requirements.
+class ServerRoleEntryCapacity {
+  @Form([
     Field('cpuArchitecture', String, 'CPU Architecture',
         hint: 'x64, ARM64'),
     Field('minMemoryGb', int, 'Minimum Memory (GB)',
         hint: 'Minimum RAM in GB'),
     Field('recommendedMemoryGb', int, 'Recommended Memory (GB)',
         hint: 'Recommended RAM in GB'),
+  ])
+  String? content;
+}
 
-    // Storage
+/// Storage requirements.
+class ServerRoleEntryStorage {
+  @Form([
     Field('storageType', String, 'Storage Type',
         hint: 'SSD, HDD, NVMe'),
     Field('storageCapacityGb', int, 'Storage Capacity (GB)',
         hint: 'Required storage in GB'),
     Field('iopsRequired', int, 'IOPS Required',
         hint: 'Required I/O operations per second'),
+  ])
+  String? content;
+}
 
-    // Networking
+/// Networking requirements.
+class ServerRoleEntryNetworking {
+  @Form([
     Field('networkBandwidth', String, 'Network Bandwidth',
         hint: 'Required network bandwidth'),
     Field('exposedPorts', String, 'Exposed Ports',
@@ -7347,23 +7446,47 @@ class HighAvailabilityRequirementsDisasterRecovery {
 /// Virtualization and containerization requirements.
 class VirtualizationRequirements {
   @Form([
-    // Approach
     Field('deploymentModel', String, 'Deployment Model',
         hint: 'Bare metal, VM, Container'),
     Field('primaryPlatform', String, 'Primary Platform',
         hint: 'VMware, Docker, Kubernetes'),
     Field('orchestrationPlatform', String, 'Orchestration Platform',
         hint: 'Kubernetes, ECS, etc.'),
+  ])
+  String? content;
 
-    // VMs
+  /// VM requirements.
+  VirtualizationRequirementsVm vm = VirtualizationRequirementsVm();
+
+  /// Container requirements.
+  VirtualizationRequirementsContainer container =
+      VirtualizationRequirementsContainer();
+
+  /// Kubernetes requirements.
+  VirtualizationRequirementsKubernetes kubernetes =
+      VirtualizationRequirementsKubernetes();
+
+  /// Networking requirements.
+  VirtualizationRequirementsNetworking networking =
+      VirtualizationRequirementsNetworking();
+}
+
+/// VM requirements.
+class VirtualizationRequirementsVm {
+  @Form([
     Field('hypervisorType', String, 'Hypervisor Type',
         hint: 'VMware, Hyper-V, KVM'),
     Field('vmImageFormat', String, 'VM Image Format',
         hint: 'OVA, AMI, VHD'),
     Field('vmTemplateRequired', bool, 'VM Template Required',
         hint: 'Golden image needed'),
+  ])
+  String? content;
+}
 
-    // Containers
+/// Container requirements.
+class VirtualizationRequirementsContainer {
+  @Form([
     Field('containerRuntime', String, 'Container Runtime',
         hint: 'Docker, containerd, CRI-O'),
     Field('baseImage', String, 'Base Image',
@@ -7372,8 +7495,13 @@ class VirtualizationRequirements {
         hint: 'Container registry'),
     Field('imageScanningRequired', bool, 'Image Scanning Required',
         hint: 'Security scanning'),
+  ])
+  String? content;
+}
 
-    // Kubernetes
+/// Kubernetes requirements.
+class VirtualizationRequirementsKubernetes {
+  @Form([
     Field('k8sVersion', String, 'Kubernetes Version',
         hint: 'Required K8s version'),
     Field('k8sDistribution', String, 'Kubernetes Distribution',
@@ -7382,8 +7510,13 @@ class VirtualizationRequirements {
         hint: 'Per-env, per-service'),
     Field('resourceQuotas', String, 'Resource Quotas',
         hint: 'CPU/memory limits'),
+  ])
+  String? content;
+}
 
-    // Networking
+/// Networking requirements.
+class VirtualizationRequirementsNetworking {
+  @Form([
     Field('serviceMesh', String, 'Service Mesh',
         hint: 'Istio, Linkerd'),
     Field('ingressController', String, 'Ingress Controller',
@@ -7445,7 +7578,6 @@ class CloudProviderRequirements {
 /// Server operating system requirements.
 class ServerOsRequirements {
   @Form([
-    // Primary OS
     Field('primaryOs', String, 'Primary OS',
         required: true, hint: 'Linux, Windows Server'),
     Field('osDistribution', String, 'OS Distribution',
@@ -7454,16 +7586,38 @@ class ServerOsRequirements {
         hint: 'Specific version'),
     Field('supportLevel', String, 'Support Level',
         hint: 'LTS, Standard'),
+  ])
+  String? content;
 
-    // Hardening
+  /// Hardening requirements.
+  ServerOsRequirementsHardening hardening = ServerOsRequirementsHardening();
+
+  /// Security controls.
+  ServerOsRequirementsSecurity security = ServerOsRequirementsSecurity();
+
+  /// Monitoring setup.
+  ServerOsRequirementsMonitoring monitoring = ServerOsRequirementsMonitoring();
+
+  /// Licensing details.
+  ServerOsRequirementsLicensing licensing = ServerOsRequirementsLicensing();
+}
+
+/// Hardening requirements.
+class ServerOsRequirementsHardening {
+  @Form([
     Field('hardeningStandard', String, 'Hardening Standard',
         hint: 'CIS, STIG benchmark'),
     Field('patchingFrequency', String, 'Patching Frequency',
         hint: 'How often patched'),
     Field('autoUpdatePolicy', String, 'Auto-Update Policy',
         hint: 'Automatic or manual'),
+  ])
+  String? content;
+}
 
-    // Security
+/// Security controls.
+class ServerOsRequirementsSecurity {
+  @Form([
     Field('firewallConfiguration', String, 'Firewall Configuration',
         hint: 'iptables, firewalld'),
     Field('selinuxMode', String, 'SELinux/AppArmor Mode',
@@ -7472,16 +7626,26 @@ class ServerOsRequirements {
         hint: 'Audit logging requirements'),
     Field('antivirusRequired', bool, 'Antivirus Required',
         hint: 'AV/EDR requirement'),
+  ])
+  String? content;
+}
 
-    // Monitoring
+/// Monitoring setup.
+class ServerOsRequirementsMonitoring {
+  @Form([
     Field('loggingConfiguration', String, 'Logging Configuration',
         hint: 'syslog, journald'),
     Field('monitoringAgent', String, 'Monitoring Agent',
         hint: 'Agent for monitoring'),
     Field('performanceMonitoring', String, 'Performance Monitoring',
         hint: 'Performance tools'),
+  ])
+  String? content;
+}
 
-    // Licensing
+/// Licensing details.
+class ServerOsRequirementsLicensing {
+  @Form([
     Field('licensingModel', String, 'Licensing Model',
         hint: 'Open source, Enterprise'),
     Field('licenseCount', String, 'License Count',
@@ -16228,7 +16392,6 @@ class ComplianceAuditSchedule {
 /// into the CI/CD pipeline and development workflow.
 class SecurityTestingAutomation {
   @Form([
-    // Static analysis (SAST)
     Field('sastTool', String, 'SAST Tool',
         required: true,
         hint:
@@ -16237,8 +16400,35 @@ class SecurityTestingAutomation {
         hint: 'CI/CD pipeline integration point: pre-commit, PR, build'),
     Field('sastRuleConfiguration', String, 'SAST Rule Configuration',
         hint: 'Custom rules, severity mapping, false-positive management'),
+    Field('securityQualityGates', String, 'Security Quality Gates',
+        required: true,
+        hint:
+            'Build-blocking criteria: no critical/high SAST findings, clean container scan'),
+  ])
+  String? content;
 
-    // Dynamic analysis (DAST)
+  /// Dynamic analysis configuration.
+  SecurityTestingAutomationDast dast = SecurityTestingAutomationDast();
+
+  /// Interactive analysis configuration.
+  SecurityTestingAutomationIast iast = SecurityTestingAutomationIast();
+
+  /// Fuzzing configuration.
+  SecurityTestingAutomationFuzzing fuzzing =
+      SecurityTestingAutomationFuzzing();
+
+  /// Container and IaC scanning.
+  SecurityTestingAutomationScanning scanning =
+      SecurityTestingAutomationScanning();
+
+  /// Governance and reporting.
+  SecurityTestingAutomationGovernance governance =
+      SecurityTestingAutomationGovernance();
+}
+
+/// Dynamic analysis configuration.
+class SecurityTestingAutomationDast {
+  @Form([
     Field('dastTool', String, 'DAST Tool',
         hint:
             'Dynamic Application Security Testing: OWASP ZAP, Burp Suite, Nuclei'),
@@ -16246,33 +16436,49 @@ class SecurityTestingAutomation {
         hint: 'Automated scan frequency against staging/QA environment'),
     Field('dastAuthenticationConfig', String, 'DAST Authentication',
         hint: 'How DAST scanner authenticates to test protected resources'),
+  ])
+  String? content;
+}
 
-    // Interactive analysis (IAST)
+/// Interactive analysis configuration.
+class SecurityTestingAutomationIast {
+  @Form([
     Field('iastTool', String, 'IAST Tool',
         hint:
             'Interactive Application Security Testing: Contrast Security, Hdiv'),
     Field('iastDeploymentModel', String, 'IAST Deployment',
         hint: 'Agent-based in QA/staging, runtime instrumentation approach'),
+  ])
+  String? content;
+}
 
-    // Fuzzing
+/// Fuzzing configuration.
+class SecurityTestingAutomationFuzzing {
+  @Form([
     Field('fuzzingRequirements', String, 'Fuzzing Requirements',
         hint: 'API fuzzing, protocol fuzzing, input mutation testing'),
     Field('fuzzingTargets', String, 'Fuzzing Targets',
         hint: 'API endpoints, file parsers, protocol handlers to fuzz'),
+  ])
+  String? content;
+}
 
-    // Container and infrastructure scanning
+/// Container and IaC scanning.
+class SecurityTestingAutomationScanning {
+  @Form([
     Field('containerScanning', String, 'Container Scanning',
         hint: 'Docker image vulnerability scanning: Trivy, Grype, Snyk Container'),
     Field('infrastructureAsCodeScanning', String, 'IaC Scanning',
         hint: 'Terraform, CloudFormation scanning: Checkov, tfsec, KICS'),
     Field('secretsDetection', String, 'Secrets Detection',
         hint: 'Pre-commit secrets scanning: GitLeaks, TruffleHog, detect-secrets'),
+  ])
+  String? content;
+}
 
-    // Quality gates
-    Field('securityQualityGates', String, 'Security Quality Gates',
-        required: true,
-        hint:
-            'Build-blocking criteria: no critical/high SAST findings, clean container scan'),
+/// Governance and reporting.
+class SecurityTestingAutomationGovernance {
+  @Form([
     Field('falsePositiveProcess', String, 'False Positive Process',
         hint: 'How false positives are triaged, suppressed, and documented'),
     Field('securityDashboard', String, 'Security Dashboard',

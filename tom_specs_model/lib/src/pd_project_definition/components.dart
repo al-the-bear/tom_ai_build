@@ -291,6 +291,23 @@ class EvaluationCriterionEntry {
     Field('category', String, 'Category',
         hint:
             'Technical / Commercial / Operational / Strategic / Compliance'),
+  ])
+  String? content;
+
+  /// Scoring settings.
+  EvaluationCriterionEntryScoring scoring = EvaluationCriterionEntryScoring();
+
+  /// Evaluation process.
+  EvaluationCriterionEntryProcess process = EvaluationCriterionEntryProcess();
+
+  /// Scoring guidelines and scope.
+  EvaluationCriterionEntryGuidelines guidelines =
+      EvaluationCriterionEntryGuidelines();
+}
+
+/// Scoring settings.
+class EvaluationCriterionEntryScoring {
+  @Form([
     Field('weight', int, 'Weight (%)',
         hint: 'Relative importance as percentage of total score'),
     Field('scoringScale', String, 'Scoring Scale',
@@ -300,6 +317,13 @@ class EvaluationCriterionEntry {
     Field('eliminatory', String, 'Eliminatory',
         hint:
             'Yes / No — does failing this criterion disqualify the component?'),
+  ])
+  String? content;
+}
+
+/// Evaluation process.
+class EvaluationCriterionEntryProcess {
+  @Form([
     Field('evidenceRequired', String, 'Evidence Required',
         hint:
             'What proof is needed — benchmark report, vendor attestation, demo'),
@@ -311,6 +335,13 @@ class EvaluationCriterionEntry {
             'Who performs this evaluation — architect, security, procurement'),
     Field('evaluationDuration', String, 'Evaluation Duration',
         hint: 'Expected time to complete this evaluation'),
+  ])
+  String? content;
+}
+
+/// Scoring guidelines and scope.
+class EvaluationCriterionEntryGuidelines {
+  @Form([
     Field('scoringGuidelineLow', String, 'Score Low — Poor',
         hint: 'What a lowest-tier score looks like'),
     Field('scoringGuidelineMid', String, 'Score Mid — Acceptable',

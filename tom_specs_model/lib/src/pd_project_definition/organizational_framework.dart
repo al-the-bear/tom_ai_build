@@ -2114,6 +2114,24 @@ class OngoingTrainingEntry {
     Field('trainingName', String, 'Training Name', required: true),
     Field('description', String, 'Description'),
     Field('targetAudience', String, 'Target Audience'),
+  ])
+  String? content;
+
+  /// Scheduling and delivery.
+  OngoingTrainingEntrySchedule schedule = OngoingTrainingEntrySchedule();
+
+  /// Content maintenance.
+  OngoingTrainingEntryContent contentManagement =
+      OngoingTrainingEntryContent();
+
+  /// Tracking and compliance.
+  OngoingTrainingEntryCompliance compliance =
+      OngoingTrainingEntryCompliance();
+}
+
+/// Scheduling and delivery.
+class OngoingTrainingEntrySchedule {
+  @Form([
     Field('trainingType', String,
         'Training Type — refresher, update, advanced, cross-training'),
     Field('triggerCondition', String,
@@ -2122,9 +2140,23 @@ class OngoingTrainingEntry {
         'Frequency — annual, quarterly, as-needed'),
     Field('format', String, 'Format'),
     Field('duration', String, 'Duration'),
+  ])
+  String? content;
+}
+
+/// Content maintenance.
+class OngoingTrainingEntryContent {
+  @Form([
     Field('learningObjectives', String, 'Learning Objectives'),
     Field('contentUpdates', String,
         'Content Updates — how content is kept current'),
+  ])
+  String? content;
+}
+
+/// Tracking and compliance.
+class OngoingTrainingEntryCompliance {
+  @Form([
     Field('mandatory', String, 'Mandatory'),
     Field('trackingMethod', String,
         'Tracking Method — how completion is tracked'),

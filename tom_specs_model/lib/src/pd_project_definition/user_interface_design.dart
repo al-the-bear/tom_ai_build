@@ -5632,7 +5632,6 @@ class TrainingModuleEntry {
 @SectionId('PD00-USE-MUL-LCS')
 class LanguageCountrySelection {
   @Form([
-    // Picker design
     Field('pickerLocation', String, 'Picker Location',
         hint: 'Header, footer, settings, onboarding'),
     Field('pickerStyle', String, 'Picker Style',
@@ -5643,42 +5642,81 @@ class LanguageCountrySelection {
         hint: 'How countries are displayed'),
     Field('searchable', bool, 'Searchable',
         hint: 'Can user search languages/countries'),
-    // Default behavior
-    Field('defaultLanguage', String, 'Default Language',
-        hint: 'How default language is determined'),
-    Field('defaultCountry', String, 'Default Country',
-        hint: 'How default country is determined'),
-    Field('autoDetection', String, 'Auto-Detection',
-        hint: 'Browser, OS, geo-IP detection'),
-    // Persistence
-    Field('persistenceMethod', String, 'Persistence Method',
-        hint: 'Cookie, localStorage, user profile'),
-    Field('crossDeviceSync', bool, 'Cross-Device Sync',
-        hint: 'Sync preference across devices'),
-    Field('anonymousPersistence', String, 'Anonymous Persistence',
-        hint: 'How preference persists for guests'),
-    // Fallback
-    Field('localeFallbackBehavior', String, 'Locale Fallback Behavior',
-        hint: 'What happens when locale unavailable'),
-    Field('partialLocalSupport', String, 'Partial Locale Support',
-        hint: 'UI in one locale, content in another'),
-    Field('missingTranslationDisplay', String, 'Missing Translation Display',
-        hint: 'How missing translations are shown'),
-    // UX considerations
-    Field('languageSwitchBehavior', String, 'Language Switch Behavior',
-        hint: 'Page reload, inline update'),
-    Field('confirmationRequired', bool, 'Confirmation Required',
-        hint: 'Confirm before switching'),
-    Field('contentRetention', String, 'Content Retention',
-        hint: 'What happens to in-progress content'),
   ])
   String? languageSelectionContent;
+
+  /// Default locale behavior.
+  LanguageCountrySelectionDefaults defaults =
+      LanguageCountrySelectionDefaults();
+
+  /// Persistence rules.
+  LanguageCountrySelectionPersistence persistence =
+      LanguageCountrySelectionPersistence();
+
+  /// Fallback behavior.
+  LanguageCountrySelectionFallback fallback =
+      LanguageCountrySelectionFallback();
+
+  /// Switching UX behavior.
+  LanguageCountrySelectionUx ux = LanguageCountrySelectionUx();
 
   /// Language selection narrative.
   TextSection languageSelectionNarrative = TextSection();
 
   /// Language selection mockup.
   DiagramSection languagePickerMockup = DiagramSection();
+}
+
+/// Default locale behavior.
+class LanguageCountrySelectionDefaults {
+    @Form([
+        Field('defaultLanguage', String, 'Default Language',
+                hint: 'How default language is determined'),
+        Field('defaultCountry', String, 'Default Country',
+                hint: 'How default country is determined'),
+        Field('autoDetection', String, 'Auto-Detection',
+                hint: 'Browser, OS, geo-IP detection'),
+    ])
+    String? content;
+}
+
+/// Persistence rules.
+class LanguageCountrySelectionPersistence {
+    @Form([
+        Field('persistenceMethod', String, 'Persistence Method',
+                hint: 'Cookie, localStorage, user profile'),
+        Field('crossDeviceSync', bool, 'Cross-Device Sync',
+                hint: 'Sync preference across devices'),
+        Field('anonymousPersistence', String, 'Anonymous Persistence',
+                hint: 'How preference persists for guests'),
+    ])
+    String? content;
+}
+
+/// Fallback behavior.
+class LanguageCountrySelectionFallback {
+    @Form([
+        Field('localeFallbackBehavior', String, 'Locale Fallback Behavior',
+                hint: 'What happens when locale unavailable'),
+        Field('partialLocalSupport', String, 'Partial Locale Support',
+                hint: 'UI in one locale, content in another'),
+        Field('missingTranslationDisplay', String, 'Missing Translation Display',
+                hint: 'How missing translations are shown'),
+    ])
+    String? content;
+}
+
+/// Switching UX behavior.
+class LanguageCountrySelectionUx {
+    @Form([
+        Field('languageSwitchBehavior', String, 'Language Switch Behavior',
+                hint: 'Page reload, inline update'),
+        Field('confirmationRequired', bool, 'Confirmation Required',
+                hint: 'Confirm before switching'),
+        Field('contentRetention', String, 'Content Retention',
+                hint: 'What happens to in-progress content'),
+    ])
+    String? content;
 }
 
 /// 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
