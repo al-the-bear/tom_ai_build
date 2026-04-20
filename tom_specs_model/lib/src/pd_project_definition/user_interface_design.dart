@@ -798,26 +798,46 @@ class ScreenSectionEntry {
     Field('sectionType', String, 'Section Type',
         hint:
             'Header/Toolbar/Filter-Bar/Content-Primary/Content-Secondary/Sidebar/Footer/Tab-Panel/Accordion-Panel/Drawer/Action-Bar/Form-Group'),
-    Field('layoutDirection', String, 'Layout Direction',
-        hint: 'Horizontal/Vertical/Wrap/Grid'),
-    Field('displayOrder', int, 'Display Order',
-        hint: 'Position in reading order'),
-    Field('collapsible', String, 'Collapsible',
-        hint: 'Yes/No — can the user collapse this section?'),
-    Field('initiallyCollapsed', String, 'Initially Collapsed',
-        hint: 'Yes/No — default collapsed state'),
-    Field('visibilityCondition', String, 'Visibility Condition',
-        hint: 'When this section is shown, e.g., role==Admin'),
-    Field('titleResource', String, 'Title Resource',
-        hint: 'Resource key for section header text'),
-    Field('borderStyle', String, 'Border Style',
-        hint: 'Named style or resource key'),
   ])
   String? content;
+
+  /// Layout and ordering for the section.
+  ScreenSectionEntryLayout layout = ScreenSectionEntryLayout();
+
+  /// Visibility and collapse behavior.
+  ScreenSectionEntryBehavior behavior = ScreenSectionEntryBehavior();
 
   /// Contains 0+× ScreenElement within this section.
   @SectionIdPattern('PD00-USE-SCR-INV-xx-SEC-xx-ELE-xx')
   List<ScreenElementEntry> elements = [];
+}
+
+/// Layout and ordering for the section.
+class ScreenSectionEntryLayout {
+    @Form([
+        Field('layoutDirection', String, 'Layout Direction',
+                hint: 'Horizontal/Vertical/Wrap/Grid'),
+        Field('displayOrder', int, 'Display Order',
+                hint: 'Position in reading order'),
+        Field('titleResource', String, 'Title Resource',
+                hint: 'Resource key for section header text'),
+        Field('borderStyle', String, 'Border Style',
+                hint: 'Named style or resource key'),
+    ])
+    String? content;
+}
+
+/// Visibility and collapse behavior.
+class ScreenSectionEntryBehavior {
+    @Form([
+        Field('collapsible', String, 'Collapsible',
+                hint: 'Yes/No — can the user collapse this section?'),
+        Field('initiallyCollapsed', String, 'Initially Collapsed',
+                hint: 'Yes/No — default collapsed state'),
+        Field('visibilityCondition', String, 'Visibility Condition',
+                hint: 'When this section is shown, e.g., role==Admin'),
+    ])
+    String? content;
 }
 
 /// A screen element entry (form) [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk].
@@ -1101,10 +1121,31 @@ class ScreenElementDataDisplay {
         hint: 'Resource key for message when no data'),
     Field('emptyStateIconResource', String, 'Empty State Icon',
         hint: 'Resource key for icon when no data'),
+  ])
+  String? content;
+
+  /// Refresh and drill-down behavior.
+  ScreenElementDataDisplayBehavior behavior =
+      ScreenElementDataDisplayBehavior();
+
+  /// Table/list interaction controls.
+  ScreenElementDataDisplayOptions options = ScreenElementDataDisplayOptions();
+}
+
+/// Refresh and drill-down behavior.
+class ScreenElementDataDisplayBehavior {
+  @Form([
     Field('refreshMode', String, 'Refresh Mode',
         hint: 'Auto/Manual/Interval(seconds)'),
     Field('drillDownTarget', String, 'Drill-Down Target',
         hint: 'Screen ID navigated to on click/tap'),
+  ])
+  String? content;
+}
+
+/// Table/list interaction controls.
+class ScreenElementDataDisplayOptions {
+  @Form([
     Field('sortable', String, 'Sortable',
         hint: 'Yes/No — for table columns'),
     Field('filterable', String, 'Filterable',
@@ -1873,27 +1914,47 @@ class TabBarDefinitionEntry {
         hint: 'Screen that contains this tab bar'),
     Field('tabBarStyle', String, 'Style',
         hint: 'Material-Tabs/Segmented-Control/Pill-Tabs/Scrollable-Tabs'),
-    Field('tabBarPosition', String, 'Position',
-        hint: 'Top/Bottom/Left'),
-    Field('isScrollable', String, 'Scrollable',
-        hint: 'Yes/No — scrollable when tabs exceed width'),
-    Field('defaultTabIndex', int, 'Default Tab',
-        hint: 'Zero-based index of initially selected tab'),
-    Field('persistSelection', String, 'Persist Selection',
-        hint: 'Yes/No — remember last selected tab'),
-    Field('swipeEnabled', String, 'Swipe Navigation',
-        hint: 'Yes/No — swipe between tabs on mobile'),
-    Field('lazyLoading', String, 'Lazy Loading',
-        hint: 'Yes/No — load tab content when first selected'),
-    Field('visibilityCondition', String, 'Visibility Condition',
-        hint: 'When entire tab bar is shown'),
   ])
   String? content;
+
+  /// Position and selection behavior.
+  TabBarDefinitionEntryBehavior behavior = TabBarDefinitionEntryBehavior();
+
+  /// Visibility and loading profile.
+  TabBarDefinitionEntryLoading loading = TabBarDefinitionEntryLoading();
 
   /// Contains 1+× TabItem.
   @SectionIdPattern('PD00-USE-SCF-NAV-SEC-xx-TAB-xx')
   @Min(1)
   List<TabItemEntry> tabs = [];
+}
+
+/// Position and selection behavior.
+class TabBarDefinitionEntryBehavior {
+    @Form([
+        Field('tabBarPosition', String, 'Position',
+                hint: 'Top/Bottom/Left'),
+        Field('isScrollable', String, 'Scrollable',
+                hint: 'Yes/No — scrollable when tabs exceed width'),
+        Field('defaultTabIndex', int, 'Default Tab',
+                hint: 'Zero-based index of initially selected tab'),
+        Field('persistSelection', String, 'Persist Selection',
+                hint: 'Yes/No — remember last selected tab'),
+    ])
+    String? content;
+}
+
+/// Visibility and loading profile.
+class TabBarDefinitionEntryLoading {
+    @Form([
+        Field('swipeEnabled', String, 'Swipe Navigation',
+                hint: 'Yes/No — swipe between tabs on mobile'),
+        Field('lazyLoading', String, 'Lazy Loading',
+                hint: 'Yes/No — load tab content when first selected'),
+        Field('visibilityCondition', String, 'Visibility Condition',
+                hint: 'When entire tab bar is shown'),
+    ])
+    String? content;
 }
 
 /// A tab item entry (form) [PD00-USE-SCF-NAV-SEC-nn-TAB-mm].
@@ -2237,6 +2298,19 @@ class NavigationGuardEntry {
             'Onboarding/Maintenance'),
     Field('triggerCondition', String, 'Trigger Condition',
         hint: 'When this guard activates, e.g., form.isDirty'),
+  ])
+  String? content;
+
+  /// Covered routes and dialog resources.
+  NavigationGuardEntryDialog dialog = NavigationGuardEntryDialog();
+
+  /// Redirect routing and evaluation priority.
+  NavigationGuardEntryRouting routing = NavigationGuardEntryRouting();
+}
+
+/// Covered routes and dialog resources.
+class NavigationGuardEntryDialog {
+  @Form([
     Field('appliesTo', String, 'Applies To',
         hint: 'Route patterns or screen IDs this guard covers'),
     Field('dialogTitleResource', String, 'Dialog Title Resource',
@@ -2247,6 +2321,13 @@ class NavigationGuardEntry {
         hint: 'Resource key for confirm button, e.g., Discard'),
     Field('cancelActionResource', String, 'Cancel Action Resource',
         hint: 'Resource key for cancel button, e.g., Stay'),
+  ])
+  String? content;
+}
+
+/// Redirect routing and evaluation priority.
+class NavigationGuardEntryRouting {
+  @Form([
     Field('redirectTo', String, 'Redirect To',
         hint: 'Route to redirect to if guard blocks navigation'),
     Field('priority', int, 'Priority',
@@ -3971,6 +4052,20 @@ class SystemErrorCodeEntry {
         hint: 'Network, server, authentication, data'),
     Field('userMessage', String, 'User Message', required: true,
         hint: 'User-friendly error message'),
+  ])
+  String? content;
+
+  /// Recovery and display guidance.
+  SystemErrorCodeEntryHandling handling = SystemErrorCodeEntryHandling();
+
+  /// Operational support and logging controls.
+  SystemErrorCodeEntryOperations operations =
+      SystemErrorCodeEntryOperations();
+}
+
+/// Recovery and display guidance.
+class SystemErrorCodeEntryHandling {
+  @Form([
     Field('technicalDescription', String, 'Technical Description',
         hint: 'Developer-facing description'),
     Field('suggestedAction', String, 'Suggested Action',
@@ -3981,6 +4076,13 @@ class SystemErrorCodeEntry {
         hint: 'System automatically retries'),
     Field('displayMethod', String, 'Display Method',
         hint: 'How this error is displayed'),
+  ])
+  String? content;
+}
+
+/// Operational support and logging controls.
+class SystemErrorCodeEntryOperations {
+  @Form([
     Field('notifySupport', bool, 'Notify Support',
         hint: 'Auto-notify support team'),
     Field('logLevel', String, 'Log Level',
@@ -5403,24 +5505,15 @@ class UiComponentEntry {
         hint: 'Button, Input, Table, Navigation, etc.'),
     Field('flutterWidgetBase', String, 'Flutter Widget Base',
         hint: 'Base Flutter widget (DataTable, TextField)'),
-    Field('tomWrapperClass', String, 'Tom Wrapper Class',
-        hint: 'TomDataTable, TomTextField, etc.'),
-    // Purpose
-    Field('purpose', String, 'Purpose', required: true,
-        hint: 'What the component does'),
-    Field('businessContext', String, 'Business Context',
-        hint: 'Business scenarios where used'),
-    Field('userGoals', String, 'User Goals',
-        hint: 'What user accomplishes with this'),
-    // Classification
-    Field('atomicLevel', String, 'Atomic Level',
-        hint: 'Atom, molecule, organism'),
-    Field('complexity', String, 'Complexity',
-        hint: 'Simple, moderate, complex'),
-    Field('reusability', String, 'Reusability',
-        hint: 'Generic, semi-generic, specialized'),
   ])
   String? identity;
+
+  /// Wrapper mapping and business purpose.
+  UiComponentEntryPurpose purposeProfile = UiComponentEntryPurpose();
+
+  /// Classification details.
+  UiComponentEntryClassification classification =
+      UiComponentEntryClassification();
 
   // ─────────────────────────────────────────────────────────────────────────
   // Visual Design
@@ -5603,6 +5696,34 @@ class UiComponentEntry {
   /// Contains 0+× ComponentProperty.
   @SectionIdPattern('PD00-USE-COM-SPE-xx-PRP-xx')
   List<ComponentPropertyEntry> properties = [];
+}
+
+/// Wrapper mapping and business purpose.
+class UiComponentEntryPurpose {
+    @Form([
+        Field('tomWrapperClass', String, 'Tom Wrapper Class',
+                hint: 'TomDataTable, TomTextField, etc.'),
+        Field('purpose', String, 'Purpose', required: true,
+                hint: 'What the component does'),
+        Field('businessContext', String, 'Business Context',
+                hint: 'Business scenarios where used'),
+        Field('userGoals', String, 'User Goals',
+                hint: 'What user accomplishes with this'),
+    ])
+    String? content;
+}
+
+/// Classification details.
+class UiComponentEntryClassification {
+    @Form([
+        Field('atomicLevel', String, 'Atomic Level',
+                hint: 'Atom, molecule, organism'),
+        Field('complexity', String, 'Complexity',
+                hint: 'Simple, moderate, complex'),
+        Field('reusability', String, 'Reusability',
+                hint: 'Generic, semi-generic, specialized'),
+    ])
+    String? content;
 }
 
 /// Visual dimensions.
@@ -6458,6 +6579,19 @@ class SupportedLocaleEntry {
         hint: 'Name in native language'),
     Field('countryRegion', String, 'Country/Region',
         hint: 'Country or region'),
+  ])
+  String? content;
+
+  /// Formatting and direction rules for the locale.
+  SupportedLocaleEntryFormatting formatting = SupportedLocaleEntryFormatting();
+
+  /// Launch readiness and locale ownership.
+  SupportedLocaleEntryRollout rollout = SupportedLocaleEntryRollout();
+}
+
+/// Formatting and direction rules for the locale.
+class SupportedLocaleEntryFormatting {
+  @Form([
     Field('textDirection', String, 'Text Direction',
         hint: 'LTR, RTL'),
     Field('dateFormat', String, 'Date Format',
@@ -6466,6 +6600,13 @@ class SupportedLocaleEntry {
         hint: 'Decimal separator, thousand separator'),
     Field('currency', String, 'Currency',
         hint: 'Default currency for locale'),
+  ])
+  String? content;
+}
+
+/// Launch readiness and locale ownership.
+class SupportedLocaleEntryRollout {
+  @Form([
     Field('launchPhase', String, 'Launch Phase',
         hint: 'When locale will be available'),
     Field('translationCoverage', String, 'Translation Coverage',
@@ -6586,22 +6727,14 @@ class PrototypeGoals {
         hint: 'Validate performance targets'),
     Field('integrationValidation', bool, 'Integration Validation',
         hint: 'Validate third-party integrations'),
-    // Risk mitigation
-    Field('riskMitigation', String, 'Risk Mitigation',
-        hint: 'Risks the prototype addresses'),
-    Field('unknownsResolution', String, 'Unknowns Resolution',
-        hint: 'Unknowns to be resolved'),
-    Field('assumptionsTesting', String, 'Assumptions Testing',
-        hint: 'Assumptions to be tested'),
-    // User feedback
-    Field('userFeedbackGoals', String, 'User Feedback Goals',
-        hint: 'What feedback to gather'),
-    Field('usabilityTestingPlan', String, 'Usability Testing Plan',
-        hint: 'How usability testing is done'),
-    Field('feedbackIntegration', String, 'Feedback Integration',
-        hint: 'How feedback flows back'),
   ])
   String? goalsContent;
+
+  /// Risk reduction and assumption testing.
+  PrototypeGoalsRisk riskProfile = PrototypeGoalsRisk();
+
+  /// User feedback objectives and intake.
+  PrototypeGoalsFeedback feedbackProfile = PrototypeGoalsFeedback();
 
   /// Prototype goals narrative.
   TextSection goalsNarrative = TextSection();
@@ -6609,6 +6742,32 @@ class PrototypeGoals {
   /// Individual goal entries.
   @SectionIdPattern('PD00-USE-PRO-GOA-xx')
   List<PrototypeGoalEntry> goals = [];
+}
+
+/// Risk reduction and assumption testing.
+class PrototypeGoalsRisk {
+    @Form([
+        Field('riskMitigation', String, 'Risk Mitigation',
+                hint: 'Risks the prototype addresses'),
+        Field('unknownsResolution', String, 'Unknowns Resolution',
+                hint: 'Unknowns to be resolved'),
+        Field('assumptionsTesting', String, 'Assumptions Testing',
+                hint: 'Assumptions to be tested'),
+    ])
+    String? content;
+}
+
+/// User feedback objectives and intake.
+class PrototypeGoalsFeedback {
+    @Form([
+        Field('userFeedbackGoals', String, 'User Feedback Goals',
+                hint: 'What feedback to gather'),
+        Field('usabilityTestingPlan', String, 'Usability Testing Plan',
+                hint: 'How usability testing is done'),
+        Field('feedbackIntegration', String, 'Feedback Integration',
+                hint: 'How feedback flows back'),
+    ])
+    String? content;
 }
 
 /// A prototype goal entry [PD00-USE-PRO-GOA-nn].
@@ -6647,24 +6806,15 @@ class PrototypeFeatureSubset {
         hint: 'High-value features included'),
     Field('uncertaintyBasedSelection', String, 'Uncertainty-Based Selection',
         hint: 'Most uncertain features included'),
-    // Scope
-    Field('includedFeatures', String, 'Included Features',
-        hint: 'Features in prototype'),
-    Field('excludedFeatures', String, 'Excluded Features',
-        hint: 'Features not in prototype'),
-    Field('partialFeatures', String, 'Partial Features',
-        hint: 'Features partially implemented'),
-    // Fidelity
-    Field('prototypeFidelity', String, 'Prototype Fidelity',
-        hint: 'Low, medium, high fidelity'),
-    Field('interactiveFidelity', String, 'Interactive Fidelity',
-        hint: 'Level of interactivity'),
-    Field('dataFidelity', String, 'Data Fidelity',
-        hint: 'Real vs. mock data'),
-    Field('visualFidelity', String, 'Visual Fidelity',
-        hint: 'Production visuals vs. wireframes'),
   ])
   String? featureSubsetContent;
+
+  /// Included and excluded feature scope.
+  PrototypeFeatureSubsetScope scope = PrototypeFeatureSubsetScope();
+
+  /// Fidelity expectations for the prototype.
+  PrototypeFeatureSubsetFidelity fidelity =
+      PrototypeFeatureSubsetFidelity();
 
   /// Feature subset narrative.
   TextSection featureNarrative = TextSection();
@@ -6672,6 +6822,34 @@ class PrototypeFeatureSubset {
   /// Prototype feature entries.
   @SectionIdPattern('PD00-USE-PRO-FEA-xx')
   List<PrototypeFeatureEntry> features = [];
+}
+
+/// Included and excluded feature scope.
+class PrototypeFeatureSubsetScope {
+    @Form([
+        Field('includedFeatures', String, 'Included Features',
+                hint: 'Features in prototype'),
+        Field('excludedFeatures', String, 'Excluded Features',
+                hint: 'Features not in prototype'),
+        Field('partialFeatures', String, 'Partial Features',
+                hint: 'Features partially implemented'),
+    ])
+    String? content;
+}
+
+/// Fidelity expectations for the prototype.
+class PrototypeFeatureSubsetFidelity {
+    @Form([
+        Field('prototypeFidelity', String, 'Prototype Fidelity',
+                hint: 'Low, medium, high fidelity'),
+        Field('interactiveFidelity', String, 'Interactive Fidelity',
+                hint: 'Level of interactivity'),
+        Field('dataFidelity', String, 'Data Fidelity',
+                hint: 'Real vs. mock data'),
+        Field('visualFidelity', String, 'Visual Fidelity',
+                hint: 'Production visuals vs. wireframes'),
+    ])
+    String? content;
 }
 
 /// A prototype feature entry [PD00-USE-PRO-FEA-nn].
@@ -6806,30 +6984,47 @@ class TrainingPrototype {
         hint: 'Patterns documented from prototype'),
     Field('lessonsLearned', String, 'Lessons Learned',
         hint: 'What was learned'),
-    // Code disposition
-    Field('codeDisposition', String, 'Code Disposition',
-        hint: 'What happens to prototype code'),
-    Field('reimplementationPlan', String, 'Reimplementation Plan',
-        hint: 'Plan for reimplementing features'),
-    Field('reimplementationEstimate', String, 'Reimplementation Estimate',
-        hint: 'Effort to reimplement'),
-    // Documentation
-    Field('documentationProduced', String, 'Documentation Produced',
-        hint: 'Documentation from prototype'),
-    Field('designSystemOutput', String, 'Design System Output',
-        hint: 'Design system artifacts'),
-    Field('componentSpecifications', String, 'Component Specifications',
-        hint: 'Component specs from prototype'),
-    // Team learning
-    Field('teamSkillsGained', String, 'Team Skills Gained',
-        hint: 'Skills team gained'),
-    Field('technologyInsights', String, 'Technology Insights',
-        hint: 'Technology insights gained'),
   ])
   String? trainingContent;
 
+  /// Code disposition and reimplementation planning.
+  TrainingPrototypeDisposition disposition = TrainingPrototypeDisposition();
+
+  /// Documentation outputs and team learning.
+  TrainingPrototypeOutputs outputs = TrainingPrototypeOutputs();
+
   /// Training prototype narrative.
   TextSection trainingNarrative = TextSection();
+}
+
+/// Code disposition and reimplementation planning.
+class TrainingPrototypeDisposition {
+    @Form([
+        Field('codeDisposition', String, 'Code Disposition',
+                hint: 'What happens to prototype code'),
+        Field('reimplementationPlan', String, 'Reimplementation Plan',
+                hint: 'Plan for reimplementing features'),
+        Field('reimplementationEstimate', String, 'Reimplementation Estimate',
+                hint: 'Effort to reimplement'),
+    ])
+    String? content;
+}
+
+/// Documentation outputs and team learning.
+class TrainingPrototypeOutputs {
+    @Form([
+        Field('documentationProduced', String, 'Documentation Produced',
+                hint: 'Documentation from prototype'),
+        Field('designSystemOutput', String, 'Design System Output',
+                hint: 'Design system artifacts'),
+        Field('componentSpecifications', String, 'Component Specifications',
+                hint: 'Component specs from prototype'),
+        Field('teamSkillsGained', String, 'Team Skills Gained',
+                hint: 'Skills team gained'),
+        Field('technologyInsights', String, 'Technology Insights',
+                hint: 'Technology insights gained'),
+    ])
+    String? content;
 }
 
 /// 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].

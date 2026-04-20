@@ -495,20 +495,6 @@ need decomposition into sub-sections to improve readability, maintainability, an
 | 437 | SecurityControlEntry | 11 | system_overview.dart | ✅ |
 | 438 | StakeholderEntry | 11 | system_overview.dart | ✅ |
 | 439 | SystemBusinessCriticality | 11 | system_overview.dart | ✅ |
-| 440 | SystemMigrationPlan | 11 | system_overview.dart | ⬜ |
-| 441 | SystemReplacementStrategy | 11 | system_overview.dart | ⬜ |
-| 442 | SystemToReplaceEntry | 11 | system_overview.dart | ⬜ |
-| 443 | UserAccessPermissions | 11 | system_overview.dart | ⬜ |
-| 444 | UserCategoryEntry | 11 | system_overview.dart | ⬜ |
-| 445 | ValueProposition | 11 | system_overview.dart | ⬜ |
-| 446 | DocCorrectnessQuality | 11 | system_quality_goals.dart | ⬜ |
-| 447 | ProcessTechnology | 11 | target_business_process.dart | ⬜ |
-| 448 | ScenarioStepEntry | 11 | target_business_process.dart | ⬜ |
-| 449 | DashboardEntry | 11 | technical_framework.dart | ⬜ |
-| 450 | ErrorBudgetTracking | 11 | technical_framework.dart | ⬜ |
-| 451 | ComponentVariantEntry | 11 | user_interface_design.dart | ⬜ |
-| 452 | HelpConcept | 11 | user_interface_design.dart | ⬜ |
-| 453 | MultiLanguageAndRollout | 11 | user_interface_design.dart | ⬜ |
 | 440 | SystemMigrationPlan | 11 | system_overview.dart | ✅ |
 | 441 | SystemReplacementStrategy | 11 | system_overview.dart | ✅ |
 | 442 | SystemToReplaceEntry | 11 | system_overview.dart | ✅ |
@@ -523,16 +509,16 @@ need decomposition into sub-sections to improve readability, maintainability, an
 | 451 | ComponentVariantEntry | 11 | user_interface_design.dart | ✅ |
 | 452 | HelpConcept | 11 | user_interface_design.dart | ✅ |
 | 453 | MultiLanguageAndRollout | 11 | user_interface_design.dart | ✅ |
-| 454 | NavigationGuardEntry | 11 | user_interface_design.dart | ⬜ |
-| 455 | PrototypeFeatureSubset | 11 | user_interface_design.dart | ⬜ |
-| 456 | PrototypeGoals | 11 | user_interface_design.dart | ⬜ |
-| 457 | ScreenElementDataDisplay | 11 | user_interface_design.dart | ⬜ |
-| 458 | ScreenSectionEntry | 11 | user_interface_design.dart | ⬜ |
-| 459 | SupportedLocaleEntry | 11 | user_interface_design.dart | ⬜ |
-| 460 | SystemErrorCodeEntry | 11 | user_interface_design.dart | ⬜ |
-| 461 | TabBarDefinitionEntry | 11 | user_interface_design.dart | ⬜ |
-| 462 | TrainingPrototype | 11 | user_interface_design.dart | ⬜ |
-| 463 | UiComponentEntry | 11 | user_interface_design.dart | ⬜ |
+| 454 | NavigationGuardEntry | 11 | user_interface_design.dart | ✅ |
+| 455 | PrototypeFeatureSubset | 11 | user_interface_design.dart | ✅ |
+| 456 | PrototypeGoals | 11 | user_interface_design.dart | ✅ |
+| 457 | ScreenElementDataDisplay | 11 | user_interface_design.dart | ✅ |
+| 458 | ScreenSectionEntry | 11 | user_interface_design.dart | ✅ |
+| 459 | SupportedLocaleEntry | 11 | user_interface_design.dart | ✅ |
+| 460 | SystemErrorCodeEntry | 11 | user_interface_design.dart | ✅ |
+| 461 | TabBarDefinitionEntry | 11 | user_interface_design.dart | ✅ |
+| 462 | TrainingPrototype | 11 | user_interface_design.dart | ✅ |
+| 463 | UiComponentEntry | 11 | user_interface_design.dart | ✅ |
 | 464 | UtilityMenuItemEntry | 11 | user_interface_design.dart | ⬜ |
 
 **Total: 464 forms to decompose**
