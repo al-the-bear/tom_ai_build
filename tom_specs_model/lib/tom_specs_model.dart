@@ -11,3 +11,4 @@ export 'src/cs_current_situation/cs_current_situation.dart';
 export 'src/docspecs_project.dart';
 export 'src/document_stubs.dart';
 export 'src/pd_project_definition/pd_project_definition.dart';
+export 'src/rc_requirements_catalog/rc_requirements_catalog.dart';

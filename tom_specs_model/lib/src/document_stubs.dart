@@ -21,12 +21,12 @@ export 'bsi_business_system_interactions/bsi_business_system_interactions.dart';
 // Step 9 — CS (Current Situation).
 export 'cs_current_situation/cs_current_situation.dart';
 
+// Step 10 — RC (Requirements Catalog).
+export 'rc_requirements_catalog/rc_requirements_catalog.dart';
+
 // ---------------------------------------------------------------------------
 // Remaining stubs (replaced as their Phase B step runs).
 // ---------------------------------------------------------------------------
-
-/// Stub for RC (Requirements Catalog). Phase B Step 10.
-class RequirementsCatalog {}
 
 /// Stub for BP (Business Processes). Phase B Step 11.
 class BusinessProcesses {}
