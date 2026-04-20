@@ -45,19 +45,30 @@ The model has also added these sections that the mapping does not yet list; the 
 
 ---
 
-## 2. Cut-Depth Rule
+## 2. Cut-Depth Rule (PD-side)
 
-The target-document structure follows a single rule:
+Splitting PD00 into per-document slices follows a single rule:
 
-> **Dive into the PD00 tree only as deep as needed. Stop at the shallowest node whose entire subtree flows to a single target (one DocSpec, or PD00-only). That node becomes one top-level entry in the target document class.**
+> **Dive into the PD00 tree only as deep as needed. Stop at the shallowest node whose entire subtree flows to a single target (one DocSpec, or PD00-only). That node identifies one PD-side seed for the target document.**
 
 Applied to PD00, this yields three cases per section:
 
 | Case | Example | Result |
 |------|---------|--------|
-| Whole subtree → one DocSpec | `PD00-BUS → BDM` | One top-level entry in the target doc |
+| Whole subtree → one DocSpec | `PD00-BUS → BDM` | One seed node for the target doc |
 | Whole subtree stays PD00-only | `PD00-ADM`, `PD00-ORG` | Nothing to add — lives only in PD |
 | Subtree splits across targets | `PD00-SYO`, `PD00-TAR`, `PD00-USE`, `PD00-DEL` | Dive one level; recurse per child |
+
+## 2A. Top-Level Sizing Rule (target-doc side)
+
+Seed nodes identify *what comes in from PD00*. How that material becomes top-level entries in the new document class follows a separate rule:
+
+> **Every target document gets 7–15 top-level sections, to give it proper structure.**
+>
+> - **Single-source docs** (one seed node): top-level entries are the *children* of that seed (i.e. flatten one level). If still fewer than 7, add target-specific expansion sections. If still more than 15, regroup case-by-case.
+> - **Multi-source docs** (TR, UP, SR, BQP): decide one by one which seed nodes to flatten and which to keep as a single entry so the total lands in 7–15.
+
+Expansion sections are top-level entries in the target document that are not seeded from PD00 — they cover detail that only appears at Phase 3 (e.g. full requirement catalogs in RC, interaction patterns in BSI, upgrade framework in PPP). They are listed per document in §5.
 
 ---
 
@@ -174,206 +185,281 @@ Each new document class follows the same shape:
 class <DocName> {
   String? content;                  // Executive overview
   DocumentHeader header = DocumentHeader();
-  // …one field per seeded PD00 subtree (see tables below)…
-  // …plus doc-specific new sections where applicable…
+  // …7–15 top-level entries — see tables below…
 }
 ```
 
-`DocumentHeader` is the common part (see `lib/src/common/document_header.dart`) and is the same in every document.
+`DocumentHeader` is the common part (see `lib/src/common/document_header.dart`) and is the same in every document. `content` and `header` do not count toward the 7–15 figure — it applies to document-specific top-level entries only.
 
-The "Seeded Class" column gives the PD00 class name that becomes a top-level field in the new document. "Expansion" lists sections added by the target document that are not seeded from PD00 — these are mentioned for completeness but are design work for whoever implements each document class.
+In the tables:
+- **Top-level entry** — field name proposed on the new document class.
+- **Origin** — `seeded (flat)` means the entry is the children of a seeded PD00 node flattened one level up; `seeded (whole)` means the entire seeded node is used as a single entry; `expansion` means the entry is new in the target document, not present in PD00.
+- **Source** — PD00 section ID (or HBSG/expansion id for new sections).
 
 ### 5.1. CS — Current Situation
 
-**Root source:** PD00-SYO-SYR (Systems to Replace)
+**Seed nodes:** PD00-SYO-SYR (Systems to Replace — 2 children). Single-source; flatten then expand to reach the 7–15 band.
 
-| Top-level entry | Seeded from | Seeded Class |
-|-----------------|-------------|--------------|
-| `header` | common | `DocumentHeader` |
-| `content` | — | executive summary |
-| `systemsToReplace` | PD00-SYO-SYR | `SystemsToReplace` |
+| # | Top-level entry | Origin | Source |
+| --- | --- | --- | --- |
+| 1 | `replacementInventory` | seeded (flat) | PD00-SYO-SYR-INV |
+| 2 | `migrationConsiderations` | seeded (flat) | PD00-SYO-SYR-MIG |
+| 3 | `currentSystemsLandscape` | expansion | AS01-CUR |
+| 4 | `painPointsAndIssues` | expansion | AS01-PAI |
+| 5 | `currentDataFlows` | expansion | CS-DAT |
+| 6 | `currentIntegrationPoints` | expansion | CS-INT |
+| 7 | `currentArchitectureAssessment` | expansion | CS-ARC |
+| 8 | `operationalMetrics` | expansion | CS-MET |
+| 9 | `riskAssessment` | expansion | CS-RIS |
 
-**Expansion (not seeded from PD00):** AS01-PAI Pain Points and Issues, integration points, data-flow analysis.
+**Count: 9.**
 
 ### 5.2. RC — Requirements Catalog
 
-**Root source:** PD00-SYO-REQ (Requirements Overview)
+**Seed nodes:** PD00-SYO-REQ (4 sectioned children + traceability-matrix flat field). Single-source; flatten + expand.
 
-| Top-level entry | Seeded from | Seeded Class |
-|-----------------|-------------|--------------|
-| `header` | common | `DocumentHeader` |
-| `content` | — | executive summary |
-| `requirementsOverview` | PD00-SYO-REQ | `RequirementsOverview` |
+| # | Top-level entry | Origin | Source |
+| --- | --- | --- | --- |
+| 1 | `functionalRequirements` | seeded (flat) | PD00-SYO-REQ-FUN |
+| 2 | `technicalRequirements` | seeded (flat) | PD00-SYO-REQ-TEC |
+| 3 | `securityRequirements` | seeded (flat) | PD00-SYO-REQ-SEC |
+| 4 | `organizationalRequirements` | seeded (flat) | PD00-SYO-REQ-ORG |
+| 5 | `traceabilityMatrix` | seeded (flat) | PD00-SYO-REQ-TRC |
+| 6 | `requirementsProcess` | expansion | RC-PRO |
+| 7 | `prioritizationScheme` | expansion | RC-PRI |
+| 8 | `changeControlLog` | expansion | RC-CHA |
+| 9 | `requirementRelationships` | expansion | RC-REL |
+| 10 | `requirementCoverage` | expansion | RC-COV |
 
-**Expansion:** AS02-FUN Functional Requirements, AS02-TEC Technical Requirements, AS02-SEC Security Requirements, traceability matrix.
+**Count: 10.**
 
 ### 5.3. BP — Business Processes
 
-**Root source:** PD00-TAR-PRO (Business Process Descriptions)
+**Seed nodes:** PD00-TAR-PRO (5 sectioned children + `processRelationships` flat field). Single-source; flatten + expand.
 
-| Top-level entry | Seeded from | Seeded Class |
-|-----------------|-------------|--------------|
-| `header` | common | `DocumentHeader` |
-| `content` | — | executive summary |
-| `businessProcessDescriptions` | PD00-TAR-PRO | `BusinessProcessDescriptions` |
+| # | Top-level entry | Origin | Source |
+| --- | --- | --- | --- |
+| 1 | `processVision` | seeded (flat) | PD00-TAR-PRO-VIS |
+| 2 | `designPrinciples` | seeded (flat) | PD00-TAR-PRO-PRI |
+| 3 | `processCatalog` | seeded (flat) | PD00-TAR-PRO-CAT |
+| 4 | `processOverviewDiagram` | seeded (flat) | PD00-TAR-PRO-FLO |
+| 5 | `improvementSummary` | seeded (flat) | PD00-TAR-PRO-IMP |
+| 6 | `processRelationships` | seeded (flat) | (untagged field) |
+| 7 | `detailedWorkflows` | expansion | AS07-DET |
+| 8 | `crossProcessAnalysis` | expansion | AS07-CRO |
+| 9 | `exceptionHandling` | expansion | AS07-EXC |
+| 10 | `processMetricsAndKpis` | expansion | BP-MET |
 
-**Expansion:** AS07-DET Detailed Process Descriptions, AS07-CRO Cross-Process Analysis, AS07-EXC Exception Handling.
+**Count: 10.**
 
 ### 5.4. UC — Use Cases
 
-**Root source:** PD00-TAR-STP (Process Steps and Actor Interactions)
+**Seed nodes:** PD00-TAR-STP (overview + 3 sectioned children + `actorRelationshipDiagram`). Single-source; flatten + expand.
 
-| Top-level entry | Seeded from | Seeded Class |
-|-----------------|-------------|--------------|
-| `header` | common | `DocumentHeader` |
-| `content` | — | executive summary |
-| `processStepsAndActorInteractions` | PD00-TAR-STP | `ProcessStepsAndActorInteractions` |
+| # | Top-level entry | Origin | Source |
+| --- | --- | --- | --- |
+| 1 | `processStepsOverview` | seeded (flat) | (untagged overview field) |
+| 2 | `actorOverview` | seeded (flat) | PD00-TAR-STP-ACT |
+| 3 | `interactionCatalog` | seeded (flat) | PD00-TAR-STP-INT |
+| 4 | `keyScenarios` | seeded (flat) | PD00-TAR-STP-SCE |
+| 5 | `actorRelationshipDiagram` | seeded (flat) | (untagged diagram field) |
+| 6 | `useCaseCatalog` | expansion | UC-CAT (fully-dressed Cockburn UCs) |
+| 7 | `alternateFlows` | expansion | UC-ALT |
+| 8 | `preconditionsAndPostconditions` | expansion | UC-PRE |
+| 9 | `endToEndTestScenarios` | expansion | AS24 |
+| 10 | `useCaseTraceability` | expansion | UC-TRC |
 
-**Expansion:** Per-use-case actor goals, preconditions, main/alternate flows, postconditions, exceptions. HBSG frames these as end-to-end test scenarios (AS24).
+**Count: 10.**
 
 <a id="note-on-uc"></a>
-**Note on UC:** The current request listed 11 DocSpecs and omitted UC, but `PD00-TAR-STP` has UC as its only defined target in the mapping. If UC is not part of this batch, PD00-TAR-STP should be re-routed (e.g., merged into BP, or deferred); otherwise UC should be implemented with the others. No other option leaves PD00-TAR-STP properly mapped.
+**Note on UC:** The initial request listed 11 DocSpecs and omitted UC, but `PD00-TAR-STP` has UC as its only defined target in the mapping. If UC is dropped, PD00-TAR-STP needs re-routing (merge into BP, or defer). No other option leaves PD00-TAR-STP mapped.
 
 ### 5.5. BDM — Business Data Model
 
-**Root source:** PD00-BUS (whole subtree)
+**Seed nodes:** PD00-BUS (3 sectioned children). Single-source; flatten + expand.
 
-| Top-level entry | Seeded from | Seeded Class |
-|-----------------|-------------|--------------|
-| `header` | common | `DocumentHeader` |
-| `content` | — | executive summary |
-| `businessObjectAndDataModel` | PD00-BUS | `BusinessObjectAndDataModel` |
+| # | Top-level entry | Origin | Source |
+| --- | --- | --- | --- |
+| 1 | `dataModel` | seeded (flat) | PD00-BUS-DAT |
+| 2 | `businessObjectModel` | seeded (flat) | PD00-BUS-BUS |
+| 3 | `functionModel` | seeded (flat) | PD00-BUS-FUN |
+| 4 | `conceptualDataModel` | expansion | AS08-CON |
+| 5 | `entityDefinitions` | expansion | AS08-BUO |
+| 6 | `businessObjectOverview` | expansion | AS08-BUS |
+| 7 | `dataDictionary` | expansion | AS08-DAT |
+| 8 | `businessRules` | expansion | BDM-RUL |
+| 9 | `validationConstraints` | expansion | BDM-VAL |
+| 10 | `lifecycleStates` | expansion | BDM-LIF |
+| 11 | `dataClassification` | expansion | BDM-CLA |
 
-Single seeded entry because the entire `PD00-BUS` subtree (Data Model, Business Object Model, Function Model) targets BDM.
-
-**Expansion:** AS08-CON Conceptual Data Model, AS08-BUO Business Object Definitions, AS08-DAT Data Dictionary, business rules, lifecycle states.
+**Count: 11.**
 
 ### 5.6. AC — Authorization Concept
 
-**Root source:** PD00-ACC (whole subtree — 6 children)
+**Seed nodes:** PD00-ACC (6 sectioned children). Single-source; flatten + expand.
 
-| Top-level entry | Seeded from | Seeded Class |
-|-----------------|-------------|--------------|
-| `header` | common | `DocumentHeader` |
-| `content` | — | executive summary |
-| `accessAndAuthorization` | PD00-ACC | `AccessAndAuthorizationConcept` |
+| # | Top-level entry | Origin | Source |
+| --- | --- | --- | --- |
+| 1 | `userManagement` | seeded (flat) | PD00-ACC-USE |
+| 2 | `authentication` | seeded (flat) | PD00-ACC-IDE |
+| 3 | `resourceProtection` | seeded (flat) | PD00-ACC-RES |
+| 4 | `authorization` | seeded (flat) | PD00-ACC-USA |
+| 5 | `encryption` | seeded (flat) | PD00-ACC-SEN |
+| 6 | `auditAndLogging` | seeded (flat) | PD00-ACC-AUD |
+| 7 | `roleMatrix` | expansion | AC-ROL (AS22-AUM permission matrix) |
+| 8 | `permissionCatalog` | expansion | AC-PER |
+| 9 | `authorizationFlows` | expansion | AC-FLO |
+| 10 | `complianceFramework` | expansion | AC-CMP (NIST/SOC2/ISO27001/OWASP) |
 
-Single seeded entry because the entire `PD00-ACC` subtree (USE, IDE, RES, USA, SEN, AUD) targets AC.
-
-**Expansion:** AS22-IDE/AUT/RES/AUM/DAT mappings, detailed role definitions, permission matrices, row-level security rules, audit requirements.
+**Count: 10.**
 
 ### 5.7. TR — Technical Requirements
 
-**Root sources:** PD00-TEC (whole) + PD00-COM (whole) + PD00-SYO-RES-TEC + PD00-USE-MUL-REQ
+**Seed nodes (multi-source):** PD00-TEC (8 sectioned children) + PD00-COM (whole) + PD00-SYO-RES-TEC + PD00-USE-MUL-REQ. Decision: flatten PD00-TEC (the largest bundle) but keep PD00-COM as a single entry (its 6 children are tightly coupled and read as one concern); add small expansion.
 
-| Top-level entry | Seeded from | Seeded Class |
-|-----------------|-------------|--------------|
-| `header` | common | `DocumentHeader` |
-| `content` | — | executive summary |
-| `technicalFramework` | PD00-TEC | `TechnicalFrameworkConcept` |
-| `components` | PD00-COM | `ComponentsToUse` |
-| `technicalFrameworkConditions` | PD00-SYO-RES-TEC | `TechnicalFrameworkConditions` |
-| `translationRequirements` | PD00-USE-MUL-REQ | `TranslationRequirements` |
+| # | Top-level entry | Origin | Source |
+| --- | --- | --- | --- |
+| 1 | `basicTechnicalRequirements` | seeded (flat) | PD00-TEC-BAS |
+| 2 | `softwareDesignRequirements` | seeded (flat) | PD00-TEC-SOF |
+| 3 | `standardSoftwareRequirements` | seeded (flat) | PD00-TEC-STA |
+| 4 | `hardwareRequirements` | seeded (flat) | PD00-TEC-HAR |
+| 5 | `operationsRequirements` | seeded (flat) | PD00-TEC-OPE |
+| 6 | `communicationRequirements` | seeded (flat) | PD00-TEC-COM |
+| 7 | `systemOperationAndMonitoring` | seeded (flat) | PD00-TEC-SYS |
+| 8 | `technicalSecurityRequirements` | seeded (flat) | PD00-TEC-SEC |
+| 9 | `componentsToUse` | seeded (whole) | PD00-COM |
+| 10 | `technicalFrameworkConditions` | seeded (whole) | PD00-SYO-RES-TEC |
+| 11 | `translationRequirements` | seeded (whole) | PD00-USE-MUL-REQ |
+| 12 | `systemArchitecture` | expansion | AS09-SOF (detailed) / DR30 |
+| 13 | `infrastructureRequirements` | expansion | TR-INF |
+| 14 | `integrationProtocols` | expansion | TR-INT |
 
-Four seeded top-level entries — TR is the largest aggregate document.
-
-**Expansion:** AS09-FUN/SOF/STA/HAR/OPE/COM/SYS sub-sections, AS12-COS Component Stack Summary, AS09-FUN-INT Internationalization.
+**Count: 14.**
 
 ### 5.8. UP — UI Prototype
 
-**Root source:** 11 sub-sections of PD00-USE
+**Seed nodes (multi-source):** 10 sectioned children of PD00-USE + PD00-USE-MUL-LCS. Already 11 top-levels; keep flat and add 2 small expansion sections for completeness.
 
-| Top-level entry | Seeded from | Seeded Class |
-|-----------------|-------------|--------------|
-| `header` | common | `DocumentHeader` |
-| `content` | — | executive summary |
-| `designVision` | PD00-USE-VIS | `DesignVision` |
-| `screens` | PD00-USE-SCR | `ScreenDescriptions` |
-| `screenFlow` | PD00-USE-SCF | `ScreenFlowStructure` |
-| `printLayout` | PD00-USE-PRI | `PrintLayout` |
-| `errorHandling` | PD00-USE-ERR | `ErrorHandlingConcept` |
-| `helpConcept` | PD00-USE-HLP | `HelpConcept` |
-| `accessibility` | PD00-USE-ACC | `Accessibility` |
-| `responsiveDesign` | PD00-USE-RES | `ResponsiveDesign` |
-| `uiComponents` | PD00-USE-COM | `UiComponents` |
-| `languageCountrySelection` | PD00-USE-MUL-LCS | `LanguageCountrySelection` |
-| `prototype` | PD00-USE-PRO | `Prototype` |
+| # | Top-level entry | Origin | Source |
+| --- | --- | --- | --- |
+| 1 | `designVision` | seeded (whole) | PD00-USE-VIS |
+| 2 | `screens` | seeded (whole) | PD00-USE-SCR |
+| 3 | `screenFlow` | seeded (whole) | PD00-USE-SCF |
+| 4 | `printLayout` | seeded (whole) | PD00-USE-PRI |
+| 5 | `errorHandling` | seeded (whole) | PD00-USE-ERR |
+| 6 | `helpConcept` | seeded (whole) | PD00-USE-HLP |
+| 7 | `accessibility` | seeded (whole) | PD00-USE-ACC |
+| 8 | `responsiveDesign` | seeded (whole) | PD00-USE-RES |
+| 9 | `uiComponents` | seeded (whole) | PD00-USE-COM |
+| 10 | `languageCountrySelection` | seeded (whole) | PD00-USE-MUL-LCS |
+| 11 | `prototype` | seeded (whole) | PD00-USE-PRO |
+| 12 | `wireframesAndMockups` | expansion | AS10-WIR |
+| 13 | `informationArchitecture` | expansion | AS10-INF |
 
-Eleven seeded top-level entries. Per the cut-depth rule each is brought in at its own level rather than bundling them under a single `PD00-USE` aggregate, because `PD00-USE-MUL` splits (LCS stays with UP, LOC/TRA/DOC go to SR, REQ goes to TR).
-
-**Expansion:** AS10-WIR Wireframes, AS10-INF Information Architecture, AS10-INT-ERR integrated error UX, interaction patterns.
+**Count: 13.**
 
 ### 5.9. SR — System Rollout
 
-**Root source:** 3 sub-sections of PD00-USE-MUL
+**Seed nodes (multi-source):** PD00-USE-MUL-LOC + TRA + DOC. Decision: keep each of the three process sections as a single top-level (internal structure is coherent) and add SR-specific expansion for rollout, migration, user manuals, training, and handover — this is where most of SR's real content sits.
 
-| Top-level entry | Seeded from | Seeded Class |
-|-----------------|-------------|--------------|
-| `header` | common | `DocumentHeader` |
-| `content` | — | executive summary |
-| `localizationProcess` | PD00-USE-MUL-LOC | `LocalizationProcess` |
-| `translationProcess` | PD00-USE-MUL-TRA | `TranslationProcess` |
-| `documentationAndTraining` | PD00-USE-MUL-DOC | `DocumentationAndTraining` |
+| # | Top-level entry | Origin | Source |
+| --- | --- | --- | --- |
+| 1 | `localizationProcess` | seeded (whole) | PD00-USE-MUL-LOC |
+| 2 | `translationProcess` | seeded (whole) | PD00-USE-MUL-TRA |
+| 3 | `documentationAndTraining` | seeded (whole) | PD00-USE-MUL-DOC |
+| 4 | `rolloutPlan` | expansion | SR-ROL / DR23 |
+| 5 | `migrationPlan` | expansion | SR-MIG / DR22 |
+| 6 | `userManuals` | expansion | SR-DOC / DR15 |
+| 7 | `trainingMaterials` | expansion | SR-TRN / DR17 |
+| 8 | `pilotPlan` | expansion | SR-PIL |
+| 9 | `cutoverProcedures` | expansion | SR-CUT |
+| 10 | `knowledgeTransfer` | expansion | SR-KNO / EK09 |
+| 11 | `warrantyAndSupport` | expansion | SR-WAR / EK10 |
 
-**Expansion:** SR-LOC-PLN Localization Planning, SR-TRA-WFL Translation Workflow, SR-DOC User Manuals, SR-TRN Training Materials; also covers HBSG DR22 Migration Plan and DR23 Rollout Plan.
+**Count: 11.**
 
 ### 5.10. BQP — Business Quality Plan
 
-**Root sources:** PD00-SYQ (whole) + PD00-DEL-ACC
+**Seed nodes (multi-source):** PD00-SYQ (7 sectioned children) + PD00-DEL-ACC (6 sectioned children). Decision: flatten both. The quality goals and the acceptance plan are the two halves of BQP and each half has its own natural sub-structure.
 
-| Top-level entry | Seeded from | Seeded Class |
-|-----------------|-------------|--------------|
-| `header` | common | `DocumentHeader` |
-| `content` | — | executive summary |
-| `systemQualityGoals` | PD00-SYQ | `SystemQualityGoals` |
-| `acceptancePlan` | PD00-DEL-ACC | `AcceptancePlan` |
+| # | Top-level entry | Origin | Source |
+| --- | --- | --- | --- |
+| 1 | `qualityFramework` | seeded (flat) | PD00-SYQ-FRA |
+| 2 | `userQualityCriteria` | seeded (flat) | PD00-SYQ-USE |
+| 3 | `technicalQualityCriteria` | seeded (flat) | PD00-SYQ-TEC |
+| 4 | `operationsQualityCriteria` | seeded (flat) | PD00-SYQ-OPE |
+| 5 | `documentationQualityCriteria` | seeded (flat) | PD00-SYQ-DOC |
+| 6 | `qualityPrioritization` | seeded (flat) | PD00-SYQ-PRI |
+| 7 | `acceptanceCriteriaSummary` | seeded (flat) | PD00-SYQ-ACC |
+| 8 | `acceptanceCriteria` | seeded (flat) | PD00-DEL-ACC-CRI |
+| 9 | `acceptanceProcess` | seeded (flat) | PD00-DEL-ACC-PRO |
+| 10 | `userAcceptanceTesting` | seeded (flat) | PD00-DEL-ACC-UAT |
+| 11 | `defectResolution` | seeded (flat) | PD00-DEL-ACC-DEF |
+| 12 | `signOffProcess` | seeded (flat) | PD00-DEL-ACC-SIG |
+| 13 | `warranty` | seeded (flat) | PD00-DEL-ACC-WAR |
+| 14 | `testStrategy` | expansion | AS23 |
 
-**Expansion:** AS11 (already inside SYQ), AS23 Test Strategy sections (test approach, entry/exit criteria), AS14 acceptance process fragments. Note: AS14 delivery scope stays in PD00-DEL-DEL and does not flow here.
+**Count: 14.**
 
 ### 5.11. PPP — Project Phase Plan
 
-**Root source:** PD00-SSP (whole)
+**Seed nodes:** PD00-SSP (6 sectioned children + stages list). Single-source; flatten + expand.
 
-| Top-level entry | Seeded from | Seeded Class |
-|-----------------|-------------|--------------|
-| `header` | common | `DocumentHeader` |
-| `content` | — | executive summary |
-| `systemStagePlan` | PD00-SSP | `SystemStagePlan` |
+| # | Top-level entry | Origin | Source |
+| --- | --- | --- | --- |
+| 1 | `stagingStrategy` | seeded (flat) | PD00-SSP-STR |
+| 2 | `stageOverview` | seeded (flat) | PD00-SSP-STA |
+| 3 | `stages` | seeded (flat) | PD00-SSP-STG (list) |
+| 4 | `featurePrioritization` | seeded (flat) | PD00-SSP-FEA |
+| 5 | `dataMigrationStrategy` | seeded (flat) | PD00-SSP-MIG |
+| 6 | `stageGovernance` | seeded (flat) | PD00-SSP-GOV |
+| 7 | `phaseDefinitions` | expansion | PPP-PHD |
+| 8 | `gateCriteria` | expansion | PPP-GAT |
+| 9 | `resourcePlanning` | expansion | PPP-RES |
+| 10 | `initialDevelopmentFlow` | expansion | PPP-IDV |
+| 11 | `upgradeCycleFramework` | expansion | PPP-UPG (→ tom_system_upgrade.md) |
 
-**Expansion:** PPP-UPG Upgrade Cycle Framework (new, links to `tom_system_upgrade.md`), PPP-IDV Initial Development Flow, per-phase gate criteria, resource planning.
+**Count: 11.**
 
 ### 5.12. BSI — Business System Interactions
 
-**Root source:** PD00-SYO-SYB
+**Seed nodes:** PD00-SYO-SYB (3 sectioned children). Single-source; flatten + expand.
 
-| Top-level entry | Seeded from | Seeded Class |
-|-----------------|-------------|--------------|
-| `header` | common | `DocumentHeader` |
-| `content` | — | executive summary |
-| `systemBoundaries` | PD00-SYO-SYB | `SystemBoundaries` |
+| # | Top-level entry | Origin | Source |
+| --- | --- | --- | --- |
+| 1 | `externalInterfaces` | seeded (flat) | PD00-SYO-SYB-INT |
+| 2 | `outOfScope` | seeded (flat) | PD00-SYO-SYB-OUT |
+| 3 | `boundaryAssumptions` | seeded (flat) | PD00-SYO-SYB-ASS |
+| 4 | `systemInventory` | expansion | BSI-LAN-INV |
+| 5 | `interactionPatterns` | expansion | BSI-PAT (sync/async/batch) |
+| 6 | `testingStrategy` | expansion | BSI-TST |
+| 7 | `dependencyAnalysis` | expansion | BSI-DEP |
+| 8 | `migrationInteractions` | expansion | BSI-MIG (back-ref to PD00-SYO-SYR) |
+| 9 | `operationalConsiderations` | expansion | BSI-OPE |
+| 10 | `errorHandlingAcrossBoundaries` | expansion | BSI-ERR |
 
-**Expansion:** BSI-LAN-INV System Inventory, per-interaction definitions, BSI-PAT Common Patterns, BSI-TST Testing Strategy, BSI-DEP Dependency Analysis, BSI-MIG Migration Interactions (optional back-reference to PD00-SYO-SYR).
+**Count: 10.**
 
 ---
 
 ## 6. Summary Matrix
 
-How many seeded top-level entries each document gets:
+PD-side seeds and resulting target-document top-level counts (all within 7–15):
 
-| Doc | # Seeded tops | From PD00 subtrees |
-|-----|---------------|--------------------|
-| CS  | 1 | PD00-SYO-SYR |
-| RC  | 1 | PD00-SYO-REQ |
-| BP  | 1 | PD00-TAR-PRO |
-| UC  | 1 | PD00-TAR-STP |
-| BDM | 1 | PD00-BUS |
-| AC  | 1 | PD00-ACC |
-| TR  | 4 | PD00-TEC, PD00-COM, PD00-SYO-RES-TEC, PD00-USE-MUL-REQ |
-| UP  | 11 | PD00-USE-{VIS,SCR,SCF,PRI,ERR,HLP,ACC,RES,COM,PRO} + PD00-USE-MUL-LCS |
-| SR  | 3 | PD00-USE-MUL-{LOC,TRA,DOC} |
-| BQP | 2 | PD00-SYQ, PD00-DEL-ACC |
-| PPP | 1 | PD00-SSP |
-| BSI | 1 | PD00-SYO-SYB |
+| Doc | Seed nodes | Seeded tops | Expansion tops | Total |
+| --- | --- | --- | --- | --- |
+| CS  | PD00-SYO-SYR | 2 | 7 | 9 |
+| RC  | PD00-SYO-REQ | 5 | 5 | 10 |
+| BP  | PD00-TAR-PRO | 6 | 4 | 10 |
+| UC  | PD00-TAR-STP | 5 | 5 | 10 |
+| BDM | PD00-BUS | 3 | 8 | 11 |
+| AC  | PD00-ACC | 6 | 4 | 10 |
+| TR  | PD00-TEC, PD00-COM, PD00-SYO-RES-TEC, PD00-USE-MUL-REQ | 11 | 3 | 14 |
+| UP  | 10× PD00-USE-* + PD00-USE-MUL-LCS | 11 | 2 | 13 |
+| SR  | PD00-USE-MUL-{LOC,TRA,DOC} | 3 | 8 | 11 |
+| BQP | PD00-SYQ, PD00-DEL-ACC | 13 | 1 | 14 |
+| PPP | PD00-SSP | 6 | 5 | 11 |
+| BSI | PD00-SYO-SYB | 3 | 7 | 10 |
 
 Every PD00 subtree that has a Phase 3 target is covered exactly once, with no overlap between target documents.
 
