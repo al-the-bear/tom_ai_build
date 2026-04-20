@@ -1841,7 +1841,6 @@ Provide an overview of the design patterns and standards approach.
 /// Design pattern entry — a specific design pattern to be used.
 class DesignPatternEntry {
   @Form([
-    // Identity
     Field('patternName', String, 'Pattern Name',
         required: true,
         hint: 'E.g., Repository, Factory, Observer, State, Command'),
@@ -1850,38 +1849,81 @@ class DesignPatternEntry {
         hint: 'Creational, Structural, Behavioral, Architectural, UI'),
     Field('patternSource', String, 'Source',
         hint: 'GoF, Enterprise Patterns, DDD, UI Patterns'),
-
-    // Description
     Field('purpose', String, 'Purpose',
         required: true, hint: 'What problem this pattern solves'),
+  ])
+  String? content;
+
+  /// Applicability guidance.
+  DesignPatternEntryApplicability applicability =
+      DesignPatternEntryApplicability();
+
+  /// Structural composition.
+  DesignPatternEntryStructure structure = DesignPatternEntryStructure();
+
+  /// Implementation guidance.
+  DesignPatternEntryImplementation implementation =
+      DesignPatternEntryImplementation();
+
+  /// Architectural context.
+  DesignPatternEntryContext context = DesignPatternEntryContext();
+
+  /// Enforcement and notes.
+  DesignPatternEntryEnforcement enforcement =
+      DesignPatternEntryEnforcement();
+}
+
+/// Applicability guidance.
+class DesignPatternEntryApplicability {
+  @Form([
     Field('applicability', String, 'When to Use',
         hint: 'Situations where this pattern applies'),
     Field('notApplicable', String, 'When NOT to Use',
         hint: 'Situations where this pattern should be avoided'),
+  ])
+  String? content;
+}
 
-    // Structure
+/// Structural composition.
+class DesignPatternEntryStructure {
+  @Form([
     Field('participants', String, 'Participants',
         hint: 'Key classes/objects involved in this pattern'),
     Field('collaborations', String, 'Collaborations',
         hint: 'How participants interact'),
     Field('variations', String, 'Variations',
         hint: 'Supported variations of this pattern'),
+  ])
+  String? content;
+}
 
-    // Implementation
+/// Implementation guidance.
+class DesignPatternEntryImplementation {
+  @Form([
     Field('implementationGuidelines', String, 'Implementation Guidelines',
         hint: 'How to implement this pattern in the project'),
     Field('codeTemplate', String, 'Code Template/Example',
         hint: 'Reference to template or example code'),
     Field('frameworkSupport', String, 'Framework Support',
         hint: 'How the framework supports this pattern'),
+  ])
+  String? content;
+}
 
-    // Context
+/// Architectural context.
+class DesignPatternEntryContext {
+  @Form([
     Field('usageScope', String, 'Usage Scope',
         hint: 'Where in the architecture this pattern applies'),
     Field('relatedPatterns', String, 'Related Patterns',
         hint: 'Other patterns commonly used with this one'),
+  ])
+  String? content;
+}
 
-    // Enforcement
+/// Enforcement and notes.
+class DesignPatternEntryEnforcement {
+  @Form([
     Field('enforcementLevel', String, 'Enforcement Level',
         hint: 'Mandatory, Recommended, Optional'),
     Field('verificationMethod', String, 'Verification Method',
@@ -1939,23 +1981,52 @@ class CodingStandardEntry {
 /// Development convention entry — a development practice or workflow convention.
 class DevelopmentConventionEntry {
   @Form([
-    // Identity
     Field('conventionName', String, 'Convention Name',
         required: true, hint: 'Name of the development convention'),
     Field('conventionCategory', String, 'Category',
         required: true,
         hint:
             'Version Control, Code Review, Branching, Commit, CI/CD, Deployment'),
-
-    // Description
     Field('description', String, 'Description',
         required: true, hint: 'What the convention requires'),
+  ])
+  String? content;
+
+  /// Background and workflow.
+  DevelopmentConventionEntryOverview overview =
+      DevelopmentConventionEntryOverview();
+
+  /// Version control requirements.
+  DevelopmentConventionEntryVersionControl versionControl =
+      DevelopmentConventionEntryVersionControl();
+
+  /// Code review expectations.
+  DevelopmentConventionEntryReview review =
+      DevelopmentConventionEntryReview();
+
+  /// Automation integration.
+  DevelopmentConventionEntryAutomation automation =
+      DevelopmentConventionEntryAutomation();
+
+  /// Enforcement and exceptions.
+  DevelopmentConventionEntryEnforcement enforcement =
+      DevelopmentConventionEntryEnforcement();
+}
+
+/// Background and workflow.
+class DevelopmentConventionEntryOverview {
+  @Form([
     Field('rationale', String, 'Rationale',
         hint: 'Why this convention is important'),
     Field('workflow', String, 'Workflow',
         hint: 'Step-by-step workflow if applicable'),
+  ])
+  String? content;
+}
 
-    // Version control
+/// Version control requirements.
+class DevelopmentConventionEntryVersionControl {
+  @Form([
     Field('branchingStrategy', String, 'Branching Strategy',
         hint: 'GitFlow, trunk-based, feature branches'),
     Field('branchNaming', String, 'Branch Naming',
@@ -1964,20 +2035,35 @@ class DevelopmentConventionEntry {
         hint: 'Conventional commits, custom format'),
     Field('prProcess', String, 'PR Process',
         hint: 'Pull request requirements'),
+  ])
+  String? content;
+}
 
-    // Code review
+/// Code review expectations.
+class DevelopmentConventionEntryReview {
+  @Form([
     Field('reviewRequirements', String, 'Review Requirements',
         hint: 'Minimum reviewers, approval rules'),
     Field('reviewChecklist', String, 'Review Checklist',
         hint: 'Items to check during review'),
+  ])
+  String? content;
+}
 
-    // Automation
+/// Automation integration.
+class DevelopmentConventionEntryAutomation {
+  @Form([
     Field('automationIntegration', String, 'Automation Integration',
         hint: 'How this integrates with CI/CD'),
     Field('triggers', String, 'Triggers',
         hint: 'What triggers this convention'),
+  ])
+  String? content;
+}
 
-    // Enforcement
+/// Enforcement and exceptions.
+class DevelopmentConventionEntryEnforcement {
+  @Form([
     Field('enforcementLevel', String, 'Enforcement Level',
         hint: 'Mandatory, Recommended, Advisory'),
     Field('enforcementMethod', String, 'Enforcement Method',
@@ -6293,25 +6379,61 @@ class CertificationRequirementsSection {
 /// Compliance verification section.
 class ComplianceVerificationSection {
   @Form([
-    // Strategy
     Field('verificationStrategy', String, 'Verification Strategy',
         hint: 'Overall verification approach'),
     Field('frequencyOfReview', String, 'Review Frequency',
         hint: 'How often to verify'),
     Field('automatedChecks', String, 'Automated Checks',
         hint: 'Automated compliance checks'),
+  ])
+  String? content;
+
+  /// Manual review procedures.
+  ComplianceVerificationSectionReview review =
+      ComplianceVerificationSectionReview();
+
+  /// Tooling and dashboards.
+  ComplianceVerificationSectionTools tools =
+      ComplianceVerificationSectionTools();
+
+  /// Audit procedures.
+  ComplianceVerificationSectionAuditing auditing =
+      ComplianceVerificationSectionAuditing();
+
+  /// Reporting requirements.
+  ComplianceVerificationSectionReporting reporting =
+      ComplianceVerificationSectionReporting();
+
+  /// Continuous monitoring and improvement.
+  ComplianceVerificationSectionContinuous continuous =
+      ComplianceVerificationSectionContinuous();
+}
+
+/// Manual review procedures.
+class ComplianceVerificationSectionReview {
+  @Form([
     Field('manualReviews', String, 'Manual Reviews',
         hint: 'Manual review process'),
+  ])
+  String? content;
+}
 
-    // Tools
+/// Tooling and dashboards.
+class ComplianceVerificationSectionTools {
+  @Form([
     Field('complianceTools', String, 'Compliance Tools',
         hint: 'Tools for compliance tracking'),
     Field('dashboards', String, 'Compliance Dashboards',
         hint: 'Compliance dashboards'),
     Field('alerting', String, 'Alerting',
         hint: 'Compliance alert mechanism'),
+  ])
+  String? content;
+}
 
-    // Auditing
+/// Audit procedures.
+class ComplianceVerificationSectionAuditing {
+  @Form([
     Field('internalAuditProcess', String, 'Internal Audit Process',
         hint: 'Internal audit approach'),
     Field('externalAuditProcess', String, 'External Audit Process',
@@ -6320,16 +6442,26 @@ class ComplianceVerificationSection {
         hint: 'Audit trail requirements'),
     Field('findingsResolution', String, 'Findings Resolution',
         hint: 'How findings are resolved'),
+  ])
+  String? content;
+}
 
-    // Reporting
+/// Reporting requirements.
+class ComplianceVerificationSectionReporting {
+  @Form([
     Field('complianceReporting', String, 'Compliance Reporting',
         hint: 'Reporting requirements'),
     Field('managementReporting', String, 'Management Reporting',
         hint: 'Reports to management'),
     Field('regulatoryReporting', String, 'Regulatory Reporting',
         hint: 'Reports to regulators'),
+  ])
+  String? content;
+}
 
-    // Continuous
+/// Continuous monitoring and improvement.
+class ComplianceVerificationSectionContinuous {
+  @Form([
     Field('continuousMonitoring', String, 'Continuous Monitoring',
         hint: 'Ongoing monitoring'),
     Field('improvementProcess', String, 'Improvement Process',
@@ -7161,7 +7293,6 @@ class BrowserRequirementEntryIssues {
 /// Desktop operating system requirement entry.
 class DesktopOsRequirementEntry {
   @Form([
-    // Identity
     Field('osName', String, 'Operating System',
         required: true, hint: 'E.g., Windows, macOS, Linux'),
     Field('osFamily', String, 'OS Family',
@@ -7170,16 +7301,41 @@ class DesktopOsRequirementEntry {
         required: true, hint: 'Minimum supported version'),
     Field('recommendedVersion', String, 'Recommended Version',
         hint: 'Recommended version'),
+  ])
+  String? content;
 
-    // Support
+  /// Support prioritization.
+  DesktopOsRequirementEntrySupport support =
+      DesktopOsRequirementEntrySupport();
+
+  /// Hardware and display requirements.
+  DesktopOsRequirementEntryRequirements requirements =
+      DesktopOsRequirementEntryRequirements();
+
+  /// Software prerequisites.
+  DesktopOsRequirementEntrySoftware software =
+      DesktopOsRequirementEntrySoftware();
+
+  /// Testing and known issues.
+  DesktopOsRequirementEntryTesting testing = DesktopOsRequirementEntryTesting();
+}
+
+/// Support prioritization.
+class DesktopOsRequirementEntrySupport {
+  @Form([
     Field('supportLevel', String, 'Support Level',
         hint: 'Full, Partial, Best-effort'),
     Field('priority', String, 'Priority',
         hint: 'Primary, Secondary'),
     Field('expectedUserShare', String, 'Expected User Share',
         hint: 'Percentage of users'),
+  ])
+  String? content;
+}
 
-    // Requirements
+/// Hardware and display requirements.
+class DesktopOsRequirementEntryRequirements {
+  @Form([
     Field('architecture', String, 'Architecture',
         hint: 'x64, ARM64, x86'),
     Field('minRam', String, 'Minimum RAM',
@@ -7188,14 +7344,24 @@ class DesktopOsRequirementEntry {
         hint: 'Free disk space needed'),
     Field('displayDriver', String, 'Display Driver',
         hint: 'Graphics requirements'),
+  ])
+  String? content;
+}
 
-    // Software
+/// Software prerequisites.
+class DesktopOsRequirementEntrySoftware {
+  @Form([
     Field('runtimeDependencies', String, 'Runtime Dependencies',
         hint: 'Required runtimes (.NET, Java)'),
     Field('additionalSoftware', String, 'Additional Software',
         hint: 'Other required software'),
+  ])
+  String? content;
+}
 
-    // Testing
+/// Testing and known issues.
+class DesktopOsRequirementEntryTesting {
+  @Form([
     Field('testEnvironment', String, 'Test Environment',
         hint: 'VM, physical, cloud'),
     Field('automatedTesting', bool, 'Automated Testing',
@@ -7359,7 +7525,6 @@ class ClientNetworkRequirements {
 /// Client hardware requirements.
 class ClientHardwareRequirements {
   @Form([
-    // CPU
     Field('minCpuCores', String, 'Minimum CPU Cores',
         hint: 'Minimum CPU cores'),
     Field('recommendedCpuCores', String, 'Recommended CPU Cores',
@@ -7368,16 +7533,41 @@ class ClientHardwareRequirements {
         hint: 'x64, ARM, Universal'),
     Field('minCpuSpeed', String, 'Minimum CPU Speed',
         hint: 'Minimum clock speed'),
+  ])
+  String? content;
 
-    // Memory
+  /// Memory requirements.
+  ClientHardwareRequirementsMemory memory = ClientHardwareRequirementsMemory();
+
+  /// Storage requirements.
+  ClientHardwareRequirementsStorage storage =
+      ClientHardwareRequirementsStorage();
+
+  /// Graphics requirements.
+  ClientHardwareRequirementsGraphics graphics =
+      ClientHardwareRequirementsGraphics();
+
+  /// Peripheral requirements.
+  ClientHardwareRequirementsPeripherals peripherals =
+      ClientHardwareRequirementsPeripherals();
+}
+
+/// Memory requirements.
+class ClientHardwareRequirementsMemory {
+  @Form([
     Field('minRam', String, 'Minimum RAM',
         hint: 'Minimum system RAM'),
     Field('recommendedRam', String, 'Recommended RAM',
         hint: 'Recommended RAM'),
     Field('appMemoryUsage', String, 'App Memory Usage',
         hint: 'Expected memory consumption'),
+  ])
+  String? content;
+}
 
-    // Storage
+/// Storage requirements.
+class ClientHardwareRequirementsStorage {
+  @Form([
     Field('minFreeSpace', String, 'Minimum Free Space',
         hint: 'Required free disk space'),
     Field('installSize', String, 'Installation Size',
@@ -7386,16 +7576,26 @@ class ClientHardwareRequirements {
         hint: 'Typical cache size'),
     Field('storageType', String, 'Storage Type',
         hint: 'SSD recommended'),
+  ])
+  String? content;
+}
 
-    // Graphics
+/// Graphics requirements.
+class ClientHardwareRequirementsGraphics {
+  @Form([
     Field('gpuRequired', bool, 'GPU Required',
         hint: 'Dedicated GPU needed'),
     Field('gpuAcceleration', String, 'GPU Acceleration',
         hint: 'WebGL, hardware acceleration'),
     Field('videoDecoding', String, 'Video Decoding',
         hint: 'Hardware video decode'),
+  ])
+  String? content;
+}
 
-    // Peripherals
+/// Peripheral requirements.
+class ClientHardwareRequirementsPeripherals {
+  @Form([
     Field('inputDevices', String, 'Input Devices',
         hint: 'Keyboard, mouse, touch'),
     Field('audioSupport', String, 'Audio Support',
@@ -7592,15 +7792,34 @@ class NativeAppRequirements {
 /// Client security requirements.
 class ClientSecurityRequirements {
   @Form([
-    // Data protection
     Field('localDataEncryption', bool, 'Local Data Encryption',
         hint: 'Encrypt local storage'),
     Field('secureStorage', String, 'Secure Storage',
         hint: 'Keychain, encrypted prefs'),
     Field('cacheClearing', String, 'Cache Clearing',
         hint: 'Sensitive data clearing'),
+  ])
+  String? content;
 
-    // Authentication
+  /// Authentication requirements.
+  ClientSecurityRequirementsAuthentication authentication =
+      ClientSecurityRequirementsAuthentication();
+
+  /// Device security controls.
+  ClientSecurityRequirementsDevice device = ClientSecurityRequirementsDevice();
+
+  /// Network security controls.
+  ClientSecurityRequirementsNetwork network =
+      ClientSecurityRequirementsNetwork();
+
+  /// Code protection controls.
+  ClientSecurityRequirementsCodeProtection codeProtection =
+      ClientSecurityRequirementsCodeProtection();
+}
+
+/// Authentication requirements.
+class ClientSecurityRequirementsAuthentication {
+  @Form([
     Field('biometricAuth', bool, 'Biometric Authentication',
         hint: 'FaceID, TouchID, fingerprint'),
     Field('devicePasscode', bool, 'Device Passcode Required',
@@ -7609,8 +7828,13 @@ class ClientSecurityRequirements {
         hint: 'Credential storage policy'),
     Field('autoLockTimeout', String, 'Auto-Lock Timeout',
         hint: 'Session timeout'),
+  ])
+  String? content;
+}
 
-    // Device security
+/// Device security controls.
+class ClientSecurityRequirementsDevice {
+  @Form([
     Field('jailbreakDetection', bool, 'Jailbreak Detection',
         hint: 'Detect rooted devices'),
     Field('debugDetection', bool, 'Debug Detection',
@@ -7619,16 +7843,26 @@ class ClientSecurityRequirements {
         hint: 'SSL certificate pinning'),
     Field('vpnDetection', String, 'VPN Detection',
         hint: 'VPN/proxy detection'),
+  ])
+  String? content;
+}
 
-    // Network security
+/// Network security controls.
+class ClientSecurityRequirementsNetwork {
+  @Form([
     Field('httpsOnly', bool, 'HTTPS Only',
         hint: 'Require HTTPS'),
     Field('minTlsVersion', String, 'Minimum TLS Version',
         hint: 'TLS 1.2, TLS 1.3'),
     Field('insecureConnectionBlocking', bool, 'Block Insecure Connections',
         hint: 'Block HTTP'),
+  ])
+  String? content;
+}
 
-    // Code protection
+/// Code protection controls.
+class ClientSecurityRequirementsCodeProtection {
+  @Form([
     Field('codeObfuscation', bool, 'Code Obfuscation',
         hint: 'Obfuscate app code'),
     Field('tamperDetection', bool, 'Tamper Detection',
@@ -8752,39 +8986,74 @@ class RecoveryProcedures {
 /// Disaster recovery requirements.
 class DisasterRecoveryRequirements {
   @Form([
-    // DR strategy
     Field('drStrategy', String, 'DR Strategy',
         hint: 'Hot, Warm, Cold standby'),
     Field('drSite', String, 'DR Site Location',
         hint: 'DR site location'),
     Field('drProvider', String, 'DR Provider',
         hint: 'DR service provider'),
+  ])
+  String? content;
 
-    // Failover
+  /// Failover execution.
+  DisasterRecoveryRequirementsFailover failover =
+      DisasterRecoveryRequirementsFailover();
+
+  /// Failback procedure.
+  DisasterRecoveryRequirementsFailback failback =
+      DisasterRecoveryRequirementsFailback();
+
+  /// Replication requirements.
+  DisasterRecoveryRequirementsReplication replication =
+      DisasterRecoveryRequirementsReplication();
+
+  /// Continuity and coordination.
+  DisasterRecoveryRequirementsContinuity continuity =
+      DisasterRecoveryRequirementsContinuity();
+}
+
+/// Failover execution.
+class DisasterRecoveryRequirementsFailover {
+  @Form([
     Field('failoverType', String, 'Failover Type',
         hint: 'Automatic, Manual, Semi-auto'),
     Field('failoverThreshold', String, 'Failover Threshold',
         hint: 'When to trigger failover'),
     Field('failoverDuration', String, 'Failover Duration',
         hint: 'Time to complete failover'),
+  ])
+  String? content;
+}
 
-    // Failback
+/// Failback procedure.
+class DisasterRecoveryRequirementsFailback {
+  @Form([
     Field('failbackProcedure', String, 'Failback Procedure',
         hint: 'Return to primary'),
     Field('failbackValidation', String, 'Failback Validation',
         hint: 'Validating failback'),
     Field('dataSync', String, 'Data Synchronization',
         hint: 'Syncing after failback'),
+  ])
+  String? content;
+}
 
-    // Data replication
+/// Replication requirements.
+class DisasterRecoveryRequirementsReplication {
+  @Form([
     Field('replicationMethod', String, 'Replication Method',
         hint: 'Sync, Async replication'),
     Field('replicationLag', String, 'Replication Lag',
         hint: 'Acceptable lag'),
     Field('replicationBandwidth', String, 'Replication Bandwidth',
         hint: 'Bandwidth for DR'),
+  ])
+  String? content;
+}
 
-    // Business continuity
+/// Continuity and coordination.
+class DisasterRecoveryRequirementsContinuity {
+  @Form([
     Field('businessContinuityPlan', String, 'Business Continuity Plan',
         hint: 'BCP reference'),
     Field('communicationPlan', String, 'Communication Plan',
@@ -8982,7 +9251,6 @@ Provide an overview of deployment strategy and pipeline.
 /// Deployment model requirements.
 class DeploymentModelRequirements {
   @Form([
-    // Primary model
     Field('deploymentModel', String, 'Deployment Model',
         hint: 'Containerized, VM-based, Serverless, Hybrid'),
     Field('containerRuntime', String, 'Container Runtime',
@@ -8991,8 +9259,29 @@ class DeploymentModelRequirements {
         hint: 'Kubernetes, ECS, Nomad'),
     Field('serverlessProvider', String, 'Serverless Provider',
         hint: 'AWS Lambda, Azure Functions, Cloud Run'),
+  ])
+  String? content;
 
-    // Container specifications
+  /// Container image policies.
+  DeploymentModelRequirementsContainer container =
+      DeploymentModelRequirementsContainer();
+
+  /// Resource allocation.
+  DeploymentModelRequirementsResources resources =
+      DeploymentModelRequirementsResources();
+
+  /// Networking configuration.
+  DeploymentModelRequirementsNetworking networking =
+      DeploymentModelRequirementsNetworking();
+
+  /// Storage configuration.
+  DeploymentModelRequirementsStorage storage =
+      DeploymentModelRequirementsStorage();
+}
+
+/// Container image policies.
+class DeploymentModelRequirementsContainer {
+  @Form([
     Field('containerRegistry', String, 'Container Registry',
         hint: 'ECR, ACR, GCR, Docker Hub'),
     Field('imageScanningRequired', bool, 'Image Scanning Required',
@@ -9001,24 +9290,39 @@ class DeploymentModelRequirements {
         hint: 'Semantic versioning, git SHA'),
     Field('baseImagePolicy', String, 'Base Image Policy',
         hint: 'Approved base images'),
+  ])
+  String? content;
+}
 
-    // Resource allocation
+/// Resource allocation.
+class DeploymentModelRequirementsResources {
+  @Form([
     Field('resourceRequirements', String, 'Resource Requirements',
         hint: 'CPU, memory specifications'),
     Field('scalingConfiguration', String, 'Scaling Configuration',
         hint: 'HPA, VPA, cluster autoscaler'),
     Field('replicaCount', String, 'Replica Count',
         hint: 'Default and min/max replicas'),
+  ])
+  String? content;
+}
 
-    // Networking
+/// Networking configuration.
+class DeploymentModelRequirementsNetworking {
+  @Form([
     Field('serviceDiscovery', String, 'Service Discovery',
         hint: 'DNS, service mesh'),
     Field('ingressConfiguration', String, 'Ingress Configuration',
         hint: 'Ingress controller, routes'),
     Field('loadBalancing', String, 'Load Balancing',
         hint: 'ALB, NLB, internal LB'),
+  ])
+  String? content;
+}
 
-    // Storage
+/// Storage configuration.
+class DeploymentModelRequirementsStorage {
+  @Form([
     Field('persistentStorage', String, 'Persistent Storage',
         hint: 'PVC, EBS, EFS requirements'),
     Field('storageClass', String, 'Storage Class',
@@ -14576,7 +14880,6 @@ class DataProcessingAgreementRequirements {
 /// DataClassification in business_data_model.dart.
 class DataProtectionClassification {
   @Form([
-    // Classification scheme
     Field('classificationLevels', String, 'Classification Levels',
         required: true,
         hint: 'Public, Internal, Confidential, Restricted, Top Secret'),
@@ -14589,8 +14892,29 @@ class DataProtectionClassification {
             'Special categories Art. 9 GDPR: race, religion, health, sexual orientation, political opinion'),
     Field('classificationResponsibility', String, 'Classification Responsibility',
         hint: 'Who is responsible for classifying data'),
+  ])
+  String? content;
 
-    // Handling rules
+  /// Handling rules.
+  DataProtectionClassificationHandling handling =
+      DataProtectionClassificationHandling();
+
+  /// Retention and disposal rules.
+  DataProtectionClassificationRetention retention =
+      DataProtectionClassificationRetention();
+
+  /// Masking and de-identification rules.
+  DataProtectionClassificationMasking masking =
+      DataProtectionClassificationMasking();
+
+  /// Incident handling.
+  DataProtectionClassificationIncident incident =
+      DataProtectionClassificationIncident();
+}
+
+/// Handling rules.
+class DataProtectionClassificationHandling {
+  @Form([
     Field('encryptionAtRest', String, 'Encryption at Rest',
         required: true,
         hint: 'Encryption requirements per classification level (AES-256)'),
@@ -14600,8 +14924,13 @@ class DataProtectionClassification {
         hint: 'Access restrictions mapped to classification levels'),
     Field('loggingByClassification', String, 'Logging Requirements',
         hint: 'Audit logging requirements per classification level'),
+  ])
+  String? content;
+}
 
-    // Retention and disposal
+/// Retention and disposal rules.
+class DataProtectionClassificationRetention {
+  @Form([
     Field('retentionPolicyByCategory', String, 'Retention Policy',
         required: true,
         hint: 'Retention periods per data category and legal basis'),
@@ -14609,16 +14938,26 @@ class DataProtectionClassification {
         hint: 'Secure deletion, shredding, crypto-erasure per classification'),
     Field('retentionExceptions', String, 'Retention Exceptions',
         hint: 'Legal holds, regulatory overrides, litigation preservation'),
+  ])
+  String? content;
+}
 
-    // Masking and de-identification
+/// Masking and de-identification rules.
+class DataProtectionClassificationMasking {
+  @Form([
     Field('dataMaskingRules', String, 'Data Masking Rules',
         hint: 'Masking rules for non-production environments, logs, and reports'),
     Field('tokenizationRequirements', String, 'Tokenization Requirements',
         hint: 'Payment card, PII tokenization approach (PCI DSS)'),
     Field('deIdentificationStandards', String, 'De-Identification Standards',
         hint: 'HIPAA Safe Harbor, Expert Determination, k-anonymity'),
+  ])
+  String? content;
+}
 
-    // Incident handling
+/// Incident handling.
+class DataProtectionClassificationIncident {
+  @Form([
     Field('breachClassificationMatrix', String, 'Breach Classification',
         hint: 'Mapping data classification to breach severity and response'),
     Field('dataLossPreventionControls', String, 'DLP Controls',
