@@ -5526,7 +5526,6 @@ class MultiLanguageAndRollout {
 @SectionId('PD00-USE-MUL-LOC')
 class LocalizationProcess {
   @Form([
-    // Content identification
     Field('contentIdentification', String, 'Content Identification',
         hint: 'How localizable content is identified'),
     Field('stringExternalization', String, 'String Externalization',
@@ -5535,39 +5534,66 @@ class LocalizationProcess {
         hint: 'How content is tagged for translation'),
     Field('localizationScope', String, 'Localization Scope',
         hint: 'UI text, images, audio, video, documents'),
-    // Review process
-    Field('reviewWorkflow', String, 'Review Workflow',
-        hint: 'Steps in the localization review'),
-    Field('stakeholderApproval', String, 'Stakeholder Approval',
-        hint: 'Who approves localized content'),
-    Field('qualityAssurance', String, 'Quality Assurance',
-        hint: 'QA process for localized content'),
-    // Formatting rules
-    Field('dateFormatRules', String, 'Date Format Rules',
-        hint: 'Locale-specific date formatting'),
-    Field('numberFormatRules', String, 'Number Format Rules',
-        hint: 'Locale-specific number formatting'),
-    Field('currencyFormatRules', String, 'Currency Format Rules',
-        hint: 'Locale-specific currency formatting'),
-    Field('addressFormatRules', String, 'Address Format Rules',
-        hint: 'Locale-specific address formatting'),
-    Field('phoneFormatRules', String, 'Phone Format Rules',
-        hint: 'Locale-specific phone number formatting'),
-    // Deployment
-    Field('localeDeployment', String, 'Locale Deployment',
-        hint: 'How locales are deployed'),
-    Field('localeToggling', String, 'Locale Toggling',
-        hint: 'Feature flags for locales'),
-    Field('perLocaleCustomization', String, 'Per-Locale Customization',
-        hint: 'Locale-specific features or content'),
   ])
   String? localizationProcessContent;
+
+  /// Review process.
+  LocalizationProcessReview review = LocalizationProcessReview();
+
+  /// Formatting rules.
+  LocalizationProcessFormatting formatting = LocalizationProcessFormatting();
+
+  /// Deployment settings.
+  LocalizationProcessDeployment deployment = LocalizationProcessDeployment();
 
   /// Localization process narrative.
   TextSection localizationNarrative = TextSection();
 
   /// Localization workflow diagram.
   FlowDiagramSection workflowDiagram = FlowDiagramSection();
+}
+
+/// Review process.
+class LocalizationProcessReview {
+    @Form([
+        Field('reviewWorkflow', String, 'Review Workflow',
+                hint: 'Steps in the localization review'),
+        Field('stakeholderApproval', String, 'Stakeholder Approval',
+                hint: 'Who approves localized content'),
+        Field('qualityAssurance', String, 'Quality Assurance',
+                hint: 'QA process for localized content'),
+    ])
+    String? content;
+}
+
+/// Formatting rules.
+class LocalizationProcessFormatting {
+    @Form([
+        Field('dateFormatRules', String, 'Date Format Rules',
+                hint: 'Locale-specific date formatting'),
+        Field('numberFormatRules', String, 'Number Format Rules',
+                hint: 'Locale-specific number formatting'),
+        Field('currencyFormatRules', String, 'Currency Format Rules',
+                hint: 'Locale-specific currency formatting'),
+        Field('addressFormatRules', String, 'Address Format Rules',
+                hint: 'Locale-specific address formatting'),
+        Field('phoneFormatRules', String, 'Phone Format Rules',
+                hint: 'Locale-specific phone number formatting'),
+    ])
+    String? content;
+}
+
+/// Deployment settings.
+class LocalizationProcessDeployment {
+    @Form([
+        Field('localeDeployment', String, 'Locale Deployment',
+                hint: 'How locales are deployed'),
+        Field('localeToggling', String, 'Locale Toggling',
+                hint: 'Feature flags for locales'),
+        Field('perLocaleCustomization', String, 'Per-Locale Customization',
+                hint: 'Locale-specific features or content'),
+    ])
+    String? content;
 }
 
 /// 10.12.2. Translation Process [PD00-USE-MUL-TRA].

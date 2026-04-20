@@ -222,7 +222,6 @@ Provide a strategic overview of platform and technology selections.
 /// Target platform entry (operating system, runtime, container).
 class TargetPlatformEntry {
   @Form([
-    // Identity
     Field('platformName', String, 'Platform Name',
         required: true,
         hint: 'E.g., Linux, Windows Server, macOS, iOS, Android'),
@@ -231,41 +230,73 @@ class TargetPlatformEntry {
             'Operating System, Runtime Environment, Container Platform, Cloud Platform'),
     Field(
         'platformType', String, 'Type', hint: 'Server, Desktop, Mobile, IoT'),
+  ])
+  String? content;
 
-    // Version requirements
-    Field('minimumVersion', String, 'Minimum Version',
-        required: true, hint: 'Earliest supported version'),
-    Field('recommendedVersion', String, 'Recommended Version',
-        hint: 'Preferred target version'),
-    Field('maximumVersion', String, 'Maximum Version',
-        hint: 'Latest tested/supported version'),
+  /// Version requirements.
+  TargetPlatformEntryVersion version = TargetPlatformEntryVersion();
 
-    // Architecture
-    Field('supportedArchitectures', String, 'Supported Architectures',
-        hint: 'E.g., x86_64, ARM64, WASM'),
-    Field('bitness', String, 'Bitness', hint: '32-bit, 64-bit, Both'),
+  /// Architecture details.
+  TargetPlatformEntryArchitecture architecture =
+    TargetPlatformEntryArchitecture();
 
-    // Requirements and constraints
-    Field('minimumMemory', String, 'Minimum Memory',
-        hint: 'Minimum RAM requirement'),
-    Field('minimumStorage', String, 'Minimum Storage',
-        hint: 'Minimum disk space'),
-    Field('requiredFeatures', String, 'Required Features',
-        hint: 'Specific OS features or capabilities needed'),
+  /// Requirements and constraints.
+  TargetPlatformEntryRequirements requirements =
+    TargetPlatformEntryRequirements();
 
-    // Justification
-    Field('justification', String, 'Justification',
-        hint: 'Reason for selecting this platform'),
-    Field('supportScope', String, 'Support Scope',
-        hint: 'Primary, Secondary, Limited'),
-    Field('endOfLifeDate', String, 'End of Life Date',
-        hint: 'Platform EOL date for planning'),
+  /// Lifecycle and compliance.
+  TargetPlatformEntryLifecycle lifecycle = TargetPlatformEntryLifecycle();
+}
 
-    // Compliance
-    Field('certificationRequirements', String, 'Certification Requirements',
-        hint: 'Required platform certifications'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional platform-specific notes'),
+/// Version requirements.
+class TargetPlatformEntryVersion {
+  @Form([
+  Field('minimumVersion', String, 'Minimum Version',
+    required: true, hint: 'Earliest supported version'),
+  Field('recommendedVersion', String, 'Recommended Version',
+    hint: 'Preferred target version'),
+  Field('maximumVersion', String, 'Maximum Version',
+    hint: 'Latest tested/supported version'),
+  ])
+  String? content;
+}
+
+/// Architecture details.
+class TargetPlatformEntryArchitecture {
+  @Form([
+  Field('supportedArchitectures', String, 'Supported Architectures',
+    hint: 'E.g., x86_64, ARM64, WASM'),
+  Field('bitness', String, 'Bitness', hint: '32-bit, 64-bit, Both'),
+  ])
+  String? content;
+}
+
+/// Requirements and constraints.
+class TargetPlatformEntryRequirements {
+  @Form([
+  Field('minimumMemory', String, 'Minimum Memory',
+    hint: 'Minimum RAM requirement'),
+  Field('minimumStorage', String, 'Minimum Storage',
+    hint: 'Minimum disk space'),
+  Field('requiredFeatures', String, 'Required Features',
+    hint: 'Specific OS features or capabilities needed'),
+  ])
+  String? content;
+}
+
+/// Lifecycle and compliance.
+class TargetPlatformEntryLifecycle {
+  @Form([
+  Field('justification', String, 'Justification',
+    hint: 'Reason for selecting this platform'),
+  Field('supportScope', String, 'Support Scope',
+    hint: 'Primary, Secondary, Limited'),
+  Field('endOfLifeDate', String, 'End of Life Date',
+    hint: 'Platform EOL date for planning'),
+  Field('certificationRequirements', String, 'Certification Requirements',
+    hint: 'Required platform certifications'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional platform-specific notes'),
   ])
   String? content;
 }
@@ -3182,43 +3213,64 @@ class ModuleEntryTesting {
 /// Shared library entry — a reusable library or utility.
 class SharedLibraryEntry {
   @Form([
-    // Identity
     Field('libraryName', String, 'Library Name',
         required: true, hint: 'Library identifier'),
     Field('libraryType', String, 'Library Type',
         hint: 'Utility, Domain, Infrastructure, UI'),
     Field('version', String, 'Version', hint: 'Current version'),
+  ])
+  String? content;
 
-    // Description
-    Field('purpose', String, 'Purpose',
-        required: true, hint: 'What the library provides'),
-    Field('targetConsumers', String, 'Target Consumers',
-        hint: 'Modules/contexts that should use this'),
-    Field('usageGuidelines', String, 'Usage Guidelines',
-        hint: 'How to properly use this library'),
+  /// Description and usage.
+  SharedLibraryEntryDescription description = SharedLibraryEntryDescription();
 
-    // API
-    Field('publicClasses', String, 'Public Classes',
-        hint: 'Key public classes/interfaces'),
-    Field('publicFunctions', String, 'Public Functions',
-        hint: 'Key public functions'),
-    Field('extensionPoints', String, 'Extension Points',
-        hint: 'How consumers can extend'),
+  /// API details.
+  SharedLibraryEntryApi api = SharedLibraryEntryApi();
 
-    // Constraints
-    Field('compatibilityRequirements', String, 'Compatibility Requirements',
-        hint: 'Platform/version requirements'),
-    Field('performanceCharacteristics', String, 'Performance Characteristics',
-        hint: 'Expected performance profile'),
-    Field('threadSafety', String, 'Thread Safety',
-        hint: 'Thread safety guarantees'),
+  /// Constraints and lifecycle.
+  SharedLibraryEntryLifecycle lifecycle = SharedLibraryEntryLifecycle();
+}
 
-    // Maintenance
-    Field('deprecationPolicy', String, 'Deprecation Policy',
-        hint: 'How APIs are deprecated'),
-    Field('changelogLocation', String, 'Changelog Location',
-        hint: 'Where changes are documented'),
-    Field('notes', String, 'Notes', hint: 'Additional library notes'),
+/// Description and usage.
+class SharedLibraryEntryDescription {
+  @Form([
+  Field('purpose', String, 'Purpose',
+    required: true, hint: 'What the library provides'),
+  Field('targetConsumers', String, 'Target Consumers',
+    hint: 'Modules/contexts that should use this'),
+  Field('usageGuidelines', String, 'Usage Guidelines',
+    hint: 'How to properly use this library'),
+  ])
+  String? content;
+}
+
+/// API details.
+class SharedLibraryEntryApi {
+  @Form([
+  Field('publicClasses', String, 'Public Classes',
+    hint: 'Key public classes/interfaces'),
+  Field('publicFunctions', String, 'Public Functions',
+    hint: 'Key public functions'),
+  Field('extensionPoints', String, 'Extension Points',
+    hint: 'How consumers can extend'),
+  ])
+  String? content;
+}
+
+/// Constraints and lifecycle.
+class SharedLibraryEntryLifecycle {
+  @Form([
+  Field('compatibilityRequirements', String, 'Compatibility Requirements',
+    hint: 'Platform/version requirements'),
+  Field('performanceCharacteristics', String, 'Performance Characteristics',
+    hint: 'Expected performance profile'),
+  Field('threadSafety', String, 'Thread Safety',
+    hint: 'Thread safety guarantees'),
+  Field('deprecationPolicy', String, 'Deprecation Policy',
+    hint: 'How APIs are deprecated'),
+  Field('changelogLocation', String, 'Changelog Location',
+    hint: 'Where changes are documented'),
+  Field('notes', String, 'Notes', hint: 'Additional library notes'),
   ])
   String? content;
 }
@@ -4693,44 +4745,77 @@ Provide an overview of the reusability strategy and component library.
 /// Reusability principles and guidelines.
 class ReusabilityPrinciples {
   @Form([
-    // Design principles
     Field('reuseFirstPolicy', String, 'Reuse-First Policy',
         hint: 'Policy on preferring existing components'),
     Field('extractionCriteria', String, 'Extraction Criteria',
         hint: 'When to extract code into reusable components'),
     Field('granularityGuidelines', String, 'Granularity Guidelines',
         hint: 'Right size for reusable components'),
+  ])
+  String? content;
 
-    // Abstraction
-    Field('abstractionLevel', String, 'Abstraction Level',
-        hint: 'Required abstraction for reusability'),
-    Field('interfaceStandards', String, 'Interface Standards',
-        hint: 'Standards for component interfaces'),
-    Field('dependencyRules', String, 'Dependency Rules',
-        hint: 'Rules for component dependencies'),
+  /// Abstraction rules.
+  ReusabilityPrinciplesAbstraction abstraction =
+    ReusabilityPrinciplesAbstraction();
 
-    // Quality
-    Field('documentationRequirements', String, 'Documentation Requirements',
-        hint: 'Required documentation for reusable components'),
-    Field('testingRequirements', String, 'Testing Requirements',
-        hint: 'Test coverage for reusable components'),
-    Field('codeReviewProcess', String, 'Code Review Process',
-        hint: 'Review process for shared components'),
+  /// Quality expectations.
+  ReusabilityPrinciplesQuality quality = ReusabilityPrinciplesQuality();
 
-    // Versioning
-    Field('versioningPolicy', String, 'Versioning Policy',
-        hint: 'How reusable components are versioned'),
-    Field('breakingChangePolicy', String, 'Breaking Change Policy',
-        hint: 'Handling breaking changes in shared components'),
-    Field('deprecationProcess', String, 'Deprecation Process',
-        hint: 'How components are deprecated'),
+  /// Versioning policy.
+  ReusabilityPrinciplesVersioning versioning =
+    ReusabilityPrinciplesVersioning();
 
-    // Ownership
-    Field('ownershipModel', String, 'Ownership Model',
-        hint: 'Who owns shared components'),
-    Field('contributionProcess', String, 'Contribution Process',
-        hint: 'How to contribute to shared components'),
-    Field('notes', String, 'Notes', hint: 'Additional principles notes'),
+  /// Ownership and contribution.
+  ReusabilityPrinciplesOwnership ownership = ReusabilityPrinciplesOwnership();
+}
+
+/// Abstraction rules.
+class ReusabilityPrinciplesAbstraction {
+  @Form([
+  Field('abstractionLevel', String, 'Abstraction Level',
+    hint: 'Required abstraction for reusability'),
+  Field('interfaceStandards', String, 'Interface Standards',
+    hint: 'Standards for component interfaces'),
+  Field('dependencyRules', String, 'Dependency Rules',
+    hint: 'Rules for component dependencies'),
+  ])
+  String? content;
+}
+
+/// Quality expectations.
+class ReusabilityPrinciplesQuality {
+  @Form([
+  Field('documentationRequirements', String, 'Documentation Requirements',
+    hint: 'Required documentation for reusable components'),
+  Field('testingRequirements', String, 'Testing Requirements',
+    hint: 'Test coverage for reusable components'),
+  Field('codeReviewProcess', String, 'Code Review Process',
+    hint: 'Review process for shared components'),
+  ])
+  String? content;
+}
+
+/// Versioning policy.
+class ReusabilityPrinciplesVersioning {
+  @Form([
+  Field('versioningPolicy', String, 'Versioning Policy',
+    hint: 'How reusable components are versioned'),
+  Field('breakingChangePolicy', String, 'Breaking Change Policy',
+    hint: 'Handling breaking changes in shared components'),
+  Field('deprecationProcess', String, 'Deprecation Process',
+    hint: 'How components are deprecated'),
+  ])
+  String? content;
+}
+
+/// Ownership and contribution.
+class ReusabilityPrinciplesOwnership {
+  @Form([
+  Field('ownershipModel', String, 'Ownership Model',
+    hint: 'Who owns shared components'),
+  Field('contributionProcess', String, 'Contribution Process',
+    hint: 'How to contribute to shared components'),
+  Field('notes', String, 'Notes', hint: 'Additional principles notes'),
   ])
   String? content;
 }
@@ -5942,45 +6027,79 @@ class ApiCompatibilityEntrySpecification {
 /// Legacy system compatibility entry.
 class LegacyCompatibilityEntry {
   @Form([
-    // Identity
     Field('systemName', String, 'System Name',
         required: true, hint: 'Legacy system name'),
     Field('systemAge', String, 'System Age',
         hint: 'How old the system is'),
     Field('technology', String, 'Technology',
         hint: 'COBOL, mainframe, etc.'),
+  ])
+  String? content;
 
-    // Integration
-    Field('integrationApproach', String, 'Integration Approach',
-        hint: 'Wrapper, adapter, gateway'),
-    Field('dataAccess', String, 'Data Access',
-        hint: 'How legacy data is accessed'),
-    Field('bidirectional', bool, 'Bidirectional',
-        hint: 'Two-way data flow'),
+  /// Integration approach.
+  LegacyCompatibilityEntryIntegration integration =
+    LegacyCompatibilityEntryIntegration();
 
-    // Constraints
-    Field('constraints', String, 'Constraints',
-        hint: 'Legacy system constraints'),
-    Field('limitations', String, 'Limitations',
-        hint: 'Integration limitations'),
-    Field('performanceImpact', String, 'Performance Impact',
-        hint: 'Impact on performance'),
+  /// Constraints and limitations.
+  LegacyCompatibilityEntryConstraints constraintsSection =
+    LegacyCompatibilityEntryConstraints();
 
-    // Migration
-    Field('migrationPath', String, 'Migration Path',
-        hint: 'Path to replace legacy'),
-    Field('coexistencePeriod', String, 'Coexistence Period',
-        hint: 'How long systems coexist'),
-    Field('dataSync', String, 'Data Synchronization',
-        hint: 'How data stays in sync'),
+  /// Migration planning.
+  LegacyCompatibilityEntryMigration migration =
+    LegacyCompatibilityEntryMigration();
 
-    // Risk
-    Field('riskAssessment', String, 'Risk Assessment',
-        hint: 'Risks of integration'),
-    Field('fallbackPlan', String, 'Fallback Plan',
-        hint: 'If integration fails'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional legacy compatibility notes'),
+  /// Risk management.
+  LegacyCompatibilityEntryRisk risk = LegacyCompatibilityEntryRisk();
+}
+
+/// Integration approach.
+class LegacyCompatibilityEntryIntegration {
+  @Form([
+  Field('integrationApproach', String, 'Integration Approach',
+    hint: 'Wrapper, adapter, gateway'),
+  Field('dataAccess', String, 'Data Access',
+    hint: 'How legacy data is accessed'),
+  Field('bidirectional', bool, 'Bidirectional',
+    hint: 'Two-way data flow'),
+  ])
+  String? content;
+}
+
+/// Constraints and limitations.
+class LegacyCompatibilityEntryConstraints {
+  @Form([
+  Field('constraints', String, 'Constraints',
+    hint: 'Legacy system constraints'),
+  Field('limitations', String, 'Limitations',
+    hint: 'Integration limitations'),
+  Field('performanceImpact', String, 'Performance Impact',
+    hint: 'Impact on performance'),
+  ])
+  String? content;
+}
+
+/// Migration planning.
+class LegacyCompatibilityEntryMigration {
+  @Form([
+  Field('migrationPath', String, 'Migration Path',
+    hint: 'Path to replace legacy'),
+  Field('coexistencePeriod', String, 'Coexistence Period',
+    hint: 'How long systems coexist'),
+  Field('dataSync', String, 'Data Synchronization',
+    hint: 'How data stays in sync'),
+  ])
+  String? content;
+}
+
+/// Risk management.
+class LegacyCompatibilityEntryRisk {
+  @Form([
+  Field('riskAssessment', String, 'Risk Assessment',
+    hint: 'Risks of integration'),
+  Field('fallbackPlan', String, 'Fallback Plan',
+    hint: 'If integration fails'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional legacy compatibility notes'),
   ])
   String? content;
 }
@@ -11950,7 +12069,6 @@ Provide an overview of monitoring and observability strategy.
 /// Monitoring infrastructure requirements.
 class MonitoringInfrastructure {
   @Form([
-    // Platform
     Field('monitoringPlatform', String, 'Monitoring Platform',
         hint: 'Datadog, Prometheus, CloudWatch'),
     Field('metricsBackend', String, 'Metrics Backend',
@@ -11959,34 +12077,60 @@ class MonitoringInfrastructure {
         hint: 'ELK, Splunk, CloudWatch Logs'),
     Field('tracingBackend', String, 'Tracing Backend',
         hint: 'Jaeger, Zipkin, X-Ray'),
+  ])
+  String? content;
 
-    // Deployment
-    Field('monitoringDeployment', String, 'Monitoring Deployment',
-        hint: 'SaaS, self-hosted, hybrid'),
-    Field('dataRetention', String, 'Data Retention',
-        hint: 'Metrics/logs retention period'),
-    Field('storageRequirements', String, 'Storage Requirements',
-        hint: 'Estimated storage needs'),
-    Field('highAvailability', bool, 'High Availability',
-        hint: 'Monitoring HA required'),
+  /// Deployment model.
+  MonitoringInfrastructureDeployment deployment =
+    MonitoringInfrastructureDeployment();
 
-    // Collection
-    Field('collectionFrequency', String, 'Collection Frequency',
-        hint: 'Metrics scrape interval'),
-    Field('agentBased', bool, 'Agent-Based Collection',
-        hint: 'Requires monitoring agents'),
-    Field('agentlessCollection', bool, 'Agentless Collection',
-        hint: 'Push-based metrics'),
+  /// Collection model.
+  MonitoringInfrastructureCollection collection =
+    MonitoringInfrastructureCollection();
 
-    // Access
-    Field('accessControl', String, 'Access Control',
-        hint: 'Who can access monitoring'),
-    Field('dataPrivacy', String, 'Data Privacy',
-        hint: 'Sensitive data handling'),
-    Field('multiTenant', bool, 'Multi-Tenant',
-        hint: 'Tenant isolation in monitoring'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional infrastructure notes'),
+  /// Access and privacy controls.
+  MonitoringInfrastructureAccess access = MonitoringInfrastructureAccess();
+}
+
+/// Deployment model.
+class MonitoringInfrastructureDeployment {
+  @Form([
+  Field('monitoringDeployment', String, 'Monitoring Deployment',
+    hint: 'SaaS, self-hosted, hybrid'),
+  Field('dataRetention', String, 'Data Retention',
+    hint: 'Metrics/logs retention period'),
+  Field('storageRequirements', String, 'Storage Requirements',
+    hint: 'Estimated storage needs'),
+  Field('highAvailability', bool, 'High Availability',
+    hint: 'Monitoring HA required'),
+  ])
+  String? content;
+}
+
+/// Collection model.
+class MonitoringInfrastructureCollection {
+  @Form([
+  Field('collectionFrequency', String, 'Collection Frequency',
+    hint: 'Metrics scrape interval'),
+  Field('agentBased', bool, 'Agent-Based Collection',
+    hint: 'Requires monitoring agents'),
+  Field('agentlessCollection', bool, 'Agentless Collection',
+    hint: 'Push-based metrics'),
+  ])
+  String? content;
+}
+
+/// Access and privacy controls.
+class MonitoringInfrastructureAccess {
+  @Form([
+  Field('accessControl', String, 'Access Control',
+    hint: 'Who can access monitoring'),
+  Field('dataPrivacy', String, 'Data Privacy',
+    hint: 'Sensitive data handling'),
+  Field('multiTenant', bool, 'Multi-Tenant',
+    hint: 'Tenant isolation in monitoring'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional infrastructure notes'),
   ])
   String? content;
 }
@@ -15382,40 +15526,66 @@ class BusinessMetricsSpec {
 /// Distributed tracing specification.
 class DistributedTracingSpec {
   @Form([
-    // Tracing infrastructure
     Field('tracingBackend', String, 'Tracing Backend',
         hint: 'Jaeger, Zipkin, Tempo, X-Ray'),
     Field('tracingProtocol', String, 'Tracing Protocol',
         hint: 'OTLP, Jaeger Thrift, Zipkin JSON'),
     Field('traceIdFormat', String, 'Trace ID Format',
         hint: 'W3C Trace Context, B3, custom'),
-    // Sampling
-    Field('headSamplingRate', String, 'Head Sampling Rate',
-        hint: 'Percentage of traces sampled at start'),
-    Field('tailSamplingRules', String, 'Tail Sampling Rules',
-        hint: 'Rules for sampling after trace completes'),
-    Field('errorSampling', String, 'Error Sampling',
-        hint: 'Always sample error traces'),
-    Field('latencySampling', String, 'Latency Sampling',
-        hint: 'Sample slow traces'),
-    // Span details
-    Field('defaultSpanAttributes', String, 'Default Span Attributes',
-        hint: 'Attributes added to all spans'),
-    Field('spanNameConvention', String, 'Span Name Convention',
-        hint: 'Naming convention for spans'),
-    Field('resourceAttributes', String, 'Resource Attributes',
-        hint: 'Service name, version, environment'),
-    // Correlation
-    Field('logTraceCorrelation', bool, 'Log-Trace Correlation',
-        hint: 'Inject trace ID into logs'),
-    Field('metricsTraceCorrelation', bool, 'Metrics-Trace Correlation',
-        hint: 'Link metrics to exemplar traces'),
-    Field('baggagePropagation', String, 'Baggage Propagation',
-        hint: 'Custom context propagated across services'),
-    // Retention
-    Field('traceRetention', String, 'Trace Retention',
-        hint: 'How long traces are stored'),
-    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+
+  /// Sampling strategy.
+  DistributedTracingSpecSampling sampling = DistributedTracingSpecSampling();
+
+  /// Span metadata.
+  DistributedTracingSpecSpans spans = DistributedTracingSpecSpans();
+
+  /// Correlation and retention.
+  DistributedTracingSpecOperations operations =
+    DistributedTracingSpecOperations();
+}
+
+/// Sampling strategy.
+class DistributedTracingSpecSampling {
+  @Form([
+  Field('headSamplingRate', String, 'Head Sampling Rate',
+    hint: 'Percentage of traces sampled at start'),
+  Field('tailSamplingRules', String, 'Tail Sampling Rules',
+    hint: 'Rules for sampling after trace completes'),
+  Field('errorSampling', String, 'Error Sampling',
+    hint: 'Always sample error traces'),
+  Field('latencySampling', String, 'Latency Sampling',
+    hint: 'Sample slow traces'),
+  ])
+  String? content;
+}
+
+/// Span metadata.
+class DistributedTracingSpecSpans {
+  @Form([
+  Field('defaultSpanAttributes', String, 'Default Span Attributes',
+    hint: 'Attributes added to all spans'),
+  Field('spanNameConvention', String, 'Span Name Convention',
+    hint: 'Naming convention for spans'),
+  Field('resourceAttributes', String, 'Resource Attributes',
+    hint: 'Service name, version, environment'),
+  ])
+  String? content;
+}
+
+/// Correlation and retention.
+class DistributedTracingSpecOperations {
+  @Form([
+  Field('logTraceCorrelation', bool, 'Log-Trace Correlation',
+    hint: 'Inject trace ID into logs'),
+  Field('metricsTraceCorrelation', bool, 'Metrics-Trace Correlation',
+    hint: 'Link metrics to exemplar traces'),
+  Field('baggagePropagation', String, 'Baggage Propagation',
+    hint: 'Custom context propagated across services'),
+  Field('traceRetention', String, 'Trace Retention',
+    hint: 'How long traces are stored'),
+  Field('notes', String, 'Notes'),
   ])
   String? content;
 }
@@ -16251,7 +16421,6 @@ class DataGrowthProjectionsThresholds {
 /// Peak load patterns.
 class PeakLoadPatterns {
   @Form([
-    // Load patterns
     Field('dailyPeakHours', String, 'Daily Peak Hours',
         required: true, hint: 'Hours of highest daily traffic'),
     Field('weeklyPeakDays', String, 'Weekly Peak Days',
@@ -16260,34 +16429,58 @@ class PeakLoadPatterns {
         hint: 'Month-end processing, billing cycles'),
     Field('yearlyPeakEvents', String, 'Yearly Peak Events',
         hint: 'Black Friday, tax season, renewals'),
+  ])
+  String? content;
 
-    // Peak metrics
-    Field('peakRequestsPerSecond', int, 'Peak Requests/Second',
-        hint: 'Maximum expected RPS during peak'),
-    Field('peakConcurrentSessions', int, 'Peak Concurrent Sessions',
-        hint: 'Maximum simultaneous user sessions'),
-    Field('averageResponseTimeTarget', String, 'Avg Response Time Target',
-        hint: 'Target p50 response time during peak'),
-    Field('p99ResponseTimeTarget', String, 'P99 Response Time Target',
-        hint: 'Target p99 response time during peak'),
+  /// Peak metrics.
+  PeakLoadPatternsMetrics metrics = PeakLoadPatternsMetrics();
 
-    // Load multipliers
-    Field('peakToAverageRatio', String, 'Peak-to-Average Ratio',
-        hint: 'Ratio of peak to normal load (e.g. 3:1)'),
-    Field('burstCapacityRequired', String, 'Burst Capacity Required',
-        hint: 'Short-duration spike handling'),
-    Field('gracefulDegradationPlan', String, 'Graceful Degradation Plan',
-        hint: 'What degrades first under extreme load'),
+  /// Load multipliers.
+  PeakLoadPatternsCapacity capacity = PeakLoadPatternsCapacity();
 
-    // Testing
-    Field('loadTestingFrequency', String, 'Load Testing Frequency',
-        hint: 'How often load tests are run'),
-    Field('loadTestingTools', String, 'Load Testing Tools',
-        hint: 'k6, JMeter, Gatling, Locust'),
-    Field('benchmarkBaseline', String, 'Benchmark Baseline',
-        hint: 'Current performance baseline metrics'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional peak load notes'),
+  /// Testing regime.
+  PeakLoadPatternsTesting testing = PeakLoadPatternsTesting();
+}
+
+/// Peak metrics.
+class PeakLoadPatternsMetrics {
+  @Form([
+  Field('peakRequestsPerSecond', int, 'Peak Requests/Second',
+    hint: 'Maximum expected RPS during peak'),
+  Field('peakConcurrentSessions', int, 'Peak Concurrent Sessions',
+    hint: 'Maximum simultaneous user sessions'),
+  Field('averageResponseTimeTarget', String, 'Avg Response Time Target',
+    hint: 'Target p50 response time during peak'),
+  Field('p99ResponseTimeTarget', String, 'P99 Response Time Target',
+    hint: 'Target p99 response time during peak'),
+  ])
+  String? content;
+}
+
+/// Load multipliers.
+class PeakLoadPatternsCapacity {
+  @Form([
+  Field('peakToAverageRatio', String, 'Peak-to-Average Ratio',
+    hint: 'Ratio of peak to normal load (e.g. 3:1)'),
+  Field('burstCapacityRequired', String, 'Burst Capacity Required',
+    hint: 'Short-duration spike handling'),
+  Field('gracefulDegradationPlan', String, 'Graceful Degradation Plan',
+    hint: 'What degrades first under extreme load'),
+  ])
+  String? content;
+}
+
+/// Testing regime.
+class PeakLoadPatternsTesting {
+  @Form([
+  Field('loadTestingFrequency', String, 'Load Testing Frequency',
+    hint: 'How often load tests are run'),
+  Field('loadTestingTools', String, 'Load Testing Tools',
+    hint: 'k6, JMeter, Gatling, Locust'),
+  Field('benchmarkBaseline', String, 'Benchmark Baseline',
+    hint: 'Current performance baseline metrics'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional peak load notes'),
   ])
   String? content;
 }
@@ -16756,7 +16949,6 @@ class ApplicationSecurityRequirementsApi {
 /// Infrastructure security hardening.
 class InfrastructureSecurityHardening {
   @Form([
-    // OS hardening
     Field('osHardeningBaseline', String, 'OS Hardening Baseline',
         required: true, hint: 'CIS Benchmark, DISA STIG, custom baseline'),
     Field('patchManagementPolicy', String, 'Patch Management Policy',
@@ -16765,34 +16957,61 @@ class InfrastructureSecurityHardening {
         hint: 'Remove unnecessary packages and services'),
     Field('firewallRules', String, 'Firewall Rules',
         hint: 'Default deny, explicit allow rules'),
+  ])
+  String? content;
 
-    // Container security
-    Field('containerBaseImages', String, 'Container Base Images',
-        hint: 'Approved base images, distroless, Alpine'),
-    Field('containerScanning', String, 'Container Scanning',
-        hint: 'Image vulnerability scanning tool'),
-    Field('containerRuntimeSecurity', String, 'Container Runtime Security',
-        hint: 'Read-only filesystems, non-root, capabilities'),
-    Field('containerOrchestrationSecurity', String, 'Orchestration Security',
-        hint: 'K8s RBAC, network policies, pod security'),
+  /// Container security.
+  InfrastructureSecurityHardeningContainer container =
+    InfrastructureSecurityHardeningContainer();
 
-    // Network hardening
-    Field('networkSegmentation', String, 'Network Segmentation',
-        hint: 'VPC, subnet, security group strategy'),
-    Field('internalTlsCommunication', bool, 'Internal TLS Communication',
-        hint: 'Service-to-service mTLS'),
-    Field('dnsSecurityPolicy', String, 'DNS Security Policy',
-        hint: 'DNSSEC, private DNS zones'),
+  /// Network hardening.
+  InfrastructureSecurityHardeningNetwork network =
+    InfrastructureSecurityHardeningNetwork();
 
-    // Access hardening
-    Field('sshAccessPolicy', String, 'SSH Access Policy',
-        hint: 'Key-only auth, bastion hosts, session recording'),
-    Field('privilegedAccessManagement', String, 'Privileged Access Management',
-        hint: 'PAM tool, just-in-time access'),
-    Field('serviceAccountPolicy', String, 'Service Account Policy',
-        hint: 'Least privilege, rotation, naming'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional infrastructure security notes'),
+  /// Access hardening.
+  InfrastructureSecurityHardeningAccess access =
+    InfrastructureSecurityHardeningAccess();
+}
+
+/// Container security.
+class InfrastructureSecurityHardeningContainer {
+  @Form([
+  Field('containerBaseImages', String, 'Container Base Images',
+    hint: 'Approved base images, distroless, Alpine'),
+  Field('containerScanning', String, 'Container Scanning',
+    hint: 'Image vulnerability scanning tool'),
+  Field('containerRuntimeSecurity', String, 'Container Runtime Security',
+    hint: 'Read-only filesystems, non-root, capabilities'),
+  Field('containerOrchestrationSecurity', String, 'Orchestration Security',
+    hint: 'K8s RBAC, network policies, pod security'),
+  ])
+  String? content;
+}
+
+/// Network hardening.
+class InfrastructureSecurityHardeningNetwork {
+  @Form([
+  Field('networkSegmentation', String, 'Network Segmentation',
+    hint: 'VPC, subnet, security group strategy'),
+  Field('internalTlsCommunication', bool, 'Internal TLS Communication',
+    hint: 'Service-to-service mTLS'),
+  Field('dnsSecurityPolicy', String, 'DNS Security Policy',
+    hint: 'DNSSEC, private DNS zones'),
+  ])
+  String? content;
+}
+
+/// Access hardening.
+class InfrastructureSecurityHardeningAccess {
+  @Form([
+  Field('sshAccessPolicy', String, 'SSH Access Policy',
+    hint: 'Key-only auth, bastion hosts, session recording'),
+  Field('privilegedAccessManagement', String, 'Privileged Access Management',
+    hint: 'PAM tool, just-in-time access'),
+  Field('serviceAccountPolicy', String, 'Service Account Policy',
+    hint: 'Least privilege, rotation, naming'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional infrastructure security notes'),
   ])
   String? content;
 }
@@ -16872,43 +17091,69 @@ class SecurityDevelopmentLifecycleRelease {
 /// Vulnerability management policy.
 class VulnerabilityManagementPolicy {
   @Form([
-    // Discovery
     Field('vulnerabilityScanningTool', String, 'Vulnerability Scanning Tool',
         required: true, hint: 'Nessus, Qualys, Tenable, Trivy'),
     Field('scanFrequency', String, 'Scan Frequency',
         hint: 'Daily, weekly, on each deployment'),
     Field('scanScope', String, 'Scan Scope',
         hint: 'Infrastructure, applications, containers, dependencies'),
+  ])
+  String? content;
 
-    // Classification
-    Field('severityClassification', String, 'Severity Classification',
-        hint: 'CVSS-based: Critical, High, Medium, Low'),
-    Field('criticalVulnSla', String, 'Critical Vulnerability SLA',
-        hint: 'Max time to patch critical (e.g. 24h)'),
-    Field('highVulnSla', String, 'High Vulnerability SLA',
-        hint: 'Max time to patch high (e.g. 7d)'),
-    Field('mediumVulnSla', String, 'Medium Vulnerability SLA',
-        hint: 'Max time to patch medium (e.g. 30d)'),
-    Field('lowVulnSla', String, 'Low Vulnerability SLA',
-        hint: 'Max time to patch low (e.g. 90d)'),
+  /// Severity classification.
+  VulnerabilityManagementPolicyClassification classification =
+    VulnerabilityManagementPolicyClassification();
 
-    // Process
-    Field('vulnerabilityTracking', String, 'Vulnerability Tracking',
-        hint: 'Jira, dedicated vulnerability tool'),
-    Field('riskAcceptanceProcess', String, 'Risk Acceptance Process',
-        hint: 'When and how to accept residual risk'),
-    Field('exceptionProcess', String, 'Exception Process',
-        hint: 'Temporary exception workflow and approvals'),
-    Field('zeroDayResponsePlan', String, 'Zero-Day Response Plan',
-        hint: 'Emergency response for zero-day exploits'),
+  /// Remediation process.
+  VulnerabilityManagementPolicyProcess process =
+    VulnerabilityManagementPolicyProcess();
 
-    // Reporting
-    Field('vulnerabilityReporting', String, 'Vulnerability Reporting',
-        hint: 'Dashboard, weekly report, executive summary'),
-    Field('responsibleDisclosure', String, 'Responsible Disclosure',
-        hint: 'Bug bounty, security.txt, disclosure policy'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional vulnerability management notes'),
+  /// Reporting and disclosure.
+  VulnerabilityManagementPolicyReporting reporting =
+    VulnerabilityManagementPolicyReporting();
+}
+
+/// Severity classification.
+class VulnerabilityManagementPolicyClassification {
+  @Form([
+  Field('severityClassification', String, 'Severity Classification',
+    hint: 'CVSS-based: Critical, High, Medium, Low'),
+  Field('criticalVulnSla', String, 'Critical Vulnerability SLA',
+    hint: 'Max time to patch critical (e.g. 24h)'),
+  Field('highVulnSla', String, 'High Vulnerability SLA',
+    hint: 'Max time to patch high (e.g. 7d)'),
+  Field('mediumVulnSla', String, 'Medium Vulnerability SLA',
+    hint: 'Max time to patch medium (e.g. 30d)'),
+  Field('lowVulnSla', String, 'Low Vulnerability SLA',
+    hint: 'Max time to patch low (e.g. 90d)'),
+  ])
+  String? content;
+}
+
+/// Remediation process.
+class VulnerabilityManagementPolicyProcess {
+  @Form([
+  Field('vulnerabilityTracking', String, 'Vulnerability Tracking',
+    hint: 'Jira, dedicated vulnerability tool'),
+  Field('riskAcceptanceProcess', String, 'Risk Acceptance Process',
+    hint: 'When and how to accept residual risk'),
+  Field('exceptionProcess', String, 'Exception Process',
+    hint: 'Temporary exception workflow and approvals'),
+  Field('zeroDayResponsePlan', String, 'Zero-Day Response Plan',
+    hint: 'Emergency response for zero-day exploits'),
+  ])
+  String? content;
+}
+
+/// Reporting and disclosure.
+class VulnerabilityManagementPolicyReporting {
+  @Form([
+  Field('vulnerabilityReporting', String, 'Vulnerability Reporting',
+    hint: 'Dashboard, weekly report, executive summary'),
+  Field('responsibleDisclosure', String, 'Responsible Disclosure',
+    hint: 'Bug bounty, security.txt, disclosure policy'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional vulnerability management notes'),
   ])
   String? content;
 }
@@ -16916,43 +17161,68 @@ class VulnerabilityManagementPolicy {
 /// Incident response plan.
 class IncidentResponsePlan {
   @Form([
-    // Classification
     Field('incidentSeverityLevels', String, 'Incident Severity Levels',
         required: true, hint: 'SEV1-SEV4 definitions for security incidents'),
     Field('incidentCategories', String, 'Incident Categories',
         hint: 'Data breach, unauthorized access, malware, DDoS'),
     Field('detectionMechanisms', String, 'Detection Mechanisms',
         hint: 'SIEM, IDS/IPS, anomaly detection, user reports'),
+  ])
+  String? content;
 
-    // Response process
-    Field('initialResponseSla', String, 'Initial Response SLA',
-        hint: 'Time to acknowledge and begin triage'),
-    Field('containmentProcedure', String, 'Containment Procedure',
-        hint: 'Steps to isolate affected systems'),
-    Field('eradicationProcedure', String, 'Eradication Procedure',
-        hint: 'Steps to remove threat from systems'),
-    Field('recoveryProcedure', String, 'Recovery Procedure',
-        hint: 'Steps to restore normal operations'),
+  /// Response process.
+  IncidentResponsePlanProcess process = IncidentResponsePlanProcess();
 
-    // Communication
-    Field('notificationRequirements', String, 'Notification Requirements',
-        hint: 'Regulatory breach notification timelines'),
-    Field('internalEscalation', String, 'Internal Escalation',
-        hint: 'Escalation paths and contacts'),
-    Field('externalCommunication', String, 'External Communication',
-        hint: 'Customer notification, press, regulators'),
-    Field('legalCounselEngagement', String, 'Legal Counsel Engagement',
-        hint: 'When to engage legal team'),
+  /// Communication requirements.
+  IncidentResponsePlanCommunication communication =
+    IncidentResponsePlanCommunication();
 
-    // Post-incident
-    Field('postIncidentReview', String, 'Post-Incident Review',
-        hint: 'Blameless retrospective process'),
-    Field('lessonsLearnedProcess', String, 'Lessons Learned Process',
-        hint: 'How findings are fed back into prevention'),
-    Field('incidentDocumentation', String, 'Incident Documentation',
-        hint: 'What to document and retention period'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional incident response notes'),
+  /// Post-incident activities.
+  IncidentResponsePlanPostIncident postIncident =
+    IncidentResponsePlanPostIncident();
+}
+
+/// Response process.
+class IncidentResponsePlanProcess {
+  @Form([
+  Field('initialResponseSla', String, 'Initial Response SLA',
+    hint: 'Time to acknowledge and begin triage'),
+  Field('containmentProcedure', String, 'Containment Procedure',
+    hint: 'Steps to isolate affected systems'),
+  Field('eradicationProcedure', String, 'Eradication Procedure',
+    hint: 'Steps to remove threat from systems'),
+  Field('recoveryProcedure', String, 'Recovery Procedure',
+    hint: 'Steps to restore normal operations'),
+  ])
+  String? content;
+}
+
+/// Communication requirements.
+class IncidentResponsePlanCommunication {
+  @Form([
+  Field('notificationRequirements', String, 'Notification Requirements',
+    hint: 'Regulatory breach notification timelines'),
+  Field('internalEscalation', String, 'Internal Escalation',
+    hint: 'Escalation paths and contacts'),
+  Field('externalCommunication', String, 'External Communication',
+    hint: 'Customer notification, press, regulators'),
+  Field('legalCounselEngagement', String, 'Legal Counsel Engagement',
+    hint: 'When to engage legal team'),
+  ])
+  String? content;
+}
+
+/// Post-incident activities.
+class IncidentResponsePlanPostIncident {
+  @Form([
+  Field('postIncidentReview', String, 'Post-Incident Review',
+    hint: 'Blameless retrospective process'),
+  Field('lessonsLearnedProcess', String, 'Lessons Learned Process',
+    hint: 'How findings are fed back into prevention'),
+  Field('incidentDocumentation', String, 'Incident Documentation',
+    hint: 'What to document and retention period'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional incident response notes'),
   ])
   String? content;
 }
