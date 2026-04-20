@@ -308,6 +308,19 @@ class TransitionOverview {
         'Change Management Methodology — PROSCI ADKAR, Kotter, Lewin, custom'),
     Field('transitionStartDate', String, 'Transition Start Date'),
     Field('targetCompletionDate', String, 'Target Completion Date'),
+  ])
+  String? content;
+
+  /// Timeline and cutover planning.
+  TransitionOverviewTimeline timeline = TransitionOverviewTimeline();
+
+  /// Governance and change ownership.
+  TransitionOverviewGovernance governance = TransitionOverviewGovernance();
+}
+
+/// Timeline and cutover planning.
+class TransitionOverviewTimeline {
+  @Form([
     Field('transitionDuration', String,
         'Overall Transition Duration — weeks/months'),
     Field('parallelOperationPeriod', String,
@@ -316,6 +329,13 @@ class TransitionOverview {
         'Cutover Strategy — planning for go-live moment'),
     Field('rollbackPlan', String,
         'Rollback Plan — fallback if transition fails'),
+  ])
+  String? content;
+}
+
+/// Governance and change ownership.
+class TransitionOverviewGovernance {
+  @Form([
     Field('transitionGovernance', String,
         'Transition Governance — oversight structure and decision authority'),
     Field('transitionOwner', String,
@@ -966,6 +986,19 @@ class StaffingBudget {
         hint: 'Base compensation for all positions'),
     Field('benefitsBudget', String, 'Benefits Budget',
         hint: 'Insurance, retirement, perks'),
+  ])
+  String? content;
+
+  /// Recruitment and enablement cost categories.
+  StaffingBudgetAllocations allocations = StaffingBudgetAllocations();
+
+  /// Budget ownership and approval controls.
+  StaffingBudgetGovernance governance = StaffingBudgetGovernance();
+}
+
+/// Recruitment and enablement cost categories.
+class StaffingBudgetAllocations {
+  @Form([
     Field('recruitmentBudget', String, 'Recruitment Budget',
         hint: 'Agencies, advertising, travel'),
     Field('trainingBudget', String, 'Training Budget',
@@ -974,6 +1007,13 @@ class StaffingBudget {
         hint: 'Relocation assistance if applicable'),
     Field('contingencyBudget', String, 'Contingency Budget',
         hint: 'Buffer for unforeseen staffing needs'),
+  ])
+  String? content;
+}
+
+/// Budget ownership and approval controls.
+class StaffingBudgetGovernance {
+  @Form([
     Field('budgetOwner', String, 'Budget Owner',
         hint: 'Person accountable for staffing budget'),
     Field('approvalRequired', String, 'Approval Required',
@@ -1285,6 +1325,25 @@ class NewRoleQualifications {
         'Experience — years and type of experience required'),
     Field('preferredExperience', String,
         'Preferred Experience — ideal experience'),
+  ])
+  String? content;
+
+  /// Credential and mobility requirements.
+  NewRoleQualificationsCredentials credentials =
+      NewRoleQualificationsCredentials();
+
+  /// Screening and clearance requirements.
+  NewRoleQualificationsScreening screening =
+      NewRoleQualificationsScreening();
+
+  /// Contains 0+× required competency.
+  @SectionIdPattern('PD00-ORG-JOB-NEW-xx-CMP-xx')
+  List<RoleCompetencyEntry> requiredCompetencies = [];
+}
+
+/// Credential and mobility requirements.
+class NewRoleQualificationsCredentials {
+  @Form([
     Field('certifications', String,
         'Certifications — required certifications'),
     Field('licensure', String,
@@ -1293,6 +1352,13 @@ class NewRoleQualifications {
         'Language Requirements — languages needed'),
     Field('travelRequirements', String,
         'Travel Requirements — percentage, destinations'),
+  ])
+  String? content;
+}
+
+/// Screening and clearance requirements.
+class NewRoleQualificationsScreening {
+  @Form([
     Field('physicalRequirements', String,
         'Physical Requirements — if applicable'),
     Field('backgroundCheck', String,
@@ -1301,10 +1367,6 @@ class NewRoleQualifications {
         'Security Clearance — if required'),
   ])
   String? content;
-
-  /// Contains 0+× required competency.
-  @SectionIdPattern('PD00-ORG-JOB-NEW-xx-CMP-xx')
-  List<RoleCompetencyEntry> requiredCompetencies = [];
 }
 
 /// Role competency entry [PD00-ORG-JOB-NEW-nn-CMP-nn] (form).
@@ -2109,16 +2171,38 @@ class SpecializedEquipmentEntry {
     Field('brand', String, 'Brand'),
     Field('model', String, 'Model'),
     Field('purpose', String, 'Purpose — business function supported'),
-    Field('specifications', String, 'Specifications'),
-    Field('connectivity', String, 'Connectivity'),
-    Field('driverSoftware', String,
-        'Driver/Software — software requirements'),
-    Field('certifications', String,
-        'Certifications — PCI, EMV, etc.'),
-    Field('quantityNeeded', int, 'Quantity Needed'),
-    Field('justification', String, 'Justification'),
   ])
   String? content;
+
+    /// Technical and compliance characteristics.
+    SpecializedEquipmentEntryTechnical technical =
+            SpecializedEquipmentEntryTechnical();
+
+    /// Quantity and business justification.
+    SpecializedEquipmentEntryPlanning planning =
+            SpecializedEquipmentEntryPlanning();
+}
+
+/// Technical and compliance characteristics.
+class SpecializedEquipmentEntryTechnical {
+    @Form([
+        Field('specifications', String, 'Specifications'),
+        Field('connectivity', String, 'Connectivity'),
+        Field('driverSoftware', String,
+                'Driver/Software — software requirements'),
+        Field('certifications', String,
+                'Certifications — PCI, EMV, etc.'),
+    ])
+    String? content;
+}
+
+/// Quantity and business justification.
+class SpecializedEquipmentEntryPlanning {
+    @Form([
+        Field('quantityNeeded', int, 'Quantity Needed'),
+        Field('justification', String, 'Justification'),
+    ])
+    String? content;
 }
 
 /// Technical infrastructure requirements.

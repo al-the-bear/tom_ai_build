@@ -402,6 +402,19 @@ class StakeholderEntry {
     Field('role', String, 'Role (organizational role or relationship)'),
     Field('interests', String,
         'Interests (what they care about regarding this system)'),
+  ])
+  String? content;
+
+  /// Stakeholder influence, impact, and value.
+  StakeholderEntryImpact impact = StakeholderEntryImpact();
+
+  /// Engagement and communication expectations.
+  StakeholderEntryEngagement engagement = StakeholderEntryEngagement();
+}
+
+/// Stakeholder influence, impact, and value.
+class StakeholderEntryImpact {
+  @Form([
     Field('influenceLevel', String,
         'Influence Level (High, Medium, Low - decision-making power)'),
     Field('impactLevel', String,
@@ -410,6 +423,13 @@ class StakeholderEntry {
         'Expected Benefits (what they will gain from the system)'),
     Field('potentialConcerns', String,
         'Potential Concerns (risks or issues from their perspective)'),
+  ])
+  String? content;
+}
+
+/// Engagement and communication expectations.
+class StakeholderEntryEngagement {
+  @Form([
     Field('engagementStrategy', String,
         'Engagement Strategy (how to keep them informed and involved)'),
     Field('communicationChannel', String,
@@ -704,6 +724,24 @@ class ExternalActorEntry {
     Field('description', String, 'Actor Description'),
     Field('interactionPurpose', String,
         'Interaction Purpose (why they interact with the system)'),
+  ])
+  String? content;
+
+  /// Interaction cadence and exchanged information.
+  ExternalActorEntryInteraction interaction = ExternalActorEntryInteraction();
+
+  /// Access, authentication, and context details.
+  ExternalActorEntryContext context = ExternalActorEntryContext();
+
+  /// Interaction scenarios for this actor.
+  @ContentType('description', 'Key interaction scenarios describing '
+      'typical workflows for this actor.')
+  String? interactionScenarios;
+}
+
+/// Interaction cadence and exchanged information.
+class ExternalActorEntryInteraction {
+  @Form([
     Field('interactionFrequency', String,
         'Interaction Frequency (Real-time, Daily, Weekly, On-demand)'),
     Field('interactionChannel', String,
@@ -712,6 +750,13 @@ class ExternalActorEntry {
         'Data Exchanged (what information flows to/from this actor)'),
     Field('accessLevel', String,
         'Access Level (Read, Write, Admin, API-only, etc.)'),
+  ])
+  String? content;
+}
+
+/// Access, authentication, and context details.
+class ExternalActorEntryContext {
+  @Form([
     Field('authenticationMethod', String,
         'Authentication Method (SSO, Password, Certificate, API Key, etc.)'),
     Field('location', String,
@@ -720,11 +765,6 @@ class ExternalActorEntry {
         'Volume Estimate (number of actors, transactions per day)'),
   ])
   String? content;
-
-  /// Interaction scenarios for this actor.
-  @ContentType('description', 'Key interaction scenarios describing '
-      'typical workflows for this actor.')
-  String? interactionScenarios;
 }
 
 /// 4.1.2.4. External Systems [PD00-SYO-SYD-CON-SYS].
@@ -4095,17 +4135,39 @@ class RequirementTraceability {
     Field('relatedUseCases', String, 'Related Use Cases (IDs)'),
     Field('relatedProcesses', String, 'Related Business Processes (IDs)'),
     Field('relatedUserStories', String, 'Related User Stories (if Agile)'),
-    Field('relatedScreens', String, 'Related UI Screens/Views'),
-    Field('relatedDataEntities', String, 'Related Data Entities'),
-    Field('relatedTestCases', String, 'Related Test Cases (IDs)'),
-    Field('relatedDocuments', String, 'Related Documents or Artifacts'),
-    Field('implementationComponent', String,
-        'Implementation Component (module, service)'),
-    Field('implementationStatus', String,
-        'Implementation Status (Not Started, In Progress, Done)'),
-    Field('deploymentVersion', String, 'Deployment Version (first release)'),
   ])
   String? traceabilityForm;
+
+    /// Linked artifacts and test coverage references.
+    RequirementTraceabilityArtifacts artifacts =
+            RequirementTraceabilityArtifacts();
+
+    /// Implementation and deployment tracking.
+    RequirementTraceabilityImplementation implementation =
+            RequirementTraceabilityImplementation();
+}
+
+/// Linked artifacts and test coverage references.
+class RequirementTraceabilityArtifacts {
+    @Form([
+        Field('relatedScreens', String, 'Related UI Screens/Views'),
+        Field('relatedDataEntities', String, 'Related Data Entities'),
+        Field('relatedTestCases', String, 'Related Test Cases (IDs)'),
+        Field('relatedDocuments', String, 'Related Documents or Artifacts'),
+    ])
+    String? content;
+}
+
+/// Implementation and deployment tracking.
+class RequirementTraceabilityImplementation {
+    @Form([
+        Field('implementationComponent', String,
+                'Implementation Component (module, service)'),
+        Field('implementationStatus', String,
+                'Implementation Status (Not Started, In Progress, Done)'),
+        Field('deploymentVersion', String, 'Deployment Version (first release)'),
+    ])
+    String? content;
 }
 
 /// 4.3.1.n.7. Test Cases [PD00-SYO-REQ-FUN-nn-TST].
@@ -4132,18 +4194,40 @@ class RequirementTestCaseEntry {
     Field('testCategory', String,
         'Test Category (Positive, Negative, Boundary, Error, Performance)'),
     Field('preconditions', String, 'Preconditions'),
-    Field('testSteps', String, 'Test Steps'),
-    Field('testData', String, 'Test Data'),
-    Field('expectedResult', String, 'Expected Result', required: true),
-    Field('automationStatus', String,
-        'Automation Status (Automated, Manual, To Be Automated)'),
-    Field('automationScript', String, 'Automation Script Reference'),
-    Field('priority', String, 'Priority (Critical, High, Medium, Low)'),
   ])
   String? content;
 
+    /// Test execution details.
+    RequirementTestCaseEntryExecution execution =
+            RequirementTestCaseEntryExecution();
+
+    /// Automation and prioritization details.
+    RequirementTestCaseEntryAutomation automation =
+            RequirementTestCaseEntryAutomation();
+
   @Reference('Related Acceptance Criterion')
   String? relatedCriterion;
+}
+
+/// Test execution details.
+class RequirementTestCaseEntryExecution {
+    @Form([
+        Field('testSteps', String, 'Test Steps'),
+        Field('testData', String, 'Test Data'),
+        Field('expectedResult', String, 'Expected Result', required: true),
+    ])
+    String? content;
+}
+
+/// Automation and prioritization details.
+class RequirementTestCaseEntryAutomation {
+    @Form([
+        Field('automationStatus', String,
+                'Automation Status (Automated, Manual, To Be Automated)'),
+        Field('automationScript', String, 'Automation Script Reference'),
+        Field('priority', String, 'Priority (Critical, High, Medium, Low)'),
+    ])
+    String? content;
 }
 
 // ---------------------------------------------------------------------------
@@ -4462,15 +4546,37 @@ class SecurityControlEntry {
         required: true),
     Field('implementationType', String,
         'Implementation Type (Technical, Administrative, Physical)'),
-    Field('description', String, 'Description'),
-    Field('implementationDetails', String, 'Implementation Details'),
-    Field('effectiveDate', String, 'Effective Date'),
-    Field('testFrequency', String, 'Test Frequency'),
-    Field('lastTestDate', String, 'Last Test Date'),
-    Field('testResult', String, 'Last Test Result'),
-    Field('status', String, 'Status (Planned, Implemented, Active, Retired)'),
   ])
   String? content;
+
+    /// Control implementation details.
+    SecurityControlEntryImplementation implementation =
+            SecurityControlEntryImplementation();
+
+    /// Testing and lifecycle status.
+    SecurityControlEntryVerification verification =
+            SecurityControlEntryVerification();
+}
+
+/// Control implementation details.
+class SecurityControlEntryImplementation {
+    @Form([
+        Field('description', String, 'Description'),
+        Field('implementationDetails', String, 'Implementation Details'),
+        Field('effectiveDate', String, 'Effective Date'),
+    ])
+    String? content;
+}
+
+/// Testing and lifecycle status.
+class SecurityControlEntryVerification {
+    @Form([
+        Field('testFrequency', String, 'Test Frequency'),
+        Field('lastTestDate', String, 'Last Test Date'),
+        Field('testResult', String, 'Last Test Result'),
+        Field('status', String, 'Status (Planned, Implemented, Active, Retired)'),
+    ])
+    String? content;
 }
 
 // ---------------------------------------------------------------------------
@@ -4830,16 +4936,16 @@ class SystemBusinessCriticality {
     Field('timeModelClassification', String,
         'TIME Classification (Tolerate, Invest, Migrate, Eliminate)'),
     Field('activeUsers', int, 'Active Users'),
-    Field('peakConcurrentUsers', int, 'Peak Concurrent Users'),
-    Field('transactionVolume', String, 'Transaction Volume'),
-    Field('dataVolume', String, 'Data Volume'),
-    Field('revenueImpact', String, 'Revenue Impact (Direct, Indirect, None)'),
-    Field('operationsImpact', String,
-        'Operations Impact (Severe, Moderate, Minor, None)'),
-    Field('complianceRole', String, 'Compliance/Regulatory Role'),
-    Field('maxDowntime', String, 'Max Acceptable Downtime (RTO)'),
   ])
   String? content;
+
+  /// Usage scale and commercial impact.
+  SystemBusinessCriticalityOperations operations =
+      SystemBusinessCriticalityOperations();
+
+  /// Delivery and compliance constraints.
+  SystemBusinessCriticalityGovernance governance =
+      SystemBusinessCriticalityGovernance();
 
   /// Business units and departments using this system.
   @SectionIdPattern('PD00-SYO-SYR-INV-xx-BUS-BU-xx')
@@ -4848,6 +4954,28 @@ class SystemBusinessCriticality {
   /// Business processes supported by this system.
   @SectionIdPattern('PD00-SYO-SYR-INV-xx-BUS-BP-xx')
   List<SystemBusinessProcessEntry> supportedProcesses = [];
+}
+
+/// Usage scale and commercial impact.
+class SystemBusinessCriticalityOperations {
+    @Form([
+        Field('peakConcurrentUsers', int, 'Peak Concurrent Users'),
+        Field('transactionVolume', String, 'Transaction Volume'),
+        Field('dataVolume', String, 'Data Volume'),
+        Field('revenueImpact', String, 'Revenue Impact (Direct, Indirect, None)'),
+    ])
+    String? content;
+}
+
+/// Delivery and compliance constraints.
+class SystemBusinessCriticalityGovernance {
+    @Form([
+        Field('operationsImpact', String,
+                'Operations Impact (Severe, Moderate, Minor, None)'),
+        Field('complianceRole', String, 'Compliance/Regulatory Role'),
+        Field('maxDowntime', String, 'Max Acceptable Downtime (RTO)'),
+    ])
+    String? content;
 }
 
 /// Business unit using the system [PD00-SYO-SYR-INV-nn-BUS-BU-nn].
@@ -6289,16 +6417,36 @@ class OutOfScopeEntry {
     Field('itemType', String,
         'Type (Feature, Integration, System, Process, Data)'),
     Field('rationale', String, 'Exclusion Rationale'),
-    Field('requestedBy', String, 'Originally Requested By'),
-    Field('decisionMaker', String, 'Decision Maker'),
-    Field('decisionDate', String, 'Decision Date'),
-    Field('futureConsideration', String,
-        'Future Consideration (Yes, No, Maybe)'),
-    Field('targetPhase', String, 'Target Phase (if future)'),
-    Field('alternativeSolution', String, 'Alternative/Workaround'),
-    Field('riskIfIncluded', String, 'Risk if Included'),
   ])
   String? content;
+
+    /// Decision history and future reconsideration.
+    OutOfScopeEntryDecision decision = OutOfScopeEntryDecision();
+
+    /// Alternatives and inclusion risk.
+    OutOfScopeEntryMitigation mitigation = OutOfScopeEntryMitigation();
+}
+
+/// Decision history and future reconsideration.
+class OutOfScopeEntryDecision {
+    @Form([
+        Field('requestedBy', String, 'Originally Requested By'),
+        Field('decisionMaker', String, 'Decision Maker'),
+        Field('decisionDate', String, 'Decision Date'),
+        Field('futureConsideration', String,
+                'Future Consideration (Yes, No, Maybe)'),
+        Field('targetPhase', String, 'Target Phase (if future)'),
+    ])
+    String? content;
+}
+
+/// Alternatives and inclusion risk.
+class OutOfScopeEntryMitigation {
+    @Form([
+        Field('alternativeSolution', String, 'Alternative/Workaround'),
+        Field('riskIfIncluded', String, 'Risk if Included'),
+    ])
+    String? content;
 }
 
 // ---------------------------------------------------------------------------
@@ -7679,18 +7827,38 @@ class RiskIdentification {
         'Category — Technical, Schedule, Cost, Resource, External, Legal, Organizational'),
     Field('subcategory', String,
         'Subcategory — more specific categorization'),
-    Field('source', String,
-        'Risk Source — brainstorming, review, lessons learned'),
-    Field('dateIdentified', String, 'Date Identified'),
-    Field('identifiedBy', String, 'Identified By — person or team'),
-    Field('riskType', String,
-        'Risk Type — Threat (negative) or Opportunity (positive)'),
-    Field('trigger', String,
-        'Risk Trigger — events indicating risk is about to occur'),
-    Field('rootCause', String,
-        'Root Cause — underlying causes that could lead to this risk'),
   ])
   String? content;
+
+    /// Identification source and ownership metadata.
+    RiskIdentificationSource sourceDetails = RiskIdentificationSource();
+
+    /// Trigger and root-cause details.
+    RiskIdentificationCause cause = RiskIdentificationCause();
+}
+
+/// Identification source and ownership metadata.
+class RiskIdentificationSource {
+    @Form([
+        Field('source', String,
+                'Risk Source — brainstorming, review, lessons learned'),
+        Field('dateIdentified', String, 'Date Identified'),
+        Field('identifiedBy', String, 'Identified By — person or team'),
+        Field('riskType', String,
+                'Risk Type — Threat (negative) or Opportunity (positive)'),
+    ])
+    String? content;
+}
+
+/// Trigger and root-cause details.
+class RiskIdentificationCause {
+    @Form([
+        Field('trigger', String,
+                'Risk Trigger — events indicating risk is about to occur'),
+        Field('rootCause', String,
+                'Root Cause — underlying causes that could lead to this risk'),
+    ])
+    String? content;
 }
 
 /// Risk analysis — probability, impact, and risk scoring.
@@ -7728,6 +7896,20 @@ class RiskResponse {
         'Mitigation Actions — actions to reduce probability or impact'),
     Field('contingencyPlan', String,
         'Contingency Plan — actions if risk materializes'),
+  ])
+  String? content;
+
+  /// Residual and secondary risk expectations.
+  RiskResponseResidual residual = RiskResponseResidual();
+
+  /// Implementation effort and effectiveness.
+  RiskResponseImplementation implementation =
+      RiskResponseImplementation();
+}
+
+/// Residual and secondary risk expectations.
+class RiskResponseResidual {
+  @Form([
     Field('residualRisk', String,
         'Residual Risk — level remaining after mitigation'),
     Field('residualProbability', String,
@@ -7736,6 +7918,13 @@ class RiskResponse {
         'Residual Impact — expected after mitigation'),
     Field('secondaryRisks', String,
         'Secondary Risks — new risks from implementing response'),
+  ])
+  String? content;
+}
+
+/// Implementation effort and effectiveness.
+class RiskResponseImplementation {
+  @Form([
     Field('responseEffectiveness', String,
         'Response Effectiveness — Low, Medium, High'),
     Field('implementationCost', String,
@@ -7777,20 +7966,40 @@ class RiskMonitoring {
     Field('nextReviewDate', String, 'Next Review Date'),
     Field('riskStatus', String,
         'Risk Status — Identified, Analyzing, Responding, Monitoring, Closed, Realized'),
-    Field('trend', String, 'Trend — Increasing, Stable, Decreasing'),
-    Field('trendJustification', String,
-        'Trend Justification — explanation for trend assessment'),
-    Field('earlyWarningIndicators', String,
-        'Early Warning Indicators — metrics signaling risk may materialize'),
-    Field('monitoringMechanism', String,
-        'Monitoring Mechanism — automated alerts, manual review, etc.'),
-    Field('closureDate', String, 'Closure Date'),
-    Field('closureReason', String,
-        'Closure Reason — Mitigated, Avoided, Accepted, Realized, No longer relevant'),
-    Field('lessonsLearned', String,
-        'Lessons Learned — key insights from managing this risk'),
   ])
   String? content;
+
+    /// Trend and monitoring indicators.
+    RiskMonitoringTrend trendDetails = RiskMonitoringTrend();
+
+    /// Closure tracking and lessons learned.
+    RiskMonitoringClosure closure = RiskMonitoringClosure();
+}
+
+/// Trend and monitoring indicators.
+class RiskMonitoringTrend {
+    @Form([
+        Field('trend', String, 'Trend — Increasing, Stable, Decreasing'),
+        Field('trendJustification', String,
+                'Trend Justification — explanation for trend assessment'),
+        Field('earlyWarningIndicators', String,
+                'Early Warning Indicators — metrics signaling risk may materialize'),
+        Field('monitoringMechanism', String,
+                'Monitoring Mechanism — automated alerts, manual review, etc.'),
+    ])
+    String? content;
+}
+
+/// Closure tracking and lessons learned.
+class RiskMonitoringClosure {
+    @Form([
+        Field('closureDate', String, 'Closure Date'),
+        Field('closureReason', String,
+                'Closure Reason — Mitigated, Avoided, Accepted, Realized, No longer relevant'),
+        Field('lessonsLearned', String,
+                'Lessons Learned — key insights from managing this risk'),
+    ])
+    String? content;
 }
 
 /// Business impact assessment for the risk.
