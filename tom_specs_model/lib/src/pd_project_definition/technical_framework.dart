@@ -3392,7 +3392,6 @@ class FeatureModuleEntryNavigation {
 /// Module versioning and compatibility strategy.
 class ModuleVersioningStrategy {
   @Form([
-    // Versioning scheme
     Field('versioningScheme', String, 'Versioning Scheme',
         hint: 'SemVer, CalVer, custom'),
     Field('majorVersionPolicy', String, 'Major Version Policy',
@@ -3401,32 +3400,68 @@ class ModuleVersioningStrategy {
         hint: 'When to bump minor version'),
     Field('patchVersionPolicy', String, 'Patch Version Policy',
         hint: 'When to bump patch version'),
+  ])
+  String? content;
 
-    // Compatibility
+  /// Compatibility policy.
+  ModuleVersioningStrategyCompatibility compatibility =
+      ModuleVersioningStrategyCompatibility();
+
+  /// Release management process.
+  ModuleVersioningStrategyReleaseManagement releaseManagement =
+      ModuleVersioningStrategyReleaseManagement();
+
+  /// Dependency versioning rules.
+  ModuleVersioningStrategyDependencies dependencies =
+      ModuleVersioningStrategyDependencies();
+
+  /// Cross-module coordination.
+  ModuleVersioningStrategyCoordination coordination =
+      ModuleVersioningStrategyCoordination();
+}
+
+/// Compatibility policy.
+class ModuleVersioningStrategyCompatibility {
+  @Form([
     Field('backwardsCompatibility', String, 'Backwards Compatibility',
         hint: 'Compatibility guarantees'),
     Field('breakingChangePolicy', String, 'Breaking Change Policy',
         hint: 'How breaking changes are handled'),
     Field('deprecationTimeline', String, 'Deprecation Timeline',
         hint: 'Timeline for deprecated APIs'),
+  ])
+  String? content;
+}
 
-    // Release management
+/// Release management process.
+class ModuleVersioningStrategyReleaseManagement {
+  @Form([
     Field('releaseProcess', String, 'Release Process',
         hint: 'How versions are released'),
     Field('preReleaseLabels', String, 'Pre-Release Labels',
         hint: 'alpha, beta, rc conventions'),
     Field('releaseNotes', String, 'Release Notes',
         hint: 'Release notes requirements'),
+  ])
+  String? content;
+}
 
-    // Dependencies
+/// Dependency versioning rules.
+class ModuleVersioningStrategyDependencies {
+  @Form([
     Field('dependencyVersioning', String, 'Dependency Versioning',
         hint: 'How dependency versions are specified'),
     Field('lockfilePolicy', String, 'Lockfile Policy',
         hint: 'Lockfile usage and update policy'),
     Field('updateStrategy', String, 'Update Strategy',
         hint: 'How dependencies are updated'),
+  ])
+  String? content;
+}
 
-    // Coordination
+/// Cross-module coordination.
+class ModuleVersioningStrategyCoordination {
+  @Form([
     Field('crossModuleCoordination', String, 'Cross-Module Coordination',
         hint: 'Coordinating versions across modules'),
     Field('versionConstraints', String, 'Version Constraints',
@@ -5822,31 +5857,59 @@ class LegacyCompatibilityEntry {
 /// Mobile device compatibility entry.
 class MobileCompatibilityEntry {
   @Form([
-    // Identity
     Field('platform', String, 'Platform',
         required: true, hint: 'iOS, Android, Cross-platform'),
     Field('minVersion', String, 'Minimum Version',
         required: true, hint: 'Minimum OS version'),
     Field('maxVersion', String, 'Maximum Version',
         hint: 'Maximum tested version'),
+  ])
+  String? content;
 
-    // Devices
+  /// Supported devices.
+  MobileCompatibilityEntryDevices devices = MobileCompatibilityEntryDevices();
+
+  /// Hardware requirements.
+  MobileCompatibilityEntryHardware hardware =
+      MobileCompatibilityEntryHardware();
+
+  /// Platform capabilities.
+  MobileCompatibilityEntryCapabilities capabilities =
+      MobileCompatibilityEntryCapabilities();
+
+  /// Distribution details.
+  MobileCompatibilityEntryDistribution distribution =
+      MobileCompatibilityEntryDistribution();
+}
+
+/// Supported devices.
+class MobileCompatibilityEntryDevices {
+  @Form([
     Field('deviceTypes', String, 'Device Types',
         hint: 'Phone, tablet, foldable'),
     Field('screenSizes', String, 'Screen Sizes',
         hint: 'Supported screen sizes'),
     Field('specificDevices', String, 'Specific Devices',
         hint: 'Named device support'),
+  ])
+  String? content;
+}
 
-    // Hardware
-    Field('minRam', String, 'Minimum RAM',
-        hint: 'Minimum device RAM'),
+/// Hardware requirements.
+class MobileCompatibilityEntryHardware {
+  @Form([
+    Field('minRam', String, 'Minimum RAM', hint: 'Minimum device RAM'),
     Field('minStorage', String, 'Minimum Storage',
         hint: 'Minimum storage needed'),
     Field('requiredHardware', String, 'Required Hardware',
         hint: 'Camera, GPS, biometric'),
+  ])
+  String? content;
+}
 
-    // Capabilities
+/// Platform capabilities.
+class MobileCompatibilityEntryCapabilities {
+  @Form([
     Field('permissions', String, 'Permissions Required',
         hint: 'App permissions needed'),
     Field('backgroundMode', String, 'Background Mode',
@@ -5855,10 +5918,14 @@ class MobileCompatibilityEntry {
         hint: 'Offline capabilities'),
     Field('pushNotifications', String, 'Push Notifications',
         hint: 'Push notification support'),
+  ])
+  String? content;
+}
 
-    // Distribution
-    Field('appStore', String, 'App Store',
-        hint: 'Distribution channels'),
+/// Distribution details.
+class MobileCompatibilityEntryDistribution {
+  @Form([
+    Field('appStore', String, 'App Store', hint: 'Distribution channels'),
     Field('enterpriseDistribution', String, 'Enterprise Distribution',
         hint: 'MDM, enterprise deployment'),
     Field('notes', String, 'Notes',
@@ -6078,39 +6145,74 @@ class BackwardsCompatibilityRequirementsCommunication {
 /// System interoperability requirements.
 class InteroperabilityRequirements {
   @Form([
-    // Strategy
     Field('interopStrategy', String, 'Interoperability Strategy',
         hint: 'Overall interop approach'),
     Field('integrationPatterns', String, 'Integration Patterns',
         hint: 'API, Events, File, Message'),
     Field('communicationProtocols', String, 'Communication Protocols',
         hint: 'Supported protocols'),
+  ])
+  String? content;
 
-    // Data exchange
+  /// Data-exchange definitions.
+  InteroperabilityRequirementsDataExchange dataExchange =
+      InteroperabilityRequirementsDataExchange();
+
+  /// Standards and certifications.
+  InteroperabilityRequirementsStandards standards =
+      InteroperabilityRequirementsStandards();
+
+  /// Interoperability testing.
+  InteroperabilityRequirementsTesting testing =
+      InteroperabilityRequirementsTesting();
+
+  /// Governance and fallback behavior.
+  InteroperabilityRequirementsGovernance governance =
+      InteroperabilityRequirementsGovernance();
+}
+
+/// Data-exchange definitions.
+class InteroperabilityRequirementsDataExchange {
+  @Form([
     Field('dataExchangeFormats', String, 'Data Exchange Formats',
         hint: 'JSON, XML, Protobuf, Avro'),
     Field('schemaRegistry', String, 'Schema Registry',
         hint: 'Schema management'),
     Field('dataContracts', String, 'Data Contracts',
         hint: 'Contract definition approach'),
+  ])
+  String? content;
+}
 
-    // Standards
+/// Standards and certifications.
+class InteroperabilityRequirementsStandards {
+  @Form([
     Field('industryStandards', String, 'Industry Standards',
         hint: 'HL7, EDI, SWIFT'),
     Field('openStandards', String, 'Open Standards',
         hint: 'Open standard adoption'),
     Field('certifications', String, 'Certifications',
         hint: 'Interop certifications'),
+  ])
+  String? content;
+}
 
-    // Testing
+/// Interoperability testing.
+class InteroperabilityRequirementsTesting {
+  @Form([
     Field('interopTesting', String, 'Interoperability Testing',
         hint: 'Testing approach'),
     Field('testPartners', String, 'Test Partners',
         hint: 'Partners for testing'),
     Field('conformanceTests', String, 'Conformance Tests',
         hint: 'Standard conformance'),
+  ])
+  String? content;
+}
 
-    // Governance
+/// Governance and fallback behavior.
+class InteroperabilityRequirementsGovernance {
+  @Form([
     Field('changeManagement', String, 'Change Management',
         hint: 'Managing interface changes'),
     Field('versionNegotiation', String, 'Version Negotiation',
@@ -7619,7 +7721,6 @@ class ServerStorageRequirements {
 /// Load profile requirements.
 class LoadProfileRequirements {
   @Form([
-    // User load
     Field('peakConcurrentUsers', String, 'Peak Concurrent Users',
         hint: 'Maximum concurrent users'),
     Field('averageConcurrentUsers', String, 'Average Concurrent Users',
@@ -7628,8 +7729,24 @@ class LoadProfileRequirements {
         hint: 'Total user base'),
     Field('userGrowthRate', String, 'User Growth Rate',
         hint: 'Expected growth %/year'),
+  ])
+  String? content;
 
-    // Request load
+  /// Request volume assumptions.
+  LoadProfileRequirementsRequestLoad requestLoad =
+      LoadProfileRequirementsRequestLoad();
+
+  /// Temporal and seasonal patterns.
+  LoadProfileRequirementsPatterns patterns = LoadProfileRequirementsPatterns();
+
+  /// Performance target metrics.
+  LoadProfileRequirementsPerformanceTargets performanceTargets =
+      LoadProfileRequirementsPerformanceTargets();
+}
+
+/// Request volume assumptions.
+class LoadProfileRequirementsRequestLoad {
+  @Form([
     Field('peakRequestsPerSecond', String, 'Peak Requests/Second',
         hint: 'Maximum RPS'),
     Field('averageRequestsPerSecond', String, 'Average Requests/Second',
@@ -7638,18 +7755,26 @@ class LoadProfileRequirements {
         hint: 'Average payload size'),
     Field('responseSizeAverage', String, 'Average Response Size',
         hint: 'Average response size'),
+  ])
+  String? content;
+}
 
-    // Patterns
-    Field('peakHours', String, 'Peak Hours',
-        hint: 'Time of day for peak load'),
-    Field('peakDays', String, 'Peak Days',
-        hint: 'Days of week for peak load'),
+/// Temporal and seasonal patterns.
+class LoadProfileRequirementsPatterns {
+  @Form([
+    Field('peakHours', String, 'Peak Hours', hint: 'Time of day for peak load'),
+    Field('peakDays', String, 'Peak Days', hint: 'Days of week for peak load'),
     Field('seasonalPatterns', String, 'Seasonal Patterns',
         hint: 'Seasonal variations'),
     Field('eventDrivenSpikes', String, 'Event-Driven Spikes',
         hint: 'Known spike events'),
+  ])
+  String? content;
+}
 
-    // Performance targets
+/// Performance target metrics.
+class LoadProfileRequirementsPerformanceTargets {
+  @Form([
     Field('responseTimeP50', String, 'Response Time P50',
         hint: '50th percentile latency'),
     Field('responseTimeP95', String, 'Response Time P95',
@@ -8843,47 +8968,76 @@ class PwaRequirementsUpdates {
 /// Native app requirements.
 class NativeAppRequirements {
   @Form([
-    // Distribution
     Field('appStoreDistribution', bool, 'App Store Distribution',
         hint: 'Distributed via app stores'),
     Field('enterpriseDistribution', bool, 'Enterprise Distribution',
         hint: 'MDM/enterprise deployment'),
     Field('sideloading', bool, 'Sideloading',
         hint: 'Direct installation'),
+  ])
+  String? content;
 
-    // App stores
+  /// Store presence requirements.
+  NativeAppRequirementsStores stores = NativeAppRequirementsStores();
+
+  /// SDK and version requirements.
+  NativeAppRequirementsVersions versions = NativeAppRequirementsVersions();
+
+  /// Size and performance requirements.
+  NativeAppRequirementsPerformance performance =
+      NativeAppRequirementsPerformance();
+
+  /// Deep-linking support.
+  NativeAppRequirementsLinking linking = NativeAppRequirementsLinking();
+}
+
+/// Store presence requirements.
+class NativeAppRequirementsStores {
+  @Form([
     Field('appleAppStore', bool, 'Apple App Store',
         hint: 'iOS App Store listing'),
     Field('googlePlayStore', bool, 'Google Play Store',
         hint: 'Google Play listing'),
     Field('otherStores', String, 'Other Stores',
         hint: 'Amazon, Samsung, etc.'),
+  ])
+  String? content;
+}
 
-    // Version requirements
+/// SDK and version requirements.
+class NativeAppRequirementsVersions {
+  @Form([
     Field('minSdkVersion', String, 'Minimum SDK Version',
         hint: 'Minimum SDK level'),
     Field('targetSdkVersion', String, 'Target SDK Version',
         hint: 'Target SDK level'),
     Field('compileSdkVersion', String, 'Compile SDK Version',
         hint: 'Compile SDK version'),
+  ])
+  String? content;
+}
 
-    // Size and performance
+/// Size and performance requirements.
+class NativeAppRequirementsPerformance {
+  @Form([
     Field('maxAppSize', String, 'Maximum App Size',
         hint: 'Max download size'),
     Field('startupTime', String, 'Startup Time Target',
         hint: 'Cold start time target'),
-    Field('memoryLimit', String, 'Memory Limit',
-        hint: 'Max memory usage'),
+    Field('memoryLimit', String, 'Memory Limit', hint: 'Max memory usage'),
+  ])
+  String? content;
+}
 
-    // Deep linking
-    Field('deepLinking', bool, 'Deep Linking',
-        hint: 'Deep link support'),
+/// Deep-linking support.
+class NativeAppRequirementsLinking {
+  @Form([
+    Field('deepLinking', bool, 'Deep Linking', hint: 'Deep link support'),
     Field('universalLinks', bool, 'Universal/App Links',
         hint: 'Universal links support'),
     Field('customScheme', String, 'Custom URL Scheme',
         hint: 'App URL scheme'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional native app notes'),
+    Field('notes', String, 'Notes', hint: 'Additional native app notes'),
   ])
   String? content;
 }
@@ -9080,7 +9234,6 @@ Provide an overview of network strategy and architecture.
 /// Internal network requirements.
 class InternalNetworkRequirements {
   @Form([
-    // Topology
     Field('networkTopology', String, 'Network Topology',
         hint: 'Hub-spoke, mesh, star'),
     Field('vpcStructure', String, 'VPC Structure',
@@ -9089,36 +9242,71 @@ class InternalNetworkRequirements {
         hint: 'Subnet layout'),
     Field('cidrRanges', String, 'CIDR Ranges',
         hint: 'IP address ranges'),
+  ])
+  String? content;
 
-    // Segmentation
+  /// Segmentation and isolation.
+  InternalNetworkRequirementsSegmentation segmentation =
+      InternalNetworkRequirementsSegmentation();
+
+  /// Routing and service discovery.
+  InternalNetworkRequirementsRouting routing =
+      InternalNetworkRequirementsRouting();
+
+  /// Inter-service communication controls.
+  InternalNetworkRequirementsInterService interService =
+      InternalNetworkRequirementsInterService();
+
+  /// Monitoring and notes.
+  InternalNetworkRequirementsMonitoring monitoring =
+      InternalNetworkRequirementsMonitoring();
+}
+
+/// Segmentation and isolation.
+class InternalNetworkRequirementsSegmentation {
+  @Form([
     Field('networkSegmentation', String, 'Network Segmentation',
         hint: 'DMZ, tiers, microsegmentation'),
     Field('securityZones', String, 'Security Zones',
         hint: 'Trust zones defined'),
     Field('isolationRequirements', String, 'Isolation Requirements',
         hint: 'Network isolation'),
+  ])
+  String? content;
+}
 
-    // Internal routing
+/// Routing and service discovery.
+class InternalNetworkRequirementsRouting {
+  @Form([
     Field('routingProtocol', String, 'Routing Protocol',
         hint: 'BGP, OSPF, static'),
     Field('serviceDiscovery', String, 'Service Discovery',
         hint: 'DNS, Consul, etc.'),
     Field('serviceMesh', String, 'Service Mesh',
         hint: 'Istio, Linkerd if used'),
+  ])
+  String? content;
+}
 
-    // Inter-service
+/// Inter-service communication controls.
+class InternalNetworkRequirementsInterService {
+  @Form([
     Field('interServiceCommunication', String, 'Inter-Service Communication',
         hint: 'REST, gRPC, messaging'),
     Field('encryptionInTransit', bool, 'Encryption in Transit',
         hint: 'mTLS, TLS required'),
     Field('certificateManagement', String, 'Certificate Management',
         hint: 'Cert-manager, PKI'),
+  ])
+  String? content;
+}
 
-    // Monitoring
+/// Monitoring and notes.
+class InternalNetworkRequirementsMonitoring {
+  @Form([
     Field('networkMonitoring', String, 'Network Monitoring',
         hint: 'Network monitoring tools'),
-    Field('flowLogging', bool, 'Flow Logging',
-        hint: 'VPC flow logs'),
+    Field('flowLogging', bool, 'Flow Logging', hint: 'VPC flow logs'),
     Field('notes', String, 'Notes',
         hint: 'Additional internal network notes'),
   ])
@@ -9289,7 +9477,6 @@ class BandwidthRequirementsQos {
 /// Network latency requirements.
 class NetworkLatencyRequirements {
   @Form([
-    // Targets
     Field('maxLatency', String, 'Maximum Latency',
         hint: 'Maximum acceptable latency'),
     Field('targetLatency', String, 'Target Latency',
@@ -9298,8 +9485,29 @@ class NetworkLatencyRequirements {
         hint: '95th percentile target'),
     Field('p99Latency', String, 'P99 Latency',
         hint: '99th percentile target'),
+  ])
+  String? content;
 
-    // Network segments
+  /// Segment-level latency budgets.
+  NetworkLatencyRequirementsSegments segments =
+      NetworkLatencyRequirementsSegments();
+
+  /// Geographic latency budgets.
+  NetworkLatencyRequirementsGeographic geographic =
+      NetworkLatencyRequirementsGeographic();
+
+  /// Stability tolerances.
+  NetworkLatencyRequirementsStability stability =
+      NetworkLatencyRequirementsStability();
+
+  /// Optimization strategies.
+  NetworkLatencyRequirementsOptimization optimization =
+      NetworkLatencyRequirementsOptimization();
+}
+
+/// Segment-level latency budgets.
+class NetworkLatencyRequirementsSegments {
+  @Form([
     Field('clientToEdge', String, 'Client to Edge Latency',
         hint: 'Client to CDN/edge'),
     Field('edgeToOrigin', String, 'Edge to Origin Latency',
@@ -9308,28 +9516,42 @@ class NetworkLatencyRequirements {
         hint: 'Service-to-service'),
     Field('databaseLatency', String, 'Database Latency',
         hint: 'DB access latency'),
+  ])
+  String? content;
+}
 
-    // Geographic
+/// Geographic latency budgets.
+class NetworkLatencyRequirementsGeographic {
+  @Form([
     Field('regionalLatency', String, 'Regional Latency',
         hint: 'Same region latency'),
     Field('crossRegionalLatency', String, 'Cross-Regional Latency',
         hint: 'Cross-region latency'),
     Field('globalLatency', String, 'Global Latency',
         hint: 'Worldwide latency targets'),
+  ])
+  String? content;
+}
 
-    // Jitter and stability
+/// Stability tolerances.
+class NetworkLatencyRequirementsStability {
+  @Form([
     Field('jitterTolerance', String, 'Jitter Tolerance',
         hint: 'Acceptable jitter'),
     Field('packetLoss', String, 'Packet Loss Tolerance',
         hint: 'Acceptable packet loss'),
     Field('connectionStability', String, 'Connection Stability',
         hint: 'Connection stability requirements'),
+  ])
+  String? content;
+}
 
-    // Optimization
+/// Optimization strategies.
+class NetworkLatencyRequirementsOptimization {
+  @Form([
     Field('latencyOptimization', String, 'Latency Optimization',
         hint: 'Optimization strategies'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional latency notes'),
+    Field('notes', String, 'Notes', hint: 'Additional latency notes'),
   ])
   String? content;
 }
@@ -9337,15 +9559,35 @@ class NetworkLatencyRequirements {
 /// Network availability requirements.
 class NetworkAvailabilityRequirements {
   @Form([
-    // SLA targets
     Field('availabilityTarget', String, 'Availability Target',
         hint: '99.99%, 99.999%'),
     Field('monthlyDowntime', String, 'Monthly Downtime Budget',
         hint: 'Allowed downtime/month'),
     Field('maintenanceWindows', String, 'Maintenance Windows',
         hint: 'Scheduled maintenance'),
+  ])
+  String? content;
 
-    // Redundancy
+  /// Redundancy configuration.
+  NetworkAvailabilityRequirementsRedundancy redundancy =
+      NetworkAvailabilityRequirementsRedundancy();
+
+  /// Failover configuration.
+  NetworkAvailabilityRequirementsFailover failover =
+      NetworkAvailabilityRequirementsFailover();
+
+  /// Recovery objectives.
+  NetworkAvailabilityRequirementsRecovery recovery =
+      NetworkAvailabilityRequirementsRecovery();
+
+  /// Testing and notes.
+  NetworkAvailabilityRequirementsTesting testing =
+      NetworkAvailabilityRequirementsTesting();
+}
+
+/// Redundancy configuration.
+class NetworkAvailabilityRequirementsRedundancy {
+  @Form([
     Field('pathRedundancy', String, 'Path Redundancy',
         hint: 'Multiple network paths'),
     Field('ispRedundancy', String, 'ISP Redundancy',
@@ -9354,8 +9596,13 @@ class NetworkAvailabilityRequirements {
         hint: 'Redundant links'),
     Field('deviceRedundancy', String, 'Device Redundancy',
         hint: 'Redundant network devices'),
+  ])
+  String? content;
+}
 
-    // Failover
+/// Failover configuration.
+class NetworkAvailabilityRequirementsFailover {
+  @Form([
     Field('failoverMechanism', String, 'Failover Mechanism',
         hint: 'Automatic/manual failover'),
     Field('failoverTime', String, 'Failover Time',
@@ -9364,16 +9611,26 @@ class NetworkAvailabilityRequirements {
         hint: 'Network health monitoring'),
     Field('automaticRerouting', bool, 'Automatic Rerouting',
         hint: 'Auto path rerouting'),
+  ])
+  String? content;
+}
 
-    // Recovery
+/// Recovery objectives.
+class NetworkAvailabilityRequirementsRecovery {
+  @Form([
     Field('rpo', String, 'Recovery Point Objective',
         hint: 'Network state RPO'),
     Field('rto', String, 'Recovery Time Objective',
         hint: 'Network recovery RTO'),
     Field('drSite', String, 'DR Site Connectivity',
         hint: 'DR network connectivity'),
+  ])
+  String? content;
+}
 
-    // Testing
+/// Testing and notes.
+class NetworkAvailabilityRequirementsTesting {
+  @Form([
     Field('failoverTesting', String, 'Failover Testing',
         hint: 'Testing frequency'),
     Field('notes', String, 'Notes',
@@ -9514,7 +9771,6 @@ class FirewallRequirementsLogging {
 /// Geographic distribution requirements.
 class GeographicDistributionRequirements {
   @Form([
-    // Regions
     Field('primaryRegion', String, 'Primary Region',
         hint: 'Primary deployment region'),
     Field('secondaryRegions', String, 'Secondary Regions',
@@ -9523,34 +9779,68 @@ class GeographicDistributionRequirements {
         hint: 'CDN edge locations'),
     Field('regionalCompliance', String, 'Regional Compliance',
         hint: 'Data residency requirements'),
+  ])
+  String? content;
 
-    // CDN
+  /// CDN requirements.
+  GeographicDistributionRequirementsCdn cdn =
+      GeographicDistributionRequirementsCdn();
+
+  /// Traffic routing requirements.
+  GeographicDistributionRequirementsRouting routing =
+      GeographicDistributionRequirementsRouting();
+
+  /// Anycast and global load balancing.
+  GeographicDistributionRequirementsAnycast anycast =
+      GeographicDistributionRequirementsAnycast();
+
+  /// Performance considerations.
+  GeographicDistributionRequirementsPerformance performance =
+      GeographicDistributionRequirementsPerformance();
+}
+
+/// CDN requirements.
+class GeographicDistributionRequirementsCdn {
+  @Form([
     Field('cdnRequired', bool, 'CDN Required',
         hint: 'Content delivery network'),
     Field('cdnProvider', String, 'CDN Provider',
         hint: 'CloudFront, Cloudflare, etc.'),
     Field('cachedContent', String, 'Cached Content',
         hint: 'What to cache at edge'),
-    Field('cacheTtl', String, 'Cache TTL',
-        hint: 'Cache expiration'),
+    Field('cacheTtl', String, 'Cache TTL', hint: 'Cache expiration'),
     Field('cacheInvalidation', String, 'Cache Invalidation',
         hint: 'Invalidation strategy'),
+  ])
+  String? content;
+}
 
-    // Traffic routing
+/// Traffic routing requirements.
+class GeographicDistributionRequirementsRouting {
+  @Form([
     Field('routingStrategy', String, 'Routing Strategy',
         hint: 'Latency, geo, weighted'),
     Field('failoverRouting', String, 'Failover Routing',
         hint: 'Geographic failover'),
     Field('trafficSteering', String, 'Traffic Steering',
         hint: 'How traffic is directed'),
+  ])
+  String? content;
+}
 
-    // Anycast
-    Field('anycastIp', bool, 'Anycast IP',
-        hint: 'Anycast addressing'),
+/// Anycast and global load balancing.
+class GeographicDistributionRequirementsAnycast {
+  @Form([
+    Field('anycastIp', bool, 'Anycast IP', hint: 'Anycast addressing'),
     Field('globalLoadBalancing', String, 'Global Load Balancing',
         hint: 'GSLB requirements'),
+  ])
+  String? content;
+}
 
-    // Performance
+/// Performance considerations.
+class GeographicDistributionRequirementsPerformance {
+  @Form([
     Field('edgeCaching', String, 'Edge Caching',
         hint: 'Edge cache strategy'),
     Field('notes', String, 'Notes',
@@ -12471,7 +12761,6 @@ class MaintenanceChangeManagement {
 /// User impact and communication.
 class MaintenanceUserImpact {
   @Form([
-    // Pre-maintenance
     Field('advanceNotification', String, 'Advance Notification',
         hint: 'How users are notified in advance'),
     Field('inAppNotification', bool, 'In-App Notification',
@@ -12482,8 +12771,23 @@ class MaintenanceUserImpact {
         hint: 'Update status page'),
     Field('socialMediaNotice', bool, 'Social Media Notice',
         hint: 'Post on social media'),
+  ])
+  String? content;
 
-    // During maintenance
+  /// Communication during maintenance.
+  MaintenanceUserImpactDuring during = MaintenanceUserImpactDuring();
+
+  /// Graceful-degradation strategy.
+  MaintenanceUserImpactGracefulDegradation gracefulDegradation =
+      MaintenanceUserImpactGracefulDegradation();
+
+  /// Post-maintenance communication.
+  MaintenanceUserImpactPost post = MaintenanceUserImpactPost();
+}
+
+/// Communication during maintenance.
+class MaintenanceUserImpactDuring {
+  @Form([
     Field('maintenancePage', String, 'Maintenance Page',
         hint: 'What user sees during downtime'),
     Field('maintenanceMessage', String, 'Maintenance Message',
@@ -12492,16 +12796,26 @@ class MaintenanceUserImpact {
         hint: 'Show estimated completion'),
     Field('progressUpdates', bool, 'Progress Updates',
         hint: 'Periodic progress updates'),
+  ])
+  String? content;
+}
 
-    // Graceful degradation
+/// Graceful-degradation strategy.
+class MaintenanceUserImpactGracefulDegradation {
+  @Form([
     Field('gracefulDegradation', String, 'Graceful Degradation',
         hint: 'Partial service availability'),
     Field('readOnlyMode', bool, 'Read-Only Mode',
         hint: 'Allow read-only access'),
     Field('queuedOperations', bool, 'Queued Operations',
         hint: 'Queue writes during maintenance'),
+  ])
+  String? content;
+}
 
-    // Post-maintenance
+/// Post-maintenance communication.
+class MaintenanceUserImpactPost {
+  @Form([
     Field('completionNotice', bool, 'Completion Notice',
         hint: 'Notify when complete'),
     Field('changelogPublished', bool, 'Changelog Published',
