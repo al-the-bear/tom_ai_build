@@ -5144,7 +5144,6 @@ Provide an overview of compatibility requirements and testing strategy.
 /// Operating system compatibility entry.
 class OsCompatibilityEntry {
   @Form([
-    // Identity
     Field('osName', String, 'Operating System',
         required: true, hint: 'E.g., Windows, macOS, Linux, iOS, Android'),
     Field('osFamily', String, 'OS Family',
@@ -5153,16 +5152,39 @@ class OsCompatibilityEntry {
         required: true, hint: 'Minimum supported version'),
     Field('maxVersion', String, 'Maximum Version',
         hint: 'Maximum tested version'),
+  ])
+  String? content;
 
-    // Support level
+  /// Support level and prioritization.
+  OsCompatibilityEntrySupport support = OsCompatibilityEntrySupport();
+
+  /// Platform requirements.
+  OsCompatibilityEntryRequirements requirements =
+      OsCompatibilityEntryRequirements();
+
+  /// Testing expectations.
+  OsCompatibilityEntryTesting testing = OsCompatibilityEntryTesting();
+
+  /// Lifecycle notes.
+  OsCompatibilityEntryLifecycle lifecycle = OsCompatibilityEntryLifecycle();
+}
+
+/// Support level and prioritization.
+class OsCompatibilityEntrySupport {
+  @Form([
     Field('supportLevel', String, 'Support Level',
         hint: 'Full, Partial, Best-effort, Unsupported'),
     Field('priority', String, 'Priority',
         hint: 'Primary, Secondary, Edge case'),
     Field('marketShare', String, 'Market Share',
         hint: 'Target market share percentage'),
+  ])
+  String? content;
+}
 
-    // Requirements
+/// Platform requirements.
+class OsCompatibilityEntryRequirements {
+  @Form([
     Field('architectures', String, 'Architectures',
         hint: 'x64, ARM64, x86'),
     Field('minMemory', String, 'Minimum Memory',
@@ -5171,16 +5193,26 @@ class OsCompatibilityEntry {
         hint: 'Minimum disk space required'),
     Field('prerequisites', String, 'Prerequisites',
         hint: 'Required runtime, frameworks'),
+  ])
+  String? content;
+}
 
-    // Testing
+/// Testing expectations.
+class OsCompatibilityEntryTesting {
+  @Form([
     Field('testEnvironment', String, 'Test Environment',
         hint: 'VM, physical, cloud'),
     Field('testFrequency', String, 'Test Frequency',
         hint: 'Every release, periodic, on-demand'),
     Field('knownIssues', String, 'Known Issues',
         hint: 'OS-specific issues'),
+  ])
+  String? content;
+}
 
-    // Notes
+/// Lifecycle notes.
+class OsCompatibilityEntryLifecycle {
+  @Form([
     Field('specialConsiderations', String, 'Special Considerations',
         hint: 'Special handling for this OS'),
     Field('eolPlanning', String, 'EOL Planning',
@@ -5840,7 +5872,6 @@ Provide an overview of standards compliance strategy and roadmap.
 /// IT standard compliance entry (ISO, IEEE, NIST, OASIS).
 class ItStandardComplianceEntry {
   @Form([
-    // Identity
     Field('standardName', String, 'Standard Name',
         required: true, hint: 'E.g., ISO 27001, IEEE 802.11, NIST SP 800-53'),
     Field('standardBody', String, 'Standard Body',
@@ -5848,38 +5879,82 @@ class ItStandardComplianceEntry {
     Field('standardId', String, 'Standard ID',
         hint: 'Official standard identifier'),
     Field('version', String, 'Version', hint: 'Standard version'),
+  ])
+  String? content;
 
-    // Scope
+  /// Applicability and priority.
+  ItStandardComplianceEntryScope scope = ItStandardComplianceEntryScope();
+
+  /// Control requirements.
+  ItStandardComplianceEntryRequirements requirements =
+      ItStandardComplianceEntryRequirements();
+
+  /// Compliance timeline.
+  ItStandardComplianceEntryTimeline timeline =
+      ItStandardComplianceEntryTimeline();
+
+  /// Ownership and support.
+  ItStandardComplianceEntryOwnership ownership =
+      ItStandardComplianceEntryOwnership();
+
+  /// Evidence and notes.
+  ItStandardComplianceEntryEvidence evidence =
+      ItStandardComplianceEntryEvidence();
+}
+
+/// Applicability and priority.
+class ItStandardComplianceEntryScope {
+  @Form([
     Field('applicabilityScope', String, 'Applicability Scope',
         hint: 'Which parts of the system this applies to'),
     Field('complianceLevel', String, 'Compliance Level',
         hint: 'Full, Partial, Target'),
     Field('priority', String, 'Priority',
         hint: 'Critical, High, Medium, Low'),
+  ])
+  String? content;
+}
 
-    // Requirements
+/// Control requirements.
+class ItStandardComplianceEntryRequirements {
+  @Form([
     Field('controlsApplicable', String, 'Applicable Controls',
         hint: 'Specific controls that apply'),
     Field('exclusions', String, 'Exclusions',
         hint: 'Controls not applicable'),
     Field('customizations', String, 'Customizations',
         hint: 'Organization-specific adaptations'),
+  ])
+  String? content;
+}
 
-    // Timeline
+/// Compliance timeline.
+class ItStandardComplianceEntryTimeline {
+  @Form([
     Field('targetDate', String, 'Target Compliance Date',
         hint: 'When to achieve compliance'),
     Field('currentStatus', String, 'Current Status',
         hint: 'Not started, In progress, Compliant'),
     Field('lastAssessment', String, 'Last Assessment Date',
         hint: 'Date of last assessment'),
+  ])
+  String? content;
+}
 
-    // Ownership
+/// Ownership and support.
+class ItStandardComplianceEntryOwnership {
+  @Form([
     Field('complianceOwner', String, 'Compliance Owner',
         hint: 'Responsible person/team'),
     Field('externalSupport', String, 'External Support',
         hint: 'External consultants if any'),
+  ])
+  String? content;
+}
 
-    // Evidence
+/// Evidence and notes.
+class ItStandardComplianceEntryEvidence {
+  @Form([
     Field('evidenceRequired', String, 'Evidence Required',
         hint: 'Documentation needed for compliance'),
     Field('notes', String, 'Notes',
@@ -7551,31 +7626,61 @@ class DesktopOsRequirementEntryTesting {
 /// Mobile device requirement entry.
 class MobileDeviceRequirementEntry {
   @Form([
-    // Platform
     Field('platform', String, 'Platform',
         required: true, hint: 'iOS, Android, iPadOS'),
     Field('minOsVersion', String, 'Minimum OS Version',
         required: true, hint: 'Minimum OS version'),
     Field('recommendedOsVersion', String, 'Recommended OS Version',
         hint: 'Recommended OS version'),
+  ])
+  String? content;
 
-    // Support
+  /// Support prioritization.
+  MobileDeviceRequirementEntrySupport support =
+      MobileDeviceRequirementEntrySupport();
+
+  /// Device coverage.
+  MobileDeviceRequirementEntryDevices devices =
+      MobileDeviceRequirementEntryDevices();
+
+  /// Hardware expectations.
+  MobileDeviceRequirementEntryHardware hardware =
+      MobileDeviceRequirementEntryHardware();
+
+  /// Capability requirements.
+  MobileDeviceRequirementEntryCapabilities capabilities =
+      MobileDeviceRequirementEntryCapabilities();
+}
+
+/// Support prioritization.
+class MobileDeviceRequirementEntrySupport {
+  @Form([
     Field('supportLevel', String, 'Support Level',
         hint: 'Full, Partial, Best-effort'),
     Field('priority', String, 'Priority',
         hint: 'Primary, Secondary'),
     Field('expectedUserShare', String, 'Expected User Share',
         hint: 'Percentage of users'),
+  ])
+  String? content;
+}
 
-    // Device types
+/// Device coverage.
+class MobileDeviceRequirementEntryDevices {
+  @Form([
     Field('deviceTypes', String, 'Device Types',
         hint: 'Phone, Tablet, Foldable'),
     Field('specificDevices', String, 'Specific Devices',
         hint: 'Named devices to support'),
     Field('screenSizes', String, 'Screen Sizes',
         hint: 'Supported screen sizes'),
+  ])
+  String? content;
+}
 
-    // Hardware
+/// Hardware expectations.
+class MobileDeviceRequirementEntryHardware {
+  @Form([
     Field('minRam', String, 'Minimum RAM',
         hint: 'Minimum device RAM'),
     Field('minStorage', String, 'Minimum Storage',
@@ -7584,8 +7689,13 @@ class MobileDeviceRequirementEntry {
         hint: 'GPS, camera, biometric'),
     Field('hardwareAcceleration', bool, 'Hardware Acceleration',
         hint: 'GPU acceleration needed'),
+  ])
+  String? content;
+}
 
-    // Capabilities
+/// Capability requirements.
+class MobileDeviceRequirementEntryCapabilities {
+  @Form([
     Field('permissionsRequired', String, 'Permissions Required',
         hint: 'Required app permissions'),
     Field('backgroundExecution', String, 'Background Execution',
@@ -8652,23 +8762,48 @@ class DnsRequirements {
 /// Network load balancing requirements.
 class NetworkLoadBalancingRequirements {
   @Form([
-    // Type
     Field('loadBalancerType', String, 'Load Balancer Type',
         hint: 'L4, L7, DNS-based'),
     Field('loadBalancerProduct', String, 'Load Balancer Product',
         hint: 'ALB, NLB, HAProxy, etc.'),
     Field('deploymentModel', String, 'Deployment Model',
         hint: 'Cloud, on-premises, hybrid'),
+  ])
+  String? content;
 
-    // Algorithm
+  /// Routing strategy.
+  NetworkLoadBalancingRequirementsRouting routing =
+      NetworkLoadBalancingRequirementsRouting();
+
+  /// Health-check behavior.
+  NetworkLoadBalancingRequirementsHealthChecks healthChecks =
+      NetworkLoadBalancingRequirementsHealthChecks();
+
+  /// TLS settings.
+  NetworkLoadBalancingRequirementsTls tls =
+      NetworkLoadBalancingRequirementsTls();
+
+  /// Availability settings.
+  NetworkLoadBalancingRequirementsAvailability availability =
+      NetworkLoadBalancingRequirementsAvailability();
+}
+
+/// Routing strategy.
+class NetworkLoadBalancingRequirementsRouting {
+  @Form([
     Field('loadBalancingAlgorithm', String, 'Load Balancing Algorithm',
         hint: 'Round-robin, least-conn'),
     Field('sessionPersistence', String, 'Session Persistence',
         hint: 'Sticky sessions'),
     Field('weightedRouting', bool, 'Weighted Routing',
         hint: 'Weighted distribution'),
+  ])
+  String? content;
+}
 
-    // Health checks
+/// Health-check behavior.
+class NetworkLoadBalancingRequirementsHealthChecks {
+  @Form([
     Field('healthCheckProtocol', String, 'Health Check Protocol',
         hint: 'HTTP, TCP, HTTPS'),
     Field('healthCheckPath', String, 'Health Check Path',
@@ -8679,16 +8814,26 @@ class NetworkLoadBalancingRequirements {
         hint: 'Failures before unhealthy'),
     Field('healthyThreshold', int, 'Healthy Threshold',
         hint: 'Successes before healthy'),
+  ])
+  String? content;
+}
 
-    // SSL/TLS
+/// TLS settings.
+class NetworkLoadBalancingRequirementsTls {
+  @Form([
     Field('sslTermination', String, 'SSL Termination',
         hint: 'At LB, at backend'),
     Field('sslCertificate', String, 'SSL Certificate',
         hint: 'Certificate management'),
     Field('http2Support', bool, 'HTTP/2 Support',
         hint: 'HTTP/2 enabled'),
+  ])
+  String? content;
+}
 
-    // Availability
+/// Availability settings.
+class NetworkLoadBalancingRequirementsAvailability {
+  @Form([
     Field('lbRedundancy', String, 'LB Redundancy',
         hint: 'Load balancer HA'),
     Field('crossZoneBalancing', bool, 'Cross-Zone Balancing',
@@ -8702,7 +8847,6 @@ class NetworkLoadBalancingRequirements {
 /// Network security requirements.
 class NetworkSecurityRequirements {
   @Form([
-    // Encryption
     Field('encryptionInTransit', String, 'Encryption in Transit',
         hint: 'TLS requirements'),
     Field('minTlsVersion', String, 'Minimum TLS Version',
@@ -8711,8 +8855,27 @@ class NetworkSecurityRequirements {
         hint: 'Allowed cipher suites'),
     Field('certificateAuthority', String, 'Certificate Authority',
         hint: 'CA for certificates'),
+  ])
+  String? content;
 
-    // Access control
+  /// Access-control settings.
+  NetworkSecurityRequirementsAccess access = NetworkSecurityRequirementsAccess();
+
+  /// Monitoring controls.
+  NetworkSecurityRequirementsMonitoring monitoring =
+      NetworkSecurityRequirementsMonitoring();
+
+  /// DDoS protection controls.
+  NetworkSecurityRequirementsDdos ddos = NetworkSecurityRequirementsDdos();
+
+  /// Compliance settings.
+  NetworkSecurityRequirementsCompliance compliance =
+      NetworkSecurityRequirementsCompliance();
+}
+
+/// Access-control settings.
+class NetworkSecurityRequirementsAccess {
+  @Form([
     Field('networkAcls', String, 'Network ACLs',
         hint: 'Network access control lists'),
     Field('securityGroups', String, 'Security Groups',
@@ -8721,24 +8884,39 @@ class NetworkSecurityRequirements {
         hint: 'Allowed IP ranges'),
     Field('ipBlacklisting', String, 'IP Blacklisting',
         hint: 'Blocked IP ranges'),
+  ])
+  String? content;
+}
 
-    // Monitoring
+/// Monitoring controls.
+class NetworkSecurityRequirementsMonitoring {
+  @Form([
     Field('networkIdp', String, 'Network IDS/IPS',
         hint: 'Intrusion detection/prevention'),
     Field('trafficAnalysis', String, 'Traffic Analysis',
         hint: 'Deep traffic analysis'),
     Field('anomalyDetection', bool, 'Anomaly Detection',
         hint: 'Anomaly-based detection'),
+  ])
+  String? content;
+}
 
-    // DDoS
+/// DDoS protection controls.
+class NetworkSecurityRequirementsDdos {
+  @Form([
     Field('ddosProtection', String, 'DDoS Protection',
         hint: 'DDoS mitigation'),
     Field('rateLimiting', String, 'Rate Limiting',
         hint: 'Rate limit policies'),
     Field('geoBlocking', String, 'Geo-Blocking',
         hint: 'Geographic restrictions'),
+  ])
+  String? content;
+}
 
-    // Compliance
+/// Compliance settings.
+class NetworkSecurityRequirementsCompliance {
+  @Form([
     Field('pciDssCompliance', String, 'PCI-DSS Network Compliance',
         hint: 'PCI network requirements'),
     Field('networkAuditLogs', String, 'Network Audit Logs',
@@ -10257,7 +10435,6 @@ class MonitoringInfrastructure {
 /// Metrics collection requirements.
 class MetricsCollectionRequirements {
   @Form([
-    // Infrastructure metrics
     Field('cpuMetrics', bool, 'CPU Metrics',
         hint: 'CPU utilization, load'),
     Field('memoryMetrics', bool, 'Memory Metrics',
@@ -10266,8 +10443,29 @@ class MetricsCollectionRequirements {
         hint: 'Disk I/O, space'),
     Field('networkMetrics', bool, 'Network Metrics',
         hint: 'Network I/O, connections'),
+  ])
+  String? content;
 
-    // Container/K8s metrics
+  /// Container and cluster metrics.
+  MetricsCollectionRequirementsContainer container =
+      MetricsCollectionRequirementsContainer();
+
+  /// Application metrics.
+  MetricsCollectionRequirementsApplication application =
+      MetricsCollectionRequirementsApplication();
+
+  /// Business metrics.
+  MetricsCollectionRequirementsBusiness business =
+      MetricsCollectionRequirementsBusiness();
+
+  /// Custom metrics settings.
+  MetricsCollectionRequirementsCustom custom =
+      MetricsCollectionRequirementsCustom();
+}
+
+/// Container and cluster metrics.
+class MetricsCollectionRequirementsContainer {
+  @Form([
     Field('containerMetrics', bool, 'Container Metrics',
         hint: 'Container resource usage'),
     Field('podMetrics', bool, 'Pod Metrics',
@@ -10276,24 +10474,39 @@ class MetricsCollectionRequirements {
         hint: 'Kubernetes node metrics'),
     Field('clusterMetrics', bool, 'Cluster Metrics',
         hint: 'Cluster-level metrics'),
+  ])
+  String? content;
+}
 
-    // Application metrics
+/// Application metrics.
+class MetricsCollectionRequirementsApplication {
+  @Form([
     Field('requestMetrics', bool, 'Request Metrics',
         hint: 'Request rate, latency'),
     Field('errorMetrics', bool, 'Error Metrics',
         hint: 'Error rates, types'),
     Field('saturationMetrics', bool, 'Saturation Metrics',
         hint: 'Queue depth, utilization'),
+  ])
+  String? content;
+}
 
-    // Business metrics
+/// Business metrics.
+class MetricsCollectionRequirementsBusiness {
+  @Form([
     Field('businessMetrics', String, 'Business Metrics',
         hint: 'Custom business KPIs'),
     Field('userMetrics', String, 'User Metrics',
         hint: 'Active users, sessions'),
     Field('transactionMetrics', String, 'Transaction Metrics',
         hint: 'Transaction volume, value'),
+  ])
+  String? content;
+}
 
-    // Custom metrics
+/// Custom metrics settings.
+class MetricsCollectionRequirementsCustom {
+  @Form([
     Field('customMetricsRequired', bool, 'Custom Metrics Required',
         hint: 'Application-specific metrics'),
     Field('metricNamingConvention', String, 'Metric Naming Convention',
@@ -10394,7 +10607,6 @@ class ApplicationPerformanceMonitoringUserSignals {
 /// Log management requirements.
 class LogManagementRequirements {
   @Form([
-    // Log collection
     Field('logSources', String, 'Log Sources',
         hint: 'Application, system, container'),
     Field('logFormat', String, 'Log Format',
@@ -10403,32 +10615,68 @@ class LogManagementRequirements {
         hint: 'Debug, Info, Warn, Error'),
     Field('logFields', String, 'Required Log Fields',
         hint: 'timestamp, correlation_id'),
+  ])
+  String? content;
 
-    // Collection method
+  /// Collection method.
+  LogManagementRequirementsCollection collection =
+      LogManagementRequirementsCollection();
+
+  /// Storage settings.
+  LogManagementRequirementsStorage storage =
+      LogManagementRequirementsStorage();
+
+  /// Search and analysis.
+  LogManagementRequirementsAnalysis analysis =
+      LogManagementRequirementsAnalysis();
+
+  /// Compliance settings.
+  LogManagementRequirementsCompliance compliance =
+      LogManagementRequirementsCompliance();
+}
+
+/// Collection method.
+class LogManagementRequirementsCollection {
+  @Form([
     Field('collectionMethod', String, 'Collection Method',
         hint: 'Sidecar, agent, stdout'),
     Field('logShipping', String, 'Log Shipping',
         hint: 'Fluentd, Filebeat, Vector'),
     Field('bufferingStrategy', String, 'Buffering Strategy',
         hint: 'Memory, disk buffering'),
+  ])
+  String? content;
+}
 
-    // Storage
+/// Storage settings.
+class LogManagementRequirementsStorage {
+  @Form([
     Field('logRetention', String, 'Log Retention',
         hint: 'Retention period by type'),
     Field('coldStorage', String, 'Cold Storage',
         hint: 'Archive strategy'),
     Field('compressionEnabled', bool, 'Compression Enabled',
         hint: 'Log compression'),
+  ])
+  String? content;
+}
 
-    // Search and analysis
+/// Search and analysis.
+class LogManagementRequirementsAnalysis {
+  @Form([
     Field('fullTextSearch', bool, 'Full-Text Search',
         hint: 'Log search capability'),
     Field('logAnalytics', String, 'Log Analytics',
         hint: 'Analysis capabilities'),
     Field('anomalyDetection', bool, 'Anomaly Detection',
         hint: 'ML-based detection'),
+  ])
+  String? content;
+}
 
-    // Compliance
+/// Compliance settings.
+class LogManagementRequirementsCompliance {
+  @Form([
     Field('piiHandling', String, 'PII Handling',
         hint: 'Sensitive data masking'),
     Field('auditLogs', bool, 'Audit Logs',
@@ -10621,7 +10869,6 @@ class DashboardRequirements {
 /// On-call procedures.
 class OnCallProcedures {
   @Form([
-    // Schedule
     Field('onCallTool', String, 'On-Call Tool',
         hint: 'PagerDuty, OpsGenie, VictorOps'),
     Field('rotationSchedule', String, 'Rotation Schedule',
@@ -10630,32 +10877,65 @@ class OnCallProcedures {
         hint: '24/7, business hours'),
     Field('primarySecondary', bool, 'Primary/Secondary',
         hint: 'Primary and backup on-call'),
+  ])
+  String? content;
 
-    // Teams
+  /// Team coverage.
+  OnCallProceduresTeams teams = OnCallProceduresTeams();
+
+  /// Response SLAs.
+  OnCallProceduresSlas slas = OnCallProceduresSlas();
+
+  /// Escalation rules.
+  OnCallProceduresEscalation escalation = OnCallProceduresEscalation();
+
+  /// Documentation requirements.
+  OnCallProceduresDocumentation documentation =
+      OnCallProceduresDocumentation();
+}
+
+/// Team coverage.
+class OnCallProceduresTeams {
+  @Form([
     Field('onCallTeams', String, 'On-Call Teams',
         hint: 'Which teams participate'),
     Field('crossTeamEscalation', String, 'Cross-Team Escalation',
         hint: 'Escalation between teams'),
     Field('managementEscalation', String, 'Management Escalation',
         hint: 'When to involve management'),
+  ])
+  String? content;
+}
 
-    // Response SLAs
+/// Response SLAs.
+class OnCallProceduresSlas {
+  @Form([
     Field('ackSla', String, 'Acknowledgment SLA',
         hint: 'Time to acknowledge'),
     Field('responseSla', String, 'Response SLA',
         hint: 'Time to start response'),
     Field('resolutionSla', String, 'Resolution SLA',
         hint: 'Time to resolve'),
+  ])
+  String? content;
+}
 
-    // Escalation
+/// Escalation rules.
+class OnCallProceduresEscalation {
+  @Form([
     Field('escalationTimeout', String, 'Escalation Timeout',
         hint: 'When to escalate'),
     Field('escalationPath', String, 'Escalation Path',
         hint: 'Escalation chain'),
     Field('executiveEscalation', String, 'Executive Escalation',
         hint: 'When to involve executives'),
+  ])
+  String? content;
+}
 
-    // Documentation
+/// Documentation requirements.
+class OnCallProceduresDocumentation {
+  @Form([
     Field('runbooks', String, 'Runbooks',
         hint: 'Where runbooks are stored'),
     Field('incidentTemplates', String, 'Incident Templates',
@@ -11551,13 +11831,32 @@ class ApiVersioningStrategy {
 /// Message format standards.
 class MessageFormatStandards {
   @Form([
-    // Format
     Field('primaryFormat', String, 'Primary Format',
         required: true, hint: 'JSON, Protocol Buffers, XML'),
     Field('secondaryFormats', String, 'Secondary Formats',
         hint: 'Additional supported formats'),
+  ])
+  String? content;
 
-    // Schema
+  /// Schema standards.
+  MessageFormatStandardsSchema schema = MessageFormatStandardsSchema();
+
+  /// Field conventions.
+  MessageFormatStandardsConventions conventions =
+      MessageFormatStandardsConventions();
+
+  /// Pagination and error envelopes.
+  MessageFormatStandardsResponses responses =
+      MessageFormatStandardsResponses();
+
+  /// Compression and negotiation.
+  MessageFormatStandardsTransport transport =
+      MessageFormatStandardsTransport();
+}
+
+/// Schema standards.
+class MessageFormatStandardsSchema {
+  @Form([
     Field('schemaDefinition', String, 'Schema Definition',
         hint: 'JSON Schema, Protobuf definitions, XSD'),
     Field('schemaRegistry', String, 'Schema Registry',
@@ -11566,8 +11865,13 @@ class MessageFormatStandards {
         hint: 'Forward, backward, full compatibility'),
     Field('schemaValidation', String, 'Schema Validation',
         hint: 'Request/response validation strategy'),
+  ])
+  String? content;
+}
 
-    // Conventions
+/// Field conventions.
+class MessageFormatStandardsConventions {
+  @Form([
     Field('dateTimeFormat', String, 'Date/Time Format',
         hint: 'ISO 8601, Unix timestamp'),
     Field('characterEncoding', String, 'Character Encoding',
@@ -11578,16 +11882,26 @@ class MessageFormatStandards {
         hint: 'String, integer, UPPER_CASE'),
     Field('namingConvention', String, 'Naming Convention',
         hint: 'camelCase, snake_case for field names'),
+  ])
+  String? content;
+}
 
-    // Pagination and errors
+/// Pagination and error envelopes.
+class MessageFormatStandardsResponses {
+  @Form([
     Field('paginationFormat', String, 'Pagination Format',
         hint: 'Cursor, offset, page-number'),
     Field('errorResponseFormat', String, 'Error Response Format',
         hint: 'RFC 7807 Problem Details, custom envelope'),
     Field('envelopeFormat', String, 'Envelope Format',
         hint: 'Flat, wrapped with metadata'),
+  ])
+  String? content;
+}
 
-    // Compression
+/// Compression and negotiation.
+class MessageFormatStandardsTransport {
+  @Form([
     Field('compressionAlgorithm', String, 'Compression Algorithm',
         hint: 'gzip, brotli, zstd, none'),
     Field('contentNegotiation', bool, 'Content Negotiation',
