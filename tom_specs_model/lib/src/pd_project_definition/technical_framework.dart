@@ -1965,7 +1965,6 @@ class DesignPatternEntryEnforcement {
 /// Coding standard entry — a coding style or convention requirement.
 class CodingStandardEntry {
   @Form([
-    // Identity
     Field('standardName', String, 'Standard Name',
         required: true, hint: 'E.g., Effective Dart, Clean Code, Project-specific'),
     Field('standardCategory', String, 'Category',
@@ -1973,27 +1972,60 @@ class CodingStandardEntry {
         hint: 'Naming, Formatting, Comments, Structure, Imports'),
     Field('applicableLanguage', String, 'Applicable Language',
         hint: 'Which programming language(s) this applies to'),
+  ])
+  String? content;
 
-    // Description
+  /// Rule description.
+  CodingStandardEntryRuleDetails ruleDetails = CodingStandardEntryRuleDetails();
+
+  /// Naming requirements.
+  CodingStandardEntryNaming naming = CodingStandardEntryNaming();
+
+  /// Formatting requirements.
+  CodingStandardEntryFormatting formatting = CodingStandardEntryFormatting();
+
+  /// Enforcement details.
+  CodingStandardEntryEnforcement enforcement =
+      CodingStandardEntryEnforcement();
+}
+
+/// Rule description.
+class CodingStandardEntryRuleDetails {
+  @Form([
     Field('rule', String, 'Rule',
         required: true, hint: 'Clear statement of the coding rule'),
     Field('rationale', String, 'Rationale', hint: 'Why this rule matters'),
     Field('examples', String, 'Examples', hint: 'Good and bad code examples'),
+  ])
+  String? content;
+}
 
-    // Naming conventions
+/// Naming requirements.
+class CodingStandardEntryNaming {
+  @Form([
     Field('namingConvention', String, 'Naming Convention',
         hint: 'camelCase, PascalCase, snake_case rules'),
     Field('prefixSuffix', String, 'Prefix/Suffix Rules',
         hint: 'Required prefixes or suffixes'),
+  ])
+  String? content;
+}
 
-    // Formatting
+/// Formatting requirements.
+class CodingStandardEntryFormatting {
+  @Form([
     Field('indentation', String, 'Indentation',
         hint: 'Spaces vs tabs, indentation size'),
     Field('lineLength', String, 'Line Length', hint: 'Maximum line length'),
     Field('bracingStyle', String, 'Bracing Style',
         hint: 'Where braces should appear'),
+  ])
+  String? content;
+}
 
-    // Enforcement
+/// Enforcement details.
+class CodingStandardEntryEnforcement {
+  @Form([
     Field('linterRule', String, 'Linter Rule',
         hint: 'Corresponding linter rule name'),
     Field('severity', String, 'Severity',
@@ -3547,39 +3579,73 @@ class IdeRequirementEntry {
 /// Build tools configuration.
 class BuildToolsConfiguration {
   @Form([
-    // Package management
     Field('packageManager', String, 'Package Manager',
         hint: 'Pub, npm, yarn, pnpm, Gradle'),
     Field('packageManagerVersion', String, 'Package Manager Version',
         hint: 'Required version'),
     Field('lockfileManagement', String, 'Lockfile Management',
         hint: 'Lockfile policies'),
+  ])
+  String? content;
 
-    // Build system
+  /// Build system settings.
+  BuildToolsConfigurationBuildSystem buildSystemSettings =
+      BuildToolsConfigurationBuildSystem();
+
+  /// Compilation settings.
+  BuildToolsConfigurationCompilation compilation =
+      BuildToolsConfigurationCompilation();
+
+  /// Script integration.
+  BuildToolsConfigurationScripts scripts = BuildToolsConfigurationScripts();
+
+  /// Artifact management.
+  BuildToolsConfigurationArtifacts artifacts =
+      BuildToolsConfigurationArtifacts();
+}
+
+/// Build system settings.
+class BuildToolsConfigurationBuildSystem {
+  @Form([
     Field('buildSystem', String, 'Build System',
         hint: 'Flutter build, Gradle, Make, Melos'),
     Field('buildSystemVersion', String, 'Build System Version',
         hint: 'Required version'),
     Field('buildConfiguration', String, 'Build Configuration',
         hint: 'Build configuration files'),
+  ])
+  String? content;
+}
 
-    // Compilation
+/// Compilation settings.
+class BuildToolsConfigurationCompilation {
+  @Form([
     Field('compilerVersion', String, 'Compiler/SDK Version',
         hint: 'Dart SDK, JDK version'),
     Field('compilationMode', String, 'Compilation Mode',
         hint: 'JIT, AOT, mixed'),
     Field('optimizationLevel', String, 'Optimization Level',
         hint: 'Debug, profile, release settings'),
+  ])
+  String? content;
+}
 
-    // Scripts
+/// Script integration.
+class BuildToolsConfigurationScripts {
+  @Form([
     Field('buildScripts', String, 'Build Scripts',
         hint: 'Custom build scripts location'),
     Field('preCommitHooks', String, 'Pre-Commit Hooks',
         hint: 'Pre-commit hook configuration'),
     Field('postBuildActions', String, 'Post-Build Actions',
         hint: 'Actions after successful build'),
+  ])
+  String? content;
+}
 
-    // Artifacts
+/// Artifact management.
+class BuildToolsConfigurationArtifacts {
+  @Form([
     Field('artifactLocation', String, 'Artifact Location',
         hint: 'Where build artifacts are stored'),
     Field('artifactNaming', String, 'Artifact Naming',
@@ -4952,39 +5018,71 @@ class ThirdPartyLibraryEntryMonitoring {
 /// Component governance and maintenance policies.
 class ComponentGovernance {
   @Form([
-    // Ownership
     Field('ownershipModel', String, 'Ownership Model',
         hint: 'Central team, federated, individual'),
     Field('sharedComponentsTeam', String, 'Shared Components Team',
         hint: 'Team responsible for shared components'),
     Field('escalationPath', String, 'Escalation Path',
         hint: 'How issues are escalated'),
+  ])
+  String? content;
 
-    // Contribution
+  /// Contribution governance.
+  ComponentGovernanceContribution contribution =
+      ComponentGovernanceContribution();
+
+  /// Quality expectations.
+  ComponentGovernanceQuality quality = ComponentGovernanceQuality();
+
+  /// Lifecycle policies.
+  ComponentGovernanceLifecycle lifecycle = ComponentGovernanceLifecycle();
+
+  /// Metrics and notes.
+  ComponentGovernanceMetrics metrics = ComponentGovernanceMetrics();
+}
+
+/// Contribution governance.
+class ComponentGovernanceContribution {
+  @Form([
     Field('contributionGuidelines', String, 'Contribution Guidelines',
         hint: 'How to contribute'),
     Field('reviewProcess', String, 'Review Process',
         hint: 'Review process for contributions'),
     Field('acceptanceCriteria', String, 'Acceptance Criteria',
         hint: 'Criteria for accepting components'),
+  ])
+  String? content;
+}
 
-    // Quality
+/// Quality expectations.
+class ComponentGovernanceQuality {
+  @Form([
     Field('qualityStandards', String, 'Quality Standards',
         hint: 'Quality requirements for shared components'),
     Field('testingRequirements', String, 'Testing Requirements',
         hint: 'Required test coverage'),
     Field('documentationRequirements', String, 'Documentation Requirements',
         hint: 'Required documentation'),
+  ])
+  String? content;
+}
 
-    // Lifecycle
+/// Lifecycle policies.
+class ComponentGovernanceLifecycle {
+  @Form([
     Field('promotionProcess', String, 'Promotion Process',
         hint: 'How components move to production'),
     Field('deprecationProcess', String, 'Deprecation Process',
         hint: 'How components are deprecated'),
     Field('retirementProcess', String, 'Retirement Process',
         hint: 'How components are retired'),
+  ])
+  String? content;
+}
 
-    // Metrics
+/// Metrics and notes.
+class ComponentGovernanceMetrics {
+  @Form([
     Field('adoptionMetrics', String, 'Adoption Metrics',
         hint: 'How usage is tracked'),
     Field('qualityMetrics', String, 'Quality Metrics',
@@ -4999,39 +5097,71 @@ class ComponentGovernance {
 /// Component discovery and registry configuration.
 class ComponentRegistry {
   @Form([
-    // Registry
     Field('registryType', String, 'Registry Type',
         hint: 'Wiki, catalog tool, package registry'),
     Field('registryLocation', String, 'Registry Location',
         hint: 'URL or location of registry'),
     Field('searchCapabilities', String, 'Search Capabilities',
         hint: 'How to search for components'),
+  ])
+  String? content;
 
-    // Metadata
+  /// Metadata requirements.
+  ComponentRegistryMetadata metadata = ComponentRegistryMetadata();
+
+  /// Discovery workflow.
+  ComponentRegistryDiscovery discovery = ComponentRegistryDiscovery();
+
+  /// Documentation requirements.
+  ComponentRegistryDocumentation documentation =
+      ComponentRegistryDocumentation();
+
+  /// Update communication.
+  ComponentRegistryUpdates updates = ComponentRegistryUpdates();
+}
+
+/// Metadata requirements.
+class ComponentRegistryMetadata {
+  @Form([
     Field('requiredMetadata', String, 'Required Metadata',
         hint: 'Metadata required for each component'),
     Field('taggingConventions', String, 'Tagging Conventions',
         hint: 'How components are tagged'),
     Field('categorizationScheme', String, 'Categorization Scheme',
         hint: 'How components are categorized'),
+  ])
+  String? content;
+}
 
-    // Discovery
+/// Discovery workflow.
+class ComponentRegistryDiscovery {
+  @Form([
     Field('discoveryProcess', String, 'Discovery Process',
         hint: 'How developers find components'),
     Field('recommendationEngine', String, 'Recommendation Engine',
         hint: 'Component recommendations'),
     Field('integration', String, 'IDE Integration',
         hint: 'Integration with development tools'),
+  ])
+  String? content;
+}
 
-    // Documentation
+/// Documentation requirements.
+class ComponentRegistryDocumentation {
+  @Form([
     Field('documentationFormat', String, 'Documentation Format',
         hint: 'Standard documentation format'),
     Field('exampleRequirements', String, 'Example Requirements',
         hint: 'Required examples'),
     Field('apiDocGeneration', String, 'API Doc Generation',
         hint: 'Automated API documentation'),
+  ])
+  String? content;
+}
 
-    // Updates
+/// Update communication.
+class ComponentRegistryUpdates {
+  @Form([
     Field('updateNotifications', String, 'Update Notifications',
         hint: 'How updates are communicated'),
     Field('changelogRequirements', String, 'Changelog Requirements',
@@ -6779,15 +6909,35 @@ class CodingStandardsSectionReview {
 /// Certification requirements section.
 class CertificationRequirementsSection {
   @Form([
-    // Required certifications
     Field('requiredCertifications', String, 'Required Certifications',
         hint: 'List of required certs'),
     Field('targetCertifications', String, 'Target Certifications',
         hint: 'Future certifications'),
     Field('industryMandates', String, 'Industry Mandates',
         hint: 'Industry-required certs'),
+  ])
+  String? content;
 
-    // Process
+  /// Certification process.
+  CertificationRequirementsSectionProcess process =
+      CertificationRequirementsSectionProcess();
+
+  /// Timeline requirements.
+  CertificationRequirementsSectionTimeline timeline =
+      CertificationRequirementsSectionTimeline();
+
+  /// Cost requirements.
+  CertificationRequirementsSectionCosts costs =
+      CertificationRequirementsSectionCosts();
+
+  /// Marketing and notes.
+  CertificationRequirementsSectionMarketing marketing =
+      CertificationRequirementsSectionMarketing();
+}
+
+/// Certification process.
+class CertificationRequirementsSectionProcess {
+  @Form([
     Field('certificationProcess', String, 'Certification Process',
         hint: 'Steps to get certified'),
     Field('preAssessment', String, 'Pre-Assessment',
@@ -6796,24 +6946,39 @@ class CertificationRequirementsSection {
         hint: 'How to fix gaps'),
     Field('auditorSelection', String, 'Auditor Selection',
         hint: 'How auditors chosen'),
+  ])
+  String? content;
+}
 
-    // Timeline
+/// Timeline requirements.
+class CertificationRequirementsSectionTimeline {
+  @Form([
     Field('certificationTimeline', String, 'Certification Timeline',
         hint: 'Timeline for certification'),
     Field('renewalSchedule', String, 'Renewal Schedule',
         hint: 'When certs must renew'),
     Field('maintenanceRequirements', String, 'Maintenance Requirements',
         hint: 'Ongoing maintenance'),
+  ])
+  String? content;
+}
 
-    // Costs
+/// Cost requirements.
+class CertificationRequirementsSectionCosts {
+  @Form([
     Field('certificationBudget', String, 'Certification Budget',
         hint: 'Budget for certification'),
     Field('ongoingCosts', String, 'Ongoing Costs',
         hint: 'Recurring costs'),
     Field('resourceRequirements', String, 'Resource Requirements',
         hint: 'Personnel needed'),
+  ])
+  String? content;
+}
 
-    // Marketing
+/// Marketing and notes.
+class CertificationRequirementsSectionMarketing {
+  @Form([
     Field('certificationDisplay', String, 'Certification Display',
         hint: 'How to display certs'),
     Field('marketingUse', String, 'Marketing Use',
@@ -7237,7 +7402,6 @@ class ServerRoleEntryNetworking {
 /// Compute resource requirements.
 class ComputeResourceRequirements {
   @Form([
-    // CPU
     Field('minCpuCores', String, 'Minimum CPU Cores',
         hint: 'Total minimum CPU cores'),
     Field('recommendedCpuCores', String, 'Recommended CPU Cores',
@@ -7248,8 +7412,24 @@ class ComputeResourceRequirements {
         hint: 'Intel Xeon, AMD EPYC'),
     Field('specIntBenchmark', String, 'SPECint Benchmark',
         hint: 'Minimum SPECint score'),
+  ])
+  String? content;
 
-    // Memory
+  /// Memory requirements.
+  ComputeResourceRequirementsMemory memory =
+      ComputeResourceRequirementsMemory();
+
+  /// GPU requirements.
+  ComputeResourceRequirementsGpu gpu = ComputeResourceRequirementsGpu();
+
+  /// Special hardware requirements.
+  ComputeResourceRequirementsSpecial special =
+      ComputeResourceRequirementsSpecial();
+}
+
+/// Memory requirements.
+class ComputeResourceRequirementsMemory {
+  @Form([
     Field('minMemoryGb', String, 'Minimum Memory (GB)',
         hint: 'Total minimum RAM'),
     Field('recommendedMemoryGb', String, 'Recommended Memory (GB)',
@@ -7258,8 +7438,13 @@ class ComputeResourceRequirements {
         hint: 'DDR4, DDR5'),
     Field('eccRequired', bool, 'ECC Required',
         hint: 'Error-correcting memory'),
+  ])
+  String? content;
+}
 
-    // GPU
+/// GPU requirements.
+class ComputeResourceRequirementsGpu {
+  @Form([
     Field('gpuRequired', bool, 'GPU Required',
         hint: 'GPU computation needed'),
     Field('gpuType', String, 'GPU Type',
@@ -7268,8 +7453,13 @@ class ComputeResourceRequirements {
         hint: 'GPU memory required'),
     Field('gpuCount', int, 'GPU Count',
         hint: 'Number of GPUs'),
+  ])
+  String? content;
+}
 
-    // Special
+/// Special hardware requirements.
+class ComputeResourceRequirementsSpecial {
+  @Form([
     Field('tpmRequired', bool, 'TPM Required',
         hint: 'Trusted Platform Module'),
     Field('secureEnclaveRequired', bool, 'Secure Enclave Required',
@@ -7627,23 +7817,48 @@ class VirtualizationRequirementsNetworking {
 /// Cloud provider requirements.
 class CloudProviderRequirements {
   @Form([
-    // Provider
     Field('primaryProvider', String, 'Primary Cloud Provider',
         hint: 'AWS, Azure, GCP, Private'),
     Field('secondaryProvider', String, 'Secondary Provider',
         hint: 'Multi-cloud backup'),
     Field('multiCloudStrategy', String, 'Multi-Cloud Strategy',
         hint: 'Hybrid, Multi-cloud'),
+  ])
+  String? content;
 
-    // Account structure
+  /// Account-structure requirements.
+  CloudProviderRequirementsAccounts accounts =
+      CloudProviderRequirementsAccounts();
+
+  /// Service requirements.
+  CloudProviderRequirementsServices services =
+      CloudProviderRequirementsServices();
+
+  /// Compliance requirements.
+  CloudProviderRequirementsCompliance compliance =
+      CloudProviderRequirementsCompliance();
+
+  /// Governance requirements.
+  CloudProviderRequirementsGovernance governance =
+      CloudProviderRequirementsGovernance();
+}
+
+/// Account-structure requirements.
+class CloudProviderRequirementsAccounts {
+  @Form([
     Field('accountStructure', String, 'Account Structure',
         hint: 'Org structure'),
     Field('environmentSeparation', String, 'Environment Separation',
         hint: 'By account, VPC, etc.'),
     Field('billingModel', String, 'Billing Model',
         hint: 'Pay-as-you-go, reserved'),
+  ])
+  String? content;
+}
 
-    // Services
+/// Service requirements.
+class CloudProviderRequirementsServices {
+  @Form([
     Field('computeServices', String, 'Compute Services',
         hint: 'EC2, Lambda, etc.'),
     Field('storageServices', String, 'Storage Services',
@@ -7652,16 +7867,26 @@ class CloudProviderRequirements {
         hint: 'RDS, DynamoDB, etc.'),
     Field('networkingServices', String, 'Networking Services',
         hint: 'VPC, Route 53, etc.'),
+  ])
+  String? content;
+}
 
-    // Compliance
+/// Compliance requirements.
+class CloudProviderRequirementsCompliance {
+  @Form([
     Field('dataSovereigntyRequirements', String, 'Data Sovereignty',
         hint: 'Data residency requirements'),
     Field('cloudCompliance', String, 'Cloud Compliance',
         hint: 'SOC 2, FedRAMP, etc.'),
     Field('encryptionRequirements', String, 'Encryption Requirements',
         hint: 'At-rest, in-transit'),
+  ])
+  String? content;
+}
 
-    // Governance
+/// Governance requirements.
+class CloudProviderRequirementsGovernance {
+  @Form([
     Field('taggingStrategy', String, 'Tagging Strategy',
         hint: 'Resource tagging'),
     Field('costManagement', String, 'Cost Management',
@@ -8189,7 +8414,6 @@ class DisplayRequirementsMultiDisplay {
 /// Client network requirements.
 class ClientNetworkRequirements {
   @Form([
-    // Bandwidth
     Field('minDownloadSpeed', String, 'Minimum Download Speed',
         hint: 'Minimum download Mbps'),
     Field('recommendedDownloadSpeed', String, 'Recommended Download Speed',
@@ -8198,32 +8422,66 @@ class ClientNetworkRequirements {
         hint: 'Minimum upload Mbps'),
     Field('peakBandwidthUsage', String, 'Peak Bandwidth Usage',
         hint: 'Maximum bandwidth consumed'),
+  ])
+  String? content;
 
-    // Latency
+  /// Latency requirements.
+  ClientNetworkRequirementsLatency latency = ClientNetworkRequirementsLatency();
+
+  /// Connection-type requirements.
+  ClientNetworkRequirementsConnection connection =
+      ClientNetworkRequirementsConnection();
+
+  /// Protocol requirements.
+  ClientNetworkRequirementsProtocols protocols =
+      ClientNetworkRequirementsProtocols();
+
+  /// Proxy and firewall requirements.
+  ClientNetworkRequirementsProxy proxy = ClientNetworkRequirementsProxy();
+}
+
+/// Latency requirements.
+class ClientNetworkRequirementsLatency {
+  @Form([
     Field('maxLatency', String, 'Maximum Latency',
         hint: 'Maximum acceptable latency'),
     Field('recommendedLatency', String, 'Recommended Latency',
         hint: 'Recommended latency'),
     Field('jitterTolerance', String, 'Jitter Tolerance',
         hint: 'Network jitter tolerance'),
+  ])
+  String? content;
+}
 
-    // Connection types
+/// Connection-type requirements.
+class ClientNetworkRequirementsConnection {
+  @Form([
     Field('connectionTypes', String, 'Connection Types',
         hint: 'WiFi, Ethernet, Cellular'),
     Field('offlineCapability', String, 'Offline Capability',
         hint: 'Offline mode support'),
     Field('lowBandwidthMode', String, 'Low Bandwidth Mode',
         hint: 'Degraded mode for slow connections'),
+  ])
+  String? content;
+}
 
-    // Protocols
+/// Protocol requirements.
+class ClientNetworkRequirementsProtocols {
+  @Form([
     Field('requiredProtocols', String, 'Required Protocols',
         hint: 'HTTP/2, WebSocket'),
     Field('tlsVersion', String, 'TLS Version',
         hint: 'Minimum TLS version'),
     Field('webRtcRequired', bool, 'WebRTC Required',
         hint: 'Real-time communication'),
+  ])
+  String? content;
+}
 
-    // Proxy and firewall
+/// Proxy and firewall requirements.
+class ClientNetworkRequirementsProxy {
+  @Form([
     Field('proxySupport', String, 'Proxy Support',
         hint: 'HTTP/SOCKS proxy support'),
     Field('firewallPorts', String, 'Firewall Ports',
@@ -10623,7 +10881,6 @@ class RollbackStrategyOperations {
 /// Configuration management.
 class ConfigurationManagement {
   @Form([
-    // Configuration storage
     Field('configStorage', String, 'Configuration Storage',
         hint: 'ConfigMaps, SSM, Consul'),
     Field('secretsManagement', String, 'Secrets Management',
@@ -10632,32 +10889,68 @@ class ConfigurationManagement {
         hint: 'Version controlled config'),
     Field('configAudit', bool, 'Config Audit',
         hint: 'Audit config changes'),
+  ])
+  String? content;
 
-    // Environment config
+  /// Environment-configuration rules.
+  ConfigurationManagementEnvironment environment =
+      ConfigurationManagementEnvironment();
+
+  /// Configuration injection rules.
+  ConfigurationManagementInjection injection =
+      ConfigurationManagementInjection();
+
+  /// Feature-configuration rules.
+  ConfigurationManagementFeatures features =
+      ConfigurationManagementFeatures();
+
+  /// Security controls.
+  ConfigurationManagementSecurity security =
+      ConfigurationManagementSecurity();
+}
+
+/// Environment-configuration rules.
+class ConfigurationManagementEnvironment {
+  @Form([
     Field('envSpecificConfig', String, 'Environment-Specific Config',
         hint: 'How env config differs'),
     Field('configInheritance', String, 'Config Inheritance',
         hint: 'Base + override pattern'),
     Field('configValidation', String, 'Config Validation',
         hint: 'Config validation process'),
+  ])
+  String? content;
+}
 
-    // Configuration injection
+/// Configuration injection rules.
+class ConfigurationManagementInjection {
+  @Form([
     Field('configInjectionMethod', String, 'Config Injection Method',
         hint: 'Env vars, mounted files'),
     Field('dynamicConfig', bool, 'Dynamic Config',
         hint: 'Runtime config updates'),
     Field('configReload', String, 'Config Reload',
         hint: 'How apps reload config'),
+  ])
+  String? content;
+}
 
-    // Feature configuration
+/// Feature-configuration rules.
+class ConfigurationManagementFeatures {
+  @Form([
     Field('featureToggles', String, 'Feature Toggles',
         hint: 'Feature toggle management'),
     Field('experimentsConfig', String, 'Experiments Config',
         hint: 'A/B test configuration'),
     Field('tenantConfig', String, 'Tenant Configuration',
         hint: 'Per-tenant configuration'),
+  ])
+  String? content;
+}
 
-    // Security
+/// Security controls.
+class ConfigurationManagementSecurity {
+  @Form([
     Field('secretRotation', String, 'Secret Rotation',
         hint: 'Secret rotation policy'),
     Field('accessControl', String, 'Access Control',
@@ -12311,21 +12604,43 @@ class TlsRequirements {
 /// Certificate management.
 class CertificateManagement {
   @Form([
-    // Authority
     Field('certificateAuthority', String, 'Certificate Authority',
         hint: 'Public CA, private PKI, Let\'s Encrypt'),
     Field('certificateType', String, 'Certificate Type',
         hint: 'DV, OV, EV, Wildcard'),
+  ])
+  String? content;
 
-    // Key specifications
+  /// Key specifications.
+  CertificateManagementKeys keys = CertificateManagementKeys();
+
+  /// Lifecycle management.
+  CertificateManagementLifecycle lifecycle = CertificateManagementLifecycle();
+
+  /// Storage and access controls.
+  CertificateManagementStorage storage = CertificateManagementStorage();
+
+  /// Monitoring rules.
+  CertificateManagementMonitoring monitoring =
+      CertificateManagementMonitoring();
+}
+
+/// Key specifications.
+class CertificateManagementKeys {
+  @Form([
     Field('keyAlgorithm', String, 'Key Algorithm',
         hint: 'RSA, ECDSA, Ed25519'),
     Field('keyLength', String, 'Key Length',
         hint: 'RSA 2048/4096, ECDSA P-256/P-384'),
     Field('signatureAlgorithm', String, 'Signature Algorithm',
         hint: 'SHA-256, SHA-384'),
+  ])
+  String? content;
+}
 
-    // Lifecycle
+/// Lifecycle management.
+class CertificateManagementLifecycle {
+  @Form([
     Field('validityPeriod', String, 'Validity Period',
         hint: 'Certificate lifetime (e.g. 90 days, 1 year)'),
     Field('renewalWindow', String, 'Renewal Window',
@@ -12336,16 +12651,26 @@ class CertificateManagement {
         hint: 'Scheduled rotation cadence'),
     Field('revocationProcess', String, 'Revocation Process',
         hint: 'CRL, OCSP procedures'),
+  ])
+  String? content;
+}
 
-    // Storage and access
+/// Storage and access controls.
+class CertificateManagementStorage {
+  @Form([
     Field('storageMethod', String, 'Storage Method',
         hint: 'HSM, vault, Kubernetes secrets'),
     Field('privateKeyProtection', String, 'Private Key Protection',
         hint: 'Hardware-backed, encrypted at rest'),
     Field('accessControl', String, 'Access Control',
         hint: 'Who can access certificates/keys'),
+  ])
+  String? content;
+}
 
-    // Monitoring
+/// Monitoring rules.
+class CertificateManagementMonitoring {
+  @Form([
     Field('expiryMonitoring', bool, 'Expiry Monitoring',
         hint: 'Automated certificate expiry alerts'),
     Field('expiryAlertThreshold', String, 'Expiry Alert Threshold',
