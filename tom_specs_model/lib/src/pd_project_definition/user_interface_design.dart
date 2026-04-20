@@ -1522,6 +1522,26 @@ class NavigationGroupEntry {
         hint: 'Resource key for group icon'),
     Field('groupDescription', String, 'Description Resource',
         hint: 'Resource key for tooltip/subtitle'),
+  ])
+  String? content;
+
+  /// Display and expansion behavior.
+  NavigationGroupEntryDisplay display = NavigationGroupEntryDisplay();
+
+  /// Access-control settings.
+  NavigationGroupEntryAccess access = NavigationGroupEntryAccess();
+
+  /// Badge and hierarchy settings.
+  NavigationGroupEntryStructure structure = NavigationGroupEntryStructure();
+
+  /// Contains 0+× NavigationItem.
+  @SectionIdPattern('PD00-USE-SCF-NAV-HIE-xx-ITM-xx')
+  List<NavigationItemEntry> items = [];
+}
+
+/// Display and expansion behavior.
+class NavigationGroupEntryDisplay {
+  @Form([
     Field('displayOrder', int, 'Display Order',
         hint: 'Sort position among siblings'),
     Field('collapsible', String, 'Collapsible',
@@ -1530,12 +1550,26 @@ class NavigationGroupEntry {
         hint: 'Yes/No — default expanded state'),
     Field('visibilityCondition', String, 'Visibility Condition',
         hint: 'Business rule for visibility'),
+  ])
+  String? content;
+}
+
+/// Access-control settings.
+class NavigationGroupEntryAccess {
+  @Form([
     Field('requiredRoles', String, 'Required Roles',
         hint: 'Comma-separated role IDs'),
     Field('requiredPermissions', String, 'Required Permissions',
         hint: 'Specific permissions required'),
     Field('permissionBehavior', String, 'Permission Behavior',
         hint: 'Hide/Disable/Collapse when unauthorized'),
+  ])
+  String? content;
+}
+
+/// Badge and hierarchy settings.
+class NavigationGroupEntryStructure {
+  @Form([
     Field('badgeType', String, 'Badge Type',
         hint: 'None/Count/Dot/Text — aggregate from children'),
     Field('badgeSource', String, 'Badge Source',
@@ -1548,10 +1582,6 @@ class NavigationGroupEntry {
         hint: 'Yes/No — show divider above'),
   ])
   String? content;
-
-  /// Contains 0+× NavigationItem.
-  @SectionIdPattern('PD00-USE-SCF-NAV-HIE-xx-ITM-xx')
-  List<NavigationItemEntry> items = [];
 }
 
 /// A navigation item entry (form) [PD00-USE-SCF-NAV-HIE-nn-ITM-mm].
@@ -4011,7 +4041,6 @@ class HelpConcept {
 /// 10.8.1. Contextual Help [PD00-USE-HLP-CON].
 class ContextualHelp {
   @Form([
-    // Tooltips
     Field('tooltipTrigger', String, 'Tooltip Trigger',
         hint: 'Hover, click, focus, icon click'),
     Field('tooltipDelay', String, 'Tooltip Delay',
@@ -4022,34 +4051,20 @@ class ContextualHelp {
         hint: 'Maximum width in pixels'),
     Field('tooltipPosition', String, 'Tooltip Position',
         hint: 'Above, below, auto-position'),
-    // Inline help
-    Field('inlineHelpPlacement', String, 'Inline Help Placement',
-        hint: 'Below labels, below fields, expandable'),
-    Field('inlineHelpVisibility', String, 'Inline Help Visibility',
-        hint: 'Always visible, on demand, progressive'),
-    Field('inlineHelpLength', String, 'Inline Help Length',
-        hint: 'Max characters for inline help'),
-    // Help panels
-    Field('helpPanelAvailable', bool, 'Help Panel Available',
-        hint: 'Slide-out help panel'),
-    Field('helpPanelPosition', String, 'Help Panel Position',
-        hint: 'Right side, bottom, overlay'),
-    Field('helpPanelContent', String, 'Help Panel Content',
-        hint: 'Field help, page help, related articles'),
-    // What's this help
-    Field('whatsThisMode', bool, 'What\'s This Mode',
-        hint: 'Click-anywhere help mode'),
-    Field('whatsThisActivation', String, 'What\'s This Activation',
-        hint: 'Keyboard shortcut, toolbar button'),
-    // Rich help
-    Field('helpScreenshots', bool, 'Help Screenshots',
-        hint: 'Include screenshots in help'),
-    Field('helpVideos', bool, 'Help Videos',
-        hint: 'Include video tutorials'),
-    Field('helpAnimations', bool, 'Help Animations',
-        hint: 'Animated demonstrations'),
   ])
   String? contextualHelpContent;
+
+  /// Inline help behavior.
+  ContextualHelpInline inline = ContextualHelpInline();
+
+  /// Help panel behavior.
+  ContextualHelpPanels panels = ContextualHelpPanels();
+
+  /// What's-this mode settings.
+  ContextualHelpWhatsThis whatsThis = ContextualHelpWhatsThis();
+
+  /// Rich help media settings.
+  ContextualHelpRich rich = ContextualHelpRich();
 
   /// Contextual help narrative.
   TextSection contextualHelpNarrative = TextSection();
@@ -4057,6 +4072,56 @@ class ContextualHelp {
   /// Field help catalog.
   @SectionIdPattern('PD00-USE-HLP-CON-FLD-xx')
   List<FieldHelpEntry> fieldHelpCatalog = [];
+}
+
+/// Inline help behavior.
+class ContextualHelpInline {
+    @Form([
+        Field('inlineHelpPlacement', String, 'Inline Help Placement',
+                hint: 'Below labels, below fields, expandable'),
+        Field('inlineHelpVisibility', String, 'Inline Help Visibility',
+                hint: 'Always visible, on demand, progressive'),
+        Field('inlineHelpLength', String, 'Inline Help Length',
+                hint: 'Max characters for inline help'),
+    ])
+    String? content;
+}
+
+/// Help panel behavior.
+class ContextualHelpPanels {
+    @Form([
+        Field('helpPanelAvailable', bool, 'Help Panel Available',
+                hint: 'Slide-out help panel'),
+        Field('helpPanelPosition', String, 'Help Panel Position',
+                hint: 'Right side, bottom, overlay'),
+        Field('helpPanelContent', String, 'Help Panel Content',
+                hint: 'Field help, page help, related articles'),
+    ])
+    String? content;
+}
+
+/// What's-this mode settings.
+class ContextualHelpWhatsThis {
+    @Form([
+        Field('whatsThisMode', bool, 'What\'s This Mode',
+                hint: 'Click-anywhere help mode'),
+        Field('whatsThisActivation', String, 'What\'s This Activation',
+                hint: 'Keyboard shortcut, toolbar button'),
+    ])
+    String? content;
+}
+
+/// Rich help media settings.
+class ContextualHelpRich {
+    @Form([
+        Field('helpScreenshots', bool, 'Help Screenshots',
+                hint: 'Include screenshots in help'),
+        Field('helpVideos', bool, 'Help Videos',
+                hint: 'Include video tutorials'),
+        Field('helpAnimations', bool, 'Help Animations',
+                hint: 'Animated demonstrations'),
+    ])
+    String? content;
 }
 
 /// A field help entry [PD00-USE-HLP-CON-FLD-nn].
@@ -4646,43 +4711,26 @@ class ResponsiveBehavior {
   // Layout Adaptation
   // ─────────────────────────────────────────────────────────────────────────
   @Form([
-    // Column layout
     Field('mobileColumnLayout', String, 'Mobile Column Layout',
         hint: 'Single column, stacked'),
     Field('tabletColumnLayout', String, 'Tablet Column Layout',
         hint: '2-column, master-detail'),
     Field('desktopColumnLayout', String, 'Desktop Column Layout',
         hint: '3-column, sidebar + main'),
-    // Navigation collapse
-    Field('mobileNavigation', String, 'Mobile Navigation',
-        hint: 'Bottom nav bar, hamburger drawer'),
-    Field('tabletNavigation', String, 'Tablet Navigation',
-        hint: 'Navigation rail, collapsible drawer'),
-    Field('desktopNavigation', String, 'Desktop Navigation',
-        hint: 'Full sidebar, top navigation'),
-    // Component visibility
-    Field('mobileHiddenElements', String, 'Mobile Hidden Elements',
-        hint: 'Elements hidden on mobile'),
-    Field('tabletHiddenElements', String, 'Tablet Hidden Elements'),
-    Field('desktopOnlyElements', String, 'Desktop Only Elements'),
-    // Touch optimization
-    Field('touchTargetMinSize', String, 'Touch Target Min Size',
-        hint: 'Minimum touch target (48dp recommended)'),
-    Field('hoverEffects', String, 'Hover Effects',
-        hint: 'When to show hover effects'),
-    Field('gesturePriority', String, 'Gesture Priority',
-        hint: 'Swipe, long-press on touch devices'),
-    // Content reflow
-    Field('contentReflowStrategy', String, 'Content Reflow Strategy',
-        hint: 'How content reflows across breakpoints'),
-    Field('imageScaling', String, 'Image Scaling',
-        hint: 'How images scale responsively'),
-    Field('tableResponsiveness', String, 'Table Responsiveness',
-        hint: 'Horizontal scroll, cards, hide columns'),
-    Field('formLayout', String, 'Form Layout',
-        hint: 'How forms adapt: single column, multi-column'),
   ])
   String? layoutAdaptation;
+
+  /// Navigation patterns per device class.
+  ResponsiveBehaviorNavigation navigation = ResponsiveBehaviorNavigation();
+
+  /// Visibility rules.
+  ResponsiveBehaviorVisibility visibility = ResponsiveBehaviorVisibility();
+
+  /// Touch and interaction optimizations.
+  ResponsiveBehaviorTouch touch = ResponsiveBehaviorTouch();
+
+  /// Content reflow rules.
+  ResponsiveBehaviorContent content = ResponsiveBehaviorContent();
 
   /// Responsive behavior narrative.
   @ContentHelp('Detailed description of responsive behavior '
@@ -4692,6 +4740,58 @@ class ResponsiveBehavior {
   /// Screen-specific responsive rules.
   @SectionIdPattern('PD00-USE-RES-BEH-SCR-xx')
   List<ResponsiveScreenRuleEntry> screenRules = [];
+}
+
+/// Navigation patterns per device class.
+class ResponsiveBehaviorNavigation {
+    @Form([
+        Field('mobileNavigation', String, 'Mobile Navigation',
+                hint: 'Bottom nav bar, hamburger drawer'),
+        Field('tabletNavigation', String, 'Tablet Navigation',
+                hint: 'Navigation rail, collapsible drawer'),
+        Field('desktopNavigation', String, 'Desktop Navigation',
+                hint: 'Full sidebar, top navigation'),
+    ])
+    String? content;
+}
+
+/// Visibility rules.
+class ResponsiveBehaviorVisibility {
+    @Form([
+        Field('mobileHiddenElements', String, 'Mobile Hidden Elements',
+                hint: 'Elements hidden on mobile'),
+        Field('tabletHiddenElements', String, 'Tablet Hidden Elements'),
+        Field('desktopOnlyElements', String, 'Desktop Only Elements'),
+    ])
+    String? content;
+}
+
+/// Touch and interaction optimizations.
+class ResponsiveBehaviorTouch {
+    @Form([
+        Field('touchTargetMinSize', String, 'Touch Target Min Size',
+                hint: 'Minimum touch target (48dp recommended)'),
+        Field('hoverEffects', String, 'Hover Effects',
+                hint: 'When to show hover effects'),
+        Field('gesturePriority', String, 'Gesture Priority',
+                hint: 'Swipe, long-press on touch devices'),
+    ])
+    String? content;
+}
+
+/// Content reflow rules.
+class ResponsiveBehaviorContent {
+    @Form([
+        Field('contentReflowStrategy', String, 'Content Reflow Strategy',
+                hint: 'How content reflows across breakpoints'),
+        Field('imageScaling', String, 'Image Scaling',
+                hint: 'How images scale responsively'),
+        Field('tableResponsiveness', String, 'Table Responsiveness',
+                hint: 'Horizontal scroll, cards, hide columns'),
+        Field('formLayout', String, 'Form Layout',
+                hint: 'How forms adapt: single column, multi-column'),
+    ])
+    String? content;
 }
 
 /// A screen-specific responsive rule entry [PD00-USE-RES-BEH-SCR-nn].
@@ -5476,7 +5576,6 @@ class LocalizationProcess {
 @SectionId('PD00-USE-MUL-TRA')
 class TranslationProcess {
   @Form([
-    // Translation tools
     Field('translationManagementSystem', String, 'Translation Management System',
         hint: 'TMS tool (Phrase, Lokalise, Crowdin)'),
     Field('translationMemory', String, 'Translation Memory',
@@ -5485,36 +5584,21 @@ class TranslationProcess {
         hint: 'MT usage (Google, DeepL, none)'),
     Field('catTools', String, 'CAT Tools',
         hint: 'Computer-assisted translation tools'),
-    // Workflow
-    Field('translationWorkflow', String, 'Translation Workflow',
-        hint: 'Steps: extract → translate → review → integrate'),
-    Field('reviewCycles', String, 'Review Cycles',
-        hint: 'Number of review rounds'),
-    Field('inCountryReview', String, 'In-Country Review',
-        hint: 'Native speaker review process'),
-    Field('contextualReview', String, 'Contextual Review',
-        hint: 'In-app review process'),
-    // Quality
-    Field('qualityChecks', String, 'Quality Checks',
-        hint: 'Automated quality checks'),
-    Field('linguisticQA', String, 'Linguistic QA',
-        hint: 'Linguistic quality assurance'),
-    Field('functionalQA', String, 'Functional QA',
-        hint: 'Functional testing of translations'),
-    // Terminology
-    Field('glossaryManagement', String, 'Glossary Management',
-        hint: 'Term base management'),
-    Field('styleGuide', String, 'Style Guide',
-        hint: 'Translation style guidelines'),
-    Field('brandVoice', String, 'Brand Voice',
-        hint: 'How brand voice is maintained'),
-    // Ongoing
-    Field('continuousLocalization', String, 'Continuous Localization',
-        hint: 'CI/CD integration for translations'),
-    Field('translationMemoryMaintenance', String, 'TM Maintenance',
-        hint: 'How translation memory is maintained'),
   ])
   String? translationProcessContent;
+
+  /// Translation workflow.
+  TranslationProcessWorkflow workflow = TranslationProcessWorkflow();
+
+  /// Quality assurance.
+  TranslationProcessQuality quality = TranslationProcessQuality();
+
+  /// Terminology and voice management.
+  TranslationProcessTerminology terminology =
+      TranslationProcessTerminology();
+
+  /// Ongoing localization operations.
+  TranslationProcessOngoing ongoing = TranslationProcessOngoing();
 
   /// Translation process narrative.
   TextSection translationNarrative = TextSection();
@@ -5522,6 +5606,58 @@ class TranslationProcess {
   /// Translation vendor entries.
   @SectionIdPattern('PD00-USE-MUL-TRA-VEN-xx')
   List<TranslationVendorEntry> vendors = [];
+}
+
+/// Translation workflow.
+class TranslationProcessWorkflow {
+    @Form([
+        Field('translationWorkflow', String, 'Translation Workflow',
+                hint: 'Steps: extract → translate → review → integrate'),
+        Field('reviewCycles', String, 'Review Cycles',
+                hint: 'Number of review rounds'),
+        Field('inCountryReview', String, 'In-Country Review',
+                hint: 'Native speaker review process'),
+        Field('contextualReview', String, 'Contextual Review',
+                hint: 'In-app review process'),
+    ])
+    String? content;
+}
+
+/// Quality assurance.
+class TranslationProcessQuality {
+    @Form([
+        Field('qualityChecks', String, 'Quality Checks',
+                hint: 'Automated quality checks'),
+        Field('linguisticQA', String, 'Linguistic QA',
+                hint: 'Linguistic quality assurance'),
+        Field('functionalQA', String, 'Functional QA',
+                hint: 'Functional testing of translations'),
+    ])
+    String? content;
+}
+
+/// Terminology and voice management.
+class TranslationProcessTerminology {
+    @Form([
+        Field('glossaryManagement', String, 'Glossary Management',
+                hint: 'Term base management'),
+        Field('styleGuide', String, 'Style Guide',
+                hint: 'Translation style guidelines'),
+        Field('brandVoice', String, 'Brand Voice',
+                hint: 'How brand voice is maintained'),
+    ])
+    String? content;
+}
+
+/// Ongoing localization operations.
+class TranslationProcessOngoing {
+    @Form([
+        Field('continuousLocalization', String, 'Continuous Localization',
+                hint: 'CI/CD integration for translations'),
+        Field('translationMemoryMaintenance', String, 'TM Maintenance',
+                hint: 'How translation memory is maintained'),
+    ])
+    String? content;
 }
 
 /// A translation vendor entry [PD00-USE-MUL-TRA-VEN-nn].

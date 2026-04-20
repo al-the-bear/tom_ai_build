@@ -214,6 +214,22 @@ class ReuseGoalEntry {
     Field('category', String, 'Reuse Category',
         hint:
             'UIComponents / DataLayer / Authentication / Infrastructure / APIs'),
+  ])
+  String? content;
+
+  /// Measurement and scope.
+  ReuseGoalEntryMeasurement measurement = ReuseGoalEntryMeasurement();
+
+  /// Governance and ownership.
+  ReuseGoalEntryGovernance governance = ReuseGoalEntryGovernance();
+
+  /// Delivery support and assets.
+  ReuseGoalEntryEnablement enablement = ReuseGoalEntryEnablement();
+}
+
+/// Measurement and scope.
+class ReuseGoalEntryMeasurement {
+  @Form([
     Field('scope', String, 'Scope',
         hint: 'ProjectLevel / DivisionLevel / EnterpriseWide'),
     Field('targetPercentage', int, 'Target Reuse %',
@@ -225,12 +241,26 @@ class ReuseGoalEntry {
             'How reuse % is measured — code analysis, component registry, survey'),
     Field('measurementFrequency', String, 'Measurement Frequency',
         hint: 'How often reuse is measured, e.g. sprint, quarterly, release'),
+  ])
+  String? content;
+}
+
+/// Governance and ownership.
+class ReuseGoalEntryGovernance {
+  @Form([
     Field('priority', String, 'Priority',
         hint: 'Critical / High / Medium / Low'),
     Field('targetDate', String, 'Target Date',
         hint: 'When this goal should be achieved'),
     Field('owner', String, 'Goal Owner',
         hint: 'Person or team responsible for driving this goal'),
+  ])
+  String? content;
+}
+
+/// Delivery support and assets.
+class ReuseGoalEntryEnablement {
+  @Form([
     Field('blockers', String, 'Known Blockers',
         hint: 'What prevents higher reuse today'),
     Field('enablers', String, 'Enablers',
@@ -1029,6 +1059,23 @@ class MaintenanceDependencyEntry {
         hint: 'Version currently in use'),
     Field('versionConstraint', String, 'Version Constraint',
         hint: 'Acceptable version range, e.g. >=3.2 <4.0'),
+  ])
+  String? content;
+
+  /// Classification and purpose.
+  MaintenanceDependencyEntryClassification classification =
+      MaintenanceDependencyEntryClassification();
+
+  /// Update coordination.
+  MaintenanceDependencyEntryUpdate update = MaintenanceDependencyEntryUpdate();
+
+  /// Risk and fallback planning.
+  MaintenanceDependencyEntryRisk risk = MaintenanceDependencyEntryRisk();
+}
+
+/// Classification and purpose.
+class MaintenanceDependencyEntryClassification {
+  @Form([
     Field('dependencyType', String, 'Dependency Type',
         hint: 'BuildTime / TestOnly / DevOnly / Tooling'),
     Field('criticality', String, 'Criticality',
@@ -1036,6 +1083,13 @@ class MaintenanceDependencyEntry {
             'Critical / High / Medium / Low — impact if update breaks'),
     Field('purpose', String, 'Purpose',
         hint: 'Why this maintenance dependency exists'),
+  ])
+  String? content;
+}
+
+/// Update coordination.
+class MaintenanceDependencyEntryUpdate {
+  @Form([
     Field('updateStrategy', String, 'Update Strategy',
         hint:
             'How dependency updates are adopted — auto, manual review, staged'),
@@ -1048,6 +1102,13 @@ class MaintenanceDependencyEntry {
     Field('breakingChangePolicy', String, 'Breaking Change Policy',
         hint:
             'How breaking changes are handled — pin version, adapt, delay'),
+  ])
+  String? content;
+}
+
+/// Risk and fallback planning.
+class MaintenanceDependencyEntryRisk {
+  @Form([
     Field('compatibilityMatrix', String, 'Compatibility Notes',
         hint:
             'Known incompatibilities with other components in our stack'),

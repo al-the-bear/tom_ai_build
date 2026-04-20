@@ -6001,39 +6001,74 @@ class MobileCompatibilityEntryDistribution {
 /// Third-party software compatibility entry.
 class ThirdPartyCompatibilityEntry {
   @Form([
-    // Identity
     Field('softwareName', String, 'Software Name',
         required: true, hint: 'Third-party software name'),
     Field('vendor', String, 'Vendor', hint: 'Software vendor'),
     Field('category', String, 'Category',
         hint: 'Antivirus, Firewall, MDM, Office'),
     Field('version', String, 'Version', hint: 'Supported versions'),
+  ])
+  String? content;
 
-    // Compatibility
+  /// Compatibility characteristics.
+  ThirdPartyCompatibilityEntryCompatibility compatibility =
+      ThirdPartyCompatibilityEntryCompatibility();
+
+  /// Integration characteristics.
+  ThirdPartyCompatibilityEntryIntegration integration =
+      ThirdPartyCompatibilityEntryIntegration();
+
+  /// Testing and certification details.
+  ThirdPartyCompatibilityEntryTesting testing =
+      ThirdPartyCompatibilityEntryTesting();
+
+  /// Support and escalation.
+  ThirdPartyCompatibilityEntrySupport support =
+      ThirdPartyCompatibilityEntrySupport();
+}
+
+/// Compatibility characteristics.
+class ThirdPartyCompatibilityEntryCompatibility {
+  @Form([
     Field('compatibilityLevel', String, 'Compatibility Level',
         hint: 'Certified, Compatible, Known issues'),
     Field('coexistence', String, 'Coexistence',
         hint: 'How they work together'),
     Field('conflicts', String, 'Known Conflicts',
         hint: 'Known compatibility issues'),
+  ])
+  String? content;
+}
 
-    // Integration
+/// Integration characteristics.
+class ThirdPartyCompatibilityEntryIntegration {
+  @Form([
     Field('integrationPoints', String, 'Integration Points',
         hint: 'Where systems integrate'),
     Field('sharedData', String, 'Shared Data',
         hint: 'Data shared between systems'),
     Field('coordination', String, 'Coordination',
         hint: 'How operations coordinate'),
+  ])
+  String? content;
+}
 
-    // Testing
+/// Testing and certification details.
+class ThirdPartyCompatibilityEntryTesting {
+  @Form([
     Field('testMatrix', String, 'Test Matrix',
         hint: 'Combinations tested'),
     Field('certificationStatus', String, 'Certification Status',
         hint: 'Vendor certification'),
     Field('testFrequency', String, 'Test Frequency',
         hint: 'How often tested'),
+  ])
+  String? content;
+}
 
-    // Support
+/// Support and escalation.
+class ThirdPartyCompatibilityEntrySupport {
+  @Form([
     Field('supportArrangement', String, 'Support Arrangement',
         hint: 'Joint support process'),
     Field('escalationPath', String, 'Escalation Path',
@@ -9738,23 +9773,47 @@ class NetworkAvailabilityRequirementsTesting {
 /// VPN requirement entry.
 class VpnRequirementEntry {
   @Form([
-    // Identity
     Field('vpnName', String, 'VPN Name',
         required: true, hint: 'VPN connection name'),
     Field('vpnType', String, 'VPN Type',
         hint: 'Site-to-Site, Client, SSL'),
     Field('purpose', String, 'Purpose',
         hint: 'Purpose of this VPN'),
+  ])
+  String? content;
 
-    // Endpoints
+  /// Endpoint configuration.
+  VpnRequirementEntryEndpoints endpoints = VpnRequirementEntryEndpoints();
+
+  /// Protocol and cryptography.
+  VpnRequirementEntryProtocol protocolDetails =
+      VpnRequirementEntryProtocol();
+
+  /// Performance expectations.
+  VpnRequirementEntryPerformance performance =
+      VpnRequirementEntryPerformance();
+
+  /// Availability and notes.
+  VpnRequirementEntryAvailability availabilityDetails =
+      VpnRequirementEntryAvailability();
+}
+
+/// Endpoint configuration.
+class VpnRequirementEntryEndpoints {
+  @Form([
     Field('localEndpoint', String, 'Local Endpoint',
         hint: 'Local network endpoint'),
     Field('remoteEndpoint', String, 'Remote Endpoint',
         hint: 'Remote network endpoint'),
     Field('remoteNetworks', String, 'Remote Networks',
         hint: 'Networks accessible via VPN'),
+  ])
+  String? content;
+}
 
-    // Protocol
+/// Protocol and cryptography.
+class VpnRequirementEntryProtocol {
+  @Form([
     Field('protocol', String, 'Protocol',
         hint: 'IPSec, OpenVPN, WireGuard'),
     Field('encryptionAlgorithm', String, 'Encryption Algorithm',
@@ -9763,22 +9822,31 @@ class VpnRequirementEntry {
         hint: 'PSK, certificates, MFA'),
     Field('perfectForwardSecrecy', bool, 'Perfect Forward Secrecy',
         hint: 'PFS enabled'),
+  ])
+  String? content;
+}
 
-    // Performance
+/// Performance expectations.
+class VpnRequirementEntryPerformance {
+  @Form([
     Field('bandwidth', String, 'Bandwidth',
         hint: 'VPN bandwidth capacity'),
     Field('maxConnections', int, 'Max Connections',
         hint: 'Maximum concurrent connections'),
     Field('splitTunneling', bool, 'Split Tunneling',
         hint: 'Split tunnel allowed'),
+  ])
+  String? content;
+}
 
-    // Availability
+/// Availability and notes.
+class VpnRequirementEntryAvailability {
+  @Form([
     Field('availability', String, 'Availability',
         hint: 'Required availability'),
     Field('redundancy', String, 'Redundancy',
         hint: 'VPN redundancy'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional VPN notes'),
+    Field('notes', String, 'Notes', hint: 'Additional VPN notes'),
   ])
   String? content;
 }
@@ -13217,37 +13285,69 @@ class ProtocolUsage {
 /// TLS/SSL requirements.
 class TlsRequirements {
   @Form([
-    // Version requirements
     Field('minimumTlsVersion', String, 'Minimum TLS Version',
         required: true, hint: 'TLS 1.2, TLS 1.3'),
     Field('preferredTlsVersion', String, 'Preferred TLS Version',
         hint: 'TLS 1.3'),
     Field('disabledProtocols', String, 'Disabled Protocols',
         hint: 'SSLv3, TLS 1.0, TLS 1.1'),
+  ])
+  String? content;
 
-    // Cipher suites
+  /// Cipher suite policy.
+  TlsRequirementsCipherSuites cipherSuites = TlsRequirementsCipherSuites();
+
+  /// Certificate validation rules.
+  TlsRequirementsCertificateValidation certificateValidation =
+      TlsRequirementsCertificateValidation();
+
+  /// Termination and internal encryption.
+  TlsRequirementsTermination termination = TlsRequirementsTermination();
+
+  /// Compliance and HSTS settings.
+  TlsRequirementsCompliance compliance = TlsRequirementsCompliance();
+}
+
+/// Cipher suite policy.
+class TlsRequirementsCipherSuites {
+  @Form([
     Field('allowedCipherSuites', String, 'Allowed Cipher Suites',
         hint: 'AES-256-GCM, ChaCha20-Poly1305'),
     Field('disabledCipherSuites', String, 'Disabled Cipher Suites',
         hint: 'RC4, DES, 3DES, MD5-based'),
     Field('keyExchangeAlgorithms', String, 'Key Exchange Algorithms',
         hint: 'ECDHE, DHE, X25519'),
+  ])
+  String? content;
+}
 
-    // Certificate validation
+/// Certificate validation rules.
+class TlsRequirementsCertificateValidation {
+  @Form([
     Field('certificatePinning', bool, 'Certificate Pinning',
         hint: 'Enable HPKP or app-level pinning'),
     Field('ocspStapling', bool, 'OCSP Stapling',
         hint: 'Online certificate status protocol'),
     Field('mutualTls', bool, 'Mutual TLS (mTLS)',
         hint: 'Client certificate authentication'),
+  ])
+  String? content;
+}
 
-    // Termination
+/// Termination and internal encryption.
+class TlsRequirementsTermination {
+  @Form([
     Field('tlsTermination', String, 'TLS Termination',
         hint: 'Load balancer, reverse proxy, application'),
     Field('internalTls', bool, 'Internal TLS',
         hint: 'Encrypt service-to-service traffic'),
+  ])
+  String? content;
+}
 
-    // Compliance
+/// Compliance and HSTS settings.
+class TlsRequirementsCompliance {
+  @Form([
     Field('sslLabsTargetGrade', String, 'SSL Labs Target Grade',
         hint: 'A+, A, B minimum rating'),
     Field('hstsEnabled', bool, 'HSTS Enabled',
@@ -13256,8 +13356,7 @@ class TlsRequirements {
         hint: 'HSTS header max-age value'),
     Field('hstsIncludeSubdomains', bool, 'HSTS Include Subdomains',
         hint: 'Apply HSTS to all subdomains'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional TLS requirements'),
+    Field('notes', String, 'Notes', hint: 'Additional TLS requirements'),
   ])
   String? content;
 }
@@ -14403,7 +14502,6 @@ class SystemConfigurationManagement {
 /// User provisioning and management tools.
 class UserProvisioningTools {
   @Form([
-    // Provisioning
     Field('provisioningMethod', String, 'Provisioning Method',
         required: true, hint: 'Manual, SCIM, LDAP sync, JIT provisioning'),
     Field('bulkProvisioning', bool, 'Bulk Provisioning',
@@ -14412,8 +14510,24 @@ class UserProvisioningTools {
         hint: 'Users can create own accounts'),
     Field('invitationWorkflow', bool, 'Invitation Workflow',
         hint: 'Invite users via email'),
+  ])
+  String? content;
 
-    // Lifecycle
+  /// Account lifecycle management.
+  UserProvisioningToolsLifecycle lifecycle = UserProvisioningToolsLifecycle();
+
+  /// Role management and reviews.
+  UserProvisioningToolsRoleManagement roleManagement =
+      UserProvisioningToolsRoleManagement();
+
+  /// Directory integration settings.
+  UserProvisioningToolsDirectoryIntegration directoryIntegration =
+      UserProvisioningToolsDirectoryIntegration();
+}
+
+/// Account lifecycle management.
+class UserProvisioningToolsLifecycle {
+  @Form([
     Field('accountActivation', String, 'Account Activation',
         hint: 'Email verification, admin approval'),
     Field('accountDeactivation', String, 'Account Deactivation',
@@ -14424,16 +14538,26 @@ class UserProvisioningTools {
         hint: 'Auto-disable after N days of inactivity'),
     Field('offboardingProcess', String, 'Offboarding Process',
         hint: 'Data transfer, access revocation'),
+  ])
+  String? content;
+}
 
-    // Role management
+/// Role management and reviews.
+class UserProvisioningToolsRoleManagement {
+  @Form([
     Field('roleAssignment', String, 'Role Assignment',
         hint: 'Manual, rule-based, request-approval'),
     Field('delegatedAdministration', bool, 'Delegated Administration',
         hint: 'Department admins manage own users'),
     Field('accessReviewProcess', String, 'Access Review Process',
         hint: 'Periodic access recertification'),
+  ])
+  String? content;
+}
 
-    // Directory integration
+/// Directory integration settings.
+class UserProvisioningToolsDirectoryIntegration {
+  @Form([
     Field('directoryIntegration', String, 'Directory Integration',
         hint: 'Active Directory, Azure AD, LDAP'),
     Field('syncFrequency', String, 'Sync Frequency',
