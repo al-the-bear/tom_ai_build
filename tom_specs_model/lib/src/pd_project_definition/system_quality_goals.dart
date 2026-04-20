@@ -8,6 +8,8 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
+import '../document_stubs.dart';
+
 /// 11. System Quality Goals [PD00-SYQ]. Seeds → BQP.
 ///
 /// Quality goals selected from standard quality criteria and operationalized
@@ -85,6 +87,9 @@ class SystemQualityGoals {
 
   /// 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
   AcceptanceCriteriaSummary acceptanceCriteria = AcceptanceCriteriaSummary();
+
+  /// 11.8. Test Strategy [PD00-SYQ-TST]. Covers HBSG AS23.
+  TestStrategy testStrategy = TestStrategy();
 }
 
 /// Governance board and escalation details.
@@ -2258,5 +2263,33 @@ class QualityGateCheckEntryBlocking {
     Field('blockingRationale', String, 'Blocking Rationale',
         hint: 'Why this check blocks'),
   ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 11.8 Test Strategy [PD00-SYQ-TST]
+// ---------------------------------------------------------------------------
+
+/// 11.8. Test Strategy [PD00-SYQ-TST].
+///
+/// Overall test strategy for the project. Covers HBSG AS23 Test Strategy.
+@SectionId('PD00-SYQ-TST')
+@DetailedIn(BusinessQualityPlan)
+class TestStrategy {
+  @ContentHelp('''
+High-level strategy for verifying quality across the system. Distinct
+from the acceptance plan (PD00-DEL-ACC) and from the per-quality-attribute
+criteria in PD00-SYQ-USE/TEC/OPE/DOC; this section integrates them.
+
+**What to capture:**
+- Test levels (unit, integration, system, acceptance, regression)
+- Test approach per level (TDD, BDD, model-based, exploratory)
+- Automation strategy and coverage targets
+- Test environment topology and data strategy
+- Entry / exit criteria per level
+- Defect management lifecycle
+- Traceability from requirements to tests
+- Risk-based test prioritization
+''')
   String? content;
 }

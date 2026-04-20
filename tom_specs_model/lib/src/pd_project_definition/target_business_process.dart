@@ -91,6 +91,15 @@ BP (Business Processes) document.
 
   /// 6.1.6. Process Relationships [PD00-TAR-PRO-REL].
   ProcessRelationships processRelationships = ProcessRelationships();
+
+  /// 6.1.7. Detailed Process Workflows [PD00-TAR-PRO-DET].
+  DetailedProcessWorkflows detailedWorkflows = DetailedProcessWorkflows();
+
+  /// 6.1.8. Cross-Process Analysis [PD00-TAR-PRO-CRO].
+  CrossProcessAnalysis crossProcessAnalysis = CrossProcessAnalysis();
+
+  /// 6.1.9. Process Exception Handling [PD00-TAR-PRO-EXC].
+  ProcessExceptionHandling exceptionHandling = ProcessExceptionHandling();
 }
 
 /// 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
@@ -1123,6 +1132,9 @@ postconditions in the UC (Use Cases) document.
   /// Actor relationship diagram.
   ActorRelationshipDiagram actorRelationshipDiagram =
       ActorRelationshipDiagram();
+
+  /// 6.2.4. End-to-End Test Scenarios [PD00-TAR-STP-E2E]. Covers HBSG AS24.
+  EndToEndTestScenarios endToEndTestScenarios = EndToEndTestScenarios();
 }
 
 /// 6.2. Process Steps Overview [PD00-TAR-STP-OVE].
@@ -1162,6 +1174,111 @@ class ActorRelationshipDiagram {
 
   /// Actor-system interaction overview diagram.
   FlowDiagramSection actorSystemDiagram = FlowDiagramSection();
+}
+
+// ---------------------------------------------------------------------------
+// 6.1.7 Detailed Process Workflows [PD00-TAR-PRO-DET]
+// ---------------------------------------------------------------------------
+
+/// 6.1.7. Detailed Process Workflows [PD00-TAR-PRO-DET].
+///
+/// Per-process workflow detail beyond the catalog overview (PD00-TAR-PRO-CAT).
+/// Covers HBSG AS07-DET Detailed Process Descriptions.
+@SectionId('PD00-TAR-PRO-DET')
+@DetailedIn(BusinessProcesses)
+class DetailedProcessWorkflows {
+  @ContentHelp('''
+Step-level detail for each process in the catalog: activity sequence,
+decision points, handoffs, swim lanes, timing, and system-actor vs human
+actor responsibility.
+
+**What to capture:**
+- Activity list with inputs / outputs per step
+- Decision points with branch conditions
+- Handoff points between actors / systems
+- Timing expectations and SLAs per step
+- Error and exception branches (cross-ref PD00-TAR-PRO-EXC)
+- BPMN-style diagram per process
+''')
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 6.1.8 Cross-Process Analysis [PD00-TAR-PRO-CRO]
+// ---------------------------------------------------------------------------
+
+/// 6.1.8. Cross-Process Analysis [PD00-TAR-PRO-CRO].
+///
+/// Hand-offs, shared data, and coordination patterns between processes.
+/// Covers HBSG AS07-CRO.
+@SectionId('PD00-TAR-PRO-CRO')
+@DetailedIn(BusinessProcesses)
+class CrossProcessAnalysis {
+  @ContentHelp('''
+Cross-cutting view of how processes interact: shared entities, data
+exchanged, synchronization points, and conflicts.
+
+**What to capture:**
+- Shared business entities and which processes create / read / update them
+- Synchronization points (process A must complete before B)
+- Conflict analysis (processes competing for the same resource)
+- Event flows between processes
+- Matrix view of processes x shared artifacts
+''')
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 6.1.9 Process Exception Handling [PD00-TAR-PRO-EXC]
+// ---------------------------------------------------------------------------
+
+/// 6.1.9. Process Exception Handling [PD00-TAR-PRO-EXC].
+///
+/// Exception flows, escalation paths, and compensation logic. Covers
+/// HBSG AS07-EXC.
+@SectionId('PD00-TAR-PRO-EXC')
+@DetailedIn(BusinessProcesses)
+class ProcessExceptionHandling {
+  @ContentHelp('''
+Handling of exceptions that interrupt a normal process flow. Distinct
+from UI-level error handling (PD00-USE-ERR) — this is about business
+process recovery.
+
+**What to capture:**
+- Exception catalog (what can go wrong at which step)
+- Escalation matrix (who is notified, who decides)
+- Compensation / rollback activities
+- Retry strategies and timeouts
+- Manual-intervention procedures
+- Audit requirements for handled exceptions
+''')
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 6.2.4 End-to-End Test Scenarios [PD00-TAR-STP-E2E]
+// ---------------------------------------------------------------------------
+
+/// 6.2.4. End-to-End Test Scenarios [PD00-TAR-STP-E2E].
+///
+/// Test scenarios that exercise complete user journeys across processes
+/// and use cases. Covers HBSG AS24.
+@SectionId('PD00-TAR-STP-E2E')
+@DetailedIn(UseCases)
+class EndToEndTestScenarios {
+  @ContentHelp('''
+End-to-end test scenarios derived from use cases and key user journeys.
+Feeds BQP test strategy and the Phase 5 test derivation step.
+
+**What to capture:**
+- Scenario catalog (name, user journey, success criteria)
+- Actor, data, and system preconditions
+- Step-by-step expected behavior
+- Variation matrix (happy path + key alternates)
+- Exit criteria for each scenario
+- Cross-reference to use cases and requirements
+''')
+  String? content;
 }
 
 /// Actor diagram overview.

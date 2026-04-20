@@ -5,6 +5,8 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
+import '../document_stubs.dart';
+
 
 
 /// 7. Business Object and Data Model [PD00-BUS]. Seeds → BDM.
@@ -81,6 +83,9 @@ attributes, relationships, and constraints that represent core business data.
 
   /// 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
   DataClassification dataClassification = DataClassification();
+
+  /// 7.1.5. Data Dictionary [PD00-BUS-DAT-DIC]. Covers HBSG AS08-DAT.
+  DataDictionary dataDictionary = DataDictionary();
 }
 
 /// A data entity entry [PD00-BUS-DAT-ENT-nn] (form).
@@ -1603,5 +1608,31 @@ class RuleExampleEntry {
     Field('exampleType', String, 'Example Type',
         hint: 'Positive | Negative | EdgeCase | BoundaryCondition'),
   ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 7.1.5 Data Dictionary [PD00-BUS-DAT-DIC]
+// ---------------------------------------------------------------------------
+
+/// 7.1.5. Data Dictionary [PD00-BUS-DAT-DIC].
+///
+/// Attribute-level dictionary that complements the entity overview
+/// (PD00-BUS-DAT-ENT). Covers HBSG AS08-DAT.
+@SectionId('PD00-BUS-DAT-DIC')
+@DetailedIn(BusinessDataModel)
+class DataDictionary {
+  @ContentHelp('''
+Single authoritative registry for data attributes across the system.
+
+**What to capture:**
+- Attribute name, data type, and allowed values
+- Source entity, semantic description, and synonyms
+- Business rules that constrain the attribute
+- Provenance (where the attribute is first set, where it is read)
+- Format / unit / precision conventions
+- Default value and required-ness
+- Cross-references to validation constraints (PD00-BUS-DAT-VAL)
+''')
   String? content;
 }

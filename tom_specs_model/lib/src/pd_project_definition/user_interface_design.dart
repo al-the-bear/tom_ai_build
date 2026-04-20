@@ -5,6 +5,8 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
+import '../document_stubs.dart';
+
 
 
 /// 10. User Interface Design and Prototype [PD00-USE]. Seeds → UP.
@@ -96,6 +98,9 @@ to pixel-perfect designs with exact typography and spacing.
 
   /// 10.13. Prototype [PD00-USE-PRO]. Seeds → UP.
   Prototype prototype = Prototype();
+
+  /// 10.14. Wireframes and Mockups [PD00-USE-WIR]. Covers HBSG AS10-WIR.
+  WireframesAndMockups wireframesAndMockups = WireframesAndMockups();
 }
 
 // ---------------------------------------------------------------------------
@@ -7111,4 +7116,31 @@ class ThrowawayPrototypeValue {
                 hint: 'What to preserve for future'),
     ])
     String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 10.14 Wireframes and Mockups [PD00-USE-WIR]
+// ---------------------------------------------------------------------------
+
+/// 10.14. Wireframes and Mockups [PD00-USE-WIR].
+///
+/// Wireframe and mockup inventory beyond individual screen descriptions.
+/// Covers HBSG AS10-WIR.
+@SectionId('PD00-USE-WIR')
+@DetailedIn(UiPrototype)
+class WireframesAndMockups {
+  @ContentHelp('''
+Catalog of wireframes and mockups across the UI. Complements the
+per-screen content in PD00-USE-SCR with cross-cutting, comparison, and
+narrative-flow views.
+
+**What to capture:**
+- Wireframe catalog (name, fidelity level, screen coverage)
+- Mockup catalog (static / interactive / click-through)
+- Fidelity progression (sketch → wireframe → mockup → prototype)
+- Tooling conventions (Figma / Sketch / etc., file naming)
+- Storyboard / user-journey visuals
+- Review and sign-off status per artifact
+''')
+  String? content;
 }

@@ -5,6 +5,8 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
+import '../document_stubs.dart';
+
 
 
 /// 13. System Stage Plan [PD00-SSP]. Seeds → PPP.
@@ -62,6 +64,12 @@ class SystemStagePlan {
 
   /// 13.6. Governance [PD00-SSP-GOV].
   StageGovernance governance = StageGovernance();
+
+  /// 13.7. Initial Development Flow [PD00-SSP-IDV]. Covers PPP-IDV.
+  InitialDevelopmentFlow initialDevelopmentFlow = InitialDevelopmentFlow();
+
+  /// 13.8. Upgrade Cycle Framework [PD00-SSP-UPG]. Covers PPP-UPG.
+  UpgradeCycleFramework upgradeCycleFramework = UpgradeCycleFramework();
 }
 
 /// Overall schedule and buffer model.
@@ -3782,5 +3790,60 @@ class DecisionOptionEntryTradeOffs {
             'Reversible / PartiallyReversible / Irreversible — '
             'can the decision be undone'),
   ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 13.7 Initial Development Flow [PD00-SSP-IDV]
+// ---------------------------------------------------------------------------
+
+/// 13.7. Initial Development Flow [PD00-SSP-IDV].
+///
+/// Inter-phase dependencies during the initial build (Phases 1–7 of
+/// `tom_system_creation.md`). Covers PPP-IDV content the mapping calls out
+/// as "new in PPP".
+@SectionId('PD00-SSP-IDV')
+@DetailedIn(ProjectPhasePlan)
+class InitialDevelopmentFlow {
+  @ContentHelp('''
+Describes how the initial-development phases hand off to each other:
+dependencies, parallel work streams, and synchronization points.
+
+**What to capture:**
+- Phase dependency graph (which phase must end before another begins)
+- Parallelization opportunities (work streams that can proceed concurrently)
+- Synchronization points / integration checkpoints
+- Shared artifact touchpoints (same document updated in multiple phases)
+- Team coordination model during the initial build
+- Transition criteria to post-development (where PPP-UPG takes over)
+''')
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 13.8 Upgrade Cycle Framework [PD00-SSP-UPG]
+// ---------------------------------------------------------------------------
+
+/// 13.8. Upgrade Cycle Framework [PD00-SSP-UPG].
+///
+/// Post-development upgrade cycle framework. Links the upgrade process
+/// defined in `_ai/quests/tom_specs/tom_system_upgrade.md`.
+@SectionId('PD00-SSP-UPG')
+@DetailedIn(ProjectPhasePlan)
+class UpgradeCycleFramework {
+  @ContentHelp('''
+Framework that governs the upgrade cycle once initial development
+finishes. Provides the project-specific bridge to the static
+`tom_system_upgrade.md` process (UC-1 … UC-7).
+
+**What to capture:**
+- Transition trigger from initial build to upgrade cycles
+- Cadence / scheduling of upgrade cycles
+- Change-classification policy (minor / major / emergency / hotfix)
+- Gate integration with `tom_quality_gates.md`
+- Regression-testing expectations per upgrade type
+- Rollout strategy differences for upgrades vs. initial launch
+- Version and numbering scheme
+''')
   String? content;
 }

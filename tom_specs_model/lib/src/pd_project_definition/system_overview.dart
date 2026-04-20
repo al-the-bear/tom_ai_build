@@ -5969,6 +5969,24 @@ class SystemBoundaries {
 
   /// 4.5.3. Assumptions [PD00-SYO-SYB-ASS] — contains 0+×.
   BoundaryAssumptions assumptions = BoundaryAssumptions();
+
+  /// 4.5.4. System Landscape Inventory [PD00-SYO-SYB-INV]. Covers BSI-LAN-INV.
+  SystemLandscapeInventory systemLandscapeInventory = SystemLandscapeInventory();
+
+  /// 4.5.5. Boundary Interaction Patterns [PD00-SYO-SYB-PAT]. Covers BSI-PAT.
+  BoundaryInteractionPatterns boundaryInteractionPatterns =
+      BoundaryInteractionPatterns();
+
+  /// 4.5.6. Interaction Testing Strategy [PD00-SYO-SYB-TST]. Covers BSI-TST.
+  InteractionTestingStrategy interactionTestingStrategy =
+      InteractionTestingStrategy();
+
+  /// 4.5.7. Interaction Dependency Analysis [PD00-SYO-SYB-DEP]. Covers BSI-DEP.
+  InteractionDependencyAnalysis interactionDependencyAnalysis =
+      InteractionDependencyAnalysis();
+
+  /// 4.5.8. Migration Interactions [PD00-SYO-SYB-MIG]. Covers BSI-MIG.
+  MigrationInteractions migrationInteractions = MigrationInteractions();
 }
 
 // ---------------------------------------------------------------------------
@@ -8337,5 +8355,143 @@ class AssumptionRelationships {
     Field('reviewFrequency', String,
         'Review Frequency — how often reviewed'),
   ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 4.5.4 System Landscape Inventory [PD00-SYO-SYB-INV]
+// ---------------------------------------------------------------------------
+
+/// 4.5.4. System Landscape Inventory [PD00-SYO-SYB-INV].
+///
+/// Complete external-system inventory covering BSI-LAN-INV content.
+@SectionId('PD00-SYO-SYB-INV')
+@DetailedIn(BusinessSystemInteractions)
+class SystemLandscapeInventory {
+  @ContentHelp('''
+Enumerates every external system the target system interacts with, with
+enough metadata to support dependency and impact analysis across the
+organization's landscape.
+
+**What to capture:**
+- System name, owner, criticality tier
+- Deployment footprint (cloud / on-prem / SaaS / vendor)
+- Lifecycle status (active / planned retirement / replacement)
+- Relationship class (upstream source, downstream consumer, peer)
+- Technology and protocol fingerprint
+- Data-sensitivity classification of the exchange
+- Governance contacts and escalation routing
+''')
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 4.5.5 Boundary Interaction Patterns [PD00-SYO-SYB-PAT]
+// ---------------------------------------------------------------------------
+
+/// 4.5.5. Boundary Interaction Patterns [PD00-SYO-SYB-PAT].
+///
+/// Sync / async / batch interaction-pattern catalog. Covers BSI-PAT.
+/// Named `BoundaryInteractionPatterns` to avoid colliding with the
+/// existing intra-system `InteractionPatterns` class.
+@SectionId('PD00-SYO-SYB-PAT')
+@DetailedIn(BusinessSystemInteractions)
+class BoundaryInteractionPatterns {
+  @ContentHelp('''
+Reusable interaction patterns applied at system boundaries. Distinct
+from `InteractionPatterns` (PD00-SYO-RES-?) which documents patterns
+within the target system.
+
+**What to capture:**
+- Pattern catalog (name, shape, rationale)
+- Synchronous request-reply flavors (REST, gRPC, GraphQL)
+- Asynchronous patterns (pub/sub, queue, event stream)
+- Batch and scheduled-transfer patterns
+- Pattern selection criteria per interaction
+- Delivery guarantees per pattern (at-most-once / at-least-once / exactly-once)
+- Idempotency and ordering expectations
+''')
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 4.5.6 Interaction Testing Strategy [PD00-SYO-SYB-TST]
+// ---------------------------------------------------------------------------
+
+/// 4.5.6. Interaction Testing Strategy [PD00-SYO-SYB-TST].
+///
+/// Contract / integration / failure-mode testing for system boundaries.
+/// Covers BSI-TST.
+@SectionId('PD00-SYO-SYB-TST')
+@DetailedIn(BusinessSystemInteractions)
+class InteractionTestingStrategy {
+  @ContentHelp('''
+Strategy for testing boundary interactions specifically. Complements the
+broader PD00-SYQ-TST test strategy.
+
+**What to capture:**
+- Contract-testing approach (consumer-driven / provider-driven)
+- Integration-test scope per boundary
+- Failure-mode and chaos-style tests (partner down, slow, malformed)
+- Stub / simulator strategy for non-prod environments
+- Performance-envelope tests per interaction
+- Test-data management for boundary tests
+- CI/CD integration for contract verification
+''')
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 4.5.7 Interaction Dependency Analysis [PD00-SYO-SYB-DEP]
+// ---------------------------------------------------------------------------
+
+/// 4.5.7. Interaction Dependency Analysis [PD00-SYO-SYB-DEP].
+///
+/// Critical-path and degraded-mode behavior analysis for system
+/// dependencies. Covers BSI-DEP.
+@SectionId('PD00-SYO-SYB-DEP')
+@DetailedIn(BusinessSystemInteractions)
+class InteractionDependencyAnalysis {
+  @ContentHelp('''
+What happens when external interactions are slow or unavailable, and
+which of them lie on the critical path of user-facing flows.
+
+**What to capture:**
+- Critical-path map per business flow
+- Degraded-mode behavior (feature off, read-only, queue-and-retry)
+- Cache strategies for graceful degradation
+- Circuit-breaker / bulkhead configuration per interaction
+- Timeout budgets and retry policies
+- User-visible error handling for unavailable partners
+- Recovery behavior when partners come back online
+''')
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 4.5.8 Migration Interactions [PD00-SYO-SYB-MIG]
+// ---------------------------------------------------------------------------
+
+/// 4.5.8. Migration Interactions [PD00-SYO-SYB-MIG].
+///
+/// Interactions specific to the migration window — cutover bridges,
+/// reconciliation endpoints, and temporary shims. Back-refs
+/// PD00-SYO-SYR (Systems to Replace). Covers BSI-MIG.
+@SectionId('PD00-SYO-SYB-MIG')
+@DetailedIn(BusinessSystemInteractions)
+class MigrationInteractions {
+  @ContentHelp('''
+Transitional interactions that exist only during the migration window:
+dual-write bridges, reconciliation feeds, freeze/replay mechanisms.
+
+**What to capture:**
+- Bridge / shim catalog (purpose, lifetime, owner)
+- Dual-run reconciliation endpoints and rules
+- Data-replay mechanisms (forward, reverse, selective)
+- Freeze windows and cutover ordering
+- Decommission criteria for each transitional interaction
+- Observability hooks specific to migration
+- Risk and rollback plan per transitional interaction
+''')
   String? content;
 }

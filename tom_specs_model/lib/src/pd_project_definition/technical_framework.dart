@@ -5,7 +5,7 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
-
+import '../document_stubs.dart';
 
 /// 8. Technical Framework Concept [PD00-TEC]. Seeds → TR.
 @SectionId('PD00-TEC')
@@ -76,6 +76,9 @@ Provide an executive summary of the technical framework approach.
 
   /// 8.8. Security Requirements [PD00-TEC-SEC].
   TechnicalSecurityRequirements security = TechnicalSecurityRequirements();
+
+  /// 8.9. System Architecture [PD00-TEC-ARC]. Covers HBSG AS09-SOF / DR30.
+  SystemArchitectureSpec systemArchitecture = SystemArchitectureSpec();
 }
 
 /// 8.1. Basic Technical Requirements [PD00-TEC-BAS].
@@ -19498,5 +19501,36 @@ class SecurityAuditEntryFollowUp {
   Field('notes', String, 'Notes',
     hint: 'Additional audit requirement notes'),
   ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 8.9 System Architecture [PD00-TEC-ARC]
+// ---------------------------------------------------------------------------
+
+/// 8.9. System Architecture [PD00-TEC-ARC].
+///
+/// Detailed internal architecture (layers, packages, patterns). Covers
+/// HBSG AS09-SOF / DR30.
+///
+/// Class named `SystemArchitectureSpec` to avoid colliding with any other
+/// architecture-related identifier in the model.
+@SectionId('PD00-TEC-ARC')
+@DetailedIn(TechnicalRequirementsSpec)
+class SystemArchitectureSpec {
+  @ContentHelp('''
+System-level architecture description: layering, package structure,
+significant design patterns, boundary definitions, and architectural
+drivers / trade-offs.
+
+**What to capture:**
+- Layering strategy (presentation / application / domain / infrastructure)
+- Package / module structure and dependency direction rules
+- Design patterns adopted (CQRS, event sourcing, hexagonal, etc.)
+- Architectural drivers (performance, security, maintainability)
+- Trade-offs explicitly accepted
+- Reference architecture diagrams (high-level + key views)
+- Technology-radar alignment (Adopt / Trial / Assess / Hold)
+''')
   String? content;
 }

@@ -5,6 +5,8 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
+import '../document_stubs.dart';
+
 
 
 /// 9. Access and Authorization Concept [PD00-ACC]. Seeds → AC.
@@ -50,6 +52,9 @@ access and authorization concerns.
 
   /// 9.6. Audit and Logging [PD00-ACC-AUD].
   AuditAndLogging auditAndLogging = AuditAndLogging();
+
+  /// 9.7. Role Matrix [PD00-ACC-ROL]. Covers HBSG AS22-AUM.
+  RoleMatrix roleMatrix = RoleMatrix();
 }
 
 /// 9.1. User Management [PD00-ACC-USE].
@@ -7541,4 +7546,32 @@ class RegulatoryAuditSupport {
 
   /// Additional Notes (text).
   TextSection notes = TextSection();
+}
+
+// ---------------------------------------------------------------------------
+// 9.7 Role Matrix [PD00-ACC-ROL]
+// ---------------------------------------------------------------------------
+
+/// 9.7. Role Matrix [PD00-ACC-ROL].
+///
+/// Role-to-permission assignment matrix covering HBSG AS22-AUM
+/// Authorization Model.
+@SectionId('PD00-ACC-ROL')
+@DetailedIn(AuthorizationConcept)
+class RoleMatrix {
+  @ContentHelp('''
+Authoritative mapping of system roles to the permissions they hold.
+Complements PD00-ACC-USA (User Authorization) which describes the
+authorization model; this section captures the concrete assignment.
+
+**What to capture:**
+- Role catalog (role name, description, owner)
+- Permission catalog (object, action, scope)
+- Role × permission matrix cells (granted / denied / conditional)
+- Inheritance / composition relationships between roles
+- Segregation-of-duties constraints (roles that must not co-assign)
+- Review and re-certification cadence
+- Exceptions register for elevated / time-limited access
+''')
+  String? content;
 }
