@@ -1630,26 +1630,68 @@ class InteractionPatternEntry {
     Field('patternType', String, 'Pattern Type', required: true,
         hint: 'Synchronous, Asynchronous, Batch, Scheduled, Event-driven, '
             'Workflow, Polling, Streaming'),
+  ])
+  String? content;
+
+  /// Narrative summary and typical scenarios.
+  InteractionPatternEntryDefinition definition =
+      InteractionPatternEntryDefinition();
+
+  /// Trigger conditions and cadence.
+  InteractionPatternEntryTrigger trigger = InteractionPatternEntryTrigger();
+
+  /// User experience and runtime behavior.
+  InteractionPatternEntryBehavior behavior =
+      InteractionPatternEntryBehavior();
+
+  /// Applicability and operational priority.
+  InteractionPatternEntryUsage usage = InteractionPatternEntryUsage();
+}
+
+/// Narrative summary and typical scenarios.
+class InteractionPatternEntryDefinition {
+  @Form([
     Field('description', String, 'Description',
         hint: 'What this pattern involves'),
+    Field('useCases', String, 'Use Cases',
+        hint: 'List of use cases that follow this pattern'),
+    Field('userCategories', String, 'Applicable User Categories',
+        hint: 'Which user categories use this pattern'),
+  ])
+  String? content;
+}
+
+/// Trigger conditions and cadence.
+class InteractionPatternEntryTrigger {
+  @Form([
     Field('triggerType', String, 'Trigger Type',
         hint: 'User Action, System Event, Schedule, External Signal'),
     Field('triggerDetails', String, 'Trigger Details',
         hint: 'Specific conditions that trigger this pattern'),
+    Field('frequency', String, 'Expected Frequency',
+        hint: 'How often this pattern occurs'),
+  ])
+  String? content;
+}
+
+/// User experience and runtime behavior.
+class InteractionPatternEntryBehavior {
+  @Form([
     Field('responseTime', String, 'Expected Response Time',
         hint: 'Immediate, Seconds, Minutes, Hours, Days'),
     Field('feedbackMechanism', String, 'Feedback Mechanism',
         hint: 'Progress indicator, Status page, Email notification'),
     Field('errorHandling', String, 'Error Handling',
         hint: 'Retry, Rollback, Manual intervention, Notification'),
-    Field('useCases', String, 'Use Cases',
-        hint: 'List of use cases that follow this pattern'),
-    Field('userCategories', String, 'Applicable User Categories',
-        hint: 'Which user categories use this pattern'),
-    Field('frequency', String, 'Expected Frequency',
-        hint: 'How often this pattern occurs'),
     Field('concurrencyHandling', String, 'Concurrency Handling',
         hint: 'How concurrent requests are handled'),
+  ])
+  String? content;
+}
+
+/// Applicability and operational priority.
+class InteractionPatternEntryUsage {
+  @Form([
     Field('priority', String, 'Priority',
         hint: 'High, Medium, Low - for resource allocation'),
   ])
@@ -4815,25 +4857,56 @@ class SystemCostAnalysis {
     Field('annualLicenseCost', String, 'Annual License Cost'),
     Field('annualMaintenanceCost', String, 'Annual Maintenance Cost'),
     Field('annualOperationsCost', String, 'Annual Operations Cost'),
-    Field('annualSupportCost', String, 'Annual Support Cost'),
-    Field('totalCurrentAnnualCost', String, 'Total Current Annual Cost'),
-    Field('migrationProjectCost', String, 'Migration Project Cost'),
-    Field('dataConversionCost', String, 'Data Conversion Cost'),
-    Field('integrationCost', String, 'Integration Rebuild Cost'),
-    Field('trainingCost', String, 'Training Cost'),
-    Field('parallelRunCost', String, 'Parallel Run Cost'),
-    Field('newSystemAnnualCost', String, 'New System Annual Cost'),
-    Field('annualSavings', String, 'Annual Savings'),
-    Field('paybackPeriod', String, 'Payback Period'),
-    Field('fiveYearTco', String, '5-Year TCO'),
   ])
   String? content;
+
+    /// Current-state support and total annual cost.
+    SystemCostAnalysisCurrentCosts currentCosts =
+            SystemCostAnalysisCurrentCosts();
+
+    /// One-time migration and transition investments.
+    SystemCostAnalysisMigration migration = SystemCostAnalysisMigration();
+
+    /// Target-state cost and ROI indicators.
+    SystemCostAnalysisBenefits benefits = SystemCostAnalysisBenefits();
 
   /// Cost breakdown by category if detailed analysis available.
   TextSection costBreakdown = TextSection();
 
   /// Non-financial benefits to include in ROI.
   TextSection nonFinancialBenefits = TextSection();
+}
+
+/// Current-state support and total annual cost.
+class SystemCostAnalysisCurrentCosts {
+    @Form([
+        Field('annualSupportCost', String, 'Annual Support Cost'),
+        Field('totalCurrentAnnualCost', String, 'Total Current Annual Cost'),
+    ])
+    String? content;
+}
+
+/// One-time migration and transition investments.
+class SystemCostAnalysisMigration {
+    @Form([
+        Field('migrationProjectCost', String, 'Migration Project Cost'),
+        Field('dataConversionCost', String, 'Data Conversion Cost'),
+        Field('integrationCost', String, 'Integration Rebuild Cost'),
+        Field('trainingCost', String, 'Training Cost'),
+        Field('parallelRunCost', String, 'Parallel Run Cost'),
+    ])
+    String? content;
+}
+
+/// Target-state cost and ROI indicators.
+class SystemCostAnalysisBenefits {
+    @Form([
+        Field('newSystemAnnualCost', String, 'New System Annual Cost'),
+        Field('annualSavings', String, 'Annual Savings'),
+        Field('paybackPeriod', String, 'Payback Period'),
+        Field('fiveYearTco', String, '5-Year TCO'),
+    ])
+    String? content;
 }
 
 /// Per-system migration plan [PD00-SYO-SYR-INV-nn-MIG].
@@ -5770,28 +5843,52 @@ class InterfaceErrorHandling {
     Field('errorFormat', String, 'Error Response Format'),
     Field('errorCodes', String, 'Error Codes Used'),
     Field('retryableErrors', String, 'Retryable Error Codes'),
-    Field('fatalErrors', String, 'Fatal/Non-Retryable Errors'),
-
-    // Retry Strategy
-    Field('retryStrategy', String, 'Retry Strategy (Exponential backoff, etc.)'),
-    Field('maxRetries', int, 'Max Retries'),
-    Field('retryInterval', String, 'Retry Interval'),
-    Field('circuitBreakerConfig', String, 'Circuit Breaker Configuration'),
-
-    // Fallback
-    Field('fallbackBehavior', String, 'Fallback Behavior'),
-    Field('degradedMode', String, 'Degraded Mode Operation'),
-    Field('manualRecovery', String, 'Manual Recovery Procedure'),
-
-    // Timeout
-    Field('connectionTimeout', String, 'Connection Timeout'),
-    Field('readTimeout', String, 'Read Timeout'),
-    Field('overallTimeout', String, 'Overall Transaction Timeout'),
   ])
   String? content;
 
+    /// Non-retryable errors and retry strategy.
+    InterfaceErrorHandlingRetry retry = InterfaceErrorHandlingRetry();
+
+    /// Fallback behavior and manual recovery.
+    InterfaceErrorHandlingFallback fallback = InterfaceErrorHandlingFallback();
+
+    /// Connection and transaction timeouts.
+    InterfaceErrorHandlingTimeout timeout = InterfaceErrorHandlingTimeout();
+
   /// Error handling procedures.
   TextSection errorProcedures = TextSection();
+}
+
+/// Non-retryable errors and retry strategy.
+class InterfaceErrorHandlingRetry {
+    @Form([
+        Field('fatalErrors', String, 'Fatal/Non-Retryable Errors'),
+        Field('retryStrategy', String, 'Retry Strategy (Exponential backoff, etc.)'),
+        Field('maxRetries', int, 'Max Retries'),
+        Field('retryInterval', String, 'Retry Interval'),
+        Field('circuitBreakerConfig', String, 'Circuit Breaker Configuration'),
+    ])
+    String? content;
+}
+
+/// Fallback behavior and manual recovery.
+class InterfaceErrorHandlingFallback {
+    @Form([
+        Field('fallbackBehavior', String, 'Fallback Behavior'),
+        Field('degradedMode', String, 'Degraded Mode Operation'),
+        Field('manualRecovery', String, 'Manual Recovery Procedure'),
+    ])
+    String? content;
+}
+
+/// Connection and transaction timeouts.
+class InterfaceErrorHandlingTimeout {
+    @Form([
+        Field('connectionTimeout', String, 'Connection Timeout'),
+        Field('readTimeout', String, 'Read Timeout'),
+        Field('overallTimeout', String, 'Overall Transaction Timeout'),
+    ])
+    String? content;
 }
 
 /// Governance and contracts [PD00-SYO-SYB-INT-nn-GOV].

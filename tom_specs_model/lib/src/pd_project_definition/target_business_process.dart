@@ -325,14 +325,47 @@ class ProcessIdentification {
     Field('processName', String, 'Process Name', required: true),
     Field('processLevel', String,
         'Process Level — L1 (category), L2 (group), L3 (process), L4 (activity)'),
+  ])
+  String? content;
+
+  /// Position in the process hierarchy and taxonomy.
+  ProcessIdentificationClassification classification =
+      ProcessIdentificationClassification();
+
+  /// Narrative description, purpose, and scope.
+  ProcessIdentificationDefinition definition =
+      ProcessIdentificationDefinition();
+
+  /// Ownership and lifecycle metadata.
+  ProcessIdentificationGovernance governance =
+      ProcessIdentificationGovernance();
+}
+
+/// Position in the process hierarchy and taxonomy.
+class ProcessIdentificationClassification {
+  @Form([
     Field('parentProcess', String,
         'Parent Process — higher-level process this belongs to'),
     Field('processCategory', String,
         'Process Category — operating, management, support'),
     Field('processType', String, 'Process Type — core, enabling, strategic'),
+  ])
+  String? content;
+}
+
+/// Narrative description, purpose, and scope.
+class ProcessIdentificationDefinition {
+  @Form([
     Field('description', String, 'Description — what the process does'),
     Field('purpose', String, 'Purpose — why the process exists'),
     Field('scope', String, 'Scope — boundaries of the process'),
+  ])
+  String? content;
+}
+
+/// Ownership and lifecycle metadata.
+class ProcessIdentificationGovernance {
+  @Form([
     Field('processOwner', String, 'Process Owner — accountable role/person'),
     Field('processManager', String,
         'Process Manager — day-to-day responsibility'),

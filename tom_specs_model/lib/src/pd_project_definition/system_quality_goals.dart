@@ -163,32 +163,18 @@ class QualityFramework {
         hint: 'Specific version of quality model'),
     Field('qualityModelAdaptations', String, 'Model Adaptations',
         hint: 'How standard model is adapted for this project'),
-    // Objectives structure
-    Field('objectivesHierarchy', String, 'Objectives Hierarchy',
-        hint: 'How quality objectives are structured'),
-    Field('objectivesAlignment', String, 'Objectives Alignment',
-        hint: 'How quality objectives align with business goals'),
-    Field('objectivesMeasurability', String, 'Measurability Requirement',
-        hint: 'All objectives SMART, key objectives only'),
-    // Trade-off philosophy
-    Field('primaryQualityAttribute', String, 'Primary Quality Attribute',
-        hint: 'Most important attribute when trade-offs required'),
-    Field('secondaryQualityAttribute', String, 'Secondary Quality Attribute'),
-    Field('tradeOffApproach', String, 'Trade-off Approach',
-        hint: 'How conflicts between attributes are resolved'),
-    Field('qualityCompromiseAuthority', String, 'Compromise Authority',
-        hint: 'Who can authorize quality trade-offs'),
-    // Verification approach
-    Field('verificationStrategy', String, 'Verification Strategy',
-        hint: 'Testing, review, analysis, demonstration'),
-    Field('verificationCoverage', String, 'Verification Coverage',
-        hint: 'All attributes, critical only, risk-based'),
-    Field('defectClassification', String, 'Defect Classification Scheme',
-        hint: 'Critical, major, minor, trivial'),
-    Field('defectPriorityScheme', String, 'Defect Priority Scheme',
-        hint: 'P1-P5, urgent/high/medium/low'),
   ])
   String? frameworkContent;
+
+  /// Quality objective structure and alignment.
+  QualityFrameworkObjectives objectives = QualityFrameworkObjectives();
+
+  /// Trade-off priorities and decision authority.
+  QualityFrameworkTradeOffs tradeOffs = QualityFrameworkTradeOffs();
+
+  /// Verification and defect handling approach.
+  QualityFrameworkVerification verification =
+      QualityFrameworkVerification();
 
   /// 11.1.1. Quality Objectives Overview [PD00-SYQ-FRA-OBJ].
   @ContentHelp('Overall quality objectives: expected quality level, '
@@ -208,6 +194,48 @@ class QualityFramework {
   /// Quality dependencies map.
   @ContentHelp('How quality categories depend on and influence each other.')
   DiagramSection categoryDependencies = DiagramSection();
+}
+
+/// Quality objective structure and alignment.
+class QualityFrameworkObjectives {
+    @Form([
+        Field('objectivesHierarchy', String, 'Objectives Hierarchy',
+                hint: 'How quality objectives are structured'),
+        Field('objectivesAlignment', String, 'Objectives Alignment',
+                hint: 'How quality objectives align with business goals'),
+        Field('objectivesMeasurability', String, 'Measurability Requirement',
+                hint: 'All objectives SMART, key objectives only'),
+    ])
+    String? content;
+}
+
+/// Trade-off priorities and decision authority.
+class QualityFrameworkTradeOffs {
+    @Form([
+        Field('primaryQualityAttribute', String, 'Primary Quality Attribute',
+                hint: 'Most important attribute when trade-offs required'),
+        Field('secondaryQualityAttribute', String, 'Secondary Quality Attribute'),
+        Field('tradeOffApproach', String, 'Trade-off Approach',
+                hint: 'How conflicts between attributes are resolved'),
+        Field('qualityCompromiseAuthority', String, 'Compromise Authority',
+                hint: 'Who can authorize quality trade-offs'),
+    ])
+    String? content;
+}
+
+/// Verification and defect handling approach.
+class QualityFrameworkVerification {
+    @Form([
+        Field('verificationStrategy', String, 'Verification Strategy',
+                hint: 'Testing, review, analysis, demonstration'),
+        Field('verificationCoverage', String, 'Verification Coverage',
+                hint: 'All attributes, critical only, risk-based'),
+        Field('defectClassification', String, 'Defect Classification Scheme',
+                hint: 'Critical, major, minor, trivial'),
+        Field('defectPriorityScheme', String, 'Defect Priority Scheme',
+                hint: 'P1-P5, urgent/high/medium/low'),
+    ])
+    String? content;
 }
 
 /// A quality category entry (form) [PD00-SYQ-FRA-CAT-nn].
@@ -573,14 +601,39 @@ class EfficiencyQuality {
         hint: '95th percentile (e.g., <300ms)'),
     Field('responseTimeP99Target', String, 'Response Time P99',
         hint: '99th percentile (e.g., <1s)'),
-    // Throughput
+  ])
+  String? content;
+
+  /// Throughput and scale targets.
+  EfficiencyQualityThroughput throughput = EfficiencyQualityThroughput();
+
+  /// Resource utilization constraints.
+  EfficiencyQualityResources resources = EfficiencyQualityResources();
+
+  /// Performance validation and SLA commitments.
+  EfficiencyQualityVerification verification =
+      EfficiencyQualityVerification();
+
+  /// Detailed efficiency requirements narrative.
+  TextSection narrative = TextSection();
+}
+
+/// Throughput and scale targets.
+class EfficiencyQualityThroughput {
+  @Form([
     Field('throughputTarget', String, 'Throughput Target',
         hint: 'Requests/second, transactions/minute'),
     Field('concurrentUsersTarget', String, 'Concurrent Users Target',
         hint: 'Peak concurrent users supported'),
     Field('scalabilityModel', String, 'Scalability Model',
         hint: 'Horizontal, vertical, auto-scaling'),
-    // Resource utilization
+  ])
+  String? content;
+}
+
+/// Resource utilization constraints.
+class EfficiencyQualityResources {
+  @Form([
     Field('cpuUtilizationLimit', String, 'CPU Utilization Limit',
         hint: 'Max sustained CPU usage (e.g., <70%)'),
     Field('memoryUtilizationLimit', String, 'Memory Utilization Limit',
@@ -589,7 +642,13 @@ class EfficiencyQuality {
         hint: 'Data storage per user/record'),
     Field('networkBandwidthLimit', String, 'Network Bandwidth Limit',
         hint: 'Max bandwidth consumption'),
-    // Verification
+  ])
+  String? content;
+}
+
+/// Performance validation and SLA commitments.
+class EfficiencyQualityVerification {
+  @Form([
     Field('loadTestingRequirement', String, 'Load Testing Requirement',
         hint: 'Load test scenarios, thresholds'),
     Field('performanceProfilingApproach', String, 'Performance Profiling',
@@ -600,9 +659,6 @@ class EfficiencyQuality {
         hint: 'SLA for performance metrics'),
   ])
   String? content;
-
-  /// Detailed efficiency requirements narrative.
-  TextSection narrative = TextSection();
 }
 
 /// 11.3.2. Portability quality [PD00-SYQ-TEC-POR].

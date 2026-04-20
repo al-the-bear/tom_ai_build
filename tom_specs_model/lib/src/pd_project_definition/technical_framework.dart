@@ -13709,34 +13709,60 @@ class ApiVersioningStrategy {
         hint: 'v1, v2.0, semver, date-based'),
     Field('currentVersion', String, 'Current Version',
         hint: 'Current active API version'),
-    Field('supportedVersions', String, 'Supported Versions',
-        hint: 'List of all currently supported versions'),
+  ])
+  String? content;
 
-    // Deprecation
-    Field('deprecationPolicy', String, 'Deprecation Policy',
-        hint: 'Sunset timeline, notice period'),
-    Field('deprecationNoticeMethod', String, 'Deprecation Notice Method',
-        hint: 'HTTP Sunset header, changelog, email'),
-    Field('minimumSupportPeriod', String, 'Minimum Support Period',
-        hint: 'Minimum time a version stays supported'),
+  /// Supported versions and deprecation commitments.
+  ApiVersioningStrategySupport support = ApiVersioningStrategySupport();
 
-    // Compatibility
-    Field('backwardCompatibility', String, 'Backward Compatibility',
-        hint: 'Guaranteed compatibility rules'),
-    Field('breakingChangePolicy', String, 'Breaking Change Policy',
-        hint: 'When and how breaking changes are allowed'),
-    Field('migrationGuidance', bool, 'Migration Guidance',
-        hint: 'Provide migration guides between versions'),
+  /// Compatibility guarantees and migration expectations.
+  ApiVersioningStrategyCompatibility compatibility =
+    ApiVersioningStrategyCompatibility();
 
-    // Documentation
-    Field('apiDocumentationFormat', String, 'API Documentation Format',
-        hint: 'OpenAPI/Swagger, AsyncAPI, GraphQL SDL'),
-    Field('changelogFormat', String, 'Changelog Format',
-        hint: 'Keep a Changelog, custom'),
-    Field('clientSdkGeneration', bool, 'Client SDK Generation',
-        hint: 'Auto-generate client libraries'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional versioning notes'),
+  /// Documentation and client generation practices.
+  ApiVersioningStrategyDocumentation documentation =
+    ApiVersioningStrategyDocumentation();
+}
+
+/// Supported versions and deprecation commitments.
+class ApiVersioningStrategySupport {
+  @Form([
+  Field('supportedVersions', String, 'Supported Versions',
+    hint: 'List of all currently supported versions'),
+  Field('deprecationPolicy', String, 'Deprecation Policy',
+    hint: 'Sunset timeline, notice period'),
+  Field('deprecationNoticeMethod', String, 'Deprecation Notice Method',
+    hint: 'HTTP Sunset header, changelog, email'),
+  Field('minimumSupportPeriod', String, 'Minimum Support Period',
+    hint: 'Minimum time a version stays supported'),
+  ])
+  String? content;
+}
+
+/// Compatibility guarantees and migration expectations.
+class ApiVersioningStrategyCompatibility {
+  @Form([
+  Field('backwardCompatibility', String, 'Backward Compatibility',
+    hint: 'Guaranteed compatibility rules'),
+  Field('breakingChangePolicy', String, 'Breaking Change Policy',
+    hint: 'When and how breaking changes are allowed'),
+  Field('migrationGuidance', bool, 'Migration Guidance',
+    hint: 'Provide migration guides between versions'),
+  ])
+  String? content;
+}
+
+/// Documentation and client generation practices.
+class ApiVersioningStrategyDocumentation {
+  @Form([
+  Field('apiDocumentationFormat', String, 'API Documentation Format',
+    hint: 'OpenAPI/Swagger, AsyncAPI, GraphQL SDL'),
+  Field('changelogFormat', String, 'Changelog Format',
+    hint: 'Keep a Changelog, custom'),
+  Field('clientSdkGeneration', bool, 'Client SDK Generation',
+    hint: 'Auto-generate client libraries'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional versioning notes'),
   ])
   String? content;
 }
@@ -15132,29 +15158,60 @@ class AlertNotificationChannels {
         hint: 'Channel for alerts (#alerts, #incidents)'),
     Field('teamsIntegration', String, 'Teams Integration',
         hint: 'Microsoft Teams channel integration'),
-    Field('emailNotification', String, 'Email Notification',
-        hint: 'Email distribution lists for alerts'),
-    Field('smsNotification', String, 'SMS Notification',
-        hint: 'SMS/text for critical alerts'),
-    Field('phoneCallEscalation', String, 'Phone Call Escalation',
-        hint: 'Voice call for unacknowledged criticals'),
-    // Channel routing
-    Field('criticalAlertChannels', String, 'Critical Alert Channels',
-        hint: 'Where critical alerts are sent'),
-    Field('warningAlertChannels', String, 'Warning Alert Channels',
-        hint: 'Where warning alerts are sent'),
-    Field('infoAlertChannels', String, 'Info Alert Channels',
-        hint: 'Where info alerts are sent'),
-    // Customization
-    Field('alertMessageFormat', String, 'Alert Message Format',
-        hint: 'Template for alert notification content'),
-    Field('enrichmentData', String, 'Enrichment Data',
-        hint: 'Runbook links, dashboard links, context'),
-    Field('deduplication', String, 'Deduplication',
-        hint: 'How duplicate alerts are suppressed'),
-    Field('groupingRules', String, 'Grouping Rules',
-        hint: 'How related alerts are grouped'),
-    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+
+  /// Secondary and escalation delivery methods.
+  AlertNotificationChannelsDelivery delivery =
+    AlertNotificationChannelsDelivery();
+
+  /// Severity-based channel routing.
+  AlertNotificationChannelsRouting routing =
+    AlertNotificationChannelsRouting();
+
+  /// Message templates, enrichment, and grouping rules.
+  AlertNotificationChannelsFormatting formatting =
+    AlertNotificationChannelsFormatting();
+}
+
+/// Secondary and escalation delivery methods.
+class AlertNotificationChannelsDelivery {
+  @Form([
+  Field('emailNotification', String, 'Email Notification',
+    hint: 'Email distribution lists for alerts'),
+  Field('smsNotification', String, 'SMS Notification',
+    hint: 'SMS/text for critical alerts'),
+  Field('phoneCallEscalation', String, 'Phone Call Escalation',
+    hint: 'Voice call for unacknowledged criticals'),
+  ])
+  String? content;
+}
+
+/// Severity-based channel routing.
+class AlertNotificationChannelsRouting {
+  @Form([
+  Field('criticalAlertChannels', String, 'Critical Alert Channels',
+    hint: 'Where critical alerts are sent'),
+  Field('warningAlertChannels', String, 'Warning Alert Channels',
+    hint: 'Where warning alerts are sent'),
+  Field('infoAlertChannels', String, 'Info Alert Channels',
+    hint: 'Where info alerts are sent'),
+  ])
+  String? content;
+}
+
+/// Message templates, enrichment, and grouping rules.
+class AlertNotificationChannelsFormatting {
+  @Form([
+  Field('alertMessageFormat', String, 'Alert Message Format',
+    hint: 'Template for alert notification content'),
+  Field('enrichmentData', String, 'Enrichment Data',
+    hint: 'Runbook links, dashboard links, context'),
+  Field('deduplication', String, 'Deduplication',
+    hint: 'How duplicate alerts are suppressed'),
+  Field('groupingRules', String, 'Grouping Rules',
+    hint: 'How related alerts are grouped'),
+  Field('notes', String, 'Notes'),
   ])
   String? content;
 }
@@ -15232,30 +15289,59 @@ class AlertEscalationPolicies {
         hint: 'Escalation if L1 no response'),
     Field('level3Responder', String, 'Level 3 Responder',
         hint: 'Senior engineer/architect escalation'),
-    Field('managementEscalation', String, 'Management Escalation',
-        hint: 'When to escalate to management'),
-    // Timing
-    Field('level1ToLevel2Time', String, 'L1 to L2 Time',
-        hint: 'Time before escalating to L2'),
-    Field('level2ToLevel3Time', String, 'L2 to L3 Time',
-        hint: 'Time before escalating to L3'),
-    Field('level3ToManagementTime', String, 'L3 to Management Time',
-        hint: 'Time before management notification'),
-    // Behavior
-    Field('acknowledgeStopsEscalation', bool, 'Acknowledge Stops Escalation',
-        hint: 'Whether acknowledgment pauses escalation'),
-    Field('resolveStopsEscalation', bool, 'Resolve Stops Escalation',
-        hint: 'Whether resolution cancels escalation'),
-    Field('repeatNotification', String, 'Repeat Notification',
-        hint: 'Re-notify if unresolved after N minutes'),
-    // Multiple policies
-    Field('businessHoursPolicy', String, 'Business Hours Policy',
-        hint: 'Escalation during business hours'),
-    Field('afterHoursPolicy', String, 'After-Hours Policy',
-        hint: 'Escalation outside business hours'),
-    Field('weekendHolidayPolicy', String, 'Weekend/Holiday Policy',
-        hint: 'Escalation on weekends/holidays'),
-    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+
+  /// Management escalation path and timing thresholds.
+  AlertEscalationPoliciesTiming timing = AlertEscalationPoliciesTiming();
+
+  /// Escalation control behavior.
+  AlertEscalationPoliciesBehavior behavior =
+    AlertEscalationPoliciesBehavior();
+
+  /// Schedule-specific policy variants.
+  AlertEscalationPoliciesSchedules schedules =
+    AlertEscalationPoliciesSchedules();
+}
+
+/// Management escalation path and timing thresholds.
+class AlertEscalationPoliciesTiming {
+  @Form([
+  Field('managementEscalation', String, 'Management Escalation',
+    hint: 'When to escalate to management'),
+  Field('level1ToLevel2Time', String, 'L1 to L2 Time',
+    hint: 'Time before escalating to L2'),
+  Field('level2ToLevel3Time', String, 'L2 to L3 Time',
+    hint: 'Time before escalating to L3'),
+  Field('level3ToManagementTime', String, 'L3 to Management Time',
+    hint: 'Time before management notification'),
+  ])
+  String? content;
+}
+
+/// Escalation control behavior.
+class AlertEscalationPoliciesBehavior {
+  @Form([
+  Field('acknowledgeStopsEscalation', bool, 'Acknowledge Stops Escalation',
+    hint: 'Whether acknowledgment pauses escalation'),
+  Field('resolveStopsEscalation', bool, 'Resolve Stops Escalation',
+    hint: 'Whether resolution cancels escalation'),
+  Field('repeatNotification', String, 'Repeat Notification',
+    hint: 'Re-notify if unresolved after N minutes'),
+  ])
+  String? content;
+}
+
+/// Schedule-specific policy variants.
+class AlertEscalationPoliciesSchedules {
+  @Form([
+  Field('businessHoursPolicy', String, 'Business Hours Policy',
+    hint: 'Escalation during business hours'),
+  Field('afterHoursPolicy', String, 'After-Hours Policy',
+    hint: 'Escalation outside business hours'),
+  Field('weekendHolidayPolicy', String, 'Weekend/Holiday Policy',
+    hint: 'Escalation on weekends/holidays'),
+  Field('notes', String, 'Notes'),
   ])
   String? content;
 }
@@ -16018,34 +16104,60 @@ class ApplicationDiagnostics {
         hint: '/metrics — Prometheus, OpenMetrics format'),
     Field('environmentEndpoint', String, 'Environment Endpoint',
         hint: '/env — configuration (redacted)'),
+  ])
+  String? content;
 
-    // Performance
-    Field('cpuProfiling', bool, 'CPU Profiling',
-        hint: 'On-demand CPU profiling'),
-    Field('memoryProfiling', bool, 'Memory Profiling',
-        hint: 'Heap analysis and leak detection'),
-    Field('requestTracing', bool, 'Request Tracing',
-        hint: 'Per-request timing breakdown'),
-    Field('slowRequestDetection', String, 'Slow Request Detection',
-        hint: 'Threshold and alerting for slow requests'),
+  /// On-demand profiling and slow-request tracing.
+  ApplicationDiagnosticsPerformance performance =
+    ApplicationDiagnosticsPerformance();
 
-    // Connection pools
-    Field('connectionPoolStatus', bool, 'Connection Pool Status',
-        hint: 'Database and HTTP pool monitoring'),
-    Field('threadPoolStatus', bool, 'Thread Pool Status',
-        hint: 'Worker thread/isolate pool status'),
-    Field('queueDepthMonitoring', bool, 'Queue Depth Monitoring',
-        hint: 'Message queue backlog tracking'),
+  /// Runtime queue and pool inspection.
+  ApplicationDiagnosticsRuntime runtime = ApplicationDiagnosticsRuntime();
 
-    // Feature status
-    Field('featureFlagStatus', bool, 'Feature Flag Status',
-        hint: 'Active feature flags visibility'),
-    Field('circuitBreakerStatus', bool, 'Circuit Breaker Status',
-        hint: 'State of circuit breakers'),
-    Field('cacheHitRatio', bool, 'Cache Hit Ratio',
-        hint: 'Cache effectiveness monitoring'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional diagnostics notes'),
+  /// Feature and resilience status indicators.
+  ApplicationDiagnosticsFeatureStatus featureStatus =
+    ApplicationDiagnosticsFeatureStatus();
+}
+
+/// On-demand profiling and slow-request tracing.
+class ApplicationDiagnosticsPerformance {
+  @Form([
+  Field('cpuProfiling', bool, 'CPU Profiling',
+    hint: 'On-demand CPU profiling'),
+  Field('memoryProfiling', bool, 'Memory Profiling',
+    hint: 'Heap analysis and leak detection'),
+  Field('requestTracing', bool, 'Request Tracing',
+    hint: 'Per-request timing breakdown'),
+  Field('slowRequestDetection', String, 'Slow Request Detection',
+    hint: 'Threshold and alerting for slow requests'),
+  ])
+  String? content;
+}
+
+/// Runtime queue and pool inspection.
+class ApplicationDiagnosticsRuntime {
+  @Form([
+  Field('connectionPoolStatus', bool, 'Connection Pool Status',
+    hint: 'Database and HTTP pool monitoring'),
+  Field('threadPoolStatus', bool, 'Thread Pool Status',
+    hint: 'Worker thread/isolate pool status'),
+  Field('queueDepthMonitoring', bool, 'Queue Depth Monitoring',
+    hint: 'Message queue backlog tracking'),
+  ])
+  String? content;
+}
+
+/// Feature and resilience status indicators.
+class ApplicationDiagnosticsFeatureStatus {
+  @Form([
+  Field('featureFlagStatus', bool, 'Feature Flag Status',
+    hint: 'Active feature flags visibility'),
+  Field('circuitBreakerStatus', bool, 'Circuit Breaker Status',
+    hint: 'State of circuit breakers'),
+  Field('cacheHitRatio', bool, 'Cache Hit Ratio',
+    hint: 'Cache effectiveness monitoring'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional diagnostics notes'),
   ])
   String? content;
 }

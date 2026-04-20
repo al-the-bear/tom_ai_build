@@ -31,51 +31,17 @@ class SystemStagePlan {
         hint:
             'Sequential / PartialOverlap / FullyParallel — '
             'whether stages can overlap in execution'),
-    // --- Overall Timeline ---
-    Field('overallPlannedStart', String, 'Overall Planned Start Date',
-        hint: 'Start date of the first stage'),
-    Field('overallTargetCompletion', String,
-        'Overall Target Completion Date',
-        hint: 'Target completion of the final stage'),
-    Field('totalDuration', String, 'Total Planned Duration',
-        hint: 'End-to-end duration across all stages, e.g. 18 months'),
-    Field('bufferStrategy', String, 'Buffer Strategy',
-        hint:
-            'How schedule buffers are allocated — PerStage / '
-            'Aggregated / CriticalChain'),
-    // --- Cross-Stage Coordination ---
-    Field('crossStageDependencySummary', String,
-        'Cross-Stage Dependency Summary',
-        hint:
-            'Key dependencies between stages that affect sequencing'),
-    Field('crossStageRiskSummary', String, 'Cross-Stage Risk Summary',
-        hint:
-            'Top risks that span multiple stages or affect staging '
-            'order'),
-    Field('regulatoryComplianceConsiderations', String,
-        'Regulatory/Compliance Considerations',
-        hint:
-            'Regulatory requirements affecting staging order or '
-            'timing — e.g. SOX, GDPR data readiness, PCI-DSS'),
-    // --- Organizational Context ---
-    Field('organizationalReadinessLevel', String,
-        'Organizational Readiness Level',
-        hint:
-            'High / Medium / Low — organization preparedness for '
-            'staged rollout'),
-    Field('changeAbsorptionCapacity', String,
-        'Change Absorption Capacity',
-        hint:
-            'How much change the organization can absorb per '
-            'period'),
-    Field('confidenceLevel', String, 'Plan Confidence Level',
-        hint:
-            'High / Medium / Low — overall confidence in staging '
-            'plan feasibility'),
-    Field('lastPlanReviewDate', String, 'Last Plan Review Date',
-        hint: 'When the staging plan was last formally reviewed'),
   ])
   String? content;
+
+  /// Overall schedule and buffer model.
+  SystemStagePlanTimeline timeline = SystemStagePlanTimeline();
+
+  /// Dependencies, risks, and compliance constraints across stages.
+  SystemStagePlanCoordination coordination = SystemStagePlanCoordination();
+
+  /// Organizational capacity and plan confidence.
+  SystemStagePlanReadiness readiness = SystemStagePlanReadiness();
 
   /// 13.1. Staging Strategy [PD00-SSP-STR].
   StagingStrategy strategy = StagingStrategy();
@@ -96,6 +62,67 @@ class SystemStagePlan {
 
   /// 13.6. Governance [PD00-SSP-GOV].
   StageGovernance governance = StageGovernance();
+}
+
+/// Overall schedule and buffer model.
+class SystemStagePlanTimeline {
+    @Form([
+        Field('overallPlannedStart', String, 'Overall Planned Start Date',
+                hint: 'Start date of the first stage'),
+        Field('overallTargetCompletion', String,
+                'Overall Target Completion Date',
+                hint: 'Target completion of the final stage'),
+        Field('totalDuration', String, 'Total Planned Duration',
+                hint: 'End-to-end duration across all stages, e.g. 18 months'),
+        Field('bufferStrategy', String, 'Buffer Strategy',
+                hint:
+                        'How schedule buffers are allocated — PerStage / '
+                        'Aggregated / CriticalChain'),
+    ])
+    String? content;
+}
+
+/// Dependencies, risks, and compliance constraints across stages.
+class SystemStagePlanCoordination {
+    @Form([
+        Field('crossStageDependencySummary', String,
+                'Cross-Stage Dependency Summary',
+                hint:
+                        'Key dependencies between stages that affect sequencing'),
+        Field('crossStageRiskSummary', String, 'Cross-Stage Risk Summary',
+                hint:
+                        'Top risks that span multiple stages or affect staging '
+                        'order'),
+        Field('regulatoryComplianceConsiderations', String,
+                'Regulatory/Compliance Considerations',
+                hint:
+                        'Regulatory requirements affecting staging order or '
+                        'timing — e.g. SOX, GDPR data readiness, PCI-DSS'),
+    ])
+    String? content;
+}
+
+/// Organizational capacity and plan confidence.
+class SystemStagePlanReadiness {
+    @Form([
+        Field('organizationalReadinessLevel', String,
+                'Organizational Readiness Level',
+                hint:
+                        'High / Medium / Low — organization preparedness for '
+                        'staged rollout'),
+        Field('changeAbsorptionCapacity', String,
+                'Change Absorption Capacity',
+                hint:
+                        'How much change the organization can absorb per '
+                        'period'),
+        Field('confidenceLevel', String, 'Plan Confidence Level',
+                hint:
+                        'High / Medium / Low — overall confidence in staging '
+                        'plan feasibility'),
+        Field('lastPlanReviewDate', String, 'Last Plan Review Date',
+                hint: 'When the staging plan was last formally reviewed'),
+    ])
+    String? content;
 }
 
 /// 13.1. Staging Strategy [PD00-SSP-STR].
