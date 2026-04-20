@@ -942,6 +942,25 @@ class ScreenElementAction {
     Field('buttonStyle', String, 'Button Style',
         hint:
             'Primary/Secondary/Tertiary/Danger/Text-Only/Icon-Only/Outlined/Floating'),
+    Field('actionTrigger', String, 'Action Trigger',
+        hint: 'User interaction that triggers execution'),
+    Field('actionPayload', String, 'Action Payload',
+        hint: 'Data passed when the action fires'),
+    Field('keyboardShortcut', String, 'Keyboard Shortcut',
+        hint: 'Shortcut binding, e.g., Ctrl+S'),
+  ])
+  String? content;
+
+  /// Confirmation and execution feedback behavior.
+  ScreenElementActionExecution execution = ScreenElementActionExecution();
+
+  /// Post-action navigation rules.
+  ScreenElementActionNavigation navigation = ScreenElementActionNavigation();
+}
+
+/// Confirmation and execution feedback behavior.
+class ScreenElementActionExecution {
+  @Form([
     Field('confirmationRequired', String, 'Confirmation Required',
         hint: 'Yes/No — show confirmation dialog?'),
     Field('confirmationMessageResource', String,
@@ -953,8 +972,13 @@ class ScreenElementAction {
         hint: 'Resource key for success notification'),
     Field('errorHandling', String, 'Error Handling',
         hint: 'Inline/Toast/Dialog/Banner'),
-    Field('keyboardShortcut', String, 'Keyboard Shortcut',
-        hint: 'Shortcut binding, e.g., Ctrl+S'),
+  ])
+  String? content;
+}
+
+/// Post-action navigation rules.
+class ScreenElementActionNavigation {
+  @Form([
     Field('navigateTo', String, 'Navigate To',
         hint: 'Target screen ID or route after action'),
     Field('navigateParams', String, 'Navigate Params',
@@ -1952,6 +1976,26 @@ class UtilityNavigationItemEntry {
         hint: 'Primary icon'),
     Field('position', String, 'Position',
         hint: 'AppBar-Leading/AppBar-Trailing/Drawer-Footer'),
+  ])
+  String? content;
+
+  /// Ordering, rendering, and access rules.
+  UtilityNavigationItemEntryDisplay display =
+      UtilityNavigationItemEntryDisplay();
+
+  /// Badge and interaction behavior.
+  UtilityNavigationItemEntryBehavior behavior =
+      UtilityNavigationItemEntryBehavior();
+
+    /// Contains 0+× UtilityMenuItem.
+    @SectionIdPattern('PD00-USE-SCF-NAV-UTL-xx-MEN-xx')
+    List<UtilityMenuItemEntry> menuItems = [];
+}
+
+
+/// Ordering, rendering, and access rules.
+class UtilityNavigationItemEntryDisplay {
+  @Form([
     Field('displayOrder', int, 'Display Order',
         hint: 'Sort position'),
     Field('widgetType', String, 'Widget Type',
@@ -1960,6 +2004,13 @@ class UtilityNavigationItemEntry {
         hint: 'When shown'),
     Field('requiredRoles', String, 'Required Roles',
         hint: 'Access control'),
+  ])
+  String? content;
+}
+
+/// Badge and interaction behavior.
+class UtilityNavigationItemEntryBehavior {
+  @Form([
     Field('badgeType', String, 'Badge Type',
         hint: 'None/Count/Dot'),
     Field('badgeSource', String, 'Badge Source',
@@ -1970,10 +2021,6 @@ class UtilityNavigationItemEntry {
         hint: 'Navigation target'),
   ])
   String? content;
-
-  /// Contains 0+× UtilityMenuItem.
-  @SectionIdPattern('PD00-USE-SCF-NAV-UTL-xx-MEN-xx')
-  List<UtilityMenuItemEntry> menuItems = [];
 }
 
 /// A utility menu item entry (form) [PD00-USE-SCF-NAV-UTL-nn-MEN-mm].
@@ -6066,28 +6113,22 @@ class DocumentationAndTraining {
   // Documentation
   // ─────────────────────────────────────────────────────────────────────────
   @Form([
-    // Documentation deliverables
-    Field('userGuide', bool, 'User Guide'),
-    Field('quickStartGuide', bool, 'Quick Start Guide'),
-    Field('onlineHelp', bool, 'Online Help'),
-    Field('videoTutorials', bool, 'Video Tutorials'),
-    Field('contextualHelp', bool, 'Contextual Help'),
-    Field('faq', bool, 'FAQ'),
-    Field('releaseNotes', bool, 'Release Notes'),
-    // Documentation format
     Field('documentationFormat', String, 'Documentation Format',
         hint: 'HTML, PDF, in-app, wiki'),
     Field('documentationPlatform', String, 'Documentation Platform',
         hint: 'GitBook, Notion, custom, Confluence'),
     Field('documentationVersioning', String, 'Documentation Versioning',
         hint: 'How docs are versioned with releases'),
-    // Localization
-    Field('documentationLanguages', String, 'Documentation Languages',
-        hint: 'Languages for documentation'),
-    Field('documentationTranslation', String, 'Documentation Translation',
-        hint: 'Translation approach for docs'),
   ])
   String? documentationContent;
+
+  /// Documentation deliverables provided to users.
+  DocumentationAndTrainingDeliverables deliverables =
+      DocumentationAndTrainingDeliverables();
+
+  /// Documentation localization approach.
+  DocumentationAndTrainingLocalization localization =
+      DocumentationAndTrainingLocalization();
 
   // ─────────────────────────────────────────────────────────────────────────
   // Training
@@ -6123,6 +6164,31 @@ class DocumentationAndTraining {
   /// Training module entries.
   @SectionIdPattern('PD00-USE-MUL-DOC-MOD-xx')
   List<TrainingModuleEntry> trainingModules = [];
+}
+
+/// Documentation deliverables provided to users.
+class DocumentationAndTrainingDeliverables {
+    @Form([
+        Field('userGuide', bool, 'User Guide'),
+        Field('quickStartGuide', bool, 'Quick Start Guide'),
+        Field('onlineHelp', bool, 'Online Help'),
+        Field('videoTutorials', bool, 'Video Tutorials'),
+        Field('contextualHelp', bool, 'Contextual Help'),
+        Field('faq', bool, 'FAQ'),
+        Field('releaseNotes', bool, 'Release Notes'),
+    ])
+    String? content;
+}
+
+/// Documentation localization approach.
+class DocumentationAndTrainingLocalization {
+    @Form([
+        Field('documentationLanguages', String, 'Documentation Languages',
+                hint: 'Languages for documentation'),
+        Field('documentationTranslation', String, 'Documentation Translation',
+                hint: 'Translation approach for docs'),
+    ])
+    String? content;
 }
 
 /// A training module entry [PD00-USE-MUL-DOC-MOD-nn].
@@ -6368,36 +6434,25 @@ class Prototype {
   // Prototype Overview
   // ─────────────────────────────────────────────────────────────────────────
   @Form([
-    // Purpose
     Field('prototypePurpose', String, 'Prototype Purpose',
         hint: 'Primary goal: validation, alignment, feasibility'),
     Field('prototypeScope', String, 'Prototype Scope',
         hint: 'What is included in prototype'),
     Field('targetAudience', String, 'Target Audience',
         hint: 'Who will evaluate the prototype'),
-    // Timeline
-    Field('prototypeTimeline', String, 'Prototype Timeline',
-        hint: 'Duration for prototype phase'),
-    Field('prototypeDeadline', String, 'Prototype Deadline',
-        hint: 'When prototype must be ready'),
-    Field('evaluationPeriod', String, 'Evaluation Period',
-        hint: 'How long for evaluation'),
-    // Resources
-    Field('prototypeTeam', String, 'Prototype Team',
-        hint: 'Who builds the prototype'),
-    Field('prototypeBudget', String, 'Prototype Budget',
-        hint: 'Budget allocation'),
-    Field('prototypeEnvironment', String, 'Prototype Environment',
-        hint: 'Where prototype is deployed'),
-    // Success criteria
     Field('successCriteria', String, 'Success Criteria',
         hint: 'How success is measured'),
-    Field('acceptanceCriteria', String, 'Acceptance Criteria',
-        hint: 'Required criteria to proceed'),
-    Field('stakeholderSignoff', String, 'Stakeholder Signoff',
-        hint: 'Who must approve prototype'),
   ])
   String? prototypeOverview;
+
+  /// Prototype timing commitments.
+  PrototypeTimeline timeline = PrototypeTimeline();
+
+  /// Prototype staffing and environment.
+  PrototypeResources resources = PrototypeResources();
+
+  /// Approval and progression criteria.
+  PrototypeGovernance governance = PrototypeGovernance();
 
   /// Prototype overview narrative.
   @ContentHelp('Executive summary of prototype approach, '
@@ -6419,6 +6474,43 @@ class Prototype {
   /// Prototype schedule.
   @ContentHelp('Detailed timeline for prototype development and evaluation.')
   TextSection prototypeSchedule = TextSection();
+}
+
+/// Prototype timing commitments.
+class PrototypeTimeline {
+    @Form([
+        Field('prototypeTimeline', String, 'Prototype Timeline',
+                hint: 'Duration for prototype phase'),
+        Field('prototypeDeadline', String, 'Prototype Deadline',
+                hint: 'When prototype must be ready'),
+        Field('evaluationPeriod', String, 'Evaluation Period',
+                hint: 'How long for evaluation'),
+    ])
+    String? content;
+}
+
+/// Prototype staffing and environment.
+class PrototypeResources {
+    @Form([
+        Field('prototypeTeam', String, 'Prototype Team',
+                hint: 'Who builds the prototype'),
+        Field('prototypeBudget', String, 'Prototype Budget',
+                hint: 'Budget allocation'),
+        Field('prototypeEnvironment', String, 'Prototype Environment',
+                hint: 'Where prototype is deployed'),
+    ])
+    String? content;
+}
+
+/// Approval and progression criteria.
+class PrototypeGovernance {
+    @Form([
+        Field('acceptanceCriteria', String, 'Acceptance Criteria',
+                hint: 'Required criteria to proceed'),
+        Field('stakeholderSignoff', String, 'Stakeholder Signoff',
+                hint: 'Who must approve prototype'),
+    ])
+    String? content;
 }
 
 /// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
@@ -6585,36 +6677,64 @@ class PrototypeTypeSection {
 @SectionId('PD00-USE-PRO-TYP-REU')
 class ReusablePrototype {
   @Form([
-    // Code quality
     Field('codeQualityRequirements', String, 'Code Quality Requirements',
         hint: 'Standards prototype code must meet'),
     Field('testCoverageRequirement', String, 'Test Coverage Requirement',
         hint: 'Required test coverage'),
     Field('codeReviewRequired', bool, 'Code Review Required'),
     Field('documentationRequired', bool, 'Documentation Required'),
-    // Architecture
-    Field('architectureAlignment', String, 'Architecture Alignment',
-        hint: 'How prototype aligns with target architecture'),
-    Field('refactoringPlan', String, 'Refactoring Plan',
-        hint: 'Planned refactoring after prototype'),
-    Field('technicalDebt', String, 'Technical Debt',
-        hint: 'Acceptable technical debt'),
-    // Integration
-    Field('integrationPlan', String, 'Integration Plan',
-        hint: 'How prototype integrates into product'),
-    Field('featureBranchStrategy', String, 'Feature Branch Strategy',
-        hint: 'Git branching approach'),
-    Field('mergeCriteria', String, 'Merge Criteria',
-        hint: 'Criteria to merge prototype code'),
-    // Transition
-    Field('transitionTimeline', String, 'Transition Timeline'),
-    Field('teamHandoff', String, 'Team Handoff',
-        hint: 'Handoff to development team'),
   ])
   String? reusableContent;
 
+  /// Architecture alignment and refactoring expectations.
+  ReusablePrototypeArchitecture architecture =
+      ReusablePrototypeArchitecture();
+
+  /// Integration and merge strategy.
+  ReusablePrototypeIntegration integration =
+      ReusablePrototypeIntegration();
+
+  /// Transition and handoff planning.
+  ReusablePrototypeTransition transition = ReusablePrototypeTransition();
+
   /// Reusable prototype narrative.
   TextSection reusableNarrative = TextSection();
+}
+
+/// Architecture alignment and refactoring expectations.
+class ReusablePrototypeArchitecture {
+    @Form([
+        Field('architectureAlignment', String, 'Architecture Alignment',
+                hint: 'How prototype aligns with target architecture'),
+        Field('refactoringPlan', String, 'Refactoring Plan',
+                hint: 'Planned refactoring after prototype'),
+        Field('technicalDebt', String, 'Technical Debt',
+                hint: 'Acceptable technical debt'),
+    ])
+    String? content;
+}
+
+/// Integration and merge strategy.
+class ReusablePrototypeIntegration {
+    @Form([
+        Field('integrationPlan', String, 'Integration Plan',
+                hint: 'How prototype integrates into product'),
+        Field('featureBranchStrategy', String, 'Feature Branch Strategy',
+                hint: 'Git branching approach'),
+        Field('mergeCriteria', String, 'Merge Criteria',
+                hint: 'Criteria to merge prototype code'),
+    ])
+    String? content;
+}
+
+/// Transition and handoff planning.
+class ReusablePrototypeTransition {
+    @Form([
+        Field('transitionTimeline', String, 'Transition Timeline'),
+        Field('teamHandoff', String, 'Team Handoff',
+                hint: 'Handoff to development team'),
+    ])
+    String? content;
 }
 
 /// 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
@@ -6662,7 +6782,6 @@ class TrainingPrototype {
 @SectionId('PD00-USE-PRO-TYP-THR')
 class ThrowawayPrototype {
   @Form([
-    // Evaluation
     Field('evaluationCriteria', String, 'Evaluation Criteria',
         hint: 'Criteria for evaluation'),
     Field('evaluationMethod', String, 'Evaluation Method',
@@ -6670,28 +6789,55 @@ class ThrowawayPrototype {
     Field('evaluationParticipants', String, 'Evaluation Participants',
         hint: 'Who participates in evaluation'),
     Field('evaluationTimeline', String, 'Evaluation Timeline'),
-    // Documentation
-    Field('findingsDocumentation', String, 'Findings Documentation',
-        hint: 'How findings are documented'),
-    Field('recommendationsOutput', String, 'Recommendations Output',
-        hint: 'Recommendations produced'),
-    Field('decisionsMade', String, 'Decisions Made',
-        hint: 'Decisions made based on prototype'),
-    // Disposal
-    Field('disposalPlan', String, 'Disposal Plan',
-        hint: 'How prototype is disposed'),
-    Field('archivingApproach', String, 'Archiving Approach',
-        hint: 'Whether/how prototype is archived'),
-    Field('nextSteps', String, 'Next Steps',
-        hint: 'What happens after evaluation'),
-    // Value capture
-    Field('insightsCaptured', String, 'Insights Captured',
-        hint: 'Key insights from prototype'),
-    Field('futureReference', String, 'Future Reference',
-        hint: 'What to preserve for future'),
   ])
   String? throwawayContent;
 
+  /// Findings and decisions captured from evaluation.
+  ThrowawayPrototypeFindings findings = ThrowawayPrototypeFindings();
+
+  /// Disposal and follow-up handling.
+  ThrowawayPrototypeDisposition disposition = ThrowawayPrototypeDisposition();
+
+  /// Long-term value retained from the prototype.
+  ThrowawayPrototypeValue value = ThrowawayPrototypeValue();
+
   /// Throwaway prototype narrative.
   TextSection throwawayNarrative = TextSection();
+}
+
+/// Findings and decisions captured from evaluation.
+class ThrowawayPrototypeFindings {
+    @Form([
+        Field('findingsDocumentation', String, 'Findings Documentation',
+                hint: 'How findings are documented'),
+        Field('recommendationsOutput', String, 'Recommendations Output',
+                hint: 'Recommendations produced'),
+        Field('decisionsMade', String, 'Decisions Made',
+                hint: 'Decisions made based on prototype'),
+    ])
+    String? content;
+}
+
+/// Disposal and follow-up handling.
+class ThrowawayPrototypeDisposition {
+    @Form([
+        Field('disposalPlan', String, 'Disposal Plan',
+                hint: 'How prototype is disposed'),
+        Field('archivingApproach', String, 'Archiving Approach',
+                hint: 'Whether/how prototype is archived'),
+        Field('nextSteps', String, 'Next Steps',
+                hint: 'What happens after evaluation'),
+    ])
+    String? content;
+}
+
+/// Long-term value retained from the prototype.
+class ThrowawayPrototypeValue {
+    @Form([
+        Field('insightsCaptured', String, 'Insights Captured',
+                hint: 'Key insights from prototype'),
+        Field('futureReference', String, 'Future Reference',
+                hint: 'What to preserve for future'),
+    ])
+    String? content;
 }

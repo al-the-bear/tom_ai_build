@@ -1478,17 +1478,37 @@ class ProcessMetricEntry {
     Field('metricCategory', String, 'Category (e.g., Efficiency, Quality, Volume, Cost)'),
     Field('currentValue', String, 'Current Value'),
     Field('unit', String, 'Unit'),
-    Field('targetValue', String, 'Target Value'),
-    Field('measurementMethod', String, 'Measurement Method'),
-    Field('dataSource', String, 'Data Source'),
-    Field('frequency', String, 'Measurement Frequency'),
-    Field('trend', String, 'Trend (Improving, Stable, Declining)'),
-    Field('benchmark', String, 'Industry Benchmark'),
   ])
   String? content;
 
+    /// Measurement collection details.
+    ProcessMetricEntryMeasurement measurement = ProcessMetricEntryMeasurement();
+
+    /// Target setting and benchmarking context.
+    ProcessMetricEntryTargets targets = ProcessMetricEntryTargets();
+
   @Reference('Process Reference')
   CurrentBusinessProcess? processReference;
+}
+
+/// Measurement collection details.
+class ProcessMetricEntryMeasurement {
+    @Form([
+        Field('measurementMethod', String, 'Measurement Method'),
+        Field('dataSource', String, 'Data Source'),
+        Field('frequency', String, 'Measurement Frequency'),
+    ])
+    String? content;
+}
+
+/// Target setting and benchmarking context.
+class ProcessMetricEntryTargets {
+    @Form([
+        Field('targetValue', String, 'Target Value'),
+        Field('trend', String, 'Trend (Improving, Stable, Declining)'),
+        Field('benchmark', String, 'Industry Benchmark'),
+    ])
+    String? content;
 }
 
 // ---------------------------------------------------------------------------
@@ -2599,6 +2619,19 @@ class DataOwnershipEntry {
         hint: 'Executive accountable for the data'),
     Field('businessOwnerRole', String, 'Owner Role',
         hint: 'Job title/role of the business owner'),
+  ])
+  String? content;
+
+  /// Stewardship and custodianship assignments.
+  DataOwnershipEntryStewardship stewardship = DataOwnershipEntryStewardship();
+
+  /// Access and coverage governance.
+  DataOwnershipEntryGovernance governance = DataOwnershipEntryGovernance();
+}
+
+/// Stewardship and custodianship assignments.
+class DataOwnershipEntryStewardship {
+  @Form([
     Field('dataSteward', String, 'Data Steward',
         hint: 'Person responsible for day-to-day data management'),
     Field('stewardRole', String, 'Steward Role',
@@ -2607,6 +2640,13 @@ class DataOwnershipEntry {
         hint: 'IT person/team responsible for technical data management'),
     Field('qualityAccountable', String, 'Quality Accountable',
         hint: 'Who is accountable for data quality'),
+  ])
+  String? content;
+}
+
+/// Access and coverage governance.
+class DataOwnershipEntryGovernance {
+  @Form([
     Field('accessApprover', String, 'Access Approver',
         hint: 'Who approves access to this data'),
     Field('coverageStatus', String, 'Coverage Status',
@@ -2899,6 +2939,21 @@ class DataGovernancePolicyEntry {
         hint: 'DataQuality / DataSecurity / DataPrivacy / DataAccess / MDM'),
     Field('description', String, 'Description',
         hint: 'Brief description of the policy'),
+  ])
+  String? content;
+
+  /// Policy lifecycle and applicability.
+  DataGovernancePolicyEntryLifecycle lifecycle =
+      DataGovernancePolicyEntryLifecycle();
+
+  /// Ownership, enforcement, and compliance status.
+  DataGovernancePolicyEntryGovernance governance =
+      DataGovernancePolicyEntryGovernance();
+}
+
+/// Policy lifecycle and applicability.
+class DataGovernancePolicyEntryLifecycle {
+  @Form([
     Field('scope', String, 'Scope',
         hint: 'What the policy applies to'),
     Field('status', String, 'Status',
@@ -2907,6 +2962,13 @@ class DataGovernancePolicyEntry {
         hint: 'When the policy became effective'),
     Field('reviewFrequency', String, 'Review Frequency',
         hint: 'How often the policy is reviewed'),
+  ])
+  String? content;
+}
+
+/// Ownership, enforcement, and compliance status.
+class DataGovernancePolicyEntryGovernance {
+  @Form([
     Field('policyOwner', String, 'Policy Owner',
         hint: 'Who owns the policy'),
     Field('enforcementMechanism', String, 'Enforcement Mechanism',

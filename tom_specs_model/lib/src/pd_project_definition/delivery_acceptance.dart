@@ -595,6 +595,19 @@ class AcceptanceStepEntry {
         hint: 'What happens in this step'),
     Field('responsibleRole', String, 'Responsible Role',
         hint: 'Who performs or leads this step'),
+  ])
+  String? content;
+
+  /// Participants and execution flow.
+  AcceptanceStepEntryFlow flow = AcceptanceStepEntryFlow();
+
+  /// Exit outcomes and timing.
+  AcceptanceStepEntryOutcome outcome = AcceptanceStepEntryOutcome();
+}
+
+/// Participants and execution flow.
+class AcceptanceStepEntryFlow {
+  @Form([
     Field('participants', String, 'Participants',
         hint: 'Additional roles involved'),
     Field('entryCriteria', String, 'Entry Criteria',
@@ -603,6 +616,13 @@ class AcceptanceStepEntry {
         hint: 'Key activities performed in this step'),
     Field('exitCriteria', String, 'Exit Criteria',
         hint: 'What must be true for this step to be complete'),
+  ])
+  String? content;
+}
+
+/// Exit outcomes and timing.
+class AcceptanceStepEntryOutcome {
+  @Form([
     Field('outputs', String, 'Outputs',
         hint: 'Documents, decisions, or artifacts produced'),
     Field('duration', String, 'Expected Duration',
@@ -867,6 +887,19 @@ class UatTestCycleEntry {
         hint: 'Start date for this cycle'),
     Field('plannedEndDate', String, 'Planned End Date',
         hint: 'End date for this cycle'),
+  ])
+  String? content;
+
+  /// Scope and pass criteria for this cycle.
+  UatTestCycleEntryScope scope = UatTestCycleEntryScope();
+
+  /// Staffing and risk context.
+  UatTestCycleEntryExecution execution = UatTestCycleEntryExecution();
+}
+
+/// Scope and pass criteria for this cycle.
+class UatTestCycleEntryScope {
+  @Form([
     Field('scenariosInScope', String, 'Scenarios in Scope',
         hint: 'Scenario IDs or categories included in this cycle'),
     Field('focusAreas', String, 'Focus Areas',
@@ -878,6 +911,13 @@ class UatTestCycleEntry {
         hint: 'Completion conditions for this cycle'),
     Field('passCriterion', String, 'Pass Criterion',
         hint: 'Required pass rate — e.g. >= 95% of scenarios'),
+  ])
+  String? content;
+}
+
+/// Staffing and risk context.
+class UatTestCycleEntryExecution {
+  @Form([
     Field('assignedTesters', String, 'Assigned Testers',
         hint: 'Tester names/roles allocated for this cycle'),
     Field('riskNotes', String, 'Risk Notes',

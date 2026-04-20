@@ -1061,29 +1061,59 @@ and decision-making rules.
         hint: 'Primary purpose and authority of the board'),
     Field('meetingFrequency', String, 'Meeting Frequency',
         hint: 'How often the board meets — Weekly / Bi-weekly / Monthly'),
+  ])
+  String? content;
+
+    /// Regular meeting cadence details.
+    ChangeControlBoardMeetings meetings = ChangeControlBoardMeetings();
+
+    /// Decision-making and emergency governance.
+    ChangeControlBoardGovernance governance = ChangeControlBoardGovernance();
+
+    /// Decision record distribution.
+    ChangeControlBoardRecords records = ChangeControlBoardRecords();
+
+  /// CCB members — contains 1+× CCB Member.
+  @SectionIdPattern('PD00-ADM-CHA-CCB-xx')
+  @Min(1)
+  List<CcbMemberEntry> members = [];
+}
+
+/// Regular meeting cadence details.
+class ChangeControlBoardMeetings {
+  @Form([
     Field('meetingDay', String, 'Meeting Day',
         hint: 'Day of week for regular meetings'),
     Field('meetingTime', String, 'Meeting Time',
         hint: 'Standard meeting time'),
     Field('meetingDuration', String, 'Meeting Duration',
         hint: 'Standard meeting duration'),
+  ])
+  String? content;
+}
+
+/// Decision-making and emergency governance.
+class ChangeControlBoardGovernance {
+  @Form([
     Field('quorumRequirement', String, 'Quorum Requirement',
         hint: 'Minimum attendance for valid decisions'),
     Field('votingRules', String, 'Voting Rules',
         hint: 'How decisions are made — Consensus / Majority / Chair decides'),
     Field('emergencyProcedure', String, 'Emergency Procedure',
         hint: 'How emergency decisions are handled outside meetings'),
+  ])
+  String? content;
+}
+
+/// Decision record distribution.
+class ChangeControlBoardRecords {
+  @Form([
     Field('minutesDistribution', String, 'Minutes Distribution',
         hint: 'How meeting minutes are distributed'),
     Field('decisionLog', String, 'Decision Log',
         hint: 'Where decisions are recorded'),
   ])
   String? content;
-
-  /// CCB members — contains 1+× CCB Member.
-  @SectionIdPattern('PD00-ADM-CHA-CCB-xx')
-  @Min(1)
-  List<CcbMemberEntry> members = [];
 }
 
 /// A CCB member entry.

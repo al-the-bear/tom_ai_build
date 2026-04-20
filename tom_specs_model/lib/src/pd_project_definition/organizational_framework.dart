@@ -1624,6 +1624,19 @@ class ChangedRoleTransition {
     Field('transitionEnd', String, 'Transition End Date'),
     Field('parallelPeriod', String,
         'Parallel Period — overlap of old/new ways'),
+  ])
+  String? content;
+
+  /// Training preparation for the transition.
+  ChangedRoleTransitionTraining training = ChangedRoleTransitionTraining();
+
+  /// Support expectations and success checkpoints.
+  ChangedRoleTransitionSupport support = ChangedRoleTransitionSupport();
+}
+
+/// Training preparation for the transition.
+class ChangedRoleTransitionTraining {
+  @Form([
     Field('trainingSchedule', String,
         'Training Schedule — when training occurs'),
     Field('trainingDuration', String,
@@ -1632,6 +1645,13 @@ class ChangedRoleTransition {
         'Training Format — classroom, online, OJT'),
     Field('practiceOpportunities', String,
         'Practice Opportunities — sandbox, pilot'),
+  ])
+  String? content;
+}
+
+/// Support expectations and success checkpoints.
+class ChangedRoleTransitionSupport {
+  @Form([
     Field('supportDuringTransition', String,
         'Support During Transition — help available'),
     Field('performanceExpectations', String,
