@@ -985,21 +985,51 @@ class OperationsQualityCriteria {
 /// 11.4.1. Availability quality [PD00-SYQ-OPE-AVA].
 class AvailabilityQuality {
   @Form([
-    // Uptime targets
     Field('uptimeTargetPercentage', String, 'Uptime Target %',
         hint: '99.9% (8.76h/year downtime)'),
     Field('uptimeCalculationMethod', String, 'Uptime Calculation Method',
         hint: 'Excluding planned, including all'),
     Field('uptimeMeasurementPeriod', String, 'Measurement Period',
         hint: 'Monthly, quarterly, annually'),
-    // Operating hours
+  ])
+  String? content;
+
+  /// Operating-hour expectations.
+  AvailabilityQualityOperatingHours operatingHoursDetails =
+      AvailabilityQualityOperatingHours();
+
+  /// Maintenance window policy.
+  AvailabilityQualityMaintenance maintenance =
+      AvailabilityQualityMaintenance();
+
+  /// Degraded-mode behavior.
+  AvailabilityQualityDegradedMode degradedMode =
+      AvailabilityQualityDegradedMode();
+
+  /// Monitoring and reporting.
+  AvailabilityQualityVerification verification =
+      AvailabilityQualityVerification();
+
+  /// Detailed availability requirements narrative.
+  TextSection narrative = TextSection();
+}
+
+/// Operating-hour expectations.
+class AvailabilityQualityOperatingHours {
+  @Form([
     Field('operatingHours', String, 'Operating Hours',
         hint: '24/7, business hours, regional'),
     Field('peakHoursDefinition', String, 'Peak Hours Definition',
         hint: 'When peak hours apply'),
     Field('peakHoursAvailability', String, 'Peak Hours Availability',
         hint: 'Higher availability during peaks'),
-    // Maintenance windows
+  ])
+  String? content;
+}
+
+/// Maintenance window policy.
+class AvailabilityQualityMaintenance {
+  @Form([
     Field('scheduledMaintenanceWindow', String, 'Scheduled Maintenance Window',
         hint: 'When maintenance can occur'),
     Field('maintenanceNotification', String, 'Maintenance Notification',
@@ -1008,23 +1038,32 @@ class AvailabilityQuality {
         hint: 'Weekly, monthly, quarterly'),
     Field('maintenanceDurationLimit', String, 'Maintenance Duration Limit',
         hint: 'Max duration per window'),
-    // Degraded mode
+  ])
+  String? content;
+}
+
+/// Degraded-mode behavior.
+class AvailabilityQualityDegradedMode {
+  @Form([
     Field('degradedModeDefinition', String, 'Degraded Mode Definition',
         hint: 'What constitutes degraded mode'),
     Field('degradedModeCapabilities', String, 'Degraded Mode Capabilities',
         hint: 'Features available in degraded mode'),
     Field('degradedModeCommunication', String, 'Degraded Mode Communication',
         hint: 'How users are informed'),
-    // Verification
+  ])
+  String? content;
+}
+
+/// Monitoring and reporting.
+class AvailabilityQualityVerification {
+  @Form([
     Field('availabilityMonitoring', String, 'Availability Monitoring',
         hint: 'Synthetic monitoring, real user'),
     Field('availabilityReporting', String, 'Availability Reporting',
         hint: 'Dashboard, reports, SLA tracking'),
   ])
   String? content;
-
-  /// Detailed availability requirements narrative.
-  TextSection narrative = TextSection();
 }
 
 /// 11.4.2. Service level quality [PD00-SYQ-OPE-SER].

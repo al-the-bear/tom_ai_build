@@ -597,7 +597,6 @@ class ToolingAndEnvironments {
 @SectionId('PD00-POP-TOO-TOO')
 class Tooling {
   @Form([
-    // --- Tool Strategy & Governance ---
     Field('toolStrategyOverview', String, 'Tool Strategy Overview',
         hint:
             'High-level approach to tooling — standardisation goals, '
@@ -614,47 +613,17 @@ class Tooling {
     Field('toolApprovalProcess', String, 'Tool Approval Process',
         hint:
             'Workflow for requesting, evaluating, and approving new tools'),
-    Field('toolRationalizationGoals', String, 'Tool Rationalization Goals',
-        hint:
-            'Targets for reducing overlap, consolidating redundant tools'),
-    Field('mandatoryToolsOverview', String, 'Mandatory Tools Overview',
-        hint:
-            'Tools that every team member must use — IDE, VCS, CI, '
-            'communication'),
-    Field('recommendedToolsOverview', String, 'Recommended Tools Overview',
-        hint:
-            'Encouraged but optional tools — code assistants, profilers, '
-            'linters'),
-    Field('optionalToolsPolicy', String, 'Optional Tools Policy',
-        hint:
-            'Policy for personal/team tool choices — BYO rules, security '
-            'review'),
-    Field('toolBudgetOverview', String, 'Tool Budget Overview',
-        hint:
-            'Total annual budget for tool licenses, subscriptions, and '
-            'infrastructure'),
-    Field('toolOnboardingProcess', String, 'Tool Onboarding Process',
-        hint:
-            'Standard steps when a new team member joins — account '
-            'provisioning, training'),
-    Field('toolOffboardingProcess', String, 'Tool Offboarding Process',
-        hint:
-            'Steps when a member leaves — license reclaim, access '
-            'revocation, data export'),
-    Field('toolReviewCadence', String, 'Tool Review Cadence',
-        hint:
-            'How often the tool landscape is reviewed — quarterly, '
-            'biannually, annually'),
-    Field('shadowItPolicy', String, 'Shadow IT Policy',
-        hint:
-            'Policy for unapproved tool usage — detection, enforcement, '
-            'amnesty process'),
-    Field('toolCatalogUrl', String, 'Tool Catalog URL',
-        hint: 'Link to the authoritative tool registry or wiki page'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional tooling strategy notes'),
   ])
   String? content;
+
+  /// Stack composition and selection policies.
+  ToolingStack stack = ToolingStack();
+
+  /// Lifecycle and governance processes.
+  ToolingLifecycle lifecycle = ToolingLifecycle();
+
+  /// Review, catalog, and notes.
+  ToolingGovernance governance = ToolingGovernance();
 
   /// Tool strategy narrative.
   @ContentType('description',
@@ -665,6 +634,58 @@ class Tooling {
   /// Contains 0+× Tool.
   @SectionIdPattern('PD00-POP-TOO-TOO-xx')
   List<ToolEntry> items = [];
+}
+
+/// Stack composition and selection policies.
+class ToolingStack {
+    @Form([
+        Field('toolRationalizationGoals', String, 'Tool Rationalization Goals',
+                hint:
+                        'Targets for reducing overlap, consolidating redundant tools'),
+        Field('mandatoryToolsOverview', String, 'Mandatory Tools Overview',
+                hint:
+                        'Tools that every team member must use — IDE, VCS, CI, communication'),
+        Field('recommendedToolsOverview', String, 'Recommended Tools Overview',
+                hint:
+                        'Encouraged but optional tools — code assistants, profilers, linters'),
+        Field('optionalToolsPolicy', String, 'Optional Tools Policy',
+                hint:
+                        'Policy for personal/team tool choices — BYO rules, security review'),
+        Field('toolBudgetOverview', String, 'Tool Budget Overview',
+                hint:
+                        'Total annual budget for tool licenses, subscriptions, and infrastructure'),
+    ])
+    String? content;
+}
+
+/// Lifecycle and governance processes.
+class ToolingLifecycle {
+    @Form([
+        Field('toolOnboardingProcess', String, 'Tool Onboarding Process',
+                hint:
+                        'Standard steps when a new team member joins — account provisioning, training'),
+        Field('toolOffboardingProcess', String, 'Tool Offboarding Process',
+                hint:
+                        'Steps when a member leaves — license reclaim, access revocation, data export'),
+    ])
+    String? content;
+}
+
+/// Review, catalog, and notes.
+class ToolingGovernance {
+    @Form([
+        Field('toolReviewCadence', String, 'Tool Review Cadence',
+                hint:
+                        'How often the tool landscape is reviewed — quarterly, biannually, annually'),
+        Field('shadowItPolicy', String, 'Shadow IT Policy',
+                hint:
+                        'Policy for unapproved tool usage — detection, enforcement, amnesty process'),
+        Field('toolCatalogUrl', String, 'Tool Catalog URL',
+                hint: 'Link to the authoritative tool registry or wiki page'),
+        Field('notes', String, 'Notes',
+                hint: 'Additional tooling strategy notes'),
+    ])
+    String? content;
 }
 
 /// A tool entry (form) [PD00-POP-TOO-TOO-nn].

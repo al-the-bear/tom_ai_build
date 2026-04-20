@@ -2315,22 +2315,54 @@ class DataQualityIssueEntry {
         hint: 'Full description of the issue and its manifestation'),
     Field('affectedDataSource', String, 'Affected Data Source',
         hint: 'Which data source(s) are impacted'),
+  ])
+  String? content;
+
+  /// Classification and severity.
+  DataQualityIssueEntryClassification classification =
+      DataQualityIssueEntryClassification();
+
+  /// Business impact and diagnostics.
+  DataQualityIssueEntryImpact impact = DataQualityIssueEntryImpact();
+
+  /// Resolution planning.
+  DataQualityIssueEntryResolution resolution =
+      DataQualityIssueEntryResolution();
+}
+
+/// Classification and severity.
+class DataQualityIssueEntryClassification {
+  @Form([
     Field('affectedEntities', String, 'Affected Entities',
         hint: 'Which data entities/tables are impacted'),
     Field('qualityDimension', String, 'Quality Dimension',
         hint: 'Accuracy / Completeness / Consistency / Timeliness / Validity'),
     Field('severity', String, 'Severity',
         hint: 'Critical / High / Medium / Low'),
+  ])
+  String? content;
+}
+
+/// Business impact and diagnostics.
+class DataQualityIssueEntryImpact {
+  @Form([
     Field('impactDescription', String, 'Business Impact',
         hint: 'How this quality issue affects business operations'),
     Field('quantifiedImpact', String, 'Quantified Impact',
-        hint: 'Measurable impact, e.g. €50k/year, 10% error rate'),
+        hint: 'Measurable impact, e.g. EUR50k/year, 10% error rate'),
     Field('rootCause', String, 'Root Cause',
         hint: 'Underlying cause of the quality issue'),
     Field('affectedRecordCount', String, 'Affected Record Count',
         hint: 'Number or percentage of records affected'),
     Field('dateIdentified', String, 'Date Identified',
         hint: 'When the issue was discovered'),
+  ])
+  String? content;
+}
+
+/// Resolution planning.
+class DataQualityIssueEntryResolution {
+  @Form([
     Field('currentWorkaround', String, 'Current Workaround',
         hint: 'How users currently cope with this issue'),
     Field('proposedResolution', String, 'Proposed Resolution',

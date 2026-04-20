@@ -2020,26 +2020,17 @@ class UserPersonaDetails {
     Field('ageRange', String, 'Age Range'),
     Field('educationLevel', String, 'Education Level'),
     Field('jobTitle', String, 'Job Title / Position'),
-    Field('yearsOfExperience', String, 'Years of Experience (in this role)'),
-    Field('workEnvironment', String,
-        'Work Environment (office, remote, field, etc.)'),
-    Field('primaryGoals', String,
-        'Primary Goals (what they want to achieve with the system)'),
-    Field('secondaryGoals', String, 'Secondary Goals'),
-    Field('frustrations', String,
-        'Frustrations (pain points with current solutions)'),
-    Field('motivations', String, 'Motivations (what drives them)'),
-    Field('fears', String, 'Fears (concerns about new systems)'),
-    Field('techComfort', String,
-        'Technology Comfort Level (attitude toward technology)'),
-    Field('preferredLearningStyle', String,
-        'Preferred Learning Style (visual, hands-on, documentation, etc.)'),
-    Field('typicalWorkday', String,
-        'Typical Workday (relevant aspects of daily routine)'),
-    Field('decisionMakingStyle', String,
-        'Decision Making Style (analytical, intuitive, collaborative)'),
   ])
   String? personaForm;
+
+  /// Experience and work context.
+  UserPersonaDetailsContext contextDetails = UserPersonaDetailsContext();
+
+  /// Goals and drivers.
+  UserPersonaDetailsGoals goals = UserPersonaDetailsGoals();
+
+  /// Preferences and behavior.
+  UserPersonaDetailsBehavior behavior = UserPersonaDetailsBehavior();
 
   /// Representative photo or avatar description.
   @ContentType('description', 'Description of a representative photo or '
@@ -2050,6 +2041,45 @@ class UserPersonaDetails {
   @ContentType('description', 'Representative quotes that capture this '
       'persona\'s attitude, needs, or concerns.')
   String? representativeQuotes;
+}
+
+/// Experience and work context.
+class UserPersonaDetailsContext {
+    @Form([
+        Field('yearsOfExperience', String, 'Years of Experience (in this role)'),
+        Field('workEnvironment', String,
+                'Work Environment (office, remote, field, etc.)'),
+        Field('typicalWorkday', String,
+                'Typical Workday (relevant aspects of daily routine)'),
+    ])
+    String? content;
+}
+
+/// Goals and drivers.
+class UserPersonaDetailsGoals {
+    @Form([
+        Field('primaryGoals', String,
+                'Primary Goals (what they want to achieve with the system)'),
+        Field('secondaryGoals', String, 'Secondary Goals'),
+        Field('frustrations', String,
+                'Frustrations (pain points with current solutions)'),
+        Field('motivations', String, 'Motivations (what drives them)'),
+        Field('fears', String, 'Fears (concerns about new systems)'),
+    ])
+    String? content;
+}
+
+/// Preferences and behavior.
+class UserPersonaDetailsBehavior {
+    @Form([
+        Field('techComfort', String,
+                'Technology Comfort Level (attitude toward technology)'),
+        Field('preferredLearningStyle', String,
+                'Preferred Learning Style (visual, hands-on, documentation, etc.)'),
+        Field('decisionMakingStyle', String,
+                'Decision Making Style (analytical, intuitive, collaborative)'),
+    ])
+    String? content;
 }
 
 /// Role within a user category [PD00-SYO-SYD-USR-nn-ROL].
@@ -5679,33 +5709,57 @@ class InterfaceSecurity {
 @SectionId('PD00-SYO-SYB-INT-xx-OPS')
 class InterfaceOperational {
   @Form([
-    // Availability & SLA
     Field('availabilitySla', String, 'Availability SLA (e.g., 99.9%)'),
     Field('scheduledDowntime', String, 'Scheduled Downtime Windows'),
     Field('responseTimeSla', String, 'Response Time SLA (e.g., p95 < 200ms)'),
     Field('throughputSla', String, 'Throughput SLA'),
-
-    // Rate Limiting
-    Field('rateLimits', String, 'Rate Limits (requests/minute)'),
-    Field('quotaLimits', String, 'Quota Limits (requests/day)'),
-    Field('burstCapacity', String, 'Burst Capacity'),
-
-    // Monitoring
-    Field('healthCheckEndpoint', String, 'Health Check Endpoint'),
-    Field('statusPageUrl', String, 'Status Page URL'),
-    Field('monitoringApproach', String, 'Monitoring Approach'),
-    Field('alertingThresholds', String, 'Alerting Thresholds'),
-
-    // Support
-    Field('supportHours', String, 'Support Hours'),
-    Field('supportContact', String, 'Support Contact'),
-    Field('incidentProcess', String, 'Incident Process'),
-    Field('escalationPath', String, 'Escalation Path'),
   ])
   String? content;
 
+    /// Rate limiting rules.
+    InterfaceOperationalRateLimiting rateLimiting =
+            InterfaceOperationalRateLimiting();
+
+    /// Monitoring configuration.
+    InterfaceOperationalMonitoring monitoring = InterfaceOperationalMonitoring();
+
+    /// Support model.
+    InterfaceOperationalSupport support = InterfaceOperationalSupport();
+
   /// Operational dependencies.
   TextSection dependencies = TextSection();
+}
+
+/// Rate limiting rules.
+class InterfaceOperationalRateLimiting {
+    @Form([
+        Field('rateLimits', String, 'Rate Limits (requests/minute)'),
+        Field('quotaLimits', String, 'Quota Limits (requests/day)'),
+        Field('burstCapacity', String, 'Burst Capacity'),
+    ])
+    String? content;
+}
+
+/// Monitoring configuration.
+class InterfaceOperationalMonitoring {
+    @Form([
+        Field('healthCheckEndpoint', String, 'Health Check Endpoint'),
+        Field('statusPageUrl', String, 'Status Page URL'),
+        Field('monitoringApproach', String, 'Monitoring Approach'),
+        Field('alertingThresholds', String, 'Alerting Thresholds'),
+    ])
+    String? content;
+}
+
+/// Support model.
+class InterfaceOperationalSupport {
+    @Form([
+        Field('supportHours', String, 'Support Hours'),
+        Field('supportContact', String, 'Support Contact'),
+        Field('incidentProcess', String, 'Incident Process'),
+        Field('escalationPath', String, 'Escalation Path'),
+    ])
+    String? content;
 }
 
 /// Error handling specification [PD00-SYO-SYB-INT-nn-ERR].
@@ -5945,7 +5999,6 @@ class OrganizationalEnvironment {
   // Organizational Overview
   // -------------------------------------------------------------------------
   @Form([
-    // Enterprise Context
     Field('organizationName', String, 'Organization Name'),
     Field('organizationType', String,
         'Organization Type (Enterprise, SMB, Startup, Government, Non-profit)'),
@@ -5955,26 +6008,16 @@ class OrganizationalEnvironment {
         'Geographic Footprint (Local, National, Regional, Global)'),
     Field('employeeCount', String, 'Employee Count'),
     Field('revenueRange', String, 'Revenue Range'),
-
-    // Organizational Maturity
-    Field('digitalMaturityLevel', String,
-        'Digital Maturity (Nascent, Developing, Defined, Optimizing, Leading)'),
-    Field('changeReadiness', String,
-        'Change Readiness (Low, Medium, High)'),
-    Field('projectManagementMaturity', String,
-        'PM Maturity (Ad-hoc, Repeatable, Defined, Managed, Optimizing)'),
-    Field('itGovernanceMaturity', String,
-        'IT Governance Maturity (Initial, Repeatable, Defined, Managed)'),
-
-    // Decision Making Context
-    Field('decisionMakingStyle', String,
-        'Decision Style (Centralized, Federated, Consensus, Delegated)'),
-    Field('approvalLevels', String, 'Approval Levels/Hierarchy'),
-    Field('escalationPath', String, 'Escalation Path'),
-    Field('budgetAuthority', String, 'Budget Authority Structure'),
-    Field('procurementProcess', String, 'Procurement Process Type'),
   ])
   String? organizationContent;
+
+  /// Organizational maturity indicators.
+  OrganizationalEnvironmentMaturity maturity =
+      OrganizationalEnvironmentMaturity();
+
+  /// Decision-making context.
+  OrganizationalEnvironmentDecisionMaking decisionMakingContext =
+      OrganizationalEnvironmentDecisionMaking();
 
   // -------------------------------------------------------------------------
   // Organizational Structure
@@ -6032,6 +6075,34 @@ class OrganizationalEnvironment {
   @ContentHelp('Identify change champions, executive sponsors, and influential '
       'stakeholders who can advocate for the project.')
   TextSection changeAdvocates = TextSection();
+}
+
+/// Organizational maturity indicators.
+class OrganizationalEnvironmentMaturity {
+    @Form([
+        Field('digitalMaturityLevel', String,
+                'Digital Maturity (Nascent, Developing, Defined, Optimizing, Leading)'),
+        Field('changeReadiness', String,
+                'Change Readiness (Low, Medium, High)'),
+        Field('projectManagementMaturity', String,
+                'PM Maturity (Ad-hoc, Repeatable, Defined, Managed, Optimizing)'),
+        Field('itGovernanceMaturity', String,
+                'IT Governance Maturity (Initial, Repeatable, Defined, Managed)'),
+    ])
+    String? content;
+}
+
+/// Decision-making context.
+class OrganizationalEnvironmentDecisionMaking {
+    @Form([
+        Field('decisionMakingStyle', String,
+                'Decision Style (Centralized, Federated, Consensus, Delegated)'),
+        Field('approvalLevels', String, 'Approval Levels/Hierarchy'),
+        Field('escalationPath', String, 'Escalation Path'),
+        Field('budgetAuthority', String, 'Budget Authority Structure'),
+        Field('procurementProcess', String, 'Procurement Process Type'),
+    ])
+    String? content;
 }
 
 /// An affected department entry [PD00-SYO-RES-ORG-DEP-nn].
@@ -6481,31 +6552,60 @@ class TechnologyStandardEntryImpact {
 /// protocol requirements, format restrictions, and platform mandates.
 class IntegrationConstraintEntry {
   @Form([
-    // Constraint Identification
     Field('constraintId', String, 'Constraint ID', required: true,
         hint: 'Unique identifier, e.g. INT-CON-001'),
     Field('constraintName', String, 'Constraint Name', required: true,
         hint: 'Short descriptive name'),
     Field('constraintDescription', String, 'Description',
         hint: 'Detailed description of the integration constraint'),
+  ])
+  String? content;
 
-    // Constraint Details
+  /// Constraint details.
+  IntegrationConstraintEntryDetails details =
+      IntegrationConstraintEntryDetails();
+
+  /// Scope of impact.
+  IntegrationConstraintEntryScope scope = IntegrationConstraintEntryScope();
+
+  /// Impact and mitigation.
+  IntegrationConstraintEntryMitigation mitigation =
+      IntegrationConstraintEntryMitigation();
+
+  /// Compliance rules.
+  IntegrationConstraintEntryCompliance compliance =
+      IntegrationConstraintEntryCompliance();
+}
+
+/// Constraint details.
+class IntegrationConstraintEntryDetails {
+  @Form([
     Field('constraintType', String, 'Constraint Type',
         hint: 'Protocol, Format, Platform, Security, Performance, Availability'),
     Field('constraintValue', String, 'Constraint Value',
         hint: 'Specific constraint value or requirement'),
     Field('constraintSource', String, 'Source',
         hint: 'Source of the constraint — enterprise architecture, vendor, security'),
+  ])
+  String? content;
+}
 
-    // Scope
+/// Scope of impact.
+class IntegrationConstraintEntryScope {
+  @Form([
     Field('impactedSystems', String, 'Impacted Systems',
         hint: 'Systems affected by this constraint'),
     Field('impactedInterfaces', String, 'Impacted Interfaces',
         hint: 'Specific interfaces affected'),
     Field('integrationPattern', String, 'Affected Patterns',
         hint: 'Integration patterns affected — sync, async, batch, event'),
+  ])
+  String? content;
+}
 
-    // Impact & Mitigation
+/// Impact and mitigation.
+class IntegrationConstraintEntryMitigation {
+  @Form([
     Field('impactLevel', String, 'Impact Level',
         hint: 'High, Medium, Low — impact on integration design'),
     Field('designImplications', String, 'Design Implications',
@@ -6514,8 +6614,13 @@ class IntegrationConstraintEntry {
         hint: 'Potential workarounds or alternatives'),
     Field('mitigationApproach', String, 'Mitigation Approach',
         hint: 'How to work within this constraint'),
+  ])
+  String? content;
+}
 
-    // Compliance
+/// Compliance rules.
+class IntegrationConstraintEntryCompliance {
+  @Form([
     Field('complianceRequired', bool, 'Compliance Required',
         hint: 'Whether compliance is mandatory'),
     Field('validationMethod', String, 'Validation Method',

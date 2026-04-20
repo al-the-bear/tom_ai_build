@@ -1702,23 +1702,53 @@ class ComputingEquipmentEntry {
         'Device Type — desktop, laptop, workstation, thin client'),
     Field('brand', String, 'Brand — manufacturer preference'),
     Field('modelSpecification', String, 'Model/Specification — exact model'),
-    Field('processor', String, 'Processor — CPU requirements'),
-    Field('memory', String, 'Memory — RAM requirements'),
-    Field('storage', String, 'Storage — HDD/SSD requirements'),
-    Field('graphicsCard', String, 'Graphics Card — if required'),
-    Field('operatingSystem', String, 'Operating System — OS version'),
-    Field('securityFeatures', String,
-        'Security Features — TPM, biometric, encryption'),
-    Field('portRequirements', String,
-        'Port Requirements — USB, HDMI, network ports'),
-    Field('formFactor', String,
-        'Form Factor — tower, small form factor, all-in-one'),
-    Field('quantityNeeded', int, 'Quantity Needed'),
-    Field('priorityLevel', String,
-        'Priority Level — critical, standard, optional'),
-    Field('justification', String, 'Justification — why this specification'),
   ])
   String? content;
+
+    /// Hardware specifications.
+    ComputingEquipmentEntryHardware hardware = ComputingEquipmentEntryHardware();
+
+    /// Platform and security requirements.
+    ComputingEquipmentEntryPlatform platform = ComputingEquipmentEntryPlatform();
+
+    /// Deployment and justification.
+    ComputingEquipmentEntryPlanning planning = ComputingEquipmentEntryPlanning();
+}
+
+/// Hardware specifications.
+class ComputingEquipmentEntryHardware {
+    @Form([
+        Field('processor', String, 'Processor — CPU requirements'),
+        Field('memory', String, 'Memory — RAM requirements'),
+        Field('storage', String, 'Storage — HDD/SSD requirements'),
+        Field('graphicsCard', String, 'Graphics Card — if required'),
+    ])
+    String? content;
+}
+
+/// Platform and security requirements.
+class ComputingEquipmentEntryPlatform {
+    @Form([
+        Field('operatingSystem', String, 'Operating System — OS version'),
+        Field('securityFeatures', String,
+                'Security Features — TPM, biometric, encryption'),
+        Field('portRequirements', String,
+                'Port Requirements — USB, HDMI, network ports'),
+        Field('formFactor', String,
+                'Form Factor — tower, small form factor, all-in-one'),
+    ])
+    String? content;
+}
+
+/// Deployment and justification.
+class ComputingEquipmentEntryPlanning {
+    @Form([
+        Field('quantityNeeded', int, 'Quantity Needed'),
+        Field('priorityLevel', String,
+                'Priority Level — critical, standard, optional'),
+        Field('justification', String, 'Justification — why this specification'),
+    ])
+    String? content;
 }
 
 /// Display equipment entry (form) [PD00-ORG-WOR-nn-EQU-DSP-nn].
@@ -2179,28 +2209,58 @@ class SystemTrainingEntry {
         'Modules Covered — system modules in scope'),
     Field('userRoleFocus', String,
         'User Role Focus — specific role training'),
+  ])
+  String? content;
+
+  /// Functional training coverage.
+  SystemTrainingEntryFunctional functional = SystemTrainingEntryFunctional();
+
+  /// Practical exercises.
+  SystemTrainingEntryPractice practice = SystemTrainingEntryPractice();
+
+  /// Support and environment.
+  SystemTrainingEntrySupport support = SystemTrainingEntrySupport();
+}
+
+/// Functional training coverage.
+class SystemTrainingEntryFunctional {
+  @Form([
     Field('functionalScope', String,
         'Functional Scope — functions covered'),
     Field('taskBasedLearning', String,
         'Task-Based Learning — specific tasks taught'),
     Field('navigationTraining', String,
         'Navigation Training — general system navigation'),
-    Field('dataEntryPractice', String,
-        'Data Entry Practice — hands-on data entry'),
     Field('reportingTraining', String,
         'Reporting Training — reports, dashboards'),
     Field('workflowTraining', String,
         'Workflow Training — business workflows'),
+  ])
+  String? content;
+}
+
+/// Practical exercises.
+class SystemTrainingEntryPractice {
+  @Form([
+    Field('dataEntryPractice', String,
+        'Data Entry Practice — hands-on data entry'),
     Field('integrationAwareness', String,
         'Integration Awareness — related systems'),
+    Field('scenarioBased', String,
+        'Scenario-Based — realistic scenarios practiced'),
+  ])
+  String? content;
+}
+
+/// Support and environment.
+class SystemTrainingEntrySupport {
+  @Form([
     Field('troubleshootingBasics', String,
         'Troubleshooting Basics — common issues'),
     Field('helpResources', String,
         'Help Resources — where to get help'),
     Field('sandboxEnvironment', String,
         'Sandbox Environment — practice system'),
-    Field('scenarioBased', String,
-        'Scenario-Based — realistic scenarios practiced'),
   ])
   String? content;
 }
@@ -2299,21 +2359,51 @@ class TrainingMaterials {
         'Video Tutorials — recorded demonstrations'),
     Field('elearningModules', String,
         'E-Learning Modules — interactive online courses'),
+  ])
+  String? content;
+
+  /// Practice and reference resources.
+  TrainingMaterialsPractice practice = TrainingMaterialsPractice();
+
+  /// Knowledge distribution.
+  TrainingMaterialsKnowledge knowledge = TrainingMaterialsKnowledge();
+
+  /// Publishing and accessibility.
+  TrainingMaterialsOperations operations = TrainingMaterialsOperations();
+}
+
+/// Practice and reference resources.
+class TrainingMaterialsPractice {
+  @Form([
     Field('simulationEnvironment', String,
         'Simulation Environment — sandbox for practice'),
     Field('practiceExercises', String,
         'Practice Exercises — hands-on exercises'),
-    Field('knowledgeBase', String,
-        'Knowledge Base — searchable help articles'),
-    Field('faq', String, 'FAQ — frequently asked questions'),
     Field('cheatSheets', String,
         'Cheat Sheets — shortcuts, tips'),
     Field('processFlowcharts', String,
         'Process Flowcharts — visual process guides'),
     Field('screenRecordings', String,
         'Screen Recordings — step-by-step demos'),
+  ])
+  String? content;
+}
+
+/// Knowledge distribution.
+class TrainingMaterialsKnowledge {
+  @Form([
+    Field('knowledgeBase', String,
+        'Knowledge Base — searchable help articles'),
+    Field('faq', String, 'FAQ — frequently asked questions'),
     Field('accessMethod', String,
         'Access Method — LMS, intranet, SharePoint'),
+  ])
+  String? content;
+}
+
+/// Publishing and accessibility.
+class TrainingMaterialsOperations {
+  @Form([
     Field('updateProcess', String,
         'Update Process — how materials are updated'),
     Field('translationNeeds', String,
@@ -2335,6 +2425,24 @@ class TrainingAssessment {
         'Post-Assessment — end-of-training test'),
     Field('practicalEvaluation', String,
         'Practical Evaluation — hands-on demonstration'),
+  ])
+  String? content;
+
+  /// Retention and effectiveness evaluation.
+  TrainingAssessmentEffectiveness effectiveness =
+      TrainingAssessmentEffectiveness();
+
+  /// Competency and remediation management.
+  TrainingAssessmentImprovement improvement =
+      TrainingAssessmentImprovement();
+
+  /// Progress reporting.
+  TrainingAssessmentReporting reporting = TrainingAssessmentReporting();
+}
+
+/// Retention and effectiveness evaluation.
+class TrainingAssessmentEffectiveness {
+  @Form([
     Field('knowledgeRetention', String,
         'Knowledge Retention — follow-up assessments'),
     Field('kirkpatrickLevel1', String,
@@ -2345,12 +2453,26 @@ class TrainingAssessment {
         'Level 3 (Behavior) — on-the-job application'),
     Field('kirkpatrickLevel4', String,
         'Level 4 (Results) — business impact'),
+  ])
+  String? content;
+}
+
+/// Competency and remediation management.
+class TrainingAssessmentImprovement {
+  @Form([
     Field('competencyMapping', String,
         'Competency Mapping — linking training to competencies'),
     Field('gapAnalysis', String,
         'Gap Analysis — identifying remaining gaps'),
     Field('remediation', String,
         'Remediation — addressing failed assessments'),
+  ])
+  String? content;
+}
+
+/// Progress reporting.
+class TrainingAssessmentReporting {
+  @Form([
     Field('progressTracking', String,
         'Progress Tracking — individual progress visibility'),
     Field('reportingDashboard', String,
