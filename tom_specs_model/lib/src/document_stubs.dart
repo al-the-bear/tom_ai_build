@@ -33,12 +33,12 @@ export 'uc_use_cases/uc_use_cases.dart';
 // Step 13 — BDM (Business Data Model).
 export 'bdm_business_data_model/bdm_business_data_model.dart';
 
+// Step 14 — AC (Authorization Concept).
+export 'ac_authorization_concept/ac_authorization_concept.dart';
+
 // ---------------------------------------------------------------------------
 // Remaining stubs (replaced as their Phase B step runs).
 // ---------------------------------------------------------------------------
-
-/// Stub for AC (Authorization Concept). Phase B Step 14.
-class AuthorizationConcept {}
 
 /// Stub for PPP (Project Phase Plan). Phase B Step 15.
 class ProjectPhasePlan {}
