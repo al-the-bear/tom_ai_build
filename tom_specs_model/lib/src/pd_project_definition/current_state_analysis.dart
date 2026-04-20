@@ -6,12 +6,21 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
+import '../document_stubs.dart';
 
-
-/// 1. Current State Analysis [PD00-CUR].
+/// 1. Current State Analysis [PD00-CUR]. Seeds → CS.
+///
+/// Seeds the CS (Current Situation) Phase 3 DocSpec. Previously listed as
+/// PD-only; its subtree now flows to CS together with PD00-SYO-SYR.
 @SectionId('PD00-CUR')
+@MapsTo(CurrentSituation)
 class CurrentStateAnalysis {
-  @Unused()
+  @ContentHelp('''
+Executive summary of the current state: existing systems landscape, business
+processes today, known pain points, current data landscape, operational
+metrics, and risks tied to the current state or to replacement. Seeds the CS
+document alongside the PD00-SYO-SYR replacement inventory.
+''')
   String? content;
 
   /// 1.1. Existing Systems Landscape [PD00-CUR-SYS].
@@ -25,6 +34,12 @@ class CurrentStateAnalysis {
 
   /// 1.4. Current Data Landscape [PD00-CUR-DAT].
   CurrentDataLandscape currentDataLandscape = CurrentDataLandscape();
+
+  /// 1.5. Operational Metrics [PD00-CUR-MET].
+  CurrentOperationalMetrics operationalMetrics = CurrentOperationalMetrics();
+
+  /// 1.6. Current State Risks [PD00-CUR-RIS].
+  CurrentStateRiskAssessment currentStateRisks = CurrentStateRiskAssessment();
 }
 
 // ---------------------------------------------------------------------------
@@ -36,6 +51,7 @@ class CurrentStateAnalysis {
 /// Overview of the current systems in use, their roles, technology stacks,
 /// and limitations. Provides the foundation for understanding the AS-IS state.
 @SectionId('PD00-CUR-SYS')
+@DetailedIn(CurrentSituation)
 class ExistingSystemsLandscape {
   @ContentType('description', 'High-level overview of the existing systems '
       'landscape. Include a context diagram showing how systems interact.')
@@ -850,6 +866,7 @@ class SystemIntegrationOwnership {
 /// gap analysis, migration planning, and ensuring the new system meets
 /// operational needs.
 @SectionId('PD00-CUR-PRO')
+@DetailedIn(CurrentSituation)
 class CurrentBusinessProcesses {
   @ContentType('description', 'Overview of the business process landscape, '
       'including process categories, ownership, and interdependencies.')
@@ -1521,6 +1538,7 @@ class ProcessMetricEntryTargets {
 /// compliance gaps, and user frustrations in the current state.
 /// Each pain point includes business impact quantification and root cause.
 @SectionId('PD00-CUR-PAI')
+@DetailedIn(CurrentSituation)
 class PainPointsAndGaps {
   @ContentHelp('''
 Executive overview of pain points and gaps in the current state.
@@ -2010,6 +2028,7 @@ class GapEntryResolution {
 /// data lives, data quality issues, duplication, ownership, volumes, growth
 /// trends, retention policies, and governance structures.
 @SectionId('PD00-CUR-DAT')
+@DetailedIn(CurrentSituation)
 class CurrentDataLandscape {
   @ContentHelp('''
 Executive overview of the current data landscape. Summarize the overall data
@@ -3326,6 +3345,63 @@ class MasterDataDomainEntryGovernance {
     Field('improvementPlan', String, 'Improvement Plan',
         hint: 'Plans to improve this domain'),
   ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 1.5 Operational Metrics [PD00-CUR-MET]
+// ---------------------------------------------------------------------------
+
+/// 1.5. Operational Metrics [PD00-CUR-MET].
+///
+/// Baseline metrics of the current systems: throughput, volume, uptime,
+/// response times, user counts. Used to size the target system and to
+/// derive non-functional requirements.
+@SectionId('PD00-CUR-MET')
+@DetailedIn(CurrentSituation)
+class CurrentOperationalMetrics {
+  @ContentHelp('''
+Captures measurable operational characteristics of the current systems
+landscape. Feeds requirement derivation (target throughput, peak-load
+handling, availability targets) and risk assessment (what degrades if the
+replacement underperforms the baseline).
+
+**What to capture:**
+- Transaction volumes (per day/week/month) and peak factors
+- User counts (active / concurrent / peak)
+- Response-time baselines for key operations
+- Availability / uptime historicals
+- Error rates and incident frequency
+- Storage growth rates and retention sizing
+- Integration volumes (messages, API calls per interval)
+''')
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 1.6 Current State Risks [PD00-CUR-RIS]
+// ---------------------------------------------------------------------------
+
+/// 1.6. Current State Risks [PD00-CUR-RIS].
+///
+/// Risks tied to the current state and to its replacement. Distinct from
+/// PD00-SYO-RIS which covers target-side risks.
+@SectionId('PD00-CUR-RIS')
+@DetailedIn(CurrentSituation)
+class CurrentStateRiskAssessment {
+  @ContentHelp('''
+Risks that originate from the current systems landscape or from the act of
+replacing them. Not to be confused with target-state risks (PD00-SYO-RIS).
+
+**What to capture:**
+- Stability / reliability risks of the current systems
+- Vendor / contract risks (EOL, licensing, support)
+- Knowledge risks (key-person dependencies on legacy systems)
+- Data-integrity risks during transition
+- Operational-continuity risks (cutover windows, parallel-run exposure)
+- Compliance risks of keeping legacy systems in operation
+- Replacement-specific risks (scope creep, timeline, migration failures)
+''')
   String? content;
 }
 

@@ -8,6 +8,8 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
+import '../document_stubs.dart';
+
 /// 4. System Overview [PD00-SYO].
 ///
 /// High-level overview of the system to be built: its purpose, goals,
@@ -4824,6 +4826,7 @@ class OrgImplementationActivity {
 /// comprehensive assessment for informed replacement decisions.
 @SectionId('PD00-SYO-SYR')
 @Comment('Seeds → CS')
+@MapsTo(CurrentSituation)
 class SystemsToReplace {
   /// Overview of the systems replacement scope and strategy.
   @ContentHelp('Provide executive summary of systems being replaced: '
@@ -4847,6 +4850,7 @@ class SystemsToReplace {
 /// Provides a structured inventory of all systems targeted for replacement,
 /// with portfolio-level metrics and prioritization guidance.
 @SectionId('PD00-SYO-SYR-INV')
+@DetailedIn(CurrentSituation)
 class ReplacementInventory {
   /// Portfolio summary before listing individual systems.
   @ContentHelp('Summarize the replacement portfolio: total system count, '
@@ -5469,6 +5473,7 @@ class SystemKnowledgeTransfer {
 /// resource planning, and coordination. Complements per-system
 /// migration details with global governance.
 @SectionId('PD00-SYO-SYR-MIG')
+@DetailedIn(CurrentSituation)
 class MigrationConsiderations {
   @Form([
     Field('overallStrategy', String,
