@@ -2652,18 +2652,48 @@ class DataVolumeSummary {
         hint: 'Volume of structured data'),
     Field('unstructuredDataVolume', String, 'Unstructured Data Volume',
         hint: 'Volume of unstructured data'),
+  ])
+  String? content;
+
+  /// Historical growth behavior.
+  DataVolumeSummaryGrowth growth = DataVolumeSummaryGrowth();
+
+  /// Forward-looking forecasts and utilization.
+  DataVolumeSummaryProjection projection = DataVolumeSummaryProjection();
+
+  /// Capacity pressure and cost impact.
+  DataVolumeSummaryCapacity capacity = DataVolumeSummaryCapacity();
+}
+
+/// Historical growth behavior.
+class DataVolumeSummaryGrowth {
+  @Form([
     Field('annualGrowthRate', String, 'Annual Growth Rate',
         hint: 'Year-over-year growth percentage, e.g. 25%'),
     Field('monthlyGrowthRate', String, 'Monthly Growth Rate',
         hint: 'Month-over-month growth, e.g. 2%'),
     Field('peakGrowthPeriods', String, 'Peak Growth Periods',
         hint: 'When data grows fastest, e.g. Q4, month-end'),
+  ])
+  String? content;
+}
+
+/// Forward-looking forecasts and utilization.
+class DataVolumeSummaryProjection {
+  @Form([
     Field('projectedVolumeOneYear', String, 'Projected Volume (1 Year)',
         hint: 'Expected volume in 12 months'),
     Field('projectedVolumeThreeYears', String, 'Projected Volume (3 Years)',
         hint: 'Expected volume in 36 months'),
     Field('capacityUtilization', String, 'Current Capacity Utilization',
         hint: 'Percentage of storage capacity used, e.g. 72%'),
+  ])
+  String? content;
+}
+
+/// Capacity pressure and cost impact.
+class DataVolumeSummaryCapacity {
+  @Form([
     Field('capacityConstraints', String, 'Capacity Constraints',
         hint: 'Any current or anticipated capacity issues'),
     Field('storageCost', String, 'Total Storage Cost',
@@ -2754,18 +2784,49 @@ class RetentionPolicyEntry {
         hint: 'Category of data this policy applies to', required: true),
     Field('appliesTo', String, 'Applies To',
         hint: 'Specific data sources or entities'),
+  ])
+  String? content;
+
+  /// Retention timing and legal basis.
+  RetentionPolicyEntryRequirements requirements =
+      RetentionPolicyEntryRequirements();
+
+  /// Archival and deletion lifecycle handling.
+  RetentionPolicyEntryLifecycle lifecycle = RetentionPolicyEntryLifecycle();
+
+  /// Compliance and accountability status.
+  RetentionPolicyEntryGovernance governance = RetentionPolicyEntryGovernance();
+}
+
+/// Retention timing and legal basis.
+class RetentionPolicyEntryRequirements {
+  @Form([
     Field('retentionPeriod', String, 'Retention Period',
         hint: 'How long data is retained, e.g. 7 years'),
     Field('retentionTrigger', String, 'Retention Trigger',
         hint: 'What starts the retention clock, e.g. creation date, last access'),
     Field('legalBasis', String, 'Legal Basis',
         hint: 'Regulation or law requiring this retention'),
+  ])
+  String? content;
+}
+
+/// Archival and deletion lifecycle handling.
+class RetentionPolicyEntryLifecycle {
+  @Form([
     Field('archivalMethod', String, 'Archival Method',
         hint: 'How data is archived, e.g. cold storage, tape, cloud archive'),
     Field('deletionMethod', String, 'Deletion Method',
         hint: 'How data is deleted, e.g. logical delete, physical purge, secure wipe'),
     Field('exceptionProcess', String, 'Exception Process',
         hint: 'How exceptions to the policy are handled'),
+  ])
+  String? content;
+}
+
+/// Compliance and accountability status.
+class RetentionPolicyEntryGovernance {
+  @Form([
     Field('complianceStatus', String, 'Compliance Status',
         hint: 'Compliant / PartiallyCompliant / NonCompliant'),
     Field('implementationStatus', String, 'Implementation Status',

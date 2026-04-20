@@ -388,10 +388,38 @@ class KeyAttributeEntry {
         hint: 'Column(s) comprising the key, comma-separated for composite'),
     Field('description', String, 'Description',
         hint: 'Purpose and usage of this key'),
+  ])
+  String? content;
+
+  /// Key generation settings.
+  KeyAttributeEntryGeneration generation = KeyAttributeEntryGeneration();
+
+  /// Foreign-key reference and cascade behavior.
+  KeyAttributeEntryReference reference = KeyAttributeEntryReference();
+
+  /// Constraint semantics and business meaning.
+  KeyAttributeEntryGovernance governance = KeyAttributeEntryGovernance();
+
+  @Reference('referencedEntity')
+  String? referencedEntityRef;
+}
+
+/// Key generation settings.
+class KeyAttributeEntryGeneration {
+  @Form([
     Field('generationStrategy', String, 'Generation Strategy',
         hint: 'Auto | Sequence | UUID | ULID | Custom | Natural'),
     Field('sequenceName', String, 'Sequence Name',
         hint: 'Database sequence name if applicable'),
+    Field('isNaturalKey', String, 'Is Natural Key',
+        hint: 'Whether key has business meaning: Yes | No'),
+  ])
+  String? content;
+}
+
+/// Foreign-key reference and cascade behavior.
+class KeyAttributeEntryReference {
+  @Form([
     Field('referencedEntity', String, 'Referenced Entity',
         hint: 'For foreign keys: target entity name'),
     Field('referencedKey', String, 'Referenced Key',
@@ -400,15 +428,17 @@ class KeyAttributeEntry {
         hint: 'Cascade | SetNull | Restrict | NoAction | SetDefault'),
     Field('onUpdateAction', String, 'On Update Action',
         hint: 'Cascade | SetNull | Restrict | NoAction | SetDefault'),
-    Field('deferrable', String, 'Deferrable',
-        hint: 'Whether constraint check can be deferred: Yes | No'),
-    Field('isNaturalKey', String, 'Is Natural Key',
-        hint: 'Whether key has business meaning: Yes | No'),
   ])
   String? content;
+}
 
-  @Reference('referencedEntity')
-  String? referencedEntityRef;
+/// Constraint semantics and business meaning.
+class KeyAttributeEntryGovernance {
+  @Form([
+    Field('deferrable', String, 'Deferrable',
+        hint: 'Whether constraint check can be deferred: Yes | No'),
+  ])
+  String? content;
 }
 
 /// An entity index entry (form) [PD00-BUS-DAT-ENT-nn-IDX-nn].
@@ -1310,28 +1340,58 @@ class FunctionEntry {
         hint: 'What this function accomplishes'),
     Field('parentFunction', String, 'Parent Function',
         hint: 'Parent function in hierarchy'),
+  ])
+  String? content;
+
+  /// Decomposition position and classification.
+  FunctionEntryClassification classification = FunctionEntryClassification();
+
+  /// Execution profile and criticality.
+  FunctionEntryOperations operations = FunctionEntryOperations();
+
+  /// Automation and data handling summary.
+  FunctionEntryImplementation implementation = FunctionEntryImplementation();
+
+  /// Sub-functions [PD00-BUS-FUN-DEC-nn-SUB] — contains 0+× SubFunction.
+  @SectionIdPattern('PD00-BUS-FUN-DEC-xx-SUB-xx')
+  List<SubFunctionEntry> subFunctions = [];
+}
+
+/// Decomposition position and classification.
+class FunctionEntryClassification {
+  @Form([
     Field('level', String, 'Level',
         hint: 'Hierarchy level: 1 | 2 | 3 etc.'),
     Field('functionType', String, 'Function Type',
         hint: 'Operational | Support | Management | Information'),
     Field('owningProcess', String, 'Owning Process',
         hint: 'Business process this belongs to'),
+  ])
+  String? content;
+}
+
+/// Execution profile and criticality.
+class FunctionEntryOperations {
+  @Form([
     Field('frequency', String, 'Frequency',
         hint: 'How often executed: Continuous | Daily | OnDemand | Periodic'),
     Field('volumeEstimate', String, 'Volume Estimate',
         hint: 'Estimated execution frequency/volume'),
     Field('criticalityLevel', String, 'Criticality Level',
         hint: 'Business criticality: Critical | High | Medium | Low'),
+  ])
+  String? content;
+}
+
+/// Automation and data handling summary.
+class FunctionEntryImplementation {
+  @Form([
     Field('automationLevel', String, 'Automation Level',
         hint: 'Manual | SemiAutomated | FullyAutomated'),
     Field('dataAccess', String, 'Data Access',
         hint: 'Summary of data entities accessed with CRUD'),
   ])
   String? content;
-
-  /// Sub-functions [PD00-BUS-FUN-DEC-nn-SUB] — contains 0+× SubFunction.
-  @SectionIdPattern('PD00-BUS-FUN-DEC-xx-SUB-xx')
-  List<SubFunctionEntry> subFunctions = [];
 }
 
 /// A sub-function entry (form) [PD00-BUS-FUN-DEC-nn-SUB-nn].

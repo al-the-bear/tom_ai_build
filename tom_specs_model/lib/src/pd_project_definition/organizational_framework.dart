@@ -351,19 +351,41 @@ class TransitionPhaseIdentification {
     Field('phaseName', String, 'Phase Name', required: true),
     Field('phaseType', String,
         'Phase Type — Preparation, Pilot, Rollout, Stabilization, Closure'),
-    Field('startDate', String, 'Start Date'),
-    Field('endDate', String, 'End Date'),
-    Field('duration', String, 'Duration — weeks'),
-    Field('precedingPhase', String, 'Preceding Phase — phase ID'),
-    Field('dependsOnMilestone', String, 'Depends on Milestone — milestone ID'),
     Field('phaseOwner', String, 'Phase Owner'),
-    Field('affectedLocations', String,
-        'Affected Locations — sites/regions in scope'),
-    Field('affectedDepartments', String,
-        'Affected Departments — organizational units'),
-    Field('affectedUserCount', int, 'Affected User Count'),
   ])
   String? content;
+
+    /// Timeline and sequencing details.
+    TransitionPhaseIdentificationTimeline timeline =
+            TransitionPhaseIdentificationTimeline();
+
+    /// Scope of organizational impact.
+    TransitionPhaseIdentificationScope scope =
+            TransitionPhaseIdentificationScope();
+}
+
+/// Timeline and sequencing details.
+class TransitionPhaseIdentificationTimeline {
+    @Form([
+        Field('startDate', String, 'Start Date'),
+        Field('endDate', String, 'End Date'),
+        Field('duration', String, 'Duration — weeks'),
+        Field('precedingPhase', String, 'Preceding Phase — phase ID'),
+        Field('dependsOnMilestone', String, 'Depends on Milestone — milestone ID'),
+    ])
+    String? content;
+}
+
+/// Scope of organizational impact.
+class TransitionPhaseIdentificationScope {
+    @Form([
+        Field('affectedLocations', String,
+                'Affected Locations — sites/regions in scope'),
+        Field('affectedDepartments', String,
+                'Affected Departments — organizational units'),
+        Field('affectedUserCount', int, 'Affected User Count'),
+    ])
+    String? content;
 }
 
 /// Activities and deliverables for a transition phase.
@@ -786,16 +808,36 @@ class TransitionRiskEntry {
     Field('riskCategory', String,
         'Risk Category — Resistance, Capacity, Timing, Resources, Dependencies'),
     Field('description', String, 'Description'),
-    Field('probability', String, 'Probability — Low, Medium, High'),
-    Field('impact', String, 'Impact — Low, Medium, High'),
-    Field('affectedPhases', String, 'Affected Phases'),
-    Field('mitigationStrategy', String, 'Mitigation Strategy'),
-    Field('contingencyPlan', String, 'Contingency Plan'),
-    Field('owner', String, 'Risk Owner'),
-    Field('status', String, 'Status — Active, Mitigated, Realized, Closed'),
-    Field('earlyWarningIndicator', String, 'Early Warning Indicator'),
   ])
   String? content;
+
+    /// Risk assessment and exposure details.
+    TransitionRiskEntryAssessment assessment = TransitionRiskEntryAssessment();
+
+    /// Mitigation ownership and monitoring.
+    TransitionRiskEntryResponse response = TransitionRiskEntryResponse();
+}
+
+/// Risk assessment and exposure details.
+class TransitionRiskEntryAssessment {
+    @Form([
+        Field('probability', String, 'Probability — Low, Medium, High'),
+        Field('impact', String, 'Impact — Low, Medium, High'),
+        Field('affectedPhases', String, 'Affected Phases'),
+        Field('earlyWarningIndicator', String, 'Early Warning Indicator'),
+    ])
+    String? content;
+}
+
+/// Mitigation ownership and monitoring.
+class TransitionRiskEntryResponse {
+    @Form([
+        Field('mitigationStrategy', String, 'Mitigation Strategy'),
+        Field('contingencyPlan', String, 'Contingency Plan'),
+        Field('owner', String, 'Risk Owner'),
+        Field('status', String, 'Status — Active, Mitigated, Realized, Closed'),
+    ])
+    String? content;
 }
 
 // ---------------------------------------------------------------------------
@@ -1387,20 +1429,42 @@ class ChangedRoleIdentification {
     Field('roleId', String, 'Role ID (e.g., CR-001)', required: true),
     Field('roleTitle', String, 'Current Role Title', required: true),
     Field('newRoleTitle', String, 'New Role Title — if title changes'),
-    Field('currentDepartment', String, 'Current Department'),
-    Field('newDepartment', String, 'New Department — if moving'),
-    Field('currentJobLevel', String, 'Current Job Level'),
-    Field('newJobLevel', String, 'New Job Level — if changing'),
     Field('changeRationale', String,
         'Change Rationale — why this role is changing'),
-    Field('changeType', String,
-        'Change Type — expanded, reduced, restructured, upgraded, downgraded'),
-    Field('effectiveDate', String, 'Effective Date'),
-    Field('changeStatus', String,
-        'Change Status — proposed, approved, communicated, implemented'),
-    Field('incumbentCount', int, 'Incumbent Count — people in this role'),
   ])
   String? content;
+
+    /// Current and future organizational placement.
+    ChangedRoleIdentificationStructure structure =
+            ChangedRoleIdentificationStructure();
+
+    /// Change implementation state and affected population.
+    ChangedRoleIdentificationTransition transition =
+            ChangedRoleIdentificationTransition();
+}
+
+/// Current and future organizational placement.
+class ChangedRoleIdentificationStructure {
+    @Form([
+        Field('currentDepartment', String, 'Current Department'),
+        Field('newDepartment', String, 'New Department — if moving'),
+        Field('currentJobLevel', String, 'Current Job Level'),
+        Field('newJobLevel', String, 'New Job Level — if changing'),
+    ])
+    String? content;
+}
+
+/// Change implementation state and affected population.
+class ChangedRoleIdentificationTransition {
+    @Form([
+        Field('changeType', String,
+                'Change Type — expanded, reduced, restructured, upgraded, downgraded'),
+        Field('effectiveDate', String, 'Effective Date'),
+        Field('changeStatus', String,
+                'Change Status — proposed, approved, communicated, implemented'),
+        Field('incumbentCount', int, 'Incumbent Count — people in this role'),
+    ])
+    String? content;
 }
 
 /// Changed role responsibilities.
@@ -1724,6 +1788,21 @@ class PhysicalWorkplaceRequirements {
         'Space Requirements — square footage, accessibility'),
     Field('ergonomicStandards', String,
         'Ergonomic Standards — chair, desk height, monitor position'),
+  ])
+  String? content;
+
+  /// Environmental conditions and controls.
+  PhysicalWorkplaceRequirementsEnvironment environment =
+      PhysicalWorkplaceRequirementsEnvironment();
+
+  /// Accessibility, privacy, and shared-space needs.
+  PhysicalWorkplaceRequirementsUsage usage =
+      PhysicalWorkplaceRequirementsUsage();
+}
+
+/// Environmental conditions and controls.
+class PhysicalWorkplaceRequirementsEnvironment {
+  @Form([
     Field('lightingRequirements', String,
         'Lighting Requirements — natural light, task lighting, glare reduction'),
     Field('noiseLevel', String,
@@ -1731,6 +1810,13 @@ class PhysicalWorkplaceRequirements {
     Field('temperatureControl', String,
         'Temperature Control — HVAC requirements'),
     Field('ventilation', String, 'Ventilation — air quality requirements'),
+  ])
+  String? content;
+}
+
+/// Accessibility, privacy, and shared-space needs.
+class PhysicalWorkplaceRequirementsUsage {
+  @Form([
     Field('accessibilityFeatures', String,
         'Accessibility Features — ADA compliance, wheelchair access'),
     Field('privacyRequirements', String,
@@ -1957,21 +2043,41 @@ class MobileDeviceEntry {
         'Device Type — smartphone, tablet, rugged device'),
     Field('operatingSystem', String, 'Operating System — iOS, Android'),
     Field('screenSize', String, 'Screen Size'),
-    Field('storageCapacity', String, 'Storage Capacity'),
-    Field('cellularConnectivity', String,
-        'Cellular Connectivity — 4G, 5G, none'),
-    Field('durabilityRating', String,
-        'Durability Rating — IP rating, drop protection'),
-    Field('mdmEnrollment', String,
-        'MDM Enrollment — mobile device management requirements'),
-    Field('dataCarrier', String,
-        'Data Carrier — carrier, plan type'),
-    Field('accessories', String,
-        'Accessories — case, screen protector, car mount'),
-    Field('quantityNeeded', int, 'Quantity Needed'),
-    Field('justification', String, 'Justification'),
   ])
   String? content;
+
+    /// Technical and management requirements.
+    MobileDeviceEntryCapabilities capabilities = MobileDeviceEntryCapabilities();
+
+    /// Deployment planning and supporting accessories.
+    MobileDeviceEntryPlanning planning = MobileDeviceEntryPlanning();
+}
+
+/// Technical and management requirements.
+class MobileDeviceEntryCapabilities {
+    @Form([
+        Field('storageCapacity', String, 'Storage Capacity'),
+        Field('cellularConnectivity', String,
+                'Cellular Connectivity — 4G, 5G, none'),
+        Field('durabilityRating', String,
+                'Durability Rating — IP rating, drop protection'),
+        Field('mdmEnrollment', String,
+                'MDM Enrollment — mobile device management requirements'),
+    ])
+    String? content;
+}
+
+/// Deployment planning and supporting accessories.
+class MobileDeviceEntryPlanning {
+    @Form([
+        Field('dataCarrier', String,
+                'Data Carrier — carrier, plan type'),
+        Field('accessories', String,
+                'Accessories — case, screen protector, car mount'),
+        Field('quantityNeeded', int, 'Quantity Needed'),
+        Field('justification', String, 'Justification'),
+    ])
+    String? content;
 }
 
 /// Specialized equipment entry (form) [PD00-ORG-WOR-nn-EQU-SPE-nn].
@@ -2047,6 +2153,21 @@ class WorkplaceSoftwareRequirements {
         'Productivity Suite — Office 365, Google Workspace'),
     Field('browser', String, 'Browser — Chrome, Edge, Firefox'),
     Field('emailClient', String, 'Email Client — Outlook, web-based'),
+  ])
+  String? content;
+
+  /// Security and collaboration software stack.
+  WorkplaceSoftwareRequirementsPlatform platform =
+      WorkplaceSoftwareRequirementsPlatform();
+
+  /// Business application set and deployment model.
+  WorkplaceSoftwareRequirementsDelivery delivery =
+      WorkplaceSoftwareRequirementsDelivery();
+}
+
+/// Security and collaboration software stack.
+class WorkplaceSoftwareRequirementsPlatform {
+  @Form([
     Field('securitySoftware', String,
         'Security Software — antivirus, EDR, firewall'),
     Field('encryptionSoftware', String,
@@ -2055,6 +2176,13 @@ class WorkplaceSoftwareRequirements {
         'Collaboration Tools — Teams, Slack, Zoom'),
     Field('documentManagement', String,
         'Document Management — SharePoint, OneDrive'),
+  ])
+  String? content;
+}
+
+/// Business application set and deployment model.
+class WorkplaceSoftwareRequirementsDelivery {
+  @Form([
     Field('businessApplications', String,
         'Business Applications — specific apps needed'),
     Field('developmentTools', String,

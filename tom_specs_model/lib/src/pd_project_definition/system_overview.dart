@@ -1259,6 +1259,21 @@ class DomainBusinessRuleEntry {
         'Rule Type (Constraint, Calculation, Derivation, Action-Trigger, '
             'Authorization, Validation)', required: true),
     Field('description', String, 'Description (plain language)', required: true),
+  ])
+  String? content;
+
+  /// Formal definition and applicability.
+  DomainBusinessRuleEntryDefinition definition =
+      DomainBusinessRuleEntryDefinition();
+
+  /// Priority, provenance, and interpretation aids.
+  DomainBusinessRuleEntryGovernance governance =
+      DomainBusinessRuleEntryGovernance();
+}
+
+/// Formal definition and applicability.
+class DomainBusinessRuleEntryDefinition {
+  @Form([
     Field('formalStatement', String,
         'Formal Statement (precise, unambiguous statement)'),
     Field('appliesTo', String,
@@ -1267,6 +1282,13 @@ class DomainBusinessRuleEntry {
         'Conditions (when this rule applies)'),
     Field('consequences', String,
         'Consequences (what happens when rule is triggered/violated)'),
+  ])
+  String? content;
+}
+
+/// Priority, provenance, and interpretation aids.
+class DomainBusinessRuleEntryGovernance {
+  @Form([
     Field('priority', String,
         'Priority (if rules conflict, which takes precedence)'),
     Field('source', String,
@@ -1314,12 +1336,39 @@ class DomainProcessEntry {
         'Process Type (Core, Support, Management)'),
     Field('trigger', String,
         'Trigger (what initiates this process)'),
+  ])
+  String? content;
+
+  /// Inputs, outputs, and participant flow.
+  DomainProcessEntryFlow flow = DomainProcessEntryFlow();
+
+  /// Operating cadence and coordination details.
+  DomainProcessEntryOperations operations = DomainProcessEntryOperations();
+
+  /// Process flow details.
+  @ContentType('description', 'Detailed description of process steps, '
+      'decision points, and variations.')
+  String? processFlowDetails;
+}
+
+/// Inputs, outputs, and participant flow.
+class DomainProcessEntryFlow {
+  @Form([
     Field('inputs', String,
         'Inputs (what data/artifacts are needed)'),
     Field('outputs', String,
         'Outputs (what is produced)'),
     Field('participants', String,
         'Participants (roles/actors involved)'),
+    Field('relatedProcesses', String,
+        'Related Processes (processes that interact with this one)'),
+  ])
+  String? content;
+}
+
+/// Operating cadence and coordination details.
+class DomainProcessEntryOperations {
+  @Form([
     Field('frequency', String,
         'Frequency (how often this process runs)'),
     Field('duration', String,
@@ -1328,15 +1377,8 @@ class DomainProcessEntry {
         'Success Criteria (what defines successful completion)'),
     Field('keyDecisions', String,
         'Key Decisions (decision points within the process)'),
-    Field('relatedProcesses', String,
-        'Related Processes (processes that interact with this one)'),
   ])
   String? content;
-
-  /// Process flow details.
-  @ContentType('description', 'Detailed description of process steps, '
-      'decision points, and variations.')
-  String? processFlowDetails;
 }
 
 /// 4.1.3.7. Domain Events [PD00-SYO-SYD-DES-EVE].
@@ -7185,7 +7227,6 @@ class ConstraintLinkages {
 @SectionId('PD00-SYO-RES-CON-DEP')
 class FrameworkDependencies {
   @Form([
-    // --- Overview ---
     Field('dependencySummary', String, 'Dependency Summary',
         hint:
             'Summary of the major dependency categories affecting '
@@ -7204,43 +7245,16 @@ class FrameworkDependencies {
         'Critical Path Dependency Count',
         hint:
             'Number of dependencies on the project critical path'),
-    // --- Categories ---
-    Field('projectDependencyCount', String,
-        'Project Dependency Count',
-        hint:
-            'Number of dependencies on other projects'),
-    Field('teamDependencyCount', String, 'Team Dependency Count',
-        hint:
-            'Number of dependencies on other internal teams'),
-    Field('vendorDependencyCount', String,
-        'Vendor Dependency Count',
-        hint:
-            'Number of dependencies on external vendors'),
-    Field('systemDependencyCount', String,
-        'System Dependency Count',
-        hint:
-            'Number of dependencies on existing systems'),
-    Field('regulatoryDependencyCount', String,
-        'Regulatory Dependency Count',
-        hint:
-            'Number of dependencies on regulatory approvals'),
-    Field('infrastructureDependencyCount', String,
-        'Infrastructure Dependency Count',
-        hint:
-            'Number of dependencies on infrastructure delivery'),
-    // --- Management ---
-    Field('dependencyCoordinationApproach', String,
-        'Dependency Coordination Approach',
-        hint:
-            'How dependencies are coordinated — regular syncs, '
-            'shared boards, liaison roles, escalation process'),
-    Field('earlyWarningMechanism', String,
-        'Early Warning Mechanism',
-        hint:
-            'How risks to dependencies are detected early — '
-            'status reports, automated monitoring, trigger criteria'),
   ])
   String? content;
+
+  /// Dependency counts by category.
+  FrameworkDependenciesCategories categories =
+      FrameworkDependenciesCategories();
+
+  /// Coordination and early warning mechanisms.
+  FrameworkDependenciesManagement management =
+      FrameworkDependenciesManagement();
 
   /// Contains 0+× FrameworkDependency.
   @SectionIdPattern('PD00-SYO-RES-CON-DEP-xx')
@@ -7250,6 +7264,53 @@ class FrameworkDependencies {
   @Comment('Free-text narrative providing context and analysis '
       'of the dependency landscape')
   TextSection dependencyNarrative = TextSection();
+}
+
+/// Dependency counts by category.
+class FrameworkDependenciesCategories {
+    @Form([
+        Field('projectDependencyCount', String,
+                'Project Dependency Count',
+                hint:
+                        'Number of dependencies on other projects'),
+        Field('teamDependencyCount', String, 'Team Dependency Count',
+                hint:
+                        'Number of dependencies on other internal teams'),
+        Field('vendorDependencyCount', String,
+                'Vendor Dependency Count',
+                hint:
+                        'Number of dependencies on external vendors'),
+        Field('systemDependencyCount', String,
+                'System Dependency Count',
+                hint:
+                        'Number of dependencies on existing systems'),
+        Field('regulatoryDependencyCount', String,
+                'Regulatory Dependency Count',
+                hint:
+                        'Number of dependencies on regulatory approvals'),
+        Field('infrastructureDependencyCount', String,
+                'Infrastructure Dependency Count',
+                hint:
+                        'Number of dependencies on infrastructure delivery'),
+    ])
+    String? content;
+}
+
+/// Coordination and early warning mechanisms.
+class FrameworkDependenciesManagement {
+    @Form([
+        Field('dependencyCoordinationApproach', String,
+                'Dependency Coordination Approach',
+                hint:
+                        'How dependencies are coordinated — regular syncs, '
+                        'shared boards, liaison roles, escalation process'),
+        Field('earlyWarningMechanism', String,
+                'Early Warning Mechanism',
+                hint:
+                        'How risks to dependencies are detected early — '
+                        'status reports, automated monitoring, trigger criteria'),
+    ])
+    String? content;
 }
 
 /// A framework dependency entry [PD00-SYO-RES-CON-DEP-nn] (form).
