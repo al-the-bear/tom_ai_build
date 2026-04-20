@@ -542,12 +542,38 @@ class UserLifecycleTransitionEntry {
     Field('triggerConditions', String, 'Trigger Conditions',
         hint:
             'Pre-conditions that must be met for this transition'),
+  ])
+  String? content;
+
+  /// Approval requirements.
+  UserLifecycleTransitionEntryApproval approval =
+      UserLifecycleTransitionEntryApproval();
+
+  /// Side effects and notifications.
+  UserLifecycleTransitionEntryEffects effects =
+      UserLifecycleTransitionEntryEffects();
+
+  /// Reversal and automation.
+  UserLifecycleTransitionEntryAutomation automation =
+      UserLifecycleTransitionEntryAutomation();
+}
+
+/// Approval requirements.
+class UserLifecycleTransitionEntryApproval {
+  @Form([
     Field('approvalRequired', String, 'Approval Required',
         hint: 'Yes | No — whether manual approval is needed'),
     Field('approverRole', String, 'Approver Role',
         hint: 'Role that must approve (admin, manager, DPO)'),
     Field('approvalSla', String, 'Approval SLA',
         hint: 'Maximum time allowed for approval decision'),
+  ])
+  String? content;
+}
+
+/// Side effects and notifications.
+class UserLifecycleTransitionEntryEffects {
+  @Form([
     Field('sideEffects', String, 'Side Effects',
         hint:
             'Actions performed on transition (revoke tokens, send email, deprovision)'),
@@ -555,6 +581,13 @@ class UserLifecycleTransitionEntry {
         hint: 'Who is notified (user, admin, manager)'),
     Field('notificationChannels', String, 'Notification Channels',
         hint: 'Email | SMS | InApp | Webhook'),
+  ])
+  String? content;
+}
+
+/// Reversal and automation.
+class UserLifecycleTransitionEntryAutomation {
+  @Form([
     Field('reversible', String, 'Reversible',
         hint: 'Yes | No — whether this transition can be undone'),
     Field('reverseTransitionName', String, 'Reverse Transition Name',

@@ -433,19 +433,52 @@ class TransitionMilestoneEntry {
     Field('status', String,
         'Status — Planned, On Track, At Risk, Delayed, Achieved'),
     Field('description', String, 'Description'),
-    Field('deliverables', String, 'Deliverables — required for milestone'),
-    Field('decisionRequired', String,
-        'Decision Required — Go/No-Go decision at this point'),
-    Field('decisionOwner', String, 'Decision Owner'),
-    Field('dependsOnPhases', String,
-        'Depends on Phases — phases that must complete'),
-    Field('dependsOnMilestones', String,
-        'Depends on Milestones — prior milestones required'),
-    Field('criticality', String, 'Criticality — High, Medium, Low'),
-    Field('celebrationActivities', String,
-        'Celebration Activities — recognition for achieving milestone'),
   ])
   String? content;
+
+    /// Deliverables and decisioning.
+    TransitionMilestoneEntryGovernance governance =
+            TransitionMilestoneEntryGovernance();
+
+    /// Dependencies and criticality.
+    TransitionMilestoneEntryDependencies dependencies =
+            TransitionMilestoneEntryDependencies();
+
+    /// Recognition activities.
+    TransitionMilestoneEntryRecognition recognition =
+            TransitionMilestoneEntryRecognition();
+}
+
+/// Deliverables and decisioning.
+class TransitionMilestoneEntryGovernance {
+    @Form([
+        Field('deliverables', String, 'Deliverables — required for milestone'),
+        Field('decisionRequired', String,
+                'Decision Required — Go/No-Go decision at this point'),
+        Field('decisionOwner', String, 'Decision Owner'),
+    ])
+    String? content;
+}
+
+/// Dependencies and criticality.
+class TransitionMilestoneEntryDependencies {
+    @Form([
+        Field('dependsOnPhases', String,
+                'Depends on Phases — phases that must complete'),
+        Field('dependsOnMilestones', String,
+                'Depends on Milestones — prior milestones required'),
+        Field('criticality', String, 'Criticality — High, Medium, Low'),
+    ])
+    String? content;
+}
+
+/// Recognition activities.
+class TransitionMilestoneEntryRecognition {
+    @Form([
+        Field('celebrationActivities', String,
+                'Celebration Activities — recognition for achieving milestone'),
+    ])
+    String? content;
 }
 
 /// Change readiness assessment approach.
@@ -550,15 +583,35 @@ class CommunicationEventEntry {
     Field('scheduledDate', String, 'Scheduled Date'),
     Field('phase', String, 'Phase — which transition phase'),
     Field('keyMessages', String, 'Key Messages — specific to this event'),
-    Field('channel', String, 'Channel — delivery method'),
-    Field('owner', String, 'Owner — who prepares/delivers'),
-    Field('approver', String, 'Approver — who approves content'),
-    Field('materialsRequired', String, 'Materials Required — slides, scripts, etc.'),
-    Field('followUpActions', String, 'Follow-Up Actions — after event'),
-    Field('successMeasure', String, 'Success Measure — how effectiveness is measured'),
-    Field('status', String, 'Status — Planned, In Preparation, Delivered, Cancelled'),
   ])
   String? content;
+
+    /// Delivery ownership.
+    CommunicationEventEntryDelivery delivery = CommunicationEventEntryDelivery();
+
+    /// Follow-up and measurement.
+    CommunicationEventEntryOutcome outcome = CommunicationEventEntryOutcome();
+}
+
+/// Delivery ownership.
+class CommunicationEventEntryDelivery {
+    @Form([
+        Field('channel', String, 'Channel — delivery method'),
+        Field('owner', String, 'Owner — who prepares/delivers'),
+        Field('approver', String, 'Approver — who approves content'),
+        Field('materialsRequired', String, 'Materials Required — slides, scripts, etc.'),
+    ])
+    String? content;
+}
+
+/// Follow-up and measurement.
+class CommunicationEventEntryOutcome {
+    @Form([
+        Field('followUpActions', String, 'Follow-Up Actions — after event'),
+        Field('successMeasure', String, 'Success Measure — how effectiveness is measured'),
+        Field('status', String, 'Status — Planned, In Preparation, Delivered, Cancelled'),
+    ])
+    String? content;
 }
 
 /// Communication channels definition.
@@ -694,15 +747,35 @@ class TransitionMetricEntry {
     Field('measurementMethod', String, 'Measurement Method'),
     Field('baseline', String, 'Baseline Value'),
     Field('target', String, 'Target Value'),
-    Field('threshold', String, 'Threshold — minimum acceptable'),
-    Field('currentValue', String, 'Current Value'),
-    Field('measurementFrequency', String, 'Measurement Frequency'),
-    Field('dataSource', String, 'Data Source'),
-    Field('owner', String, 'Owner'),
-    Field('status', String, 'Status — On Track, At Risk, Below Target, Achieved'),
-    Field('trend', String, 'Trend — Improving, Stable, Declining'),
   ])
   String? content;
+
+    /// Measurement operations.
+    TransitionMetricEntryOperations operations = TransitionMetricEntryOperations();
+
+    /// Current status.
+    TransitionMetricEntryStatus statusSection = TransitionMetricEntryStatus();
+}
+
+/// Measurement operations.
+class TransitionMetricEntryOperations {
+    @Form([
+        Field('threshold', String, 'Threshold — minimum acceptable'),
+        Field('currentValue', String, 'Current Value'),
+        Field('measurementFrequency', String, 'Measurement Frequency'),
+        Field('dataSource', String, 'Data Source'),
+        Field('owner', String, 'Owner'),
+    ])
+    String? content;
+}
+
+/// Current status.
+class TransitionMetricEntryStatus {
+    @Form([
+        Field('status', String, 'Status — On Track, At Risk, Below Target, Achieved'),
+        Field('trend', String, 'Trend — Improving, Stable, Declining'),
+    ])
+    String? content;
 }
 
 /// Transition risk entry [PD00-ORG-STR-TIM-RSK-nn] (form).
@@ -1519,6 +1592,22 @@ class RemovedRoleEntry {
         'Removal Reason — automation, restructuring, outsourcing, redundancy'),
     Field('effectiveDate', String, 'Effective Date'),
     Field('incumbentCount', int, 'Incumbent Count — people affected'),
+  ])
+  String? content;
+
+  /// Incumbent transition planning.
+  RemovedRoleEntryTransition transition = RemovedRoleEntryTransition();
+
+  /// Legal and communication considerations.
+  RemovedRoleEntryGovernance governance = RemovedRoleEntryGovernance();
+
+  /// Work continuity.
+  RemovedRoleEntryContinuity continuity = RemovedRoleEntryContinuity();
+}
+
+/// Incumbent transition planning.
+class RemovedRoleEntryTransition {
+  @Form([
     Field('incumbentDisposition', String,
         'Incumbent Disposition — redeployment, separation, retraining'),
     Field('reassignmentOptions', String,
@@ -1527,10 +1616,24 @@ class RemovedRoleEntry {
         'Transition Support — outplacement, retraining'),
     Field('severanceConsiderations', String,
         'Severance Considerations — if applicable'),
+  ])
+  String? content;
+}
+
+/// Legal and communication considerations.
+class RemovedRoleEntryGovernance {
+  @Form([
     Field('legalConsiderations', String,
         'Legal Considerations — employment law, union agreements'),
     Field('communicationPlan', String,
         'Communication Plan — how removal is communicated'),
+  ])
+  String? content;
+}
+
+/// Work continuity.
+class RemovedRoleEntryContinuity {
+  @Form([
     Field('knowledgeTransfer', String,
         'Knowledge Transfer — preserving institutional knowledge'),
     Field('workReassignment', String,
@@ -2494,10 +2597,36 @@ class WorkplaceSupportResources {
         'Escalation Path — how issues escalate'),
     Field('onSiteSupport', String,
         'On-Site Support — deskside support availability'),
+  ])
+  String? content;
+
+  /// Extended support channels.
+  WorkplaceSupportResourcesChannels channels =
+      WorkplaceSupportResourcesChannels();
+
+  /// Self-service and feedback.
+  WorkplaceSupportResourcesSelfService selfService =
+      WorkplaceSupportResourcesSelfService();
+
+  /// Incident and emergency support.
+  WorkplaceSupportResourcesIncidents incidents =
+      WorkplaceSupportResourcesIncidents();
+}
+
+/// Extended support channels.
+class WorkplaceSupportResourcesChannels {
+  @Form([
     Field('remoteSupport', String,
         'Remote Support — remote troubleshooting'),
     Field('superUserNetwork', String,
         'Super User Network — power users for first-line help'),
+  ])
+  String? content;
+}
+
+/// Self-service and feedback.
+class WorkplaceSupportResourcesSelfService {
+  @Form([
     Field('knowledgeBase', String,
         'Knowledge Base — self-service help articles'),
     Field('communityForum', String,
@@ -2505,6 +2634,13 @@ class WorkplaceSupportResources {
     Field('chatbot', String, 'Chatbot — AI-assisted support'),
     Field('feedbackChannel', String,
         'Feedback Channel — how to submit suggestions'),
+  ])
+  String? content;
+}
+
+/// Incident and emergency support.
+class WorkplaceSupportResourcesIncidents {
+  @Form([
     Field('incidentReporting', String,
         'Incident Reporting — how to report issues'),
     Field('slaExpectations', String,

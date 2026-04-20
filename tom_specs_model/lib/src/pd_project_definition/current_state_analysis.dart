@@ -500,6 +500,25 @@ class SharedInfrastructureEntry {
             'Logging Platform / Monitoring System / Network Segment'),
     Field('dependentSystemCount', int, 'Number of Dependent Systems'),
     Field('dependentSystemList', String, 'List of Dependent Systems'),
+  ])
+  String? content;
+
+  /// Criticality and resilience.
+  SharedInfrastructureEntryResilience resilience =
+      SharedInfrastructureEntryResilience();
+
+  /// Capacity constraints.
+  SharedInfrastructureEntryCapacity capacity =
+      SharedInfrastructureEntryCapacity();
+
+  /// Ownership and maintenance.
+  SharedInfrastructureEntryOperations operations =
+      SharedInfrastructureEntryOperations();
+}
+
+/// Criticality and resilience.
+class SharedInfrastructureEntryResilience {
+  @Form([
     Field('criticality', String, 'Criticality',
         hint: 'Critical / High / Medium / Low'),
     Field('singlePointOfFailure', bool, 'Is Single Point of Failure'),
@@ -509,10 +528,24 @@ class SharedInfrastructureEntry {
         hint: 'Time to recover if component fails'),
     Field('lastFailure', String, 'Last Failure Incident',
         hint: 'Date and summary of last significant failure'),
+  ])
+  String? content;
+}
+
+/// Capacity constraints.
+class SharedInfrastructureEntryCapacity {
+  @Form([
     Field('capacityHeadroom', String, 'Capacity Headroom',
         hint: 'Current utilization vs capacity, e.g., 60% of max'),
     Field('scalingLimitations', String, 'Scaling Limitations',
         hint: 'Constraints on horizontal or vertical scaling'),
+  ])
+  String? content;
+}
+
+/// Ownership and maintenance.
+class SharedInfrastructureEntryOperations {
+  @Form([
     Field('managedBy', String, 'Managed By',
         hint: 'Team or vendor responsible for this component'),
     Field('maintenanceWindow', String, 'Maintenance Window',

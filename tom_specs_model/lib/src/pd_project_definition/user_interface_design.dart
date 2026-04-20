@@ -3108,9 +3108,34 @@ class ReportRecipientEntry {
             'User / Role / Group / Email / Distribution-List / External-Contact / System-Account'),
     Field('recipientReference', String, 'Recipient Reference',
         hint: 'User ID, role name, group name, or email address'),
+  ])
+  String? content;
+
+  /// Recipient business context.
+  ReportRecipientEntryContext context = ReportRecipientEntryContext();
+
+  /// Delivery preferences.
+  ReportRecipientEntryDelivery delivery = ReportRecipientEntryDelivery();
+
+  /// Lifecycle settings.
+  ReportRecipientEntryLifecycle lifecycle = ReportRecipientEntryLifecycle();
+}
+
+/// Recipient business context.
+class ReportRecipientEntryContext {
+  @Form([
     Field('role', String, 'Role',
         hint:
             'Business role of this recipient, e.g. Department Head, Controller'),
+    Field('dataScopeRestriction', String, 'Data Scope Restriction',
+        hint: 'Data visibility restriction, e.g. own-department-only'),
+  ])
+  String? content;
+}
+
+/// Delivery preferences.
+class ReportRecipientEntryDelivery {
+  @Form([
     Field('deliveryPreference', String, 'Delivery Preference',
         hint:
             'Email / Dashboard / Print / File-Share / API — preferred channel'),
@@ -3121,10 +3146,15 @@ class ReportRecipientEntry {
     Field('scheduleOverride', String, 'Schedule Override',
         hint:
             'Override schedule for this recipient, e.g. Weekly instead of Monthly'),
-    Field('dataScopeRestriction', String, 'Data Scope Restriction',
-        hint: 'Data visibility restriction, e.g. own-department-only'),
     Field('notifyOnReady', String, 'Notify On Ready',
         hint: 'Yes / No — send notification when report is available'),
+  ])
+  String? content;
+}
+
+/// Lifecycle settings.
+class ReportRecipientEntryLifecycle {
+  @Form([
     Field('active', String, 'Active',
         hint: 'Yes / No — is this recipient currently receiving reports'),
     Field('effectiveFrom', String, 'Effective From',
@@ -5109,7 +5139,6 @@ class UiComponentEntry {
   // Visual Design
   // ─────────────────────────────────────────────────────────────────────────
   @Form([
-    // Appearance
     Field('defaultAppearance', String, 'Default Appearance',
         hint: 'Visual description of default state'),
     Field('colorScheme', String, 'Color Scheme',
@@ -5118,25 +5147,17 @@ class UiComponentEntry {
         hint: 'Text styles used'),
     Field('iconography', String, 'Iconography',
         hint: 'Icons used and their placement'),
-    // Dimensions
-    Field('defaultWidth', String, 'Default Width',
-        hint: 'Default width or width behavior'),
-    Field('defaultHeight', String, 'Default Height',
-        hint: 'Default height or height behavior'),
-    Field('minDimensions', String, 'Minimum Dimensions'),
-    Field('maxDimensions', String, 'Maximum Dimensions'),
-    // Spacing
-    Field('internalPadding', String, 'Internal Padding'),
-    Field('externalMargin', String, 'External Margin'),
-    Field('contentSpacing', String, 'Content Spacing',
-        hint: 'Spacing between internal elements'),
-    // Borders and elevation
-    Field('borderStyle', String, 'Border Style'),
-    Field('cornerRadius', String, 'Corner Radius'),
-    Field('elevation', String, 'Elevation'),
-    Field('shadowStyle', String, 'Shadow Style'),
   ])
   String? visualDesign;
+
+  /// Visual dimensions.
+  UiComponentEntryDimensions dimensions = UiComponentEntryDimensions();
+
+  /// Spacing rules.
+  UiComponentEntrySpacing spacing = UiComponentEntrySpacing();
+
+  /// Surface treatment.
+  UiComponentEntrySurface surface = UiComponentEntrySurface();
 
   /// Visual design diagram.
   @ContentHelp('Visual diagram or mockup of the component.')
@@ -5146,7 +5167,6 @@ class UiComponentEntry {
   // Interactive Behavior
   // ─────────────────────────────────────────────────────────────────────────
   @Form([
-    // Gestures
     Field('tapBehavior', String, 'Tap Behavior',
         hint: 'What happens on tap/click'),
     Field('longPressBehavior', String, 'Long Press Behavior'),
@@ -5154,26 +5174,17 @@ class UiComponentEntry {
     Field('swipeBehavior', String, 'Swipe Behavior'),
     Field('dragBehavior', String, 'Drag Behavior'),
     Field('hoverBehavior', String, 'Hover Behavior'),
-    // Focus and keyboard
-    Field('focusBehavior', String, 'Focus Behavior',
-        hint: 'Focus ring, highlight, navigation'),
-    Field('keyboardNavigation', String, 'Keyboard Navigation',
-        hint: 'Tab order, arrow key behavior'),
-    Field('keyboardShortcuts', String, 'Keyboard Shortcuts'),
-    // Animation
-    Field('entryAnimation', String, 'Entry Animation'),
-    Field('exitAnimation', String, 'Exit Animation'),
-    Field('stateTransitions', String, 'State Transitions',
-        hint: 'Animation between states'),
-    Field('feedbackAnimations', String, 'Feedback Animations',
-        hint: 'Ripple, scale, color change'),
-    // Scrolling
-    Field('scrollBehavior', String, 'Scroll Behavior',
-        hint: 'If component is scrollable'),
-    Field('stickyBehavior', String, 'Sticky Behavior',
-        hint: 'Headers, columns that stick'),
   ])
   String? interactiveBehavior;
+
+  /// Focus and keyboard behavior.
+  UiComponentEntryInputBehavior inputBehavior = UiComponentEntryInputBehavior();
+
+  /// Animation behavior.
+  UiComponentEntryAnimation animation = UiComponentEntryAnimation();
+
+  /// Scrolling behavior.
+  UiComponentEntryScroll scroll = UiComponentEntryScroll();
 
   // ─────────────────────────────────────────────────────────────────────────
   // Responsiveness
@@ -5305,6 +5316,77 @@ class UiComponentEntry {
   /// Contains 0+× ComponentProperty.
   @SectionIdPattern('PD00-USE-COM-SPE-xx-PRP-xx')
   List<ComponentPropertyEntry> properties = [];
+}
+
+/// Visual dimensions.
+class UiComponentEntryDimensions {
+    @Form([
+        Field('defaultWidth', String, 'Default Width',
+                hint: 'Default width or width behavior'),
+        Field('defaultHeight', String, 'Default Height',
+                hint: 'Default height or height behavior'),
+        Field('minDimensions', String, 'Minimum Dimensions'),
+        Field('maxDimensions', String, 'Maximum Dimensions'),
+    ])
+    String? content;
+}
+
+/// Spacing rules.
+class UiComponentEntrySpacing {
+    @Form([
+        Field('internalPadding', String, 'Internal Padding'),
+        Field('externalMargin', String, 'External Margin'),
+        Field('contentSpacing', String, 'Content Spacing',
+                hint: 'Spacing between internal elements'),
+    ])
+    String? content;
+}
+
+/// Surface treatment.
+class UiComponentEntrySurface {
+    @Form([
+        Field('borderStyle', String, 'Border Style'),
+        Field('cornerRadius', String, 'Corner Radius'),
+        Field('elevation', String, 'Elevation'),
+        Field('shadowStyle', String, 'Shadow Style'),
+    ])
+    String? content;
+}
+
+/// Focus and keyboard behavior.
+class UiComponentEntryInputBehavior {
+    @Form([
+        Field('focusBehavior', String, 'Focus Behavior',
+                hint: 'Focus ring, highlight, navigation'),
+        Field('keyboardNavigation', String, 'Keyboard Navigation',
+                hint: 'Tab order, arrow key behavior'),
+        Field('keyboardShortcuts', String, 'Keyboard Shortcuts'),
+    ])
+    String? content;
+}
+
+/// Animation behavior.
+class UiComponentEntryAnimation {
+    @Form([
+        Field('entryAnimation', String, 'Entry Animation'),
+        Field('exitAnimation', String, 'Exit Animation'),
+        Field('stateTransitions', String, 'State Transitions',
+                hint: 'Animation between states'),
+        Field('feedbackAnimations', String, 'Feedback Animations',
+                hint: 'Ripple, scale, color change'),
+    ])
+    String? content;
+}
+
+/// Scrolling behavior.
+class UiComponentEntryScroll {
+    @Form([
+        Field('scrollBehavior', String, 'Scroll Behavior',
+                hint: 'If component is scrollable'),
+        Field('stickyBehavior', String, 'Sticky Behavior',
+                hint: 'Headers, columns that stick'),
+    ])
+    String? content;
 }
 
 /// A component state entry [PD00-USE-COM-SPE-nn-STA-nn].
