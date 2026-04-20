@@ -86,6 +86,12 @@ attributes, relationships, and constraints that represent core business data.
 
   /// 7.1.5. Data Dictionary [PD00-BUS-DAT-DIC]. Covers HBSG AS08-DAT.
   DataDictionary dataDictionary = DataDictionary();
+
+  /// 7.1.6. Validation Constraints [PD00-BUS-DAT-VAL].
+  ValidationConstraints validationConstraints = ValidationConstraints();
+
+  /// 7.1.7. Integrity Constraints [PD00-BUS-DAT-CON].
+  IntegrityConstraints integrityConstraints = IntegrityConstraints();
 }
 
 /// A data entity entry [PD00-BUS-DAT-ENT-nn] (form).
@@ -1633,6 +1639,60 @@ Single authoritative registry for data attributes across the system.
 - Format / unit / precision conventions
 - Default value and required-ness
 - Cross-references to validation constraints (PD00-BUS-DAT-VAL)
+''')
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 7.1.6 Validation Constraints [PD00-BUS-DAT-VAL]
+// ---------------------------------------------------------------------------
+
+/// 7.1.6. Validation Constraints [PD00-BUS-DAT-VAL].
+///
+/// Cross-entity validation policy. Per-field validation lives in entity
+/// form fields; this section captures rules that span multiple fields or
+/// entities.
+@SectionId('PD00-BUS-DAT-VAL')
+@DetailedIn(BusinessDataModel)
+class ValidationConstraints {
+  @ContentHelp('''
+Business-level validation rules enforced on data. Distinct from schema
+constraints (which are database-level) and from per-field form hints
+(which are UI-level).
+
+**What to capture:**
+- Rule catalog (name, scope, severity)
+- Cross-field rules (field A must match format of field B)
+- Cross-entity rules (order total must match line-item sum)
+- Conditional rules (required only when X, forbidden when Y)
+- Validation trigger points (on entry, on save, on batch, on publish)
+- Error-message catalog for each rule
+''')
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 7.1.7 Integrity Constraints [PD00-BUS-DAT-CON]
+// ---------------------------------------------------------------------------
+
+/// 7.1.7. Integrity Constraints [PD00-BUS-DAT-CON].
+///
+/// Cross-entity integrity rules beyond simple referential integrity.
+@SectionId('PD00-BUS-DAT-CON')
+@DetailedIn(BusinessDataModel)
+class IntegrityConstraints {
+  @ContentHelp('''
+Integrity rules that preserve invariants across the data model.
+Stronger guarantees than validation (which is typically user-facing);
+integrity constraints must hold in every persistent state.
+
+**What to capture:**
+- Referential integrity (which references must never dangle)
+- Uniqueness constraints (per scope / tenant)
+- State-machine invariants (entity cannot skip states)
+- Aggregate-boundary rules (what must be atomic together)
+- Temporal constraints (effective-from ≤ effective-to)
+- Conservation rules (sums / counts that must balance)
 ''')
   String? content;
 }

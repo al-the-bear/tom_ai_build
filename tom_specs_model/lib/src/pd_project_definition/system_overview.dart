@@ -3629,6 +3629,13 @@ class RequirementsOverview {
   /// 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG].
   OrganizationalRequirements organizationalRequirements =
       OrganizationalRequirements();
+
+  /// 4.3.5. Requirement Relationships [PD00-SYO-REQ-REL].
+  RequirementRelationships requirementRelationships =
+      RequirementRelationships();
+
+  /// 4.3.6. Requirement Coverage [PD00-SYO-REQ-COV].
+  RequirementCoverage requirementCoverage = RequirementCoverage();
 }
 
 // ---------------------------------------------------------------------------
@@ -5987,6 +5994,14 @@ class SystemBoundaries {
 
   /// 4.5.8. Migration Interactions [PD00-SYO-SYB-MIG]. Covers BSI-MIG.
   MigrationInteractions migrationInteractions = MigrationInteractions();
+
+  /// 4.5.9. Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE].
+  CrossBoundaryOperationalConsiderations operationalConsiderations =
+      CrossBoundaryOperationalConsiderations();
+
+  /// 4.5.10. Cross-Boundary Error Handling [PD00-SYO-SYB-ERR].
+  CrossBoundaryErrorHandling crossBoundaryErrorHandling =
+      CrossBoundaryErrorHandling();
 }
 
 // ---------------------------------------------------------------------------
@@ -8492,6 +8507,110 @@ dual-write bridges, reconciliation feeds, freeze/replay mechanisms.
 - Decommission criteria for each transitional interaction
 - Observability hooks specific to migration
 - Risk and rollback plan per transitional interaction
+''')
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 4.3.5 Requirement Relationships [PD00-SYO-REQ-REL]
+// ---------------------------------------------------------------------------
+
+/// 4.3.5. Requirement Relationships [PD00-SYO-REQ-REL].
+///
+/// Cross-requirement dependency and conflict graph.
+@SectionId('PD00-SYO-REQ-REL')
+@DetailedIn(RequirementsCatalog)
+class RequirementRelationships {
+  @ContentHelp('''
+Explicit relationships between requirements: dependencies, conflicts,
+refinements, and derivations. Ties individual requirement entries from
+FUN/TEC/SEC/ORG into a network.
+
+**What to capture:**
+- Relationship catalog (depends-on, conflicts-with, refines, derived-from)
+- Per-requirement neighborhood (incoming / outgoing edges)
+- Conflict resolution outcomes and decisions
+- Derivation chains from goals to requirements
+- Visualizations (matrix, graph, layered view)
+''')
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 4.3.6 Requirement Coverage [PD00-SYO-REQ-COV]
+// ---------------------------------------------------------------------------
+
+/// 4.3.6. Requirement Coverage [PD00-SYO-REQ-COV].
+///
+/// Coverage of requirements against goals, use cases, and tests.
+@SectionId('PD00-SYO-REQ-COV')
+@DetailedIn(RequirementsCatalog)
+class RequirementCoverage {
+  @ContentHelp('''
+Reports coverage of requirements from multiple angles to ensure nothing
+falls through.
+
+**What to capture:**
+- Goal coverage (every goal has ≥1 requirement supporting it)
+- Use case coverage (every use case references its requirements)
+- Test coverage (every requirement has ≥1 test scenario)
+- Gap analysis (requirements without owners / tests / acceptance criteria)
+- Coverage trend snapshot over the project timeline
+''')
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 4.5.9 Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE]
+// ---------------------------------------------------------------------------
+
+/// 4.5.9. Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE].
+///
+/// SLA, rate-limit, and change-window considerations applied at system
+/// boundaries. Distinct from per-interface operational data captured
+/// inside individual interface entries.
+@SectionId('PD00-SYO-SYB-OPE')
+@DetailedIn(BusinessSystemInteractions)
+class CrossBoundaryOperationalConsiderations {
+  @ContentHelp('''
+Operational considerations that span all boundary interactions rather
+than being specific to one partner.
+
+**What to capture:**
+- Aggregate SLA expectations across partners
+- Rate-limit budgeting (per-partner vs. system-wide)
+- Change-window coordination (our releases vs. partners' releases)
+- Observability conventions (metrics, log fields, trace IDs)
+- Disaster-recovery posture for boundary interactions
+- Capacity planning across partners
+''')
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 4.5.10 Cross-Boundary Error Handling [PD00-SYO-SYB-ERR]
+// ---------------------------------------------------------------------------
+
+/// 4.5.10. Cross-Boundary Error Handling [PD00-SYO-SYB-ERR].
+///
+/// Failure-propagation policy that applies across system boundaries.
+/// Distinct from per-interface error handling.
+@SectionId('PD00-SYO-SYB-ERR')
+@DetailedIn(BusinessSystemInteractions)
+class CrossBoundaryErrorHandling {
+  @ContentHelp('''
+Policy for how failures propagate or are contained across boundary
+interactions. Complements per-interface `InterfaceErrorHandling` which
+captures partner-specific logic.
+
+**What to capture:**
+- Error-taxonomy shared across boundaries (network, protocol, business)
+- Propagation policy (fail-fast / absorb / translate)
+- Retry and backoff conventions
+- Dead-letter and poison-message handling
+- User-visible messaging for cross-boundary failures
+- Alerting thresholds per error class
+- Post-mortem and reconciliation procedures
 ''')
   String? content;
 }

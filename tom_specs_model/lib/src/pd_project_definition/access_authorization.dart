@@ -55,6 +55,9 @@ access and authorization concerns.
 
   /// 9.7. Role Matrix [PD00-ACC-ROL]. Covers HBSG AS22-AUM.
   RoleMatrix roleMatrix = RoleMatrix();
+
+  /// 9.8. Compliance Framework [PD00-ACC-CMP].
+  ComplianceFramework complianceFramework = ComplianceFramework();
 }
 
 /// 9.1. User Management [PD00-ACC-USE].
@@ -7572,6 +7575,33 @@ authorization model; this section captures the concrete assignment.
 - Segregation-of-duties constraints (roles that must not co-assign)
 - Review and re-certification cadence
 - Exceptions register for elevated / time-limited access
+''')
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 9.8 Compliance Framework [PD00-ACC-CMP]
+// ---------------------------------------------------------------------------
+
+/// 9.8. Compliance Framework [PD00-ACC-CMP].
+///
+/// NIST / SOC 2 / ISO 27001 / OWASP alignment for access and
+/// authorization. Pulls the compliance references currently scattered
+/// across @ContentHelp strings into an explicit section.
+@SectionId('PD00-ACC-CMP')
+@DetailedIn(AuthorizationConcept)
+class ComplianceFramework {
+  @ContentHelp('''
+Explicit mapping from the access/auth controls in PD00-ACC-* to the
+compliance frameworks the project must satisfy.
+
+**What to capture:**
+- Applicable frameworks (NIST 800-53, SOC 2 CC6.x, ISO 27001 A.9, OWASP ASVS)
+- Control mapping (our control → framework requirement)
+- Evidence artefacts per control (policies, logs, reports, screenshots)
+- Audit cadence and ownership
+- Gap analysis and remediation plan
+- Certification targets and timelines
 ''')
   String? content;
 }

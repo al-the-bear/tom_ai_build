@@ -100,6 +100,9 @@ BP (Business Processes) document.
 
   /// 6.1.9. Process Exception Handling [PD00-TAR-PRO-EXC].
   ProcessExceptionHandling exceptionHandling = ProcessExceptionHandling();
+
+  /// 6.1.10. Process Metrics and KPIs [PD00-TAR-PRO-MET].
+  ProcessMetricsAndKpis processMetricsAndKpis = ProcessMetricsAndKpis();
 }
 
 /// 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
@@ -1135,6 +1138,9 @@ postconditions in the UC (Use Cases) document.
 
   /// 6.2.4. End-to-End Test Scenarios [PD00-TAR-STP-E2E]. Covers HBSG AS24.
   EndToEndTestScenarios endToEndTestScenarios = EndToEndTestScenarios();
+
+  /// 6.2.5. Use Case Traceability [PD00-TAR-STP-TRC].
+  UseCaseTraceability useCaseTraceability = UseCaseTraceability();
 }
 
 /// 6.2. Process Steps Overview [PD00-TAR-STP-OVE].
@@ -2208,5 +2214,53 @@ class ScenarioValidation {
     Field('expectedMetrics', String, 'Expected Metrics — performance targets'),
     Field('knownIssues', String, 'Known Issues — documented problems'),
   ])
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 6.1.10 Process Metrics and KPIs [PD00-TAR-PRO-MET]
+// ---------------------------------------------------------------------------
+
+/// 6.1.10. Process Metrics and KPIs [PD00-TAR-PRO-MET].
+///
+/// Process-level KPIs, SLAs, and measurement strategy.
+@SectionId('PD00-TAR-PRO-MET')
+@DetailedIn(BusinessProcesses)
+class ProcessMetricsAndKpis {
+  @ContentHelp('''
+How each business process is measured for success once in production.
+
+**What to capture:**
+- KPI catalog per process (name, formula, target, tolerance)
+- Leading vs lagging indicators
+- Measurement frequency and data source
+- Dashboard / report ownership
+- Thresholds for corrective action
+- Baseline values (from PD00-CUR-MET) for comparison
+''')
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 6.2.5 Use Case Traceability [PD00-TAR-STP-TRC]
+// ---------------------------------------------------------------------------
+
+/// 6.2.5. Use Case Traceability [PD00-TAR-STP-TRC].
+///
+/// Use case ↔ requirement ↔ process ↔ test traceability.
+@SectionId('PD00-TAR-STP-TRC')
+@DetailedIn(UseCases)
+class UseCaseTraceability {
+  @ContentHelp('''
+Traceability matrix linking use cases to requirements, processes, and
+tests. Ensures every use case is justified and covered.
+
+**What to capture:**
+- UC × RC matrix (which requirements each use case realizes)
+- UC × BP matrix (which processes each use case participates in)
+- UC × test matrix (which tests cover each use case)
+- Orphan detection (UCs without requirements or tests)
+- Change-impact helper (navigate from a changed UC to affected artifacts)
+''')
   String? content;
 }
