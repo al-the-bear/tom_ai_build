@@ -1405,26 +1405,59 @@ class IdentityAttributeMappingEntry {
     Field('dataType', String, 'Data Type',
         hint:
             'String / Integer / Boolean / DateTime / List / Email / Phone / URL'),
+  ])
+  String? content;
+
+  /// Transformation and defaulting behavior.
+  IdentityAttributeMappingEntryTransformation transformation =
+      IdentityAttributeMappingEntryTransformation();
+
+  /// Synchronization and conflict handling.
+  IdentityAttributeMappingEntrySynchronization synchronization =
+      IdentityAttributeMappingEntrySynchronization();
+
+  /// Validation, classification, and purpose.
+  IdentityAttributeMappingEntryGovernance governance =
+      IdentityAttributeMappingEntryGovernance();
+}
+
+/// Transformation and defaulting behavior.
+class IdentityAttributeMappingEntryTransformation {
+  @Form([
     Field('transformationRule', String, 'Transformation Rule',
         hint:
             'None / Lowercase / Uppercase / Trim / RegexExtract / Concatenate / MapValues / Custom'),
     Field('transformationExpression', String, 'Transformation Expression',
         hint:
             'Expression if Custom/RegexExtract, e.g. {firstName} {lastName}'),
+    Field('defaultValue', String, 'Default Value',
+        hint: 'Value used when source attribute is missing or null'),
+    Field('multiValueHandling', String, 'Multi-Value Handling',
+        hint:
+            'FirstValue / AllValues / Concatenate / PrimaryOnly'),
+  ])
+  String? content;
+}
+
+/// Synchronization and conflict handling.
+class IdentityAttributeMappingEntrySynchronization {
+  @Form([
     Field('mandatory', String, 'Mandatory',
         hint:
             'Yes / No — whether this attribute must be present for identity to be valid'),
-    Field('defaultValue', String, 'Default Value',
-        hint: 'Value used when source attribute is missing or null'),
     Field('syncDirection', String, 'Sync Direction',
         hint:
             'SourceToTarget / TargetToSource / Bidirectional / OneTimeImport'),
     Field('conflictResolution', String, 'Conflict Resolution',
         hint:
             'SourceWins / TargetWins / MostRecent / ManualReview — when source and target values differ'),
-    Field('multiValueHandling', String, 'Multi-Value Handling',
-        hint:
-            'FirstValue / AllValues / Concatenate / PrimaryOnly'),
+  ])
+  String? content;
+}
+
+/// Validation, classification, and purpose.
+class IdentityAttributeMappingEntryGovernance {
+  @Form([
     Field('piiClassification', String, 'PII Classification',
         hint:
             'None / PII / SensitivePII / SpecialCategory — data sensitivity for GDPR/compliance'),
@@ -2264,25 +2297,55 @@ class LoginFlowStepEntry {
     Field('actor', String, 'Actor',
         hint:
             'User | Browser | AuthServer | IdP | MfaDevice | ResourceServer — who performs this step'),
+  ])
+  String? content;
+
+  /// Inputs and validation behavior.
+  LoginFlowStepEntryValidation validation = LoginFlowStepEntryValidation();
+
+  /// Outcomes and optional execution rules.
+  LoginFlowStepEntryBehavior behavior = LoginFlowStepEntryBehavior();
+
+  /// Protocol-level and descriptive details.
+  LoginFlowStepEntryProtocol protocol = LoginFlowStepEntryProtocol();
+}
+
+/// Inputs and validation behavior.
+class LoginFlowStepEntryValidation {
+  @Form([
     Field('inputRequired', String, 'Input Required',
         hint:
             'Username | Password | OTP | BiometricSample | ConsentApproval | None'),
     Field('validationAction', String, 'Validation Action',
         hint:
             'CredentialVerification | TokenValidation | RiskAssessment | MfaVerification | None'),
+    Field('timeoutSeconds', String, 'Timeout Seconds',
+        hint: 'Maximum time allowed for this step (e.g., 300, 600)'),
+  ])
+  String? content;
+}
+
+/// Outcomes and optional execution rules.
+class LoginFlowStepEntryBehavior {
+  @Form([
     Field('successOutcome', String, 'Success Outcome',
         hint:
             'NextStep | TokenIssued | SessionCreated | RedirectToApp — outcome on success'),
     Field('failureOutcome', String, 'Failure Outcome',
         hint:
             'RetryWithError | Lockout | RedirectToError | AbortFlow — outcome on failure'),
-    Field('timeoutSeconds', String, 'Timeout Seconds',
-        hint: 'Maximum time allowed for this step (e.g., 300, 600)'),
     Field('optional', String, 'Optional',
         hint: 'Yes | No — whether this step can be skipped'),
     Field('conditionalTrigger', String, 'Conditional Trigger',
         hint:
             'Condition under which this step is activated (e.g., MFA required, new device)'),
+  ])
+  String? content;
+}
+
+/// Protocol-level and descriptive details.
+class LoginFlowStepEntryProtocol {
+  @Form([
     Field('protocolMessage', String, 'Protocol Message',
         hint:
             'OAuth2 AuthZ Request | Token Request | SAML AuthnRequest | OIDC Userinfo — protocol-level message'),
@@ -2750,6 +2813,25 @@ class MfaCategoryRequirementEntry {
     Field('targetAal', String, 'Target AAL',
         hint:
             'AAL1 | AAL2 | AAL3 — target Authentication Assurance Level'),
+  ])
+  String? content;
+
+  /// Allowed authenticators and phishing-resistance rules.
+  MfaCategoryRequirementEntryAuthenticators authenticators =
+      MfaCategoryRequirementEntryAuthenticators();
+
+  /// Enrollment and remembered-device timing.
+  MfaCategoryRequirementEntryTiming timing =
+      MfaCategoryRequirementEntryTiming();
+
+  /// Fallback, timeouts, and rationale.
+  MfaCategoryRequirementEntryOperations operations =
+      MfaCategoryRequirementEntryOperations();
+}
+
+/// Allowed authenticators and phishing-resistance rules.
+class MfaCategoryRequirementEntryAuthenticators {
+  @Form([
     Field('allowedAuthenticatorTypes', String,
         'Allowed Authenticator Types',
         hint:
@@ -2758,6 +2840,13 @@ class MfaCategoryRequirementEntry {
         'Phishing Resistance Required',
         hint:
             'Yes | No | Recommended — whether phishing-resistant authenticators are required'),
+  ])
+  String? content;
+}
+
+/// Enrollment and remembered-device timing.
+class MfaCategoryRequirementEntryTiming {
+  @Form([
     Field('mfaEnrollmentDeadline', String, 'MFA Enrollment Deadline',
         hint:
             'Deadline or grace period for MFA enrollment (e.g., Immediate, 30d, 90d)'),
@@ -2770,6 +2859,13 @@ class MfaCategoryRequirementEntry {
     Field('rememberDeviceDuration', String, 'Remember Device Duration',
         hint:
             'Duration the device is trusted (e.g., 7d, 30d, 90d)'),
+  ])
+  String? content;
+}
+
+/// Fallback, timeouts, and rationale.
+class MfaCategoryRequirementEntryOperations {
+  @Form([
     Field('fallbackMechanismIfUnavailable', String,
         'Fallback If Unavailable',
         hint:

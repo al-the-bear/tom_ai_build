@@ -14941,34 +14941,61 @@ class SystemConfigurationManagement {
         hint: 'YAML, JSON, TOML, properties'),
     Field('centralConfigService', String, 'Central Config Service',
         hint: 'Consul, Spring Cloud Config, AWS AppConfig'),
+  ])
+  String? content;
 
-    // Dynamic configuration
-    Field('dynamicConfiguration', bool, 'Dynamic Configuration',
-        hint: 'Change config without restart'),
-    Field('hotReloadSupport', bool, 'Hot Reload Support',
-        hint: 'Apply config changes live'),
-    Field('configVersioning', bool, 'Config Versioning',
-        hint: 'Track configuration history'),
-    Field('configRollback', bool, 'Config Rollback',
-        hint: 'Revert to previous configuration'),
+  /// Dynamic configuration and rollback behavior.
+  SystemConfigurationManagementDynamic dynamic =
+    SystemConfigurationManagementDynamic();
 
-    // Environment-specific
-    Field('environmentOverrides', String, 'Environment Overrides',
-        hint: 'Per-environment config layering'),
-    Field('secretsManagement', String, 'Secrets Management',
-        hint: 'Vault, AWS Secrets Manager, Azure Key Vault'),
-    Field('secretRotation', bool, 'Secret Rotation',
-        hint: 'Automated secret rotation'),
+  /// Environment overrides and secrets handling.
+  SystemConfigurationManagementEnvironment environment =
+    SystemConfigurationManagementEnvironment();
 
-    // Validation
-    Field('configValidation', String, 'Config Validation',
-        hint: 'Schema validation before deploy'),
-    Field('configDiffing', bool, 'Config Diffing',
-        hint: 'Compare configurations across envs'),
-    Field('configAuditTrail', bool, 'Config Audit Trail',
-        hint: 'Log who changed what and when'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional configuration management notes'),
+  /// Validation, diffing, and audit controls.
+  SystemConfigurationManagementGovernance governance =
+    SystemConfigurationManagementGovernance();
+}
+
+/// Dynamic configuration and rollback behavior.
+class SystemConfigurationManagementDynamic {
+  @Form([
+  Field('dynamicConfiguration', bool, 'Dynamic Configuration',
+    hint: 'Change config without restart'),
+  Field('hotReloadSupport', bool, 'Hot Reload Support',
+    hint: 'Apply config changes live'),
+  Field('configVersioning', bool, 'Config Versioning',
+    hint: 'Track configuration history'),
+  Field('configRollback', bool, 'Config Rollback',
+    hint: 'Revert to previous configuration'),
+  ])
+  String? content;
+}
+
+/// Environment overrides and secrets handling.
+class SystemConfigurationManagementEnvironment {
+  @Form([
+  Field('environmentOverrides', String, 'Environment Overrides',
+    hint: 'Per-environment config layering'),
+  Field('secretsManagement', String, 'Secrets Management',
+    hint: 'Vault, AWS Secrets Manager, Azure Key Vault'),
+  Field('secretRotation', bool, 'Secret Rotation',
+    hint: 'Automated secret rotation'),
+  ])
+  String? content;
+}
+
+/// Validation, diffing, and audit controls.
+class SystemConfigurationManagementGovernance {
+  @Form([
+  Field('configValidation', String, 'Config Validation',
+    hint: 'Schema validation before deploy'),
+  Field('configDiffing', bool, 'Config Diffing',
+    hint: 'Compare configurations across envs'),
+  Field('configAuditTrail', bool, 'Config Audit Trail',
+    hint: 'Log who changed what and when'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional configuration management notes'),
   ])
   String? content;
 }
@@ -16681,34 +16708,60 @@ class UserGrowthProjections {
         hint: 'Total registered user accounts'),
     Field('currentConcurrentUsers', int, 'Current Concurrent Users',
         hint: 'Peak concurrent user count'),
+  ])
+  String? content;
 
-    // Growth projections
-    Field('projectedGrowthRate', String, 'Projected Growth Rate',
-        required: true, hint: 'Monthly/yearly user growth percentage'),
-    Field('users6Months', int, 'Users at 6 Months',
-        hint: 'Expected active users in 6 months'),
-    Field('users12Months', int, 'Users at 12 Months',
-        hint: 'Expected active users in 12 months'),
-    Field('users24Months', int, 'Users at 24 Months',
-        hint: 'Expected active users in 24 months'),
-    Field('users36Months', int, 'Users at 36 Months',
-        hint: 'Expected active users in 36 months'),
+  /// Growth-rate assumptions and time-based projections.
+  UserGrowthProjectionsForecast forecast = UserGrowthProjectionsForecast();
 
-    // User segments
-    Field('userSegments', String, 'User Segments',
-        hint: 'Growth per user category (free, premium, enterprise)'),
-    Field('geographicDistribution', String, 'Geographic Distribution',
-        hint: 'Expected user distribution across regions'),
-    Field('seasonalPatterns', String, 'Seasonal Patterns',
-        hint: 'Monthly/quarterly user volume patterns'),
+  /// User segmentation and geographic patterns.
+  UserGrowthProjectionsSegmentation segmentation =
+    UserGrowthProjectionsSegmentation();
 
-    // Capacity thresholds
-    Field('softCapacityLimit', int, 'Soft Capacity Limit',
-        hint: 'User count requiring system review'),
-    Field('hardCapacityLimit', int, 'Hard Capacity Limit',
-        hint: 'Maximum supportable users before scaling'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional user growth notes'),
+  /// Capacity thresholds and planning notes.
+  UserGrowthProjectionsThresholds thresholds =
+    UserGrowthProjectionsThresholds();
+}
+
+/// Growth-rate assumptions and time-based projections.
+class UserGrowthProjectionsForecast {
+  @Form([
+  Field('projectedGrowthRate', String, 'Projected Growth Rate',
+    required: true, hint: 'Monthly/yearly user growth percentage'),
+  Field('users6Months', int, 'Users at 6 Months',
+    hint: 'Expected active users in 6 months'),
+  Field('users12Months', int, 'Users at 12 Months',
+    hint: 'Expected active users in 12 months'),
+  Field('users24Months', int, 'Users at 24 Months',
+    hint: 'Expected active users in 24 months'),
+  Field('users36Months', int, 'Users at 36 Months',
+    hint: 'Expected active users in 36 months'),
+  ])
+  String? content;
+}
+
+/// User segmentation and geographic patterns.
+class UserGrowthProjectionsSegmentation {
+  @Form([
+  Field('userSegments', String, 'User Segments',
+    hint: 'Growth per user category (free, premium, enterprise)'),
+  Field('geographicDistribution', String, 'Geographic Distribution',
+    hint: 'Expected user distribution across regions'),
+  Field('seasonalPatterns', String, 'Seasonal Patterns',
+    hint: 'Monthly/quarterly user volume patterns'),
+  ])
+  String? content;
+}
+
+/// Capacity thresholds and planning notes.
+class UserGrowthProjectionsThresholds {
+  @Form([
+  Field('softCapacityLimit', int, 'Soft Capacity Limit',
+    hint: 'User count requiring system review'),
+  Field('hardCapacityLimit', int, 'Hard Capacity Limit',
+    hint: 'Maximum supportable users before scaling'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional user growth notes'),
   ])
   String? content;
 }

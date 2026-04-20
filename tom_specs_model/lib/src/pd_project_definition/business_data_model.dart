@@ -1068,16 +1068,48 @@ class LifecycleTransitionEntry {
         required: true, hint: 'Source state'),
     Field('toState', String, 'To State',
         required: true, hint: 'Target state'),
+  ])
+  String? content;
+
+  /// Triggering event details.
+  LifecycleTransitionEntryTrigger trigger = LifecycleTransitionEntryTrigger();
+
+  /// Transition conditions and guarantees.
+  LifecycleTransitionEntryConditions conditions =
+      LifecycleTransitionEntryConditions();
+
+  /// Actions, actors, and rollback handling.
+  LifecycleTransitionEntryExecution execution =
+      LifecycleTransitionEntryExecution();
+}
+
+/// Triggering event details.
+class LifecycleTransitionEntryTrigger {
+  @Form([
     Field('trigger', String, 'Trigger',
         hint: 'What initiates this transition'),
     Field('triggerType', String, 'Trigger Type',
         hint: 'UserAction | SystemEvent | Timer | ExternalEvent'),
+  ])
+  String? content;
+}
+
+/// Transition conditions and guarantees.
+class LifecycleTransitionEntryConditions {
+  @Form([
     Field('guardConditions', String, 'Guard Conditions',
         hint: 'Conditions that must be true for transition'),
     Field('preConditions', String, 'Pre-Conditions',
         hint: 'What must be true before transition'),
     Field('postConditions', String, 'Post-Conditions',
         hint: 'What is guaranteed after transition'),
+  ])
+  String? content;
+}
+
+/// Actions, actors, and rollback handling.
+class LifecycleTransitionEntryExecution {
+  @Form([
     Field('actions', String, 'Actions',
         hint: 'Actions performed during transition'),
     Field('sideEffects', String, 'Side Effects',

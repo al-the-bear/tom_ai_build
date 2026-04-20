@@ -274,17 +274,18 @@ class TeamMemberEntry {
     Field('projectRole', String, 'Project Role', required: true),
     Field('organization', String, 'Organization/Department'),
     Field('jobTitle', String, 'Job Title'),
-    Field('allocation', String, 'Allocation Percentage'),
-    Field('startDate', String, 'Start Date'),
-    Field('endDate', String, 'End Date'),
-    Field('workLocation', String, 'Work Location'),
-    Field('timeZone', String, 'Time Zone'),
-    Field('contactEmail', String, 'Contact Email'),
-    Field('contactPhone', String, 'Contact Phone'),
-    Field('reportingTo', String, 'Reporting To'),
-    Field('backup', String, 'Backup/Deputy'),
   ])
   String? content;
+
+  /// Allocation and scheduling details.
+  TeamMemberEntryAllocation allocationDetails =
+      TeamMemberEntryAllocation();
+
+  /// Work location and contact details.
+  TeamMemberEntryContact contact = TeamMemberEntryContact();
+
+  /// Reporting and backup structure.
+  TeamMemberEntryGovernance governance = TeamMemberEntryGovernance();
 
   /// Special skills and certifications.
   TeamMemberSkills skills = TeamMemberSkills();
@@ -295,6 +296,36 @@ class TeamMemberEntry {
   /// Role-specific responsibilities.
   @SectionIdPattern('PD00-ADM-TEA-xx-RES-xx')
   List<TeamMemberResponsibilityEntry> responsibilities = [];
+}
+
+/// Allocation and scheduling details.
+class TeamMemberEntryAllocation {
+  @Form([
+    Field('allocation', String, 'Allocation Percentage'),
+    Field('startDate', String, 'Start Date'),
+    Field('endDate', String, 'End Date'),
+  ])
+  String? content;
+}
+
+/// Work location and contact details.
+class TeamMemberEntryContact {
+  @Form([
+    Field('workLocation', String, 'Work Location'),
+    Field('timeZone', String, 'Time Zone'),
+    Field('contactEmail', String, 'Contact Email'),
+    Field('contactPhone', String, 'Contact Phone'),
+  ])
+  String? content;
+}
+
+/// Reporting and backup structure.
+class TeamMemberEntryGovernance {
+  @Form([
+    Field('reportingTo', String, 'Reporting To'),
+    Field('backup', String, 'Backup/Deputy'),
+  ])
+  String? content;
 }
 
 /// Team member skills and certifications.
@@ -1088,34 +1119,56 @@ class ChangeCategoryEntry {
         hint: 'Name of the change category'),
     Field('description', String, 'Description',
         hint: 'What types of changes fall into this category'),
+  ])
+  String? content;
 
-    // Scope
-    Field('scope', String, 'Scope',
-        hint: 'What is affected — Scope / Schedule / Budget / Quality / Technical'),
-    Field('examples', String, 'Examples',
-        hint: 'Examples of changes in this category'),
+  /// Scope and example changes.
+  ChangeCategoryEntryScope scopeDetails = ChangeCategoryEntryScope();
 
-    // Handling
-    Field('defaultImpactLevel', String, 'Default Impact Level',
-        hint: 'Typical impact level — Minor / Moderate / Major / Critical'),
-    Field('approvalPath', String, 'Approval Path',
-        hint: 'Who approves changes in this category'),
-    Field('expeditedProcessAllowed', String, 'Expedited Process Allowed',
-        hint: 'Yes / No — whether fast-track is available'),
-    Field('minimumLeadTime', String, 'Minimum Lead Time',
-        hint: 'Minimum time needed for assessment'),
-    Field('typicalProcessingTime', String, 'Typical Processing Time',
-        hint: 'Normal time for change processing'),
+  /// Default handling and approval path.
+  ChangeCategoryEntryHandling handling = ChangeCategoryEntryHandling();
 
-    // Documentation
-    Field('requiredDocumentation', String, 'Required Documentation',
-        hint: 'Documents required for this category'),
-    Field('impactAssessmentDepth', String, 'Impact Assessment Depth',
-        hint: 'Checklist / Brief / Detailed / Full'),
+  /// Documentation and special considerations.
+  ChangeCategoryEntryGovernance governance = ChangeCategoryEntryGovernance();
+}
 
-    // Notes
-    Field('specialConsiderations', String, 'Special Considerations',
-        hint: 'Special handling requirements'),
+/// Scope and example changes.
+class ChangeCategoryEntryScope {
+  @Form([
+  Field('scope', String, 'Scope',
+    hint: 'What is affected — Scope / Schedule / Budget / Quality / Technical'),
+  Field('examples', String, 'Examples',
+    hint: 'Examples of changes in this category'),
+  ])
+  String? content;
+}
+
+/// Default handling and approval path.
+class ChangeCategoryEntryHandling {
+  @Form([
+  Field('defaultImpactLevel', String, 'Default Impact Level',
+    hint: 'Typical impact level — Minor / Moderate / Major / Critical'),
+  Field('approvalPath', String, 'Approval Path',
+    hint: 'Who approves changes in this category'),
+  Field('expeditedProcessAllowed', String, 'Expedited Process Allowed',
+    hint: 'Yes / No — whether fast-track is available'),
+  Field('minimumLeadTime', String, 'Minimum Lead Time',
+    hint: 'Minimum time needed for assessment'),
+  Field('typicalProcessingTime', String, 'Typical Processing Time',
+    hint: 'Normal time for change processing'),
+  ])
+  String? content;
+}
+
+/// Documentation and special considerations.
+class ChangeCategoryEntryGovernance {
+  @Form([
+  Field('requiredDocumentation', String, 'Required Documentation',
+    hint: 'Documents required for this category'),
+  Field('impactAssessmentDepth', String, 'Impact Assessment Depth',
+    hint: 'Checklist / Brief / Detailed / Full'),
+  Field('specialConsiderations', String, 'Special Considerations',
+    hint: 'Special handling requirements'),
   ])
   String? content;
 }

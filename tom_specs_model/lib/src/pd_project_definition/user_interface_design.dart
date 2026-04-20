@@ -332,30 +332,17 @@ class PersonaEntry {
         hint: 'Age or age range'),
     Field('role', String, 'Role',
         hint: 'Job title and responsibilities'),
-    Field('bio', String, 'Background',
-        hint: 'Brief biographical context'),
-    Field('technicalProficiency', String, 'Technical Proficiency',
-        hint: 'Beginner/Intermediate/Advanced — with context'),
-    Field('typicalUsage', String, 'Typical Usage',
-        hint: 'Frequency, duration, and primary activities'),
-    Field('primaryDevice', String, 'Primary Device',
-        hint: 'Desktop/Laptop/Tablet/Mobile'),
-    Field('additionalDevices', String, 'Additional Devices',
-        hint: 'Secondary devices used'),
-    Field('workEnvironment', String, 'Work Environment',
-        hint: 'Office/Remote/Field/Hybrid'),
-    Field('accessibilityNeeds', String, 'Accessibility Needs',
-        hint: 'Visual/Motor/Cognitive/None'),
-    Field('motivations', String, 'Motivations',
-        hint: 'What drives their behavior'),
-    Field('frustrationsWithCurrent', String, 'Current Frustrations',
-        hint: 'Issues with existing solutions'),
-    Field('successCriteria', String, 'Success Criteria',
-        hint: 'How they measure success'),
-    Field('quote', String, 'Representative Quote',
-        hint: 'A quote that captures their perspective'),
   ])
   String? content;
+
+  /// Background and capability profile.
+  PersonaEntryProfile profile = PersonaEntryProfile();
+
+  /// Usage environment and device context.
+  PersonaEntryContext context = PersonaEntryContext();
+
+  /// Motivations, frustrations, and success markers.
+  PersonaEntryNeeds needs = PersonaEntryNeeds();
 
   /// 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
   PersonaGoals goals = PersonaGoals();
@@ -365,6 +352,49 @@ class PersonaEntry {
 
   /// 10.1.3.n.3. Persona Scenarios [PD00-USE-VIS-PER-nn-SCE].
   PersonaScenarios scenarios = PersonaScenarios();
+}
+
+/// Background and capability profile.
+class PersonaEntryProfile {
+    @Form([
+        Field('bio', String, 'Background',
+                hint: 'Brief biographical context'),
+        Field('technicalProficiency', String, 'Technical Proficiency',
+                hint: 'Beginner/Intermediate/Advanced — with context'),
+        Field('accessibilityNeeds', String, 'Accessibility Needs',
+                hint: 'Visual/Motor/Cognitive/None'),
+    ])
+    String? content;
+}
+
+/// Usage environment and device context.
+class PersonaEntryContext {
+    @Form([
+        Field('typicalUsage', String, 'Typical Usage',
+                hint: 'Frequency, duration, and primary activities'),
+        Field('primaryDevice', String, 'Primary Device',
+                hint: 'Desktop/Laptop/Tablet/Mobile'),
+        Field('additionalDevices', String, 'Additional Devices',
+                hint: 'Secondary devices used'),
+        Field('workEnvironment', String, 'Work Environment',
+                hint: 'Office/Remote/Field/Hybrid'),
+    ])
+    String? content;
+}
+
+/// Motivations, frustrations, and success markers.
+class PersonaEntryNeeds {
+    @Form([
+        Field('motivations', String, 'Motivations',
+                hint: 'What drives their behavior'),
+        Field('frustrationsWithCurrent', String, 'Current Frustrations',
+                hint: 'Issues with existing solutions'),
+        Field('successCriteria', String, 'Success Criteria',
+                hint: 'How they measure success'),
+        Field('quote', String, 'Representative Quote',
+                hint: 'A quote that captures their perspective'),
+    ])
+    String? content;
 }
 
 /// 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
@@ -1705,6 +1735,25 @@ class PrimaryNavigation {
         hint: 'Rail/Collapsible-Sidebar/Drawer'),
     Field('desktopPattern', String, 'Desktop Pattern',
         hint: 'Sidebar/Sidebar-Collapsible/Top-Nav+Sidebar'),
+  ])
+  String? content;
+
+  /// Drawer and rail behavior.
+  PrimaryNavigationDrawer drawer = PrimaryNavigationDrawer();
+
+  /// Bottom navigation rules.
+  PrimaryNavigationBottomNav bottomNav = PrimaryNavigationBottomNav();
+
+  /// Sidebar sizing and selection behavior.
+  PrimaryNavigationSidebar sidebar = PrimaryNavigationSidebar();
+
+  /// Design notes and tradeoffs.
+  TextSection designNotes = TextSection();
+}
+
+/// Drawer and rail behavior.
+class PrimaryNavigationDrawer {
+  @Form([
     Field('drawerBehavior', String, 'Drawer Behavior',
         hint: 'Modal-Overlay/Push-Content/Persistent'),
     Field('drawerWidth', String, 'Drawer Width',
@@ -1713,12 +1762,26 @@ class PrimaryNavigation {
         hint: 'User-Avatar/App-Logo/User-Card/Custom'),
     Field('drawerFooterContent', String, 'Drawer Footer',
         hint: 'Version-Info/Settings-Link/Logout/None'),
+  ])
+  String? content;
+}
+
+/// Bottom navigation rules.
+class PrimaryNavigationBottomNav {
+  @Form([
     Field('bottomNavMaxItems', int, 'Bottom Nav Max Items',
         hint: 'Maximum items (Material guideline: 3-5)'),
     Field('bottomNavStyle', String, 'Bottom Nav Style',
         hint: 'Fixed/Shifting/Labeled/Icon-Only'),
     Field('bottomNavShowLabels', String, 'Show Labels',
         hint: 'Always/Selected-Only/Never'),
+  ])
+  String? content;
+}
+
+/// Sidebar sizing and selection behavior.
+class PrimaryNavigationSidebar {
+  @Form([
     Field('sidebarCollapsedWidth', String, 'Collapsed Width',
         hint: 'Rail/icon width when collapsed'),
     Field('sidebarExpandedWidth', String, 'Expanded Width',
@@ -1729,9 +1792,6 @@ class PrimaryNavigation {
         hint: 'Scroll/More-Menu/Paginated'),
   ])
   String? content;
-
-  /// Design notes and tradeoffs.
-  TextSection designNotes = TextSection();
 }
 
 // ---------------------------------------------------------------------------
@@ -3535,32 +3595,20 @@ class ErrorHandlingConcept {
         hint: 'Plain language, technical, user-focused'),
     Field('blameAvoidance', String, 'Blame Avoidance Approach',
         hint: 'Never blame user, focus on solutions'),
-    // Error categorization
-    Field('errorCategories', String, 'Error Categories',
-        hint: 'Validation, network, server, permission, data'),
-    Field('errorSeverityLevels', String, 'Severity Levels',
-        hint: 'Critical, warning, info, success'),
-    Field('errorPriorityDisplay', String, 'Priority Display Order',
-        hint: 'Most severe first, chronological, by field'),
-    // Accessibility
-    Field('errorAccessibility', String, 'Error Accessibility',
-        hint: 'Screen reader announcements, ARIA live regions'),
-    Field('colorContrastCompliance', String, 'Color Contrast Compliance',
-        hint: 'WCAG AA, AAA for error states'),
-    Field('nonColorIndicators', String, 'Non-Color Indicators',
-        hint: 'Icons, text, patterns for colorblind users'),
-    // Localization
-    Field('errorLocalization', String, 'Error Localization',
-        hint: 'All messages localized, fallback language'),
-    Field('dynamicContentHandling', String, 'Dynamic Content Handling',
-        hint: 'How dynamic values are inserted into messages'),
-    // Logging and analytics
-    Field('errorTrackingApproach', String, 'Error Tracking Approach',
-        hint: 'Analytics for user errors, trend analysis'),
-    Field('userFrustrationDetection', String, 'User Frustration Detection',
-        hint: 'Rage click detection, repeated errors'),
   ])
   String? errorPhilosophyContent;
+
+  /// Error categorization and display priority.
+  ErrorHandlingConceptClassification classification =
+      ErrorHandlingConceptClassification();
+
+  /// Accessibility and inclusive error cues.
+  ErrorHandlingConceptAccessibility accessibility =
+      ErrorHandlingConceptAccessibility();
+
+  /// Localization and analytics behavior.
+  ErrorHandlingConceptOperations operations =
+      ErrorHandlingConceptOperations();
 
   /// Error handling overview and strategy.
   @ContentHelp('Executive summary of error handling approach, '
@@ -3588,6 +3636,47 @@ class ErrorHandlingConcept {
   @ContentHelp('Visual design specifications for error states '
       'including colors, icons, animations.')
   TextSection errorVisualDesign = TextSection();
+}
+
+/// Error categorization and display priority.
+class ErrorHandlingConceptClassification {
+    @Form([
+        Field('errorCategories', String, 'Error Categories',
+                hint: 'Validation, network, server, permission, data'),
+        Field('errorSeverityLevels', String, 'Severity Levels',
+                hint: 'Critical, warning, info, success'),
+        Field('errorPriorityDisplay', String, 'Priority Display Order',
+                hint: 'Most severe first, chronological, by field'),
+    ])
+    String? content;
+}
+
+/// Accessibility and inclusive error cues.
+class ErrorHandlingConceptAccessibility {
+    @Form([
+        Field('errorAccessibility', String, 'Error Accessibility',
+                hint: 'Screen reader announcements, ARIA live regions'),
+        Field('colorContrastCompliance', String, 'Color Contrast Compliance',
+                hint: 'WCAG AA, AAA for error states'),
+        Field('nonColorIndicators', String, 'Non-Color Indicators',
+                hint: 'Icons, text, patterns for colorblind users'),
+    ])
+    String? content;
+}
+
+/// Localization and analytics behavior.
+class ErrorHandlingConceptOperations {
+    @Form([
+        Field('errorLocalization', String, 'Error Localization',
+                hint: 'All messages localized, fallback language'),
+        Field('dynamicContentHandling', String, 'Dynamic Content Handling',
+                hint: 'How dynamic values are inserted into messages'),
+        Field('errorTrackingApproach', String, 'Error Tracking Approach',
+                hint: 'Analytics for user errors, trend analysis'),
+        Field('userFrustrationDetection', String, 'User Frustration Detection',
+                hint: 'Rage click detection, repeated errors'),
+    ])
+    String? content;
 }
 
 /// 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
@@ -4590,26 +4679,59 @@ class AccessibilityCheckEntry {
         hint: 'What is being checked'),
     Field('checkDescription', String, 'Check Description',
         hint: 'Detailed description'),
+    Field('verificationMethod', String, 'Verification Method', required: true,
+        hint: 'Automated, manual, user testing'),
+  ])
+  String? content;
+
+  /// WCAG mapping and compliance classification.
+  AccessibilityCheckEntryCompliance compliance =
+      AccessibilityCheckEntryCompliance();
+
+  /// Testing execution ownership and status.
+  AccessibilityCheckEntryExecution execution =
+      AccessibilityCheckEntryExecution();
+
+  /// Issue tracking and remediation details.
+  AccessibilityCheckEntryRemediation remediation =
+      AccessibilityCheckEntryRemediation();
+}
+
+/// WCAG mapping and compliance classification.
+class AccessibilityCheckEntryCompliance {
+  @Form([
     Field('wcagCriterion', String, 'WCAG Criterion',
         hint: 'Related WCAG success criterion'),
     Field('complianceLevel', String, 'Compliance Level',
         hint: 'A, AA, AAA'),
     Field('checkCategory', String, 'Check Category',
         hint: 'Perceivable, operable, understandable, robust'),
-    Field('verificationMethod', String, 'Verification Method', required: true,
-        hint: 'Automated, manual, user testing'),
+  ])
+  String? content;
+}
+
+/// Testing execution ownership and status.
+class AccessibilityCheckEntryExecution {
+  @Form([
     Field('testingTool', String, 'Testing Tool',
         hint: 'Specific tool or technique'),
     Field('responsibleParty', String, 'Responsible Party',
         hint: 'Developer, QA, accessibility specialist'),
     Field('checkStatus', String, 'Check Status',
         hint: 'Not tested, passed, failed, n/a'),
+    Field('testDate', String, 'Test Date'),
+    Field('testedBy', String, 'Tested By'),
+  ])
+  String? content;
+}
+
+/// Issue tracking and remediation details.
+class AccessibilityCheckEntryRemediation {
+  @Form([
     Field('issuesFound', String, 'Issues Found',
         hint: 'Description of any issues'),
     Field('remediationPlan', String, 'Remediation Plan',
         hint: 'How issues will be fixed'),
-    Field('testDate', String, 'Test Date'),
-    Field('testedBy', String, 'Tested By'),
   ])
   String? content;
 }
