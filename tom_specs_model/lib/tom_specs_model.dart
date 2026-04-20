@@ -7,4 +7,5 @@ library;
 
 export 'src/common/common.dart';
 export 'src/docspecs_project.dart';
+export 'src/document_stubs.dart';
 export 'src/pd_project_definition/pd_project_definition.dart';

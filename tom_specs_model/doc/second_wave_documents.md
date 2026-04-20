@@ -512,9 +512,9 @@ Every `new` or `promote` row in §5 points back to one row here.
 
 | New PD00 ID | Class name | Feeds | HBSG origin |
 | --- | --- | --- | --- |
-| PD00-ROL | `SystemRollout` | SR | DR22/DR23/DR15/DR17/EK09/EK10 covered by SR. Separate from `PD00-USE-MUL` which stays focused on multi-language. |
+| PD00-ROL | `SystemRolloutConcept` | SR | DR22/DR23/DR15/DR17/EK09/EK10 covered by SR. Separate from `PD00-USE-MUL` which stays focused on multi-language. Target-doc class for SR is `SystemRollout`; the PD00 parent uses the `…Concept` suffix (like `TechnicalFrameworkConcept`, `AccessAndAuthorizationConcept`) to avoid a name collision. |
 
-`PD00-ROL` gets `@MapsTo(SystemRollout)`; not itself a top-level (its 8 children are).
+`PD00-ROL` (class `SystemRolloutConcept`) gets `@MapsTo(SystemRollout)`; not itself a top-level (its 8 children are).
 
 #### New sections under existing parents
 
@@ -665,7 +665,7 @@ Examples from the current plan:
 - `LocalizationProcess`, `TranslationProcess`, `DocumentationAndTraining` (§5.9): Shape B via `PD00-USE-MUL` (mixed). All three carry both.
 - `CurrentStateAnalysis` (PD00-CUR): `@MapsTo(CurrentSituation)` only — flattened. Each PD00-CUR-* child: `@DetailedIn(CurrentSituation)` only.
 - `SystemStagePlan` (PD00-SSP): `@MapsTo(ProjectPhasePlan)` only — flattened into PPP top-levels.
-- `SystemRollout` (PD00-ROL): `@MapsTo(SystemRollout)` only — flattened into 8 SR top-levels.
+- `SystemRolloutConcept` (PD00-ROL): `@MapsTo(SystemRollout)` only — flattened into 8 SR top-levels.
 
 ### 8.4. `@SecondLevelSectionId` (document-scoped short IDs)
 
@@ -712,8 +712,8 @@ And for a whole-seed case (Shape A):
 
 ```dart
 @SectionId('PD00-COM')
-@MapsTo(TechnicalRequirements)
-@DetailedIn(TechnicalRequirements)
+@MapsTo(TechnicalRequirementsSpec)
+@DetailedIn(TechnicalRequirementsSpec)
 class ComponentsToUse { ... }                  // seed kept whole → both annotations
 ```
 
@@ -722,8 +722,8 @@ And for a mixed-parent case (Shape B), e.g. `PD00-USE-MUL-REQ`:
 ```dart
 // Parent PD00-USE-MUL is mixed — no @MapsTo on it.
 @SectionId('PD00-USE-MUL-REQ')
-@MapsTo(TechnicalRequirements)
-@DetailedIn(TechnicalRequirements)
+@MapsTo(TechnicalRequirementsSpec)
+@DetailedIn(TechnicalRequirementsSpec)
 class TranslationRequirements { ... }          // both annotations on the child
 ```
 
@@ -881,9 +881,9 @@ End-to-end ordered sequence across the work defined in §7, §8, and §9. Each s
 #### Step 3 — Add PD00-ROL top-level and its children (§7.1, §3)
 
 **What:**
-- Create `lib/src/pd_project_definition/system_rollout.dart` with `SystemRollout` root class (`@SectionId('PD00-ROL')`, `@MapsTo(SystemRollout)`).
+- Create `lib/src/pd_project_definition/system_rollout_concept.dart` with `SystemRolloutConcept` root class (`@SectionId('PD00-ROL')`, `@MapsTo(SystemRollout)`). (`SystemRollout` is reserved as the SR target-doc class name.)
 - Create the 8 child classes listed in §5.9 rows 4–11 (6 T1 + 2 T3). Each gets `@SectionId('PD00-ROL-XXX')` + `@DetailedIn(SystemRollout)`.
-- Add `systemRollout: SystemRollout()` field to `ProjectDefinition` (after `userInterfaceDesign`, before `systemQualityGoals`).
+- Add `systemRolloutConcept: SystemRolloutConcept()` field to `ProjectDefinition` (after `userInterfaceDesign`, before `systemQualityGoals`).
 - Update `pd_project_definition.dart` to export the new file.
 
 **Why:** `PD00-ROL` is the only net-new top-level on `ProjectDefinition`. Isolating it prevents accidental collateral damage on existing sections.
