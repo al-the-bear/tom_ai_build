@@ -24,12 +24,12 @@ export 'cs_current_situation/cs_current_situation.dart';
 // Step 10 — RC (Requirements Catalog).
 export 'rc_requirements_catalog/rc_requirements_catalog.dart';
 
+// Step 11 — BP (Business Processes).
+export 'bp_business_processes/bp_business_processes.dart';
+
 // ---------------------------------------------------------------------------
 // Remaining stubs (replaced as their Phase B step runs).
 // ---------------------------------------------------------------------------
-
-/// Stub for BP (Business Processes). Phase B Step 11.
-class BusinessProcesses {}
 
 /// Stub for UC (Use Cases). Phase B Step 12.
 class UseCases {}
