@@ -18,3 +18,4 @@ export 'src/ppp_project_phase_plan/ppp_project_phase_plan.dart';
 export 'src/rc_requirements_catalog/rc_requirements_catalog.dart';
 export 'src/tr_technical_requirements/tr_technical_requirements.dart';
 export 'src/uc_use_cases/uc_use_cases.dart';
+export 'src/up_ui_prototype/up_ui_prototype.dart';

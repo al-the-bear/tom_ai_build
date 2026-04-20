@@ -42,12 +42,12 @@ export 'ppp_project_phase_plan/ppp_project_phase_plan.dart';
 // Step 16 — TR (Technical Requirements).
 export 'tr_technical_requirements/tr_technical_requirements.dart';
 
+// Step 17 — UP (UI Prototype).
+export 'up_ui_prototype/up_ui_prototype.dart';
+
 // ---------------------------------------------------------------------------
 // Remaining stubs (replaced as their Phase B step runs).
 // ---------------------------------------------------------------------------
-
-/// Stub for UP (UI Prototype). Phase B Step 17.
-class UiPrototype {}
 
 /// Stub for SR (System Rollout). Phase B Step 18.
 /// Distinct from PD00-ROL class `SystemRolloutConcept`.
