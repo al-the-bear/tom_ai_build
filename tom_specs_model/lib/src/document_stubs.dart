@@ -39,13 +39,12 @@ export 'ac_authorization_concept/ac_authorization_concept.dart';
 // Step 15 — PPP (Project Phase Plan).
 export 'ppp_project_phase_plan/ppp_project_phase_plan.dart';
 
+// Step 16 — TR (Technical Requirements).
+export 'tr_technical_requirements/tr_technical_requirements.dart';
+
 // ---------------------------------------------------------------------------
 // Remaining stubs (replaced as their Phase B step runs).
 // ---------------------------------------------------------------------------
-
-/// Stub for TR (Technical Requirements). Phase B Step 16.
-/// Distinct from PD00-SYO-REQ-TEC class `TechnicalRequirements`.
-class TechnicalRequirementsSpec {}
 
 /// Stub for UP (UI Prototype). Phase B Step 17.
 class UiPrototype {}
