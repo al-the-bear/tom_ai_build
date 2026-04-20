@@ -4161,39 +4161,71 @@ class DebuggingConfigurationErrors {
 /// Environment management configuration.
 class EnvironmentManagement {
   @Form([
-    // Environment types
     Field('environmentTypes', String, 'Environment Types',
         hint: 'development, staging, production, etc.'),
     Field('environmentNaming', String, 'Environment Naming',
         hint: 'Naming convention for environments'),
     Field('environmentPurposes', String, 'Environment Purposes',
         hint: 'Purpose of each environment'),
+  ])
+  String? content;
 
-    // Configuration
+  /// Configuration settings.
+  EnvironmentManagementConfiguration configuration =
+      EnvironmentManagementConfiguration();
+
+  /// Secrets handling.
+  EnvironmentManagementSecrets secrets = EnvironmentManagementSecrets();
+
+  /// Environment switching.
+  EnvironmentManagementSwitching switching = EnvironmentManagementSwitching();
+
+  /// Parity and notes.
+  EnvironmentManagementParity parity = EnvironmentManagementParity();
+}
+
+/// Configuration settings.
+class EnvironmentManagementConfiguration {
+  @Form([
     Field('configurationMethod', String, 'Configuration Method',
         hint: 'Environment variables, files, remote'),
     Field('configFileFormat', String, 'Config File Format',
         hint: '.env, YAML, JSON'),
     Field('configurationHierarchy', String, 'Configuration Hierarchy',
         hint: 'Default → environment → local'),
+  ])
+  String? content;
+}
 
-    // Secrets
+/// Secrets handling.
+class EnvironmentManagementSecrets {
+  @Form([
     Field('localSecretsManagement', String, 'Local Secrets Management',
         hint: 'How secrets are managed locally'),
     Field('secretsTemplate', String, 'Secrets Template',
         hint: 'Template for required secrets'),
     Field('secretsNeverCommit', String, 'Never Commit',
         hint: 'Secrets that must never be committed'),
+  ])
+  String? content;
+}
 
-    // Switching
+/// Environment switching.
+class EnvironmentManagementSwitching {
+  @Form([
     Field('switchingMechanism', String, 'Switching Mechanism',
         hint: 'How to switch environments'),
     Field('flavorSupport', String, 'Flavor/Variant Support',
         hint: 'Build flavors for environments'),
     Field('runtimeSwitching', bool, 'Runtime Switching',
         hint: 'Can switch at runtime'),
+  ])
+  String? content;
+}
 
-    // Parity
+/// Parity and notes.
+class EnvironmentManagementParity {
+  @Form([
     Field('devProdParity', String, 'Dev-Prod Parity',
         hint: 'How similar dev is to prod'),
     Field('dataSeeding', String, 'Data Seeding',
@@ -5498,7 +5530,6 @@ class BrowserCompatibilityEntryTesting {
 /// Database compatibility entry.
 class DatabaseCompatibilityEntry {
   @Form([
-    // Identity
     Field('databaseName', String, 'Database',
         required: true, hint: 'E.g., PostgreSQL, MySQL, MongoDB, SQLite'),
     Field('databaseType', String, 'Type',
@@ -5507,30 +5538,66 @@ class DatabaseCompatibilityEntry {
         required: true, hint: 'Minimum supported version'),
     Field('maxVersion', String, 'Maximum Version',
         hint: 'Maximum tested version'),
+  ])
+  String? content;
 
-    // Support
+  /// Support options.
+  DatabaseCompatibilityEntrySupport support =
+      DatabaseCompatibilityEntrySupport();
+
+  /// Feature requirements.
+  DatabaseCompatibilityEntryFeatures features =
+      DatabaseCompatibilityEntryFeatures();
+
+  /// Connection requirements.
+  DatabaseCompatibilityEntryConnection connection =
+      DatabaseCompatibilityEntryConnection();
+
+  /// Performance and notes.
+  DatabaseCompatibilityEntryPerformance performance =
+      DatabaseCompatibilityEntryPerformance();
+}
+
+/// Support options.
+class DatabaseCompatibilityEntrySupport {
+  @Form([
     Field('supportLevel', String, 'Support Level',
         hint: 'Primary, Secondary, Experimental'),
     Field('cloudVariants', String, 'Cloud Variants',
         hint: 'AWS RDS, Azure SQL, Cloud SQL'),
+  ])
+  String? content;
+}
 
-    // Features
+/// Feature requirements.
+class DatabaseCompatibilityEntryFeatures {
+  @Form([
     Field('requiredFeatures', String, 'Required Features',
         hint: 'Required database features'),
     Field('optionalFeatures', String, 'Optional Features',
         hint: 'Optional performance features'),
     Field('extensions', String, 'Extensions',
         hint: 'Required extensions/plugins'),
+  ])
+  String? content;
+}
 
-    // Connection
+/// Connection requirements.
+class DatabaseCompatibilityEntryConnection {
+  @Form([
     Field('connectionDriver', String, 'Connection Driver',
         hint: 'Driver/client library'),
     Field('connectionPooling', String, 'Connection Pooling',
         hint: 'Pooling requirements'),
     Field('ssl', String, 'SSL Requirements',
         hint: 'SSL/TLS requirements'),
+  ])
+  String? content;
+}
 
-    // Performance
+/// Performance and notes.
+class DatabaseCompatibilityEntryPerformance {
+  @Form([
     Field('performanceNotes', String, 'Performance Notes',
         hint: 'DB-specific performance'),
     Field('scalingConsiderations', String, 'Scaling Considerations',
@@ -5849,39 +5916,70 @@ class ThirdPartyCompatibilityEntry {
 /// Data format and encoding compatibility.
 class DataFormatCompatibility {
   @Form([
-    // Text encoding
     Field('defaultEncoding', String, 'Default Encoding',
         hint: 'UTF-8, UTF-16, ISO-8859-1'),
     Field('supportedEncodings', String, 'Supported Encodings',
         hint: 'All supported encodings'),
     Field('encodingConversion', String, 'Encoding Conversion',
         hint: 'How encoding conversion handled'),
+  ])
+  String? content;
 
-    // Data formats
+  /// Data format compatibility.
+  DataFormatCompatibilityFormats formats = DataFormatCompatibilityFormats();
+
+  /// Date and time formatting.
+  DataFormatCompatibilityDateTime dateTime = DataFormatCompatibilityDateTime();
+
+  /// Numeric formatting.
+  DataFormatCompatibilityNumbers numbers = DataFormatCompatibilityNumbers();
+
+  /// Locale settings.
+  DataFormatCompatibilityLocale locale = DataFormatCompatibilityLocale();
+}
+
+/// Data format compatibility.
+class DataFormatCompatibilityFormats {
+  @Form([
     Field('primaryFormat', String, 'Primary Data Format',
         hint: 'JSON, XML, CSV, Binary'),
     Field('supportedFormats', String, 'Supported Formats',
         hint: 'All supported formats'),
     Field('formatConversion', String, 'Format Conversion',
         hint: 'Format conversion support'),
+  ])
+  String? content;
+}
 
-    // Date/time
+/// Date and time formatting.
+class DataFormatCompatibilityDateTime {
+  @Form([
     Field('dateFormat', String, 'Date Format',
         hint: 'ISO 8601, locale-specific'),
     Field('timeZoneHandling', String, 'Time Zone Handling',
         hint: 'UTC, local, configurable'),
     Field('calendarSystems', String, 'Calendar Systems',
         hint: 'Gregorian, other calendars'),
+  ])
+  String? content;
+}
 
-    // Numbers
+/// Numeric formatting.
+class DataFormatCompatibilityNumbers {
+  @Form([
     Field('numberFormat', String, 'Number Format',
         hint: 'Decimal separator, grouping'),
     Field('currencyFormat', String, 'Currency Format',
         hint: 'Currency representation'),
     Field('precision', String, 'Numeric Precision',
         hint: 'Decimal precision handling'),
+  ])
+  String? content;
+}
 
-    // Locale
+/// Locale settings.
+class DataFormatCompatibilityLocale {
+  @Form([
     Field('localeSupport', String, 'Locale Support',
         hint: 'Locale handling'),
     Field('rtlSupport', bool, 'RTL Support',
@@ -9030,7 +9128,6 @@ class InternalNetworkRequirements {
 /// External network requirements.
 class ExternalNetworkRequirements {
   @Form([
-    // Internet connectivity
     Field('internetAccess', String, 'Internet Access',
         hint: 'Direct, NAT gateway, proxy'),
     Field('ispRedundancy', String, 'ISP Redundancy',
@@ -9039,8 +9136,28 @@ class ExternalNetworkRequirements {
         hint: 'MPLS, leased lines'),
     Field('peeringRequirements', String, 'Peering Requirements',
         hint: 'Direct peering arrangements'),
+  ])
+  String? content;
 
-    // Public endpoints
+  /// Public endpoint requirements.
+  ExternalNetworkRequirementsPublic publicEndpointsConfig =
+      ExternalNetworkRequirementsPublic();
+
+  /// Third-party connectivity.
+  ExternalNetworkRequirementsPartners partners =
+      ExternalNetworkRequirementsPartners();
+
+  /// Cloud connectivity.
+  ExternalNetworkRequirementsCloud cloud = ExternalNetworkRequirementsCloud();
+
+  /// Security controls.
+  ExternalNetworkRequirementsSecurity security =
+      ExternalNetworkRequirementsSecurity();
+}
+
+/// Public endpoint requirements.
+class ExternalNetworkRequirementsPublic {
+  @Form([
     Field('publicEndpoints', String, 'Public Endpoints',
         hint: 'Public-facing services'),
     Field('staticIps', String, 'Static IP Addresses',
@@ -9049,22 +9166,37 @@ class ExternalNetworkRequirements {
         hint: 'IPv6 required'),
     Field('dnscname', String, 'DNS/CNAME Requirements',
         hint: 'DNS records needed'),
+  ])
+  String? content;
+}
 
-    // Third-party connectivity
+/// Third-party connectivity.
+class ExternalNetworkRequirementsPartners {
+  @Form([
     Field('partnerConnectivity', String, 'Partner Connectivity',
         hint: 'B2B connections'),
     Field('apiGateway', String, 'API Gateway',
         hint: 'External API gateway'),
     Field('webhookEndpoints', String, 'Webhook Endpoints',
         hint: 'Inbound webhooks'),
+  ])
+  String? content;
+}
 
-    // Cloud connectivity
+/// Cloud connectivity.
+class ExternalNetworkRequirementsCloud {
+  @Form([
     Field('cloudConnect', String, 'Cloud Direct Connect',
         hint: 'AWS Direct Connect, Azure ExpressRoute'),
     Field('hybridCloud', String, 'Hybrid Cloud',
         hint: 'Hybrid cloud networking'),
+  ])
+  String? content;
+}
 
-    // Security
+/// Security controls.
+class ExternalNetworkRequirementsSecurity {
+  @Form([
     Field('ddosProtection', String, 'DDoS Protection',
         hint: 'DDoS mitigation'),
     Field('waf', String, 'WAF Requirements',
@@ -9430,39 +9562,70 @@ class GeographicDistributionRequirements {
 /// DNS requirements.
 class DnsRequirements {
   @Form([
-    // Provider
     Field('dnsProvider', String, 'DNS Provider',
         hint: 'Route 53, Cloudflare, etc.'),
     Field('dnsHosting', String, 'DNS Hosting',
         hint: 'Managed, self-hosted'),
     Field('dnsSecEnabled', bool, 'DNSSEC Enabled',
         hint: 'DNS security extensions'),
+  ])
+  String? content;
 
-    // Zones
+  /// Zone requirements.
+  DnsRequirementsZones zones = DnsRequirementsZones();
+
+  /// Record requirements.
+  DnsRequirementsRecords records = DnsRequirementsRecords();
+
+  /// Availability requirements.
+  DnsRequirementsAvailability availability = DnsRequirementsAvailability();
+
+  /// Health-check settings.
+  DnsRequirementsHealthChecks healthChecks = DnsRequirementsHealthChecks();
+}
+
+/// Zone requirements.
+class DnsRequirementsZones {
+  @Form([
     Field('publicZones', String, 'Public Zones',
         hint: 'Public DNS zones'),
     Field('privateZones', String, 'Private Zones',
         hint: 'Private DNS zones'),
     Field('splitHorizon', bool, 'Split Horizon DNS',
         hint: 'Internal/external split'),
+  ])
+  String? content;
+}
 
-    // Records
+/// Record requirements.
+class DnsRequirementsRecords {
+  @Form([
     Field('recordTypes', String, 'Record Types',
         hint: 'A, CNAME, TXT, etc.'),
     Field('ttlPolicy', String, 'TTL Policy',
         hint: 'Default TTL settings'),
     Field('dynamicDns', bool, 'Dynamic DNS',
         hint: 'Dynamic DNS updates'),
+  ])
+  String? content;
+}
 
-    // Availability
+/// Availability requirements.
+class DnsRequirementsAvailability {
+  @Form([
     Field('dnsRedundancy', String, 'DNS Redundancy',
         hint: 'Secondary DNS'),
     Field('resolutionSla', String, 'Resolution SLA',
         hint: 'DNS query SLA'),
     Field('failoverDns', String, 'Failover DNS',
         hint: 'DNS-based failover'),
+  ])
+  String? content;
+}
 
-    // Health checks
+/// Health-check settings.
+class DnsRequirementsHealthChecks {
+  @Form([
     Field('healthChecks', bool, 'Health Checks',
         hint: 'DNS health checking'),
     Field('healthCheckEndpoints', String, 'Health Check Endpoints',
@@ -11045,7 +11208,6 @@ class InfrastructureAsCodeSecurity {
 /// Deployment security requirements.
 class DeploymentSecurity {
   @Form([
-    // Pipeline security
     Field('pipelineSecrets', String, 'Pipeline Secrets',
         hint: 'How secrets are injected'),
     Field('serviceAccounts', String, 'Service Accounts',
@@ -11054,8 +11216,22 @@ class DeploymentSecurity {
         hint: 'Kubernetes RBAC'),
     Field('leastPrivilege', bool, 'Least Privilege',
         hint: 'Minimum required permissions'),
+  ])
+  String? content;
 
-    // Supply chain
+  /// Supply-chain security.
+  DeploymentSecuritySupplyChain supplyChain = DeploymentSecuritySupplyChain();
+
+  /// Runtime security.
+  DeploymentSecurityRuntime runtime = DeploymentSecurityRuntime();
+
+  /// Access control and audit.
+  DeploymentSecurityAccess access = DeploymentSecurityAccess();
+}
+
+/// Supply-chain security.
+class DeploymentSecuritySupplyChain {
+  @Form([
     Field('signedArtifacts', bool, 'Signed Artifacts',
         hint: 'Artifact signing required'),
     Field('imageSignature', String, 'Image Signature',
@@ -11064,8 +11240,13 @@ class DeploymentSecurity {
         hint: 'Software bill of materials'),
     Field('supplyChainAttestation', String, 'Supply Chain Attestation',
         hint: 'Provenance verification'),
+  ])
+  String? content;
+}
 
-    // Runtime security
+/// Runtime security.
+class DeploymentSecurityRuntime {
+  @Form([
     Field('podSecurityPolicy', String, 'Pod Security Policy',
         hint: 'PSP/PSA configuration'),
     Field('networkPolicies', String, 'Network Policies',
@@ -11074,8 +11255,13 @@ class DeploymentSecurity {
         hint: 'Syscall restrictions'),
     Field('readOnlyRootFilesystem', bool, 'Read-Only Root Filesystem',
         hint: 'Immutable containers'),
+  ])
+  String? content;
+}
 
-    // Access control
+/// Access control and audit.
+class DeploymentSecurityAccess {
+  @Form([
     Field('deploymentApprovers', String, 'Deployment Approvers',
         hint: 'Who can approve deployments'),
     Field('emergencyAccess', String, 'Emergency Access',
@@ -11650,15 +11836,31 @@ class AlertDefinitionEntryNotification {
 /// Dashboard requirements.
 class DashboardRequirements {
   @Form([
-    // Platform
     Field('dashboardPlatform', String, 'Dashboard Platform',
         hint: 'Grafana, Datadog, custom'),
     Field('dashboardAsCode', bool, 'Dashboards as Code',
         hint: 'Version-controlled dashboards'),
     Field('dashboardLocation', String, 'Dashboard Location',
         hint: 'Where dashboards are stored'),
+  ])
+  String? content;
 
-    // Standard dashboards
+  /// Standard dashboards.
+  DashboardRequirementsStandard standard = DashboardRequirementsStandard();
+
+  /// Access controls.
+  DashboardRequirementsAccess access = DashboardRequirementsAccess();
+
+  /// Feature requirements.
+  DashboardRequirementsFeatures features = DashboardRequirementsFeatures();
+
+  /// Mobile support and notes.
+  DashboardRequirementsMobile mobile = DashboardRequirementsMobile();
+}
+
+/// Standard dashboards.
+class DashboardRequirementsStandard {
+  @Form([
     Field('systemOverview', bool, 'System Overview Dashboard',
         hint: 'High-level system health'),
     Field('serviceDashboards', bool, 'Service Dashboards',
@@ -11667,16 +11869,26 @@ class DashboardRequirements {
         hint: 'Infra-level dashboard'),
     Field('businessDashboard', bool, 'Business Dashboard',
         hint: 'Business metrics dashboard'),
+  ])
+  String? content;
+}
 
-    // Access
+/// Access controls.
+class DashboardRequirementsAccess {
+  @Form([
     Field('publicDashboards', String, 'Public Dashboards',
         hint: 'Status page dashboards'),
     Field('internalDashboards', String, 'Internal Dashboards',
         hint: 'Internal-only dashboards'),
     Field('accessControl', String, 'Dashboard Access Control',
         hint: 'Who can view/edit'),
+  ])
+  String? content;
+}
 
-    // Features
+/// Feature requirements.
+class DashboardRequirementsFeatures {
+  @Form([
     Field('drillDown', bool, 'Drill-Down Capability',
         hint: 'Navigate to details'),
     Field('annotations', bool, 'Annotations',
@@ -11685,8 +11897,13 @@ class DashboardRequirements {
         hint: 'Variable-based filtering'),
     Field('alertIntegration', bool, 'Alert Integration',
         hint: 'Show alerts on dashboard'),
+  ])
+  String? content;
+}
 
-    // Mobile
+/// Mobile support and notes.
+class DashboardRequirementsMobile {
+  @Form([
     Field('mobileAccess', bool, 'Mobile Access',
         hint: 'Mobile-friendly dashboards'),
     Field('notes', String, 'Notes',
@@ -15217,31 +15434,59 @@ class UserGrowthProjections {
 /// Data growth projections.
 class DataGrowthProjections {
   @Form([
-    // Current state
     Field('currentDataVolume', String, 'Current Data Volume',
         required: true, hint: 'Total data size (e.g. 500 GB)'),
     Field('currentDatabaseSize', String, 'Current Database Size',
         hint: 'Primary database storage usage'),
     Field('currentFileStorageSize', String, 'Current File Storage Size',
         hint: 'File/blob storage usage'),
+  ])
+  String? content;
 
-    // Growth rates
+  /// Growth-rate assumptions.
+  DataGrowthProjectionsGrowth growth = DataGrowthProjectionsGrowth();
+
+  /// Volume projections.
+  DataGrowthProjectionsProjections projections =
+      DataGrowthProjectionsProjections();
+
+  /// Data lifecycle strategy.
+  DataGrowthProjectionsLifecycle lifecycle = DataGrowthProjectionsLifecycle();
+
+  /// Thresholds and notes.
+  DataGrowthProjectionsThresholds thresholds =
+      DataGrowthProjectionsThresholds();
+}
+
+/// Growth-rate assumptions.
+class DataGrowthProjectionsGrowth {
+  @Form([
     Field('dataGrowthRate', String, 'Data Growth Rate',
         required: true, hint: 'Monthly data volume increase'),
     Field('dataVolumePerUser', String, 'Data Volume per User',
         hint: 'Average storage per active user'),
     Field('transactionVolumeGrowth', String, 'Transaction Volume Growth',
         hint: 'Growth in daily/monthly transactions'),
+  ])
+  String? content;
+}
 
-    // Projections
+/// Volume projections.
+class DataGrowthProjectionsProjections {
+  @Form([
     Field('projectedVolume6Months', String, 'Projected Volume at 6 Months',
         hint: 'Expected total data at 6 months'),
     Field('projectedVolume12Months', String, 'Projected Volume at 12 Months',
         hint: 'Expected total data at 12 months'),
     Field('projectedVolume24Months', String, 'Projected Volume at 24 Months',
         hint: 'Expected total data at 24 months'),
+  ])
+  String? content;
+}
 
-    // Data lifecycle
+/// Data lifecycle strategy.
+class DataGrowthProjectionsLifecycle {
+  @Form([
     Field('dataRetentionPolicy', String, 'Data Retention Policy',
         hint: 'Hot/warm/cold storage tiers'),
     Field('archivalStrategy', String, 'Archival Strategy',
@@ -15250,8 +15495,13 @@ class DataGrowthProjections {
         hint: 'Automatic deletion rules'),
     Field('compressionStrategy', String, 'Compression Strategy',
         hint: 'Data compression for storage efficiency'),
+  ])
+  String? content;
+}
 
-    // Thresholds
+/// Thresholds and notes.
+class DataGrowthProjectionsThresholds {
+  @Form([
     Field('storageAlertThreshold', String, 'Storage Alert Threshold',
         hint: 'Percentage triggering storage alert (e.g. 80%)'),
     Field('partitioningStrategy', String, 'Partitioning Strategy',
@@ -16385,7 +16635,6 @@ class PrivacyImpactAssessmentProcessReview {
 /// Data processing agreement requirements [PD00-TEC-SEC-PRI].
 class DataProcessingAgreementRequirements {
   @Form([
-    // Agreement structure
     Field('dpaTemplate', String, 'DPA Template',
         required: true,
         hint: 'Standard data processing agreement template used'),
@@ -16393,16 +16642,47 @@ class DataProcessingAgreementRequirements {
         required: true,
         hint:
             'Article 28 GDPR: security measures, sub-processing, audits, deletion'),
+    Field('processingPurposeLimitation', String, 'Purpose Limitation',
+        required: true,
+        hint: 'Ensuring data is processed only for specified purposes'),
+    Field('auditRights', String, 'Audit Rights',
+        required: true,
+        hint: 'Controller right to audit processor premises and practices'),
+  ])
+  String? content;
+
+  /// Agreement-management details.
+  DataProcessingAgreementRequirementsManagement management =
+      DataProcessingAgreementRequirementsManagement();
+
+  /// Data-handling details.
+  DataProcessingAgreementRequirementsHandling handling =
+      DataProcessingAgreementRequirementsHandling();
+
+  /// Security and audit details.
+  DataProcessingAgreementRequirementsSecurity security =
+      DataProcessingAgreementRequirementsSecurity();
+
+  /// International-transfer details.
+  DataProcessingAgreementRequirementsTransfers transfers =
+      DataProcessingAgreementRequirementsTransfers();
+}
+
+/// Agreement-management details.
+class DataProcessingAgreementRequirementsManagement {
+  @Form([
     Field('subProcessorManagement', String, 'Sub-Processor Management',
         hint:
             'How sub-processors are approved, listed, and monitored'),
     Field('subProcessorNotification', String, 'Sub-Processor Notification',
         hint: 'Process for notifying controllers of sub-processor changes'),
+  ])
+  String? content;
+}
 
-    // Data handling
-    Field('processingPurposeLimitation', String, 'Purpose Limitation',
-        required: true,
-        hint: 'Ensuring data is processed only for specified purposes'),
+/// Data-handling details.
+class DataProcessingAgreementRequirementsHandling {
+  @Form([
     Field('dataRetentionInDpa', String, 'Retention in DPA',
         hint: 'Retention periods and deletion/return obligations'),
     Field('dataReturnOnTermination', String, 'Data Return on Termination',
@@ -16410,21 +16690,28 @@ class DataProcessingAgreementRequirements {
     Field('confidentialityObligations', String, 'Confidentiality Obligations',
         hint:
             'Staff confidentiality commitments and access restrictions'),
+  ])
+  String? content;
+}
 
-    // Security and audits
+/// Security and audit details.
+class DataProcessingAgreementRequirementsSecurity {
+  @Form([
     Field('securityMeasuresInDpa', String, 'Security Measures',
         hint:
             'Technical and organizational measures required from processors'),
     Field('breachNotificationInDpa', String, 'Breach Notification',
         hint:
             'Processor obligation to notify controller of breaches without undue delay'),
-    Field('auditRights', String, 'Audit Rights',
-        required: true,
-        hint: 'Controller right to audit processor premises and practices'),
     Field('complianceCertification', String, 'Compliance Certification',
         hint: 'Processor certifications accepted as audit evidence'),
+  ])
+  String? content;
+}
 
-    // International transfers
+/// International-transfer details.
+class DataProcessingAgreementRequirementsTransfers {
+  @Form([
     Field('internationalTransferClauses', String, 'International Transfer Clauses',
         hint:
             'Standard contractual clauses or other mechanisms in the DPA'),
@@ -16744,7 +17031,6 @@ class SecurityCodeReviewPolicy {
 /// Dependency and supply-chain scanning requirements [PD00-TEC-SEC-AUD].
 class DependencyScanningRequirements {
   @Form([
-    // Scanning approach
     Field('scaScanningTool', String, 'SCA Scanning Tool',
         required: true,
         hint:
@@ -16754,34 +17040,69 @@ class DependencyScanningRequirements {
         hint: 'Every build, daily, weekly, on dependency change'),
     Field('registryScanning', String, 'Registry Scanning',
         hint: 'Scanning package registries (pub.dev, npm, Docker Hub) for known vulnerabilities'),
-
-    // Vulnerability management
-    Field('vulnerabilityDatabase', String, 'Vulnerability Database',
-        hint: 'NVD, GitHub Advisory Database, OSV, vendor-specific advisories'),
     Field('severityThresholds', String, 'Severity Thresholds',
         required: true,
         hint: 'Build-blocking severity: Critical blocks, High warns, etc.'),
+  ])
+  String? content;
+
+  /// Vulnerability-management rules.
+  DependencyScanningRequirementsVulnerabilities vulnerabilities =
+      DependencyScanningRequirementsVulnerabilities();
+
+  /// SBOM requirements.
+  DependencyScanningRequirementsSbom sbom = DependencyScanningRequirementsSbom();
+
+  /// License-compliance rules.
+  DependencyScanningRequirementsLicensing licensing =
+      DependencyScanningRequirementsLicensing();
+
+  /// Supply-chain security rules.
+  DependencyScanningRequirementsSupplyChain supplyChain =
+      DependencyScanningRequirementsSupplyChain();
+}
+
+/// Vulnerability-management rules.
+class DependencyScanningRequirementsVulnerabilities {
+  @Form([
+    Field('vulnerabilityDatabase', String, 'Vulnerability Database',
+        hint: 'NVD, GitHub Advisory Database, OSV, vendor-specific advisories'),
     Field('remediationSla', String, 'Remediation SLA',
         hint: 'Time to patch per severity level'),
     Field('exceptionProcess', String, 'Exception Process',
         hint: 'How vulnerabilities are risk-accepted with justification'),
+  ])
+  String? content;
+}
 
-    // Software bill of materials
+/// SBOM requirements.
+class DependencyScanningRequirementsSbom {
+  @Form([
     Field('sbomGeneration', String, 'SBOM Generation',
         hint: 'Software Bill of Materials format: SPDX, CycloneDX'),
     Field('sbomUpdateFrequency', String, 'SBOM Update Frequency',
         hint: 'How often SBOM is regenerated and published'),
     Field('sbomDistribution', String, 'SBOM Distribution',
         hint: 'Who receives SBOM: customers, auditors, regulators'),
+  ])
+  String? content;
+}
 
-    // License compliance
+/// License-compliance rules.
+class DependencyScanningRequirementsLicensing {
+  @Form([
     Field('licensePolicy', String, 'License Policy',
         hint:
             'Allowed licenses (MIT, BSD, Apache 2.0), restricted (GPL, AGPL), review-required'),
     Field('licenseScanning', String, 'License Scanning',
         hint: 'Automated license detection and policy enforcement'),
+  ])
+  String? content;
+}
 
-    // Supply chain security
+/// Supply-chain security rules.
+class DependencyScanningRequirementsSupplyChain {
+  @Form([
     Field('dependencyPinning', String, 'Dependency Pinning',
         hint: 'Lock file requirements, version pinning strategy'),
     Field('signatureVerification', String, 'Signature Verification',
@@ -16797,7 +17118,6 @@ class DependencyScanningRequirements {
 /// Security certification and compliance requirements [PD00-TEC-SEC-AUD].
 class SecurityCertificationRequirements {
   @Form([
-    // Target certifications
     Field('targetCertifications', String, 'Target Certifications',
         required: true,
         hint:
@@ -16806,8 +17126,6 @@ class SecurityCertificationRequirements {
         hint: 'Target dates for achieving each certification'),
     Field('certificationScope', String, 'Certification Scope',
         hint: 'Which systems, processes, and data are in scope'),
-
-    // ISO 27001
     Field('iso27001Controls', String, 'ISO 27001 Controls',
         hint: 'Annex A controls applicable, Statement of Applicability'),
     Field('ismsScope', String, 'ISMS Scope',
