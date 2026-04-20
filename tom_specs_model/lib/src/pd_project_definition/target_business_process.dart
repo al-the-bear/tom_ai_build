@@ -803,18 +803,38 @@ class ProcessTechnology {
     Field('integrations', String, 'Integrations — system integrations required'),
     Field('automationTools', String,
         'Automation Tools — RPA, workflow, rules engines'),
-    Field('dataRepositories', String,
-        'Data Repositories — databases, data stores'),
-    Field('reportingTools', String, 'Reporting Tools — BI, dashboards'),
-    Field('communicationTools', String,
-        'Communication Tools — email, notifications'),
-    Field('documentManagement', String,
-        'Document Management — document storage'),
-    Field('mobileCapability', String, 'Mobile Capability — mobile access needs'),
-    Field('offlineCapability', String,
-        'Offline Capability — offline operation needs'),
-    Field('analyticsCapability', String,
-        'Analytics Capability — process mining, analytics'),
+  ])
+  String? content;
+
+  /// Data, reporting, and document tooling.
+  ProcessTechnologyInformation information = ProcessTechnologyInformation();
+
+  /// Access channel and analytics capabilities.
+  ProcessTechnologyExperience experience = ProcessTechnologyExperience();
+}
+
+/// Data, reporting, and document tooling.
+class ProcessTechnologyInformation {
+  @Form([
+  Field('dataRepositories', String,
+    'Data Repositories — databases, data stores'),
+  Field('reportingTools', String, 'Reporting Tools — BI, dashboards'),
+  Field('communicationTools', String,
+    'Communication Tools — email, notifications'),
+  Field('documentManagement', String,
+    'Document Management — document storage'),
+  ])
+  String? content;
+}
+
+/// Access channel and analytics capabilities.
+class ProcessTechnologyExperience {
+  @Form([
+  Field('mobileCapability', String, 'Mobile Capability — mobile access needs'),
+  Field('offlineCapability', String,
+    'Offline Capability — offline operation needs'),
+  Field('analyticsCapability', String,
+    'Analytics Capability — process mining, analytics'),
   ])
   String? content;
 }
@@ -1955,11 +1975,31 @@ class ScenarioStepEntry {
     Field('actor', String, 'Actor — who performs this step'),
     Field('action', String, 'Action — what actor does'),
     Field('systemResponse', String, 'System Response — what system does'),
+  ])
+  String? content;
+
+  /// Expected outcome and referenced artifacts.
+  ScenarioStepEntryContext context = ScenarioStepEntryContext();
+
+  /// Branching, timing, and notes.
+  ScenarioStepEntryExecution execution = ScenarioStepEntryExecution();
+}
+
+/// Expected outcome and referenced artifacts.
+class ScenarioStepEntryContext {
+  @Form([
     Field('expectedResult', String, 'Expected Result — observable outcome'),
     Field('interactionReference', String,
         'Interaction Reference — INT-xxx if detailed'),
     Field('dataInvolved', String, 'Data Involved — input/output data'),
     Field('uiElement', String, 'UI Element — screen/component used'),
+  ])
+  String? content;
+}
+
+/// Branching, timing, and notes.
+class ScenarioStepEntryExecution {
+  @Form([
     Field('decisionPoint', String,
         'Decision Point — if branching occurs here'),
     Field('timing', String, 'Timing — expected duration'),

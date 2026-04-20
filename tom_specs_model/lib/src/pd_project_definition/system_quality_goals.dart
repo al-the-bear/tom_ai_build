@@ -1645,27 +1645,46 @@ class DocCorrectnessQuality {
     // Consistency
     Field('terminologyConsistency', String, 'Terminology Consistency',
         hint: 'Glossary enforcement'),
-    Field('formatConsistency', String, 'Format Consistency',
-        hint: 'Template adherence'),
-    Field('crossDocumentConsistency', String, 'Cross-Document Consistency',
-        hint: 'Consistency across documents'),
-    // Implementation alignment
-    Field('documentationSyncProcess', String, 'Documentation Sync Process',
-        hint: 'How docs stay aligned with code'),
-    Field('versionAlignment', String, 'Version Alignment',
-        hint: 'Docs versioned with product'),
-    Field('deprecationHandling', String, 'Deprecation Handling',
-        hint: 'How deprecated features are handled'),
-    // Verification
-    Field('correctnessVerification', String, 'Correctness Verification',
-        hint: 'Testing docs against product'),
-    Field('userFeedbackIntegration', String, 'User Feedback Integration',
-        hint: 'How user-reported errors are handled'),
   ])
   String? content;
 
+  /// Formatting and implementation alignment.
+  DocCorrectnessQualityAlignment alignment = DocCorrectnessQualityAlignment();
+
+  /// Verification and feedback handling.
+  DocCorrectnessQualityVerification verification =
+      DocCorrectnessQualityVerification();
+
   /// Detailed correctness requirements narrative.
   TextSection narrative = TextSection();
+}
+
+/// Formatting and implementation alignment.
+class DocCorrectnessQualityAlignment {
+    @Form([
+        Field('formatConsistency', String, 'Format Consistency',
+                hint: 'Template adherence'),
+        Field('crossDocumentConsistency', String, 'Cross-Document Consistency',
+                hint: 'Consistency across documents'),
+        Field('documentationSyncProcess', String, 'Documentation Sync Process',
+                hint: 'How docs stay aligned with code'),
+        Field('versionAlignment', String, 'Version Alignment',
+                hint: 'Docs versioned with product'),
+        Field('deprecationHandling', String, 'Deprecation Handling',
+                hint: 'How deprecated features are handled'),
+    ])
+    String? content;
+}
+
+/// Verification and feedback handling.
+class DocCorrectnessQualityVerification {
+    @Form([
+        Field('correctnessVerification', String, 'Correctness Verification',
+                hint: 'Testing docs against product'),
+        Field('userFeedbackIntegration', String, 'User Feedback Integration',
+                hint: 'How user-reported errors are handled'),
+    ])
+    String? content;
 }
 
 /// 11.5.4. Documentation changeability quality [PD00-SYQ-DOC-CHA].

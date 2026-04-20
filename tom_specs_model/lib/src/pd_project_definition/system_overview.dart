@@ -462,27 +462,48 @@ class ValueProposition {
         'Quantifiable Benefits (measurable improvements with targets)'),
     Field('qualitativeBenefits', String,
         'Qualitative Benefits (non-quantifiable but important benefits)'),
-    Field('costSavings', String,
-        'Cost Savings (expected cost reductions and where)'),
-    Field('revenueImpact', String,
-        'Revenue Impact (how system affects revenue generation)'),
-    Field('productivityGains', String,
-        'Productivity Gains (efficiency improvements expected)'),
-    Field('riskReduction', String,
-        'Risk Reduction (operational, compliance, security risks mitigated)'),
-    Field('estimatedRoi', String,
-        'Estimated ROI (return on investment calculation or estimate)'),
-    Field('paybackPeriod', String,
-        'Payback Period (time until investment is recovered)'),
-    Field('valueRealizationTimeline', String,
-        'Value Realization Timeline (when benefits start accruing)'),
   ])
   String? valueDetails;
+
+  /// Financial and efficiency benefits.
+  ValuePropositionBenefits benefits = ValuePropositionBenefits();
+
+  /// ROI and realization timeline.
+  ValuePropositionReturnProfile returnProfile =
+      ValuePropositionReturnProfile();
 
   /// Key Performance Indicators for value measurement.
   @ContentType('description', 'KPIs that will be used to measure the '
       'realization of the value proposition.')
   String? kpis;
+}
+
+/// Financial and efficiency benefits.
+class ValuePropositionBenefits {
+    @Form([
+        Field('costSavings', String,
+                'Cost Savings (expected cost reductions and where)'),
+        Field('revenueImpact', String,
+                'Revenue Impact (how system affects revenue generation)'),
+        Field('productivityGains', String,
+                'Productivity Gains (efficiency improvements expected)'),
+        Field('riskReduction', String,
+                'Risk Reduction (operational, compliance, security risks mitigated)'),
+    ])
+    String? content;
+}
+
+/// ROI and realization timeline.
+class ValuePropositionReturnProfile {
+    @Form([
+        Field('estimatedRoi', String,
+                'Estimated ROI (return on investment calculation or estimate)'),
+        Field('paybackPeriod', String,
+                'Payback Period (time until investment is recovered)'),
+        Field('valueRealizationTimeline', String,
+                'Value Realization Timeline (when benefits start accruing)'),
+    ])
+    String? content;
 }
 
 /// 4.1.1.5. Strategic Alignment [PD00-SYO-SYD-PUR-ALI].
@@ -2167,22 +2188,14 @@ class UserCategoryEntry {
     Field('userType', String,
         'User Type (Internal, External, Partner, Customer, Administrator, etc.)',
         required: true),
-    Field('technicalProficiency', String,
-        'Technical Proficiency (Novice, Intermediate, Advanced, Expert)'),
-    Field('frequencyOfUse', String,
-        'Frequency of Use (Continuous, Daily, Weekly, Monthly, Occasional)'),
-    Field('accessChannel', String,
-        'Primary Access Channel (Web, Mobile, Desktop, API, etc.)'),
-    Field('estimatedUserCount', String,
-        'Estimated User Count (current number or range)'),
-    Field('growthExpectation', String,
-        'Growth Expectation (expected change in user count)'),
-    Field('criticality', String,
-        'Criticality (how critical is this user group to the system)'),
-    Field('priority', String,
-        'Priority (High, Medium, Low - for design decisions)'),
   ])
   String? content;
+
+  /// Interaction profile and scale indicators.
+  UserCategoryEntryUsage usage = UserCategoryEntryUsage();
+
+  /// Growth and prioritization profile.
+  UserCategoryEntryImportance importance = UserCategoryEntryImportance();
 
   /// 4.1.4.n.1. User Persona Details [PD00-SYO-SYD-USR-nn-PER].
   UserPersonaDetails personaDetails = UserPersonaDetails();
@@ -2206,6 +2219,34 @@ class UserCategoryEntry {
 
   /// 4.1.4.n.7. User Journey [PD00-SYO-SYD-USR-nn-JOU].
   UserJourney userJourney = UserJourney();
+}
+
+/// Interaction profile and scale indicators.
+class UserCategoryEntryUsage {
+    @Form([
+        Field('technicalProficiency', String,
+                'Technical Proficiency (Novice, Intermediate, Advanced, Expert)'),
+        Field('frequencyOfUse', String,
+                'Frequency of Use (Continuous, Daily, Weekly, Monthly, Occasional)'),
+        Field('accessChannel', String,
+                'Primary Access Channel (Web, Mobile, Desktop, API, etc.)'),
+        Field('estimatedUserCount', String,
+                'Estimated User Count (current number or range)'),
+    ])
+    String? content;
+}
+
+/// Growth and prioritization profile.
+class UserCategoryEntryImportance {
+    @Form([
+        Field('growthExpectation', String,
+                'Growth Expectation (expected change in user count)'),
+        Field('criticality', String,
+                'Criticality (how critical is this user group to the system)'),
+        Field('priority', String,
+                'Priority (High, Medium, Low - for design decisions)'),
+    ])
+    String? content;
 }
 
 /// 4.1.4.n.1. User Persona Details [PD00-SYO-SYD-USR-nn-PER].
@@ -2403,27 +2444,49 @@ class UserAccessPermissions {
         'Authorization Roles (system roles assigned to this category)'),
     Field('dataAccessScope', String,
         'Data Access Scope (all, department, team, own records)'),
-    Field('functionalAccess', String,
-        'Functional Access (what features they can use)'),
-    Field('restrictions', String,
-        'Restrictions (what they cannot access or do)'),
-    Field('timeRestrictions', String,
-        'Time Restrictions (business hours, specific times)'),
-    Field('locationRestrictions', String,
-        'Location Restrictions (office only, VPN required, etc.)'),
-    Field('deviceRestrictions', String,
-        'Device Restrictions (managed devices only, etc.)'),
-    Field('sessionTimeout', String,
-        'Session Timeout (inactivity timeout duration)'),
-    Field('auditRequirements', String,
-        'Audit Requirements (what actions are logged)'),
   ])
   String? permissionsForm;
+
+  /// Functional and environmental restrictions.
+  UserAccessPermissionsRestrictions restrictionsProfile =
+      UserAccessPermissionsRestrictions();
+
+  /// Session and audit controls.
+  UserAccessPermissionsGovernance governance =
+      UserAccessPermissionsGovernance();
 
   /// Permission matrix entries — contains 0+× PermissionMatrixEntry.
   @SectionIdPattern('PD00-SYO-SYD-USR-xx-ACC-PER-xx')
   @ContentHelp('Define specific permission entries for fine-grained access.')
   List<PermissionMatrixEntry> permissionMatrix = [];
+}
+
+/// Functional and environmental restrictions.
+class UserAccessPermissionsRestrictions {
+    @Form([
+        Field('functionalAccess', String,
+                'Functional Access (what features they can use)'),
+        Field('restrictions', String,
+                'Restrictions (what they cannot access or do)'),
+        Field('timeRestrictions', String,
+                'Time Restrictions (business hours, specific times)'),
+        Field('locationRestrictions', String,
+                'Location Restrictions (office only, VPN required, etc.)'),
+        Field('deviceRestrictions', String,
+                'Device Restrictions (managed devices only, etc.)'),
+    ])
+    String? content;
+}
+
+/// Session and audit controls.
+class UserAccessPermissionsGovernance {
+    @Form([
+        Field('sessionTimeout', String,
+                'Session Timeout (inactivity timeout duration)'),
+        Field('auditRequirements', String,
+                'Audit Requirements (what actions are logged)'),
+    ])
+    String? content;
 }
 
 /// A permission matrix entry (form).
@@ -4816,17 +4879,14 @@ class SystemToReplaceEntry {
     Field('systemName', String, 'System Name', required: true),
     Field('officialName', String, 'Official/Vendor Name'),
     Field('systemDescription', String, 'Description'),
-    Field('systemCategory', String, 'Category (CRM, ERP, HR, Finance, etc.)'),
-    Field('applicationTier', String,
-        'Tier (Mission Critical, Business Critical, Operational)'),
-    Field('businessOwner', String, 'Business Owner'),
-    Field('technicalOwner', String, 'Technical Owner'),
-    Field('vendorName', String, 'Vendor/Provider'),
-    Field('contractStatus', String,
-        'Contract Status (Active, Expired, Month-to-month)'),
-    Field('contractEndDate', String, 'Contract End Date'),
   ])
   String? identificationContent;
+
+    /// Classification and ownership details.
+    SystemToReplaceEntryProfile profile = SystemToReplaceEntryProfile();
+
+    /// Vendor and contract status.
+    SystemToReplaceEntryVendor vendor = SystemToReplaceEntryVendor();
 
   /// Technical stack and architecture assessment.
   SystemTechnicalAssessment technicalAssessment = SystemTechnicalAssessment();
@@ -4855,6 +4915,29 @@ class SystemToReplaceEntry {
 
   /// Documentation and knowledge transfer status.
   SystemKnowledgeTransfer knowledgeTransfer = SystemKnowledgeTransfer();
+}
+
+/// Classification and ownership details.
+class SystemToReplaceEntryProfile {
+    @Form([
+        Field('systemCategory', String, 'Category (CRM, ERP, HR, Finance, etc.)'),
+        Field('applicationTier', String,
+                'Tier (Mission Critical, Business Critical, Operational)'),
+        Field('businessOwner', String, 'Business Owner'),
+        Field('technicalOwner', String, 'Technical Owner'),
+    ])
+    String? content;
+}
+
+/// Vendor and contract status.
+class SystemToReplaceEntryVendor {
+    @Form([
+        Field('vendorName', String, 'Vendor/Provider'),
+        Field('contractStatus', String,
+                'Contract Status (Active, Expired, Month-to-month)'),
+        Field('contractEndDate', String, 'Contract End Date'),
+    ])
+    String? content;
 }
 
 /// Technical assessment for a system to replace [PD00-SYO-SYR-INV-nn-TEC].
@@ -5014,16 +5097,16 @@ class SystemReplacementStrategy {
     Field('targetSolution', String, 'Target Solution'),
     Field('targetSolutionType', String,
         'Target Type (COTS, SaaS, Custom, Platform)'),
-    Field('plannedStartDate', String, 'Planned Start Date'),
-    Field('targetCutoverDate', String, 'Target Cutover Date'),
-    Field('decommissionDate', String, 'Decommission Date'),
-    Field('parallelRunPeriod', String, 'Parallel Run Period'),
-    Field('cutoverStrategy', String,
-        'Cutover (Big Bang, Phased, Parallel Run, Pilot)'),
-    Field('rollbackCapability', String, 'Rollback Capability (Full, Partial)'),
-    Field('rollbackWindow', String, 'Rollback Window'),
   ])
   String? content;
+
+  /// Replacement timeline milestones.
+  SystemReplacementStrategyTimeline timeline =
+      SystemReplacementStrategyTimeline();
+
+  /// Cutover and rollback profile.
+  SystemReplacementStrategyCutover cutover =
+      SystemReplacementStrategyCutover();
 
   /// Replacement phases if phased approach.
   @SectionIdPattern('PD00-SYO-SYR-INV-xx-STR-PH-xx')
@@ -5034,6 +5117,28 @@ class SystemReplacementStrategy {
 
   /// Success criteria for replacement completion.
   TextSection successCriteria = TextSection();
+}
+
+/// Replacement timeline milestones.
+class SystemReplacementStrategyTimeline {
+    @Form([
+        Field('plannedStartDate', String, 'Planned Start Date'),
+        Field('targetCutoverDate', String, 'Target Cutover Date'),
+        Field('decommissionDate', String, 'Decommission Date'),
+        Field('parallelRunPeriod', String, 'Parallel Run Period'),
+    ])
+    String? content;
+}
+
+/// Cutover and rollback profile.
+class SystemReplacementStrategyCutover {
+    @Form([
+        Field('cutoverStrategy', String,
+                'Cutover (Big Bang, Phased, Parallel Run, Pilot)'),
+        Field('rollbackCapability', String, 'Rollback Capability (Full, Partial)'),
+        Field('rollbackWindow', String, 'Rollback Window'),
+    ])
+    String? content;
 }
 
 /// A replacement phase entry [PD00-SYO-SYR-INV-nn-STR-PH-nn].
@@ -5272,15 +5377,14 @@ class SystemMigrationPlan {
     Field('dataTransformationNeeds', String, 'Data Transformation Needs'),
     Field('estimatedEffort', String, 'Estimated Effort'),
     Field('teamSize', String, 'Team Size'),
-    Field('duration', String, 'Estimated Duration'),
-    Field('testingApproach', String, 'Testing Approach'),
-    Field('dataValidationMethod', String, 'Data Validation Method'),
-    Field('uatScope', String, 'UAT Scope'),
-    Field('cutoverWindow', String, 'Cutover Window'),
-    Field('cutoverDuration', String, 'Cutover Duration'),
-    Field('businessContingency', String, 'Business Contingency'),
   ])
   String? content;
+
+    /// Migration execution and validation details.
+    SystemMigrationPlanExecution execution = SystemMigrationPlanExecution();
+
+    /// Cutover window and business fallback.
+    SystemMigrationPlanCutover cutover = SystemMigrationPlanCutover();
 
   /// Contains 0+× MigrationRiskEntry — per-system migration risks.
   @SectionIdPattern('PD00-SYO-SYR-INV-xx-MIG-RSK-xx')
@@ -5291,6 +5395,27 @@ class SystemMigrationPlan {
 
   /// Post-migration validation steps.
   TextSection postMigrationValidation = TextSection();
+}
+
+/// Migration execution and validation details.
+class SystemMigrationPlanExecution {
+    @Form([
+        Field('duration', String, 'Estimated Duration'),
+        Field('testingApproach', String, 'Testing Approach'),
+        Field('dataValidationMethod', String, 'Data Validation Method'),
+        Field('uatScope', String, 'UAT Scope'),
+    ])
+    String? content;
+}
+
+/// Cutover window and business fallback.
+class SystemMigrationPlanCutover {
+    @Form([
+        Field('cutoverWindow', String, 'Cutover Window'),
+        Field('cutoverDuration', String, 'Cutover Duration'),
+        Field('businessContingency', String, 'Business Contingency'),
+    ])
+    String? content;
 }
 
 /// A system migration risk entry [PD00-SYO-SYR-INV-nn-MIG-RSK-nn].

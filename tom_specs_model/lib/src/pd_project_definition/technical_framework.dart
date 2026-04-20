@@ -16243,6 +16243,19 @@ class DashboardEntry {
         hint: 'Executive, operational, service, infrastructure'),
     Field('targetAudience', String, 'Target Audience',
         hint: 'Who uses this dashboard'),
+  ])
+  String? content;
+
+  /// Refresh and data composition details.
+  DashboardEntryConfiguration configuration = DashboardEntryConfiguration();
+
+  /// Alert ownership and notes.
+  DashboardEntryOperations operations = DashboardEntryOperations();
+}
+
+/// Refresh and data composition details.
+class DashboardEntryConfiguration {
+  @Form([
     Field('refreshInterval', String, 'Refresh Interval'),
     Field('timeRangeDefault', String, 'Time Range Default',
         hint: 'Default time window'),
@@ -16250,6 +16263,13 @@ class DashboardEntry {
         hint: 'Main visualizations on dashboard'),
     Field('dataSource', String, 'Data Source',
         hint: 'Data source for dashboard'),
+  ])
+  String? content;
+}
+
+/// Alert ownership and notes.
+class DashboardEntryOperations {
+  @Form([
     Field('alertIntegration', String, 'Alert Integration',
         hint: 'Alerts displayed on dashboard'),
     Field('ownerTeam', String, 'Owner Team'),
@@ -16453,21 +16473,39 @@ class ErrorBudgetTracking {
     // Monitoring
     Field('budgetBurnRateDashboard', bool, 'Budget Burn Rate Dashboard',
         hint: 'Dashboard showing burn rate'),
-    Field('budgetAlertThresholds', String, 'Budget Alert Thresholds',
-        hint: 'Warn at 50%, critical at 80%'),
-    Field('burnRateTimePeriods', String, 'Burn Rate Time Periods',
-        hint: '1h, 6h, 24h, 7d burn rates'),
-    // Policy
-    Field('budgetExhaustionActions', String, 'Budget Exhaustion Actions',
-        hint: 'Feature freeze, deployment freeze'),
-    Field('budgetRecoveryProcess', String, 'Budget Recovery Process',
-        hint: 'Steps to recover budget'),
-    Field('budgetReviewMeeting', String, 'Budget Review Meeting',
-        hint: 'Regular error budget review'),
-    // Attribution
-    Field('budgetAttribution', String, 'Budget Attribution',
-        hint: 'Attribute budget spend to incidents'),
-    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+
+  /// Burn-rate monitoring thresholds.
+  ErrorBudgetTrackingMonitoring monitoring = ErrorBudgetTrackingMonitoring();
+
+  /// Recovery policy and attribution rules.
+  ErrorBudgetTrackingGovernance governance = ErrorBudgetTrackingGovernance();
+}
+
+/// Burn-rate monitoring thresholds.
+class ErrorBudgetTrackingMonitoring {
+  @Form([
+  Field('budgetAlertThresholds', String, 'Budget Alert Thresholds',
+    hint: 'Warn at 50%, critical at 80%'),
+  Field('burnRateTimePeriods', String, 'Burn Rate Time Periods',
+    hint: '1h, 6h, 24h, 7d burn rates'),
+  ])
+  String? content;
+}
+
+/// Recovery policy and attribution rules.
+class ErrorBudgetTrackingGovernance {
+  @Form([
+  Field('budgetExhaustionActions', String, 'Budget Exhaustion Actions',
+    hint: 'Feature freeze, deployment freeze'),
+  Field('budgetRecoveryProcess', String, 'Budget Recovery Process',
+    hint: 'Steps to recover budget'),
+  Field('budgetReviewMeeting', String, 'Budget Review Meeting',
+    hint: 'Regular error budget review'),
+  Field('budgetAttribution', String, 'Budget Attribution',
+    hint: 'Attribute budget spend to incidents'),
+  Field('notes', String, 'Notes'),
   ])
   String? content;
 }

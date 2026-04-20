@@ -4163,24 +4163,14 @@ class HelpConcept {
     // Help content
     Field('helpContentStrategy', String, 'Help Content Strategy',
         hint: 'Video, text, interactive, mixed'),
-    Field('helpContentOwnership', String, 'Help Content Ownership',
-        hint: 'Who maintains help content'),
-    Field('helpUpdateProcess', String, 'Help Update Process',
-        hint: 'How help content is kept current'),
-    // Help indicators
-    Field('helpIconStandard', String, 'Help Icon Standard',
-        hint: 'Question mark, info icon, custom'),
-    Field('helpIconPlacement', String, 'Help Icon Placement',
-        hint: 'By field labels, in headers, floating'),
-    Field('helpTooltipStyle', String, 'Help Tooltip Style',
-        hint: 'Tooltip design and behavior'),
-    // Analytics
-    Field('helpAnalytics', String, 'Help Analytics',
-        hint: 'Track help usage, identify gaps'),
-    Field('helpFeedback', String, 'Help Feedback',
-        hint: 'Rate help articles, suggest improvements'),
   ])
   String? helpOverviewContent;
+
+  /// Content stewardship and help affordances.
+  HelpConceptDelivery delivery = HelpConceptDelivery();
+
+  /// Analytics and improvement feedback.
+  HelpConceptInsights insights = HelpConceptInsights();
 
   /// Help system overview narrative.
   @ContentHelp('Executive summary of help system approach, '
@@ -4202,6 +4192,34 @@ class HelpConcept {
   /// Help content inventory.
   @ContentHelp('Inventory of all help content by feature area.')
   TextSection helpContentInventory = TextSection();
+}
+
+/// Content stewardship and help affordances.
+class HelpConceptDelivery {
+    @Form([
+        Field('helpContentOwnership', String, 'Help Content Ownership',
+                hint: 'Who maintains help content'),
+        Field('helpUpdateProcess', String, 'Help Update Process',
+                hint: 'How help content is kept current'),
+        Field('helpIconStandard', String, 'Help Icon Standard',
+                hint: 'Question mark, info icon, custom'),
+        Field('helpIconPlacement', String, 'Help Icon Placement',
+                hint: 'By field labels, in headers, floating'),
+        Field('helpTooltipStyle', String, 'Help Tooltip Style',
+                hint: 'Tooltip design and behavior'),
+    ])
+    String? content;
+}
+
+/// Analytics and improvement feedback.
+class HelpConceptInsights {
+    @Form([
+        Field('helpAnalytics', String, 'Help Analytics',
+                hint: 'Track help usage, identify gaps'),
+        Field('helpFeedback', String, 'Help Feedback',
+                hint: 'Rate help articles, suggest improvements'),
+    ])
+    String? content;
 }
 
 /// 10.8.1. Contextual Help [PD00-USE-HLP-CON].
@@ -5733,23 +5751,41 @@ class ComponentVariantEntry {
     // Visual differentiation
     Field('visualDifferences', String, 'Visual Differences',
         hint: 'How variant looks different'),
-    Field('colorSchemeVariant', String, 'Color Scheme Variant'),
-    Field('borderVariant', String, 'Border Variant'),
-    Field('elevationVariant', String, 'Elevation Variant'),
-    // Behavioral differentiation
-    Field('behaviorDifferences', String, 'Behavior Differences'),
-    Field('useCaseDifferences', String, 'Use Case Differences',
-        hint: 'When to use this variant'),
-    // Implementation
-    Field('implementationNote', String, 'Implementation Note',
-        hint: 'How variant is implemented'),
-    Field('flutterVariant', String, 'Flutter Variant',
-        hint: 'Corresponding Flutter variant'),
   ])
   String? content;
 
+  /// Visual styling details.
+  ComponentVariantEntryVisual visual = ComponentVariantEntryVisual();
+
+  /// Behavioral and implementation notes.
+  ComponentVariantEntryBehavior behavior = ComponentVariantEntryBehavior();
+
   /// Variant visual mockup.
   DiagramSection variantMockup = DiagramSection();
+}
+
+/// Visual styling details.
+class ComponentVariantEntryVisual {
+    @Form([
+        Field('colorSchemeVariant', String, 'Color Scheme Variant'),
+        Field('borderVariant', String, 'Border Variant'),
+        Field('elevationVariant', String, 'Elevation Variant'),
+    ])
+    String? content;
+}
+
+/// Behavioral and implementation notes.
+class ComponentVariantEntryBehavior {
+    @Form([
+        Field('behaviorDifferences', String, 'Behavior Differences'),
+        Field('useCaseDifferences', String, 'Use Case Differences',
+                hint: 'When to use this variant'),
+        Field('implementationNote', String, 'Implementation Note',
+                hint: 'How variant is implemented'),
+        Field('flutterVariant', String, 'Flutter Variant',
+                hint: 'Corresponding Flutter variant'),
+    ])
+    String? content;
 }
 
 /// A component action entry [PD00-USE-COM-SPE-nn-ACT-nn].
@@ -5873,23 +5909,15 @@ class MultiLanguageAndRollout {
     Field('rtlLanguages', String, 'RTL Languages',
         hint: 'Right-to-left languages supported'),
     // Locale handling
-    Field('localeFormat', String, 'Locale Format',
-        hint: 'BCP 47, ISO 639-1, custom'),
-    Field('countryVariants', String, 'Country Variants',
-        hint: 'en-US vs en-GB, de-DE vs de-AT'),
-    Field('localeDetection', String, 'Locale Detection',
-        hint: 'Browser, OS, user setting, geo-IP'),
-    Field('localeFallbackChain', String, 'Locale Fallback Chain',
-        hint: 'Fallback order when locale not available'),
-    // Rollout approach
-    Field('rolloutStrategy', String, 'Rollout Strategy',
-        hint: 'Big bang, phased, pilot'),
-    Field('rolloutTimeline', String, 'Rollout Timeline',
-        hint: 'High-level rollout schedule'),
-    Field('rolloutRegions', String, 'Rollout Regions',
-        hint: 'Geographic rollout order'),
   ])
   String? multiLanguageOverview;
+
+  /// Locale modeling and fallback behavior.
+  MultiLanguageAndRolloutLocaleHandling localeHandling =
+      MultiLanguageAndRolloutLocaleHandling();
+
+  /// Rollout sequencing by region and time.
+  MultiLanguageAndRolloutPlan rolloutPlan = MultiLanguageAndRolloutPlan();
 
   /// Multi-language overview narrative.
   @ContentHelp('Executive summary of internationalization and '
@@ -5919,6 +5947,34 @@ class MultiLanguageAndRollout {
   /// Supported locale entries.
   @SectionIdPattern('PD00-USE-MUL-LOC-xx')
   List<SupportedLocaleEntry> supportedLocales = [];
+}
+
+/// Locale modeling and fallback behavior.
+class MultiLanguageAndRolloutLocaleHandling {
+    @Form([
+        Field('localeFormat', String, 'Locale Format',
+                hint: 'BCP 47, ISO 639-1, custom'),
+        Field('countryVariants', String, 'Country Variants',
+                hint: 'en-US vs en-GB, de-DE vs de-AT'),
+        Field('localeDetection', String, 'Locale Detection',
+                hint: 'Browser, OS, user setting, geo-IP'),
+        Field('localeFallbackChain', String, 'Locale Fallback Chain',
+                hint: 'Fallback order when locale not available'),
+    ])
+    String? content;
+}
+
+/// Rollout sequencing by region and time.
+class MultiLanguageAndRolloutPlan {
+    @Form([
+        Field('rolloutStrategy', String, 'Rollout Strategy',
+                hint: 'Big bang, phased, pilot'),
+        Field('rolloutTimeline', String, 'Rollout Timeline',
+                hint: 'High-level rollout schedule'),
+        Field('rolloutRegions', String, 'Rollout Regions',
+                hint: 'Geographic rollout order'),
+    ])
+    String? content;
 }
 
 /// 10.12.1. Localization Process [PD00-USE-MUL-LOC].
