@@ -5322,15 +5322,35 @@ class DatabaseCompatibilityEntry {
 /// Enterprise system compatibility entry.
 class EnterpriseSystemCompatibilityEntry {
   @Form([
-    // Identity
     Field('systemName', String, 'System Name',
         required: true, hint: 'E.g., SAP, Salesforce, Oracle ERP'),
     Field('systemType', String, 'System Type',
         hint: 'ERP, CRM, HR, Finance, Supply Chain'),
     Field('vendor', String, 'Vendor', hint: 'System vendor'),
     Field('version', String, 'Version', hint: 'Supported versions'),
+  ])
+  String? content;
 
-    // Integration
+  /// Integration details.
+  EnterpriseSystemCompatibilityEntryIntegration integration =
+      EnterpriseSystemCompatibilityEntryIntegration();
+
+  /// Authentication and access.
+  EnterpriseSystemCompatibilityEntrySecurity security =
+      EnterpriseSystemCompatibilityEntrySecurity();
+
+  /// Setup requirements.
+  EnterpriseSystemCompatibilityEntryRequirements requirements =
+      EnterpriseSystemCompatibilityEntryRequirements();
+
+  /// Testing and notes.
+  EnterpriseSystemCompatibilityEntryTesting testing =
+      EnterpriseSystemCompatibilityEntryTesting();
+}
+
+/// Integration details.
+class EnterpriseSystemCompatibilityEntryIntegration {
+  @Form([
     Field('integrationMethod', String, 'Integration Method',
         hint: 'API, File transfer, Middleware, Direct'),
     Field('integrationProtocol', String, 'Integration Protocol',
@@ -5339,24 +5359,39 @@ class EnterpriseSystemCompatibilityEntry {
         hint: 'Data exchanged with system'),
     Field('frequency', String, 'Frequency',
         hint: 'Real-time, batch, on-demand'),
+  ])
+  String? content;
+}
 
-    // Authentication
+/// Authentication and access.
+class EnterpriseSystemCompatibilityEntrySecurity {
+  @Form([
     Field('authentication', String, 'Authentication',
         hint: 'Auth method for system'),
     Field('authorization', String, 'Authorization',
         hint: 'Required permissions/roles'),
     Field('sso', String, 'SSO Integration',
         hint: 'Single sign-on support'),
+  ])
+  String? content;
+}
 
-    // Requirements
+/// Setup requirements.
+class EnterpriseSystemCompatibilityEntryRequirements {
+  @Form([
     Field('prerequisites', String, 'Prerequisites',
         hint: 'Required adapters, middleware'),
     Field('configuration', String, 'Configuration',
         hint: 'Required configuration'),
     Field('customization', String, 'Customization',
         hint: 'Required customizations'),
+  ])
+  String? content;
+}
 
-    // Testing
+/// Testing and notes.
+class EnterpriseSystemCompatibilityEntryTesting {
+  @Form([
     Field('testEnvironment', String, 'Test Environment',
         hint: 'Sandbox, dev instance'),
     Field('testApproach', String, 'Test Approach',
@@ -5856,7 +5891,6 @@ class ItStandardComplianceEntry {
 /// Industry protocol compliance entry.
 class IndustryProtocolComplianceEntry {
   @Form([
-    // Identity
     Field('protocolName', String, 'Protocol Name',
         required: true, hint: 'E.g., HTTP/2, MQTT, AMQP, WebSocket'),
     Field('category', String, 'Category',
@@ -5865,8 +5899,29 @@ class IndustryProtocolComplianceEntry {
         required: true, hint: 'Protocol version'),
     Field('specificationUrl', String, 'Specification URL',
         hint: 'Link to official specification'),
+  ])
+  String? content;
 
-    // Compliance
+  /// Compliance scope and features.
+  IndustryProtocolComplianceEntryScope scope =
+      IndustryProtocolComplianceEntryScope();
+
+  /// Implementation details.
+  IndustryProtocolComplianceEntryImplementation implementation =
+      IndustryProtocolComplianceEntryImplementation();
+
+  /// Testing details.
+  IndustryProtocolComplianceEntryTesting testing =
+      IndustryProtocolComplianceEntryTesting();
+
+  /// Interoperability notes.
+  IndustryProtocolComplianceEntryInteroperability interoperability =
+      IndustryProtocolComplianceEntryInteroperability();
+}
+
+/// Compliance scope and features.
+class IndustryProtocolComplianceEntryScope {
+  @Form([
     Field('complianceScope', String, 'Compliance Scope',
         hint: 'Which features are implemented'),
     Field('mandatoryFeatures', String, 'Mandatory Features',
@@ -5875,24 +5930,39 @@ class IndustryProtocolComplianceEntry {
         hint: 'Optional features implemented'),
     Field('extensionsUsed', String, 'Extensions Used',
         hint: 'Protocol extensions used'),
+  ])
+  String? content;
+}
 
-    // Implementation
+/// Implementation details.
+class IndustryProtocolComplianceEntryImplementation {
+  @Form([
     Field('implementationLibrary', String, 'Implementation Library',
         hint: 'Library used for implementation'),
     Field('implementationNotes', String, 'Implementation Notes',
         hint: 'Specific implementation details'),
     Field('performanceProfile', String, 'Performance Profile',
         hint: 'Expected performance characteristics'),
+  ])
+  String? content;
+}
 
-    // Testing
+/// Testing details.
+class IndustryProtocolComplianceEntryTesting {
+  @Form([
     Field('conformanceTest', String, 'Conformance Testing',
         hint: 'How conformance is tested'),
     Field('testTools', String, 'Test Tools',
         hint: 'Tools for testing compliance'),
     Field('certificationStatus', String, 'Certification Status',
         hint: 'Official certification if any'),
+  ])
+  String? content;
+}
 
-    // Interoperability
+/// Interoperability notes.
+class IndustryProtocolComplianceEntryInteroperability {
+  @Form([
     Field('interopPartners', String, 'Interop Partners',
         hint: 'Partners tested for interop'),
     Field('knownIssues', String, 'Known Issues',
@@ -5906,23 +5976,48 @@ class IndustryProtocolComplianceEntry {
 /// Interface specification entry (REST, GraphQL, gRPC, SOAP).
 class InterfaceSpecificationEntry {
   @Form([
-    // Identity
     Field('specificationName', String, 'Specification Name',
         required: true, hint: 'E.g., REST, GraphQL, gRPC, SOAP'),
     Field('specificationVersion', String, 'Version',
         hint: 'Specification version'),
     Field('standardsBody', String, 'Standards Body',
         hint: 'IETF, W3C, OASIS, etc.'),
+  ])
+  String? content;
 
-    // Definition
+  /// Definition storage and validation.
+  InterfaceSpecificationEntryDefinition definition =
+      InterfaceSpecificationEntryDefinition();
+
+  /// Interface conventions.
+  InterfaceSpecificationEntryConventions conventions =
+      InterfaceSpecificationEntryConventions();
+
+  /// Documentation expectations.
+  InterfaceSpecificationEntryDocumentation documentation =
+      InterfaceSpecificationEntryDocumentation();
+
+  /// Tooling and notes.
+  InterfaceSpecificationEntryTooling tooling =
+      InterfaceSpecificationEntryTooling();
+}
+
+/// Definition storage and validation.
+class InterfaceSpecificationEntryDefinition {
+  @Form([
     Field('definitionFormat', String, 'Definition Format',
         hint: 'OpenAPI, AsyncAPI, GraphQL SDL, WSDL'),
     Field('definitionLocation', String, 'Definition Location',
         hint: 'Where spec is stored'),
     Field('schemaValidation', String, 'Schema Validation',
         hint: 'How schemas are validated'),
+  ])
+  String? content;
+}
 
-    // Conventions
+/// Interface conventions.
+class InterfaceSpecificationEntryConventions {
+  @Form([
     Field('namingConventions', String, 'Naming Conventions',
         hint: 'API naming conventions'),
     Field('versioningStrategy', String, 'Versioning Strategy',
@@ -5931,16 +6026,26 @@ class InterfaceSpecificationEntry {
         hint: 'Error format/codes'),
     Field('pagination', String, 'Pagination',
         hint: 'Pagination approach'),
+  ])
+  String? content;
+}
 
-    // Documentation
+/// Documentation expectations.
+class InterfaceSpecificationEntryDocumentation {
+  @Form([
     Field('documentationFormat', String, 'Documentation Format',
         hint: 'Swagger UI, ReDoc, etc.'),
     Field('examplesRequired', bool, 'Examples Required',
         hint: 'Require request/response examples'),
     Field('changelogMaintained', bool, 'Changelog Maintained',
         hint: 'Maintain API changelog'),
+  ])
+  String? content;
+}
 
-    // Tooling
+/// Tooling and notes.
+class InterfaceSpecificationEntryTooling {
+  @Form([
     Field('generatedClients', String, 'Generated Clients',
         hint: 'Client SDKs generated'),
     Field('mockServer', String, 'Mock Server',
@@ -6186,7 +6291,6 @@ class QualityStandardEntry {
 /// Documentation standards section.
 class DocumentationStandardsSection {
   @Form([
-    // General
     Field('documentationPolicy', String, 'Documentation Policy',
         hint: 'Overall documentation policy'),
     Field('templateStandards', String, 'Template Standards',
@@ -6195,8 +6299,28 @@ class DocumentationStandardsSection {
         hint: 'Writing style guide'),
     Field('terminology', String, 'Terminology',
         hint: 'Standard terminology/glossary'),
+  ])
+  String? content;
 
-    // Technical docs
+  /// Technical documentation standards.
+  DocumentationStandardsSectionTechnical technical =
+      DocumentationStandardsSectionTechnical();
+
+  /// User documentation standards.
+  DocumentationStandardsSectionUser user = DocumentationStandardsSectionUser();
+
+  /// Documentation process rules.
+  DocumentationStandardsSectionProcess process =
+      DocumentationStandardsSectionProcess();
+
+  /// Documentation quality rules.
+  DocumentationStandardsSectionQuality quality =
+      DocumentationStandardsSectionQuality();
+}
+
+/// Technical documentation standards.
+class DocumentationStandardsSectionTechnical {
+  @Form([
     Field('technicalDocFormat', String, 'Technical Doc Format',
         hint: 'Markdown, Confluence, etc.'),
     Field('apiDocStandard', String, 'API Doc Standard',
@@ -6205,24 +6329,39 @@ class DocumentationStandardsSection {
         hint: 'Comment style guide'),
     Field('inlineDocRequirements', String, 'Inline Doc Requirements',
         hint: 'Required inline documentation'),
+  ])
+  String? content;
+}
 
-    // User docs
+/// User documentation standards.
+class DocumentationStandardsSectionUser {
+  @Form([
     Field('userDocFormat', String, 'User Doc Format',
         hint: 'User documentation format'),
     Field('helpSystemStandard', String, 'Help System Standard',
         hint: 'Contextual help approach'),
     Field('localizationRequirements', String, 'Localization Requirements',
         hint: 'Translation requirements'),
+  ])
+  String? content;
+}
 
-    // Process
+/// Documentation process rules.
+class DocumentationStandardsSectionProcess {
+  @Form([
     Field('reviewProcess', String, 'Review Process',
         hint: 'Documentation review process'),
     Field('versionControl', String, 'Version Control',
         hint: 'Doc version control'),
     Field('archivalPolicy', String, 'Archival Policy',
         hint: 'How docs are archived'),
+  ])
+  String? content;
+}
 
-    // Quality
+/// Documentation quality rules.
+class DocumentationStandardsSectionQuality {
+  @Form([
     Field('spellCheckRequired', bool, 'Spell Check Required',
         hint: 'Require spell checking'),
     Field('accessibilityRequired', bool, 'Accessibility Required',
@@ -6914,15 +7053,35 @@ class ScalingRequirements {
 /// High availability requirements.
 class HighAvailabilityRequirements {
   @Form([
-    // SLA targets
     Field('availabilityTarget', String, 'Availability Target',
         hint: '99.9%, 99.99%, etc.'),
     Field('downtimeBudgetMonthly', String, 'Monthly Downtime Budget',
         hint: 'Allowed downtime/month'),
     Field('plannedMaintenanceWindow', String, 'Planned Maintenance Window',
         hint: 'When maintenance allowed'),
+  ])
+  String? content;
 
-    // Redundancy
+  /// Redundancy model.
+  HighAvailabilityRequirementsRedundancy redundancy =
+      HighAvailabilityRequirementsRedundancy();
+
+  /// Failover behavior.
+  HighAvailabilityRequirementsFailover failover =
+      HighAvailabilityRequirementsFailover();
+
+  /// Load balancing behavior.
+  HighAvailabilityRequirementsLoadBalancing loadBalancing =
+      HighAvailabilityRequirementsLoadBalancing();
+
+  /// Disaster recovery alignment.
+  HighAvailabilityRequirementsDisasterRecovery disasterRecovery =
+      HighAvailabilityRequirementsDisasterRecovery();
+}
+
+/// Redundancy model.
+class HighAvailabilityRequirementsRedundancy {
+  @Form([
     Field('redundancyLevel', String, 'Redundancy Level',
         hint: 'N+1, 2N, etc.'),
     Field('redundancyScope', String, 'Redundancy Scope',
@@ -6931,8 +7090,13 @@ class HighAvailabilityRequirements {
         hint: 'Multi-region deployment'),
     Field('activeActiveMode', bool, 'Active-Active Mode',
         hint: 'All sites active'),
+  ])
+  String? content;
+}
 
-    // Failover
+/// Failover behavior.
+class HighAvailabilityRequirementsFailover {
+  @Form([
     Field('failoverType', String, 'Failover Type',
         hint: 'Automatic, manual'),
     Field('failoverTime', String, 'Failover Time',
@@ -6941,16 +7105,26 @@ class HighAvailabilityRequirements {
         hint: 'How to restore primary'),
     Field('healthCheckInterval', String, 'Health Check Interval',
         hint: 'How often to check health'),
+  ])
+  String? content;
+}
 
-    // Load balancing
+/// Load balancing behavior.
+class HighAvailabilityRequirementsLoadBalancing {
+  @Form([
     Field('loadBalancerType', String, 'Load Balancer Type',
         hint: 'L4, L7, DNS-based'),
     Field('loadBalancingAlgorithm', String, 'Load Balancing Algorithm',
         hint: 'Round-robin, least-conn'),
     Field('healthCheckEndpoint', String, 'Health Check Endpoint',
         hint: 'Endpoint for health checks'),
+  ])
+  String? content;
+}
 
-    // DR
+/// Disaster recovery alignment.
+class HighAvailabilityRequirementsDisasterRecovery {
+  @Form([
     Field('drSite', String, 'DR Site',
         hint: 'Disaster recovery location'),
     Field('drSyncMethod', String, 'DR Sync Method',
@@ -7427,23 +7601,45 @@ class MobileDeviceRequirementEntry {
 /// Display and screen requirements.
 class DisplayRequirements {
   @Form([
-    // Resolution
     Field('minResolution', String, 'Minimum Resolution',
         hint: '1024x768, 1280x720'),
     Field('recommendedResolution', String, 'Recommended Resolution',
         hint: 'Recommended screen resolution'),
     Field('maxResolution', String, 'Maximum Resolution',
         hint: 'Maximum tested resolution'),
+  ])
+  String? content;
 
-    // Aspect ratios
+  /// Aspect ratio and layout support.
+  DisplayRequirementsLayout layout = DisplayRequirementsLayout();
+
+  /// DPI and scaling support.
+  DisplayRequirementsScaling scaling = DisplayRequirementsScaling();
+
+  /// Color and contrast support.
+  DisplayRequirementsColor color = DisplayRequirementsColor();
+
+  /// Multi-display support.
+  DisplayRequirementsMultiDisplay multiDisplay =
+      DisplayRequirementsMultiDisplay();
+}
+
+/// Aspect ratio and layout support.
+class DisplayRequirementsLayout {
+  @Form([
     Field('supportedAspectRatios', String, 'Supported Aspect Ratios',
         hint: '16:9, 4:3, 21:9'),
     Field('responsiveBreakpoints', String, 'Responsive Breakpoints',
         hint: 'Mobile, tablet, desktop'),
     Field('fluidLayout', bool, 'Fluid Layout',
         hint: 'Supports fluid layouts'),
+  ])
+  String? content;
+}
 
-    // DPI and scaling
+/// DPI and scaling support.
+class DisplayRequirementsScaling {
+  @Form([
     Field('minDpi', String, 'Minimum DPI',
         hint: 'Minimum display DPI'),
     Field('hiDpiSupport', bool, 'HiDPI Support',
@@ -7452,8 +7648,13 @@ class DisplayRequirements {
         hint: '100%, 125%, 150%, 200%'),
     Field('vectorGraphics', bool, 'Vector Graphics',
         hint: 'SVG/vector support'),
+  ])
+  String? content;
+}
 
-    // Color
+/// Color and contrast support.
+class DisplayRequirementsColor {
+  @Form([
     Field('colorDepth', String, 'Color Depth',
         hint: '24-bit, 32-bit'),
     Field('colorSpaceSupport', String, 'Color Space Support',
@@ -7462,8 +7663,13 @@ class DisplayRequirements {
         hint: 'Dark mode theme support'),
     Field('highContrastSupport', bool, 'High Contrast Support',
         hint: 'High contrast mode'),
+  ])
+  String? content;
+}
 
-    // Multi-display
+/// Multi-display support.
+class DisplayRequirementsMultiDisplay {
+  @Form([
     Field('multiMonitorSupport', bool, 'Multi-Monitor Support',
         hint: 'Multiple display support'),
     Field('projectorMode', String, 'Projector/Presentation Mode',
@@ -8269,15 +8475,31 @@ class VpnRequirementEntry {
 /// Firewall requirements.
 class FirewallRequirements {
   @Form([
-    // Architecture
     Field('firewallArchitecture', String, 'Firewall Architecture',
         hint: 'Perimeter, distributed, cloud'),
     Field('firewallVendor', String, 'Firewall Vendor/Product',
         hint: 'Firewall product used'),
     Field('managementModel', String, 'Management Model',
         hint: 'Centralized, distributed'),
+  ])
+  String? content;
 
-    // Rules
+  /// Rule definitions.
+  FirewallRequirementsRules rules = FirewallRequirementsRules();
+
+  /// Port requirements.
+  FirewallRequirementsPorts ports = FirewallRequirementsPorts();
+
+  /// Advanced inspection features.
+  FirewallRequirementsAdvanced advanced = FirewallRequirementsAdvanced();
+
+  /// Logging and alerts.
+  FirewallRequirementsLogging logging = FirewallRequirementsLogging();
+}
+
+/// Rule definitions.
+class FirewallRequirementsRules {
+  @Form([
     Field('defaultPolicy', String, 'Default Policy',
         hint: 'Deny-all, allow-all'),
     Field('inboundRules', String, 'Inbound Rules Summary',
@@ -8286,16 +8508,26 @@ class FirewallRequirements {
         hint: 'Summary of outbound rules'),
     Field('internalRules', String, 'Internal Rules Summary',
         hint: 'Inter-zone rules'),
+  ])
+  String? content;
+}
 
-    // Ports
+/// Port requirements.
+class FirewallRequirementsPorts {
+  @Form([
     Field('requiredPorts', String, 'Required Ports',
         hint: 'Ports that must be open'),
     Field('blockedPorts', String, 'Blocked Ports',
         hint: 'Explicitly blocked ports'),
     Field('portRanges', String, 'Port Ranges',
         hint: 'Dynamic port ranges'),
+  ])
+  String? content;
+}
 
-    // Advanced features
+/// Advanced inspection features.
+class FirewallRequirementsAdvanced {
+  @Form([
     Field('intrusionDetection', bool, 'Intrusion Detection',
         hint: 'IDS/IPS enabled'),
     Field('deepPacketInspection', bool, 'Deep Packet Inspection',
@@ -8304,8 +8536,13 @@ class FirewallRequirements {
         hint: 'Layer 7 inspection'),
     Field('threatIntelligence', String, 'Threat Intelligence',
         hint: 'Threat feed integration'),
+  ])
+  String? content;
+}
 
-    // Logging
+/// Logging and alerts.
+class FirewallRequirementsLogging {
+  @Form([
     Field('loggingRequirements', String, 'Logging Requirements',
         hint: 'Firewall log retention'),
     Field('alerting', String, 'Alerting',
@@ -9744,7 +9981,6 @@ class ConfigurationManagement {
 /// Infrastructure as Code requirements.
 class InfrastructureAsCode {
   @Form([
-    // IaC tooling
     Field('iacTool', String, 'IaC Tool',
         hint: 'Terraform, Pulumi, CloudFormation'),
     Field('iacRepository', String, 'IaC Repository',
@@ -9753,32 +9989,64 @@ class InfrastructureAsCode {
         hint: 'Reusable modules strategy'),
     Field('iacRegistry', String, 'IaC Registry',
         hint: 'Private module registry'),
+  ])
+  String? content;
 
-    // State management
+  /// State management.
+  InfrastructureAsCodeState state = InfrastructureAsCodeState();
+
+  /// Execution governance.
+  InfrastructureAsCodeExecution execution = InfrastructureAsCodeExecution();
+
+  /// Drift detection settings.
+  InfrastructureAsCodeDrift drift = InfrastructureAsCodeDrift();
+
+  /// Security and policy controls.
+  InfrastructureAsCodeSecurity security = InfrastructureAsCodeSecurity();
+}
+
+/// State management.
+class InfrastructureAsCodeState {
+  @Form([
     Field('stateStorage', String, 'State Storage',
         hint: 'S3, GCS, Azure Blob'),
     Field('stateLocking', bool, 'State Locking',
         hint: 'Prevent concurrent changes'),
     Field('stateEnvironmentSeparation', String, 'State Separation',
         hint: 'Per-environment state files'),
+  ])
+  String? content;
+}
 
-    // Execution
+/// Execution governance.
+class InfrastructureAsCodeExecution {
+  @Form([
     Field('planReview', String, 'Plan Review',
         hint: 'Who reviews IaC plans'),
     Field('applyApproval', String, 'Apply Approval',
         hint: 'Approval for applying changes'),
     Field('pipelineIntegration', String, 'Pipeline Integration',
         hint: 'IaC in CI/CD pipeline'),
+  ])
+  String? content;
+}
 
-    // Drift detection
+/// Drift detection settings.
+class InfrastructureAsCodeDrift {
+  @Form([
     Field('driftDetection', bool, 'Drift Detection',
         hint: 'Detect manual changes'),
     Field('driftRemediation', String, 'Drift Remediation',
         hint: 'How to handle drift'),
     Field('reconciliationSchedule', String, 'Reconciliation Schedule',
         hint: 'When to check for drift'),
+  ])
+  String? content;
+}
 
-    // Security
+/// Security and policy controls.
+class InfrastructureAsCodeSecurity {
+  @Form([
     Field('sensitiveValueHandling', String, 'Sensitive Value Handling',
         hint: 'Handling secrets in IaC'),
     Field('policyAsCode', String, 'Policy as Code',
@@ -10403,15 +10671,35 @@ class OnCallProcedures {
 /// Incident management requirements.
 class IncidentManagementRequirements {
   @Form([
-    // Process
     Field('incidentProcess', String, 'Incident Process',
         hint: 'Incident management process'),
     Field('severityDefinitions', String, 'Severity Definitions',
         hint: 'SEV1, SEV2, SEV3 definitions'),
     Field('incidentCommander', String, 'Incident Commander',
         hint: 'IC role and selection'),
+  ])
+  String? content;
 
-    // Communication
+  /// Communication requirements.
+  IncidentManagementRequirementsCommunication communication =
+      IncidentManagementRequirementsCommunication();
+
+  /// War room setup.
+  IncidentManagementRequirementsWarRoom warRoom =
+      IncidentManagementRequirementsWarRoom();
+
+  /// Post-incident expectations.
+  IncidentManagementRequirementsPostIncident postIncident =
+      IncidentManagementRequirementsPostIncident();
+
+  /// Metrics and notes.
+  IncidentManagementRequirementsMetrics metrics =
+      IncidentManagementRequirementsMetrics();
+}
+
+/// Communication requirements.
+class IncidentManagementRequirementsCommunication {
+  @Form([
     Field('internalComms', String, 'Internal Communications',
         hint: 'Internal status updates'),
     Field('externalComms', String, 'External Communications',
@@ -10420,16 +10708,26 @@ class IncidentManagementRequirements {
         hint: 'Status page process'),
     Field('stakeholderNotification', String, 'Stakeholder Notification',
         hint: 'Who gets notified'),
+  ])
+  String? content;
+}
 
-    // War room
+/// War room setup.
+class IncidentManagementRequirementsWarRoom {
+  @Form([
     Field('warRoomSetup', String, 'War Room Setup',
         hint: 'Incident war room'),
     Field('bridgeCall', String, 'Bridge Call',
         hint: 'Conference bridge'),
     Field('chatChannel', String, 'Chat Channel',
         hint: 'Incident chat channel'),
+  ])
+  String? content;
+}
 
-    // Post-incident
+/// Post-incident expectations.
+class IncidentManagementRequirementsPostIncident {
+  @Form([
     Field('postMortemRequired', bool, 'Post-Mortem Required',
         hint: 'Require post-mortems'),
     Field('postMortemTimeline', String, 'Post-Mortem Timeline',
@@ -10438,8 +10736,13 @@ class IncidentManagementRequirements {
         hint: 'Blameless post-mortems'),
     Field('actionItemTracking', String, 'Action Item Tracking',
         hint: 'Track remediation items'),
+  ])
+  String? content;
+}
 
-    // Metrics
+/// Metrics and notes.
+class IncidentManagementRequirementsMetrics {
+  @Form([
     Field('mttr', String, 'MTTR Target',
         hint: 'Mean time to repair target'),
     Field('mtbf', String, 'MTBF Target',
