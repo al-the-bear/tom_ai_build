@@ -1099,7 +1099,6 @@ class ArchitectureOverviewCompliance {
 /// Architecture principle entry.
 class ArchitecturePrincipleEntry {
   @Form([
-    // Principle identity
     Field('principleName', String, 'Principle Name',
         required: true, hint: 'E.g., Separation of Concerns, DRY, SOLID'),
     Field('category', String, 'Category',
@@ -1107,28 +1106,44 @@ class ArchitecturePrincipleEntry {
             'Design, Implementation, Deployment, Security, Performance, Data'),
     Field('statement', String, 'Statement',
         required: true, hint: 'Clear statement of the principle'),
+  ])
+  String? content;
 
-    // Details
-    Field('rationale', String, 'Rationale', hint: 'Why this principle matters'),
-    Field('implications', String, 'Implications',
-        hint: 'What following this principle means in practice'),
-    Field('violations', String, 'Violation Examples',
-        hint: 'Examples of what would violate this principle'),
+  /// Rationale and practical implications.
+  ArchitecturePrincipleEntryGuidance guidance =
+    ArchitecturePrincipleEntryGuidance();
 
-    // Enforcement
-    Field('enforcementLevel', String, 'Enforcement Level',
-        hint: 'Mandatory, Recommended, Advisory'),
-    Field('enforcementMechanism', String, 'Enforcement Mechanism',
-        hint: 'How compliance is ensured (review, linting, etc.)'),
+  /// Enforcement and applicability context.
+  ArchitecturePrincipleEntryGovernance governance =
+    ArchitecturePrincipleEntryGovernance();
+}
 
-    // Context
-    Field('applicableScope', String, 'Applicable Scope',
-        hint: 'Where this principle applies'),
-    Field('exceptions', String, 'Exceptions',
-        hint: 'Allowed exceptions to this principle'),
-    Field('relatedPrinciples', String, 'Related Principles',
-        hint: 'Other principles that relate to this one'),
-    Field('notes', String, 'Notes', hint: 'Additional principle notes'),
+/// Rationale and practical implications.
+class ArchitecturePrincipleEntryGuidance {
+  @Form([
+  Field('rationale', String, 'Rationale', hint: 'Why this principle matters'),
+  Field('implications', String, 'Implications',
+    hint: 'What following this principle means in practice'),
+  Field('violations', String, 'Violation Examples',
+    hint: 'Examples of what would violate this principle'),
+  ])
+  String? content;
+}
+
+/// Enforcement and applicability context.
+class ArchitecturePrincipleEntryGovernance {
+  @Form([
+  Field('enforcementLevel', String, 'Enforcement Level',
+    hint: 'Mandatory, Recommended, Advisory'),
+  Field('enforcementMechanism', String, 'Enforcement Mechanism',
+    hint: 'How compliance is ensured (review, linting, etc.)'),
+  Field('applicableScope', String, 'Applicable Scope',
+    hint: 'Where this principle applies'),
+  Field('exceptions', String, 'Exceptions',
+    hint: 'Allowed exceptions to this principle'),
+  Field('relatedPrinciples', String, 'Related Principles',
+    hint: 'Other principles that relate to this one'),
+  Field('notes', String, 'Notes', hint: 'Additional principle notes'),
   ])
   String? content;
 }
@@ -13519,7 +13534,6 @@ class MaintenanceUserImpactPost {
 /// Post-maintenance validation.
 class PostMaintenanceValidation {
   @Form([
-    // Validation steps
     Field('smokeTests', bool, 'Smoke Tests',
         hint: 'Run smoke tests after'),
     Field('functionalTests', bool, 'Functional Tests',
@@ -13528,26 +13542,44 @@ class PostMaintenanceValidation {
         hint: 'Run performance checks'),
     Field('healthChecks', bool, 'Health Checks',
         hint: 'Verify all health checks'),
+  ])
+  String? content;
 
-    // Monitoring
-    Field('enhancedMonitoring', String, 'Enhanced Monitoring',
-        hint: 'Heightened monitoring period'),
-    Field('monitoringDuration', String, 'Monitoring Duration',
-        hint: 'How long to watch after'),
-    Field('keyMetrics', String, 'Key Metrics',
-        hint: 'Metrics to watch closely'),
-    Field('baselineComparison', bool, 'Baseline Comparison',
-        hint: 'Compare to pre-maintenance'),
+  /// Monitoring requirements after maintenance.
+  PostMaintenanceValidationMonitoring monitoring =
+    PostMaintenanceValidationMonitoring();
 
-    // Sign-off
-    Field('validateSignoff', String, 'Validation Sign-Off',
-        hint: 'Who signs off validation'),
-    Field('maintenanceReport', bool, 'Maintenance Report',
-        hint: 'Generate maintenance report'),
-    Field('lessonsLearned', bool, 'Lessons Learned',
-        hint: 'Document lessons learned'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional validation notes'),
+  /// Sign-off and reporting expectations.
+  PostMaintenanceValidationClosure closure =
+    PostMaintenanceValidationClosure();
+}
+
+/// Monitoring requirements after maintenance.
+class PostMaintenanceValidationMonitoring {
+  @Form([
+  Field('enhancedMonitoring', String, 'Enhanced Monitoring',
+    hint: 'Heightened monitoring period'),
+  Field('monitoringDuration', String, 'Monitoring Duration',
+    hint: 'How long to watch after'),
+  Field('keyMetrics', String, 'Key Metrics',
+    hint: 'Metrics to watch closely'),
+  Field('baselineComparison', bool, 'Baseline Comparison',
+    hint: 'Compare to pre-maintenance'),
+  ])
+  String? content;
+}
+
+/// Sign-off and reporting expectations.
+class PostMaintenanceValidationClosure {
+  @Form([
+  Field('validateSignoff', String, 'Validation Sign-Off',
+    hint: 'Who signs off validation'),
+  Field('maintenanceReport', bool, 'Maintenance Report',
+    hint: 'Generate maintenance report'),
+  Field('lessonsLearned', bool, 'Lessons Learned',
+    hint: 'Document lessons learned'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional validation notes'),
   ])
   String? content;
 }
@@ -14747,37 +14779,62 @@ class ServiceMeshAndGatewayLoadBalancing {
 /// Connectivity resilience requirements.
 class ConnectivityResilience {
   @Form([
-    // Failover
     Field('failoverStrategy', String, 'Failover Strategy',
         hint: 'Active-passive, active-active, DNS failover'),
     Field('redundantConnections', bool, 'Redundant Connections',
         hint: 'Multiple ISP or network paths'),
     Field('geographicRedundancy', String, 'Geographic Redundancy',
         hint: 'Multi-region connectivity'),
+  ])
+  String? content;
 
-    // Circuit breaking
-    Field('circuitBreakerPattern', String, 'Circuit Breaker Pattern',
-        hint: 'Threshold, timeout, half-open criteria'),
-    Field('bulkheadIsolation', String, 'Bulkhead Isolation',
-        hint: 'Connection pool isolation per downstream'),
-    Field('fallbackBehavior', String, 'Fallback Behavior',
-        hint: 'Cached response, degraded mode, error page'),
+  /// Circuit breaking and isolation strategy.
+  ConnectivityResilienceProtection protection =
+    ConnectivityResilienceProtection();
 
-    // Offline
-    Field('offlineCapability', String, 'Offline Capability',
-        hint: 'Client-side caching and sync strategy'),
-    Field('reconnectionStrategy', String, 'Reconnection Strategy',
-        hint: 'Automatic reconnect with backoff'),
-    Field('queuedOperations', bool, 'Queued Operations',
-        hint: 'Queue requests when connectivity lost'),
+  /// Offline and reconnection behavior.
+  ConnectivityResilienceOffline offline = ConnectivityResilienceOffline();
 
-    // Monitoring
-    Field('connectivityMonitoring', String, 'Connectivity Monitoring',
-        hint: 'Uptime monitoring, latency checks'),
-    Field('connectivityAlerts', String, 'Connectivity Alerts',
-        hint: 'Alert on degradation or outage'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional resilience notes'),
+  /// Monitoring and alerting expectations.
+  ConnectivityResilienceOperations operations =
+    ConnectivityResilienceOperations();
+}
+
+/// Circuit breaking and isolation strategy.
+class ConnectivityResilienceProtection {
+  @Form([
+  Field('circuitBreakerPattern', String, 'Circuit Breaker Pattern',
+    hint: 'Threshold, timeout, half-open criteria'),
+  Field('bulkheadIsolation', String, 'Bulkhead Isolation',
+    hint: 'Connection pool isolation per downstream'),
+  Field('fallbackBehavior', String, 'Fallback Behavior',
+    hint: 'Cached response, degraded mode, error page'),
+  ])
+  String? content;
+}
+
+/// Offline and reconnection behavior.
+class ConnectivityResilienceOffline {
+  @Form([
+  Field('offlineCapability', String, 'Offline Capability',
+    hint: 'Client-side caching and sync strategy'),
+  Field('reconnectionStrategy', String, 'Reconnection Strategy',
+    hint: 'Automatic reconnect with backoff'),
+  Field('queuedOperations', bool, 'Queued Operations',
+    hint: 'Queue requests when connectivity lost'),
+  ])
+  String? content;
+}
+
+/// Monitoring and alerting expectations.
+class ConnectivityResilienceOperations {
+  @Form([
+  Field('connectivityMonitoring', String, 'Connectivity Monitoring',
+    hint: 'Uptime monitoring, latency checks'),
+  Field('connectivityAlerts', String, 'Connectivity Alerts',
+    hint: 'Alert on degradation or outage'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional resilience notes'),
   ])
   String? content;
 }
@@ -15726,7 +15783,6 @@ class AlertSuppressionRules {
 /// On-call schedule configuration.
 class OnCallScheduleConfig {
   @Form([
-    // Schedule
     Field('rotationSchedule', String, 'Rotation Schedule',
         hint: 'Weekly, bi-weekly, custom rotation'),
     Field('scheduleTimezone', String, 'Schedule Timezone',
@@ -15735,24 +15791,42 @@ class OnCallScheduleConfig {
         hint: 'Responsibilities during on-call'),
     Field('secondaryOnCallDuties', String, 'Secondary On-Call Duties',
         hint: 'Backup on-call responsibilities'),
-    // Override handling
-    Field('scheduleOverrideProcess', String, 'Schedule Override Process',
-        hint: 'How to swap on-call shifts'),
-    Field('holidayCoverage', String, 'Holiday Coverage',
-        hint: 'Coverage during holidays'),
-    Field('vacationCoverage', String, 'Vacation Coverage',
-        hint: 'How vacation affects on-call'),
-    // Compensation
-    Field('onCallCompensation', String, 'On-Call Compensation',
-        hint: 'Comp for being on-call'),
-    Field('incidentResponseCompensation', String, 'Incident Response Compensation',
-        hint: 'Additional comp for incidents'),
-    // Tools
-    Field('scheduleManagementTool', String, 'Schedule Management Tool',
-        hint: 'PagerDuty, Opsgenie schedule'),
-    Field('handoffProcess', String, 'Handoff Process',
-        hint: 'On-call handoff procedure'),
-    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+
+  /// Override and coverage handling.
+  OnCallScheduleConfigCoverage coverage = OnCallScheduleConfigCoverage();
+
+  /// Compensation and tooling support.
+  OnCallScheduleConfigOperations operations =
+    OnCallScheduleConfigOperations();
+}
+
+/// Override and coverage handling.
+class OnCallScheduleConfigCoverage {
+  @Form([
+  Field('scheduleOverrideProcess', String, 'Schedule Override Process',
+    hint: 'How to swap on-call shifts'),
+  Field('holidayCoverage', String, 'Holiday Coverage',
+    hint: 'Coverage during holidays'),
+  Field('vacationCoverage', String, 'Vacation Coverage',
+    hint: 'How vacation affects on-call'),
+  ])
+  String? content;
+}
+
+/// Compensation and tooling support.
+class OnCallScheduleConfigOperations {
+  @Form([
+  Field('onCallCompensation', String, 'On-Call Compensation',
+    hint: 'Comp for being on-call'),
+  Field('incidentResponseCompensation', String, 'Incident Response Compensation',
+    hint: 'Additional comp for incidents'),
+  Field('scheduleManagementTool', String, 'Schedule Management Tool',
+    hint: 'PagerDuty, Opsgenie schedule'),
+  Field('handoffProcess', String, 'Handoff Process',
+    hint: 'On-call handoff procedure'),
+  Field('notes', String, 'Notes'),
   ])
   String? content;
 }
@@ -16262,36 +16336,61 @@ class SlaAndSloMonitoring {
 /// Service Level Indicators.
 class ServiceLevelIndicators {
   @Form([
-    // Availability SLIs
     Field('availabilitySli', String, 'Availability SLI',
         hint: 'How availability is measured'),
     Field('availabilityExclusions', String, 'Availability Exclusions',
         hint: 'What is excluded from availability'),
-    // Latency SLIs
-    Field('latencySli', String, 'Latency SLI',
-        hint: 'How latency is measured (p50, p95, p99)'),
-    Field('latencyThresholds', String, 'Latency Thresholds',
-        hint: 'Good latency vs bad latency'),
-    // Throughput SLIs
-    Field('throughputSli', String, 'Throughput SLI',
-        hint: 'How throughput is measured'),
-    // Error rate SLIs
-    Field('errorRateSli', String, 'Error Rate SLI',
-        hint: 'How errors are counted'),
-    Field('errorCategories', String, 'Error Categories',
-        hint: 'Which errors count against SLI'),
-    // Correctness SLIs
-    Field('correctnessSli', String, 'Correctness SLI',
-        hint: 'Data correctness measurement'),
-    // Freshness SLIs
-    Field('freshnessSli', String, 'Freshness SLI',
-        hint: 'Data freshness measurement'),
-    // Measurement
-    Field('measurementMethod', String, 'Measurement Method',
-        hint: 'Synthetic, real user, logs'),
-    Field('measurementLocation', String, 'Measurement Location',
-        hint: 'Server-side, client-side, edge'),
-    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+
+  /// Latency and throughput indicators.
+  ServiceLevelIndicatorsPerformance performance =
+    ServiceLevelIndicatorsPerformance();
+
+  /// Error, correctness, and freshness indicators.
+  ServiceLevelIndicatorsQuality quality = ServiceLevelIndicatorsQuality();
+
+  /// Measurement method and location.
+  ServiceLevelIndicatorsMeasurement measurement =
+    ServiceLevelIndicatorsMeasurement();
+}
+
+/// Latency and throughput indicators.
+class ServiceLevelIndicatorsPerformance {
+  @Form([
+  Field('latencySli', String, 'Latency SLI',
+    hint: 'How latency is measured (p50, p95, p99)'),
+  Field('latencyThresholds', String, 'Latency Thresholds',
+    hint: 'Good latency vs bad latency'),
+  Field('throughputSli', String, 'Throughput SLI',
+    hint: 'How throughput is measured'),
+  ])
+  String? content;
+}
+
+/// Error, correctness, and freshness indicators.
+class ServiceLevelIndicatorsQuality {
+  @Form([
+  Field('errorRateSli', String, 'Error Rate SLI',
+    hint: 'How errors are counted'),
+  Field('errorCategories', String, 'Error Categories',
+    hint: 'Which errors count against SLI'),
+  Field('correctnessSli', String, 'Correctness SLI',
+    hint: 'Data correctness measurement'),
+  Field('freshnessSli', String, 'Freshness SLI',
+    hint: 'Data freshness measurement'),
+  ])
+  String? content;
+}
+
+/// Measurement method and location.
+class ServiceLevelIndicatorsMeasurement {
+  @Form([
+  Field('measurementMethod', String, 'Measurement Method',
+    hint: 'Synthetic, real user, logs'),
+  Field('measurementLocation', String, 'Measurement Location',
+    hint: 'Server-side, client-side, edge'),
+  Field('notes', String, 'Notes'),
   ])
   String? content;
 }
@@ -16303,6 +16402,19 @@ class SloEntry {
     Field('sloName', String, 'SLO Name', required: true),
     Field('sloDescription', String, 'SLO Description'),
     Field('serviceName', String, 'Service Name'),
+  ])
+  String? content;
+
+  /// Objective target and budget definition.
+  SloEntryTarget target = SloEntryTarget();
+
+  /// Alerting and ownership rules.
+  SloEntryOperations operations = SloEntryOperations();
+}
+
+/// Objective target and budget definition.
+class SloEntryTarget {
+  @Form([
     Field('sliType', String, 'SLI Type',
         hint: 'Availability, latency, error rate'),
     Field('sloTarget', String, 'SLO Target',
@@ -16311,6 +16423,13 @@ class SloEntry {
         hint: 'Rolling 28-day, calendar month'),
     Field('errorBudget', String, 'Error Budget',
         hint: 'Derived error budget'),
+  ])
+  String? content;
+}
+
+/// Alerting and ownership rules.
+class SloEntryOperations {
+  @Form([
     Field('alertThreshold', String, 'Alert Threshold',
         hint: 'When to alert on burn rate'),
     Field('burnRateAlert', String, 'Burn Rate Alert',

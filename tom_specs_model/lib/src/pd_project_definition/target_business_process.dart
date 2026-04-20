@@ -585,11 +585,32 @@ class ProcessRoleEntry {
     Field('raciType', String,
         'RACI Type — Responsible, Accountable, Consulted, Informed'),
     Field('responsibilities', String, 'Responsibilities — what this role does'),
+  ])
+  String? content;
+
+  /// Process participation and authority.
+  ProcessRoleEntryExecution execution = ProcessRoleEntryExecution();
+
+  /// Access, coverage, and handoff expectations.
+  ProcessRoleEntryCoordination coordination =
+      ProcessRoleEntryCoordination();
+}
+
+/// Process participation and authority.
+class ProcessRoleEntryExecution {
+  @Form([
     Field('stepsInvolved', String, 'Steps Involved — which process steps'),
     Field('decisionAuthority', String,
         'Decision Authority — what decisions can be made'),
     Field('skillsRequired', String, 'Skills Required — competencies needed'),
     Field('systemAccess', String, 'System Access — required system permissions'),
+  ])
+  String? content;
+}
+
+/// Access, coverage, and handoff expectations.
+class ProcessRoleEntryCoordination {
+  @Form([
     Field('availability', String, 'Availability — when role must be available'),
     Field('backupRole', String, 'Backup Role — who covers absence'),
     Field('handoffTo', String, 'Handoff To — roles this passes work to'),
@@ -641,10 +662,30 @@ class ProcessKpiEntry {
     Field('category', String,
         'Category — time, quality, cost, volume, satisfaction'),
     Field('definition', String, 'Definition — how KPI is calculated'),
+  ])
+  String? content;
+
+  /// Measurement targets and thresholds.
+  ProcessKpiEntryMeasurement measurement = ProcessKpiEntryMeasurement();
+
+  /// Reporting ownership and improvement use.
+  ProcessKpiEntryOperations operations = ProcessKpiEntryOperations();
+}
+
+/// Measurement targets and thresholds.
+class ProcessKpiEntryMeasurement {
+  @Form([
     Field('unit', String, 'Unit — measurement unit'),
     Field('targetValue', String, 'Target Value — target'),
     Field('thresholds', String, 'Thresholds — green/yellow/red boundaries'),
     Field('dataSource', String, 'Data Source — where data comes from'),
+  ])
+  String? content;
+}
+
+/// Reporting ownership and improvement use.
+class ProcessKpiEntryOperations {
+  @Form([
     Field('calculationFrequency', String,
         'Calculation Frequency — how often measured'),
     Field('reportingFrequency', String,
@@ -715,6 +756,20 @@ class ProcessControlEntry {
         'Control Type — preventive, detective, corrective'),
     Field('controlCategory', String,
         'Control Category — authorization, validation, reconciliation'),
+  ])
+  String? content;
+
+  /// Control operation and ownership.
+  ProcessControlEntryOperation operation = ProcessControlEntryOperation();
+
+  /// Evidence, testing, and failure handling.
+  ProcessControlEntryVerification verification =
+      ProcessControlEntryVerification();
+}
+
+/// Control operation and ownership.
+class ProcessControlEntryOperation {
+  @Form([
     Field('controlDescription', String,
         'Control Description — what the control does'),
     Field('riskAddressed', String, 'Risk Addressed — what risk is mitigated'),
@@ -722,6 +777,13 @@ class ProcessControlEntry {
     Field('frequency', String, 'Frequency — how often control operates'),
     Field('automation', String,
         'Automation — manual, semi-automated, fully automated'),
+  ])
+  String? content;
+}
+
+/// Evidence, testing, and failure handling.
+class ProcessControlEntryVerification {
+  @Form([
     Field('evidenceProduced', String,
         'Evidence Produced — what documentation is created'),
     Field('testingApproach', String, 'Testing Approach — how control is tested'),
@@ -793,10 +855,31 @@ class ProcessExceptionEntry {
         'Exception Type — data error, system error, business rule, timeout'),
     Field('triggerCondition', String,
         'Trigger Condition — what causes this exception'),
+  ])
+  String? content;
+
+  /// Likelihood, impact, and detection.
+  ProcessExceptionEntryAssessment assessment =
+      ProcessExceptionEntryAssessment();
+
+  /// Resolution and prevention approach.
+  ProcessExceptionEntryResponse response = ProcessExceptionEntryResponse();
+}
+
+/// Likelihood, impact, and detection.
+class ProcessExceptionEntryAssessment {
+  @Form([
     Field('probability', String, 'Probability — how often this occurs'),
     Field('impact', String, 'Impact — effect on process/business'),
     Field('detectionMethod', String,
         'Detection Method — how exception is detected'),
+  ])
+  String? content;
+}
+
+/// Resolution and prevention approach.
+class ProcessExceptionEntryResponse {
+  @Form([
     Field('resolutionSteps', String, 'Resolution Steps — how to resolve'),
     Field('resolutionOwner', String, 'Resolution Owner — who resolves'),
     Field('resolutionSla', String, 'Resolution SLA — time to resolve'),
@@ -876,11 +959,31 @@ class ProcessImprovementEntry {
     Field('category', String,
         'Category — efficiency, quality, cost, experience'),
     Field('currentState', String, 'Current State — baseline measurement'),
+  ])
+  String? content;
+
+  /// Target outcome and value case.
+  ProcessImprovementEntryBenefits benefits = ProcessImprovementEntryBenefits();
+
+  /// Enablers, dependencies, and verification.
+  ProcessImprovementEntryDelivery delivery = ProcessImprovementEntryDelivery();
+}
+
+/// Target outcome and value case.
+class ProcessImprovementEntryBenefits {
+  @Form([
     Field('targetState', String, 'Target State — target measurement'),
     Field('improvementPercent', String,
         'Improvement Percent — expected improvement'),
     Field('monetaryBenefit', String, 'Monetary Benefit — financial value'),
     Field('beneficiaries', String, 'Beneficiaries — who benefits'),
+  ])
+  String? content;
+}
+
+/// Enablers, dependencies, and verification.
+class ProcessImprovementEntryDelivery {
+  @Form([
     Field('enablers', String, 'Enablers — what makes this possible'),
     Field('dependencies', String, 'Dependencies — what must happen first'),
     Field('risks', String, 'Risks — what could go wrong'),

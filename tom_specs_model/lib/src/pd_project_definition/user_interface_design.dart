@@ -4887,6 +4887,19 @@ class BreakpointEntry {
         hint: 'Minimum width in logical pixels'),
     Field('maxWidth', String, 'Max Width',
         hint: 'Maximum width in logical pixels'),
+  ])
+  String? content;
+
+  /// Grid and layout rules for this breakpoint.
+  BreakpointEntryLayout layout = BreakpointEntryLayout();
+
+  /// Navigation and visual scaling rules.
+  BreakpointEntryScaling scaling = BreakpointEntryScaling();
+}
+
+/// Grid and layout rules for this breakpoint.
+class BreakpointEntryLayout {
+  @Form([
     Field('columns', int, 'Grid Columns',
         hint: 'Number of grid columns at this breakpoint'),
     Field('gutterWidth', String, 'Gutter Width',
@@ -4895,6 +4908,13 @@ class BreakpointEntry {
         hint: 'Edge margins'),
     Field('layoutBehavior', String, 'Layout Behavior',
         hint: 'How layout changes at this breakpoint'),
+  ])
+  String? content;
+}
+
+/// Navigation and visual scaling rules.
+class BreakpointEntryScaling {
+  @Form([
     Field('navigationPattern', String, 'Navigation Pattern',
         hint: 'Bottom nav, drawer, rail, tabs'),
     Field('typographyScale', String, 'Typography Scale',
@@ -5697,20 +5717,42 @@ class ComponentActionEntry {
         hint: 'User interaction that triggers'),
     Field('actionPayload', String, 'Action Payload',
         hint: 'Data passed with action'),
-    Field('actionResult', String, 'Action Result',
-        hint: 'Expected outcome'),
-    Field('authRequired', bool, 'Auth Required',
-        hint: 'Requires authorization'),
-    Field('authPermission', String, 'Auth Permission',
-        hint: 'Required permission'),
-    Field('confirmationRequired', bool, 'Confirmation Required'),
-    Field('confirmationMessage', String, 'Confirmation Message'),
-    Field('asyncBehavior', String, 'Async Behavior',
-        hint: 'Loading state during async'),
-    Field('errorHandling', String, 'Error Handling'),
-    Field('successFeedback', String, 'Success Feedback'),
   ])
   String? content;
+
+    /// Authorization and confirmation behavior.
+    ComponentActionEntryGovernance governance =
+            ComponentActionEntryGovernance();
+
+    /// Async execution and feedback behavior.
+    ComponentActionEntryExecution execution =
+            ComponentActionEntryExecution();
+}
+
+/// Authorization and confirmation behavior.
+class ComponentActionEntryGovernance {
+    @Form([
+        Field('actionResult', String, 'Action Result',
+                hint: 'Expected outcome'),
+        Field('authRequired', bool, 'Auth Required',
+                hint: 'Requires authorization'),
+        Field('authPermission', String, 'Auth Permission',
+                hint: 'Required permission'),
+        Field('confirmationRequired', bool, 'Confirmation Required'),
+        Field('confirmationMessage', String, 'Confirmation Message'),
+    ])
+    String? content;
+}
+
+/// Async execution and feedback behavior.
+class ComponentActionEntryExecution {
+    @Form([
+        Field('asyncBehavior', String, 'Async Behavior',
+                hint: 'Loading state during async'),
+        Field('errorHandling', String, 'Error Handling'),
+        Field('successFeedback', String, 'Success Feedback'),
+    ])
+    String? content;
 }
 
 /// A component slot entry [PD00-USE-COM-SPE-nn-SLT-nn].
