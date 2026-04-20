@@ -2096,12 +2096,32 @@ class UtilityMenuItemEntry {
         hint: 'Leading icon'),
     Field('displayOrder', int, 'Display Order',
         hint: 'Position in menu'),
+  ])
+  String? content;
+
+  /// Routing and action references.
+  UtilityMenuItemEntryAction action = UtilityMenuItemEntryAction();
+
+  /// Visibility and confirmation behavior.
+  UtilityMenuItemEntryBehavior behavior = UtilityMenuItemEntryBehavior();
+}
+
+/// Routing and action references.
+class UtilityMenuItemEntryAction {
+  @Form([
     Field('actionType', String, 'Action Type',
         hint: 'Navigate/Action/External-Link/Divider'),
     Field('targetRoute', String, 'Target Route',
         hint: 'Navigation target'),
     Field('actionId', String, 'Action ID',
         hint: 'Action system reference, e.g., logout'),
+  ])
+  String? content;
+}
+
+/// Visibility and confirmation behavior.
+class UtilityMenuItemEntryBehavior {
+  @Form([
     Field('visibilityCondition', String, 'Visibility Condition',
         hint: 'When shown'),
     Field('requiredPermissions', String, 'Required Permissions',

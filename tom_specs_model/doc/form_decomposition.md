@@ -519,6 +519,6 @@ need decomposition into sub-sections to improve readability, maintainability, an
 | 461 | TabBarDefinitionEntry | 11 | user_interface_design.dart | ✅ |
 | 462 | TrainingPrototype | 11 | user_interface_design.dart | ✅ |
 | 463 | UiComponentEntry | 11 | user_interface_design.dart | ✅ |
-| 464 | UtilityMenuItemEntry | 11 | user_interface_design.dart | ⬜ |
+| 464 | UtilityMenuItemEntry | 11 | user_interface_design.dart | ✅ |
 
 **Total: 464 forms to decompose**
