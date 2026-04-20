@@ -14,6 +14,7 @@ export 'organizational_framework.dart';
 export 'project_organization_process.dart';
 export 'system_overview.dart';
 export 'system_quality_goals.dart';
+export 'system_rollout_concept.dart';
 export 'system_stage_plan.dart';
 export 'target_business_process.dart';
 export 'technical_framework.dart';
@@ -33,6 +34,7 @@ import 'organizational_framework.dart';
 import 'project_organization_process.dart';
 import 'system_overview.dart';
 import 'system_quality_goals.dart';
+import 'system_rollout_concept.dart';
 import 'system_stage_plan.dart';
 import 'target_business_process.dart';
 import 'technical_framework.dart';
@@ -85,6 +87,9 @@ class ProjectDefinition {
 
   /// 10. User Interface Design [PD00-USE].
   UserInterfaceDesign userInterfaceDesign = UserInterfaceDesign();
+
+  /// 15. System Rollout Concept [PD00-ROL]. Seeds → SR.
+  SystemRolloutConcept systemRolloutConcept = SystemRolloutConcept();
 
   /// 11. System Quality Goals [PD00-SYQ].
   SystemQualityGoals systemQualityGoals = SystemQualityGoals();
