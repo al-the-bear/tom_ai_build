@@ -385,6 +385,20 @@ class ProcessCharacteristics {
         'Average Duration — typical end-to-end time'),
     Field('variability', String,
         'Variability — how much process varies by case'),
+  ])
+  String? content;
+
+  /// Operational characteristics and automation level.
+  ProcessCharacteristicsOperations operations =
+      ProcessCharacteristicsOperations();
+
+  /// Demand and business value profile.
+  ProcessCharacteristicsBusiness business = ProcessCharacteristicsBusiness();
+}
+
+/// Operational characteristics and automation level.
+class ProcessCharacteristicsOperations {
+  @Form([
     Field('criticality', String, 'Criticality — business criticality level'),
     Field('automationLevel', String,
         'Automation Level — percentage automated'),
@@ -392,6 +406,13 @@ class ProcessCharacteristics {
         'Straight-Through Rate — percentage without human intervention'),
     Field('exceptionRate', String,
         'Exception Rate — percentage requiring manual handling'),
+  ])
+  String? content;
+}
+
+/// Demand and business value profile.
+class ProcessCharacteristicsBusiness {
+  @Form([
     Field('volumeEstimate', String, 'Volume Estimate — cases per period'),
     Field('seasonality', String, 'Seasonality — peaks and troughs'),
     Field('valueAdded', String, 'Value Added — value contributed'),
@@ -1156,21 +1177,41 @@ class ActorCharacteristics {
     Field('trainingRequired', String, 'Training Required — onboarding needs'),
     Field('usageFrequency', String,
         'Usage Frequency — daily, weekly, monthly, occasional'),
-    Field('usageDuration', String,
-        'Usage Duration — typical session length'),
-    Field('peakUsageTimes', String, 'Peak Usage Times — when most active'),
-    Field('taskComplexity', String,
-        'Task Complexity — simple, moderate, expert'),
-    Field('decisionAuthority', String,
-        'Decision Authority — what decisions can be made'),
-    Field('supervisionLevel', String,
-        'Supervision Level — how closely monitored'),
-    Field('communicationPreference', String,
-        'Communication Preference — how to reach this actor'),
-    Field('languageRequirements', String,
-        'Language Requirements — languages needed'),
-    Field('accessibilityNeeds', String,
-        'Accessibility Needs — special accommodations'),
+  ])
+  String? content;
+
+  /// Usage patterns and decision scope.
+  ActorCharacteristicsUsage usage = ActorCharacteristicsUsage();
+
+  /// Communication and accessibility profile.
+  ActorCharacteristicsSupport support = ActorCharacteristicsSupport();
+}
+
+/// Usage patterns and decision scope.
+class ActorCharacteristicsUsage {
+  @Form([
+  Field('usageDuration', String,
+    'Usage Duration — typical session length'),
+  Field('peakUsageTimes', String, 'Peak Usage Times — when most active'),
+  Field('taskComplexity', String,
+    'Task Complexity — simple, moderate, expert'),
+  Field('decisionAuthority', String,
+    'Decision Authority — what decisions can be made'),
+  ])
+  String? content;
+}
+
+/// Communication and accessibility profile.
+class ActorCharacteristicsSupport {
+  @Form([
+  Field('supervisionLevel', String,
+    'Supervision Level — how closely monitored'),
+  Field('communicationPreference', String,
+    'Communication Preference — how to reach this actor'),
+  Field('languageRequirements', String,
+    'Language Requirements — languages needed'),
+  Field('accessibilityNeeds', String,
+    'Accessibility Needs — special accommodations'),
   ])
   String? content;
 }

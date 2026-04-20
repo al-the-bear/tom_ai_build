@@ -1899,6 +1899,19 @@ class SessionModel {
         hint: 'Idle timeout duration'),
     Field('absoluteTimeout', String, 'Absolute Timeout',
         hint: 'Maximum session duration'),
+  ])
+  String? sessionConfiguration;
+
+  /// Refresh, concurrency, and termination behavior.
+  SessionModelLifecycle lifecycle = SessionModelLifecycle();
+
+  /// Convenience features and security-trigger handling.
+  SessionModelSecurity security = SessionModelSecurity();
+}
+
+/// Refresh, concurrency, and termination behavior.
+class SessionModelLifecycle {
+  @Form([
     Field('refreshMechanism', String, 'Token Refresh Mechanism',
         hint: 'Sliding window, Explicit refresh, Re-authentication'),
     Field('multiDevicePolicy', String, 'Multi-Device Policy',
@@ -1907,6 +1920,13 @@ class SessionModel {
         hint: 'Maximum simultaneous sessions'),
     Field('sessionTermination', String, 'Session Termination',
         hint: 'Manual logout, Timeout, Force logout'),
+  ])
+  String? content;
+}
+
+/// Convenience features and security-trigger handling.
+class SessionModelSecurity {
+  @Form([
     Field('rememberMeOption', String, 'Remember Me Option',
         hint: 'Available, Not available, Configurable'),
     Field('deviceTrust', String, 'Device Trust',
@@ -1916,7 +1936,7 @@ class SessionModel {
     Field('securityEvents', String, 'Security Events',
         hint: 'Events that trigger session review/termination'),
   ])
-  String? sessionConfiguration;
+  String? content;
 }
 
 // ---------------------------------------------------------------------------
@@ -2823,16 +2843,36 @@ class GoalRiskEntry {
     Field('riskCategory', String,
         'Risk Category (Market, Operational, Technical, Resource, '
             'Regulatory, External)'),
-    Field('probability', String, 'Probability (Low, Medium, High)'),
-    Field('impact', String, 'Impact (Low, Medium, High, Critical)'),
-    Field('riskScore', String, 'Risk Score (probability × impact)'),
-    Field('triggerConditions', String, 'Trigger Conditions (early warning signs)'),
-    Field('mitigationStrategy', String, 'Mitigation Strategy'),
-    Field('contingencyPlan', String, 'Contingency Plan (if risk occurs)'),
-    Field('owner', String, 'Risk Owner'),
-    Field('status', String, 'Status (Identified, Mitigating, Occurred, Closed)'),
   ])
   String? content;
+
+    /// Risk assessment details.
+    GoalRiskEntryAssessment assessment = GoalRiskEntryAssessment();
+
+    /// Mitigation ownership and status.
+    GoalRiskEntryResponse response = GoalRiskEntryResponse();
+}
+
+/// Risk assessment details.
+class GoalRiskEntryAssessment {
+    @Form([
+        Field('probability', String, 'Probability (Low, Medium, High)'),
+        Field('impact', String, 'Impact (Low, Medium, High, Critical)'),
+        Field('riskScore', String, 'Risk Score (probability × impact)'),
+        Field('triggerConditions', String, 'Trigger Conditions (early warning signs)'),
+    ])
+    String? content;
+}
+
+/// Mitigation ownership and status.
+class GoalRiskEntryResponse {
+    @Form([
+        Field('mitigationStrategy', String, 'Mitigation Strategy'),
+        Field('contingencyPlan', String, 'Contingency Plan (if risk occurs)'),
+        Field('owner', String, 'Risk Owner'),
+        Field('status', String, 'Status (Identified, Mitigating, Occurred, Closed)'),
+    ])
+    String? content;
 }
 
 /// 4.2.1.n.5. Resources [PD00-SYO-GOA-BUS-nn-RES].
@@ -4889,18 +4929,14 @@ class SystemDataScope {
     Field('dataSize', String, 'Data Size (GB/TB)'),
     Field('growthRate', String, 'Growth Rate'),
     Field('dataTypes', String, 'Data Types (Master, Transactional, etc.)'),
-    Field('sensitivityLevel', String,
-        'Sensitivity (Public, Internal, Confidential, PII)'),
-    Field('retentionRequirements', String, 'Retention Requirements'),
-    Field('dataQuality', String, 'Quality Rating (Excellent to Poor)'),
-    Field('cleansingRequired', String, 'Cleansing Required'),
-    Field('deduplicationNeeded', bool, 'Deduplication Needed'),
-    Field('transformationComplexity', String, 'Transformation Complexity'),
-    Field('migrationScope', String,
-        'Scope (Full, Recent, Active records, Reference)'),
-    Field('archiveStrategy', String, 'Archive Strategy'),
   ])
   String? content;
+
+    /// Data sensitivity and quality posture.
+    SystemDataScopeGovernance governance = SystemDataScopeGovernance();
+
+    /// Migration preparation and archive handling.
+    SystemDataScopeMigration migration = SystemDataScopeMigration();
 
   /// Data entities to migrate.
   @SectionIdPattern('PD00-SYO-SYR-INV-xx-DAT-ENT-xx')
@@ -4908,6 +4944,30 @@ class SystemDataScope {
 
   /// Data quality issues to address.
   TextSection knownQualityIssues = TextSection();
+}
+
+/// Data sensitivity and quality posture.
+class SystemDataScopeGovernance {
+    @Form([
+        Field('sensitivityLevel', String,
+                'Sensitivity (Public, Internal, Confidential, PII)'),
+        Field('retentionRequirements', String, 'Retention Requirements'),
+        Field('dataQuality', String, 'Quality Rating (Excellent to Poor)'),
+        Field('cleansingRequired', String, 'Cleansing Required'),
+    ])
+    String? content;
+}
+
+/// Migration preparation and archive handling.
+class SystemDataScopeMigration {
+    @Form([
+        Field('deduplicationNeeded', bool, 'Deduplication Needed'),
+        Field('transformationComplexity', String, 'Transformation Complexity'),
+        Field('migrationScope', String,
+                'Scope (Full, Recent, Active records, Reference)'),
+        Field('archiveStrategy', String, 'Archive Strategy'),
+    ])
+    String? content;
 }
 
 /// A data entity migration entry [PD00-SYO-SYR-INV-nn-DAT-ENT-nn].
@@ -5801,28 +5861,21 @@ class InterfaceBusinessProcessEntry {
 @SectionId('PD00-SYO-SYB-INT-xx-TEC')
 class InterfaceTechnicalSpec {
   @Form([
-    // Protocol & Transport
     Field('protocol', String,
         'Protocol (REST/HTTPS, SOAP/HTTPS, gRPC, GraphQL, SFTP, etc.)'),
     Field('transportSecurity', String, 'Transport Security (TLS 1.2, TLS 1.3)'),
     Field('messageFormat', String, 'Message Format (JSON, XML, Protobuf, CSV)'),
     Field('encoding', String, 'Character Encoding (UTF-8, etc.)'),
-
-    // Direction & Pattern
-    Field('direction', String, 'Direction (Inbound, Outbound, Bidirectional)'),
-    Field('initiator', String, 'Initiator (Our System, External System)'),
-    Field('communicationStyle', String,
-        'Style (Synchronous, Asynchronous, Event-Driven)'),
-    Field('deliveryGuarantee', String,
-        'Delivery (At-most-once, At-least-once, Exactly-once)'),
-
-    // Endpoints
-    Field('baseEndpoint', String, 'Base URL/Endpoint'),
-    Field('apiVersion', String, 'API Version'),
-    Field('documentationUrl', String, 'API Documentation URL'),
-    Field('sandboxEndpoint', String, 'Sandbox/Test Endpoint'),
   ])
   String? content;
+
+  /// Directionality and messaging pattern.
+  InterfaceTechnicalSpecCommunication communication =
+      InterfaceTechnicalSpecCommunication();
+
+  /// Endpoint and documentation references.
+  InterfaceTechnicalSpecEndpoints endpoints =
+      InterfaceTechnicalSpecEndpoints();
 
   /// API operations/methods exposed or consumed.
   @SectionIdPattern('PD00-SYO-SYB-INT-xx-TEC-OP-xx')
@@ -5830,6 +5883,30 @@ class InterfaceTechnicalSpec {
 
   /// Webhook/callback configurations if applicable.
   InterfaceWebhookSpec webhookSpec = InterfaceWebhookSpec();
+}
+
+/// Directionality and messaging pattern.
+class InterfaceTechnicalSpecCommunication {
+    @Form([
+        Field('direction', String, 'Direction (Inbound, Outbound, Bidirectional)'),
+        Field('initiator', String, 'Initiator (Our System, External System)'),
+        Field('communicationStyle', String,
+                'Style (Synchronous, Asynchronous, Event-Driven)'),
+        Field('deliveryGuarantee', String,
+                'Delivery (At-most-once, At-least-once, Exactly-once)'),
+    ])
+    String? content;
+}
+
+/// Endpoint and documentation references.
+class InterfaceTechnicalSpecEndpoints {
+    @Form([
+        Field('baseEndpoint', String, 'Base URL/Endpoint'),
+        Field('apiVersion', String, 'API Version'),
+        Field('documentationUrl', String, 'API Documentation URL'),
+        Field('sandboxEndpoint', String, 'Sandbox/Test Endpoint'),
+    ])
+    String? content;
 }
 
 /// API operation entry [PD00-SYO-SYB-INT-nn-TEC-OP-nn].
@@ -6129,29 +6206,44 @@ class InterfaceGovernanceLifecycle {
 @SectionId('PD00-SYO-SYB-INT-xx-TST')
 class InterfaceTesting {
   @Form([
-    // Test Environments
     Field('sandboxAvailable', bool, 'Sandbox Environment Available'),
     Field('sandboxUrl', String, 'Sandbox URL'),
     Field('testCredentials', String, 'Test Credentials Approach'),
     Field('mockAvailable', bool, 'Mock/Stub Available'),
-
-    // Test Data
-    Field('testDataApproach', String, 'Test Data Approach'),
-    Field('syntheticDataSupport', bool, 'Synthetic Data Supported'),
-    Field('productionMirror', bool, 'Production Data Mirroring'),
-
-    // Testing Strategy
-    Field('unitTestApproach', String, 'Unit Test Approach'),
-    Field('integrationTestApproach', String, 'Integration Test Approach'),
-    Field('contractTestApproach', String, 'Contract Test Approach'),
-    Field('e2eTestApproach', String, 'E2E Test Approach'),
-    Field('performanceTestApproach', String, 'Performance Test Approach'),
   ])
   String? content;
+
+    /// Test data strategy.
+    InterfaceTestingData data = InterfaceTestingData();
+
+    /// Validation approach across test layers.
+    InterfaceTestingStrategy strategy = InterfaceTestingStrategy();
 
   /// Test scenarios.
   @SectionIdPattern('PD00-SYO-SYB-INT-xx-TST-SC-xx')
   List<InterfaceTestScenarioEntry> testScenarios = [];
+}
+
+/// Test data strategy.
+class InterfaceTestingData {
+    @Form([
+        Field('testDataApproach', String, 'Test Data Approach'),
+        Field('syntheticDataSupport', bool, 'Synthetic Data Supported'),
+        Field('productionMirror', bool, 'Production Data Mirroring'),
+    ])
+    String? content;
+}
+
+/// Validation approach across test layers.
+class InterfaceTestingStrategy {
+    @Form([
+        Field('unitTestApproach', String, 'Unit Test Approach'),
+        Field('integrationTestApproach', String, 'Integration Test Approach'),
+        Field('contractTestApproach', String, 'Contract Test Approach'),
+        Field('e2eTestApproach', String, 'E2E Test Approach'),
+        Field('performanceTestApproach', String, 'Performance Test Approach'),
+    ])
+    String? content;
 }
 
 /// Test scenario entry [PD00-SYO-SYB-INT-nn-TST-SC-nn].
@@ -7710,6 +7802,20 @@ class RiskBusinessImpact {
         'Schedule Impact — potential delay (days, weeks, phases)'),
     Field('scopeImpact', String, 'Scope Impact — impact on deliverables'),
     Field('qualityImpact', String, 'Quality Impact'),
+  ])
+  String? content;
+
+  /// Broader stakeholder and compliance impact.
+  RiskBusinessImpactStakeholders stakeholders =
+      RiskBusinessImpactStakeholders();
+
+  /// Operational and delivery consequences.
+  RiskBusinessImpactDelivery delivery = RiskBusinessImpactDelivery();
+}
+
+/// Broader stakeholder and compliance impact.
+class RiskBusinessImpactStakeholders {
+  @Form([
     Field('resourceImpact', String,
         'Resource Impact — impact on team resources'),
     Field('reputationImpact', String,
@@ -7718,6 +7824,13 @@ class RiskBusinessImpact {
         'Customer Impact — impact on customers or end users'),
     Field('regulatoryImpact', String,
         'Regulatory Impact — compliance implications'),
+  ])
+  String? content;
+}
+
+/// Operational and delivery consequences.
+class RiskBusinessImpactDelivery {
+  @Form([
     Field('operationalImpact', String,
         'Operational Impact — impact on ongoing operations'),
     Field('strategicImpact', String,

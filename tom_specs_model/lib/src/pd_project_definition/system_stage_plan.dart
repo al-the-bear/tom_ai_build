@@ -3181,7 +3181,6 @@ class StageGovernanceTransition {
 @SectionId('PD00-SSP-GOV-GAT')
 class PhaseGateReviews {
   @Form([
-    // --- Gate Framework ---
     Field('gateNamingConvention', String,
         'Gate Naming Convention',
         hint:
@@ -3198,7 +3197,30 @@ class PhaseGateReviews {
         hint:
             'Presentation / Checklist / DemoAndReview / '
             'DocumentReview / Mixed'),
-    // --- Standard Attendees ---
+  ])
+  String? content;
+
+  /// Standard participants and evidence package.
+  PhaseGateReviewsPreparation preparation = PhaseGateReviewsPreparation();
+
+  /// Gate decision outcomes and follow-up rules.
+  PhaseGateReviewsOutcomes outcomes = PhaseGateReviewsOutcomes();
+
+  /// Phase gate review process narrative.
+  @ContentHelp('Phase gate process description: gate objectives, '
+      'review rhythm, participant roles, evidence gathering, '
+      'decision criteria, proceed/rework/cancel definitions, '
+      'conditional approval handling.')
+  TextSection gateReviewNarrative = TextSection();
+
+  /// Contains 0+× PhaseGateReviewEntry.
+  @SectionIdPattern('PD00-SSP-GOV-GAT-xx')
+  List<PhaseGateReviewEntry> items = [];
+}
+
+/// Standard participants and evidence package.
+class PhaseGateReviewsPreparation {
+  @Form([
     Field('mandatoryAttendees', String, 'Mandatory Attendees',
         hint:
             'Roles required at every gate — Sponsor, PM, '
@@ -3207,7 +3229,6 @@ class PhaseGateReviews {
         hint:
             'Roles invited as needed — Security, Legal, UX, '
             'Operations'),
-    // --- Standard Evidence ---
     Field('standardEvidencePackage', String,
         'Standard Evidence Package',
         hint:
@@ -3219,7 +3240,13 @@ class PhaseGateReviews {
         hint:
             'When evidence must be submitted before the gate — '
             'e.g. 3 business days prior'),
-    // --- Outcomes ---
+  ])
+  String? content;
+}
+
+/// Gate decision outcomes and follow-up rules.
+class PhaseGateReviewsOutcomes {
+  @Form([
     Field('possibleOutcomes', String, 'Possible Outcomes',
         hint:
             'Proceed / ConditionalProceed / Rework / Hold / '
@@ -3242,17 +3269,6 @@ class PhaseGateReviews {
             'reassignment, lessons learned'),
   ])
   String? content;
-
-  /// Phase gate review process narrative.
-  @ContentHelp('Phase gate process description: gate objectives, '
-      'review rhythm, participant roles, evidence gathering, '
-      'decision criteria, proceed/rework/cancel definitions, '
-      'conditional approval handling.')
-  TextSection gateReviewNarrative = TextSection();
-
-  /// Contains 0+× PhaseGateReviewEntry.
-  @SectionIdPattern('PD00-SSP-GOV-GAT-xx')
-  List<PhaseGateReviewEntry> items = [];
 }
 
 /// A phase gate review entry (form) [PD00-SSP-GOV-GAT-nn].
@@ -3389,7 +3405,6 @@ class PhaseGateExit {
 /// evidence linkage, and assessment result.
 class ReviewCriterionEntry {
   @Form([
-    // --- Criterion Definition ---
     Field('criterion', String, 'Criterion',
         hint:
             'What is being evaluated — e.g. All unit tests pass, '
@@ -3404,7 +3419,20 @@ class ReviewCriterionEntry {
         hint:
             'Quality / Security / Compliance / Performance / '
             'Completeness / Business / Operational'),
-    // --- Assessment ---
+  ])
+  String? content;
+
+  /// How this criterion is measured and weighted.
+  ReviewCriterionEntryAssessment assessment =
+      ReviewCriterionEntryAssessment();
+
+  /// Post-review result and remediation status.
+  ReviewCriterionEntryResult result = ReviewCriterionEntryResult();
+}
+
+/// How this criterion is measured and weighted.
+class ReviewCriterionEntryAssessment {
+  @Form([
     Field('weight', String, 'Weight',
         hint:
             'Relative importance — percentage, 1-10, or '
@@ -3425,7 +3453,13 @@ class ReviewCriterionEntry {
         hint:
             'What evidence proves this criterion — test report, '
             'sign-off email, audit log, screenshot'),
-    // --- Result (filled post-review) ---
+  ])
+  String? content;
+}
+
+/// Post-review result and remediation status.
+class ReviewCriterionEntryResult {
+  @Form([
     Field('assessmentResult', String, 'Assessment Result',
         hint:
             'Pass / Fail / ConditionalPass / NotAssessed — '

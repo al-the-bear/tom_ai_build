@@ -503,28 +503,58 @@ class FunctionalCompletenessQuality {
 /// 11.2.3. Correctness quality [PD00-SYQ-USE-COR].
 class CorrectnessQuality {
   @Form([
-    // Error-freedom
     Field('defectDensityTarget', String, 'Defect Density Target',
         hint: 'Defects per KLOC, per function point'),
     Field('criticalDefectTarget', String, 'Critical Defect Target',
         hint: 'Zero critical/blocking, <N major'),
     Field('defectEscapeRate', String, 'Defect Escape Rate',
         hint: 'Defects found post-release'),
-    // Data integrity
+  ])
+  String? content;
+
+  /// Data integrity expectations.
+  CorrectnessQualityIntegrity integrity = CorrectnessQualityIntegrity();
+
+  /// Accuracy and auditability requirements.
+  CorrectnessQualityAccuracy accuracy = CorrectnessQualityAccuracy();
+
+  /// Verification and regression approach.
+  CorrectnessQualityVerification verification =
+      CorrectnessQualityVerification();
+
+  /// Detailed correctness requirements narrative.
+  TextSection narrative = TextSection();
+}
+
+/// Data integrity expectations.
+class CorrectnessQualityIntegrity {
+  @Form([
     Field('dataIntegrityRequirement', String, 'Data Integrity Requirement',
         hint: 'ACID, eventual consistency'),
     Field('dataValidationCoverage', String, 'Data Validation Coverage',
         hint: 'All inputs, critical inputs'),
     Field('dataCorruptionHandling', String, 'Data Corruption Handling',
         hint: 'Detection, recovery, prevention'),
-    // Calculation accuracy
+  ])
+  String? content;
+}
+
+/// Accuracy and auditability requirements.
+class CorrectnessQualityAccuracy {
+  @Form([
     Field('calculationAccuracyTarget', String, 'Calculation Accuracy Target',
         hint: 'Decimal precision, rounding rules'),
     Field('financialAccuracyRequirement', String, 'Financial Accuracy',
         hint: 'Penny-accurate, significant figures'),
     Field('auditTrailRequirement', String, 'Audit Trail Requirement',
         hint: 'All changes, financial only'),
-    // Verification
+  ])
+  String? content;
+}
+
+/// Verification and regression approach.
+class CorrectnessQualityVerification {
+  @Form([
     Field('correctnessVerification', String, 'Correctness Verification',
         hint: 'Unit tests, integration tests, UAT'),
     Field('testCoverageTarget', String, 'Test Coverage Target',
@@ -533,9 +563,6 @@ class CorrectnessQuality {
         hint: 'Automated, manual, risk-based'),
   ])
   String? content;
-
-  /// Detailed correctness requirements narrative.
-  TextSection narrative = TextSection();
 }
 
 /// 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
@@ -698,40 +725,66 @@ class PortabilityQuality {
 /// 11.3.3. Flexibility quality [PD00-SYQ-TEC-FLE].
 class FlexibilityQuality {
   @Form([
-    // Component model
     Field('componentArchitecture', String, 'Component Architecture',
         hint: 'Microservices, modular monolith, plugins'),
     Field('componentGranularity', String, 'Component Granularity',
         hint: 'Fine-grained, coarse-grained'),
     Field('componentReplaceability', String, 'Component Replaceability',
         hint: 'Hot-swap, restart required'),
-    // Modularity
+  ])
+  String? content;
+
+  /// Modularity and reuse goals.
+  FlexibilityQualityModularity modularity = FlexibilityQualityModularity();
+
+  /// Distribution and configurability model.
+  FlexibilityQualityDeployment deployment = FlexibilityQualityDeployment();
+
+  /// Extensibility and verification expectations.
+  FlexibilityQualityExtensibility extensibility =
+      FlexibilityQualityExtensibility();
+
+  /// Detailed flexibility requirements narrative.
+  TextSection narrative = TextSection();
+}
+
+/// Modularity and reuse goals.
+class FlexibilityQualityModularity {
+  @Form([
     Field('modularityLevel', String, 'Modularity Level',
         hint: 'Highly modular, moderately, monolithic'),
     Field('moduleIndependence', String, 'Module Independence',
         hint: 'Loose coupling, shared libraries'),
     Field('moduleReusability', String, 'Module Reusability',
         hint: 'Design for reuse, single-purpose'),
-    // Distribution
+  ])
+  String? content;
+}
+
+/// Distribution and configurability model.
+class FlexibilityQualityDeployment {
+  @Form([
     Field('distributionCapability', String, 'Distribution Capability',
         hint: 'Multi-region, single-region, on-premise'),
     Field('multiTenancy', String, 'Multi-Tenancy',
         hint: 'Shared, isolated, hybrid'),
-    // Configurability
     Field('configurabilityLevel', String, 'Configurability Level',
         hint: 'Feature flags, runtime config, deploy-time'),
+  ])
+  String? content;
+}
+
+/// Extensibility and verification expectations.
+class FlexibilityQualityExtensibility {
+  @Form([
     Field('extensibilityModel', String, 'Extensibility Model',
         hint: 'Plugins, APIs, webhooks'),
     Field('customizationScope', String, 'Customization Scope',
         hint: 'UI, business rules, workflows'),
-    // Verification
     Field('flexibilityVerification', String, 'Flexibility Verification',
         hint: 'Architecture review, change impact analysis'),
   ])
   String? content;
-
-  /// Detailed flexibility requirements narrative.
-  TextSection narrative = TextSection();
 }
 
 /// 11.3.4. Security quality [PD00-SYQ-TEC-SEC].
@@ -1618,40 +1671,68 @@ class DocCorrectnessQuality {
 /// 11.5.4. Documentation changeability quality [PD00-SYQ-DOC-CHA].
 class DocChangeabilityQuality {
   @Form([
-    // Versioning
     Field('versioningStrategy', String, 'Versioning Strategy',
         hint: 'Semantic, date-based, product-aligned'),
     Field('versionHistoryTracking', String, 'Version History Tracking',
         hint: 'Changelog, git history'),
     Field('multiVersionSupport', String, 'Multi-Version Support',
         hint: 'Multiple product versions documented'),
-    // Extensibility
+  ])
+  String? content;
+
+  /// Extensibility and localization readiness.
+  DocChangeabilityQualityExtensibility extensibility =
+      DocChangeabilityQualityExtensibility();
+
+  /// Sizing and structural consistency rules.
+  DocChangeabilityQualityStructure structure =
+      DocChangeabilityQualityStructure();
+
+  /// Review and retirement maintenance process.
+  DocChangeabilityQualityMaintenance maintenance =
+      DocChangeabilityQualityMaintenance();
+
+  /// Detailed changeability requirements narrative.
+  TextSection narrative = TextSection();
+}
+
+/// Extensibility and localization readiness.
+class DocChangeabilityQualityExtensibility {
+  @Form([
     Field('extensibilityApproach', String, 'Extensibility Approach',
         hint: 'Modular, template-based'),
     Field('newSectionGuidelines', String, 'New Section Guidelines',
         hint: 'How to add new content'),
     Field('localizationReadiness', String, 'Localization Readiness',
         hint: 'i18n considerations'),
-    // Document sizing
+  ])
+  String? content;
+}
+
+/// Sizing and structural consistency rules.
+class DocChangeabilityQualityStructure {
+  @Form([
     Field('documentSizingGuideline', String, 'Document Sizing',
         hint: 'Max pages, when to split'),
     Field('topicGranularity', String, 'Topic Granularity',
         hint: 'One topic per page, combined'),
-    // Structural consistency
     Field('templateAdherence', String, 'Template Adherence',
         hint: 'Required, recommended'),
     Field('structuralChangeProcess', String, 'Structural Change Process',
         hint: 'How structure changes are made'),
-    // Maintenance
+  ])
+  String? content;
+}
+
+/// Review and retirement maintenance process.
+class DocChangeabilityQualityMaintenance {
+  @Form([
     Field('reviewCycle', String, 'Review Cycle',
         hint: 'Periodic review schedule'),
     Field('retirementProcess', String, 'Retirement Process',
         hint: 'How outdated docs are retired'),
   ])
   String? content;
-
-  /// Detailed changeability requirements narrative.
-  TextSection narrative = TextSection();
 }
 
 /// 11.6. Quality Prioritization [PD00-SYQ-PRI].
