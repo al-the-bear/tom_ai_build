@@ -4511,7 +4511,6 @@ class Accessibility {
   // Accessibility Overview
   // ─────────────────────────────────────────────────────────────────────────
   @Form([
-    // Compliance targets
     Field('wcagComplianceTarget', String, 'WCAG Compliance Target',
         hint: 'A, AA, AAA'),
     Field('wcagVersion', String, 'WCAG Version',
@@ -4520,29 +4519,17 @@ class Accessibility {
         hint: 'Section 508, EN 301 549, ADA'),
     Field('accessibilityStatement', bool, 'Accessibility Statement',
         hint: 'Publish accessibility statement'),
-    // Philosophy
-    Field('accessibilityPhilosophy', String, 'Accessibility Philosophy',
-        hint: 'Inclusive design, equivalent experience'),
-    Field('accessibilityOwnership', String, 'Accessibility Ownership',
-        hint: 'Who is responsible for accessibility'),
-    Field('accessibilityTraining', String, 'Accessibility Training',
-        hint: 'Team training requirements'),
-    // Testing approach
-    Field('automatedTestingTools', String, 'Automated Testing Tools',
-        hint: 'axe, WAVE, Lighthouse'),
-    Field('manualTestingProcess', String, 'Manual Testing Process',
-        hint: 'How manual testing is performed'),
-    Field('assistiveTechTesting', String, 'Assistive Tech Testing',
-        hint: 'Screen readers, switch devices'),
-    Field('userTestingWithDisabilities', bool, 'User Testing with Disabilities',
-        hint: 'Include users with disabilities'),
-    // Support regions
-    Field('targetScreenReaders', String, 'Target Screen Readers',
-        hint: 'NVDA, JAWS, VoiceOver, TalkBack'),
-    Field('targetBrowserAccessibility', String, 'Target Browser Accessibility',
-        hint: 'Browser accessibility features used'),
   ])
   String? accessibilityOverviewContent;
+
+  /// Ownership and inclusive design philosophy.
+  AccessibilityStrategy strategy = AccessibilityStrategy();
+
+  /// Accessibility testing approach.
+  AccessibilityTesting testing = AccessibilityTesting();
+
+  /// Supported assistive technologies and platform features.
+  AccessibilitySupport support = AccessibilitySupport();
 
   /// Accessibility overview narrative.
   @ContentHelp('Executive summary of accessibility approach, '
@@ -4572,10 +4559,48 @@ class Accessibility {
   TextSection colorAndContrast = TextSection();
 }
 
+/// Ownership and inclusive design philosophy.
+class AccessibilityStrategy {
+    @Form([
+        Field('accessibilityPhilosophy', String, 'Accessibility Philosophy',
+                hint: 'Inclusive design, equivalent experience'),
+        Field('accessibilityOwnership', String, 'Accessibility Ownership',
+                hint: 'Who is responsible for accessibility'),
+        Field('accessibilityTraining', String, 'Accessibility Training',
+                hint: 'Team training requirements'),
+    ])
+    String? content;
+}
+
+/// Accessibility testing approach.
+class AccessibilityTesting {
+    @Form([
+        Field('automatedTestingTools', String, 'Automated Testing Tools',
+                hint: 'axe, WAVE, Lighthouse'),
+        Field('manualTestingProcess', String, 'Manual Testing Process',
+                hint: 'How manual testing is performed'),
+        Field('assistiveTechTesting', String, 'Assistive Tech Testing',
+                hint: 'Screen readers, switch devices'),
+        Field('userTestingWithDisabilities', bool, 'User Testing with Disabilities',
+                hint: 'Include users with disabilities'),
+    ])
+    String? content;
+}
+
+/// Supported assistive technologies and platform features.
+class AccessibilitySupport {
+    @Form([
+        Field('targetScreenReaders', String, 'Target Screen Readers',
+                hint: 'NVDA, JAWS, VoiceOver, TalkBack'),
+        Field('targetBrowserAccessibility', String, 'Target Browser Accessibility',
+                hint: 'Browser accessibility features used'),
+    ])
+    String? content;
+}
+
 /// 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
 class WcagCompliance {
   @Form([
-    // Perceivable
     Field('textAlternatives', String, 'Text Alternatives (1.1)',
         hint: 'Alt text for non-text content'),
     Field('timeBased Media', String, 'Time-Based Media (1.2)',
@@ -4584,29 +4609,18 @@ class WcagCompliance {
         hint: 'Structure, sequence, sensory'),
     Field('distinguishableContent', String, 'Distinguishable (1.4)',
         hint: 'Color, contrast, resize, audio'),
-    // Operable
-    Field('keyboardAccessible', String, 'Keyboard Accessible (2.1)',
-        hint: 'Full keyboard operation'),
-    Field('enoughTime', String, 'Enough Time (2.2)',
-        hint: 'Adjustable timing, pause'),
-    Field('seizureSafe', String, 'Seizure Safe (2.3)',
-        hint: 'No flashing content'),
-    Field('navigable', String, 'Navigable (2.4)',
-        hint: 'Skip links, page titles, focus'),
-    Field('inputModalities', String, 'Input Modalities (2.5)',
-        hint: 'Pointer, motion, touch'),
-    // Understandable
-    Field('readable', String, 'Readable (3.1)',
-        hint: 'Language, abbreviations'),
-    Field('predictable', String, 'Predictable (3.2)',
-        hint: 'Consistent navigation, identification'),
-    Field('inputAssistance', String, 'Input Assistance (3.3)',
-        hint: 'Error prevention, labels, suggestions'),
-    // Robust
-    Field('compatible', String, 'Compatible (4.1)',
-        hint: 'Parsing, name/role/value'),
   ])
   String? wcagComplianceContent;
+
+  /// Operable principles.
+  WcagComplianceOperable operable = WcagComplianceOperable();
+
+  /// Understandable principles.
+  WcagComplianceUnderstandable understandable =
+      WcagComplianceUnderstandable();
+
+  /// Robustness requirements.
+  WcagComplianceRobust robust = WcagComplianceRobust();
 
   /// WCAG compliance narrative.
   TextSection wcagNarrative = TextSection();
@@ -4614,6 +4628,45 @@ class WcagCompliance {
   /// WCAG success criteria mapping.
   @SectionIdPattern('PD00-USE-ACC-WCA-SC-xx')
   List<WcagSuccessCriterionEntry> successCriteria = [];
+}
+
+/// Operable principles.
+class WcagComplianceOperable {
+    @Form([
+        Field('keyboardAccessible', String, 'Keyboard Accessible (2.1)',
+                hint: 'Full keyboard operation'),
+        Field('enoughTime', String, 'Enough Time (2.2)',
+                hint: 'Adjustable timing, pause'),
+        Field('seizureSafe', String, 'Seizure Safe (2.3)',
+                hint: 'No flashing content'),
+        Field('navigable', String, 'Navigable (2.4)',
+                hint: 'Skip links, page titles, focus'),
+        Field('inputModalities', String, 'Input Modalities (2.5)',
+                hint: 'Pointer, motion, touch'),
+    ])
+    String? content;
+}
+
+/// Understandable principles.
+class WcagComplianceUnderstandable {
+    @Form([
+        Field('readable', String, 'Readable (3.1)',
+                hint: 'Language, abbreviations'),
+        Field('predictable', String, 'Predictable (3.2)',
+                hint: 'Consistent navigation, identification'),
+        Field('inputAssistance', String, 'Input Assistance (3.3)',
+                hint: 'Error prevention, labels, suggestions'),
+    ])
+    String? content;
+}
+
+/// Robustness requirements.
+class WcagComplianceRobust {
+    @Form([
+        Field('compatible', String, 'Compatible (4.1)',
+                hint: 'Parsing, name/role/value'),
+    ])
+    String? content;
 }
 
 /// A WCAG success criterion entry [PD00-USE-ACC-WCA-SC-nn].
@@ -4974,7 +5027,6 @@ class UiComponents {
   // Component Library Overview
   // ─────────────────────────────────────────────────────────────────────────
   @Form([
-    // Design system identification
     Field('designSystemName', String, 'Design System Name',
         hint: 'Name of the design system (e.g., "Acme Design System")'),
     Field('designSystemVersion', String, 'Design System Version'),
@@ -4982,29 +5034,18 @@ class UiComponents {
         hint: 'Material Design 3, Cupertino, Custom'),
     Field('tomFlutterUiIntegration', bool, 'Tom Flutter UI Integration',
         hint: 'Uses tom_flutter_ui component library'),
-    // Visual language
-    Field('visualLanguage', String, 'Visual Language',
-        hint: 'Clean, playful, professional, minimal'),
-    Field('brandAlignment', String, 'Brand Alignment',
-        hint: 'How design aligns with brand guidelines'),
-    Field('motionPrinciples', String, 'Motion Principles',
-        hint: 'Animation philosophy: subtle, expressive, functional'),
-    // Component approach
-    Field('componentGranularity', String, 'Component Granularity',
-        hint: 'Atomic design levels: atoms, molecules, organisms'),
-    Field('componentNaming', String, 'Component Naming Convention',
-        hint: 'PascalCase, kebab-case, prefix rules'),
-    Field('componentDocumentation', String, 'Component Documentation',
-        hint: 'Storybook, living style guide, doc site'),
-    // Extension and customization
-    Field('extensionModel', String, 'Extension Model',
-        hint: 'How components can be extended or themed'),
-    Field('themingApproach', String, 'Theming Approach',
-        hint: 'Token-based, widget-level, theme data'),
-    Field('customizationBoundaries', String, 'Customization Boundaries',
-        hint: 'What can vs. cannot be customized'),
   ])
   String? componentLibraryOverview;
+
+  /// Visual language and brand alignment.
+  UiComponentsVisualLanguage visualLanguage = UiComponentsVisualLanguage();
+
+  /// Component naming and documentation approach.
+  UiComponentsComponentApproach componentApproach =
+      UiComponentsComponentApproach();
+
+  /// Extension and theming boundaries.
+  UiComponentsCustomization customization = UiComponentsCustomization();
 
   /// 10.11.1. Component Library [PD00-USE-COM-LIB].
   @SectionId('PD00-USE-COM-LIB')
@@ -5017,6 +5058,45 @@ class UiComponents {
   /// 10.11.3. Component Families [PD00-USE-COM-FAM] — contains 0+×.
   @SectionIdPattern('PD00-USE-COM-FAM-xx')
   List<ComponentFamilyEntry> componentFamilies = [];
+}
+
+/// Visual language and brand alignment.
+class UiComponentsVisualLanguage {
+    @Form([
+        Field('visualLanguage', String, 'Visual Language',
+                hint: 'Clean, playful, professional, minimal'),
+        Field('brandAlignment', String, 'Brand Alignment',
+                hint: 'How design aligns with brand guidelines'),
+        Field('motionPrinciples', String, 'Motion Principles',
+                hint: 'Animation philosophy: subtle, expressive, functional'),
+    ])
+    String? content;
+}
+
+/// Component naming and documentation approach.
+class UiComponentsComponentApproach {
+    @Form([
+        Field('componentGranularity', String, 'Component Granularity',
+                hint: 'Atomic design levels: atoms, molecules, organisms'),
+        Field('componentNaming', String, 'Component Naming Convention',
+                hint: 'PascalCase, kebab-case, prefix rules'),
+        Field('componentDocumentation', String, 'Component Documentation',
+                hint: 'Storybook, living style guide, doc site'),
+    ])
+    String? content;
+}
+
+/// Extension and theming boundaries.
+class UiComponentsCustomization {
+    @Form([
+        Field('extensionModel', String, 'Extension Model',
+                hint: 'How components can be extended or themed'),
+        Field('themingApproach', String, 'Theming Approach',
+                hint: 'Token-based, widget-level, theme data'),
+        Field('customizationBoundaries', String, 'Customization Boundaries',
+                hint: 'What can vs. cannot be customized'),
+    ])
+    String? content;
 }
 
 /// 10.11.1. Component Library [PD00-USE-COM-LIB].
@@ -5521,29 +5601,57 @@ class ComponentStateEntry {
     Field('stateName', String, 'State Name', required: true,
         hint: 'Loading, Empty, Error, Disabled, etc.'),
     Field('stateDescription', String, 'State Description'),
-    // Visual appearance in state
-    Field('visualChanges', String, 'Visual Changes',
-        hint: 'How appearance changes in this state'),
-    Field('colorOverrides', String, 'Color Overrides'),
-    Field('opacityChange', String, 'Opacity Change'),
-    Field('iconChange', String, 'Icon Change'),
-    Field('textChange', String, 'Text Change'),
-    // Behavior in state
-    Field('interactionChanges', String, 'Interaction Changes',
-        hint: 'How interactions change'),
-    Field('accessibilityState', String, 'Accessibility State',
-        hint: 'Screen reader announcements'),
-    // Transitions
-    Field('entryTrigger', String, 'Entry Trigger',
-        hint: 'What causes entry to this state'),
-    Field('exitTrigger', String, 'Exit Trigger',
-        hint: 'What causes exit from this state'),
-    Field('transitionAnimation', String, 'Transition Animation'),
   ])
   String? content;
 
+    /// Visual appearance in this state.
+    ComponentStateEntryVisual visual = ComponentStateEntryVisual();
+
+    /// Behavior and accessibility changes in this state.
+    ComponentStateEntryBehavior behavior = ComponentStateEntryBehavior();
+
+    /// Entry and exit transition rules.
+    ComponentStateEntryTransitions transitions =
+            ComponentStateEntryTransitions();
+
   /// State visual mockup.
   DiagramSection stateMockup = DiagramSection();
+}
+
+/// Visual appearance in this state.
+class ComponentStateEntryVisual {
+    @Form([
+        Field('visualChanges', String, 'Visual Changes',
+                hint: 'How appearance changes in this state'),
+        Field('colorOverrides', String, 'Color Overrides'),
+        Field('opacityChange', String, 'Opacity Change'),
+        Field('iconChange', String, 'Icon Change'),
+        Field('textChange', String, 'Text Change'),
+    ])
+    String? content;
+}
+
+/// Behavior and accessibility changes in this state.
+class ComponentStateEntryBehavior {
+    @Form([
+        Field('interactionChanges', String, 'Interaction Changes',
+                hint: 'How interactions change'),
+        Field('accessibilityState', String, 'Accessibility State',
+                hint: 'Screen reader announcements'),
+    ])
+    String? content;
+}
+
+/// Entry and exit transition rules.
+class ComponentStateEntryTransitions {
+    @Form([
+        Field('entryTrigger', String, 'Entry Trigger',
+                hint: 'What causes entry to this state'),
+        Field('exitTrigger', String, 'Exit Trigger',
+                hint: 'What causes exit from this state'),
+        Field('transitionAnimation', String, 'Transition Animation'),
+    ])
+    String? content;
 }
 
 /// A component variant entry [PD00-USE-COM-SPE-nn-VAR-nn].

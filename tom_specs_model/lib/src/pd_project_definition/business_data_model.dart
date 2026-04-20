@@ -976,22 +976,55 @@ class BusinessObjectAttributeEntry {
         hint: 'Business meaning of this attribute'),
     Field('type', String, 'Type',
         hint: 'Business type: Text | Number | Money | Date | DateTime | Boolean | Enum | Reference'),
+  ])
+  String? content;
+
+  /// Format and requirement details.
+  BusinessObjectAttributeEntryDefinition definition =
+      BusinessObjectAttributeEntryDefinition();
+
+  /// Validation and derivation rules.
+  BusinessObjectAttributeEntryValidation validation =
+      BusinessObjectAttributeEntryValidation();
+
+  /// Sensitivity and presentation guidance.
+  BusinessObjectAttributeEntryGovernance governance =
+      BusinessObjectAttributeEntryGovernance();
+}
+
+/// Format and requirement details for a business object attribute.
+class BusinessObjectAttributeEntryDefinition {
+  @Form([
     Field('format', String, 'Format',
         hint: 'Business format (e.g., currency, percentage, phone)'),
     Field('mandatory', String, 'Mandatory',
         hint: 'Required | Optional | ConditionallyRequired'),
     Field('defaultValue', String, 'Default Value',
         hint: 'Default value or derivation'),
+  ])
+  String? content;
+}
+
+/// Validation and derivation rules for a business object attribute.
+class BusinessObjectAttributeEntryValidation {
+  @Form([
     Field('validationRules', String, 'Validation Rules',
         hint: 'Business validation rules'),
     Field('allowedValues', String, 'Allowed Values',
         hint: 'Enumerated values or range'),
-    Field('sensitivityLevel', String, 'Sensitivity Level',
-        hint: 'Public | Internal | Confidential | PII | PHI'),
     Field('businessRules', String, 'Business Rules',
         hint: 'Rules affecting this attribute'),
     Field('derivation', String, 'Derivation',
         hint: 'How value is derived if calculated'),
+  ])
+  String? content;
+}
+
+/// Sensitivity and presentation guidance for a business object attribute.
+class BusinessObjectAttributeEntryGovernance {
+  @Form([
+    Field('sensitivityLevel', String, 'Sensitivity Level',
+        hint: 'Public | Internal | Confidential | PII | PHI'),
     Field('displayOrder', String, 'Display Order',
         hint: 'Order for UI presentation'),
   ])

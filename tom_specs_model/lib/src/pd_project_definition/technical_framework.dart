@@ -2945,39 +2945,64 @@ class SoftwareLayerEntryTechnology {
 /// Layer communication rules and constraints.
 class LayerCommunicationRules {
   @Form([
-    // Communication patterns
     Field('communicationDirection', String, 'Communication Direction',
         hint: 'Top-down only, bottom-up callbacks, etc.'),
     Field('dependencyRule', String, 'Dependency Rule',
         hint: 'Dependencies always point inward/downward'),
     Field('abstractionPrinciple', String, 'Abstraction Principle',
         hint: 'Dependency inversion, interface segregation'),
+  ])
+  String? content;
 
-    // Interface requirements
-    Field('interfaceRequirements', String, 'Interface Requirements',
-        hint: 'Whether interfaces required at boundaries'),
-    Field('dtoUsage', String, 'DTO Usage',
-        hint: 'Data Transfer Object patterns between layers'),
-    Field('mappingStrategy', String, 'Mapping Strategy',
-        hint: 'How data is mapped between layers'),
+  /// Interface requirements between layers.
+  LayerCommunicationRulesInterfaces interfaces =
+    LayerCommunicationRulesInterfaces();
 
-    // Cross-layer communication
-    Field('eventPropagation', String, 'Event Propagation',
-        hint: 'How events flow across layers'),
-    Field('exceptionHandling', String, 'Exception Handling',
-        hint: 'How exceptions propagate across layers'),
-    Field('loggingPropagation', String, 'Logging Propagation',
-        hint: 'How logging context flows'),
+  /// Cross-layer event and exception flow.
+  LayerCommunicationRulesFlow flow = LayerCommunicationRulesFlow();
 
-    // Validation
-    Field('validationResponsibility', String, 'Validation Responsibility',
-        hint: 'Which layer validates what'),
-    Field('boundaryEnforcement', String, 'Boundary Enforcement',
-        hint: 'How layer boundaries are enforced'),
-    Field('violationDetection', String, 'Violation Detection',
-        hint: 'How boundary violations are detected'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional layer communication notes'),
+  /// Boundary enforcement and validation rules.
+  LayerCommunicationRulesGovernance governance =
+    LayerCommunicationRulesGovernance();
+}
+
+/// Interface requirements between layers.
+class LayerCommunicationRulesInterfaces {
+  @Form([
+  Field('interfaceRequirements', String, 'Interface Requirements',
+    hint: 'Whether interfaces required at boundaries'),
+  Field('dtoUsage', String, 'DTO Usage',
+    hint: 'Data Transfer Object patterns between layers'),
+  Field('mappingStrategy', String, 'Mapping Strategy',
+    hint: 'How data is mapped between layers'),
+  ])
+  String? content;
+}
+
+/// Cross-layer event and exception flow.
+class LayerCommunicationRulesFlow {
+  @Form([
+  Field('eventPropagation', String, 'Event Propagation',
+    hint: 'How events flow across layers'),
+  Field('exceptionHandling', String, 'Exception Handling',
+    hint: 'How exceptions propagate across layers'),
+  Field('loggingPropagation', String, 'Logging Propagation',
+    hint: 'How logging context flows'),
+  ])
+  String? content;
+}
+
+/// Boundary enforcement and validation rules.
+class LayerCommunicationRulesGovernance {
+  @Form([
+  Field('validationResponsibility', String, 'Validation Responsibility',
+    hint: 'Which layer validates what'),
+  Field('boundaryEnforcement', String, 'Boundary Enforcement',
+    hint: 'How layer boundaries are enforced'),
+  Field('violationDetection', String, 'Violation Detection',
+    hint: 'How boundary violations are detected'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional layer communication notes'),
   ])
   String? content;
 }
@@ -13279,39 +13304,65 @@ class MaintenanceWindowEntryRollback {
 /// Emergency maintenance procedures.
 class EmergencyMaintenanceProcedures {
   @Form([
-    // Triggers
     Field('emergencyTriggers', String, 'Emergency Triggers',
         hint: 'What triggers emergency maintenance'),
     Field('securityPatchPolicy', String, 'Security Patch Policy',
         hint: 'Critical security patch handling'),
     Field('severityThresholds', String, 'Severity Thresholds',
         hint: 'What severity warrants emergency'),
+  ])
+  String? content;
 
-    // Authorization
-    Field('emergencyApproval', String, 'Emergency Approval',
-        hint: 'Who approves emergency work'),
-    Field('delegationOfAuthority', String, 'Delegation of Authority',
-        hint: 'Backup approvers'),
-    Field('documentationRequired', String, 'Documentation Required',
-        hint: 'Post-hoc documentation'),
+  /// Approval and documentation workflow.
+  EmergencyMaintenanceProceduresGovernance governance =
+    EmergencyMaintenanceProceduresGovernance();
 
-    // Notification
-    Field('emergencyNotice', String, 'Emergency Notice',
-        hint: 'Minimum notice for emergency'),
-    Field('notificationChannels', String, 'Notification Channels',
-        hint: 'Emergency notification channels'),
-    Field('stakeholderEscalation', String, 'Stakeholder Escalation',
-        hint: 'How stakeholders are informed'),
+  /// Notification and stakeholder handling.
+  EmergencyMaintenanceProceduresCommunication communication =
+    EmergencyMaintenanceProceduresCommunication();
 
-    // Execution
-    Field('teamAssembly', String, 'Team Assembly',
-        hint: 'How response team assembles'),
-    Field('maxEmergencyDuration', String, 'Max Emergency Duration',
-        hint: 'Maximum emergency window'),
-    Field('postEmergencyReview', bool, 'Post-Emergency Review',
-        hint: 'Mandatory review after'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional emergency notes'),
+  /// Execution and follow-up details.
+  EmergencyMaintenanceProceduresExecution execution =
+    EmergencyMaintenanceProceduresExecution();
+}
+
+/// Approval and documentation workflow for emergency maintenance.
+class EmergencyMaintenanceProceduresGovernance {
+  @Form([
+  Field('emergencyApproval', String, 'Emergency Approval',
+    hint: 'Who approves emergency work'),
+  Field('delegationOfAuthority', String, 'Delegation of Authority',
+    hint: 'Backup approvers'),
+  Field('documentationRequired', String, 'Documentation Required',
+    hint: 'Post-hoc documentation'),
+  ])
+  String? content;
+}
+
+/// Notification and stakeholder handling for emergency maintenance.
+class EmergencyMaintenanceProceduresCommunication {
+  @Form([
+  Field('emergencyNotice', String, 'Emergency Notice',
+    hint: 'Minimum notice for emergency'),
+  Field('notificationChannels', String, 'Notification Channels',
+    hint: 'Emergency notification channels'),
+  Field('stakeholderEscalation', String, 'Stakeholder Escalation',
+    hint: 'How stakeholders are informed'),
+  ])
+  String? content;
+}
+
+/// Execution and follow-up details for emergency maintenance.
+class EmergencyMaintenanceProceduresExecution {
+  @Form([
+  Field('teamAssembly', String, 'Team Assembly',
+    hint: 'How response team assembles'),
+  Field('maxEmergencyDuration', String, 'Max Emergency Duration',
+    hint: 'Maximum emergency window'),
+  Field('postEmergencyReview', bool, 'Post-Emergency Review',
+    hint: 'Mandatory review after'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional emergency notes'),
   ])
   String? content;
 }
@@ -14035,39 +14086,62 @@ class MessageFormatStandardsTransport {
 /// Rate limiting and throttling.
 class RateLimitingPolicy {
   @Form([
-    // Strategy
     Field('rateLimitingStrategy', String, 'Rate Limiting Strategy',
         required: true, hint: 'Token bucket, sliding window, fixed window'),
     Field('rateLimitScope', String, 'Rate Limit Scope',
         hint: 'Global, per-client, per-endpoint, per-tenant'),
+  ])
+  String? content;
 
-    // Limits
-    Field('globalRateLimit', String, 'Global Rate Limit',
-        hint: 'Requests per second/minute overall'),
-    Field('perClientLimit', String, 'Per-Client Limit',
-        hint: 'Rate limit per API key/client'),
-    Field('perEndpointLimit', String, 'Per-Endpoint Limit',
-        hint: 'Rate limit per API endpoint'),
-    Field('burstAllowance', String, 'Burst Allowance',
-        hint: 'Short burst above steady-state limit'),
+  /// Rate-limit ceilings and burst handling.
+  RateLimitingPolicyLimits limits = RateLimitingPolicyLimits();
 
-    // Behavior
-    Field('throttlingBehavior', String, 'Throttling Behavior',
-        hint: 'HTTP 429, queue, graceful degrade'),
-    Field('retryAfterHeader', bool, 'Retry-After Header',
-        hint: 'Include Retry-After in 429 responses'),
-    Field('rateLimitHeaders', bool, 'Rate Limit Headers',
-        hint: 'X-RateLimit-* response headers'),
+  /// Runtime response behavior when limits are exceeded.
+  RateLimitingPolicyBehavior behavior = RateLimitingPolicyBehavior();
 
-    // Quotas
-    Field('quotaManagement', String, 'Quota Management',
-        hint: 'Daily/monthly quotas per subscription tier'),
-    Field('quotaResetPolicy', String, 'Quota Reset Policy',
-        hint: 'Calendar-based, rolling window'),
-    Field('exemptions', String, 'Exemptions',
-        hint: 'Services or clients exempt from limits'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional rate limiting notes'),
+  /// Quota management and exceptions.
+  RateLimitingPolicyQuotas quotas = RateLimitingPolicyQuotas();
+}
+
+/// Rate-limit ceilings and burst handling.
+class RateLimitingPolicyLimits {
+  @Form([
+  Field('globalRateLimit', String, 'Global Rate Limit',
+    hint: 'Requests per second/minute overall'),
+  Field('perClientLimit', String, 'Per-Client Limit',
+    hint: 'Rate limit per API key/client'),
+  Field('perEndpointLimit', String, 'Per-Endpoint Limit',
+    hint: 'Rate limit per API endpoint'),
+  Field('burstAllowance', String, 'Burst Allowance',
+    hint: 'Short burst above steady-state limit'),
+  ])
+  String? content;
+}
+
+/// Runtime response behavior when limits are exceeded.
+class RateLimitingPolicyBehavior {
+  @Form([
+  Field('throttlingBehavior', String, 'Throttling Behavior',
+    hint: 'HTTP 429, queue, graceful degrade'),
+  Field('retryAfterHeader', bool, 'Retry-After Header',
+    hint: 'Include Retry-After in 429 responses'),
+  Field('rateLimitHeaders', bool, 'Rate Limit Headers',
+    hint: 'X-RateLimit-* response headers'),
+  ])
+  String? content;
+}
+
+/// Quota management and exceptions.
+class RateLimitingPolicyQuotas {
+  @Form([
+  Field('quotaManagement', String, 'Quota Management',
+    hint: 'Daily/monthly quotas per subscription tier'),
+  Field('quotaResetPolicy', String, 'Quota Reset Policy',
+    hint: 'Calendar-based, rolling window'),
+  Field('exemptions', String, 'Exemptions',
+    hint: 'Services or clients exempt from limits'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional rate limiting notes'),
   ])
   String? content;
 }
@@ -14075,7 +14149,6 @@ class RateLimitingPolicy {
 /// Protocol compliance requirements.
 class ProtocolComplianceRequirements {
   @Form([
-    // HTTP security
     Field('corsPolicy', String, 'CORS Policy',
         hint: 'Allowed origins, methods, headers'),
     Field('contentSecurityPolicy', String, 'Content Security Policy',
@@ -14084,30 +14157,57 @@ class ProtocolComplianceRequirements {
         hint: 'X-Frame-Options, X-Content-Type-Options'),
     Field('cookiePolicy', String, 'Cookie Policy',
         hint: 'SameSite, Secure, HttpOnly attributes'),
+  ])
+  String? content;
 
-    // Caching
-    Field('cachingPolicy', String, 'Caching Policy',
-        hint: 'Cache-Control, ETag, If-Modified-Since'),
-    Field('cdnIntegration', String, 'CDN Integration',
-        hint: 'CDN caching strategy and invalidation'),
+  /// Caching requirements.
+  ProtocolComplianceRequirementsCaching caching =
+    ProtocolComplianceRequirementsCaching();
 
-    // Observability
-    Field('requestLogging', String, 'Request Logging',
-        hint: 'Request/response logging, PII redaction'),
-    Field('distributedTracing', String, 'Distributed Tracing',
-        hint: 'Correlation IDs, W3C Trace Context, OpenTelemetry'),
-    Field('tracePropagation', String, 'Trace Propagation',
-        hint: 'Header format for trace context propagation'),
+  /// Request logging and trace propagation rules.
+  ProtocolComplianceRequirementsObservability observability =
+    ProtocolComplianceRequirementsObservability();
 
-    // Event standards
-    Field('webhookStandards', String, 'Webhook Standards',
-        hint: 'Signature verification, retry policy'),
-    Field('eventStreamStandards', String, 'Event Stream Standards',
-        hint: 'SSE, CloudEvents format'),
-    Field('healthEndpointStandard', String, 'Health Endpoint Standard',
-        hint: '/health, /ready, /live conventions'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional compliance notes'),
+  /// Webhook, event, and health endpoint standards.
+  ProtocolComplianceRequirementsEvents events =
+    ProtocolComplianceRequirementsEvents();
+}
+
+/// Caching requirements.
+class ProtocolComplianceRequirementsCaching {
+  @Form([
+  Field('cachingPolicy', String, 'Caching Policy',
+    hint: 'Cache-Control, ETag, If-Modified-Since'),
+  Field('cdnIntegration', String, 'CDN Integration',
+    hint: 'CDN caching strategy and invalidation'),
+  ])
+  String? content;
+}
+
+/// Request logging and trace propagation rules.
+class ProtocolComplianceRequirementsObservability {
+  @Form([
+  Field('requestLogging', String, 'Request Logging',
+    hint: 'Request/response logging, PII redaction'),
+  Field('distributedTracing', String, 'Distributed Tracing',
+    hint: 'Correlation IDs, W3C Trace Context, OpenTelemetry'),
+  Field('tracePropagation', String, 'Trace Propagation',
+    hint: 'Header format for trace context propagation'),
+  ])
+  String? content;
+}
+
+/// Webhook, event, and health endpoint standards.
+class ProtocolComplianceRequirementsEvents {
+  @Form([
+  Field('webhookStandards', String, 'Webhook Standards',
+    hint: 'Signature verification, retry policy'),
+  Field('eventStreamStandards', String, 'Event Stream Standards',
+    hint: 'SSE, CloudEvents format'),
+  Field('healthEndpointStandard', String, 'Health Endpoint Standard',
+    hint: '/health, /ready, /live conventions'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional compliance notes'),
   ])
   String? content;
 }
@@ -14593,7 +14693,6 @@ class NetworkSecurityPolicyDns {
 /// Service mesh and API gateway.
 class ServiceMeshAndGateway {
   @Form([
-    // API gateway
     Field('apiGateway', String, 'API Gateway',
         hint: 'Kong, AWS API Gateway, Apigee, Azure APIM'),
     Field('gatewayFeatures', String, 'Gateway Features',
@@ -14602,28 +14701,45 @@ class ServiceMeshAndGateway {
         hint: 'Multi-region or multi-zone gateway'),
     Field('apiKeyManagement', String, 'API Key Management',
         hint: 'Developer portal, key provisioning'),
+  ])
+  String? content;
 
-    // Service mesh
-    Field('serviceMesh', String, 'Service Mesh',
-        hint: 'Istio, Linkerd, Consul Connect'),
-    Field('sidecarProxy', String, 'Sidecar Proxy',
-        hint: 'Envoy, HAProxy, custom'),
-    Field('trafficPolicy', String, 'Traffic Policy',
-        hint: 'Retries, timeouts, circuit breaking'),
-    Field('mtlsEnabled', bool, 'mTLS Enabled',
-        hint: 'Mutual TLS for internal traffic'),
+  /// Service mesh configuration.
+  ServiceMeshAndGatewayMesh mesh = ServiceMeshAndGatewayMesh();
 
-    // Load balancing
-    Field('loadBalancerType', String, 'Load Balancer Type',
-        hint: 'Application LB, Network LB, internal'),
-    Field('loadBalancingAlgorithm', String, 'Load Balancing Algorithm',
-        hint: 'Round-robin, least-connections, weighted'),
-    Field('healthCheckEndpoint', String, 'Health Check Endpoint',
-        hint: 'LB health check path and interval'),
-    Field('sslTermination', String, 'SSL Termination',
-        hint: 'At load balancer, gateway, or application'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional gateway/mesh notes'),
+  /// Load balancing and termination rules.
+  ServiceMeshAndGatewayLoadBalancing loadBalancing =
+    ServiceMeshAndGatewayLoadBalancing();
+}
+
+/// Service mesh configuration.
+class ServiceMeshAndGatewayMesh {
+  @Form([
+  Field('serviceMesh', String, 'Service Mesh',
+    hint: 'Istio, Linkerd, Consul Connect'),
+  Field('sidecarProxy', String, 'Sidecar Proxy',
+    hint: 'Envoy, HAProxy, custom'),
+  Field('trafficPolicy', String, 'Traffic Policy',
+    hint: 'Retries, timeouts, circuit breaking'),
+  Field('mtlsEnabled', bool, 'mTLS Enabled',
+    hint: 'Mutual TLS for internal traffic'),
+  ])
+  String? content;
+}
+
+/// Load balancing and termination rules.
+class ServiceMeshAndGatewayLoadBalancing {
+  @Form([
+  Field('loadBalancerType', String, 'Load Balancer Type',
+    hint: 'Application LB, Network LB, internal'),
+  Field('loadBalancingAlgorithm', String, 'Load Balancing Algorithm',
+    hint: 'Round-robin, least-connections, weighted'),
+  Field('healthCheckEndpoint', String, 'Health Check Endpoint',
+    hint: 'LB health check path and interval'),
+  Field('sslTermination', String, 'SSL Termination',
+    hint: 'At load balancer, gateway, or application'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional gateway/mesh notes'),
   ])
   String? content;
 }
@@ -15198,7 +15314,6 @@ class AdminEnvironmentManagement {
 /// System diagnostic tools.
 class SystemDiagnosticTools {
   @Form([
-    // Debugging
     Field('remoteDebugging', bool, 'Remote Debugging',
         hint: 'Attach debugger to running service'),
     Field('profiling', String, 'Profiling',
@@ -15207,30 +15322,55 @@ class SystemDiagnosticTools {
         hint: 'Capture thread/goroutine dumps'),
     Field('heapDumpCapability', bool, 'Heap Dump Capability',
         hint: 'Capture memory heap dumps'),
+  ])
+  String? content;
 
-    // Tracing
-    Field('requestTracing', String, 'Request Tracing',
-        hint: 'End-to-end request trace viewer'),
-    Field('slowQueryAnalysis', bool, 'Slow Query Analysis',
-        hint: 'Identify slow database queries'),
-    Field('dependencyMapping', bool, 'Dependency Mapping',
-        hint: 'Visualize service dependencies'),
+  /// Trace and dependency inspection tools.
+  SystemDiagnosticToolsTracing tracing = SystemDiagnosticToolsTracing();
 
-    // Log analysis
-    Field('logAggregation', String, 'Log Aggregation',
-        hint: 'ELK, Loki, CloudWatch Logs'),
-    Field('logSearchCapability', String, 'Log Search',
-        hint: 'Full-text search across logs'),
-    Field('correlatedLogView', bool, 'Correlated Log View',
-        hint: 'View logs across services by trace ID'),
+  /// Log analysis capabilities.
+  SystemDiagnosticToolsLogs logs = SystemDiagnosticToolsLogs();
 
-    // Self-service
-    Field('adminDiagnosticEndpoints', String, 'Diagnostic Endpoints',
-        hint: '/info, /env, /metrics endpoints'),
-    Field('databaseQueryConsole', bool, 'Database Query Console',
-        hint: 'Read-only query interface for admins'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional diagnostic tool notes'),
+  /// Self-service diagnostic entry points.
+  SystemDiagnosticToolsSelfService selfService =
+    SystemDiagnosticToolsSelfService();
+}
+
+/// Trace and dependency inspection tools.
+class SystemDiagnosticToolsTracing {
+  @Form([
+  Field('requestTracing', String, 'Request Tracing',
+    hint: 'End-to-end request trace viewer'),
+  Field('slowQueryAnalysis', bool, 'Slow Query Analysis',
+    hint: 'Identify slow database queries'),
+  Field('dependencyMapping', bool, 'Dependency Mapping',
+    hint: 'Visualize service dependencies'),
+  ])
+  String? content;
+}
+
+/// Log analysis capabilities.
+class SystemDiagnosticToolsLogs {
+  @Form([
+  Field('logAggregation', String, 'Log Aggregation',
+    hint: 'ELK, Loki, CloudWatch Logs'),
+  Field('logSearchCapability', String, 'Log Search',
+    hint: 'Full-text search across logs'),
+  Field('correlatedLogView', bool, 'Correlated Log View',
+    hint: 'View logs across services by trace ID'),
+  ])
+  String? content;
+}
+
+/// Self-service diagnostic entry points.
+class SystemDiagnosticToolsSelfService {
+  @Form([
+  Field('adminDiagnosticEndpoints', String, 'Diagnostic Endpoints',
+    hint: '/info, /env, /metrics endpoints'),
+  Field('databaseQueryConsole', bool, 'Database Query Console',
+    hint: 'Read-only query interface for admins'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional diagnostic tool notes'),
   ])
   String? content;
 }
@@ -16515,39 +16655,65 @@ class LogAggregationRequirementsAnalysis {
 /// Troubleshooting capabilities.
 class TroubleshootingCapabilities {
   @Form([
-    // Debugging
     Field('debugMode', String, 'Debug Mode',
         hint: 'How to enable verbose diagnostics'),
     Field('diagnosticDump', bool, 'Diagnostic Dump',
         hint: 'Generate full diagnostic report on demand'),
     Field('replayCapability', bool, 'Replay Capability',
         hint: 'Replay failed requests for analysis'),
+  ])
+  String? content;
 
-    // Runbooks
-    Field('runbookIntegration', bool, 'Runbook Integration',
-        hint: 'Link alerts to troubleshooting runbooks'),
-    Field('automatedRemediation', String, 'Automated Remediation',
-        hint: 'Auto-fix for known issues (restart, scale)'),
-    Field('incidentTimeline', bool, 'Incident Timeline',
-        hint: 'Correlated event timeline for incidents'),
+  /// Runbook and remediation support.
+  TroubleshootingCapabilitiesRunbooks runbooks =
+    TroubleshootingCapabilitiesRunbooks();
 
-    // Access
-    Field('productionShellAccess', String, 'Production Shell Access',
-        hint: 'Break-glass SSH/exec with audit'),
-    Field('databaseReadAccess', String, 'Database Read Access',
-        hint: 'Read-only query for production DB'),
-    Field('networkDiagnostics', bool, 'Network Diagnostics',
-        hint: 'Ping, traceroute, DNS lookup tools'),
+  /// Break-glass and diagnostic access controls.
+  TroubleshootingCapabilitiesAccess access =
+    TroubleshootingCapabilitiesAccess();
 
-    // Communication
-    Field('statusPageIntegration', String, 'Status Page Integration',
-        hint: 'Statuspage.io, Instatus, custom'),
-    Field('warRoomTools', String, 'War Room Tools',
-        hint: 'Incident collaboration (Slack channel, Zoom)'),
-    Field('postmortemProcess', String, 'Postmortem Process',
-        hint: 'Blameless postmortem template and workflow'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional troubleshooting notes'),
+  /// Incident communication and retrospective support.
+  TroubleshootingCapabilitiesCommunication communication =
+    TroubleshootingCapabilitiesCommunication();
+}
+
+/// Runbook and remediation support.
+class TroubleshootingCapabilitiesRunbooks {
+  @Form([
+  Field('runbookIntegration', bool, 'Runbook Integration',
+    hint: 'Link alerts to troubleshooting runbooks'),
+  Field('automatedRemediation', String, 'Automated Remediation',
+    hint: 'Auto-fix for known issues (restart, scale)'),
+  Field('incidentTimeline', bool, 'Incident Timeline',
+    hint: 'Correlated event timeline for incidents'),
+  ])
+  String? content;
+}
+
+/// Break-glass and diagnostic access controls.
+class TroubleshootingCapabilitiesAccess {
+  @Form([
+  Field('productionShellAccess', String, 'Production Shell Access',
+    hint: 'Break-glass SSH/exec with audit'),
+  Field('databaseReadAccess', String, 'Database Read Access',
+    hint: 'Read-only query for production DB'),
+  Field('networkDiagnostics', bool, 'Network Diagnostics',
+    hint: 'Ping, traceroute, DNS lookup tools'),
+  ])
+  String? content;
+}
+
+/// Incident communication and retrospective support.
+class TroubleshootingCapabilitiesCommunication {
+  @Form([
+  Field('statusPageIntegration', String, 'Status Page Integration',
+    hint: 'Statuspage.io, Instatus, custom'),
+  Field('warRoomTools', String, 'War Room Tools',
+    hint: 'Incident collaboration (Slack channel, Zoom)'),
+  Field('postmortemProcess', String, 'Postmortem Process',
+    hint: 'Blameless postmortem template and workflow'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional troubleshooting notes'),
   ])
   String? content;
 }
@@ -18694,7 +18860,6 @@ class PenetrationTestingRequirementsReporting {
 /// security-oriented review requirements.
 class SecurityCodeReviewPolicy {
   @Form([
-    // Review scope
     Field('securityReviewTriggers', String, 'Security Review Triggers',
         required: true,
         hint:
@@ -18704,36 +18869,63 @@ class SecurityCodeReviewPolicy {
             'Authentication, authorization, input validation, cryptography, session management'),
     Field('reviewMethodology', String, 'Review Methodology',
         hint: 'OWASP Code Review Guide, CWE/SANS Top 25, manual + automated'),
+  ])
+  String? content;
 
-    // Reviewers
-    Field('securityReviewerRequirements', String, 'Reviewer Requirements',
-        required: true,
-        hint:
-            'Security training certifications, experience requirements for reviewers'),
-    Field('externalReviewCriteria', String, 'External Review Criteria',
-        hint: 'When external security review firm is engaged'),
-    Field('reviewerRotation', String, 'Reviewer Rotation',
-        hint: 'How security reviewers are rotated to avoid bias'),
+  /// Reviewer qualification and independence rules.
+  SecurityCodeReviewPolicyReviewers reviewers =
+    SecurityCodeReviewPolicyReviewers();
 
-    // Process
-    Field('securityChecklist', String, 'Security Checklist',
-        hint:
-            'OWASP Top 10, injection, XSS, CSRF, auth bypass, data exposure'),
-    Field('threatModelingIntegration', String, 'Threat Modeling Integration',
-        hint: 'How threat models inform code review focus areas'),
-    Field('securityAnnotations', String, 'Security Annotations',
-        hint:
-            'Code annotations marking security-critical sections for priority review'),
+  /// Review process guidance.
+  SecurityCodeReviewPolicyProcess process =
+    SecurityCodeReviewPolicyProcess();
 
-    // Findings
-    Field('findingClassification', String, 'Finding Classification',
-        hint: 'Vulnerability, weakness, informational, best-practice deviation'),
-    Field('findingTrackingProcess', String, 'Finding Tracking',
-        hint: 'How findings are tracked from discovery to resolution'),
-    Field('securityDebtManagement', String, 'Security Debt Management',
-        hint: 'How accepted security risks are documented and reviewed'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional security code review notes'),
+  /// Finding management and residual risk handling.
+  SecurityCodeReviewPolicyFindings findings =
+    SecurityCodeReviewPolicyFindings();
+}
+
+/// Reviewer qualification and independence rules.
+class SecurityCodeReviewPolicyReviewers {
+  @Form([
+  Field('securityReviewerRequirements', String, 'Reviewer Requirements',
+    required: true,
+    hint:
+      'Security training certifications, experience requirements for reviewers'),
+  Field('externalReviewCriteria', String, 'External Review Criteria',
+    hint: 'When external security review firm is engaged'),
+  Field('reviewerRotation', String, 'Reviewer Rotation',
+    hint: 'How security reviewers are rotated to avoid bias'),
+  ])
+  String? content;
+}
+
+/// Review process guidance for security-focused code review.
+class SecurityCodeReviewPolicyProcess {
+  @Form([
+  Field('securityChecklist', String, 'Security Checklist',
+    hint:
+      'OWASP Top 10, injection, XSS, CSRF, auth bypass, data exposure'),
+  Field('threatModelingIntegration', String, 'Threat Modeling Integration',
+    hint: 'How threat models inform code review focus areas'),
+  Field('securityAnnotations', String, 'Security Annotations',
+    hint:
+      'Code annotations marking security-critical sections for priority review'),
+  ])
+  String? content;
+}
+
+/// Finding management and residual risk handling.
+class SecurityCodeReviewPolicyFindings {
+  @Form([
+  Field('findingClassification', String, 'Finding Classification',
+    hint: 'Vulnerability, weakness, informational, best-practice deviation'),
+  Field('findingTrackingProcess', String, 'Finding Tracking',
+    hint: 'How findings are tracked from discovery to resolution'),
+  Field('securityDebtManagement', String, 'Security Debt Management',
+    hint: 'How accepted security risks are documented and reviewed'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional security code review notes'),
   ])
   String? content;
 }
