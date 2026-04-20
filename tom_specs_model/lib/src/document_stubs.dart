@@ -45,13 +45,12 @@ export 'tr_technical_requirements/tr_technical_requirements.dart';
 // Step 17 — UP (UI Prototype).
 export 'up_ui_prototype/up_ui_prototype.dart';
 
+// Step 18 — SR (System Rollout).
+export 'sr_system_rollout/sr_system_rollout.dart';
+
 // ---------------------------------------------------------------------------
 // Remaining stubs (replaced as their Phase B step runs).
 // ---------------------------------------------------------------------------
-
-/// Stub for SR (System Rollout). Phase B Step 18.
-/// Distinct from PD00-ROL class `SystemRolloutConcept`.
-class SystemRollout {}
 
 /// Stub for BQP (Business Quality Plan). Phase B Step 19.
 class BusinessQualityPlan {}
