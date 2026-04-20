@@ -1133,6 +1133,23 @@ class ObjectOperationEntry {
         hint: 'What this operation does'),
     Field('operationType', String, 'Operation Type',
         hint: 'Command | Query | Event'),
+  ])
+  String? content;
+
+  /// Execution contract for this operation.
+  ObjectOperationEntryExecution execution = ObjectOperationEntryExecution();
+
+  /// State and event lifecycle details.
+  ObjectOperationEntryLifecycle lifecycle = ObjectOperationEntryLifecycle();
+
+  /// Authorization and usage boundaries.
+  ObjectOperationEntryGovernance governance =
+      ObjectOperationEntryGovernance();
+}
+
+/// Execution contract for an object operation.
+class ObjectOperationEntryExecution {
+  @Form([
     Field('preconditions', String, 'Preconditions',
         hint: 'What must be true before operation'),
     Field('postconditions', String, 'Postconditions',
@@ -1141,12 +1158,26 @@ class ObjectOperationEntry {
         hint: 'Required inputs for this operation'),
     Field('outputResult', String, 'Output Result',
         hint: 'What the operation returns'),
+  ])
+  String? content;
+}
+
+/// State and event lifecycle details for an object operation.
+class ObjectOperationEntryLifecycle {
+  @Form([
     Field('businessRulesApplied', String, 'Business Rules Applied',
         hint: 'Rules evaluated during operation'),
     Field('stateTransitions', String, 'State Transitions',
         hint: 'Possible state changes'),
     Field('eventsPublished', String, 'Events Published',
         hint: 'Domain events triggered'),
+  ])
+  String? content;
+}
+
+/// Authorization and usage boundaries for an object operation.
+class ObjectOperationEntryGovernance {
+  @Form([
     Field('allowedInStates', String, 'Allowed In States',
         hint: 'States where operation is permitted'),
     Field('authorization', String, 'Authorization',

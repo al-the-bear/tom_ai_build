@@ -754,6 +754,30 @@ class ExternalSystemContextEntry {
     Field('systemType', String,
         'System Type (ERP, CRM, Database, API, SaaS, Legacy, etc.)',
         required: true),
+  ])
+  String? content;
+
+  /// Integration intent and exchanged information.
+  ExternalSystemContextEntryIntegration integration =
+      ExternalSystemContextEntryIntegration();
+
+  /// Operational delivery characteristics.
+  ExternalSystemContextEntryOperations operations =
+      ExternalSystemContextEntryOperations();
+
+  /// Security and support contacts.
+  ExternalSystemContextEntryGovernance governance =
+      ExternalSystemContextEntryGovernance();
+
+  /// Data mapping details.
+  @ContentType('description', 'Details of data transformation and '
+      'mapping between systems.')
+  String? dataMapping;
+}
+
+/// Integration intent and exchanged information.
+class ExternalSystemContextEntryIntegration {
+  @Form([
     Field('integrationDirection', String,
         'Integration Direction (Inbound, Outbound, Bidirectional)',
         required: true),
@@ -764,6 +788,13 @@ class ExternalSystemContextEntry {
     Field('integrationMethod', String,
         'Integration Method (REST API, SOAP, File Transfer, Database, '
             'Message Queue, Event Stream, etc.)'),
+  ])
+  String? content;
+}
+
+/// Operational delivery characteristics for an external system context.
+class ExternalSystemContextEntryOperations {
+  @Form([
     Field('integrationFrequency', String,
         'Integration Frequency (Real-time, Near-real-time, Batch, '
             'On-demand)'),
@@ -773,16 +804,18 @@ class ExternalSystemContextEntry {
         'SLA (availability, response time requirements)'),
     Field('errorHandling', String,
         'Error Handling (retry, dead-letter, manual intervention)'),
+  ])
+  String? content;
+}
+
+/// Security and support contacts for an external system context.
+class ExternalSystemContextEntryGovernance {
+  @Form([
     Field('securityRequirements', String,
         'Security Requirements (encryption, authentication, network)'),
     Field('contactPerson', String, 'Contact Person (technical contact)'),
   ])
   String? content;
-
-  /// Data mapping details.
-  @ContentType('description', 'Details of data transformation and '
-      'mapping between systems.')
-  String? dataMapping;
 }
 
 /// 4.1.2.5. Trust Boundaries [PD00-SYO-SYD-CON-TRU].
@@ -1745,12 +1778,35 @@ class AccessLevelEntry {
         hint: 'Unique identifier'),
     Field('levelRank', int, 'Level Rank',
         hint: 'Numeric rank (higher = more permissions)'),
+  ])
+  String? content;
+
+  /// Scope and hierarchy of this access level.
+  AccessLevelEntryScope scope = AccessLevelEntryScope();
+
+  /// Permission surfaces granted by this level.
+  AccessLevelEntryPermissions permissions = AccessLevelEntryPermissions();
+
+  /// Restrictions and governance for this level.
+  AccessLevelEntryGovernance governance = AccessLevelEntryGovernance();
+}
+
+/// Scope and hierarchy of an access level.
+class AccessLevelEntryScope {
+  @Form([
     Field('description', String, 'Description',
         hint: 'What this access level provides'),
     Field('inheritsFrom', String, 'Inherits From',
         hint: 'Parent access level (if hierarchical)'),
     Field('userCategories', String, 'Applicable User Categories',
         hint: 'Which user categories can have this level'),
+  ])
+  String? content;
+}
+
+/// Permission surfaces granted by an access level.
+class AccessLevelEntryPermissions {
+  @Form([
     Field('featureAccess', String, 'Feature Access',
         hint: 'List of features accessible at this level'),
     Field('dataAccess', String, 'Data Access Scope',
@@ -1759,6 +1815,13 @@ class AccessLevelEntry {
         hint: 'Admin functions available at this level'),
     Field('apiAccess', String, 'API Access',
         hint: 'API endpoints accessible'),
+  ])
+  String? content;
+}
+
+/// Restrictions and governance for an access level.
+class AccessLevelEntryGovernance {
+  @Form([
     Field('restrictions', String, 'Restrictions',
         hint: 'Explicit restrictions or limitations'),
     Field('auditRequirements', String, 'Audit Requirements',
@@ -2157,21 +2220,17 @@ class SystemTaskEntry {
     Field('taskId', String, 'Task ID', required: true),
     Field('taskName', String, 'Task Name', required: true),
     Field('description', String, 'Description (what the user does)'),
-    Field('frequency', String,
-        'Frequency (how often: Continuous, Daily, Weekly, Monthly, Ad-hoc)'),
-    Field('averageDuration', String,
-        'Average Duration (typical time to complete)'),
-    Field('complexity', String, 'Complexity (Simple, Moderate, Complex)'),
-    Field('importance', String,
-        'Importance (Critical, High, Medium, Low)'),
-    Field('trigger', String, 'Trigger (what initiates this task)'),
-    Field('expectedOutcome', String, 'Expected Outcome'),
-    Field('successCriteria', String, 'Success Criteria'),
-    Field('dataAccessed', String, 'Data Accessed (what information is needed)'),
-    Field('dataModified', String, 'Data Modified (what information changes)'),
-    Field('toolsUsed', String, 'Tools Used (systems or tools involved)'),
   ])
   String? content;
+
+    /// Timing, complexity, and trigger details.
+    SystemTaskEntryExecution execution = SystemTaskEntryExecution();
+
+    /// Outcome and data interaction details.
+    SystemTaskEntryData data = SystemTaskEntryData();
+
+    /// Tooling and linked artifacts.
+    SystemTaskEntryContext context = SystemTaskEntryContext();
 
   @Reference('Related Use Case')
   String? relatedUseCase;
@@ -2183,6 +2242,40 @@ class SystemTaskEntry {
   /// Variations and exceptions.
   @ContentType('description', 'Alternative paths and exception handling.')
   String? variationsAndExceptions;
+}
+
+/// Timing, complexity, and trigger details for a system task.
+class SystemTaskEntryExecution {
+    @Form([
+        Field('frequency', String,
+                'Frequency (how often: Continuous, Daily, Weekly, Monthly, Ad-hoc)'),
+        Field('averageDuration', String,
+                'Average Duration (typical time to complete)'),
+        Field('complexity', String, 'Complexity (Simple, Moderate, Complex)'),
+        Field('importance', String,
+                'Importance (Critical, High, Medium, Low)'),
+        Field('trigger', String, 'Trigger (what initiates this task)'),
+    ])
+    String? content;
+}
+
+/// Outcome and data interaction details for a system task.
+class SystemTaskEntryData {
+    @Form([
+        Field('expectedOutcome', String, 'Expected Outcome'),
+        Field('successCriteria', String, 'Success Criteria'),
+        Field('dataAccessed', String, 'Data Accessed (what information is needed)'),
+        Field('dataModified', String, 'Data Modified (what information changes)'),
+    ])
+    String? content;
+}
+
+/// Tooling and linked artifacts for a system task.
+class SystemTaskEntryContext {
+    @Form([
+        Field('toolsUsed', String, 'Tools Used (systems or tools involved)'),
+    ])
+    String? content;
 }
 
 /// 4.1.4.n.4. Access and Permissions [PD00-SYO-SYD-USR-nn-ACC].
@@ -4821,21 +4914,52 @@ class SystemUserImpact {
     Field('activeUserCount', int, 'Active Users (last 30 days)'),
     Field('powerUsers', int, 'Power Users'),
     Field('userLocations', String, 'User Locations'),
-    Field('workflowChange', String, 'Workflow Change Level'),
-    Field('uiChange', String, 'UI Change Level'),
-    Field('functionalityChange', String, 'Functionality Change'),
-    Field('trainingRequired', String, 'Training Required'),
-    Field('estimatedTrainingHours', int, 'Training Hours per User'),
-    Field('trainingApproach', String, 'Training Approach'),
-    Field('trainingMaterials', String, 'Materials Needed'),
-    Field('communicationPlan', String, 'Communication Plan'),
-    Field('changeChampions', String, 'Change Champions'),
   ])
   String? content;
+
+    /// User-facing change profile.
+    SystemUserImpactChangeProfile changeProfile =
+            SystemUserImpactChangeProfile();
+
+    /// Training and enablement plan.
+    SystemUserImpactEnablement enablement = SystemUserImpactEnablement();
+
+    /// Communication and adoption support.
+    SystemUserImpactAdoption adoption = SystemUserImpactAdoption();
 
   /// User groups requiring specific handling.
   @SectionIdPattern('PD00-SYO-SYR-INV-xx-USR-GR-xx')
   List<UserGroupImpactEntry> userGroups = [];
+}
+
+/// User-facing change profile for system replacement.
+class SystemUserImpactChangeProfile {
+    @Form([
+        Field('workflowChange', String, 'Workflow Change Level'),
+        Field('uiChange', String, 'UI Change Level'),
+        Field('functionalityChange', String, 'Functionality Change'),
+    ])
+    String? content;
+}
+
+/// Training and enablement plan for impacted users.
+class SystemUserImpactEnablement {
+    @Form([
+        Field('trainingRequired', String, 'Training Required'),
+        Field('estimatedTrainingHours', int, 'Training Hours per User'),
+        Field('trainingApproach', String, 'Training Approach'),
+        Field('trainingMaterials', String, 'Materials Needed'),
+    ])
+    String? content;
+}
+
+/// Communication and adoption support for impacted users.
+class SystemUserImpactAdoption {
+    @Form([
+        Field('communicationPlan', String, 'Communication Plan'),
+        Field('changeChampions', String, 'Change Champions'),
+    ])
+    String? content;
 }
 
 /// User group impact entry [PD00-SYO-SYR-INV-nn-USR-GR-nn].
@@ -5749,33 +5873,57 @@ class InterfaceDataEntityEntry {
 @SectionId('PD00-SYO-SYB-INT-xx-SEC')
 class InterfaceSecurity {
   @Form([
-    // Authentication
     Field('authMethod', String,
         'Authentication (API Key, OAuth 2.0, mTLS, Basic, SAML, etc.)'),
     Field('authDetails', String, 'Authentication Details'),
     Field('credentialStorage', String, 'Credential Storage Method'),
     Field('credentialRotation', String, 'Credential Rotation Policy'),
-
-    // Authorization
-    Field('authorizationModel', String, 'Authorization Model'),
-    Field('scopesPermissions', String, 'Scopes/Permissions Required'),
-    Field('ipWhitelisting', String, 'IP Whitelisting Required'),
-
-    // Encryption
-    Field('encryptionInTransit', String, 'Encryption in Transit'),
-    Field('encryptionAtRest', String, 'Encryption at Rest (if applicable)'),
-    Field('fieldLevelEncryption', String, 'Field-Level Encryption'),
-
-    // Compliance
-    Field('complianceRequirements', String,
-        'Compliance (PCI-DSS, HIPAA, GDPR, SOC2, etc.)'),
-    Field('auditLogging', String, 'Audit Logging Requirements'),
-    Field('dataResidency', String, 'Data Residency Requirements'),
   ])
   String? content;
 
+    /// Authorization boundaries.
+    InterfaceSecurityAuthorization authorization =
+            InterfaceSecurityAuthorization();
+
+    /// Encryption controls.
+    InterfaceSecurityEncryption encryption = InterfaceSecurityEncryption();
+
+    /// Compliance and audit expectations.
+    InterfaceSecurityCompliance compliance = InterfaceSecurityCompliance();
+
   /// Security contacts and escalation.
   TextSection securityContacts = TextSection();
+}
+
+/// Authorization boundaries for an interface.
+class InterfaceSecurityAuthorization {
+    @Form([
+        Field('authorizationModel', String, 'Authorization Model'),
+        Field('scopesPermissions', String, 'Scopes/Permissions Required'),
+        Field('ipWhitelisting', String, 'IP Whitelisting Required'),
+    ])
+    String? content;
+}
+
+/// Encryption controls for an interface.
+class InterfaceSecurityEncryption {
+    @Form([
+        Field('encryptionInTransit', String, 'Encryption in Transit'),
+        Field('encryptionAtRest', String, 'Encryption at Rest (if applicable)'),
+        Field('fieldLevelEncryption', String, 'Field-Level Encryption'),
+    ])
+    String? content;
+}
+
+/// Compliance and audit expectations for an interface.
+class InterfaceSecurityCompliance {
+    @Form([
+        Field('complianceRequirements', String,
+                'Compliance (PCI-DSS, HIPAA, GDPR, SOC2, etc.)'),
+        Field('auditLogging', String, 'Audit Logging Requirements'),
+        Field('dataResidency', String, 'Data Residency Requirements'),
+    ])
+    String? content;
 }
 
 /// Operational characteristics [PD00-SYO-SYB-INT-nn-OPS].
@@ -5895,29 +6043,44 @@ class InterfaceErrorHandlingTimeout {
 @SectionId('PD00-SYO-SYB-INT-xx-GOV')
 class InterfaceGovernance {
   @Form([
-    // Ownership
     Field('externalOwner', String, 'External System Owner'),
     Field('internalOwner', String, 'Internal Owner/Steward'),
     Field('technicalContact', String, 'Technical Contact'),
     Field('businessContact', String, 'Business Contact'),
-
-    // Contracts
-    Field('contractType', String, 'Contract Type (SLA, Agreement, Partnership)'),
-    Field('contractExpiry', String, 'Contract Expiry Date'),
-    Field('renewalTerms', String, 'Renewal Terms'),
-    Field('costModel', String, 'Cost Model (Per-call, Subscription, etc.)'),
-    Field('estimatedCost', String, 'Estimated Monthly/Annual Cost'),
-
-    // Change Management
-    Field('versioningStrategy', String, 'Versioning Strategy'),
-    Field('deprecationPolicy', String, 'Deprecation Policy'),
-    Field('changeNotificationLead', String, 'Change Notification Lead Time'),
-    Field('breakingChangePolicy', String, 'Breaking Change Policy'),
   ])
   String? content;
 
+    /// Contract and commercial terms.
+    InterfaceGovernanceContract contract = InterfaceGovernanceContract();
+
+    /// Change management expectations.
+    InterfaceGovernanceLifecycle lifecycle = InterfaceGovernanceLifecycle();
+
   /// Integration changelog.
   TextSection changelog = TextSection();
+}
+
+/// Contract and commercial terms for an interface.
+class InterfaceGovernanceContract {
+    @Form([
+        Field('contractType', String, 'Contract Type (SLA, Agreement, Partnership)'),
+        Field('contractExpiry', String, 'Contract Expiry Date'),
+        Field('renewalTerms', String, 'Renewal Terms'),
+        Field('costModel', String, 'Cost Model (Per-call, Subscription, etc.)'),
+        Field('estimatedCost', String, 'Estimated Monthly/Annual Cost'),
+    ])
+    String? content;
+}
+
+/// Change management expectations for an interface.
+class InterfaceGovernanceLifecycle {
+    @Form([
+        Field('versioningStrategy', String, 'Versioning Strategy'),
+        Field('deprecationPolicy', String, 'Deprecation Policy'),
+        Field('changeNotificationLead', String, 'Change Notification Lead Time'),
+        Field('breakingChangePolicy', String, 'Breaking Change Policy'),
+    ])
+    String? content;
 }
 
 /// Testing specification [PD00-SYO-SYB-INT-nn-TST].
@@ -6033,19 +6196,40 @@ class BoundaryAssumptionEntry {
     Field('assumption', String, 'Assumption Statement', required: true),
     Field('category', String,
         'Category (Technical, Organizational, External, Data, Resource)'),
-    Field('rationale', String, 'Basis for Assumption'),
-    Field('owner', String, 'Assumption Owner'),
-    Field('validationMethod', String, 'Validation Method'),
-    Field('validationDate', String, 'Target Validation Date'),
-    Field('validationStatus', String,
-        'Status (Not Validated, Validated, Invalidated)'),
-    Field('confidence', String, 'Confidence Level (High, Medium, Low)'),
-    Field('riskIfWrong', String, 'Risk if Wrong'),
-    Field('riskImpact', String, 'Impact Level (High, Medium, Low)'),
-    Field('contingencyPlan', String, 'Contingency Plan'),
-    Field('relatedRiskId', String, 'Related Risk ID'),
   ])
   String? content;
+
+    /// Validation ownership and confidence.
+    BoundaryAssumptionEntryValidation validation =
+            BoundaryAssumptionEntryValidation();
+
+    /// Risk framing and contingency planning.
+    BoundaryAssumptionEntryRisk risk = BoundaryAssumptionEntryRisk();
+}
+
+/// Validation ownership and confidence for a boundary assumption.
+class BoundaryAssumptionEntryValidation {
+    @Form([
+        Field('rationale', String, 'Basis for Assumption'),
+        Field('owner', String, 'Assumption Owner'),
+        Field('validationMethod', String, 'Validation Method'),
+        Field('validationDate', String, 'Target Validation Date'),
+        Field('validationStatus', String,
+                'Status (Not Validated, Validated, Invalidated)'),
+        Field('confidence', String, 'Confidence Level (High, Medium, Low)'),
+    ])
+    String? content;
+}
+
+/// Risk framing and contingency planning for a boundary assumption.
+class BoundaryAssumptionEntryRisk {
+    @Form([
+        Field('riskIfWrong', String, 'Risk if Wrong'),
+        Field('riskImpact', String, 'Impact Level (High, Medium, Low)'),
+        Field('contingencyPlan', String, 'Contingency Plan'),
+        Field('relatedRiskId', String, 'Related Risk ID'),
+    ])
+    String? content;
 }
 
 // ---------------------------------------------------------------------------

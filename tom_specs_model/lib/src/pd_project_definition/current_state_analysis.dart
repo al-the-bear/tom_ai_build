@@ -2484,18 +2484,50 @@ class DataDuplicationEntry {
         hint: 'Description of the duplication scenario'),
     Field('dataElement', String, 'Data Element',
         hint: 'What data is duplicated'),
+  ])
+  String? content;
+
+  /// Sources and duplication shape.
+  DataDuplicationEntrySources sources = DataDuplicationEntrySources();
+
+  /// Synchronization and consistency details.
+  DataDuplicationEntrySynchronization synchronization =
+      DataDuplicationEntrySynchronization();
+
+  /// Business impact and resolution guidance.
+  DataDuplicationEntryGovernance governance =
+      DataDuplicationEntryGovernance();
+}
+
+/// Sources and duplication shape.
+class DataDuplicationEntrySources {
+  @Form([
     Field('primarySource', String, 'Primary Source',
         hint: 'Authoritative source for this data'),
     Field('duplicateSources', String, 'Duplicate Sources',
         hint: 'Other locations where this data exists'),
     Field('duplicationType', String, 'Duplication Type',
         hint: 'FullCopy / PartialCopy / Denormalized / CachedCopy'),
+  ])
+  String? content;
+}
+
+/// Synchronization and consistency details.
+class DataDuplicationEntrySynchronization {
+  @Form([
     Field('synchronizationMethod', String, 'Synchronization Method',
         hint: 'How duplicates are kept in sync, if at all'),
     Field('syncFrequency', String, 'Sync Frequency',
         hint: 'RealTime / Hourly / Daily / Manual / None'),
     Field('knownInconsistencies', String, 'Known Inconsistencies',
         hint: 'Documented cases of data drift between copies'),
+  ])
+  String? content;
+}
+
+/// Business impact and resolution guidance.
+class DataDuplicationEntryGovernance {
+  @Form([
     Field('businessReason', String, 'Business Reason',
         hint: 'Why this duplication exists'),
     Field('consolidationFeasibility', String, 'Consolidation Feasibility',
@@ -3119,18 +3151,49 @@ class MasterDataDomainEntry {
         hint: 'What this master data domain covers'),
     Field('goldenRecordSource', String, 'Golden Record Source',
         hint: 'Authoritative system for this master data'),
+  ])
+  String? content;
+
+  /// Volume and quality indicators.
+  MasterDataDomainEntryQuality quality = MasterDataDomainEntryQuality();
+
+  /// Downstream usage and cadence.
+  MasterDataDomainEntryUsage usage = MasterDataDomainEntryUsage();
+
+  /// Ownership and improvement planning.
+  MasterDataDomainEntryGovernance governance =
+      MasterDataDomainEntryGovernance();
+}
+
+/// Volume and quality indicators for a master data domain.
+class MasterDataDomainEntryQuality {
+  @Form([
     Field('recordCount', String, 'Record Count',
         hint: 'Number of master records'),
     Field('qualityScore', String, 'Quality Score',
         hint: 'Quality of master data in this domain'),
     Field('duplicateRate', String, 'Duplicate Rate',
         hint: 'Estimated duplication, e.g. 3%'),
+  ])
+  String? content;
+}
+
+/// Downstream usage and cadence for a master data domain.
+class MasterDataDomainEntryUsage {
+  @Form([
     Field('consumingSystems', String, 'Consuming Systems',
         hint: 'Systems that use this master data'),
     Field('updateFrequency', String, 'Update Frequency',
         hint: 'How often master data is updated'),
     Field('governanceLevel', String, 'Governance Level',
         hint: 'Level of governance for this domain'),
+  ])
+  String? content;
+}
+
+/// Ownership and improvement planning for a master data domain.
+class MasterDataDomainEntryGovernance {
+  @Form([
     Field('domainOwner', String, 'Domain Owner',
         hint: 'Who owns this master data domain'),
     Field('dataSteward', String, 'Data Steward',

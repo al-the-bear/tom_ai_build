@@ -1862,21 +1862,52 @@ class DisplayEquipmentEntry {
         'Display Type — monitor, projector, video wall'),
     Field('screenSize', String, 'Screen Size — diagonal inches'),
     Field('resolution', String, 'Resolution — HD, FHD, QHD, 4K'),
-    Field('panelType', String, 'Panel Type — IPS, VA, TN, OLED'),
-    Field('refreshRate', String, 'Refresh Rate — Hz'),
-    Field('colorAccuracy', String,
-        'Color Accuracy — sRGB coverage, if color-critical'),
-    Field('connectivity', String,
-        'Connectivity — HDMI, DisplayPort, USB-C'),
-    Field('adjustability', String,
-        'Adjustability — height, tilt, swivel, pivot'),
-    Field('ergonomicFeatures', String,
-        'Ergonomic Features — blue light filter, flicker-free'),
-    Field('quantityPerUser', int, 'Quantity Per User — number of monitors'),
-    Field('mounting', String, 'Mounting — stand, arm, wall mount'),
-    Field('justification', String, 'Justification'),
   ])
   String? content;
+
+    /// Display quality and connection properties.
+    DisplayEquipmentEntryVisual visual = DisplayEquipmentEntryVisual();
+
+    /// Ergonomic and placement considerations.
+    DisplayEquipmentEntryErgonomics ergonomics =
+            DisplayEquipmentEntryErgonomics();
+
+    /// Quantity planning and justification.
+    DisplayEquipmentEntryPlanning planning = DisplayEquipmentEntryPlanning();
+}
+
+/// Display quality and connection properties.
+class DisplayEquipmentEntryVisual {
+    @Form([
+        Field('panelType', String, 'Panel Type — IPS, VA, TN, OLED'),
+        Field('refreshRate', String, 'Refresh Rate — Hz'),
+        Field('colorAccuracy', String,
+                'Color Accuracy — sRGB coverage, if color-critical'),
+        Field('connectivity', String,
+                'Connectivity — HDMI, DisplayPort, USB-C'),
+    ])
+    String? content;
+}
+
+/// Ergonomic and placement considerations.
+class DisplayEquipmentEntryErgonomics {
+    @Form([
+        Field('adjustability', String,
+                'Adjustability — height, tilt, swivel, pivot'),
+        Field('ergonomicFeatures', String,
+                'Ergonomic Features — blue light filter, flicker-free'),
+        Field('mounting', String, 'Mounting — stand, arm, wall mount'),
+    ])
+    String? content;
+}
+
+/// Quantity planning and justification for display equipment.
+class DisplayEquipmentEntryPlanning {
+    @Form([
+        Field('quantityPerUser', int, 'Quantity Per User — number of monitors'),
+        Field('justification', String, 'Justification'),
+    ])
+    String? content;
 }
 
 /// Input device entry (form) [PD00-ORG-WOR-nn-EQU-INP-nn].

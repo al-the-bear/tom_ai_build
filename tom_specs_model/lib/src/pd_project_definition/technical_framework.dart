@@ -10735,7 +10735,6 @@ Provide an overview of backup and recovery strategy.
 /// Data classification for backup purposes.
 class BackupDataClassification {
   @Form([
-    // Classification tiers
     Field('criticalData', String, 'Critical Data',
         hint: 'Data requiring highest protection'),
     Field('highPriorityData', String, 'High Priority Data',
@@ -10744,28 +10743,46 @@ class BackupDataClassification {
         hint: 'Standard operational data'),
     Field('lowPriorityData', String, 'Low Priority Data',
         hint: 'Non-essential data'),
+  ])
+  String? content;
 
-    // Data categories
-    Field('databaseData', String, 'Database Data',
-        hint: 'Which databases to back up'),
-    Field('fileStorage', String, 'File Storage',
-        hint: 'File systems to back up'),
-    Field('configurationData', String, 'Configuration Data',
-        hint: 'System configurations'),
-    Field('logData', String, 'Log Data',
-        hint: 'Logs to archive/backup'),
-    Field('applicationState', String, 'Application State',
-        hint: 'Stateful application data'),
+  /// Included data categories.
+  BackupDataClassificationCategories categories =
+    BackupDataClassificationCategories();
 
-    // Exclusions
-    Field('excludedData', String, 'Excluded Data',
-        hint: 'Data not requiring backup'),
-    Field('temporaryData', String, 'Temporary Data',
-        hint: 'Ephemeral data handling'),
-    Field('cacheData', String, 'Cache Data',
-        hint: 'Cache regeneration strategy'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional classification notes'),
+  /// Exclusions and regeneration rules.
+  BackupDataClassificationExclusions exclusions =
+    BackupDataClassificationExclusions();
+}
+
+/// Included data categories for backup planning.
+class BackupDataClassificationCategories {
+  @Form([
+  Field('databaseData', String, 'Database Data',
+    hint: 'Which databases to back up'),
+  Field('fileStorage', String, 'File Storage',
+    hint: 'File systems to back up'),
+  Field('configurationData', String, 'Configuration Data',
+    hint: 'System configurations'),
+  Field('logData', String, 'Log Data',
+    hint: 'Logs to archive/backup'),
+  Field('applicationState', String, 'Application State',
+    hint: 'Stateful application data'),
+  ])
+  String? content;
+}
+
+/// Exclusions and regeneration rules for backup planning.
+class BackupDataClassificationExclusions {
+  @Form([
+  Field('excludedData', String, 'Excluded Data',
+    hint: 'Data not requiring backup'),
+  Field('temporaryData', String, 'Temporary Data',
+    hint: 'Ephemeral data handling'),
+  Field('cacheData', String, 'Cache Data',
+    hint: 'Cache regeneration strategy'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional classification notes'),
   ])
   String? content;
 }
@@ -17077,39 +17094,64 @@ class ResourceCapacityBaselinesCost {
 /// Capacity review process.
 class CapacityReviewProcess {
   @Form([
-    // Review cadence
     Field('reviewFrequency', String, 'Review Frequency',
         required: true, hint: 'Monthly, quarterly, on-demand'),
     Field('reviewParticipants', String, 'Review Participants',
         hint: 'Engineering, ops, finance stakeholders'),
     Field('reviewChecklist', String, 'Review Checklist',
         hint: 'Standard items reviewed each cycle'),
+  ])
+  String? content;
 
-    // Monitoring
-    Field('capacityDashboard', bool, 'Capacity Dashboard',
-        hint: 'Dedicated capacity monitoring dashboard'),
-    Field('trendAnalysis', bool, 'Trend Analysis',
-        hint: 'Automated growth trend detection'),
-    Field('forecastingModel', String, 'Forecasting Model',
-        hint: 'Linear, exponential, ML-based forecasting'),
+  /// Monitoring and forecasting inputs.
+  CapacityReviewProcessMonitoring monitoring =
+    CapacityReviewProcessMonitoring();
 
-    // Escalation
-    Field('capacityAlertThresholds', String, 'Capacity Alert Thresholds',
-        hint: 'Warning: 70%, critical: 85%, emergency: 95%'),
-    Field('escalationProcedure', String, 'Escalation Procedure',
-        hint: 'Who to notify at each threshold level'),
-    Field('emergencyScalingProcedure', String, 'Emergency Scaling Procedure',
-        hint: 'Steps for urgent capacity increase'),
+  /// Escalation and emergency scaling decisions.
+  CapacityReviewProcessEscalation escalation =
+    CapacityReviewProcessEscalation();
 
-    // Planning
-    Field('budgetPlanningIntegration', bool, 'Budget Planning Integration',
-        hint: 'Capacity forecasts feed into budget cycles'),
-    Field('procurementLeadTime', String, 'Procurement Lead Time',
-        hint: 'Time to provision new resources'),
-    Field('rightsizingReview', bool, 'Rightsizing Review',
-        hint: 'Periodic over-provisioning review'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional capacity review notes'),
+  /// Budgeting and rightsizing planning.
+  CapacityReviewProcessPlanning planning = CapacityReviewProcessPlanning();
+}
+
+/// Monitoring and forecasting inputs for capacity review.
+class CapacityReviewProcessMonitoring {
+  @Form([
+  Field('capacityDashboard', bool, 'Capacity Dashboard',
+    hint: 'Dedicated capacity monitoring dashboard'),
+  Field('trendAnalysis', bool, 'Trend Analysis',
+    hint: 'Automated growth trend detection'),
+  Field('forecastingModel', String, 'Forecasting Model',
+    hint: 'Linear, exponential, ML-based forecasting'),
+  ])
+  String? content;
+}
+
+/// Escalation and emergency scaling decisions for capacity review.
+class CapacityReviewProcessEscalation {
+  @Form([
+  Field('capacityAlertThresholds', String, 'Capacity Alert Thresholds',
+    hint: 'Warning: 70%, critical: 85%, emergency: 95%'),
+  Field('escalationProcedure', String, 'Escalation Procedure',
+    hint: 'Who to notify at each threshold level'),
+  Field('emergencyScalingProcedure', String, 'Emergency Scaling Procedure',
+    hint: 'Steps for urgent capacity increase'),
+  ])
+  String? content;
+}
+
+/// Budgeting and rightsizing planning for capacity review.
+class CapacityReviewProcessPlanning {
+  @Form([
+  Field('budgetPlanningIntegration', bool, 'Budget Planning Integration',
+    hint: 'Capacity forecasts feed into budget cycles'),
+  Field('procurementLeadTime', String, 'Procurement Lead Time',
+    hint: 'Time to provision new resources'),
+  Field('rightsizingReview', bool, 'Rightsizing Review',
+    hint: 'Periodic over-provisioning review'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional capacity review notes'),
   ])
   String? content;
 }
