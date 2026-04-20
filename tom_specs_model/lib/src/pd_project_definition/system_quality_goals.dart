@@ -768,19 +768,49 @@ class SecurityQualityCompliance {
 /// 11.3.5. Maintainability quality [PD00-SYQ-TEC-MAI].
 class MaintainabilityQuality {
   @Form([
-    // Adaptability
     Field('adaptabilityTarget', String, 'Adaptability Target',
         hint: 'Change implementation time'),
     Field('changeImpactLimit', String, 'Change Impact Limit',
         hint: 'Max components affected by change'),
-    // Analyzability
+  ])
+  String? content;
+
+  /// Analyzability requirements.
+  MaintainabilityQualityAnalyzability analyzability =
+      MaintainabilityQualityAnalyzability();
+
+  /// Changeability requirements.
+  MaintainabilityQualityChangeability changeability =
+      MaintainabilityQualityChangeability();
+
+  /// Testability requirements.
+  MaintainabilityQualityTestability testability =
+      MaintainabilityQualityTestability();
+
+  /// Extensibility and verification requirements.
+  MaintainabilityQualityGovernance governance =
+      MaintainabilityQualityGovernance();
+
+  /// Detailed maintainability requirements narrative.
+  TextSection narrative = TextSection();
+}
+
+/// Analyzability requirements.
+class MaintainabilityQualityAnalyzability {
+  @Form([
     Field('codeReadabilityStandard', String, 'Code Readability Standard',
         hint: 'Style guide, code review criteria'),
     Field('documentationRequirement', String, 'Documentation Requirement',
         hint: 'Inline, API docs, architecture docs'),
     Field('loggingStandard', String, 'Logging Standard',
         hint: 'Structured logging, log levels'),
-    // Changeability
+  ])
+  String? content;
+}
+
+/// Changeability requirements.
+class MaintainabilityQualityChangeability {
+  @Form([
     Field('codeCoverageMinimum', String, 'Code Coverage Minimum',
         hint: 'Unit test coverage % target'),
     Field('cyclomaticComplexityLimit', String, 'Cyclomatic Complexity Limit',
@@ -789,41 +819,70 @@ class MaintainabilityQuality {
         hint: 'Max lines per method'),
     Field('classLengthLimit', String, 'Class Length Limit',
         hint: 'Max lines per class'),
-    // Testability
+  ])
+  String? content;
+}
+
+/// Testability requirements.
+class MaintainabilityQualityTestability {
+  @Form([
     Field('testabilityDesign', String, 'Testability Design',
         hint: 'Dependency injection, mocking support'),
     Field('testPyramidRatio', String, 'Test Pyramid Ratio',
         hint: 'Unit:Integration:E2E ratio'),
     Field('testDataManagement', String, 'Test Data Management',
         hint: 'Fixtures, factories, production-like'),
-    // Extensibility
+  ])
+  String? content;
+}
+
+/// Extensibility and verification requirements.
+class MaintainabilityQualityGovernance {
+  @Form([
     Field('extensibilityPattern', String, 'Extensibility Pattern',
         hint: 'Plugin architecture, middleware, hooks'),
     Field('apiVersioningStrategy', String, 'API Versioning Strategy',
         hint: 'URL path, header, query param'),
-    // Verification
     Field('maintainabilityVerification', String, 'Maintainability Verification',
         hint: 'Static analysis, architecture fitness functions'),
     Field('technicalDebtTracking', String, 'Technical Debt Tracking',
         hint: 'SonarQube, manual tracking'),
   ])
   String? content;
-
-  /// Detailed maintainability requirements narrative.
-  TextSection narrative = TextSection();
 }
 
 /// 11.3.6. Reliability quality [PD00-SYQ-TEC-REL].
 class ReliabilityQuality {
   @Form([
-    // Uptime
     Field('uptimeTarget', String, 'Uptime Target',
         hint: '99.9%, 99.95%, 99.99%'),
     Field('plannedDowntimeWindow', String, 'Planned Downtime Window',
         hint: 'Maintenance window schedule'),
     Field('degradedModeCapability', String, 'Degraded Mode Capability',
         hint: 'Graceful degradation approach'),
-    // MTBF / MTTR
+  ])
+  String? content;
+
+  /// Recovery objectives.
+  ReliabilityQualityRecovery recovery = ReliabilityQualityRecovery();
+
+  /// Failover requirements.
+  ReliabilityQualityFailover failover = ReliabilityQualityFailover();
+
+  /// Data durability requirements.
+  ReliabilityQualityDurability durability = ReliabilityQualityDurability();
+
+  /// Verification and learning.
+  ReliabilityQualityVerification verification =
+      ReliabilityQualityVerification();
+
+  /// Detailed reliability requirements narrative.
+  TextSection narrative = TextSection();
+}
+
+/// Recovery objectives.
+class ReliabilityQualityRecovery {
+  @Form([
     Field('mtbfTarget', String, 'MTBF Target',
         hint: 'Mean time between failures'),
     Field('mttrTarget', String, 'MTTR Target',
@@ -832,14 +891,26 @@ class ReliabilityQuality {
         hint: 'Recovery time objective'),
     Field('rpoTarget', String, 'RPO Target',
         hint: 'Recovery point objective'),
-    // Failover
+  ])
+  String? content;
+}
+
+/// Failover requirements.
+class ReliabilityQualityFailover {
+  @Form([
     Field('failoverStrategy', String, 'Failover Strategy',
         hint: 'Active-passive, active-active'),
     Field('failoverTime', String, 'Failover Time',
         hint: 'Time to complete failover'),
     Field('failoverTesting', String, 'Failover Testing',
         hint: 'Chaos engineering, DR drills'),
-    // Data durability
+  ])
+  String? content;
+}
+
+/// Data durability requirements.
+class ReliabilityQualityDurability {
+  @Form([
     Field('dataDurability', String, 'Data Durability',
         hint: '99.999999999% (11 nines)'),
     Field('backupFrequency', String, 'Backup Frequency',
@@ -848,16 +919,19 @@ class ReliabilityQuality {
         hint: 'Retention period'),
     Field('backupVerification', String, 'Backup Verification',
         hint: 'Restore testing frequency'),
-    // Verification
+  ])
+  String? content;
+}
+
+/// Verification and learning.
+class ReliabilityQualityVerification {
+  @Form([
     Field('reliabilityVerification', String, 'Reliability Verification',
         hint: 'Soak testing, chaos engineering'),
     Field('incidentPostmortem', String, 'Incident Postmortem',
         hint: 'Blameless postmortem process'),
   ])
   String? content;
-
-  /// Detailed reliability requirements narrative.
-  TextSection narrative = TextSection();
 }
 
 /// 11.4. Operations Quality Criteria [PD00-SYQ-OPE].

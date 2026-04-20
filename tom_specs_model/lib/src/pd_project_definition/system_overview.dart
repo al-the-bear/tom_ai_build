@@ -2718,28 +2718,14 @@ class TechnicalGoalEntry {
         required: true),
     Field('priority', String, 'Priority (Critical, High, Medium, Low)',
         required: true),
-    Field('successMetric', String,
-        'Primary Success Metric (what is measured)', required: true),
-    Field('currentValue', String, 'Current/Baseline Value'),
-    Field('targetValue', String, 'Target Value', required: true),
-    Field('measurementMethod', String,
-        'Measurement Method (APM, load testing, security scan, etc.)'),
-    Field('measurementTool', String,
-        'Measurement Tool (specific tool or platform)'),
-    Field('measurementEnvironment', String,
-        'Measurement Environment (production, staging, load test)'),
-    Field('verificationPoint', String,
-        'Verification Point (when/how verified: unit test, integration, '
-            'acceptance, production monitoring)'),
-    Field('systemArea', String,
-        'System Area Affected (frontend, backend, database, network, all)'),
-    Field('architectureImpact', String,
-        'Architecture Impact (how this affects system design)'),
-    Field('owner', String, 'Technical Owner'),
-    Field('status', String,
-        'Status (Not Started, In Progress, Verified, Failed)'),
   ])
   String? content;
+
+  /// Success measurement details.
+  TechnicalGoalEntryMeasurement measurement = TechnicalGoalEntryMeasurement();
+
+  /// Scope and ownership details.
+  TechnicalGoalEntryGovernance governance = TechnicalGoalEntryGovernance();
 
   /// 4.2.2.n.1. Quality Scenarios [PD00-SYO-GOA-TEC-nn-QS].
   QualityScenarios qualityScenarios = QualityScenarios();
@@ -2752,6 +2738,40 @@ class TechnicalGoalEntry {
 
   /// 4.2.2.n.4. Constraints [PD00-SYO-GOA-TEC-nn-CON].
   TechnicalGoalConstraints constraints = TechnicalGoalConstraints();
+}
+
+/// Success measurement details.
+class TechnicalGoalEntryMeasurement {
+    @Form([
+        Field('successMetric', String,
+                'Primary Success Metric (what is measured)', required: true),
+        Field('currentValue', String, 'Current/Baseline Value'),
+        Field('targetValue', String, 'Target Value', required: true),
+        Field('measurementMethod', String,
+                'Measurement Method (APM, load testing, security scan, etc.)'),
+        Field('measurementTool', String,
+                'Measurement Tool (specific tool or platform)'),
+        Field('measurementEnvironment', String,
+                'Measurement Environment (production, staging, load test)'),
+        Field('verificationPoint', String,
+                'Verification Point (when/how verified: unit test, integration, '
+                        'acceptance, production monitoring)'),
+    ])
+    String? content;
+}
+
+/// Scope and ownership details.
+class TechnicalGoalEntryGovernance {
+    @Form([
+        Field('systemArea', String,
+                'System Area Affected (frontend, backend, database, network, all)'),
+        Field('architectureImpact', String,
+                'Architecture Impact (how this affects system design)'),
+        Field('owner', String, 'Technical Owner'),
+        Field('status', String,
+                'Status (Not Started, In Progress, Verified, Failed)'),
+    ])
+    String? content;
 }
 
 /// 4.2.2.n.1. Quality Scenarios [PD00-SYO-GOA-TEC-nn-QS].

@@ -956,7 +956,6 @@ Provide the architectural vision and primary style selection rationale.
 /// Architecture overview and primary style selection.
 class ArchitectureOverview {
   @Form([
-    // Primary style
     Field('primaryStyle', String, 'Primary Architecture Style',
         required: true,
         hint:
@@ -965,8 +964,25 @@ class ArchitectureOverview {
         hint: 'Additional architectural patterns used'),
     Field('styleSummary', String, 'Style Summary',
         hint: 'Brief description of the chosen architecture'),
+  ])
+  String? content;
 
-    // Justification
+  /// Architecture drivers.
+  ArchitectureOverviewDrivers drivers = ArchitectureOverviewDrivers();
+
+  /// Trade-offs and alternatives.
+  ArchitectureOverviewTradeOffs tradeOffs = ArchitectureOverviewTradeOffs();
+
+  /// Evolution planning.
+  ArchitectureOverviewEvolution evolution = ArchitectureOverviewEvolution();
+
+  /// Compliance considerations.
+  ArchitectureOverviewCompliance compliance = ArchitectureOverviewCompliance();
+}
+
+/// Architecture drivers.
+class ArchitectureOverviewDrivers {
+  @Form([
     Field('justification', String, 'Justification',
         required: true,
         hint: 'Why this architecture style was chosen'),
@@ -974,28 +990,41 @@ class ArchitectureOverview {
         hint: 'Business requirements driving the choice'),
     Field('technicalDrivers', String, 'Technical Drivers',
         hint: 'Technical requirements driving the choice'),
+  ])
+  String? content;
+}
 
-    // Trade-offs
+/// Trade-offs and alternatives.
+class ArchitectureOverviewTradeOffs {
+  @Form([
     Field('benefitsExpected', String, 'Expected Benefits',
         hint: 'Advantages of this architecture'),
     Field('tradeOffsAccepted', String, 'Trade-offs Accepted',
         hint: 'Known compromises and their rationale'),
     Field('risksIdentified', String, 'Risks Identified',
         hint: 'Architectural risks and mitigation'),
-
-    // Alternatives
     Field('alternativesConsidered', String, 'Alternatives Considered',
         hint: 'Other architectures evaluated'),
     Field('rejectionReasons', String, 'Rejection Reasons',
         hint: 'Why alternatives were not chosen'),
+  ])
+  String? content;
+}
 
-    // Evolution
+/// Evolution planning.
+class ArchitectureOverviewEvolution {
+  @Form([
     Field('evolutionPath', String, 'Evolution Path',
         hint: 'How the architecture may evolve'),
     Field('migrationStrategy', String, 'Migration Strategy',
         hint: 'Strategy for migrating from current state'),
+  ])
+  String? content;
+}
 
-    // Compliance
+/// Compliance considerations.
+class ArchitectureOverviewCompliance {
+  @Form([
     Field('complianceRequirements', String, 'Compliance Requirements',
         hint: 'Regulatory or compliance constraints'),
     Field('industryBenchmarks', String, 'Industry Benchmarks',
@@ -5470,39 +5499,72 @@ class EnterpriseSystemCompatibilityEntryTesting {
 /// API and protocol compatibility entry.
 class ApiCompatibilityEntry {
   @Form([
-    // Identity
     Field('apiName', String, 'API/Protocol Name',
         required: true, hint: 'Name of API or protocol'),
     Field('apiType', String, 'API Type',
         hint: 'REST, GraphQL, gRPC, SOAP, WebSocket'),
     Field('version', String, 'Version',
         required: true, hint: 'Supported API versions'),
+  ])
+  String? content;
 
-    // Compatibility
+  /// Compatibility policy.
+  ApiCompatibilityEntryPolicy policy = ApiCompatibilityEntryPolicy();
+
+  /// Data-format requirements.
+  ApiCompatibilityEntryFormat format = ApiCompatibilityEntryFormat();
+
+  /// Transport requirements.
+  ApiCompatibilityEntryTransport transportDetails =
+      ApiCompatibilityEntryTransport();
+
+  /// Specification references.
+  ApiCompatibilityEntrySpecification specification =
+      ApiCompatibilityEntrySpecification();
+}
+
+/// Compatibility policy.
+class ApiCompatibilityEntryPolicy {
+  @Form([
     Field('versioningStrategy', String, 'Versioning Strategy',
         hint: 'URL path, header, query param'),
     Field('backwardsCompatibility', String, 'Backwards Compatibility',
         hint: 'Support for older versions'),
     Field('deprecationPolicy', String, 'Deprecation Policy',
         hint: 'How deprecated APIs handled'),
+  ])
+  String? content;
+}
 
-    // Format
+/// Data-format requirements.
+class ApiCompatibilityEntryFormat {
+  @Form([
     Field('dataFormat', String, 'Data Format',
         hint: 'JSON, XML, Protobuf'),
     Field('encoding', String, 'Encoding',
         hint: 'UTF-8, character encoding'),
     Field('compression', String, 'Compression',
         hint: 'gzip, deflate support'),
+  ])
+  String? content;
+}
 
-    // Transport
+/// Transport requirements.
+class ApiCompatibilityEntryTransport {
+  @Form([
     Field('transport', String, 'Transport',
         hint: 'HTTP, HTTPS, WebSocket'),
     Field('security', String, 'Security',
         hint: 'TLS version, certificates'),
     Field('authentication', String, 'Authentication',
         hint: 'OAuth, API key, JWT'),
+  ])
+  String? content;
+}
 
-    // Specifications
+/// Specification references.
+class ApiCompatibilityEntrySpecification {
+  @Form([
     Field('specificationUrl', String, 'Specification URL',
         hint: 'OpenAPI, AsyncAPI URL'),
     Field('schemaValidation', String, 'Schema Validation',
@@ -5705,39 +5767,74 @@ class DataFormatCompatibility {
 /// Backwards compatibility requirements.
 class BackwardsCompatibilityRequirements {
   @Form([
-    // Policy
     Field('compatibilityPolicy', String, 'Compatibility Policy',
         hint: 'How many versions supported'),
     Field('breakingChangePolicy', String, 'Breaking Change Policy',
         hint: 'When breaking changes allowed'),
     Field('deprecationTimeline', String, 'Deprecation Timeline',
         hint: 'Deprecation notice period'),
+  ])
+  String? content;
 
-    // Data
+  /// Data compatibility requirements.
+  BackwardsCompatibilityRequirementsData data =
+      BackwardsCompatibilityRequirementsData();
+
+  /// API compatibility requirements.
+  BackwardsCompatibilityRequirementsApi api =
+      BackwardsCompatibilityRequirementsApi();
+
+  /// Database compatibility requirements.
+  BackwardsCompatibilityRequirementsDatabase database =
+      BackwardsCompatibilityRequirementsDatabase();
+
+  /// Communication and support requirements.
+  BackwardsCompatibilityRequirementsCommunication communication =
+      BackwardsCompatibilityRequirementsCommunication();
+}
+
+/// Data compatibility requirements.
+class BackwardsCompatibilityRequirementsData {
+  @Form([
     Field('dataCompatibility', String, 'Data Compatibility',
         hint: 'Data format compatibility'),
     Field('migrationSupport', String, 'Migration Support',
         hint: 'Automatic migration support'),
     Field('rollbackSupport', String, 'Rollback Support',
         hint: 'Can rollback to older version'),
+  ])
+  String? content;
+}
 
-    // API
+/// API compatibility requirements.
+class BackwardsCompatibilityRequirementsApi {
+  @Form([
     Field('apiVersioning', String, 'API Versioning',
         hint: 'API versioning approach'),
     Field('multipleVersionSupport', String, 'Multiple Version Support',
         hint: 'Supporting multiple versions'),
     Field('clientUpdateGracePeriod', String, 'Client Update Grace Period',
         hint: 'Time for clients to update'),
+  ])
+  String? content;
+}
 
-    // Database
+/// Database compatibility requirements.
+class BackwardsCompatibilityRequirementsDatabase {
+  @Form([
     Field('schemaEvolution', String, 'Schema Evolution',
         hint: 'Database schema changes'),
     Field('dataMigration', String, 'Data Migration',
         hint: 'Data migration approach'),
     Field('backfillStrategy', String, 'Backfill Strategy',
         hint: 'New field population'),
+  ])
+  String? content;
+}
 
-    // Communication
+/// Communication and support requirements.
+class BackwardsCompatibilityRequirementsCommunication {
+  @Form([
     Field('changeNotification', String, 'Change Notification',
         hint: 'How changes communicated'),
     Field('documentation', String, 'Documentation',
@@ -8723,7 +8820,6 @@ class ExternalNetworkRequirements {
 /// Bandwidth requirements.
 class BandwidthRequirements {
   @Form([
-    // Aggregate bandwidth
     Field('totalBandwidth', String, 'Total Bandwidth Required',
         hint: 'Total bandwidth capacity'),
     Field('peakBandwidth', String, 'Peak Bandwidth',
@@ -8732,32 +8828,64 @@ class BandwidthRequirements {
         hint: 'Average bandwidth usage'),
     Field('burstCapacity', String, 'Burst Capacity',
         hint: 'Burst handling capability'),
+  ])
+  String? content;
 
-    // Direction
+  /// Directional bandwidth requirements.
+  BandwidthRequirementsDirection direction = BandwidthRequirementsDirection();
+
+  /// Per-connection bandwidth requirements.
+  BandwidthRequirementsConnection connection = BandwidthRequirementsConnection();
+
+  /// Traffic-pattern requirements.
+  BandwidthRequirementsTraffic traffic = BandwidthRequirementsTraffic();
+
+  /// QoS requirements.
+  BandwidthRequirementsQos qos = BandwidthRequirementsQos();
+}
+
+/// Directional bandwidth requirements.
+class BandwidthRequirementsDirection {
+  @Form([
     Field('ingressBandwidth', String, 'Ingress Bandwidth',
         hint: 'Inbound bandwidth'),
     Field('egressBandwidth', String, 'Egress Bandwidth',
         hint: 'Outbound bandwidth'),
     Field('eastWestBandwidth', String, 'East-West Bandwidth',
         hint: 'Internal traffic bandwidth'),
+  ])
+  String? content;
+}
 
-    // Per-connection
+/// Per-connection bandwidth requirements.
+class BandwidthRequirementsConnection {
+  @Form([
     Field('perConnectionBandwidth', String, 'Per-Connection Bandwidth',
         hint: 'Bandwidth per connection'),
     Field('concurrentConnections', String, 'Concurrent Connections',
         hint: 'Max concurrent connections'),
     Field('connectionPooling', String, 'Connection Pooling',
         hint: 'Connection pool requirements'),
+  ])
+  String? content;
+}
 
-    // Traffic patterns
+/// Traffic-pattern requirements.
+class BandwidthRequirementsTraffic {
+  @Form([
     Field('trafficPatterns', String, 'Traffic Patterns',
         hint: 'Typical traffic patterns'),
     Field('videoStreaming', String, 'Video/Streaming',
         hint: 'Streaming bandwidth'),
     Field('fileTransfers', String, 'File Transfers',
         hint: 'Large file transfer needs'),
+  ])
+  String? content;
+}
 
-    // QoS
+/// QoS requirements.
+class BandwidthRequirementsQos {
+  @Form([
     Field('qosRequirements', String, 'QoS Requirements',
         hint: 'Quality of Service'),
     Field('trafficPrioritization', String, 'Traffic Prioritization',
@@ -11159,7 +11287,6 @@ class AlertingRequirementsResponse {
 /// Alert definition entry.
 class AlertDefinitionEntry {
   @Form([
-    // Identity
     Field('alertName', String, 'Alert Name',
         required: true, hint: 'Alert identifier'),
     Field('alertDescription', String, 'Alert Description',
@@ -11168,8 +11295,23 @@ class AlertDefinitionEntry {
         hint: 'Critical, Warning, Info'),
     Field('priority', String, 'Priority',
         hint: 'P1, P2, P3, P4, P5'),
+  ])
+  String? content;
 
-    // Condition
+  /// Trigger conditions.
+  AlertDefinitionEntryCondition condition = AlertDefinitionEntryCondition();
+
+  /// Recovery conditions.
+  AlertDefinitionEntryRecovery recovery = AlertDefinitionEntryRecovery();
+
+  /// Notification details.
+  AlertDefinitionEntryNotification notification =
+      AlertDefinitionEntryNotification();
+}
+
+/// Trigger conditions.
+class AlertDefinitionEntryCondition {
+  @Form([
     Field('metricName', String, 'Metric Name',
         hint: 'Metric to monitor'),
     Field('condition', String, 'Condition',
@@ -11180,16 +11322,26 @@ class AlertDefinitionEntry {
         hint: 'How long before alerting'),
     Field('evaluationPeriod', String, 'Evaluation Period',
         hint: 'Evaluation window'),
+  ])
+  String? content;
+}
 
-    // Recovery
+/// Recovery conditions.
+class AlertDefinitionEntryRecovery {
+  @Form([
     Field('recoveryThreshold', String, 'Recovery Threshold',
         hint: 'When alert resolves'),
     Field('recoveryDuration', String, 'Recovery Duration',
         hint: 'Time before resolving'),
     Field('autoResolve', bool, 'Auto-Resolve',
         hint: 'Auto-resolve enabled'),
+  ])
+  String? content;
+}
 
-    // Notification
+/// Notification details.
+class AlertDefinitionEntryNotification {
+  @Form([
     Field('notificationChannel', String, 'Notification Channel',
         hint: 'Where to send alert'),
     Field('escalationPolicy', String, 'Escalation Policy',
@@ -13616,7 +13768,6 @@ class AlertNotificationChannels {
 /// An alert rule entry [PD00-TEC-SYS-MON-ALR-nn].
 class AlertRuleEntry {
   @Form([
-    // Identity
     Field('alertId', String, 'Alert ID', required: true),
     Field('alertName', String, 'Alert Name', required: true),
     Field('alertDescription', String, 'Alert Description'),
@@ -13624,7 +13775,22 @@ class AlertRuleEntry {
         hint: 'Critical, Warning, Info'),
     Field('category', String, 'Category',
         hint: 'Infrastructure, Application, Business, Security'),
-    // Trigger condition
+  ])
+  String? content;
+
+  /// Trigger conditions.
+  AlertRuleEntryTrigger trigger = AlertRuleEntryTrigger();
+
+  /// Response actions.
+  AlertRuleEntryResponse response = AlertRuleEntryResponse();
+
+  /// Ownership details.
+  AlertRuleEntryOwnership ownership = AlertRuleEntryOwnership();
+}
+
+/// Trigger conditions.
+class AlertRuleEntryTrigger {
+  @Form([
     Field('metricOrCondition', String, 'Metric/Condition',
         hint: 'What triggers this alert'),
     Field('threshold', String, 'Threshold',
@@ -13633,7 +13799,13 @@ class AlertRuleEntry {
         hint: 'Time window for condition evaluation'),
     Field('requiredOccurrences', String, 'Required Occurrences',
         hint: 'N of M before alerting'),
-    // Response
+  ])
+  String? content;
+}
+
+/// Response actions.
+class AlertRuleEntryResponse {
+  @Form([
     Field('notificationChannels', String, 'Notification Channels',
         hint: 'Where alert is sent'),
     Field('runbookLink', String, 'Runbook Link',
@@ -13642,7 +13814,13 @@ class AlertRuleEntry {
         hint: 'Which escalation policy applies'),
     Field('autoRemediation', String, 'Auto-Remediation',
         hint: 'Automatic remediation action if any'),
-    // Ownership
+  ])
+  String? content;
+}
+
+/// Ownership details.
+class AlertRuleEntryOwnership {
+  @Form([
     Field('ownerTeam', String, 'Owner Team'),
     Field('primaryContact', String, 'Primary Contact'),
     Field('notes', String, 'Notes'),
