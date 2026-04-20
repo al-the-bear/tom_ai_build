@@ -112,6 +112,8 @@ to pixel-perfect designs with exact typography and spacing.
 /// Overall design vision for the user interface, encompassing goals,
 /// principles, and user personas that guide all UI decisions.
 @SectionId('PD00-USE-VIS')
+@MapsTo(UiPrototype)
+@DetailedIn(UiPrototype)
 class DesignVision {
   @ContentHelp('''
 ## Design Vision (10.1)
@@ -547,6 +549,8 @@ class PersonaScenarioEntry {
 
 /// 10.2. Screen Descriptions [PD00-USE-SCR].
 @SectionId('PD00-USE-SCR')
+@MapsTo(UiPrototype)
+@DetailedIn(UiPrototype)
 class ScreenDescriptions {
   @ContentHelp('''
 ## Screen Descriptions (10.2)
@@ -1453,6 +1457,8 @@ Overall content organization and navigation structure.
 
 /// 10.3. Screen Flow Structure [PD00-USE-SCF].
 @SectionId('PD00-USE-SCF')
+@MapsTo(UiPrototype)
+@DetailedIn(UiPrototype)
 class ScreenFlowStructure {
   @ContentHelp('''
 ## Screen Flow Structure (10.3)
@@ -2367,6 +2373,8 @@ class NavigationGuardEntryRouting {
 
 /// 10.4. Print Layout [PD00-USE-PRI].
 @SectionId('PD00-USE-PRI')
+@MapsTo(UiPrototype)
+@DetailedIn(UiPrototype)
 class PrintLayout {
   @Form([
     Field('printStrategy', String, 'Print Strategy',
@@ -3734,6 +3742,8 @@ class ExportTemplateEntryAccess {
 /// feedback, system error presentation, and error recovery flows. Follows
 /// UX best practices for error prevention, detection, and graceful recovery.
 @SectionId('PD00-USE-ERR')
+@MapsTo(UiPrototype)
+@DetailedIn(UiPrototype)
 class ErrorHandlingConcept {
   // ─────────────────────────────────────────────────────────────────────────
   // Error Handling Philosophy
@@ -4275,6 +4285,8 @@ class RecoveryScenarioEntry {
 /// Comprehensive in-app help system including contextual help, onboarding,
 /// and support access mechanisms.
 @SectionId('PD00-USE-HLP')
+@MapsTo(UiPrototype)
+@DetailedIn(UiPrototype)
 class HelpConcept {
   // ─────────────────────────────────────────────────────────────────────────
   // Help System Overview
@@ -4698,6 +4710,8 @@ class SupportAccessSelfService {
 /// Comprehensive accessibility requirements for the user interface following
 /// WCAG guidelines and inclusive design principles.
 @SectionId('PD00-USE-ACC')
+@MapsTo(UiPrototype)
+@DetailedIn(UiPrototype)
 class Accessibility {
   // ─────────────────────────────────────────────────────────────────────────
   // Accessibility Overview
@@ -4990,6 +5004,8 @@ class AccessibilityCheckEntryRemediation {
 /// Comprehensive responsive design specification covering breakpoints,
 /// adaptive layouts, and device-specific behavior for Flutter applications.
 @SectionId('PD00-USE-RES')
+@MapsTo(UiPrototype)
+@DetailedIn(UiPrototype)
 class ResponsiveDesign {
   // ─────────────────────────────────────────────────────────────────────────
   // Responsive Design Overview
@@ -5234,6 +5250,8 @@ class ResponsiveScreenRuleEntry {
 /// component catalog, and detailed per-component specifications. Supports
 /// Flutter-based implementation with Tom framework integration.
 @SectionId('PD00-USE-COM')
+@MapsTo(UiPrototype)
+@DetailedIn(UiPrototype)
 class UiComponents {
   // ─────────────────────────────────────────────────────────────────────────
   // Component Library Overview
@@ -6127,6 +6145,8 @@ class MultiLanguageAndRolloutPlan {
 ///
 /// Workflow for identifying and preparing content for localization.
 @SectionId('PD00-USE-MUL-LOC')
+@MapsTo(SystemRollout)
+@DetailedIn(SystemRollout)
 class LocalizationProcess {
   @Form([
     Field('contentIdentification', String, 'Content Identification',
@@ -6203,6 +6223,8 @@ class LocalizationProcessDeployment {
 ///
 /// Workflow for translating content.
 @SectionId('PD00-USE-MUL-TRA')
+@MapsTo(SystemRollout)
+@DetailedIn(SystemRollout)
 class TranslationProcess {
   @Form([
     Field('translationManagementSystem', String, 'Translation Management System',
@@ -6310,6 +6332,8 @@ class TranslationVendorEntry {
 ///
 /// End-user documentation and training materials.
 @SectionId('PD00-USE-MUL-DOC')
+@MapsTo(SystemRollout)
+@DetailedIn(SystemRollout)
 class DocumentationAndTraining {
   // ─────────────────────────────────────────────────────────────────────────
   // Documentation
@@ -6414,6 +6438,8 @@ class TrainingModuleEntry {
 ///
 /// UI specification for language and country selection.
 @SectionId('PD00-USE-MUL-LCS')
+@MapsTo(UiPrototype)
+@DetailedIn(UiPrototype)
 class LanguageCountrySelection {
   @Form([
     Field('pickerLocation', String, 'Picker Location',
@@ -6507,6 +6533,8 @@ class LanguageCountrySelectionUx {
 ///
 /// Technical requirements for internationalization framework.
 @SectionId('PD00-USE-MUL-REQ')
+@MapsTo(TechnicalRequirementsSpec)
+@DetailedIn(TechnicalRequirementsSpec)
 class TranslationRequirements {
   @Form([
     Field('i18nFramework', String, 'I18N Framework',
@@ -6651,6 +6679,8 @@ class SupportedLocaleEntryRollout {
 /// Comprehensive prototype planning covering goals, feature selection,
 /// prototype type, evaluation criteria, and stakeholder alignment.
 @SectionId('PD00-USE-PRO')
+@MapsTo(UiPrototype)
+@DetailedIn(UiPrototype)
 class Prototype {
   // ─────────────────────────────────────────────────────────────────────────
   // Prototype Overview
@@ -7127,6 +7157,7 @@ class ThrowawayPrototypeValue {
 /// Wireframe and mockup inventory beyond individual screen descriptions.
 /// Covers HBSG AS10-WIR.
 @SectionId('PD00-USE-WIR')
+@MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
 class WireframesAndMockups {
   @ContentHelp('''

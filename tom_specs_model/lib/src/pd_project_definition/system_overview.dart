@@ -3583,6 +3583,7 @@ class PostImplementationReview {
 /// Based on IEEE 830, ISO 29148, BABOK, and Volere requirements shell.
 @SectionId('PD00-SYO-REQ')
 @Comment('Seeds → RC')
+@MapsTo(RequirementsCatalog)
 @ContentHelp('Define initial requirements at a level sufficient for project '
     'scoping and planning. Each requirement should be traceable to business '
     'goals and verifiable through acceptance criteria.')
@@ -3649,6 +3650,7 @@ class RequirementsOverview {
 /// and user interactions. Each requirement is uniquely identified and
 /// traceable to business goals and use cases.
 @SectionId('PD00-SYO-REQ-FUN')
+@DetailedIn(RequirementsCatalog)
 @ContentHelp('Functional requirements describe system capabilities, behaviors, '
     'and features. Use clear, testable language. Each requirement should '
     'answer: What must the system do? For whom? Under what conditions?')
@@ -4313,6 +4315,7 @@ class RequirementTestCaseEntryAutomation {
 /// scalability, reliability, and standards compliance. These requirements
 /// often drive architectural decisions.
 @SectionId('PD00-SYO-REQ-TEC')
+@DetailedIn(RequirementsCatalog)
 @ContentHelp('Technical requirements describe non-functional aspects and '
     'constraints. Each should be measurable and testable. Common categories: '
     'Performance, Scalability, Availability, Security, Maintainability.')
@@ -4458,6 +4461,7 @@ class TechnicalRequirementEntryConstraints {
 /// audit, and compliance needs. Based on OWASP, ISO 27001, and common
 /// security frameworks.
 @SectionId('PD00-SYO-REQ-SEC')
+@DetailedIn(RequirementsCatalog)
 @ContentHelp('Security requirements protect confidentiality, integrity, '
     'and availability of information. Include authentication, authorization, '
     'data protection, and compliance requirements.')
@@ -4662,6 +4666,7 @@ class SecurityControlEntryVerification {
 /// for the system to succeed. Based on change management and organizational
 /// readiness assessment practices.
 @SectionId('PD00-SYO-REQ-ORG')
+@DetailedIn(RequirementsCatalog)
 @ContentHelp('Organizational requirements describe non-technical changes '
     'needed for system success: training, process changes, role changes, '
     'support structures, and communication.')
@@ -5962,6 +5967,7 @@ class MigrationRiskHistory {
 /// system context patterns and enterprise integration best practices.
 @SectionId('PD00-SYO-SYB')
 @Comment('Seeds → BSI')
+@MapsTo(BusinessSystemInteractions)
 class SystemBoundaries {
   /// Overview of system boundaries and scope definition approach.
   @ContentHelp('Provide executive summary of system boundaries: '
@@ -6016,6 +6022,7 @@ class SystemBoundaries {
 /// document. Follows enterprise integration patterns (EIP) and API-first
 /// design principles.
 @SectionId('PD00-SYO-SYB-INT')
+@DetailedIn(BusinessSystemInteractions)
 class ExternalInterfaces {
   /// Summary of the integration landscape.
   @ContentHelp('Summarize integration portfolio: total count by category, '
@@ -6561,6 +6568,7 @@ class InterfaceTestScenarioEntry {
 /// are excluded from the project scope. Provides clear boundaries and
 /// rationale to prevent scope creep and manage stakeholder expectations.
 @SectionId('PD00-SYO-SYB-OUT')
+@DetailedIn(BusinessSystemInteractions)
 class OutOfScope {
   /// Overview of scope exclusion approach.
   @ContentHelp('Describe the scope philosophy and how exclusions were '
@@ -6623,6 +6631,7 @@ class OutOfScopeEntryMitigation {
 /// for the project to succeed. Each assumption should be validated and
 /// tracked as a potential risk if proven incorrect.
 @SectionId('PD00-SYO-SYB-ASS')
+@DetailedIn(BusinessSystemInteractions)
 class BoundaryAssumptions {
   /// Overview of assumption categories and validation approach.
   @ContentHelp('Describe assumption categories, validation timeline, '
@@ -7028,6 +7037,8 @@ class ResponsibilityGovernance {
 /// Technical Requirements (TR) document.
 @SectionId('PD00-SYO-RES-TEC')
 @Comment('Seeds → TR')
+@MapsTo(TechnicalRequirementsSpec)
+@DetailedIn(TechnicalRequirementsSpec)
 class TechnicalFrameworkConditions {
   // -------------------------------------------------------------------------
   // Technical Landscape Overview

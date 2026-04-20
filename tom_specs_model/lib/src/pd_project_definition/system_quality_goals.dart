@@ -19,6 +19,7 @@ import '../document_stubs.dart';
 /// targets, verification methods, and acceptance criteria.
 @SectionId('PD00-SYQ')
 @Comment('Seeds → BQP')
+@MapsTo(BusinessQualityPlan)
 class SystemQualityGoals {
   @Form([
     Field('qualityApproach', String, 'Quality Approach',
@@ -156,6 +157,7 @@ class SystemQualityGoalsResources {
 /// Overall quality approach for the project defining objectives, categories,
 /// and how quality is structured and governed across the system.
 @SectionId('PD00-SYQ-FRA')
+@DetailedIn(BusinessQualityPlan)
 class QualityFramework {
   // ─────────────────────────────────────────────────────────────────────────
   // Framework Configuration
@@ -339,6 +341,7 @@ class QualityCategoryEntryMetrics {
 /// Quality criteria that directly affect user experience, including usability,
 /// functional completeness, and correctness from the end-user perspective.
 @SectionId('PD00-SYQ-USE')
+@DetailedIn(BusinessQualityPlan)
 class UserQualityCriteria {
   // ─────────────────────────────────────────────────────────────────────────
   // User Quality Overview
@@ -575,6 +578,7 @@ class CorrectnessQualityVerification {
 /// Quality criteria for the technical implementation including efficiency,
 /// portability, flexibility, security, maintainability, and reliability.
 @SectionId('PD00-SYQ-TEC')
+@DetailedIn(BusinessQualityPlan)
 class TechnicalQualityCriteria {
   // ─────────────────────────────────────────────────────────────────────────
   // Technical Quality Overview
@@ -1053,6 +1057,7 @@ class ReliabilityQualityVerification {
 /// Quality criteria for system operations including availability, service
 /// levels, monitoring, and IT security operations.
 @SectionId('PD00-SYQ-OPE')
+@DetailedIn(BusinessQualityPlan)
 class OperationsQualityCriteria {
   // ─────────────────────────────────────────────────────────────────────────
   // Operations Quality Overview
@@ -1480,6 +1485,7 @@ class ItSecurityOperationsQualityIncident {
 /// Quality criteria for project documentation including readability,
 /// completeness, correctness, and changeability.
 @SectionId('PD00-SYQ-DOC')
+@DetailedIn(BusinessQualityPlan)
 class DocumentationQualityCriteria {
   // ─────────────────────────────────────────────────────────────────────────
   // Documentation Quality Overview
@@ -1764,6 +1770,7 @@ class DocChangeabilityQualityMaintenance {
 /// Prioritization and balancing of quality attributes including weighted
 /// matrices and explicit trade-off decisions.
 @SectionId('PD00-SYQ-PRI')
+@DetailedIn(BusinessQualityPlan)
 class QualityPrioritization {
   // ─────────────────────────────────────────────────────────────────────────
   // Prioritization Framework
@@ -1983,6 +1990,7 @@ class TradeOffDecisionEntryApproval {
 /// Quality acceptance criteria for the project including must-pass criteria
 /// and quality gate checklists.
 @SectionId('PD00-SYQ-ACC')
+@DetailedIn(BusinessQualityPlan)
 class AcceptanceCriteriaSummary {
   // ─────────────────────────────────────────────────────────────────────────
   // Acceptance Framework

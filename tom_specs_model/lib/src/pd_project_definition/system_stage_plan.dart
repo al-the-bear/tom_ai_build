@@ -19,6 +19,7 @@ import '../document_stubs.dart';
 /// boundary management.
 @SectionId('PD00-SSP')
 @Comment('Seeds → PPP')
+@MapsTo(ProjectPhasePlan)
 class SystemStagePlan {
   @Form([
     // --- Strategic Overview ---
@@ -142,6 +143,7 @@ class SystemStagePlanReadiness {
 /// controlled increments, balancing risk mitigation with early value
 /// delivery.
 @SectionId('PD00-SSP-STR')
+@DetailedIn(ProjectPhasePlan)
 class StagingStrategy {
   @Form([
     Field('stagingApproachType', String, 'Staging Approach Type',
@@ -437,6 +439,7 @@ class StagingGovernance {
 /// SAFe PI planning cadence, PRINCE2 stage boundary management, and
 /// TOGAF architecture road-mapping.
 @SectionId('PD00-SSP-STA')
+@DetailedIn(ProjectPhasePlan)
 class StageOverview {
   @Form([
     Field('numberOfStages', String, 'Number of Stages',
@@ -1379,6 +1382,7 @@ class StageSuccessCriterionEntryStatus {
 /// dependency tracking. Aligns with SAFe WSJF, PMBOK value-driven
 /// delivery, MoSCoW (DSDM), and Kano model classification.
 @SectionId('PD00-SSP-FEA')
+@DetailedIn(ProjectPhasePlan)
 class FeaturePrioritization {
   @Form([
     Field('prioritizationMethodology', String,
@@ -2169,6 +2173,7 @@ class FeatureDependencyEntry {
 /// and stakeholder sign-off. Aligns with DAMA-DMBOK data management
 /// principles, TOGAF migration planning, and PMBOK risk-aware delivery.
 @SectionId('PD00-SSP-MIG')
+@DetailedIn(ProjectPhasePlan)
 class DataMigrationStrategy {
   @Form([
     Field('migrationApproach', String, 'Migration Approach',
@@ -3028,6 +3033,7 @@ class StageMigrationRiskStatus {
 /// governance gates, SAFe Program Increment boundaries, PRINCE2
 /// stage gates, and TOGAF architecture governance.
 @SectionId('PD00-SSP-GOV')
+@MapsTo(ProjectPhasePlan)
 class StageGovernance {
   @Form([
     Field('governanceModel', String, 'Governance Model',
@@ -3187,6 +3193,7 @@ class StageGovernanceTransition {
 /// gate, who participates, what evidence is required, and what
 /// outcomes are possible (proceed, rework, cancel, conditional).
 @SectionId('PD00-SSP-GOV-GAT')
+@DetailedIn(ProjectPhasePlan)
 class PhaseGateReviews {
   @Form([
     Field('gateNamingConvention', String,
@@ -3490,6 +3497,7 @@ class ReviewCriterionEntryResult {
 /// technology selections. Each decision point has defined timing,
 /// criteria, authority, options, and impact analysis.
 @SectionId('PD00-SSP-GOV-DEC')
+@DetailedIn(ProjectPhasePlan)
 class DecisionPoints {
   @Form([
     // --- Decision Framework ---

@@ -5,6 +5,8 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
+import '../document_stubs.dart';
+
 
 
 /// 14. Delivery Scope and Acceptance [PD00-DEL].
@@ -282,6 +284,7 @@ class DeliverableDocumentation {
 /// 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
 @SectionId('PD00-DEL-ACC')
 @Comment('Seeds → BQP')
+@MapsTo(BusinessQualityPlan)
 class AcceptancePlan {
   @ContentHelp('''
 Acceptance plan overview: defines how the project deliverables will be
@@ -319,6 +322,7 @@ All criteria must be objectively measurable and verifiable.
 
 /// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
 @SectionId('PD00-DEL-ACC-CRI')
+@DetailedIn(BusinessQualityPlan)
 class AcceptanceCriteriaList {
   @ContentHelp('''
 Formal acceptance criteria that must be met for project sign-off.
@@ -454,6 +458,7 @@ class DeliveryAcceptanceCriterionEntryStatus {
 /// final sign-off. Covers roles, responsibilities, timelines, escalation,
 /// and decision criteria.
 @SectionId('PD00-DEL-ACC-PRO')
+@DetailedIn(BusinessQualityPlan)
 class AcceptanceProcess {
   @Form([
     Field('processName', String, 'Process Name',
@@ -642,6 +647,7 @@ class AcceptanceStepEntryOutcome {
 /// acceptance, and formal sign-off. Aligned with IEEE 829 / ISO 29119
 /// test documentation structure and ISTQB best practices.
 @SectionId('PD00-DEL-ACC-UAT')
+@DetailedIn(BusinessQualityPlan)
 class UserAcceptanceTesting {
   @Form([
     Field('uatObjective', String, 'UAT Objective',
@@ -1108,6 +1114,7 @@ class UatTestStepEntry {
 /// managed, resolved, and tracked. Covers severity classification,
 /// resolution timeframes, blocking thresholds, and post-fix verification.
 @SectionId('PD00-DEL-ACC-DEF')
+@DetailedIn(BusinessQualityPlan)
 class DefectResolution {
   @Form([
     Field('severityScheme', String, 'Severity Scheme',
@@ -1233,6 +1240,7 @@ class DefectResolutionReporting {
 /// technical acceptance board), what documents are signed, legal and
 /// contractual implications, and conditional acceptance handling.
 @SectionId('PD00-DEL-ACC-SIG')
+@DetailedIn(BusinessQualityPlan)
 class SignOffProcess {
   @Form([
     Field('signOffAuthority', String, 'Sign-Off Authority',
@@ -1376,6 +1384,7 @@ class SignOffProcessTimeline {
 /// Post-acceptance warranty terms: duration, scope, service levels,
 /// exclusions, and transition to standard support.
 @SectionId('PD00-DEL-ACC-WAR')
+@DetailedIn(BusinessQualityPlan)
 class WarrantyTerms {
   @Form([
     Field('warrantyDuration', String, 'Warranty Duration',

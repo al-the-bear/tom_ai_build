@@ -12,6 +12,7 @@ import '../document_stubs.dart';
 /// 9. Access and Authorization Concept [PD00-ACC]. Seeds → AC.
 @SectionId('PD00-ACC')
 @Comment('Seeds → AC')
+@MapsTo(AuthorizationConcept)
 class AccessAndAuthorizationConcept {
   @ContentHelp('''
 Provide a high-level overview of the application's security architecture for
@@ -62,6 +63,7 @@ access and authorization concerns.
 
 /// 9.1. User Management [PD00-ACC-USE].
 @SectionId('PD00-ACC-USE')
+@DetailedIn(AuthorizationConcept)
 class UserManagement {
   @ContentHelp('''
 Describe how users are organized, categorized, and managed throughout their
@@ -755,6 +757,7 @@ class UserAttributeEntry {
 
 /// 9.2. Identification and Authentication [PD00-ACC-IDE].
 @SectionId('PD00-ACC-IDE')
+@DetailedIn(AuthorizationConcept)
 class IdentificationAndAuthentication {
   @ContentHelp('''
 Define how users prove their identity to the system. Authentication is the
@@ -3281,6 +3284,7 @@ class SessionLifecycleMonitoring {
 
 /// 9.3. Resource Protection [PD00-ACC-RES].
 @SectionId('PD00-ACC-RES')
+@DetailedIn(AuthorizationConcept)
 class ResourceProtection {
   @ContentHelp('''
 Overview of resource protection strategies covering data, APIs, and file
@@ -5017,6 +5021,7 @@ class PermissionEvaluationBehavior {
 ///
 /// Aligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.
 @SectionId('PD00-ACC-USA')
+@DetailedIn(AuthorizationConcept)
 class UserAuthorization {
   @ContentHelp('''
 Define the complete authorization structure that controls what users can do.
@@ -5980,6 +5985,7 @@ class ResourceKeyEntry {
 
 /// 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
 @SectionId('PD00-ACC-SEN')
+@DetailedIn(AuthorizationConcept)
 class SensitiveDataEncryption {
   @ContentHelp('''
 Define encryption requirements for sensitive data both at rest and in transit.
@@ -6923,6 +6929,7 @@ class KeyCompromiseRecoveryPolicy {
 /// Aligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to
 /// Computer Security Log Management).
 @SectionId('PD00-ACC-AUD')
+@DetailedIn(AuthorizationConcept)
 class AuditAndLogging {
   @ContentHelp('''
 Define security audit and logging requirements. Comprehensive logging enables

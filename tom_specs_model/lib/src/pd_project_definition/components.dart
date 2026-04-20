@@ -5,6 +5,8 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
+import '../document_stubs.dart';
+
 /// 12. Components to Use [PD00-COM]. Seeds → TR.
 ///
 /// External and standard components planned for use in the system. All
@@ -13,6 +15,8 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 /// and integration patterns.
 @SectionId('PD00-COM')
 @Comment('Seeds → TR')
+@MapsTo(TechnicalRequirementsSpec)
+@DetailedIn(TechnicalRequirementsSpec)
 class ComponentsToUse {
     @ContentHelp('''
 ## Components to Use (Chapter 12)

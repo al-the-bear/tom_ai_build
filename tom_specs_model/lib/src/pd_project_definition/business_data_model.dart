@@ -12,6 +12,7 @@ import '../document_stubs.dart';
 /// 7. Business Object and Data Model [PD00-BUS]. Seeds → BDM.
 @SectionId('PD00-BUS')
 @Comment('Seeds → BDM')
+@MapsTo(BusinessDataModel)
 class BusinessObjectAndDataModel {
   @ContentHelp('''
 Conceptual overview of the business data the system manages. This chapter
@@ -48,6 +49,7 @@ BDM (Business Data Model) document.
 
 /// 7.1. Data Model [PD00-BUS-DAT].
 @SectionId('PD00-BUS-DAT')
+@MapsTo(BusinessDataModel)
 class DataModel {
   @ContentHelp('''
 Conceptual data model from a business perspective. Defines the entities,
@@ -533,6 +535,7 @@ class MigrationMappingEntry {
 
 /// 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
 @SectionId('PD00-BUS-DAT-REL')
+@DetailedIn(BusinessDataModel)
 class EntityRelationships {
   @ContentHelp('''
 Relationship specifications between data entities. Captures cardinality,
@@ -672,6 +675,7 @@ class EntityRelationshipEntry {
 
 /// 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
 @SectionId('PD00-BUS-DAT-CLA')
+@DetailedIn(BusinessDataModel)
 class DataClassification {
   // ---------------------------------------------------------------------------
   // Classification Overview (4 fields)
@@ -841,6 +845,7 @@ class AccessRestrictionEntry {
 
 /// 7.2. Business Object Model [PD00-BUS-BUS].
 @SectionId('PD00-BUS-BUS')
+@MapsTo(BusinessDataModel)
 class BusinessObjectModel {
   @ContentHelp('''
 Key business objects, their properties, states, and behaviors. Following
@@ -1293,6 +1298,7 @@ class ObjectInvariantEntry {
 ///
 /// Business functions, their decomposition, and relationships to data objects.
 @SectionId('PD00-BUS-FUN')
+@MapsTo(BusinessDataModel)
 class FunctionModel {
   // ---------------------------------------------------------------------------
   // Function Decomposition Overview (4 fields)

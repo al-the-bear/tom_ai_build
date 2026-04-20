@@ -57,6 +57,7 @@ interactions that seed use case development.
 /// in the BP (Business Processes) document.
 @SectionId('PD00-TAR-PRO')
 @Comment('Seeds → BP')
+@MapsTo(BusinessProcesses)
 class BusinessProcessDescriptions {
   @ContentHelp('''
 Target business processes at a high level. Each process will be expanded with
@@ -109,6 +110,7 @@ BP (Business Processes) document.
 ///
 /// The overall vision for how business processes will work with the new system.
 @SectionId('PD00-TAR-PRO-VIS')
+@DetailedIn(BusinessProcesses)
 class ProcessVision {
   /// Process vision overview.
   ProcessVisionOverview overview = ProcessVisionOverview();
@@ -195,6 +197,7 @@ class ProcessSuccessCriteria {
 ///
 /// Principles that guide process design decisions.
 @SectionId('PD00-TAR-PRO-PRI')
+@DetailedIn(BusinessProcesses)
 class ProcessDesignPrinciples {
   /// Design principles overview.
   DesignPrinciplesOverview overview = DesignPrinciplesOverview();
@@ -243,6 +246,7 @@ class ProcessDesignPrincipleEntry {
 ///
 /// Container for business process definitions.
 @SectionId('PD00-TAR-PRO-CAT')
+@DetailedIn(BusinessProcesses)
 class ProcessCatalog {
   /// Process catalog overview.
   ProcessCatalogOverview overview = ProcessCatalogOverview();
@@ -927,6 +931,7 @@ class ProcessExceptionEntryResponse {
 ///
 /// High-level process flow diagram showing main processes and relationships.
 @SectionId('PD00-TAR-PRO-FLO')
+@DetailedIn(BusinessProcesses)
 class ProcessOverviewDiagram {
   /// Diagram overview.
   ProcessDiagramOverview overview = ProcessDiagramOverview();
@@ -958,6 +963,7 @@ class ProcessDiagramOverview {
 ///
 /// Summary of expected improvements over current processes.
 @SectionId('PD00-TAR-PRO-IMP')
+@DetailedIn(BusinessProcesses)
 class ProcessImprovementSummary {
   /// Improvement overview.
   ImprovementOverview overview = ImprovementOverview();
@@ -1044,6 +1050,7 @@ class ImprovementBusinessCase {
 
 /// Process relationships and dependencies (supplementary section).
 @SectionId('PD00-TAR-PRO-REL')
+@DetailedIn(BusinessProcesses)
 class ProcessRelationships {
   @ContentHelp('''
 Process relationships map dependencies, data flows, and sequencing between
@@ -1099,6 +1106,7 @@ class ProcessRelationshipEntry {
 /// postconditions in the UC document. Follows Cockburn-style use case modeling.
 @SectionId('PD00-TAR-STP')
 @Comment('Seeds → UC')
+@MapsTo(UseCases)
 class ProcessStepsAndActorInteractions {
   @ContentHelp('''
 Key process steps with their actor interactions. Each interaction will be
@@ -1309,6 +1317,7 @@ class ActorDiagramOverview {
 /// Actors represent roles that interact with the system. Follows UML actor
 /// modeling conventions with Cockburn-style goal and scope annotations.
 @SectionId('PD00-TAR-STP-ACT')
+@DetailedIn(UseCases)
 class ActorOverview {
   @ContentHelp('''
 Actors represent roles that interact with the system. Following UML actor
@@ -1565,6 +1574,7 @@ class ActorInteractionsSummary {
 /// Container for key interaction descriptions. Each interaction seeds a use
 /// case following Cockburn's fully dressed use case template.
 @SectionId('PD00-TAR-STP-INT')
+@DetailedIn(UseCases)
 class InteractionCatalog {
   @ContentHelp('''
 Container for key interaction descriptions. Each interaction seeds a use case
@@ -1983,6 +1993,7 @@ class InteractionTraceability {
 /// End-to-end scenario descriptions showing how users achieve business goals
 /// through sequences of interactions.
 @SectionId('PD00-TAR-STP-SCE')
+@DetailedIn(UseCases)
 class KeyScenarios {
   @ContentHelp('''
 End-to-end scenario descriptions showing how users achieve business goals

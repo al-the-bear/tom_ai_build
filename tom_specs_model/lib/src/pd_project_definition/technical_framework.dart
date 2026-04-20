@@ -10,6 +10,7 @@ import '../document_stubs.dart';
 /// 8. Technical Framework Concept [PD00-TEC]. Seeds → TR.
 @SectionId('PD00-TEC')
 @Comment('Seeds → TR')
+@MapsTo(TechnicalRequirementsSpec)
 @ContentHelp('''
 Describe the complete technical foundation for building and operating
 the target system. This section seeds the Technical Requirements (TR)
@@ -83,6 +84,7 @@ Provide an executive summary of the technical framework approach.
 
 /// 8.1. Basic Technical Requirements [PD00-TEC-BAS].
 @SectionId('PD00-TEC-BAS')
+@DetailedIn(TechnicalRequirementsSpec)
 @ContentHelp('''
 Define the foundational technical requirements that govern all system
 development. These decisions have far-reaching implications and should
@@ -2726,6 +2728,7 @@ class TestingStandardsTooling {
 
 /// 8.2. Software Design Requirements [PD00-TEC-SOF].
 @SectionId('PD00-TEC-SOF')
+@DetailedIn(TechnicalRequirementsSpec)
 @ContentHelp('''
 Define software architecture, development environment, and component
 reusability requirements. These decisions shape developer experience,
@@ -5628,6 +5631,7 @@ class ComponentRegistryUpdates {
 
 /// 8.3. Standard Application Software Requirements [PD00-TEC-STA].
 @SectionId('PD00-TEC-STA')
+@DetailedIn(TechnicalRequirementsSpec)
 @ContentHelp('''
 Define requirements for standard software, third-party components, and
 compatibility with existing IT infrastructure. Enterprise integration
@@ -7742,6 +7746,7 @@ class ComplianceVerificationSectionContinuous {
 
 /// 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
 @SectionId('PD00-TEC-HAR')
+@DetailedIn(TechnicalRequirementsSpec)
 @ContentHelp('''
 Define hardware infrastructure requirements for servers, clients, and
 network. Hardware decisions impact performance, availability, cost,
@@ -10618,6 +10623,7 @@ class NetworkSecurityRequirementsCompliance {
 
 /// 8.5. Operations Requirements [PD00-TEC-OPE].
 @SectionId('PD00-TEC-OPE')
+@DetailedIn(TechnicalRequirementsSpec)
 @ContentHelp('''
 Define operational requirements for running and maintaining the system
 in production. Operations excellence directly impacts system availability,
@@ -13589,6 +13595,7 @@ class PostMaintenanceValidationClosure {
 
 /// 8.6. Communication Requirements [PD00-TEC-COM].
 @SectionId('PD00-TEC-COM')
+@DetailedIn(TechnicalRequirementsSpec)
 @ContentHelp('''
 Define network communication requirements including protocols, security,
 and external connectivity. Communication architecture affects performance,
@@ -14844,6 +14851,7 @@ class ConnectivityResilienceOperations {
 
 /// 8.7. System Operation and Monitoring [PD00-TEC-SYS].
 @SectionId('PD00-TEC-SYS')
+@DetailedIn(TechnicalRequirementsSpec)
 @ContentHelp('''
 Define system operation, monitoring, and capacity planning requirements.
 Day-to-day operations ensure the system runs reliably and efficiently.
@@ -17484,6 +17492,7 @@ class CapacityReviewProcessPlanning {
 
 /// 8.8. Security Requirements [PD00-TEC-SEC].
 @SectionId('PD00-TEC-SEC')
+@DetailedIn(TechnicalRequirementsSpec)
 @ContentHelp('''
 Define comprehensive security requirements including IT security standards,
 data protection, privacy, and security auditing. Security is foundational
