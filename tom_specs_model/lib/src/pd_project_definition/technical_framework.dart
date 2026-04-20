@@ -729,38 +729,69 @@ class DependencyManagement {
         hint: 'Additional package managers used'),
     Field('registryUrls', String, 'Registry URLs',
         hint: 'Package registry URLs (public and private)'),
+  ])
+  String? content;
 
-    // Version policy
-    Field('versioningPolicy', String, 'Versioning Policy',
-        hint: 'SemVer, CalVer, custom'),
-    Field('dependencyUpdatePolicy', String, 'Update Policy',
-        hint: 'How and when to update dependencies'),
-    Field('lockfilePolicy', String, 'Lockfile Policy',
-        hint: 'Required, Recommended, Optional'),
+  /// Versioning and update policy.
+  DependencyManagementVersioning versioning =
+    DependencyManagementVersioning();
 
-    // Security
-    Field('securityScanning', String, 'Security Scanning',
-        hint: 'Dependency vulnerability scanning requirements'),
-    Field('licenseCompliance', String, 'License Compliance',
-        hint: 'Allowed and prohibited licenses'),
-    Field('sourceTrust', String, 'Source Trust',
-        hint: 'Trusted sources and verification'),
+  /// Security and trust controls.
+  DependencyManagementSecurity security = DependencyManagementSecurity();
 
-    // Internal dependencies
-    Field('internalPackages', String, 'Internal Packages',
-        hint: 'Internal/private packages to use'),
-    Field('monorepoStrategy', String, 'Monorepo Strategy',
-        hint: 'Workspace/monorepo dependency management'),
+  /// Internal package and workspace strategy.
+  DependencyManagementInternal internal = DependencyManagementInternal();
 
-    // Caching
-    Field('cachingStrategy', String, 'Caching Strategy',
-        hint: 'Dependency caching approach'),
-    Field('offlineSupport', String, 'Offline Support',
-        hint: 'Offline build requirements'),
+  /// Caching and offline behavior.
+  DependencyManagementOperations operations = DependencyManagementOperations();
+}
 
-    // Notes
-    Field('notes', String, 'Notes',
-        hint: 'Additional dependency management notes'),
+/// Versioning and update policy.
+class DependencyManagementVersioning {
+  @Form([
+  Field('versioningPolicy', String, 'Versioning Policy',
+    hint: 'SemVer, CalVer, custom'),
+  Field('dependencyUpdatePolicy', String, 'Update Policy',
+    hint: 'How and when to update dependencies'),
+  Field('lockfilePolicy', String, 'Lockfile Policy',
+    hint: 'Required, Recommended, Optional'),
+  ])
+  String? content;
+}
+
+/// Security and trust controls.
+class DependencyManagementSecurity {
+  @Form([
+  Field('securityScanning', String, 'Security Scanning',
+    hint: 'Dependency vulnerability scanning requirements'),
+  Field('licenseCompliance', String, 'License Compliance',
+    hint: 'Allowed and prohibited licenses'),
+  Field('sourceTrust', String, 'Source Trust',
+    hint: 'Trusted sources and verification'),
+  ])
+  String? content;
+}
+
+/// Internal package and workspace strategy.
+class DependencyManagementInternal {
+  @Form([
+  Field('internalPackages', String, 'Internal Packages',
+    hint: 'Internal/private packages to use'),
+  Field('monorepoStrategy', String, 'Monorepo Strategy',
+    hint: 'Workspace/monorepo dependency management'),
+  ])
+  String? content;
+}
+
+/// Caching and offline behavior.
+class DependencyManagementOperations {
+  @Form([
+  Field('cachingStrategy', String, 'Caching Strategy',
+    hint: 'Dependency caching approach'),
+  Field('offlineSupport', String, 'Offline Support',
+    hint: 'Offline build requirements'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional dependency management notes'),
   ])
   String? content;
 }
@@ -3732,33 +3763,60 @@ class IdeRequirementEntry {
         hint: 'Minimum version or version range'),
     Field('platform', String, 'Platform',
         hint: 'Windows, macOS, Linux, Web'),
+  ])
+  String? content;
 
-    // Configuration
-    Field('requiredExtensions', String, 'Required Extensions',
-        hint: 'Extensions/plugins that must be installed'),
-    Field('recommendedExtensions', String, 'Recommended Extensions',
-        hint: 'Optional but helpful extensions'),
-    Field('settingsTemplate', String, 'Settings Template',
-        hint: 'Reference to shared settings file'),
-    Field('workspaceConfiguration', String, 'Workspace Configuration',
-        hint: 'Required workspace setup'),
+  /// Extension and workspace configuration.
+  IdeRequirementEntryConfiguration configuration =
+    IdeRequirementEntryConfiguration();
 
-    // Integration
-    Field('debuggerSupport', String, 'Debugger Support',
-        hint: 'Required debugger integration'),
-    Field('linterIntegration', String, 'Linter Integration',
-        hint: 'How linter integrates with IDE'),
-    Field('formatOnSave', bool, 'Format on Save',
-        hint: 'Require format on save'),
-    Field('gitIntegration', String, 'Git Integration',
-        hint: 'Required Git tooling'),
+  /// Debugger, linting, and formatting integration.
+  IdeRequirementEntryIntegration integration =
+    IdeRequirementEntryIntegration();
 
-    // Team standardization
-    Field('sharedConfigLocation', String, 'Shared Config Location',
-        hint: 'Where team configs are stored'),
-    Field('syncMechanism', String, 'Sync Mechanism',
-        hint: 'How settings are synced across team'),
-    Field('notes', String, 'Notes', hint: 'Additional IDE notes'),
+  /// Shared team standardization settings.
+  IdeRequirementEntryStandardization standardization =
+    IdeRequirementEntryStandardization();
+}
+
+/// Extension and workspace configuration.
+class IdeRequirementEntryConfiguration {
+  @Form([
+  Field('requiredExtensions', String, 'Required Extensions',
+    hint: 'Extensions/plugins that must be installed'),
+  Field('recommendedExtensions', String, 'Recommended Extensions',
+    hint: 'Optional but helpful extensions'),
+  Field('settingsTemplate', String, 'Settings Template',
+    hint: 'Reference to shared settings file'),
+  Field('workspaceConfiguration', String, 'Workspace Configuration',
+    hint: 'Required workspace setup'),
+  ])
+  String? content;
+}
+
+/// Debugger, linting, and formatting integration.
+class IdeRequirementEntryIntegration {
+  @Form([
+  Field('debuggerSupport', String, 'Debugger Support',
+    hint: 'Required debugger integration'),
+  Field('linterIntegration', String, 'Linter Integration',
+    hint: 'How linter integrates with IDE'),
+  Field('formatOnSave', bool, 'Format on Save',
+    hint: 'Require format on save'),
+  Field('gitIntegration', String, 'Git Integration',
+    hint: 'Required Git tooling'),
+  ])
+  String? content;
+}
+
+/// Shared team standardization settings.
+class IdeRequirementEntryStandardization {
+  @Form([
+  Field('sharedConfigLocation', String, 'Shared Config Location',
+    hint: 'Where team configs are stored'),
+  Field('syncMechanism', String, 'Sync Mechanism',
+    hint: 'How settings are synced across team'),
+  Field('notes', String, 'Notes', hint: 'Additional IDE notes'),
   ])
   String? content;
 }
@@ -3964,29 +4022,62 @@ class PipelineStageEntry {
         required: true, hint: 'E.g., Build, Test, Deploy, Release'),
     Field('stageOrder', String, 'Order', hint: 'Execution order'),
     Field('description', String, 'Description', hint: 'What this stage does'),
+  ])
+  String? content;
 
-    // Triggers
+  /// Triggering conditions and approval gates.
+  PipelineStageEntryTrigger trigger = PipelineStageEntryTrigger();
+
+  /// Execution environment and job strategy.
+  PipelineStageEntryExecution execution = PipelineStageEntryExecution();
+
+  /// Artifact flow between stages.
+  PipelineStageEntryArtifacts artifacts = PipelineStageEntryArtifacts();
+
+  /// Failure handling and retry behavior.
+  PipelineStageEntryFailure failure = PipelineStageEntryFailure();
+}
+
+/// Triggering conditions and approval gates.
+class PipelineStageEntryTrigger {
+  @Form([
     Field('triggers', String, 'Triggers',
         hint: 'What triggers this stage (push, PR, schedule)'),
     Field('conditions', String, 'Conditions',
         hint: 'Conditions for stage to run'),
     Field('manualApproval', bool, 'Manual Approval',
         hint: 'Requires human approval'),
+  ])
+  String? content;
+}
 
-    // Execution
+/// Execution environment and job strategy.
+class PipelineStageEntryExecution {
+  @Form([
     Field('runnerRequirements', String, 'Runner Requirements',
         hint: 'Required runner type/labels'),
-    Field('timeoutMinutes', String, 'Timeout', hint: 'Stage timeout in minutes'),
+    Field('timeoutMinutes', String, 'Timeout',
+        hint: 'Stage timeout in minutes'),
     Field('parallelJobs', bool, 'Parallel Jobs',
         hint: 'Jobs in stage run in parallel'),
+  ])
+  String? content;
+}
 
-    // Artifacts
+/// Artifact flow between stages.
+class PipelineStageEntryArtifacts {
+  @Form([
     Field('inputArtifacts', String, 'Input Artifacts',
         hint: 'Required artifacts from previous stages'),
     Field('outputArtifacts', String, 'Output Artifacts',
         hint: 'Artifacts produced by this stage'),
+  ])
+  String? content;
+}
 
-    // Failure handling
+/// Failure handling and retry behavior.
+class PipelineStageEntryFailure {
+  @Form([
     Field('failureBehavior', String, 'Failure Behavior',
         hint: 'Continue, stop, retry'),
     Field('retryPolicy', String, 'Retry Policy',
@@ -4073,35 +4164,71 @@ class DeploymentEnvironmentEntry {
     Field('environmentType', String, 'Type',
         hint: 'Development, Staging, Production'),
     Field('url', String, 'URL', hint: 'Environment URL'),
+  ])
+  String? content;
 
-    // Deployment
-    Field('deploymentMethod', String, 'Deployment Method',
-        hint: 'Kubernetes, serverless, VM, container'),
-    Field('deploymentConfig', String, 'Deployment Config',
-        hint: 'Reference to deployment configuration'),
-    Field('rollbackStrategy', String, 'Rollback Strategy',
-        hint: 'How to rollback failed deployments'),
+  /// Deployment method and rollback controls.
+  DeploymentEnvironmentEntryDeployment deployment =
+    DeploymentEnvironmentEntryDeployment();
 
-    // Protection
-    Field('protectionRules', String, 'Protection Rules',
-        hint: 'Required reviewers, branch protection'),
-    Field('requiredApprovers', String, 'Required Approvers',
-        hint: 'Who must approve deployments'),
-    Field('preventSelfApproval', bool, 'Prevent Self-Approval',
-        hint: 'Cannot approve own deployments'),
+  /// Approval and protection rules.
+  DeploymentEnvironmentEntryProtection protection =
+    DeploymentEnvironmentEntryProtection();
 
-    // Secrets
-    Field('secretsScope', String, 'Secrets Scope',
-        hint: 'Environment-specific secrets'),
-    Field('configurationSource', String, 'Configuration Source',
-        hint: 'Where config comes from'),
+  /// Configuration and secrets sourcing.
+  DeploymentEnvironmentEntryConfiguration configuration =
+    DeploymentEnvironmentEntryConfiguration();
 
-    // Monitoring
-    Field('healthCheckUrl', String, 'Health Check URL',
-        hint: 'URL for health verification'),
-    Field('deploymentVerification', String, 'Deployment Verification',
-        hint: 'Post-deployment checks'),
-    Field('notes', String, 'Notes', hint: 'Additional environment notes'),
+  /// Health verification and environment notes.
+  DeploymentEnvironmentEntryMonitoring monitoring =
+    DeploymentEnvironmentEntryMonitoring();
+}
+
+/// Deployment method and rollback controls.
+class DeploymentEnvironmentEntryDeployment {
+  @Form([
+  Field('deploymentMethod', String, 'Deployment Method',
+    hint: 'Kubernetes, serverless, VM, container'),
+  Field('deploymentConfig', String, 'Deployment Config',
+    hint: 'Reference to deployment configuration'),
+  Field('rollbackStrategy', String, 'Rollback Strategy',
+    hint: 'How to rollback failed deployments'),
+  ])
+  String? content;
+}
+
+/// Approval and protection rules.
+class DeploymentEnvironmentEntryProtection {
+  @Form([
+  Field('protectionRules', String, 'Protection Rules',
+    hint: 'Required reviewers, branch protection'),
+  Field('requiredApprovers', String, 'Required Approvers',
+    hint: 'Who must approve deployments'),
+  Field('preventSelfApproval', bool, 'Prevent Self-Approval',
+    hint: 'Cannot approve own deployments'),
+  ])
+  String? content;
+}
+
+/// Configuration and secrets sourcing.
+class DeploymentEnvironmentEntryConfiguration {
+  @Form([
+  Field('secretsScope', String, 'Secrets Scope',
+    hint: 'Environment-specific secrets'),
+  Field('configurationSource', String, 'Configuration Source',
+    hint: 'Where config comes from'),
+  ])
+  String? content;
+}
+
+/// Health verification and environment notes.
+class DeploymentEnvironmentEntryMonitoring {
+  @Form([
+  Field('healthCheckUrl', String, 'Health Check URL',
+    hint: 'URL for health verification'),
+  Field('deploymentVerification', String, 'Deployment Verification',
+    hint: 'Post-deployment checks'),
+  Field('notes', String, 'Notes', hint: 'Additional environment notes'),
   ])
   String? content;
 }
@@ -13182,34 +13309,71 @@ class MaintenanceChangeManagement {
         hint: 'Standard, Normal, Emergency'),
     Field('changeBoard', String, 'Change Advisory Board',
         hint: 'CAB composition'),
-    Field('changeBoardSchedule', String, 'CAB Schedule',
-        hint: 'When CAB meets'),
+  ])
+  String? content;
 
-    // Documentation
-    Field('changeRequestRequired', bool, 'Change Request Required',
-        hint: 'CR needed for maintenance'),
-    Field('impactAssessment', bool, 'Impact Assessment Required',
-        hint: 'Assess impact before change'),
-    Field('riskAssessment', bool, 'Risk Assessment Required',
-        hint: 'Assess risk before change'),
-    Field('rollbackPlanRequired', bool, 'Rollback Plan Required',
-        hint: 'Rollback plan mandatory'),
+  /// CAB cadence and documentation prerequisites.
+  MaintenanceChangeManagementGovernance governance =
+    MaintenanceChangeManagementGovernance();
 
-    // Testing
-    Field('preProdTesting', bool, 'Pre-Production Testing',
-        hint: 'Test in staging first'),
-    Field('testPlanRequired', bool, 'Test Plan Required',
-        hint: 'Test plan mandatory'),
-    Field('signOffRequired', bool, 'Sign-Off Required',
-        hint: 'Post-test sign-off'),
+  /// Required assessments and rollback planning.
+  MaintenanceChangeManagementDocumentation documentation =
+    MaintenanceChangeManagementDocumentation();
 
-    // Audit
-    Field('changeLogging', bool, 'Change Logging',
-        hint: 'Log all changes'),
-    Field('changeHistory', String, 'Change History',
-        hint: 'Where changes are tracked'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional change management notes'),
+  /// Testing and sign-off requirements.
+  MaintenanceChangeManagementTesting testing =
+    MaintenanceChangeManagementTesting();
+
+  /// Logging and audit trail expectations.
+  MaintenanceChangeManagementAudit audit = MaintenanceChangeManagementAudit();
+}
+
+/// CAB cadence and documentation prerequisites.
+class MaintenanceChangeManagementGovernance {
+  @Form([
+  Field('changeBoardSchedule', String, 'CAB Schedule',
+    hint: 'When CAB meets'),
+  ])
+  String? content;
+}
+
+/// Required assessments and rollback planning.
+class MaintenanceChangeManagementDocumentation {
+  @Form([
+  Field('changeRequestRequired', bool, 'Change Request Required',
+    hint: 'CR needed for maintenance'),
+  Field('impactAssessment', bool, 'Impact Assessment Required',
+    hint: 'Assess impact before change'),
+  Field('riskAssessment', bool, 'Risk Assessment Required',
+    hint: 'Assess risk before change'),
+  Field('rollbackPlanRequired', bool, 'Rollback Plan Required',
+    hint: 'Rollback plan mandatory'),
+  ])
+  String? content;
+}
+
+/// Testing and sign-off requirements.
+class MaintenanceChangeManagementTesting {
+  @Form([
+  Field('preProdTesting', bool, 'Pre-Production Testing',
+    hint: 'Test in staging first'),
+  Field('testPlanRequired', bool, 'Test Plan Required',
+    hint: 'Test plan mandatory'),
+  Field('signOffRequired', bool, 'Sign-Off Required',
+    hint: 'Post-test sign-off'),
+  ])
+  String? content;
+}
+
+/// Logging and audit trail expectations.
+class MaintenanceChangeManagementAudit {
+  @Form([
+  Field('changeLogging', bool, 'Change Logging',
+    hint: 'Log all changes'),
+  Field('changeHistory', String, 'Change History',
+    hint: 'Where changes are tracked'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional change management notes'),
   ])
   String? content;
 }
@@ -15546,28 +15710,56 @@ class InfrastructureMetricsSpec {
         hint: 'Usage, IOPS, throughput, latency'),
     Field('networkMetrics', bool, 'Network Metrics',
         hint: 'Bytes in/out, packets, errors'),
-    // Kubernetes/Container
-    Field('containerMetrics', bool, 'Container Metrics',
-        hint: 'Container CPU, memory, restarts'),
-    Field('podMetrics', bool, 'Pod Metrics',
-        hint: 'Pod status, readiness, age'),
-    Field('nodeMetrics', bool, 'Node Metrics',
-        hint: 'Node capacity, allocatable, conditions'),
-    Field('deploymentMetrics', bool, 'Deployment Metrics',
-        hint: 'Replica count, rollout status'),
-    // Cloud provider
-    Field('cloudProviderMetrics', bool, 'Cloud Provider Metrics',
-        hint: 'Native cloud metrics integration'),
-    Field('managedServiceMetrics', bool, 'Managed Service Metrics',
-        hint: 'RDS, ElastiCache, SQS metrics'),
-    Field('loadBalancerMetrics', bool, 'Load Balancer Metrics',
-        hint: 'Connection count, healthy hosts'),
-    Field('cdnMetrics', bool, 'CDN Metrics',
-        hint: 'Cache hit ratio, bandwidth, latency'),
-    // Cost
-    Field('costMetrics', bool, 'Cost Metrics',
-        hint: 'Resource cost attribution'),
-    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+
+  /// Container and orchestration metrics.
+  InfrastructureMetricsSpecKubernetes kubernetes =
+    InfrastructureMetricsSpecKubernetes();
+
+  /// Cloud-managed services and edge metrics.
+  InfrastructureMetricsSpecCloud cloud = InfrastructureMetricsSpecCloud();
+
+  /// Cost attribution and notes.
+  InfrastructureMetricsSpecCost cost = InfrastructureMetricsSpecCost();
+}
+
+/// Container and orchestration metrics.
+class InfrastructureMetricsSpecKubernetes {
+  @Form([
+  Field('containerMetrics', bool, 'Container Metrics',
+    hint: 'Container CPU, memory, restarts'),
+  Field('podMetrics', bool, 'Pod Metrics',
+    hint: 'Pod status, readiness, age'),
+  Field('nodeMetrics', bool, 'Node Metrics',
+    hint: 'Node capacity, allocatable, conditions'),
+  Field('deploymentMetrics', bool, 'Deployment Metrics',
+    hint: 'Replica count, rollout status'),
+  ])
+  String? content;
+}
+
+/// Cloud-managed services and edge metrics.
+class InfrastructureMetricsSpecCloud {
+  @Form([
+  Field('cloudProviderMetrics', bool, 'Cloud Provider Metrics',
+    hint: 'Native cloud metrics integration'),
+  Field('managedServiceMetrics', bool, 'Managed Service Metrics',
+    hint: 'RDS, ElastiCache, SQS metrics'),
+  Field('loadBalancerMetrics', bool, 'Load Balancer Metrics',
+    hint: 'Connection count, healthy hosts'),
+  Field('cdnMetrics', bool, 'CDN Metrics',
+    hint: 'Cache hit ratio, bandwidth, latency'),
+  ])
+  String? content;
+}
+
+/// Cost attribution and notes.
+class InfrastructureMetricsSpecCost {
+  @Form([
+  Field('costMetrics', bool, 'Cost Metrics',
+    hint: 'Resource cost attribution'),
+  Field('notes', String, 'Notes'),
   ])
   String? content;
 }
@@ -15582,29 +15774,67 @@ class BusinessMetricsSpec {
         hint: 'Session count, duration, depth'),
     Field('userJourneyMetrics', bool, 'User Journey Metrics',
         hint: 'Funnel completion, drop-off'),
-    // Transactions
-    Field('transactionVolume', bool, 'Transaction Volume',
-        hint: 'Orders, payments, conversions'),
-    Field('transactionValue', bool, 'Transaction Value',
-        hint: 'Revenue, GMV, average order value'),
-    Field('transactionSuccess', bool, 'Transaction Success',
-        hint: 'Success/failure rates'),
-    // Feature usage
-    Field('featureAdoption', bool, 'Feature Adoption',
-        hint: 'Feature usage rates'),
-    Field('featureEngagement', bool, 'Feature Engagement',
-        hint: 'Depth of feature usage'),
-    // Business KPIs
-    Field('conversionRate', bool, 'Conversion Rate'),
-    Field('churnRate', bool, 'Churn Rate'),
-    Field('customerSatisfaction', bool, 'Customer Satisfaction',
-        hint: 'NPS, CSAT from feedback'),
-    Field('slaCompliance', bool, 'SLA Compliance',
-        hint: 'SLA adherence metrics'),
-    // Real-time
-    Field('realTimeBusinessDashboard', bool, 'Real-Time Business Dashboard',
-        hint: 'Live business metrics display'),
-    Field('notes', String, 'Notes'),
+  ])
+  String? content;
+
+  /// Transaction and revenue metrics.
+  BusinessMetricsSpecTransactions transactions =
+    BusinessMetricsSpecTransactions();
+
+  /// Feature adoption and engagement metrics.
+  BusinessMetricsSpecFeatureUsage featureUsage =
+    BusinessMetricsSpecFeatureUsage();
+
+  /// KPI and customer outcome metrics.
+  BusinessMetricsSpecKpis kpis = BusinessMetricsSpecKpis();
+
+  /// Real-time dashboard and notes.
+  BusinessMetricsSpecOperations operations = BusinessMetricsSpecOperations();
+}
+
+/// Transaction and revenue metrics.
+class BusinessMetricsSpecTransactions {
+  @Form([
+  Field('transactionVolume', bool, 'Transaction Volume',
+    hint: 'Orders, payments, conversions'),
+  Field('transactionValue', bool, 'Transaction Value',
+    hint: 'Revenue, GMV, average order value'),
+  Field('transactionSuccess', bool, 'Transaction Success',
+    hint: 'Success/failure rates'),
+  ])
+  String? content;
+}
+
+/// Feature adoption and engagement metrics.
+class BusinessMetricsSpecFeatureUsage {
+  @Form([
+  Field('featureAdoption', bool, 'Feature Adoption',
+    hint: 'Feature usage rates'),
+  Field('featureEngagement', bool, 'Feature Engagement',
+    hint: 'Depth of feature usage'),
+  ])
+  String? content;
+}
+
+/// KPI and customer outcome metrics.
+class BusinessMetricsSpecKpis {
+  @Form([
+  Field('conversionRate', bool, 'Conversion Rate'),
+  Field('churnRate', bool, 'Churn Rate'),
+  Field('customerSatisfaction', bool, 'Customer Satisfaction',
+    hint: 'NPS, CSAT from feedback'),
+  Field('slaCompliance', bool, 'SLA Compliance',
+    hint: 'SLA adherence metrics'),
+  ])
+  String? content;
+}
+
+/// Real-time dashboard and notes.
+class BusinessMetricsSpecOperations {
+  @Form([
+  Field('realTimeBusinessDashboard', bool, 'Real-Time Business Dashboard',
+    hint: 'Live business metrics display'),
+  Field('notes', String, 'Notes'),
   ])
   String? content;
 }
@@ -16288,36 +16518,70 @@ class DependencyHealthMonitoring {
         hint: 'Alert threshold for slow queries'),
     Field('databaseConnectionPoolHealth', bool, 'DB Pool Health',
         hint: 'Monitor pool exhaustion'),
+  ])
+  String? content;
 
-    // Cache
-    Field('cacheHealthCheck', String, 'Cache Health Check',
-        hint: 'Redis/Memcached ping and memory'),
-    Field('cacheEvictionMonitoring', bool, 'Cache Eviction Monitoring',
-        hint: 'Alert on high eviction rates'),
+  /// Cache subsystem checks.
+  DependencyHealthMonitoringCache cache = DependencyHealthMonitoringCache();
 
-    // Message queue
-    Field('messageQueueHealth', String, 'Message Queue Health',
-        hint: 'Queue depth, consumer lag'),
-    Field('dlqMonitoring', bool, 'Dead Letter Queue Monitoring',
-        hint: 'Alert on DLQ message accumulation'),
+  /// Queue and dead-letter monitoring.
+  DependencyHealthMonitoringQueue queue = DependencyHealthMonitoringQueue();
 
-    // External services
-    Field('externalServicePing', bool, 'External Service Ping',
-        hint: 'Periodic connectivity tests'),
-    Field('certificateExpiryCheck', bool, 'Certificate Expiry Check',
-        hint: 'Monitor TLS certificate expiration'),
-    Field('dnsResolutionCheck', bool, 'DNS Resolution Check',
-        hint: 'Verify DNS resolution for dependencies'),
+  /// External service and certificate checks.
+  DependencyHealthMonitoringExternal external =
+    DependencyHealthMonitoringExternal();
 
-    // Thresholds
-    Field('degradedThreshold', String, 'Degraded Threshold',
-        hint: 'When to mark dependency as degraded'),
-    Field('unavailableThreshold', String, 'Unavailable Threshold',
-        hint: 'When to mark dependency as down'),
-    Field('cascadeProtection', String, 'Cascade Protection',
-        hint: 'Prevent cascading failures'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional dependency health notes'),
+  /// Thresholds and cascade protection settings.
+  DependencyHealthMonitoringThresholds thresholds =
+    DependencyHealthMonitoringThresholds();
+}
+
+/// Cache subsystem checks.
+class DependencyHealthMonitoringCache {
+  @Form([
+  Field('cacheHealthCheck', String, 'Cache Health Check',
+    hint: 'Redis/Memcached ping and memory'),
+  Field('cacheEvictionMonitoring', bool, 'Cache Eviction Monitoring',
+    hint: 'Alert on high eviction rates'),
+  ])
+  String? content;
+}
+
+/// Queue and dead-letter monitoring.
+class DependencyHealthMonitoringQueue {
+  @Form([
+  Field('messageQueueHealth', String, 'Message Queue Health',
+    hint: 'Queue depth, consumer lag'),
+  Field('dlqMonitoring', bool, 'Dead Letter Queue Monitoring',
+    hint: 'Alert on DLQ message accumulation'),
+  ])
+  String? content;
+}
+
+/// External service and certificate checks.
+class DependencyHealthMonitoringExternal {
+  @Form([
+  Field('externalServicePing', bool, 'External Service Ping',
+    hint: 'Periodic connectivity tests'),
+  Field('certificateExpiryCheck', bool, 'Certificate Expiry Check',
+    hint: 'Monitor TLS certificate expiration'),
+  Field('dnsResolutionCheck', bool, 'DNS Resolution Check',
+    hint: 'Verify DNS resolution for dependencies'),
+  ])
+  String? content;
+}
+
+/// Thresholds and cascade protection settings.
+class DependencyHealthMonitoringThresholds {
+  @Form([
+  Field('degradedThreshold', String, 'Degraded Threshold',
+    hint: 'When to mark dependency as degraded'),
+  Field('unavailableThreshold', String, 'Unavailable Threshold',
+    hint: 'When to mark dependency as down'),
+  Field('cascadeProtection', String, 'Cascade Protection',
+    hint: 'Prevent cascading failures'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional dependency health notes'),
   ])
   String? content;
 }
@@ -16689,36 +16953,70 @@ class ResourceCapacityBaselines {
         hint: 'Normal memory usage per service'),
     Field('instanceCountBaseline', String, 'Instance Count Baseline',
         hint: 'Normal number of running instances'),
+  ])
+  String? content;
 
-    // Storage
-    Field('storageIOPSBaseline', String, 'Storage IOPS Baseline',
-        hint: 'Normal storage I/O operations per second'),
-    Field('storageThroughputBaseline', String, 'Storage Throughput Baseline',
-        hint: 'Normal storage throughput (MB/s)'),
+  /// Storage baselines.
+  ResourceCapacityBaselinesStorage storage = ResourceCapacityBaselinesStorage();
 
-    // Network
-    Field('networkBandwidthBaseline', String, 'Network Bandwidth Baseline',
-        hint: 'Normal network usage (Mbps)'),
-    Field('connectionCountBaseline', String, 'Connection Count Baseline',
-        hint: 'Normal active connection count'),
+  /// Network baselines.
+  ResourceCapacityBaselinesNetwork network = ResourceCapacityBaselinesNetwork();
 
-    // Database
-    Field('databaseConnectionPoolBaseline', String, 'DB Connection Pool Baseline',
-        hint: 'Normal active DB connections'),
-    Field('queryVolumeBaseline', String, 'Query Volume Baseline',
-        hint: 'Normal queries per second'),
-    Field('databaseSizeBaseline', String, 'Database Size Baseline',
-        hint: 'Current database on-disk size'),
+  /// Database baselines.
+  ResourceCapacityBaselinesDatabase database =
+    ResourceCapacityBaselinesDatabase();
 
-    // Cost
-    Field('currentMonthlyCost', String, 'Current Monthly Cost',
-        hint: 'Baseline monthly infrastructure cost'),
-    Field('costPerUser', String, 'Cost Per User',
-        hint: 'Infrastructure cost per active user'),
-    Field('projectedCostAtScale', String, 'Projected Cost at Scale',
-        hint: 'Estimated cost at target user count'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional resource baseline notes'),
+  /// Cost baselines and notes.
+  ResourceCapacityBaselinesCost cost = ResourceCapacityBaselinesCost();
+}
+
+/// Storage baselines.
+class ResourceCapacityBaselinesStorage {
+  @Form([
+  Field('storageIOPSBaseline', String, 'Storage IOPS Baseline',
+    hint: 'Normal storage I/O operations per second'),
+  Field('storageThroughputBaseline', String, 'Storage Throughput Baseline',
+    hint: 'Normal storage throughput (MB/s)'),
+  ])
+  String? content;
+}
+
+/// Network baselines.
+class ResourceCapacityBaselinesNetwork {
+  @Form([
+  Field('networkBandwidthBaseline', String, 'Network Bandwidth Baseline',
+    hint: 'Normal network usage (Mbps)'),
+  Field('connectionCountBaseline', String, 'Connection Count Baseline',
+    hint: 'Normal active connection count'),
+  ])
+  String? content;
+}
+
+/// Database baselines.
+class ResourceCapacityBaselinesDatabase {
+  @Form([
+  Field('databaseConnectionPoolBaseline', String,
+    'DB Connection Pool Baseline',
+    hint: 'Normal active DB connections'),
+  Field('queryVolumeBaseline', String, 'Query Volume Baseline',
+    hint: 'Normal queries per second'),
+  Field('databaseSizeBaseline', String, 'Database Size Baseline',
+    hint: 'Current database on-disk size'),
+  ])
+  String? content;
+}
+
+/// Cost baselines and notes.
+class ResourceCapacityBaselinesCost {
+  @Form([
+  Field('currentMonthlyCost', String, 'Current Monthly Cost',
+    hint: 'Baseline monthly infrastructure cost'),
+  Field('costPerUser', String, 'Cost Per User',
+    hint: 'Infrastructure cost per active user'),
+  Field('projectedCostAtScale', String, 'Projected Cost at Scale',
+    hint: 'Estimated cost at target user count'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional resource baseline notes'),
   ])
   String? content;
 }
@@ -17539,38 +17837,65 @@ class DataResidencyRequirements {
         hint: 'All permitted regions for data storage and processing'),
     Field('prohibitedDataRegions', String, 'Prohibited Data Regions',
         hint: 'Regions where data must never be stored or processed'),
-    Field('dataResidencyRegulation', String, 'Residency Regulation',
-        hint: 'Specific laws mandating data residency (e.g. Russia, China)'),
+  ])
+  String? content;
 
-    // Sovereignty
-    Field('dataSovereigntyRequirements', String, 'Sovereignty Requirements',
-        hint:
-            'Government access restrictions, national security considerations'),
-    Field('encryptionKeyLocation', String, 'Encryption Key Location',
-        required: true,
-        hint: 'Where encryption keys are stored and managed geographically'),
-    Field('cloudProviderRequirements', String, 'Cloud Provider Requirements',
-        hint:
-            'Sovereign cloud requirements, government-certified providers'),
+  /// Governing regulation and sovereignty constraints.
+  DataResidencyRequirementsSovereignty sovereignty =
+    DataResidencyRequirementsSovereignty();
 
-    // Replication and backup
-    Field('backupDataResidency', String, 'Backup Data Residency',
-        hint: 'Geographic constraints for backup and disaster recovery data'),
-    Field('replicationConstraints', String, 'Replication Constraints',
-        hint: 'Cross-region replication limitations and rules'),
-    Field('cdnDataConstraints', String, 'CDN Data Constraints',
-        hint: 'Content delivery network caching location restrictions'),
+  /// Backup, replication, and CDN placement rules.
+  DataResidencyRequirementsReplication replication =
+    DataResidencyRequirementsReplication();
 
-    // Verification
-    Field('residencyVerification', String, 'Residency Verification',
-        hint: 'How data residency compliance is verified and audited'),
-    Field('providerCertifications', String, 'Provider Certifications',
-        hint:
-            'Cloud provider certifications (ISO 27001, SOC 2, C5, ENS)'),
-    Field('dataLocationTransparency', String, 'Data Location Transparency',
-        hint: 'How data subjects are informed about storage locations'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional data residency notes'),
+  /// Verification and transparency requirements.
+  DataResidencyRequirementsVerification verification =
+    DataResidencyRequirementsVerification();
+}
+
+/// Governing regulation and sovereignty constraints.
+class DataResidencyRequirementsSovereignty {
+  @Form([
+  Field('dataResidencyRegulation', String, 'Residency Regulation',
+    hint: 'Specific laws mandating data residency (e.g. Russia, China)'),
+  Field('dataSovereigntyRequirements', String, 'Sovereignty Requirements',
+    hint:
+      'Government access restrictions, national security considerations'),
+  Field('encryptionKeyLocation', String, 'Encryption Key Location',
+    required: true,
+    hint: 'Where encryption keys are stored and managed geographically'),
+  Field('cloudProviderRequirements', String, 'Cloud Provider Requirements',
+    hint:
+      'Sovereign cloud requirements, government-certified providers'),
+  ])
+  String? content;
+}
+
+/// Backup, replication, and CDN placement rules.
+class DataResidencyRequirementsReplication {
+  @Form([
+  Field('backupDataResidency', String, 'Backup Data Residency',
+    hint: 'Geographic constraints for backup and disaster recovery data'),
+  Field('replicationConstraints', String, 'Replication Constraints',
+    hint: 'Cross-region replication limitations and rules'),
+  Field('cdnDataConstraints', String, 'CDN Data Constraints',
+    hint: 'Content delivery network caching location restrictions'),
+  ])
+  String? content;
+}
+
+/// Verification and transparency requirements.
+class DataResidencyRequirementsVerification {
+  @Form([
+  Field('residencyVerification', String, 'Residency Verification',
+    hint: 'How data residency compliance is verified and audited'),
+  Field('providerCertifications', String, 'Provider Certifications',
+    hint:
+      'Cloud provider certifications (ISO 27001, SOC 2, C5, ENS)'),
+  Field('dataLocationTransparency', String, 'Data Location Transparency',
+    hint: 'How data subjects are informed about storage locations'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional data residency notes'),
   ])
   String? content;
 }
@@ -18503,34 +18828,61 @@ class ComplianceAuditSchedule {
     Field('auditTypes', String, 'Audit Types',
         hint:
             'Technical audit, process audit, compliance audit, forensic audit'),
+  ])
+  String? content;
 
-    // Planning
-    Field('annualAuditPlan', String, 'Annual Audit Plan',
-        hint: 'Documented plan with scope, schedule, resources for the year'),
-    Field('auditScopeDefinition', String, 'Scope Definition',
-        hint: 'How audit scope is determined: risk-based, regulatory, coverage rotation'),
-    Field('auditResourceRequirements', String, 'Resource Requirements',
-        hint: 'Internal staff, external auditors, tools, budget'),
+  /// Annual planning and scoping rules.
+  ComplianceAuditSchedulePlanning planning = ComplianceAuditSchedulePlanning();
 
-    // Execution
-    Field('auditorQualifications', String, 'Auditor Qualifications',
-        hint: 'CISA, CISSP, ISO 27001 Lead Auditor, industry-specific'),
-    Field('auditEvidenceCollection', String, 'Evidence Collection',
-        hint: 'How audit evidence is gathered, documented, and preserved'),
-    Field('auditInterviewProcess', String, 'Interview Process',
-        hint: 'Staff interview methodology during audits'),
+  /// Audit execution and evidence collection.
+  ComplianceAuditScheduleExecution execution =
+    ComplianceAuditScheduleExecution();
 
-    // Reporting and follow-up
-    Field('auditReportingStructure', String, 'Reporting Structure',
-        hint: 'Finding format, severity rating, recommendation structure'),
-    Field('findingRemediationTracking', String, 'Remediation Tracking',
-        hint: 'How audit findings are tracked to resolution'),
-    Field('managementResponseTimeline', String, 'Management Response Timeline',
-        hint: 'Time for management to respond to audit findings'),
-    Field('auditCommitteeReporting', String, 'Committee Reporting',
-        hint: 'How audit results are reported to board/audit committee'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional compliance audit schedule notes'),
+  /// Reporting and remediation follow-up.
+  ComplianceAuditScheduleReporting reporting =
+    ComplianceAuditScheduleReporting();
+}
+
+/// Annual planning and scoping rules.
+class ComplianceAuditSchedulePlanning {
+  @Form([
+  Field('annualAuditPlan', String, 'Annual Audit Plan',
+    hint: 'Documented plan with scope, schedule, resources for the year'),
+  Field('auditScopeDefinition', String, 'Scope Definition',
+    hint:
+      'How audit scope is determined: risk-based, regulatory, coverage rotation'),
+  Field('auditResourceRequirements', String, 'Resource Requirements',
+    hint: 'Internal staff, external auditors, tools, budget'),
+  ])
+  String? content;
+}
+
+/// Audit execution and evidence collection.
+class ComplianceAuditScheduleExecution {
+  @Form([
+  Field('auditorQualifications', String, 'Auditor Qualifications',
+    hint: 'CISA, CISSP, ISO 27001 Lead Auditor, industry-specific'),
+  Field('auditEvidenceCollection', String, 'Evidence Collection',
+    hint: 'How audit evidence is gathered, documented, and preserved'),
+  Field('auditInterviewProcess', String, 'Interview Process',
+    hint: 'Staff interview methodology during audits'),
+  ])
+  String? content;
+}
+
+/// Reporting and remediation follow-up.
+class ComplianceAuditScheduleReporting {
+  @Form([
+  Field('auditReportingStructure', String, 'Reporting Structure',
+    hint: 'Finding format, severity rating, recommendation structure'),
+  Field('findingRemediationTracking', String, 'Remediation Tracking',
+    hint: 'How audit findings are tracked to resolution'),
+  Field('managementResponseTimeline', String, 'Management Response Timeline',
+    hint: 'Time for management to respond to audit findings'),
+  Field('auditCommitteeReporting', String, 'Committee Reporting',
+    hint: 'How audit results are reported to board/audit committee'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional compliance audit schedule notes'),
   ])
   String? content;
 }
@@ -18649,34 +19001,58 @@ class SecurityAuditEntry {
             'Penetration test, compliance audit, code audit, infrastructure audit'),
     Field('auditDescription', String, 'Description',
         hint: 'Detailed description of what the audit covers'),
+  Field('frequency', String, 'Frequency',
+    required: true, hint: 'Annual, semi-annual, quarterly, on-demand'),
+  ])
+  String? content;
 
-    // Scheduling
-    Field('frequency', String, 'Frequency',
-        required: true, hint: 'Annual, semi-annual, quarterly, on-demand'),
-    Field('lastAuditDate', String, 'Last Audit Date',
-        hint: 'Date of most recent audit'),
-    Field('nextAuditDate', String, 'Next Audit Date',
-        hint: 'Planned date for next audit'),
+  /// Audit schedule and cadence.
+  SecurityAuditEntryScheduling scheduling = SecurityAuditEntryScheduling();
 
-    // Scope and execution
-    Field('auditScope', String, 'Audit Scope',
-        hint: 'Systems, processes, and data in scope'),
-    Field('auditStandard', String, 'Audit Standard',
-        hint: 'Standard or framework: ISO 27001, SOC 2, OWASP, PCI DSS'),
-    Field('auditorType', String, 'Auditor Type',
-        hint: 'Internal team, external firm, regulatory body'),
-    Field('estimatedDuration', String, 'Estimated Duration',
-        hint: 'Expected duration of the audit engagement'),
+  /// Scope, standards, and execution model.
+  SecurityAuditEntryExecution execution = SecurityAuditEntryExecution();
 
-    // Deliverables
-    Field('expectedDeliverables', String, 'Expected Deliverables',
-        hint: 'Audit report, remediation plan, certification, attestation'),
-    Field('remediationTimeline', String, 'Remediation Timeline',
-        hint: 'Expected timeline for addressing findings'),
-    Field('responsibleParty', String, 'Responsible Party',
-        hint: 'Team or individual responsible for coordinating the audit'),
-    Field('notes', String, 'Notes',
-        hint: 'Additional audit requirement notes'),
+  /// Deliverables, ownership, and notes.
+  SecurityAuditEntryFollowUp followUp = SecurityAuditEntryFollowUp();
+}
+
+/// Audit schedule and cadence.
+class SecurityAuditEntryScheduling {
+  @Form([
+  Field('lastAuditDate', String, 'Last Audit Date',
+    hint: 'Date of most recent audit'),
+  Field('nextAuditDate', String, 'Next Audit Date',
+    hint: 'Planned date for next audit'),
+  ])
+  String? content;
+}
+
+/// Scope, standards, and execution model.
+class SecurityAuditEntryExecution {
+  @Form([
+  Field('auditScope', String, 'Audit Scope',
+    hint: 'Systems, processes, and data in scope'),
+  Field('auditStandard', String, 'Audit Standard',
+    hint: 'Standard or framework: ISO 27001, SOC 2, OWASP, PCI DSS'),
+  Field('auditorType', String, 'Auditor Type',
+    hint: 'Internal team, external firm, regulatory body'),
+  Field('estimatedDuration', String, 'Estimated Duration',
+    hint: 'Expected duration of the audit engagement'),
+  ])
+  String? content;
+}
+
+/// Deliverables, ownership, and notes.
+class SecurityAuditEntryFollowUp {
+  @Form([
+  Field('expectedDeliverables', String, 'Expected Deliverables',
+    hint: 'Audit report, remediation plan, certification, attestation'),
+  Field('remediationTimeline', String, 'Remediation Timeline',
+    hint: 'Expected timeline for addressing findings'),
+  Field('responsibleParty', String, 'Responsible Party',
+    hint: 'Team or individual responsible for coordinating the audit'),
+  Field('notes', String, 'Notes',
+    hint: 'Additional audit requirement notes'),
   ])
   String? content;
 }
