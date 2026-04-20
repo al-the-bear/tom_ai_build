@@ -1,19 +1,18 @@
-/// Phase 3 DocSpec root-class stubs and re-exports.
+/// Phase 3 DocSpec root-class re-exports.
 ///
 /// This file bridges the annotation-time Type references on PD00 classes
-/// (`@DetailedIn(<DocName>)` / `@MapsTo(<DocName>)` / `@SecondLevelSectionId(<DocName>, ...)`)
-/// to the actual target-doc root classes.
+/// (`@DetailedIn(<DocName>)` / `@MapsTo(<DocName>)` /
+/// `@SecondLevelSectionId(<DocName>, ...)`) to the actual target-doc root
+/// classes. All 12 Phase 3 document roots now live in their own folders
+/// under `lib/src/<code>_<name>/`; this file re-exports them so PD00
+/// source files can resolve the Type references via a single import
+/// (`import '../document_stubs.dart';`).
 ///
-/// As each Phase 3 document root class is created (Phase B Steps 8–19,
-/// §9 of `doc/second_wave_documents.md`), the matching stub here is
-/// replaced with an `export` pointing at the real class in its own
-/// folder under `lib/src/<code>_<name>/`. Classes still listed as stubs
-/// below are placeholders until their Phase B step runs.
+/// History: during Phase A the file held empty placeholder classes so
+/// that PD00 annotations could compile before the real document roots
+/// existed. Phase B (Steps 8–19, see `doc/second_wave_documents.md` §11)
+/// replaced each stub with the re-export below.
 library;
-
-// ---------------------------------------------------------------------------
-// Document roots implemented in Phase B — re-exports from their folders.
-// ---------------------------------------------------------------------------
 
 // Step 8 — BSI (Business System Interactions).
 export 'bsi_business_system_interactions/bsi_business_system_interactions.dart';
@@ -48,9 +47,5 @@ export 'up_ui_prototype/up_ui_prototype.dart';
 // Step 18 — SR (System Rollout).
 export 'sr_system_rollout/sr_system_rollout.dart';
 
-// ---------------------------------------------------------------------------
-// Remaining stubs (replaced as their Phase B step runs).
-// ---------------------------------------------------------------------------
-
-/// Stub for BQP (Business Quality Plan). Phase B Step 19.
-class BusinessQualityPlan {}
+// Step 19 — BQP (Business Quality Plan).
+export 'bqp_business_quality_plan/bqp_business_quality_plan.dart';

@@ -8,6 +8,7 @@ library;
 export 'src/ac_authorization_concept/ac_authorization_concept.dart';
 export 'src/bdm_business_data_model/bdm_business_data_model.dart';
 export 'src/bp_business_processes/bp_business_processes.dart';
+export 'src/bqp_business_quality_plan/bqp_business_quality_plan.dart';
 export 'src/bsi_business_system_interactions/bsi_business_system_interactions.dart';
 export 'src/common/common.dart';
 export 'src/cs_current_situation/cs_current_situation.dart';
