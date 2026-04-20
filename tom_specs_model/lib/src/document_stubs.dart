@@ -36,12 +36,12 @@ export 'bdm_business_data_model/bdm_business_data_model.dart';
 // Step 14 — AC (Authorization Concept).
 export 'ac_authorization_concept/ac_authorization_concept.dart';
 
+// Step 15 — PPP (Project Phase Plan).
+export 'ppp_project_phase_plan/ppp_project_phase_plan.dart';
+
 // ---------------------------------------------------------------------------
 // Remaining stubs (replaced as their Phase B step runs).
 // ---------------------------------------------------------------------------
-
-/// Stub for PPP (Project Phase Plan). Phase B Step 15.
-class ProjectPhasePlan {}
 
 /// Stub for TR (Technical Requirements). Phase B Step 16.
 /// Distinct from PD00-SYO-REQ-TEC class `TechnicalRequirements`.
