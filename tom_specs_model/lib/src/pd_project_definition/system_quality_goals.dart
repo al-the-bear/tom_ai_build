@@ -1411,35 +1411,74 @@ class DocumentationQualityCriteria {
 /// 11.5.1. Readability quality [PD00-SYQ-DOC-REA].
 class ReadabilityQuality {
   @Form([
-    // Unambiguity
     Field('terminologyStandard', String, 'Terminology Standard',
         hint: 'Glossary, controlled vocabulary'),
     Field('ambiguityPrevention', String, 'Ambiguity Prevention',
         hint: 'Review checklist, automated checks'),
     Field('jargonPolicy', String, 'Jargon Policy',
         hint: 'Define all terms, minimize jargon'),
-    // Identifiability
+  ])
+  String? content;
+
+  /// Identifiability and navigation.
+  ReadabilityQualityNavigation navigation = ReadabilityQualityNavigation();
+
+  /// Comprehensibility requirements.
+  ReadabilityQualityComprehensibility comprehensibility =
+      ReadabilityQualityComprehensibility();
+
+  /// Document structure rules.
+  ReadabilityQualityStructure structure = ReadabilityQualityStructure();
+
+  /// Style guide alignment.
+  ReadabilityQualityStyle style = ReadabilityQualityStyle();
+
+  /// Detailed readability requirements narrative.
+  TextSection narrative = TextSection();
+}
+
+/// Identifiability and navigation.
+class ReadabilityQualityNavigation {
+  @Form([
     Field('sectionNumbering', String, 'Section Numbering',
         hint: 'Hierarchical, flat, none'),
     Field('crossReferenceStandard', String, 'Cross-Reference Standard',
         hint: 'Section IDs, hyperlinks'),
     Field('searchability', String, 'Searchability',
         hint: 'Full-text search, tagged'),
-    // Comprehensibility
+  ])
+  String? content;
+}
+
+/// Comprehensibility requirements.
+class ReadabilityQualityComprehensibility {
+  @Form([
     Field('readingLevelTarget', String, 'Reading Level Target',
         hint: 'Grade level, technical audience'),
     Field('formatStandards', String, 'Format Standards',
         hint: 'Headings, lists, tables usage'),
     Field('visualAidRequirements', String, 'Visual Aid Requirements',
         hint: 'Diagrams, screenshots, examples'),
-    // Logical structure
+  ])
+  String? content;
+}
+
+/// Document structure rules.
+class ReadabilityQualityStructure {
+  @Form([
     Field('documentStructureTemplate', String, 'Structure Template',
         hint: 'Standard document templates'),
     Field('informationHierarchy', String, 'Information Hierarchy',
         hint: 'How information is organized'),
     Field('navigationAids', String, 'Navigation Aids',
         hint: 'TOC, index, breadcrumbs'),
-    // Style guide
+  ])
+  String? content;
+}
+
+/// Style guide alignment.
+class ReadabilityQualityStyle {
+  @Form([
     Field('styleGuideReference', String, 'Style Guide Reference',
         hint: 'Google, Microsoft, custom'),
     Field('writingVoice', String, 'Writing Voice',
@@ -1448,9 +1487,6 @@ class ReadabilityQuality {
         hint: 'Code, commands, UI elements'),
   ])
   String? content;
-
-  /// Detailed readability requirements narrative.
-  TextSection narrative = TextSection();
 }
 
 /// 11.5.2. Documentation completeness quality [PD00-SYQ-DOC-COM].

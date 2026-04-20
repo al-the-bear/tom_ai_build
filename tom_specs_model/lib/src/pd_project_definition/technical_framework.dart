@@ -1074,37 +1074,69 @@ class ArchitecturePrincipleEntry {
 /// Component organization and boundaries.
 class ComponentOrganization {
   @Form([
-    // Organization strategy
     Field('organizationStrategy', String, 'Organization Strategy',
         hint: 'By feature, by layer, by domain, hybrid'),
     Field('boundaryDefinition', String, 'Boundary Definition',
         hint: 'How component boundaries are defined'),
     Field('modularityApproach', String, 'Modularity Approach',
         hint: 'How modules/components are structured'),
+  ])
+  String? content;
 
-    // Layering
+  /// Layering rules.
+  ComponentOrganizationLayering layering = ComponentOrganizationLayering();
+
+  /// Domain boundaries.
+  ComponentOrganizationDomain domain = ComponentOrganizationDomain();
+
+  /// Coupling guidance.
+  ComponentOrganizationCoupling coupling = ComponentOrganizationCoupling();
+
+  /// Dependency management rules.
+  ComponentOrganizationDependencies dependencies =
+      ComponentOrganizationDependencies();
+}
+
+/// Layering rules.
+class ComponentOrganizationLayering {
+  @Form([
     Field('layerStructure', String, 'Layer Structure',
         hint: 'Architectural layers (presentation, domain, data, infra)'),
     Field('layerDependencies', String, 'Layer Dependencies',
         hint: 'Allowed dependencies between layers'),
     Field('crossCuttingConcerns', String, 'Cross-Cutting Concerns',
         hint: 'How cross-cutting concerns are handled'),
+  ])
+  String? content;
+}
 
-    // Domain organization
+/// Domain boundaries.
+class ComponentOrganizationDomain {
+  @Form([
     Field('domainBoundaries', String, 'Domain Boundaries',
         hint: 'Bounded contexts or domain boundaries'),
     Field('sharedKernel', String, 'Shared Kernel',
         hint: 'Components shared across domains'),
     Field('antiCorruptionLayers', String, 'Anti-Corruption Layers',
         hint: 'Isolation between different domains/systems'),
+  ])
+  String? content;
+}
 
-    // Coupling
+/// Coupling guidance.
+class ComponentOrganizationCoupling {
+  @Form([
     Field('couplingGuidelines', String, 'Coupling Guidelines',
         hint: 'How to minimize coupling'),
     Field('cohesionGuidelines', String, 'Cohesion Guidelines',
         hint: 'How to maximize cohesion'),
+  ])
+  String? content;
+}
 
-    // Dependency management
+/// Dependency management rules.
+class ComponentOrganizationDependencies {
+  @Form([
     Field('dependencyDirection', String, 'Dependency Direction',
         hint: 'Rules for dependency direction'),
     Field('interfaceContracts', String, 'Interface Contracts',
@@ -3194,39 +3226,74 @@ class SharedLibraryEntry {
 /// Dependency injection structure and configuration.
 class DependencyInjectionStructure {
   @Form([
-    // Framework
     Field('diFramework', String, 'DI Framework',
         hint: 'GetIt, Riverpod, Provider, Injectable, etc.'),
     Field('registrationPattern', String, 'Registration Pattern',
         hint: 'How dependencies are registered'),
     Field('scopeManagement', String, 'Scope Management',
         hint: 'Singleton, factory, scoped, lazy'),
+  ])
+  String? content;
 
-    // Organization
+  /// Registration organization.
+  DependencyInjectionStructureRegistration registration =
+      DependencyInjectionStructureRegistration();
+
+  /// Interface binding rules.
+  DependencyInjectionStructureBinding binding =
+      DependencyInjectionStructureBinding();
+
+  /// Environment-specific configuration.
+  DependencyInjectionStructureConfiguration configuration =
+      DependencyInjectionStructureConfiguration();
+
+  /// Troubleshooting support.
+  DependencyInjectionStructureTroubleshooting troubleshooting =
+      DependencyInjectionStructureTroubleshooting();
+}
+
+/// Registration organization.
+class DependencyInjectionStructureRegistration {
+  @Form([
     Field('moduleRegistration', String, 'Module Registration',
         hint: 'How modules register their dependencies'),
     Field('registrationOrder', String, 'Registration Order',
         hint: 'Order of dependency registration'),
     Field('lazyInitialization', String, 'Lazy Initialization',
         hint: 'Which dependencies are lazy'),
+  ])
+  String? content;
+}
 
-    // Interface binding
+/// Interface binding rules.
+class DependencyInjectionStructureBinding {
+  @Form([
     Field('interfaceBindingRule', String, 'Interface Binding Rule',
         hint: 'When to use interface bindings'),
     Field('mockingStrategy', String, 'Mocking Strategy',
         hint: 'How to swap implementations for testing'),
     Field('overrideCapability', String, 'Override Capability',
         hint: 'How to override registrations'),
+  ])
+  String? content;
+}
 
-    // Configuration
+/// Environment-specific configuration.
+class DependencyInjectionStructureConfiguration {
+  @Form([
     Field('environmentConfiguration', String, 'Environment Configuration',
         hint: 'Different configs per environment'),
     Field('featureFlagIntegration', String, 'Feature Flag Integration',
         hint: 'How feature flags affect DI'),
     Field('conditionalRegistration', String, 'Conditional Registration',
         hint: 'Platform/config conditional registration'),
+  ])
+  String? content;
+}
 
-    // Troubleshooting
+/// Troubleshooting support.
+class DependencyInjectionStructureTroubleshooting {
+  @Form([
     Field('debugSupport', String, 'Debug Support',
         hint: 'Debugging DI issues'),
     Field('circularDependencyHandling', String, 'Circular Dependency Handling',
@@ -10873,7 +10940,6 @@ class DisasterRecoveryRequirementsContinuity {
 /// Backup verification and testing.
 class BackupVerification {
   @Form([
-    // Verification
     Field('verificationFrequency', String, 'Verification Frequency',
         hint: 'How often to verify'),
     Field('verificationMethod', String, 'Verification Method',
@@ -10882,8 +10948,23 @@ class BackupVerification {
         hint: 'Automated integrity checks'),
     Field('alertOnFailure', bool, 'Alert on Failure',
         hint: 'Notify on verification failure'),
+  ])
+  String? content;
 
-    // Recovery testing
+  /// Recovery testing.
+  BackupVerificationRecovery recovery = BackupVerificationRecovery();
+
+  /// Test environment constraints.
+  BackupVerificationEnvironment environment = BackupVerificationEnvironment();
+
+  /// Documentation and follow-up.
+  BackupVerificationDocumentation documentation =
+      BackupVerificationDocumentation();
+}
+
+/// Recovery testing.
+class BackupVerificationRecovery {
+  @Form([
     Field('recoveryTestFrequency', String, 'Recovery Test Frequency',
         hint: 'How often to test recovery'),
     Field('fullRecoveryTest', String, 'Full Recovery Test',
@@ -10892,16 +10973,26 @@ class BackupVerification {
         hint: 'Selective restore test'),
     Field('drTest', String, 'DR Test',
         hint: 'Disaster recovery drill'),
+  ])
+  String? content;
+}
 
-    // Test environment
+/// Test environment constraints.
+class BackupVerificationEnvironment {
+  @Form([
     Field('testEnvironment', String, 'Test Environment',
         hint: 'Where tests run'),
     Field('testDataHandling', String, 'Test Data Handling',
         hint: 'Handling test data'),
     Field('productionIsolation', bool, 'Production Isolation',
         hint: 'Isolated from production'),
+  ])
+  String? content;
+}
 
-    // Documentation
+/// Documentation and follow-up.
+class BackupVerificationDocumentation {
+  @Form([
     Field('testDocumentation', String, 'Test Documentation',
         hint: 'Test result documentation'),
     Field('testSignoff', String, 'Test Sign-off',
@@ -10917,7 +11008,6 @@ class BackupVerification {
 /// Backup compliance requirements.
 class BackupCompliance {
   @Form([
-    // Regulatory
     Field('regulatoryRequirements', String, 'Regulatory Requirements',
         hint: 'GDPR, HIPAA, SOX etc.'),
     Field('retentionCompliance', String, 'Retention Compliance',
@@ -10926,8 +11016,22 @@ class BackupCompliance {
         hint: 'Where backups can be stored'),
     Field('crossBorderTransfer', bool, 'Cross-Border Transfer',
         hint: 'International data transfer'),
+  ])
+  String? content;
 
-    // Audit
+  /// Audit controls.
+  BackupComplianceAudit audit = BackupComplianceAudit();
+
+  /// Reporting obligations.
+  BackupComplianceReporting reporting = BackupComplianceReporting();
+
+  /// Legal hold support.
+  BackupComplianceLegalHold legalHold = BackupComplianceLegalHold();
+}
+
+/// Audit controls.
+class BackupComplianceAudit {
+  @Form([
     Field('auditTrail', bool, 'Audit Trail',
         hint: 'Backup operation logging'),
     Field('accessLogging', bool, 'Access Logging',
@@ -10936,16 +11040,26 @@ class BackupCompliance {
         hint: 'Backup policy changes'),
     Field('auditFrequency', String, 'Audit Frequency',
         hint: 'How often audited'),
+  ])
+  String? content;
+}
 
-    // Reporting
+/// Reporting obligations.
+class BackupComplianceReporting {
+  @Form([
     Field('complianceReporting', String, 'Compliance Reporting',
         hint: 'Required reports'),
     Field('reportFrequency', String, 'Report Frequency',
         hint: 'How often reported'),
     Field('reportRecipients', String, 'Report Recipients',
         hint: 'Who receives reports'),
+  ])
+  String? content;
+}
 
-    // Legal hold
+/// Legal hold support.
+class BackupComplianceLegalHold {
+  @Form([
     Field('legalHoldCapability', bool, 'Legal Hold Capability',
         hint: 'Support legal holds'),
     Field('legalHoldProcess', String, 'Legal Hold Process',
@@ -13855,13 +13969,29 @@ class ExternalPartnerOperations {
 /// Cloud service integrations.
 class CloudServiceIntegrations {
   @Form([
-    // Provider
     Field('primaryCloudProvider', String, 'Primary Cloud Provider',
         hint: 'AWS, Azure, GCP, multi-cloud'),
     Field('secondaryProviders', String, 'Secondary Providers',
         hint: 'Additional cloud providers'),
+  ])
+  String? content;
 
-    // Services
+  /// Managed services catalog.
+  CloudServiceIntegrationsServices services =
+      CloudServiceIntegrationsServices();
+
+  /// Network connectivity.
+  CloudServiceIntegrationsNetworking networking =
+      CloudServiceIntegrationsNetworking();
+
+  /// Compliance and notes.
+  CloudServiceIntegrationsCompliance compliance =
+      CloudServiceIntegrationsCompliance();
+}
+
+/// Managed services catalog.
+class CloudServiceIntegrationsServices {
+  @Form([
     Field('managedServices', String, 'Managed Services',
         hint: 'Databases, queues, caches, storage'),
     Field('identityProvider', String, 'Identity Provider',
@@ -13876,16 +14006,26 @@ class CloudServiceIntegrations {
         hint: 'CloudFront, Azure CDN, Cloudflare'),
     Field('searchService', String, 'Search Service',
         hint: 'Elasticsearch, OpenSearch, Algolia'),
+  ])
+  String? content;
+}
 
-    // Networking
+/// Network connectivity.
+class CloudServiceIntegrationsNetworking {
+  @Form([
     Field('vpcPeering', String, 'VPC Peering',
         hint: 'VPC/VNet peering requirements'),
     Field('privateEndpoints', String, 'Private Endpoints',
         hint: 'Private link, service endpoints'),
     Field('transitGateway', String, 'Transit Gateway',
         hint: 'Cross-VPC or cross-region routing'),
+  ])
+  String? content;
+}
 
-    // Compliance
+/// Compliance and notes.
+class CloudServiceIntegrationsCompliance {
+  @Form([
     Field('dataResidency', String, 'Data Residency',
         hint: 'Region restrictions for data storage'),
     Field('complianceCertifications', String, 'Compliance Certifications',
@@ -15099,21 +15239,43 @@ class MetricsAndObservability {
 /// Application metrics specification.
 class ApplicationMetricsSpec {
   @Form([
-    // RED metrics (Rate, Errors, Duration)
     Field('requestRate', bool, 'Request Rate',
         hint: 'Requests per second'),
     Field('errorRate', bool, 'Error Rate',
         hint: 'Error percentage'),
     Field('requestDuration', bool, 'Request Duration',
         hint: 'Latency histograms (p50, p95, p99)'),
-    // USE metrics (Utilization, Saturation, Errors)
+  ])
+  String? content;
+
+  /// USE metrics.
+  ApplicationMetricsSpecResources resources =
+      ApplicationMetricsSpecResources();
+
+  /// Application-specific metrics.
+  ApplicationMetricsSpecApplication application =
+      ApplicationMetricsSpecApplication();
+
+  /// Labeling guidance.
+  ApplicationMetricsSpecLabels labels = ApplicationMetricsSpecLabels();
+}
+
+/// USE metrics.
+class ApplicationMetricsSpecResources {
+  @Form([
     Field('resourceUtilization', bool, 'Resource Utilization',
         hint: 'CPU, memory per service'),
     Field('resourceSaturation', bool, 'Resource Saturation',
         hint: 'Queue depths, connection pool usage'),
     Field('resourceErrors', bool, 'Resource Errors',
         hint: 'Timeouts, failures'),
-    // Application-specific
+  ])
+  String? content;
+}
+
+/// Application-specific metrics.
+class ApplicationMetricsSpecApplication {
+  @Form([
     Field('cacheMetrics', bool, 'Cache Metrics',
         hint: 'Hit rate, miss rate, evictions'),
     Field('databaseMetrics', bool, 'Database Metrics',
@@ -15124,7 +15286,13 @@ class ApplicationMetricsSpec {
         hint: 'gRPC-specific metrics'),
     Field('messageQueueMetrics', bool, 'Message Queue Metrics',
         hint: 'Publish/consume rates, lag'),
-    // Labels
+  ])
+  String? content;
+}
+
+/// Labeling guidance.
+class ApplicationMetricsSpecLabels {
+  @Form([
     Field('standardLabels', String, 'Standard Labels',
         hint: 'service, environment, version, instance'),
     Field('customLabels', String, 'Custom Labels',
@@ -16518,13 +16686,31 @@ class SecurityStandardEntryVerification {
 /// Application security requirements (OWASP-based).
 class ApplicationSecurityRequirements {
   @Form([
-    // OWASP
     Field('owaspTop10Compliance', String, 'OWASP Top 10 Compliance',
         required: true, hint: 'Current OWASP Top 10 version addressed'),
     Field('injectionPrevention', String, 'Injection Prevention',
         hint: 'SQL injection, XSS, command injection measures'),
     Field('authenticationControls', String, 'Authentication Controls',
         hint: 'Broken authentication prevention'),
+  ])
+  String? content;
+
+  /// Core protection controls.
+  ApplicationSecurityRequirementsControls controls =
+      ApplicationSecurityRequirementsControls();
+
+  /// Input and output validation.
+  ApplicationSecurityRequirementsValidation validation =
+      ApplicationSecurityRequirementsValidation();
+
+  /// API and browser-facing protections.
+  ApplicationSecurityRequirementsApi api =
+      ApplicationSecurityRequirementsApi();
+}
+
+/// Core protection controls.
+class ApplicationSecurityRequirementsControls {
+  @Form([
     Field('sensitiveDataExposure', String, 'Sensitive Data Exposure',
         hint: 'Encryption, masking, tokenization'),
     Field('accessControlEnforcement', String, 'Access Control Enforcement',
@@ -16535,16 +16721,26 @@ class ApplicationSecurityRequirements {
         hint: 'Cross-site request forgery prevention'),
     Field('ssrfProtection', String, 'SSRF Protection',
         hint: 'Server-side request forgery prevention'),
+  ])
+  String? content;
+}
 
-    // Input validation
+/// Input and output validation.
+class ApplicationSecurityRequirementsValidation {
+  @Form([
     Field('inputValidationStrategy', String, 'Input Validation Strategy',
         hint: 'Whitelist, sanitization, encoding'),
     Field('outputEncoding', String, 'Output Encoding',
         hint: 'HTML, URL, JavaScript encoding'),
     Field('fileUploadSecurity', String, 'File Upload Security',
         hint: 'File type, size, malware scanning'),
+  ])
+  String? content;
+}
 
-    // API security
+/// API and browser-facing protections.
+class ApplicationSecurityRequirementsApi {
+  @Form([
     Field('apiSecurityStandard', String, 'API Security Standard',
         hint: 'OWASP API Security Top 10 measures'),
     Field('rateLimiting', String, 'Rate Limiting',

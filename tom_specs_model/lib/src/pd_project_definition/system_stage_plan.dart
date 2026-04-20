@@ -1261,7 +1261,6 @@ class SubStageEntryStatus {
 /// measurement method, threshold, and verification process.
 class StageSuccessCriterionEntry {
   @Form([
-    // --- Identity ---
     Field('criterionId', String, 'Criterion ID',
         hint: 'Unique identifier — e.g. SC-01, SC-02'),
     Field('criterion', String, 'Criterion',
@@ -1275,34 +1274,60 @@ class StageSuccessCriterionEntry {
         hint:
             'MustMeet / ShouldMeet / NiceToHave — importance for '
             'stage sign-off'),
-    // --- Measurement ---
+  ])
+  String? content;
+
+  /// Measurement targets.
+  StageSuccessCriterionEntryMeasurement measurement =
+      StageSuccessCriterionEntryMeasurement();
+
+  /// Verification planning.
+  StageSuccessCriterionEntryVerification verification =
+      StageSuccessCriterionEntryVerification();
+
+  /// Current status and results.
+  StageSuccessCriterionEntryStatus status = StageSuccessCriterionEntryStatus();
+}
+
+/// Measurement targets.
+class StageSuccessCriterionEntryMeasurement {
+  @Form([
     Field('measurementMethod', String, 'Measurement Method',
         hint: 'How this criterion will be measured',
         required: true),
     Field('metric', String, 'Metric',
         hint:
-            'Specific metric to track — e.g. response time, '
-            'adoption rate, error rate, throughput'),
+            'Specific metric to track — e.g. response time, adoption rate, error rate, throughput'),
     Field('targetValue', String, 'Target Value',
         hint: 'Target metric value for success — e.g. <200ms, >95%'),
     Field('minimumThreshold', String, 'Minimum Threshold',
         hint:
-            'Minimum acceptable value — below this, the stage '
-            'fails this criterion'),
+            'Minimum acceptable value — below this, the stage fails this criterion'),
     Field('tolerance', String, 'Tolerance',
-        hint: 'Acceptable variance from target — e.g. ±5%, ±10ms'),
+        hint: 'Acceptable variance from target — e.g. +/-5%, +/-10ms'),
     Field('baselineValue', String, 'Baseline Value',
         hint: 'Current baseline before the stage, for comparison'),
-    // --- Verification ---
+  ])
+  String? content;
+}
+
+/// Verification planning.
+class StageSuccessCriterionEntryVerification {
+  @Form([
     Field('verificationMethod', String, 'Verification Method',
         hint:
-            'Automated / Manual / Audit / Survey / Report / '
-            'LoadTest'),
+            'Automated / Manual / Audit / Survey / Report / LoadTest'),
     Field('verifier', String, 'Verifier',
         hint: 'Person or role responsible for verification'),
     Field('verificationDate', String, 'Verification Date',
         hint: 'When verification will be performed'),
-    // --- Status ---
+  ])
+  String? content;
+}
+
+/// Current status and results.
+class StageSuccessCriterionEntryStatus {
+  @Form([
     Field('currentStatus', String, 'Status',
         hint: 'Pending / Measuring / Met / NotMet / Waived'),
     Field('actualValue', String, 'Actual Value',
@@ -1517,7 +1542,6 @@ class MoscowAnalysis {
 /// target delivery stage, with justification and cross-references.
 class MoscowEntry {
   @Form([
-    // --- Feature Identity ---
     Field('featureId', String, 'Feature ID',
         hint:
             'Unique feature identifier — e.g. FEA-001, or '
@@ -1530,33 +1554,58 @@ class MoscowEntry {
         hint:
             'Logical grouping — e.g. Authentication, Reporting, '
             'Payments, User Management'),
-    // --- MoSCoW Classification ---
+  ])
+  String? content;
+
+  /// MoSCoW classification details.
+  MoscowEntryClassification classification = MoscowEntryClassification();
+
+  /// Value and effort estimates.
+  MoscowEntryValue value = MoscowEntryValue();
+
+  /// Stage assignment.
+  MoscowEntryStageAssignment stageAssignment = MoscowEntryStageAssignment();
+
+  /// Traceability and notes.
+  MoscowEntryTraceability traceability = MoscowEntryTraceability();
+}
+
+/// MoSCoW classification details.
+class MoscowEntryClassification {
+  @Form([
     Field('moscowCategory', String, 'MoSCoW Category',
         hint: 'Must / Should / Could / Wont',
         required: true),
     Field('justification', String, 'Justification',
         hint:
-            'Why this feature has this classification — business '
-            'rationale, regulatory need, user demand',
+            'Why this feature has this classification — business rationale, regulatory need, user demand',
         required: true),
     Field('reclassificationRisk', String, 'Reclassification Risk',
         hint:
-            'Low / Medium / High — likelihood the category will '
-            'change before delivery'),
-    // --- Value & Effort ---
+            'Low / Medium / High — likelihood the category will change before delivery'),
+  ])
+  String? content;
+}
+
+/// Value and effort estimates.
+class MoscowEntryValue {
+  @Form([
     Field('businessValue', String, 'Business Value',
         hint:
-            'Relative business value — 1-10, Fibonacci, or '
-            'qualitative High/Medium/Low'),
+            'Relative business value — 1-10, Fibonacci, or qualitative High/Medium/Low'),
     Field('effortEstimate', String, 'Effort Estimate',
         hint:
-            'Relative effort — story points, T-shirt size, or '
-            'person-days'),
+            'Relative effort — story points, T-shirt size, or person-days'),
     Field('costOfDelay', String, 'Cost of Delay',
         hint:
-            'Impact of not delivering on time — revenue loss, '
-            'penalty, competitive risk'),
-    // --- Stage Assignment ---
+            'Impact of not delivering on time — revenue loss, penalty, competitive risk'),
+  ])
+  String? content;
+}
+
+/// Stage assignment.
+class MoscowEntryStageAssignment {
+  @Form([
     Field('targetStage', String, 'Target Stage',
         hint:
             'Stage in which this feature is planned for delivery',
@@ -1565,11 +1614,16 @@ class MoscowEntry {
         'Earliest Possible Stage',
         hint:
             'Earliest stage where prerequisites allow delivery'),
-    // --- Cross-References ---
+  ])
+  String? content;
+}
+
+/// Traceability and notes.
+class MoscowEntryTraceability {
+  @Form([
     Field('linkedRequirements', String, 'Linked Requirements',
         hint:
-            'Requirement IDs this feature traces to — '
-            'comma-separated'),
+            'Requirement IDs this feature traces to — comma-separated'),
     Field('linkedUseCases', String, 'Linked Use Cases',
         hint: 'Use case IDs this feature implements'),
     Field('dependsOnFeatures', String, 'Depends on Features',
@@ -1627,7 +1681,6 @@ class FeatureStageMatrix {
 /// readiness, confidence, and dependency information.
 class FeatureStageMapping {
   @Form([
-    // --- Feature Identity ---
     Field('featureId', String, 'Feature ID',
         hint:
             'Feature identifier — matches MoSCoW entry or '
@@ -1638,57 +1691,84 @@ class FeatureStageMapping {
         required: true),
     Field('featureGroup', String, 'Feature Group',
         hint: 'Logical grouping for this feature'),
-    // --- Stage Assignment ---
+  ])
+  String? content;
+
+  /// Stage assignment details.
+  FeatureStageMappingAssignment assignment = FeatureStageMappingAssignment();
+
+  /// Readiness and confidence.
+  FeatureStageMappingReadiness readiness = FeatureStageMappingReadiness();
+
+  /// Dependencies.
+  FeatureStageMappingDependencies dependencies =
+      FeatureStageMappingDependencies();
+
+  /// Acceptance and notes.
+  FeatureStageMappingAcceptance acceptance = FeatureStageMappingAcceptance();
+}
+
+/// Stage assignment details.
+class FeatureStageMappingAssignment {
+  @Form([
     Field('targetStage', String, 'Target Stage',
         hint: 'Stage in which this feature will be delivered',
         required: true),
     Field('stagePhase', String, 'Stage Phase',
         hint:
-            'Sub-phase within the stage — Alpha / Beta / GA / '
-            'Full rollout'),
+            'Sub-phase within the stage — Alpha / Beta / GA / Full rollout'),
     Field('fallbackStage', String, 'Fallback Stage',
         hint:
-            'Stage to which this feature moves if cut from '
-            'target stage'),
-    // --- Readiness & Confidence ---
+            'Stage to which this feature moves if cut from target stage'),
+  ])
+  String? content;
+}
+
+/// Readiness and confidence.
+class FeatureStageMappingReadiness {
+  @Form([
     Field('readinessStatus', String, 'Readiness Status',
         hint:
-            'NotReady / InProgress / DesignComplete / '
-            'ReadyForDev / ReadyForTest / ReadyForRelease',
+            'NotReady / InProgress / DesignComplete / ReadyForDev / ReadyForTest / ReadyForRelease',
         required: true),
     Field('deliveryConfidence', String, 'Delivery Confidence',
         hint:
-            'High / Medium / Low — confidence that this feature '
-            'will be delivered in the target stage'),
+            'High / Medium / Low — confidence that this feature will be delivered in the target stage'),
     Field('confidenceRationale', String, 'Confidence Rationale',
         hint:
-            'Why confidence is at this level — blockers, '
-            'unknowns, resource gaps'),
-    // --- Dependencies ---
+            'Why confidence is at this level — blockers, unknowns, resource gaps'),
+  ])
+  String? content;
+}
+
+/// Dependencies.
+class FeatureStageMappingDependencies {
+  @Form([
     Field('prerequisiteFeatures', String, 'Prerequisite Features',
         hint:
-            'Feature IDs that must complete first — '
-            'comma-separated'),
+            'Feature IDs that must complete first — comma-separated'),
     Field('blockedByExternalDependency', String,
         'Blocked by External Dependency',
         hint:
-            'External systems, vendors, or approvals — None, '
-            'or description'),
+            'External systems, vendors, or approvals — None, or description'),
     Field('crossStageDependency', String,
         'Cross-Stage Dependency',
         hint:
-            'Does this feature depend on something from a prior '
-            'stage — Yes/No, plus which stage'),
-    // --- Acceptance ---
+            'Does this feature depend on something from a prior stage — Yes/No, plus which stage'),
+  ])
+  String? content;
+}
+
+/// Acceptance and notes.
+class FeatureStageMappingAcceptance {
+  @Form([
     Field('acceptanceCriteriaSummary', String,
         'Acceptance Criteria Summary',
         hint:
             'High-level criteria for this feature to be accepted'),
     Field('definitionOfDone', String, 'Definition of Done',
         hint:
-            'DoD for this feature — code complete, tests pass, '
-            'docs updated, deployed'),
-    // --- Notes ---
+            'DoD for this feature — code complete, tests pass, docs updated, deployed'),
     Field('notes', String, 'Notes',
         hint: 'Additional context or caveats'),
   ])
