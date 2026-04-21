@@ -93,7 +93,10 @@ import 'model_reader.dart';
 ///
 /// - **`@SectionId` global uniqueness** — no two classes reachable from
 ///   `ProjectDefinition` may carry the same `@SectionId` string.
-/// - **`@SectionIdPattern` global uniqueness** — same rule for patterns.
+/// - **`@SectionIdPattern` global uniqueness** — same rule for full pattern
+///   strings. Additionally, the fixed prefix of each pattern (everything
+///   before the trailing `-xx` or `-NN` placeholder) is itself a logical
+///   section ID; no two patterns may share the same prefix.
 /// - **`@SectionId` coverage** — every class reachable from
 ///   `ProjectDefinition` must carry a class-level `@SectionId`, unless it
 ///   is a list-element type reached via a field annotated with
@@ -146,6 +149,12 @@ void _validateStructuralInvariants(
   // pattern string → "ClassName.fieldName" (for uniqueness error messages)
   final patternsSeen = <String, String>{};
 
+  // Fixed prefix of each pattern (everything before the trailing '-xx' or
+  // '-NN' suffix) → "ClassName.fieldName".  A pattern prefix occupies the
+  // same logical namespace as a @SectionId value, so the two sets must be
+  // disjoint.  Prefix uniqueness within patterns is also checked here.
+  final patternPrefixes = <String, String>{};
+
   // Direct element types of @SectionIdPattern list fields.
   final directPatternElements = <String>{};
 
@@ -168,6 +177,20 @@ void _validateStructuralInvariants(
           );
         } else {
           patternsSeen[pattern] = key;
+        }
+
+        // Extract and deduplicate the fixed prefix (strips trailing segment).
+        final prefix = _extractPatternPrefix(pattern);
+        if (prefix.isNotEmpty) {
+          if (patternPrefixes.containsKey(prefix)) {
+            errors.add(
+              '§8.6 @SectionIdPattern uniqueness: prefix "$prefix" '
+              'used by both ${patternPrefixes[prefix]} and $key '
+              '— pattern prefixes must be globally unique',
+            );
+          } else {
+            patternPrefixes[prefix] = key;
+          }
         }
       }
 
@@ -428,4 +451,18 @@ bool _isPrimitive(String typeName) {
 bool _isNonStringPrimitive(String typeName) {
   final base = typeName.replaceAll('?', '');
   return const {'int', 'double', 'bool', 'num', 'DateTime'}.contains(base);
+}
+
+/// Extracts the fixed prefix from a `@SectionIdPattern` pattern string.
+///
+/// For a pattern like `"PD00-TEC-BAS-PLT-xx"` the fixed prefix is
+/// `"PD00-TEC-BAS-PLT"` — everything before the last dash-segment.
+/// The trailing segment (e.g. `xx` or `NN`) is the per-instance suffix
+/// placeholder and does not form part of the uniqueness namespace.
+///
+/// Returns [pattern] unchanged if it contains no dash.
+String _extractPatternPrefix(String pattern) {
+  final lastDash = pattern.lastIndexOf('-');
+  if (lastDash < 0) return pattern;
+  return pattern.substring(0, lastDash);
 }
