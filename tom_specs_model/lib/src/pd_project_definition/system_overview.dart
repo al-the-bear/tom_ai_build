@@ -65,6 +65,7 @@ a quick understanding without reading the full specification.
 }
 
 /// System overview summary for quick reference.
+@SectionId('PD00-SYO-SUM')
 class SystemOverviewSummary {
   @Form([
     Field('systemName', String, 'System Name',
@@ -94,6 +95,7 @@ class SystemOverviewSummary {
 }
 
 /// System classification.
+@SectionId('PD00-SYO-SUM-CLS')
 class SystemOverviewSummaryClassification {
   @Form([
     Field('systemType', String, 'System Type',
@@ -107,6 +109,7 @@ class SystemOverviewSummaryClassification {
 }
 
 /// Scale indicators.
+@SectionId('PD00-SYO-SUM-SCL')
 class SystemOverviewSummaryScale {
   @Form([
     Field('estimatedUserCount', int, 'Estimated User Count',
@@ -124,6 +127,7 @@ class SystemOverviewSummaryScale {
 }
 
 /// Specification status.
+@SectionId('PD00-SYO-SUM-STS')
 class SystemOverviewSummaryStatus {
   @Form([
     Field('specificationVersion', String, 'Specification Version',
@@ -139,6 +143,7 @@ class SystemOverviewSummaryStatus {
 }
 
 /// Complexity indicators.
+@SectionId('PD00-SYO-SUM-CMX')
 class SystemOverviewSummaryComplexity {
   @Form([
     Field('overallComplexity', String, 'Overall Complexity',
@@ -235,6 +240,7 @@ that all stakeholders can refer to.
   Field('criticalCapabilities', String, 'Most important system capabilities',
       hint: 'e.g., Multi-tenant data isolation, offline-first sync'),
 ])
+@SectionId('PD00-SYO-SYD-SUM')
 class SystemDescriptionSummary {
   /// Summary content for system description classification.
   @ContentType('aggregation', 'Structured classification and characteristics '
@@ -409,6 +415,7 @@ class StakeholderEntry {
 }
 
 /// Stakeholder influence, impact, and value.
+@SectionId('PD00-SYO-SYD-PUR-STA-ENT-IMP')
 class StakeholderEntryImpact {
   @Form([
     Field('influenceLevel', String,
@@ -424,6 +431,7 @@ class StakeholderEntryImpact {
 }
 
 /// Engagement and communication expectations.
+@SectionId('PD00-SYO-SYD-PUR-STA-ENT-ENG')
 class StakeholderEntryEngagement {
   @Form([
     Field('engagementStrategy', String,
@@ -473,6 +481,7 @@ class ValueProposition {
 }
 
 /// Financial and efficiency benefits.
+@SectionId('PD00-SYO-SYD-PUR-VAL-BEN')
 class ValuePropositionBenefits {
     @Form([
         Field('costSavings', String,
@@ -488,6 +497,7 @@ class ValuePropositionBenefits {
 }
 
 /// ROI and realization timeline.
+@SectionId('PD00-SYO-SYD-PUR-VAL-RET')
 class ValuePropositionReturnProfile {
     @Form([
         Field('estimatedRoi', String,
@@ -747,6 +757,7 @@ class ExternalActorEntry {
 }
 
 /// Interaction cadence and exchanged information.
+@SectionId('PD00-SYO-SYD-CON-ACT-ENT-INT')
 class ExternalActorEntryInteraction {
   @Form([
     Field('interactionFrequency', String,
@@ -762,6 +773,7 @@ class ExternalActorEntryInteraction {
 }
 
 /// Access, authentication, and context details.
+@SectionId('PD00-SYO-SYD-CON-ACT-ENT-CTX')
 class ExternalActorEntryContext {
   @Form([
     Field('authenticationMethod', String,
@@ -823,6 +835,7 @@ class ExternalSystemContextEntry {
 }
 
 /// Integration intent and exchanged information.
+@SectionId('PD00-SYO-SYD-CON-SYS-ENT-INT')
 class ExternalSystemContextEntryIntegration {
   @Form([
     Field('integrationDirection', String,
@@ -840,6 +853,7 @@ class ExternalSystemContextEntryIntegration {
 }
 
 /// Operational delivery characteristics for an external system context.
+@SectionId('PD00-SYO-SYD-CON-SYS-ENT-OPS')
 class ExternalSystemContextEntryOperations {
   @Form([
     Field('integrationFrequency', String,
@@ -856,6 +870,7 @@ class ExternalSystemContextEntryOperations {
 }
 
 /// Security and support contacts for an external system context.
+@SectionId('PD00-SYO-SYD-CON-SYS-ENT-GOV')
 class ExternalSystemContextEntryGovernance {
   @Form([
     Field('securityRequirements', String,
@@ -1309,6 +1324,7 @@ class DomainBusinessRuleEntry {
 }
 
 /// Formal definition and applicability.
+@SectionId('PD00-SYO-SYD-DES-RUL-ENT-DEF')
 class DomainBusinessRuleEntryDefinition {
   @Form([
     Field('formalStatement', String,
@@ -1324,6 +1340,7 @@ class DomainBusinessRuleEntryDefinition {
 }
 
 /// Priority, provenance, and interpretation aids.
+@SectionId('PD00-SYO-SYD-DES-RUL-ENT-GOV')
 class DomainBusinessRuleEntryGovernance {
   @Form([
     Field('priority', String,
@@ -1387,6 +1404,7 @@ class DomainProcessEntry {
 }
 
 /// Inputs, outputs, and participant flow.
+@SectionId('PD00-SYO-SYD-DES-PRO-ENT-FLW')
 class DomainProcessEntryFlow {
   @Form([
     Field('inputs', String,
@@ -1402,6 +1420,7 @@ class DomainProcessEntryFlow {
 }
 
 /// Operating cadence and coordination details.
+@SectionId('PD00-SYO-SYD-DES-PRO-ENT-OPS')
 class DomainProcessEntryOperations {
   @Form([
     Field('frequency', String,
@@ -1515,6 +1534,7 @@ class UserInteractionModel {
   Field('notificationChannels', String, 'Notification Channels',
       hint: 'e.g., Email, SMS, Push, In-app'),
 ])
+@SectionId('PD00-SYO-SYD-USI-SUM')
 class UserInteractionModelSummary {
   /// Summary content for interaction model.
   @ContentType('aggregation', 'Key metrics and classifications for '
@@ -1590,6 +1610,7 @@ class InteractionChannelEntry {
 }
 
 /// Platform and targeting for interaction channel.
+@SectionId('PD00-SYO-SYD-USI-CHA-ENT-PLT')
 class InteractionChannelEntryPlatform {
   @Form([
     Field('platform', String, 'Platform/Technology',
@@ -1605,6 +1626,7 @@ class InteractionChannelEntryPlatform {
 }
 
 /// Feature scope for interaction channel.
+@SectionId('PD00-SYO-SYD-USI-CHA-ENT-FEA')
 class InteractionChannelEntryFeatures {
   @Form([
     Field('featureScope', String, 'Feature Scope',
@@ -1618,6 +1640,7 @@ class InteractionChannelEntryFeatures {
 }
 
 /// Access and sync for interaction channel.
+@SectionId('PD00-SYO-SYD-USI-CHA-ENT-ACC')
 class InteractionChannelEntryAccess {
   @Form([
     Field('availabilityRequirement', String, 'Availability Requirement',
@@ -1635,6 +1658,7 @@ class InteractionChannelEntryAccess {
 }
 
 /// Compliance and requirements for interaction channel.
+@SectionId('PD00-SYO-SYD-USI-CHA-ENT-CMP')
 class InteractionChannelEntryCompliance {
   @Form([
     Field('deviceRequirements', String, 'Device Requirements',
@@ -1654,6 +1678,7 @@ class InteractionChannelEntryCompliance {
 }
 
 /// Channel-specific UX specification.
+@SectionId('PD00-SYO-SYD-USI-CHA-ENT-UXS')
 @Form([
   Field('navigationModel', String, 'Navigation Model',
       hint: 'Tab-based, Drawer, Bottom Nav, Sidebar, etc.'),
@@ -1679,6 +1704,7 @@ class ChannelUxSpecification {
 }
 
 /// Channel-specific integration requirements.
+@SectionId('PD00-SYO-SYD-USI-CHA-ENT-INT')
 @Form([
   Field('pushNotificationService', String, 'Push Notification Service',
       hint: 'FCM, APNs, Web Push'),
@@ -1757,6 +1783,7 @@ class InteractionPatternEntry {
 }
 
 /// Narrative summary and typical scenarios.
+@SectionId('PD00-SYO-SYD-USI-PAT-ENT-DEF')
 class InteractionPatternEntryDefinition {
   @Form([
     Field('description', String, 'Description',
@@ -1770,6 +1797,7 @@ class InteractionPatternEntryDefinition {
 }
 
 /// Trigger conditions and cadence.
+@SectionId('PD00-SYO-SYD-USI-PAT-ENT-TRG')
 class InteractionPatternEntryTrigger {
   @Form([
     Field('triggerType', String, 'Trigger Type',
@@ -1783,6 +1811,7 @@ class InteractionPatternEntryTrigger {
 }
 
 /// User experience and runtime behavior.
+@SectionId('PD00-SYO-SYD-USI-PAT-ENT-BEH')
 class InteractionPatternEntryBehavior {
   @Form([
     Field('responseTime', String, 'Expected Response Time',
@@ -1798,6 +1827,7 @@ class InteractionPatternEntryBehavior {
 }
 
 /// Applicability and operational priority.
+@SectionId('PD00-SYO-SYD-USI-PAT-ENT-USE')
 class InteractionPatternEntryUsage {
   @Form([
     Field('priority', String, 'Priority',
@@ -1865,6 +1895,7 @@ class AccessLevelEntry {
 }
 
 /// Scope and hierarchy of an access level.
+@SectionId('PD00-SYO-SYD-USI-ACC-ENT-SCP')
 class AccessLevelEntryScope {
   @Form([
     Field('description', String, 'Description',
@@ -1878,6 +1909,7 @@ class AccessLevelEntryScope {
 }
 
 /// Permission surfaces granted by an access level.
+@SectionId('PD00-SYO-SYD-USI-ACC-ENT-PRM')
 class AccessLevelEntryPermissions {
   @Form([
     Field('featureAccess', String, 'Feature Access',
@@ -1893,6 +1925,7 @@ class AccessLevelEntryPermissions {
 }
 
 /// Restrictions and governance for an access level.
+@SectionId('PD00-SYO-SYD-USI-ACC-ENT-GOV')
 class AccessLevelEntryGovernance {
   @Form([
     Field('restrictions', String, 'Restrictions',
@@ -1940,6 +1973,7 @@ class SessionModel {
 }
 
 /// Refresh, concurrency, and termination behavior.
+@SectionId('PD00-SYO-SYD-USI-SES-LIF')
 class SessionModelLifecycle {
   @Form([
     Field('refreshMechanism', String, 'Token Refresh Mechanism',
@@ -1955,6 +1989,7 @@ class SessionModelLifecycle {
 }
 
 /// Convenience features and security-trigger handling.
+@SectionId('PD00-SYO-SYD-USI-SES-SEC')
 class SessionModelSecurity {
   @Form([
     Field('rememberMeOption', String, 'Remember Me Option',
@@ -2047,6 +2082,7 @@ class NotificationTypeEntry {
 }
 
 /// User notification preferences.
+@SectionId('PD00-SYO-SYD-USI-NOT-PRF')
 @Form([
   Field('globalOptOut', String, 'Global Opt-Out Support',
       hint: 'Can users opt out of all non-essential notifications'),
@@ -2190,6 +2226,7 @@ class UserCategoryEntry {
 }
 
 /// Interaction profile and scale indicators.
+@SectionId('PD00-SYO-SYD-USR-ENT-USE')
 class UserCategoryEntryUsage {
     @Form([
         Field('technicalProficiency', String,
@@ -2205,6 +2242,7 @@ class UserCategoryEntryUsage {
 }
 
 /// Growth and prioritization profile.
+@SectionId('PD00-SYO-SYD-USR-ENT-IMP')
 class UserCategoryEntryImportance {
     @Form([
         Field('growthExpectation', String,
@@ -2258,6 +2296,7 @@ class UserPersonaDetails {
 }
 
 /// Experience and work context.
+@SectionId('PD00-SYO-SYD-USR-nn-PER-CTX')
 class UserPersonaDetailsContext {
     @Form([
         Field('yearsOfExperience', String, 'Years of Experience (in this role)'),
@@ -2270,6 +2309,7 @@ class UserPersonaDetailsContext {
 }
 
 /// Goals and drivers.
+@SectionId('PD00-SYO-SYD-USR-nn-PER-GOA')
 class UserPersonaDetailsGoals {
     @Form([
         Field('primaryGoals', String,
@@ -2284,6 +2324,7 @@ class UserPersonaDetailsGoals {
 }
 
 /// Preferences and behavior.
+@SectionId('PD00-SYO-SYD-USR-nn-PER-BEH')
 class UserPersonaDetailsBehavior {
     @Form([
         Field('techComfort', String,
@@ -2299,6 +2340,7 @@ class UserPersonaDetailsBehavior {
 /// Role within a user category [PD00-SYO-SYD-USR-nn-ROL].
 ///
 /// Organizational role and responsibilities associated with this user category.
+@SectionId('PD00-SYO-SYD-USR-nn-PER-ROL')
 class UserCategoryRoleEntry {
   @Form([
     Field('roleName', String, 'Role Name', required: true),
@@ -2354,6 +2396,7 @@ class SystemTaskEntry {
 }
 
 /// Timing, complexity, and trigger details for a system task.
+@SectionId('PD00-SYO-SYD-USR-TSK-ENT-EXE')
 class SystemTaskEntryExecution {
     @Form([
         Field('frequency', String,
@@ -2369,6 +2412,7 @@ class SystemTaskEntryExecution {
 }
 
 /// Outcome and data interaction details for a system task.
+@SectionId('PD00-SYO-SYD-USR-TSK-ENT-DAT')
 class SystemTaskEntryData {
     @Form([
         Field('expectedOutcome', String, 'Expected Outcome'),
@@ -2380,6 +2424,7 @@ class SystemTaskEntryData {
 }
 
 /// Tooling and linked artifacts for a system task.
+@SectionId('PD00-SYO-SYD-USR-TSK-ENT-CTX')
 class SystemTaskEntryContext {
     @Form([
         Field('toolsUsed', String, 'Tools Used (systems or tools involved)'),
@@ -2426,6 +2471,7 @@ class UserAccessPermissions {
 }
 
 /// Functional and environmental restrictions.
+@SectionId('PD00-SYO-SYD-USR-nn-ACC-RST')
 class UserAccessPermissionsRestrictions {
     @Form([
         Field('functionalAccess', String,
@@ -2443,6 +2489,7 @@ class UserAccessPermissionsRestrictions {
 }
 
 /// Session and audit controls.
+@SectionId('PD00-SYO-SYD-USR-nn-ACC-GOV')
 class UserAccessPermissionsGovernance {
     @Form([
         Field('sessionTimeout', String,
@@ -2707,6 +2754,7 @@ class BusinessGoalEntry {
 }
 
 /// Goal definition and priority.
+@SectionId('PD00-SYO-GOA-BUS-ENT-DEF')
 class BusinessGoalEntryDefinition {
   @Form([
     Field('description', String,
@@ -2721,6 +2769,7 @@ class BusinessGoalEntryDefinition {
 }
 
 /// Success metric and measurement.
+@SectionId('PD00-SYO-GOA-BUS-ENT-MSR')
 class BusinessGoalEntryMeasurement {
   @Form([
     Field('successMetric', String,
@@ -2738,6 +2787,7 @@ class BusinessGoalEntryMeasurement {
 }
 
 /// Ownership and timeline.
+@SectionId('PD00-SYO-GOA-BUS-ENT-GOV')
 class BusinessGoalEntryGovernance {
   @Form([
     Field('targetDate', String, 'Target Date (when goal should be achieved)',
@@ -2753,6 +2803,7 @@ class BusinessGoalEntryGovernance {
 }
 
 /// Business rationale and impact.
+@SectionId('PD00-SYO-GOA-BUS-ENT-STR')
 class BusinessGoalEntryStrategy {
   @Form([
     Field('businessJustification', String,
@@ -2912,6 +2963,7 @@ class GoalRiskEntry {
 }
 
 /// Risk assessment details.
+@SectionId('PD00-SYO-GOA-BUS-RSK-ENT-ASS')
 class GoalRiskEntryAssessment {
     @Form([
         Field('probability', String, 'Probability (Low, Medium, High)'),
@@ -2923,6 +2975,7 @@ class GoalRiskEntryAssessment {
 }
 
 /// Mitigation ownership and status.
+@SectionId('PD00-SYO-GOA-BUS-RSK-ENT-RSP')
 class GoalRiskEntryResponse {
     @Form([
         Field('mitigationStrategy', String, 'Mitigation Strategy'),
@@ -3044,6 +3097,7 @@ class TechnicalGoalEntry {
 }
 
 /// Success measurement details.
+@SectionId('PD00-SYO-GOA-TEC-ENT-MSR')
 class TechnicalGoalEntryMeasurement {
     @Form([
         Field('successMetric', String,
@@ -3064,6 +3118,7 @@ class TechnicalGoalEntryMeasurement {
 }
 
 /// Scope and ownership details.
+@SectionId('PD00-SYO-GOA-TEC-ENT-GOV')
 class TechnicalGoalEntryGovernance {
     @Form([
         Field('systemArea', String,
@@ -3275,6 +3330,7 @@ class SuccessCriteria {
 }
 
 /// Summary metrics for success criteria.
+@SectionId('PD00-SYO-GOA-SUC-SUM')
 @Form([
   Field('totalCriteria', int, 'Total Number of Criteria'),
   Field('criticalCount', int, 'Critical Criteria Count'),
@@ -3297,6 +3353,7 @@ class SuccessCriteriaSummary {
 }
 
 /// Framework for evaluating and accepting success criteria.
+@SectionId('PD00-SYO-GOA-SUC-FRM')
 @Form([
   Field('acceptanceProcess', String, 'Acceptance Process',
       hint: 'How criteria will be evaluated'),
@@ -3326,6 +3383,7 @@ class SuccessCriteriaFramework {
 }
 
 /// Success criteria organized by category.
+@SectionId('PD00-SYO-GOA-SUC-CAT')
 class SuccessCriteriaByCategory {
   /// Business outcome criteria overview.
   @SectionId('PD00-SYO-GOA-SUC-BUS')
@@ -3400,6 +3458,7 @@ class SuccessCriterionEntry {
 }
 
 /// Identity for success criterion.
+@SectionId('PD00-SYO-GOA-SUC-ENT-IDN')
 class SuccessCriterionIdentity {
   @Form([
     Field('description', String, 'Description',
@@ -3411,6 +3470,7 @@ class SuccessCriterionIdentity {
 }
 
 /// Measurement for success criterion.
+@SectionId('PD00-SYO-GOA-SUC-ENT-MSR')
 class SuccessCriterionMeasurement {
   @Form([
     Field('metric', String, 'Metric', required: true,
@@ -3430,6 +3490,7 @@ class SuccessCriterionMeasurement {
 }
 
 /// Verification for success criterion.
+@SectionId('PD00-SYO-GOA-SUC-ENT-VER')
 class SuccessCriterionVerification {
   @Form([
     Field('measurementMethod', String, 'Measurement Method',
@@ -3449,6 +3510,7 @@ class SuccessCriterionVerification {
 }
 
 /// Importance for success criterion.
+@SectionId('PD00-SYO-GOA-SUC-ENT-IMP')
 class SuccessCriterionImportance {
   @Form([
     Field('weight', String, 'Weight',
@@ -3462,6 +3524,7 @@ class SuccessCriterionImportance {
 }
 
 /// Relationships for success criterion.
+@SectionId('PD00-SYO-GOA-SUC-ENT-REL')
 class SuccessCriterionRelationships {
   @Form([
     Field('relatedGoals', String, 'Related Goals',
@@ -3477,6 +3540,7 @@ class SuccessCriterionRelationships {
 }
 
 /// Status for success criterion.
+@SectionId('PD00-SYO-GOA-SUC-ENT-STA')
 class SuccessCriterionStatus {
   @Form([
     Field('status', String, 'Status',
@@ -3494,6 +3558,7 @@ class SuccessCriterionStatus {
 }
 
 /// Post-implementation review plan for success criteria.
+@SectionId('PD00-SYO-GOA-SUC-PIR')
 @Form([
   Field('reviewSchedule', String, 'Review Schedule',
       hint: 'When post-implementation reviews occur'),
@@ -3685,6 +3750,7 @@ class FunctionalRequirementEntry {
 }
 
 /// Requirement details: description, type, category.
+@SectionId('PD00-SYO-REQ-FUN-ENT-DET')
 class FunctionalRequirementEntryDetails {
   @Form([
     Field('description', String,
@@ -3700,6 +3766,7 @@ class FunctionalRequirementEntryDetails {
 }
 
 /// Priority and effort assessment.
+@SectionId('PD00-SYO-REQ-FUN-ENT-PRI')
 class FunctionalRequirementEntryPriority {
   @Form([
     Field('priority', String,
@@ -3715,6 +3782,7 @@ class FunctionalRequirementEntryPriority {
 }
 
 /// Source and rationale for requirement.
+@SectionId('PD00-SYO-REQ-FUN-ENT-SRC')
 class FunctionalRequirementEntrySource {
   @Form([
     Field('source', String,
@@ -3728,6 +3796,7 @@ class FunctionalRequirementEntrySource {
 }
 
 /// Verification criteria for requirement.
+@SectionId('PD00-SYO-REQ-FUN-ENT-VER')
 class FunctionalRequirementEntryVerification {
   @Form([
     Field('fitCriterion', String,
@@ -3741,6 +3810,7 @@ class FunctionalRequirementEntryVerification {
 }
 
 /// Assumptions and constraints for requirement.
+@SectionId('PD00-SYO-REQ-FUN-ENT-CON')
 class FunctionalRequirementEntryConstraints {
   @Form([
     Field('assumptions', String,
@@ -3754,6 +3824,7 @@ class FunctionalRequirementEntryConstraints {
 }
 
 /// Version metadata for requirement.
+@SectionId('PD00-SYO-REQ-FUN-ENT-MET')
 class FunctionalRequirementEntryMetadata {
   @Form([
     Field('version', String, 'Version'),
@@ -3958,6 +4029,7 @@ class ScreenFieldEntry {
 }
 
 /// Data binding and defaults.
+@SectionId('PD00-SYO-REQ-FUN-UI-FLD-ENT-BND')
 class ScreenFieldDataBinding {
   @Form([
     Field('dataBinding', String, 'Data Binding (entity.attribute)'),
@@ -3969,6 +4041,7 @@ class ScreenFieldDataBinding {
 }
 
 /// Conditional behavior.
+@SectionId('PD00-SYO-REQ-FUN-UI-FLD-ENT-CON')
 class ScreenFieldConditions {
   @Form([
     Field('required', String, 'Required (Yes, No, Conditional)'),
@@ -3982,6 +4055,7 @@ class ScreenFieldConditions {
 }
 
 /// Validation rules.
+@SectionId('PD00-SYO-REQ-FUN-UI-FLD-ENT-VAL')
 class ScreenFieldValidation {
   @Form([
     Field('minLength', String, 'Minimum Length'),
@@ -3995,6 +4069,7 @@ class ScreenFieldValidation {
 }
 
 /// UI and layout.
+@SectionId('PD00-SYO-REQ-FUN-UI-FLD-ENT-LAY')
 class ScreenFieldLayout {
   @Form([
     Field('dropdownSource', String, 'Dropdown Source (static, API, entity)'),
@@ -4159,6 +4234,7 @@ class RequirementTraceability {
 }
 
 /// Linked artifacts and test coverage references.
+@SectionId('PD00-SYO-REQ-FUN-nn-TRC-ART')
 class RequirementTraceabilityArtifacts {
     @Form([
         Field('relatedScreens', String, 'Related UI Screens/Views'),
@@ -4170,6 +4246,7 @@ class RequirementTraceabilityArtifacts {
 }
 
 /// Implementation and deployment tracking.
+@SectionId('PD00-SYO-REQ-FUN-nn-TRC-IMP')
 class RequirementTraceabilityImplementation {
     @Form([
         Field('implementationComponent', String,
@@ -4221,6 +4298,7 @@ class RequirementTestCaseEntry {
 }
 
 /// Test execution details.
+@SectionId('PD00-SYO-REQ-FUN-TST-ENT-EXE')
 class RequirementTestCaseEntryExecution {
     @Form([
         Field('testSteps', String, 'Test Steps'),
@@ -4231,6 +4309,7 @@ class RequirementTestCaseEntryExecution {
 }
 
 /// Automation and prioritization details.
+@SectionId('PD00-SYO-REQ-FUN-TST-ENT-AUT')
 class RequirementTestCaseEntryAutomation {
     @Form([
         Field('automationStatus', String,
@@ -4322,6 +4401,7 @@ class TechnicalRequirementEntry {
 }
 
 /// Technical requirement details: description, category, priority.
+@SectionId('PD00-SYO-REQ-TEC-ENT-DET')
 class TechnicalRequirementEntryDetails {
   @Form([
     Field('description', String,
@@ -4341,6 +4421,7 @@ class TechnicalRequirementEntryDetails {
 }
 
 /// Measurement specifications for technical requirement.
+@SectionId('PD00-SYO-REQ-TEC-ENT-MSR')
 class TechnicalRequirementEntryMeasurement {
   @Form([
     Field('metric', String, 'Metric (what is measured)'),
@@ -4355,6 +4436,7 @@ class TechnicalRequirementEntryMeasurement {
 }
 
 /// Verification approach for technical requirement.
+@SectionId('PD00-SYO-REQ-TEC-ENT-VER')
 class TechnicalRequirementEntryVerification {
   @Form([
     Field('verificationApproach', String,
@@ -4367,6 +4449,7 @@ class TechnicalRequirementEntryVerification {
 }
 
 /// Impact assessment for technical requirement.
+@SectionId('PD00-SYO-REQ-TEC-ENT-IMP')
 class TechnicalRequirementEntryImpact {
   @Form([
     Field('architectureImpact', String,
@@ -4378,6 +4461,7 @@ class TechnicalRequirementEntryImpact {
 }
 
 /// Assumptions and constraints for technical requirement.
+@SectionId('PD00-SYO-REQ-TEC-ENT-CON')
 class TechnicalRequirementEntryConstraints {
   @Form([
     Field('assumptions', String, 'Assumptions'),
@@ -4471,6 +4555,7 @@ class SecurityRequirementEntry {
 }
 
 /// Category and classification for security requirement.
+@SectionId('PD00-SYO-REQ-SEC-ENT-CLS')
 class SecurityRequirementEntryClassification {
   @Form([
     Field('category', String,
@@ -4494,6 +4579,7 @@ class SecurityRequirementEntryClassification {
 }
 
 /// Compliance framework mapping for security requirement.
+@SectionId('PD00-SYO-REQ-SEC-ENT-CMP')
 class SecurityRequirementEntryCompliance {
   @Form([
     Field('owaspCategory', String,
@@ -4508,6 +4594,7 @@ class SecurityRequirementEntryCompliance {
 }
 
 /// Implementation and verification for security requirement.
+@SectionId('PD00-SYO-REQ-SEC-ENT-VER')
 class SecurityRequirementEntryVerification {
   @Form([
     Field('implementationApproach', String, 'Implementation Approach'),
@@ -4520,6 +4607,7 @@ class SecurityRequirementEntryVerification {
 }
 
 /// Status and ownership for security requirement.
+@SectionId('PD00-SYO-REQ-SEC-ENT-STA')
 class SecurityRequirementEntryStatus {
   @Form([
     Field('residualRisk', String, 'Residual Risk (after mitigation)'),
@@ -4570,6 +4658,7 @@ class SecurityControlEntry {
 }
 
 /// Control implementation details.
+@SectionId('PD00-SYO-REQ-SEC-CTL-ENT-IMP')
 class SecurityControlEntryImplementation {
     @Form([
         Field('description', String, 'Description'),
@@ -4580,6 +4669,7 @@ class SecurityControlEntryImplementation {
 }
 
 /// Testing and lifecycle status.
+@SectionId('PD00-SYO-REQ-SEC-CTL-ENT-VER')
 class SecurityControlEntryVerification {
     @Form([
         Field('testFrequency', String, 'Test Frequency'),
@@ -4667,6 +4757,7 @@ class OrganizationalRequirementEntry {
 }
 
 /// Requirement classification and source.
+@SectionId('PD00-SYO-REQ-ORG-ENT-CLS')
 class OrganizationalRequirementEntryClassification {
     @Form([
         Field('category', String,
@@ -4683,6 +4774,7 @@ class OrganizationalRequirementEntryClassification {
 }
 
 /// Impact and change profile.
+@SectionId('PD00-SYO-REQ-ORG-ENT-IMP')
 class OrganizationalRequirementEntryImpact {
     @Form([
         Field('impactedGroups', String,
@@ -4699,6 +4791,7 @@ class OrganizationalRequirementEntryImpact {
 }
 
 /// Planning, ownership, and success tracking.
+@SectionId('PD00-SYO-REQ-ORG-ENT-PLN')
 class OrganizationalRequirementEntryPlanning {
     @Form([
         Field('timeline', String, 'Timeline (when change must occur)'),
@@ -4868,6 +4961,7 @@ class SystemToReplaceEntry {
 }
 
 /// Classification and ownership details.
+@SectionId('PD00-SYO-SYR-INV-ENT-PRF')
 class SystemToReplaceEntryProfile {
     @Form([
         Field('systemCategory', String, 'Category (CRM, ERP, HR, Finance, etc.)'),
@@ -4880,6 +4974,7 @@ class SystemToReplaceEntryProfile {
 }
 
 /// Vendor and contract status.
+@SectionId('PD00-SYO-SYR-INV-ENT-VND')
 class SystemToReplaceEntryVendor {
     @Form([
         Field('vendorName', String, 'Vendor/Provider'),
@@ -4921,6 +5016,7 @@ class SystemTechnicalAssessment {
 }
 
 /// Platform and age details.
+@SectionId('PD00-SYO-SYR-INV-xx-TEC-PLT')
 class SystemTechnicalAssessmentPlatform {
     @Form([
         Field('operatingSystem', String, 'Operating System'),
@@ -4933,6 +5029,7 @@ class SystemTechnicalAssessmentPlatform {
 }
 
 /// Support and lifecycle details.
+@SectionId('PD00-SYO-SYR-INV-xx-TEC-LIF')
 class SystemTechnicalAssessmentLifecycle {
     @Form([
         Field('vendorSupportStatus', String,
@@ -4943,6 +5040,7 @@ class SystemTechnicalAssessmentLifecycle {
 }
 
 /// Technical quality indicators.
+@SectionId('PD00-SYO-SYR-INV-xx-TEC-QUA')
 class SystemTechnicalAssessmentQuality {
     @Form([
         Field('technicalDebtRating', String,
@@ -4990,6 +5088,7 @@ class SystemBusinessCriticality {
 }
 
 /// Usage scale and commercial impact.
+@SectionId('PD00-SYO-SYR-INV-xx-BUS-OPS')
 class SystemBusinessCriticalityOperations {
     @Form([
         Field('peakConcurrentUsers', int, 'Peak Concurrent Users'),
@@ -5001,6 +5100,7 @@ class SystemBusinessCriticalityOperations {
 }
 
 /// Delivery and compliance constraints.
+@SectionId('PD00-SYO-SYR-INV-xx-BUS-GOV')
 class SystemBusinessCriticalityGovernance {
     @Form([
         Field('operationsImpact', String,
@@ -5070,6 +5170,7 @@ class SystemReplacementStrategy {
 }
 
 /// Replacement timeline milestones.
+@SectionId('PD00-SYO-SYR-INV-xx-STR-TML')
 class SystemReplacementStrategyTimeline {
     @Form([
         Field('plannedStartDate', String, 'Planned Start Date'),
@@ -5081,6 +5182,7 @@ class SystemReplacementStrategyTimeline {
 }
 
 /// Cutover and rollback profile.
+@SectionId('PD00-SYO-SYR-INV-xx-STR-COV')
 class SystemReplacementStrategyCutover {
     @Form([
         Field('cutoverStrategy', String,
@@ -5130,6 +5232,7 @@ class SystemDataScope {
 }
 
 /// Data sensitivity and quality posture.
+@SectionId('PD00-SYO-SYR-INV-xx-DAT-GOV')
 class SystemDataScopeGovernance {
     @Form([
         Field('sensitivityLevel', String,
@@ -5142,6 +5245,7 @@ class SystemDataScopeGovernance {
 }
 
 /// Migration preparation and archive handling.
+@SectionId('PD00-SYO-SYR-INV-xx-DAT-MIG')
 class SystemDataScopeMigration {
     @Form([
         Field('deduplicationNeeded', bool, 'Deduplication Needed'),
@@ -5218,6 +5322,7 @@ class SystemUserImpact {
 }
 
 /// User-facing change profile for system replacement.
+@SectionId('PD00-SYO-SYR-INV-xx-USR-CHG')
 class SystemUserImpactChangeProfile {
     @Form([
         Field('workflowChange', String, 'Workflow Change Level'),
@@ -5228,6 +5333,7 @@ class SystemUserImpactChangeProfile {
 }
 
 /// Training and enablement plan for impacted users.
+@SectionId('PD00-SYO-SYR-INV-xx-USR-ENB')
 class SystemUserImpactEnablement {
     @Form([
         Field('trainingRequired', String, 'Training Required'),
@@ -5239,6 +5345,7 @@ class SystemUserImpactEnablement {
 }
 
 /// Communication and adoption support for impacted users.
+@SectionId('PD00-SYO-SYR-INV-xx-USR-ADO')
 class SystemUserImpactAdoption {
     @Form([
         Field('communicationPlan', String, 'Communication Plan'),
@@ -5287,6 +5394,7 @@ class SystemCostAnalysis {
 }
 
 /// Current-state support and total annual cost.
+@SectionId('PD00-SYO-SYR-INV-xx-CST-CUR')
 class SystemCostAnalysisCurrentCosts {
     @Form([
         Field('annualSupportCost', String, 'Annual Support Cost'),
@@ -5296,6 +5404,7 @@ class SystemCostAnalysisCurrentCosts {
 }
 
 /// One-time migration and transition investments.
+@SectionId('PD00-SYO-SYR-INV-xx-CST-MIG')
 class SystemCostAnalysisMigration {
     @Form([
         Field('migrationProjectCost', String, 'Migration Project Cost'),
@@ -5308,6 +5417,7 @@ class SystemCostAnalysisMigration {
 }
 
 /// Target-state cost and ROI indicators.
+@SectionId('PD00-SYO-SYR-INV-xx-CST-BEN')
 class SystemCostAnalysisBenefits {
     @Form([
         Field('newSystemAnnualCost', String, 'New System Annual Cost'),
@@ -5348,6 +5458,7 @@ class SystemMigrationPlan {
 }
 
 /// Migration execution and validation details.
+@SectionId('PD00-SYO-SYR-INV-xx-MIG-EXE')
 class SystemMigrationPlanExecution {
     @Form([
         Field('duration', String, 'Estimated Duration'),
@@ -5359,6 +5470,7 @@ class SystemMigrationPlanExecution {
 }
 
 /// Cutover window and business fallback.
+@SectionId('PD00-SYO-SYR-INV-xx-MIG-COV')
 class SystemMigrationPlanCutover {
     @Form([
         Field('cutoverWindow', String, 'Cutover Window'),
@@ -5580,6 +5692,7 @@ class MigrationRisks {
 }
 
 /// Governance and decision authority.
+@SectionId('PD00-SYO-SYR-MIG-RIS-GOV')
 class MigrationRisksGovernance {
     @Form([
         Field('riskEscalationPath', String, 'Escalation Path',
@@ -5593,6 +5706,7 @@ class MigrationRisksGovernance {
 }
 
 /// Assessment methodology settings.
+@SectionId('PD00-SYO-SYR-MIG-RIS-ASS')
 class MigrationRisksAssessment {
     @Form([
         Field('riskAssessmentFramework', String, 'Assessment Framework',
@@ -5610,6 +5724,7 @@ class MigrationRisksAssessment {
 }
 
 /// Threshold and trigger settings.
+@SectionId('PD00-SYO-SYR-MIG-RIS-THR')
 class MigrationRisksThresholds {
     @Form([
         Field('criticalRiskThreshold', String, 'Critical Risk Threshold',
@@ -5623,6 +5738,7 @@ class MigrationRisksThresholds {
 }
 
 /// Reporting settings.
+@SectionId('PD00-SYO-SYR-MIG-RIS-REP')
 class MigrationRisksReporting {
     @Form([
         Field('riskReportingCadence', String, 'Reporting Cadence'),
@@ -5694,6 +5810,7 @@ class MigrationRiskEntry {
 }
 
 /// Risk identification details.
+@SectionId('PD00-SYO-SYR-MIG-RIS-ENT-IDN')
 class MigrationRiskIdentification {
   @Form([
     Field('riskDescription', String, 'Risk Description', required: true,
@@ -5718,6 +5835,7 @@ class MigrationRiskIdentification {
 }
 
 /// Probability assessment for migration risk.
+@SectionId('PD00-SYO-SYR-MIG-RIS-ENT-PRB')
 class MigrationRiskProbability {
   @Form([
     Field('probabilityRating', String, 'Probability Rating',
@@ -5733,6 +5851,7 @@ class MigrationRiskProbability {
 }
 
 /// Impact assessment for migration risk.
+@SectionId('PD00-SYO-SYR-MIG-RIS-ENT-IMP')
 class MigrationRiskImpact {
   @Form([
     Field('overallImpactRating', String, 'Overall Impact Rating',
@@ -5760,6 +5879,7 @@ class MigrationRiskImpact {
 }
 
 /// Risk quantification for migration risk.
+@SectionId('PD00-SYO-SYR-MIG-RIS-ENT-QNT')
 class MigrationRiskQuantification {
   @Form([
     Field('riskScore', int, 'Risk Score',
@@ -5778,6 +5898,7 @@ class MigrationRiskQuantification {
 }
 
 /// Mitigation strategy for migration risk.
+@SectionId('PD00-SYO-SYR-MIG-RIS-ENT-MIT')
 class MigrationRiskMitigation {
   @Form([
     Field('responseStrategy', String, 'Response Strategy',
@@ -5804,6 +5925,7 @@ class MigrationRiskMitigation {
 }
 
 /// Contingency planning for migration risk.
+@SectionId('PD00-SYO-SYR-MIG-RIS-ENT-CON')
 class MigrationRiskContingency {
   @Form([
     Field('contingencyPlan', String, 'Contingency Plan',
@@ -5822,6 +5944,7 @@ class MigrationRiskContingency {
 }
 
 /// Risk indicators and monitoring.
+@SectionId('PD00-SYO-SYR-MIG-RIS-ENT-IND')
 class MigrationRiskIndicators {
   @Form([
     Field('earlyWarningIndicators', String, 'Early Warning Indicators',
@@ -5839,6 +5962,7 @@ class MigrationRiskIndicators {
 }
 
 /// Ownership and tracking for migration risk.
+@SectionId('PD00-SYO-SYR-MIG-RIS-ENT-TRK')
 class MigrationRiskTracking {
   @Form([
     Field('riskDelegate', String, 'Risk Delegate',
@@ -5861,6 +5985,7 @@ class MigrationRiskTracking {
 }
 
 /// Related items for migration risk.
+@SectionId('PD00-SYO-SYR-MIG-RIS-ENT-REL')
 class MigrationRiskRelated {
   @Form([
     Field('relatedRisks', String, 'Related Risks',
@@ -5878,6 +6003,7 @@ class MigrationRiskRelated {
 }
 
 /// History and lessons learned for migration risk.
+@SectionId('PD00-SYO-SYR-MIG-RIS-ENT-HIS')
 class MigrationRiskHistory {
   @Form([
     Field('previousScores', String, 'Previous Scores',
@@ -6120,6 +6246,7 @@ class InterfaceTechnicalSpec {
 }
 
 /// Directionality and messaging pattern.
+@SectionId('PD00-SYO-SYB-INT-xx-TEC-COM')
 class InterfaceTechnicalSpecCommunication {
     @Form([
         Field('direction', String, 'Direction (Inbound, Outbound, Bidirectional)'),
@@ -6133,6 +6260,7 @@ class InterfaceTechnicalSpecCommunication {
 }
 
 /// Endpoint and documentation references.
+@SectionId('PD00-SYO-SYB-INT-xx-TEC-END')
 class InterfaceTechnicalSpecEndpoints {
     @Form([
         Field('baseEndpoint', String, 'Base URL/Endpoint'),
@@ -6249,6 +6377,7 @@ class InterfaceSecurity {
 }
 
 /// Authorization boundaries for an interface.
+@SectionId('PD00-SYO-SYB-INT-xx-SEC-AUT')
 class InterfaceSecurityAuthorization {
     @Form([
         Field('authorizationModel', String, 'Authorization Model'),
@@ -6259,6 +6388,7 @@ class InterfaceSecurityAuthorization {
 }
 
 /// Encryption controls for an interface.
+@SectionId('PD00-SYO-SYB-INT-xx-SEC-ENC')
 class InterfaceSecurityEncryption {
     @Form([
         Field('encryptionInTransit', String, 'Encryption in Transit'),
@@ -6269,6 +6399,7 @@ class InterfaceSecurityEncryption {
 }
 
 /// Compliance and audit expectations for an interface.
+@SectionId('PD00-SYO-SYB-INT-xx-SEC-CMP')
 class InterfaceSecurityCompliance {
     @Form([
         Field('complianceRequirements', String,
@@ -6305,6 +6436,7 @@ class InterfaceOperational {
 }
 
 /// Rate limiting rules.
+@SectionId('PD00-SYO-SYB-INT-xx-OPS-RLM')
 class InterfaceOperationalRateLimiting {
     @Form([
         Field('rateLimits', String, 'Rate Limits (requests/minute)'),
@@ -6315,6 +6447,7 @@ class InterfaceOperationalRateLimiting {
 }
 
 /// Monitoring configuration.
+@SectionId('PD00-SYO-SYB-INT-xx-OPS-MON')
 class InterfaceOperationalMonitoring {
     @Form([
         Field('healthCheckEndpoint', String, 'Health Check Endpoint'),
@@ -6326,6 +6459,7 @@ class InterfaceOperationalMonitoring {
 }
 
 /// Support model.
+@SectionId('PD00-SYO-SYB-INT-xx-OPS-SUP')
 class InterfaceOperationalSupport {
     @Form([
         Field('supportHours', String, 'Support Hours'),
@@ -6361,6 +6495,7 @@ class InterfaceErrorHandling {
 }
 
 /// Non-retryable errors and retry strategy.
+@SectionId('PD00-SYO-SYB-INT-xx-ERR-RET')
 class InterfaceErrorHandlingRetry {
     @Form([
         Field('fatalErrors', String, 'Fatal/Non-Retryable Errors'),
@@ -6373,6 +6508,7 @@ class InterfaceErrorHandlingRetry {
 }
 
 /// Fallback behavior and manual recovery.
+@SectionId('PD00-SYO-SYB-INT-xx-ERR-FAL')
 class InterfaceErrorHandlingFallback {
     @Form([
         Field('fallbackBehavior', String, 'Fallback Behavior'),
@@ -6383,6 +6519,7 @@ class InterfaceErrorHandlingFallback {
 }
 
 /// Connection and transaction timeouts.
+@SectionId('PD00-SYO-SYB-INT-xx-ERR-TIM')
 class InterfaceErrorHandlingTimeout {
     @Form([
         Field('connectionTimeout', String, 'Connection Timeout'),
@@ -6414,6 +6551,7 @@ class InterfaceGovernance {
 }
 
 /// Contract and commercial terms for an interface.
+@SectionId('PD00-SYO-SYB-INT-xx-GOV-CON')
 class InterfaceGovernanceContract {
     @Form([
         Field('contractType', String, 'Contract Type (SLA, Agreement, Partnership)'),
@@ -6426,6 +6564,7 @@ class InterfaceGovernanceContract {
 }
 
 /// Change management expectations for an interface.
+@SectionId('PD00-SYO-SYB-INT-xx-GOV-LIF')
 class InterfaceGovernanceLifecycle {
     @Form([
         Field('versioningStrategy', String, 'Versioning Strategy'),
@@ -6459,6 +6598,7 @@ class InterfaceTesting {
 }
 
 /// Test data strategy.
+@SectionId('PD00-SYO-SYB-INT-xx-TST-DAT')
 class InterfaceTestingData {
     @Form([
         Field('testDataApproach', String, 'Test Data Approach'),
@@ -6469,6 +6609,7 @@ class InterfaceTestingData {
 }
 
 /// Validation approach across test layers.
+@SectionId('PD00-SYO-SYB-INT-xx-TST-STR')
 class InterfaceTestingStrategy {
     @Form([
         Field('unitTestApproach', String, 'Unit Test Approach'),
@@ -6536,6 +6677,7 @@ class OutOfScopeEntry {
 }
 
 /// Decision history and future reconsideration.
+@SectionId('PD00-SYO-SYB-OUT-ENT-DEC')
 class OutOfScopeEntryDecision {
     @Form([
         Field('requestedBy', String, 'Originally Requested By'),
@@ -6549,6 +6691,7 @@ class OutOfScopeEntryDecision {
 }
 
 /// Alternatives and inclusion risk.
+@SectionId('PD00-SYO-SYB-OUT-ENT-MIT')
 class OutOfScopeEntryMitigation {
     @Form([
         Field('alternativeSolution', String, 'Alternative/Workaround'),
@@ -6600,6 +6743,7 @@ class BoundaryAssumptionEntry {
 }
 
 /// Validation ownership and confidence for a boundary assumption.
+@SectionId('PD00-SYO-SYB-ASS-ENT-VAL')
 class BoundaryAssumptionEntryValidation {
     @Form([
         Field('rationale', String, 'Basis for Assumption'),
@@ -6614,6 +6758,7 @@ class BoundaryAssumptionEntryValidation {
 }
 
 /// Risk framing and contingency planning for a boundary assumption.
+@SectionId('PD00-SYO-SYB-ASS-ENT-RSK')
 class BoundaryAssumptionEntryRisk {
     @Form([
         Field('riskIfWrong', String, 'Risk if Wrong'),
@@ -6751,6 +6896,7 @@ class OrganizationalEnvironment {
 }
 
 /// Organizational maturity indicators.
+@SectionId('PD00-SYO-RES-ORG-MAT')
 class OrganizationalEnvironmentMaturity {
     @Form([
         Field('digitalMaturityLevel', String,
@@ -6766,6 +6912,7 @@ class OrganizationalEnvironmentMaturity {
 }
 
 /// Decision-making context.
+@SectionId('PD00-SYO-RES-ORG-DEC')
 class OrganizationalEnvironmentDecisionMaking {
     @Form([
         Field('decisionMakingStyle', String,
@@ -6886,6 +7033,7 @@ class ResponsibilityEntry {
 }
 
 /// Function details and scope.
+@SectionId('PD00-SYO-RES-FUN-ENT-DET')
 class ResponsibilityFunctionDetails {
   @Form([
     Field('functionDescription', String, 'Description',
@@ -6899,6 +7047,7 @@ class ResponsibilityFunctionDetails {
 }
 
 /// RACI assignment.
+@SectionId('PD00-SYO-RES-FUN-ENT-RAC')
 class ResponsibilityRaci {
   @Form([
     Field('responsible', String, 'Responsible (R)',
@@ -6914,6 +7063,7 @@ class ResponsibilityRaci {
 }
 
 /// Key contacts.
+@SectionId('PD00-SYO-RES-FUN-ENT-CON')
 class ResponsibilityContacts {
   @Form([
     Field('domainOwner', String, 'Domain Owner',
@@ -6931,6 +7081,7 @@ class ResponsibilityContacts {
 }
 
 /// Related systems and data.
+@SectionId('PD00-SYO-RES-FUN-ENT-SYS')
 class ResponsibilitySystems {
   @Form([
     Field('primarySystems', String, 'Primary Systems',
@@ -6944,6 +7095,7 @@ class ResponsibilitySystems {
 }
 
 /// Governance and transition.
+@SectionId('PD00-SYO-RES-FUN-ENT-GOV')
 class ResponsibilityGovernance {
   @Form([
     Field('governanceLevel', String, 'Governance Level',
@@ -7062,6 +7214,7 @@ class TechnicalFrameworkConditions {
 }
 
 /// Architecture governance context.
+@SectionId('PD00-SYO-RES-TEC-GOV')
 class TechnicalFrameworkConditionsGovernance {
     @Form([
         Field('secondaryCloudProviders', String, 'Secondary Cloud Providers'),
@@ -7072,6 +7225,7 @@ class TechnicalFrameworkConditionsGovernance {
 }
 
 /// Platform standards and preferred technologies.
+@SectionId('PD00-SYO-RES-TEC-STD')
 class TechnicalFrameworkConditionsStandards {
     @Form([
         Field('preferredLanguages', String, 'Preferred Languages',
@@ -7089,6 +7243,7 @@ class TechnicalFrameworkConditionsStandards {
 }
 
 /// Security and compliance requirements.
+@SectionId('PD00-SYO-RES-TEC-SEC')
 class TechnicalFrameworkConditionsSecurity {
     @Form([
         Field('securityFramework', String, 'Security Framework',
@@ -7106,6 +7261,7 @@ class TechnicalFrameworkConditionsSecurity {
 }
 
 /// Network and infrastructure standards.
+@SectionId('PD00-SYO-RES-TEC-NET')
 class TechnicalFrameworkConditionsNetwork {
     @Form([
         Field('networkArchitecture', String, 'Network Architecture',
@@ -7165,6 +7321,7 @@ class TechnologyStandardEntry {
 }
 
 /// Standard details and sources.
+@SectionId('PD00-SYO-RES-TEC-STD-ENT-DET')
 class TechnologyStandardEntryDetails {
   @Form([
     Field('standardDescription', String, 'Description',
@@ -7184,6 +7341,7 @@ class TechnologyStandardEntryDetails {
 }
 
 /// Scope and applicability.
+@SectionId('PD00-SYO-RES-TEC-STD-ENT-SCP')
 class TechnologyStandardEntryScope {
   @Form([
     Field('applicabilityScope', String, 'Applicability Scope',
@@ -7199,6 +7357,7 @@ class TechnologyStandardEntryScope {
 }
 
 /// Compliance settings.
+@SectionId('PD00-SYO-RES-TEC-STD-ENT-CMP')
 class TechnologyStandardEntryCompliance {
   @Form([
     Field('complianceMethod', String, 'Compliance Method',
@@ -7212,6 +7371,7 @@ class TechnologyStandardEntryCompliance {
 }
 
 /// Project impact notes.
+@SectionId('PD00-SYO-RES-TEC-STD-ENT-IMP')
 class TechnologyStandardEntryImpact {
   @Form([
     Field('projectImpact', String, 'Project Impact',
@@ -7254,6 +7414,7 @@ class IntegrationConstraintEntry {
 }
 
 /// Constraint details.
+@SectionId('PD00-SYO-RES-TEC-INT-ENT-DET')
 class IntegrationConstraintEntryDetails {
   @Form([
     Field('constraintType', String, 'Constraint Type',
@@ -7267,6 +7428,7 @@ class IntegrationConstraintEntryDetails {
 }
 
 /// Scope of impact.
+@SectionId('PD00-SYO-RES-TEC-INT-ENT-SCP')
 class IntegrationConstraintEntryScope {
   @Form([
     Field('impactedSystems', String, 'Impacted Systems',
@@ -7280,6 +7442,7 @@ class IntegrationConstraintEntryScope {
 }
 
 /// Impact and mitigation.
+@SectionId('PD00-SYO-RES-TEC-INT-ENT-MIT')
 class IntegrationConstraintEntryMitigation {
   @Form([
     Field('impactLevel', String, 'Impact Level',
@@ -7295,6 +7458,7 @@ class IntegrationConstraintEntryMitigation {
 }
 
 /// Compliance rules.
+@SectionId('PD00-SYO-RES-TEC-INT-ENT-CMP')
 class IntegrationConstraintEntryCompliance {
   @Form([
     Field('complianceRequired', bool, 'Compliance Required',
@@ -7471,6 +7635,7 @@ class ConstraintEntry {
 }
 
 /// Classification for constraint.
+@SectionId('PD00-SYO-RES-CON-CON-ENT-CLS')
 class ConstraintClassification {
   @Form([
     Field('constraintDescription', String, 'Description',
@@ -7489,6 +7654,7 @@ class ConstraintClassification {
 }
 
 /// Details for constraint.
+@SectionId('PD00-SYO-RES-CON-CON-ENT-DET')
 class ConstraintDetails {
   @Form([
     Field('constraintValue', String, 'Constraint Value',
@@ -7506,6 +7672,7 @@ class ConstraintDetails {
 }
 
 /// Impact assessment for constraint.
+@SectionId('PD00-SYO-RES-CON-CON-ENT-IMP')
 class ConstraintImpact {
   @Form([
     Field('impactDescription', String, 'Impact Description',
@@ -7525,6 +7692,7 @@ class ConstraintImpact {
 }
 
 /// Mitigation for constraint.
+@SectionId('PD00-SYO-RES-CON-CON-ENT-MIT')
 class ConstraintMitigation {
   @Form([
     Field('mitigationStrategy', String, 'Mitigation Strategy',
@@ -7542,6 +7710,7 @@ class ConstraintMitigation {
 }
 
 /// Tracking for constraint.
+@SectionId('PD00-SYO-RES-CON-CON-ENT-TRK')
 class ConstraintTracking {
   @Form([
     Field('trackingMethod', String, 'Tracking Method',
@@ -7559,6 +7728,7 @@ class ConstraintTracking {
 }
 
 /// Linkages for constraint.
+@SectionId('PD00-SYO-RES-CON-CON-ENT-LNK')
 class ConstraintLinkages {
   @Form([
     Field('relatedConstraints', String, 'Related Constraints',
@@ -7620,6 +7790,7 @@ class FrameworkDependencies {
 }
 
 /// Dependency counts by category.
+@SectionId('PD00-SYO-RES-CON-DEP-CAT')
 class FrameworkDependenciesCategories {
     @Form([
         Field('projectDependencyCount', String,
@@ -7650,6 +7821,7 @@ class FrameworkDependenciesCategories {
 }
 
 /// Coordination and early warning mechanisms.
+@SectionId('PD00-SYO-RES-CON-DEP-MGT')
 class FrameworkDependenciesManagement {
     @Form([
         Field('dependencyCoordinationApproach', String,
@@ -7712,6 +7884,7 @@ class FrameworkDependencyEntry {
 }
 
 /// Dependency identity details.
+@SectionId('PD00-SYO-RES-CON-DEP-ENT-IDN')
 class DependencyIdentity {
   @Form([
     Field('dependencyDescription', String, 'Description',
@@ -7721,6 +7894,7 @@ class DependencyIdentity {
 }
 
 /// Dependency classification.
+@SectionId('PD00-SYO-RES-CON-DEP-ENT-CLS')
 class DependencyClassification {
   @Form([
     Field('dependencyCategory', String, 'Dependency Category',
@@ -7735,6 +7909,7 @@ class DependencyClassification {
 }
 
 /// External party details.
+@SectionId('PD00-SYO-RES-CON-DEP-ENT-EXT')
 class DependencyExternalParty {
   @Form([
     Field('externalPartyName', String, 'External Party Name',
@@ -7752,6 +7927,7 @@ class DependencyExternalParty {
 }
 
 /// Deliverable details.
+@SectionId('PD00-SYO-RES-CON-DEP-ENT-DEL')
 class DependencyDeliverable {
   @Form([
     Field('deliverableDescription', String, 'Deliverable Description',
@@ -7767,6 +7943,7 @@ class DependencyDeliverable {
 }
 
 /// Dependency timeline.
+@SectionId('PD00-SYO-RES-CON-DEP-ENT-TML')
 class DependencyTimeline {
   @Form([
     Field('expectedDeliveryDate', String, 'Expected Delivery Date',
@@ -7784,6 +7961,7 @@ class DependencyTimeline {
 }
 
 /// Dependency risk assessment.
+@SectionId('PD00-SYO-RES-CON-DEP-ENT-RSK')
 class DependencyRisk {
   @Form([
     Field('deliveryRiskLevel', String, 'Delivery Risk Level',
@@ -7801,6 +7979,7 @@ class DependencyRisk {
 }
 
 /// Dependency mitigation and contingency.
+@SectionId('PD00-SYO-RES-CON-DEP-ENT-MIT')
 class DependencyMitigation {
   @Form([
     Field('mitigationStrategy', String, 'Mitigation Strategy',
@@ -7818,6 +7997,7 @@ class DependencyMitigation {
 }
 
 /// Dependency coordination and tracking.
+@SectionId('PD00-SYO-RES-CON-DEP-ENT-TRK')
 class DependencyTracking {
   @Form([
     Field('coordinationMechanism', String, 'Coordination Mechanism',
@@ -7839,6 +8019,7 @@ class DependencyTracking {
 }
 
 /// Dependency linkages.
+@SectionId('PD00-SYO-RES-CON-DEP-ENT-LNK')
 class DependencyLinkages {
   @Form([
     Field('relatedConstraints', String, 'Related Constraints',
@@ -7877,6 +8058,7 @@ class RisksAndAssumptions {
 }
 
 /// Overview of the risk management approach.
+@SectionId('PD00-SYO-RIS-OVW')
 class RisksOverview {
   @Form([
     Field('riskManagementApproach', String,
@@ -7930,6 +8112,7 @@ class RiskEntry {
 }
 
 /// Risk identification details.
+@SectionId('PD00-SYO-RIS-RIS-ENT-IDN')
 class RiskIdentification {
   @Form([
     Field('riskId', String, 'Risk ID (e.g., RISK-001, TR-001)', required: true),
@@ -7951,6 +8134,7 @@ class RiskIdentification {
 }
 
 /// Identification source and ownership metadata.
+@SectionId('PD00-SYO-RIS-RIS-ENT-IDN-SRC')
 class RiskIdentificationSource {
     @Form([
         Field('source', String,
@@ -7964,6 +8148,7 @@ class RiskIdentificationSource {
 }
 
 /// Trigger and root-cause details.
+@SectionId('PD00-SYO-RIS-RIS-ENT-IDN-CAU')
 class RiskIdentificationCause {
     @Form([
         Field('trigger', String,
@@ -7975,6 +8160,7 @@ class RiskIdentificationCause {
 }
 
 /// Risk analysis — probability, impact, and risk scoring.
+@SectionId('PD00-SYO-RIS-RIS-ENT-ANL')
 class RiskAnalysis {
   @Form([
     Field('probability', String,
@@ -7999,6 +8185,7 @@ class RiskAnalysis {
 }
 
 /// Risk response — strategy and planned actions.
+@SectionId('PD00-SYO-RIS-RIS-ENT-RSP')
 class RiskResponse {
   @Form([
     Field('responseStrategy', String,
@@ -8021,6 +8208,7 @@ class RiskResponse {
 }
 
 /// Residual and secondary risk expectations.
+@SectionId('PD00-SYO-RIS-RIS-ENT-RSP-RSD')
 class RiskResponseResidual {
   @Form([
     Field('residualRisk', String,
@@ -8036,6 +8224,7 @@ class RiskResponseResidual {
 }
 
 /// Implementation effort and effectiveness.
+@SectionId('PD00-SYO-RIS-RIS-ENT-RSP-IMP')
 class RiskResponseImplementation {
   @Form([
     Field('responseEffectiveness', String,
@@ -8049,6 +8238,7 @@ class RiskResponseImplementation {
 }
 
 /// Risk ownership and governance.
+@SectionId('PD00-SYO-RIS-RIS-ENT-OWN')
 class RiskOwnership {
   @Form([
     Field('riskOwner', String,
@@ -8071,6 +8261,7 @@ class RiskOwnership {
 }
 
 /// Risk monitoring and tracking.
+@SectionId('PD00-SYO-RIS-RIS-ENT-MON')
 class RiskMonitoring {
   @Form([
     Field('reviewFrequency', String,
@@ -8090,6 +8281,7 @@ class RiskMonitoring {
 }
 
 /// Trend and monitoring indicators.
+@SectionId('PD00-SYO-RIS-RIS-ENT-MON-TRD')
 class RiskMonitoringTrend {
     @Form([
         Field('trend', String, 'Trend — Increasing, Stable, Decreasing'),
@@ -8104,6 +8296,7 @@ class RiskMonitoringTrend {
 }
 
 /// Closure tracking and lessons learned.
+@SectionId('PD00-SYO-RIS-RIS-ENT-MON-CLS')
 class RiskMonitoringClosure {
     @Form([
         Field('closureDate', String, 'Closure Date'),
@@ -8116,6 +8309,7 @@ class RiskMonitoringClosure {
 }
 
 /// Business impact assessment for the risk.
+@SectionId('PD00-SYO-RIS-RIS-ENT-BIM')
 class RiskBusinessImpact {
   @Form([
     Field('costImpact', String,
@@ -8136,6 +8330,7 @@ class RiskBusinessImpact {
 }
 
 /// Broader stakeholder and compliance impact.
+@SectionId('PD00-SYO-RIS-RIS-ENT-BIM-STK')
 class RiskBusinessImpactStakeholders {
   @Form([
     Field('resourceImpact', String,
@@ -8151,6 +8346,7 @@ class RiskBusinessImpactStakeholders {
 }
 
 /// Operational and delivery consequences.
+@SectionId('PD00-SYO-RIS-RIS-ENT-BIM-DEL')
 class RiskBusinessImpactDelivery {
   @Form([
     Field('operationalImpact', String,
@@ -8166,6 +8362,7 @@ class RiskBusinessImpactDelivery {
 }
 
 /// Relationships to other risks, assumptions, and project elements.
+@SectionId('PD00-SYO-RIS-RIS-ENT-REL')
 class RiskRelationships {
   @Form([
     Field('relatedRisks', String,
@@ -8207,6 +8404,7 @@ class KeyAssumptions {
 }
 
 /// Overview of assumptions management.
+@SectionId('PD00-SYO-RIS-ASS-OVW')
 class AssumptionsOverview {
   @Form([
     Field('assumptionsApproach', String,
@@ -8240,6 +8438,7 @@ class AssumptionEntry {
 }
 
 /// Assumption identification details.
+@SectionId('PD00-SYO-RIS-ASS-ENT-IDN')
 class AssumptionIdentification {
   @Form([
     Field('assumptionId', String,
@@ -8263,6 +8462,7 @@ class AssumptionIdentification {
 }
 
 /// Assumption validation details.
+@SectionId('PD00-SYO-RIS-ASS-ENT-VAL')
 class AssumptionValidation {
   @Form([
     Field('validationMethod', String,
@@ -8282,6 +8482,7 @@ class AssumptionValidation {
 }
 
 /// Impact assessment if assumption proves false.
+@SectionId('PD00-SYO-RIS-ASS-ENT-IMP')
 class AssumptionImpact {
   @Form([
     Field('impactIfFalse', String,
@@ -8304,6 +8505,7 @@ class AssumptionImpact {
 }
 
 /// Relationships to other project elements.
+@SectionId('PD00-SYO-RIS-ASS-ENT-REL')
 class AssumptionRelationships {
   @Form([
     Field('relatedAssumptions', String,
