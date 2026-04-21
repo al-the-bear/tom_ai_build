@@ -68,16 +68,15 @@ void main() {
         final coverageWarnings = result.warnings
             .where((w) => w.contains('§8.6 @SectionId coverage'))
             .toList();
-        // The validator correctly surfaces ~1200 classes in delivery_acceptance.dart
-        // and system_quality_goals.dart that lack @SectionId. These are pre-existing
-        // gaps — sub-section classes (UatTestData, AvailabilityQuality, etc.) that
-        // were authored without section IDs.  Fixing them is tracked in
-        // completion_steps.tom_specs.md.  This test is left as a skip so it
-        // documents the gap without blocking CI.
+        // ~1082 coverage gaps remain across multiple PD files after CS-02.
+        // Bulk: technical_framework.dart (~929), user_interface_design.dart (~199),
+        // system_overview.dart (~180), system_stage_plan.dart (~131), and others.
+        // See completion_steps.tom_specs.md.
         expect(coverageWarnings, isEmpty, reason: coverageWarnings.join('\n'));
       },
-      skip: 'Pre-existing coverage gaps (~1200 classes in delivery_acceptance.dart '
-          'and system_quality_goals.dart). See completion_steps.tom_specs.md.',
+      skip: 'Pre-existing coverage gaps (~1082 classes across technical_framework.dart, '
+          'user_interface_design.dart, system_overview.dart, and others). '
+          'See completion_steps.tom_specs.md.',
     );
 
     test('§8.6: no duplicate @SectionIdPattern strings', () {
