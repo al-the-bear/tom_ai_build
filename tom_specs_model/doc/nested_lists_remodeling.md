@@ -1,6 +1,6 @@
 # Nested Lists Remodeling — Repeated Sections with Repeated Subsections
 
-**Date:** 2026-04-21  
+**Date:** 2026-04-21 (rev 2)
 **Package:** `tom_specs_model`  
 **Status:** Analysis / Design Decision Required
 
@@ -8,525 +8,549 @@
 
 ## 1. Background
 
-The TomSpecs object model uses two annotations to assign section IDs to classes that appear
-as list elements:
+The TomSpecs object model uses two annotations to assign section IDs:
 
-| Annotation | Target | Purpose |
+| Annotation | Target | Meaning |
 |---|---|---|
-| `@SectionId('PD00-XYZ')` | Class | Assigns a fixed, globally unique section ID to the class. |
-| `@SectionIdPattern('PD00-XYZ-xx')` | List field | Assigns a *numbered* section ID to each element at runtime; each item becomes `PD00-XYZ-01`, `PD00-XYZ-02`, etc. The prefix (`PD00-XYZ`) must be the same as the `@SectionId` of the owning class or element-type class. |
+| `@SectionId('PD00-XYZ')` | Class | Fixed, globally unique section ID. |
+| `@SectionIdPattern('PD00-XYZ-xx')` | List field | Per-element numbered section ID; items become `PD00-XYZ-01`, `-02`, … |
 
-This works well for a **single level** of repeated sections. The problem arises when an
-element type in a `@SectionIdPattern`-annotated list itself contains `List<T>` fields
-(nested repeated sections). The current schema and validator do not fully support this case.
+This works well for a single level of repeated sections. Problems arise when an element
+type in a `@SectionIdPattern` list itself contains `List<T>` fields — **nested repeated
+sections**. The current schema, validator, and outliner do not support this case.
 
 ---
 
-## 2. How Nested Lists Are Currently Handled
+## 2. How the Current Model Handles Nested Lists
 
-### 2.1 Annotation Setup Today
+### 2.1 Validator behaviour — silent exemption via BFS crossing
 
-Currently, the 24 affected classes carry a `@SectionId` on themselves and a
-`@SectionIdPattern` on their own list field, for example:
+The validator runs a BFS (graph traversal) starting from every direct `@SectionIdPattern`
+element type, building a `patternCovered` set — types that do not need their own
+`@SectionId`. Critically, the BFS currently **crosses `List<T>` field boundaries**, so
+any type reachable inside a pattern-covered type (even through a nested list) is also
+considered exempt. This is why the 16 tests pass today: the nested element types receive
+a silent free pass even though they carry no annotation.
+
+### 2.2 The correct annotation scheme for nested lists
+
+For a proper two-level repeated section the annotations would look like:
 
 ```dart
-// Parent container — owns a @SectionIdPattern field
-class TestScenarios {
-  @SectionId('PD00-DEL-ACC-UAT')
-  
-  @SectionIdPattern('PD00-DEL-ACC-UAT-xx')   // produces PD00-DEL-ACC-UAT-01, -02, …
-  List<TestScenarioEntry> scenarios = [];
+// Outer container
+@SectionId('PD00-FGH')
+class FghSection {
+  @SectionIdPattern('PD00-FGH-XXX-xx')          // outer list
+  List<XxxEntry> items = [];
 }
 
-// Element type — also carries its own @SectionIdPattern for the sub-list
-@SectionId('PD00-DEL-ACC-UAT')               // ← same value as the pattern prefix above
-class TestScenarioEntry {
-  @SectionIdPattern('PD00-DEL-ACC-UAT-xx-STP-xx')   // PROBLEM: 'xx' is used twice
-  List<UatTestStepEntry> testSteps = [];
+// Outer element — its @SectionId equals the prefix of the outer pattern
+@SectionId('PD00-FGH-XXX')                        // = prefix of 'PD00-FGH-XXX-xx'
+class XxxEntry {
+  @SectionIdPattern('PD00-FGH-XXX-xx-ABC-yy')    // inner list; first placeholder
+                                                   // must be the outer runtime index
+  List<AbcItem> abcItems = [];
 }
+
+// Inner element — its @SectionId is PARAMETRIC (contains the outer placeholder)
+@SectionId('PD00-FGH-XXX-xx-ABC')                 // template, not a fixed string!
+class AbcItem { … }
 ```
 
-The inner pattern `PD00-DEL-ACC-UAT-xx-STP-xx` has **two placeholder segments** (`xx`).
-With the current schema the first `xx` is meaningless at annotation-authoring time — it
-would need to be resolved to the runtime index of the *outer* list element. The annotation
-as written is therefore syntactically present but semantically incomplete.
+The inner `@SectionId` contains a placeholder (`xx`). This breaks the current schema in
+two ways:
+1. **`@SectionId` is assumed to be a fixed, globally unique string.** A parametric ID
+   cannot be checked for uniqueness at model-authoring time.
+2. **The outliner** would need to substitute the outer list index at render time to produce
+   actual section numbers like `PD00-FGH-XXX-01-ABC`, `PD00-FGH-XXX-02-ABC`, etc.
 
-### 2.2 What the Validator Currently Does
-
-The validator (`tom_specs_clitool/lib/src/validator.dart`) runs a **BFS exemption
-expansion** starting from the direct element types of `@SectionIdPattern` fields. Every
-type reachable from those direct element types — including through `List<T>` field
-boundaries — is added to the `patternCovered` set and therefore exempted from requiring
-its own `@SectionId`.
-
-Consequence: the nested list element types (e.g. `UatTestStepEntry`, `AlternativeStepEntry`)
-currently receive a **silent exemption** even though they carry no annotation at all. The
-BFS crosses the `List<T>` boundary inside the pattern-element class and pulls the inner
-element types into the exempt set. This is why all 16 tests still pass despite the semantic
-incompleteness.
-
-### 2.3 The Correct Annotation Pattern (as designed by the schema)
-
-For proper nested support the user proposed the following structure:
-
-```
-Outer container (section PD00-FGH):
-  @SectionIdPattern('PD00-FGH-XXX-xx')
-  List<XXXEntry> xxxEntries;
-
-  ↓ each item becomes PD00-FGH-XXX-01, PD00-FGH-XXX-02, …
-
-@SectionId('PD00-FGH-XXX')            // template ID = prefix of outer pattern
-class XXXEntry {
-  @SectionIdPattern('PD00-FGH-XXX-xx-ABC-yy')  // outer placeholder reused
-  List<ABCItem> abcItems;
-
-  ↓ each item at runtime becomes e.g. PD00-FGH-XXX-01-ABC-01, -01-ABC-02, …
-}
-
-@SectionId('PD00-FGH-XXX-xx-ABC')     // parametric: contains runtime placeholder
-class ABCItem {
-  …
-}
-```
-
-Key observations:
-- The `@SectionId` on `ABCItem` is **parametric**: it contains the outer `xx` placeholder.
-  At authoring time it is a template, not a fixed string.
-- The validator and the DocSpecs schema currently treat `@SectionId` as a fixed globally-
-  unique string. Parametric IDs break both the uniqueness check and any lookup-by-ID logic.
-- The document outliner would need to resolve the placeholder against the runtime list
-  index before rendering section numbers.
-
-This means supporting nested repeated sections requires a non-trivial extension to:
-1. The `@SectionId` annotation (allow parametric values with placeholders).
-2. The uniqueness validator (treat the fixed-prefix part as the key, accept placeholders).
-3. The outliner / document renderer (substitute placeholder with ordinal index at render time).
+Supporting nested repeated sections therefore requires a non-trivial schema extension.
 
 ---
 
-## 3. The 24 Affected Classes — Case-by-Case Analysis
+## 3. Three Options for Each Case
 
-The following 24 classes are direct element types of `@SectionIdPattern` list fields AND
-themselves contain at least one `List<T>` field, creating nested repeated sections.
+For every affected class three remedies exist:
 
-For each case we ask: **can the object model be remodelled to avoid nesting** (Option A),
-or is the nesting semantically necessary (Option B — requires schema extension)?
+**Option A — Schema extension (keep nested lists)**  
+Support parametric `@SectionId` values containing placeholders. Requires validator,
+outliner, and DocSpecs schema changes. Only justified if the nested items genuinely need
+individually addressable section IDs.
 
----
+**Option B — Flatten to parent (lift the sub-list)**  
+Move the nested `List<T>` field to the grandparent container section. Each sub-entry gets
+a back-reference ID field (`parentId`) linking it to its parent. Converts 2-level nesting
+into two independent 1-level lists at the parent scope.
 
-### Case 1: `AlternativeFlowEntry` → `List<AlternativeStepEntry>`
-**File:** `target_business_process.dart`  
-**Context:** A process scenario has multiple alternative flows; each flow has numbered steps.
-
-**Pattern today:**
-```
-@SectionIdPattern('PD00-TAR-STP-SCE-xx-AFL-xx')
-List<AlternativeFlowEntry> alternativeFlows;
-
-class AlternativeFlowEntry {
-  @SectionIdPattern('PD00-TAR-STP-SCE-xx-AFL-xx-AST-xx')
-  List<AlternativeStepEntry> steps;
-}
-```
-
-**Remodelling option:** Pull steps to the scenario level with a `flowId` reference field.
 ```dart
-@SectionIdPattern('PD00-TAR-STP-SCE-xx-AFL-xx-AST-xx')
-List<AlternativeStepEntry> allAlternativeSteps;   // step.flowId links to the flow
+// Before: Outer.innerList — nested
+// After: parent container owns both lists; InnerEntry.parentId links them
+@SectionIdPattern('PD00-FGH-XXX-xx')
+List<XxxEntry> items = [];
+
+@SectionIdPattern('PD00-FGH-ABC-xx')       // lifted; was inside XxxEntry
+List<AbcItem> abcItems = [];               // AbcItem.xId references XxxEntry
 ```
-**Feasible?** ✅ Yes, with minor loss of structural grouping. Step ordering is preserved via
-`stepNumber` field; linkage via `flowId` reference. Steps are typically linear within a flow
-so a flat list is readable.
+
+The DocSpecs **for-each condition** can enforce "every XxxEntry must have ≥ 1 AbcItem".
+
+**Option C — Replace with a TextSection (free text)**  
+Instead of `@SectionIdPattern List<XxxEntry>`, the field becomes a single `TextSection`
+(or a `@ContentType('text')` class). The writer fills in the sub-items as free prose or
+a numbered list. No section IDs are assigned to individual sub-items.
+
+```dart
+// Before:
+@SectionIdPattern('PD00-FGH-XXX-xx-STP-xx')
+List<StepEntry> steps = [];
+
+// After:
+StepsText steps = StepsText();
+
+@ContentType('text')
+class StepsText {
+  @ContentHelp('List the steps in sequence: 1. … 2. … 3. …')
+  String? content;
+}
+```
+
+Option C trades fine-grained referenceability for simplicity. It is appropriate when:
+- Sub-items are enumerated but never individually cross-referenced elsewhere in the spec.
+- The typical count is small (2–10 items) and items are homogeneous.
+- The depth is already large (writer friction outweighs structure benefit).
 
 ---
 
-### Case 2: `ExtensionEntry` → `List<ExtensionStepEntry>`
+## 4. Section Depth Reference
+
+**How to read the depth columns:**
+
+- **Total depth** = number of hyphen-separated tokens in the innermost concrete section ID
+  (e.g. `PD00-TAR-STP-SCE-01-AFL-02-AST-03` has 9 tokens → depth 9).
+- **List levels** = count of `-xx`/`-yy` placeholders in the innermost pattern = number of
+  nested repeated-section levels.
+
+A depth ≥ 9 strongly suggests the model has been over-dissected at that point; free text
+(Option C) is almost always the better choice there.
+
+---
+
+## 5. Case-by-Case Analysis
+
+---
+
+### Case 1 — `AlternativeFlowEntry` → `List<AlternativeStepEntry>`
 **File:** `target_business_process.dart`  
-**Context:** A use-case interaction has extensions (alternative/exception branches); each
-extension has ordered steps.
+**Innermost pattern:** `PD00-TAR-STP-SCE-xx-AFL-xx-AST-xx`  
+**Total depth:** 9 · **List levels:** 3
 
-**Remodelling option:** Same approach as Case 1 — lift extension steps to the interaction
-level with an `extensionId` reference field.
+Each process scenario has alternative flows; each flow has ordered steps.
 
-**Feasible?** ✅ Yes.
+The steps are sequential (step 1, 2, 3 …) and each step has a few short fields (actor,
+action, system response). At depth 9 with 3 list nesting levels this is over-dissected.
+
+**Recommendation: Option C.**  
+Replace `List<AlternativeStepEntry>` with a `TextSection alternativeSteps` whose
+`@ContentHelp` prompts the writer to list steps as a numbered prose sequence.
 
 ---
 
-### Case 3: `AuthorizationGroupEntry` → `List<RoleReferenceEntry>`
+### Case 2 — `ExtensionEntry` → `List<ExtensionStepEntry>`
+**File:** `target_business_process.dart`  
+**Innermost pattern:** `PD00-TAR-STP-INT-xx-EXT-xx-EST-xx`  
+**Total depth:** 9 · **List levels:** 3
+
+Same structure as Case 1 — extensions of an interaction scenario have ordered steps.
+
+**Recommendation: Option C.** Same reasoning as Case 1.
+
+---
+
+### Case 3 — `AuthorizationGroupEntry` → `List<RoleReferenceEntry>`
 **File:** `access_authorization.dart`  
-**Context:** Authorization groups contain role references.
+**Innermost pattern:** `PD00-ACC-USA-GRP-xx-ROL-xx`  
+**Total depth:** 7 · **List levels:** 2
 
-**Remodelling option:** Replace the nested list with a flat mapping at the parent section
-level using a `groupId` reference on `RoleReferenceEntry`.
-```dart
-@SectionIdPattern('PD00-ACC-USA-GRP-xx-ROL-xx')
-List<RoleReferenceEntry> allGroupRoles;   // role.groupId links to AuthorizationGroupEntry
-```
-**Feasible?** ✅ Yes. The group–role relationship is many-to-many; a flat list with
-a `groupId` reference is idiomatic.
+A group contains role references. `RoleReferenceEntry` is just a role name (a reference,
+not a content-rich object). Role names never need individual section IDs.
+
+**Recommendation: Option C.**  
+Replace with `TextSection containedRoles` with hint "List role names one per line or
+comma-separated".
 
 ---
 
-### Case 4: `ComponentEntry` → `List<ComponentInterfaceEntry>`
+### Case 4 — `ComponentEntry` → `List<ComponentInterfaceEntry>`
 **File:** `components.dart`  
-**Context:** A component has a list of interfaces (API contracts).
+**Innermost pattern:** `PD00-COM-COM-xx-INT-xx`  
+**Total depth:** 6 · **List levels:** 2
 
-**Remodelling option:** Lift interfaces to the parent `ComponentList` level with a
-`componentId` reference.
+Each technical component exposes interfaces (API contracts). Interfaces may need to be
+individually referenced from architecture diagrams or TR documents.
 
-**Feasible?** ✅ Yes. Interfaces are naturally owned by a component; a flat list with a
-`componentId` back-reference works.
+**Recommendation: Option B** (flatten to `ComponentList` level with `componentId` ref).  
+If interface detail is minimal, Option C is also acceptable.
 
 ---
 
-### Case 5: `ComponentFamilyEntry` → `List<FamilyComponentRef>`
+### Case 5 — `ComponentFamilyEntry` → `List<FamilyComponentRef>`
 **File:** `user_interface_design.dart`  
-**Context:** A UI component family groups component references.
+**Innermost pattern:** `PD00-USE-COM-FAM-xx-CMP-xx`  
+**Total depth:** 7 · **List levels:** 2
 
-**Remodelling option:** Lift `FamilyComponentRef` to the parent `ComponentFamilies` level
-with a `familyId` reference.
+A component family groups component IDs. `FamilyComponentRef` is a pure reference (a
+component ID pointer). No individual section ID is ever needed for a membership reference.
 
-**Feasible?** ✅ Yes. A component-family membership list is a natural flat structure
-(family–member pairs).
+**Recommendation: Option C.**  
+Replace with `TextSection familyMembers` listing component IDs.
 
 ---
 
-### Case 6: `CustomDistributionGroup` → `List<DistributionRecipientEntry>`
+### Case 6 — `CustomDistributionGroup` → `List<DistributionRecipientEntry>`
 **File:** `administrative.dart`  
-**Context:** A custom distribution group lists its members.
+**Innermost pattern:** `PD00-ADM-DIS-CUS-xx-MEM-xx`  
+**Total depth:** 7 · **List levels:** 2
 
-**Remodelling option:** Lift members to the parent `CustomDistributionGroups` level with a
-`groupId` reference. The DocSpecs for-each condition could enforce that every group has at
-least one member.
+Distribution group membership — names and email addresses. These are operational data,
+not spec content that needs individual section IDs.
 
-**Feasible?** ✅ Yes.
+**Recommendation: Option C.**  
+Replace with `TextSection members` (one name/email per line).
 
 ---
 
-### Case 7: `DataClassificationEntry` → `List<HandlingRequirementEntry>` + `List<AccessRestrictionEntry>`
+### Case 7 — `DataClassificationEntry` → `List<HandlingRequirementEntry>` + `List<AccessRestrictionEntry>`
 **File:** `business_data_model.dart`  
-**Context:** Each data classification carries handling requirements and access restrictions
-(two parallel nested lists).
+**Innermost pattern:** `PD00-BUS-DAT-CLA-xx-HAN-xx` / `PD00-BUS-DAT-CLA-xx-ARE-xx`  
+**Total depth:** 7 · **List levels:** 2
 
-**Remodelling option:** Lift both lists to the parent `DataClassification` level with a
-`classificationId` reference on each entry.
+Two parallel sub-lists under a classification entry. Handling requirements and access
+restrictions are compliance-governed items that may be referenced from security
+architecture documents.
 
-**Feasible?** ✅ Yes, and the two lists become independent top-level sections with their
-own `@SectionIdPattern` — no nesting required.
+**Recommendation: Option B** (lift both to parent `DataClassification` section).  
+Use a DocSpecs for-each condition to require ≥ 1 handling requirement per classification.
 
 ---
 
-### Case 8: `DataSourceEntry` → `List<DataSourceEntityEntry>`
+### Case 8 — `DataSourceEntry` → `List<DataSourceEntityEntry>` (no `@SectionIdPattern`)
 **File:** `current_state_analysis.dart`  
-**Context:** A data source has key entities (the main domain objects it stores).  
-**Note:** The `keyEntities` field has **no** `@SectionIdPattern` annotation today.
+**Innermost pattern:** *missing* (field carries no `@SectionIdPattern`)  
+**Total depth:** ~7 if annotated · **List levels:** 1 → 2
 
-**Remodelling option:** Lift `DataSourceEntityEntry` to the parent `DataSources` section with a
-`dataSourceId` reference.
+The `keyEntities` field currently has no annotation at all. Entities (domain objects stored
+in a data source) are typically just names with a brief description.
 
-**Feasible?** ✅ Yes, and the field should receive a `@SectionIdPattern` in either case.
+**Recommendation: Option C.**  
+Replace with `TextSection keyEntities` listing entity names. No `@SectionIdPattern`
+is needed.
 
 ---
 
-### Case 9: `ExportFormatEntry` → `List<ExportFieldMappingEntry>`
+### Case 9 — `ExportFormatEntry` → `List<ExportFieldMappingEntry>`
 **File:** `user_interface_design.dart`  
-**Context:** Each export format definition has a list of field mappings (columns / field bindings).
+**Innermost pattern:** `PD00-USE-PRI-EXP-xx-FLD-xx`  
+**Total depth:** 7 · **List levels:** 2
 
-**Remodelling option:** Lift field mappings to the parent `ExportFormats` level with an
-`exportId` reference.
+Field mappings (source column → output column, type, format) are tabular data. A report
+tool or integration spec will reference specific export formats but rarely individual field
+rows by section ID.
 
-**Feasible?** ✅ Yes. Field mappings are simple rows; a flat list with a back-reference is clean.
+**Recommendation: Option C.**  
+Replace with `TextSection fieldMappings` with hint "Table: source field | output column |
+type | notes". This is tabular free text, not a document section hierarchy.
 
 ---
 
-### Case 10: `FeatureTourEntry` → `List<TourStepEntry>`
+### Case 10 — `FeatureTourEntry` → `List<TourStepEntry>`
 **File:** `user_interface_design.dart`  
-**Context:** An onboarding feature tour consists of ordered steps.
+**Innermost pattern:** `PD00-USE-HLP-ONB-TOUR-xx-STEP-yy`  
+**Total depth:** 9 · **List levels:** 2
 
-**Remodelling option:** Lift tour steps to the parent `FeatureTours` level with a `tourId`
-reference. Step ordering is captured by a `stepOrder` field.
+A feature tour has ordered steps (tooltip text, target element, sequence). At depth 9 with
+2 list levels, individual step section IDs serve no spec purpose — the steps are consumed
+as a sequence, not individually referenced.
 
-**Feasible?** ✅ Yes.
+**Recommendation: Option C.**  
+Replace with `TextSection tourSteps` listing step-by-step instructions.
 
 ---
 
-### Case 11: `FunctionEntry` → `List<SubFunctionEntry>`
+### Case 11 — `FunctionEntry` → `List<SubFunctionEntry>`
 **File:** `business_data_model.dart`  
-**Context:** Business functions decompose into sub-functions — a **recursive hierarchy**.
+**Innermost pattern:** `PD00-BUS-FUN-DEC-xx-SUB-xx`  
+**Total depth:** 7 · **List levels:** 2
 
-**Remodelling option:** A pure flat list cannot represent the parent–child relationship
-without an extra `parentFunctionId` reference field on `SubFunctionEntry`. However,
-`SubFunctionEntry` can simply reference its parent function via a string ID rather than
-being nested inside `FunctionEntry`. This converts the recursive nesting into a flat
-function list where each entry optionally references a parent.
+Business function decomposition. Sub-functions are often just names + brief descriptions.
+The decomposition is hierarchical but typically only 1–2 levels deep in practice.
 
-**Feasible?** ⚠️ Partially. Flattening is technically possible (adjacency list pattern)
-but loses the guarantee that sub-functions are always enumerated under their parent. If
-deep recursion is not needed (max 2 levels: function → sub-function), a flat list with a
-`parentFunctionId` reference is clean.
+**Recommendation: Option C** (if depth ≤ 2).  
+Replace with `TextSection subFunctions` listing sub-function names and one-line
+descriptions. If actual deep recursion is needed, Option B (adjacency list with
+`parentFunctionId`) is the fallback.
 
 ---
 
-### Case 12: `NavigationGroupEntry` → `List<NavigationItemEntry>`
+### Case 12 — `NavigationGroupEntry` → `List<NavigationItemEntry>`
 **File:** `user_interface_design.dart`  
-**Context:** A navigation group contains navigation menu items.
+**Innermost pattern:** `PD00-USE-SCF-NAV-HIE-xx-ITM-xx`  
+**Total depth:** 8 · **List levels:** 2
 
-**Remodelling option:** Lift items to the parent `NavigationHierarchy` level with a
-`groupId` reference.
+Navigation items carry `targetScreenId` and permission references that may be checked
+against the screen inventory. Individually addressable section IDs support cross-validation.
 
-**Feasible?** ✅ Yes. Navigation item ordering is preserved via an `itemOrder` field.
+**Recommendation: Option B** (lift items to `NavigationHierarchy` level with `groupId`
+back-reference). Items need structure for screen linkage.
 
 ---
 
-### Case 13: `PhaseGateReviewEntry` → `List<ReviewCriterionEntry>`
+### Case 13 — `PhaseGateReviewEntry` → `List<ReviewCriterionEntry>`
 **File:** `system_stage_plan.dart`  
-**Context:** Each phase-gate review has a list of pass/fail criteria.
+**Innermost pattern:** `PD00-SSP-GOV-GAT-xx-RCR-xx`  
+**Total depth:** 7 · **List levels:** 2
 
-**Remodelling option:** Lift criteria to the parent `PhaseGateReviews` level with a
-`gateId` reference.
+Phase-gate review criteria are pass/fail conditions. They are typically 3–8 short
+statements per gate and are consumed as a checklist, not individually referenced by ID.
 
-**Feasible?** ✅ Yes.
+**Recommendation: Option C.**  
+Replace with `TextSection reviewCriteria` with hint "List each criterion on a new line
+(pass/fail condition)".
 
 ---
 
-### Case 14: `ReportEntry` → 5 parallel `List<T>` fields
+### Case 14 — `ReportEntry` → 5 parallel `List<T>` fields
 **File:** `user_interface_design.dart`  
-**Context:** A report definition has sections, filters, schedules, distributions, and recipients —
-five independent sub-lists.
+**Innermost pattern:** `PD00-USE-PRI-REP-xx-SEC-xx` (+ FLT, SCH, DST, REC variants)  
+**Total depth:** 7 · **List levels:** 2
 
-**Remodelling option:** Lift all five lists to the parent `ReportDefinitions` level with a
-`reportId` reference on each entry. This converts five nested lists into five parallel
-top-level lists, each with its own `@SectionIdPattern`. The DocSpecs for-each condition
-can enforce "every report has at least one section".
+Reports have sections, filters, schedules, distributions, and recipients — five independent
+sub-lists at the same level. Each list warrants its own section in the document because
+report specifications are complex and each axis (layout, filtering, scheduling, recipients)
+is independently reviewed.
 
-**Feasible?** ✅ Yes, and the flattened structure is actually cleaner for validation.
+**Recommendation: Option B** (lift all five lists to `ReportDefinitions` level).  
+Five independent top-level lists with `reportId` back-references. DocSpecs for-each
+conditions enforce ≥ 1 section per report.
 
 ---
 
-### Case 15: `ReportSectionEntry` → `List<ReportColumnEntry>` + `List<ReportChartEntry>`
+### Case 15 — `ReportSectionEntry` → `List<ReportColumnEntry>` + `List<ReportChartEntry>`
 **File:** `user_interface_design.dart`  
-**Context:** `ReportSectionEntry` is itself a direct element of `ReportEntry.sections`
-(Case 14), so this is a **3-level nesting**: `ReportDefinitions → ReportEntry.sections →
-ReportSectionEntry.columns / ReportSectionEntry.charts`.
+**Innermost pattern:** `PD00-USE-PRI-REP-xx-SEC-xx-COL-xx` / `…-CHT-xx`  
+**Total depth:** 9 · **List levels:** 3
 
-**Remodelling option:** If Case 14 is flattened, this becomes a 2-level nesting:
-`ReportSections (flat) → columns / charts`. Lift columns and charts to the parent with a
-`reportSectionId` reference.
+`ReportSectionEntry` is itself nested inside `ReportEntry` (Case 14). At depth 9 with 3
+list levels, individual column and chart section IDs are excessive.
 
-**Feasible?** ✅ Yes, contingent on flattening Case 14. Results in three flat lists:
-`reportSections`, `reportColumns`, `reportCharts`, each with `reportId` / `sectionId`
-references for linkage.
+**Recommendation: Option C** (after flattening Case 14 via Option B).  
+Once `ReportSectionEntry` is a direct top-level list, replace its `columns` and `charts`
+sub-lists with `TextSection columns` ("Column | Type | Source | Format") and `TextSection
+charts` ("Chart type | Data series | X axis | Y axis").
 
 ---
 
-### Case 16: `ScreenElementEntry` → `List<ElementValidationRuleEntry>`
+### Case 16 — `ScreenSectionEntry` → `List<ScreenElementEntry>`
 **File:** `user_interface_design.dart`  
-**Context:** A screen UI element can have validation rules. `ScreenElementEntry` is itself
-a nested element (see Case 17), making this 3-level nesting.
+**Innermost pattern:** `PD00-USE-SCR-INV-xx-SEC-xx-ELE-xx`  
+**Total depth:** 9 · **List levels:** 3
 
-**Remodelling option:** Lift validation rules to the parent screen-section or screen level
-with an `elementId` reference.
+Screen elements (buttons, fields, labels) are the primary design artefacts in a UI spec.
+Each element has `elementId` referenced from acceptance criteria, accessibility docs, and
+test scenarios. Individual section IDs matter here.
 
-**Feasible?** ✅ Yes, contingent on flattening Case 17.
+**Recommendation: Option B** (flatten: screen → sections flat list → elements flat list).  
+Each `ScreenElementEntry` carries `screenId` and `sectionId` back-references. This removes
+one nesting level and makes each element independently addressable.
 
 ---
 
-### Case 17: `ScreenSectionEntry` → `List<ScreenElementEntry>`
+### Case 17 — `ScreenElementEntry` → `List<ElementValidationRuleEntry>`
 **File:** `user_interface_design.dart`  
-**Context:** A screen has sections; each section has elements; each element can have
-validation rules. **3-level nesting** (`ScreenInventory → ScreenSectionEntry.elements →
-ScreenElementEntry.validationRules`).
+**Innermost pattern:** `PD00-USE-SCR-INV-xx-SEC-xx-ELE-xx-VAL-xx`  
+**Total depth:** 11 · **List levels:** 4
 
-**Remodelling option:** Lift elements to the screen level with a `sectionId` reference,
-making the chain: `screens → screenSections (flat) → screenElements (flat) →
-validationRules (flat)`. Each layer has a `@SectionIdPattern` with a parent-id reference.
+This is the **deepest element in the entire model** — depth 11 with 4 repeated section
+levels. A validation rule for a screen element (e.g. "field must be a valid email") is
+never individually referenced by section ID from anywhere else in the spec.
 
-**Feasible?** ✅ Yes, but requires 3 new parent-level list sections and corresponding
-flattening of `ScreenSectionEntry`, `ScreenElementEntry`, and `ElementValidationRuleEntry`.
-The UI spec structure is well-known and flat representations are standard in UI metadata
-schemas (e.g. JSON Forms, OpenAPI).
+**Recommendation: Option C.** This case is definitively over-dissected.  
+Replace `List<ElementValidationRuleEntry>` with `TextSection validationRules` on
+`ScreenElementEntry` with hint "List validation rules: Required | Format: email |
+Max length: 100".
 
 ---
 
-### Case 18: `SystemToReplaceEntry` → `List<ReplacementSystemDependencyEntry>`
+### Case 18 — `SystemToReplaceEntry` → `List<ReplacementSystemDependencyEntry>`
 **File:** `system_overview.dart`  
-**Context:** Each system to be replaced has a list of its dependencies.
+**Innermost pattern:** `PD00-SYO-SYR-INV-xx-DEP-xx`  
+**Total depth:** 7 · **List levels:** 2
 
-**Remodelling option:** Lift dependencies to the parent `SystemsToReplace` level with a
-`systemId` reference.
+Each system to be replaced has a dependency list (other systems / integrations it relies
+on). Dependencies are typically short name+type pairs that don't need individual section IDs.
 
-**Feasible?** ✅ Yes.
+**Recommendation: Option C.**  
+Replace with `TextSection dependencies` listing dependent system names and integration types.
 
 ---
 
-### Case 19: `TabBarDefinitionEntry` → `List<TabItemEntry>`
+### Case 19 — `TabBarDefinitionEntry` → `List<TabItemEntry>`
 **File:** `user_interface_design.dart`  
-**Context:** A tab bar has tabs. Tabs must be ordered.
+**Innermost pattern:** `PD00-USE-SCF-NAV-SEC-xx-TAB-xx`  
+**Total depth:** 8 · **List levels:** 2
 
-**Remodelling option:** Lift tabs to the parent `TabBarDefinitions` level with a
-`tabBarId` reference.
+A tab bar has 2–8 tabs, each with a label and target screen. Tabs are a configuration
+enumeration, not individually referenced artefacts.
 
-**Feasible?** ✅ Yes. Tab ordering preserved via `tabOrder` field.
+**Recommendation: Option C.**  
+Replace with `TextSection tabs` listing tab labels and target screen IDs.
 
 ---
 
-### Case 20: `TestScenarioEntry` → `List<UatTestStepEntry>`
+### Case 20 — `TestScenarioEntry` → `List<UatTestStepEntry>`
 **File:** `delivery_acceptance.dart`  
-**Context:** A UAT test scenario has ordered test steps.
+**Innermost pattern:** `PD00-DEL-ACC-UAT-xx-STP-xx`  
+**Total depth:** 7 · **List levels:** 2
 
-**Remodelling option:** Lift steps to the parent `TestScenarios` level with a `scenarioId`
-reference.
+UAT test steps are the executable content of a test scenario. Each step can be
+individually traced to a requirement, assigned a pass/fail outcome, and referenced in
+test reports. This is one of the cases where structure genuinely adds value.
 
-**Feasible?** ✅ Yes. Step ordering preserved via `stepNumber` field.
+**Recommendation: Option B** (lift steps to `UserAcceptanceTesting` level with
+`scenarioId` back-reference). DocSpecs for-each condition enforces ≥ 1 step per scenario.
 
 ---
 
-### Case 21: `UiComponentEntry` → multiple `List<T>` fields
+### Case 21 — `UiComponentEntry` → 5 parallel `List<T>` fields
 **File:** `user_interface_design.dart`  
-**Context:** From the earlier analysis, `UiComponentEntry` has 5 list fields covering
-variants, states, properties, accessibility items, and platform overrides.  
-**Note:** The agent output above does not show these lists — they may be in a sub-section
-of the class not captured. **Requires a manual read of the class definition to confirm.**
+**Patterns:** `PD00-USE-COM-SPE-xx-STA-xx`, `…-VAR-xx`, `…-ACT-xx`, `…-SLT-xx`, `…-PRP-xx`  
+**Total depth:** 7 · **List levels:** 2
 
-**Remodelling option:** Same approach as Case 14 — lift each sub-list to the parent
-`UiComponentLibrary` level with a `componentId` reference.
+Five parallel sub-lists: component states, variants, actions, slots, properties.  
+`ComponentStateEntry` (disabled, loading, error, etc.) and `ComponentPropertyEntry`
+(configurable props) are likely referenced from Flutter implementation specs.
 
-**Feasible?** ✅ Likely yes, subject to confirming the actual field names.
+**Recommendation: Option B** (lift all 5 to `UiComponentSpecs` level with `componentId`
+back-reference). The five lists become independent top-level lists, consistent with the
+approach recommended for `ReportEntry` (Case 14).
 
 ---
 
-### Case 22: `UtilityNavigationItemEntry` → `List<UtilityMenuItemEntry>`
+### Case 22 — `UtilityNavigationItemEntry` → `List<UtilityMenuItemEntry>`
 **File:** `user_interface_design.dart`  
-**Context:** A utility navigation item (e.g. user menu, notifications) has dropdown menu items.
+**Innermost pattern:** `PD00-USE-SCF-NAV-UTL-xx-MEN-xx`  
+**Total depth:** 8 · **List levels:** 2
 
-**Remodelling option:** Lift menu items to the parent `UtilityNavigation` level with a
-`utilityId` reference.
+Utility navigation items (user menu, notifications) have dropdown sub-items. Menu item
+lists are a configuration enumeration (label, icon, action).
 
-**Feasible?** ✅ Yes.
+**Recommendation: Option C.**  
+Replace with `TextSection menuItems` listing label, icon, and action for each item.
 
 ---
 
-### Case 23: `WorkflowActorEntry` → `List<WorkflowStepEntry>` (`@Reference`)
+### Case 23 — `WorkflowActorEntry` → `List<WorkflowStepEntry>` (`@Reference`)
 **File:** `current_state_analysis.dart`  
-**Context:** This is annotated with `@Reference` — it is a **cross-reference** (actor
-participates in steps that are defined elsewhere), not an ownership relationship. No new
-sub-section IDs are created for this list; it is a navigation aid.
+**No section pattern — `@Reference` field only.**
 
-**Remodelling option:** No remodelling needed. The `@Reference` annotation already marks
-this as non-owned. The validator and outliner both treat `@Reference` fields as exempt
-from section ID requirements.
+This is a cross-reference (actor participates in steps defined elsewhere), not an
+ownership relationship. The `@Reference` annotation already marks it as exempt.
 
-**Feasible?** ✅ Already correct — no nesting issue here.
+**Recommendation: No change.** This is correctly modelled.
 
 ---
 
-### Case 24: `WorkflowStepEntry` → 5 `List<T>` fields (no `@SectionIdPattern`)
+### Case 24 — `WorkflowStepEntry` → 5 `List<T>` sub-lists (no `@SectionIdPattern`)
 **File:** `current_state_analysis.dart`  
-**Context:** Each workflow step has systems used, inputs, outputs, business rules, and
-known issues — five sub-lists, all currently **without** `@SectionIdPattern` annotations.
-They are silently exempt today because `WorkflowStepEntry` is itself a pattern-covered type.
+**Outer pattern:** `PD00-CUR-PRO-xx-WOR-xx-STP-xx` (depth 8 for the step itself)  
+**Sub-lists if annotated:** depth ~10 · **List levels:** 2+
 
-Sub-lists:
-- `List<WorkflowStepSystem> systemsUsed`
-- `List<WorkflowInputEntry> inputs`
-- `List<WorkflowOutputEntry> outputs`
-- `List<WorkflowBusinessRule> businessRules`
-- `List<WorkflowStepIssue> knownIssues`
+Five sub-lists with **no annotations at all**: `systemsUsed`, `inputs`, `outputs`,
+`businessRules`, `knownIssues`. They are silently exempt today only because the BFS
+crosses the `List<WorkflowStepEntry>` boundary. This is the **highest-priority case** —
+if the BFS crossing is ever removed (Issue 2), these 5 types would immediately produce
+coverage warnings.
 
-**Remodelling option:** Lift all five to the parent `WorkflowSteps` (or `CurrentStateWorkflows`)
-level with a `stepId` reference.
+Sub-list semantics: workflow step metadata that is read as a whole, not individually
+referenced by section ID.
 
-**Feasible?** ✅ Yes, and this is the most important case to resolve because these sub-lists
-currently carry **zero annotations** — no `@SectionId`, no `@SectionIdPattern`. If the BFS
-crossing is ever removed (Issue 2 from the validator roadmap), all five element types
-(`WorkflowStepSystem`, `WorkflowInputEntry`, etc.) would immediately produce coverage warnings.
+**Recommendation: Option C** (all five sub-lists).  
+Replace each `List<T>` with a `TextSection`:
+- `systemsUsed` → `TextSection systemsUsed` ("Comma-separated system names")
+- `inputs` → `TextSection inputs` ("List input artefacts / data")
+- `outputs` → `TextSection outputs` ("List output artefacts / data")
+- `businessRules` → `TextSection businessRules` ("List applicable rules")
+- `knownIssues` → `TextSection knownIssues` ("List known problems / pain points")
 
 ---
 
-## 4. Summary Table
+## 6. Summary Table
 
-| # | Class | Nested list(s) | Depth | Remodel feasible? | Notes |
+| # | Outer / inner type | Outer @SectionIdPattern | Total depth | List levels | Recommendation |
 |---|---|---|---|---|---|
-| 1 | `AlternativeFlowEntry` | `AlternativeStepEntry` | 2 | ✅ Lift + flowId ref | — |
-| 2 | `ExtensionEntry` | `ExtensionStepEntry` | 2 | ✅ Lift + extensionId ref | — |
-| 3 | `AuthorizationGroupEntry` | `RoleReferenceEntry` | 2 | ✅ Lift + groupId ref | — |
-| 4 | `ComponentEntry` | `ComponentInterfaceEntry` | 2 | ✅ Lift + componentId ref | — |
-| 5 | `ComponentFamilyEntry` | `FamilyComponentRef` | 2 | ✅ Lift + familyId ref | — |
-| 6 | `CustomDistributionGroup` | `DistributionRecipientEntry` | 2 | ✅ Lift + groupId ref | — |
-| 7 | `DataClassificationEntry` | `HandlingRequirementEntry`, `AccessRestrictionEntry` | 2 | ✅ Lift + classificationId ref | 2 parallel sub-lists |
-| 8 | `DataSourceEntry` | `DataSourceEntityEntry` | 2 | ✅ Lift + dataSourceId ref | Missing `@SectionIdPattern` today |
-| 9 | `ExportFormatEntry` | `ExportFieldMappingEntry` | 2 | ✅ Lift + exportId ref | — |
-| 10 | `FeatureTourEntry` | `TourStepEntry` | 2 | ✅ Lift + tourId ref | — |
-| 11 | `FunctionEntry` | `SubFunctionEntry` | 2 | ⚠️ Flat adjacency list | Recursive; only practical if depth ≤ 2 |
-| 12 | `NavigationGroupEntry` | `NavigationItemEntry` | 2 | ✅ Lift + groupId ref | — |
-| 13 | `PhaseGateReviewEntry` | `ReviewCriterionEntry` | 2 | ✅ Lift + gateId ref | — |
-| 14 | `ReportEntry` | 5 sub-lists | 2 | ✅ Lift + reportId ref | 5 parallel sub-lists |
-| 15 | `ReportSectionEntry` | `ReportColumnEntry`, `ReportChartEntry` | 3 | ✅ (after Case 14) | Depends on Case 14 being flat first |
-| 16 | `ScreenElementEntry` | `ElementValidationRuleEntry` | 3 | ✅ (after Case 17) | Depends on Case 17 being flat first |
-| 17 | `ScreenSectionEntry` | `ScreenElementEntry` | 3 | ✅ 3-level flatten | Most work; 3 new flat lists |
-| 18 | `SystemToReplaceEntry` | `ReplacementSystemDependencyEntry` | 2 | ✅ Lift + systemId ref | — |
-| 19 | `TabBarDefinitionEntry` | `TabItemEntry` | 2 | ✅ Lift + tabBarId ref | — |
-| 20 | `TestScenarioEntry` | `UatTestStepEntry` | 2 | ✅ Lift + scenarioId ref | — |
-| 21 | `UiComponentEntry` | ~5 sub-lists | 2 | ✅ Lift + componentId ref | Confirm field names first |
-| 22 | `UtilityNavigationItemEntry` | `UtilityMenuItemEntry` | 2 | ✅ Lift + utilityId ref | — |
-| 23 | `WorkflowActorEntry` | `WorkflowStepEntry` | — | ✅ Already `@Reference` | No nesting issue — cross-reference only |
-| 24 | `WorkflowStepEntry` | 5 sub-lists (no `@SectionIdPattern`) | 2 | ✅ Lift + stepId ref | **Highest priority** — currently unannotated |
+| 1 | `AlternativeFlowEntry` / `AlternativeStepEntry` | `PD00-TAR-STP-SCE-xx-AFL-xx-AST-xx` | **9** | 3 | **C** — TextSection |
+| 2 | `ExtensionEntry` / `ExtensionStepEntry` | `PD00-TAR-STP-INT-xx-EXT-xx-EST-xx` | **9** | 3 | **C** — TextSection |
+| 3 | `AuthorizationGroupEntry` / `RoleReferenceEntry` | `PD00-ACC-USA-GRP-xx-ROL-xx` | 7 | 2 | **C** — TextSection |
+| 4 | `ComponentEntry` / `ComponentInterfaceEntry` | `PD00-COM-COM-xx-INT-xx` | 6 | 2 | **B** — flatten |
+| 5 | `ComponentFamilyEntry` / `FamilyComponentRef` | `PD00-USE-COM-FAM-xx-CMP-xx` | 7 | 2 | **C** — TextSection |
+| 6 | `CustomDistributionGroup` / `DistributionRecipientEntry` | `PD00-ADM-DIS-CUS-xx-MEM-xx` | 7 | 2 | **C** — TextSection |
+| 7a | `DataClassificationEntry` / `HandlingRequirementEntry` | `PD00-BUS-DAT-CLA-xx-HAN-xx` | 7 | 2 | **B** — flatten |
+| 7b | `DataClassificationEntry` / `AccessRestrictionEntry` | `PD00-BUS-DAT-CLA-xx-ARE-xx` | 7 | 2 | **B** — flatten |
+| 8 | `DataSourceEntry` / `DataSourceEntityEntry` | *(missing)* | ~7 | 1→2 | **C** — TextSection |
+| 9 | `ExportFormatEntry` / `ExportFieldMappingEntry` | `PD00-USE-PRI-EXP-xx-FLD-xx` | 7 | 2 | **C** — TextSection |
+| 10 | `FeatureTourEntry` / `TourStepEntry` | `PD00-USE-HLP-ONB-TOUR-xx-STEP-yy` | **9** | 2 | **C** — TextSection |
+| 11 | `FunctionEntry` / `SubFunctionEntry` | `PD00-BUS-FUN-DEC-xx-SUB-xx` | 7 | 2 | **C** — TextSection (≤ 2 levels) |
+| 12 | `NavigationGroupEntry` / `NavigationItemEntry` | `PD00-USE-SCF-NAV-HIE-xx-ITM-xx` | 8 | 2 | **B** — flatten (items reference screens) |
+| 13 | `PhaseGateReviewEntry` / `ReviewCriterionEntry` | `PD00-SSP-GOV-GAT-xx-RCR-xx` | 7 | 2 | **C** — TextSection |
+| 14 | `ReportEntry` / 5 sub-lists | `PD00-USE-PRI-REP-xx-SEC-xx` | 7 | 2 | **B** — flatten (5 parallel lists) |
+| 15 | `ReportSectionEntry` / `ReportColumnEntry`+`ReportChartEntry` | `PD00-USE-PRI-REP-xx-SEC-xx-COL-xx` | **9** | 3 | **C** after B (Case 14) |
+| 16 | `ScreenSectionEntry` / `ScreenElementEntry` | `PD00-USE-SCR-INV-xx-SEC-xx-ELE-xx` | **9** | 3 | **B** — flatten (elements need IDs) |
+| 17 | `ScreenElementEntry` / `ElementValidationRuleEntry` | `PD00-USE-SCR-INV-xx-SEC-xx-ELE-xx-VAL-xx` | **11** | 4 | **C** — TextSection ← *deepest* |
+| 18 | `SystemToReplaceEntry` / `ReplacementSystemDependencyEntry` | `PD00-SYO-SYR-INV-xx-DEP-xx` | 7 | 2 | **C** — TextSection |
+| 19 | `TabBarDefinitionEntry` / `TabItemEntry` | `PD00-USE-SCF-NAV-SEC-xx-TAB-xx` | 8 | 2 | **C** — TextSection |
+| 20 | `TestScenarioEntry` / `UatTestStepEntry` | `PD00-DEL-ACC-UAT-xx-STP-xx` | 7 | 2 | **B** — flatten (test traceability) |
+| 21 | `UiComponentEntry` / 5 sub-lists | `PD00-USE-COM-SPE-xx-STA-xx` … | 7 | 2 | **B** — flatten (5 parallel lists) |
+| 22 | `UtilityNavigationItemEntry` / `UtilityMenuItemEntry` | `PD00-USE-SCF-NAV-UTL-xx-MEN-xx` | 8 | 2 | **C** — TextSection |
+| 23 | `WorkflowActorEntry` / `WorkflowStepEntry` | *@Reference — not ownership* | — | — | **No change** |
+| 24 | `WorkflowStepEntry` / 5 sub-lists (unannotated) | *missing — silent exemption today* | ~10 | 2+ | **C** — TextSection (all 5) |
 
-**Summary:** 22 of 24 cases are straightforwardly remodellable by lifting the nested list
-to the parent container and adding a back-reference ID field. 1 case (`FunctionEntry`) is
-feasible with a constraint on recursion depth. 1 case (`WorkflowActorEntry`) is already
-correct via `@Reference`.
-
----
-
-## 5. Recommended Remodelling Pattern
-
-For every case listed as "✅ Lift + XxxId ref":
-
-**Before (nested):**
-```dart
-@SectionId('PD00-AAA-BBB')
-class OuterEntry {
-  @SectionIdPattern('PD00-AAA-BBB-xx-CCC-xx')
-  List<InnerEntry> items = [];
-}
-```
-
-**After (flat):**
-```dart
-@SectionId('PD00-AAA-BBB')
-class OuterEntry {
-  // no List field here any more
-}
-
-// At the parent container class level:
-@SectionIdPattern('PD00-AAA-BBB-xx-CCC-xx')
-List<InnerEntry> allInnerEntries = [];
-
-// InnerEntry now carries a back-reference:
-@SectionId('PD00-AAA-CCC')    // or leave pattern-covered
-class InnerEntry {
-  @Form([Field('outerId', String, 'Outer Entry ID', required: true)])
-  String? ref;    // or keep as a @Reference field
-  // … other fields …
-}
-```
-
-The DocSpecs **for-each condition** (parallel-list cardinality constraint) can then enforce
-that every `OuterEntry` has at least one `InnerEntry` pointing to it, if needed.
+**Score:**
+- Option C (TextSection): **16 cases** — the model has been over-dissected in most of these
+- Option B (flatten): **6 cases** — structure genuinely needed; cross-references or parallel lists
+- No change: **1 case** — `@Reference`, already correct
+- One case (15) is C contingent on B being done for Case 14
 
 ---
 
-## 6. Open Questions
+## 7. Over-Dissection Diagnosis
 
-1. **UiComponentEntry** — the exact list fields were not captured in the current analysis.
-   Read the class to confirm before remodelling.
-2. **FunctionEntry** — confirm maximum decomposition depth. If the model only needs one
-   level of sub-functions, the adjacency-list pattern with `parentFunctionId` is sufficient.
-3. **Ordering** — several inner lists are ordered (tour steps, test steps, process steps).
-   Each flattened entry needs an explicit `stepOrder: int` or `itemOrder: int` field.
-4. **Schema extension** — if nested repeated sections are retained (not flattened), the
-   `@SectionId` annotation and the document outliner must be extended to support parametric
-   section IDs (e.g. `PD00-FGH-XXX-xxx-ABC` where `xxx` is a runtime placeholder). This
-   is a significant schema change tracked separately.
+Several patterns indicate that a nested list is over-dissected:
+
+| Signal | Cases |
+|---|---|
+| Total depth ≥ 9 | 1, 2, 10, 15, 16, 17 |
+| Items are sequential steps (numbered prose is clearer) | 1, 2, 10, 20 |
+| Items are reference/membership (names / IDs only) | 3, 5, 6, 19, 22 |
+| Items are operational metadata, not spec content | 6, 8, 24 |
+| Items never individually cross-referenced | 1, 2, 3, 5, 6, 9, 10, 11, 13, 17, 18, 19, 22, 24 |
+| Sub-list has zero annotations today (silent exemption) | 8, 24 |
+
+The worst offender is `ElementValidationRuleEntry` at depth 11 with 4 list nesting levels.
+For context, a typical well-structured specification document has 3–4 section levels total.
+Reaching depth 11 means the document reader would navigate 11 nested section headers to
+reach a single validation rule — far past any useful granularity.
+
+---
+
+## 8. Implementation Order
+
+If the remodelling is undertaken:
+
+1. **Option C cases first** — each is a local change (replace one list field with one
+   `TextSection` class). No inter-class dependencies. Can be done in any order.
+2. **Case 24** (`WorkflowStepEntry` 5 sub-lists) — highest priority because these have
+   zero annotations. Tackle before any Issue 2 validator fix.
+3. **Case 16 + 17** (`ScreenSectionEntry` → `ScreenElementEntry` → validation rules) —
+   do these together: B for Case 16, then C for Case 17.
+4. **Case 14 + 15** (`ReportEntry` → `ReportSectionEntry`) — B for Case 14, then C for 15.
+5. **Option B flatten cases** (4, 7a/7b, 12, 20, 21) — each requires adding a parent-level
+   `@SectionIdPattern` list and a `parentId` back-reference field.
