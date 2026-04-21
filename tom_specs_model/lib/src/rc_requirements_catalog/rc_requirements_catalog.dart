@@ -22,7 +22,7 @@ import '../pd_project_definition/pd_project_definition.dart';
       'coverage against goals, use cases, and tests.',
   basedOn: [ProjectDefinition],
 )
-@SectionId('RC00')
+@SectionId('RC')
 class RequirementsCatalog {
   @ContentHelp('Executive overview of the requirements catalog and its '
       'traceability model.')
@@ -49,7 +49,6 @@ class RequirementsCatalog {
   /// Mirrors the PD00-side flat field on RequirementsOverview so the RC
   /// outline reaches it directly. The authoritative content lives on the
   /// PD00 side.
-  @SectionId('PD00-SYO-REQ-TRC')
   @ContentType('description', 'Summary of traceability matrix showing '
       'connections between requirements, goals, use cases, and tests.')
   String? traceabilityMatrix;

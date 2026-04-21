@@ -22,7 +22,7 @@ import '../pd_project_definition/pd_project_definition.dart';
       'scenarios (HBSG AS24), and traceability.',
   basedOn: [ProjectDefinition],
 )
-@SectionId('UC00')
+@SectionId('UC')
 class UseCases {
   @ContentHelp('Executive overview of the use-case model and its coverage.')
   String? content;

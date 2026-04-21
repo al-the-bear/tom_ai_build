@@ -25,7 +25,7 @@ import '../pd_project_definition/pd_project_definition.dart';
       'sign-off, warranty).',
   basedOn: [ProjectDefinition],
 )
-@SectionId('BQP00')
+@SectionId('BQP')
 class BusinessQualityPlan {
   @ContentHelp('Executive overview of the business quality plan.')
   String? content;

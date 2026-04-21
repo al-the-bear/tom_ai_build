@@ -24,7 +24,7 @@ import '../pd_project_definition/pd_project_definition.dart';
       'dictionary, and validation/integrity constraints.',
   basedOn: [ProjectDefinition],
 )
-@SectionId('BDM00')
+@SectionId('BDM')
 class BusinessDataModel {
   @ContentHelp('Executive overview of the business data model.')
   String? content;
@@ -35,7 +35,8 @@ class BusinessDataModel {
   // ─── From PD00-BUS-DAT (Data Model) ──────────────────────────────────────
 
   /// Entity inventory — PD00-BUS-DAT-ENT (list).
-  @SectionIdPattern('PD00-BUS-DAT-ENT-xx')
+  @SectionId('DAENT-LST')
+  @SectionIdPattern('DAENT-xxx')
   @Min(1)
   List<DataEntityEntry> entities = [];
 
@@ -51,7 +52,8 @@ class BusinessDataModel {
   // ─── From PD00-BUS-BUS (Business Object Model) ───────────────────────────
 
   /// Business object catalog — PD00-BUS-BUS-CAT (list).
-  @SectionIdPattern('PD00-BUS-BUS-CAT-xx')
+  @SectionId('BJOEN-LST')
+  @SectionIdPattern('BJOEN-xxx')
   @Min(1)
   List<BusinessObjectEntry> objectCatalog = [];
 
@@ -61,15 +63,18 @@ class BusinessDataModel {
   // ─── From PD00-BUS-FUN (Function Model) ──────────────────────────────────
 
   /// Function decomposition — PD00-BUS-FUN-DEC (list).
-  @SectionIdPattern('PD00-BUS-FUN-DEC-xx')
+  @SectionId('FUNCT-LST')
+  @SectionIdPattern('FUNCT-xxx')
   List<FunctionEntry> functionDecomposition = [];
 
   /// Function-to-data matrix — PD00-BUS-FUN-MAT (list).
-  @SectionIdPattern('PD00-BUS-FUN-MAT-xx')
+  @SectionId('FNDMX-LST')
+  @SectionIdPattern('FNDMX-xxx')
   List<FunctionDataMatrixEntry> functionToDataMatrix = [];
 
   /// Business rules catalog — PD00-BUS-FUN-RUL (list).
-  @SectionIdPattern('PD00-BUS-FUN-RUL-xx')
+  @SectionId('BIRU-LST')
+  @SectionIdPattern('BIRU-xxx')
   @Min(1)
   List<BusinessRuleEntry> businessRules = [];
 

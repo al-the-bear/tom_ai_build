@@ -17,7 +17,7 @@ import '../document_stubs.dart';
 /// progressively until the full system is operational. Aligns with
 /// PMBOK phase-gate methodology, SAFe PI planning, and PRINCE2 stage
 /// boundary management.
-@SectionId('PD00-SSP')
+@SectionId('SSPL')
 @Comment('Seeds → PPP')
 @MapsTo(ProjectPhasePlan)
 class SystemStagePlan {
@@ -53,7 +53,8 @@ class SystemStagePlan {
   StageOverview stageOverview = StageOverview();
 
   /// 13.3. Stages [PD00-SSP-STG] — contains 1+× Stage.
-  @SectionIdPattern('PD00-SSP-STG-xx')
+  @SectionId('STAGE-LST')
+  @SectionIdPattern('STAGE-xxx')
   @Min(1)
   List<StageEntry> stages = [];
 
@@ -74,7 +75,7 @@ class SystemStagePlan {
 }
 
 /// Overall schedule and buffer model.
-@SectionId('PD00-SSP-TML')
+@SectionId('SSPTM')
 class SystemStagePlanTimeline {
     @Form([
         Field('overallPlannedStart', String, 'Overall Planned Start Date',
@@ -93,7 +94,7 @@ class SystemStagePlanTimeline {
 }
 
 /// Dependencies, risks, and compliance constraints across stages.
-@SectionId('PD00-SSP-COO')
+@SectionId('SSPCO')
 class SystemStagePlanCoordination {
     @Form([
         Field('crossStageDependencySummary', String,
@@ -114,7 +115,7 @@ class SystemStagePlanCoordination {
 }
 
 /// Organizational capacity and plan confidence.
-@SectionId('PD00-SSP-RDY')
+@SectionId('SSPRD')
 class SystemStagePlanReadiness {
     @Form([
         Field('organizationalReadinessLevel', String,
@@ -145,7 +146,7 @@ class SystemStagePlanReadiness {
 /// The staging strategy addresses how the system will be deployed in
 /// controlled increments, balancing risk mitigation with early value
 /// delivery.
-@SectionId('PD00-SSP-STR')
+@SectionId('STAGST')
 @DetailedIn(ProjectPhasePlan)
 @SecondLevelSectionId(ProjectPhasePlan, 'PPP-STR')
 class StagingStrategy {
@@ -227,7 +228,7 @@ class StagingStrategy {
 }
 
 /// Approach selection for staging strategy.
-@SectionId('PD00-SSP-STR-SEL')
+@SectionId('STAGAS')
 class StagingApproachSelection {
   @Form([
     Field('approachDescription', String, 'Approach Description',
@@ -241,7 +242,7 @@ class StagingApproachSelection {
 }
 
 /// Rationale and justification for staging strategy.
-@SectionId('PD00-SSP-STR-RAT')
+@SectionId('STAGRT')
 class StagingRationale {
   @Form([
     Field('riskReductionRationale', String, 'Risk Reduction Rationale',
@@ -257,7 +258,7 @@ class StagingRationale {
 }
 
 /// Key drivers for staging strategy.
-@SectionId('PD00-SSP-STR-DRV')
+@SectionId('STAGDR')
 class StagingDrivers {
   @Form([
     Field('primaryDrivers', String, 'Primary Drivers',
@@ -277,7 +278,7 @@ class StagingDrivers {
 }
 
 /// Risk assessment for staging strategy.
-@SectionId('PD00-SSP-STR-RSK')
+@SectionId('STAGRK')
 class StagingRiskAssessment {
   @Form([
     Field('riskTolerance', String, 'Risk Tolerance',
@@ -295,7 +296,7 @@ class StagingRiskAssessment {
 }
 
 /// Complexity assessment for staging strategy.
-@SectionId('PD00-SSP-STR-CMX')
+@SectionId('STAGCX')
 class StagingComplexity {
   @Form([
     Field('complexityAssessment', String, 'Complexity Assessment',
@@ -313,7 +314,7 @@ class StagingComplexity {
 }
 
 /// Readiness and resources for staging strategy.
-@SectionId('PD00-SSP-STR-RDY')
+@SectionId('STAGRD')
 class StagingReadiness {
   @Form([
     Field('organizationalReadinessFactors', String, 'Organizational Readiness Factors',
@@ -333,7 +334,7 @@ class StagingReadiness {
 }
 
 /// Rollback and cutover strategy for staging.
-@SectionId('PD00-SSP-STR-COV')
+@SectionId('STAGCO')
 class StagingCutover {
   @Form([
     Field('rollbackStrategyType', String, 'Rollback Strategy Type',
@@ -359,7 +360,7 @@ class StagingCutover {
 }
 
 /// Success criteria for staging strategy.
-@SectionId('PD00-SSP-STR-SUC')
+@SectionId('STAGSC')
 class StagingSuccessCriteria {
   @Form([
     Field('successCriteria', String, 'Success Criteria',
@@ -377,7 +378,7 @@ class StagingSuccessCriteria {
 }
 
 /// Communication and change management for staging.
-@SectionId('PD00-SSP-STR-COM')
+@SectionId('STAGCM')
 class StagingCommunication {
   @Form([
     Field('communicationStrategyOverview', String, 'Communication Strategy Overview',
@@ -397,7 +398,7 @@ class StagingCommunication {
 }
 
 /// Framework alignment for staging strategy.
-@SectionId('PD00-SSP-STR-FRM')
+@SectionId('STAGFA')
 class StagingFrameworkAlignment {
   @Form([
     Field('pmMethodologyAlignment', String, 'PM Methodology Alignment',
@@ -415,7 +416,7 @@ class StagingFrameworkAlignment {
 }
 
 /// Dependencies for staging strategy.
-@SectionId('PD00-SSP-STR-DEP')
+@SectionId('STAGDP')
 class StagingDependencies {
   @Form([
     Field('criticalPrerequisites', String, 'Critical Prerequisites',
@@ -431,7 +432,7 @@ class StagingDependencies {
 }
 
 /// Governance for staging strategy.
-@SectionId('PD00-SSP-STR-GOV')
+@SectionId('STAGGV')
 class StagingGovernance {
   @Form([
     Field('governanceApproach', String, 'Governance Approach',
@@ -454,7 +455,7 @@ class StagingGovernance {
 /// profile, and plan health. Draws from PMBOK phase-gate discipline,
 /// SAFe PI planning cadence, PRINCE2 stage boundary management, and
 /// TOGAF architecture road-mapping.
-@SectionId('PD00-SSP-STA')
+@SectionId('STAGOV')
 @DetailedIn(ProjectPhasePlan)
 @SecondLevelSectionId(ProjectPhasePlan, 'PPP-STA')
 class StageOverview {
@@ -508,7 +509,8 @@ class StageOverview {
 
   /// 13.2.1. Stage Summary [PD00-SSP-STA-SUM] — contains 1+× Stage
   /// Summary Entry.
-  @SectionIdPattern('PD00-SSP-STA-SUM-xx')
+  @SectionId('STAGSE-LST')
+  @SectionIdPattern('STAGSE-xxx')
   @Min(1)
   List<StageSummaryEntry> stageSummaries = [];
 
@@ -547,7 +549,7 @@ class StageOverview {
 }
 
 /// Summary metrics for stage overview.
-@SectionId('PD00-SSP-STA-MET')
+@SectionId('SGOVM')
 class StageOverviewMetrics {
   @Form([
     Field('totalFeaturesPlanned', String, 'Total Features Planned',
@@ -578,7 +580,7 @@ class StageOverviewMetrics {
 }
 
 /// Planning baseline for stage overview.
-@SectionId('PD00-SSP-STA-BSL')
+@SectionId('SGOVBS')
 class StageOverviewBaseline {
   @Form([
     Field('baselineVersion', String, 'Baseline Version',
@@ -602,7 +604,7 @@ class StageOverviewBaseline {
 }
 
 /// Cross-stage dependencies for stage overview.
-@SectionId('PD00-SSP-STA-DEP')
+@SectionId('SGOVDP')
 class StageOverviewDependencies {
   @Form([
     Field('criticalPathSummary', String, 'Critical Path Summary',
@@ -624,7 +626,7 @@ class StageOverviewDependencies {
 }
 
 /// Resource allocation for stage overview.
-@SectionId('PD00-SSP-STA-RES')
+@SectionId('SGOVRS')
 class StageOverviewResources {
   @Form([
     Field('peakTeamSize', String, 'Peak Team Size',
@@ -648,7 +650,7 @@ class StageOverviewResources {
 }
 
 /// Budget distribution for stage overview.
-@SectionId('PD00-SSP-STA-BDG')
+@SectionId('SGOVBD')
 class StageOverviewBudget {
   @Form([
     Field('budgetDistributionPattern', String, 'Budget Distribution Pattern',
@@ -670,7 +672,7 @@ class StageOverviewBudget {
 }
 
 /// Schedule analytics for stage overview.
-@SectionId('PD00-SSP-STA-SCH')
+@SectionId('SGOVSC')
 class StageOverviewSchedule {
   @Form([
     Field('totalFloatDays', String, 'Total Float (Days)',
@@ -690,7 +692,7 @@ class StageOverviewSchedule {
 }
 
 /// Quality and compliance targets for stage overview.
-@SectionId('PD00-SSP-STA-QUA')
+@SectionId('STOVQU')
 class StageOverviewQuality {
   @Form([
     Field('aggregateQualityTarget', String, 'Aggregate Quality Target',
@@ -708,7 +710,7 @@ class StageOverviewQuality {
 }
 
 /// Risk profile for stage overview.
-@SectionId('PD00-SSP-STA-RSK')
+@SectionId('STOVRI')
 class StageOverviewRisk {
   @Form([
     Field('overallScheduleRisk', String, 'Overall Schedule Risk',
@@ -730,7 +732,7 @@ class StageOverviewRisk {
 }
 
 /// Plan status and health for stage overview.
-@SectionId('PD00-SSP-STA-STA')
+@SectionId('STOVST')
 class StageOverviewStatus {
   @Form([
     Field('overallPlanStatus', String, 'Overall Plan Status',
@@ -754,7 +756,7 @@ class StageOverviewStatus {
 }
 
 /// Stakeholder communication for stage overview.
-@SectionId('PD00-SSP-STA-COM')
+@SectionId('STOVCO')
 class StageOverviewCommunication {
   @Form([
     Field('reportingCadence', String, 'Reporting Cadence',
@@ -770,7 +772,7 @@ class StageOverviewCommunication {
 }
 
 /// Assumptions and constraints for stage overview.
-@SectionId('PD00-SSP-STA-CON')
+@SectionId('STOVC1')
 class StageOverviewConstraints {
   @Form([
     Field('keyPlanningAssumptions', String, 'Key Planning Assumptions',
@@ -795,6 +797,7 @@ class StageOverviewConstraints {
 /// staging plan. This is the high-level summary — detailed stage
 /// information is captured in the individual StageEntry classes under
 /// section 13.3.
+@SectionId('STAGSE')
 class StageSummaryEntry {
   @Form([
     Field('stageNumber', String, 'Stage Number',
@@ -830,7 +833,7 @@ class StageSummaryEntry {
 }
 
 /// Identity for stage summary.
-@SectionId('PD00-SSP-STA-SUM-ENT-IDN')
+@SectionId('STSUID')
 class StageSummaryIdentity {
   @Form([
     Field('stageCodename', String, 'Stage Codename',
@@ -842,7 +845,7 @@ class StageSummaryIdentity {
 }
 
 /// Timeline for stage summary.
-@SectionId('PD00-SSP-STA-SUM-ENT-TML')
+@SectionId('STSUTI')
 class StageSummaryTimeline {
   @Form([
     Field('plannedStartDate', String, 'Planned Start Date',
@@ -860,7 +863,7 @@ class StageSummaryTimeline {
 }
 
 /// Scope for stage summary.
-@SectionId('PD00-SSP-STA-SUM-ENT-SCP')
+@SectionId('STSUSC')
 class StageSummaryScope {
   @Form([
     Field('featureCount', String, 'Feature Count',
@@ -878,7 +881,7 @@ class StageSummaryScope {
 }
 
 /// Resources for stage summary.
-@SectionId('PD00-SSP-STA-SUM-ENT-RES')
+@SectionId('STSURE')
 class StageSummaryResources {
   @Form([
     Field('teamSize', String, 'Team Size',
@@ -896,7 +899,7 @@ class StageSummaryResources {
 }
 
 /// Dependencies for stage summary.
-@SectionId('PD00-SSP-STA-SUM-ENT-DEP')
+@SectionId('STSUDE')
 class StageSummaryDependencies {
   @Form([
     Field('predecessorStages', String, 'Predecessor Stages',
@@ -914,7 +917,7 @@ class StageSummaryDependencies {
 }
 
 /// Quality for stage summary.
-@SectionId('PD00-SSP-STA-SUM-ENT-QUA')
+@SectionId('STSUQU')
 class StageSummaryQuality {
   @Form([
     Field('qualityTarget', String, 'Quality Target',
@@ -928,7 +931,7 @@ class StageSummaryQuality {
 }
 
 /// Status for stage summary.
-@SectionId('PD00-SSP-STA-SUM-ENT-STS')
+@SectionId('STSUST')
 class StageSummaryStatus {
   @Form([
     Field('currentStatus', String, 'Current Status',
@@ -950,6 +953,7 @@ class StageSummaryStatus {
 /// entry/exit criteria, assigned resources, quality gates, and a
 /// deployment plan. Draws from PMBOK phase-gate discipline, SAFe PI
 /// planning, and PRINCE2 stage boundary management.
+@SectionId('STAGE')
 class StageEntry {
   @Form([
     Field('stageNumber', String, 'Stage Number',
@@ -1001,7 +1005,8 @@ class StageEntry {
   TextSection featureScope = TextSection();
 
   /// Sub-stages and Milestones [PD00-SSP-STG-nn-SUB] — contains 0+× SubStage.
-  @SectionIdPattern('PD00-SSP-STG-xx-SUB-xx')
+  @SectionId('SUSST-LST')
+  @SectionIdPattern('SUSST-xxx')
   List<SubStageEntry> subStagesAndMilestones = [];
 
   /// Timeline narrative.
@@ -1011,7 +1016,8 @@ class StageEntry {
   TextSection timelineNarrative = TextSection();
 
   /// Success Criteria [PD00-SSP-STG-nn-SUC] — contains 0+× StageSuccessCriterion.
-  @SectionIdPattern('PD00-SSP-STG-xx-SUC-xx')
+  @SectionId('STGSUC-LST')
+  @SectionIdPattern('STGSUC-xxx')
   List<StageSuccessCriterionEntry> successCriteria = [];
 
   /// Rollout Plan narrative.
@@ -1023,7 +1029,7 @@ class StageEntry {
 }
 
 /// Identity and classification for a stage entry.
-@SectionId('PD00-SSP-STG-ENT-IDN')
+@SectionId('STID')
 class StageIdentity {
   @Form([
     Field('stageCodename', String, 'Codename',
@@ -1039,7 +1045,7 @@ class StageIdentity {
 }
 
 /// Timeline and schedule for a stage entry.
-@SectionId('PD00-SSP-STG-ENT-TML')
+@SectionId('STTI')
 class StageTimeline {
   @Form([
     Field('plannedStartDate', String, 'Planned Start Date',
@@ -1066,7 +1072,7 @@ class StageTimeline {
 }
 
 /// Scope and features for a stage entry.
-@SectionId('PD00-SSP-STG-ENT-SCP')
+@SectionId('STSC')
 class StageScope {
   @Form([
     Field('scopeSummary', String, 'Scope Summary',
@@ -1090,7 +1096,7 @@ class StageScope {
 }
 
 /// Dependencies for a stage entry.
-@SectionId('PD00-SSP-STG-ENT-DEP')
+@SectionId('STDE')
 class StageDependencies {
   @Form([
     Field('prerequisiteStages', String, 'Prerequisite Stages',
@@ -1106,7 +1112,7 @@ class StageDependencies {
 }
 
 /// Resources and budget for a stage entry.
-@SectionId('PD00-SSP-STG-ENT-RES')
+@SectionId('STRE')
 class StageResources {
   @Form([
     Field('teamSize', String, 'Team Size',
@@ -1124,7 +1130,7 @@ class StageResources {
 }
 
 /// Quality and governance for a stage entry.
-@SectionId('PD00-SSP-STG-ENT-QUA')
+@SectionId('STQU')
 class StageQuality {
   @Form([
     Field('entryCriteria', String, 'Entry Criteria',
@@ -1144,7 +1150,7 @@ class StageQuality {
 }
 
 /// Deployment and rollout for a stage entry.
-@SectionId('PD00-SSP-STG-ENT-DPL')
+@SectionId('STDE1')
 class StageDeployment {
   @Form([
     Field('deploymentApproach', String, 'Deployment Approach',
@@ -1166,7 +1172,7 @@ class StageDeployment {
 }
 
 /// Stakeholders and communication for a stage entry.
-@SectionId('PD00-SSP-STG-ENT-STK')
+@SectionId('STST')
 class StageStakeholders {
   @Form([
     Field('stageOwner', String, 'Stage Owner',
@@ -1190,7 +1196,7 @@ class StageStakeholders {
 }
 
 /// Risk for a stage entry.
-@SectionId('PD00-SSP-STG-ENT-RSK')
+@SectionId('STRI')
 class StageRisk {
   @Form([
     Field('topRisks', String, 'Top Risks',
@@ -1206,7 +1212,7 @@ class StageRisk {
 }
 
 /// Status and metrics for a stage entry.
-@SectionId('PD00-SSP-STG-ENT-MET')
+@SectionId('STME')
 class StageMetrics {
   @Form([
     Field('completionPercentage', String, 'Completion %',
@@ -1228,6 +1234,7 @@ class StageMetrics {
 /// Represents a discrete phase within a stage — alpha, beta, release
 /// candidate, pilot, GA — or a key milestone. Sub-stages provide finer
 /// scheduling granularity and quality gates within a stage.
+@SectionId('SUSST')
 class SubStageEntry {
   @Form([
     Field('name', String, 'Name',
@@ -1259,7 +1266,7 @@ class SubStageEntry {
 }
 
 /// Description and objectives.
-@SectionId('PD00-SSP-STG-SUB-ENT-OVW')
+@SectionId('SSEO')
 class SubStageEntryOverview {
   @Form([
     Field('description', String, 'Description',
@@ -1271,7 +1278,7 @@ class SubStageEntryOverview {
 }
 
 /// Timeline and sequencing.
-@SectionId('PD00-SSP-STG-SUB-ENT-TML')
+@SectionId('SSET')
 class SubStageEntryTimeline {
   @Form([
     Field('targetStartDate', String, 'Target Start Date'),
@@ -1289,7 +1296,7 @@ class SubStageEntryTimeline {
 }
 
 /// Scope and deliverables.
-@SectionId('PD00-SSP-STG-SUB-ENT-SCP')
+@SectionId('SSES')
 class SubStageEntryScope {
   @Form([
     Field('deliverables', String, 'Deliverables',
@@ -1307,7 +1314,7 @@ class SubStageEntryScope {
 }
 
 /// Resources and quality focus.
-@SectionId('PD00-SSP-STG-SUB-ENT-EXE')
+@SectionId('SSEE')
 class SubStageEntryExecution {
   @Form([
     Field('assignedTeam', String, 'Assigned Team',
@@ -1329,7 +1336,7 @@ class SubStageEntryExecution {
 }
 
 /// Current status.
-@SectionId('PD00-SSP-STG-SUB-ENT-STA')
+@SectionId('SSES1')
 class SubStageEntryStatus {
   @Form([
     Field('currentStatus', String, 'Current Status',
@@ -1347,6 +1354,7 @@ class SubStageEntryStatus {
 /// Defines a measurable criterion that determines whether a stage has
 /// achieved its objectives. Each criterion has a target metric,
 /// measurement method, threshold, and verification process.
+@SectionId('STGSUC')
 class StageSuccessCriterionEntry {
   @Form([
     Field('criterionId', String, 'Criterion ID',
@@ -1378,7 +1386,7 @@ class StageSuccessCriterionEntry {
 }
 
 /// Measurement targets.
-@SectionId('PD00-SSP-STG-SUC-ENT-MSR')
+@SectionId('SSCEM')
 class StageSuccessCriterionEntryMeasurement {
   @Form([
     Field('measurementMethod', String, 'Measurement Method',
@@ -1401,7 +1409,7 @@ class StageSuccessCriterionEntryMeasurement {
 }
 
 /// Verification planning.
-@SectionId('PD00-SSP-STG-SUC-ENT-VER')
+@SectionId('SSCEV')
 class StageSuccessCriterionEntryVerification {
   @Form([
     Field('verificationMethod', String, 'Verification Method',
@@ -1416,7 +1424,7 @@ class StageSuccessCriterionEntryVerification {
 }
 
 /// Current status and results.
-@SectionId('PD00-SSP-STG-SUC-ENT-STA')
+@SectionId('SSCES')
 class StageSuccessCriterionEntryStatus {
   @Form([
     Field('currentStatus', String, 'Status',
@@ -1434,7 +1442,7 @@ class StageSuccessCriterionEntryStatus {
 /// mapping, individual feature priority scoring, and cross-feature
 /// dependency tracking. Aligns with SAFe WSJF, PMBOK value-driven
 /// delivery, MoSCoW (DSDM), and Kano model classification.
-@SectionId('PD00-SSP-FEA')
+@SectionId('FEPR')
 @DetailedIn(ProjectPhasePlan)
 @SecondLevelSectionId(ProjectPhasePlan, 'PPP-FEA')
 class FeaturePrioritization {
@@ -1496,7 +1504,7 @@ class FeaturePrioritization {
 }
 
 /// Methodology and scoring.
-@SectionId('PD00-SSP-FEA-MET')
+@SectionId('FEPRME')
 class FeaturePrioritizationMethodology {
   @Form([
     Field('secondaryMethodology', String, 'Secondary Methodology',
@@ -1512,7 +1520,7 @@ class FeaturePrioritizationMethodology {
 }
 
 /// Stakeholder involvement.
-@SectionId('PD00-SSP-FEA-STK')
+@SectionId('FEPRST')
 class FeaturePrioritizationStakeholder {
   @Form([
     Field('stakeholderParticipants', String, 'Stakeholder Participants',
@@ -1526,7 +1534,7 @@ class FeaturePrioritizationStakeholder {
 }
 
 /// Cadence and triggers.
-@SectionId('PD00-SSP-FEA-CAD')
+@SectionId('FEPRCA')
 class FeaturePrioritizationCadence {
   @Form([
     Field('rePrioritizationTriggers', String, 'Re-Prioritization Triggers',
@@ -1540,7 +1548,7 @@ class FeaturePrioritizationCadence {
 }
 
 /// Capacity constraints.
-@SectionId('PD00-SSP-FEA-CAP')
+@SectionId('FEPRC1')
 class FeaturePrioritizationCapacity {
   @Form([
     Field('teamVelocity', String, 'Team Velocity',
@@ -1556,7 +1564,7 @@ class FeaturePrioritizationCapacity {
 }
 
 /// Backlog health.
-@SectionId('PD00-SSP-FEA-BKL')
+@SectionId('FEPRBA')
 class FeaturePrioritizationBacklog {
   @Form([
     Field('totalFeaturesInBacklog', String, 'Total Features in Backlog',
@@ -1574,7 +1582,7 @@ class FeaturePrioritizationBacklog {
 }
 
 /// Traceability.
-@SectionId('PD00-SSP-FEA-TRC')
+@SectionId('FEPRTR')
 class FeaturePrioritizationTraceability {
   @Form([
     Field('traceabilityToBusinessCase', String,
@@ -1591,7 +1599,7 @@ class FeaturePrioritizationTraceability {
 ///
 /// Classifies every feature using the MoSCoW method (Must / Should /
 /// Could / Won't) and maps each to its target delivery stage.
-@SectionId('PD00-SSP-FEA-MOS')
+@SectionId('MOAN')
 class MoscowAnalysis {
   @Form([
     // --- Summary Statistics ---
@@ -1631,7 +1639,8 @@ class MoscowAnalysis {
   TextSection moscowRationale = TextSection();
 
   /// Contains 0+× MoscowEntry.
-  @SectionIdPattern('PD00-SSP-FEA-MOS-xx')
+  @SectionId('MOEN-LST')
+  @SectionIdPattern('MOEN-xxx')
   List<MoscowEntry> items = [];
 }
 
@@ -1639,6 +1648,7 @@ class MoscowAnalysis {
 ///
 /// Maps a single feature or feature group to its MoSCoW category and
 /// target delivery stage, with justification and cross-references.
+@SectionId('ME')
 class MoscowEntry {
   @Form([
     Field('featureId', String, 'Feature ID',
@@ -1670,7 +1680,7 @@ class MoscowEntry {
 }
 
 /// MoSCoW classification details.
-@SectionId('PD00-SSP-FEA-MOS-ENT-CLS')
+@SectionId('MOENCL')
 class MoscowEntryClassification {
   @Form([
     Field('moscowCategory', String, 'MoSCoW Category',
@@ -1688,7 +1698,7 @@ class MoscowEntryClassification {
 }
 
 /// Value and effort estimates.
-@SectionId('PD00-SSP-FEA-MOS-ENT-VAL')
+@SectionId('MOENVA')
 class MoscowEntryValue {
   @Form([
     Field('businessValue', String, 'Business Value',
@@ -1705,7 +1715,7 @@ class MoscowEntryValue {
 }
 
 /// Stage assignment.
-@SectionId('PD00-SSP-FEA-MOS-ENT-STG')
+@SectionId('MESA')
 class MoscowEntryStageAssignment {
   @Form([
     Field('targetStage', String, 'Target Stage',
@@ -1721,7 +1731,7 @@ class MoscowEntryStageAssignment {
 }
 
 /// Traceability and notes.
-@SectionId('PD00-SSP-FEA-MOS-ENT-TRC')
+@SectionId('MOENTR')
 class MoscowEntryTraceability {
   @Form([
     Field('linkedRequirements', String, 'Linked Requirements',
@@ -1742,7 +1752,7 @@ class MoscowEntryTraceability {
 ///
 /// Maps every feature or feature group to the delivery stage, tracking
 /// readiness, confidence, dependencies, and acceptance criteria.
-@SectionId('PD00-SSP-FEA-MAT')
+@SectionId('FESTMA')
 class FeatureStageMatrix {
   @Form([
     // --- Matrix Summary ---
@@ -1774,7 +1784,8 @@ class FeatureStageMatrix {
   TextSection matrixNarrative = TextSection();
 
   /// Contains 0+× FeatureStageMapping.
-  @SectionIdPattern('PD00-SSP-FEA-MAT-xx')
+  @SectionId('FESTM1-LST')
+  @SectionIdPattern('FESTM1-xxx')
   List<FeatureStageMapping> items = [];
 }
 
@@ -1782,6 +1793,7 @@ class FeatureStageMatrix {
 ///
 /// Maps a single feature or feature group to its delivery stage with
 /// readiness, confidence, and dependency information.
+@SectionId('FSM')
 class FeatureStageMapping {
   @Form([
     Field('featureId', String, 'Feature ID',
@@ -1812,7 +1824,7 @@ class FeatureStageMapping {
 }
 
 /// Stage assignment details.
-@SectionId('PD00-SSP-FEA-MAT-ENT-ASN')
+@SectionId('FSMA')
 class FeatureStageMappingAssignment {
   @Form([
     Field('targetStage', String, 'Target Stage',
@@ -1829,7 +1841,7 @@ class FeatureStageMappingAssignment {
 }
 
 /// Readiness and confidence.
-@SectionId('PD00-SSP-FEA-MAT-ENT-RDY')
+@SectionId('FSMR')
 class FeatureStageMappingReadiness {
   @Form([
     Field('readinessStatus', String, 'Readiness Status',
@@ -1847,7 +1859,7 @@ class FeatureStageMappingReadiness {
 }
 
 /// Dependencies.
-@SectionId('PD00-SSP-FEA-MAT-ENT-DEP')
+@SectionId('FSMD')
 class FeatureStageMappingDependencies {
   @Form([
     Field('prerequisiteFeatures', String, 'Prerequisite Features',
@@ -1866,7 +1878,7 @@ class FeatureStageMappingDependencies {
 }
 
 /// Acceptance and notes.
-@SectionId('PD00-SSP-FEA-MAT-ENT-ACC')
+@SectionId('FSMA1')
 class FeatureStageMappingAcceptance {
   @Form([
     Field('acceptanceCriteriaSummary', String,
@@ -1887,7 +1899,7 @@ class FeatureStageMappingAcceptance {
 /// Master register of all features with comprehensive priority scoring,
 /// business value analysis, effort estimates, stakeholder ownership,
 /// and traceability. Single source of truth for feature identity.
-@SectionId('PD00-SSP-FEA-REG')
+@SectionId('FEPRRE')
 class FeaturePriorityRegister {
   @Form([
     Field('totalRegisteredFeatures', String,
@@ -1903,7 +1915,8 @@ class FeaturePriorityRegister {
   String? content;
 
   /// Contains 1+× FeaturePriorityEntry.
-  @SectionIdPattern('PD00-SSP-FEA-REG-xx')
+  @SectionId('FEPREN-LST')
+  @SectionIdPattern('FEPREN-xxx')
   @Min(1)
   List<FeaturePriorityEntry> items = [];
 }
@@ -1913,6 +1926,7 @@ class FeaturePriorityRegister {
 /// Comprehensive record covering identity, classification, business
 /// value, effort, priority scoring, stage assignment, dependencies,
 /// stakeholders, traceability, and status.
+@SectionId('FPE')
 class FeaturePriorityEntry {
   @Form([
     Field('featureId', String, 'Feature ID',
@@ -1956,7 +1970,7 @@ class FeaturePriorityEntry {
 }
 
 /// Feature identity for a feature priority entry.
-@SectionId('PD00-SSP-FEA-REG-ENT-IDN')
+@SectionId('FEID')
 class FeatureIdentity {
   @Form([
     Field('featureDescription', String, 'Description',
@@ -1977,7 +1991,7 @@ class FeatureIdentity {
 }
 
 /// Business value for a feature priority entry.
-@SectionId('PD00-SSP-FEA-REG-ENT-BVL')
+@SectionId('FEBUVA')
 class FeatureBusinessValue {
   @Form([
     Field('businessValueScore', String, 'Business Value Score',
@@ -2011,7 +2025,7 @@ class FeatureBusinessValue {
 }
 
 /// Effort and complexity for a feature priority entry.
-@SectionId('PD00-SSP-FEA-REG-ENT-EFF')
+@SectionId('FEEF')
 class FeatureEffort {
   @Form([
     Field('estimatedEffort', String, 'Estimated Effort',
@@ -2037,7 +2051,7 @@ class FeatureEffort {
 }
 
 /// Priority scoring for a feature priority entry.
-@SectionId('PD00-SSP-FEA-REG-ENT-SCR')
+@SectionId('FEPRSC')
 class FeaturePriorityScoring {
   @Form([
     Field('weightedPriorityScore', String, 'Weighted Priority Score',
@@ -2057,7 +2071,7 @@ class FeaturePriorityScoring {
 }
 
 /// Stage assignment for a feature priority entry.
-@SectionId('PD00-SSP-FEA-REG-ENT-STG')
+@SectionId('FESTAS')
 class FeatureStageAssignment {
   @Form([
     Field('targetStage', String, 'Target Stage',
@@ -2074,7 +2088,7 @@ class FeatureStageAssignment {
 }
 
 /// Dependencies info for a feature priority entry.
-@SectionId('PD00-SSP-FEA-REG-ENT-DEP')
+@SectionId('FEDEIN')
 class FeatureDependenciesInfo {
   @Form([
     Field('dependsOnFeatures', String, 'Depends on Features',
@@ -2090,7 +2104,7 @@ class FeatureDependenciesInfo {
 }
 
 /// Stakeholders for a feature priority entry.
-@SectionId('PD00-SSP-FEA-REG-ENT-STK')
+@SectionId('FEST')
 class FeatureStakeholders {
   @Form([
     Field('requestedBy', String, 'Requested By',
@@ -2113,7 +2127,7 @@ class FeatureStakeholders {
 }
 
 /// Traceability for a feature priority entry.
-@SectionId('PD00-SSP-FEA-REG-ENT-TRC')
+@SectionId('FETR')
 class FeatureTraceability {
   @Form([
     Field('linkedRequirements', String, 'Linked Requirements',
@@ -2131,7 +2145,7 @@ class FeatureTraceability {
 }
 
 /// Status for a feature priority entry.
-@SectionId('PD00-SSP-FEA-REG-ENT-STA')
+@SectionId('FEST1')
 class FeatureStatus {
   @Form([
     Field('prioritizationStatus', String, 'Prioritization Status',
@@ -2153,7 +2167,7 @@ class FeatureStatus {
 ///
 /// Cross-feature dependencies affecting staging order, critical path
 /// analysis, and delivery sequencing.
-@SectionId('PD00-SSP-FEA-DEP')
+@SectionId('FEDE')
 class FeatureDependencies {
   @Form([
     Field('totalDependencyCount', String, 'Total Dependency Count',
@@ -2186,7 +2200,8 @@ class FeatureDependencies {
   TextSection dependencyAnalysis = TextSection();
 
   /// Contains 0+× FeatureDependencyEntry.
-  @SectionIdPattern('PD00-SSP-FEA-DEP-xx')
+  @SectionId('FEDEEN-LST')
+  @SectionIdPattern('FEDEEN-xxx')
   List<FeatureDependencyEntry> items = [];
 }
 
@@ -2194,6 +2209,7 @@ class FeatureDependencies {
 ///
 /// Describes a single directional dependency between two features,
 /// including type, impact, and resolution strategy.
+@SectionId('FDE')
 class FeatureDependencyEntry {
   @Form([
     // --- Dependency Relationship ---
@@ -2249,7 +2265,7 @@ class FeatureDependencyEntry {
 /// planning, rollback mechanisms, compliance requirements (GDPR, HIPAA),
 /// and stakeholder sign-off. Aligns with DAMA-DMBOK data management
 /// principles, TOGAF migration planning, and PMBOK risk-aware delivery.
-@SectionId('PD00-SSP-MIG')
+@SectionId('DAMIST')
 @DetailedIn(ProjectPhasePlan)
 @SecondLevelSectionId(ProjectPhasePlan, 'PPP-MIG')
 class DataMigrationStrategy {
@@ -2320,7 +2336,7 @@ class DataMigrationStrategy {
 }
 
 /// Strategic approach for data migration.
-@SectionId('PD00-SSP-MIG-APR')
+@SectionId('MIAP')
 class MigrationApproach {
   @Form([
     Field('migrationRationale', String, 'Approach Rationale',
@@ -2332,7 +2348,7 @@ class MigrationApproach {
 }
 
 /// Scope and data landscape for migration.
-@SectionId('PD00-SSP-MIG-SCP')
+@SectionId('MISC')
 class MigrationScope {
   @Form([
     Field('dataLandscapeOverview', String, 'Data Landscape Overview',
@@ -2354,7 +2370,7 @@ class MigrationScope {
 }
 
 /// Source and target systems for migration.
-@SectionId('PD00-SSP-MIG-SYS')
+@SectionId('MISY')
 class MigrationSystems {
   @Form([
     Field('sourceSystemInventory', String, 'Source System Inventory',
@@ -2371,7 +2387,7 @@ class MigrationSystems {
 }
 
 /// Data quality strategy for migration.
-@SectionId('PD00-SSP-MIG-DQA')
+@SectionId('MIDAQU')
 class MigrationDataQuality {
   @Form([
     Field('dataQualityBaselineStatus', String, 'Data Quality Baseline Status',
@@ -2390,7 +2406,7 @@ class MigrationDataQuality {
 }
 
 /// Tooling and technology for migration.
-@SectionId('PD00-SSP-MIG-TOO')
+@SectionId('MITO')
 class MigrationTooling {
   @Form([
     Field('primaryMigrationTool', String, 'Primary Migration Tool',
@@ -2411,7 +2427,7 @@ class MigrationTooling {
 }
 
 /// Environment strategy for migration.
-@SectionId('PD00-SSP-MIG-ENV')
+@SectionId('MIEN')
 class MigrationEnvironments {
   @Form([
     Field('migrationEnvironments', String, 'Migration Environments',
@@ -2428,7 +2444,7 @@ class MigrationEnvironments {
 }
 
 /// Cutover planning for migration.
-@SectionId('PD00-SSP-MIG-COV')
+@SectionId('MICU')
 class MigrationCutover {
   @Form([
     Field('cutoverStrategy', String, 'Cutover Strategy',
@@ -2452,7 +2468,7 @@ class MigrationCutover {
 }
 
 /// Rollback and recovery for migration.
-@SectionId('PD00-SSP-MIG-ROL')
+@SectionId('MIRO')
 class MigrationRollback {
   @Form([
     Field('rollbackStrategy', String, 'Rollback Strategy',
@@ -2471,7 +2487,7 @@ class MigrationRollback {
 }
 
 /// Compliance and governance for migration.
-@SectionId('PD00-SSP-MIG-CMP')
+@SectionId('MICO')
 class MigrationCompliance {
   @Form([
     Field('dataPrivacyCompliance', String, 'Data Privacy Compliance',
@@ -2492,7 +2508,7 @@ class MigrationCompliance {
 }
 
 /// Success metrics for migration.
-@SectionId('PD00-SSP-MIG-MET')
+@SectionId('MIME')
 class MigrationMetrics {
   @Form([
     Field('successMetrics', String, 'Success Metrics',
@@ -2511,7 +2527,7 @@ class MigrationMetrics {
 }
 
 /// Stakeholder communication for migration.
-@SectionId('PD00-SSP-MIG-STK')
+@SectionId('MIST')
 class MigrationStakeholders {
   @Form([
     Field('dataOwnerSignoffRequired', String, 'Data Owner Sign-off Required',
@@ -2527,7 +2543,7 @@ class MigrationStakeholders {
 }
 
 /// Budget and resources for migration.
-@SectionId('PD00-SSP-MIG-RES')
+@SectionId('STMIRE')
 class StageMigrationResources {
   @Form([
     Field('migrationBudget', String, 'Migration Budget',
@@ -2541,7 +2557,7 @@ class StageMigrationResources {
 }
 
 /// Schedule overview for migration.
-@SectionId('PD00-SSP-MIG-SCH')
+@SectionId('MISC1')
 class MigrationSchedule {
   @Form([
     Field('overallMigrationStart', String, 'Overall Migration Start',
@@ -2564,7 +2580,7 @@ class MigrationSchedule {
 /// execution plan. Each phase targets a specific data domain or source
 /// system, with defined methods, transformation rules, validation
 /// criteria, and dry run expectations.
-@SectionId('PD00-SSP-MIG-PHA')
+@SectionId('MIPH')
 class MigrationPhases {
   @Form([
     // --- Phase Summary ---
@@ -2619,7 +2635,8 @@ class MigrationPhases {
   TextSection phaseOverview = TextSection();
 
   /// Contains 1+× MigrationPhaseEntry.
-  @SectionIdPattern('PD00-SSP-MIG-PHA-xx')
+  @SectionId('MGPHS-LST')
+  @SectionIdPattern('MGPHS-xxx')
   @Min(1)
   List<MigrationPhaseEntry> items = [];
 }
@@ -2631,6 +2648,7 @@ class MigrationPhases {
 /// method selection, transformation mapping, scheduling, dependency
 /// tracking, validation approach, acceptance criteria, and dry run
 /// results.
+@SectionId('MGPHS')
 class MigrationPhaseEntry {
   @Form([
     Field('phaseNumber', String, 'Phase Number',
@@ -2680,7 +2698,7 @@ class MigrationPhaseEntry {
 }
 
 /// Phase identity for migration phase.
-@SectionId('PD00-SSP-MIG-PHA-ENT-IDN')
+@SectionId('MIPHID')
 class MigrationPhaseIdentity {
   @Form([
     Field('phaseDescription', String, 'Phase Description',
@@ -2694,7 +2712,7 @@ class MigrationPhaseIdentity {
 }
 
 /// Data scope for migration phase.
-@SectionId('PD00-SSP-MIG-PHA-ENT-DAT')
+@SectionId('MPDS')
 class MigrationPhaseDataScope {
   @Form([
     Field('sourceSystems', String, 'Source Systems',
@@ -2726,7 +2744,7 @@ class MigrationPhaseDataScope {
 }
 
 /// Migration method for migration phase.
-@SectionId('PD00-SSP-MIG-PHA-ENT-MET')
+@SectionId('MIPHME')
 class MigrationPhaseMethod {
   @Form([
     Field('migrationMethod', String, 'Migration Method',
@@ -2746,7 +2764,7 @@ class MigrationPhaseMethod {
 }
 
 /// Transformation and mapping for migration phase.
-@SectionId('PD00-SSP-MIG-PHA-ENT-TRF')
+@SectionId('MIPHTR')
 class MigrationPhaseTransformation {
   @Form([
     Field('transformationRulesSummary', String, 'Transformation Rules Summary',
@@ -2771,7 +2789,7 @@ class MigrationPhaseTransformation {
 }
 
 /// Schedule and dependencies for migration phase.
-@SectionId('PD00-SSP-MIG-PHA-ENT-SCH')
+@SectionId('MIPHSC')
 class MigrationPhaseSchedule {
   @Form([
     Field('plannedStartDate', String, 'Planned Start Date',
@@ -2797,7 +2815,7 @@ class MigrationPhaseSchedule {
 }
 
 /// Dry runs for migration phase.
-@SectionId('PD00-SSP-MIG-PHA-ENT-DRY')
+@SectionId('MPDR')
 class MigrationPhaseDryRuns {
   @Form([
     Field('dryRunsPlanned', String, 'Dry Runs Planned',
@@ -2819,7 +2837,7 @@ class MigrationPhaseDryRuns {
 }
 
 /// Validation and reconciliation for migration phase.
-@SectionId('PD00-SSP-MIG-PHA-ENT-VAL')
+@SectionId('MIPHVA')
 class MigrationPhaseValidation {
   @Form([
     Field('validationApproach', String, 'Validation Approach',
@@ -2846,7 +2864,7 @@ class MigrationPhaseValidation {
 }
 
 /// Acceptance criteria for migration phase.
-@SectionId('PD00-SSP-MIG-PHA-ENT-ACC')
+@SectionId('MIPHAC')
 class MigrationPhaseAcceptance {
   @Form([
     Field('acceptanceCriteria', String, 'Acceptance Criteria',
@@ -2861,7 +2879,7 @@ class MigrationPhaseAcceptance {
 }
 
 /// Rollback for migration phase.
-@SectionId('PD00-SSP-MIG-PHA-ENT-ROL')
+@SectionId('MIPHRO')
 class MigrationPhaseRollback {
   @Form([
     Field('phaseRollbackStrategy', String, 'Phase Rollback Strategy',
@@ -2873,7 +2891,7 @@ class MigrationPhaseRollback {
 }
 
 /// Resources for migration phase.
-@SectionId('PD00-SSP-MIG-PHA-ENT-RES')
+@SectionId('MIPHRE')
 class MigrationPhaseResources {
   @Form([
     Field('assignedTeamMembers', String, 'Assigned Team Members',
@@ -2885,7 +2903,7 @@ class MigrationPhaseResources {
 }
 
 /// Status for migration phase.
-@SectionId('PD00-SSP-MIG-PHA-ENT-STA')
+@SectionId('MIPHST')
 class MigrationPhaseStatus {
   @Form([
     Field('currentStatus', String, 'Current Status',
@@ -2903,7 +2921,7 @@ class MigrationPhaseStatus {
 /// Risk register specific to data migration activities. Covers data
 /// loss, corruption, downtime overrun, compliance violations,
 /// performance degradation, and organizational readiness risks.
-@SectionId('PD00-SSP-MIG-RIS')
+@SectionId('STMIRI')
 class StageMigrationRisks {
   @Form([
     // --- Risk Summary ---
@@ -2960,7 +2978,8 @@ class StageMigrationRisks {
   TextSection riskSummary = TextSection();
 
   /// Contains 1+× StageMigrationRiskEntry.
-  @SectionIdPattern('PD00-SSP-MIG-RIS-xx')
+  @SectionId('STGMRS-LST')
+  @SectionIdPattern('STGMRS-xxx')
   @Min(1)
   List<StageMigrationRiskEntry> items = [];
 }
@@ -2971,6 +2990,7 @@ class StageMigrationRisks {
 /// identification, categorization, probability/impact scoring,
 /// mitigation planning, contingency actions, trigger indicators,
 /// ownership, monitoring approach, and residual risk after mitigation.
+@SectionId('STGMRS')
 class StageMigrationRiskEntry {
   @Form([
     Field('riskId', String, 'Risk ID',
@@ -3015,7 +3035,7 @@ class StageMigrationRiskEntry {
 }
 
 /// Risk identity and description.
-@SectionId('PD00-SSP-MIG-RIS-ENT-IDN')
+@SectionId('SMRI')
 class StageMigrationRiskIdentity {
   @Form([
     Field('riskDescription', String, 'Risk Description',
@@ -3026,7 +3046,7 @@ class StageMigrationRiskIdentity {
 }
 
 /// Probability and impact assessment.
-@SectionId('PD00-SSP-MIG-RIS-ENT-PRB')
+@SectionId('SMRPI')
 class StageMigrationRiskProbabilityImpact {
   @Form([
     Field('probability', String, 'Probability',
@@ -3046,7 +3066,7 @@ class StageMigrationRiskProbabilityImpact {
 }
 
 /// Mitigation planning.
-@SectionId('PD00-SSP-MIG-RIS-ENT-MIT')
+@SectionId('SMRM')
 class StageMigrationRiskMitigation {
   @Form([
     Field('mitigationStrategy', String, 'Mitigation Strategy',
@@ -3063,7 +3083,7 @@ class StageMigrationRiskMitigation {
 }
 
 /// Contingency actions.
-@SectionId('PD00-SSP-MIG-RIS-ENT-CON')
+@SectionId('SMRC')
 class StageMigrationRiskContingency {
   @Form([
     Field('contingencyPlan', String, 'Contingency Plan',
@@ -3078,7 +3098,7 @@ class StageMigrationRiskContingency {
 }
 
 /// Monitoring and detection.
-@SectionId('PD00-SSP-MIG-RIS-ENT-MON')
+@SectionId('SMRM1')
 class StageMigrationRiskMonitoring {
   @Form([
     Field('triggerIndicators', String, 'Trigger Indicators',
@@ -3094,7 +3114,7 @@ class StageMigrationRiskMonitoring {
 }
 
 /// Ownership and accountability.
-@SectionId('PD00-SSP-MIG-RIS-ENT-OWN')
+@SectionId('SMRO')
 class StageMigrationRiskOwnership {
   @Form([
     Field('riskOwner', String, 'Risk Owner',
@@ -3107,7 +3127,7 @@ class StageMigrationRiskOwnership {
 }
 
 /// Residual risk assessment.
-@SectionId('PD00-SSP-MIG-RIS-ENT-RSI')
+@SectionId('SMRR')
 class StageMigrationRiskResidual {
   @Form([
     Field('residualProbability', String, 'Residual Probability',
@@ -3121,7 +3141,7 @@ class StageMigrationRiskResidual {
 }
 
 /// Status and review.
-@SectionId('PD00-SSP-MIG-RIS-ENT-STA')
+@SectionId('SMRS')
 class StageMigrationRiskStatus {
   @Form([
     Field('currentStatus', String, 'Current Status',
@@ -3142,7 +3162,7 @@ class StageMigrationRiskStatus {
 /// ceremonies that control stage advancement. Aligns with PMBOK
 /// governance gates, SAFe Program Increment boundaries, PRINCE2
 /// stage gates, and TOGAF architecture governance.
-@SectionId('PD00-SSP-GOV')
+@SectionId('STGO')
 @MapsTo(ProjectPhasePlan)
 class StageGovernance {
   @Form([
@@ -3194,7 +3214,7 @@ class StageGovernance {
 }
 
 /// Governance model details.
-@SectionId('PD00-SSP-GOV-MOD')
+@SectionId('STGOMO')
 class StageGovernanceModel {
   @Form([
     Field('governanceCharter', String, 'Governance Charter',
@@ -3204,7 +3224,7 @@ class StageGovernanceModel {
 }
 
 /// Authority and oversight.
-@SectionId('PD00-SSP-GOV-AUT')
+@SectionId('STGOAU')
 class StageGovernanceAuthority {
   @Form([
     Field('governanceBoardName', String, 'Governance Board Name',
@@ -3223,7 +3243,7 @@ class StageGovernanceAuthority {
 }
 
 /// Escalation paths and triggers.
-@SectionId('PD00-SSP-GOV-ESC')
+@SectionId('STGOES')
 class StageGovernanceEscalation {
   @Form([
     Field('escalationPath', String, 'Escalation Path',
@@ -3237,7 +3257,7 @@ class StageGovernanceEscalation {
 }
 
 /// Meeting cadence and process.
-@SectionId('PD00-SSP-GOV-CAD')
+@SectionId('STGOCA')
 class StageGovernanceCadence {
   @Form([
     Field('governanceMeetingCadence', String, 'Governance Meeting Cadence',
@@ -3256,7 +3276,7 @@ class StageGovernanceCadence {
 }
 
 /// Compliance and audit requirements.
-@SectionId('PD00-SSP-GOV-CMP')
+@SectionId('STGOCO')
 class StageGovernanceCompliance {
   @Form([
     Field('complianceRequirements', String, 'Compliance Requirements',
@@ -3273,7 +3293,7 @@ class StageGovernanceCompliance {
 }
 
 /// Metrics and reporting.
-@SectionId('PD00-SSP-GOV-MET')
+@SectionId('STGOME')
 class StageGovernanceMetrics {
   @Form([
     Field('governanceKpis', String, 'Governance KPIs',
@@ -3287,7 +3307,7 @@ class StageGovernanceMetrics {
 }
 
 /// Stage transition rules.
-@SectionId('PD00-SSP-GOV-TRN')
+@SectionId('STGOTR')
 class StageGovernanceTransition {
   @Form([
     Field('stageTransitionPolicy', String, 'Stage Transition Policy',
@@ -3309,7 +3329,7 @@ class StageGovernanceTransition {
 /// Defines the phase gate review process: what is reviewed at each
 /// gate, who participates, what evidence is required, and what
 /// outcomes are possible (proceed, rework, cancel, conditional).
-@SectionId('PD00-SSP-GOV-GAT')
+@SectionId('PHGARE')
 @DetailedIn(ProjectPhasePlan)
 @SecondLevelSectionId(ProjectPhasePlan, 'PPP-GAT')
 class PhaseGateReviews {
@@ -3347,12 +3367,13 @@ class PhaseGateReviews {
   TextSection gateReviewNarrative = TextSection();
 
   /// Contains 0+× PhaseGateReviewEntry.
-  @SectionIdPattern('PD00-SSP-GOV-GAT-xx')
+  @SectionId('PGRE-LST')
+  @SectionIdPattern('PGRE-xxx')
   List<PhaseGateReviewEntry> items = [];
 }
 
 /// Standard participants and evidence package.
-@SectionId('PD00-SSP-GOV-GAT-PRE')
+@SectionId('PGRP')
 class PhaseGateReviewsPreparation {
   @Form([
     Field('mandatoryAttendees', String, 'Mandatory Attendees',
@@ -3379,7 +3400,7 @@ class PhaseGateReviewsPreparation {
 }
 
 /// Gate decision outcomes and follow-up rules.
-@SectionId('PD00-SSP-GOV-GAT-OUT')
+@SectionId('PGRO')
 class PhaseGateReviewsOutcomes {
   @Form([
     Field('possibleOutcomes', String, 'Possible Outcomes',
@@ -3410,6 +3431,7 @@ class PhaseGateReviewsOutcomes {
 ///
 /// Defines a single phase gate with its criteria, participants,
 /// required evidence, entry/exit conditions, and review schedule.
+@SectionId('PGRE1')
 class PhaseGateReviewEntry {
   @Form([
     Field('gateName', String, 'Gate Name',
@@ -3446,12 +3468,13 @@ class PhaseGateReviewEntry {
   TextSection gateNarrative = TextSection();
 
   /// Contains 0+× ReviewCriterionEntry.
-  @SectionIdPattern('PD00-SSP-GOV-GAT-xx-RCR-xx')
+  @SectionId('RVCRI-LST')
+  @SectionIdPattern('RVCRI-xxx')
   List<ReviewCriterionEntry> reviewCriteria = [];
 }
 
 /// Gate identity.
-@SectionId('PD00-SSP-GOV-GAT-ENT-IDN')
+@SectionId('PHGAID')
 class PhaseGateIdentity {
   @Form([
     Field('gateDescription', String, 'Gate Description',
@@ -3463,7 +3486,7 @@ class PhaseGateIdentity {
 }
 
 /// Authority and participants.
-@SectionId('PD00-SSP-GOV-GAT-ENT-AUT')
+@SectionId('PHGAAU')
 class PhaseGateAuthority {
   @Form([
     Field('decisionAuthority', String, 'Decision Authority',
@@ -3479,7 +3502,7 @@ class PhaseGateAuthority {
 }
 
 /// Schedule.
-@SectionId('PD00-SSP-GOV-GAT-ENT-SCH')
+@SectionId('PHGASC')
 class PhaseGateSchedule {
   @Form([
     Field('scheduledDate', String, 'Scheduled Date',
@@ -3493,7 +3516,7 @@ class PhaseGateSchedule {
 }
 
 /// Entry conditions.
-@SectionId('PD00-SSP-GOV-GAT-ENT-ENT')
+@SectionId('PHGAEN')
 class PhaseGateEntry {
   @Form([
     Field('entryCriteria', String, 'Entry Criteria',
@@ -3505,7 +3528,7 @@ class PhaseGateEntry {
 }
 
 /// Evidence.
-@SectionId('PD00-SSP-GOV-GAT-ENT-EVD')
+@SectionId('PHGAEV')
 class PhaseGateEvidence {
   @Form([
     Field('requiredEvidence', String, 'Required Evidence',
@@ -3519,7 +3542,7 @@ class PhaseGateEvidence {
 }
 
 /// Exit conditions and outcome.
-@SectionId('PD00-SSP-GOV-GAT-ENT-EXT')
+@SectionId('PHGAEX')
 class PhaseGateExit {
   @Form([
     Field('exitCriteria', String, 'Exit Criteria',
@@ -3544,6 +3567,7 @@ class PhaseGateExit {
 ///
 /// A single criterion evaluated at a phase gate, with weight,
 /// evidence linkage, and assessment result.
+@SectionId('RVCRI')
 class ReviewCriterionEntry {
   @Form([
     Field('criterion', String, 'Criterion',
@@ -3572,7 +3596,7 @@ class ReviewCriterionEntry {
 }
 
 /// How this criterion is measured and weighted.
-@SectionId('PD00-SSP-GOV-GAT-RCR-ENT-ASS')
+@SectionId('RCEA')
 class ReviewCriterionEntryAssessment {
   @Form([
     Field('weight', String, 'Weight',
@@ -3600,7 +3624,7 @@ class ReviewCriterionEntryAssessment {
 }
 
 /// Post-review result and remediation status.
-@SectionId('PD00-SSP-GOV-GAT-RCR-ENT-RES')
+@SectionId('RCER')
 class ReviewCriterionEntryResult {
   @Form([
     Field('assessmentResult', String, 'Assessment Result',
@@ -3624,7 +3648,7 @@ class ReviewCriterionEntryResult {
 /// decisions, scope adjustments, resource reallocations, and
 /// technology selections. Each decision point has defined timing,
 /// criteria, authority, options, and impact analysis.
-@SectionId('PD00-SSP-GOV-DEC')
+@SectionId('DEPO')
 @DetailedIn(ProjectPhasePlan)
 @SecondLevelSectionId(ProjectPhasePlan, 'PPP-DEC')
 class DecisionPoints {
@@ -3669,7 +3693,8 @@ class DecisionPoints {
   TextSection decisionFrameworkNarrative = TextSection();
 
   /// Contains 0+× DecisionPointEntry.
-  @SectionIdPattern('PD00-SSP-GOV-DEC-xx')
+  @SectionId('DEPOEN-LST')
+  @SectionIdPattern('DEPOEN-xxx')
   List<DecisionPointEntry> items = [];
 }
 
@@ -3678,6 +3703,7 @@ class DecisionPoints {
 /// A single formal decision point with defined timing, criteria,
 /// authority, available options with impact analysis, and recording
 /// of the actual decision and its rationale.
+@SectionId('DPE')
 class DecisionPointEntry {
   @Form([
     Field('decisionId', String, 'Decision ID',
@@ -3710,7 +3736,7 @@ class DecisionPointEntry {
 }
 
 /// Context and timing for decision point.
-@SectionId('PD00-SSP-GOV-DEC-ENT-CTX')
+@SectionId('DPEC')
 class DecisionPointEntryContext {
   @Form([
     Field('decisionDescription', String, 'Decision Description',
@@ -3733,7 +3759,7 @@ class DecisionPointEntryContext {
 }
 
 /// Stakeholder assignments for decision point.
-@SectionId('PD00-SSP-GOV-DEC-ENT-STK')
+@SectionId('DPES')
 class DecisionPointEntryStakeholders {
   @Form([
     Field('decisionAuthority', String, 'Decision Authority',
@@ -3754,7 +3780,7 @@ class DecisionPointEntryStakeholders {
 }
 
 /// Criteria and inputs for decision point.
-@SectionId('PD00-SSP-GOV-DEC-ENT-CRI')
+@SectionId('DPEC1')
 class DecisionPointEntryCriteria {
   @Form([
     Field('decisionCriteria', String, 'Decision Criteria',
@@ -3776,7 +3802,7 @@ class DecisionPointEntryCriteria {
 }
 
 /// Resolution details for decision point.
-@SectionId('PD00-SSP-GOV-DEC-ENT-RES')
+@SectionId('DPER')
 class DecisionPointEntryResolution {
   @Form([
     Field('selectedOption', String, 'Selected Option',
@@ -3808,7 +3834,8 @@ class DecisionPointEntryResolution {
   TextSection decisionNarrative = TextSection();
 
   /// Contains 0+× DecisionOptionEntry.
-  @SectionIdPattern('PD00-SSP-GOV-DEC-xx-OPT-xx')
+  @SectionId('DEOPEN-LST')
+  @SectionIdPattern('DEOPEN-xxx')
   List<DecisionOptionEntry> options = [];
 }
 
@@ -3816,6 +3843,7 @@ class DecisionPointEntryResolution {
 ///
 /// One of the available options for a decision point, with full
 /// impact analysis, feasibility assessment, and trade-off evaluation.
+@SectionId('DOE')
 class DecisionOptionEntry {
   @Form([
     Field('optionId', String, 'Option ID',
@@ -3846,7 +3874,7 @@ class DecisionOptionEntry {
 }
 
 /// Recommendation flags.
-@SectionId('PD00-SSP-GOV-DEC-OPT-ENT-SEL')
+@SectionId('DOES')
 class DecisionOptionEntrySelection {
   @Form([
     Field('isDefault', String, 'Is Default Option',
@@ -3862,7 +3890,7 @@ class DecisionOptionEntrySelection {
 }
 
 /// Impact analysis.
-@SectionId('PD00-SSP-GOV-DEC-OPT-ENT-IMP')
+@SectionId('DOEI')
 class DecisionOptionEntryImpact {
   @Form([
     Field('costImpact', String, 'Cost Impact',
@@ -3893,7 +3921,7 @@ class DecisionOptionEntryImpact {
 }
 
 /// Feasibility assessment.
-@SectionId('PD00-SSP-GOV-DEC-OPT-ENT-FEA')
+@SectionId('DOEF')
 class DecisionOptionEntryFeasibility {
   @Form([
     Field('technicalFeasibility', String, 'Technical Feasibility',
@@ -3914,7 +3942,7 @@ class DecisionOptionEntryFeasibility {
 }
 
 /// Trade-offs and reversibility.
-@SectionId('PD00-SSP-GOV-DEC-OPT-ENT-TRD')
+@SectionId('DOETO')
 class DecisionOptionEntryTradeOffs {
   @Form([
     Field('advantages', String, 'Advantages',
@@ -3947,7 +3975,7 @@ class DecisionOptionEntryTradeOffs {
 /// Inter-phase dependencies during the initial build (Phases 1–7 of
 /// `tom_system_creation.md`). Covers PPP-IDV content the mapping calls out
 /// as "new in PPP".
-@SectionId('PD00-SSP-IDV')
+@SectionId('INDEFL')
 @DetailedIn(ProjectPhasePlan)
 @SecondLevelSectionId(ProjectPhasePlan, 'PPP-IDV')
 class InitialDevelopmentFlow {
@@ -3974,7 +4002,7 @@ dependencies, parallel work streams, and synchronization points.
 ///
 /// Post-development upgrade cycle framework. Links the upgrade process
 /// defined in `_ai/quests/tom_specs/tom_system_upgrade.md`.
-@SectionId('PD00-SSP-UPG')
+@SectionId('UPCYFR')
 @DetailedIn(ProjectPhasePlan)
 @SecondLevelSectionId(ProjectPhasePlan, 'PPP-UPG')
 class UpgradeCycleFramework {

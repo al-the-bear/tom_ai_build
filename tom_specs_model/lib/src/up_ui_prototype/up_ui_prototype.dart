@@ -24,7 +24,7 @@ import '../pd_project_definition/pd_project_definition.dart';
       'wireframes/mockups.',
   basedOn: [ProjectDefinition],
 )
-@SectionId('UP00')
+@SectionId('UP')
 class UiPrototype {
   @ContentHelp('Executive overview of the UI prototype and design system.')
   String? content;

@@ -24,7 +24,7 @@ import '../pd_project_definition/pd_project_definition.dart';
       'to tom_system_upgrade.md).',
   basedOn: [ProjectDefinition],
 )
-@SectionId('PPP00')
+@SectionId('PPP')
 class ProjectPhasePlan {
   @ContentHelp('Executive overview of the phase plan and its gate model.')
   String? content;
@@ -39,7 +39,8 @@ class ProjectPhasePlan {
   StageOverview stageOverview = StageOverview();
 
   /// Stages — PD00-SSP-STG (list).
-  @SectionIdPattern('PD00-SSP-STG-xx')
+  @SectionId('STAGE-LST')
+  @SectionIdPattern('STAGE-xxx')
   @Min(1)
   List<StageEntry> stages = [];
 

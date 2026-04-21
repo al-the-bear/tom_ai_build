@@ -22,7 +22,7 @@ import '../pd_project_definition/pd_project_definition.dart';
       'workflows, cross-process analysis, exceptions, and KPIs.',
   basedOn: [ProjectDefinition],
 )
-@SectionId('BP00')
+@SectionId('BP')
 class BusinessProcesses {
   @ContentHelp('Executive overview of the target business process model.')
   String? content;

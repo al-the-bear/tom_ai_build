@@ -23,7 +23,7 @@ import '../pd_project_definition/pd_project_definition.dart';
       'encryption, audit, role matrix, and compliance framework.',
   basedOn: [ProjectDefinition],
 )
-@SectionId('AC00')
+@SectionId('AC')
 class AuthorizationConcept {
   @ContentHelp('Executive overview of the access and authorization concept.')
   String? content;

@@ -13,7 +13,7 @@ import '../document_stubs.dart';
 /// subsections seed the TR document, where component choices are expanded
 /// into detailed dependency analysis, version requirements, licensing,
 /// and integration patterns.
-@SectionId('PD00-COM')
+@SectionId('COMP')
 @Comment('Seeds → TR')
 @MapsTo(TechnicalRequirementsSpec)
 @DetailedIn(TechnicalRequirementsSpec)
@@ -50,11 +50,11 @@ Each component should specify:
     ComponentStrategy strategy = ComponentStrategy();
 
     /// 12.2. Component Catalog [PD00-COM-COM] — contains 0+× Component.
-    @SectionIdPattern('PD00-COM-COM-xx')
+    @SectionId('CMPNT-LST')
+    @SectionIdPattern('CMPNT-xxx')
     List<ComponentEntry> componentCatalog = [];
 
     /// 12.3. Component Role In System [PD00-COM-ROL].
-    @SectionId('PD00-COM-ROL')
     TextSection componentRoleInSystem = TextSection();
 
     /// 12.4. Runtime Dependencies [PD00-COM-RUN].
@@ -76,7 +76,7 @@ Each component should specify:
 /// Overall component strategy: build-vs-buy philosophy, preferred vendors,
 /// technology stack alignment, governance, evaluation cadence, and portfolio
 /// management.
-@SectionId('PD00-COM-STR')
+@SectionId('CMSTR')
 class ComponentStrategy {
     @Form([
         Field('buildVsBuyPhilosophy', String, 'Build vs. Buy Philosophy',
@@ -108,7 +108,8 @@ class ComponentStrategy {
     ComponentStrategyPlanning planning = ComponentStrategyPlanning();
 
     /// 12.1.1. Reuse Goals [PD00-COM-STR-GOA] — contains 0+× ReuseGoal.
-    @SectionIdPattern('PD00-COM-STR-GOA-xx')
+    @SectionId('RGUSE-LST')
+    @SectionIdPattern('RGUSE-xxx')
     List<ReuseGoalEntry> reuseGoals = [];
 
     /// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
@@ -116,7 +117,7 @@ class ComponentStrategy {
 }
 
 /// Vendor preferences and exceptions.
-@SectionId('PD00-COM-STR-VEN')
+@SectionId('CSVND')
 class ComponentStrategyVendors {
     @Form([
         Field('preferredVendors', String, 'Preferred Vendors',
@@ -133,7 +134,7 @@ class ComponentStrategyVendors {
 }
 
 /// Governance and evaluation process.
-@SectionId('PD00-COM-STR-GOV')
+@SectionId('CSGOV')
 class ComponentStrategyGovernance {
     @Form([
         Field('governanceModel', String, 'Governance Model',
@@ -150,7 +151,7 @@ class ComponentStrategyGovernance {
 }
 
 /// Portfolio management settings.
-@SectionId('PD00-COM-STR-POR')
+@SectionId('CSPRT')
 class ComponentStrategyPortfolio {
     @Form([
         Field('portfolioVisibility', String, 'Portfolio Visibility',
@@ -169,7 +170,7 @@ class ComponentStrategyPortfolio {
 }
 
 /// Policy and baseline requirements.
-@SectionId('PD00-COM-STR-POL')
+@SectionId('CSPOL')
 class ComponentStrategyPolicies {
     @Form([
         Field('openSourcePolicy', String, 'Open-Source Policy',
@@ -193,7 +194,7 @@ class ComponentStrategyPolicies {
 }
 
 /// Budget and pilot planning.
-@SectionId('PD00-COM-STR-PLN')
+@SectionId('CSPLN')
 class ComponentStrategyPlanning {
     @Form([
         Field('pilotProcessDescription', String, 'Pilot Process',
@@ -210,7 +211,7 @@ class ComponentStrategyPlanning {
 ///
 /// Defines a specific reuse target: what to reuse, why, at what percentage,
 /// how to measure, and who owns the goal.
-@SectionId('PD00-COM-STR-REU')
+@SectionId('RGUSE')
 class ReuseGoalEntry {
   @Form([
     Field('goalId', String, 'Goal ID',
@@ -239,7 +240,7 @@ class ReuseGoalEntry {
 }
 
 /// Measurement and scope.
-@SectionId('PD00-COM-STR-REU-MEA')
+@SectionId('RGUMS')
 class ReuseGoalEntryMeasurement {
   @Form([
     Field('scope', String, 'Scope',
@@ -258,7 +259,7 @@ class ReuseGoalEntryMeasurement {
 }
 
 /// Governance and ownership.
-@SectionId('PD00-COM-STR-REU-GOV')
+@SectionId('RGUGV')
 class ReuseGoalEntryGovernance {
   @Form([
     Field('priority', String, 'Priority',
@@ -272,7 +273,7 @@ class ReuseGoalEntryGovernance {
 }
 
 /// Delivery support and assets.
-@SectionId('PD00-COM-STR-REU-ENA')
+@SectionId('RGENB')
 class ReuseGoalEntryEnablement {
   @Form([
     Field('blockers', String, 'Known Blockers',
@@ -290,7 +291,7 @@ class ReuseGoalEntryEnablement {
 ///
 /// Container for component evaluation criteria used when assessing
 /// candidate components for adoption.
-@SectionId('PD00-COM-STR-EVA')
+@SectionId('EVCRI')
 class EvaluationCriteria {
   @ContentHelp('''
 ## Evaluation Criteria (12.1.2)
@@ -316,7 +317,8 @@ Each criterion includes:
   String? content;
 
   /// Contains 0+× EvaluationCriterion.
-  @SectionIdPattern('PD00-COM-STR-EVA-xx')
+  @SectionId('EVCEN-LST')
+  @SectionIdPattern('EVCEN-xxx')
   List<EvaluationCriterionEntry> items = [];
 }
 
@@ -324,7 +326,7 @@ Each criterion includes:
 ///
 /// Defines one criterion for evaluating candidate components: scoring scale,
 /// threshold, evidence requirements, and evaluation method.
-@SectionId('PD00-COM-STR-EVA-ENT')
+@SectionId('EVCEN')
 class EvaluationCriterionEntry {
   @Form([
     Field('criterionId', String, 'Criterion ID',
@@ -351,7 +353,7 @@ class EvaluationCriterionEntry {
 }
 
 /// Scoring settings.
-@SectionId('PD00-COM-STR-EVA-ENT-SCO')
+@SectionId('EVCES')
 class EvaluationCriterionEntryScoring {
   @Form([
     Field('weight', int, 'Weight (%)',
@@ -368,7 +370,7 @@ class EvaluationCriterionEntryScoring {
 }
 
 /// Evaluation process.
-@SectionId('PD00-COM-STR-EVA-ENT-PRO')
+@SectionId('EVCEP')
 class EvaluationCriterionEntryProcess {
   @Form([
     Field('evidenceRequired', String, 'Evidence Required',
@@ -387,7 +389,7 @@ class EvaluationCriterionEntryProcess {
 }
 
 /// Scoring guidelines and scope.
-@SectionId('PD00-COM-STR-EVA-ENT-GUI')
+@SectionId('EVCEG')
 class EvaluationCriterionEntryGuidelines {
   @Form([
     Field('scoringGuidelineLow', String, 'Score Low — Poor',
@@ -412,7 +414,7 @@ class EvaluationCriterionEntryGuidelines {
 /// Describes a single external or standard component planned for use:
 /// vendor assessment, maturity, security, cost, deployment model, licensing,
 /// interfaces, and responsibilities.
-@SectionId('PD00-COM-STR-CMP')
+@SectionId('CMPNT')
 class ComponentEntry {
   @Form([
     Field('componentId', String, 'Component ID',
@@ -452,7 +454,8 @@ class ComponentEntry {
   final ComponentDocs docs = ComponentDocs();
 
   /// Interfaces [PD00-COM-COM-nn-INT] — contains 0+× ComponentInterface.
-  @SectionIdPattern('PD00-COM-COM-xx-INT-xx')
+  @SectionId('CMIF-LST')
+  @SectionIdPattern('CMIF-xxx')
   List<ComponentInterfaceEntry> interfaces = [];
 
   /// Licensing [PD00-COM-COM-nn-LIC] (form).
@@ -466,7 +469,7 @@ class ComponentEntry {
 }
 
 /// Vendor for component.
-@SectionId('PD00-COM-STR-CMP-VEN')
+@SectionId('CMPVD')
 class ComponentVendor {
   @Form([
     Field('version', String, 'Version',
@@ -482,7 +485,7 @@ class ComponentVendor {
 }
 
 /// Maturity for component.
-@SectionId('PD00-COM-STR-CMP-MAT')
+@SectionId('CMPMT')
 class ComponentMaturity {
   @Form([
     Field('maturityLevel', String, 'Maturity Level',
@@ -496,7 +499,7 @@ class ComponentMaturity {
 }
 
 /// Support for component.
-@SectionId('PD00-COM-STR-CMP-SUP')
+@SectionId('CMPSP')
 class ComponentSupport {
   @Form([
     Field('supportModel', String, 'Support Model',
@@ -510,7 +513,7 @@ class ComponentSupport {
 }
 
 /// Performance for component.
-@SectionId('PD00-COM-STR-CMP-PER')
+@SectionId('CMPPF')
 class ComponentPerformance {
   @Form([
     Field('performanceBenchmark', String, 'Performance Characteristics',
@@ -522,7 +525,7 @@ class ComponentPerformance {
 }
 
 /// Deployment for component.
-@SectionId('PD00-COM-STR-CMP-DEP')
+@SectionId('CMPDP')
 class ComponentDeployment {
   @Form([
     Field('deploymentModel', String, 'Deployment Model',
@@ -534,7 +537,7 @@ class ComponentDeployment {
 }
 
 /// Cost for component.
-@SectionId('PD00-COM-STR-CMP-CST')
+@SectionId('COCO')
 class ComponentCost {
   @Form([
     Field('totalCostFirstYear', String, 'First-Year TCO',
@@ -546,7 +549,7 @@ class ComponentCost {
 }
 
 /// Compliance for component.
-@SectionId('PD00-COM-STR-CMP-CPL')
+@SectionId('COCO1')
 class ComponentCompliance {
   @Form([
     Field('complianceCertifications', String, 'Compliance Certifications',
@@ -558,7 +561,7 @@ class ComponentCompliance {
 }
 
 /// Risk for component.
-@SectionId('PD00-COM-STR-CMP-RSK')
+@SectionId('CORI')
 class ComponentRisk {
   @Form([
     Field('replacementDifficulty', String, 'Replacement Difficulty',
@@ -572,7 +575,7 @@ class ComponentRisk {
 }
 
 /// Docs for component.
-@SectionId('PD00-COM-STR-CMP-DOC')
+@SectionId('CODO')
 class ComponentDocs {
   @Form([
     Field('documentationQuality', String, 'Documentation Quality',
@@ -591,7 +594,7 @@ class ComponentDocs {
 ///
 /// Describes one interface exposed or consumed by a component: protocol,
 /// authentication, data format, rate limits, versioning, SLA, monitoring.
-@SectionId('PD00-COM-STR-CMP-INT')
+@SectionId('CMIF')
 class ComponentInterfaceEntry {
   @Form([
     Field('interfaceName', String, 'Interface Name',
@@ -621,7 +624,7 @@ class ComponentInterfaceEntry {
 }
 
 /// Network configuration for component interface.
-@SectionId('PD00-COM-STR-CMP-INT-NET')
+@SectionId('CIEN')
 class ComponentInterfaceEntryNetwork {
   @Form([
     Field('port', int, 'Default Port',
@@ -635,7 +638,7 @@ class ComponentInterfaceEntryNetwork {
 }
 
 /// Security settings for component interface.
-@SectionId('PD00-COM-STR-CMP-INT-SEC')
+@SectionId('CIES')
 class ComponentInterfaceEntrySecurity {
   @Form([
     Field('authenticationMethod', String, 'Authentication',
@@ -649,7 +652,7 @@ class ComponentInterfaceEntrySecurity {
 }
 
 /// Data format configuration for component interface.
-@SectionId('PD00-COM-STR-CMP-INT-DAT')
+@SectionId('CIED')
 class ComponentInterfaceEntryData {
   @Form([
     Field('dataFormatRequest', String, 'Request Format',
@@ -667,7 +670,7 @@ class ComponentInterfaceEntryData {
 }
 
 /// SLA and monitoring for component interface.
-@SectionId('PD00-COM-STR-CMP-INT-SLA')
+@SectionId('CIES1')
 class ComponentInterfaceEntrySla {
   @Form([
     Field('slaAvailability', String, 'Availability SLA',
@@ -683,7 +686,7 @@ class ComponentInterfaceEntrySla {
 }
 
 /// Operations and documentation for component interface.
-@SectionId('PD00-COM-STR-CMP-INT-OPS')
+@SectionId('CIEO')
 class ComponentInterfaceEntryOperations {
   @Form([
     Field('retryPolicy', String, 'Recommended Retry Policy',
@@ -700,7 +703,7 @@ class ComponentInterfaceEntryOperations {
 ///
 /// Detailed licensing information: model, cost, compliance, open-source
 /// obligations, audit requirements, geographic restrictions, usage metrics.
-@SectionId('PD00-COM-STR-CMP-LIC')
+@SectionId('COLIEN')
 class ComponentLicensingEntry {
   @Form([
     Field('licenseModel', String, 'License Model',
@@ -732,7 +735,7 @@ class ComponentLicensingEntry {
 }
 
 /// Cost and renewal details.
-@SectionId('PD00-COM-STR-CMP-LIC-CST')
+@SectionId('CLEC')
 class ComponentLicensingEntryCosts {
   @Form([
     Field('costInitial', String, 'Initial License Cost',
@@ -748,7 +751,7 @@ class ComponentLicensingEntryCosts {
 }
 
 /// Usage rights and obligations.
-@SectionId('PD00-COM-STR-CMP-LIC-RGH')
+@SectionId('CLER')
 class ComponentLicensingEntryRights {
   @Form([
     Field('redistributionRights', String, 'Redistribution Rights',
@@ -767,7 +770,7 @@ class ComponentLicensingEntryRights {
 }
 
 /// Compliance restrictions.
-@SectionId('PD00-COM-STR-CMP-LIC-CPL')
+@SectionId('CLEC1')
 class ComponentLicensingEntryCompliance {
   @Form([
     Field('auditRights', String, 'Vendor Audit Rights',
@@ -783,7 +786,7 @@ class ComponentLicensingEntryCompliance {
 }
 
 /// Metering and capacity rules.
-@SectionId('PD00-COM-STR-CMP-LIC-CAP')
+@SectionId('CLEC2')
 class ComponentLicensingEntryCapacity {
   @Form([
     Field('usageMetricTracked', String, 'Usage Metric',
@@ -799,7 +802,7 @@ class ComponentLicensingEntryCapacity {
 }
 
 /// Contract termination terms.
-@SectionId('PD00-COM-STR-CMP-LIC-CON')
+@SectionId('CLEC3')
 class ComponentLicensingEntryContract {
   @Form([
     Field('terminationClause', String, 'Termination Terms',
@@ -812,7 +815,7 @@ class ComponentLicensingEntryContract {
 ///
 /// Who owns and maintains this component: primary/backup owners, SLA targets,
 /// patch response time, security vulnerability handling, budget allocation.
-@SectionId('PD00-COM-STR-CMP-RSB')
+@SectionId('COREEN')
 class ComponentResponsibilitiesEntry {
   @Form([
     Field('primaryOwner', String, 'Primary Owner',
@@ -842,7 +845,7 @@ class ComponentResponsibilitiesEntry {
 }
 
 /// Vendor support details.
-@SectionId('PD00-COM-STR-CMP-RSB-SUP')
+@SectionId('CRES')
 class ComponentResponsibilitiesEntrySupport {
   @Form([
     Field('vendorSupportContact', String, 'Vendor Support Contact',
@@ -855,7 +858,7 @@ class ComponentResponsibilitiesEntrySupport {
 }
 
 /// SLA commitments.
-@SectionId('PD00-COM-STR-CMP-RSB-SLA')
+@SectionId('CRES1')
 class ComponentResponsibilitiesEntrySla {
   @Form([
     Field('slaUptimeTarget', String, 'Uptime SLA Target',
@@ -869,7 +872,7 @@ class ComponentResponsibilitiesEntrySla {
 }
 
 /// Security and update operations.
-@SectionId('PD00-COM-STR-CMP-RSB-OPS')
+@SectionId('CREO')
 class ComponentResponsibilitiesEntryOperations {
   @Form([
     Field('patchCadence', String, 'Patch Application Cadence',
@@ -891,7 +894,7 @@ class ComponentResponsibilitiesEntryOperations {
 }
 
 /// Governance and planning.
-@SectionId('PD00-COM-STR-CMP-RSB-GOV')
+@SectionId('CREG')
 class ComponentResponsibilitiesEntryGovernance {
   @Form([
     Field('knowledgeBaseLocation', String, 'Knowledge Base',
@@ -916,7 +919,7 @@ class ComponentResponsibilitiesEntryGovernance {
 ///
 /// Runtime dependencies between components: required services, startup order,
 /// health-check dependencies, failover behavior, and version constraints.
-@SectionId('PD00-COM-RUN')
+@SectionId('RUDE')
 class RuntimeDependencies {
   @ContentHelp('''
 ## Runtime Dependencies (12.4)
@@ -942,7 +945,8 @@ strategy, and fallback alternatives.
   String? content;
 
   /// Contains 0+× Runtime Dependency.
-  @SectionIdPattern('PD00-COM-RUN-xx')
+  @SectionId('RNDEP-LST')
+  @SectionIdPattern('RNDEP-xxx')
   List<RuntimeDependencyEntry> items = [];
 }
 
@@ -950,7 +954,7 @@ strategy, and fallback alternatives.
 ///
 /// Maintenance dependencies: version compatibility matrix, coordinated
 /// update sequences, and breaking-change handling.
-@SectionId('PD00-COM-MAI')
+@SectionId('MADE')
 class MaintenanceDependencies {
   @ContentHelp('''
 ## Maintenance Dependencies (12.5)
@@ -975,7 +979,8 @@ Maintenance relationships and update coordination.
   String? content;
 
   /// Contains 0+× Maintenance Dependency.
-  @SectionIdPattern('PD00-COM-MAI-xx')
+  @SectionId('MNDEP-LST')
+  @SectionIdPattern('MNDEP-xxx')
   List<MaintenanceDependencyEntry> items = [];
 }
 
@@ -983,7 +988,7 @@ Maintenance relationships and update coordination.
 ///
 /// Documents one runtime dependency: startup order, health checks,
 /// failover, data flow, latency tolerance, and caching strategy.
-@SectionId('PD00-COM-RUN-ENT')
+@SectionId('RNDEP')
 class RuntimeDependencyEntry {
   @Form([
     Field('dependencyId', String, 'Dependency ID',
@@ -1017,7 +1022,7 @@ class RuntimeDependencyEntry {
 }
 
 /// Versioning and business criticality.
-@SectionId('PD00-COM-RUN-ENT-CLS')
+@SectionId('RDEC')
 class RuntimeDependencyEntryClassification {
   @Form([
     Field('versionConstraint', String, 'Version Constraint',
@@ -1032,7 +1037,7 @@ class RuntimeDependencyEntryClassification {
 }
 
 /// Startup and health behavior.
-@SectionId('PD00-COM-RUN-ENT-STR')
+@SectionId('RDES')
 class RuntimeDependencyEntryStartup {
   @Form([
     Field('startupOrder', int, 'Startup Order',
@@ -1049,7 +1054,7 @@ class RuntimeDependencyEntryStartup {
 }
 
 /// Resilience behavior.
-@SectionId('PD00-COM-RUN-ENT-RES')
+@SectionId('RDER')
 class RuntimeDependencyEntryResilience {
   @Form([
     Field('failoverBehavior', String, 'Failover Behavior',
@@ -1066,7 +1071,7 @@ class RuntimeDependencyEntryResilience {
 }
 
 /// Data flow and network characteristics.
-@SectionId('PD00-COM-RUN-ENT-INT')
+@SectionId('RDEI')
 class RuntimeDependencyEntryIntegration {
   @Form([
     Field('dataFlowDirection', String, 'Data Flow',
@@ -1082,7 +1087,7 @@ class RuntimeDependencyEntryIntegration {
 }
 
 /// Compatibility and transitive risk notes.
-@SectionId('PD00-COM-RUN-ENT-RSK')
+@SectionId('RDER1')
 class RuntimeDependencyEntryRisk {
   @Form([
     Field('transitiveRisk', String, 'Transitive Dependency Risk',
@@ -1099,7 +1104,7 @@ class RuntimeDependencyEntryRisk {
 ///
 /// Documents one maintenance dependency: coordinated update sequences,
 /// version compatibility, and breaking-change handling.
-@SectionId('PD00-COM-MAI-ENT')
+@SectionId('MNDEP')
 class MaintenanceDependencyEntry {
   @Form([
     Field('dependencyId', String, 'Dependency ID',
@@ -1126,7 +1131,7 @@ class MaintenanceDependencyEntry {
 }
 
 /// Classification and purpose.
-@SectionId('PD00-COM-MAI-ENT-CLS')
+@SectionId('MDEC')
 class MaintenanceDependencyEntryClassification {
   @Form([
     Field('dependencyType', String, 'Dependency Type',
@@ -1141,7 +1146,7 @@ class MaintenanceDependencyEntryClassification {
 }
 
 /// Update coordination.
-@SectionId('PD00-COM-MAI-ENT-UPD')
+@SectionId('MDEU')
 class MaintenanceDependencyEntryUpdate {
   @Form([
     Field('updateStrategy', String, 'Update Strategy',
@@ -1161,7 +1166,7 @@ class MaintenanceDependencyEntryUpdate {
 }
 
 /// Risk and fallback planning.
-@SectionId('PD00-COM-MAI-ENT-RSK')
+@SectionId('MDER')
 class MaintenanceDependencyEntryRisk {
   @Form([
     Field('compatibilityMatrix', String, 'Compatibility Notes',
@@ -1187,7 +1192,7 @@ class MaintenanceDependencyEntryRisk {
 ///
 /// Component risk assessment: identified risks with probability/impact,
 /// monitoring, mitigation strategies, and contingency plans.
-@SectionId('PD00-COM-RIS')
+@SectionId('CORIAS')
 class ComponentRiskAssessment {
   @ContentHelp('''
 ## Risk Assessment (12.6)
@@ -1214,7 +1219,8 @@ Each risk includes:
   String? content;
 
   /// 12.6.1. Component Risks [PD00-COM-RIS-RIS] — contains 0+× Risk.
-  @SectionIdPattern('PD00-COM-RIS-RIS-xx')
+  @SectionId('CMRS-LST')
+  @SectionIdPattern('CMRS-xxx')
   List<ComponentRiskEntry> risks = [];
 
   /// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
@@ -1224,7 +1230,7 @@ Each risk includes:
 /// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
 ///
 /// Container for contingency plans addressing critical component risks.
-@SectionId('PD00-COM-RIS-CON')
+@SectionId('COPL1')
 class ContingencyPlans {
   @ContentHelp('''
 ## Contingency Plans (12.6.2)
@@ -1249,7 +1255,8 @@ Document tools, access, and backups required to execute.
   String? content;
 
   /// Contains 0+× ContingencyPlan.
-  @SectionIdPattern('PD00-COM-RIS-CON-xx')
+  @SectionId('COPL-LST')
+  @SectionIdPattern('COPL-xxx')
   List<ContingencyPlanEntry> items = [];
 }
 
@@ -1257,7 +1264,7 @@ Document tools, access, and backups required to execute.
 ///
 /// Describes one contingency plan for a component risk: trigger conditions,
 /// immediate/recovery actions, RTO/RPO, communication, testing frequency.
-@SectionId('PD00-COM-RIS-CON-ENT')
+@SectionId('COPL')
 class ContingencyPlanEntry {
   @Form([
     Field('contingencyId', String, 'Contingency Plan ID',
@@ -1288,7 +1295,7 @@ class ContingencyPlanEntry {
 }
 
 /// Reference links for contingency plan.
-@SectionId('PD00-COM-RIS-CON-ENT-REF')
+@SectionId('CPER')
 class ContingencyPlanEntryReferences {
   @Form([
     Field('riskRef', String, 'Associated Risk',
@@ -1300,7 +1307,7 @@ class ContingencyPlanEntryReferences {
 }
 
 /// Action steps for contingency plan.
-@SectionId('PD00-COM-RIS-CON-ENT-ACT')
+@SectionId('CPEA')
 class ContingencyPlanEntryActions {
   @Form([
     Field('triggerDetection', String, 'Trigger Detection',
@@ -1314,7 +1321,7 @@ class ContingencyPlanEntryActions {
 }
 
 /// Responsibility and recovery targets for contingency plan.
-@SectionId('PD00-COM-RIS-CON-ENT-RES')
+@SectionId('CPER1')
 class ContingencyPlanEntryResponsibility {
   @Form([
     Field('responsibleParty', String, 'Responsible Party',
@@ -1330,7 +1337,7 @@ class ContingencyPlanEntryResponsibility {
 }
 
 /// Communication plans for contingency.
-@SectionId('PD00-COM-RIS-CON-ENT-COM')
+@SectionId('CPEC')
 class ContingencyPlanEntryCommunication {
   @Form([
     Field('communicationPlan', String, 'Communication Plan',
@@ -1342,7 +1349,7 @@ class ContingencyPlanEntryCommunication {
 }
 
 /// Testing and resources for contingency plan.
-@SectionId('PD00-COM-RIS-CON-ENT-TST')
+@SectionId('CPET')
 class ContingencyPlanEntryTesting {
   @Form([
     Field('testingFrequency', String, 'Testing Frequency',
@@ -1369,7 +1376,7 @@ class ContingencyPlanEntryTesting {
 ///
 /// Documents one component risk: category, probability, impact, detection
 /// methods, mitigation strategy and status, residual risk, and ownership.
-@SectionId('PD00-COM-RIS-ENT')
+@SectionId('CMRS')
 class ComponentRiskEntry {
   @Form([
     Field('riskId', String, 'Risk ID',
@@ -1398,7 +1405,7 @@ class ComponentRiskEntry {
 }
 
 /// Risk description and categorization.
-@SectionId('PD00-COM-RIS-ENT-DES')
+@SectionId('CRED')
 class ComponentRiskEntryDescription {
   @Form([
     Field('riskDescription', String, 'Risk Description',
@@ -1410,7 +1417,7 @@ class ComponentRiskEntryDescription {
 }
 
 /// Risk assessment for component risk.
-@SectionId('PD00-COM-RIS-ENT-ASS')
+@SectionId('CREA')
 class ComponentRiskEntryAssessment {
   @Form([
     Field('probability', String, 'Probability',
@@ -1426,7 +1433,7 @@ class ComponentRiskEntryAssessment {
 }
 
 /// Detection and monitoring for component risk.
-@SectionId('PD00-COM-RIS-ENT-DET')
+@SectionId('CRED1')
 class ComponentRiskEntryDetection {
   @Form([
     Field('detectionMethod', String, 'Detection Method',
@@ -1440,7 +1447,7 @@ class ComponentRiskEntryDetection {
 }
 
 /// Mitigation strategy for component risk.
-@SectionId('PD00-COM-RIS-ENT-MIT')
+@SectionId('CREM')
 class ComponentRiskEntryMitigation {
   @Form([
     Field('mitigationStrategy', String, 'Mitigation Strategy',
@@ -1458,7 +1465,7 @@ class ComponentRiskEntryMitigation {
 }
 
 /// Governance and ownership for component risk.
-@SectionId('PD00-COM-RIS-ENT-GOV')
+@SectionId('CREG1')
 class ComponentRiskEntryGovernance {
   @Form([
     Field('riskOwner', String, 'Risk Owner',

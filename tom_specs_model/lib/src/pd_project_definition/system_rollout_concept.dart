@@ -15,7 +15,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 import '../document_stubs.dart';
 
 /// 15. System Rollout Concept [PD00-ROL]. Seeds → SR.
-@SectionId('PD00-ROL')
+@SectionId('ROLC')
 @Comment('Seeds → SR')
 @MapsTo(SystemRollout)
 class SystemRolloutConcept {
@@ -61,7 +61,7 @@ PD00-USE-MUL localization/translation/documentation subtrees.
 /// Geographic and/or user-group rollout plan covering DR23 Rollout Plan
 /// content: the sequencing of sites, countries, business units, and user
 /// cohorts across the go-live waves.
-@SectionId('PD00-ROL-PLN')
+@SectionId('RLTPLN')
 @DetailedIn(SystemRollout)
 @SecondLevelSectionId(SystemRollout, 'SR-PLN')
 class RolloutPlan {
@@ -89,7 +89,7 @@ pre-go-live to production.
 /// End-to-end system migration plan covering DR22 Migration Plan content:
 /// data, configuration, integration, and user migration from the current
 /// landscape to the target.
-@SectionId('PD00-ROL-MIG')
+@SectionId('MIGPLN')
 @DetailedIn(SystemRollout)
 @SecondLevelSectionId(SystemRollout, 'SR-MIG')
 class MigrationPlan {
@@ -116,7 +116,7 @@ System migration plan distinct from DR22 per-data-entity mapping
 /// 15.3. User Manuals [PD00-ROL-DOC].
 ///
 /// End-user documentation deliverables covering DR15 User Manual content.
-@SectionId('PD00-ROL-DOC')
+@SectionId('USRMAN')
 @DetailedIn(SystemRollout)
 @SecondLevelSectionId(SystemRollout, 'SR-DOC')
 class UserManuals {
@@ -144,7 +144,7 @@ PD00-USE-HLP).
 /// 15.4. Training Materials [PD00-ROL-TRN].
 ///
 /// Training deliverables covering DR17 Training Materials content.
-@SectionId('PD00-ROL-TRN')
+@SectionId('RLTTM')
 @DetailedIn(SystemRollout)
 @SecondLevelSectionId(SystemRollout, 'SR-TRN')
 class RolloutTrainingMaterials {
@@ -171,7 +171,7 @@ captures the catalog of training modules at PD00 level.
 /// 15.5. Pilot Plan [PD00-ROL-PIL].
 ///
 /// Pilot scope, cohort selection, success criteria, and exit decision rules.
-@SectionId('PD00-ROL-PIL')
+@SectionId('PLTPLN')
 @DetailedIn(SystemRollout)
 @SecondLevelSectionId(SystemRollout, 'SR-PIL')
 class PilotPlan {
@@ -199,7 +199,7 @@ success is measured, and the decision gate that authorizes rollout.
 ///
 /// Detailed cutover runbook for go-live. Minute-by-minute procedure
 /// covering the transition from current operation to the target system.
-@SectionId('PD00-ROL-CUT')
+@SectionId('CUTPRC')
 @DetailedIn(SystemRollout)
 @SecondLevelSectionId(SystemRollout, 'SR-CUT')
 class CutoverProcedures {
@@ -228,7 +228,7 @@ waves — and than the Migration Plan — which covers data execution.
 ///
 /// Handover from delivery team to operations. Covers EK09 Handover
 /// Agreement content.
-@SectionId('PD00-ROL-KNO')
+@SectionId('KNTFR')
 @DetailedIn(SystemRollout)
 @SecondLevelSectionId(SystemRollout, 'SR-KNO')
 class KnowledgeTransfer {
@@ -254,7 +254,7 @@ Formal handover of system knowledge to operations and support teams.
 ///
 /// Post-acceptance warranty period terms and support arrangements. Covers
 /// EK10 warranty content and feeds the SR top-level on the same topic.
-@SectionId('PD00-ROL-WAR')
+@SectionId('WRTSP')
 @DetailedIn(SystemRollout)
 @SecondLevelSectionId(SystemRollout, 'SR-WAR')
 class WarrantyAndSupport {

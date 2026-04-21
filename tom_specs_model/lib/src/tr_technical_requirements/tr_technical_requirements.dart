@@ -25,7 +25,7 @@ import '../pd_project_definition/pd_project_definition.dart';
       'components, framework conditions, and translation handling.',
   basedOn: [ProjectDefinition],
 )
-@SectionId('TR00')
+@SectionId('TR')
 class TechnicalRequirementsSpec {
   @ContentHelp('Executive overview of the technical-requirements set.')
   String? content;

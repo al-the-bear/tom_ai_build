@@ -50,7 +50,7 @@ import 'user_interface_design.dart';
       'organizational framework, business processes, data models, technical '
       'framework, security, and user interface design.',
 )
-@SectionId('PD00')
+@SectionId('PD')
 class ProjectDefinition {
   @Unused()
   String? content;

@@ -22,7 +22,7 @@ import '../pd_project_definition/pd_project_definition.dart';
       'risks, replacement inventory, and migration considerations.',
   basedOn: [ProjectDefinition],
 )
-@SectionId('CS00')
+@SectionId('CS')
 class CurrentSituation {
   @ContentHelp('Executive overview of the current-state analysis that '
       'motivates the project.')

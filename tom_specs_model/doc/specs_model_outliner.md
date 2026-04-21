@@ -290,19 +290,72 @@ Declares that a field is a **reference** to data owned elsewhere in the tree, no
 
 ### 7.2 `@SectionId(String id)`
 
-Declares the **section ID** that the annotated class has in the target specification document.
+Declares the **section type ID** of the annotated class or list field. IDs are globally unique, short, flat mnemonics — they identify the *type* of a section, not its position in the document tree.
 
-- Applied to: classes.
-- Effect: The generator can emit the section ID alongside the type name if desired.
-- Example: `@SectionId("PD00-CSA")` → class maps to section PD00-CSA.
+#### Class-level usage
+
+Every model class must have exactly one `@SectionId`. The ID is a **unique mnemonic** of up to 6 uppercase letters (shorter is allowed when the ID is still recognizable):
+
+- Document root classes use their existing short IDs: `PD`, `BSI`, `CS`, `RC`, `BP`, `UC`, `BDM`, `AC`, `PPP`, `TR`, `UP`, `SR`, `BQP`.
+- Top-level section classes directly under a document root may use 3–4 letters: `SYOV`, `CURS`, `ORGA`, etc.
+- All other classes use up to 6 letters derived from the class name, e.g., `EXTSY` for `ExistingSystemEntry`.
+- IDs must be globally unique across all classes and all list field container IDs in the model.
+- When two class names would produce the same mnemonic, the class *higher up* in the document tree (closer to the root) takes priority for the more readable / shorter ID.
+
+```dart
+@SectionId('EXTSY')
+class ExistingSystemEntry { ... }
+```
+
+#### Field-level usage — list container section
+
+When applied to a `List<T>` field, `@SectionId` marks the **container section** for that list. It must follow the pattern `'<elementId>-LST'`, where `<elementId>` is the `@SectionId` of the element type `T`:
+
+```dart
+@SectionId('EXTSY-LST')
+@SectionIdPattern('EXTSY-xxx')
+List<ExistingSystemEntry> systems = [];
+```
+
+The `-LST` suffix uniquely identifies the container section in the global ID namespace.
+
+#### Uniqueness namespace
+
+All `@SectionId` values — whether class-level or field-level (`-LST`) — must be globally unique across the entire model. The validator checks this for both annotation targets in a single pass.
 
 ### 7.3 `@SectionIdPattern(String pattern)`
 
-Declares the **section ID pattern** for items in a `List<T>` field. The pattern uses a suffix (e.g., `-xx`) indicating that each list item gets a unique numbered section.
+Declares the **section ID numbering template** for items in a `List<T>` field. The pattern always has exactly one `-xxx` placeholder suffix which is replaced with a zero-padded counter at document render time.
 
-- Applied to: list fields.
-- Effect: Implies a section level in the document — the field is a section, each list item is a subsection.
-- Example: `@SectionIdPattern("PD00-CSA-SYS-xx")` → first item is `PD00-CSA-SYS-01`, second `PD00-CSA-SYS-02`, etc.
+- Applied to: `List<T>` fields.
+- Always used together with `@SectionId('<elementId>-LST')` on the same field.
+- Pattern format: `'<elementId>-xxx'` where `<elementId>` is the `@SectionId` of the element type `T`.
+- Effect: the field is a section, each list item becomes a numbered subsection. The section *type* is known from the element's own `@SectionId`; the numbering in the live document is derived from the pattern.
+- Example: `@SectionIdPattern('EXTSY-xxx')` → first item renders as `EXTSY-001`, second as `EXTSY-002`, etc.
+
+```dart
+@SectionId('EXTSY-LST')
+@SectionIdPattern('EXTSY-xxx')
+List<ExistingSystemEntry> systems = [];
+```
+
+The element class carries its own `@SectionId`:
+
+```dart
+@SectionId('EXTSY')
+class ExistingSystemEntry { ... }
+```
+
+This means:
+- `EXTSY` is the **type ID** of one existing-system entry section.
+- `EXTSY-LST` is the **container section** (the inventory of all systems).
+- `EXTSY-xxx` is the **numbering template** (instances become `EXTSY-001`, `EXTSY-002`, …).
+
+Nested lists are naturally handled: each level has its own type ID and `-LST` container ID. Section type can always be derived from any instance ID by taking the prefix before `-xxx`.
+
+#### Pattern prefix uniqueness
+
+Pattern prefixes (the part before `-xxx`) must be globally unique across all `@SectionIdPattern` annotations in the model. Because the prefix equals the element type's `@SectionId`, and class IDs are already globally unique, this constraint is automatically satisfied when the naming rules are followed.
 
 ### 7.4 `@Comment(String text)`
 

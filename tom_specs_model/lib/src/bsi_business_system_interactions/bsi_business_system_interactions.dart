@@ -21,7 +21,7 @@ import '../pd_project_definition/pd_project_definition.dart';
       'dependencies, migration, operations, and error handling.',
   basedOn: [ProjectDefinition],
 )
-@SectionId('BSI00')
+@SectionId('BSI')
 class BusinessSystemInteractions {
   @ContentHelp('Executive overview of the system-boundary interaction '
       'specification.')

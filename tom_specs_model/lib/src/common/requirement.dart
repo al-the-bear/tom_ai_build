@@ -8,6 +8,7 @@ import 'enums.dart';
 /// Document-specific requirement types extend this with additional fields.
 /// For example, PD functional requirements add [relatedUseCase],
 /// [relatedBusinessProcess], and [affectedDataEntities].
+@SectionId('REQ')
 class Requirement {
   @Form([
     Field('requirementId', String, 'Requirement Id', required: true),

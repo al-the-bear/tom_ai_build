@@ -25,7 +25,7 @@ import '../pd_project_definition/pd_project_definition.dart';
       'transfer, and warranty/support.',
   basedOn: [ProjectDefinition],
 )
-@SectionId('SR00')
+@SectionId('SR')
 class SystemRollout {
   @ContentHelp('Executive overview of the rollout approach.')
   String? content;

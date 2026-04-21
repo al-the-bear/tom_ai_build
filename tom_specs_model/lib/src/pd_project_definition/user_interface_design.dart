@@ -10,7 +10,7 @@ import '../document_stubs.dart';
 
 
 /// 10. User Interface Design and Prototype [PD00-USE]. Seeds → UP.
-@SectionId('PD00-USE')
+@SectionId('UIDI')
 @Comment('Seeds → UP')
 class UserInterfaceDesign {
   @ContentHelp('''
@@ -111,7 +111,7 @@ to pixel-perfect designs with exact typography and spacing.
 ///
 /// Overall design vision for the user interface, encompassing goals,
 /// principles, and user personas that guide all UI decisions.
-@SectionId('PD00-USE-VIS')
+@SectionId('DEVIZ')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
 @SecondLevelSectionId(UiPrototype, 'UP-VIS')
@@ -157,7 +157,7 @@ library will be configured and extended to express this vision.
 ///
 /// Primary design objectives that the UI must achieve: simplicity, efficiency,
 /// accessibility, consistency, delight. Goals are prioritized for the project.
-@SectionId('PD00-USE-VIS-GOA')
+@SectionId('DEGOL')
 class DesignGoals {
   @ContentHelp('''
 ## Design Goals (10.1.1)
@@ -187,13 +187,15 @@ accessibility goals → semantic labels and focus management.
   TextSection overview = TextSection();
 
   /// Contains 0+× DesignGoal.
-  @SectionIdPattern('PD00-USE-VIS-GOA-xx')
+  @SectionId('DGOEN-LST')
+  @SectionIdPattern('DGOEN-xxx')
   List<DesignGoalEntry> items = [];
 }
 
 /// A design goal entry (form) [PD00-USE-VIS-GOA-nn].
 ///
 /// Each goal represents a measurable UI objective with success criteria.
+@SectionId('DGOEN')
 class DesignGoalEntry {
   @Form([
     Field('goalName', String, 'Goal Name', required: true),
@@ -221,7 +223,7 @@ class DesignGoalEntry {
 ///
 /// Guiding principles for all UI decisions: progressive disclosure, direct
 /// manipulation, feedback, consistency, error prevention.
-@SectionId('PD00-USE-VIS-PRI')
+@SectionId('DEPRI')
 class DesignPrinciples {
   @ContentHelp('''
 ## Design Principles (10.1.2)
@@ -254,13 +256,15 @@ Principles configure shared behaviors:
   TextSection overview = TextSection();
 
   /// Contains 0+× UiDesignPrinciple.
-  @SectionIdPattern('PD00-USE-VIS-PRI-xx')
+  @SectionId('UDPEN-LST')
+  @SectionIdPattern('UDPEN-xxx')
   List<UiDesignPrincipleEntry> items = [];
 }
 
 /// A design principle entry (form) [PD00-USE-VIS-PRI-nn].
 ///
 /// Each principle guides UI decisions with rationale and examples.
+@SectionId('UDPEN')
 class UiDesignPrincipleEntry {
   @Form([
     Field('principleName', String, 'Principle Name', required: true),
@@ -290,7 +294,7 @@ class UiDesignPrincipleEntry {
 ///
 /// Container for user persona definitions. Each persona represents a distinct
 /// user archetype with goals, pain points, and context.
-@SectionId('PD00-USE-VIS-PER')
+@SectionId('USPER')
 class UserPersonas {
   @ContentHelp('''
 ## User Personas (10.1.3)
@@ -324,7 +328,8 @@ Personas inform:
   TextSection overview = TextSection();
 
   /// Contains 1+× Persona.
-  @SectionIdPattern('PD00-USE-VIS-PER-xx')
+  @SectionId('PEREN-LST')
+  @SectionIdPattern('PEREN-xxx')
   @Min(1)
   List<PersonaEntry> items = [];
 }
@@ -332,6 +337,7 @@ Personas inform:
 /// A user persona entry [PD00-USE-VIS-PER-nn] (form).
 ///
 /// Represents a distinct user archetype with detailed context for UI design.
+@SectionId('PEREN')
 class PersonaEntry {
   @Form([
     Field('personaName', String, 'Persona Name', required: true,
@@ -363,7 +369,7 @@ class PersonaEntry {
 }
 
 /// Background and capability profile.
-@SectionId('PD00-USE-VIS-PER-ENT-PRF')
+@SectionId('PEPRF')
 class PersonaEntryProfile {
     @Form([
         Field('bio', String, 'Background',
@@ -377,7 +383,7 @@ class PersonaEntryProfile {
 }
 
 /// Usage environment and device context.
-@SectionId('PD00-USE-VIS-PER-ENT-CTX')
+@SectionId('PECTX')
 class PersonaEntryContext {
     @Form([
         Field('typicalUsage', String, 'Typical Usage',
@@ -393,7 +399,7 @@ class PersonaEntryContext {
 }
 
 /// Motivations, frustrations, and success markers.
-@SectionId('PD00-USE-VIS-PER-ENT-NDS')
+@SectionId('PENDS')
 class PersonaEntryNeeds {
     @Form([
         Field('motivations', String, 'Motivations',
@@ -409,7 +415,7 @@ class PersonaEntryNeeds {
 }
 
 /// 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
-@SectionId('PD00-USE-VIS-PER-xx-GOA')
+@SectionId('PERGL')
 class PersonaGoals {
   @ContentHelp('''
 ## Persona Goals (10.1.3.n.1)
@@ -429,11 +435,13 @@ High-priority goals drive primary screen actions and dashboard widgets.
   String? content;
 
   /// Contains 0+× PersonaGoal.
-  @SectionIdPattern('PD00-USE-VIS-PER-xx-GOA-xx')
+  @SectionId('PGOEN-LST')
+  @SectionIdPattern('PGOEN-xxx')
   List<PersonaGoalEntry> items = [];
 }
 
 /// A persona goal entry (form) [PD00-USE-VIS-PER-nn-GOA-mm].
+@SectionId('PGOEN')
 class PersonaGoalEntry {
   @Form([
     Field('goal', String, 'Goal', required: true),
@@ -450,7 +458,7 @@ class PersonaGoalEntry {
 }
 
 /// 10.1.3.n.2. Persona Pain Points [PD00-USE-VIS-PER-nn-PAI].
-@SectionId('PD00-USE-VIS-PER-xx-PAI')
+@SectionId('PEPPT')
 class PersonaPainPoints {
   @ContentHelp('''
 ## Persona Pain Points (10.1.3.n.2)
@@ -474,11 +482,13 @@ High-severity pain points become design priorities:
   String? content;
 
   /// Contains 0+× PersonaPainPoint.
-  @SectionIdPattern('PD00-USE-VIS-PER-xx-PAI-xx')
+  @SectionId('PPPEN-LST')
+  @SectionIdPattern('PPPEN-xxx')
   List<PersonaPainPointEntry> items = [];
 }
 
 /// A pain point entry (form) [PD00-USE-VIS-PER-nn-PAI-mm].
+@SectionId('PPPEN')
 class PersonaPainPointEntry {
   @Form([
     Field('painPoint', String, 'Pain Point', required: true),
@@ -499,7 +509,7 @@ class PersonaPainPointEntry {
 /// 10.1.3.n.3. Persona Scenarios [PD00-USE-VIS-PER-nn-SCE].
 ///
 /// Key usage scenarios for this persona — helps map personas to screens/flows.
-@SectionId('PD00-USE-VIS-PER-xx-SCE')
+@SectionId('PERSC')
 class PersonaScenarios {
   @ContentHelp('''
 ## Persona Scenarios (10.1.3.n.3)
@@ -523,11 +533,13 @@ Scenarios link to:
   String? content;
 
   /// Contains 0+× PersonaScenario.
-  @SectionIdPattern('PD00-USE-VIS-PER-xx-SCE-xx')
+  @SectionId('PSCEN-LST')
+  @SectionIdPattern('PSCEN-xxx')
   List<PersonaScenarioEntry> items = [];
 }
 
 /// A persona scenario entry (form) [PD00-USE-VIS-PER-nn-SCE-mm].
+@SectionId('PSCEN')
 class PersonaScenarioEntry {
   @Form([
     Field('scenarioName', String, 'Scenario Name', required: true),
@@ -552,10 +564,11 @@ class PersonaScenarioEntry {
 // ---------------------------------------------------------------------------
 
 /// 10.2. Screen Descriptions [PD00-USE-SCR].
-@SectionId('PD00-USE-SCR')
+@SectionId('SCRDZ')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
 @SecondLevelSectionId(UiPrototype, 'UP-SCR')
+@SectionId('SCRDZ')
 class ScreenDescriptions {
   @ContentHelp('''
 ## Screen Descriptions (10.2)
@@ -598,7 +611,7 @@ Each screen should have enough detail to generate:
 ///
 /// Container for screen definitions. Each entry fully describes one application
 /// screen including its purpose, layout zones, elements, actions, and states.
-@SectionId('PD00-USE-SCR-INV')
+@SectionId('SCRINV')
 class ScreenInventory {
   @ContentHelp('''
 ## Screen Inventory (10.2.1)
@@ -637,7 +650,8 @@ Screens generate TomScaffold configurations with:
   TextSection overview = TextSection();
 
   /// Contains 1+× Screen.
-  @SectionIdPattern('PD00-USE-SCR-INV-xx')
+  @SectionId('SCREN-LST')
+  @SectionIdPattern('SCREN-xxx')
   @Min(1)
   List<ScreenEntry> items = [];
 }
@@ -646,6 +660,7 @@ Screens generate TomScaffold configurations with:
 ///
 /// Comprehensive specification of a single application screen, covering
 /// identity, purpose, authorization, layout, elements, and behavior.
+@SectionId('SCREN')
 class ScreenEntry {
   @Form([
     Field('screenId', String, 'Screen ID', required: true,
@@ -682,20 +697,23 @@ class ScreenEntry {
   ScreenStates states = ScreenStates();
 
   /// Contains 0+× ScreenUserCategory.
-  @SectionIdPattern('PD00-USE-SCR-INV-xx-UCT-xx')
+  @SectionId('SCRUSC-LST')
+  @SectionIdPattern('SCRUSC-xxx')
   List<ScreenUserCategoryEntry> userCategories = [];
 
   /// Contains 0+× EntryPoint.
-  @SectionIdPattern('PD00-USE-SCR-INV-xx-EPT-xx')
+  @SectionId('EPNT-LST')
+  @SectionIdPattern('EPNT-xxx')
   List<EntryPointEntry> entryPoints = [];
 
   /// Contains 0+× ScreenResponsiveRule.
-  @SectionIdPattern('PD00-USE-SCR-INV-xx-RSP-xx')
+  @SectionId('SRRE-LST')
+  @SectionIdPattern('SRRE-xxx')
   List<ScreenResponsiveRuleEntry> responsiveRules = [];
 }
 
 /// Classification and routing metadata.
-@SectionId('PD00-USE-SCR-INV-ENT-CLS')
+@SectionId('SCECL')
 class ScreenEntryClassification {
   @Form([
     Field('screenCategory', String, 'Screen Category',
@@ -710,7 +728,7 @@ class ScreenEntryClassification {
 }
 
 /// Access control settings.
-@SectionId('PD00-USE-SCR-INV-ENT-ACC')
+@SectionId('SCEAC')
 class ScreenEntryAccess {
   @Form([
     Field('accessLevel', String, 'Access Level',
@@ -726,7 +744,7 @@ class ScreenEntryAccess {
 }
 
 /// Traceability metadata.
-@SectionId('PD00-USE-SCR-INV-ENT-TRC')
+@SectionId('SCETR')
 class ScreenEntryTraceability {
   @Form([
     Field('relatedUseCases', String, 'Related Use Cases',
@@ -744,7 +762,7 @@ class ScreenEntryTraceability {
 }
 
 /// Presentation metadata.
-@SectionId('PD00-USE-SCR-INV-ENT-PRE')
+@SectionId('SCENPR')
 class ScreenEntryPresentation {
   @Form([
     Field('pageTitleResource', String, 'Page Title Resource',
@@ -767,7 +785,7 @@ class ScreenEntryPresentation {
 /// 10.2.1.n.1. Screen Sections [PD00-USE-SCR-INV-nn-SEC].
 ///
 /// Logical zones within a screen that group related elements.
-@SectionId('PD00-USE-SCR-INV-xx-SEC')
+@SectionId('SCSE')
 class ScreenSections {
   @ContentHelp('''
 ## Screen Sections (10.2.1.n.1)
@@ -798,13 +816,15 @@ Sections map to Flutter layout widgets:
   String? content;
 
   /// Contains 0+× ScreenSection.
-  @SectionIdPattern('PD00-USE-SCR-INV-xx-SEC-xx')
+  @SectionId('SCRSC-LST')
+  @SectionIdPattern('SCRSC-xxx')
   List<ScreenSectionEntry> items = [];
 }
 
 /// A screen section entry (form) [PD00-USE-SCR-INV-nn-SEC-mm].
 ///
 /// A logical zone within a screen: header, toolbar, content area, sidebar, etc.
+@SectionId('SCRSC')
 class ScreenSectionEntry {
   @Form([
     Field('sectionId', String, 'Section ID', required: true,
@@ -826,12 +846,13 @@ class ScreenSectionEntry {
   ScreenSectionEntryBehavior behavior = ScreenSectionEntryBehavior();
 
   /// Contains 0+× ScreenElement within this section.
-  @SectionIdPattern('PD00-USE-SCR-INV-xx-SEC-xx-ELE-xx')
+  @SectionId('SCREL-LST')
+  @SectionIdPattern('SCREL-xxx')
   List<ScreenElementEntry> elements = [];
 }
 
 /// Layout and ordering for the section.
-@SectionId('PD00-USE-SCR-INV-SEC-ENT-LAY')
+@SectionId('SSEL')
 class ScreenSectionEntryLayout {
     @Form([
         Field('layoutDirection', String, 'Layout Direction',
@@ -847,7 +868,7 @@ class ScreenSectionEntryLayout {
 }
 
 /// Visibility and collapse behavior.
-@SectionId('PD00-USE-SCR-INV-SEC-ENT-BEH')
+@SectionId('SSEB')
 class ScreenSectionEntryBehavior {
     @Form([
         Field('collapsible', String, 'Collapsible',
@@ -864,6 +885,7 @@ class ScreenSectionEntryBehavior {
 ///
 /// Any interactive or display element within a screen section: buttons, fields,
 /// data displays, icons, labels, status indicators.
+@SectionId('SCREL')
 class ScreenElementEntry {
   @Form([
     Field('elementId', String, 'Element ID', required: true,
@@ -901,12 +923,13 @@ class ScreenElementEntry {
   ScreenElementDataDisplay? dataDisplay;
 
   /// Contains 0+× ElementValidationRule.
-  @SectionIdPattern('PD00-USE-SCR-INV-xx-SEC-xx-ELE-xx-VAL-xx')
+  @SectionId('EVRE-LST')
+  @SectionIdPattern('EVRE-xxx')
   List<ElementValidationRuleEntry> validationRules = [];
 }
 
 /// Labels and icon resources for screen element.
-@SectionId('PD00-USE-SCR-INV-ELE-ENT-RES')
+@SectionId('SEER')
 class ScreenElementEntryResources {
   @Form([
     Field('labelResource', String, 'Label Resource',
@@ -924,7 +947,7 @@ class ScreenElementEntryResources {
 }
 
 /// Placement and layout settings for screen element.
-@SectionId('PD00-USE-SCR-INV-ELE-ENT-LAY')
+@SectionId('SEEL2')
 class ScreenElementEntryLayout {
   @Form([
     Field('placementOrder', int, 'Placement Order',
@@ -938,7 +961,7 @@ class ScreenElementEntryLayout {
 }
 
 /// Visibility and permission rules for screen element.
-@SectionId('PD00-USE-SCR-INV-ELE-ENT-BEH')
+@SectionId('SEEB')
 class ScreenElementEntryBehavior {
   @Form([
     Field('visibilityCondition', String, 'Visibility Condition',
@@ -956,7 +979,7 @@ class ScreenElementEntryBehavior {
 }
 
 /// Styling and data binding for screen element.
-@SectionId('PD00-USE-SCR-INV-ELE-ENT-PRE')
+@SectionId('SEEP1')
 class ScreenElementEntryPresentation {
   @Form([
     Field('styleVariant', String, 'Style Variant',
@@ -976,7 +999,7 @@ class ScreenElementEntryPresentation {
 /// Action specification for an action-type element (form).
 ///
 /// Defines button/link behavior: action reference, confirmation, navigation.
-@SectionId('PD00-USE-SCR-INV-ELE-ENT-ACT')
+@SectionId('SCELAC')
 class ScreenElementAction {
   @Form([
     Field('actionId', String, 'Action ID',
@@ -1004,7 +1027,7 @@ class ScreenElementAction {
 }
 
 /// Confirmation and execution feedback behavior.
-@SectionId('PD00-USE-SCR-INV-ELE-ENT-ACT-EXE')
+@SectionId('SEAE')
 class ScreenElementActionExecution {
   @Form([
     Field('confirmationRequired', String, 'Confirmation Required',
@@ -1023,7 +1046,7 @@ class ScreenElementActionExecution {
 }
 
 /// Post-action navigation rules.
-@SectionId('PD00-USE-SCR-INV-ELE-ENT-ACT-NAV')
+@SectionId('SEAN')
 class ScreenElementActionNavigation {
   @Form([
     Field('navigateTo', String, 'Navigate To',
@@ -1039,7 +1062,7 @@ class ScreenElementActionNavigation {
 /// Field specification for an input-type element (form).
 ///
 /// Defines input behavior: data type, constraints, validation trigger, masks.
-@SectionId('PD00-USE-SCR-INV-ELE-ENT-FLD')
+@SectionId('SEFS')
 class ScreenElementFieldSpec {
   @Form([
     Field('fieldName', String, 'Field Name',
@@ -1071,7 +1094,7 @@ class ScreenElementFieldSpec {
 }
 
 /// Prefix, suffix, and formatting for field spec.
-@SectionId('PD00-USE-SCR-INV-ELE-ENT-FLD-FMT')
+@SectionId('SEFSF')
 class ScreenElementFieldSpecFormatting {
   @Form([
     Field('prefixResource', String, 'Prefix Resource',
@@ -1087,7 +1110,7 @@ class ScreenElementFieldSpecFormatting {
 }
 
 /// Length and value constraints for field spec.
-@SectionId('PD00-USE-SCR-INV-ELE-ENT-FLD-CON')
+@SectionId('SEFSC')
 class ScreenElementFieldSpecConstraints {
   @Form([
     Field('maxLength', int, 'Max Length',
@@ -1105,7 +1128,7 @@ class ScreenElementFieldSpecConstraints {
 }
 
 /// Validation behavior for field spec.
-@SectionId('PD00-USE-SCR-INV-ELE-ENT-FLD-VAL')
+@SectionId('SEFSV')
 class ScreenElementFieldSpecValidation {
   @Form([
     Field('validationTrigger', String, 'Validation Trigger',
@@ -1123,7 +1146,7 @@ class ScreenElementFieldSpecValidation {
 }
 
 /// Selection and input assistance for field spec.
-@SectionId('PD00-USE-SCR-INV-ELE-ENT-FLD-SEL')
+@SectionId('SEFSS')
 class ScreenElementFieldSpecSelection {
   @Form([
     Field('autocompleteSource', String, 'Autocomplete Source',
@@ -1143,7 +1166,7 @@ class ScreenElementFieldSpecSelection {
 /// Data display specification for display-type elements (form).
 ///
 /// Defines how data is presented: format, empty state, refresh, drill-down.
-@SectionId('PD00-USE-SCR-INV-ELE-ENT-DAT')
+@SectionId('SEDD')
 class ScreenElementDataDisplay {
   @Form([
     Field('dataSource', String, 'Data Source',
@@ -1166,7 +1189,7 @@ class ScreenElementDataDisplay {
 }
 
 /// Refresh and drill-down behavior.
-@SectionId('PD00-USE-SCR-INV-ELE-ENT-DAT-BEH')
+@SectionId('SEDDB')
 class ScreenElementDataDisplayBehavior {
   @Form([
     Field('refreshMode', String, 'Refresh Mode',
@@ -1178,7 +1201,7 @@ class ScreenElementDataDisplayBehavior {
 }
 
 /// Table/list interaction controls.
-@SectionId('PD00-USE-SCR-INV-ELE-ENT-DAT-OPT')
+@SectionId('SEDDO')
 class ScreenElementDataDisplayOptions {
   @Form([
     Field('sortable', String, 'Sortable',
@@ -1196,6 +1219,7 @@ class ScreenElementDataDisplayOptions {
 }
 
 /// A validation rule entry (form) [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-VAL-pp].
+@SectionId('EVRE1')
 class ElementValidationRuleEntry {
   @Form([
     Field('ruleType', String, 'Rule Type', required: true,
@@ -1221,7 +1245,7 @@ class ElementValidationRuleEntry {
 /// 10.2.1.n.2. Screen Actions [PD00-USE-SCR-INV-nn-ACT].
 ///
 /// Top-level actions available on the screen (toolbar, app bar, FAB).
-@SectionId('PD00-USE-SCR-INV-xx-ACT')
+@SectionId('SCAC')
 class ScreenActions {
   @ContentHelp('''
 ## Screen Actions (10.2.1.n.2)
@@ -1245,13 +1269,15 @@ Actions integrate with `TomAction` system:
   String? content;
 
   /// Contains 0+× ScreenAction.
-  @SectionIdPattern('PD00-USE-SCR-INV-xx-ACT-xx')
+  @SectionId('SCRAC-LST')
+  @SectionIdPattern('SCRAC-xxx')
   List<ScreenActionEntry> items = [];
 }
 
 /// A screen action entry (form) [PD00-USE-SCR-INV-nn-ACT-mm].
 ///
 /// A top-level action available on the screen via toolbar, app bar, or FAB.
+@SectionId('SCRAC')
 class ScreenActionEntry {
   @Form([
     Field('actionId', String, 'Action ID', required: true,
@@ -1275,7 +1301,7 @@ class ScreenActionEntry {
 }
 
 /// Visual presentation of the action.
-@SectionId('PD00-USE-SCR-INV-ACT-ENT-VIS')
+@SectionId('SAEV')
 class ScreenActionEntryVisual {
   @Form([
     Field('labelResource', String, 'Label Resource',
@@ -1291,7 +1317,7 @@ class ScreenActionEntryVisual {
 }
 
 /// Visibility, enablement, and permission rules.
-@SectionId('PD00-USE-SCR-INV-ACT-ENT-CON')
+@SectionId('SAEC')
 class ScreenActionEntryConditions {
   @Form([
     Field('visibilityCondition', String, 'Visibility Condition',
@@ -1305,7 +1331,7 @@ class ScreenActionEntryConditions {
 }
 
 /// Confirmation, navigation, and feedback behavior.
-@SectionId('PD00-USE-SCR-INV-ACT-ENT-BEH')
+@SectionId('SAEB')
 class ScreenActionEntryBehavior {
   @Form([
     Field('confirmationRequired', String, 'Confirmation Required',
@@ -1329,7 +1355,7 @@ class ScreenActionEntryBehavior {
 /// 10.2.1.n.3. Screen States [PD00-USE-SCR-INV-nn-STA].
 ///
 /// Different visual/behavioral states the screen can be in.
-@SectionId('PD00-USE-SCR-INV-xx-STA')
+@SectionId('SCST')
 class ScreenStates {
   @ContentHelp('''
 ## Screen States (10.2.1.n.3)
@@ -1359,13 +1385,15 @@ empty states, and error displays.
   String? content;
 
   /// Contains 0+× ScreenState.
-  @SectionIdPattern('PD00-USE-SCR-INV-xx-STA-xx')
+  @SectionId('SCRST-LST')
+  @SectionIdPattern('SCRST-xxx')
   List<ScreenStateEntry> items = [];
 }
 
 /// A screen state entry (form) [PD00-USE-SCR-INV-nn-STA-mm].
 ///
 /// A specific state the screen can be in: loading, empty, error, permission-denied.
+@SectionId('SCRST')
 class ScreenStateEntry {
   @Form([
     Field('stateName', String, 'State Name', required: true,
@@ -1390,6 +1418,7 @@ class ScreenStateEntry {
 }
 
 /// A user category entry (form) [PD00-USE-SCR-INV-nn-UCT-mm].
+@SectionId('SUCE')
 class ScreenUserCategoryEntry {
   @Form([
     Field('categoryName', String, 'Category Name', required: true),
@@ -1402,6 +1431,7 @@ class ScreenUserCategoryEntry {
 }
 
 /// An entry point entry (form) [PD00-USE-SCR-INV-nn-EPT-mm].
+@SectionId('EPNT')
 class EntryPointEntry {
   @Form([
     Field('entryPoint', String, 'Entry Point', required: true,
@@ -1417,6 +1447,7 @@ class EntryPointEntry {
 /// A responsive rule entry (form) [PD00-USE-SCR-INV-nn-RSP-mm].
 ///
 /// How the screen adapts at different breakpoints.
+@SectionId('SRRE1')
 class ScreenResponsiveRuleEntry {
   @Form([
     Field('breakpoint', String, 'Breakpoint', required: true,
@@ -1442,7 +1473,7 @@ class ScreenResponsiveRuleEntry {
 /// Overall information architecture: site map, content hierarchy, navigation
 /// structure, and entry points. Describes how screens relate to each other
 /// and how content is organized across the application.
-@SectionId('PD00-USE-SCR-INF')
+@SectionId('INAR1')
 class InformationArchitecture {
   @ContentHelp('''
 ## Information Architecture (10.2.2)
@@ -1485,7 +1516,7 @@ Overall content organization and navigation structure.
 // ---------------------------------------------------------------------------
 
 /// 10.3. Screen Flow Structure [PD00-USE-SCF].
-@SectionId('PD00-USE-SCF')
+@SectionId('SCFLST')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
 @SecondLevelSectionId(UiPrototype, 'UP-SCF')
@@ -1523,7 +1554,7 @@ Screen flow drives:
 ///
 /// Comprehensive navigation structure: primary, secondary, utility, contextual
 /// navigation, deep linking, navigation guards, and platform adaptation.
-@SectionId('PD00-USE-SCF-NAV')
+@SectionId('NAMO')
 class NavigationModel {
   @ContentHelp('''
 ## Navigation Model (10.3.1)
@@ -1580,7 +1611,7 @@ Navigation model generates:
 /// 10.3.1.1. Navigation Overview [PD00-USE-SCF-NAV-OVR].
 ///
 /// Overall navigation strategy, routing approach, and design decisions.
-@SectionId('PD00-USE-SCF-NAV-OVR')
+@SectionId('NAOV')
 class NavigationOverview {
   @Form([
     Field('navigationStrategy', String, 'Navigation Strategy',
@@ -1611,7 +1642,7 @@ class NavigationOverview {
 /// 10.3.1.2. Navigation Hierarchy [PD00-USE-SCF-NAV-HIE].
 ///
 /// Full navigation tree: groups and items forming the app's navigation structure.
-@SectionId('PD00-USE-SCF-NAV-HIE')
+@SectionId('NAHI')
 class NavigationHierarchy {
   @ContentHelp('''
 ## Navigation Hierarchy (10.3.1.2)
@@ -1641,13 +1672,15 @@ Full navigation tree: groups and items.
   TextSection overview = TextSection();
 
   /// Contains 0+× NavigationGroup.
-  @SectionIdPattern('PD00-USE-SCF-NAV-HIE-xx')
+  @SectionId('NAVGRP-LST')
+  @SectionIdPattern('NAVGRP-xxx')
   List<NavigationGroupEntry> groups = [];
 }
 
 /// A navigation group entry (form) [PD00-USE-SCF-NAV-HIE-nn].
 ///
 /// Logical grouping of navigation items (e.g., "Sales", "Administration").
+@SectionId('NAVGRP')
 class NavigationGroupEntry {
   @Form([
     Field('groupId', String, 'Group ID', required: true,
@@ -1671,12 +1704,13 @@ class NavigationGroupEntry {
   NavigationGroupEntryStructure structure = NavigationGroupEntryStructure();
 
   /// Contains 0+× NavigationItem.
-  @SectionIdPattern('PD00-USE-SCF-NAV-HIE-xx-ITM-xx')
+  @SectionId('NAVIIT-LST')
+  @SectionIdPattern('NAVIIT-xxx')
   List<NavigationItemEntry> items = [];
 }
 
 /// Display and expansion behavior.
-@SectionId('PD00-USE-SCF-NAV-HIE-ENT-DIS')
+@SectionId('NGED')
 class NavigationGroupEntryDisplay {
   @Form([
     Field('displayOrder', int, 'Display Order',
@@ -1692,7 +1726,7 @@ class NavigationGroupEntryDisplay {
 }
 
 /// Access-control settings.
-@SectionId('PD00-USE-SCF-NAV-HIE-ENT-ACC')
+@SectionId('NGEA')
 class NavigationGroupEntryAccess {
   @Form([
     Field('requiredRoles', String, 'Required Roles',
@@ -1706,7 +1740,7 @@ class NavigationGroupEntryAccess {
 }
 
 /// Badge and hierarchy settings.
-@SectionId('PD00-USE-SCF-NAV-HIE-ENT-STR')
+@SectionId('NGES')
 class NavigationGroupEntryStructure {
   @Form([
     Field('badgeType', String, 'Badge Type',
@@ -1726,6 +1760,7 @@ class NavigationGroupEntryStructure {
 /// A navigation item entry (form) [PD00-USE-SCF-NAV-HIE-nn-ITM-mm].
 ///
 /// A single navigable destination within a group.
+@SectionId('NAVIIT')
 class NavigationItemEntry {
   @Form([
     Field('itemId', String, 'Item ID', required: true,
@@ -1754,7 +1789,7 @@ class NavigationItemEntry {
 }
 
 /// Display properties for navigation item.
-@SectionId('PD00-USE-SCF-NAV-HIE-ITM-ENT-DIS')
+@SectionId('NIED')
 class NavigationItemEntryDisplay {
   @Form([
     Field('shortLabel', String, 'Short Label Resource',
@@ -1770,7 +1805,7 @@ class NavigationItemEntryDisplay {
 }
 
 /// Routing configuration for navigation item.
-@SectionId('PD00-USE-SCF-NAV-HIE-ITM-ENT-RTE')
+@SectionId('NIER')
 class NavigationItemEntryRouting {
   @Form([
     Field('targetScreenId', String, 'Target Screen ID',
@@ -1786,7 +1821,7 @@ class NavigationItemEntryRouting {
 }
 
 /// Access control for navigation item.
-@SectionId('PD00-USE-SCF-NAV-HIE-ITM-ENT-ACC')
+@SectionId('NIEA')
 class NavigationItemEntryAccess {
   @Form([
     Field('visibilityCondition', String, 'Visibility Condition',
@@ -1804,7 +1839,7 @@ class NavigationItemEntryAccess {
 }
 
 /// Badge configuration for navigation item.
-@SectionId('PD00-USE-SCF-NAV-HIE-ITM-ENT-BDG')
+@SectionId('NIEB')
 class NavigationItemEntryBadge {
   @Form([
     Field('badgeType', String, 'Badge Type',
@@ -1818,7 +1853,7 @@ class NavigationItemEntryBadge {
 }
 
 /// Interaction settings for navigation item.
-@SectionId('PD00-USE-SCF-NAV-HIE-ITM-ENT-INT')
+@SectionId('NIEI')
 class NavigationItemEntryInteraction {
   @Form([
     Field('keyboardShortcut', String, 'Keyboard Shortcut',
@@ -1840,7 +1875,7 @@ class NavigationItemEntryInteraction {
 /// 10.3.1.3. Primary Navigation [PD00-USE-SCF-NAV-PRI].
 ///
 /// How the main navigation appears across platforms: drawer, sidebar, bottom nav.
-@SectionId('PD00-USE-SCF-NAV-PRI')
+@SectionId('PRNA')
 class PrimaryNavigation {
   @Form([
     Field('mobilePattern', String, 'Mobile Pattern',
@@ -1866,7 +1901,7 @@ class PrimaryNavigation {
 }
 
 /// Drawer and rail behavior.
-@SectionId('PD00-USE-SCF-NAV-PRI-DWR')
+@SectionId('PRNADR')
 class PrimaryNavigationDrawer {
   @Form([
     Field('drawerBehavior', String, 'Drawer Behavior',
@@ -1882,7 +1917,7 @@ class PrimaryNavigationDrawer {
 }
 
 /// Bottom navigation rules.
-@SectionId('PD00-USE-SCF-NAV-PRI-BTM')
+@SectionId('PNBN')
 class PrimaryNavigationBottomNav {
   @Form([
     Field('bottomNavMaxItems', int, 'Bottom Nav Max Items',
@@ -1896,7 +1931,7 @@ class PrimaryNavigationBottomNav {
 }
 
 /// Sidebar sizing and selection behavior.
-@SectionId('PD00-USE-SCF-NAV-PRI-SDB')
+@SectionId('PRNASI')
 class PrimaryNavigationSidebar {
   @Form([
     Field('sidebarCollapsedWidth', String, 'Collapsed Width',
@@ -1918,7 +1953,7 @@ class PrimaryNavigationSidebar {
 /// 10.3.1.4. Secondary Navigation [PD00-USE-SCF-NAV-SEC].
 ///
 /// In-page navigation: tab bars, segmented controls.
-@SectionId('PD00-USE-SCF-NAV-SEC')
+@SectionId('SENA')
 class SecondaryNavigation {
   @ContentHelp('''
 ## Secondary Navigation (10.3.1.4)
@@ -1949,13 +1984,15 @@ Tab bars map to `TomTabBar` with:
   TextSection overview = TextSection();
 
   /// Contains 0+× TabBarDefinition.
-  @SectionIdPattern('PD00-USE-SCF-NAV-SEC-xx')
+  @SectionId('TBDE-LST')
+  @SectionIdPattern('TBDE-xxx')
   List<TabBarDefinitionEntry> tabBars = [];
 }
 
 /// A tab bar definition entry (form) [PD00-USE-SCF-NAV-SEC-nn].
 ///
 /// Defines a tab bar or segmented control on a specific screen.
+@SectionId('TBDE1')
 class TabBarDefinitionEntry {
   @Form([
     Field('tabBarId', String, 'Tab Bar ID', required: true,
@@ -1976,13 +2013,14 @@ class TabBarDefinitionEntry {
   TabBarDefinitionEntryLoading loading = TabBarDefinitionEntryLoading();
 
   /// Contains 1+× TabItem.
-  @SectionIdPattern('PD00-USE-SCF-NAV-SEC-xx-TAB-xx')
+  @SectionId('TAITEN-LST')
+  @SectionIdPattern('TAITEN-xxx')
   @Min(1)
   List<TabItemEntry> tabs = [];
 }
 
 /// Position and selection behavior.
-@SectionId('PD00-USE-SCF-NAV-SEC-ENT-BEH')
+@SectionId('TBDEB')
 class TabBarDefinitionEntryBehavior {
     @Form([
         Field('tabBarPosition', String, 'Position',
@@ -1998,7 +2036,7 @@ class TabBarDefinitionEntryBehavior {
 }
 
 /// Visibility and loading profile.
-@SectionId('PD00-USE-SCF-NAV-SEC-ENT-LOD')
+@SectionId('TBDEL')
 class TabBarDefinitionEntryLoading {
     @Form([
         Field('swipeEnabled', String, 'Swipe Navigation',
@@ -2012,6 +2050,7 @@ class TabBarDefinitionEntryLoading {
 }
 
 /// A tab item entry (form) [PD00-USE-SCF-NAV-SEC-nn-TAB-mm].
+@SectionId('TIE')
 class TabItemEntry {
   @Form([
     Field('tabId', String, 'Tab ID', required: true,
@@ -2045,7 +2084,7 @@ class TabItemEntry {
 /// 10.3.1.5. Utility Navigation [PD00-USE-SCF-NAV-UTL].
 ///
 /// Always-visible utility items: user menu, notifications, help, settings.
-@SectionId('PD00-USE-SCF-NAV-UTL')
+@SectionId('UTNA')
 class UtilityNavigation {
   @ContentHelp('''
 ## Utility Navigation (10.3.1.5)
@@ -2073,7 +2112,8 @@ Dropdown/popup menus have nested items with:
   String? content;
 
   /// Contains 0+× UtilityNavigationItem.
-  @SectionIdPattern('PD00-USE-SCF-NAV-UTL-xx')
+  @SectionId('UNIE-LST')
+  @SectionIdPattern('UNIE-xxx')
   List<UtilityNavigationItemEntry> items = [];
 }
 
@@ -2081,6 +2121,7 @@ Dropdown/popup menus have nested items with:
 ///
 /// A persistent utility element in the app bar: user avatar, notifications bell,
 /// help icon, settings.
+@SectionId('UNIE1')
 class UtilityNavigationItemEntry {
   @Form([
     Field('utilityId', String, 'Utility ID', required: true,
@@ -2103,13 +2144,14 @@ class UtilityNavigationItemEntry {
       UtilityNavigationItemEntryBehavior();
 
     /// Contains 0+× UtilityMenuItem.
-    @SectionIdPattern('PD00-USE-SCF-NAV-UTL-xx-MEN-xx')
+    @SectionId('UMIE-LST')
+    @SectionIdPattern('UMIE-xxx')
     List<UtilityMenuItemEntry> menuItems = [];
 }
 
 
 /// Ordering, rendering, and access rules.
-@SectionId('PD00-USE-SCF-NAV-UTL-ENT-DIS')
+@SectionId('UNIED')
 class UtilityNavigationItemEntryDisplay {
   @Form([
     Field('displayOrder', int, 'Display Order',
@@ -2125,7 +2167,7 @@ class UtilityNavigationItemEntryDisplay {
 }
 
 /// Badge and interaction behavior.
-@SectionId('PD00-USE-SCF-NAV-UTL-ENT-BEH')
+@SectionId('UNIEB')
 class UtilityNavigationItemEntryBehavior {
   @Form([
     Field('badgeType', String, 'Badge Type',
@@ -2143,6 +2185,7 @@ class UtilityNavigationItemEntryBehavior {
 /// A utility menu item entry (form) [PD00-USE-SCF-NAV-UTL-nn-MEN-mm].
 ///
 /// Entry in a utility popup/dropdown menu (e.g., user menu items).
+@SectionId('UMIE1')
 class UtilityMenuItemEntry {
   @Form([
     Field('menuItemId', String, 'Menu Item ID', required: true),
@@ -2163,7 +2206,7 @@ class UtilityMenuItemEntry {
 }
 
 /// Routing and action references.
-@SectionId('PD00-USE-SCF-NAV-UTL-MEN-ENT-ACT')
+@SectionId('UMIEA')
 class UtilityMenuItemEntryAction {
   @Form([
     Field('actionType', String, 'Action Type',
@@ -2177,7 +2220,7 @@ class UtilityMenuItemEntryAction {
 }
 
 /// Visibility and confirmation behavior.
-@SectionId('PD00-USE-SCF-NAV-UTL-MEN-ENT-BEH')
+@SectionId('UMIEB')
 class UtilityMenuItemEntryBehavior {
   @Form([
     Field('visibilityCondition', String, 'Visibility Condition',
@@ -2199,7 +2242,7 @@ class UtilityMenuItemEntryBehavior {
 /// 10.3.1.6. Contextual Navigation [PD00-USE-SCF-NAV-CTX].
 ///
 /// Breadcrumbs, back navigation, related links.
-@SectionId('PD00-USE-SCF-NAV-CTX')
+@SectionId('CONA')
 class ContextualNavigation {
   @ContentHelp('''
 ## Contextual Navigation (10.3.1.6)
@@ -2234,7 +2277,7 @@ Breadcrumbs, back navigation, related links.
 }
 
 /// 10.3.1.6.1. Breadcrumb Configuration [PD00-USE-SCF-NAV-CTX-BRD].
-@SectionId('PD00-USE-SCF-NAV-CTX-BRD')
+@SectionId('BRCO')
 class BreadcrumbConfiguration {
   @Form([
     Field('enabled', String, 'Enabled',
@@ -2268,7 +2311,7 @@ class BreadcrumbConfiguration {
 /// 10.3.1.7. Deep Linking [PD00-USE-SCF-NAV-DPL].
 ///
 /// External entry points, URL patterns, share links.
-@SectionId('PD00-USE-SCF-NAV-DPL')
+@SectionId('DELI')
 class DeepLinking {
   @ContentHelp('''
 ## Deep Linking (10.3.1.7)
@@ -2295,11 +2338,13 @@ External entry points and shareable URLs.
   TextSection strategy = TextSection();
 
   /// Contains 0+× DeepLinkPattern.
-  @SectionIdPattern('PD00-USE-SCF-NAV-DPL-xx')
+  @SectionId('DELNPT-LST')
+  @SectionIdPattern('DELNPT-xxx')
   List<DeepLinkPatternEntry> patterns = [];
 }
 
 /// A deep link pattern entry (form) [PD00-USE-SCF-NAV-DPL-nn].
+@SectionId('DELNPT')
 class DeepLinkPatternEntry {
   @Form([
     Field('patternId', String, 'Pattern ID', required: true),
@@ -2328,7 +2373,7 @@ class DeepLinkPatternEntry {
 /// 10.3.1.8. Navigation Guards [PD00-USE-SCF-NAV-GRD].
 ///
 /// Route guards: unsaved changes, authentication redirects, permission checks.
-@SectionId('PD00-USE-SCF-NAV-GRD')
+@SectionId('NAGU')
 class NavigationGuards {
   @ContentHelp('''
 ## Navigation Guards (10.3.1.8)
@@ -2359,11 +2404,13 @@ Guards integrate with `TomRouter` middleware.
   TextSection overview = TextSection();
 
   /// Contains 0+× NavigationGuard.
-  @SectionIdPattern('PD00-USE-SCF-NAV-GRD-xx')
+  @SectionId('NAVGRD-LST')
+  @SectionIdPattern('NAVGRD-xxx')
   List<NavigationGuardEntry> guards = [];
 }
 
 /// A navigation guard entry (form) [PD00-USE-SCF-NAV-GRD-nn].
+@SectionId('NAVGRD')
 class NavigationGuardEntry {
   @Form([
     Field('guardId', String, 'Guard ID', required: true,
@@ -2387,7 +2434,7 @@ class NavigationGuardEntry {
 }
 
 /// Covered routes and dialog resources.
-@SectionId('PD00-USE-SCF-NAV-GRD-ENT-DLG')
+@SectionId('NGED1')
 class NavigationGuardEntryDialog {
   @Form([
     Field('appliesTo', String, 'Applies To',
@@ -2405,7 +2452,7 @@ class NavigationGuardEntryDialog {
 }
 
 /// Redirect routing and evaluation priority.
-@SectionId('PD00-USE-SCF-NAV-GRD-ENT-RTE')
+@SectionId('NGER')
 class NavigationGuardEntryRouting {
   @Form([
     Field('redirectTo', String, 'Redirect To',
@@ -2421,7 +2468,7 @@ class NavigationGuardEntryRouting {
 // ---------------------------------------------------------------------------
 
 /// 10.4. Print Layout [PD00-USE-PRI].
-@SectionId('PD00-USE-PRI')
+@SectionId('PRLA')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
 @SecondLevelSectionId(UiPrototype, 'UP-PRI')
@@ -2452,21 +2499,24 @@ class PrintLayout {
   final PrintLayoutArchive archive = PrintLayoutArchive();
 
   /// 10.4.1. Reports [PD00-USE-PRI-REP] — contains 0+× Report.
-  @SectionIdPattern('PD00-USE-PRI-REP-xx')
+  @SectionId('REEN-LST')
+  @SectionIdPattern('REEN-xxx')
   List<ReportEntry> reports = [];
 
   /// 10.4.2. Export Formats [PD00-USE-PRI-EXP] — contains 0+× Export Format.
-  @SectionIdPattern('PD00-USE-PRI-EXP-xx')
+  @SectionId('EXFOEN-LST')
+  @SectionIdPattern('EXFOEN-xxx')
   List<ExportFormatEntry> exportFormats = [];
 
   /// 10.4.3. Export Templates [PD00-USE-PRI-TPL] — contains 0+× Export
   /// Template.
-  @SectionIdPattern('PD00-USE-PRI-TPL-xx')
+  @SectionId('EXTEEN-LST')
+  @SectionIdPattern('EXTEEN-xxx')
   List<ExportTemplateEntry> exportTemplates = [];
 }
 
 /// Page margins and setup.
-@SectionId('PD00-USE-PRI-PST')
+@SectionId('PLPS')
 class PrintLayoutPageSetup {
   @Form([
     Field('defaultMarginTop', String, 'Default Margin Top',
@@ -2482,7 +2532,7 @@ class PrintLayoutPageSetup {
 }
 
 /// Branding configuration.
-@SectionId('PD00-USE-PRI-BRN')
+@SectionId('PRLABR')
 class PrintLayoutBranding {
   @Form([
     Field('brandingLogoResource', String, 'Branding Logo Resource',
@@ -2500,7 +2550,7 @@ class PrintLayoutBranding {
 }
 
 /// Watermark and confidentiality.
-@SectionId('PD00-USE-PRI-WMK')
+@SectionId('PRLAWA')
 class PrintLayoutWatermark {
   @Form([
     Field('watermarkText', String, 'Watermark Text',
@@ -2518,7 +2568,7 @@ class PrintLayoutWatermark {
 }
 
 /// Header and footer settings.
-@SectionId('PD00-USE-PRI-HDR')
+@SectionId('PLHF')
 class PrintLayoutHeaderFooter {
   @Form([
     Field('defaultHeaderContent', String, 'Default Header Content',
@@ -2540,7 +2590,7 @@ class PrintLayoutHeaderFooter {
 }
 
 /// Archive and batch settings.
-@SectionId('PD00-USE-PRI-ARC')
+@SectionId('PRLAAR')
 class PrintLayoutArchive {
   @Form([
     Field('archivePolicy', String, 'Archive Policy',
@@ -2560,6 +2610,7 @@ class PrintLayoutArchive {
 // ---------------------------------------------------------------------------
 
 /// A report entry [PD00-USE-PRI-REP-nn] (form).
+@SectionId('RE2')
 class ReportEntry {
   @Form([
     Field('reportId', String, 'Report ID',
@@ -2605,28 +2656,33 @@ class ReportEntry {
   final ReportLifecycle lifecycle = ReportLifecycle();
 
   /// Contains 0+× Report Section.
-  @SectionIdPattern('PD00-USE-PRI-REP-xx-SEC-xx')
+  @SectionId('RESEE1-LST')
+  @SectionIdPattern('RESEE1-xxx')
   List<ReportSectionEntry> sections = [];
 
   /// Contains 0+× Report Filter.
-  @SectionIdPattern('PD00-USE-PRI-REP-xx-FLT-xx')
+  @SectionId('REFIEN-LST')
+  @SectionIdPattern('REFIEN-xxx')
   List<ReportFilterEntry> filters = [];
 
   /// Contains 0+× Report Schedule.
-  @SectionIdPattern('PD00-USE-PRI-REP-xx-SCH-xx')
+  @SectionId('RESCEN-LST')
+  @SectionIdPattern('RESCEN-xxx')
   List<ReportScheduleEntry> schedules = [];
 
   /// Contains 0+× Report Distribution.
-  @SectionIdPattern('PD00-USE-PRI-REP-xx-DST-xx')
+  @SectionId('REDIEN-LST')
+  @SectionIdPattern('REDIEN-xxx')
   List<ReportDistributionEntry> distributions = [];
 
   /// Contains 0+× Recipient.
-  @SectionIdPattern('PD00-USE-PRI-REP-xx-REC-xx')
+  @SectionId('REREEN-LST')
+  @SectionIdPattern('REREEN-xxx')
   List<ReportRecipientEntry> recipients = [];
 }
 
 /// Report identity and context.
-@SectionId('PD00-USE-PRI-REP-ENT-IDN')
+@SectionId('REID')
 class ReportIdentity {
   @Form([
     Field('description', String, 'Description',
@@ -2644,7 +2700,7 @@ class ReportIdentity {
 }
 
 /// Report data source configuration.
-@SectionId('PD00-USE-PRI-REP-ENT-DAT')
+@SectionId('REDASO')
 class ReportDataSource {
   @Form([
     Field('dataSource', String, 'Data Source',
@@ -2660,7 +2716,7 @@ class ReportDataSource {
 }
 
 /// Report output format options.
-@SectionId('PD00-USE-PRI-REP-ENT-FMT')
+@SectionId('REFO')
 class ReportFormat {
   @Form([
     Field('format', String, 'Output Format',
@@ -2676,7 +2732,7 @@ class ReportFormat {
 }
 
 /// Report page layout settings.
-@SectionId('PD00-USE-PRI-REP-ENT-LAY')
+@SectionId('RELA')
 class ReportLayout {
   @Form([
     Field('marginTop', String, 'Margin Top', hint: 'Override top margin'),
@@ -2688,7 +2744,7 @@ class ReportLayout {
 }
 
 /// Report header and footer templates.
-@SectionId('PD00-USE-PRI-REP-ENT-HDR')
+@SectionId('REHEFO')
 class ReportHeaderFooter {
   @Form([
     Field('headerTemplate', String, 'Header Template',
@@ -2706,7 +2762,7 @@ class ReportHeaderFooter {
 }
 
 /// Report sorting and grouping.
-@SectionId('PD00-USE-PRI-REP-ENT-GRP')
+@SectionId('REGR')
 class ReportGrouping {
   @Form([
     Field('defaultSortField', String, 'Default Sort Field',
@@ -2724,7 +2780,7 @@ class ReportGrouping {
 }
 
 /// Report conditional formatting.
-@SectionId('PD00-USE-PRI-REP-ENT-FRM')
+@SectionId('REFO1')
 class ReportFormatting {
   @Form([
     Field('conditionalFormatting', String, 'Conditional Formatting',
@@ -2736,7 +2792,7 @@ class ReportFormatting {
 }
 
 /// Report interactivity and parameters.
-@SectionId('PD00-USE-PRI-REP-ENT-INT')
+@SectionId('REIN')
 class ReportInteractivity {
   @Form([
     Field('drillDownTarget', String, 'Drill-Down Target',
@@ -2752,7 +2808,7 @@ class ReportInteractivity {
 }
 
 /// Report pagination settings.
-@SectionId('PD00-USE-PRI-REP-ENT-PAG')
+@SectionId('REPA')
 class ReportPagination {
   @Form([
     Field('maxRows', int, 'Maximum Rows',
@@ -2766,7 +2822,7 @@ class ReportPagination {
 }
 
 /// Report security and access.
-@SectionId('PD00-USE-PRI-REP-ENT-SEC')
+@SectionId('RESE')
 class ReportSecurity {
   @Form([
     Field('localization', String, 'Localization',
@@ -2784,7 +2840,7 @@ class ReportSecurity {
 }
 
 /// Report lifecycle and archiving.
-@SectionId('PD00-USE-PRI-REP-ENT-LIF')
+@SectionId('RELI')
 class ReportLifecycle {
   @Form([
     Field('archiveRetention', String, 'Archive Retention',
@@ -2800,6 +2856,7 @@ class ReportLifecycle {
 }
 
 /// A section within a report [PD00-USE-PRI-REP-nn-SEC-nn] (form).
+@SectionId('RSE')
 class ReportSectionEntry {
   @Form([
     Field('sectionId', String, 'Section ID',
@@ -2824,16 +2881,18 @@ class ReportSectionEntry {
   final ReportSectionAggregation aggregation = ReportSectionAggregation();
 
   /// Contains 0+× Report Column.
-  @SectionIdPattern('PD00-USE-PRI-REP-xx-SEC-xx-COL-xx')
+  @SectionId('RECOE1-LST')
+  @SectionIdPattern('RECOE1-xxx')
   List<ReportColumnEntry> columns = [];
 
   /// Contains 0+× Report Chart.
-  @SectionIdPattern('PD00-USE-PRI-REP-xx-SEC-xx-CHT-xx')
+  @SectionId('RECHEN-LST')
+  @SectionIdPattern('RECHEN-xxx')
   List<ReportChartEntry> charts = [];
 }
 
 /// Data source configuration.
-@SectionId('PD00-USE-PRI-REP-SEC-ENT-DAT')
+@SectionId('RESEDA')
 class ReportSectionData {
   @Form([
     Field('purpose', String, 'Purpose',
@@ -2850,7 +2909,7 @@ class ReportSectionData {
 }
 
 /// Layout and page settings.
-@SectionId('PD00-USE-PRI-REP-SEC-ENT-LAY')
+@SectionId('RESELA')
 class ReportSectionLayout {
   @Form([
     Field('displayOrder', int, 'Display Order',
@@ -2874,7 +2933,7 @@ class ReportSectionLayout {
 }
 
 /// Sorting and grouping.
-@SectionId('PD00-USE-PRI-REP-SEC-ENT-SRT')
+@SectionId('RESESO')
 class ReportSectionSorting {
   @Form([
     Field('sortField', String, 'Sort Field',
@@ -2890,7 +2949,7 @@ class ReportSectionSorting {
 }
 
 /// Aggregation and limits.
-@SectionId('PD00-USE-PRI-REP-SEC-ENT-AGG')
+@SectionId('RESEAG')
 class ReportSectionAggregation {
   @Form([
     Field('showSectionTotal', String, 'Show Section Total',
@@ -2907,6 +2966,7 @@ class ReportSectionAggregation {
 
 /// A column in a tabular report section [PD00-USE-PRI-REP-nn-SEC-nn-COL-nn]
 /// (form).
+@SectionId('RCE1')
 class ReportColumnEntry {
   @Form([
     Field('columnId', String, 'Column ID',
@@ -2935,7 +2995,7 @@ class ReportColumnEntry {
 }
 
 /// Data source and type.
-@SectionId('PD00-USE-PRI-REP-SEC-COL-ENT-DAT')
+@SectionId('RCDS')
 class ReportColumnDataSource {
   @Form([
     Field('dataSourceField', String, 'Data Source Field',
@@ -2947,7 +3007,7 @@ class ReportColumnDataSource {
 }
 
 /// Display formatting.
-@SectionId('PD00-USE-PRI-REP-SEC-COL-ENT-FMT')
+@SectionId('RECOFO')
 class ReportColumnFormatting {
   @Form([
     Field('displayOrder', int, 'Display Order',
@@ -2972,7 +3032,7 @@ class ReportColumnFormatting {
 }
 
 /// Aggregation settings.
-@SectionId('PD00-USE-PRI-REP-SEC-COL-ENT-AGG')
+@SectionId('RECOAG')
 class ReportColumnAggregation {
   @Form([
     Field('aggregation', String, 'Aggregation',
@@ -2988,7 +3048,7 @@ class ReportColumnAggregation {
 }
 
 /// Interaction options.
-@SectionId('PD00-USE-PRI-REP-SEC-COL-ENT-INT')
+@SectionId('RECOIN')
 class ReportColumnInteraction {
   @Form([
     Field('sortable', String, 'Sortable',
@@ -3000,7 +3060,7 @@ class ReportColumnInteraction {
 }
 
 /// Visibility and layout.
-@SectionId('PD00-USE-PRI-REP-SEC-COL-ENT-LAY')
+@SectionId('RECOLA')
 class ReportColumnLayout {
   @Form([
     Field('visible', String, 'Visible', hint: 'Yes / No / Conditional'),
@@ -3016,6 +3076,7 @@ class ReportColumnLayout {
 
 /// A chart/visualization in a report [PD00-USE-PRI-REP-nn-SEC-nn-CHT-nn]
 /// (form).
+@SectionId('RCE2')
 class ReportChartEntry {
   @Form([
     Field('chartId', String, 'Chart ID',
@@ -3044,7 +3105,7 @@ class ReportChartEntry {
 }
 
 /// Axes for report chart.
-@SectionId('PD00-USE-PRI-REP-SEC-CHT-ENT-AXS')
+@SectionId('RECHAX')
 class ReportChartAxes {
   @Form([
     Field('dataSource', String, 'Data Source',
@@ -3072,7 +3133,7 @@ class ReportChartAxes {
 }
 
 /// Series for report chart.
-@SectionId('PD00-USE-PRI-REP-SEC-CHT-ENT-SER')
+@SectionId('RECHSE')
 class ReportChartSeries {
   @Form([
     Field('seriesField', String, 'Series Field',
@@ -3088,7 +3149,7 @@ class ReportChartSeries {
 }
 
 /// Display for report chart.
-@SectionId('PD00-USE-PRI-REP-SEC-CHT-ENT-DIS')
+@SectionId('RECHDI')
 class ReportChartDisplay {
   @Form([
     Field('showDataLabels', String, 'Show Data Labels',
@@ -3108,7 +3169,7 @@ class ReportChartDisplay {
 }
 
 /// Interaction for report chart.
-@SectionId('PD00-USE-PRI-REP-SEC-CHT-ENT-INT')
+@SectionId('RECHIN')
 class ReportChartInteraction {
   @Form([
     Field('interactive', String, 'Interactive',
@@ -3121,7 +3182,7 @@ class ReportChartInteraction {
 }
 
 /// Layout for report chart.
-@SectionId('PD00-USE-PRI-REP-SEC-CHT-ENT-LAY')
+@SectionId('RECHLA')
 class ReportChartLayout {
   @Form([
     Field('width', String, 'Width',
@@ -3137,6 +3198,7 @@ class ReportChartLayout {
 // ---------------------------------------------------------------------------
 
 /// A filter parameter for a report [PD00-USE-PRI-REP-nn-FLT-nn] (form).
+@SectionId('RFE')
 class ReportFilterEntry {
   @Form([
     Field('filterId', String, 'Filter ID',
@@ -3160,7 +3222,7 @@ class ReportFilterEntry {
 }
 
 /// Input and value configuration for a report filter.
-@SectionId('PD00-USE-PRI-REP-FLT-ENT-INP')
+@SectionId('RFEI')
 class ReportFilterEntryInput {
   @Form([
     Field('dataType', String, 'Data Type',
@@ -3186,7 +3248,7 @@ class ReportFilterEntryInput {
 }
 
 /// Scope and validation behavior for a report filter.
-@SectionId('PD00-USE-PRI-REP-FLT-ENT-BEH')
+@SectionId('RFEB')
 class ReportFilterEntryBehavior {
   @Form([
     Field('required', String, 'Required',
@@ -3208,7 +3270,7 @@ class ReportFilterEntryBehavior {
 }
 
 /// Presentation options for a report filter.
-@SectionId('PD00-USE-PRI-REP-FLT-ENT-PRE')
+@SectionId('RFEP')
 class ReportFilterEntryPresentation {
   @Form([
     Field('hiddenFilter', String, 'Hidden Filter',
@@ -3224,6 +3286,7 @@ class ReportFilterEntryPresentation {
 
 /// Scheduling rules for report generation [PD00-USE-PRI-REP-nn-SCH-nn]
 /// (form).
+@SectionId('RSE1')
 class ReportScheduleEntry {
   @Form([
     Field('scheduleId', String, 'Schedule ID',
@@ -3251,7 +3314,7 @@ class ReportScheduleEntry {
 }
 
 /// Timing configuration for report schedule.
-@SectionId('PD00-USE-PRI-REP-SCH-ENT-TIM')
+@SectionId('RSET')
 class ReportScheduleEntryTiming {
   @Form([
     Field('scheduleExpression', String, 'Schedule Expression',
@@ -3271,7 +3334,7 @@ class ReportScheduleEntryTiming {
 }
 
 /// Retry configuration for report schedule.
-@SectionId('PD00-USE-PRI-REP-SCH-ENT-RET')
+@SectionId('RSER')
 class ReportScheduleEntryRetry {
   @Form([
     Field('retryOnFailure', String, 'Retry On Failure', hint: 'Yes / No'),
@@ -3284,7 +3347,7 @@ class ReportScheduleEntryRetry {
 }
 
 /// Notification settings for report schedule.
-@SectionId('PD00-USE-PRI-REP-SCH-ENT-NOT')
+@SectionId('RSEN')
 class ReportScheduleEntryNotifications {
   @Form([
     Field('notifyOnCompletion', String, 'Notify On Completion',
@@ -3300,7 +3363,7 @@ class ReportScheduleEntryNotifications {
 }
 
 /// Output configuration for report schedule.
-@SectionId('PD00-USE-PRI-REP-SCH-ENT-OUT')
+@SectionId('RSEO')
 class ReportScheduleEntryOutput {
   @Form([
     Field('filterOverrides', String, 'Filter Overrides',
@@ -3319,6 +3382,7 @@ class ReportScheduleEntryOutput {
 }
 
 /// Distribution channel configuration [PD00-USE-PRI-REP-nn-DST-nn] (form).
+@SectionId('RDE')
 class ReportDistributionEntry {
   @Form([
     Field('distributionId', String, 'Distribution ID',
@@ -3346,7 +3410,7 @@ class ReportDistributionEntry {
 }
 
 /// Recipient and format settings for report distribution.
-@SectionId('PD00-USE-PRI-REP-DST-ENT-RCP')
+@SectionId('RDER2')
 class ReportDistributionEntryRecipients {
   @Form([
     Field('formatPerChannel', String, 'Format Per Channel',
@@ -3363,7 +3427,7 @@ class ReportDistributionEntryRecipients {
 }
 
 /// Message and attachment content for report distribution.
-@SectionId('PD00-USE-PRI-REP-DST-ENT-CON')
+@SectionId('RDEC1')
 class ReportDistributionEntryContent {
   @Form([
     Field('subjectTemplate', String, 'Subject Template',
@@ -3381,7 +3445,7 @@ class ReportDistributionEntryContent {
 }
 
 /// Delivery conditions and lifecycle settings for report distribution.
-@SectionId('PD00-USE-PRI-REP-DST-ENT-DEL')
+@SectionId('RDED')
 class ReportDistributionEntryDelivery {
   @Form([
     Field('compressionEnabled', String, 'Compression Enabled',
@@ -3408,6 +3472,7 @@ class ReportDistributionEntryDelivery {
 }
 
 /// A recipient entry (form) [PD00-USE-PRI-REP-nn-REC-nn].
+@SectionId('RRE')
 class ReportRecipientEntry {
   @Form([
     Field('recipientId', String, 'Recipient ID',
@@ -3433,7 +3498,7 @@ class ReportRecipientEntry {
 }
 
 /// Recipient business context.
-@SectionId('PD00-USE-PRI-REP-REC-ENT-CTX')
+@SectionId('RREC1')
 class ReportRecipientEntryContext {
   @Form([
     Field('role', String, 'Role',
@@ -3446,7 +3511,7 @@ class ReportRecipientEntryContext {
 }
 
 /// Delivery preferences.
-@SectionId('PD00-USE-PRI-REP-REC-ENT-DEL')
+@SectionId('RRED')
 class ReportRecipientEntryDelivery {
   @Form([
     Field('deliveryPreference', String, 'Delivery Preference',
@@ -3466,7 +3531,7 @@ class ReportRecipientEntryDelivery {
 }
 
 /// Lifecycle settings.
-@SectionId('PD00-USE-PRI-REP-REC-ENT-LIF')
+@SectionId('RREL')
 class ReportRecipientEntryLifecycle {
   @Form([
     Field('active', String, 'Active',
@@ -3485,6 +3550,7 @@ class ReportRecipientEntryLifecycle {
 // ---------------------------------------------------------------------------
 
 /// An export format entry (form) [PD00-USE-PRI-EXP-nn].
+@SectionId('EFE')
 class ExportFormatEntry {
   @Form([
     Field('exportId', String, 'Export ID',
@@ -3521,12 +3587,13 @@ class ExportFormatEntry {
   final ExportAccess access = ExportAccess();
 
   /// Contains 0+× Export Field Mapping.
-  @SectionIdPattern('PD00-USE-PRI-EXP-xx-FLD-xx')
+  @SectionId('EFME-LST')
+  @SectionIdPattern('EFME-xxx')
   List<ExportFieldMappingEntry> fieldMappings = [];
 }
 
 /// Export identity and data source.
-@SectionId('PD00-USE-PRI-EXP-ENT-IDN')
+@SectionId('EXID')
 class ExportIdentity {
   @Form([
     Field('description', String, 'Description',
@@ -3542,7 +3609,7 @@ class ExportIdentity {
 }
 
 /// Export file format settings.
-@SectionId('PD00-USE-PRI-EXP-ENT-FMT')
+@SectionId('EXFIFO')
 class ExportFileFormat {
   @Form([
     Field('fileNamingPattern', String, 'File Naming Pattern',
@@ -3555,7 +3622,7 @@ class ExportFileFormat {
 }
 
 /// Export delimiter and quoting.
-@SectionId('PD00-USE-PRI-EXP-ENT-DLM')
+@SectionId('EXDE')
 class ExportDelimiter {
   @Form([
     Field('delimiter', String, 'Delimiter',
@@ -3571,7 +3638,7 @@ class ExportDelimiter {
 }
 
 /// Export data formatting.
-@SectionId('PD00-USE-PRI-EXP-ENT-DAT')
+@SectionId('EXDAFO')
 class ExportDataFormat {
   @Form([
     Field('dateFormat', String, 'Date Format',
@@ -3592,7 +3659,7 @@ class ExportDataFormat {
 }
 
 /// Export size settings.
-@SectionId('PD00-USE-PRI-EXP-ENT-SZE')
+@SectionId('EXSISE')
 class ExportSizeSettings {
   @Form([
     Field('maxRows', int, 'Maximum Rows',
@@ -3606,7 +3673,7 @@ class ExportSizeSettings {
 }
 
 /// Export security settings.
-@SectionId('PD00-USE-PRI-EXP-ENT-SEC')
+@SectionId('EXSE')
 class ExportSecurity {
   @Form([
     Field('compressionFormat', String, 'Compression Format',
@@ -3620,7 +3687,7 @@ class ExportSecurity {
 }
 
 /// Export output and scheduling.
-@SectionId('PD00-USE-PRI-EXP-ENT-OUT')
+@SectionId('EXOU')
 class ExportOutput {
   @Form([
     Field('outputDestination', String, 'Output Destination',
@@ -3636,7 +3703,7 @@ class ExportOutput {
 }
 
 /// Export access and audit.
-@SectionId('PD00-USE-PRI-EXP-ENT-ACC')
+@SectionId('EXAC')
 class ExportAccess {
   @Form([
     Field('accessLevel', String, 'Access Level',
@@ -3653,6 +3720,7 @@ class ExportAccess {
 }
 
 /// A field mapping within an export [PD00-USE-PRI-EXP-nn-FLD-nn] (form).
+@SectionId('EFME1')
 class ExportFieldMappingEntry {
   @Form([
     Field('mappingId', String, 'Mapping ID',
@@ -3682,7 +3750,7 @@ class ExportFieldMappingEntry {
 }
 
 /// Ordering and formatting settings.
-@SectionId('PD00-USE-PRI-EXP-FLD-ENT-FMT')
+@SectionId('EFMEF')
 class ExportFieldMappingEntryFormatting {
   @Form([
     Field('displayOrder', int, 'Display Order',
@@ -3698,7 +3766,7 @@ class ExportFieldMappingEntryFormatting {
 }
 
 /// Transformation rules.
-@SectionId('PD00-USE-PRI-EXP-FLD-ENT-TRF')
+@SectionId('EFMET')
 class ExportFieldMappingEntryTransformation {
   @Form([
     Field('transformationRule', String, 'Transformation Rule',
@@ -3713,7 +3781,7 @@ class ExportFieldMappingEntryTransformation {
 }
 
 /// Inclusion and defaults.
-@SectionId('PD00-USE-PRI-EXP-FLD-ENT-INC')
+@SectionId('EFMEI')
 class ExportFieldMappingEntryInclusion {
   @Form([
     Field('defaultValue', String, 'Default Value',
@@ -3729,7 +3797,7 @@ class ExportFieldMappingEntryInclusion {
 }
 
 /// Fixed-width and quoting rules.
-@SectionId('PD00-USE-PRI-EXP-FLD-ENT-LAY')
+@SectionId('EFMEL')
 class ExportFieldMappingEntryLayout {
   @Form([
     Field('paddingChar', String, 'Padding Char',
@@ -3750,6 +3818,7 @@ class ExportFieldMappingEntryLayout {
 // ---------------------------------------------------------------------------
 
 /// A reusable export template [PD00-USE-PRI-TPL-nn] (form).
+@SectionId('ETE')
 class ExportTemplateEntry {
   @Form([
     Field('templateId', String, 'Template ID',
@@ -3776,7 +3845,7 @@ class ExportTemplateEntry {
 }
 
 /// Format configuration for export template.
-@SectionId('PD00-USE-PRI-TPL-ENT-FMT')
+@SectionId('ETEF')
 class ExportTemplateEntryFormat {
   @Form([
     Field('description', String, 'Description',
@@ -3793,7 +3862,7 @@ class ExportTemplateEntryFormat {
 }
 
 /// Field and filter settings for export template.
-@SectionId('PD00-USE-PRI-TPL-ENT-FLD')
+@SectionId('ETEF1')
 class ExportTemplateEntryFields {
   @Form([
     Field('fieldSet', String, 'Field Set',
@@ -3809,7 +3878,7 @@ class ExportTemplateEntryFields {
 }
 
 /// Layout configuration for export template.
-@SectionId('PD00-USE-PRI-TPL-ENT-LAY')
+@SectionId('ETEL')
 class ExportTemplateEntryLayout {
   @Form([
     Field('headerConfig', String, 'Header Config',
@@ -3825,7 +3894,7 @@ class ExportTemplateEntryLayout {
 }
 
 /// Access and metadata for export template.
-@SectionId('PD00-USE-PRI-TPL-ENT-ACC')
+@SectionId('ETEA')
 class ExportTemplateEntryAccess {
   @Form([
     Field('accessLevel', String, 'Access Level',
@@ -3850,7 +3919,7 @@ class ExportTemplateEntryAccess {
 /// Comprehensive error handling user experience framework covering validation
 /// feedback, system error presentation, and error recovery flows. Follows
 /// UX best practices for error prevention, detection, and graceful recovery.
-@SectionId('PD00-USE-ERR')
+@SectionId('ERHACO')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
 @SecondLevelSectionId(UiPrototype, 'UP-ERR')
@@ -3889,15 +3958,12 @@ class ErrorHandlingConcept {
   TextSection errorHandlingOverview = TextSection();
 
   /// 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
-  @SectionId('PD00-USE-ERR-VAL')
   ValidationFeedback validationFeedback = ValidationFeedback();
 
   /// 10.7.2. System Error Display [PD00-USE-ERR-SYS].
-  @SectionId('PD00-USE-ERR-SYS')
   SystemErrorDisplay systemErrorDisplay = SystemErrorDisplay();
 
   /// 10.7.3. Error Recovery [PD00-USE-ERR-REC].
-  @SectionId('PD00-USE-ERR-REC')
   ErrorRecovery errorRecovery = ErrorRecovery();
 
   /// Error message catalog.
@@ -3912,7 +3978,7 @@ class ErrorHandlingConcept {
 }
 
 /// Error categorization and display priority.
-@SectionId('PD00-USE-ERR-CLS')
+@SectionId('EHCC')
 class ErrorHandlingConceptClassification {
     @Form([
         Field('errorCategories', String, 'Error Categories',
@@ -3926,7 +3992,7 @@ class ErrorHandlingConceptClassification {
 }
 
 /// Accessibility and inclusive error cues.
-@SectionId('PD00-USE-ERR-ACS')
+@SectionId('EHCA')
 class ErrorHandlingConceptAccessibility {
     @Form([
         Field('errorAccessibility', String, 'Error Accessibility',
@@ -3940,7 +4006,7 @@ class ErrorHandlingConceptAccessibility {
 }
 
 /// Localization and analytics behavior.
-@SectionId('PD00-USE-ERR-OPS')
+@SectionId('EHCO')
 class ErrorHandlingConceptOperations {
     @Form([
         Field('errorLocalization', String, 'Error Localization',
@@ -3958,7 +4024,7 @@ class ErrorHandlingConceptOperations {
 /// 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
 ///
 /// Field validation error display and feedback mechanisms.
-@SectionId('PD00-USE-ERR-VAL')
+@SectionId('VAFE')
 class ValidationFeedback {
   @Form([
     Field('validationTiming', String, 'Validation Timing',
@@ -3988,7 +4054,8 @@ class ValidationFeedback {
   TextSection validationNarrative = TextSection();
 
   /// Validation message templates.
-  @SectionIdPattern('PD00-USE-ERR-VAL-MSG-xx')
+  @SectionId('VAMETE-LST')
+  @SectionIdPattern('VAMETE-xxx')
   List<ValidationMessageTemplate> messageTemplates = [];
 
   /// Field validation rules by type.
@@ -3998,7 +4065,7 @@ class ValidationFeedback {
 }
 
 /// Display placement details.
-@SectionId('PD00-USE-ERR-VAL-PLC')
+@SectionId('VAFEPL')
 class ValidationFeedbackPlacement {
     @Form([
         Field('errorMessagePlacement', String, 'Error Message Placement',
@@ -4016,7 +4083,7 @@ class ValidationFeedbackPlacement {
 }
 
 /// Message formatting details.
-@SectionId('PD00-USE-ERR-VAL-MSG')
+@SectionId('VAFEME')
 class ValidationFeedbackMessages {
     @Form([
         Field('messageFormat', String, 'Message Format',
@@ -4032,7 +4099,7 @@ class ValidationFeedbackMessages {
 }
 
 /// Guidance settings.
-@SectionId('PD00-USE-ERR-VAL-GDE')
+@SectionId('VAFEGU')
 class ValidationFeedbackGuidance {
     @Form([
         Field('showRequirements', bool, 'Show Requirements',
@@ -4046,7 +4113,7 @@ class ValidationFeedbackGuidance {
 }
 
 /// Animation and focus behavior.
-@SectionId('PD00-USE-ERR-VAL-BEH')
+@SectionId('VAFEBE')
 class ValidationFeedbackBehavior {
     @Form([
         Field('errorAnimation', String, 'Error Animation',
@@ -4062,6 +4129,7 @@ class ValidationFeedbackBehavior {
 }
 
 /// A validation message template [PD00-USE-ERR-VAL-MSG-nn].
+@SectionId('VMT')
 class ValidationMessageTemplate {
   @Form([
     Field('messageId', String, 'Message ID', required: true,
@@ -4092,7 +4160,7 @@ class ValidationMessageTemplate {
 ///
 /// System error presentation including server errors, network issues,
 /// and timeouts.
-@SectionId('PD00-USE-ERR-SYS')
+@SectionId('SYERDI')
 class SystemErrorDisplay {
   // ─────────────────────────────────────────────────────────────────────────
   // System Error Handling
@@ -4130,12 +4198,13 @@ class SystemErrorDisplay {
   TextSection errorPageDesigns = TextSection();
 
   /// Error codes catalog.
-  @SectionIdPattern('PD00-USE-ERR-SYS-CODE-xx')
+  @SectionId('SECE-LST')
+  @SectionIdPattern('SECE-xxx')
   List<SystemErrorCodeEntry> errorCodes = [];
 }
 
 /// Error type handling configuration.
-@SectionId('PD00-USE-ERR-SYS-TYP')
+@SectionId('SEDET')
 class SystemErrorDisplayErrorTypes {
   @Form([
     Field('serverErrorHandling', String, 'Server Error Handling',
@@ -4153,7 +4222,7 @@ class SystemErrorDisplayErrorTypes {
 }
 
 /// Display method settings for system errors.
-@SectionId('PD00-USE-ERR-SYS-MET')
+@SectionId('SEDM')
 class SystemErrorDisplayMethods {
   @Form([
     Field('errorModalStyle', String, 'Error Modal Style',
@@ -4171,7 +4240,7 @@ class SystemErrorDisplayMethods {
 }
 
 /// Content options for system error display.
-@SectionId('PD00-USE-ERR-SYS-CON')
+@SectionId('SEDC')
 class SystemErrorDisplayContent {
   @Form([
     Field('showTechnicalDetails', bool, 'Show Technical Details',
@@ -4186,7 +4255,7 @@ class SystemErrorDisplayContent {
 }
 
 /// Fallback behavior for system errors.
-@SectionId('PD00-USE-ERR-SYS-FAL')
+@SectionId('SEDF')
 class SystemErrorDisplayFallback {
   @Form([
     Field('cachedDataFallback', String, 'Cached Data Fallback',
@@ -4200,6 +4269,7 @@ class SystemErrorDisplayFallback {
 }
 
 /// A system error code entry [PD00-USE-ERR-SYS-CODE-nn].
+@SectionId('SECE1')
 class SystemErrorCodeEntry {
   @Form([
     Field('errorCode', String, 'Error Code', required: true,
@@ -4222,7 +4292,7 @@ class SystemErrorCodeEntry {
 }
 
 /// Recovery and display guidance.
-@SectionId('PD00-USE-ERR-SYS-COD-ENT-HND')
+@SectionId('SECEH')
 class SystemErrorCodeEntryHandling {
   @Form([
     Field('technicalDescription', String, 'Technical Description',
@@ -4240,7 +4310,7 @@ class SystemErrorCodeEntryHandling {
 }
 
 /// Operational support and logging controls.
-@SectionId('PD00-USE-ERR-SYS-COD-ENT-OPS')
+@SectionId('SECEO')
 class SystemErrorCodeEntryOperations {
   @Form([
     Field('notifySupport', bool, 'Notify Support',
@@ -4255,7 +4325,7 @@ class SystemErrorCodeEntryOperations {
 ///
 /// Error recovery flows including data preservation, retry mechanisms,
 /// and guided recovery steps.
-@SectionId('PD00-USE-ERR-REC')
+@SectionId('ERRE')
 class ErrorRecovery {
   // ─────────────────────────────────────────────────────────────────────────
   // Recovery Mechanisms
@@ -4298,12 +4368,13 @@ class ErrorRecovery {
   FlowDiagramSection recoveryFlows = FlowDiagramSection();
 
   /// Common recovery scenarios.
-  @SectionIdPattern('PD00-USE-ERR-REC-SCE-xx')
+  @SectionId('RCVSCN-LST')
+  @SectionIdPattern('RCVSCN-xxx')
   List<RecoveryScenarioEntry> recoveryScenarios = [];
 }
 
 /// Data preservation: draft auto-save settings.
-@SectionId('PD00-USE-ERR-REC-DPR')
+@SectionId('ERDP')
 class ErrorRecoveryDataPreservation {
   @Form([
     Field('draftAutoSave', bool, 'Draft Auto-Save',
@@ -4321,7 +4392,7 @@ class ErrorRecoveryDataPreservation {
 }
 
 /// Retry mechanisms configuration.
-@SectionId('PD00-USE-ERR-REC-RET')
+@SectionId('ERRM')
 class ErrorRecoveryRetryMechanisms {
   @Form([
     Field('automaticRetryEnabled', bool, 'Automatic Retry Enabled'),
@@ -4338,7 +4409,7 @@ class ErrorRecoveryRetryMechanisms {
 }
 
 /// Guided recovery options.
-@SectionId('PD00-USE-ERR-REC-GDE')
+@SectionId('ERGR')
 class ErrorRecoveryGuidedRecovery {
   @Form([
     Field('stepByStepRecovery', bool, 'Step-by-Step Recovery',
@@ -4354,7 +4425,7 @@ class ErrorRecoveryGuidedRecovery {
 }
 
 /// Support contact details.
-@SectionId('PD00-USE-ERR-REC-SUP')
+@SectionId('ERSC')
 class ErrorRecoverySupportContact {
   @Form([
     Field('supportAvailability', String, 'Support Availability',
@@ -4368,7 +4439,7 @@ class ErrorRecoverySupportContact {
 }
 
 /// Session handling configuration.
-@SectionId('PD00-USE-ERR-REC-SES')
+@SectionId('ERSH')
 class ErrorRecoverySessionHandling {
   @Form([
     Field('reauthenticationFlow', String, 'Reauthentication Flow',
@@ -4380,6 +4451,7 @@ class ErrorRecoverySessionHandling {
 }
 
 /// A recovery scenario entry [PD00-USE-ERR-REC-SCE-nn].
+@SectionId('RCVSCN')
 class RecoveryScenarioEntry {
   @Form([
     Field('scenarioId', String, 'Scenario ID', required: true),
@@ -4415,7 +4487,7 @@ class RecoveryScenarioEntry {
 ///
 /// Comprehensive in-app help system including contextual help, onboarding,
 /// and support access mechanisms.
-@SectionId('PD00-USE-HLP')
+@SectionId('HECO')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
 @SecondLevelSectionId(UiPrototype, 'UP-HLP')
@@ -4449,15 +4521,12 @@ class HelpConcept {
   TextSection helpOverview = TextSection();
 
   /// 10.8.1. Contextual Help [PD00-USE-HLP-CON].
-  @SectionId('PD00-USE-HLP-CON')
   ContextualHelp contextualHelp = ContextualHelp();
 
   /// 10.8.2. Onboarding [PD00-USE-HLP-ONB].
-  @SectionId('PD00-USE-HLP-ONB')
   OnboardingHelp onboarding = OnboardingHelp();
 
   /// 10.8.3. Support Access [PD00-USE-HLP-SUP].
-  @SectionId('PD00-USE-HLP-SUP')
   SupportAccess supportAccess = SupportAccess();
 
   /// Help content inventory.
@@ -4466,7 +4535,7 @@ class HelpConcept {
 }
 
 /// Content stewardship and help affordances.
-@SectionId('PD00-USE-HLP-DEL')
+@SectionId('HECODE')
 class HelpConceptDelivery {
     @Form([
         Field('helpContentOwnership', String, 'Help Content Ownership',
@@ -4484,7 +4553,7 @@ class HelpConceptDelivery {
 }
 
 /// Analytics and improvement feedback.
-@SectionId('PD00-USE-HLP-INS')
+@SectionId('HECOIN')
 class HelpConceptInsights {
     @Form([
         Field('helpAnalytics', String, 'Help Analytics',
@@ -4496,7 +4565,7 @@ class HelpConceptInsights {
 }
 
 /// 10.8.1. Contextual Help [PD00-USE-HLP-CON].
-@SectionId('PD00-USE-HLP-CON')
+@SectionId('COHE')
 class ContextualHelp {
   @Form([
     Field('tooltipTrigger', String, 'Tooltip Trigger',
@@ -4528,12 +4597,13 @@ class ContextualHelp {
   TextSection contextualHelpNarrative = TextSection();
 
   /// Field help catalog.
-  @SectionIdPattern('PD00-USE-HLP-CON-FLD-xx')
+  @SectionId('FLDHP-LST')
+  @SectionIdPattern('FLDHP-xxx')
   List<FieldHelpEntry> fieldHelpCatalog = [];
 }
 
 /// Inline help behavior.
-@SectionId('PD00-USE-HLP-CON-INL')
+@SectionId('COHEIN')
 class ContextualHelpInline {
     @Form([
         Field('inlineHelpPlacement', String, 'Inline Help Placement',
@@ -4547,7 +4617,7 @@ class ContextualHelpInline {
 }
 
 /// Help panel behavior.
-@SectionId('PD00-USE-HLP-CON-PNL')
+@SectionId('COHEPA')
 class ContextualHelpPanels {
     @Form([
         Field('helpPanelAvailable', bool, 'Help Panel Available',
@@ -4561,7 +4631,7 @@ class ContextualHelpPanels {
 }
 
 /// What's-this mode settings.
-@SectionId('PD00-USE-HLP-CON-WTS')
+@SectionId('CHWT')
 class ContextualHelpWhatsThis {
     @Form([
         Field('whatsThisMode', bool, 'What\'s This Mode',
@@ -4573,7 +4643,7 @@ class ContextualHelpWhatsThis {
 }
 
 /// Rich help media settings.
-@SectionId('PD00-USE-HLP-CON-RCH')
+@SectionId('COHERI')
 class ContextualHelpRich {
     @Form([
         Field('helpScreenshots', bool, 'Help Screenshots',
@@ -4587,6 +4657,7 @@ class ContextualHelpRich {
 }
 
 /// A field help entry [PD00-USE-HLP-CON-FLD-nn].
+@SectionId('FLDHP')
 class FieldHelpEntry {
   @Form([
     Field('fieldId', String, 'Field ID', required: true),
@@ -4608,7 +4679,7 @@ class FieldHelpEntry {
 }
 
 /// 10.8.2. Onboarding Help [PD00-USE-HLP-ONB].
-@SectionId('PD00-USE-HLP-ONB')
+@SectionId('ONHE')
 class OnboardingHelp {
   @Form([
     Field('welcomeFlowEnabled', bool, 'Welcome Flow Enabled'),
@@ -4639,12 +4710,13 @@ class OnboardingHelp {
   TextSection onboardingNarrative = TextSection();
 
   /// Feature tour definitions.
-  @SectionIdPattern('PD00-USE-HLP-ONB-TOUR-xx')
+  @SectionId('FTRTUR-LST')
+  @SectionIdPattern('FTRTUR-xxx')
   List<FeatureTourEntry> featureTours = [];
 }
 
 /// Feature tour settings.
-@SectionId('PD00-USE-HLP-ONB-TRS')
+@SectionId('ONHETO')
 class OnboardingHelpTours {
     @Form([
         Field('featureToursEnabled', bool, 'Feature Tours Enabled'),
@@ -4659,7 +4731,7 @@ class OnboardingHelpTours {
 }
 
 /// Sample data settings.
-@SectionId('PD00-USE-HLP-ONB-SMP')
+@SectionId('OHSD')
 class OnboardingHelpSampleData {
     @Form([
         Field('sampleDataAvailable', bool, 'Sample Data Available'),
@@ -4672,7 +4744,7 @@ class OnboardingHelpSampleData {
 }
 
 /// Getting started checklist configuration.
-@SectionId('PD00-USE-HLP-ONB-CHK')
+@SectionId('ONHECH')
 class OnboardingHelpChecklist {
     @Form([
         Field('gettingStartedChecklist', bool, 'Getting Started Checklist'),
@@ -4687,7 +4759,7 @@ class OnboardingHelpChecklist {
 }
 
 /// Progressive disclosure configuration.
-@SectionId('PD00-USE-HLP-ONB-DSC')
+@SectionId('ONHEDI')
 class OnboardingHelpDisclosure {
     @Form([
         Field('progressiveDisclosure', String, 'Progressive Disclosure',
@@ -4699,7 +4771,7 @@ class OnboardingHelpDisclosure {
 }
 
 /// Returning user experience.
-@SectionId('PD00-USE-HLP-ONB-REE')
+@SectionId('ONHERE')
 class OnboardingHelpReengagement {
     @Form([
         Field('returnUserWelcome', String, 'Return User Welcome',
@@ -4711,6 +4783,7 @@ class OnboardingHelpReengagement {
 }
 
 /// A feature tour entry [PD00-USE-HLP-ONB-TOUR-nn].
+@SectionId('FTRTUR')
 class FeatureTourEntry {
   @Form([
     Field('tourId', String, 'Tour ID', required: true),
@@ -4729,11 +4802,13 @@ class FeatureTourEntry {
   String? content;
 
   /// Tour steps.
-  @SectionIdPattern('PD00-USE-HLP-ONB-TOUR-xx-STEP-yy')
+  @SectionId('TURST-LST')
+  @SectionIdPattern('TURST-xxx')
   List<TourStepEntry> steps = [];
 }
 
 /// A tour step entry.
+@SectionId('TURST')
 class TourStepEntry {
   @Form([
     Field('stepOrder', int, 'Step Order', required: true),
@@ -4752,7 +4827,7 @@ class TourStepEntry {
 }
 
 /// 10.8.3. Support Access [PD00-USE-HLP-SUP].
-@SectionId('PD00-USE-HLP-SUP')
+@SectionId('SUAC')
 class SupportAccess {
   @Form([
     Field('helpCenterAvailable', bool, 'Help Center Available'),
@@ -4781,7 +4856,7 @@ class SupportAccess {
 }
 
 /// Help center configuration.
-@SectionId('PD00-USE-HLP-SUP-HLP')
+@SectionId('SAHC')
 class SupportAccessHelpCenter {
   @Form([
     Field('helpCenterLocation', String, 'Help Center Location',
@@ -4795,7 +4870,7 @@ class SupportAccessHelpCenter {
 }
 
 /// Live support settings.
-@SectionId('PD00-USE-HLP-SUP-LIV')
+@SectionId('SALS')
 class SupportAccessLiveSupport {
   @Form([
     Field('liveChatHours', String, 'Live Chat Hours',
@@ -4809,7 +4884,7 @@ class SupportAccessLiveSupport {
 }
 
 /// Ticket system configuration.
-@SectionId('PD00-USE-HLP-SUP-TCK')
+@SectionId('SUACTI')
 class SupportAccessTickets {
   @Form([
     Field('ticketFormFields', String, 'Ticket Form Fields',
@@ -4823,7 +4898,7 @@ class SupportAccessTickets {
 }
 
 /// Contact methods.
-@SectionId('PD00-USE-HLP-SUP-CTM')
+@SectionId('SACM')
 class SupportAccessContactMethods {
   @Form([
     Field('emailSupport', bool, 'Email Support'),
@@ -4835,7 +4910,7 @@ class SupportAccessContactMethods {
 }
 
 /// Self-service and feedback options.
-@SectionId('PD00-USE-HLP-SUP-SEL')
+@SectionId('SASS')
 class SupportAccessSelfService {
   @Form([
     Field('faqSection', bool, 'FAQ Section'),
@@ -4860,7 +4935,7 @@ class SupportAccessSelfService {
 ///
 /// Comprehensive accessibility requirements for the user interface following
 /// WCAG guidelines and inclusive design principles.
-@SectionId('PD00-USE-ACC')
+@SectionId('ACCESS')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
 @SecondLevelSectionId(UiPrototype, 'UP-ACC')
@@ -4895,7 +4970,6 @@ class Accessibility {
   TextSection accessibilityOverview = TextSection();
 
   /// 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
-  @SectionId('PD00-USE-ACC-WCA')
   WcagCompliance wcagComplianceLevel = WcagCompliance();
 
   /// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
@@ -4918,7 +4992,7 @@ class Accessibility {
 }
 
 /// Ownership and inclusive design philosophy.
-@SectionId('PD00-USE-ACC-STR')
+@SectionId('ACSTGY')
 class AccessibilityStrategy {
     @Form([
         Field('accessibilityPhilosophy', String, 'Accessibility Philosophy',
@@ -4932,7 +5006,7 @@ class AccessibilityStrategy {
 }
 
 /// Accessibility testing approach.
-@SectionId('PD00-USE-ACC-TST')
+@SectionId('ACTE')
 class AccessibilityTesting {
     @Form([
         Field('automatedTestingTools', String, 'Automated Testing Tools',
@@ -4948,7 +5022,7 @@ class AccessibilityTesting {
 }
 
 /// Supported assistive technologies and platform features.
-@SectionId('PD00-USE-ACC-SUP')
+@SectionId('ACSU')
 class AccessibilitySupport {
     @Form([
         Field('targetScreenReaders', String, 'Target Screen Readers',
@@ -4960,7 +5034,7 @@ class AccessibilitySupport {
 }
 
 /// 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
-@SectionId('PD00-USE-ACC-WCA')
+@SectionId('WCCO')
 class WcagCompliance {
   @Form([
     Field('textAlternatives', String, 'Text Alternatives (1.1)',
@@ -4988,12 +5062,13 @@ class WcagCompliance {
   TextSection wcagNarrative = TextSection();
 
   /// WCAG success criteria mapping.
-  @SectionIdPattern('PD00-USE-ACC-WCA-SC-xx')
+  @SectionId('WSCE-LST')
+  @SectionIdPattern('WSCE-xxx')
   List<WcagSuccessCriterionEntry> successCriteria = [];
 }
 
 /// Operable principles.
-@SectionId('PD00-USE-ACC-WCA-OPR')
+@SectionId('WCCOOP')
 class WcagComplianceOperable {
     @Form([
         Field('keyboardAccessible', String, 'Keyboard Accessible (2.1)',
@@ -5011,7 +5086,7 @@ class WcagComplianceOperable {
 }
 
 /// Understandable principles.
-@SectionId('PD00-USE-ACC-WCA-UND')
+@SectionId('WCCOUN')
 class WcagComplianceUnderstandable {
     @Form([
         Field('readable', String, 'Readable (3.1)',
@@ -5025,7 +5100,7 @@ class WcagComplianceUnderstandable {
 }
 
 /// Robustness requirements.
-@SectionId('PD00-USE-ACC-WCA-ROB')
+@SectionId('WCCORO')
 class WcagComplianceRobust {
     @Form([
         Field('compatible', String, 'Compatible (4.1)',
@@ -5035,6 +5110,7 @@ class WcagComplianceRobust {
 }
 
 /// A WCAG success criterion entry [PD00-USE-ACC-WCA-SC-nn].
+@SectionId('WSCE1')
 class WcagSuccessCriterionEntry {
   @Form([
     Field('criterionId', String, 'Criterion ID', required: true,
@@ -5059,7 +5135,7 @@ class WcagSuccessCriterionEntry {
 /// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
 ///
 /// Comprehensive accessibility verification checklist.
-@SectionId('PD00-USE-ACC-CHK')
+@SectionId('ACCHLS')
 class AccessibilityChecklist {
   @Form([
     Field('checklistStandard', String, 'Checklist Standard',
@@ -5085,11 +5161,13 @@ class AccessibilityChecklist {
   TextSection checklistOverview = TextSection();
 
   /// Contains 0+× AccessibilityCheck.
-  @SectionIdPattern('PD00-USE-ACC-CHK-xx')
+  @SectionId('ACCH-LST')
+  @SectionIdPattern('ACCH-xxx')
   List<AccessibilityCheckEntry> items = [];
 }
 
 /// An accessibility check entry (form) [PD00-USE-ACC-CHK-nn].
+@SectionId('ACCH')
 class AccessibilityCheckEntry {
   @Form([
     Field('checkId', String, 'Check ID', required: true),
@@ -5116,7 +5194,7 @@ class AccessibilityCheckEntry {
 }
 
 /// WCAG mapping and compliance classification.
-@SectionId('PD00-USE-ACC-CHK-ENT-CMP')
+@SectionId('ACEC')
 class AccessibilityCheckEntryCompliance {
   @Form([
     Field('wcagCriterion', String, 'WCAG Criterion',
@@ -5130,7 +5208,7 @@ class AccessibilityCheckEntryCompliance {
 }
 
 /// Testing execution ownership and status.
-@SectionId('PD00-USE-ACC-CHK-ENT-EXE')
+@SectionId('ACEE')
 class AccessibilityCheckEntryExecution {
   @Form([
     Field('testingTool', String, 'Testing Tool',
@@ -5146,7 +5224,7 @@ class AccessibilityCheckEntryExecution {
 }
 
 /// Issue tracking and remediation details.
-@SectionId('PD00-USE-ACC-CHK-ENT-REM')
+@SectionId('ACER')
 class AccessibilityCheckEntryRemediation {
   @Form([
     Field('issuesFound', String, 'Issues Found',
@@ -5165,7 +5243,7 @@ class AccessibilityCheckEntryRemediation {
 ///
 /// Comprehensive responsive design specification covering breakpoints,
 /// adaptive layouts, and device-specific behavior for Flutter applications.
-@SectionId('PD00-USE-RES')
+@SectionId('REDE')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
 @SecondLevelSectionId(UiPrototype, 'UP-RES')
@@ -5202,18 +5280,16 @@ class ResponsiveDesign {
   TextSection responsiveNarrative = TextSection();
 
   /// 10.10.1. Breakpoints [PD00-USE-RES-BRE].
-  @SectionId('PD00-USE-RES-BRE')
   BreakpointConfiguration breakpointConfig = BreakpointConfiguration();
 
   /// 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
-  @SectionId('PD00-USE-RES-BEH')
   ResponsiveBehavior responsiveBehavior = ResponsiveBehavior();
 }
 
 /// 10.10.1. Breakpoints [PD00-USE-RES-BRE].
 ///
 /// Breakpoint definitions for responsive layouts.
-@SectionId('PD00-USE-RES-BRE')
+@SectionId('BRCO1')
 class BreakpointConfiguration {
   @Form([
     // Standard breakpoints
@@ -5243,11 +5319,13 @@ class BreakpointConfiguration {
   String? breakpointOverview;
 
   /// Breakpoint entries.
-  @SectionIdPattern('PD00-USE-RES-BRE-xx')
+  @SectionId('BRE-LST')
+  @SectionIdPattern('BRE-xxx')
   List<BreakpointEntry> breakpoints = [];
 }
 
 /// A breakpoint entry [PD00-USE-RES-BRE-nn].
+@SectionId('BE')
 class BreakpointEntry {
   @Form([
     Field('breakpointId', String, 'Breakpoint ID', required: true,
@@ -5269,7 +5347,7 @@ class BreakpointEntry {
 }
 
 /// Grid and layout rules for this breakpoint.
-@SectionId('PD00-USE-RES-BRE-ENT-LAY')
+@SectionId('BRENLA')
 class BreakpointEntryLayout {
   @Form([
     Field('columns', int, 'Grid Columns',
@@ -5285,7 +5363,7 @@ class BreakpointEntryLayout {
 }
 
 /// Navigation and visual scaling rules.
-@SectionId('PD00-USE-RES-BRE-ENT-SCL')
+@SectionId('BRENSC')
 class BreakpointEntryScaling {
   @Form([
     Field('navigationPattern', String, 'Navigation Pattern',
@@ -5303,7 +5381,7 @@ class BreakpointEntryScaling {
 /// 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
 ///
 /// How the UI adapts across breakpoints.
-@SectionId('PD00-USE-RES-BEH')
+@SectionId('REBE')
 class ResponsiveBehavior {
   // ─────────────────────────────────────────────────────────────────────────
   // Layout Adaptation
@@ -5336,12 +5414,13 @@ class ResponsiveBehavior {
   TextSection behaviorNarrative = TextSection();
 
   /// Screen-specific responsive rules.
-  @SectionIdPattern('PD00-USE-RES-BEH-SCR-xx')
+  @SectionId('RESPSR-LST')
+  @SectionIdPattern('RESPSR-xxx')
   List<ResponsiveScreenRuleEntry> screenRules = [];
 }
 
 /// Navigation patterns per device class.
-@SectionId('PD00-USE-RES-BEH-NAV')
+@SectionId('REBENA')
 class ResponsiveBehaviorNavigation {
     @Form([
         Field('mobileNavigation', String, 'Mobile Navigation',
@@ -5355,7 +5434,7 @@ class ResponsiveBehaviorNavigation {
 }
 
 /// Visibility rules.
-@SectionId('PD00-USE-RES-BEH-VIS')
+@SectionId('REBEVI')
 class ResponsiveBehaviorVisibility {
     @Form([
         Field('mobileHiddenElements', String, 'Mobile Hidden Elements',
@@ -5367,7 +5446,7 @@ class ResponsiveBehaviorVisibility {
 }
 
 /// Touch and interaction optimizations.
-@SectionId('PD00-USE-RES-BEH-TCH')
+@SectionId('REBETO')
 class ResponsiveBehaviorTouch {
     @Form([
         Field('touchTargetMinSize', String, 'Touch Target Min Size',
@@ -5381,7 +5460,7 @@ class ResponsiveBehaviorTouch {
 }
 
 /// Content reflow rules.
-@SectionId('PD00-USE-RES-BEH-CON')
+@SectionId('REBECO')
 class ResponsiveBehaviorContent {
     @Form([
         Field('contentReflowStrategy', String, 'Content Reflow Strategy',
@@ -5397,6 +5476,7 @@ class ResponsiveBehaviorContent {
 }
 
 /// A screen-specific responsive rule entry [PD00-USE-RES-BEH-SCR-nn].
+@SectionId('RESPSR')
 class ResponsiveScreenRuleEntry {
   @Form([
     Field('screenId', String, 'Screen ID', required: true),
@@ -5418,7 +5498,7 @@ class ResponsiveScreenRuleEntry {
 /// Comprehensive UI component library specification covering design system,
 /// component catalog, and detailed per-component specifications. Supports
 /// Flutter-based implementation with Tom framework integration.
-@SectionId('PD00-USE-COM')
+@SectionId('UICO')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
 @SecondLevelSectionId(UiPrototype, 'UP-COM')
@@ -5448,20 +5528,21 @@ class UiComponents {
   UiComponentsCustomization customization = UiComponentsCustomization();
 
   /// 10.11.1. Component Library [PD00-USE-COM-LIB].
-  @SectionId('PD00-USE-COM-LIB')
   ComponentLibrary componentLibrary = ComponentLibrary();
 
   /// 10.11.2. Component Specifications [PD00-USE-COM-SPE] — contains 0+×.
-  @SectionIdPattern('PD00-USE-COM-SPE-xx')
+  @SectionId('UICOEN-LST')
+  @SectionIdPattern('UICOEN-xxx')
   List<UiComponentEntry> componentSpecs = [];
 
   /// 10.11.3. Component Families [PD00-USE-COM-FAM] — contains 0+×.
-  @SectionIdPattern('PD00-USE-COM-FAM-xx')
+  @SectionId('CMFA-LST')
+  @SectionIdPattern('CMFA-xxx')
   List<ComponentFamilyEntry> componentFamilies = [];
 }
 
 /// Visual language and brand alignment.
-@SectionId('PD00-USE-COM-VIS')
+@SectionId('UCVL')
 class UiComponentsVisualLanguage {
     @Form([
         Field('visualLanguage', String, 'Visual Language',
@@ -5475,7 +5556,7 @@ class UiComponentsVisualLanguage {
 }
 
 /// Component naming and documentation approach.
-@SectionId('PD00-USE-COM-APR')
+@SectionId('UCCA')
 class UiComponentsComponentApproach {
     @Form([
         Field('componentGranularity', String, 'Component Granularity',
@@ -5489,7 +5570,7 @@ class UiComponentsComponentApproach {
 }
 
 /// Extension and theming boundaries.
-@SectionId('PD00-USE-COM-CST')
+@SectionId('UICOCU')
 class UiComponentsCustomization {
     @Form([
         Field('extensionModel', String, 'Extension Model',
@@ -5505,7 +5586,7 @@ class UiComponentsCustomization {
 /// 10.11.1. Component Library [PD00-USE-COM-LIB].
 ///
 /// Design system and component catalog specification.
-@SectionId('PD00-USE-COM-LIB')
+@SectionId('COLI')
 class ComponentLibrary {
   @Form([
     Field('primaryColor', String, 'Primary Color',
@@ -5542,16 +5623,18 @@ class ComponentLibrary {
   TextSection designTokenCatalog = TextSection();
 
   /// Color palette specification.
-  @SectionIdPattern('PD00-USE-COM-LIB-COL-xx')
+  @SectionId('COPA-LST')
+  @SectionIdPattern('COPA-xxx')
   List<ColorPaletteEntry> colorPalettes = [];
 
   /// Typography styles.
-  @SectionIdPattern('PD00-USE-COM-LIB-TYP-xx')
+  @SectionId('TYST-LST')
+  @SectionIdPattern('TYST-xxx')
   List<TypographyStyleEntry> typographyStyles = [];
 }
 
 /// Color system.
-@SectionId('PD00-USE-COM-LIB-COL')
+@SectionId('COLICO')
 class ComponentLibraryColors {
   @Form([
     Field('secondaryColor', String, 'Secondary Color'),
@@ -5569,7 +5652,7 @@ class ComponentLibraryColors {
 }
 
 /// Typography system.
-@SectionId('PD00-USE-COM-LIB-TYP')
+@SectionId('COLITY')
 class ComponentLibraryTypography {
   @Form([
     Field('fontFamilySecondary', String, 'Secondary Font Family'),
@@ -5583,7 +5666,7 @@ class ComponentLibraryTypography {
 }
 
 /// Spacing and elevation.
-@SectionId('PD00-USE-COM-LIB-SPC')
+@SectionId('COLISP')
 class ComponentLibrarySpacing {
   @Form([
     Field('spacingTokens', String, 'Spacing Tokens',
@@ -5597,7 +5680,7 @@ class ComponentLibrarySpacing {
 }
 
 /// Borders and corners.
-@SectionId('PD00-USE-COM-LIB-BOR')
+@SectionId('COLIBO')
 class ComponentLibraryBorders {
   @Form([
     Field('cornerRadiusScale', String, 'Corner Radius Scale',
@@ -5608,7 +5691,7 @@ class ComponentLibraryBorders {
 }
 
 /// Icons and animation.
-@SectionId('PD00-USE-COM-LIB-VIS')
+@SectionId('COLIVI')
 class ComponentLibraryVisuals {
   @Form([
     Field('iconLibrary', String, 'Icon Library',
@@ -5624,6 +5707,7 @@ class ComponentLibraryVisuals {
 }
 
 /// A color palette entry [PD00-USE-COM-LIB-COL-nn].
+@SectionId('COPA')
 class ColorPaletteEntry {
   @Form([
     Field('paletteName', String, 'Palette Name', required: true,
@@ -5648,6 +5732,7 @@ class ColorPaletteEntry {
 }
 
 /// A typography style entry [PD00-USE-COM-LIB-TYP-nn].
+@SectionId('TYST')
 class TypographyStyleEntry {
   @Form([
     Field('styleName', String, 'Style Name', required: true,
@@ -5671,6 +5756,7 @@ class TypographyStyleEntry {
 /// A component family entry [PD00-USE-COM-FAM-nn].
 ///
 /// Groups related components by function (buttons, inputs, navigation, etc.).
+@SectionId('CMFA')
 class ComponentFamilyEntry {
   @Form([
     Field('familyId', String, 'Family ID', required: true,
@@ -5690,11 +5776,13 @@ class ComponentFamilyEntry {
   TextSection familyNarrative = TextSection();
 
   /// Components in this family.
-  @SectionIdPattern('PD00-USE-COM-FAM-xx-CMP-xx')
+  @SectionId('FAMREF-LST')
+  @SectionIdPattern('FAMREF-xxx')
   List<FamilyComponentRef> components = [];
 }
 
 /// A component reference within a family.
+@SectionId('FAMREF')
 class FamilyComponentRef {
   @Form([
     Field('componentId', String, 'Component ID', required: true),
@@ -5712,6 +5800,7 @@ class FamilyComponentRef {
 /// Comprehensive specification for a single UI component covering identity,
 /// visual design, behavior, states, responsiveness, accessibility,
 /// authorization, and data binding.
+@SectionId('UCE1')
 class UiComponentEntry {
   // ─────────────────────────────────────────────────────────────────────────
   // Component Identity
@@ -5899,28 +5988,33 @@ class UiComponentEntry {
   TextSection behaviorNarrative = TextSection();
 
   /// Contains 0+× ComponentState.
-  @SectionIdPattern('PD00-USE-COM-SPE-xx-STA-xx')
+  @SectionId('CMST-LST')
+  @SectionIdPattern('CMST-xxx')
   List<ComponentStateEntry> states = [];
 
   /// Contains 0+× ComponentVariant.
-  @SectionIdPattern('PD00-USE-COM-SPE-xx-VAR-xx')
+  @SectionId('CMVN-LST')
+  @SectionIdPattern('CMVN-xxx')
   List<ComponentVariantEntry> variants = [];
 
   /// Contains 0+× ComponentAction.
-  @SectionIdPattern('PD00-USE-COM-SPE-xx-ACT-xx')
+  @SectionId('CMAC-LST')
+  @SectionIdPattern('CMAC-xxx')
   List<ComponentActionEntry> actions = [];
 
   /// Contains 0+× ComponentSlot.
-  @SectionIdPattern('PD00-USE-COM-SPE-xx-SLT-xx')
+  @SectionId('CMSL-LST')
+  @SectionIdPattern('CMSL-xxx')
   List<ComponentSlotEntry> slots = [];
 
   /// Contains 0+× ComponentProperty.
-  @SectionIdPattern('PD00-USE-COM-SPE-xx-PRP-xx')
+  @SectionId('CMPR-LST')
+  @SectionIdPattern('CMPR-xxx')
   List<ComponentPropertyEntry> properties = [];
 }
 
 /// Wrapper mapping and business purpose.
-@SectionId('PD00-USE-COM-SPE-ENT-PRP')
+@SectionId('UCEP')
 class UiComponentEntryPurpose {
     @Form([
         Field('tomWrapperClass', String, 'Tom Wrapper Class',
@@ -5936,7 +6030,7 @@ class UiComponentEntryPurpose {
 }
 
 /// Classification details.
-@SectionId('PD00-USE-COM-SPE-ENT-CLS')
+@SectionId('UCEC')
 class UiComponentEntryClassification {
     @Form([
         Field('atomicLevel', String, 'Atomic Level',
@@ -5950,7 +6044,7 @@ class UiComponentEntryClassification {
 }
 
 /// Visual dimensions.
-@SectionId('PD00-USE-COM-SPE-ENT-DIM')
+@SectionId('UCED')
 class UiComponentEntryDimensions {
     @Form([
         Field('defaultWidth', String, 'Default Width',
@@ -5964,7 +6058,7 @@ class UiComponentEntryDimensions {
 }
 
 /// Spacing rules.
-@SectionId('PD00-USE-COM-SPE-ENT-SPC')
+@SectionId('UCES')
 class UiComponentEntrySpacing {
     @Form([
         Field('internalPadding', String, 'Internal Padding'),
@@ -5976,7 +6070,7 @@ class UiComponentEntrySpacing {
 }
 
 /// Surface treatment.
-@SectionId('PD00-USE-COM-SPE-ENT-SRF')
+@SectionId('UCES1')
 class UiComponentEntrySurface {
     @Form([
         Field('borderStyle', String, 'Border Style'),
@@ -5988,7 +6082,7 @@ class UiComponentEntrySurface {
 }
 
 /// Focus and keyboard behavior.
-@SectionId('PD00-USE-COM-SPE-ENT-INP')
+@SectionId('UCEIB')
 class UiComponentEntryInputBehavior {
     @Form([
         Field('focusBehavior', String, 'Focus Behavior',
@@ -6001,7 +6095,7 @@ class UiComponentEntryInputBehavior {
 }
 
 /// Animation behavior.
-@SectionId('PD00-USE-COM-SPE-ENT-ANM')
+@SectionId('UCEA')
 class UiComponentEntryAnimation {
     @Form([
         Field('entryAnimation', String, 'Entry Animation'),
@@ -6015,7 +6109,7 @@ class UiComponentEntryAnimation {
 }
 
 /// Scrolling behavior.
-@SectionId('PD00-USE-COM-SPE-ENT-SCR')
+@SectionId('UCES2')
 class UiComponentEntryScroll {
     @Form([
         Field('scrollBehavior', String, 'Scroll Behavior',
@@ -6029,6 +6123,7 @@ class UiComponentEntryScroll {
 /// A component state entry [PD00-USE-COM-SPE-nn-STA-nn].
 ///
 /// Defines a visual/functional state of the component.
+@SectionId('CSE1')
 class ComponentStateEntry {
   @Form([
     Field('stateId', String, 'State ID', required: true,
@@ -6054,7 +6149,7 @@ class ComponentStateEntry {
 }
 
 /// Visual appearance in this state.
-@SectionId('PD00-USE-COM-SPE-STA-ENT-VIS')
+@SectionId('CSEV')
 class ComponentStateEntryVisual {
     @Form([
         Field('visualChanges', String, 'Visual Changes',
@@ -6068,7 +6163,7 @@ class ComponentStateEntryVisual {
 }
 
 /// Behavior and accessibility changes in this state.
-@SectionId('PD00-USE-COM-SPE-STA-ENT-BEH')
+@SectionId('CSEB')
 class ComponentStateEntryBehavior {
     @Form([
         Field('interactionChanges', String, 'Interaction Changes',
@@ -6080,7 +6175,7 @@ class ComponentStateEntryBehavior {
 }
 
 /// Entry and exit transition rules.
-@SectionId('PD00-USE-COM-SPE-STA-ENT-TRN')
+@SectionId('CSET')
 class ComponentStateEntryTransitions {
     @Form([
         Field('entryTrigger', String, 'Entry Trigger',
@@ -6095,6 +6190,7 @@ class ComponentStateEntryTransitions {
 /// A component variant entry [PD00-USE-COM-SPE-nn-VAR-nn].
 ///
 /// Defines a variation of the component with different appearance or behavior.
+@SectionId('CVE')
 class ComponentVariantEntry {
   @Form([
     Field('variantId', String, 'Variant ID', required: true),
@@ -6118,7 +6214,7 @@ class ComponentVariantEntry {
 }
 
 /// Visual styling details.
-@SectionId('PD00-USE-COM-SPE-VAR-ENT-VIS')
+@SectionId('CVEV')
 class ComponentVariantEntryVisual {
     @Form([
         Field('colorSchemeVariant', String, 'Color Scheme Variant'),
@@ -6129,7 +6225,7 @@ class ComponentVariantEntryVisual {
 }
 
 /// Behavioral and implementation notes.
-@SectionId('PD00-USE-COM-SPE-VAR-ENT-BEH')
+@SectionId('CVEB')
 class ComponentVariantEntryBehavior {
     @Form([
         Field('behaviorDifferences', String, 'Behavior Differences'),
@@ -6146,6 +6242,7 @@ class ComponentVariantEntryBehavior {
 /// A component action entry [PD00-USE-COM-SPE-nn-ACT-nn].
 ///
 /// Defines an action that can be triggered from the component.
+@SectionId('CMAC')
 class ComponentActionEntry {
   @Form([
     Field('actionId', String, 'Action ID', required: true),
@@ -6168,7 +6265,7 @@ class ComponentActionEntry {
 }
 
 /// Authorization and confirmation behavior.
-@SectionId('PD00-USE-COM-SPE-ACT-ENT-GOV')
+@SectionId('CAEG')
 class ComponentActionEntryGovernance {
     @Form([
         Field('actionResult', String, 'Action Result',
@@ -6184,7 +6281,7 @@ class ComponentActionEntryGovernance {
 }
 
 /// Async execution and feedback behavior.
-@SectionId('PD00-USE-COM-SPE-ACT-ENT-EXE')
+@SectionId('CAEE')
 class ComponentActionEntryExecution {
     @Form([
         Field('asyncBehavior', String, 'Async Behavior',
@@ -6198,6 +6295,7 @@ class ComponentActionEntryExecution {
 /// A component slot entry [PD00-USE-COM-SPE-nn-SLT-nn].
 ///
 /// Defines a slot where child widgets can be placed.
+@SectionId('CMSL')
 class ComponentSlotEntry {
   @Form([
     Field('slotId', String, 'Slot ID', required: true),
@@ -6220,6 +6318,7 @@ class ComponentSlotEntry {
 /// A component property entry [PD00-USE-COM-SPE-nn-PRP-nn].
 ///
 /// Defines a configurable property of the component.
+@SectionId('CMPR')
 class ComponentPropertyEntry {
   @Form([
     Field('propertyId', String, 'Property ID', required: true),
@@ -6250,7 +6349,7 @@ class ComponentPropertyEntry {
 /// Comprehensive internationalization, localization, and system rollout
 /// specification covering translation workflows, locale handling, user
 /// documentation, training, and deployment planning.
-@SectionId('PD00-USE-MUL')
+@SectionId('MLAR')
 class MultiLanguageAndRollout {
   // ─────────────────────────────────────────────────────────────────────────
   // Multi-language Overview
@@ -6282,32 +6381,28 @@ class MultiLanguageAndRollout {
   TextSection overviewNarrative = TextSection();
 
   /// 10.12.1. Localization Process [PD00-USE-MUL-LOC].
-  @SectionId('PD00-USE-MUL-LOC')
   LocalizationProcess localizationProcess = LocalizationProcess();
 
   /// 10.12.2. Translation Process [PD00-USE-MUL-TRA].
-  @SectionId('PD00-USE-MUL-TRA')
   TranslationProcess translationProcess = TranslationProcess();
 
   /// 10.12.3. Documentation and Training [PD00-USE-MUL-DOC].
-  @SectionId('PD00-USE-MUL-DOC')
   DocumentationAndTraining documentationAndTraining = DocumentationAndTraining();
 
   /// 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
-  @SectionId('PD00-USE-MUL-LCS')
   LanguageCountrySelection languageCountrySelection = LanguageCountrySelection();
 
   /// 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
-  @SectionId('PD00-USE-MUL-REQ')
   TranslationRequirements translationRequirements = TranslationRequirements();
 
   /// Supported locale entries.
-  @SectionIdPattern('PD00-USE-MUL-LOC-xx')
+  @SectionId('SULOEN-LST')
+  @SectionIdPattern('SULOEN-xxx')
   List<SupportedLocaleEntry> supportedLocales = [];
 }
 
 /// Locale modeling and fallback behavior.
-@SectionId('PD00-USE-MUL-LCH')
+@SectionId('MLARLH')
 class MultiLanguageAndRolloutLocaleHandling {
     @Form([
         Field('localeFormat', String, 'Locale Format',
@@ -6323,7 +6418,7 @@ class MultiLanguageAndRolloutLocaleHandling {
 }
 
 /// Rollout sequencing by region and time.
-@SectionId('PD00-USE-MUL-PLN')
+@SectionId('MLARP')
 class MultiLanguageAndRolloutPlan {
     @Form([
         Field('rolloutStrategy', String, 'Rollout Strategy',
@@ -6339,7 +6434,7 @@ class MultiLanguageAndRolloutPlan {
 /// 10.12.1. Localization Process [PD00-USE-MUL-LOC].
 ///
 /// Workflow for identifying and preparing content for localization.
-@SectionId('PD00-USE-MUL-LOC')
+@SectionId('LOPR')
 @MapsTo(SystemRollout)
 @DetailedIn(SystemRollout)
 @SecondLevelSectionId(SystemRollout, 'SR-LOC')
@@ -6373,7 +6468,7 @@ class LocalizationProcess {
 }
 
 /// Review process.
-@SectionId('PD00-USE-MUL-LOC-REV')
+@SectionId('LOPRR1')
 class LocalizationProcessReview {
     @Form([
         Field('reviewWorkflow', String, 'Review Workflow',
@@ -6387,7 +6482,7 @@ class LocalizationProcessReview {
 }
 
 /// Formatting rules.
-@SectionId('PD00-USE-MUL-LOC-FMT')
+@SectionId('LOPRFO')
 class LocalizationProcessFormatting {
     @Form([
         Field('dateFormatRules', String, 'Date Format Rules',
@@ -6405,7 +6500,7 @@ class LocalizationProcessFormatting {
 }
 
 /// Deployment settings.
-@SectionId('PD00-USE-MUL-LOC-DPL')
+@SectionId('LOPRDE')
 class LocalizationProcessDeployment {
     @Form([
         Field('localeDeployment', String, 'Locale Deployment',
@@ -6421,7 +6516,7 @@ class LocalizationProcessDeployment {
 /// 10.12.2. Translation Process [PD00-USE-MUL-TRA].
 ///
 /// Workflow for translating content.
-@SectionId('PD00-USE-MUL-TRA')
+@SectionId('TRPR')
 @MapsTo(SystemRollout)
 @DetailedIn(SystemRollout)
 @SecondLevelSectionId(SystemRollout, 'SR-TRA')
@@ -6455,12 +6550,13 @@ class TranslationProcess {
   TextSection translationNarrative = TextSection();
 
   /// Translation vendor entries.
-  @SectionIdPattern('PD00-USE-MUL-TRA-VEN-xx')
+  @SectionId('TRVEEN-LST')
+  @SectionIdPattern('TRVEEN-xxx')
   List<TranslationVendorEntry> vendors = [];
 }
 
 /// Translation workflow.
-@SectionId('PD00-USE-MUL-TRA-WRK')
+@SectionId('TRPRWO')
 class TranslationProcessWorkflow {
     @Form([
         Field('translationWorkflow', String, 'Translation Workflow',
@@ -6476,7 +6572,7 @@ class TranslationProcessWorkflow {
 }
 
 /// Quality assurance.
-@SectionId('PD00-USE-MUL-TRA-QUA')
+@SectionId('TRPRQU')
 class TranslationProcessQuality {
     @Form([
         Field('qualityChecks', String, 'Quality Checks',
@@ -6490,7 +6586,7 @@ class TranslationProcessQuality {
 }
 
 /// Terminology and voice management.
-@SectionId('PD00-USE-MUL-TRA-TRM')
+@SectionId('TRPRTE')
 class TranslationProcessTerminology {
     @Form([
         Field('glossaryManagement', String, 'Glossary Management',
@@ -6504,7 +6600,7 @@ class TranslationProcessTerminology {
 }
 
 /// Ongoing localization operations.
-@SectionId('PD00-USE-MUL-TRA-ONG')
+@SectionId('TRPRON')
 class TranslationProcessOngoing {
     @Form([
         Field('continuousLocalization', String, 'Continuous Localization',
@@ -6516,6 +6612,7 @@ class TranslationProcessOngoing {
 }
 
 /// A translation vendor entry [PD00-USE-MUL-TRA-VEN-nn].
+@SectionId('TVE')
 class TranslationVendorEntry {
   @Form([
     Field('vendorName', String, 'Vendor Name', required: true),
@@ -6535,7 +6632,7 @@ class TranslationVendorEntry {
 /// 10.12.3. Documentation and Training [PD00-USE-MUL-DOC].
 ///
 /// End-user documentation and training materials.
-@SectionId('PD00-USE-MUL-DOC')
+@SectionId('DOANTR')
 @MapsTo(SystemRollout)
 @DetailedIn(SystemRollout)
 @SecondLevelSectionId(SystemRollout, 'SR-DOC')
@@ -6593,12 +6690,13 @@ class DocumentationAndTraining {
   TextSection documentationNarrative = TextSection();
 
   /// Training module entries.
-  @SectionIdPattern('PD00-USE-MUL-DOC-MOD-xx')
+  @SectionId('TRMOEN-LST')
+  @SectionIdPattern('TRMOEN-xxx')
   List<TrainingModuleEntry> trainingModules = [];
 }
 
 /// Documentation deliverables provided to users.
-@SectionId('PD00-USE-MUL-DOC-DEL')
+@SectionId('DATD')
 class DocumentationAndTrainingDeliverables {
     @Form([
         Field('userGuide', bool, 'User Guide'),
@@ -6613,7 +6711,7 @@ class DocumentationAndTrainingDeliverables {
 }
 
 /// Documentation localization approach.
-@SectionId('PD00-USE-MUL-DOC-LOC')
+@SectionId('DATL')
 class DocumentationAndTrainingLocalization {
     @Form([
         Field('documentationLanguages', String, 'Documentation Languages',
@@ -6625,6 +6723,7 @@ class DocumentationAndTrainingLocalization {
 }
 
 /// A training module entry [PD00-USE-MUL-DOC-MOD-nn].
+@SectionId('TME')
 class TrainingModuleEntry {
   @Form([
     Field('moduleId', String, 'Module ID', required: true),
@@ -6644,7 +6743,7 @@ class TrainingModuleEntry {
 /// 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
 ///
 /// UI specification for language and country selection.
-@SectionId('PD00-USE-MUL-LCS')
+@SectionId('LACOSE')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
 @SecondLevelSectionId(UiPrototype, 'UP-LCS')
@@ -6686,7 +6785,7 @@ class LanguageCountrySelection {
 }
 
 /// Default locale behavior.
-@SectionId('PD00-USE-MUL-LCS-DEF')
+@SectionId('LCSD')
 class LanguageCountrySelectionDefaults {
     @Form([
         Field('defaultLanguage', String, 'Default Language',
@@ -6700,7 +6799,7 @@ class LanguageCountrySelectionDefaults {
 }
 
 /// Persistence rules.
-@SectionId('PD00-USE-MUL-LCS-PRS')
+@SectionId('LCSP')
 class LanguageCountrySelectionPersistence {
     @Form([
         Field('persistenceMethod', String, 'Persistence Method',
@@ -6714,7 +6813,7 @@ class LanguageCountrySelectionPersistence {
 }
 
 /// Fallback behavior.
-@SectionId('PD00-USE-MUL-LCS-FAL')
+@SectionId('LCSF')
 class LanguageCountrySelectionFallback {
     @Form([
         Field('localeFallbackBehavior', String, 'Locale Fallback Behavior',
@@ -6728,7 +6827,7 @@ class LanguageCountrySelectionFallback {
 }
 
 /// Switching UX behavior.
-@SectionId('PD00-USE-MUL-LCS-UXX')
+@SectionId('LCSU')
 class LanguageCountrySelectionUx {
     @Form([
         Field('languageSwitchBehavior', String, 'Language Switch Behavior',
@@ -6744,7 +6843,7 @@ class LanguageCountrySelectionUx {
 /// 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
 ///
 /// Technical requirements for internationalization framework.
-@SectionId('PD00-USE-MUL-REQ')
+@SectionId('TRRE1')
 @MapsTo(TechnicalRequirementsSpec)
 @DetailedIn(TechnicalRequirementsSpec)
 @SecondLevelSectionId(TechnicalRequirementsSpec, 'TR-REQ')
@@ -6778,7 +6877,7 @@ class TranslationRequirements {
 }
 
 /// RTL and bidirectional support.
-@SectionId('PD00-USE-MUL-REQ-RTL')
+@SectionId('TRRERT')
 class TranslationRequirementsRtl {
   @Form([
     Field('rtlSupport', bool, 'RTL Support'),
@@ -6793,7 +6892,7 @@ class TranslationRequirementsRtl {
 }
 
 /// Locale-specific formatting rules.
-@SectionId('PD00-USE-MUL-REQ-FMT')
+@SectionId('TRREFO')
 class TranslationRequirementsFormatting {
   @Form([
     Field('dateTimeFormatting', String, 'Date/Time Formatting',
@@ -6809,7 +6908,7 @@ class TranslationRequirementsFormatting {
 }
 
 /// Pluralization and variants.
-@SectionId('PD00-USE-MUL-REQ-VAR')
+@SectionId('TRREVA')
 class TranslationRequirementsVariants {
   @Form([
     Field('pluralizationRules', String, 'Pluralization Rules',
@@ -6823,7 +6922,7 @@ class TranslationRequirementsVariants {
 }
 
 /// Technical text and font support.
-@SectionId('PD00-USE-MUL-REQ-TEC')
+@SectionId('TRRETE')
 class TranslationRequirementsTechnical {
   @Form([
     Field('unicodeSupport', String, 'Unicode Support',
@@ -6839,6 +6938,7 @@ class TranslationRequirementsTechnical {
 }
 
 /// A supported locale entry [PD00-USE-MUL-LOC-nn].
+@SectionId('SLE2')
 class SupportedLocaleEntry {
   @Form([
     Field('localeCode', String, 'Locale Code', required: true,
@@ -6860,7 +6960,7 @@ class SupportedLocaleEntry {
 }
 
 /// Formatting and direction rules for the locale.
-@SectionId('PD00-USE-MUL-LOC-ENT-FMT')
+@SectionId('SLEF')
 class SupportedLocaleEntryFormatting {
   @Form([
     Field('textDirection', String, 'Text Direction',
@@ -6876,7 +6976,7 @@ class SupportedLocaleEntryFormatting {
 }
 
 /// Launch readiness and locale ownership.
-@SectionId('PD00-USE-MUL-LOC-ENT-ROL')
+@SectionId('SLER1')
 class SupportedLocaleEntryRollout {
   @Form([
     Field('launchPhase', String, 'Launch Phase',
@@ -6897,7 +6997,7 @@ class SupportedLocaleEntryRollout {
 ///
 /// Comprehensive prototype planning covering goals, feature selection,
 /// prototype type, evaluation criteria, and stakeholder alignment.
-@SectionId('PD00-USE-PRO')
+@SectionId('PROTOT')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
 @SecondLevelSectionId(UiPrototype, 'UP-PRO')
@@ -6932,15 +7032,12 @@ class Prototype {
   TextSection overviewNarrative = TextSection();
 
   /// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
-  @SectionId('PD00-USE-PRO-GOA')
   PrototypeGoals prototypeGoals = PrototypeGoals();
 
   /// 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
-  @SectionId('PD00-USE-PRO-FEA')
   PrototypeFeatureSubset featureSubset = PrototypeFeatureSubset();
 
   /// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
-  @SectionId('PD00-USE-PRO-TYP')
   PrototypeTypeSection prototypeType = PrototypeTypeSection();
 
   /// Prototype schedule.
@@ -6949,7 +7046,7 @@ class Prototype {
 }
 
 /// Prototype timing commitments.
-@SectionId('PD00-USE-PRO-TML')
+@SectionId('PRTI')
 class PrototypeTimeline {
     @Form([
         Field('prototypeTimeline', String, 'Prototype Timeline',
@@ -6963,7 +7060,7 @@ class PrototypeTimeline {
 }
 
 /// Prototype staffing and environment.
-@SectionId('PD00-USE-PRO-RES')
+@SectionId('PRRE2')
 class PrototypeResources {
     @Form([
         Field('prototypeTeam', String, 'Prototype Team',
@@ -6977,7 +7074,7 @@ class PrototypeResources {
 }
 
 /// Approval and progression criteria.
-@SectionId('PD00-USE-PRO-GOV')
+@SectionId('PRGO')
 class PrototypeGovernance {
     @Form([
         Field('acceptanceCriteria', String, 'Acceptance Criteria',
@@ -6991,7 +7088,7 @@ class PrototypeGovernance {
 /// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
 ///
 /// What the prototype should validate.
-@SectionId('PD00-USE-PRO-GOA')
+@SectionId('PRGO1')
 class PrototypeGoals {
   @Form([
     // Validation goals
@@ -7018,12 +7115,13 @@ class PrototypeGoals {
   TextSection goalsNarrative = TextSection();
 
   /// Individual goal entries.
-  @SectionIdPattern('PD00-USE-PRO-GOA-xx')
+  @SectionId('PRGOEN-LST')
+  @SectionIdPattern('PRGOEN-xxx')
   List<PrototypeGoalEntry> goals = [];
 }
 
 /// Risk reduction and assumption testing.
-@SectionId('PD00-USE-PRO-GOA-RSK')
+@SectionId('PRGORI')
 class PrototypeGoalsRisk {
     @Form([
         Field('riskMitigation', String, 'Risk Mitigation',
@@ -7037,7 +7135,7 @@ class PrototypeGoalsRisk {
 }
 
 /// User feedback objectives and intake.
-@SectionId('PD00-USE-PRO-GOA-FBK')
+@SectionId('PRGOFE')
 class PrototypeGoalsFeedback {
     @Form([
         Field('userFeedbackGoals', String, 'User Feedback Goals',
@@ -7051,6 +7149,7 @@ class PrototypeGoalsFeedback {
 }
 
 /// A prototype goal entry [PD00-USE-PRO-GOA-nn].
+@SectionId('PGE')
 class PrototypeGoalEntry {
   @Form([
     Field('goalId', String, 'Goal ID', required: true),
@@ -7074,7 +7173,7 @@ class PrototypeGoalEntry {
 /// 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
 ///
 /// Features included in the prototype.
-@SectionId('PD00-USE-PRO-FEA')
+@SectionId('PRFESU')
 class PrototypeFeatureSubset {
   @Form([
     // Selection criteria
@@ -7100,12 +7199,13 @@ class PrototypeFeatureSubset {
   TextSection featureNarrative = TextSection();
 
   /// Prototype feature entries.
-  @SectionIdPattern('PD00-USE-PRO-FEA-xx')
+  @SectionId('PRFEEN-LST')
+  @SectionIdPattern('PRFEEN-xxx')
   List<PrototypeFeatureEntry> features = [];
 }
 
 /// Included and excluded feature scope.
-@SectionId('PD00-USE-PRO-FEA-SCP')
+@SectionId('PFSS')
 class PrototypeFeatureSubsetScope {
     @Form([
         Field('includedFeatures', String, 'Included Features',
@@ -7119,7 +7219,7 @@ class PrototypeFeatureSubsetScope {
 }
 
 /// Fidelity expectations for the prototype.
-@SectionId('PD00-USE-PRO-FEA-FDL')
+@SectionId('PFSF')
 class PrototypeFeatureSubsetFidelity {
     @Form([
         Field('prototypeFidelity', String, 'Prototype Fidelity',
@@ -7135,6 +7235,7 @@ class PrototypeFeatureSubsetFidelity {
 }
 
 /// A prototype feature entry [PD00-USE-PRO-FEA-nn].
+@SectionId('PFE')
 class PrototypeFeatureEntry {
   @Form([
     Field('featureId', String, 'Feature ID', required: true),
@@ -7156,7 +7257,7 @@ class PrototypeFeatureEntry {
 /// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
 ///
 /// Classification and implications of the prototype type.
-@SectionId('PD00-USE-PRO-TYP')
+@SectionId('PRTYSE')
 class PrototypeTypeSection {
   @Form([
     Field('prototypeType', String, 'Prototype Type', required: true,
@@ -7175,22 +7276,19 @@ class PrototypeTypeSection {
   String? prototypeTypeOverview;
 
   /// 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
-  @SectionId('PD00-USE-PRO-TYP-REU')
   ReusablePrototype reusablePrototype = ReusablePrototype();
 
   /// 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
-  @SectionId('PD00-USE-PRO-TYP-TRA')
   TrainingPrototype trainingPrototype = TrainingPrototype();
 
   /// 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
-  @SectionId('PD00-USE-PRO-TYP-THR')
   ThrowawayPrototype throwawayPrototype = ThrowawayPrototype();
 }
 
 /// 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
 ///
 /// Prototype that becomes part of the final product.
-@SectionId('PD00-USE-PRO-TYP-REU')
+@SectionId('REPR3')
 class ReusablePrototype {
   @Form([
     Field('codeQualityRequirements', String, 'Code Quality Requirements',
@@ -7218,7 +7316,7 @@ class ReusablePrototype {
 }
 
 /// Architecture alignment and refactoring expectations.
-@SectionId('PD00-USE-PRO-TYP-REU-ARC')
+@SectionId('REPRAR')
 class ReusablePrototypeArchitecture {
     @Form([
         Field('architectureAlignment', String, 'Architecture Alignment',
@@ -7232,7 +7330,7 @@ class ReusablePrototypeArchitecture {
 }
 
 /// Integration and merge strategy.
-@SectionId('PD00-USE-PRO-TYP-REU-INT')
+@SectionId('REPRIN')
 class ReusablePrototypeIntegration {
     @Form([
         Field('integrationPlan', String, 'Integration Plan',
@@ -7246,7 +7344,7 @@ class ReusablePrototypeIntegration {
 }
 
 /// Transition and handoff planning.
-@SectionId('PD00-USE-PRO-TYP-REU-TRN')
+@SectionId('REPRTR')
 class ReusablePrototypeTransition {
     @Form([
         Field('transitionTimeline', String, 'Transition Timeline'),
@@ -7259,7 +7357,7 @@ class ReusablePrototypeTransition {
 /// 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
 ///
 /// Prototype where concepts are reused but not code.
-@SectionId('PD00-USE-PRO-TYP-TRA')
+@SectionId('TRPR1')
 class TrainingPrototype {
   @Form([
     // Knowledge transfer
@@ -7283,7 +7381,7 @@ class TrainingPrototype {
 }
 
 /// Code disposition and reimplementation planning.
-@SectionId('PD00-USE-PRO-TYP-TRA-DIS')
+@SectionId('TRPRDI')
 class TrainingPrototypeDisposition {
     @Form([
         Field('codeDisposition', String, 'Code Disposition',
@@ -7297,7 +7395,7 @@ class TrainingPrototypeDisposition {
 }
 
 /// Documentation outputs and team learning.
-@SectionId('PD00-USE-PRO-TYP-TRA-OUT')
+@SectionId('TRPROU')
 class TrainingPrototypeOutputs {
     @Form([
         Field('documentationProduced', String, 'Documentation Produced',
@@ -7317,7 +7415,7 @@ class TrainingPrototypeOutputs {
 /// 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
 ///
 /// Prototype evaluated and then discarded.
-@SectionId('PD00-USE-PRO-TYP-THR')
+@SectionId('THPR')
 class ThrowawayPrototype {
   @Form([
     Field('evaluationCriteria', String, 'Evaluation Criteria',
@@ -7344,7 +7442,7 @@ class ThrowawayPrototype {
 }
 
 /// Findings and decisions captured from evaluation.
-@SectionId('PD00-USE-PRO-TYP-THR-FND')
+@SectionId('THPRFI')
 class ThrowawayPrototypeFindings {
     @Form([
         Field('findingsDocumentation', String, 'Findings Documentation',
@@ -7358,7 +7456,7 @@ class ThrowawayPrototypeFindings {
 }
 
 /// Disposal and follow-up handling.
-@SectionId('PD00-USE-PRO-TYP-THR-DIS')
+@SectionId('THPRDI')
 class ThrowawayPrototypeDisposition {
     @Form([
         Field('disposalPlan', String, 'Disposal Plan',
@@ -7372,7 +7470,7 @@ class ThrowawayPrototypeDisposition {
 }
 
 /// Long-term value retained from the prototype.
-@SectionId('PD00-USE-PRO-TYP-THR-VAL')
+@SectionId('THPRVA')
 class ThrowawayPrototypeValue {
     @Form([
         Field('insightsCaptured', String, 'Insights Captured',
@@ -7391,7 +7489,7 @@ class ThrowawayPrototypeValue {
 ///
 /// Wireframe and mockup inventory beyond individual screen descriptions.
 /// Covers HBSG AS10-WIR.
-@SectionId('PD00-USE-WIR')
+@SectionId('WIANMO')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
 @SecondLevelSectionId(UiPrototype, 'UP-WIR')

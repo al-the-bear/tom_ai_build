@@ -4,6 +4,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 import 'enums.dart';
 
 /// Risk entry shared across documents.
+@SectionId('RISK')
 class Risk {
   @Form([
     Field('riskId', String, 'Risk Id', required: true),
