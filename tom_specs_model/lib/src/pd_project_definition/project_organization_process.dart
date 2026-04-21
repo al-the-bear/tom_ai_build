@@ -43,6 +43,7 @@ the overall impact on governance, and how deviations are tracked and approved.
 }
 
 /// Summary of all methodology deviations for quick reference.
+@SectionId('PD00-POP-SUM')
 class MethodologyDeviationSummary {
   @Form([
     Field('totalRoleAdjustments', int, 'Total Role Adjustments',
@@ -101,6 +102,7 @@ the changes, and how role clarity is maintained despite deviations.
 }
 
 /// Summary of role adjustments.
+@SectionId('PD00-POP-ROL-SUM')
 class RoleAdjustmentSummary {
   @Form([
     Field('standardRolesCount', int, 'Standard Roles Count',
@@ -128,6 +130,7 @@ class RoleAdjustmentSummary {
 /// Documents a specific deviation from standard TomSpecs role definitions,
 /// including the type of adjustment, affected responsibilities, risk
 /// assessment, and mitigation measures.
+@SectionId('PD00-POP-ROL-ENT')
 class RoleAdjustmentEntry {
   @Form([
     Field('adjustmentId', String, 'Adjustment ID',
@@ -156,6 +159,7 @@ class RoleAdjustmentEntry {
 }
 
 /// Adjustment details for role.
+@SectionId('PD00-POP-ROL-ENT-DET')
 class RoleAdjustmentEntryDetails {
   @Form([
     Field('adjustedRoleName', String, 'Adjusted Role Name',
@@ -173,6 +177,7 @@ class RoleAdjustmentEntryDetails {
 }
 
 /// Rationale for role adjustment.
+@SectionId('PD00-POP-ROL-ENT-RAT')
 class RoleAdjustmentEntryRationale {
   @Form([
     Field('rationale', String, 'Rationale',
@@ -186,6 +191,7 @@ class RoleAdjustmentEntryRationale {
 }
 
 /// Coverage: assignments and RACI impact.
+@SectionId('PD00-POP-ROL-ENT-COV')
 class RoleAdjustmentEntryCoverage {
   @Form([
     Field('assignedTo', String, 'Assigned To',
@@ -199,6 +205,7 @@ class RoleAdjustmentEntryCoverage {
 }
 
 /// Risk assessment for role adjustment.
+@SectionId('PD00-POP-ROL-ENT-RSK')
 class RoleAdjustmentEntryRisk {
   @Form([
     Field('riskLevel', String, 'Risk Level',
@@ -212,6 +219,7 @@ class RoleAdjustmentEntryRisk {
 }
 
 /// Governance: approval and review.
+@SectionId('PD00-POP-ROL-ENT-GOV')
 class RoleAdjustmentEntryGovernance {
   @Form([
     Field('approvalStatus', String, 'Approval Status',
@@ -261,6 +269,7 @@ how quality assurance is maintained despite deviations.
 }
 
 /// Summary of quality gate adjustments.
+@SectionId('PD00-POP-QGA-SUM')
 class QualityGateAdjustmentSummary {
   @Form([
     Field('standardGatesCount', int, 'Standard Gates Count',
@@ -288,6 +297,7 @@ class QualityGateAdjustmentSummary {
 /// Documents a specific deviation from standard quality gate definitions,
 /// including the type of change, impact on quality assurance, risk
 /// assessment, and compensating controls.
+@SectionId('PD00-POP-QGA-ENT')
 class QualityGateAdjustmentEntry {
   @Form([
     Field('adjustmentId', String, 'Adjustment ID',
@@ -315,6 +325,7 @@ class QualityGateAdjustmentEntry {
 }
 
 /// Gate details.
+@SectionId('PD00-POP-QGA-ENT-DET')
 class QualityGateAdjustmentDetails {
   @Form([
     Field('gatePhase', String, 'Gate Phase',
@@ -332,6 +343,7 @@ class QualityGateAdjustmentDetails {
 }
 
 /// Rationale.
+@SectionId('PD00-POP-QGA-ENT-RAT')
 class QualityGateAdjustmentRationale {
   @Form([
     Field('rationale', String, 'Rationale',
@@ -347,6 +359,7 @@ class QualityGateAdjustmentRationale {
 }
 
 /// Impact assessment.
+@SectionId('PD00-POP-QGA-ENT-IMP')
 class QualityGateAdjustmentImpact {
   @Form([
     Field('qualityImpact', String, 'Quality Impact',
@@ -364,6 +377,7 @@ class QualityGateAdjustmentImpact {
 }
 
 /// Governance.
+@SectionId('PD00-POP-QGA-ENT-GOV')
 class QualityGateAdjustmentGovernance {
   @Form([
     Field('approvalStatus', String, 'Approval Status',
@@ -415,6 +429,7 @@ and how process integrity is maintained despite deviations.
 }
 
 /// Summary of process adjustments.
+@SectionId('PD00-POP-PRC-SUM')
 class ProcessAdjustmentSummary {
   @Form([
     Field('baseProcess', String, 'Base Process',
@@ -446,6 +461,7 @@ class ProcessAdjustmentSummary {
 /// Documents a specific deviation from standard process steps, including
 /// the type of modification, dependencies affected, risk assessment,
 /// and implementation details.
+@SectionId('PD00-POP-PRC-ENT')
 class ProcessAdjustmentEntry {
   @Form([
     Field('adjustmentId', String, 'Adjustment ID',
@@ -478,6 +494,7 @@ class ProcessAdjustmentEntry {
 }
 
 /// Identity for process adjustment.
+@SectionId('PD00-POP-PRC-ENT-IDN')
 class ProcessAdjustmentIdentity {
   @Form([
     Field('stepPhase', String, 'Step Phase',
@@ -489,6 +506,7 @@ class ProcessAdjustmentIdentity {
 }
 
 /// Details for process adjustment.
+@SectionId('PD00-POP-PRC-ENT-DET')
 class ProcessAdjustmentDetails {
   @Form([
     Field('adjustmentDescription', String, 'Adjustment Description',
@@ -506,6 +524,7 @@ class ProcessAdjustmentDetails {
 }
 
 /// Rationale for process adjustment.
+@SectionId('PD00-POP-PRC-ENT-RAT')
 class ProcessAdjustmentRationale {
   @Form([
     Field('rationale', String, 'Rationale',
@@ -523,6 +542,7 @@ class ProcessAdjustmentRationale {
 }
 
 /// Implementation for process adjustment.
+@SectionId('PD00-POP-PRC-ENT-IMP')
 class ProcessAdjustmentImplementation {
   @Form([
     Field('implementationApproach', String, 'Implementation Approach',
@@ -538,6 +558,7 @@ class ProcessAdjustmentImplementation {
 }
 
 /// Risk for process adjustment.
+@SectionId('PD00-POP-PRC-ENT-RSK')
 class ProcessAdjustmentRisk {
   @Form([
     Field('riskLevel', String, 'Risk Level',
@@ -557,6 +578,7 @@ class ProcessAdjustmentRisk {
 }
 
 /// Governance for process adjustment.
+@SectionId('PD00-POP-PRC-ENT-GOV')
 class ProcessAdjustmentGovernance {
   @Form([
     Field('approvalStatus', String, 'Approval Status',
@@ -637,6 +659,7 @@ class Tooling {
 }
 
 /// Stack composition and selection policies.
+@SectionId('PD00-POP-TOO-TOO-STK')
 class ToolingStack {
     @Form([
         Field('toolRationalizationGoals', String, 'Tool Rationalization Goals',
@@ -659,6 +682,7 @@ class ToolingStack {
 }
 
 /// Lifecycle and governance processes.
+@SectionId('PD00-POP-TOO-TOO-LCY')
 class ToolingLifecycle {
     @Form([
         Field('toolOnboardingProcess', String, 'Tool Onboarding Process',
@@ -672,6 +696,7 @@ class ToolingLifecycle {
 }
 
 /// Review, catalog, and notes.
+@SectionId('PD00-POP-TOO-TOO-GOV')
 class ToolingGovernance {
     @Form([
         Field('toolReviewCadence', String, 'Tool Review Cadence',
@@ -695,6 +720,7 @@ class ToolingGovernance {
 /// usage, infrastructure, lifecycle, cost, configuration, and
 /// documentation. Aligns with ITIL service catalog, PMBOK resource
 /// planning, and enterprise architecture concerns.
+@SectionId('PD00-POP-TOO-TOO-ENT')
 class ToolEntry {
   @Form([
     Field('toolId', String, 'Tool ID',
@@ -754,6 +780,7 @@ class ToolEntry {
 }
 
 /// Identity and classification for a tool.
+@SectionId('PD00-POP-TOO-TOO-ENT-IDN')
 class ToolIdentity {
   @Form([
     Field('vendorName', String, 'Vendor / Publisher',
@@ -797,6 +824,7 @@ class ToolIdentity {
 }
 
 /// Licensing terms and compliance for a tool.
+@SectionId('PD00-POP-TOO-TOO-ENT-LIC')
 class ToolLicensing {
   @Form([
     Field('licenseType', String, 'License Type',
@@ -832,6 +860,7 @@ class ToolLicensing {
 }
 
 /// Version management and upgrade policies for a tool.
+@SectionId('PD00-POP-TOO-TOO-ENT-VER')
 class ToolVersioning {
   @Form([
     Field('currentVersion', String, 'Current Version',
@@ -867,6 +896,7 @@ class ToolVersioning {
 }
 
 /// Access control and provisioning for a tool.
+@SectionId('PD00-POP-TOO-TOO-ENT-ACC')
 class ToolAccess {
   @Form([
     Field('accessUrl', String, 'Access URL',
@@ -910,6 +940,7 @@ class ToolAccess {
 }
 
 /// Integration capabilities for a tool.
+@SectionId('PD00-POP-TOO-TOO-ENT-INT')
 class ToolIntegration {
   @Form([
     Field('integratesWithTools', String, 'Integrates With',
@@ -943,6 +974,7 @@ class ToolIntegration {
 }
 
 /// Vendor and internal support for a tool.
+@SectionId('PD00-POP-TOO-TOO-ENT-SUP')
 class ToolSupport {
   @Form([
     Field('vendorSupportTier', String, 'Vendor Support Tier',
@@ -971,6 +1003,7 @@ class ToolSupport {
 }
 
 /// Security and compliance for a tool.
+@SectionId('PD00-POP-TOO-TOO-ENT-SEC')
 class ToolSecurity {
   @Form([
     Field('securityClassification', String, 'Security Classification',
@@ -1014,6 +1047,7 @@ class ToolSecurity {
 }
 
 /// Usage patterns and adoption metrics for a tool.
+@SectionId('PD00-POP-TOO-TOO-ENT-USE')
 class ToolUsage {
   @Form([
     Field('userGroups', String, 'User Groups',
@@ -1052,6 +1086,7 @@ class ToolUsage {
 }
 
 /// Infrastructure and hosting for a tool.
+@SectionId('PD00-POP-TOO-TOO-ENT-INF')
 class ToolInfrastructure {
   @Form([
     Field('hostingModel', String, 'Hosting Model',
@@ -1089,6 +1124,7 @@ class ToolInfrastructure {
 }
 
 /// Lifecycle management for a tool.
+@SectionId('PD00-POP-TOO-TOO-ENT-LCY')
 class ToolLifecycle {
   @Form([
     Field('introductionDate', String, 'Introduction Date',
@@ -1120,6 +1156,7 @@ class ToolLifecycle {
 }
 
 /// Cost structure and budget for a tool.
+@SectionId('PD00-POP-TOO-TOO-ENT-CST')
 class ToolCost {
   @Form([
     Field('initialCost', String, 'Initial Cost',
@@ -1145,6 +1182,7 @@ class ToolCost {
 }
 
 /// Configuration standards for a tool.
+@SectionId('PD00-POP-TOO-TOO-ENT-CFG')
 class ToolConfiguration {
   @Form([
     Field('standardConfiguration', String, 'Standard Configuration',
@@ -1174,6 +1212,7 @@ class ToolConfiguration {
 }
 
 /// Documentation resources for a tool.
+@SectionId('PD00-POP-TOO-TOO-ENT-DOC')
 class ToolDocumentation {
   @Form([
     Field('vendorDocumentationUrl', String, 'Vendor Documentation URL',
@@ -1193,6 +1232,7 @@ class ToolDocumentation {
 }
 
 /// Approval status and ownership for a tool.
+@SectionId('PD00-POP-TOO-TOO-ENT-APR')
 class ToolApproval {
   @Form([
     Field('approvalStatus', String, 'Approval Status',
@@ -1252,6 +1292,7 @@ class Environments {
 /// availability, connectivity, monitoring, lifecycle, ownership, cost,
 /// and compliance. Aligns with PMBOK resource planning, ITIL service
 /// design, and PRINCE2 technical stage planning concerns.
+@SectionId('PD00-POP-TOO-ENV-ENT')
 class EnvironmentEntry {
   @Form([
     Field('environmentName', String, 'Environment Name',
@@ -1302,6 +1343,7 @@ class EnvironmentEntry {
 }
 
 /// Identity and classification for environment entry.
+@SectionId('PD00-POP-TOO-ENV-ENT-IDN')
 class EnvironmentIdentity {
   @Form([
     Field('purpose', String, 'Purpose',
@@ -1315,6 +1357,7 @@ class EnvironmentIdentity {
 }
 
 /// Infrastructure configuration for environment entry.
+@SectionId('PD00-POP-TOO-ENV-ENT-INF')
 class EnvironmentInfrastructure {
   @Form([
     Field('hostingModel', String, 'Hosting Model',
@@ -1338,6 +1381,7 @@ class EnvironmentInfrastructure {
 }
 
 /// Access and security for environment entry.
+@SectionId('PD00-POP-TOO-ENV-ENT-SEC')
 class EnvironmentSecurity {
   @Form([
     Field('accessControlModel', String, 'Access Control Model',
@@ -1361,6 +1405,7 @@ class EnvironmentSecurity {
 }
 
 /// Data management for environment entry.
+@SectionId('PD00-POP-TOO-ENV-ENT-DAT')
 class EnvironmentDataManagement {
   @Form([
     Field('dataClassification', String, 'Data Classification',
@@ -1380,6 +1425,7 @@ class EnvironmentDataManagement {
 }
 
 /// Configuration and versions for environment entry.
+@SectionId('PD00-POP-TOO-ENV-ENT-CFG')
 class EnvironmentConfiguration {
   @Form([
     Field('operatingSystem', String, 'Operating System',
@@ -1399,6 +1445,7 @@ class EnvironmentConfiguration {
 }
 
 /// Availability and SLA for environment entry.
+@SectionId('PD00-POP-TOO-ENV-ENT-AVL')
 class EnvironmentAvailability {
   @Form([
     Field('uptimeRequirement', String, 'Uptime Requirement',
@@ -1418,6 +1465,7 @@ class EnvironmentAvailability {
 }
 
 /// Connectivity and network for environment entry.
+@SectionId('PD00-POP-TOO-ENV-ENT-CON')
 class EnvironmentConnectivity {
   @Form([
     Field('networkZone', String, 'Network Zone',
@@ -1437,6 +1485,7 @@ class EnvironmentConnectivity {
 }
 
 /// Monitoring and observability for environment entry.
+@SectionId('PD00-POP-TOO-ENV-ENT-MON')
 class EnvironmentMonitoring {
   @Form([
     Field('monitoringTools', String, 'Monitoring Tools',
@@ -1454,6 +1503,7 @@ class EnvironmentMonitoring {
 }
 
 /// Lifecycle and provisioning for environment entry.
+@SectionId('PD00-POP-TOO-ENV-ENT-LCY')
 class EnvironmentLifecycle {
   @Form([
     Field('provisioningMethod', String, 'Provisioning Method',
@@ -1473,6 +1523,7 @@ class EnvironmentLifecycle {
 }
 
 /// Ownership and support for environment entry.
+@SectionId('PD00-POP-TOO-ENV-ENT-OWN')
 class EnvironmentOwnership {
   @Form([
     Field('environmentOwner', String, 'Environment Owner',
@@ -1488,6 +1539,7 @@ class EnvironmentOwnership {
 }
 
 /// Cost and billing for environment entry.
+@SectionId('PD00-POP-TOO-ENV-ENT-CST')
 class EnvironmentCost {
   @Form([
     Field('monthlyCostEstimate', String, 'Monthly Cost Estimate',
@@ -1503,6 +1555,7 @@ class EnvironmentCost {
 }
 
 /// Compliance and audit for environment entry.
+@SectionId('PD00-POP-TOO-ENV-ENT-CPL')
 class EnvironmentCompliance {
   @Form([
     Field('complianceFrameworks', String, 'Compliance Frameworks',

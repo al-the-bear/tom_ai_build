@@ -124,6 +124,7 @@ class CurrentArchitecture {
 ///
 /// Captures comprehensive information about an existing system including
 /// identity, technology, business context, usage metrics, lifecycle, and risks.
+@SectionId('PD00-CUR-SYS-INV-ENT')
 class ExistingSystemEntry {
   // -------------------------------------------------------------------------
   // System Identity
@@ -205,6 +206,7 @@ class ExistingSystemEntry {
 }
 
 /// Technology stack details for an existing system.
+@SectionId('PD00-CUR-SYS-INV-ENT-TEC')
 class ExistingSystemTechnology {
   @Form([
     Field('primaryPlatform', String, 'Primary Technology Platform'),
@@ -218,6 +220,7 @@ class ExistingSystemTechnology {
 }
 
 /// Business context for an existing system.
+@SectionId('PD00-CUR-SYS-INV-ENT-BUS')
 class ExistingSystemBusinessContext {
   @Form([
     Field('purpose', String, 'Purpose/Description', required: true),
@@ -233,6 +236,7 @@ class ExistingSystemBusinessContext {
 }
 
 /// Usage metrics for an existing system.
+@SectionId('PD00-CUR-SYS-INV-ENT-USE')
 class ExistingSystemUsage {
   @Form([
     Field('activeUsers', int, 'Active Users (total registered)'),
@@ -248,6 +252,7 @@ class ExistingSystemUsage {
 }
 
 /// Lifecycle information for an existing system.
+@SectionId('PD00-CUR-SYS-INV-ENT-LCY')
 class ExistingSystemLifecycle {
   @Form([
     Field('goLiveDate', String, 'Go-Live Date (operational since)'),
@@ -264,6 +269,7 @@ class ExistingSystemLifecycle {
 }
 
 /// Integration profile for an existing system.
+@SectionId('PD00-CUR-SYS-INV-ENT-INT')
 class ExistingSystemIntegration {
   @Form([
     Field('apiTypesAvailable', String, 'API Types Available '
@@ -280,6 +286,7 @@ class ExistingSystemIntegration {
 }
 
 /// Infrastructure details for an existing system.
+@SectionId('PD00-CUR-SYS-INV-ENT-INF')
 class ExistingSystemInfrastructure {
   @Form([
     Field('hostingModel', String, 'Hosting Model '
@@ -297,6 +304,7 @@ class ExistingSystemInfrastructure {
 }
 
 /// Quality and risk assessment for an existing system.
+@SectionId('PD00-CUR-SYS-INV-ENT-QUA')
 class ExistingSystemQuality {
   @Form([
     Field('technicalDebtLevel', String, 'Technical Debt Level '
@@ -316,6 +324,7 @@ class ExistingSystemQuality {
 }
 
 /// A known limitation of an existing system (form) [PD00-CUR-SYS-INV-nn-LIM-nn].
+@SectionId('PD00-CUR-SYS-INV-ENT-LIM')
 class LimitationEntry {
   @Form([
     Field('limitation', String, 'Limitation', required: true),
@@ -402,6 +411,7 @@ class ExternalServiceDependencies {
 ///
 /// Documents a dependency on an external service or third-party provider
 /// including vendor details, SLA, risk assessment, and fallback options.
+@SectionId('PD00-CUR-SYS-DEP-EXT-ENT')
 class ExternalServiceDependencyEntry {
   @Form([
     Field('serviceName', String, 'External Service Name', required: true),
@@ -428,6 +438,7 @@ class ExternalServiceDependencyEntry {
 }
 
 /// Internal dependency and contract details.
+@SectionId('PD00-CUR-SYS-DEP-EXT-ENT-REL')
 class ExternalServiceDependencyEntryRelationship {
   @Form([
     Field('dependentSystems', String, 'Dependent Internal Systems',
@@ -442,6 +453,7 @@ class ExternalServiceDependencyEntryRelationship {
 }
 
 /// Availability and data handling details.
+@SectionId('PD00-CUR-SYS-DEP-EXT-ENT-OPS')
 class ExternalServiceDependencyEntryOperations {
   @Form([
     Field('slaGuarantee', String, 'SLA Guarantee',
@@ -459,6 +471,7 @@ class ExternalServiceDependencyEntryOperations {
 }
 
 /// Risk and fallback considerations.
+@SectionId('PD00-CUR-SYS-DEP-EXT-ENT-RSK')
 class ExternalServiceDependencyEntryRisk {
   @Form([
     Field('vendorLockIn', String, 'Vendor Lock-In Risk',
@@ -497,6 +510,7 @@ class SharedInfrastructureDependencies {
 /// A shared infrastructure entry (form) [PD00-CUR-SYS-DEP-SHR-nn].
 ///
 /// Documents a shared infrastructure component that multiple systems depend on.
+@SectionId('PD00-CUR-SYS-DEP-SHR-ENT')
 class SharedInfrastructureEntry {
   @Form([
     Field('componentName', String, 'Infrastructure Component Name', required: true),
@@ -523,6 +537,7 @@ class SharedInfrastructureEntry {
 }
 
 /// Criticality and resilience.
+@SectionId('PD00-CUR-SYS-DEP-SHR-ENT-RES')
 class SharedInfrastructureEntryResilience {
   @Form([
     Field('criticality', String, 'Criticality',
@@ -539,6 +554,7 @@ class SharedInfrastructureEntryResilience {
 }
 
 /// Capacity constraints.
+@SectionId('PD00-CUR-SYS-DEP-SHR-ENT-CAP')
 class SharedInfrastructureEntryCapacity {
   @Form([
     Field('capacityHeadroom', String, 'Capacity Headroom',
@@ -550,6 +566,7 @@ class SharedInfrastructureEntryCapacity {
 }
 
 /// Ownership and maintenance.
+@SectionId('PD00-CUR-SYS-DEP-SHR-ENT-OPS')
 class SharedInfrastructureEntryOperations {
   @Form([
     Field('managedBy', String, 'Managed By',
@@ -614,6 +631,7 @@ class Integrations {
 /// Documents one dependency between systems in the current landscape:
 /// mechanism, coupling strength, data flow, failure impact, SLA,
 /// monitoring, and technical debt assessment.
+@SectionId('PD00-CUR-SYS-DEP-SYS-DEP')
 class SystemDependencyEntry {
   @Form([
     Field('dependencyName', String, 'Dependency Name',
@@ -649,6 +667,7 @@ class SystemDependencyEntry {
 }
 
 /// Mechanism and coupling for system dependency.
+@SectionId('PD00-CUR-SYS-DEP-SYS-DEP-MCH')
 class SystemDependencyEntryMechanism {
   @Form([
     Field('mechanism', String, 'Dependency Mechanism',
@@ -662,6 +681,7 @@ class SystemDependencyEntryMechanism {
 }
 
 /// Data exchange characteristics for system dependency.
+@SectionId('PD00-CUR-SYS-DEP-SYS-DEP-DAT')
 class SystemDependencyEntryDataExchange {
   @Form([
     Field('dataExchanged', String, 'Data Exchanged',
@@ -675,6 +695,7 @@ class SystemDependencyEntryDataExchange {
 }
 
 /// Reliability and SLA for system dependency.
+@SectionId('PD00-CUR-SYS-DEP-SYS-DEP-REL')
 class SystemDependencyEntryReliability {
   @Form([
     Field('failureImpact', String, 'Failure Impact',
@@ -694,6 +715,7 @@ class SystemDependencyEntryReliability {
 }
 
 /// Operations and documentation for system dependency.
+@SectionId('PD00-CUR-SYS-DEP-SYS-DEP-OPS')
 class SystemDependencyEntryOperations {
   @Form([
     Field('monitoringStatus', String, 'Monitoring Status',
@@ -717,6 +739,7 @@ class SystemDependencyEntryOperations {
 /// Documents one integration between systems: type, pattern, protocol,
 /// data format, throughput, error handling, monitoring, security,
 /// and technical debt.
+@SectionId('PD00-CUR-SYS-DEP-SYS-INT')
 class SystemIntegrationEntry {
   @Form([
     Field('integrationName', String, 'Integration Name',
@@ -758,6 +781,7 @@ class SystemIntegrationEntry {
 }
 
 /// Protocol and transport details.
+@SectionId('PD00-CUR-SYS-DEP-SYS-INT-PRO')
 class SystemIntegrationProtocol {
   @Form([
     Field('protocol', String, 'Protocol',
@@ -775,6 +799,7 @@ class SystemIntegrationProtocol {
 }
 
 /// Data exchange configuration.
+@SectionId('PD00-CUR-SYS-DEP-SYS-INT-DAT')
 class SystemIntegrationDataExchange {
   @Form([
     Field('dataExchanged', String, 'Data Exchanged',
@@ -792,6 +817,7 @@ class SystemIntegrationDataExchange {
 }
 
 /// Error handling and retry.
+@SectionId('PD00-CUR-SYS-DEP-SYS-INT-ERR')
 class SystemIntegrationErrorHandling {
   @Form([
     Field('errorHandling', String, 'Error Handling',
@@ -803,6 +829,7 @@ class SystemIntegrationErrorHandling {
 }
 
 /// Throughput and capacity.
+@SectionId('PD00-CUR-SYS-DEP-SYS-INT-THR')
 class SystemIntegrationThroughput {
   @Form([
     Field('throughputCapacity', String, 'Throughput Capacity',
@@ -816,6 +843,7 @@ class SystemIntegrationThroughput {
 }
 
 /// Monitoring and failover.
+@SectionId('PD00-CUR-SYS-DEP-SYS-INT-MON')
 class SystemIntegrationMonitoring {
   @Form([
     Field('monitoringAlerting', String, 'Monitoring & Alerting',
@@ -827,6 +855,7 @@ class SystemIntegrationMonitoring {
 }
 
 /// Ownership and documentation.
+@SectionId('PD00-CUR-SYS-DEP-SYS-INT-OWN')
 class SystemIntegrationOwnership {
   @Form([
     Field('integrationAge', String, 'Integration Age',
@@ -892,6 +921,7 @@ class CurrentBusinessProcesses {
 }
 
 /// Process scope summary defining in-scope and out-of-scope processes.
+@SectionId('PD00-CUR-PRO-SUM')
 class ProcessScopeSummary {
   @Form([
     Field('totalProcessesIdentified', int, 'Total Processes Identified'),
@@ -912,6 +942,7 @@ class ProcessScopeSummary {
 }
 
 /// A process scope entry indicating in/out of scope status.
+@SectionId('PD00-CUR-PRO-ENT')
 class ProcessScopeEntry {
   @Form([
     Field('processName', String, 'Process Name', required: true),
@@ -925,6 +956,7 @@ class ProcessScopeEntry {
 }
 
 /// Process interdependency matrix showing how processes interact.
+@SectionId('PD00-CUR-PRO-DEP')
 class ProcessInterdependencyMatrix {
   String? content;
 
@@ -940,6 +972,7 @@ class ProcessInterdependencyMatrix {
 }
 
 /// A single process dependency entry.
+@SectionId('PD00-CUR-PRO-DEP-ENT')
 class ProcessDependencyEntry {
   @Form([
     Field('sourceProcess', String, 'Source Process', required: true),
@@ -960,6 +993,7 @@ class ProcessDependencyEntry {
 }
 
 /// Process performance summary with high-level metrics.
+@SectionId('PD00-CUR-PRO-PER')
 class ProcessPerformanceSummary {
   @Form([
     Field('overallMaturity', String, 'Overall Process Maturity',
@@ -985,6 +1019,7 @@ class ProcessPerformanceSummary {
 ///
 /// Detailed documentation of a single business process including its
 /// workflows, actors, metrics, and pain points.
+@SectionId('PD00-CUR-PRO-PRO')
 @ContentHelp('Document each business process that the project will impact. '
     'Include process maps (BPMN recommended), actor descriptions, and '
     'quantitative metrics. Identify manual steps and error-prone areas.')
@@ -1012,6 +1047,7 @@ class CurrentBusinessProcess {
 }
 
 /// Context and purpose of a business process.
+@SectionId('PD00-CUR-PRO-PRO-CTX')
 @ContentHelp('Describe why this process exists, what business value it delivers, '
     'and how it fits into the overall organizational workflow.')
 class ProcessContext {
@@ -1027,6 +1063,7 @@ class ProcessContext {
 }
 
 /// Process-specific pain points and improvement opportunities.
+@SectionId('PD00-CUR-PRO-PRO-PAI')
 class ProcessPainPoints {
   @ContentType('description', 'Known issues, inefficiencies, and improvement '
       'opportunities specific to this process.')
@@ -1037,6 +1074,7 @@ class ProcessPainPoints {
 }
 
 /// A process improvement opportunity.
+@SectionId('PD00-CUR-PRO-PRO-IMP')
 class CurrentProcessImprovementEntry {
   @Form([
     Field('improvementArea', String, 'Improvement Area', required: true),
@@ -1057,6 +1095,7 @@ class CurrentProcessImprovementEntry {
 ///
 /// Container for workflow entries within a business process. Add one
 /// subsection per current workflow relevant to the project.
+@SectionId('PD00-CUR-PRO-WFL')
 @SectionIdPattern('PD00-CUR-PRO-xx-WOR')
 class WorkflowDescriptions {
   String? content;
@@ -1080,6 +1119,7 @@ class WorkflowDescriptions {
 }
 
 /// Summary table of all workflows for quick reference.
+@SectionId('PD00-CUR-PRO-WFL-SUM')
 class WorkflowSummaryTable {
   @Form([
     Field('totalWorkflows', int, 'Total Workflows in Process'),
@@ -1096,6 +1136,7 @@ class WorkflowSummaryTable {
 }
 
 /// Summary entry for a single workflow.
+@SectionId('PD00-CUR-PRO-WFL-SUM-ENT')
 class WorkflowSummaryEntry {
   @Form([
     Field('workflowName', String, 'Workflow Name', required: true),
@@ -1115,6 +1156,7 @@ class WorkflowSummaryEntry {
 ///
 /// Detailed documentation of a single workflow within a business process.
 /// Includes triggers, steps, actors, inputs, outputs, and timing.
+@SectionId('PD00-CUR-PRO-WFL-ENT')
 @ContentHelp('Document each workflow with enough detail to understand the '
     'current state and identify improvement opportunities. Include swim-lane '
     'diagrams for complex workflows with multiple actors.')
@@ -1176,6 +1218,7 @@ class CurrentWorkflowEntry {
 }
 
 /// Workflow triggers and initiation conditions.
+@SectionId('PD00-CUR-PRO-WFL-TRG')
 class WorkflowTriggers {
   @ContentType('description', 'Conditions that initiate this workflow.')
   String? content;
@@ -1185,6 +1228,7 @@ class WorkflowTriggers {
 }
 
 /// A single workflow trigger.
+@SectionId('PD00-CUR-PRO-WFL-TRG-ENT')
 class WorkflowTriggerEntry {
   @Form([
     Field('triggerName', String, 'Trigger Name', required: true),
@@ -1206,6 +1250,7 @@ class WorkflowStepSystem {
 /// A workflow step entry (form) [PD00-CUR-PRO-nn-WOR-nn-STP-nn].
 ///
 /// Detailed documentation of a single step within a workflow.
+@SectionId('PD00-CUR-PRO-WFL-STE')
 @ContentHelp('Document each step with enough detail for process analysis and '
     'system design. Include responsible actors, inputs, outputs, and timing.')
 class WorkflowStepEntry {
@@ -1238,6 +1283,7 @@ class WorkflowStepEntry {
 }
 
 /// Known issue with a workflow step.
+@SectionId('PD00-CUR-PRO-WFL-STE-ISS')
 class WorkflowStepIssue {
   @Form([
     Field('issueName', String, 'Issue Name', required: true),
@@ -1252,6 +1298,7 @@ class WorkflowStepIssue {
 /// A workflow actor entry (form) [PD00-CUR-PRO-nn-WOR-nn-ACT-nn].
 ///
 /// Documentation of a participant in the workflow.
+@SectionId('PD00-CUR-PRO-WFL-STE-ACT')
 @ContentHelp('Document all actors including their roles, responsibilities, '
     'authorization levels, and involvement pattern.')
 class WorkflowActorEntry {
@@ -1273,6 +1320,7 @@ class WorkflowActorEntry {
 }
 
 /// A workflow input.
+@SectionId('PD00-CUR-PRO-WFL-STE-INP')
 class WorkflowInputEntry {
   @Form([
     Field('inputName', String, 'Input Name', required: true),
@@ -1286,6 +1334,7 @@ class WorkflowInputEntry {
 }
 
 /// A workflow output.
+@SectionId('PD00-CUR-PRO-WFL-STE-OUT')
 class WorkflowOutputEntry {
   @Form([
     Field('outputName', String, 'Output Name', required: true),
@@ -1298,6 +1347,7 @@ class WorkflowOutputEntry {
 }
 
 /// A decision point within a workflow.
+@SectionId('PD00-CUR-PRO-WFL-STE-DEC')
 class WorkflowDecisionPoint {
   @Form([
     Field('decisionName', String, 'Decision Name', required: true),
@@ -1311,6 +1361,7 @@ class WorkflowDecisionPoint {
 }
 
 /// A business rule governing workflow behavior.
+@SectionId('PD00-CUR-PRO-WFL-STE-RUL')
 class WorkflowBusinessRule {
   @Form([
     Field('ruleName', String, 'Rule Name', required: true),
@@ -1323,6 +1374,7 @@ class WorkflowBusinessRule {
 }
 
 /// Workflow timing and performance characteristics.
+@SectionId('PD00-CUR-PRO-WFL-STE-TIM')
 class WorkflowTiming {
   @Form([
     Field('startToEndTime', String, 'Start-to-End Time (total elapsed)'),
@@ -1337,6 +1389,7 @@ class WorkflowTiming {
 }
 
 /// Workflow exception handling.
+@SectionId('PD00-CUR-PRO-WFL-STE-EXC')
 class WorkflowExceptions {
   @ContentType('description', 'How exceptions are handled in this workflow.')
   String? content;
@@ -1346,6 +1399,7 @@ class WorkflowExceptions {
 }
 
 /// A workflow exception type.
+@SectionId('PD00-CUR-PRO-WFL-STE-EXC-ENT')
 class WorkflowExceptionEntry {
   @Form([
     Field('exceptionName', String, 'Exception Name', required: true),
@@ -1362,6 +1416,7 @@ class WorkflowExceptionEntry {
 ///
 /// Quantitative metrics for measuring process performance. These metrics
 /// form the baseline against which improvements will be measured.
+@SectionId('PD00-CUR-PRO-MET')
 @SectionIdPattern('PD00-CUR-PRO-xx-MET')
 @ContentHelp('Document current process performance including throughput, '
     'cycle times, error rates, and manual intervention frequency. '
@@ -1406,6 +1461,7 @@ class ProcessMetrics {
 }
 
 /// Metrics dashboard summary for executive overview.
+@SectionId('PD00-CUR-PRO-MET-DSH')
 class MetricsDashboardSummary {
   @Form([
     Field('measurementPeriod', String, 'Measurement Period',
@@ -1433,6 +1489,7 @@ class MetricsDashboardSummary {
 }
 
 /// Baseline table for tracking metrics over time.
+@SectionId('PD00-CUR-PRO-MET-BSL')
 class MetricsBaselineTable {
   @ContentType('description', 'Baseline tracking approach and comparison periods.')
   @ContentHelp('Document how baseline metrics will be used to measure improvement. '
@@ -1444,6 +1501,7 @@ class MetricsBaselineTable {
 }
 
 /// A baseline entry for tracking metric changes.
+@SectionId('PD00-CUR-PRO-MET-BSL-ENT')
 class MetricsBaselineEntry {
   @Form([
     Field('metricName', String, 'Metric Name', required: true),
@@ -1460,6 +1518,7 @@ class MetricsBaselineEntry {
 }
 
 /// A category of process metrics.
+@SectionId('PD00-CUR-PRO-MET-CAT')
 class ProcessMetricCategory {
   @ContentType('description', 'Category-level summary of metrics.')
   String? content;
@@ -1471,6 +1530,7 @@ class ProcessMetricCategory {
 /// A process metric entry (form) [PD00-CUR-PRO-nn-MET-nn].
 ///
 /// A single measurable metric with current value and measurement details.
+@SectionId('PD00-CUR-PRO-MET-ENT')
 @ContentHelp('Define each metric clearly with current baseline values, '
     'measurement methodology, and target values if known.')
 class ProcessMetricEntry {
@@ -1494,6 +1554,7 @@ class ProcessMetricEntry {
 }
 
 /// Measurement collection details.
+@SectionId('PD00-CUR-PRO-MET-ENT-MEA')
 class ProcessMetricEntryMeasurement {
     @Form([
         Field('measurementMethod', String, 'Measurement Method'),
@@ -1504,6 +1565,7 @@ class ProcessMetricEntryMeasurement {
 }
 
 /// Target setting and benchmarking context.
+@SectionId('PD00-CUR-PRO-MET-ENT-TGT')
 class ProcessMetricEntryTargets {
     @Form([
         Field('targetValue', String, 'Target Value'),
@@ -1564,6 +1626,7 @@ and technical capabilities. Highlight interdependencies between pain points.
 }
 
 /// Summary statistics and metrics for all pain points.
+@SectionId('PD00-CUR-PAI-SUM')
 class PainPointsSummary {
   @Form([
     Field('totalPainPoints', int, 'Total Pain Points',
@@ -1612,6 +1675,7 @@ on specific systems or personnel.
 }
 
 /// Summary specific to operational pain points.
+@SectionId('PD00-CUR-PAI-OPE-SUM')
 class OperationalPainPointsSummary {
   @Form([
     Field('averageDowntimePerMonth', String, 'Average Downtime per Month',
@@ -1650,6 +1714,7 @@ and competitive positioning concerns.
 }
 
 /// Summary specific to business pain points.
+@SectionId('PD00-CUR-PAI-BUS-SUM')
 class BusinessPainPointsSummary {
   @Form([
     Field('estimatedRevenueLoss', String, 'Estimated Annual Revenue Loss',
@@ -1691,6 +1756,7 @@ integration complexity, and team capability constraints.
 }
 
 /// Summary specific to technical pain points.
+@SectionId('PD00-CUR-PAI-TEC-SUM')
 class TechnicalPainPointsSummary {
   @Form([
     Field('technicalDebtEstimate', String, 'Technical Debt Estimate',
@@ -1716,6 +1782,7 @@ class TechnicalPainPointsSummary {
 /// Documents a specific problem in the current state with comprehensive details:
 /// root cause analysis, impact quantification, affected stakeholders,
 /// current workarounds, and proposed resolution approach.
+@SectionId('PD00-CUR-PAI-ENT')
 class PainPointEntry {
   @Form([
     Field('painPointId', String, 'Pain Point ID',
@@ -1750,6 +1817,7 @@ class PainPointEntry {
 }
 
 /// Classification for pain point.
+@SectionId('PD00-CUR-PAI-ENT-CLS')
 class PainPointClassification {
   @Form([
     Field('description', String, 'Description',
@@ -1767,6 +1835,7 @@ class PainPointClassification {
 }
 
 /// Root cause for pain point.
+@SectionId('PD00-CUR-PAI-ENT-ROOT')
 class PainPointRootCause {
   @Form([
     Field('rootCause', String, 'Root Cause',
@@ -1780,6 +1849,7 @@ class PainPointRootCause {
 }
 
 /// Impact assessment for pain point.
+@SectionId('PD00-CUR-PAI-ENT-IMP')
 class PainPointImpact {
   @Form([
     Field('affectedProcess', String, 'Affected Process',
@@ -1803,6 +1873,7 @@ class PainPointImpact {
 }
 
 /// Evidence for pain point.
+@SectionId('PD00-CUR-PAI-ENT-EVI')
 class PainPointEvidence {
   @Form([
     Field('discoveryMethod', String, 'Discovery Method',
@@ -1820,6 +1891,7 @@ class PainPointEvidence {
 }
 
 /// Workaround for pain point.
+@SectionId('PD00-CUR-PAI-ENT-WRK')
 class PainPointWorkaround {
   @Form([
     Field('currentWorkaround', String, 'Current Workaround',
@@ -1835,6 +1907,7 @@ class PainPointWorkaround {
 }
 
 /// Resolution for pain point.
+@SectionId('PD00-CUR-PAI-ENT-RES')
 class PainPointResolution {
   @Form([
     Field('proposedResolution', String, 'Proposed Resolution',
@@ -1852,6 +1925,7 @@ class PainPointResolution {
 }
 
 /// Relationships for pain point.
+@SectionId('PD00-CUR-PAI-ENT-REL')
 class PainPointRelationships {
   @Form([
     Field('relatedPainPoints', String, 'Related Pain Points',
@@ -1865,6 +1939,7 @@ class PainPointRelationships {
 }
 
 /// Cross-reference analysis between pain points and gaps.
+@SectionId('PD00-CUR-PAI-ENT-COR')
 class PainPointGapCorrelation {
   @ContentHelp('''
 Analysis of relationships between documented pain points and capability gaps.
@@ -1884,6 +1959,7 @@ underlying gaps that may not be explicitly documented.
 }
 
 /// Individual pain point to gap correlation entry.
+@SectionId('PD00-CUR-PAI-ENT-COR-ENT')
 class PainPointGapCorrelationEntry {
   @Form([
     Field('painPointId', String, 'Pain Point ID',
@@ -1916,6 +1992,7 @@ class Gaps {
 /// Documents a specific gap between current capabilities and business needs:
 /// category, severity, quantified cost, stakeholders, compliance drivers,
 /// workarounds, resolution approach, and success criteria.
+@SectionId('PD00-CUR-PAI-GAP-ENT')
 class GapEntry {
   @Form([
     Field('gapName', String, 'Gap Name',
@@ -1941,6 +2018,7 @@ class GapEntry {
 }
 
 /// Gap description and business impact.
+@SectionId('PD00-CUR-PAI-GAP-ENT-DES')
 class GapEntryDescription {
   @Form([
     Field('description', String, 'Description',
@@ -1960,6 +2038,7 @@ class GapEntryDescription {
 }
 
 /// Discovery and validation for gap.
+@SectionId('PD00-CUR-PAI-GAP-ENT-DIS')
 class GapEntryDiscovery {
   @Form([
     Field('complianceDriver', String, 'Regulatory/Compliance Driver',
@@ -1977,6 +2056,7 @@ class GapEntryDiscovery {
 }
 
 /// Current workarounds for gap.
+@SectionId('PD00-CUR-PAI-GAP-ENT-WRK')
 class GapEntryWorkaround {
   @Form([
     Field('interimWorkaround', String, 'Interim Workaround',
@@ -1990,6 +2070,7 @@ class GapEntryWorkaround {
 }
 
 /// Resolution planning for gap.
+@SectionId('PD00-CUR-PAI-GAP-ENT-RES')
 class GapEntryResolution {
   @Form([
     Field('proposedResolution', String, 'Proposed Resolution',
@@ -2069,6 +2150,7 @@ to the organization. Highlight critical data dependencies and risks.
 }
 
 /// Summary statistics and health indicators for data landscape.
+@SectionId('PD00-CUR-DAT-SUM')
 class DataLandscapeSummary {
   @Form([
     Field('totalDataSources', int, 'Total Data Sources',
@@ -2121,6 +2203,7 @@ catalog data sources, coverage of the inventory, and any known gaps.
 ///
 /// Documents a specific data source/store with comprehensive details about
 /// technology, format, volume, quality, ownership, and access patterns.
+@SectionId('PD00-CUR-DAT-SRC-ENT')
 class DataSourceEntry {
   @Form([
     Field('dataSourceId', String, 'Data Source ID',
@@ -2162,6 +2245,7 @@ class DataSourceEntry {
 }
 
 /// Classification for data source.
+@SectionId('PD00-CUR-DAT-SRC-ENT-CLS')
 class DataSourceClassification {
   @Form([
     Field('description', String, 'Description',
@@ -2175,6 +2259,7 @@ class DataSourceClassification {
 }
 
 /// Technical details for data source.
+@SectionId('PD00-CUR-DAT-SRC-ENT-TEC')
 class DataSourceTechnical {
   @Form([
     Field('storeType', String, 'Store Type',
@@ -2192,6 +2277,7 @@ class DataSourceTechnical {
 }
 
 /// Volume and performance for data source.
+@SectionId('PD00-CUR-DAT-SRC-ENT-VOL')
 class DataSourceVolume {
   @Form([
     Field('estimatedVolume', String, 'Estimated Volume',
@@ -2209,6 +2295,7 @@ class DataSourceVolume {
 }
 
 /// Quality and reliability for data source.
+@SectionId('PD00-CUR-DAT-SRC-ENT-QUA')
 class DataSourceQuality {
   @Form([
     Field('dataQualityScore', String, 'Data Quality Score',
@@ -2224,6 +2311,7 @@ class DataSourceQuality {
 }
 
 /// Ownership and governance for data source.
+@SectionId('PD00-CUR-DAT-SRC-ENT-OWN')
 class DataSourceOwnership {
   @Form([
     Field('businessOwner', String, 'Business Owner',
@@ -2241,6 +2329,7 @@ class DataSourceOwnership {
 }
 
 /// Integration for data source.
+@SectionId('PD00-CUR-DAT-SRC-ENT-INT')
 class DataSourceIntegration {
   @Form([
     Field('integratedSystems', String, 'Integrated Systems',
@@ -2254,6 +2343,7 @@ class DataSourceIntegration {
 }
 
 /// Lifecycle for data source.
+@SectionId('PD00-CUR-DAT-SRC-ENT-LCY')
 class DataSourceLifecycle {
   @Form([
     Field('creationDate', String, 'Creation Date',
@@ -2271,6 +2361,7 @@ class DataSourceLifecycle {
 }
 
 /// Retention policy specific to a data source.
+@SectionId('PD00-CUR-DAT-SRC-ENT-RET')
 class DataSourceRetentionPolicy {
   @Form([
     Field('retentionPeriod', String, 'Retention Period',
@@ -2288,6 +2379,7 @@ class DataSourceRetentionPolicy {
 }
 
 /// Key data entity within a data source.
+@SectionId('PD00-CUR-DAT-SRC-ENT-DOM')
 class DataSourceEntityEntry {
   @Form([
     Field('entityName', String, 'Entity Name',
@@ -2337,6 +2429,7 @@ methodology, scope, key findings, and overall data quality posture.
 }
 
 /// Summary of data quality across standard dimensions.
+@SectionId('PD00-CUR-DAT-QUA-DIM')
 class DataQualityDimensionsSummary {
   @Form([
     Field('accuracyScore', String, 'Accuracy Score',
@@ -2364,6 +2457,7 @@ class DataQualityDimensionsSummary {
 }
 
 /// A data quality issue entry (form).
+@SectionId('PD00-CUR-DAT-QUA-ISS')
 class DataQualityIssueEntry {
   @Form([
     Field('issueId', String, 'Issue ID',
@@ -2390,6 +2484,7 @@ class DataQualityIssueEntry {
 }
 
 /// Classification and severity.
+@SectionId('PD00-CUR-DAT-QUA-ISS-CLS')
 class DataQualityIssueEntryClassification {
   @Form([
     Field('affectedEntities', String, 'Affected Entities',
@@ -2403,6 +2498,7 @@ class DataQualityIssueEntryClassification {
 }
 
 /// Business impact and diagnostics.
+@SectionId('PD00-CUR-DAT-QUA-ISS-IMP')
 class DataQualityIssueEntryImpact {
   @Form([
     Field('impactDescription', String, 'Business Impact',
@@ -2420,6 +2516,7 @@ class DataQualityIssueEntryImpact {
 }
 
 /// Resolution planning.
+@SectionId('PD00-CUR-DAT-QUA-ISS-RES')
 class DataQualityIssueEntryResolution {
   @Form([
     Field('currentWorkaround', String, 'Current Workaround',
@@ -2433,6 +2530,7 @@ class DataQualityIssueEntryResolution {
 }
 
 /// Data quality improvement initiative entry.
+@SectionId('PD00-CUR-DAT-QUA-INI')
 class DataQualityInitiativeEntry {
   @Form([
     Field('initiativeId', String, 'Initiative ID',
@@ -2479,6 +2577,7 @@ of duplication, its causes, impacts, and any ongoing deduplication efforts.
 }
 
 /// Summary of data duplication findings.
+@SectionId('PD00-CUR-DAT-DUP-SUM')
 class DataDuplicationSummary {
   @Form([
     Field('overallDuplicationRate', String, 'Overall Duplication Rate',
@@ -2502,6 +2601,7 @@ class DataDuplicationSummary {
 }
 
 /// A data duplication instance entry.
+@SectionId('PD00-CUR-DAT-DUP-ENT')
 class DataDuplicationEntry {
   @Form([
     Field('duplicationId', String, 'Duplication ID',
@@ -2526,6 +2626,7 @@ class DataDuplicationEntry {
 }
 
 /// Sources and duplication shape.
+@SectionId('PD00-CUR-DAT-DUP-ENT-SRC')
 class DataDuplicationEntrySources {
   @Form([
     Field('primarySource', String, 'Primary Source',
@@ -2539,6 +2640,7 @@ class DataDuplicationEntrySources {
 }
 
 /// Synchronization and consistency details.
+@SectionId('PD00-CUR-DAT-DUP-ENT-SYN')
 class DataDuplicationEntrySynchronization {
   @Form([
     Field('synchronizationMethod', String, 'Synchronization Method',
@@ -2552,6 +2654,7 @@ class DataDuplicationEntrySynchronization {
 }
 
 /// Business impact and resolution guidance.
+@SectionId('PD00-CUR-DAT-DUP-ENT-GOV')
 class DataDuplicationEntryGovernance {
   @Form([
     Field('businessReason', String, 'Business Reason',
@@ -2592,6 +2695,7 @@ the ownership model, roles and responsibilities, and any gaps in accountability.
 }
 
 /// Summary of data ownership model.
+@SectionId('PD00-CUR-DAT-OWN-SUM')
 class DataOwnershipSummary {
   @Form([
     Field('ownershipModel', String, 'Ownership Model',
@@ -2615,6 +2719,7 @@ class DataOwnershipSummary {
 }
 
 /// Data ownership assignment for a domain or asset.
+@SectionId('PD00-CUR-DAT-OWN-ENT')
 class DataOwnershipEntry {
   @Form([
     Field('dataDomain', String, 'Data Domain',
@@ -2636,6 +2741,7 @@ class DataOwnershipEntry {
 }
 
 /// Stewardship and custodianship assignments.
+@SectionId('PD00-CUR-DAT-OWN-ENT-STW')
 class DataOwnershipEntryStewardship {
   @Form([
     Field('dataSteward', String, 'Data Steward',
@@ -2651,6 +2757,7 @@ class DataOwnershipEntryStewardship {
 }
 
 /// Access and coverage governance.
+@SectionId('PD00-CUR-DAT-OWN-ENT-GOV')
 class DataOwnershipEntryGovernance {
   @Form([
     Field('accessApprover', String, 'Access Approver',
@@ -2690,6 +2797,7 @@ and forecasting methodology.
 }
 
 /// Summary of data volumes and growth trends.
+@SectionId('PD00-CUR-DAT-VOL-SUM')
 class DataVolumeSummary {
   @Form([
     Field('totalCurrentVolume', String, 'Total Current Volume',
@@ -2712,6 +2820,7 @@ class DataVolumeSummary {
 }
 
 /// Historical growth behavior.
+@SectionId('PD00-CUR-DAT-VOL-SUM-GRW')
 class DataVolumeSummaryGrowth {
   @Form([
     Field('annualGrowthRate', String, 'Annual Growth Rate',
@@ -2725,6 +2834,7 @@ class DataVolumeSummaryGrowth {
 }
 
 /// Forward-looking forecasts and utilization.
+@SectionId('PD00-CUR-DAT-VOL-SUM-PRJ')
 class DataVolumeSummaryProjection {
   @Form([
     Field('projectedVolumeOneYear', String, 'Projected Volume (1 Year)',
@@ -2738,6 +2848,7 @@ class DataVolumeSummaryProjection {
 }
 
 /// Capacity pressure and cost impact.
+@SectionId('PD00-CUR-DAT-VOL-SUM-CAP')
 class DataVolumeSummaryCapacity {
   @Form([
     Field('capacityConstraints', String, 'Capacity Constraints',
@@ -2751,6 +2862,7 @@ class DataVolumeSummaryCapacity {
 }
 
 /// Volume details for a specific data source.
+@SectionId('PD00-CUR-DAT-VOL-ENT')
 class DataVolumeEntry {
   @Form([
     Field('dataSource', String, 'Data Source',
@@ -2797,6 +2909,7 @@ policy framework, regulatory drivers, implementation status, and any gaps.
 }
 
 /// Summary of retention policy framework.
+@SectionId('PD00-CUR-DAT-RET-SUM')
 class RetentionPolicySummary {
   @Form([
     Field('policyFrameworkExists', String, 'Policy Framework Exists',
@@ -2822,6 +2935,7 @@ class RetentionPolicySummary {
 }
 
 /// Retention policy for a specific data category.
+@SectionId('PD00-CUR-DAT-RET-ENT')
 class RetentionPolicyEntry {
   @Form([
     Field('policyId', String, 'Policy ID',
@@ -2845,6 +2959,7 @@ class RetentionPolicyEntry {
 }
 
 /// Retention timing and legal basis.
+@SectionId('PD00-CUR-DAT-RET-ENT-REQ')
 class RetentionPolicyEntryRequirements {
   @Form([
     Field('retentionPeriod', String, 'Retention Period',
@@ -2858,6 +2973,7 @@ class RetentionPolicyEntryRequirements {
 }
 
 /// Archival and deletion lifecycle handling.
+@SectionId('PD00-CUR-DAT-RET-ENT-LCY')
 class RetentionPolicyEntryLifecycle {
   @Form([
     Field('archivalMethod', String, 'Archival Method',
@@ -2871,6 +2987,7 @@ class RetentionPolicyEntryLifecycle {
 }
 
 /// Compliance and accountability status.
+@SectionId('PD00-CUR-DAT-RET-ENT-GOV')
 class RetentionPolicyEntryGovernance {
   @Form([
     Field('complianceStatus', String, 'Compliance Status',
@@ -2908,6 +3025,7 @@ framework, organizational structure, policies, and current maturity level.
 }
 
 /// Data governance maturity assessment.
+@SectionId('PD00-CUR-DAT-GOV-MAT')
 class DataGovernanceMaturity {
   @Form([
     Field('overallMaturityLevel', String, 'Overall Maturity Level',
@@ -2935,6 +3053,7 @@ class DataGovernanceMaturity {
 }
 
 /// Data governance policy entry.
+@SectionId('PD00-CUR-DAT-GOV-ENT')
 class DataGovernancePolicyEntry {
   @Form([
     Field('policyId', String, 'Policy ID',
@@ -2958,6 +3077,7 @@ class DataGovernancePolicyEntry {
 }
 
 /// Policy lifecycle and applicability.
+@SectionId('PD00-CUR-DAT-GOV-ENT-LCY')
 class DataGovernancePolicyEntryLifecycle {
   @Form([
     Field('scope', String, 'Scope',
@@ -2973,6 +3093,7 @@ class DataGovernancePolicyEntryLifecycle {
 }
 
 /// Ownership, enforcement, and compliance status.
+@SectionId('PD00-CUR-DAT-GOV-ENT-GOV')
 class DataGovernancePolicyEntryGovernance {
   @Form([
     Field('policyOwner', String, 'Policy Owner',
@@ -3011,6 +3132,7 @@ coverage.
 }
 
 /// Summary of data classification framework.
+@SectionId('PD00-CUR-DAT-CLA-SUM')
 class DataClassificationSummary {
   @Form([
     Field('classificationFrameworkExists', String, 'Framework Exists',
@@ -3036,6 +3158,7 @@ class DataClassificationSummary {
 }
 
 /// A data classification level definition.
+@SectionId('PD00-CUR-DAT-CLA-LVL')
 class DataClassificationLevelEntry {
   @Form([
     Field('levelName', String, 'Level Name',
@@ -3063,6 +3186,7 @@ class DataClassificationLevelEntry {
 }
 
 /// Classification status for a data domain.
+@SectionId('PD00-CUR-DAT-CLA-STA')
 class DataClassificationStatusEntry {
   @Form([
     Field('dataDomain', String, 'Data Domain',
@@ -3108,6 +3232,7 @@ architecture, major data flows, technologies used, and integration challenges.
 }
 
 /// Summary of data integration landscape.
+@SectionId('PD00-CUR-DAT-INT-SUM')
 class DataIntegrationSummary {
   @Form([
     Field('totalIntegrationPoints', int, 'Total Integration Points',
@@ -3135,6 +3260,7 @@ class DataIntegrationSummary {
 }
 
 /// A data integration point entry.
+@SectionId('PD00-CUR-DAT-INT-ENT')
 class DataIntegrationEntry {
   @Form([
     Field('integrationId', String, 'Integration ID',
@@ -3161,6 +3287,7 @@ class DataIntegrationEntry {
 }
 
 /// Endpoints and type for data integration.
+@SectionId('PD00-CUR-DAT-INT-ENT-END')
 class DataIntegrationEntryEndpoints {
   @Form([
     Field('sourceSystem', String, 'Source System',
@@ -3174,6 +3301,7 @@ class DataIntegrationEntryEndpoints {
 }
 
 /// Volume and transport for data integration.
+@SectionId('PD00-CUR-DAT-INT-ENT-TRP')
 class DataIntegrationEntryTransport {
   @Form([
     Field('dataVolume', String, 'Data Volume',
@@ -3191,6 +3319,7 @@ class DataIntegrationEntryTransport {
 }
 
 /// Reliability and monitoring for data integration.
+@SectionId('PD00-CUR-DAT-INT-ENT-REL')
 class DataIntegrationEntryReliability {
   @Form([
     Field('errorHandling', String, 'Error Handling',
@@ -3208,6 +3337,7 @@ class DataIntegrationEntryReliability {
 }
 
 /// Ownership and issues for data integration.
+@SectionId('PD00-CUR-DAT-INT-ENT-OWN')
 class DataIntegrationEntryOwnership {
   @Form([
     Field('businessOwner', String, 'Business Owner',
@@ -3245,6 +3375,7 @@ approach.
 }
 
 /// Summary of MDM status and maturity.
+@SectionId('PD00-CUR-DAT-MDM-SUM')
 class MdmSummary {
   @Form([
     Field('mdmMaturityLevel', String, 'MDM Maturity Level',
@@ -3272,6 +3403,7 @@ class MdmSummary {
 }
 
 /// Master data domain entry.
+@SectionId('PD00-CUR-DAT-MDM-ENT')
 class MasterDataDomainEntry {
   @Form([
     Field('domainName', String, 'Domain Name',
@@ -3295,6 +3427,7 @@ class MasterDataDomainEntry {
 }
 
 /// Volume and quality indicators for a master data domain.
+@SectionId('PD00-CUR-DAT-MDM-ENT-QUA')
 class MasterDataDomainEntryQuality {
   @Form([
     Field('recordCount', String, 'Record Count',
@@ -3308,6 +3441,7 @@ class MasterDataDomainEntryQuality {
 }
 
 /// Downstream usage and cadence for a master data domain.
+@SectionId('PD00-CUR-DAT-MDM-ENT-USE')
 class MasterDataDomainEntryUsage {
   @Form([
     Field('consumingSystems', String, 'Consuming Systems',
@@ -3321,6 +3455,7 @@ class MasterDataDomainEntryUsage {
 }
 
 /// Ownership and improvement planning for a master data domain.
+@SectionId('PD00-CUR-DAT-MDM-ENT-GOV')
 class MasterDataDomainEntryGovernance {
   @Form([
     Field('domainOwner', String, 'Domain Owner',

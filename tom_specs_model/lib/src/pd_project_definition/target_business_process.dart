@@ -127,6 +127,7 @@ class ProcessVision {
 }
 
 /// Process vision overview.
+@SectionId('PD00-TAR-PRO-VIS-OVW')
 class ProcessVisionOverview {
   @Form([
     Field('visionStatement', String,
@@ -149,6 +150,7 @@ class ProcessVisionOverview {
 }
 
 /// Expected improvements from process transformation.
+@SectionId('PD00-TAR-PRO-VIS-IMP')
 class ExpectedImprovements {
   @Form([
     Field('efficiencyGains', String,
@@ -175,6 +177,7 @@ class ExpectedImprovements {
 }
 
 /// Success criteria for process transformation.
+@SectionId('PD00-TAR-PRO-VIS-CRI')
 class ProcessSuccessCriteria {
   @Form([
     Field('kpiTargets', String, 'KPI Targets — measurable success indicators'),
@@ -210,6 +213,7 @@ class ProcessDesignPrinciples {
 }
 
 /// Design principles overview.
+@SectionId('PD00-TAR-PRO-PRI-OVW')
 class DesignPrinciplesOverview {
   @Form([
     Field('principlePhilosophy', String,
@@ -225,6 +229,7 @@ class DesignPrinciplesOverview {
 }
 
 /// A process design principle entry (form) [PD00-TAR-PRO-PRI-nn].
+@SectionId('PD00-TAR-PRO-PRI-ENT')
 class ProcessDesignPrincipleEntry {
   @Form([
     Field('principleId', String, 'Principle ID', required: true),
@@ -264,6 +269,7 @@ class ProcessCatalog {
 }
 
 /// Process catalog overview.
+@SectionId('PD00-TAR-PRO-CAT-OVW')
 class ProcessCatalogOverview {
   @Form([
     Field('totalProcessCount', int, 'Total Process Count'),
@@ -285,6 +291,7 @@ class ProcessCatalogOverview {
 }
 
 /// Process classification scheme.
+@SectionId('PD00-TAR-PRO-CAT-CLS')
 class ProcessClassification {
   @Form([
     Field('level1Categories', String,
@@ -307,6 +314,7 @@ class ProcessClassification {
 /// A business process entry [PD00-TAR-PRO-CAT-nn].
 ///
 /// Comprehensive business process definition following BPMN 2.0 concepts.
+@SectionId('PD00-TAR-PRO-CAT-ENT')
 class BusinessProcessEntry {
   /// Process identification.
   ProcessIdentification identification = ProcessIdentification();
@@ -340,6 +348,7 @@ class BusinessProcessEntry {
 }
 
 /// Process identification.
+@SectionId('PD00-TAR-PRO-CAT-ENT-IDN')
 class ProcessIdentification {
   @Form([
     Field('processId', String, 'Process ID (e.g., BP-001)', required: true),
@@ -363,6 +372,7 @@ class ProcessIdentification {
 }
 
 /// Position in the process hierarchy and taxonomy.
+@SectionId('PD00-TAR-PRO-CAT-ENT-IDN-CLS')
 class ProcessIdentificationClassification {
   @Form([
     Field('parentProcess', String,
@@ -375,6 +385,7 @@ class ProcessIdentificationClassification {
 }
 
 /// Narrative description, purpose, and scope.
+@SectionId('PD00-TAR-PRO-CAT-ENT-IDN-DEF')
 class ProcessIdentificationDefinition {
   @Form([
     Field('description', String, 'Description — what the process does'),
@@ -385,6 +396,7 @@ class ProcessIdentificationDefinition {
 }
 
 /// Ownership and lifecycle metadata.
+@SectionId('PD00-TAR-PRO-CAT-ENT-IDN-GOV')
 class ProcessIdentificationGovernance {
   @Form([
     Field('processOwner', String, 'Process Owner — accountable role/person'),
@@ -398,6 +410,7 @@ class ProcessIdentificationGovernance {
 }
 
 /// Process characteristics.
+@SectionId('PD00-TAR-PRO-CAT-ENT-CHR')
 class ProcessCharacteristics {
   @Form([
     Field('complexity', String, 'Complexity — low, medium, high, very high'),
@@ -418,6 +431,7 @@ class ProcessCharacteristics {
 }
 
 /// Operational characteristics and automation level.
+@SectionId('PD00-TAR-PRO-CAT-ENT-CHR-OPS')
 class ProcessCharacteristicsOperations {
   @Form([
     Field('criticality', String, 'Criticality — business criticality level'),
@@ -432,6 +446,7 @@ class ProcessCharacteristicsOperations {
 }
 
 /// Demand and business value profile.
+@SectionId('PD00-TAR-PRO-CAT-ENT-CHR-BUS')
 class ProcessCharacteristicsBusiness {
   @Form([
     Field('volumeEstimate', String, 'Volume Estimate — cases per period'),
@@ -443,6 +458,7 @@ class ProcessCharacteristicsBusiness {
 }
 
 /// Process triggers and events.
+@SectionId('PD00-TAR-PRO-CAT-ENT-TRG')
 class ProcessTriggers {
   /// Main trigger overview.
   TriggerOverview overview = TriggerOverview();
@@ -457,6 +473,7 @@ class ProcessTriggers {
 }
 
 /// Trigger overview.
+@SectionId('PD00-TAR-PRO-CAT-ENT-TRG-OVW')
 class TriggerOverview {
   @Form([
     Field('primaryTrigger', String, 'Primary Trigger — main way process starts'),
@@ -472,6 +489,7 @@ class TriggerOverview {
 }
 
 /// A process trigger entry [PD00-TAR-PRO-CAT-nn-TRG-nn].
+@SectionId('PD00-TAR-PRO-CAT-ENT-TRG-ENT')
 class ProcessTriggerEntry {
   @Form([
     Field('triggerId', String, 'Trigger ID', required: true),
@@ -490,6 +508,7 @@ class ProcessTriggerEntry {
 }
 
 /// A process end event entry [PD00-TAR-PRO-CAT-nn-END-nn].
+@SectionId('PD00-TAR-PRO-CAT-ENT-EVT')
 class ProcessEndEventEntry {
   @Form([
     Field('endEventId', String, 'End Event ID', required: true),
@@ -508,6 +527,7 @@ class ProcessEndEventEntry {
 }
 
 /// Process inputs and outputs.
+@SectionId('PD00-TAR-PRO-CAT-ENT-INO')
 class ProcessInputsOutputs {
   /// Inputs overview.
   InputsOutputsOverview overview = InputsOutputsOverview();
@@ -522,6 +542,7 @@ class ProcessInputsOutputs {
 }
 
 /// Inputs/outputs overview.
+@SectionId('PD00-TAR-PRO-CAT-ENT-INO-OVW')
 class InputsOutputsOverview {
   @Form([
     Field('inputSummary', String, 'Input Summary — overview of required inputs'),
@@ -534,6 +555,7 @@ class InputsOutputsOverview {
 }
 
 /// A process input entry [PD00-TAR-PRO-CAT-nn-INP-nn].
+@SectionId('PD00-TAR-PRO-CAT-ENT-INO-INP')
 class ProcessInputEntry {
   @Form([
     Field('inputId', String, 'Input ID', required: true),
@@ -553,6 +575,7 @@ class ProcessInputEntry {
 }
 
 /// A process output entry [PD00-TAR-PRO-CAT-nn-OUT-nn].
+@SectionId('PD00-TAR-PRO-CAT-ENT-INO-OUT')
 class ProcessOutputEntry {
   @Form([
     Field('outputId', String, 'Output ID', required: true),
@@ -576,6 +599,7 @@ class ProcessOutputEntry {
 }
 
 /// Process roles and responsibilities.
+@SectionId('PD00-TAR-PRO-CAT-ENT-ROL')
 class ProcessRoles {
   /// Roles overview.
   ProcessRolesOverview overview = ProcessRolesOverview();
@@ -586,6 +610,7 @@ class ProcessRoles {
 }
 
 /// Process roles overview.
+@SectionId('PD00-TAR-PRO-CAT-ENT-ROL-OVW')
 class ProcessRolesOverview {
   @Form([
     Field('primaryActor', String, 'Primary Actor — main role executing'),
@@ -599,6 +624,7 @@ class ProcessRolesOverview {
 }
 
 /// A process role entry [PD00-TAR-PRO-CAT-nn-ROL-nn].
+@SectionId('PD00-TAR-PRO-CAT-ENT-ROL-ENT')
 class ProcessRoleEntry {
   @Form([
     Field('roleId', String, 'Role ID', required: true),
@@ -618,6 +644,7 @@ class ProcessRoleEntry {
 }
 
 /// Process participation and authority.
+@SectionId('PD00-TAR-PRO-CAT-ENT-ROL-ENT-EXE')
 class ProcessRoleEntryExecution {
   @Form([
     Field('stepsInvolved', String, 'Steps Involved — which process steps'),
@@ -630,6 +657,7 @@ class ProcessRoleEntryExecution {
 }
 
 /// Access, coverage, and handoff expectations.
+@SectionId('PD00-TAR-PRO-CAT-ENT-ROL-ENT-COO')
 class ProcessRoleEntryCoordination {
   @Form([
     Field('availability', String, 'Availability — when role must be available'),
@@ -641,6 +669,7 @@ class ProcessRoleEntryCoordination {
 }
 
 /// Process performance metrics.
+@SectionId('PD00-TAR-PRO-CAT-ENT-PER')
 class ProcessPerformance {
   /// Performance overview.
   ProcessPerformanceOverview overview = ProcessPerformanceOverview();
@@ -655,6 +684,7 @@ class ProcessPerformance {
 }
 
 /// Process performance overview.
+@SectionId('PD00-TAR-PRO-CAT-ENT-PER-OVW')
 class ProcessPerformanceOverview {
   @Form([
     Field('targetCycleTime', String,
@@ -676,6 +706,7 @@ class ProcessPerformanceOverview {
 }
 
 /// A process KPI entry [PD00-TAR-PRO-CAT-nn-KPI-nn].
+@SectionId('PD00-TAR-PRO-CAT-ENT-PER-KPI')
 class ProcessKpiEntry {
   @Form([
     Field('kpiId', String, 'KPI ID', required: true),
@@ -694,6 +725,7 @@ class ProcessKpiEntry {
 }
 
 /// Measurement targets and thresholds.
+@SectionId('PD00-TAR-PRO-CAT-ENT-PER-KPI-MEA')
 class ProcessKpiEntryMeasurement {
   @Form([
     Field('unit', String, 'Unit — measurement unit'),
@@ -705,6 +737,7 @@ class ProcessKpiEntryMeasurement {
 }
 
 /// Reporting ownership and improvement use.
+@SectionId('PD00-TAR-PRO-CAT-ENT-PER-KPI-OPS')
 class ProcessKpiEntryOperations {
   @Form([
     Field('calculationFrequency', String,
@@ -719,6 +752,7 @@ class ProcessKpiEntryOperations {
 }
 
 /// A process SLA entry [PD00-TAR-PRO-CAT-nn-SLA-nn].
+@SectionId('PD00-TAR-PRO-CAT-ENT-SLA')
 class ProcessSlaEntry {
   @Form([
     Field('slaId', String, 'SLA ID', required: true),
@@ -739,6 +773,7 @@ class ProcessSlaEntry {
 }
 
 /// Process controls and compliance.
+@SectionId('PD00-TAR-PRO-CAT-ENT-CTL')
 class ProcessControls {
   /// Controls overview.
   ProcessControlsOverview overview = ProcessControlsOverview();
@@ -749,6 +784,7 @@ class ProcessControls {
 }
 
 /// Process controls overview.
+@SectionId('PD00-TAR-PRO-CAT-ENT-CTL-OVW')
 class ProcessControlsOverview {
   @Form([
     Field('controlFramework', String,
@@ -769,6 +805,7 @@ class ProcessControlsOverview {
 }
 
 /// A process control entry [PD00-TAR-PRO-CAT-nn-CTL-nn].
+@SectionId('PD00-TAR-PRO-CAT-ENT-CTL-ENT')
 class ProcessControlEntry {
   @Form([
     Field('controlId', String, 'Control ID', required: true),
@@ -789,6 +826,7 @@ class ProcessControlEntry {
 }
 
 /// Control operation and ownership.
+@SectionId('PD00-TAR-PRO-CAT-ENT-CTL-ENT-OPS')
 class ProcessControlEntryOperation {
   @Form([
     Field('controlDescription', String,
@@ -803,6 +841,7 @@ class ProcessControlEntryOperation {
 }
 
 /// Evidence, testing, and failure handling.
+@SectionId('PD00-TAR-PRO-CAT-ENT-CTL-ENT-VER')
 class ProcessControlEntryVerification {
   @Form([
     Field('evidenceProduced', String,
@@ -815,6 +854,7 @@ class ProcessControlEntryVerification {
 }
 
 /// Process technology support.
+@SectionId('PD00-TAR-PRO-CAT-ENT-TEC')
 class ProcessTechnology {
   @Form([
     Field('primarySystem', String,
@@ -835,6 +875,7 @@ class ProcessTechnology {
 }
 
 /// Data, reporting, and document tooling.
+@SectionId('PD00-TAR-PRO-CAT-ENT-TEC-INF')
 class ProcessTechnologyInformation {
   @Form([
   Field('dataRepositories', String,
@@ -849,6 +890,7 @@ class ProcessTechnologyInformation {
 }
 
 /// Access channel and analytics capabilities.
+@SectionId('PD00-TAR-PRO-CAT-ENT-TEC-EXP')
 class ProcessTechnologyExperience {
   @Form([
   Field('mobileCapability', String, 'Mobile Capability — mobile access needs'),
@@ -861,6 +903,7 @@ class ProcessTechnologyExperience {
 }
 
 /// Process exceptions and error handling.
+@SectionId('PD00-TAR-PRO-CAT-ENT-EXC')
 class ProcessExceptions {
   /// Exceptions overview.
   ProcessExceptionsOverview overview = ProcessExceptionsOverview();
@@ -871,6 +914,7 @@ class ProcessExceptions {
 }
 
 /// Process exceptions overview.
+@SectionId('PD00-TAR-PRO-CAT-ENT-EXC-OVW')
 class ProcessExceptionsOverview {
   @Form([
     Field('exceptionPhilosophy', String,
@@ -888,6 +932,7 @@ class ProcessExceptionsOverview {
 }
 
 /// A process exception entry [PD00-TAR-PRO-CAT-nn-EXC-nn].
+@SectionId('PD00-TAR-PRO-CAT-ENT-EXC-ENT')
 class ProcessExceptionEntry {
   @Form([
     Field('exceptionId', String, 'Exception ID', required: true),
@@ -908,6 +953,7 @@ class ProcessExceptionEntry {
 }
 
 /// Likelihood, impact, and detection.
+@SectionId('PD00-TAR-PRO-CAT-ENT-EXC-ENT-ASS')
 class ProcessExceptionEntryAssessment {
   @Form([
     Field('probability', String, 'Probability — how often this occurs'),
@@ -919,6 +965,7 @@ class ProcessExceptionEntryAssessment {
 }
 
 /// Resolution and prevention approach.
+@SectionId('PD00-TAR-PRO-CAT-ENT-EXC-ENT-RSP')
 class ProcessExceptionEntryResponse {
   @Form([
     Field('resolutionSteps', String, 'Resolution Steps — how to resolve'),
@@ -951,6 +998,7 @@ class ProcessOverviewDiagram {
 }
 
 /// Process diagram overview.
+@SectionId('PD00-TAR-PRO-FLO-OVW')
 class ProcessDiagramOverview {
   @Form([
     Field('diagramPurpose', String, 'Diagram Purpose — what the diagram shows'),
@@ -982,6 +1030,7 @@ class ProcessImprovementSummary {
 }
 
 /// Improvement overview.
+@SectionId('PD00-TAR-PRO-IMP-OVW')
 class ImprovementOverview {
   @Form([
     Field('improvementTheme', String,
@@ -997,6 +1046,7 @@ class ImprovementOverview {
 }
 
 /// A process improvement entry [PD00-TAR-PRO-IMP-nn].
+@SectionId('PD00-TAR-PRO-IMP-ENT')
 class ProcessImprovementEntry {
   @Form([
     Field('improvementId', String, 'Improvement ID', required: true),
@@ -1015,6 +1065,7 @@ class ProcessImprovementEntry {
 }
 
 /// Target outcome and value case.
+@SectionId('PD00-TAR-PRO-IMP-ENT-BEN')
 class ProcessImprovementEntryBenefits {
   @Form([
     Field('targetState', String, 'Target State — target measurement'),
@@ -1027,6 +1078,7 @@ class ProcessImprovementEntryBenefits {
 }
 
 /// Enablers, dependencies, and verification.
+@SectionId('PD00-TAR-PRO-IMP-ENT-DLV')
 class ProcessImprovementEntryDelivery {
   @Form([
     Field('enablers', String, 'Enablers — what makes this possible'),
@@ -1039,6 +1091,7 @@ class ProcessImprovementEntryDelivery {
 }
 
 /// Improvement business case.
+@SectionId('PD00-TAR-PRO-IMP-ENT-BCS')
 class ImprovementBusinessCase {
   @Form([
     Field('totalInvestment', String, 'Total Investment — cost of transformation'),
@@ -1083,6 +1136,7 @@ design and identifying optimization opportunities.
 }
 
 /// A process relationship entry [PD00-TAR-PRO-REL-nn].
+@SectionId('PD00-TAR-PRO-REL-ENT')
 class ProcessRelationshipEntry {
   @Form([
     Field('relationshipId', String, 'Relationship ID'),
@@ -1308,6 +1362,7 @@ Feeds BQP test strategy and the Phase 5 test derivation step.
 }
 
 /// Actor diagram overview.
+@SectionId('PD00-TAR-STP-E2E-OVW')
 class ActorDiagramOverview {
   @Form([
     Field('diagramPurpose', String,
@@ -1365,6 +1420,7 @@ modeling conventions with Cockburn-style goal and scope annotations.
 }
 
 /// Actor overview narrative.
+@SectionId('PD00-TAR-STP-ACT-NAR')
 class ActorOverviewNarrative {
   @Form([
     Field('totalActorCount', int, 'Total Actor Count'),
@@ -1382,6 +1438,7 @@ class ActorOverviewNarrative {
 }
 
 /// Actor categorization summary.
+@SectionId('PD00-TAR-STP-ACT-CAT')
 class ActorCategorizationSummary {
   @Form([
     Field('primaryActors', String,
@@ -1400,6 +1457,7 @@ class ActorCategorizationSummary {
 /// An actor entry [PD00-TAR-STP-ACT-nn].
 ///
 /// Comprehensive actor definition following UML and Cockburn conventions.
+@SectionId('PD00-TAR-STP-ACT-ENT')
 class ActorEntry {
   /// Actor identification.
   ActorIdentification identification = ActorIdentification();
@@ -1421,6 +1479,7 @@ class ActorEntry {
 }
 
 /// Actor identification.
+@SectionId('PD00-TAR-STP-ACT-ENT-IDN')
 class ActorIdentification {
   @Form([
     Field('actorId', String, 'Actor ID (e.g., ACT-001)', required: true),
@@ -1443,6 +1502,7 @@ class ActorIdentification {
 }
 
 /// Actor characteristics.
+@SectionId('PD00-TAR-STP-ACT-ENT-CHR')
 class ActorCharacteristics {
   @Form([
     Field('domainKnowledge', String,
@@ -1462,6 +1522,7 @@ class ActorCharacteristics {
 }
 
 /// Usage patterns and decision scope.
+@SectionId('PD00-TAR-STP-ACT-ENT-CHR-USE')
 class ActorCharacteristicsUsage {
   @Form([
   Field('usageDuration', String,
@@ -1476,6 +1537,7 @@ class ActorCharacteristicsUsage {
 }
 
 /// Communication and accessibility profile.
+@SectionId('PD00-TAR-STP-ACT-ENT-CHR-SUP')
 class ActorCharacteristicsSupport {
   @Form([
   Field('supervisionLevel', String,
@@ -1491,6 +1553,7 @@ class ActorCharacteristicsSupport {
 }
 
 /// Actor goals (Cockburn-style goal hierarchy).
+@SectionId('PD00-TAR-STP-ACT-ENT-GOL')
 class ActorGoals {
   @Form([
     Field('summaryGoals', String,
@@ -1511,6 +1574,7 @@ class ActorGoals {
 }
 
 /// Actor permissions and access levels.
+@SectionId('PD00-TAR-STP-ACT-ENT-PRM')
 class ActorPermissions {
   @Form([
     Field('securityClearance', String,
@@ -1534,6 +1598,7 @@ class ActorPermissions {
 }
 
 /// Actor technology profile.
+@SectionId('PD00-TAR-STP-ACT-ENT-TEC')
 class ActorTechnologyProfile {
   @Form([
     Field('primaryAccessChannel', String,
@@ -1558,6 +1623,7 @@ class ActorTechnologyProfile {
 }
 
 /// Actor interactions summary.
+@SectionId('PD00-TAR-STP-ACT-ENT-INT')
 class ActorInteractionsSummary {
   @Form([
     Field('primaryInteractions', String,
@@ -1627,6 +1693,7 @@ following Cockburn's fully dressed use case template.
 }
 
 /// Interaction catalog overview.
+@SectionId('PD00-TAR-STP-INT-OVW')
 class InteractionCatalogOverview {
   @Form([
     Field('totalInteractionCount', int, 'Total Interaction Count'),
@@ -1646,6 +1713,7 @@ class InteractionCatalogOverview {
 }
 
 /// Interaction prioritization matrix.
+@SectionId('PD00-TAR-STP-INT-PRI')
 class InteractionPrioritization {
   @Form([
     Field('mustHaveInteractions', String,
@@ -1667,6 +1735,7 @@ class InteractionPrioritization {
 ///
 /// Comprehensive interaction definition following Cockburn's fully dressed
 /// use case template. Seeds the UC (Use Case) document.
+@SectionId('PD00-TAR-STP-INT-ENT')
 class InteractionEntry {
   /// Interaction identification (use case header).
   InteractionIdentification identification = InteractionIdentification();
@@ -1709,6 +1778,7 @@ class InteractionEntry {
 }
 
 /// Interaction identification (use case header).
+@SectionId('PD00-TAR-STP-INT-ENT-IDN')
 class InteractionIdentification {
   @Form([
     Field('interactionId', String, 'Interaction ID (e.g., INT-001)',
@@ -1731,6 +1801,7 @@ class InteractionIdentification {
 }
 
 /// Use case scope and context (Cockburn style).
+@SectionId('PD00-TAR-STP-INT-ENT-SCP')
 class UseCaseScopeContext {
   @Form([
     Field('systemUnderDiscussion', String,
@@ -1748,6 +1819,7 @@ class UseCaseScopeContext {
 }
 
 /// Stakeholders and interests.
+@SectionId('PD00-TAR-STP-INT-ENT-STK')
 class StakeholdersAndInterests {
   @Form([
     Field('primaryActorInterest', String,
@@ -1767,6 +1839,7 @@ class StakeholdersAndInterests {
 }
 
 /// Preconditions and triggers.
+@SectionId('PD00-TAR-STP-INT-ENT-PRE')
 class PreconditionsAndTriggers {
   @Form([
     Field('precondition', String, 'Preconditions — must be true before'),
@@ -1784,6 +1857,7 @@ class PreconditionsAndTriggers {
 }
 
 /// Postconditions and guarantees.
+@SectionId('PD00-TAR-STP-INT-ENT-PST')
 class PostconditionsAndGuarantees {
   @Form([
     Field('minimalGuarantees', String,
@@ -1803,6 +1877,7 @@ class PostconditionsAndGuarantees {
 }
 
 /// Main success scenario (basic flow).
+@SectionId('PD00-TAR-STP-INT-ENT-SCI')
 class MainSuccessScenario {
   @Form([
     Field('scenarioSummary', String, 'Scenario Summary — overview'),
@@ -1819,6 +1894,7 @@ class MainSuccessScenario {
 }
 
 /// A main scenario step entry [PD00-TAR-STP-INT-nn-MSS-nn].
+@SectionId('PD00-TAR-STP-INT-ENT-SCI-STE')
 class MainScenarioStepEntry {
   @Form([
     Field('stepNumber', int, 'Step Number', required: true),
@@ -1837,6 +1913,7 @@ class MainScenarioStepEntry {
 }
 
 /// Use case extensions (alternative and exception flows).
+@SectionId('PD00-TAR-STP-INT-ENT-EXT')
 class UseCaseExtensions {
   @Form([
     Field('extensionSummary', String,
@@ -1851,6 +1928,7 @@ class UseCaseExtensions {
 }
 
 /// An extension entry [PD00-TAR-STP-INT-nn-EXT-nn].
+@SectionId('PD00-TAR-STP-INT-ENT-EXT-ENT')
 class ExtensionEntry {
   @Form([
     Field('extensionId', String, 'Extension ID (e.g., 3a)', required: true),
@@ -1874,6 +1952,7 @@ class ExtensionEntry {
 }
 
 /// An extension step entry [PD00-TAR-STP-INT-nn-EXT-nn-EST-nn].
+@SectionId('PD00-TAR-STP-INT-ENT-EXT-ENT-STE')
 class ExtensionStepEntry {
   @Form([
     Field('stepNumber', String, 'Step Number (e.g., 3a1)'),
@@ -1884,6 +1963,7 @@ class ExtensionStepEntry {
 }
 
 /// Technology and data variations.
+@SectionId('PD00-TAR-STP-INT-ENT-TVR')
 class TechnologyDataVariations {
   @Form([
     Field('dataVariations', String,
@@ -1903,6 +1983,7 @@ class TechnologyDataVariations {
 }
 
 /// UI requirements preview for this interaction.
+@SectionId('PD00-TAR-STP-INT-ENT-UIP')
 class UIRequirementsPreview {
   @Form([
     Field('primaryScreen', String, 'Primary Screen — main UI screen'),
@@ -1925,6 +2006,7 @@ class UIRequirementsPreview {
 }
 
 /// Interaction performance requirements.
+@SectionId('PD00-TAR-STP-INT-ENT-PER')
 class InteractionPerformance {
   @Form([
     Field('expectedFrequency', String,
@@ -1945,6 +2027,7 @@ class InteractionPerformance {
 }
 
 /// Interaction security requirements.
+@SectionId('PD00-TAR-STP-INT-ENT-SEC')
 class InteractionSecurity {
   @Form([
     Field('authenticationRequired', String,
@@ -1965,6 +2048,7 @@ class InteractionSecurity {
 }
 
 /// Business rules triggered by this interaction.
+@SectionId('PD00-TAR-STP-INT-ENT-RUL')
 class InteractionBusinessRules {
   @Form([
     Field('validationRules', String,
@@ -1983,6 +2067,7 @@ class InteractionBusinessRules {
 }
 
 /// Interaction traceability to other elements.
+@SectionId('PD00-TAR-STP-INT-ENT-TRA')
 class InteractionTraceability {
   @Form([
     Field('relatedProcess', String, 'Related Process — BP-xxx'),
@@ -2045,6 +2130,7 @@ and places their first order."
 }
 
 /// Scenario overview.
+@SectionId('PD00-TAR-STP-SCE-OVW')
 class ScenarioOverview {
   @Form([
     Field('totalScenarioCount', int, 'Total Scenario Count'),
@@ -2063,6 +2149,7 @@ class ScenarioOverview {
 /// A scenario entry [PD00-TAR-STP-SCE-nn].
 ///
 /// Comprehensive scenario definition for end-to-end user journey.
+@SectionId('PD00-TAR-STP-SCE-ENT')
 class ScenarioEntry {
   /// Scenario identification.
   ScenarioIdentification identification = ScenarioIdentification();
@@ -2090,6 +2177,7 @@ class ScenarioEntry {
 }
 
 /// Scenario identification.
+@SectionId('PD00-TAR-STP-SCE-ENT-IDN')
 class ScenarioIdentification {
   @Form([
     Field('scenarioId', String, 'Scenario ID (e.g., SCE-001)', required: true),
@@ -2107,6 +2195,7 @@ class ScenarioIdentification {
 }
 
 /// Scenario context.
+@SectionId('PD00-TAR-STP-SCE-ENT-CTX')
 class ScenarioContext {
   @Form([
     Field('preconditions', String, 'Preconditions — required initial state'),
@@ -2124,6 +2213,7 @@ class ScenarioContext {
 }
 
 /// A scenario step entry [PD00-TAR-STP-SCE-nn-SST-nn].
+@SectionId('PD00-TAR-STP-SCE-ENT-STE')
 class ScenarioStepEntry {
   @Form([
     Field('stepNumber', int, 'Step Number', required: true),
@@ -2141,6 +2231,7 @@ class ScenarioStepEntry {
 }
 
 /// Expected outcome and referenced artifacts.
+@SectionId('PD00-TAR-STP-SCE-ENT-STE-CTX')
 class ScenarioStepEntryContext {
   @Form([
     Field('expectedResult', String, 'Expected Result — observable outcome'),
@@ -2153,6 +2244,7 @@ class ScenarioStepEntryContext {
 }
 
 /// Branching, timing, and notes.
+@SectionId('PD00-TAR-STP-SCE-ENT-STE-EXE')
 class ScenarioStepEntryExecution {
   @Form([
     Field('decisionPoint', String,
@@ -2164,6 +2256,7 @@ class ScenarioStepEntryExecution {
 }
 
 /// An alternative flow entry [PD00-TAR-STP-SCE-nn-AFL-nn].
+@SectionId('PD00-TAR-STP-SCE-ENT-ALT')
 class AlternativeFlowEntry {
   @Form([
     Field('flowId', String, 'Flow ID (e.g., AFL-001)', required: true),
@@ -2185,6 +2278,7 @@ class AlternativeFlowEntry {
 }
 
 /// An alternative step entry [PD00-TAR-STP-SCE-nn-AFL-nn-AST-nn].
+@SectionId('PD00-TAR-STP-SCE-ENT-ALT-STE')
 class AlternativeStepEntry {
   @Form([
     Field('stepNumber', String, 'Step Number'),
@@ -2196,6 +2290,7 @@ class AlternativeStepEntry {
 }
 
 /// Scenario data requirements.
+@SectionId('PD00-TAR-STP-SCE-ENT-DAT')
 class ScenarioData {
   @Form([
     Field('inputData', String, 'Input Data — data needed to start'),
@@ -2212,6 +2307,7 @@ class ScenarioData {
 }
 
 /// Scenario timing expectations.
+@SectionId('PD00-TAR-STP-SCE-ENT-TIM')
 class ScenarioTiming {
   @Form([
     Field('totalDuration', String, 'Total Duration — end-to-end time'),
@@ -2229,6 +2325,7 @@ class ScenarioTiming {
 }
 
 /// Scenario validation criteria.
+@SectionId('PD00-TAR-STP-SCE-ENT-VAL')
 class ScenarioValidation {
   @Form([
     Field('acceptanceCriteria', String,

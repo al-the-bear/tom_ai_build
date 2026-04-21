@@ -51,6 +51,7 @@ from standard organizational project governance procedures.
 // ---------------------------------------------------------------------------
 
 /// Administrative overview summary statistics.
+@SectionId('PD00-ADM-SUM')
 class AdministrativeSummary {
   @Form([
     Field('totalTeamMembers', int, 'Total Team Members',
@@ -112,6 +113,7 @@ class OrganizationStructure {
 }
 
 /// Governance model details.
+@SectionId('PD00-ADM-PRO-STR-GOV')
 class GovernanceModel {
   @Form([
     Field('decisionFramework', String, 'Decision-Making Framework'),
@@ -127,6 +129,7 @@ class GovernanceModel {
 }
 
 /// A decision authority entry.
+@SectionId('PD00-ADM-PRO-STR-DEC')
 class DecisionAuthorityEntry {
   @Form([
     Field('decisionArea', String, 'Decision Area', required: true),
@@ -159,6 +162,7 @@ class SteeringCommittee {
 }
 
 /// Committee charter defining rules and procedures.
+@SectionId('PD00-ADM-PRO-STE-CHR')
 class CommitteeCharter {
   @Form([
     Field('purpose', String, 'Purpose'),
@@ -173,6 +177,7 @@ class CommitteeCharter {
 /// A steering committee member entry [PD00-ADM-PRO-STE-nn] (form).
 ///
 /// Detailed information about a steering committee member.
+@SectionId('PD00-ADM-PRO-STE-MBR')
 @ContentHelp('Document each committee member with their organizational role, '
     'committee responsibilities, and decision authority.')
 class CommitteeMemberEntry {
@@ -194,6 +199,7 @@ class CommitteeMemberEntry {
 }
 
 /// A committee member responsibility entry.
+@SectionId('PD00-ADM-PRO-STE-RES')
 class CommitteeResponsibilityEntry {
   @Form([
     Field('area', String, 'Responsibility Area', required: true),
@@ -233,6 +239,7 @@ class ProjectTeamStaffing {
 }
 
 /// Team structure overview.
+@SectionId('PD00-ADM-TEA-OVW')
 class TeamStructureOverview {
   @Form([
     Field('teamSize', int, 'Total Team Size'),
@@ -249,6 +256,7 @@ class TeamStructureOverview {
 }
 
 /// A resource requirement entry for unfilled positions.
+@SectionId('PD00-ADM-TEA-REQ')
 class ResourceRequirementEntry {
   @Form([
     Field('roleName', String, 'Role Name', required: true),
@@ -266,6 +274,7 @@ class ResourceRequirementEntry {
 ///
 /// Detailed information about a project team member including their role,
 /// responsibilities, availability, and competencies.
+@SectionId('PD00-ADM-TEA-MBR')
 @ContentHelp('Document each team member with their role, allocation, skills, '
     'and availability. Include contact information and backup arrangements.')
 class TeamMemberEntry {
@@ -299,6 +308,7 @@ class TeamMemberEntry {
 }
 
 /// Allocation and scheduling details.
+@SectionId('PD00-ADM-TEA-MBR-ALC')
 class TeamMemberEntryAllocation {
   @Form([
     Field('allocation', String, 'Allocation Percentage'),
@@ -309,6 +319,7 @@ class TeamMemberEntryAllocation {
 }
 
 /// Work location and contact details.
+@SectionId('PD00-ADM-TEA-MBR-CON')
 class TeamMemberEntryContact {
   @Form([
     Field('workLocation', String, 'Work Location'),
@@ -320,6 +331,7 @@ class TeamMemberEntryContact {
 }
 
 /// Reporting and backup structure.
+@SectionId('PD00-ADM-TEA-MBR-GOV')
 class TeamMemberEntryGovernance {
   @Form([
     Field('reportingTo', String, 'Reporting To'),
@@ -329,6 +341,7 @@ class TeamMemberEntryGovernance {
 }
 
 /// Team member skills and certifications.
+@SectionId('PD00-ADM-TEA-MBR-SKL')
 class TeamMemberSkills {
   @Form([
     Field('primarySkills', String, 'Primary Skills'),
@@ -344,6 +357,7 @@ class TeamMemberSkills {
 }
 
 /// A skill entry with proficiency level.
+@SectionId('PD00-ADM-TEA-MBR-SKL-ENT')
 class TeamMemberSkillEntry {
   @Form([
     Field('skillName', String, 'Skill Name', required: true),
@@ -355,6 +369,7 @@ class TeamMemberSkillEntry {
 }
 
 /// Team member availability constraints.
+@SectionId('PD00-ADM-TEA-MBR-AVL')
 class TeamMemberAvailability {
   @Form([
     Field('availableFrom', String, 'Available From'),
@@ -368,6 +383,7 @@ class TeamMemberAvailability {
 }
 
 /// A team member responsibility entry.
+@SectionId('PD00-ADM-TEA-MBR-RSP')
 class TeamMemberResponsibilityEntry {
   @Form([
     Field('area', String, 'Responsibility Area', required: true),
@@ -412,6 +428,7 @@ channels and frequency for different types of information.
 }
 
 /// Communication matrix defining stakeholder communication patterns.
+@SectionId('PD00-ADM-DIS-MAT')
 class CommunicationMatrix {
   @Form([
     Field('defaultCommunicationChannel', String, 'Default Communication Channel',
@@ -442,6 +459,7 @@ class CommunicationMatrix {
 }
 
 /// A communication type with distribution rules.
+@SectionId('PD00-ADM-DIS-MAT-ENT')
 class CommunicationTypeEntry {
   @Form([
     Field('communicationType', String, 'Communication Type',
@@ -467,6 +485,7 @@ class CommunicationTypeEntry {
 }
 
 /// Custom distribution group for specific stakeholder needs.
+@SectionId('PD00-ADM-DIS-GRP')
 class CustomDistributionGroup {
   @Form([
     Field('groupName', String, 'Group Name', required: true,
@@ -528,6 +547,7 @@ high-level progress updates without operational details.
 }
 
 /// Summary statistics for a distribution group.
+@SectionId('PD00-ADM-DIS-EXE-SUM')
 class DistributionGroupSummary {
   @Form([
     Field('recipientCount', int, 'Recipient Count',
@@ -548,6 +568,7 @@ class DistributionGroupSummary {
 ///
 /// Detailed information about a distribution list recipient including
 /// their role, contact information, preferences, and access levels.
+@SectionId('PD00-ADM-DIS-EXE-RCP')
 class DistributionRecipientEntry {
   @Form([
     Field('name', String, 'Name', required: true,
@@ -578,6 +599,7 @@ class DistributionRecipientEntry {
 }
 
 /// Contact information.
+@SectionId('PD00-ADM-DIS-EXE-RCP-CON')
 class DistributionRecipientContact {
   @Form([
     Field('jobTitle', String, 'Job Title',
@@ -595,6 +617,7 @@ class DistributionRecipientContact {
 }
 
 /// Distribution preferences.
+@SectionId('PD00-ADM-DIS-EXE-RCP-PRF')
 class DistributionRecipientPreferences {
   @Form([
     Field('distributionMethod', String, 'Distribution Method',
@@ -612,6 +635,7 @@ class DistributionRecipientPreferences {
 }
 
 /// Access and information scope.
+@SectionId('PD00-ADM-DIS-EXE-RCP-ACC')
 class DistributionRecipientAccess {
   @Form([
     Field('accessLevel', String, 'Access Level',
@@ -629,6 +653,7 @@ class DistributionRecipientAccess {
 }
 
 /// Subscription period.
+@SectionId('PD00-ADM-DIS-EXE-RCP-SUB')
 class DistributionRecipientSubscription {
   @Form([
     Field('subscriptionStartDate', String, 'Subscription Start Date',
@@ -642,6 +667,7 @@ class DistributionRecipientSubscription {
 }
 
 /// Backup and delegation.
+@SectionId('PD00-ADM-DIS-EXE-RCP-BCK')
 class DistributionRecipientBackup {
   @Form([
     Field('deputyName', String, 'Deputy Name',
@@ -692,6 +718,7 @@ are required, and how the process balances agility with governance needs.
 }
 
 /// Change procedure summary and metrics.
+@SectionId('PD00-ADM-CHA-SUM')
 class ChangeProcedureSummary {
   @Form([
     Field('changeRequestFormat', String, 'Change Request Format',
@@ -758,6 +785,7 @@ decision points, parallel activities, and notification triggers.
 }
 
 /// Decision criteria for evaluating change requests.
+@SectionId('PD00-ADM-CHA-PRO-DEC')
 class ChangeDecisionCriteria {
   @Form([
     Field('scopeImpactWeight', int, 'Scope Impact Weight',
@@ -779,6 +807,7 @@ class ChangeDecisionCriteria {
 }
 
 /// Notification rules for change process events.
+@SectionId('PD00-ADM-CHA-PRO-NOT')
 class ChangeNotificationRules {
   @Form([
     Field('submissionNotification', String, 'Submission Notification',
@@ -798,6 +827,7 @@ class ChangeNotificationRules {
 }
 
 /// A role involved in the change process (form) [PD00-ADM-CHA-PRO-ROL-nn].
+@SectionId('PD00-ADM-CHA-PRO-ROL')
 class ChangeRoleEntry {
   @Form([
     Field('roleName', String, 'Role Name', required: true,
@@ -821,6 +851,7 @@ class ChangeRoleEntry {
 /// A change process step entry (form) [PD00-ADM-CHA-PRO-STP-nn].
 ///
 /// Detailed description of a single step in the change process workflow.
+@SectionId('PD00-ADM-CHA-PRO-STE')
 class ChangeStepEntry {
   @Form([
     Field('stepNumber', int, 'Step Number',
@@ -850,6 +881,7 @@ class ChangeStepEntry {
 }
 
 /// Responsibility assignments for change step.
+@SectionId('PD00-ADM-CHA-PRO-STE-RES')
 class ChangeStepEntryResponsibility {
   @Form([
   Field('responsibleRole', String, 'Responsible Role',
@@ -865,6 +897,7 @@ class ChangeStepEntryResponsibility {
 }
 
 /// Inputs and outputs for change step.
+@SectionId('PD00-ADM-CHA-PRO-STE-ART')
 class ChangeStepEntryArtifacts {
   @Form([
   Field('inputArtifacts', String, 'Input Artifacts',
@@ -878,6 +911,7 @@ class ChangeStepEntryArtifacts {
 }
 
 /// Criteria and timing for change step.
+@SectionId('PD00-ADM-CHA-PRO-STE-CRI')
 class ChangeStepEntryCriteria {
   @Form([
   Field('entryConditions', String, 'Entry Conditions',
@@ -895,6 +929,7 @@ class ChangeStepEntryCriteria {
 }
 
 /// Decision paths for change step.
+@SectionId('PD00-ADM-CHA-PRO-STE-DEC')
 class ChangeStepEntryDecision {
   @Form([
   Field('decisionRequired', String, 'Decision Required',
@@ -933,6 +968,7 @@ major, or critical, and the corresponding approval requirements.
 }
 
 /// Impact level definitions.
+@SectionId('PD00-ADM-CHA-CRI-LVL')
 class ImpactLevelDefinitions {
   @Form([
     Field('minorDefinition', String, 'Minor Impact Definition',
@@ -958,6 +994,7 @@ class ImpactLevelDefinitions {
 /// A change impact criterion entry (form) [PD00-ADM-CHA-CRI-nn].
 ///
 /// Detailed criterion for assessing change impact in a specific dimension.
+@SectionId('PD00-ADM-CHA-CRI-ENT')
 class ChangeImpactCriterionEntry {
   @Form([
     Field('criterionId', String, 'Criterion ID',
@@ -987,6 +1024,7 @@ class ChangeImpactCriterionEntry {
 }
 
 /// Threshold levels for change impact.
+@SectionId('PD00-ADM-CHA-CRI-ENT-THR')
 class ChangeImpactCriterionEntryThresholds {
   @Form([
   Field('description', String, 'Description',
@@ -1004,6 +1042,7 @@ class ChangeImpactCriterionEntryThresholds {
 }
 
 /// Measurement configuration for change impact.
+@SectionId('PD00-ADM-CHA-CRI-ENT-MEA')
 class ChangeImpactCriterionEntryMeasurement {
   @Form([
   Field('measurementMethod', String, 'Measurement Method',
@@ -1017,6 +1056,7 @@ class ChangeImpactCriterionEntryMeasurement {
 }
 
 /// Approval path rules for change impact.
+@SectionId('PD00-ADM-CHA-CRI-ENT-APR')
 class ChangeImpactCriterionEntryApproval {
   @Form([
   Field('approvalRequired', String, 'Approval Required',
@@ -1030,6 +1070,7 @@ class ChangeImpactCriterionEntryApproval {
 }
 
 /// Weighting and supporting notes for change impact.
+@SectionId('PD00-ADM-CHA-CRI-ENT-GOV')
 class ChangeImpactCriterionEntryGovernance {
   @Form([
   Field('weight', int, 'Weight',
@@ -1080,6 +1121,7 @@ and decision-making rules.
 }
 
 /// Regular meeting cadence details.
+@SectionId('PD00-ADM-CHA-CCB-MTG')
 class ChangeControlBoardMeetings {
   @Form([
     Field('meetingDay', String, 'Meeting Day',
@@ -1093,6 +1135,7 @@ class ChangeControlBoardMeetings {
 }
 
 /// Decision-making and emergency governance.
+@SectionId('PD00-ADM-CHA-CCB-GOV')
 class ChangeControlBoardGovernance {
   @Form([
     Field('quorumRequirement', String, 'Quorum Requirement',
@@ -1106,6 +1149,7 @@ class ChangeControlBoardGovernance {
 }
 
 /// Decision record distribution.
+@SectionId('PD00-ADM-CHA-CCB-REC')
 class ChangeControlBoardRecords {
   @Form([
     Field('minutesDistribution', String, 'Minutes Distribution',
@@ -1117,6 +1161,7 @@ class ChangeControlBoardRecords {
 }
 
 /// A CCB member entry.
+@SectionId('PD00-ADM-CHA-CCB-MBR')
 class CcbMemberEntry {
   @Form([
     Field('name', String, 'Name', required: true,
@@ -1140,6 +1185,7 @@ class CcbMemberEntry {
 /// A change category entry [PD00-ADM-CHA-CAT-nn].
 ///
 /// Defines a category of changes with specific handling rules.
+@SectionId('PD00-ADM-CHA-CCB-CAT')
 class ChangeCategoryEntry {
   @Form([
     // Identification
@@ -1163,6 +1209,7 @@ class ChangeCategoryEntry {
 }
 
 /// Scope and example changes.
+@SectionId('PD00-ADM-CHA-CCB-CAT-SCP')
 class ChangeCategoryEntryScope {
   @Form([
   Field('scope', String, 'Scope',
@@ -1174,6 +1221,7 @@ class ChangeCategoryEntryScope {
 }
 
 /// Default handling and approval path.
+@SectionId('PD00-ADM-CHA-CCB-CAT-HND')
 class ChangeCategoryEntryHandling {
   @Form([
   Field('defaultImpactLevel', String, 'Default Impact Level',
@@ -1191,6 +1239,7 @@ class ChangeCategoryEntryHandling {
 }
 
 /// Documentation and special considerations.
+@SectionId('PD00-ADM-CHA-CCB-CAT-GOV')
 class ChangeCategoryEntryGovernance {
   @Form([
   Field('requiredDocumentation', String, 'Required Documentation',
@@ -1231,6 +1280,7 @@ class ReferenceDocuments {
 ///
 /// Detailed metadata for a single referenced document including
 /// identification, classification, status, and applicability.
+@SectionId('PD00-ADM-REF-ENT')
 class ReferenceDocumentEntry {
   @Form([
     Field('documentTitle', String, 'Document Title', required: true),
@@ -1258,6 +1308,7 @@ class ReferenceDocumentEntry {
 }
 
 /// Document metadata and relevance.
+@SectionId('PD00-ADM-REF-ENT-MET')
 class ReferenceDocumentEntryMetadata {
   @Form([
     Field('author', String, 'Author / Issuing Organization'),
@@ -1271,6 +1322,7 @@ class ReferenceDocumentEntryMetadata {
 }
 
 /// Governance and applicability information.
+@SectionId('PD00-ADM-REF-ENT-GOV')
 class ReferenceDocumentEntryGovernance {
   @Form([
     Field('classification', String,
@@ -1288,6 +1340,7 @@ class ReferenceDocumentEntryGovernance {
 }
 
 /// Lifecycle and usage details.
+@SectionId('PD00-ADM-REF-ENT-LCY')
 class ReferenceDocumentEntryLifecycle {
   @Form([
     Field('supersedes', String, 'Supersedes Document (if replacing older doc)'),
@@ -1300,6 +1353,7 @@ class ReferenceDocumentEntryLifecycle {
 }
 
 /// Key sections within a reference document relevant to the project.
+@SectionId('PD00-ADM-REF-ENT-SEC')
 class DocumentRelevantSections {
   @Form([
     Field('sectionReference', String,
@@ -1317,6 +1371,7 @@ class DocumentRelevantSections {
 }
 
 /// A single relevant section entry within a reference document.
+@SectionId('PD00-ADM-REF-ENT-SEC-ENT')
 class RelevantSectionEntry {
   @Form([
     Field('sectionReference', String,
@@ -1334,6 +1389,7 @@ class RelevantSectionEntry {
 }
 
 /// Relationships between reference documents.
+@SectionId('PD00-ADM-REF-ENT-REL')
 class DocumentRelationships {
   @ContentType('description', 'Describe how this document relates to '
       'other reference documents in the catalog.')
@@ -1344,6 +1400,7 @@ class DocumentRelationships {
 }
 
 /// A relationship to another reference document.
+@SectionId('PD00-ADM-REF-ENT-REL-ENT')
 class RelatedDocumentEntry {
   @Form([
     Field('relatedDocumentId', String, 'Related Document ID', required: true),
@@ -1420,6 +1477,7 @@ class IntellectualPropertyRequirements {
 }
 
 /// An IP ownership entry (form).
+@SectionId('PD00-ADM-OTH-IPR-ENT')
 class IpOwnershipEntry {
   @Form([
     Field('assetType', String, 'Asset Type', required: true),
@@ -1455,6 +1513,7 @@ class ConfidentialityRequirements {
 }
 
 /// A confidential information category.
+@SectionId('PD00-ADM-OTH-NDA-CAT')
 class ConfidentialInfoCategoryEntry {
   @Form([
     Field('categoryName', String, 'Category Name', required: true),
@@ -1467,6 +1526,7 @@ class ConfidentialInfoCategoryEntry {
 }
 
 /// Data handling procedures for confidential information.
+@SectionId('PD00-ADM-OTH-NDA-HND')
 class DataHandlingProcedures {
   @Form([
     Field('storageRequirements', String, 'Storage Requirements'),
@@ -1498,6 +1558,7 @@ class RegulatoryComplianceRequirements {
 }
 
 /// A regulatory requirement entry.
+@SectionId('PD00-ADM-OTH-REG-ENT')
 class RegulatoryRequirementEntry {
   @Form([
     Field('regulationName', String, 'Regulation Name', required: true),
@@ -1513,6 +1574,7 @@ class RegulatoryRequirementEntry {
 }
 
 /// A compliance milestone entry.
+@SectionId('PD00-ADM-OTH-REG-MLS')
 class ComplianceMilestoneEntry {
   @Form([
     Field('milestoneName', String, 'Milestone Name', required: true),
@@ -1544,6 +1606,7 @@ class AuditRequirements {
 }
 
 /// An audit entry.
+@SectionId('PD00-ADM-OTH-AUD-ENT')
 class AuditEntry {
   @Form([
     Field('auditName', String, 'Audit Name', required: true),
@@ -1558,6 +1621,7 @@ class AuditEntry {
 }
 
 /// Audit evidence requirements.
+@SectionId('PD00-ADM-OTH-AUD-EVI')
 class AuditEvidenceRequirements {
   @Form([
     Field('documentationStandards', String, 'Documentation Standards'),
@@ -1573,6 +1637,7 @@ class AuditEvidenceRequirements {
 }
 
 /// An audit evidence type entry.
+@SectionId('PD00-ADM-OTH-AUD-EVI-ENT')
 class AuditEvidenceTypeEntry {
   @Form([
     Field('evidenceType', String, 'Evidence Type', required: true),
@@ -1602,6 +1667,7 @@ class InsuranceLiabilityRequirements {
 }
 
 /// An insurance requirement entry.
+@SectionId('PD00-ADM-OTH-INS-INS')
 class InsuranceEntry {
   @Form([
     Field('insuranceType', String, 'Insurance Type', required: true),
@@ -1615,6 +1681,7 @@ class InsuranceEntry {
 }
 
 /// Liability limitations.
+@SectionId('PD00-ADM-OTH-INS-LIA')
 class LiabilityLimitations {
   @Form([
     Field('maxLiability', String, 'Maximum Liability'),
@@ -1626,6 +1693,7 @@ class LiabilityLimitations {
 }
 
 /// An other agreement entry.
+@SectionId('PD00-ADM-OTH-INS-AGR')
 class OtherAgreementEntry {
   @Form([
     Field('agreementTitle', String, 'Agreement Title', required: true),
