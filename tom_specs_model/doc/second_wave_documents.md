@@ -733,9 +733,14 @@ class TranslationRequirements { ... }          // both annotations on the child
 
 **Section-ID coverage and uniqueness (structural, not yet enforced):**
 
-- **Section-ID uniqueness.** Every string literal used as `@SectionId('…')` across the tree reachable from a given root (`ProjectDefinition` or any Phase 3 document root) must be unique. Duplicate IDs make the outline ambiguous and break traceability. Same rule applies to `@SectionIdPattern('…-xx')` within a scope.
-- **Section-ID coverage.** Every class reachable from a root is expected to carry a `@SectionId`, or — for list element classes — to be reached via a field with a `@SectionIdPattern`. Classes that exist in the model but aren't reachable from any root are not required to carry one.
-- **`@SecondLevelSectionId` uniqueness within a document.** For each target DocSpec `D`, all `@SecondLevelSectionId(D, 'XYZ-…')` string literals must be unique within `D`'s reachable tree.
+- **Section-ID uniqueness — globally, across the PD document tree.** Every string literal used as `@SectionId('…')` anywhere in the `ProjectDefinition` reachable tree must be unique across *all* classes. `ProjectDefinition` reaches every section class in the model (verified: 284 class-level `@SectionId`s, all reachable from the PD root, no duplicates as of this commit), so uniqueness is a single global property — not scoped per Phase 3 document. Same rule applies to `@SectionIdPattern('…-xx')`: unique globally.
+- **Section-ID coverage.** Every class reachable from `ProjectDefinition` is expected to carry a `@SectionId` on the class, or — for list element classes — to be reached via a field whose declaration carries a `@SectionIdPattern`. Since every Phase 3 document root types against classes already reachable from PD, this guarantees every class participating in any outline has an ID.
+- **`@SecondLevelSectionId` derivation rule.** The document-scoped short ID of a class is derived mechanically, not authored free-hand: take the class's global `@SectionId`, find the nearest ancestor class (on the same target-doc path) that carries `@DetailedIn(D)`, trim the prefix up to and including that ancestor's `@SectionId`, and prefix the remainder with `<docId>-`.
+
+  Example: with `@DetailedIn(TechnicalRequirementsSpec)` applied at the classes with `@SectionId('PD00-SE1-SX1-SS1')` and `@SectionId('PD00-SE1-SX1-SS2')`, the short IDs become `TR-SS1` and `TR-SS2` respectively. The prefix `PD00-SE1-SX1-` — shared by the `@DetailedIn`-carrying classes — is cut off and replaced with `TR-`.
+
+  When the `@DetailedIn` class has deeper descendants (not carrying their own `@DetailedIn`), the derivation uses *that ancestor's* `@SectionId` as the cut-off prefix. So a descendant `PD00-SE1-SX1-SS1-XX1` would become `TR-SS1-XX1`.
+- **`@SecondLevelSectionId` uniqueness within a document.** For each target DocSpec `D`, all derived short IDs must be unique within `D`'s reachable tree. Since the remainder after the cut-off is a suffix of a globally-unique `@SectionId`, collisions can only occur if the same suffix appears under two different `@DetailedIn(D)` cut-points — which the validator must detect.
 
 The existing validator at [tom_specs_clitool/lib/src/validator.dart](../../tom_specs_clitool/lib/src/validator.dart) today covers §6.1 field-type rules, `@ContentType` compatibility, and cycle detection from a given root. It does **not** yet enforce any of the invariants above — adding those checks is Step 20 below.
 
@@ -1013,9 +1018,9 @@ All Phase B steps follow the template in §9.1. Order per §9.2: smallest single
 **What:** Extend [tom_specs_clitool/lib/src/validator.dart](../../tom_specs_clitool/lib/src/validator.dart) — currently covers §6.1 field-type rules, `@ContentType` compatibility, and cycle detection — with the following new checks:
 
 *Section-ID structural checks:*
-- **`@SectionId` uniqueness.** Collect every string literal used in `@SectionId('…')` across classes reachable from the given root. Assert no duplicates. Same for `@SectionIdPattern('…-xx')` within the same scope.
-- **`@SectionId` coverage.** Every class reachable from the root is expected to carry a `@SectionId` (list element classes are exempt when their containing field carries a `@SectionIdPattern`). Report any reachable class without either.
-- **`@SecondLevelSectionId` uniqueness per document.** For each target DocSpec `D`, collect all `@SecondLevelSectionId(D, 'XYZ-…')` literals and assert no duplicates within `D`'s reachable tree.
+- **`@SectionId` uniqueness (global).** Collect every string literal used in `@SectionId('…')` across all classes reachable from `ProjectDefinition`. Assert no duplicates. Same for `@SectionIdPattern('…-xx')` — global uniqueness required. (Current state: 284 PD-reachable class-level `@SectionId`s, zero duplicates.)
+- **`@SectionId` coverage.** Every class reachable from `ProjectDefinition` is expected to carry a class-level `@SectionId`. Exception: list element classes reached via a field that carries `@SectionIdPattern`. Report any reachable class without either.
+- **`@SecondLevelSectionId` derivation and uniqueness per document.** If the short-ID scheme is adopted (§8.4), either (a) compute the short ID mechanically from the class's `@SectionId` and the nearest ancestral `@DetailedIn(D)` per the rule in §8.6 and assert any authored `@SecondLevelSectionId(D, '…')` matches the derived value, or (b) if not authored explicitly, just compute the short IDs and assert uniqueness within each target DocSpec `D`'s reachable tree.
 
 *`@MapsTo` / `@DetailedIn` checks:*
 - **Detail-count check:** for each `@Document`-tagged class `D`, count `@DetailedIn(D)` occurrences; assert == §6 "Total tops" for that doc.
