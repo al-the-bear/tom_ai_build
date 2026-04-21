@@ -102,9 +102,11 @@ Uint8List _loadEmbeddedSdkSummary() {
     final name = map['name'] as String;
     final rootUriStr = map['rootUri'] as String;
 
-    // Resolve relative rootUri against the .dart_tool/ directory
+    // Resolve relative rootUri against the .dart_tool/ directory.
+    // toFilePath() can return a trailing slash (e.g. for rootUri "..\/") —
+    // p.normalize strips it so PhysicalResourceProvider accepts the path.
     final rootUri = configUri.resolve(rootUriStr);
-    final rootPath = rootUri.toFilePath();
+    final rootPath = p.normalize(rootUri.toFilePath());
     final libPath = p.join(rootPath, 'lib');
 
     if (!io.Directory(libPath).existsSync()) continue;

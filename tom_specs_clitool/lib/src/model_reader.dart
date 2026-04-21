@@ -398,6 +398,13 @@ class ModelReader {
     final doubleVal = obj.toDoubleValue();
     if (doubleVal != null) return doubleVal;
 
+    // Try type value — handles Type arguments such as @MapsTo(BusinessDataModel)
+    // and @DetailedIn(TechnicalRequirementsSpec).
+    final typeVal = obj.toTypeValue();
+    if (typeVal != null && typeVal is InterfaceType) {
+      return typeVal.element.name ?? '';
+    }
+
     // Try list
     final listVal = obj.toListValue();
     if (listVal != null) {

@@ -11,4 +11,4 @@ export 'src/model_reader.dart'
         AnnotationData,
         FormFieldInfo;
 export 'src/outline_writer.dart' show OutlineWriter;
-export 'src/validator.dart' show validateModel;
+export 'src/validator.dart' show validateModel, validateStructuralInvariants;
