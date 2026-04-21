@@ -203,6 +203,7 @@ and compliance with data retention requirements.
 ///
 /// Defines the possible states a user account can be in throughout its
 /// lifecycle, from provisional creation to permanent deletion.
+@SectionId('PD00-ACC-USE-LIF-STA')
 @Form([
   Field('stateModel', String, 'State Model Type',
       hint:
@@ -240,6 +241,7 @@ class UserAccountStatesDefinition {
 ///
 /// Defines how new user accounts are created — self-registration, invitation,
 /// admin-provisioned, or bulk import — including identity proofing requirements.
+@SectionId('PD00-ACC-USE-LIF-REG')
 @Form([
   Field('registrationMethods', String, 'Registration Methods',
       hint:
@@ -298,6 +300,7 @@ class UserRegistrationProcess {
 ///
 /// Defines the steps required to move a newly registered account from pending
 /// to active status, including verification, approval, and provisioning.
+@SectionId('PD00-ACC-USE-LIF-ACT')
 @Form([
   Field('activationMethod', String, 'Activation Method',
       hint:
@@ -339,6 +342,7 @@ class AccountActivationPolicy {
 ///
 /// Defines what user account attributes can be changed, by whom, under what
 /// conditions, and what re-verification is needed after changes.
+@SectionId('PD00-ACC-USE-LIF-MOD')
 @Form([
   Field('selfModifiableFields', String, 'Self-Modifiable Fields',
       hint:
@@ -389,6 +393,7 @@ class AccountModificationPolicy {
 ///
 /// Defines temporary or permanent disabling of user accounts — reasons, effects,
 /// reactivation conditions, and the difference between suspension and deactivation.
+@SectionId('PD00-ACC-USE-LIF-DEA')
 @Form([
   Field('deactivationTriggers', String, 'Deactivation Triggers',
       hint:
@@ -442,6 +447,7 @@ class AccountDeactivationPolicy {
 ///
 /// Defines permanent account removal, data anonymization, data retention
 /// obligations, and right-to-be-forgotten compliance.
+@SectionId('PD00-ACC-USE-LIF-DEL')
 @Form([
   Field('deletionTriggers', String, 'Deletion Triggers',
       hint:
@@ -497,6 +503,7 @@ class AccountDeletionPolicy {
 ///
 /// Defines the permissible transitions between lifecycle states, who can trigger
 /// each transition, and the approval workflow required.
+@SectionId('PD00-ACC-USE-LIF-TRA')
 @Form([
   Field('transitionModel', String, 'Transition Model',
       hint:
@@ -570,6 +577,7 @@ class UserLifecycleTransitionEntry {
 }
 
 /// Approval requirements.
+@SectionId('PD00-ACC-USE-LIF-TRA-APR')
 class UserLifecycleTransitionEntryApproval {
   @Form([
     Field('approvalRequired', String, 'Approval Required',
@@ -583,6 +591,7 @@ class UserLifecycleTransitionEntryApproval {
 }
 
 /// Side effects and notifications.
+@SectionId('PD00-ACC-USE-LIF-TRA-EFF')
 class UserLifecycleTransitionEntryEffects {
   @Form([
     Field('sideEffects', String, 'Side Effects',
@@ -597,6 +606,7 @@ class UserLifecycleTransitionEntryEffects {
 }
 
 /// Reversal and automation.
+@SectionId('PD00-ACC-USE-LIF-TRA-AUT')
 class UserLifecycleTransitionEntryAutomation {
   @Form([
     Field('reversible', String, 'Reversible',
@@ -613,6 +623,7 @@ class UserLifecycleTransitionEntryAutomation {
 ///
 /// Defines what lifecycle actions users can perform on their own accounts
 /// without administrator involvement.
+@SectionId('PD00-ACC-USE-LIF-SEL')
 @Form([
   Field('profileUpdateEnabled', String, 'Profile Update Enabled',
       hint: 'Yes | No — users can update their own profile information'),
@@ -660,6 +671,7 @@ class SelfServiceAccountManagement {
 ///
 /// Defines lifecycle management for non-human accounts — APIs, bots, system
 /// integrations — which have different lifecycle rules than human users.
+@SectionId('PD00-ACC-USE-LIF-SVC')
 @Form([
   Field('serviceAccountTypes', String, 'Service Account Types',
       hint:
@@ -895,6 +907,7 @@ class IdentitySourceEntry {
 }
 
 /// Connectivity and trust details.
+@SectionId('PD00-ACC-IDE-IDN-SRC-CON')
 class IdentitySourceEntryConnection {
   @Form([
     Field('sourceEndpoint', String, 'Source Endpoint',
@@ -916,6 +929,7 @@ class IdentitySourceEntryConnection {
 }
 
 /// Synchronization and provisioning details.
+@SectionId('PD00-ACC-IDE-IDN-SRC-LIF')
 class IdentitySourceEntryLifecycle {
   @Form([
     Field('synchronizationMode', String, 'Synchronization Mode',
@@ -937,6 +951,7 @@ class IdentitySourceEntryLifecycle {
 }
 
 /// Attribute mapping details.
+@SectionId('PD00-ACC-IDE-IDN-SRC-MAP')
 class IdentitySourceEntryMapping {
   @Form([
     Field('attributeFilter', String, 'Attribute Filter',
@@ -950,6 +965,7 @@ class IdentitySourceEntryMapping {
 }
 
 /// Operational behavior.
+@SectionId('PD00-ACC-IDE-IDN-SRC-OPS')
 class IdentitySourceEntryOperations {
   @Form([
     Field('failoverBehavior', String, 'Failover Behavior',
@@ -1007,6 +1023,7 @@ class IdentityVerificationPolicy {
 }
 
 /// Required proofing artifacts.
+@SectionId('PD00-ACC-IDE-IDN-VER-DOC')
 class IdentityVerificationPolicyDocuments {
   @Form([
     Field('requiredDocuments', String, 'Required Documents',
@@ -1023,6 +1040,7 @@ class IdentityVerificationPolicyDocuments {
 }
 
 /// Contact and provider verification.
+@SectionId('PD00-ACC-IDE-IDN-VER-MET')
 class IdentityVerificationPolicyMethods {
   @Form([
     Field('emailVerification', String, 'Email Verification',
@@ -1037,6 +1055,7 @@ class IdentityVerificationPolicyMethods {
 }
 
 /// Workflow and approval settings.
+@SectionId('PD00-ACC-IDE-IDN-VER-WRK')
 class IdentityVerificationPolicyWorkflow {
   @Form([
     Field('verificationSteps', String, 'Verification Steps',
@@ -1052,6 +1071,7 @@ class IdentityVerificationPolicyWorkflow {
 }
 
 /// Reverification and retention settings.
+@SectionId('PD00-ACC-IDE-IDN-VER-LIF')
 class IdentityVerificationPolicyLifecycle {
   @Form([
     Field('reverificationTriggers', String, 'Re-verification Triggers',
@@ -1068,6 +1088,7 @@ class IdentityVerificationPolicyLifecycle {
 }
 
 /// Failure handling rules.
+@SectionId('PD00-ACC-IDE-IDN-VER-FAL')
 class IdentityVerificationPolicyFailure {
   @Form([
     Field('failedVerificationPolicy', String, 'Failed Verification Policy',
@@ -1112,6 +1133,7 @@ class IdentityProviderEntry {
 }
 
 /// Provider details.
+@SectionId('PD00-ACC-IDE-IDN-IDP-DET')
 class IdentityProviderDetails {
   @Form([
     Field('providerProduct', String, 'Provider Product',
@@ -1125,6 +1147,7 @@ class IdentityProviderDetails {
 }
 
 /// Endpoint configuration.
+@SectionId('PD00-ACC-IDE-IDN-IDP-END')
 class IdentityProviderEndpoints {
   @Form([
     Field('endpointUrl', String, 'Endpoint URL',
@@ -1142,6 +1165,7 @@ class IdentityProviderEndpoints {
 }
 
 /// Attribute mapping.
+@SectionId('PD00-ACC-IDE-IDN-IDP-MAP')
 class IdentityProviderMapping {
   @Form([
     Field('attributeMapping', String, 'Attribute Mapping',
@@ -1159,6 +1183,7 @@ class IdentityProviderMapping {
 }
 
 /// Trust and security.
+@SectionId('PD00-ACC-IDE-IDN-IDP-TRU')
 class IdentityProviderTrust {
   @Form([
     Field('trustLevel', String, 'Trust Level',
@@ -1174,6 +1199,7 @@ class IdentityProviderTrust {
 }
 
 /// Certificates and encryption.
+@SectionId('PD00-ACC-IDE-IDN-IDP-SEC')
 class IdentityProviderSecurity {
   @Form([
     Field('certificateManagement', String, 'Certificate Management',
@@ -1220,6 +1246,7 @@ class SingleSignOnPolicy {
 }
 
 /// Gateway and federation setup.
+@SectionId('PD00-ACC-IDE-IDN-SSO-FED')
 class SingleSignOnPolicyFederation {
   @Form([
     Field('ssoGatewayProduct', String, 'SSO Gateway Product',
@@ -1239,6 +1266,7 @@ class SingleSignOnPolicyFederation {
 }
 
 /// Session and logout behavior.
+@SectionId('PD00-ACC-IDE-IDN-SSO-SES')
 class SingleSignOnPolicySession {
   @Form([
     Field('logoutPropagation', String, 'Logout Propagation',
@@ -1257,6 +1285,7 @@ class SingleSignOnPolicySession {
 }
 
 /// Access and consent behavior.
+@SectionId('PD00-ACC-IDE-IDN-SSO-ACC')
 class SingleSignOnPolicyAccess {
   @Form([
     Field('accountLinkingStrategy', String, 'Account Linking Strategy',
@@ -1275,6 +1304,7 @@ class SingleSignOnPolicyAccess {
 }
 
 /// Platform integration and monitoring.
+@SectionId('PD00-ACC-IDE-IDN-SSO-OPS')
 class SingleSignOnPolicyOperations {
   @Form([
     Field('desktopSsoIntegration', String, 'Desktop SSO Integration',
@@ -1328,6 +1358,7 @@ class SelfRegistrationPolicy {
 }
 
 /// Field configuration for self-registration.
+@SectionId('PD00-ACC-IDE-IDN-REG-FLD')
 class SelfRegistrationPolicyFields {
   @Form([
     Field('optionalFields', String, 'Optional Fields',
@@ -1339,6 +1370,7 @@ class SelfRegistrationPolicyFields {
 }
 
 /// Bot protection settings for self-registration.
+@SectionId('PD00-ACC-IDE-IDN-REG-BOT')
 class SelfRegistrationPolicyBotProtection {
   @Form([
     Field('captchaRequired', String, 'Captcha Required',
@@ -1350,6 +1382,7 @@ class SelfRegistrationPolicyBotProtection {
 }
 
 /// Verification requirements for self-registration.
+@SectionId('PD00-ACC-IDE-IDN-REG-VER')
 class SelfRegistrationPolicyVerification {
   @Form([
     Field('emailVerificationRequired', String, 'Email Verification Required',
@@ -1365,6 +1398,7 @@ class SelfRegistrationPolicyVerification {
 }
 
 /// Approval workflow for self-registration.
+@SectionId('PD00-ACC-IDE-IDN-REG-APR')
 class SelfRegistrationPolicyApproval {
   @Form([
     Field('approvalRequired', String, 'Approval Required',
@@ -1384,6 +1418,7 @@ class SelfRegistrationPolicyApproval {
 }
 
 /// Security restrictions for self-registration.
+@SectionId('PD00-ACC-IDE-IDN-REG-SEC')
 class SelfRegistrationPolicySecurity {
   @Form([
     Field('allowedEmailDomains', String, 'Allowed Email Domains',
@@ -1435,6 +1470,7 @@ class IdentityAttributeMappingEntry {
 }
 
 /// Transformation and defaulting behavior.
+@SectionId('PD00-ACC-IDE-IDN-MAP-TRA')
 class IdentityAttributeMappingEntryTransformation {
   @Form([
     Field('transformationRule', String, 'Transformation Rule',
@@ -1453,6 +1489,7 @@ class IdentityAttributeMappingEntryTransformation {
 }
 
 /// Synchronization and conflict handling.
+@SectionId('PD00-ACC-IDE-IDN-MAP-SYN')
 class IdentityAttributeMappingEntrySynchronization {
   @Form([
     Field('mandatory', String, 'Mandatory',
@@ -1469,6 +1506,7 @@ class IdentityAttributeMappingEntrySynchronization {
 }
 
 /// Validation, classification, and purpose.
+@SectionId('PD00-ACC-IDE-IDN-MAP-GOV')
 class IdentityAttributeMappingEntryGovernance {
   @Form([
     Field('piiClassification', String, 'PII Classification',
@@ -1584,6 +1622,7 @@ applicability to different user categories and use cases.
 ///
 /// Defines MFA requirements aligned with NIST SP 800-63B AAL2/AAL3:
 /// proof of possession and control of two distinct authentication factors.
+@SectionId('PD00-ACC-IDE-AUT-MET-MFA')
 @Form([
   Field('mfaRequired', String, 'MFA Required',
       hint: 'Yes | No | Conditional — whether MFA is mandatory'),
@@ -1630,6 +1669,7 @@ class MfaConfiguration {
 ///
 /// Defines federation and SSO configuration for centralized authentication
 /// across multiple applications via identity providers.
+@SectionId('PD00-ACC-IDE-AUT-MET-SSO')
 @Form([
   Field('ssoEnabled', String, 'SSO Enabled',
       hint: 'Yes | No — whether SSO is implemented'),
@@ -1677,6 +1717,7 @@ class SsoPolicy {
 ///
 /// Defines requirements for X.509 certificate authentication including
 /// mTLS, PIV/CAC cards, and client certificate authentication.
+@SectionId('PD00-ACC-IDE-AUT-MET-CER')
 @Form([
   Field('certificateAuthEnabled', String, 'Certificate Auth Enabled',
       hint: 'Yes | No — whether certificate-based authentication is supported'),
@@ -1719,6 +1760,7 @@ class CertificateAuthenticationPolicy {
 /// Defines requirements for biometric authentication factors aligned with
 /// NIST SP 800-63B Section 3.2.3: biometrics as activation factor for
 /// multi-factor authenticators, not standalone authentication.
+@SectionId('PD00-ACC-IDE-AUT-MET-BIO')
 @Form([
   Field('biometricAuthEnabled', String, 'Biometric Auth Enabled',
       hint: 'Yes | No — whether biometric authentication is supported'),
@@ -1768,6 +1810,7 @@ class BiometricAuthenticationPolicy {
 ///
 /// Defines lifecycle management for API keys, service tokens, and
 /// machine-to-machine authentication credentials.
+@SectionId('PD00-ACC-IDE-AUT-MET-API')
 @Form([
   Field('apiKeyAuthEnabled', String, 'API Key Auth Enabled',
       hint: 'Yes | No — whether API key authentication is supported'),
@@ -1848,6 +1891,7 @@ class AuthenticationMethodEntry {
 }
 
 /// Security posture of the authentication method.
+@SectionId('PD00-ACC-IDE-AUT-MET-ENT-SEC')
 class AuthenticationMethodEntrySecurity {
   @Form([
     Field('assuranceLevel', String, 'Assurance Level',
@@ -1871,6 +1915,7 @@ class AuthenticationMethodEntrySecurity {
 }
 
 /// Usage scope of the authentication method.
+@SectionId('PD00-ACC-IDE-AUT-MET-ENT-APP')
 class AuthenticationMethodEntryApplicability {
   @Form([
     Field('applicableUserCategories', String, 'Applicable User Categories',
@@ -1884,6 +1929,7 @@ class AuthenticationMethodEntryApplicability {
 }
 
 /// Enrollment and activation workflow.
+@SectionId('PD00-ACC-IDE-AUT-MET-ENT-ENR')
 class AuthenticationMethodEntryEnrollment {
   @Form([
     Field('enrollmentProcess', String, 'Enrollment Process',
@@ -1903,6 +1949,7 @@ class AuthenticationMethodEntryEnrollment {
 }
 
 /// Operational controls and lifecycle settings.
+@SectionId('PD00-ACC-IDE-AUT-MET-ENT-OPS')
 class AuthenticationMethodEntryOperations {
   @Form([
     Field('maxFailedAttempts', String, 'Max Failed Attempts',
@@ -1992,6 +2039,7 @@ established session. Include sequence diagrams for clarity.
 /// Defines the overall login flow structure: entry points, credential
 /// submission method, pre-authentication checks, and post-authentication
 /// actions.
+@SectionId('PD00-ACC-IDE-FLO-CFG')
 @Form([
   Field('loginEntryPoint', String, 'Login Entry Point',
       hint:
@@ -2048,6 +2096,7 @@ class LoginFlowConfiguration {
 ///
 /// Defines token issuance, refresh, storage, and revocation policies for
 /// authentication tokens (JWT, opaque, refresh tokens, ID tokens).
+@SectionId('PD00-ACC-IDE-FLO-TOK')
 @Form([
   Field('tokenFormat', String, 'Token Format',
       hint: 'JWT | Opaque | SAML | Custom — primary access token format'),
@@ -2104,6 +2153,7 @@ class TokenManagementPolicy {
 ///
 /// Defines how authenticated sessions are established after successful
 /// authentication: session binding, device binding, and session properties.
+@SectionId('PD00-ACC-IDE-FLO-SES')
 @Form([
   Field('sessionMechanism', String, 'Session Mechanism',
       hint:
@@ -2153,6 +2203,7 @@ class SessionCreationPolicy {
 ///
 /// Defines how authentication redirects, OAuth/OIDC callbacks, deep links,
 /// and error redirects are managed in the authentication flow.
+@SectionId('PD00-ACC-IDE-FLO-RED')
 @Form([
   Field('oauthRedirectUriPolicy', String, 'OAuth Redirect URI Policy',
       hint:
@@ -2200,6 +2251,7 @@ class RedirectHandlingPolicy {
 ///
 /// Defines how authentication failures, lockouts, and security events are
 /// handled in the authentication flow.
+@SectionId('PD00-ACC-IDE-FLO-ERR')
 @Form([
   Field('invalidCredentialResponse', String,
       'Invalid Credential Response',
@@ -2250,6 +2302,7 @@ class AuthenticationErrorHandling {
 ///
 /// Defines when and how authentication level is elevated for sensitive
 /// operations, including risk-based and context-aware authentication.
+@SectionId('PD00-ACC-IDE-FLO-STP')
 @Form([
   Field('stepUpEnabled', String, 'Step-Up Enabled',
       hint: 'Yes | No — whether step-up authentication is implemented'),
@@ -2324,6 +2377,7 @@ class LoginFlowStepEntry {
 }
 
 /// Inputs and validation behavior.
+@SectionId('PD00-ACC-IDE-FLO-STE-VAL')
 class LoginFlowStepEntryValidation {
   @Form([
     Field('inputRequired', String, 'Input Required',
@@ -2339,6 +2393,7 @@ class LoginFlowStepEntryValidation {
 }
 
 /// Outcomes and optional execution rules.
+@SectionId('PD00-ACC-IDE-FLO-STE-BEH')
 class LoginFlowStepEntryBehavior {
   @Form([
     Field('successOutcome', String, 'Success Outcome',
@@ -2357,6 +2412,7 @@ class LoginFlowStepEntryBehavior {
 }
 
 /// Protocol-level and descriptive details.
+@SectionId('PD00-ACC-IDE-FLO-STE-PRO')
 class LoginFlowStepEntryProtocol {
   @Form([
     Field('protocolMessage', String, 'Protocol Message',
@@ -2445,6 +2501,7 @@ revision) emphasizes length over complexity and discourages forced rotation.
 /// Defines the rules for password creation, including length, complexity,
 /// character set, and user guidance. Aligned with NIST SP 800-63B which
 /// recommends length over complexity and prohibits composition rules.
+@SectionId('PD00-ACC-IDE-POL-REQ')
 @Form([
   Field('minimumLengthSingleFactor', String,
       'Minimum Length Single Factor',
@@ -2508,6 +2565,7 @@ class PasswordRequirementsPolicy {
 ///
 /// Defines how passwords are stored, hashed, salted, and verified.
 /// Aligned with NIST SP 800-63B and OWASP password storage recommendations.
+@SectionId('PD00-ACC-IDE-POL-STO')
 @Form([
   Field('hashingAlgorithm', String, 'Hashing Algorithm',
       hint:
@@ -2558,6 +2616,7 @@ class PasswordStoragePolicy {
 /// Defines the lifecycle of passwords: creation, rotation, expiry, and
 /// history. NIST SP 800-63B recommends against periodic rotation and
 /// only forces changes on evidence of compromise.
+@SectionId('PD00-ACC-IDE-POL-LIF')
 @Form([
   Field('periodicRotationRequired', String, 'Periodic Rotation Required',
       hint:
@@ -2611,6 +2670,7 @@ class PasswordLifecyclePolicy {
 /// Defines how failed authentication attempts are rate-limited and how
 /// accounts are locked and unlocked. Aligned with NIST SP 800-63B
 /// throttling requirements (max 100 consecutive failures).
+@SectionId('PD00-ACC-IDE-POL-LOC')
 @Form([
   Field('lockoutThreshold', String, 'Lockout Threshold',
       hint:
@@ -2666,6 +2726,7 @@ class AccountLockoutPolicy {
 ///
 /// Defines how users recover access when they lose credentials, including
 /// password reset flows, recovery codes, and identity re-verification.
+@SectionId('PD00-ACC-IDE-POL-REC')
 @Form([
   Field('passwordResetMethod', String, 'Password Reset Method',
       hint:
@@ -2721,6 +2782,7 @@ class CredentialRecoveryPolicy {
 ///
 /// Defines how compromised credentials are detected and how the system
 /// responds, including breach database monitoring and proactive scanning.
+@SectionId('PD00-ACC-IDE-POL-CMP')
 @Form([
   Field('breachDatabaseMonitoring', String, 'Breach Database Monitoring',
       hint:
@@ -2767,6 +2829,7 @@ class CredentialCompromiseDetectionPolicy {
 ///
 /// Defines credential management for non-human identities: service accounts,
 /// API keys, machine-to-machine tokens, and automation credentials.
+@SectionId('PD00-ACC-IDE-POL-SVC')
 @Form([
   Field('serviceAccountPasswordPolicy', String,
       'Service Account Password Policy',
@@ -2843,6 +2906,7 @@ class MfaCategoryRequirementEntry {
 }
 
 /// Allowed authenticators and phishing-resistance rules.
+@SectionId('PD00-ACC-IDE-POL-MFA-AUT')
 class MfaCategoryRequirementEntryAuthenticators {
   @Form([
     Field('allowedAuthenticatorTypes', String,
@@ -2858,6 +2922,7 @@ class MfaCategoryRequirementEntryAuthenticators {
 }
 
 /// Enrollment and remembered-device timing.
+@SectionId('PD00-ACC-IDE-POL-MFA-TIM')
 class MfaCategoryRequirementEntryTiming {
   @Form([
     Field('mfaEnrollmentDeadline', String, 'MFA Enrollment Deadline',
@@ -2877,6 +2942,7 @@ class MfaCategoryRequirementEntryTiming {
 }
 
 /// Fallback, timeouts, and rationale.
+@SectionId('PD00-ACC-IDE-POL-MFA-OPS')
 class MfaCategoryRequirementEntryOperations {
   @Form([
     Field('fallbackMechanismIfUnavailable', String,
@@ -2968,6 +3034,7 @@ Define session management policies that balance security with user experience.
 /// parameters including per-AAL differentiation. OWASP recommends
 /// idle timeouts of 2–5 min for high-value and 15–30 min for low-risk
 /// applications. Absolute timeouts limit maximum session duration.
+@SectionId('PD00-ACC-IDE-SES-TIM')
 @Form([
   Field('idleTimeoutDefault', String, 'Default Idle Timeout',
       hint:
@@ -3027,6 +3094,7 @@ class SessionTimeoutPolicy {
 /// Defines how the application handles multiple simultaneous sessions
 /// from the same user account, including limits, notifications, and
 /// conflict resolution strategies.
+@SectionId('PD00-ACC-IDE-SES-CON')
 @Form([
   Field('concurrentSessionsAllowed', String, 'Concurrent Sessions Allowed',
       hint: 'Yes | No | Limited — whether multiple simultaneous sessions are permitted'),
@@ -3075,6 +3143,7 @@ class ConcurrentSessionPolicy {
 /// Defines how sessions are explicitly invalidated: logout behavior,
 /// administrative termination, privilege change handling, and
 /// bulk revocation scenarios.
+@SectionId('PD00-ACC-IDE-SES-REV')
 @Form([
   Field('logoutMechanism', String, 'Logout Mechanism',
       hint:
@@ -3132,6 +3201,7 @@ class SessionRevocationPolicy {
 /// Defines the remember-me (persistent login) functionality, device trust,
 /// and long-lived session token management. Persistent sessions trade
 /// security for convenience and must be carefully scoped.
+@SectionId('PD00-ACC-IDE-SES-REM')
 @Form([
   Field('rememberMeEnabled', String, 'Remember-Me Enabled',
       hint: 'Yes | No — whether remember-me / keep-me-signed-in is offered'),
@@ -3185,6 +3255,7 @@ class RememberMePolicy {
 /// Defines session fixation protection, session binding to user properties,
 /// session anomaly detection, and content caching policies.
 /// Aligned with OWASP Session Management Cheat Sheet recommendations.
+@SectionId('PD00-ACC-IDE-SES-SEC')
 @Form([
   Field('sessionFixationProtection', String, 'Session Fixation Protection',
       hint:
@@ -3237,6 +3308,7 @@ class SessionSecurityPolicy {
 /// Defines how session events are logged, monitored, and audited
 /// throughout the session lifecycle: creation, usage, renewal,
 /// and destruction.
+@SectionId('PD00-ACC-IDE-SES-MON')
 @Form([
   Field('sessionCreationLogging', String, 'Session Creation Logging',
       hint:
@@ -3400,6 +3472,7 @@ within databases and data stores.
 /// Defines how application and administrative accounts access the database,
 /// including connection security, credential management, and privilege
 /// assignment following the principle of least privilege.
+@SectionId('PD00-ACC-RES-DAT-DBA')
 @Form([
   Field('databaseConnectionSecurity', String, 'Database Connection Security',
       hint:
@@ -3456,6 +3529,7 @@ class DatabaseAccessPolicy {
 /// Defines how data access is restricted at the row level, ensuring users
 /// can only access data rows they are authorized to see. Covers tenant-based
 /// filtering, user-scoped access, and hierarchical data visibility.
+@SectionId('PD00-ACC-RES-DAT-ROW')
 @Form([
   Field('rowLevelSecurityEnabled', String, 'Row-Level Security Enabled',
       hint:
@@ -3502,6 +3576,7 @@ class RowLevelSecurityPolicy {
 ///
 /// Defines how access to specific data columns or fields is restricted
 /// based on user roles, sensitivity classification, or regulatory requirements.
+@SectionId('PD00-ACC-RES-DAT-COL')
 @Form([
   Field('columnLevelSecurityEnabled', String,
       'Column-Level Security Enabled',
@@ -3545,6 +3620,7 @@ class ColumnLevelSecurityPolicy {
 ///
 /// Defines the multi-tenant data separation strategy, ensuring tenant
 /// data is logically or physically isolated and cannot leak between tenants.
+@SectionId('PD00-ACC-RES-DAT-TEN')
 @Form([
   Field('tenantIsolationModel', String, 'Tenant Isolation Model',
       hint:
@@ -3592,6 +3668,7 @@ class TenantDataIsolationPolicy {
 /// Defines how sensitive data is masked or obfuscated for non-production
 /// environments, reporting, and limited-access scenarios. Covers both
 /// static masking (data copies) and dynamic masking (runtime filtering).
+@SectionId('PD00-ACC-RES-DAT-MSK')
 @Form([
   Field('dynamicDataMaskingEnabled', String, 'Dynamic Data Masking Enabled',
       hint:
@@ -3648,6 +3725,7 @@ class DataMaskingPolicy {
 ///
 /// Defines how data access events are monitored, logged, and reviewed
 /// to detect unauthorized access and support compliance requirements.
+@SectionId('PD00-ACC-RES-DAT-AUD')
 @Form([
   Field('dataAccessLoggingEnabled', String, 'Data Access Logging Enabled',
       hint:
@@ -3770,6 +3848,7 @@ public-facing APIs, internal microservices, and webhooks.
 ///
 /// Covers API keys, OAuth2 flows, JWT validation, mutual TLS, webhook
 /// signature verification, and service-to-service authentication.
+@SectionId('PD00-ACC-RES-API-AUT')
 @Form([
   // Primary authentication mechanism
   Field('authenticationMethod', String, 'Primary Authentication Method',
@@ -3851,6 +3930,7 @@ class ApiAuthenticationPolicy {
 /// Covers object-level, function-level, and property-level authorization,
 /// scope definitions, delegation controls, and protection against privilege
 /// escalation. Aligned with OWASP API1/API3/API5 (Broken Authorization).
+@SectionId('PD00-ACC-RES-API-ATZ')
 @Form([
   // Authorization granularity
   Field('objectLevelAuthorization', String, 'Object-Level Authorization',
@@ -3925,6 +4005,7 @@ class ApiAuthorizationPolicy {
 /// Covers schema validation, parameter typing, size limits, content type
 /// enforcement, and structured payload validation. Aligned with OWASP
 /// Input Validation Cheat Sheet.
+@SectionId('PD00-ACC-RES-API-VAL')
 @Form([
   // Validation approach
   Field('inputValidationStrategy', String, 'Input Validation Strategy',
@@ -4041,6 +4122,7 @@ class ApiRequestValidationPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional CORS security notes'),
 ])
+@SectionId('PD00-ACC-RES-API-COR')
 class ApiCorsSecurity {
   String? content;
 
@@ -4107,6 +4189,7 @@ class ApiCorsSecurity {
   Field('notes', String, 'Notes',
       hint: 'Additional abuse protection notes'),
 ])
+@SectionId('PD00-ACC-RES-API-ABU')
 class ApiAbuseProtection {
   String? content;
 
@@ -4175,6 +4258,7 @@ class ApiAbuseProtection {
   Field('notes', String, 'Notes',
       hint: 'Additional API security monitoring notes'),
 ])
+@SectionId('PD00-ACC-RES-API-MON')
 class ApiSecurityMonitoring {
   String? content;
 
@@ -4339,6 +4423,7 @@ and all stored media.
   Field('notes', String, 'Notes',
       hint: 'Additional file upload validation notes'),
 ])
+@SectionId('PD00-ACC-RES-FIL-UPL')
 class FileUploadValidationPolicy {
   String? content;
 
@@ -4399,6 +4484,7 @@ class FileUploadValidationPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional storage encryption notes'),
 ])
+@SectionId('PD00-ACC-RES-FIL-ENC')
 class StorageEncryptionPolicy {
   String? content;
 
@@ -4473,6 +4559,7 @@ class StorageEncryptionPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional file access control notes'),
 ])
+@SectionId('PD00-ACC-RES-FIL-ACL')
 class FileAccessControlPolicy {
   String? content;
 
@@ -4539,6 +4626,7 @@ class FileAccessControlPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional content scanning notes'),
 ])
+@SectionId('PD00-ACC-RES-FIL-SCN')
 class ContentScanningPolicy {
   String? content;
 
@@ -4595,6 +4683,7 @@ class ContentScanningPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional file download security notes'),
 ])
+@SectionId('PD00-ACC-RES-FIL-DWN')
 class FileDownloadSecurityPolicy {
   String? content;
 
@@ -4669,6 +4758,7 @@ class FileDownloadSecurityPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional storage lifecycle notes'),
 ])
+@SectionId('PD00-ACC-RES-FIL-LIF')
 class StorageLifecyclePolicy {
   String? content;
 
@@ -4798,6 +4888,7 @@ Define the authorization model that governs who can do what in the system.
   Field('notes', String, 'Notes',
       hint: 'Additional access control model selection notes'),
 ])
+@SectionId('PD00-ACC-USA-MOD-SEL')
 class AccessControlModelSelection {
   String? content;
 
@@ -4849,6 +4940,7 @@ class AccessControlModelSelection {
   Field('notes', String, 'Notes',
       hint: 'Additional permission granularity notes'),
 ])
+@SectionId('PD00-ACC-USA-MOD-GRN')
 class PermissionGranularityPolicy {
   String? content;
 
@@ -4902,6 +4994,7 @@ class PermissionGranularityPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional permission composition notes'),
 ])
+@SectionId('PD00-ACC-USA-MOD-CMP')
 class PermissionCompositionStrategy {
   String? content;
 
@@ -4959,6 +5052,7 @@ class PermissionCompositionStrategy {
   Field('notes', String, 'Notes',
       hint: 'Additional access constraint notes'),
 ])
+@SectionId('PD00-ACC-USA-MOD-CON')
 class AccessConstraintPolicies {
   String? content;
 
@@ -5013,6 +5107,7 @@ class AccessConstraintPolicies {
   Field('notes', String, 'Notes',
       hint: 'Additional permission evaluation behavior notes'),
 ])
+@SectionId('PD00-ACC-USA-MOD-EVL')
 class PermissionEvaluationBehavior {
   String? content;
 
@@ -5204,6 +5299,7 @@ simplifies administration and ensures consistent access control.
   Field('notes', String, 'Notes',
       hint: 'Additional role hierarchy policy notes'),
 ])
+@SectionId('PD00-ACC-USA-ROH-POL')
 class RoleHierarchyPolicy {
   String? content;
 
@@ -5342,6 +5438,7 @@ class GlobalRoleExclusionEntry {
   Field('notes', String, 'Notes',
       hint: 'Additional role certification notes'),
 ])
+@SectionId('PD00-ACC-USA-ROH-CRT')
 class RoleCertificationPolicy {
   String? content;
 
@@ -5459,6 +5556,7 @@ Complements data-level tenant isolation (PD00-ACC-RES-DAT).
   Field('notes', String, 'Notes',
       hint: 'Additional tenant context policy notes'),
 ])
+@SectionId('PD00-ACC-USA-TEN-CTX')
 class TenantContextPolicy {
   String? content;
 
@@ -5507,6 +5605,7 @@ class TenantContextPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional cross-tenant access policy notes'),
 ])
+@SectionId('PD00-ACC-USA-TEN-CRS')
 class CrossTenantAccessPolicy {
   String? content;
 
@@ -5607,6 +5706,7 @@ class TenantCustomizationEntry {
   Field('notes', String, 'Notes',
       hint: 'Additional tenant onboarding/offboarding notes'),
 ])
+@SectionId('PD00-ACC-USA-TEN-ONB')
 class TenantOnboardingPolicy {
   String? content;
 
@@ -5662,6 +5762,7 @@ class TenantOnboardingPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional tenant boundary enforcement notes'),
 ])
+@SectionId('PD00-ACC-USA-TEN-BDY')
 class TenantBoundaryEnforcementPolicy {
   String? content;
 
@@ -5746,6 +5847,7 @@ class AuthorizationRoleEntry {
 }
 
 /// Scope and inheritance metadata.
+@SectionId('PD00-ACC-USA-ROL-STR')
 class AuthorizationRoleEntryStructure {
     @Form([
         Field('roleScope', String, 'Role Scope',
@@ -5765,6 +5867,7 @@ class AuthorizationRoleEntryStructure {
 }
 
 /// Risk and activation controls.
+@SectionId('PD00-ACC-USA-ROL-GOV')
 class AuthorizationRoleEntryGovernance {
     @Form([
         Field('riskLevel', String, 'Risk Level',
@@ -5794,6 +5897,7 @@ class AuthorizationRoleEntryGovernance {
 }
 
 /// Provisioning and review settings.
+@SectionId('PD00-ACC-USA-ROL-LIF')
 class AuthorizationRoleEntryLifecycle {
     @Form([
         Field('provisioningMethod', String, 'Provisioning Method',
@@ -5809,6 +5913,7 @@ class AuthorizationRoleEntryLifecycle {
 }
 
 /// Data access and role status flags.
+@SectionId('PD00-ACC-USA-ROL-STA')
 class AuthorizationRoleEntryStatus {
     @Form([
         Field('dataAccessScope', String, 'Data Access Scope',
@@ -5977,6 +6082,7 @@ class ResourceKeyReferenceEntry {
 }
 
 /// A resource key entry [PD00-ACC-USA-RES-nn] (form).
+@SectionId('PD00-ACC-USA-ENT-KEY')
 class ResourceKeyEntry {
   @Form([
     Field('resourceKey', String, 'Resource Key', required: true),
@@ -6167,6 +6273,7 @@ data breaches, and physical media theft.
   Field('notes', String, 'Notes',
       hint: 'Additional encryption at rest policy notes'),
 ])
+@SectionId('PD00-ACC-SEN-RES-POL')
 class EncryptionAtRestPolicy {
   String? content;
 
@@ -6260,6 +6367,7 @@ class EncryptedDataCategoryEntry {
   Field('notes', String, 'Notes',
       hint: 'Additional database encryption notes'),
 ])
+@SectionId('PD00-ACC-SEN-RES-DBA')
 class DatabaseEncryptionPolicy {
   String? content;
 
@@ -6301,6 +6409,7 @@ class DatabaseEncryptionPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional file and storage encryption notes'),
 ])
+@SectionId('PD00-ACC-SEN-RES-FIL')
 class FileStorageEncryptionPolicy {
   String? content;
 
@@ -6345,6 +6454,7 @@ class FileStorageEncryptionPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional backup encryption notes'),
 ])
+@SectionId('PD00-ACC-SEN-RES-BCK')
 class BackupEncryptionPolicy {
   String? content;
 
@@ -6469,6 +6579,7 @@ Define how data is protected while moving over networks, both externally
   Field('notes', String, 'Notes',
       hint: 'Additional TLS protocol policy notes'),
 ])
+@SectionId('PD00-ACC-SEN-TRA-TLS')
 class TlsProtocolPolicy {
   String? content;
 
@@ -6529,6 +6640,7 @@ class TlsProtocolPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional certificate management notes'),
 ])
+@SectionId('PD00-ACC-SEN-TRA-CRT')
 class CertificateManagementPolicy {
   String? content;
 
@@ -6622,6 +6734,7 @@ class CommunicationChannelEncryptionEntry {
   Field('notes', String, 'Notes',
       hint: 'Additional mutual TLS policy notes'),
 ])
+@SectionId('PD00-ACC-SEN-TRA-MTL')
 class MutualTlsPolicy {
   String? content;
 
@@ -6673,6 +6786,7 @@ class MutualTlsPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional transport security policy notes'),
 ])
+@SectionId('PD00-ACC-SEN-TRA-POL')
 class TransportSecurityPolicy {
   String? content;
 
@@ -6760,6 +6874,7 @@ key management is essential — poor key management can negate all encryption.
 /// Defines how cryptographic keys are generated: approved algorithms,
 /// cryptographic module requirements (FIPS 140-2/140-3), random number
 /// generation, minimum key strengths, and key-purpose separation.
+@SectionId('PD00-ACC-SEN-KEY-GEN')
 class KeyGenerationPolicy {
   @Form([
     Field('generationMethod', String, 'Generation Method',
@@ -6796,6 +6911,7 @@ class KeyGenerationPolicy {
 /// vault, KMS), key-encryption-key (KEK) requirements, plaintext
 /// prohibitions, integrity protection, access control, and memory
 /// management considerations.
+@SectionId('PD00-ACC-SEN-KEY-STO')
 class KeyStoragePolicy {
   @Form([
     Field('storageMethod', String, 'Storage Method',
@@ -6830,6 +6946,7 @@ class KeyStoragePolicy {
 ///
 /// Defines key rotation schedules, automation, triggers, grace periods,
 /// versioning, and distribution of rotated keys.
+@SectionId('PD00-ACC-SEN-KEY-ROT')
 class KeyRotationPolicy {
   @Form([
     Field('rotationSchedule', String, 'Rotation Schedule',
@@ -6863,6 +6980,7 @@ class KeyRotationPolicy {
 /// Defines key escrow and backup procedures: whether escrow is used,
 /// who holds escrowed keys, which key types are escrowed, backup
 /// encryption, storage location, and backup frequency.
+@SectionId('PD00-ACC-SEN-KEY-ESC')
 class KeyEscrowAndBackupPolicy {
   @Form([
     Field('escrowEnabled', String, 'Escrow Enabled',
@@ -6894,6 +7012,7 @@ class KeyEscrowAndBackupPolicy {
 /// Defines procedures for detecting key compromise, notification,
 /// re-keying, revocation, impact assessment, and the documented
 /// compromise-recovery plan.
+@SectionId('PD00-ACC-SEN-KEY-REC')
 class KeyCompromiseRecoveryPolicy {
   @Form([
     Field('compromiseDetection', String, 'Compromise Detection',
@@ -7067,6 +7186,7 @@ Balance comprehensive coverage with log volume management.
 ///
 /// Overall policy for security event logging: default level, PII handling,
 /// event classification scheme, and severity definitions.
+@SectionId('PD00-ACC-AUD-EVE-LOG')
 class SecurityEventLoggingPolicy {
   @Form([
     Field('defaultLoggingLevel', String, 'Default Logging Level',
@@ -7097,6 +7217,7 @@ class SecurityEventLoggingPolicy {
 /// Authentication event policy (form).
 ///
 /// Defines which authentication-related events are logged.
+@SectionId('PD00-ACC-AUD-EVE-AUT')
 class AuthenticationEventPolicy {
   @Form([
     Field('logSuccessfulLogins', String, 'Log Successful Logins',
@@ -7123,6 +7244,7 @@ class AuthenticationEventPolicy {
 /// Authorization event policy (form).
 ///
 /// Defines which authorization-related events are logged.
+@SectionId('PD00-ACC-AUD-EVE-ATZ')
 class AuthorizationEventPolicy {
   @Form([
     Field('logAccessGranted', String, 'Log Access Granted',
@@ -7147,6 +7269,7 @@ class AuthorizationEventPolicy {
 /// Data access event policy (form).
 ///
 /// Defines which data access events are logged.
+@SectionId('PD00-ACC-AUD-EVE-DAT')
 class DataAccessEventPolicy {
   @Form([
     Field('logDataCreation', String, 'Log Data Creation',
@@ -7173,6 +7296,7 @@ class DataAccessEventPolicy {
 /// Administrative event policy (form).
 ///
 /// Defines which administrative events are logged.
+@SectionId('PD00-ACC-AUD-EVE-ADM')
 class AdministrativeEventPolicy {
   @Form([
     Field('logConfigurationChanges', String, 'Log Configuration Changes',
@@ -7291,6 +7415,7 @@ parsability, and forensic utility.
 ///
 /// Defines which attributes are captured for each log event:
 /// when, where, who, and what information.
+@SectionId('PD00-ACC-AUD-FMT-EVT')
 class EventAttributePolicy {
   @Form([
     Field('timestampFormat', String, 'Timestamp Format',
@@ -7321,6 +7446,7 @@ class EventAttributePolicy {
 /// Log storage policy (form).
 ///
 /// Defines where and how log data is stored.
+@SectionId('PD00-ACC-AUD-FMT-STO')
 class LogStoragePolicy {
   @Form([
     Field('primaryStorage', String, 'Primary Storage',
@@ -7345,6 +7471,7 @@ class LogStoragePolicy {
 /// Log protection policy (form).
 ///
 /// Defines tamper protection and integrity verification for logs.
+@SectionId('PD00-ACC-AUD-FMT-PRO')
 class LogProtectionPolicy {
   @Form([
     Field('tamperDetection', String, 'Tamper Detection',
@@ -7372,6 +7499,7 @@ class LogProtectionPolicy {
 /// Log retention policy (form).
 ///
 /// Defines how long logs are retained and disposal procedures.
+@SectionId('PD00-ACC-AUD-FMT-RET')
 class LogRetentionPolicy {
   @Form([
     Field('minimumRetention', String, 'Minimum Retention',
@@ -7465,6 +7593,7 @@ internal governance.
 /// Periodic review policy (form).
 ///
 /// Defines periodic reviews of access rights and security posture.
+@SectionId('PD00-ACC-AUD-COM-REV')
 class PeriodicReviewPolicy {
   @Form([
     Field('accessReviewFrequency', String, 'Access Review Frequency',
@@ -7491,6 +7620,7 @@ class PeriodicReviewPolicy {
 /// Privilege usage reporting (form).
 ///
 /// Defines reports on privileged access and administrative actions.
+@SectionId('PD00-ACC-AUD-COM-PRI')
 class PrivilegeUsageReporting {
   @Form([
     Field('adminActivityReports', String, 'Admin Activity Reports',
@@ -7516,6 +7646,7 @@ class PrivilegeUsageReporting {
 /// Anomaly detection policy (form).
 ///
 /// Defines automated anomaly detection and alerting.
+@SectionId('PD00-ACC-AUD-COM-ANO')
 class AnomalyDetectionPolicy {
   @Form([
     Field('behaviorBaseline', String, 'Behavior Baseline',
@@ -7542,6 +7673,7 @@ class AnomalyDetectionPolicy {
 /// Regulatory audit support (form).
 ///
 /// Defines support for external regulatory audits.
+@SectionId('PD00-ACC-AUD-COM-REG')
 class RegulatoryAuditSupport {
   @Form([
     Field('applicableRegulations', String, 'Applicable Regulations',

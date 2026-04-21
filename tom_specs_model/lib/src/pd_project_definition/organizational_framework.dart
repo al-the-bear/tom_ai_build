@@ -146,6 +146,7 @@ class OrganizationalChangeEntry {
 }
 
 /// Identification details for organizational change.
+@SectionId('PD00-ORG-STR-CHA-ENT-IDN')
 class OrgChangeIdentification {
   @Form([
     Field('changeCategory', String, 'Change Category',
@@ -157,6 +158,7 @@ class OrgChangeIdentification {
 }
 
 /// Scope for organizational change.
+@SectionId('PD00-ORG-STR-CHA-ENT-SCP')
 class OrgChangeScope {
   @Form([
     Field('affectedArea', String, 'Affected Area',
@@ -176,6 +178,7 @@ class OrgChangeScope {
 }
 
 /// Rationale for organizational change.
+@SectionId('PD00-ORG-STR-CHA-ENT-RAT')
 class OrgChangeRationale {
   @Form([
     Field('rationale', String, 'Rationale',
@@ -191,6 +194,7 @@ class OrgChangeRationale {
 }
 
 /// Impact assessment for organizational change.
+@SectionId('PD00-ORG-STR-CHA-ENT-IMP')
 class OrgChangeImpact {
   @Form([
     Field('impactLevel', String, 'Impact Level',
@@ -212,6 +216,7 @@ class OrgChangeImpact {
 }
 
 /// Transition for organizational change.
+@SectionId('PD00-ORG-STR-CHA-ENT-TRN')
 class OrgChangeTransition {
   @Form([
     Field('effectiveDate', String, 'Effective Date',
@@ -233,6 +238,7 @@ class OrgChangeTransition {
 }
 
 /// Risks for organizational change.
+@SectionId('PD00-ORG-STR-CHA-ENT-RSK')
 class OrgChangeRisks {
   @Form([
     Field('risks', String, 'Risks',
@@ -246,6 +252,7 @@ class OrgChangeRisks {
 }
 
 /// Status for organizational change.
+@SectionId('PD00-ORG-STR-CHA-ENT-STA')
 class OrgChangeStatus {
   @Form([
     Field('status', String, 'Status',
@@ -300,6 +307,7 @@ class OrganizationalTransitionTimeline {
 }
 
 /// Overview of the organizational transition approach.
+@SectionId('PD00-ORG-STR-TIM-OVW')
 class TransitionOverview {
   @Form([
     Field('transitionApproach', String,
@@ -319,6 +327,7 @@ class TransitionOverview {
 }
 
 /// Timeline and cutover planning.
+@SectionId('PD00-ORG-STR-TIM-OVW-TML')
 class TransitionOverviewTimeline {
   @Form([
     Field('transitionDuration', String,
@@ -334,6 +343,7 @@ class TransitionOverviewTimeline {
 }
 
 /// Governance and change ownership.
+@SectionId('PD00-ORG-STR-TIM-OVW-GOV')
 class TransitionOverviewGovernance {
   @Form([
     Field('transitionGovernance', String,
@@ -365,6 +375,7 @@ class TransitionPhaseEntry {
 }
 
 /// Phase identification and timeline.
+@SectionId('PD00-ORG-STR-TIM-PHA-ENT-IDN')
 class TransitionPhaseIdentification {
   @Form([
     Field('phaseId', String, 'Phase ID (e.g., PH-01)', required: true),
@@ -385,6 +396,7 @@ class TransitionPhaseIdentification {
 }
 
 /// Timeline and sequencing details.
+@SectionId('PD00-ORG-STR-TIM-PHA-ENT-IDN-TML')
 class TransitionPhaseIdentificationTimeline {
     @Form([
         Field('startDate', String, 'Start Date'),
@@ -397,6 +409,7 @@ class TransitionPhaseIdentificationTimeline {
 }
 
 /// Scope of organizational impact.
+@SectionId('PD00-ORG-STR-TIM-PHA-ENT-IDN-SCP')
 class TransitionPhaseIdentificationScope {
     @Form([
         Field('affectedLocations', String,
@@ -409,6 +422,7 @@ class TransitionPhaseIdentificationScope {
 }
 
 /// Activities and deliverables for a transition phase.
+@SectionId('PD00-ORG-STR-TIM-PHA-ENT-ACT')
 class TransitionPhaseActivities {
   @Form([
     Field('keyActivities', String,
@@ -431,6 +445,7 @@ class TransitionPhaseActivities {
 }
 
 /// Stakeholder engagement for a transition phase.
+@SectionId('PD00-ORG-STR-TIM-PHA-ENT-STK')
 class TransitionPhaseStakeholders {
   @Form([
     Field('primaryStakeholders', String,
@@ -448,6 +463,7 @@ class TransitionPhaseStakeholders {
 }
 
 /// Exit criteria for a transition phase.
+@SectionId('PD00-ORG-STR-TIM-PHA-ENT-EXT')
 class TransitionPhaseExitCriteria {
   @Form([
     Field('exitCriteria', String,
@@ -492,6 +508,7 @@ class TransitionMilestoneEntry {
 }
 
 /// Deliverables and decisioning.
+@SectionId('PD00-ORG-STR-TIM-MIL-ENT-GOV')
 class TransitionMilestoneEntryGovernance {
     @Form([
         Field('deliverables', String, 'Deliverables — required for milestone'),
@@ -503,6 +520,7 @@ class TransitionMilestoneEntryGovernance {
 }
 
 /// Dependencies and criticality.
+@SectionId('PD00-ORG-STR-TIM-MIL-ENT-DEP')
 class TransitionMilestoneEntryDependencies {
     @Form([
         Field('dependsOnPhases', String,
@@ -515,6 +533,7 @@ class TransitionMilestoneEntryDependencies {
 }
 
 /// Recognition activities.
+@SectionId('PD00-ORG-STR-TIM-MIL-ENT-REC')
 class TransitionMilestoneEntryRecognition {
     @Form([
         Field('celebrationActivities', String,
@@ -524,6 +543,7 @@ class TransitionMilestoneEntryRecognition {
 }
 
 /// Change readiness assessment approach.
+@SectionId('PD00-ORG-STR-TIM-RDY')
 class ChangeReadinessAssessment {
   /// Overview of readiness assessment approach.
   ChangeReadinessOverview overview = ChangeReadinessOverview();
@@ -534,6 +554,7 @@ class ChangeReadinessAssessment {
 }
 
 /// Overview of change readiness assessment.
+@SectionId('PD00-ORG-STR-TIM-RDY-OVW')
 class ChangeReadinessOverview {
   @Form([
     Field('assessmentMethod', String,
@@ -579,6 +600,7 @@ class ReadinessCriteriaEntry {
 }
 
 /// Communication plan for the transition.
+@SectionId('PD00-ORG-STR-TIM-COM')
 class TransitionCommunicationPlan {
   /// Communication strategy overview.
   TransitionCommunicationStrategy strategy = TransitionCommunicationStrategy();
@@ -592,6 +614,7 @@ class TransitionCommunicationPlan {
 }
 
 /// Communication strategy overview.
+@SectionId('PD00-ORG-STR-TIM-COM-STR')
 class TransitionCommunicationStrategy {
   @Form([
     Field('communicationStrategy', String,
@@ -636,6 +659,7 @@ class CommunicationEventEntry {
 }
 
 /// Delivery ownership.
+@SectionId('PD00-ORG-STR-TIM-COM-EVT-DEL')
 class CommunicationEventEntryDelivery {
     @Form([
         Field('channel', String, 'Channel — delivery method'),
@@ -647,6 +671,7 @@ class CommunicationEventEntryDelivery {
 }
 
 /// Follow-up and measurement.
+@SectionId('PD00-ORG-STR-TIM-COM-EVT-OUT')
 class CommunicationEventEntryOutcome {
     @Form([
         Field('followUpActions', String, 'Follow-Up Actions — after event'),
@@ -657,6 +682,7 @@ class CommunicationEventEntryOutcome {
 }
 
 /// Communication channels definition.
+@SectionId('PD00-ORG-STR-TIM-COM-CHN')
 class TransitionCommunicationChannels {
   @Form([
     Field('primaryChannels', String,
@@ -676,6 +702,7 @@ class TransitionCommunicationChannels {
 }
 
 /// Support structure during transition.
+@SectionId('PD00-ORG-STR-TIM-SUP')
 class TransitionSupportStructure {
   /// Support organization overview.
   TransitionSupportOverview overview = TransitionSupportOverview();
@@ -689,6 +716,7 @@ class TransitionSupportStructure {
 }
 
 /// Support structure overview.
+@SectionId('PD00-ORG-STR-TIM-SUP-OVW')
 class TransitionSupportOverview {
   @Form([
     Field('supportModel', String,
@@ -731,6 +759,7 @@ class TransitionSupportResourceEntry {
 }
 
 /// Escalation paths for transition support.
+@SectionId('PD00-ORG-STR-TIM-ESC')
 class TransitionEscalationPaths {
   @Form([
     Field('level1', String, 'Level 1 — first-line support'),
@@ -748,6 +777,7 @@ class TransitionEscalationPaths {
 }
 
 /// Success metrics for the transition.
+@SectionId('PD00-ORG-STR-TIM-MET')
 class TransitionSuccessMetrics {
   /// Metrics overview.
   TransitionMetricsOverview overview = TransitionMetricsOverview();
@@ -758,6 +788,7 @@ class TransitionSuccessMetrics {
 }
 
 /// Metrics overview.
+@SectionId('PD00-ORG-STR-TIM-MET-OVW')
 class TransitionMetricsOverview {
   @Form([
     Field('measurementApproach', String,
@@ -800,6 +831,7 @@ class TransitionMetricEntry {
 }
 
 /// Measurement operations.
+@SectionId('PD00-ORG-STR-TIM-MET-ENT-OPS')
 class TransitionMetricEntryOperations {
     @Form([
         Field('threshold', String, 'Threshold — minimum acceptable'),
@@ -812,6 +844,7 @@ class TransitionMetricEntryOperations {
 }
 
 /// Current status.
+@SectionId('PD00-ORG-STR-TIM-MET-ENT-STA')
 class TransitionMetricEntryStatus {
     @Form([
         Field('status', String, 'Status — On Track, At Risk, Below Target, Achieved'),
@@ -839,6 +872,7 @@ class TransitionRiskEntry {
 }
 
 /// Risk assessment and exposure details.
+@SectionId('PD00-ORG-STR-TIM-RSK-ENT-ASS')
 class TransitionRiskEntryAssessment {
     @Form([
         Field('probability', String, 'Probability — Low, Medium, High'),
@@ -850,6 +884,7 @@ class TransitionRiskEntryAssessment {
 }
 
 /// Mitigation ownership and monitoring.
+@SectionId('PD00-ORG-STR-TIM-RSK-ENT-RSP')
 class TransitionRiskEntryResponse {
     @Form([
         Field('mitigationStrategy', String, 'Mitigation Strategy'),
@@ -894,6 +929,7 @@ class JobDescriptionsAndStaffing {
 }
 
 /// Overview of job descriptions and staffing approach.
+@SectionId('PD00-ORG-JOB-OVW')
 class JobDescriptionsOverview {
   @Form([
     Field('roleDesignApproach', String,
@@ -935,6 +971,7 @@ class StaffingPlan {
 }
 
 /// Staffing plan overview.
+@SectionId('PD00-ORG-JOB-STA-OVW')
 class StaffingPlanOverview {
   @Form([
     Field('staffingStrategy', String,
@@ -976,6 +1013,7 @@ class StaffingPlanOverview {
 }
 
 /// Staffing budget details.
+@SectionId('PD00-ORG-JOB-STA-BDG')
 class StaffingBudget {
   @Form([
     Field('totalBudget', String, 'Total Staffing Budget',
@@ -997,6 +1035,7 @@ class StaffingBudget {
 }
 
 /// Recruitment and enablement cost categories.
+@SectionId('PD00-ORG-JOB-STA-BDG-ALL')
 class StaffingBudgetAllocations {
   @Form([
     Field('recruitmentBudget', String, 'Recruitment Budget',
@@ -1012,6 +1051,7 @@ class StaffingBudgetAllocations {
 }
 
 /// Budget ownership and approval controls.
+@SectionId('PD00-ORG-JOB-STA-BDG-GOV')
 class StaffingBudgetGovernance {
   @Form([
     Field('budgetOwner', String, 'Budget Owner',
@@ -1053,6 +1093,7 @@ class StaffingEntry {
 }
 
 /// Organization and employment placement.
+@SectionId('PD00-ORG-JOB-STA-ENT-ORG')
 class StaffingEntryOrganization {
   @Form([
     Field('department', String, 'Department',
@@ -1066,6 +1107,7 @@ class StaffingEntryOrganization {
 }
 
 /// Capacity and competency requirements.
+@SectionId('PD00-ORG-JOB-STA-ENT-CAP')
 class StaffingEntryCapacity {
   @Form([
     Field('fteCount', double, 'FTE Count',
@@ -1083,6 +1125,7 @@ class StaffingEntryCapacity {
 }
 
 /// Recruitment workflow and urgency.
+@SectionId('PD00-ORG-JOB-STA-ENT-RCT')
 class StaffingEntryRecruitment {
   @Form([
     Field('approvalStatus', String, 'Approval Status',
@@ -1101,6 +1144,7 @@ class StaffingEntryRecruitment {
 }
 
 /// Ownership and compensation details.
+@SectionId('PD00-ORG-JOB-STA-ENT-OWN')
 class StaffingEntryOwnership {
   @Form([
     Field('hiringManager', String, 'Hiring Manager',
@@ -1116,6 +1160,7 @@ class StaffingEntryOwnership {
 }
 
 /// Recruitment timeline.
+@SectionId('PD00-ORG-JOB-STA-RCT')
 class RecruitmentTimeline {
   @Form([
     Field('recruitmentStart', String, 'Recruitment Start Date',
@@ -1157,6 +1202,7 @@ class CompetencyFramework {
 }
 
 /// Competency framework overview.
+@SectionId('PD00-ORG-JOB-CMP-OVW')
 class CompetencyFrameworkOverview {
   @Form([
     Field('frameworkPurpose', String,
@@ -1225,6 +1271,7 @@ class NewRoleEntry {
 }
 
 /// New role identification.
+@SectionId('PD00-ORG-JOB-NEW-ENT-IDN')
 class NewRoleIdentification {
   @Form([
     Field('roleId', String, 'Role ID (e.g., NR-001)', required: true),
@@ -1242,6 +1289,7 @@ class NewRoleIdentification {
 }
 
 /// New role organizational positioning.
+@SectionId('PD00-ORG-JOB-NEW-ENT-ORG')
 class NewRoleOrganization {
   @Form([
     Field('department', String, 'Department'),
@@ -1263,6 +1311,7 @@ class NewRoleOrganization {
 }
 
 /// New role responsibilities.
+@SectionId('PD00-ORG-JOB-NEW-ENT-RSP')
 class NewRoleResponsibilities {
   /// Primary responsibilities (key accountabilities).
   @SectionIdPattern('PD00-ORG-JOB-NEW-xx-RSP-xx')
@@ -1294,6 +1343,7 @@ class ResponsibilityDetailEntry {
 }
 
 /// Role decision-making authority.
+@SectionId('PD00-ORG-JOB-NEW-ENT-DAT')
 class RoleDecisionAuthority {
   @Form([
     Field('approvalAuthority', String,
@@ -1315,6 +1365,7 @@ class RoleDecisionAuthority {
 }
 
 /// New role qualifications and competencies.
+@SectionId('PD00-ORG-JOB-NEW-ENT-QUA')
 class NewRoleQualifications {
   @Form([
     Field('education', String,
@@ -1342,6 +1393,7 @@ class NewRoleQualifications {
 }
 
 /// Credential and mobility requirements.
+@SectionId('PD00-ORG-JOB-NEW-ENT-QUA-CRD')
 class NewRoleQualificationsCredentials {
   @Form([
     Field('certifications', String,
@@ -1357,6 +1409,7 @@ class NewRoleQualificationsCredentials {
 }
 
 /// Screening and clearance requirements.
+@SectionId('PD00-ORG-JOB-NEW-ENT-QUA-SCR')
 class NewRoleQualificationsScreening {
   @Form([
     Field('physicalRequirements', String,
@@ -1388,6 +1441,7 @@ class RoleCompetencyEntry {
 }
 
 /// New role system access requirements.
+@SectionId('PD00-ORG-JOB-NEW-ENT-SYS')
 class NewRoleSystemAccess {
   @Form([
     Field('primarySystems', String,
@@ -1415,6 +1469,7 @@ class NewRoleSystemAccess {
 }
 
 /// New role performance metrics.
+@SectionId('PD00-ORG-JOB-NEW-ENT-PER')
 class NewRolePerformance {
   @Form([
     Field('performanceObjectives', String,
@@ -1437,6 +1492,7 @@ class NewRolePerformance {
 }
 
 /// New role onboarding plan.
+@SectionId('PD00-ORG-JOB-NEW-ENT-ONB')
 class NewRoleOnboarding {
   @Form([
     Field('onboardingDuration', String,
@@ -1486,6 +1542,7 @@ class ChangedRoleEntry {
 }
 
 /// Changed role identification.
+@SectionId('PD00-ORG-JOB-CHA-ENT-IDN')
 class ChangedRoleIdentification {
   @Form([
     Field('roleId', String, 'Role ID (e.g., CR-001)', required: true),
@@ -1506,6 +1563,7 @@ class ChangedRoleIdentification {
 }
 
 /// Current and future organizational placement.
+@SectionId('PD00-ORG-JOB-CHA-ENT-IDN-STR')
 class ChangedRoleIdentificationStructure {
     @Form([
         Field('currentDepartment', String, 'Current Department'),
@@ -1517,6 +1575,7 @@ class ChangedRoleIdentificationStructure {
 }
 
 /// Change implementation state and affected population.
+@SectionId('PD00-ORG-JOB-CHA-ENT-IDN-TRN')
 class ChangedRoleIdentificationTransition {
     @Form([
         Field('changeType', String,
@@ -1530,6 +1589,7 @@ class ChangedRoleIdentificationTransition {
 }
 
 /// Changed role responsibilities.
+@SectionId('PD00-ORG-JOB-CHA-ENT-RSP')
 class ChangedRoleResponsibilities {
   /// Responsibilities being added.
   @SectionIdPattern('PD00-ORG-JOB-CHA-xx-ADD-xx')
@@ -1565,6 +1625,7 @@ class ResponsibilityChangeEntry {
 }
 
 /// Summary of responsibility impact.
+@SectionId('PD00-ORG-JOB-CHA-ENT-RSP-IMP')
 class ResponsibilityImpactSummary {
   @Form([
     Field('netTimeImpact', String,
@@ -1584,6 +1645,7 @@ class ResponsibilityImpactSummary {
 }
 
 /// Changed role competency requirements.
+@SectionId('PD00-ORG-JOB-CHA-ENT-CMP')
 class ChangedRoleCompetencies {
   /// New competencies required.
   @SectionIdPattern('PD00-ORG-JOB-CHA-xx-CMP-ADD-xx')
@@ -1616,6 +1678,7 @@ class CompetencyLevelChangeEntry {
 }
 
 /// Competency gap assessment.
+@SectionId('PD00-ORG-JOB-CHA-ENT-CMP-GAP')
 class CompetencyGapAssessment {
   @Form([
     Field('overallGapSeverity', String,
@@ -1633,6 +1696,7 @@ class CompetencyGapAssessment {
 }
 
 /// Changed role system access.
+@SectionId('PD00-ORG-JOB-CHA-ENT-SYS')
 class ChangedRoleSystemAccess {
   @Form([
     Field('newSystemAccess', String,
@@ -1654,6 +1718,7 @@ class ChangedRoleSystemAccess {
 }
 
 /// Impact on current role incumbents.
+@SectionId('PD00-ORG-JOB-CHA-ENT-INC')
 class ChangedRoleIncumbentImpact {
   @Form([
     Field('incumbentCount', int, 'Incumbent Count — people affected'),
@@ -1680,6 +1745,7 @@ class ChangedRoleIncumbentImpact {
 }
 
 /// Changed role transition planning.
+@SectionId('PD00-ORG-JOB-CHA-ENT-TRN')
 class ChangedRoleTransition {
   @Form([
     Field('transitionStart', String, 'Transition Start Date'),
@@ -1697,6 +1763,7 @@ class ChangedRoleTransition {
 }
 
 /// Training preparation for the transition.
+@SectionId('PD00-ORG-JOB-CHA-ENT-TRN-TRA')
 class ChangedRoleTransitionTraining {
   @Form([
     Field('trainingSchedule', String,
@@ -1712,6 +1779,7 @@ class ChangedRoleTransitionTraining {
 }
 
 /// Support expectations and success checkpoints.
+@SectionId('PD00-ORG-JOB-CHA-ENT-TRN-SUP')
 class ChangedRoleTransitionSupport {
   @Form([
     Field('supportDuringTransition', String,
@@ -1752,6 +1820,7 @@ class RemovedRoleEntry {
 }
 
 /// Incumbent transition planning.
+@SectionId('PD00-ORG-JOB-REM-ENT-TRN')
 class RemovedRoleEntryTransition {
   @Form([
     Field('incumbentDisposition', String,
@@ -1767,6 +1836,7 @@ class RemovedRoleEntryTransition {
 }
 
 /// Legal and communication considerations.
+@SectionId('PD00-ORG-JOB-REM-ENT-GOV')
 class RemovedRoleEntryGovernance {
   @Form([
     Field('legalConsiderations', String,
@@ -1778,6 +1848,7 @@ class RemovedRoleEntryGovernance {
 }
 
 /// Work continuity.
+@SectionId('PD00-ORG-JOB-REM-ENT-CON')
 class RemovedRoleEntryContinuity {
   @Form([
     Field('knowledgeTransfer', String,
@@ -1789,6 +1860,7 @@ class RemovedRoleEntryContinuity {
 }
 
 /// A responsibility entry (form) [PD00-ORG-JOB-nn-RSP-nn].
+@SectionId('PD00-ORG-JOB-NEW-ENT-RSP-ENT')
 class RoleResponsibilityEntry {
   @Form([
     Field('responsibility', String, 'Responsibility'),
@@ -1798,6 +1870,7 @@ class RoleResponsibilityEntry {
 }
 
 /// A skill entry (form) [PD00-ORG-JOB-nn-SKL-nn].
+@SectionId('PD00-ORG-JOB-CMP-SKL-ENT')
 class SkillEntry {
   @Form([
     Field('skillName', String, 'Skill Name'),
@@ -1838,6 +1911,7 @@ class WorkplaceDescriptionEntry {
 }
 
 /// User category identification for workplace definition.
+@SectionId('PD00-ORG-WOR-ENT-CAT')
 class WorkplaceUserCategory {
   @Form([
     Field('categoryId', String, 'Category ID (e.g., WP-001)', required: true),
@@ -1860,6 +1934,7 @@ class WorkplaceUserCategory {
 }
 
 /// Physical workplace layout and environment requirements.
+@SectionId('PD00-ORG-WOR-ENT-PHY')
 class PhysicalWorkplaceRequirements {
   @Form([
     Field('workplaceType', String,
@@ -1883,6 +1958,7 @@ class PhysicalWorkplaceRequirements {
 }
 
 /// Environmental conditions and controls.
+@SectionId('PD00-ORG-WOR-ENT-PHY-ENV')
 class PhysicalWorkplaceRequirementsEnvironment {
   @Form([
     Field('lightingRequirements', String,
@@ -1897,6 +1973,7 @@ class PhysicalWorkplaceRequirementsEnvironment {
 }
 
 /// Accessibility, privacy, and shared-space needs.
+@SectionId('PD00-ORG-WOR-ENT-PHY-USA')
 class PhysicalWorkplaceRequirementsUsage {
   @Form([
     Field('accessibilityFeatures', String,
@@ -1945,6 +2022,7 @@ class EquipmentRequirements {
 }
 
 /// Equipment overview and standards.
+@SectionId('PD00-ORG-WOR-EQU-OVW')
 class EquipmentOverview {
   @Form([
     Field('equipmentStandard', String,
@@ -1987,6 +2065,7 @@ class ComputingEquipmentEntry {
 }
 
 /// Hardware specifications.
+@SectionId('PD00-ORG-WOR-EQU-PRI-ENT-HRD')
 class ComputingEquipmentEntryHardware {
     @Form([
         Field('processor', String, 'Processor — CPU requirements'),
@@ -1998,6 +2077,7 @@ class ComputingEquipmentEntryHardware {
 }
 
 /// Platform and security requirements.
+@SectionId('PD00-ORG-WOR-EQU-PRI-ENT-PLT')
 class ComputingEquipmentEntryPlatform {
     @Form([
         Field('operatingSystem', String, 'Operating System — OS version'),
@@ -2012,6 +2092,7 @@ class ComputingEquipmentEntryPlatform {
 }
 
 /// Deployment and justification.
+@SectionId('PD00-ORG-WOR-EQU-PRI-ENT-PLN')
 class ComputingEquipmentEntryPlanning {
     @Form([
         Field('quantityNeeded', int, 'Quantity Needed'),
@@ -2045,6 +2126,7 @@ class DisplayEquipmentEntry {
 }
 
 /// Display quality and connection properties.
+@SectionId('PD00-ORG-WOR-EQU-DSP-ENT-VIS')
 class DisplayEquipmentEntryVisual {
     @Form([
         Field('panelType', String, 'Panel Type — IPS, VA, TN, OLED'),
@@ -2058,6 +2140,7 @@ class DisplayEquipmentEntryVisual {
 }
 
 /// Ergonomic and placement considerations.
+@SectionId('PD00-ORG-WOR-EQU-DSP-ENT-ERG')
 class DisplayEquipmentEntryErgonomics {
     @Form([
         Field('adjustability', String,
@@ -2070,6 +2153,7 @@ class DisplayEquipmentEntryErgonomics {
 }
 
 /// Quantity planning and justification for display equipment.
+@SectionId('PD00-ORG-WOR-EQU-DSP-ENT-PLN')
 class DisplayEquipmentEntryPlanning {
     @Form([
         Field('quantityPerUser', int, 'Quantity Per User — number of monitors'),
@@ -2136,6 +2220,7 @@ class MobileDeviceEntry {
 }
 
 /// Technical and management requirements.
+@SectionId('PD00-ORG-WOR-EQU-MOB-ENT-CAP')
 class MobileDeviceEntryCapabilities {
     @Form([
         Field('storageCapacity', String, 'Storage Capacity'),
@@ -2150,6 +2235,7 @@ class MobileDeviceEntryCapabilities {
 }
 
 /// Deployment planning and supporting accessories.
+@SectionId('PD00-ORG-WOR-EQU-MOB-ENT-PLN')
 class MobileDeviceEntryPlanning {
     @Form([
         Field('dataCarrier', String,
@@ -2184,6 +2270,7 @@ class SpecializedEquipmentEntry {
 }
 
 /// Technical and compliance characteristics.
+@SectionId('PD00-ORG-WOR-EQU-SPE-ENT-TCH')
 class SpecializedEquipmentEntryTechnical {
     @Form([
         Field('specifications', String, 'Specifications'),
@@ -2197,6 +2284,7 @@ class SpecializedEquipmentEntryTechnical {
 }
 
 /// Quantity and business justification.
+@SectionId('PD00-ORG-WOR-EQU-SPE-ENT-PLN')
 class SpecializedEquipmentEntryPlanning {
     @Form([
         Field('quantityNeeded', int, 'Quantity Needed'),
@@ -2206,6 +2294,7 @@ class SpecializedEquipmentEntryPlanning {
 }
 
 /// Technical infrastructure requirements.
+@SectionId('PD00-ORG-WOR-ENT-INF')
 class TechnicalInfrastructure {
   /// Network connectivity requirements.
   NetworkConnectivity networkConnectivity = NetworkConnectivity();
@@ -2223,6 +2312,7 @@ class TechnicalInfrastructure {
 }
 
 /// Network connectivity requirements.
+@SectionId('PD00-ORG-WOR-ENT-INF-NET')
 class NetworkConnectivity {
   @Form([
     Field('connectionType', String,
@@ -2250,6 +2340,7 @@ class NetworkConnectivity {
 }
 
 /// Workplace software requirements.
+@SectionId('PD00-ORG-WOR-ENT-SFT')
 class WorkplaceSoftwareRequirements {
   @Form([
     Field('operatingSystem', String, 'Operating System — version, edition'),
@@ -2270,6 +2361,7 @@ class WorkplaceSoftwareRequirements {
 }
 
 /// Security and collaboration software stack.
+@SectionId('PD00-ORG-WOR-ENT-SFT-PLT')
 class WorkplaceSoftwareRequirementsPlatform {
   @Form([
     Field('securitySoftware', String,
@@ -2285,6 +2377,7 @@ class WorkplaceSoftwareRequirementsPlatform {
 }
 
 /// Business application set and deployment model.
+@SectionId('PD00-ORG-WOR-ENT-SFT-DEL')
 class WorkplaceSoftwareRequirementsDelivery {
   @Form([
     Field('businessApplications', String,
@@ -2300,6 +2393,7 @@ class WorkplaceSoftwareRequirementsDelivery {
 }
 
 /// Remote access requirements.
+@SectionId('PD00-ORG-WOR-ENT-RMT')
 class RemoteAccessRequirements {
   @Form([
     Field('remoteAccessType', String,
@@ -2326,6 +2420,7 @@ class RemoteAccessRequirements {
 }
 
 /// Communication tools requirements.
+@SectionId('PD00-ORG-WOR-ENT-COM')
 class CommunicationToolsRequirements {
   @Form([
     Field('unifiedComms', String,
@@ -2385,6 +2480,7 @@ class TrainingRequirements {
 }
 
 /// Training overview and strategy.
+@SectionId('PD00-ORG-WOR-TRA-OVW')
 class TrainingOverview {
   @Form([
     Field('trainingStrategy', String,
@@ -2437,6 +2533,7 @@ class InitialTrainingEntry {
 }
 
 /// Target and prerequisites.
+@SectionId('PD00-ORG-WOR-TRA-INI-ENT-AUD')
 class InitialTrainingAudience {
   @Form([
     Field('targetAudience', String, 'Target Audience — who takes this'),
@@ -2449,6 +2546,7 @@ class InitialTrainingAudience {
 }
 
 /// Learning content.
+@SectionId('PD00-ORG-WOR-TRA-INI-ENT-CON')
 class InitialTrainingContent {
   @Form([
     Field('learningObjectives', String,
@@ -2461,6 +2559,7 @@ class InitialTrainingContent {
 }
 
 /// Delivery details.
+@SectionId('PD00-ORG-WOR-TRA-INI-ENT-DEL')
 class InitialTrainingDelivery {
   @Form([
     Field('format', String,
@@ -2477,6 +2576,7 @@ class InitialTrainingDelivery {
 }
 
 /// Schedule information.
+@SectionId('PD00-ORG-WOR-TRA-INI-ENT-SCH')
 class InitialTrainingSchedule {
   @Form([
     Field('schedule', String,
@@ -2487,6 +2587,7 @@ class InitialTrainingSchedule {
 }
 
 /// Assessment and certification.
+@SectionId('PD00-ORG-WOR-TRA-INI-ENT-ASS')
 class InitialTrainingAssessment {
   @Form([
     Field('assessmentMethod', String,
@@ -2526,6 +2627,7 @@ class OngoingTrainingEntry {
 }
 
 /// Scheduling and delivery.
+@SectionId('PD00-ORG-WOR-TRA-ONG-ENT-SCH')
 class OngoingTrainingEntrySchedule {
   @Form([
     Field('trainingType', String,
@@ -2541,6 +2643,7 @@ class OngoingTrainingEntrySchedule {
 }
 
 /// Content maintenance.
+@SectionId('PD00-ORG-WOR-TRA-ONG-ENT-CON')
 class OngoingTrainingEntryContent {
   @Form([
     Field('learningObjectives', String, 'Learning Objectives'),
@@ -2551,6 +2654,7 @@ class OngoingTrainingEntryContent {
 }
 
 /// Tracking and compliance.
+@SectionId('PD00-ORG-WOR-TRA-ONG-ENT-CMP')
 class OngoingTrainingEntryCompliance {
   @Form([
     Field('mandatory', String, 'Mandatory'),
@@ -2589,6 +2693,7 @@ class SystemTrainingEntry {
 }
 
 /// Functional training coverage.
+@SectionId('PD00-ORG-WOR-TRA-SYS-ENT-FUN')
 class SystemTrainingEntryFunctional {
   @Form([
     Field('functionalScope', String,
@@ -2606,6 +2711,7 @@ class SystemTrainingEntryFunctional {
 }
 
 /// Practical exercises.
+@SectionId('PD00-ORG-WOR-TRA-SYS-ENT-PRC')
 class SystemTrainingEntryPractice {
   @Form([
     Field('dataEntryPractice', String,
@@ -2619,6 +2725,7 @@ class SystemTrainingEntryPractice {
 }
 
 /// Support and environment.
+@SectionId('PD00-ORG-WOR-TRA-SYS-ENT-SUP')
 class SystemTrainingEntrySupport {
   @Form([
     Field('troubleshootingBasics', String,
@@ -2658,6 +2765,7 @@ class CertificationEntry {
 }
 
 /// Description and audience.
+@SectionId('PD00-ORG-WOR-TRA-CER-ENT-OVW')
 class CertificationEntryOverview {
     @Form([
         Field('description', String, 'Description'),
@@ -2668,6 +2776,7 @@ class CertificationEntryOverview {
 }
 
 /// Preparation requirements.
+@SectionId('PD00-ORG-WOR-TRA-CER-ENT-PRE')
 class CertificationEntryPreparation {
     @Form([
         Field('prerequisites', String, 'Prerequisites'),
@@ -2678,6 +2787,7 @@ class CertificationEntryPreparation {
 }
 
 /// Exam details.
+@SectionId('PD00-ORG-WOR-TRA-CER-ENT-EXM')
 class CertificationEntryExam {
     @Form([
         Field('examFormat', String,
@@ -2692,6 +2802,7 @@ class CertificationEntryExam {
 }
 
 /// Validity and renewal details.
+@SectionId('PD00-ORG-WOR-TRA-CER-ENT-MNT')
 class CertificationEntryMaintenance {
     @Form([
         Field('validityPeriod', String, 'Validity Period — how long valid'),
@@ -2702,6 +2813,7 @@ class CertificationEntryMaintenance {
 }
 
 /// Sponsorship and consequences.
+@SectionId('PD00-ORG-WOR-TRA-CER-ENT-SUP')
 class CertificationEntrySupport {
     @Form([
         Field('companySponsored', String,
@@ -2715,6 +2827,7 @@ class CertificationEntrySupport {
 }
 
 /// Training materials and resources.
+@SectionId('PD00-ORG-WOR-TRA-MAT')
 class TrainingMaterials {
   @Form([
     Field('userGuides', String,
@@ -2739,6 +2852,7 @@ class TrainingMaterials {
 }
 
 /// Practice and reference resources.
+@SectionId('PD00-ORG-WOR-TRA-MAT-PRC')
 class TrainingMaterialsPractice {
   @Form([
     Field('simulationEnvironment', String,
@@ -2756,6 +2870,7 @@ class TrainingMaterialsPractice {
 }
 
 /// Knowledge distribution.
+@SectionId('PD00-ORG-WOR-TRA-MAT-KNW')
 class TrainingMaterialsKnowledge {
   @Form([
     Field('knowledgeBase', String,
@@ -2768,6 +2883,7 @@ class TrainingMaterialsKnowledge {
 }
 
 /// Publishing and accessibility.
+@SectionId('PD00-ORG-WOR-TRA-MAT-OPS')
 class TrainingMaterialsOperations {
   @Form([
     Field('updateProcess', String,
@@ -2781,6 +2897,7 @@ class TrainingMaterialsOperations {
 }
 
 /// Training assessment and evaluation.
+@SectionId('PD00-ORG-WOR-TRA-ASS')
 class TrainingAssessment {
   @Form([
     Field('assessmentStrategy', String,
@@ -2807,6 +2924,7 @@ class TrainingAssessment {
 }
 
 /// Retention and effectiveness evaluation.
+@SectionId('PD00-ORG-WOR-TRA-ASS-EFF')
 class TrainingAssessmentEffectiveness {
   @Form([
     Field('knowledgeRetention', String,
@@ -2824,6 +2942,7 @@ class TrainingAssessmentEffectiveness {
 }
 
 /// Competency and remediation management.
+@SectionId('PD00-ORG-WOR-TRA-ASS-IMP')
 class TrainingAssessmentImprovement {
   @Form([
     Field('competencyMapping', String,
@@ -2837,6 +2956,7 @@ class TrainingAssessmentImprovement {
 }
 
 /// Progress reporting.
+@SectionId('PD00-ORG-WOR-TRA-ASS-REP')
 class TrainingAssessmentReporting {
   @Form([
     Field('progressTracking', String,
@@ -2850,6 +2970,7 @@ class TrainingAssessmentReporting {
 }
 
 /// Support resources available to users.
+@SectionId('PD00-ORG-WOR-ENT-SPT')
 class WorkplaceSupportResources {
   @Form([
     Field('helpDeskAccess', String,
@@ -2877,6 +2998,7 @@ class WorkplaceSupportResources {
 }
 
 /// Extended support channels.
+@SectionId('PD00-ORG-WOR-ENT-SPT-CHN')
 class WorkplaceSupportResourcesChannels {
   @Form([
     Field('remoteSupport', String,
@@ -2888,6 +3010,7 @@ class WorkplaceSupportResourcesChannels {
 }
 
 /// Self-service and feedback.
+@SectionId('PD00-ORG-WOR-ENT-SPT-SEL')
 class WorkplaceSupportResourcesSelfService {
   @Form([
     Field('knowledgeBase', String,
@@ -2902,6 +3025,7 @@ class WorkplaceSupportResourcesSelfService {
 }
 
 /// Incident and emergency support.
+@SectionId('PD00-ORG-WOR-ENT-SPT-INC')
 class WorkplaceSupportResourcesIncidents {
   @Form([
     Field('incidentReporting', String,
