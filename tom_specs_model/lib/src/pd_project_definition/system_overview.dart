@@ -258,8 +258,6 @@ class SystemDescriptionSummary {
     'Who are the primary beneficiaries? How does it align with '
     'organizational strategy?')
 class SystemPurpose {
-  @ContentType('description', 'High-level overview of the system purpose. '
-      'Provide a brief executive summary of why this system is being built.')
   String? content;
 
   /// Vision Statement [PD00-SYO-SYD-PUR-VIS].
@@ -297,8 +295,6 @@ class SystemPurpose {
 @ContentHelp('Describe the problem in detail. What is the current state? '
     'What makes it a problem? Who is affected and how severely?')
 class ProblemStatement {
-  @ContentType('description', 'Narrative description of the problem, its '
-      'causes, and why it needs to be addressed now.')
   String? content;
 
   /// Problem Description Form [PD00-SYO-SYD-PUR-PRO-DES].
@@ -340,8 +336,6 @@ class ProblemStatement {
     'will be available? What improvements over current state? What '
     'competitive advantages will it provide?')
 class OpportunityStatement {
-  @ContentType('description', 'Narrative description of the opportunity '
-      'and the positive outcomes enabled by the new system.')
   String? content;
 
   /// Opportunity Details Form [PD00-SYO-SYD-PUR-OPP-DES].
@@ -450,8 +444,6 @@ class StakeholderEntryEngagement {
 @ContentHelp('Articulate the business value clearly. Include quantifiable '
     'benefits, ROI expectations, and how value will be measured.')
 class ValueProposition {
-  @ContentType('description', 'Summary of the value proposition and '
-      'key benefits of the system.')
   String? content;
 
   /// Value Proposition Details (form).
@@ -516,8 +508,6 @@ class ValuePropositionReturnProfile {
 @ContentHelp('Show how this project aligns with organizational strategy. '
     'Reference corporate goals, IT roadmap, and strategic initiatives.')
 class StrategicAlignment {
-  @ContentType('description', 'Overview of how the system supports '
-      'organizational strategy and priorities.')
   String? content;
 
   /// Strategic Alignment Details (form).
@@ -553,8 +543,6 @@ class StrategicAlignment {
     'excluded? What is deferred to future phases? This prevents scope creep '
     'and sets clear expectations.')
 class ScopeBoundaries {
-  @ContentType('description', 'Overview of the scope boundaries and '
-      'the rationale for in/out decisions.')
   String? content;
 
   /// In-Scope Items [PD00-SYO-SYD-PUR-SCO-IN] — contains 1+× ScopeItem.
@@ -661,8 +649,6 @@ class SystemContext {
     'with all external entities (users, systems, organizations) and '
     'the data/control flows between them.')
 class ContextDiagram {
-  @ContentType('description', 'Explanation of the context diagram, '
-      'key relationships, and data flow patterns.')
   String? content;
 
   /// Context diagram in Mermaid format.
@@ -689,8 +675,6 @@ class ContextDiagram {
 @ContentHelp('Describe how this system fits in the overall IT architecture. '
     'What role does it play? What other systems does it complement or replace?')
 class ItLandscapePosition {
-  @ContentType('description', 'Overview of the system\'s role in the '
-      'IT landscape and application portfolio.')
   String? content;
 
   /// IT Landscape Position Details (form).
@@ -927,8 +911,6 @@ class TrustBoundaryEntry {
 @ContentHelp('Describe the organizational context: which departments, '
     'business units, and organizational structures are involved.')
 class OrganizationalContext {
-  @ContentType('description', 'Overview of the organizational context '
-      'and business units served by the system.')
   String? content;
 
   /// Organizational unit entries — contains 0+× OrganizationalUnitContextEntry.
@@ -970,8 +952,6 @@ class OrganizationalUnitContextEntry {
 @ContentHelp('Describe the deployment context: where the system will be '
     'deployed, what infrastructure it will use, and deployment constraints.')
 class DeploymentContext {
-  @ContentType('description', 'Overview of the deployment environment '
-      'and infrastructure context.')
   String? content;
 
   /// Deployment Context Details (form).
@@ -1103,8 +1083,6 @@ class TaskArea {
     'what area of business it covers, its importance to the organization, '
     'and how it relates to other business domains.')
 class DomainOverview {
-  @ContentType('description', 'Narrative description of the business domain, '
-      'its purpose, and significance to the organization.')
   String? content;
 
   /// Domain Overview Details (form).
@@ -1179,8 +1157,6 @@ class DomainTermEntry {
     'in the domain. This is the conceptual domain model showing core '
     'business objects and their relationships.')
 class KeyConcepts {
-  @ContentType('description', 'Overview of the key concepts in the domain '
-      'and how they relate to each other.')
   String? content;
 
   /// Conceptual domain model diagram.
@@ -1244,8 +1220,6 @@ class KeyConceptEntry {
     'processes, and responsibilities are within scope, and what belongs '
     'to adjacent domains. This establishes the bounded context.')
 class DomainBoundaries {
-  @ContentType('description', 'Overview of domain boundaries and '
-      'how this domain interfaces with others.')
   String? content;
 
   /// Context map showing domain boundaries.
@@ -1372,8 +1346,6 @@ class DomainBusinessRuleEntryGovernance {
 @ContentHelp('Describe the main business processes within this domain. '
     'Focus on business activities, not system implementation.')
 class DomainProcesses {
-  @ContentType('description', 'Overview of the key business processes '
-      'that operate within this domain.')
   String? content;
 
   /// Process overview diagram.
@@ -1563,8 +1535,6 @@ class UserInteractionModelSummary {
     'For each channel, specify target users, features available, and '
     'any channel-specific constraints.')
 class AccessChannels {
-  @ContentType('description', 'Overview of access channels and how they '
-      'relate to different user categories and use cases.')
   String? content;
 
   /// Channel architecture diagram.
@@ -1848,8 +1818,6 @@ class InteractionPatternEntryUsage {
 @ContentHelp('Define access levels and how they relate to user categories, '
     'features, and data. This establishes the authorization framework.')
 class AccessLevels {
-  @ContentType('description', 'Overview of access level architecture and '
-      'how permissions are structured.')
   String? content;
 
   /// Access level hierarchy diagram.
@@ -1949,7 +1917,6 @@ class AccessLevelEntryGovernance {
 @ContentHelp('Define session management: session lifecycle, timeouts, '
     'multi-device handling, and session security.')
 class SessionModel {
-  @ContentType('description', 'Overview of session management approach.')
   String? content;
 
   /// Session configuration.
@@ -2112,7 +2079,6 @@ class UserNotificationPreferences {
 @ContentHelp('Define multi-channel experience: context handoff between '
     'channels, data synchronization, and experience consistency.')
 class MultiChannelExperience {
-  @ContentType('description', 'Overview of multi-channel strategy.')
   String? content;
 
   /// Multi-channel configuration.
@@ -2259,8 +2225,6 @@ class UserCategoryEntryImportance {
 @ContentHelp('Describe the persona in detail to help designers and developers '
     'understand and empathize with this user type.')
 class UserPersonaDetails {
-  @ContentType('description', 'Narrative description of the persona, '
-      'written from a human perspective.')
   String? content;
 
   /// Persona Details Form.
@@ -2430,8 +2394,6 @@ class SystemTaskEntryContext {
 @ContentHelp('Define the access rights, permissions, and security '
     'constraints for this user category.')
 class UserAccessPermissions {
-  @ContentType('description', 'Overview of access permissions and '
-      'security context for this user category.')
   String? content;
 
   /// Access Permissions Form.
@@ -2510,8 +2472,6 @@ class PermissionMatrixEntry {
 @SectionId('PD00-SYO-SYD-USR-nn-TRA')
 @ContentHelp('Define the training and support needs for this user category.')
 class UserTrainingRequirements {
-  @ContentType('description', 'Overview of training requirements and '
-      'support mechanisms for this user category.')
   String? content;
 
   /// Training Requirements Form.
@@ -2563,8 +2523,6 @@ class TrainingTopicEntry {
 @ContentHelp('Document any accessibility requirements or accommodations '
     'that should be considered for this user category.')
 class UserAccessibilityNeeds {
-  @ContentType('description', 'Overview of accessibility needs and '
-      'accommodations for this user category.')
   String? content;
 
   /// Accessibility Needs Form.
@@ -2596,8 +2554,6 @@ class UserAccessibilityNeeds {
 @ContentHelp('Document the user journey - key touchpoints and stages '
     'in this user category\'s interaction with the system.')
 class UserJourney {
-  @ContentType('description', 'Overview of the user journey and '
-      'key experience stages.')
   String? content;
 
   /// User journey diagram.
@@ -2660,9 +2616,6 @@ class JourneyStageEntry {
     'Organize goals by category (business, technical) and ensure each goal '
     'has specific success metrics and target dates.')
 class Goals {
-  @ContentType('description', 'Overview of project goals and how they '
-      'align with organizational strategy. Summarize the goal hierarchy '
-      'and key objectives.')
   String? content;
 
   /// Goal hierarchy diagram.
@@ -2986,8 +2939,6 @@ class GoalRiskEntryResponse {
 @SectionId('PD00-SYO-GOA-BUS-nn-RES')
 @ContentHelp('Define resources (people, budget, tools) needed for this goal.')
 class GoalResources {
-  @ContentType('description', 'Overview of resource requirements and '
-      'allocation approach.')
   String? content;
 
   /// Resource requirement form.
@@ -3174,8 +3125,6 @@ class QualityScenarioEntry {
 @ContentHelp('Define specific test criteria that will be used to verify '
     'the technical goal has been achieved.')
 class TechnicalGoalTestCriteria {
-  @ContentType('description', 'Overview of test approach and acceptance '
-      'criteria for this technical goal.')
   String? content;
 
   /// Test criteria form.
@@ -3295,9 +3244,6 @@ class TechnicalConstraintEntry {
     'time-bound. Criteria should cover business, technical, user, and '
     'compliance dimensions.')
 class SuccessCriteria {
-  @ContentType('description', 'Overview of success criteria and how they '
-      'relate to project objectives. Define the acceptance process and '
-      'sign-off requirements.')
   String? content;
 
   /// Success criteria summary.
@@ -3588,9 +3534,6 @@ class PostImplementationReview {
     'scoping and planning. Each requirement should be traceable to business '
     'goals and verifiable through acceptance criteria.')
 class RequirementsOverview {
-  @ContentType('description', 'Overview of requirements approach, '
-      'traceability strategy, and categorization scheme. Explain how '
-      'requirements will be managed throughout the project lifecycle.')
   String? content;
 
   /// Requirements overview form.
@@ -3656,9 +3599,6 @@ class RequirementsOverview {
     'and features. Use clear, testable language. Each requirement should '
     'answer: What must the system do? For whom? Under what conditions?')
 class FunctionalRequirements {
-  @ContentType('description', 'Overview of functional requirements scope, '
-      'categorization, and coverage. Explain how functional requirements '
-      'are organized and trace to use cases.')
   String? content;
 
   /// Functional requirements summary form.
@@ -3944,8 +3884,6 @@ class DataEntityReferenceEntry {
 @ContentHelp('Define the UI elements needed to support this requirement. '
     'Specify screens, forms, fields, actions, and behaviors.')
 class RequirementUiSpecification {
-  @ContentType('description', 'Overview of UI requirements and '
-      'user interaction patterns.')
   String? content;
 
   /// UI specification form.
@@ -4200,8 +4138,6 @@ class RequirementDependencyEntry {
 @ContentHelp('Document traceability links to maintain visibility of '
     'requirements throughout the project lifecycle.')
 class RequirementTraceability {
-  @ContentType('description', 'Overview of traceability links for '
-      'this requirement.')
   String? content;
 
   /// Traceability links form.
@@ -4322,8 +4258,6 @@ class RequirementTestCaseEntryAutomation {
     'constraints. Each should be measurable and testable. Common categories: '
     'Performance, Scalability, Availability, Security, Maintainability.')
 class TechnicalRequirements {
-  @ContentType('description', 'Overview of technical requirements scope, '
-      'categories, and quality attribute priorities.')
   String? content;
 
   /// Technical requirements summary form.
@@ -4469,8 +4403,6 @@ class TechnicalRequirementEntryConstraints {
     'and availability of information. Include authentication, authorization, '
     'data protection, and compliance requirements.')
 class SecurityRequirements {
-  @ContentType('description', 'Overview of security requirements scope, '
-      'threat landscape, and compliance context.')
   String? content;
 
   /// Security requirements summary form.
@@ -4675,8 +4607,6 @@ class SecurityControlEntryVerification {
     'needed for system success: training, process changes, role changes, '
     'support structures, and communication.')
 class OrganizationalRequirements {
-  @ContentType('description', 'Overview of organizational requirements scope '
-      'and change management context.')
   String? content;
 
   /// Organizational requirements summary form.
@@ -4791,7 +4721,6 @@ class OrganizationalRequirementEntryPlanning {
 @ContentHelp('Define the implementation approach for this organizational '
     'change requirement.')
 class OrgRequirementImplementationPlan {
-  @ContentType('description', 'Overview of implementation approach.')
   String? content;
 
   /// Implementation plan form.

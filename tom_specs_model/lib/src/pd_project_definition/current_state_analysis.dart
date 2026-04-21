@@ -94,12 +94,6 @@ class SystemInventory {
 /// topology, integration patterns, shared services, and data stores.
 @SectionId('PD00-CUR-SYS-ARC')
 class CurrentArchitecture {
-  @ContentType('description', 'Narrative description of the current '
-      'architecture including deployment topology, integration patterns, '
-      'shared services, and data stores.')
-  @ContentHelp('Describe the current system architecture. Include deployment '
-      'topology, integration patterns, shared services, data stores. '
-      'Reference an architecture overview diagram.')
   String? content;
 
   /// Architecture overview diagram [PD00-CUR-SYS-ARC-DIA].
@@ -337,11 +331,6 @@ class LimitationEntry {
 /// pose risk to operations or to the new system implementation.
 @SectionId('PD00-CUR-SYS-DEP')
 class DependenciesAndIntegrations {
-  @ContentType('description', 'Overview of the dependency and integration '
-      'landscape including systemic risks and fragile points.')
-  @ContentHelp('Provide an executive summary of dependencies and integrations. '
-      'Highlight critical dependencies, fragile integration points, and '
-      'areas requiring attention during the project.')
   String? content;
 
   /// Dependency matrix diagram [PD00-CUR-SYS-DEP-DIA].
@@ -870,12 +859,6 @@ class SystemIntegrationOwnership {
 @DetailedIn(CurrentSituation)
 @SecondLevelSectionId(CurrentSituation, 'CS-PRO')
 class CurrentBusinessProcesses {
-  @ContentType('description', 'Overview of the business process landscape, '
-      'including process categories, ownership, and interdependencies.')
-  @ContentHelp('Describe the overall process landscape being analyzed. '
-      'Focus on workflow bottlenecks, manual steps, and replication of effort. '
-      'Include a process map or hierarchy showing how processes relate. '
-      'Identify which processes are in scope for this project.')
   String? content;
 
   /// Process landscape diagram [PD00-CUR-PRO-DIA].
@@ -943,9 +926,6 @@ class ProcessScopeEntry {
 
 /// Process interdependency matrix showing how processes interact.
 class ProcessInterdependencyMatrix {
-  @ContentType('description', 'Overview of how processes depend on each other.')
-  @ContentHelp('Describe the overall pattern of process interdependencies. '
-      'Identify critical handoff points and areas of high coupling.')
   String? content;
 
   /// Interdependency diagram [PD00-CUR-PRO-INT-DIA].
@@ -1079,10 +1059,6 @@ class CurrentProcessImprovementEntry {
 /// subsection per current workflow relevant to the project.
 @SectionIdPattern('PD00-CUR-PRO-xx-WOR')
 class WorkflowDescriptions {
-  @ContentType('description', 'Overview of workflows within this process.')
-  @ContentHelp('Describe how the workflows within this process relate to each '
-      'other. Identify the primary workflow sequence and exception paths. '
-      'Include a workflow diagram showing the sequence and decision points.')
   String? content;
 
   /// Workflow overview diagram [PD00-CUR-PRO-xx-WOR-DIA].
@@ -1220,6 +1196,13 @@ class WorkflowTriggerEntry {
   String? content;
 }
 
+/// A system used in a workflow step.
+@SectionId('PD00-CSA-PRO-WFL-STE-SYS')
+class WorkflowStepSystem {
+  @ContentHelp('Name of the system used in this workflow step.')
+  String? name;
+}
+
 /// A workflow step entry (form) [PD00-CUR-PRO-nn-WOR-nn-STP-nn].
 ///
 /// Detailed documentation of a single step within a workflow.
@@ -1239,7 +1222,7 @@ class WorkflowStepEntry {
   String? content;
 
   /// Systems used in this step.
-  List<String> systemsUsed = [];
+  List<WorkflowStepSystem> systemsUsed = [];
 
   /// Step inputs.
   List<WorkflowInputEntry> inputs = [];

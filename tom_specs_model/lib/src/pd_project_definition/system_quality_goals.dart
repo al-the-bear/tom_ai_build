@@ -94,6 +94,7 @@ class SystemQualityGoals {
 }
 
 /// Governance board and escalation details.
+@SectionId('PD00-SYQ-GOV')
 class SystemQualityGoalsGovernance {
     @Form([
         Field('qualityReviewBoard', String, 'Quality Review Board',
@@ -107,6 +108,7 @@ class SystemQualityGoalsGovernance {
 }
 
 /// Baseline and target settings.
+@SectionId('PD00-SYQ-BAS')
 class SystemQualityGoalsBaseline {
     @Form([
         Field('qualityBaselineDate', String, 'Quality Baseline Date',
@@ -121,6 +123,7 @@ class SystemQualityGoalsBaseline {
 }
 
 /// Measurement and reporting approach.
+@SectionId('PD00-SYQ-MEA')
 class SystemQualityGoalsMeasurement {
     @Form([
         Field('qualityMetricsFramework', String, 'Metrics Framework',
@@ -138,6 +141,7 @@ class SystemQualityGoalsMeasurement {
 }
 
 /// Quality resources and enablement.
+@SectionId('PD00-SYQ-RES')
 class SystemQualityGoalsResources {
     @Form([
         Field('qualityBudget', String, 'Quality Budget',
@@ -205,6 +209,7 @@ class QualityFramework {
 }
 
 /// Quality objective structure and alignment.
+@SectionId('PD00-SYQ-FRA-OBJ')
 class QualityFrameworkObjectives {
     @Form([
         Field('objectivesHierarchy', String, 'Objectives Hierarchy',
@@ -218,6 +223,7 @@ class QualityFrameworkObjectives {
 }
 
 /// Trade-off priorities and decision authority.
+@SectionId('PD00-SYQ-FRA-TRD')
 class QualityFrameworkTradeOffs {
     @Form([
         Field('primaryQualityAttribute', String, 'Primary Quality Attribute',
@@ -232,6 +238,7 @@ class QualityFrameworkTradeOffs {
 }
 
 /// Verification and defect handling approach.
+@SectionId('PD00-SYQ-FRA-VER')
 class QualityFrameworkVerification {
     @Form([
         Field('verificationStrategy', String, 'Verification Strategy',
@@ -250,6 +257,7 @@ class QualityFrameworkVerification {
 ///
 /// Defines a quality category with its attributes, weight, and relationship
 /// to other categories.
+@SectionId('PD00-SYQ-FRA-CAT')
 class QualityCategoryEntry {
   @Form([
     Field('categoryId', String, 'Category ID',
@@ -282,6 +290,7 @@ class QualityCategoryEntry {
 }
 
 /// Description and priority context.
+@SectionId('PD00-SYQ-FRA-CAT-DEF')
 class QualityCategoryEntryDefinition {
   @Form([
     Field('categoryDescription', String, 'Description',
@@ -297,6 +306,7 @@ class QualityCategoryEntryDefinition {
 }
 
 /// Category relationships.
+@SectionId('PD00-SYQ-FRA-CAT-REL')
 class QualityCategoryEntryRelationships {
   @Form([
     Field('parentCategory', String, 'Parent Category',
@@ -310,6 +320,7 @@ class QualityCategoryEntryRelationships {
 }
 
 /// Governance ownership.
+@SectionId('PD00-SYQ-FRA-CAT-GOV')
 class QualityCategoryEntryGovernance {
   @Form([
     Field('categoryOwner', String, 'Category Owner',
@@ -323,6 +334,7 @@ class QualityCategoryEntryGovernance {
 }
 
 /// Measurement targets.
+@SectionId('PD00-SYQ-FRA-CAT-MET')
 class QualityCategoryEntryMetrics {
   @Form([
     Field('primaryMetric', String, 'Primary Metric',
@@ -384,6 +396,7 @@ class UserQualityCriteria {
 }
 
 /// 11.2.1. Usability quality [PD00-SYQ-USE-USA].
+@SectionId('PD00-SYQ-USE-USA')
 class UsabilityQuality {
   @Form([
     Field('operabilityTarget', String, 'Operability Target',
@@ -415,6 +428,7 @@ class UsabilityQuality {
 }
 
 /// Operability verification and ergonomics goals.
+@SectionId('PD00-SYQ-USE-USA-OPE')
 class UsabilityQualityOperability {
   @Form([
     Field('operabilityMetric', String, 'Operability Metric',
@@ -428,6 +442,7 @@ class UsabilityQualityOperability {
 }
 
 /// Learnability and onboarding expectations.
+@SectionId('PD00-SYQ-USE-USA-LRN')
 class UsabilityQualityLearnability {
   @Form([
     Field('learnabilityVerification', String, 'Learnability Verification',
@@ -439,6 +454,7 @@ class UsabilityQualityLearnability {
 }
 
 /// Clarity and complexity constraints.
+@SectionId('PD00-SYQ-USE-USA-CLR')
 class UsabilityQualityClarity {
   @Form([
     Field('functionalClarityTarget', String, 'Functional Clarity Target',
@@ -454,6 +470,7 @@ class UsabilityQualityClarity {
 }
 
 /// Interaction control settings.
+@SectionId('PD00-SYQ-USE-USA-INT')
 class UsabilityQualityInteraction {
   @Form([
     Field('undoRequirement', String, 'Undo Requirement',
@@ -465,6 +482,7 @@ class UsabilityQualityInteraction {
 }
 
 /// Perceived and measured responsiveness targets.
+@SectionId('PD00-SYQ-USE-USA-PER')
 class UsabilityQualityPerformance {
   @Form([
     Field('responseTimeP50', String, 'Response Time P50',
@@ -480,6 +498,7 @@ class UsabilityQualityPerformance {
 }
 
 /// 11.2.2. Functional completeness quality [PD00-SYQ-USE-FUN].
+@SectionId('PD00-SYQ-USE-COM')
 class FunctionalCompletenessQuality {
   @Form([
     // Coverage
@@ -511,6 +530,7 @@ class FunctionalCompletenessQuality {
 }
 
 /// 11.2.3. Correctness quality [PD00-SYQ-USE-COR].
+@SectionId('PD00-SYQ-USE-COR')
 class CorrectnessQuality {
   @Form([
     Field('defectDensityTarget', String, 'Defect Density Target',
@@ -537,6 +557,7 @@ class CorrectnessQuality {
 }
 
 /// Data integrity expectations.
+@SectionId('PD00-SYQ-USE-COR-INT')
 class CorrectnessQualityIntegrity {
   @Form([
     Field('dataIntegrityRequirement', String, 'Data Integrity Requirement',
@@ -550,6 +571,7 @@ class CorrectnessQualityIntegrity {
 }
 
 /// Accuracy and auditability requirements.
+@SectionId('PD00-SYQ-USE-COR-ACC')
 class CorrectnessQualityAccuracy {
   @Form([
     Field('calculationAccuracyTarget', String, 'Calculation Accuracy Target',
@@ -563,6 +585,7 @@ class CorrectnessQualityAccuracy {
 }
 
 /// Verification and regression approach.
+@SectionId('PD00-SYQ-USE-COR-VER')
 class CorrectnessQualityVerification {
   @Form([
     Field('correctnessVerification', String, 'Correctness Verification',
@@ -631,6 +654,7 @@ class TechnicalQualityCriteria {
 }
 
 /// 11.3.1. Efficiency quality [PD00-SYQ-TEC-EFF].
+@SectionId('PD00-SYQ-TEC-EFF')
 class EfficiencyQuality {
   @Form([
     // Response time
@@ -658,6 +682,7 @@ class EfficiencyQuality {
 }
 
 /// Throughput and scale targets.
+@SectionId('PD00-SYQ-TEC-EFF-THR')
 class EfficiencyQualityThroughput {
   @Form([
     Field('throughputTarget', String, 'Throughput Target',
@@ -671,6 +696,7 @@ class EfficiencyQualityThroughput {
 }
 
 /// Resource utilization constraints.
+@SectionId('PD00-SYQ-TEC-EFF-RES')
 class EfficiencyQualityResources {
   @Form([
     Field('cpuUtilizationLimit', String, 'CPU Utilization Limit',
@@ -686,6 +712,7 @@ class EfficiencyQualityResources {
 }
 
 /// Performance validation and SLA commitments.
+@SectionId('PD00-SYQ-TEC-EFF-VER')
 class EfficiencyQualityVerification {
   @Form([
     Field('loadTestingRequirement', String, 'Load Testing Requirement',
@@ -701,6 +728,7 @@ class EfficiencyQualityVerification {
 }
 
 /// 11.3.2. Portability quality [PD00-SYQ-TEC-POR].
+@SectionId('PD00-SYQ-TEC-POR')
 class PortabilityQuality {
   @Form([
     // Platform support
@@ -735,6 +763,7 @@ class PortabilityQuality {
 }
 
 /// 11.3.3. Flexibility quality [PD00-SYQ-TEC-FLE].
+@SectionId('PD00-SYQ-TEC-FLX')
 class FlexibilityQuality {
   @Form([
     Field('componentArchitecture', String, 'Component Architecture',
@@ -761,6 +790,7 @@ class FlexibilityQuality {
 }
 
 /// Modularity and reuse goals.
+@SectionId('PD00-SYQ-TEC-FLX-MOD')
 class FlexibilityQualityModularity {
   @Form([
     Field('modularityLevel', String, 'Modularity Level',
@@ -774,6 +804,7 @@ class FlexibilityQualityModularity {
 }
 
 /// Distribution and configurability model.
+@SectionId('PD00-SYQ-TEC-FLX-DEP')
 class FlexibilityQualityDeployment {
   @Form([
     Field('distributionCapability', String, 'Distribution Capability',
@@ -787,6 +818,7 @@ class FlexibilityQualityDeployment {
 }
 
 /// Extensibility and verification expectations.
+@SectionId('PD00-SYQ-TEC-FLX-EXT')
 class FlexibilityQualityExtensibility {
   @Form([
     Field('extensibilityModel', String, 'Extensibility Model',
@@ -800,6 +832,7 @@ class FlexibilityQualityExtensibility {
 }
 
 /// 11.3.4. Security quality [PD00-SYQ-TEC-SEC].
+@SectionId('PD00-SYQ-TEC-SEC')
 class SecurityQuality {
   @Form([
     Field('encryptionAtRest', String, 'Encryption at Rest',
@@ -831,6 +864,7 @@ class SecurityQuality {
 }
 
 /// Authentication controls.
+@SectionId('PD00-SYQ-TEC-SEC-AUT')
 class SecurityQualityAuthentication {
   @Form([
     Field('authenticationMethod', String, 'Authentication Method',
@@ -846,6 +880,7 @@ class SecurityQualityAuthentication {
 }
 
 /// Authorization controls.
+@SectionId('PD00-SYQ-TEC-SEC-AUZ')
 class SecurityQualityAuthorization {
   @Form([
     Field('authorizationModel', String, 'Authorization Model',
@@ -859,6 +894,7 @@ class SecurityQualityAuthorization {
 }
 
 /// Vulnerability management expectations.
+@SectionId('PD00-SYQ-TEC-SEC-VUL')
 class SecurityQualityVulnerability {
   @Form([
     Field('vulnerabilityScanFrequency', String, 'Vulnerability Scan Frequency',
@@ -872,6 +908,7 @@ class SecurityQualityVulnerability {
 }
 
 /// Compliance and verification settings.
+@SectionId('PD00-SYQ-TEC-SEC-COM')
 class SecurityQualityCompliance {
   @Form([
     Field('securityCompliance', String, 'Security Compliance',
@@ -887,6 +924,7 @@ class SecurityQualityCompliance {
 }
 
 /// 11.3.5. Maintainability quality [PD00-SYQ-TEC-MAI].
+@SectionId('PD00-SYQ-TEC-MNT')
 class MaintainabilityQuality {
   @Form([
     Field('adaptabilityTarget', String, 'Adaptability Target',
@@ -917,6 +955,7 @@ class MaintainabilityQuality {
 }
 
 /// Analyzability requirements.
+@SectionId('PD00-SYQ-TEC-MNT-ANA')
 class MaintainabilityQualityAnalyzability {
   @Form([
     Field('codeReadabilityStandard', String, 'Code Readability Standard',
@@ -930,6 +969,7 @@ class MaintainabilityQualityAnalyzability {
 }
 
 /// Changeability requirements.
+@SectionId('PD00-SYQ-TEC-MNT-CHA')
 class MaintainabilityQualityChangeability {
   @Form([
     Field('codeCoverageMinimum', String, 'Code Coverage Minimum',
@@ -945,6 +985,7 @@ class MaintainabilityQualityChangeability {
 }
 
 /// Testability requirements.
+@SectionId('PD00-SYQ-TEC-MNT-TST')
 class MaintainabilityQualityTestability {
   @Form([
     Field('testabilityDesign', String, 'Testability Design',
@@ -958,6 +999,7 @@ class MaintainabilityQualityTestability {
 }
 
 /// Extensibility and verification requirements.
+@SectionId('PD00-SYQ-TEC-MNT-GOV')
 class MaintainabilityQualityGovernance {
   @Form([
     Field('extensibilityPattern', String, 'Extensibility Pattern',
@@ -973,6 +1015,7 @@ class MaintainabilityQualityGovernance {
 }
 
 /// 11.3.6. Reliability quality [PD00-SYQ-TEC-REL].
+@SectionId('PD00-SYQ-TEC-REL')
 class ReliabilityQuality {
   @Form([
     Field('uptimeTarget', String, 'Uptime Target',
@@ -1002,6 +1045,7 @@ class ReliabilityQuality {
 }
 
 /// Recovery objectives.
+@SectionId('PD00-SYQ-TEC-REL-REC')
 class ReliabilityQualityRecovery {
   @Form([
     Field('mtbfTarget', String, 'MTBF Target',
@@ -1017,6 +1061,7 @@ class ReliabilityQualityRecovery {
 }
 
 /// Failover requirements.
+@SectionId('PD00-SYQ-TEC-REL-FAI')
 class ReliabilityQualityFailover {
   @Form([
     Field('failoverStrategy', String, 'Failover Strategy',
@@ -1030,6 +1075,7 @@ class ReliabilityQualityFailover {
 }
 
 /// Data durability requirements.
+@SectionId('PD00-SYQ-TEC-REL-DUR')
 class ReliabilityQualityDurability {
   @Form([
     Field('dataDurability', String, 'Data Durability',
@@ -1045,6 +1091,7 @@ class ReliabilityQualityDurability {
 }
 
 /// Verification and learning.
+@SectionId('PD00-SYQ-TEC-REL-VER')
 class ReliabilityQualityVerification {
   @Form([
     Field('reliabilityVerification', String, 'Reliability Verification',
@@ -1106,6 +1153,7 @@ class OperationsQualityCriteria {
 }
 
 /// 11.4.1. Availability quality [PD00-SYQ-OPE-AVA].
+@SectionId('PD00-SYQ-OPE-AVA')
 class AvailabilityQuality {
   @Form([
     Field('uptimeTargetPercentage', String, 'Uptime Target %',
@@ -1138,6 +1186,7 @@ class AvailabilityQuality {
 }
 
 /// Operating-hour expectations.
+@SectionId('PD00-SYQ-OPE-AVA-OPH')
 class AvailabilityQualityOperatingHours {
   @Form([
     Field('operatingHours', String, 'Operating Hours',
@@ -1151,6 +1200,7 @@ class AvailabilityQualityOperatingHours {
 }
 
 /// Maintenance window policy.
+@SectionId('PD00-SYQ-OPE-AVA-MNT')
 class AvailabilityQualityMaintenance {
   @Form([
     Field('scheduledMaintenanceWindow', String, 'Scheduled Maintenance Window',
@@ -1166,6 +1216,7 @@ class AvailabilityQualityMaintenance {
 }
 
 /// Degraded-mode behavior.
+@SectionId('PD00-SYQ-OPE-AVA-DEG')
 class AvailabilityQualityDegradedMode {
   @Form([
     Field('degradedModeDefinition', String, 'Degraded Mode Definition',
@@ -1179,6 +1230,7 @@ class AvailabilityQualityDegradedMode {
 }
 
 /// Monitoring and reporting.
+@SectionId('PD00-SYQ-OPE-AVA-VER')
 class AvailabilityQualityVerification {
   @Form([
     Field('availabilityMonitoring', String, 'Availability Monitoring',
@@ -1190,6 +1242,7 @@ class AvailabilityQualityVerification {
 }
 
 /// 11.4.2. Service level quality [PD00-SYQ-OPE-SER].
+@SectionId('PD00-SYQ-OPE-SLQ')
 class ServiceLevelQuality {
   @Form([
     Field('supportTierStructure', String, 'Support Tier Structure',
@@ -1226,6 +1279,7 @@ class ServiceLevelQuality {
 }
 
 /// Remaining response targets.
+@SectionId('PD00-SYQ-OPE-SLQ-RSP')
 class ServiceLevelQualityResponse {
     @Form([
         Field('mediumResponseTime', String, 'Medium Response Time',
@@ -1237,6 +1291,7 @@ class ServiceLevelQualityResponse {
 }
 
 /// Resolution targets.
+@SectionId('PD00-SYQ-OPE-SLQ-RES')
 class ServiceLevelQualityResolution {
     @Form([
         Field('criticalResolutionTime', String, 'Critical Resolution Time',
@@ -1252,6 +1307,7 @@ class ServiceLevelQualityResolution {
 }
 
 /// Escalation rules.
+@SectionId('PD00-SYQ-OPE-SLQ-ESC')
 class ServiceLevelQualityEscalation {
     @Form([
         Field('escalationTimeframes', String, 'Escalation Timeframes',
@@ -1265,6 +1321,7 @@ class ServiceLevelQualityEscalation {
 }
 
 /// On-call support expectations.
+@SectionId('PD00-SYQ-OPE-SLQ-ONC')
 class ServiceLevelQualityOnCall {
     @Form([
         Field('onCallCoverage', String, 'On-Call Coverage',
@@ -1278,6 +1335,7 @@ class ServiceLevelQualityOnCall {
 }
 
 /// Restoration and communication priorities.
+@SectionId('PD00-SYQ-OPE-SLQ-RST')
 class ServiceLevelQualityRestoration {
     @Form([
         Field('serviceRestorationPriority', String, 'Service Restoration Priority',
@@ -1289,6 +1347,7 @@ class ServiceLevelQualityRestoration {
 }
 
 /// A service level agreement entry [PD00-SYQ-OPE-SER-SLA-nn].
+@SectionId('PD00-SYQ-OPE-SLQ-SLA')
 class ServiceLevelAgreementEntry {
   @Form([
     Field('slaId', String, 'SLA ID'),
@@ -1309,6 +1368,7 @@ class ServiceLevelAgreementEntry {
 }
 
 /// 11.4.3. Monitoring quality [PD00-SYQ-OPE-MON].
+@SectionId('PD00-SYQ-OPE-MON')
 class MonitoringQuality {
   @Form([
     Field('scalabilityMonitoringApproach', String, 'Scalability Monitoring',
@@ -1337,6 +1397,7 @@ class MonitoringQuality {
 }
 
 /// Component monitoring coverage.
+@SectionId('PD00-SYQ-OPE-MON-COV')
 class MonitoringQualityCoverage {
   @Form([
     Field('infrastructureMonitoring', String, 'Infrastructure Monitoring',
@@ -1352,6 +1413,7 @@ class MonitoringQualityCoverage {
 }
 
 /// Alert automation capabilities.
+@SectionId('PD00-SYQ-OPE-MON-AUT')
 class MonitoringQualityAutomation {
   @Form([
     Field('alertAutomation', String, 'Alert Automation',
@@ -1365,6 +1427,7 @@ class MonitoringQualityAutomation {
 }
 
 /// Alerting strategy and channels.
+@SectionId('PD00-SYQ-OPE-MON-ALT')
 class MonitoringQualityAlerting {
   @Form([
     Field('alertingStrategy', String, 'Alerting Strategy',
@@ -1380,6 +1443,7 @@ class MonitoringQualityAlerting {
 }
 
 /// Planning and observability settings.
+@SectionId('PD00-SYQ-OPE-MON-OPS')
 class MonitoringQualityOperations {
   @Form([
     Field('resourcePlanningFrequency', String, 'Resource Planning Frequency',
@@ -1397,6 +1461,7 @@ class MonitoringQualityOperations {
 }
 
 /// 11.4.4. IT Security Operations quality [PD00-SYQ-OPE-ITS].
+@SectionId('PD00-SYQ-OPE-ITS')
 class ItSecurityOperationsQuality {
   @Form([
     Field('accessControlModel', String, 'Access Control Model',
@@ -1428,6 +1493,7 @@ class ItSecurityOperationsQuality {
 }
 
 /// Access protection controls.
+@SectionId('PD00-SYQ-OPE-ITS-ACC')
 class ItSecurityOperationsQualityAccess {
   @Form([
     Field('privilegedAccessManagement', String, 'Privileged Access Management',
@@ -1441,6 +1507,7 @@ class ItSecurityOperationsQualityAccess {
 }
 
 /// Disaster recovery planning details.
+@SectionId('PD00-SYQ-OPE-ITS-REC')
 class ItSecurityOperationsQualityRecovery {
   @Form([
     Field('drTestingFrequency', String, 'DR Testing Frequency',
@@ -1456,6 +1523,7 @@ class ItSecurityOperationsQualityRecovery {
 }
 
 /// Penetration testing and remediation.
+@SectionId('PD00-SYQ-OPE-ITS-TST')
 class ItSecurityOperationsQualityTesting {
   @Form([
     Field('penetrationTestScope', String, 'Penetration Test Scope',
@@ -1470,6 +1538,7 @@ class ItSecurityOperationsQualityTesting {
 }
 
 /// Incident handling and reporting.
+@SectionId('PD00-SYQ-OPE-ITS-INC')
 class ItSecurityOperationsQualityIncident {
   @Form([
     Field('securityIncidentClassification', String, 'Incident Classification',
@@ -1534,6 +1603,7 @@ class DocumentationQualityCriteria {
 }
 
 /// 11.5.1. Readability quality [PD00-SYQ-DOC-REA].
+@SectionId('PD00-SYQ-DOC-REA')
 class ReadabilityQuality {
   @Form([
     Field('terminologyStandard', String, 'Terminology Standard',
@@ -1563,6 +1633,7 @@ class ReadabilityQuality {
 }
 
 /// Identifiability and navigation.
+@SectionId('PD00-SYQ-DOC-REA-NAV')
 class ReadabilityQualityNavigation {
   @Form([
     Field('sectionNumbering', String, 'Section Numbering',
@@ -1576,6 +1647,7 @@ class ReadabilityQualityNavigation {
 }
 
 /// Comprehensibility requirements.
+@SectionId('PD00-SYQ-DOC-REA-COM')
 class ReadabilityQualityComprehensibility {
   @Form([
     Field('readingLevelTarget', String, 'Reading Level Target',
@@ -1589,6 +1661,7 @@ class ReadabilityQualityComprehensibility {
 }
 
 /// Document structure rules.
+@SectionId('PD00-SYQ-DOC-REA-STR')
 class ReadabilityQualityStructure {
   @Form([
     Field('documentStructureTemplate', String, 'Structure Template',
@@ -1602,6 +1675,7 @@ class ReadabilityQualityStructure {
 }
 
 /// Style guide alignment.
+@SectionId('PD00-SYQ-DOC-REA-STY')
 class ReadabilityQualityStyle {
   @Form([
     Field('styleGuideReference', String, 'Style Guide Reference',
@@ -1615,6 +1689,7 @@ class ReadabilityQualityStyle {
 }
 
 /// 11.5.2. Documentation completeness quality [PD00-SYQ-DOC-COM].
+@SectionId('PD00-SYQ-DOC-CPL')
 class DocCompletenessQuality {
   @Form([
     // Topic coverage
@@ -1649,6 +1724,7 @@ class DocCompletenessQuality {
 }
 
 /// 11.5.3. Documentation correctness quality [PD00-SYQ-DOC-COR].
+@SectionId('PD00-SYQ-DOC-COR')
 class DocCorrectnessQuality {
   @Form([
     // Error-freedom
@@ -1676,6 +1752,7 @@ class DocCorrectnessQuality {
 }
 
 /// Formatting and implementation alignment.
+@SectionId('PD00-SYQ-DOC-COR-ALN')
 class DocCorrectnessQualityAlignment {
     @Form([
         Field('formatConsistency', String, 'Format Consistency',
@@ -1693,6 +1770,7 @@ class DocCorrectnessQualityAlignment {
 }
 
 /// Verification and feedback handling.
+@SectionId('PD00-SYQ-DOC-COR-VER')
 class DocCorrectnessQualityVerification {
     @Form([
         Field('correctnessVerification', String, 'Correctness Verification',
@@ -1704,6 +1782,7 @@ class DocCorrectnessQualityVerification {
 }
 
 /// 11.5.4. Documentation changeability quality [PD00-SYQ-DOC-CHA].
+@SectionId('PD00-SYQ-DOC-CHG')
 class DocChangeabilityQuality {
   @Form([
     Field('versioningStrategy', String, 'Versioning Strategy',
@@ -1732,6 +1811,7 @@ class DocChangeabilityQuality {
 }
 
 /// Extensibility and localization readiness.
+@SectionId('PD00-SYQ-DOC-CHG-EXT')
 class DocChangeabilityQualityExtensibility {
   @Form([
     Field('extensibilityApproach', String, 'Extensibility Approach',
@@ -1745,6 +1825,7 @@ class DocChangeabilityQualityExtensibility {
 }
 
 /// Sizing and structural consistency rules.
+@SectionId('PD00-SYQ-DOC-CHG-STR')
 class DocChangeabilityQualityStructure {
   @Form([
     Field('documentSizingGuideline', String, 'Document Sizing',
@@ -1760,6 +1841,7 @@ class DocChangeabilityQualityStructure {
 }
 
 /// Review and retirement maintenance process.
+@SectionId('PD00-SYQ-DOC-CHG-MNT')
 class DocChangeabilityQualityMaintenance {
   @Form([
     Field('reviewCycle', String, 'Review Cycle',
@@ -1841,6 +1923,7 @@ class WeightedQualityMatrix {
 }
 
 /// A quality weight entry [PD00-SYQ-PRI-WEI-nn].
+@SectionId('PD00-SYQ-PRI-WEI-ENT')
 class QualityWeightEntry {
   @Form([
     Field('qualityAttribute', String, 'Quality Attribute', required: true),
@@ -1887,6 +1970,7 @@ class TradeOffDecisions {
 }
 
 /// A trade-off decision entry (form) [PD00-SYQ-PRI-TRA-nn].
+@SectionId('PD00-SYQ-PRI-TRA-ENT')
 class TradeOffDecisionEntry {
   @Form([
     Field('decisionId', String, 'Decision ID',
@@ -1920,6 +2004,7 @@ class TradeOffDecisionEntry {
 }
 
 /// Qualities in conflict for trade-off decision.
+@SectionId('PD00-SYQ-PRI-TRA-ENT-QUA')
 class TradeOffDecisionEntryQualities {
   @Form([
     Field('prioritizedQuality', String, 'Prioritized Quality', required: true,
@@ -1933,6 +2018,7 @@ class TradeOffDecisionEntryQualities {
 }
 
 /// Rationale for trade-off decision.
+@SectionId('PD00-SYQ-PRI-TRA-ENT-RAT')
 class TradeOffDecisionEntryRationale {
   @Form([
     Field('businessRationale', String, 'Business Rationale',
@@ -1948,6 +2034,7 @@ class TradeOffDecisionEntryRationale {
 }
 
 /// Impact assessment for trade-off decision.
+@SectionId('PD00-SYQ-PRI-TRA-ENT-IMP')
 class TradeOffDecisionEntryImpact {
   @Form([
     Field('impactOnRequirements', String, 'Impact on Requirements',
@@ -1965,6 +2052,7 @@ class TradeOffDecisionEntryImpact {
 }
 
 /// Mitigation measures for trade-off decision.
+@SectionId('PD00-SYQ-PRI-TRA-ENT-MIT')
 class TradeOffDecisionEntryMitigation {
   @Form([
     Field('mitigationMeasures', String, 'Mitigation Measures',
@@ -1978,6 +2066,7 @@ class TradeOffDecisionEntryMitigation {
 }
 
 /// Approval and governance for trade-off decision.
+@SectionId('PD00-SYQ-PRI-TRA-ENT-APR')
 class TradeOffDecisionEntryApproval {
   @Form([
     Field('decisionDate', String, 'Decision Date'),
@@ -2065,6 +2154,7 @@ class MustPassCriteria {
 }
 
 /// A must-pass criterion entry (form) [PD00-SYQ-ACC-MUS-nn].
+@SectionId('PD00-SYQ-ACC-MUS-ENT')
 class MustPassCriterionEntry {
   @Form([
     Field('criterionId', String, 'Criterion ID',
@@ -2097,6 +2187,7 @@ class MustPassCriterionEntry {
 }
 
 /// Classification and intent of the criterion.
+@SectionId('PD00-SYQ-ACC-MUS-ENT-DEF')
 class MustPassCriterionEntryDefinition {
   @Form([
     Field('criterionDescription', String, 'Description',
@@ -2110,6 +2201,7 @@ class MustPassCriterionEntryDefinition {
 }
 
 /// Verification and threshold details.
+@SectionId('PD00-SYQ-ACC-MUS-ENT-VER')
 class MustPassCriterionEntryVerification {
   @Form([
     Field('verificationProcedure', String, 'Verification Procedure',
@@ -2127,6 +2219,7 @@ class MustPassCriterionEntryVerification {
 }
 
 /// Responsibility and dependency information.
+@SectionId('PD00-SYQ-ACC-MUS-ENT-GOV')
 class MustPassCriterionEntryGovernance {
   @Form([
     Field('responsibleParty', String, 'Responsible Party',
@@ -2144,6 +2237,7 @@ class MustPassCriterionEntryGovernance {
 }
 
 /// Execution status and defects.
+@SectionId('PD00-SYQ-ACC-MUS-ENT-STA')
 class MustPassCriterionEntryStatus {
   @Form([
     Field('criterionStatus', String, 'Status',
@@ -2185,6 +2279,7 @@ class QualityGateChecklist {
 }
 
 /// A quality gate check entry (form) [PD00-SYQ-ACC-GAT-nn].
+@SectionId('PD00-SYQ-ACC-GAT-ENT')
 class QualityGateCheckEntry {
   @Form([
     Field('checkId', String, 'Check ID',
@@ -2215,6 +2310,7 @@ class QualityGateCheckEntry {
 }
 
 /// Check definition and categorization.
+@SectionId('PD00-SYQ-ACC-GAT-ENT-DEF')
 class QualityGateCheckEntryDefinition {
   @Form([
     Field('checkDescription', String, 'Check Description',
@@ -2228,6 +2324,7 @@ class QualityGateCheckEntryDefinition {
 }
 
 /// Verification criteria and evidence.
+@SectionId('PD00-SYQ-ACC-GAT-ENT-VER')
 class QualityGateCheckEntryVerification {
   @Form([
     Field('verificationCriteria', String, 'Verification Criteria',
@@ -2241,6 +2338,7 @@ class QualityGateCheckEntryVerification {
 }
 
 /// Responsibility and timing.
+@SectionId('PD00-SYQ-ACC-GAT-ENT-EXE')
 class QualityGateCheckEntryExecution {
   @Form([
     Field('responsibleParty', String, 'Responsible Party', required: true,
@@ -2258,6 +2356,7 @@ class QualityGateCheckEntryExecution {
 }
 
 /// Status and observations.
+@SectionId('PD00-SYQ-ACC-GAT-ENT-STA')
 class QualityGateCheckEntryStatus {
   @Form([
     Field('checkStatus', String, 'Status',
@@ -2271,6 +2370,7 @@ class QualityGateCheckEntryStatus {
 }
 
 /// Blocking behavior.
+@SectionId('PD00-SYQ-ACC-GAT-ENT-BLK')
 class QualityGateCheckEntryBlocking {
   @Form([
     Field('isBlocking', bool, 'Is Blocking',

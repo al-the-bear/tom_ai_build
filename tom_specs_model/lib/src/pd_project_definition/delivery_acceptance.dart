@@ -135,6 +135,7 @@ response times, coverage period, and handover criteria.
 /// Represents a single deliverable item within any deliverable category.
 /// Captures identification, delivery logistics, quality requirements,
 /// ownership, and acceptance linkage.
+@SectionId('PD00-DEL-DEL-ENT')
 class DeliverableEntry {
   @Form([
     Field('deliverableId', String, 'Deliverable ID',
@@ -172,6 +173,7 @@ class DeliverableEntry {
 }
 
 /// Identity for deliverable.
+@SectionId('PD00-DEL-DEL-ENT-IDN')
 class DeliverableIdentity {
   @Form([
     Field('description', String, 'Description',
@@ -183,6 +185,7 @@ class DeliverableIdentity {
 }
 
 /// Logistics for deliverable.
+@SectionId('PD00-DEL-DEL-ENT-LOG')
 class DeliverableLogistics {
   @Form([
     Field('deliveryFormat', String, 'Delivery Format',
@@ -202,6 +205,7 @@ class DeliverableLogistics {
 }
 
 /// Version for deliverable.
+@SectionId('PD00-DEL-DEL-ENT-VER')
 class DeliverableVersion {
   @Form([
     Field('versionRequirement', String, 'Version Requirement',
@@ -215,6 +219,7 @@ class DeliverableVersion {
 }
 
 /// Quality for deliverable.
+@SectionId('PD00-DEL-DEL-ENT-QUA')
 class DeliverableQuality {
   @Form([
     Field('qualityStandard', String, 'Quality Standard',
@@ -230,6 +235,7 @@ class DeliverableQuality {
 }
 
 /// Ownership for deliverable.
+@SectionId('PD00-DEL-DEL-ENT-OWN')
 class DeliverableOwnership {
   @Form([
     Field('responsibleParty', String, 'Responsible Party',
@@ -245,6 +251,7 @@ class DeliverableOwnership {
 }
 
 /// Dependencies for deliverable.
+@SectionId('PD00-DEL-DEL-ENT-DEP')
 class DeliverableDependencies {
   @Form([
     Field('dependsOn', String, 'Depends On',
@@ -256,6 +263,7 @@ class DeliverableDependencies {
 }
 
 /// Legal for deliverable.
+@SectionId('PD00-DEL-DEL-ENT-LEG')
 class DeliverableLegal {
   @Form([
     Field('licenseType', String, 'License Type',
@@ -269,6 +277,7 @@ class DeliverableLegal {
 }
 
 /// Documentation for deliverable.
+@SectionId('PD00-DEL-DEL-ENT-DOC')
 class DeliverableDocumentation {
   @Form([
     Field('associatedDocumentation', String, 'Associated Documentation',
@@ -346,6 +355,7 @@ Each criterion must be:
 /// A single criterion that must be met for formal project acceptance.
 /// Aligned with IEEE 830 acceptance criteria structure and ISTQB
 /// acceptance test design.
+@SectionId('PD00-DEL-ACC-CRI-ENT')
 class DeliveryAcceptanceCriterionEntry {
   @Form([
     Field('criterionId', String, 'Criterion ID',
@@ -382,6 +392,7 @@ class DeliveryAcceptanceCriterionEntry {
 }
 
 /// Priority and description.
+@SectionId('PD00-DEL-ACC-CRI-ENT-DEF')
 class DeliveryAcceptanceCriterionEntryDefinition {
   @Form([
     Field('priority', String, 'Priority',
@@ -395,6 +406,7 @@ class DeliveryAcceptanceCriterionEntryDefinition {
 }
 
 /// Verification method and evidence.
+@SectionId('PD00-DEL-ACC-CRI-ENT-VER')
 class DeliveryAcceptanceCriterionEntryVerification {
   @Form([
     Field('verificationMethod', String, 'Verification Method',
@@ -418,6 +430,7 @@ class DeliveryAcceptanceCriterionEntryVerification {
 }
 
 /// Traceability links.
+@SectionId('PD00-DEL-ACC-CRI-ENT-TRA')
 class DeliveryAcceptanceCriterionEntryTraceability {
   @Form([
     Field('requirementRef', String, 'Requirement Reference',
@@ -431,6 +444,7 @@ class DeliveryAcceptanceCriterionEntryTraceability {
 }
 
 /// Responsibility assignments.
+@SectionId('PD00-DEL-ACC-CRI-ENT-OWN')
 class DeliveryAcceptanceCriterionEntryOwnership {
   @Form([
     Field('verifier', String, 'Verifier',
@@ -442,6 +456,7 @@ class DeliveryAcceptanceCriterionEntryOwnership {
 }
 
 /// Current status and notes.
+@SectionId('PD00-DEL-ACC-CRI-ENT-STA')
 class DeliveryAcceptanceCriterionEntryStatus {
   @Form([
     Field('currentStatus', String, 'Current Status',
@@ -505,6 +520,7 @@ class AcceptanceProcess {
 }
 
 /// Process overview.
+@SectionId('PD00-DEL-ACC-PRO-OVW')
 class AcceptanceProcessOverview {
   @Form([
     Field('processDescription', String, 'Process Description',
@@ -514,6 +530,7 @@ class AcceptanceProcessOverview {
 }
 
 /// Participants and governance.
+@SectionId('PD00-DEL-ACC-PRO-PAR')
 class AcceptanceProcessParticipants {
   @Form([
     Field('acceptanceBoard', String, 'Acceptance Board',
@@ -531,6 +548,7 @@ class AcceptanceProcessParticipants {
 }
 
 /// Timeline and schedule.
+@SectionId('PD00-DEL-ACC-PRO-TIM')
 class AcceptanceProcessTimeline {
   @Form([
     Field('plannedDuration', String, 'Planned Duration',
@@ -546,6 +564,7 @@ class AcceptanceProcessTimeline {
 }
 
 /// Decision framework.
+@SectionId('PD00-DEL-ACC-PRO-DEC')
 class AcceptanceProcessDecision {
   @Form([
     Field('decisionCriteria', String, 'Decision Criteria',
@@ -562,6 +581,7 @@ class AcceptanceProcessDecision {
 }
 
 /// Escalation.
+@SectionId('PD00-DEL-ACC-PRO-ESC')
 class AcceptanceProcessEscalation {
   @Form([
     Field('escalationProcess', String, 'Escalation Process',
@@ -575,6 +595,7 @@ class AcceptanceProcessEscalation {
 }
 
 /// Documentation.
+@SectionId('PD00-DEL-ACC-PRO-DOC')
 class AcceptanceProcessDocumentation {
   @Form([
     Field('acceptanceReportTemplate', String, 'Acceptance Report Template',
@@ -591,6 +612,7 @@ class AcceptanceProcessDocumentation {
 ///
 /// A single step in the formal acceptance workflow, with entry/exit
 /// conditions, responsible parties, and outputs.
+@SectionId('PD00-DEL-ACC-PRO-ENT')
 class AcceptanceStepEntry {
   @Form([
     Field('stepNumber', String, 'Step Number',
@@ -613,6 +635,7 @@ class AcceptanceStepEntry {
 }
 
 /// Participants and execution flow.
+@SectionId('PD00-DEL-ACC-PRO-ENT-FLW')
 class AcceptanceStepEntryFlow {
   @Form([
     Field('participants', String, 'Participants',
@@ -628,6 +651,7 @@ class AcceptanceStepEntryFlow {
 }
 
 /// Exit outcomes and timing.
+@SectionId('PD00-DEL-ACC-PRO-ENT-OUT')
 class AcceptanceStepEntryOutcome {
   @Form([
     Field('outputs', String, 'Outputs',
@@ -710,6 +734,7 @@ class UserAcceptanceTesting {
 }
 
 /// Scope and objectives for UAT.
+@SectionId('PD00-DEL-ACC-UAT-SCP')
 class UatScope {
   @Form([
     Field('scope', String, 'Scope Summary',
@@ -723,6 +748,7 @@ class UatScope {
 }
 
 /// Environment for UAT.
+@SectionId('PD00-DEL-ACC-UAT-ENV')
 class UatEnvironment {
   @Form([
     Field('environmentName', String, 'Environment Name',
@@ -740,6 +766,7 @@ class UatEnvironment {
 }
 
 /// Test data for UAT.
+@SectionId('PD00-DEL-ACC-UAT-DAT')
 class UatTestData {
   @Form([
     Field('testDataStrategy', String, 'Test Data Strategy',
@@ -755,6 +782,7 @@ class UatTestData {
 }
 
 /// Governance for UAT.
+@SectionId('PD00-DEL-ACC-UAT-GOV')
 class UatGovernance {
   @Form([
     Field('businessOwner', String, 'Business Owner',
@@ -774,6 +802,7 @@ class UatGovernance {
 }
 
 /// Schedule for UAT.
+@SectionId('PD00-DEL-ACC-UAT-SCH')
 class UatSchedule {
   @Form([
     Field('plannedStartDate', String, 'Planned Start Date',
@@ -791,6 +820,7 @@ class UatSchedule {
 }
 
 /// Criteria for UAT.
+@SectionId('PD00-DEL-ACC-UAT-CRI')
 class UatCriteria {
   @Form([
     Field('entryCriteria', String, 'Entry Criteria',
@@ -806,6 +836,7 @@ class UatCriteria {
 }
 
 /// Defect management for UAT.
+@SectionId('PD00-DEL-ACC-UAT-DEF')
 class UatDefectManagement {
   @Form([
     Field('defectTool', String, 'Defect Tracking Tool',
@@ -825,6 +856,7 @@ class UatDefectManagement {
 }
 
 /// Reporting for UAT.
+@SectionId('PD00-DEL-ACC-UAT-REP')
 class UatReporting {
   @Form([
     Field('dailyStatusFormat', String, 'Daily Status Format',
@@ -840,6 +872,7 @@ class UatReporting {
 }
 
 /// Non-functional acceptance for UAT.
+@SectionId('PD00-DEL-ACC-UAT-NFR')
 class UatNonFunctional {
   @Form([
     Field('accessibilityAcceptance', String, 'Accessibility Acceptance',
@@ -855,6 +888,7 @@ class UatNonFunctional {
 }
 
 /// Sign-off for UAT.
+@SectionId('PD00-DEL-ACC-UAT-SGN')
 class UatSignOff {
   @Form([
     Field('signOffAuthority', String, 'Sign-Off Authority',
@@ -868,6 +902,7 @@ class UatSignOff {
 }
 
 /// Training and readiness for UAT.
+@SectionId('PD00-DEL-ACC-UAT-TRN')
 class UatTraining {
   @Form([
     Field('testerTraining', String, 'Tester Training',
@@ -883,6 +918,7 @@ class UatTraining {
 /// Represents a distinct test execution round — e.g. Cycle 1 (initial),
 /// Cycle 2 (regression/retest). Each cycle defines scope, dates, entry/exit
 /// criteria, and focus areas per IEEE 829 Level Test Plan structure.
+@SectionId('PD00-DEL-ACC-UAT-CYC')
 class UatTestCycleEntry {
   @Form([
     Field('cycleName', String, 'Cycle Name',
@@ -907,6 +943,7 @@ class UatTestCycleEntry {
 }
 
 /// Scope and pass criteria for this cycle.
+@SectionId('PD00-DEL-ACC-UAT-CYC-SCP')
 class UatTestCycleEntryScope {
   @Form([
     Field('scenariosInScope', String, 'Scenarios in Scope',
@@ -925,6 +962,7 @@ class UatTestCycleEntryScope {
 }
 
 /// Staffing and risk context.
+@SectionId('PD00-DEL-ACC-UAT-CYC-EXE')
 class UatTestCycleEntryExecution {
   @Form([
     Field('assignedTesters', String, 'Assigned Testers',
@@ -941,6 +979,7 @@ class UatTestCycleEntryExecution {
 /// process, or acceptance criterion. Includes full traceability, preconditions,
 /// execution metadata, and pass/fail criteria per ISTQB and IEEE 829
 /// Level Test Case / Level Test Procedure structures.
+@SectionId('PD00-DEL-ACC-UAT-SCE')
 class TestScenarioEntry {
   @Form([
     Field('scenarioId', String, 'Scenario ID',
@@ -979,6 +1018,7 @@ class TestScenarioEntry {
 }
 
 /// Identification for test scenario.
+@SectionId('PD00-DEL-ACC-UAT-SCE-IDN')
 class TestScenarioIdentification {
   @Form([
     Field('description', String, 'Description',
@@ -992,6 +1032,7 @@ class TestScenarioIdentification {
 }
 
 /// Business context for test scenario.
+@SectionId('PD00-DEL-ACC-UAT-SCE-BUS')
 class TestScenarioBusiness {
   @Form([
     Field('businessProcessRef', String, 'Business Process Reference',
@@ -1007,6 +1048,7 @@ class TestScenarioBusiness {
 }
 
 /// Traceability for test scenario.
+@SectionId('PD00-DEL-ACC-UAT-SCE-TRA')
 class TestScenarioTraceability {
   @Form([
     Field('requirementRef', String, 'Requirement Reference',
@@ -1022,6 +1064,7 @@ class TestScenarioTraceability {
 }
 
 /// Setup for test scenario.
+@SectionId('PD00-DEL-ACC-UAT-SCE-SET')
 class TestScenarioSetup {
   @Form([
     Field('preconditions', String, 'Preconditions',
@@ -1037,6 +1080,7 @@ class TestScenarioSetup {
 }
 
 /// Execution for test scenario.
+@SectionId('PD00-DEL-ACC-UAT-SCE-EXE')
 class TestScenarioExecution {
   @Form([
     Field('testStepsSummary', String, 'Test Steps Summary',
@@ -1054,6 +1098,7 @@ class TestScenarioExecution {
 }
 
 /// Post-execution for test scenario.
+@SectionId('PD00-DEL-ACC-UAT-SCE-PST')
 class TestScenarioPostExecution {
   @Form([
     Field('postconditions', String, 'Postconditions',
@@ -1067,6 +1112,7 @@ class TestScenarioPostExecution {
 }
 
 /// Notes for test scenario.
+@SectionId('PD00-DEL-ACC-UAT-SCE-NOT')
 class TestScenarioNotes {
   @Form([
     Field('assumptions', String, 'Assumptions',
@@ -1084,6 +1130,7 @@ class TestScenarioNotes {
 /// Individual step within a test scenario. Captures the action, input data,
 /// expected result, and pass criteria at fine-grained level per IEEE 829
 /// Level Test Procedure structure.
+@SectionId('PD00-DEL-ACC-UAT-STE')
 class UatTestStepEntry {
   @Form([
     Field('stepNumber', String, 'Step Number',
@@ -1155,6 +1202,7 @@ class DefectResolution {
 }
 
 /// Classification refinement and SLA targets.
+@SectionId('PD00-DEL-ACC-DEF-SLA')
 class DefectResolutionSla {
   @Form([
     Field('reclassificationProcess', String, 'Reclassification Process',
@@ -1176,6 +1224,7 @@ class DefectResolutionSla {
 }
 
 /// Acceptance thresholds and deferral rules.
+@SectionId('PD00-DEL-ACC-DEF-THR')
 class DefectResolutionThresholds {
   @Form([
     Field('blockingThreshold', String, 'Blocking Threshold',
@@ -1195,6 +1244,7 @@ class DefectResolutionThresholds {
 }
 
 /// Triage, retest, and escalation process.
+@SectionId('PD00-DEL-ACC-DEF-PRO')
 class DefectResolutionProcess {
   @Form([
     Field('defectTrackingTool', String, 'Defect Tracking Tool',
@@ -1218,6 +1268,7 @@ class DefectResolutionProcess {
 }
 
 /// Reporting and closure rules.
+@SectionId('PD00-DEL-ACC-DEF-REP')
 class DefectResolutionReporting {
   @Form([
     Field('reportingFrequency', String, 'Reporting Frequency',
@@ -1287,6 +1338,7 @@ class SignOffProcess {
 }
 
 /// Signatory and quorum governance.
+@SectionId('PD00-DEL-ACC-SIG-GOV')
 class SignOffProcessGovernance {
     @Form([
         Field('operationsSignOff', String, 'Operations Sign-Off',
@@ -1301,6 +1353,7 @@ class SignOffProcessGovernance {
 }
 
 /// Evidence and checklist requirements.
+@SectionId('PD00-DEL-ACC-SIG-EVI')
 class SignOffProcessEvidence {
     @Form([
         Field('signOffDocumentTemplate', String, 'Sign-Off Document Template',
@@ -1322,6 +1375,7 @@ class SignOffProcessEvidence {
 }
 
 /// Conditional or partial acceptance policies.
+@SectionId('PD00-DEL-ACC-SIG-ACC')
 class SignOffProcessAcceptance {
     @Form([
         Field('conditionalAcceptancePolicy', String,
@@ -1342,6 +1396,7 @@ class SignOffProcessAcceptance {
 }
 
 /// Legal and contractual consequences.
+@SectionId('PD00-DEL-ACC-SIG-CTR')
 class SignOffProcessContractual {
     @Form([
         Field('legalImplications', String, 'Legal Implications',
@@ -1364,6 +1419,7 @@ class SignOffProcessContractual {
 }
 
 /// Review timeline.
+@SectionId('PD00-DEL-ACC-SIG-TIM')
 class SignOffProcessTimeline {
     @Form([
         Field('signOffDeadline', String, 'Sign-Off Deadline',
@@ -1431,6 +1487,7 @@ class WarrantyTerms {
 }
 
 /// Duration and activation.
+@SectionId('PD00-DEL-ACC-WAR-DUR')
 class WarrantyDuration {
   @Form([
     Field('warrantyEndDate', String, 'Warranty End Date',
@@ -1442,6 +1499,7 @@ class WarrantyDuration {
 }
 
 /// Scope of coverage.
+@SectionId('PD00-DEL-ACC-WAR-COV')
 class WarrantyCoverage {
   @Form([
     Field('exclusions', String, 'Exclusions',
@@ -1455,6 +1513,7 @@ class WarrantyCoverage {
 }
 
 /// Service levels.
+@SectionId('PD00-DEL-ACC-WAR-SLA')
 class WarrantyServiceLevels {
   @Form([
     Field('supportHours', String, 'Support Hours',
@@ -1474,6 +1533,7 @@ class WarrantyServiceLevels {
 }
 
 /// Process for defect handling.
+@SectionId('PD00-DEL-ACC-WAR-PRO')
 class WarrantyProcess {
   @Form([
     Field('defectReportingChannel', String, 'Defect Reporting Channel',
@@ -1489,6 +1549,7 @@ class WarrantyProcess {
 }
 
 /// Transition to support.
+@SectionId('PD00-DEL-ACC-WAR-TRN')
 class WarrantyTransition {
   @Form([
     Field('transitionToSupport', String, 'Transition to Standard Support',
@@ -1502,6 +1563,7 @@ class WarrantyTransition {
 }
 
 /// Financial terms.
+@SectionId('PD00-DEL-ACC-WAR-FIN')
 class WarrantyFinancial {
   @Form([
     Field('warrantyCost', String, 'Warranty Cost',
