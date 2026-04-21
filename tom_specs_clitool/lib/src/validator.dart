@@ -92,11 +92,9 @@ import 'model_reader.dart';
 /// independent of the `rootTypeName` passed to [validateModel]:
 ///
 /// - **`@SectionId` global uniqueness** — no two classes reachable from
-///   `ProjectDefinition` may carry the same `@SectionId` string.
-/// - **`@SectionIdPattern` global uniqueness** — same rule for full pattern
-///   strings. Additionally, the fixed prefix of each pattern (everything
-///   before the trailing `-xx` or `-NN` placeholder) is itself a logical
-///   section ID; no two patterns may share the same prefix.
+///   `ProjectDefinition` may carry the same `@SectionId` string.  Field-level
+///   `@SectionId` values (the `-LST` container IDs on list fields) are included
+///   in the same uniqueness namespace.
 /// - **`@SectionId` coverage** — every class reachable from
 ///   `ProjectDefinition` must carry a class-level `@SectionId`, unless it
 ///   is a list-element type reached via a field annotated with
@@ -144,16 +142,14 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- 1. @SectionIdPattern uniqueness + covered-type collection -----------
-
-  // pattern string → "ClassName.fieldName" (for uniqueness error messages)
-  final patternsSeen = <String, String>{};
-
-  // Fixed prefix of each pattern (everything before the trailing '-xx' or
-  // '-NN' suffix) → "ClassName.fieldName".  A pattern prefix occupies the
-  // same logical namespace as a @SectionId value, so the two sets must be
-  // disjoint.  Prefix uniqueness within patterns is also checked here.
-  final patternPrefixes = <String, String>{};
+  // --- 1. @SectionIdPattern coverage collection ----------------------------
+  //
+  // Under the flat-ID scheme, multiple list fields containing the same element
+  // type INTENTIONALLY share the same @SectionIdPattern value (e.g. all
+  // List<DeliverableEntry> fields share '@SectionIdPattern("DLVEN-xxx")').
+  // Pattern-string and pattern-prefix uniqueness checks are therefore not
+  // performed.  What IS checked is that field-level @SectionId values ("-LST"
+  // IDs) are globally unique — that check happens in section 2 below.
 
   // Direct element types of @SectionIdPattern list fields.
   final directPatternElements = <String>{};
@@ -165,34 +161,6 @@ void _validateStructuralInvariants(
       if (!field.isList || !field.listElementIsComplex) continue;
       final patAnno = field.getAnnotation('SectionIdPattern');
       if (patAnno == null) continue;
-
-      final pattern = patAnno.arguments['pattern'] as String? ?? '';
-      if (pattern.isNotEmpty) {
-        final key = '$className.${field.name}';
-        if (patternsSeen.containsKey(pattern)) {
-          errors.add(
-            '§8.6 @SectionIdPattern uniqueness: pattern "$pattern" '
-            'used by ${patternsSeen[pattern]} and $key '
-            '— patterns must be globally unique',
-          );
-        } else {
-          patternsSeen[pattern] = key;
-        }
-
-        // Extract and deduplicate the fixed prefix (strips trailing segment).
-        final prefix = _extractPatternPrefix(pattern);
-        if (prefix.isNotEmpty) {
-          if (patternPrefixes.containsKey(prefix)) {
-            errors.add(
-              '§8.6 @SectionIdPattern uniqueness: prefix "$prefix" '
-              'used by both ${patternPrefixes[prefix]} and $key '
-              '— pattern prefixes must be globally unique',
-            );
-          } else {
-            patternPrefixes[prefix] = key;
-          }
-        }
-      }
 
       if (field.listElementTypeName != null) {
         directPatternElements.add(field.listElementTypeName!);
@@ -235,7 +203,7 @@ void _validateStructuralInvariants(
     final cls = classes[className];
     if (cls == null) continue;
 
-    // @SectionId uniqueness
+    // @SectionId uniqueness — class-level annotation
     final sectionIdAnno = cls.getAnnotation('SectionId');
     if (sectionIdAnno != null) {
       final id = sectionIdAnno.arguments['id'] as String? ?? '';
@@ -273,6 +241,42 @@ void _validateStructuralInvariants(
           (detailedInByClass[className] ??= {}).add(docType);
         case 'SecondLevelSectionId':
           (secondLevelByClass[className] ??= {}).add(docType);
+      }
+    }
+  }
+
+  // --- 2b. Field-level @SectionId ("-LST") consistency check ---------------
+  //
+  // Field-level @SectionId values are type-scoped: all list fields containing
+  // the same element type share the same "-LST" ID.  The invariant to enforce
+  // is therefore consistency — a given "-LST" ID must always correspond to
+  // exactly one element type.  (Multiple fields of the same type sharing one
+  // "-LST" ID is valid and expected under the flat-ID scheme.)
+
+  // lstId → element type name (first field seen wins)
+  final lstIdToElementType = <String, String>{};
+
+  for (final className in reachable) {
+    final cls = classes[className];
+    if (cls == null) continue;
+    for (final field in cls.fields) {
+      if (!field.isList || !field.listElementIsComplex) continue;
+      final fieldSectionIdAnno = field.getAnnotation('SectionId');
+      if (fieldSectionIdAnno == null) continue;
+      final lstId = fieldSectionIdAnno.arguments['id'] as String? ?? '';
+      if (lstId.isEmpty) continue;
+      final elementType = field.listElementTypeName ?? '';
+      if (lstIdToElementType.containsKey(lstId)) {
+        final existing = lstIdToElementType[lstId]!;
+        if (existing != elementType) {
+          errors.add(
+            '§8.6 @SectionId consistency: "-LST" id "$lstId" used for both '
+            '$existing and $elementType — a "-LST" id must always correspond '
+            'to exactly one element type',
+          );
+        }
+      } else {
+        lstIdToElementType[lstId] = elementType;
       }
     }
   }
@@ -453,16 +457,3 @@ bool _isNonStringPrimitive(String typeName) {
   return const {'int', 'double', 'bool', 'num', 'DateTime'}.contains(base);
 }
 
-/// Extracts the fixed prefix from a `@SectionIdPattern` pattern string.
-///
-/// For a pattern like `"PD00-TEC-BAS-PLT-xx"` the fixed prefix is
-/// `"PD00-TEC-BAS-PLT"` — everything before the last dash-segment.
-/// The trailing segment (e.g. `xx` or `NN`) is the per-instance suffix
-/// placeholder and does not form part of the uniqueness namespace.
-///
-/// Returns [pattern] unchanged if it contains no dash.
-String _extractPatternPrefix(String pattern) {
-  final lastDash = pattern.lastIndexOf('-');
-  if (lastDash < 0) return pattern;
-  return pattern.substring(0, lastDash);
-}
