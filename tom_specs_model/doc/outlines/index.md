@@ -8,7 +8,7 @@ To regenerate all outlines, run from `tom_specs_clitool/`:
 
 ```
 dart run bin/outliner.dart --package ../tom_specs_model --root-type <ClassName> \
-  -o ../tom_specs_model/doc/outlines/<ClassName>_outline.txt
+  -o ../tom_specs_model/doc/outlines/<ClassName>_outline.md
 ```
 
 Add `--stop-at-detailed-in` (short: `-c`) to stop expansion at `@DetailedIn` boundaries and emit a compact outline:
@@ -16,7 +16,7 @@ Add `--stop-at-detailed-in` (short: `-c`) to stop expansion at `@DetailedIn` bou
 ```
 dart run bin/outliner.dart --package ../tom_specs_model --root-type ProjectDefinition \
   --stop-at-detailed-in \
-  -o ../tom_specs_model/doc/outlines/ProjectDefinition_compact_outline.txt
+  -o ../tom_specs_model/doc/outlines/ProjectDefinition_compact_outline.md
 ```
 
 ---
@@ -25,20 +25,20 @@ dart run bin/outliner.dart --package ../tom_specs_model --root-type ProjectDefin
 
 | ID  | Document | Root Class | Description | Outline |
 |-----|----------|------------|-------------|---------|
-| PD  | Project Definition | `ProjectDefinition` | Comprehensive specification covering all aspects of the system: current state, organizational framework, business processes, data models, technical framework, security, and UI design. Master document — all others `basedOn` PD. | [outline](ProjectDefinition_outline.txt) |
-| PD  | Project Definition *(compact)* | `ProjectDefinition` | Same as above but tree traversal stops at `@DetailedIn` boundaries — each such section shows a `→ DocId` marker instead of expanding its sub-tree. 1,469 lines vs 6,324 for the full outline. | [outline](ProjectDefinition_compact_outline.txt) |
-| BSI | Business System Interactions | `BusinessSystemInteractions` | Complete specification of interactions between the target system and external systems — inventory, patterns, testing, dependencies, migration, operations, and error handling. | [outline](BusinessSystemInteractions_outline.txt) |
-| BP  | Business Processes | `BusinessProcesses` | Target business process specification — vision, design principles, catalog, diagrams, improvements, relationships, workflows, cross-process analysis, exceptions, and KPIs. | [outline](BusinessProcesses_outline.txt) |
-| BDM | Business Data Model | `BusinessDataModel` | Complete business data model — entities, relationships, data classification, business objects, functions, rules, dictionary, and validation/integrity constraints. | [outline](BusinessDataModel_outline.txt) |
-| BQP | Business Quality Plan | `BusinessQualityPlan` | Business-facing quality plan — quality framework, user/technical/operations/documentation criteria, prioritization, acceptance criteria, test strategy, and acceptance plan. | [outline](BusinessQualityPlan_outline.txt) |
-| CS  | Current Situation | `CurrentSituation` | Detailed analysis of current systems and processes the target system will replace — landscape, pain points, metrics, risks, replacement inventory, and migration considerations. | [outline](CurrentSituation_outline.txt) |
-| AC  | Authorization Concept | `AuthorizationConcept` | Complete access and authorization specification — user management, authentication, resource protection, authorization, encryption, audit, role matrix, and compliance framework. | [outline](AuthorizationConcept_outline.txt) |
-| TR  | Technical Requirements | `TechnicalRequirementsSpec` | Comprehensive technical requirements — platform, software design, standard software, hardware, operations, communication, system operation, security, architecture, components, framework conditions, and translation handling. | [outline](TechnicalRequirementsSpec_outline.txt) |
-| SR  | System Rollout | `SystemRollout` | End-to-end rollout specification — localization, translation, documentation and training, rollout plan, migration plan, user manuals, training materials, pilot, cutover, knowledge transfer, and warranty/support. | [outline](SystemRollout_outline.txt) |
-| PPP | Project Phase Plan | `ProjectPhasePlan` | Comprehensive project phase plan — staging strategy, stages, feature prioritization, migration, gates, decisions, initial development flow, and upgrade cycle framework. | [outline](ProjectPhasePlan_outline.txt) |
-| UC  | Use Cases | `UseCases` | Use cases derived from target process steps and actor interactions — catalog, scenarios, diagrams, end-to-end test scenarios, and traceability. | [outline](UseCases_outline.txt) |
-| UP  | UI Prototype | `UiPrototype` | Full UI design and prototype specification — vision, screens, flow, print, errors, help, accessibility, responsive design, components, language selection, prototype, and wireframes/mockups. | [outline](UiPrototype_outline.txt) |
-| RC  | Requirements Catalog | `RequirementsCatalog` | Complete requirements catalog — functional, technical, security, organizational — with traceability, relationships, and coverage against goals, use cases, and tests. | [outline](RequirementsCatalog_outline.txt) |
+| PD  | Project Definition | `ProjectDefinition` | Comprehensive specification covering all aspects of the system: current state, organizational framework, business processes, data models, technical framework, security, and UI design. Master document — all others `basedOn` PD. | [outline](ProjectDefinition_outline.md) |
+| PD  | Project Definition *(compact)* | `ProjectDefinition` | Same as above but tree traversal stops at `@DetailedIn` boundaries — each such section shows a `→ DocId` marker instead of expanding its sub-tree. 1,469 lines vs 6,324 for the full outline. | [outline](ProjectDefinition_compact_outline.md) |
+| BSI | Business System Interactions | `BusinessSystemInteractions` | Complete specification of interactions between the target system and external systems — inventory, patterns, testing, dependencies, migration, operations, and error handling. | [outline](BusinessSystemInteractions_outline.md) |
+| BP  | Business Processes | `BusinessProcesses` | Target business process specification — vision, design principles, catalog, diagrams, improvements, relationships, workflows, cross-process analysis, exceptions, and KPIs. | [outline](BusinessProcesses_outline.md) |
+| BDM | Business Data Model | `BusinessDataModel` | Complete business data model — entities, relationships, data classification, business objects, functions, rules, dictionary, and validation/integrity constraints. | [outline](BusinessDataModel_outline.md) |
+| BQP | Business Quality Plan | `BusinessQualityPlan` | Business-facing quality plan — quality framework, user/technical/operations/documentation criteria, prioritization, acceptance criteria, test strategy, and acceptance plan. | [outline](BusinessQualityPlan_outline.md) |
+| CS  | Current Situation | `CurrentSituation` | Detailed analysis of current systems and processes the target system will replace — landscape, pain points, metrics, risks, replacement inventory, and migration considerations. | [outline](CurrentSituation_outline.md) |
+| AC  | Authorization Concept | `AuthorizationConcept` | Complete access and authorization specification — user management, authentication, resource protection, authorization, encryption, audit, role matrix, and compliance framework. | [outline](AuthorizationConcept_outline.md) |
+| TR  | Technical Requirements | `TechnicalRequirementsSpec` | Comprehensive technical requirements — platform, software design, standard software, hardware, operations, communication, system operation, security, architecture, components, framework conditions, and translation handling. | [outline](TechnicalRequirementsSpec_outline.md) |
+| SR  | System Rollout | `SystemRollout` | End-to-end rollout specification — localization, translation, documentation and training, rollout plan, migration plan, user manuals, training materials, pilot, cutover, knowledge transfer, and warranty/support. | [outline](SystemRollout_outline.md) |
+| PPP | Project Phase Plan | `ProjectPhasePlan` | Comprehensive project phase plan — staging strategy, stages, feature prioritization, migration, gates, decisions, initial development flow, and upgrade cycle framework. | [outline](ProjectPhasePlan_outline.md) |
+| UC  | Use Cases | `UseCases` | Use cases derived from target process steps and actor interactions — catalog, scenarios, diagrams, end-to-end test scenarios, and traceability. | [outline](UseCases_outline.md) |
+| UP  | UI Prototype | `UiPrototype` | Full UI design and prototype specification — vision, screens, flow, print, errors, help, accessibility, responsive design, components, language selection, prototype, and wireframes/mockups. | [outline](UiPrototype_outline.md) |
+| RC  | Requirements Catalog | `RequirementsCatalog` | Complete requirements catalog — functional, technical, security, organizational — with traceability, relationships, and coverage against goals, use cases, and tests. | [outline](RequirementsCatalog_outline.md) |
 
 ---
 

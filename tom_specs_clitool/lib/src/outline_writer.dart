@@ -109,7 +109,7 @@ class OutlineWriter {
       parts.add(_formatLeafField(field, cls));
     }
 
-    final prefix = '$indent-> ';
+    final prefix = '$indent- ';
     final joined = parts.join(', ');
     final fullLine = '$prefix$joined';
 
@@ -237,18 +237,18 @@ class OutlineWriter {
     final nameMatches = _fieldNameMatchesType(field.name, typeName);
     final showBothNames = !nameMatches || isReference;
 
-    final line = StringBuffer('$indent-> ');
+    final line = StringBuffer('$indent- ');
     if (showBothNames) {
-      line.write('${field.name}:$typeName');
+      line.write('${field.name}: `$typeName`');
     } else {
-      line.write(typeName);
+      line.write('`$typeName`');
     }
 
     // Reference path (§4.9)
     if (isReference) {
       final ref = field.getAnnotation('Reference')!;
-      final desc = ref.arguments['description'] ?? '';
-      line.write(':$desc');
+      final desc = (ref.arguments['description'] ?? '') as String;
+      if (desc.isNotEmpty) line.write(' (ref: $desc)');
     }
 
     // Trailing annotations
@@ -259,8 +259,7 @@ class OutlineWriter {
     if (stopAtDetailedIn && childClass != null && !isReference) {
       final docId = _detailedInDocId(childClass);
       if (docId != null) {
-        _padToColumn(line, 50 + indent.length);
-        line.write('→ $docId');
+        line.write(' → $docId');
         skipRecursion = true;
       }
     }
@@ -293,16 +292,17 @@ class OutlineWriter {
     final minVal = minAnno?.arguments['count'] as int?;
     final maxVal = maxAnno?.arguments['count'] as int?;
 
-    String listPrefix;
+    // Build cardinality tag, e.g. [1,] or [,5] or [1,5]; omit when unconstrained
+    final String cardinalityTag;
     if (minVal != null || maxVal != null) {
       final minStr = minVal?.toString() ?? '';
       final maxStr = maxVal?.toString() ?? '';
-      listPrefix = '($minStr,$maxStr)-:';
+      cardinalityTag = ' [$minStr,$maxStr]';
     } else {
-      listPrefix = '-:';
+      cardinalityTag = '';
     }
 
-    final line = StringBuffer('$indent$listPrefix ${field.name}:$innerType');
+    final line = StringBuffer('$indent-$cardinalityTag ${field.name}: `$innerType`');
 
     // Trailing annotations
     _appendTrailingAnnotations(line, field, indent.length);
@@ -314,8 +314,7 @@ class OutlineWriter {
       if (childClass != null) {
         final docId = _detailedInDocId(childClass);
         if (docId != null) {
-          _padToColumn(line, 50 + indent.length);
-          line.write('→ $docId');
+          line.write(' → $docId');
           skipRecursion = true;
         }
       }
@@ -356,8 +355,7 @@ class OutlineWriter {
     final comment = field.getAnnotation('Comment');
     if (comment != null) {
       final text = comment.arguments['text'] ?? '';
-      _padToColumn(line, 50 + indentLength);
-      line.write('← ($text)');
+      line.write(' ← ($text)');
     }
 
     // @Position (§4.11) — non-default only
@@ -365,8 +363,7 @@ class OutlineWriter {
     if (position != null) {
       final pos = position.arguments['position'] as String? ?? '';
       if (pos.isNotEmpty && pos != 'relative') {
-        _padToColumn(line, 50 + indentLength);
-        line.write('[$pos]');
+        line.write(' [$pos]');
       }
     }
 
@@ -375,8 +372,7 @@ class OutlineWriter {
     if (forEach != null) {
       final registry = forEach.arguments['registryType'] ?? '';
       final key = forEach.arguments['key'] ?? '';
-      _padToColumn(line, 50 + indentLength);
-      line.write('⟷ $registry.$key');
+      line.write(' ⟷ $registry.$key');
     }
   }
 
@@ -388,7 +384,7 @@ class OutlineWriter {
     for (final anno in annotations) {
       if (!_schemaOnlyAnnotations.contains(anno.name)) continue;
 
-      final buf = StringBuffer('$indent# @${anno.name}');
+      final buf = StringBuffer('$indent<!-- @${anno.name}');
       if (anno.arguments.isNotEmpty) {
         final args = anno.arguments.entries
             .map((e) => _formatArgValue(e.value))
@@ -400,6 +396,7 @@ class OutlineWriter {
       if (fieldName != null) {
         buf.write(' $fieldName');
       }
+      buf.write(' -->');
       _buffer.writeln(buf);
     }
   }
@@ -410,16 +407,7 @@ class OutlineWriter {
     return value.toString();
   }
 
-  void _padToColumn(StringBuffer buf, int column) {
-    final current = buf.length;
-    if (current < column) {
-      buf.write(' ' * (column - current));
-    } else {
-      buf.write(' ');
-    }
-  }
-
-  String _indent(int depth) => '    ' * depth;
+  String _indent(int depth) => '  ' * depth;
 
   bool _fieldNameMatchesType(String fieldName, String typeName) {
     if (typeName.isEmpty) return false;

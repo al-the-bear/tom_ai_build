@@ -21,7 +21,7 @@ Future<void> main(List<String> arguments) async {
     ..addOption(
       'output',
       abbr: 'o',
-      help: 'Output file path. Defaults to doc/<root_type>_outline.txt.',
+      help: 'Output file path. Defaults to doc/<root_type>_outline.md.',
     )
     ..addOption(
       'max-line-length',
@@ -74,7 +74,7 @@ Future<void> main(List<String> arguments) async {
       p.join(
         packagePath,
         'doc',
-        '${_toSnakeCase(rootType)}_outline.txt',
+        '${_toSnakeCase(rootType)}_outline.md',
       );
 
   final libPath = p.join(packagePath, 'lib');
