@@ -323,6 +323,7 @@ All criteria must be objectively measurable and verifiable.
 /// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
 @SectionId('PD00-DEL-ACC-CRI')
 @DetailedIn(BusinessQualityPlan)
+@SecondLevelSectionId(BusinessQualityPlan, 'BQP-CRI')
 class AcceptanceCriteriaList {
   @ContentHelp('''
 Formal acceptance criteria that must be met for project sign-off.
@@ -459,6 +460,7 @@ class DeliveryAcceptanceCriterionEntryStatus {
 /// and decision criteria.
 @SectionId('PD00-DEL-ACC-PRO')
 @DetailedIn(BusinessQualityPlan)
+@SecondLevelSectionId(BusinessQualityPlan, 'BQP-PRO')
 class AcceptanceProcess {
   @Form([
     Field('processName', String, 'Process Name',
@@ -648,6 +650,7 @@ class AcceptanceStepEntryOutcome {
 /// test documentation structure and ISTQB best practices.
 @SectionId('PD00-DEL-ACC-UAT')
 @DetailedIn(BusinessQualityPlan)
+@SecondLevelSectionId(BusinessQualityPlan, 'BQP-UAT')
 class UserAcceptanceTesting {
   @Form([
     Field('uatObjective', String, 'UAT Objective',
@@ -1115,6 +1118,7 @@ class UatTestStepEntry {
 /// resolution timeframes, blocking thresholds, and post-fix verification.
 @SectionId('PD00-DEL-ACC-DEF')
 @DetailedIn(BusinessQualityPlan)
+@SecondLevelSectionId(BusinessQualityPlan, 'BQP-DEF')
 class DefectResolution {
   @Form([
     Field('severityScheme', String, 'Severity Scheme',
@@ -1241,6 +1245,7 @@ class DefectResolutionReporting {
 /// contractual implications, and conditional acceptance handling.
 @SectionId('PD00-DEL-ACC-SIG')
 @DetailedIn(BusinessQualityPlan)
+@SecondLevelSectionId(BusinessQualityPlan, 'BQP-SIG')
 class SignOffProcess {
   @Form([
     Field('signOffAuthority', String, 'Sign-Off Authority',
@@ -1385,6 +1390,7 @@ class SignOffProcessTimeline {
 /// exclusions, and transition to standard support.
 @SectionId('PD00-DEL-ACC-WAR')
 @DetailedIn(BusinessQualityPlan)
+@SecondLevelSectionId(BusinessQualityPlan, 'BQP-WAR')
 class WarrantyTerms {
   @Form([
     Field('warrantyDuration', String, 'Warranty Duration',

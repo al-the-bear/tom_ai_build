@@ -114,6 +114,7 @@ to pixel-perfect designs with exact typography and spacing.
 @SectionId('PD00-USE-VIS')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
+@SecondLevelSectionId(UiPrototype, 'UP-VIS')
 class DesignVision {
   @ContentHelp('''
 ## Design Vision (10.1)
@@ -551,6 +552,7 @@ class PersonaScenarioEntry {
 @SectionId('PD00-USE-SCR')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
+@SecondLevelSectionId(UiPrototype, 'UP-SCR')
 class ScreenDescriptions {
   @ContentHelp('''
 ## Screen Descriptions (10.2)
@@ -1459,6 +1461,7 @@ Overall content organization and navigation structure.
 @SectionId('PD00-USE-SCF')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
+@SecondLevelSectionId(UiPrototype, 'UP-SCF')
 class ScreenFlowStructure {
   @ContentHelp('''
 ## Screen Flow Structure (10.3)
@@ -2375,6 +2378,7 @@ class NavigationGuardEntryRouting {
 @SectionId('PD00-USE-PRI')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
+@SecondLevelSectionId(UiPrototype, 'UP-PRI')
 class PrintLayout {
   @Form([
     Field('printStrategy', String, 'Print Strategy',
@@ -3744,6 +3748,7 @@ class ExportTemplateEntryAccess {
 @SectionId('PD00-USE-ERR')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
+@SecondLevelSectionId(UiPrototype, 'UP-ERR')
 class ErrorHandlingConcept {
   // ─────────────────────────────────────────────────────────────────────────
   // Error Handling Philosophy
@@ -4287,6 +4292,7 @@ class RecoveryScenarioEntry {
 @SectionId('PD00-USE-HLP')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
+@SecondLevelSectionId(UiPrototype, 'UP-HLP')
 class HelpConcept {
   // ─────────────────────────────────────────────────────────────────────────
   // Help System Overview
@@ -4712,6 +4718,7 @@ class SupportAccessSelfService {
 @SectionId('PD00-USE-ACC')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
+@SecondLevelSectionId(UiPrototype, 'UP-ACC')
 class Accessibility {
   // ─────────────────────────────────────────────────────────────────────────
   // Accessibility Overview
@@ -5006,6 +5013,7 @@ class AccessibilityCheckEntryRemediation {
 @SectionId('PD00-USE-RES')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
+@SecondLevelSectionId(UiPrototype, 'UP-RES')
 class ResponsiveDesign {
   // ─────────────────────────────────────────────────────────────────────────
   // Responsive Design Overview
@@ -5252,6 +5260,7 @@ class ResponsiveScreenRuleEntry {
 @SectionId('PD00-USE-COM')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
+@SecondLevelSectionId(UiPrototype, 'UP-COM')
 class UiComponents {
   // ─────────────────────────────────────────────────────────────────────────
   // Component Library Overview
@@ -6147,6 +6156,7 @@ class MultiLanguageAndRolloutPlan {
 @SectionId('PD00-USE-MUL-LOC')
 @MapsTo(SystemRollout)
 @DetailedIn(SystemRollout)
+@SecondLevelSectionId(SystemRollout, 'SR-LOC')
 class LocalizationProcess {
   @Form([
     Field('contentIdentification', String, 'Content Identification',
@@ -6225,6 +6235,7 @@ class LocalizationProcessDeployment {
 @SectionId('PD00-USE-MUL-TRA')
 @MapsTo(SystemRollout)
 @DetailedIn(SystemRollout)
+@SecondLevelSectionId(SystemRollout, 'SR-TRA')
 class TranslationProcess {
   @Form([
     Field('translationManagementSystem', String, 'Translation Management System',
@@ -6334,6 +6345,7 @@ class TranslationVendorEntry {
 @SectionId('PD00-USE-MUL-DOC')
 @MapsTo(SystemRollout)
 @DetailedIn(SystemRollout)
+@SecondLevelSectionId(SystemRollout, 'SR-DOC')
 class DocumentationAndTraining {
   // ─────────────────────────────────────────────────────────────────────────
   // Documentation
@@ -6440,6 +6452,7 @@ class TrainingModuleEntry {
 @SectionId('PD00-USE-MUL-LCS')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
+@SecondLevelSectionId(UiPrototype, 'UP-LCS')
 class LanguageCountrySelection {
   @Form([
     Field('pickerLocation', String, 'Picker Location',
@@ -6535,6 +6548,7 @@ class LanguageCountrySelectionUx {
 @SectionId('PD00-USE-MUL-REQ')
 @MapsTo(TechnicalRequirementsSpec)
 @DetailedIn(TechnicalRequirementsSpec)
+@SecondLevelSectionId(TechnicalRequirementsSpec, 'TR-REQ')
 class TranslationRequirements {
   @Form([
     Field('i18nFramework', String, 'I18N Framework',
@@ -6681,6 +6695,7 @@ class SupportedLocaleEntryRollout {
 @SectionId('PD00-USE-PRO')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
+@SecondLevelSectionId(UiPrototype, 'UP-PRO')
 class Prototype {
   // ─────────────────────────────────────────────────────────────────────────
   // Prototype Overview
@@ -7159,6 +7174,7 @@ class ThrowawayPrototypeValue {
 @SectionId('PD00-USE-WIR')
 @MapsTo(UiPrototype)
 @DetailedIn(UiPrototype)
+@SecondLevelSectionId(UiPrototype, 'UP-WIR')
 class WireframesAndMockups {
   @ContentHelp('''
 Catalog of wireframes and mockups across the UI. Complements the

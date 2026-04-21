@@ -144,6 +144,7 @@ class SystemStagePlanReadiness {
 /// delivery.
 @SectionId('PD00-SSP-STR')
 @DetailedIn(ProjectPhasePlan)
+@SecondLevelSectionId(ProjectPhasePlan, 'PPP-STR')
 class StagingStrategy {
   @Form([
     Field('stagingApproachType', String, 'Staging Approach Type',
@@ -440,6 +441,7 @@ class StagingGovernance {
 /// TOGAF architecture road-mapping.
 @SectionId('PD00-SSP-STA')
 @DetailedIn(ProjectPhasePlan)
+@SecondLevelSectionId(ProjectPhasePlan, 'PPP-STA')
 class StageOverview {
   @Form([
     Field('numberOfStages', String, 'Number of Stages',
@@ -1383,6 +1385,7 @@ class StageSuccessCriterionEntryStatus {
 /// delivery, MoSCoW (DSDM), and Kano model classification.
 @SectionId('PD00-SSP-FEA')
 @DetailedIn(ProjectPhasePlan)
+@SecondLevelSectionId(ProjectPhasePlan, 'PPP-FEA')
 class FeaturePrioritization {
   @Form([
     Field('prioritizationMethodology', String,
@@ -2174,6 +2177,7 @@ class FeatureDependencyEntry {
 /// principles, TOGAF migration planning, and PMBOK risk-aware delivery.
 @SectionId('PD00-SSP-MIG')
 @DetailedIn(ProjectPhasePlan)
+@SecondLevelSectionId(ProjectPhasePlan, 'PPP-MIG')
 class DataMigrationStrategy {
   @Form([
     Field('migrationApproach', String, 'Migration Approach',
@@ -3194,6 +3198,7 @@ class StageGovernanceTransition {
 /// outcomes are possible (proceed, rework, cancel, conditional).
 @SectionId('PD00-SSP-GOV-GAT')
 @DetailedIn(ProjectPhasePlan)
+@SecondLevelSectionId(ProjectPhasePlan, 'PPP-GAT')
 class PhaseGateReviews {
   @Form([
     Field('gateNamingConvention', String,
@@ -3498,6 +3503,7 @@ class ReviewCriterionEntryResult {
 /// criteria, authority, options, and impact analysis.
 @SectionId('PD00-SSP-GOV-DEC')
 @DetailedIn(ProjectPhasePlan)
+@SecondLevelSectionId(ProjectPhasePlan, 'PPP-DEC')
 class DecisionPoints {
   @Form([
     // --- Decision Framework ---
@@ -3812,6 +3818,7 @@ class DecisionOptionEntryTradeOffs {
 /// as "new in PPP".
 @SectionId('PD00-SSP-IDV')
 @DetailedIn(ProjectPhasePlan)
+@SecondLevelSectionId(ProjectPhasePlan, 'PPP-IDV')
 class InitialDevelopmentFlow {
   @ContentHelp('''
 Describes how the initial-development phases hand off to each other:
@@ -3838,6 +3845,7 @@ dependencies, parallel work streams, and synchronization points.
 /// defined in `_ai/quests/tom_specs/tom_system_upgrade.md`.
 @SectionId('PD00-SSP-UPG')
 @DetailedIn(ProjectPhasePlan)
+@SecondLevelSectionId(ProjectPhasePlan, 'PPP-UPG')
 class UpgradeCycleFramework {
   @ContentHelp('''
 Framework that governs the upgrade cycle once initial development

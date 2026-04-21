@@ -158,6 +158,7 @@ class SystemQualityGoalsResources {
 /// and how quality is structured and governed across the system.
 @SectionId('PD00-SYQ-FRA')
 @DetailedIn(BusinessQualityPlan)
+@SecondLevelSectionId(BusinessQualityPlan, 'BQP-FRA')
 class QualityFramework {
   // ─────────────────────────────────────────────────────────────────────────
   // Framework Configuration
@@ -342,6 +343,7 @@ class QualityCategoryEntryMetrics {
 /// functional completeness, and correctness from the end-user perspective.
 @SectionId('PD00-SYQ-USE')
 @DetailedIn(BusinessQualityPlan)
+@SecondLevelSectionId(BusinessQualityPlan, 'BQP-USE')
 class UserQualityCriteria {
   // ─────────────────────────────────────────────────────────────────────────
   // User Quality Overview
@@ -579,6 +581,7 @@ class CorrectnessQualityVerification {
 /// portability, flexibility, security, maintainability, and reliability.
 @SectionId('PD00-SYQ-TEC')
 @DetailedIn(BusinessQualityPlan)
+@SecondLevelSectionId(BusinessQualityPlan, 'BQP-TEC')
 class TechnicalQualityCriteria {
   // ─────────────────────────────────────────────────────────────────────────
   // Technical Quality Overview
@@ -1058,6 +1061,7 @@ class ReliabilityQualityVerification {
 /// levels, monitoring, and IT security operations.
 @SectionId('PD00-SYQ-OPE')
 @DetailedIn(BusinessQualityPlan)
+@SecondLevelSectionId(BusinessQualityPlan, 'BQP-OPE')
 class OperationsQualityCriteria {
   // ─────────────────────────────────────────────────────────────────────────
   // Operations Quality Overview
@@ -1486,6 +1490,7 @@ class ItSecurityOperationsQualityIncident {
 /// completeness, correctness, and changeability.
 @SectionId('PD00-SYQ-DOC')
 @DetailedIn(BusinessQualityPlan)
+@SecondLevelSectionId(BusinessQualityPlan, 'BQP-DOC')
 class DocumentationQualityCriteria {
   // ─────────────────────────────────────────────────────────────────────────
   // Documentation Quality Overview
@@ -1771,6 +1776,7 @@ class DocChangeabilityQualityMaintenance {
 /// matrices and explicit trade-off decisions.
 @SectionId('PD00-SYQ-PRI')
 @DetailedIn(BusinessQualityPlan)
+@SecondLevelSectionId(BusinessQualityPlan, 'BQP-PRI')
 class QualityPrioritization {
   // ─────────────────────────────────────────────────────────────────────────
   // Prioritization Framework
@@ -1991,6 +1997,7 @@ class TradeOffDecisionEntryApproval {
 /// and quality gate checklists.
 @SectionId('PD00-SYQ-ACC')
 @DetailedIn(BusinessQualityPlan)
+@SecondLevelSectionId(BusinessQualityPlan, 'BQP-ACC')
 class AcceptanceCriteriaSummary {
   // ─────────────────────────────────────────────────────────────────────────
   // Acceptance Framework
@@ -2283,6 +2290,7 @@ class QualityGateCheckEntryBlocking {
 /// Overall test strategy for the project. Covers HBSG AS23 Test Strategy.
 @SectionId('PD00-SYQ-TST')
 @DetailedIn(BusinessQualityPlan)
+@SecondLevelSectionId(BusinessQualityPlan, 'BQP-TST')
 class TestStrategy {
   @ContentHelp('''
 High-level strategy for verifying quality across the system. Distinct

@@ -64,6 +64,7 @@ access and authorization concerns.
 /// 9.1. User Management [PD00-ACC-USE].
 @SectionId('PD00-ACC-USE')
 @DetailedIn(AuthorizationConcept)
+@SecondLevelSectionId(AuthorizationConcept, 'AC-USE')
 class UserManagement {
   @ContentHelp('''
 Describe how users are organized, categorized, and managed throughout their
@@ -758,6 +759,7 @@ class UserAttributeEntry {
 /// 9.2. Identification and Authentication [PD00-ACC-IDE].
 @SectionId('PD00-ACC-IDE')
 @DetailedIn(AuthorizationConcept)
+@SecondLevelSectionId(AuthorizationConcept, 'AC-IDE')
 class IdentificationAndAuthentication {
   @ContentHelp('''
 Define how users prove their identity to the system. Authentication is the
@@ -3285,6 +3287,7 @@ class SessionLifecycleMonitoring {
 /// 9.3. Resource Protection [PD00-ACC-RES].
 @SectionId('PD00-ACC-RES')
 @DetailedIn(AuthorizationConcept)
+@SecondLevelSectionId(AuthorizationConcept, 'AC-RES')
 class ResourceProtection {
   @ContentHelp('''
 Overview of resource protection strategies covering data, APIs, and file
@@ -5022,6 +5025,7 @@ class PermissionEvaluationBehavior {
 /// Aligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.
 @SectionId('PD00-ACC-USA')
 @DetailedIn(AuthorizationConcept)
+@SecondLevelSectionId(AuthorizationConcept, 'AC-USA')
 class UserAuthorization {
   @ContentHelp('''
 Define the complete authorization structure that controls what users can do.
@@ -5986,6 +5990,7 @@ class ResourceKeyEntry {
 /// 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
 @SectionId('PD00-ACC-SEN')
 @DetailedIn(AuthorizationConcept)
+@SecondLevelSectionId(AuthorizationConcept, 'AC-SEN')
 class SensitiveDataEncryption {
   @ContentHelp('''
 Define encryption requirements for sensitive data both at rest and in transit.
@@ -6930,6 +6935,7 @@ class KeyCompromiseRecoveryPolicy {
 /// Computer Security Log Management).
 @SectionId('PD00-ACC-AUD')
 @DetailedIn(AuthorizationConcept)
+@SecondLevelSectionId(AuthorizationConcept, 'AC-AUD')
 class AuditAndLogging {
   @ContentHelp('''
 Define security audit and logging requirements. Comprehensive logging enables
@@ -7568,6 +7574,7 @@ class RegulatoryAuditSupport {
 /// Authorization Model.
 @SectionId('PD00-ACC-ROL')
 @DetailedIn(AuthorizationConcept)
+@SecondLevelSectionId(AuthorizationConcept, 'AC-ROL')
 class RoleMatrix {
   @ContentHelp('''
 Authoritative mapping of system roles to the permissions they hold.
@@ -7597,6 +7604,7 @@ authorization model; this section captures the concrete assignment.
 /// across @ContentHelp strings into an explicit section.
 @SectionId('PD00-ACC-CMP')
 @DetailedIn(AuthorizationConcept)
+@SecondLevelSectionId(AuthorizationConcept, 'AC-CMP')
 class ComplianceFramework {
   @ContentHelp('''
 Explicit mapping from the access/auth controls in PD00-ACC-* to the

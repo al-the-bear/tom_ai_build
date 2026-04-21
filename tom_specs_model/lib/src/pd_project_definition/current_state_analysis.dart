@@ -52,6 +52,7 @@ document alongside the PD00-SYO-SYR replacement inventory.
 /// and limitations. Provides the foundation for understanding the AS-IS state.
 @SectionId('PD00-CUR-SYS')
 @DetailedIn(CurrentSituation)
+@SecondLevelSectionId(CurrentSituation, 'CS-SYS')
 class ExistingSystemsLandscape {
   @ContentType('description', 'High-level overview of the existing systems '
       'landscape. Include a context diagram showing how systems interact.')
@@ -867,6 +868,7 @@ class SystemIntegrationOwnership {
 /// operational needs.
 @SectionId('PD00-CUR-PRO')
 @DetailedIn(CurrentSituation)
+@SecondLevelSectionId(CurrentSituation, 'CS-PRO')
 class CurrentBusinessProcesses {
   @ContentType('description', 'Overview of the business process landscape, '
       'including process categories, ownership, and interdependencies.')
@@ -1539,6 +1541,7 @@ class ProcessMetricEntryTargets {
 /// Each pain point includes business impact quantification and root cause.
 @SectionId('PD00-CUR-PAI')
 @DetailedIn(CurrentSituation)
+@SecondLevelSectionId(CurrentSituation, 'CS-PAI')
 class PainPointsAndGaps {
   @ContentHelp('''
 Executive overview of pain points and gaps in the current state.
@@ -2029,6 +2032,7 @@ class GapEntryResolution {
 /// trends, retention policies, and governance structures.
 @SectionId('PD00-CUR-DAT')
 @DetailedIn(CurrentSituation)
+@SecondLevelSectionId(CurrentSituation, 'CS-DAT')
 class CurrentDataLandscape {
   @ContentHelp('''
 Executive overview of the current data landscape. Summarize the overall data
@@ -3359,6 +3363,7 @@ class MasterDataDomainEntryGovernance {
 /// derive non-functional requirements.
 @SectionId('PD00-CUR-MET')
 @DetailedIn(CurrentSituation)
+@SecondLevelSectionId(CurrentSituation, 'CS-MET')
 class CurrentOperationalMetrics {
   @ContentHelp('''
 Captures measurable operational characteristics of the current systems
@@ -3388,6 +3393,7 @@ replacement underperforms the baseline).
 /// PD00-SYO-RIS which covers target-side risks.
 @SectionId('PD00-CUR-RIS')
 @DetailedIn(CurrentSituation)
+@SecondLevelSectionId(CurrentSituation, 'CS-RIS')
 class CurrentStateRiskAssessment {
   @ContentHelp('''
 Risks that originate from the current systems landscape or from the act of

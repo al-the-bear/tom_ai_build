@@ -536,6 +536,7 @@ class MigrationMappingEntry {
 /// 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
 @SectionId('PD00-BUS-DAT-REL')
 @DetailedIn(BusinessDataModel)
+@SecondLevelSectionId(BusinessDataModel, 'BDM-REL')
 class EntityRelationships {
   @ContentHelp('''
 Relationship specifications between data entities. Captures cardinality,
@@ -676,6 +677,7 @@ class EntityRelationshipEntry {
 /// 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
 @SectionId('PD00-BUS-DAT-CLA')
 @DetailedIn(BusinessDataModel)
+@SecondLevelSectionId(BusinessDataModel, 'BDM-CLA')
 class DataClassification {
   // ---------------------------------------------------------------------------
   // Classification Overview (4 fields)
@@ -1633,6 +1635,7 @@ class RuleExampleEntry {
 /// (PD00-BUS-DAT-ENT). Covers HBSG AS08-DAT.
 @SectionId('PD00-BUS-DAT-DIC')
 @DetailedIn(BusinessDataModel)
+@SecondLevelSectionId(BusinessDataModel, 'BDM-DIC')
 class DataDictionary {
   @ContentHelp('''
 Single authoritative registry for data attributes across the system.
@@ -1660,6 +1663,7 @@ Single authoritative registry for data attributes across the system.
 /// entities.
 @SectionId('PD00-BUS-DAT-VAL')
 @DetailedIn(BusinessDataModel)
+@SecondLevelSectionId(BusinessDataModel, 'BDM-VAL')
 class ValidationConstraints {
   @ContentHelp('''
 Business-level validation rules enforced on data. Distinct from schema
@@ -1686,6 +1690,7 @@ constraints (which are database-level) and from per-field form hints
 /// Cross-entity integrity rules beyond simple referential integrity.
 @SectionId('PD00-BUS-DAT-CON')
 @DetailedIn(BusinessDataModel)
+@SecondLevelSectionId(BusinessDataModel, 'BDM-CON')
 class IntegrityConstraints {
   @ContentHelp('''
 Integrity rules that preserve invariants across the data model.

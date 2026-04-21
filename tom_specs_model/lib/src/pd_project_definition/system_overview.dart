@@ -3651,6 +3651,7 @@ class RequirementsOverview {
 /// traceable to business goals and use cases.
 @SectionId('PD00-SYO-REQ-FUN')
 @DetailedIn(RequirementsCatalog)
+@SecondLevelSectionId(RequirementsCatalog, 'RC-FUN')
 @ContentHelp('Functional requirements describe system capabilities, behaviors, '
     'and features. Use clear, testable language. Each requirement should '
     'answer: What must the system do? For whom? Under what conditions?')
@@ -4316,6 +4317,7 @@ class RequirementTestCaseEntryAutomation {
 /// often drive architectural decisions.
 @SectionId('PD00-SYO-REQ-TEC')
 @DetailedIn(RequirementsCatalog)
+@SecondLevelSectionId(RequirementsCatalog, 'RC-TEC')
 @ContentHelp('Technical requirements describe non-functional aspects and '
     'constraints. Each should be measurable and testable. Common categories: '
     'Performance, Scalability, Availability, Security, Maintainability.')
@@ -4462,6 +4464,7 @@ class TechnicalRequirementEntryConstraints {
 /// security frameworks.
 @SectionId('PD00-SYO-REQ-SEC')
 @DetailedIn(RequirementsCatalog)
+@SecondLevelSectionId(RequirementsCatalog, 'RC-SEC')
 @ContentHelp('Security requirements protect confidentiality, integrity, '
     'and availability of information. Include authentication, authorization, '
     'data protection, and compliance requirements.')
@@ -4667,6 +4670,7 @@ class SecurityControlEntryVerification {
 /// readiness assessment practices.
 @SectionId('PD00-SYO-REQ-ORG')
 @DetailedIn(RequirementsCatalog)
+@SecondLevelSectionId(RequirementsCatalog, 'RC-ORG')
 @ContentHelp('Organizational requirements describe non-technical changes '
     'needed for system success: training, process changes, role changes, '
     'support structures, and communication.')
@@ -4863,6 +4867,7 @@ class SystemsToReplace {
 /// with portfolio-level metrics and prioritization guidance.
 @SectionId('PD00-SYO-SYR-INV')
 @DetailedIn(CurrentSituation)
+@SecondLevelSectionId(CurrentSituation, 'CS-INV')
 class ReplacementInventory {
   /// Portfolio summary before listing individual systems.
   @ContentHelp('Summarize the replacement portfolio: total system count, '
@@ -5486,6 +5491,7 @@ class SystemKnowledgeTransfer {
 /// migration details with global governance.
 @SectionId('PD00-SYO-SYR-MIG')
 @DetailedIn(CurrentSituation)
+@SecondLevelSectionId(CurrentSituation, 'CS-MIG')
 class MigrationConsiderations {
   @Form([
     Field('overallStrategy', String,
@@ -6023,6 +6029,7 @@ class SystemBoundaries {
 /// design principles.
 @SectionId('PD00-SYO-SYB-INT')
 @DetailedIn(BusinessSystemInteractions)
+@SecondLevelSectionId(BusinessSystemInteractions, 'BSI-INT')
 class ExternalInterfaces {
   /// Summary of the integration landscape.
   @ContentHelp('Summarize integration portfolio: total count by category, '
@@ -6569,6 +6576,7 @@ class InterfaceTestScenarioEntry {
 /// rationale to prevent scope creep and manage stakeholder expectations.
 @SectionId('PD00-SYO-SYB-OUT')
 @DetailedIn(BusinessSystemInteractions)
+@SecondLevelSectionId(BusinessSystemInteractions, 'BSI-OUT')
 class OutOfScope {
   /// Overview of scope exclusion approach.
   @ContentHelp('Describe the scope philosophy and how exclusions were '
@@ -6632,6 +6640,7 @@ class OutOfScopeEntryMitigation {
 /// tracked as a potential risk if proven incorrect.
 @SectionId('PD00-SYO-SYB-ASS')
 @DetailedIn(BusinessSystemInteractions)
+@SecondLevelSectionId(BusinessSystemInteractions, 'BSI-ASS')
 class BoundaryAssumptions {
   /// Overview of assumption categories and validation approach.
   @ContentHelp('Describe assumption categories, validation timeline, '
@@ -7039,6 +7048,7 @@ class ResponsibilityGovernance {
 @Comment('Seeds → TR')
 @MapsTo(TechnicalRequirementsSpec)
 @DetailedIn(TechnicalRequirementsSpec)
+@SecondLevelSectionId(TechnicalRequirementsSpec, 'TR-TEC')
 class TechnicalFrameworkConditions {
   // -------------------------------------------------------------------------
   // Technical Landscape Overview
@@ -8393,6 +8403,7 @@ class AssumptionRelationships {
 /// Complete external-system inventory covering BSI-LAN-INV content.
 @SectionId('PD00-SYO-SYB-INV')
 @DetailedIn(BusinessSystemInteractions)
+@SecondLevelSectionId(BusinessSystemInteractions, 'BSI-INV')
 class SystemLandscapeInventory {
   @ContentHelp('''
 Enumerates every external system the target system interacts with, with
@@ -8422,6 +8433,7 @@ organization's landscape.
 /// existing intra-system `InteractionPatterns` class.
 @SectionId('PD00-SYO-SYB-PAT')
 @DetailedIn(BusinessSystemInteractions)
+@SecondLevelSectionId(BusinessSystemInteractions, 'BSI-PAT')
 class BoundaryInteractionPatterns {
   @ContentHelp('''
 Reusable interaction patterns applied at system boundaries. Distinct
@@ -8450,6 +8462,7 @@ within the target system.
 /// Covers BSI-TST.
 @SectionId('PD00-SYO-SYB-TST')
 @DetailedIn(BusinessSystemInteractions)
+@SecondLevelSectionId(BusinessSystemInteractions, 'BSI-TST')
 class InteractionTestingStrategy {
   @ContentHelp('''
 Strategy for testing boundary interactions specifically. Complements the
@@ -8477,6 +8490,7 @@ broader PD00-SYQ-TST test strategy.
 /// dependencies. Covers BSI-DEP.
 @SectionId('PD00-SYO-SYB-DEP')
 @DetailedIn(BusinessSystemInteractions)
+@SecondLevelSectionId(BusinessSystemInteractions, 'BSI-DEP')
 class InteractionDependencyAnalysis {
   @ContentHelp('''
 What happens when external interactions are slow or unavailable, and
@@ -8505,6 +8519,7 @@ which of them lie on the critical path of user-facing flows.
 /// PD00-SYO-SYR (Systems to Replace). Covers BSI-MIG.
 @SectionId('PD00-SYO-SYB-MIG')
 @DetailedIn(BusinessSystemInteractions)
+@SecondLevelSectionId(BusinessSystemInteractions, 'BSI-MIG')
 class MigrationInteractions {
   @ContentHelp('''
 Transitional interactions that exist only during the migration window:
@@ -8531,6 +8546,7 @@ dual-write bridges, reconciliation feeds, freeze/replay mechanisms.
 /// Cross-requirement dependency and conflict graph.
 @SectionId('PD00-SYO-REQ-REL')
 @DetailedIn(RequirementsCatalog)
+@SecondLevelSectionId(RequirementsCatalog, 'RC-REL')
 class RequirementRelationships {
   @ContentHelp('''
 Explicit relationships between requirements: dependencies, conflicts,
@@ -8556,6 +8572,7 @@ FUN/TEC/SEC/ORG into a network.
 /// Coverage of requirements against goals, use cases, and tests.
 @SectionId('PD00-SYO-REQ-COV')
 @DetailedIn(RequirementsCatalog)
+@SecondLevelSectionId(RequirementsCatalog, 'RC-COV')
 class RequirementCoverage {
   @ContentHelp('''
 Reports coverage of requirements from multiple angles to ensure nothing
@@ -8582,6 +8599,7 @@ falls through.
 /// inside individual interface entries.
 @SectionId('PD00-SYO-SYB-OPE')
 @DetailedIn(BusinessSystemInteractions)
+@SecondLevelSectionId(BusinessSystemInteractions, 'BSI-OPE')
 class CrossBoundaryOperationalConsiderations {
   @ContentHelp('''
 Operational considerations that span all boundary interactions rather
@@ -8608,6 +8626,7 @@ than being specific to one partner.
 /// Distinct from per-interface error handling.
 @SectionId('PD00-SYO-SYB-ERR')
 @DetailedIn(BusinessSystemInteractions)
+@SecondLevelSectionId(BusinessSystemInteractions, 'BSI-ERR')
 class CrossBoundaryErrorHandling {
   @ContentHelp('''
 Policy for how failures propagate or are contained across boundary

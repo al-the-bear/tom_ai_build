@@ -63,6 +63,7 @@ PD00-USE-MUL localization/translation/documentation subtrees.
 /// cohorts across the go-live waves.
 @SectionId('PD00-ROL-PLN')
 @DetailedIn(SystemRollout)
+@SecondLevelSectionId(SystemRollout, 'SR-PLN')
 class RolloutPlan {
   @ContentHelp('''
 Rollout plan: sequencing, waves, and criteria for moving each cohort from
@@ -90,6 +91,7 @@ pre-go-live to production.
 /// landscape to the target.
 @SectionId('PD00-ROL-MIG')
 @DetailedIn(SystemRollout)
+@SecondLevelSectionId(SystemRollout, 'SR-MIG')
 class MigrationPlan {
   @ContentHelp('''
 System migration plan distinct from DR22 per-data-entity mapping
@@ -116,6 +118,7 @@ System migration plan distinct from DR22 per-data-entity mapping
 /// End-user documentation deliverables covering DR15 User Manual content.
 @SectionId('PD00-ROL-DOC')
 @DetailedIn(SystemRollout)
+@SecondLevelSectionId(SystemRollout, 'SR-DOC')
 class UserManuals {
   @ContentHelp('''
 User manual deliverables: what documents are produced, for which user
@@ -143,6 +146,7 @@ PD00-USE-HLP).
 /// Training deliverables covering DR17 Training Materials content.
 @SectionId('PD00-ROL-TRN')
 @DetailedIn(SystemRollout)
+@SecondLevelSectionId(SystemRollout, 'SR-TRN')
 class RolloutTrainingMaterials {
   @ContentHelp('''
 Training plan and materials: courses, content packages, trainers, and
@@ -169,6 +173,7 @@ captures the catalog of training modules at PD00 level.
 /// Pilot scope, cohort selection, success criteria, and exit decision rules.
 @SectionId('PD00-ROL-PIL')
 @DetailedIn(SystemRollout)
+@SecondLevelSectionId(SystemRollout, 'SR-PIL')
 class PilotPlan {
   @ContentHelp('''
 Pilot definition: who participates, what is in/out of pilot scope, how
@@ -196,6 +201,7 @@ success is measured, and the decision gate that authorizes rollout.
 /// covering the transition from current operation to the target system.
 @SectionId('PD00-ROL-CUT')
 @DetailedIn(SystemRollout)
+@SecondLevelSectionId(SystemRollout, 'SR-CUT')
 class CutoverProcedures {
   @ContentHelp('''
 Cutover runbook: the operational plan that executes the go-live moment.
@@ -224,6 +230,7 @@ waves — and than the Migration Plan — which covers data execution.
 /// Agreement content.
 @SectionId('PD00-ROL-KNO')
 @DetailedIn(SystemRollout)
+@SecondLevelSectionId(SystemRollout, 'SR-KNO')
 class KnowledgeTransfer {
   @ContentHelp('''
 Formal handover of system knowledge to operations and support teams.
@@ -249,6 +256,7 @@ Formal handover of system knowledge to operations and support teams.
 /// EK10 warranty content and feeds the SR top-level on the same topic.
 @SectionId('PD00-ROL-WAR')
 @DetailedIn(SystemRollout)
+@SecondLevelSectionId(SystemRollout, 'SR-WAR')
 class WarrantyAndSupport {
   @ContentHelp('''
 Terms governing the warranty window that follows acceptance. Distinct

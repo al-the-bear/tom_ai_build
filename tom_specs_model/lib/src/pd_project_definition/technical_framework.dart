@@ -85,6 +85,7 @@ Provide an executive summary of the technical framework approach.
 /// 8.1. Basic Technical Requirements [PD00-TEC-BAS].
 @SectionId('PD00-TEC-BAS')
 @DetailedIn(TechnicalRequirementsSpec)
+@SecondLevelSectionId(TechnicalRequirementsSpec, 'TR-BAS')
 @ContentHelp('''
 Define the foundational technical requirements that govern all system
 development. These decisions have far-reaching implications and should
@@ -2729,6 +2730,7 @@ class TestingStandardsTooling {
 /// 8.2. Software Design Requirements [PD00-TEC-SOF].
 @SectionId('PD00-TEC-SOF')
 @DetailedIn(TechnicalRequirementsSpec)
+@SecondLevelSectionId(TechnicalRequirementsSpec, 'TR-SOF')
 @ContentHelp('''
 Define software architecture, development environment, and component
 reusability requirements. These decisions shape developer experience,
@@ -5632,6 +5634,7 @@ class ComponentRegistryUpdates {
 /// 8.3. Standard Application Software Requirements [PD00-TEC-STA].
 @SectionId('PD00-TEC-STA')
 @DetailedIn(TechnicalRequirementsSpec)
+@SecondLevelSectionId(TechnicalRequirementsSpec, 'TR-STA')
 @ContentHelp('''
 Define requirements for standard software, third-party components, and
 compatibility with existing IT infrastructure. Enterprise integration
@@ -7747,6 +7750,7 @@ class ComplianceVerificationSectionContinuous {
 /// 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
 @SectionId('PD00-TEC-HAR')
 @DetailedIn(TechnicalRequirementsSpec)
+@SecondLevelSectionId(TechnicalRequirementsSpec, 'TR-HAR')
 @ContentHelp('''
 Define hardware infrastructure requirements for servers, clients, and
 network. Hardware decisions impact performance, availability, cost,
@@ -10624,6 +10628,7 @@ class NetworkSecurityRequirementsCompliance {
 /// 8.5. Operations Requirements [PD00-TEC-OPE].
 @SectionId('PD00-TEC-OPE')
 @DetailedIn(TechnicalRequirementsSpec)
+@SecondLevelSectionId(TechnicalRequirementsSpec, 'TR-OPE')
 @ContentHelp('''
 Define operational requirements for running and maintaining the system
 in production. Operations excellence directly impacts system availability,
@@ -13596,6 +13601,7 @@ class PostMaintenanceValidationClosure {
 /// 8.6. Communication Requirements [PD00-TEC-COM].
 @SectionId('PD00-TEC-COM')
 @DetailedIn(TechnicalRequirementsSpec)
+@SecondLevelSectionId(TechnicalRequirementsSpec, 'TR-COM')
 @ContentHelp('''
 Define network communication requirements including protocols, security,
 and external connectivity. Communication architecture affects performance,
@@ -14852,6 +14858,7 @@ class ConnectivityResilienceOperations {
 /// 8.7. System Operation and Monitoring [PD00-TEC-SYS].
 @SectionId('PD00-TEC-SYS')
 @DetailedIn(TechnicalRequirementsSpec)
+@SecondLevelSectionId(TechnicalRequirementsSpec, 'TR-SYS')
 @ContentHelp('''
 Define system operation, monitoring, and capacity planning requirements.
 Day-to-day operations ensure the system runs reliably and efficiently.
@@ -17493,6 +17500,7 @@ class CapacityReviewProcessPlanning {
 /// 8.8. Security Requirements [PD00-TEC-SEC].
 @SectionId('PD00-TEC-SEC')
 @DetailedIn(TechnicalRequirementsSpec)
+@SecondLevelSectionId(TechnicalRequirementsSpec, 'TR-SEC')
 @ContentHelp('''
 Define comprehensive security requirements including IT security standards,
 data protection, privacy, and security auditing. Security is foundational
@@ -19526,6 +19534,7 @@ class SecurityAuditEntryFollowUp {
 /// architecture-related identifier in the model.
 @SectionId('PD00-TEC-ARC')
 @DetailedIn(TechnicalRequirementsSpec)
+@SecondLevelSectionId(TechnicalRequirementsSpec, 'TR-ARC')
 class SystemArchitectureSpec {
   @ContentHelp('''
 System-level architecture description: layering, package structure,

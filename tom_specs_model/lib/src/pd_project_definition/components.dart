@@ -17,6 +17,7 @@ import '../document_stubs.dart';
 @Comment('Seeds → TR')
 @MapsTo(TechnicalRequirementsSpec)
 @DetailedIn(TechnicalRequirementsSpec)
+@SecondLevelSectionId(TechnicalRequirementsSpec, 'TR-COM')
 class ComponentsToUse {
     @ContentHelp('''
 ## Components to Use (Chapter 12)
