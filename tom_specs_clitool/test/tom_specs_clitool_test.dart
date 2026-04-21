@@ -74,9 +74,6 @@ void main() {
         // See completion_steps.tom_specs.md.
         expect(coverageWarnings, isEmpty, reason: coverageWarnings.join('\n'));
       },
-      skip: 'Pre-existing coverage gaps (~1082 classes across technical_framework.dart, '
-          'user_interface_design.dart, system_overview.dart, and others). '
-          'See completion_steps.tom_specs.md.',
     );
 
     test('§8.6: no duplicate @SectionIdPattern strings', () {

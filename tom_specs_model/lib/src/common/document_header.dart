@@ -4,6 +4,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 /// Standard document header present at the top of every TomSpecs document.
 ///
 /// All fields are optional strings representing the document's form fields.
+@SectionId('PD00-CMN-HDR')
 class DocumentHeader {
   @Form([
     Field('documentId', String, 'Document Id'),

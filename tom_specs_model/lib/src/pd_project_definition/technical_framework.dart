@@ -255,6 +255,7 @@ class TargetPlatformEntry {
 }
 
 /// Version requirements.
+@SectionId('PD00-TEC-BAS-PLA-PLT-ENT-VER')
 class TargetPlatformEntryVersion {
   @Form([
   Field('minimumVersion', String, 'Minimum Version',
@@ -268,6 +269,7 @@ class TargetPlatformEntryVersion {
 }
 
 /// Architecture details.
+@SectionId('PD00-TEC-BAS-PLA-PLT-ENT-ARC')
 class TargetPlatformEntryArchitecture {
   @Form([
   Field('supportedArchitectures', String, 'Supported Architectures',
@@ -278,6 +280,7 @@ class TargetPlatformEntryArchitecture {
 }
 
 /// Requirements and constraints.
+@SectionId('PD00-TEC-BAS-PLA-PLT-ENT-REQ')
 class TargetPlatformEntryRequirements {
   @Form([
   Field('minimumMemory', String, 'Minimum Memory',
@@ -291,6 +294,7 @@ class TargetPlatformEntryRequirements {
 }
 
 /// Lifecycle and compliance.
+@SectionId('PD00-TEC-BAS-PLA-PLT-ENT-LIF')
 class TargetPlatformEntryLifecycle {
   @Form([
   Field('justification', String, 'Justification',
@@ -337,6 +341,7 @@ class ProgrammingLanguageEntry {
 }
 
 /// Version requirements for programming language.
+@SectionId('PD00-TEC-BAS-PLA-LNG-ENT-VER')
 class ProgrammingLanguageEntryVersion {
   @Form([
     Field('recommendedVersion', String, 'Recommended Version',
@@ -348,6 +353,7 @@ class ProgrammingLanguageEntryVersion {
 }
 
 /// SDK configuration for programming language.
+@SectionId('PD00-TEC-BAS-PLA-LNG-ENT-SDK')
 class ProgrammingLanguageEntrySdk {
   @Form([
     Field('sdkName', String, 'SDK Name', hint: 'E.g., Dart SDK, Node.js'),
@@ -360,6 +366,7 @@ class ProgrammingLanguageEntrySdk {
 }
 
 /// Usage context for programming language.
+@SectionId('PD00-TEC-BAS-PLA-LNG-ENT-USE')
 class ProgrammingLanguageEntryUsage {
   @Form([
     Field('usageContext', String, 'Usage Context',
@@ -379,6 +386,7 @@ class ProgrammingLanguageEntryUsage {
 }
 
 /// Quality settings for programming language.
+@SectionId('PD00-TEC-BAS-PLA-LNG-ENT-QUA')
 class ProgrammingLanguageEntryQuality {
   @Form([
     Field('lintingRules', String, 'Linting Rules',
@@ -392,6 +400,7 @@ class ProgrammingLanguageEntryQuality {
 }
 
 /// Justification and notes for programming language.
+@SectionId('PD00-TEC-BAS-PLA-LNG-ENT-JUS')
 class ProgrammingLanguageEntryJustification {
   @Form([
     Field('justification', String, 'Justification',
@@ -437,6 +446,7 @@ class FrameworkRequirementEntry {
 }
 
 /// Identity details.
+@SectionId('PD00-TEC-BAS-PLA-FRM-ENT-IDE')
 class FrameworkIdentity {
   @Form([
     Field('publisher', String, 'Publisher', hint: 'Framework publisher/owner'),
@@ -446,6 +456,7 @@ class FrameworkIdentity {
 }
 
 /// Version requirements.
+@SectionId('PD00-TEC-BAS-PLA-FRM-ENT-VER')
 class FrameworkVersion {
   @Form([
     Field('minimumVersion', String, 'Minimum Version',
@@ -461,6 +472,7 @@ class FrameworkVersion {
 }
 
 /// Scope and plugins.
+@SectionId('PD00-TEC-BAS-PLA-FRM-ENT-SCO')
 class FrameworkScope {
   @Form([
     Field('usageScope', String, 'Usage Scope',
@@ -478,6 +490,7 @@ class FrameworkScope {
 }
 
 /// Compatibility.
+@SectionId('PD00-TEC-BAS-PLA-FRM-ENT-COM')
 class FrameworkCompatibility {
   @Form([
     Field('compatibleWith', String, 'Compatible With',
@@ -491,6 +504,7 @@ class FrameworkCompatibility {
 }
 
 /// Support status.
+@SectionId('PD00-TEC-BAS-PLA-FRM-ENT-SUP')
 class FrameworkSupport {
   @Form([
     Field('supportStatus', String, 'Support Status',
@@ -504,6 +518,7 @@ class FrameworkSupport {
 }
 
 /// Justification.
+@SectionId('PD00-TEC-BAS-PLA-FRM-ENT-JUS')
 class FrameworkJustification {
   @Form([
     Field('justification', String, 'Justification',
@@ -552,6 +567,7 @@ class BuildToolchainEntry {
 }
 
 /// Version requirements.
+@SectionId('PD00-TEC-BAS-PLA-BLD-ENT-VER')
 class BuildToolchainEntryVersions {
   @Form([
     Field('minimumVersion', String, 'Minimum Version',
@@ -563,6 +579,7 @@ class BuildToolchainEntryVersions {
 }
 
 /// Configuration and plugins.
+@SectionId('PD00-TEC-BAS-PLA-BLD-ENT-CFG')
 class BuildToolchainEntryConfiguration {
   @Form([
     Field('configurationFile', String, 'Configuration File',
@@ -576,6 +593,7 @@ class BuildToolchainEntryConfiguration {
 }
 
 /// Build profile settings.
+@SectionId('PD00-TEC-BAS-PLA-BLD-ENT-PRO')
 class BuildToolchainEntryProfiles {
   @Form([
     Field('buildProfiles', String, 'Build Profiles',
@@ -587,6 +605,7 @@ class BuildToolchainEntryProfiles {
 }
 
 /// Integration touchpoints.
+@SectionId('PD00-TEC-BAS-PLA-BLD-ENT-INT')
 class BuildToolchainEntryIntegration {
   @Form([
     Field('cicdIntegration', String, 'CI/CD Integration',
@@ -598,6 +617,7 @@ class BuildToolchainEntryIntegration {
 }
 
 /// Output artifact settings.
+@SectionId('PD00-TEC-BAS-PLA-BLD-ENT-OUT')
 class BuildToolchainEntryOutputs {
   @Form([
     Field('outputArtifacts', String, 'Output Artifacts',
@@ -609,6 +629,7 @@ class BuildToolchainEntryOutputs {
 }
 
 /// Performance and rationale.
+@SectionId('PD00-TEC-BAS-PLA-BLD-ENT-OPS')
 class BuildToolchainEntryOperations {
   @Form([
     Field('cachingStrategy', String, 'Caching Strategy',
@@ -654,6 +675,7 @@ class DeploymentTargetEntry {
 }
 
 /// Platform specifics for deployment target.
+@SectionId('PD00-TEC-BAS-PLA-DEP-ENT-PLT')
 class DeploymentTargetEntryPlatform {
   @Form([
     Field('platformTarget', String, 'Platform Target',
@@ -665,6 +687,7 @@ class DeploymentTargetEntryPlatform {
 }
 
 /// Build output configuration for deployment target.
+@SectionId('PD00-TEC-BAS-PLA-DEP-ENT-BLD')
 class DeploymentTargetEntryBuildOutput {
   @Form([
     Field('artifactFormat', String, 'Artifact Format',
@@ -682,6 +705,7 @@ class DeploymentTargetEntryBuildOutput {
 }
 
 /// Platform requirements for deployment target.
+@SectionId('PD00-TEC-BAS-PLA-DEP-ENT-REQ')
 class DeploymentTargetEntryRequirements {
   @Form([
     Field('minimumOsVersion', String, 'Minimum OS Version',
@@ -697,6 +721,7 @@ class DeploymentTargetEntryRequirements {
 }
 
 /// Deployment process configuration.
+@SectionId('PD00-TEC-BAS-PLA-DEP-ENT-PRC')
 class DeploymentTargetEntryProcess {
   @Form([
     Field('deploymentMethod', String, 'Deployment Method',
@@ -710,6 +735,7 @@ class DeploymentTargetEntryProcess {
 }
 
 /// Compliance and notes for deployment target.
+@SectionId('PD00-TEC-BAS-PLA-DEP-ENT-CMP')
 class DeploymentTargetEntryCompliance {
   @Form([
     Field('complianceRequirements', String, 'Compliance Requirements',
@@ -726,6 +752,7 @@ class DeploymentTargetEntryCompliance {
 }
 
 /// Dependency management configuration.
+@SectionId('PD00-TEC-BAS-PLA-DMG')
 class DependencyManagement {
   @Form([
     // Package manager
@@ -753,6 +780,7 @@ class DependencyManagement {
 }
 
 /// Versioning and update policy.
+@SectionId('PD00-TEC-BAS-PLA-DMG-VER')
 class DependencyManagementVersioning {
   @Form([
   Field('versioningPolicy', String, 'Versioning Policy',
@@ -766,6 +794,7 @@ class DependencyManagementVersioning {
 }
 
 /// Security and trust controls.
+@SectionId('PD00-TEC-BAS-PLA-DMG-SEC')
 class DependencyManagementSecurity {
   @Form([
   Field('securityScanning', String, 'Security Scanning',
@@ -779,6 +808,7 @@ class DependencyManagementSecurity {
 }
 
 /// Internal package and workspace strategy.
+@SectionId('PD00-TEC-BAS-PLA-DMG-INT')
 class DependencyManagementInternal {
   @Form([
   Field('internalPackages', String, 'Internal Packages',
@@ -790,6 +820,7 @@ class DependencyManagementInternal {
 }
 
 /// Caching and offline behavior.
+@SectionId('PD00-TEC-BAS-PLA-DMG-OPS')
 class DependencyManagementOperations {
   @Form([
   Field('cachingStrategy', String, 'Caching Strategy',
@@ -803,6 +834,7 @@ class DependencyManagementOperations {
 }
 
 /// Runtime environment constraints.
+@SectionId('PD00-TEC-BAS-PLA-RNT')
 class RuntimeEnvironment {
   @Form([
     Field('minimumMemory', String, 'Minimum Memory',
@@ -843,6 +875,7 @@ class RuntimeEnvironment {
 }
 
 /// Memory limits.
+@SectionId('PD00-TEC-BAS-PLA-RNT-MEM')
 class RuntimeEnvironmentMemory {
   @Form([
     Field('memoryLimits', String, 'Memory Limits',
@@ -852,6 +885,7 @@ class RuntimeEnvironmentMemory {
 }
 
 /// CPU and graphics requirements.
+@SectionId('PD00-TEC-BAS-PLA-RNT-CPU')
 class RuntimeEnvironmentCpu {
   @Form([
     Field('cpuArchitecture', String, 'CPU Architecture',
@@ -863,6 +897,7 @@ class RuntimeEnvironmentCpu {
 }
 
 /// Storage requirements.
+@SectionId('PD00-TEC-BAS-PLA-RNT-STO')
 class RuntimeEnvironmentStorage {
   @Form([
     Field('temporarySpace', String, 'Temporary Space',
@@ -874,6 +909,7 @@ class RuntimeEnvironmentStorage {
 }
 
 /// Network requirements.
+@SectionId('PD00-TEC-BAS-PLA-RNT-NET')
 class RuntimeEnvironmentNetwork {
   @Form([
     Field('networkRequirements', String, 'Network Requirements',
@@ -887,6 +923,7 @@ class RuntimeEnvironmentNetwork {
 }
 
 /// Environment variables.
+@SectionId('PD00-TEC-BAS-PLA-RNT-VAR')
 class RuntimeEnvironmentVariables {
   @Form([
     Field('requiredEnvVariables', String, 'Required Environment Variables',
@@ -898,6 +935,7 @@ class RuntimeEnvironmentVariables {
 }
 
 /// Runtime dependencies.
+@SectionId('PD00-TEC-BAS-PLA-RNT-DEP')
 class RuntimeEnvironmentDependencies {
   @Form([
     Field('systemDependencies', String, 'System Dependencies',
@@ -909,6 +947,7 @@ class RuntimeEnvironmentDependencies {
 }
 
 /// Scaling characteristics.
+@SectionId('PD00-TEC-BAS-PLA-RNT-SCA')
 class RuntimeEnvironmentScaling {
   @Form([
     Field('horizontalScaling', String, 'Horizontal Scaling',
@@ -922,6 +961,7 @@ class RuntimeEnvironmentScaling {
 }
 
 /// Additional notes.
+@SectionId('PD00-TEC-BAS-PLA-RNT-NOT')
 class RuntimeEnvironmentNotes {
   @Form([
     Field('notes', String, 'Notes',
@@ -1022,6 +1062,7 @@ Provide the architectural vision and primary style selection rationale.
 }
 
 /// Architecture overview and primary style selection.
+@SectionId('PD00-TEC-BAS-ARC-OVW')
 class ArchitectureOverview {
   @Form([
     Field('primaryStyle', String, 'Primary Architecture Style',
@@ -1049,6 +1090,7 @@ class ArchitectureOverview {
 }
 
 /// Architecture drivers.
+@SectionId('PD00-TEC-BAS-ARC-OVW-DRV')
 class ArchitectureOverviewDrivers {
   @Form([
     Field('justification', String, 'Justification',
@@ -1063,6 +1105,7 @@ class ArchitectureOverviewDrivers {
 }
 
 /// Trade-offs and alternatives.
+@SectionId('PD00-TEC-BAS-ARC-OVW-TRD')
 class ArchitectureOverviewTradeOffs {
   @Form([
     Field('benefitsExpected', String, 'Expected Benefits',
@@ -1080,6 +1123,7 @@ class ArchitectureOverviewTradeOffs {
 }
 
 /// Evolution planning.
+@SectionId('PD00-TEC-BAS-ARC-OVW-EVO')
 class ArchitectureOverviewEvolution {
   @Form([
     Field('evolutionPath', String, 'Evolution Path',
@@ -1091,6 +1135,7 @@ class ArchitectureOverviewEvolution {
 }
 
 /// Compliance considerations.
+@SectionId('PD00-TEC-BAS-ARC-OVW-CMP')
 class ArchitectureOverviewCompliance {
   @Form([
     Field('complianceRequirements', String, 'Compliance Requirements',
@@ -1125,6 +1170,7 @@ class ArchitecturePrincipleEntry {
 }
 
 /// Rationale and practical implications.
+@SectionId('PD00-TEC-BAS-ARC-PRI-ENT-GUI')
 class ArchitecturePrincipleEntryGuidance {
   @Form([
   Field('rationale', String, 'Rationale', hint: 'Why this principle matters'),
@@ -1137,6 +1183,7 @@ class ArchitecturePrincipleEntryGuidance {
 }
 
 /// Enforcement and applicability context.
+@SectionId('PD00-TEC-BAS-ARC-PRI-ENT-GOV')
 class ArchitecturePrincipleEntryGovernance {
   @Form([
   Field('enforcementLevel', String, 'Enforcement Level',
@@ -1155,6 +1202,7 @@ class ArchitecturePrincipleEntryGovernance {
 }
 
 /// Component organization and boundaries.
+@SectionId('PD00-TEC-BAS-ARC-COG')
 class ComponentOrganization {
   @Form([
     Field('organizationStrategy', String, 'Organization Strategy',
@@ -1181,6 +1229,7 @@ class ComponentOrganization {
 }
 
 /// Layering rules.
+@SectionId('PD00-TEC-BAS-ARC-COG-LAY')
 class ComponentOrganizationLayering {
   @Form([
     Field('layerStructure', String, 'Layer Structure',
@@ -1194,6 +1243,7 @@ class ComponentOrganizationLayering {
 }
 
 /// Domain boundaries.
+@SectionId('PD00-TEC-BAS-ARC-COG-DOM')
 class ComponentOrganizationDomain {
   @Form([
     Field('domainBoundaries', String, 'Domain Boundaries',
@@ -1207,6 +1257,7 @@ class ComponentOrganizationDomain {
 }
 
 /// Coupling guidance.
+@SectionId('PD00-TEC-BAS-ARC-COG-COU')
 class ComponentOrganizationCoupling {
   @Form([
     Field('couplingGuidelines', String, 'Coupling Guidelines',
@@ -1218,6 +1269,7 @@ class ComponentOrganizationCoupling {
 }
 
 /// Dependency management rules.
+@SectionId('PD00-TEC-BAS-ARC-COG-DEP')
 class ComponentOrganizationDependencies {
   @Form([
     Field('dependencyDirection', String, 'Dependency Direction',
@@ -1265,6 +1317,7 @@ class ArchitectureComponentEntry {
 }
 
 /// Purpose and ownership boundaries.
+@SectionId('PD00-TEC-BAS-ARC-CMP-ENT-PUR')
 class ArchitectureComponentEntryPurpose {
   @Form([
     Field('purpose', String, 'Purpose',
@@ -1278,6 +1331,7 @@ class ArchitectureComponentEntryPurpose {
 }
 
 /// Public and private boundaries.
+@SectionId('PD00-TEC-BAS-ARC-CMP-ENT-BND')
 class ArchitectureComponentEntryBoundaries {
   @Form([
     Field('publicInterface', String, 'Public Interface',
@@ -1291,6 +1345,7 @@ class ArchitectureComponentEntryBoundaries {
 }
 
 /// Dependency relationships.
+@SectionId('PD00-TEC-BAS-ARC-CMP-ENT-DEP')
 class ArchitectureComponentEntryDependencies {
   @Form([
     Field('upstreamDependencies', String, 'Upstream Dependencies',
@@ -1304,6 +1359,7 @@ class ArchitectureComponentEntryDependencies {
 }
 
 /// Technical delivery characteristics.
+@SectionId('PD00-TEC-BAS-ARC-CMP-ENT-TEC')
 class ArchitectureComponentEntryTechnical {
   @Form([
     Field('technology', String, 'Technology Stack',
@@ -1317,6 +1373,7 @@ class ArchitectureComponentEntryTechnical {
 }
 
 /// Team ownership and service expectations.
+@SectionId('PD00-TEC-BAS-ARC-CMP-ENT-OWN')
 class ArchitectureComponentEntryOwnership {
   @Form([
     Field('teamOwnership', String, 'Team Ownership',
@@ -1329,6 +1386,7 @@ class ArchitectureComponentEntryOwnership {
 }
 
 /// Communication patterns between components.
+@SectionId('PD00-TEC-BAS-ARC-COM')
 class CommunicationPatterns {
   @Form([
     Field('primaryPattern', String, 'Primary Communication Pattern',
@@ -1362,6 +1420,7 @@ class CommunicationPatterns {
 }
 
 /// Synchronous communication details.
+@SectionId('PD00-TEC-BAS-ARC-COM-SYN')
 class CommunicationPatternsSynchronous {
   @Form([
     Field('syncPatterns', String, 'Synchronous Patterns',
@@ -1373,6 +1432,7 @@ class CommunicationPatternsSynchronous {
 }
 
 /// Asynchronous communication details.
+@SectionId('PD00-TEC-BAS-ARC-COM-ASY')
 class CommunicationPatternsAsynchronous {
   @Form([
     Field('asyncProtocols', String, 'Asynchronous Protocols',
@@ -1386,6 +1446,7 @@ class CommunicationPatternsAsynchronous {
 }
 
 /// Data exchange contracts.
+@SectionId('PD00-TEC-BAS-ARC-COM-DAT')
 class CommunicationPatternsDataExchange {
   @Form([
     Field('dataContracts', String, 'Data Contracts',
@@ -1399,6 +1460,7 @@ class CommunicationPatternsDataExchange {
 }
 
 /// Reliability controls.
+@SectionId('PD00-TEC-BAS-ARC-COM-REL')
 class CommunicationPatternsReliability {
   @Form([
     Field('retryPolicies', String, 'Retry Policies',
@@ -1412,6 +1474,7 @@ class CommunicationPatternsReliability {
 }
 
 /// Observability settings.
+@SectionId('PD00-TEC-BAS-ARC-COM-OBS')
 class CommunicationPatternsObservability {
   @Form([
     Field('tracing', String, 'Distributed Tracing',
@@ -1424,6 +1487,7 @@ class CommunicationPatternsObservability {
 }
 
 /// Data architecture decisions.
+@SectionId('PD00-TEC-BAS-ARC-DAT')
 class DataArchitecture {
   @Form([
     Field('dataStrategy', String, 'Data Strategy',
@@ -1452,6 +1516,7 @@ class DataArchitecture {
 }
 
 /// Storage decisions.
+@SectionId('PD00-TEC-BAS-ARC-DAT-STO')
 class DataArchitectureStorage {
   @Form([
     Field('primaryStorage', String, 'Primary Storage',
@@ -1465,6 +1530,7 @@ class DataArchitectureStorage {
 }
 
 /// Data access patterns.
+@SectionId('PD00-TEC-BAS-ARC-DAT-ACC')
 class DataArchitectureAccess {
   @Form([
     Field('dataAccessPatterns', String, 'Data Access Patterns',
@@ -1477,6 +1543,7 @@ class DataArchitectureAccess {
 }
 
 /// Consistency model and transactions.
+@SectionId('PD00-TEC-BAS-ARC-DAT-CON')
 class DataArchitectureConsistency {
   @Form([
     Field('consistencyModel', String, 'Consistency Model',
@@ -1490,6 +1557,7 @@ class DataArchitectureConsistency {
 }
 
 /// Lifecycle controls.
+@SectionId('PD00-TEC-BAS-ARC-DAT-LIF')
 class DataArchitectureLifecycle {
   @Form([
     Field('dataRetention', String, 'Data Retention',
@@ -1503,6 +1571,7 @@ class DataArchitectureLifecycle {
 }
 
 /// Privacy and security controls.
+@SectionId('PD00-TEC-BAS-ARC-DAT-SEC')
 class DataArchitectureSecurity {
   @Form([
     Field('dataClassification', String, 'Data Classification',
@@ -1517,6 +1586,7 @@ class DataArchitectureSecurity {
 }
 
 /// Scalability and performance architecture.
+@SectionId('PD00-TEC-BAS-ARC-SCA')
 class ScalabilityArchitecture {
   @Form([
     Field('scalabilityModel', String, 'Scalability Model',
@@ -1546,6 +1616,7 @@ class ScalabilityArchitecture {
 }
 
 /// Capacity planning assumptions.
+@SectionId('PD00-TEC-BAS-ARC-SCA-CAP')
 class ScalabilityArchitectureCapacity {
   @Form([
     Field('expectedLoad', String, 'Expected Load',
@@ -1558,6 +1629,7 @@ class ScalabilityArchitectureCapacity {
 }
 
 /// Performance targets.
+@SectionId('PD00-TEC-BAS-ARC-SCA-TGT')
 class ScalabilityArchitectureTargets {
   @Form([
     Field('responseTimeTargets', String, 'Response Time Targets',
@@ -1571,6 +1643,7 @@ class ScalabilityArchitectureTargets {
 }
 
 /// Performance patterns.
+@SectionId('PD00-TEC-BAS-ARC-SCA-PAT')
 class ScalabilityArchitecturePatterns {
   @Form([
     Field('cachingStrategy', String, 'Caching Strategy',
@@ -1584,6 +1657,7 @@ class ScalabilityArchitecturePatterns {
 }
 
 /// Resource optimization controls.
+@SectionId('PD00-TEC-BAS-ARC-SCA-OPT')
 class ScalabilityArchitectureOptimization {
   @Form([
     Field('connectionPooling', String, 'Connection Pooling',
@@ -1597,6 +1671,7 @@ class ScalabilityArchitectureOptimization {
 }
 
 /// Testing and benchmarks.
+@SectionId('PD00-TEC-BAS-ARC-SCA-TST')
 class ScalabilityArchitectureTesting {
   @Form([
     Field('performanceTesting', String, 'Performance Testing',
@@ -1611,6 +1686,7 @@ class ScalabilityArchitectureTesting {
 }
 
 /// Integration architecture with external systems.
+@SectionId('PD00-TEC-BAS-ARC-INT')
 class IntegrationArchitecture {
   @Form([
     Field('integrationStrategy', String, 'Integration Strategy',
@@ -1642,6 +1718,7 @@ class IntegrationArchitecture {
 }
 
 /// External system landscape.
+@SectionId('PD00-TEC-BAS-ARC-INT-SYS')
 class IntegrationArchitectureSystems {
   @Form([
     Field('externalSystemCount', String, 'External System Count',
@@ -1655,6 +1732,7 @@ class IntegrationArchitectureSystems {
 }
 
 /// Data exchange approach.
+@SectionId('PD00-TEC-BAS-ARC-INT-DAT')
 class IntegrationArchitectureData {
   @Form([
     Field('dataTransformation', String, 'Data Transformation',
@@ -1668,6 +1746,7 @@ class IntegrationArchitectureData {
 }
 
 /// Security model for integrations.
+@SectionId('PD00-TEC-BAS-ARC-INT-SEC')
 class IntegrationArchitectureSecurity {
   @Form([
     Field('authenticationApproach', String, 'Authentication Approach',
@@ -1681,6 +1760,7 @@ class IntegrationArchitectureSecurity {
 }
 
 /// Reliability controls.
+@SectionId('PD00-TEC-BAS-ARC-INT-REL')
 class IntegrationArchitectureReliability {
   @Form([
     Field('errorHandling', String, 'Error Handling',
@@ -1694,6 +1774,7 @@ class IntegrationArchitectureReliability {
 }
 
 /// Monitoring and SLA management.
+@SectionId('PD00-TEC-BAS-ARC-INT-OPS')
 class IntegrationArchitectureOperations {
   @Form([
     Field('integrationMonitoring', String, 'Integration Monitoring',
@@ -1707,6 +1788,7 @@ class IntegrationArchitectureOperations {
 }
 
 /// Deployment topology and infrastructure.
+@SectionId('PD00-TEC-BAS-ARC-TOP')
 class DeploymentTopology {
   @Form([
     Field('topologyType', String, 'Topology Type',
@@ -1739,6 +1821,7 @@ class DeploymentTopology {
 }
 
 /// Infrastructure layout.
+@SectionId('PD00-TEC-BAS-ARC-TOP-INF')
 class DeploymentTopologyInfrastructure {
   @Form([
     Field('computeModel', String, 'Compute Model',
@@ -1752,6 +1835,7 @@ class DeploymentTopologyInfrastructure {
 }
 
 /// Environment layout.
+@SectionId('PD00-TEC-BAS-ARC-TOP-ENV')
 class DeploymentTopologyEnvironments {
   @Form([
     Field('environments', String, 'Environments',
@@ -1765,6 +1849,7 @@ class DeploymentTopologyEnvironments {
 }
 
 /// High-availability settings.
+@SectionId('PD00-TEC-BAS-ARC-TOP-AVL')
 class DeploymentTopologyAvailability {
   @Form([
     Field('redundancyModel', String, 'Redundancy Model',
@@ -1778,6 +1863,7 @@ class DeploymentTopologyAvailability {
 }
 
 /// Geographic distribution.
+@SectionId('PD00-TEC-BAS-ARC-TOP-GEO')
 class DeploymentTopologyGeography {
   @Form([
     Field('geographicDistribution', String, 'Geographic Distribution',
@@ -1791,6 +1877,7 @@ class DeploymentTopologyGeography {
 }
 
 /// Infrastructure-as-code strategy.
+@SectionId('PD00-TEC-BAS-ARC-TOP-IAC')
 class DeploymentTopologyInfrastructureAsCode {
   @Form([
     Field('iacApproach', String, 'IaC Approach',
@@ -1837,6 +1924,7 @@ class ArchitectureDecisionRecord {
 }
 
 /// Decision context and constraints.
+@SectionId('PD00-TEC-BAS-ARC-ADR-ENT-CTX')
 class ArchitectureDecisionRecordContext {
   @Form([
     Field('context', String, 'Context',
@@ -1850,6 +1938,7 @@ class ArchitectureDecisionRecordContext {
 }
 
 /// Decision outcome and rationale.
+@SectionId('PD00-TEC-BAS-ARC-ADR-ENT-OUT')
 class ArchitectureDecisionRecordOutcome {
   @Form([
     Field('decision', String, 'Decision',
@@ -1865,6 +1954,7 @@ class ArchitectureDecisionRecordOutcome {
 }
 
 /// Consequences and review.
+@SectionId('PD00-TEC-BAS-ARC-ADR-ENT-CON')
 class ArchitectureDecisionRecordConsequences {
   @Form([
     Field('consequences', String, 'Consequences',
@@ -1881,6 +1971,7 @@ class ArchitectureDecisionRecordConsequences {
 }
 
 /// Related decision links.
+@SectionId('PD00-TEC-BAS-ARC-ADR-ENT-REL')
 class ArchitectureDecisionRecordRelations {
   @Form([
     Field('relatedDecisions', String, 'Related Decisions',
@@ -2018,6 +2109,7 @@ class DesignPatternEntry {
 }
 
 /// Applicability guidance.
+@SectionId('PD00-TEC-BAS-PAT-DES-ENT-APP')
 class DesignPatternEntryApplicability {
   @Form([
     Field('applicability', String, 'When to Use',
@@ -2029,6 +2121,7 @@ class DesignPatternEntryApplicability {
 }
 
 /// Structural composition.
+@SectionId('PD00-TEC-BAS-PAT-DES-ENT-STR')
 class DesignPatternEntryStructure {
   @Form([
     Field('participants', String, 'Participants',
@@ -2042,6 +2135,7 @@ class DesignPatternEntryStructure {
 }
 
 /// Implementation guidance.
+@SectionId('PD00-TEC-BAS-PAT-DES-ENT-IMP')
 class DesignPatternEntryImplementation {
   @Form([
     Field('implementationGuidelines', String, 'Implementation Guidelines',
@@ -2055,6 +2149,7 @@ class DesignPatternEntryImplementation {
 }
 
 /// Architectural context.
+@SectionId('PD00-TEC-BAS-PAT-DES-ENT-CTX')
 class DesignPatternEntryContext {
   @Form([
     Field('usageScope', String, 'Usage Scope',
@@ -2066,6 +2161,7 @@ class DesignPatternEntryContext {
 }
 
 /// Enforcement and notes.
+@SectionId('PD00-TEC-BAS-PAT-DES-ENT-ENF')
 class DesignPatternEntryEnforcement {
   @Form([
     Field('enforcementLevel', String, 'Enforcement Level',
@@ -2105,6 +2201,7 @@ class CodingStandardEntry {
 }
 
 /// Rule description.
+@SectionId('PD00-TEC-BAS-PAT-COD-ENT-RUL')
 class CodingStandardEntryRuleDetails {
   @Form([
     Field('rule', String, 'Rule',
@@ -2116,6 +2213,7 @@ class CodingStandardEntryRuleDetails {
 }
 
 /// Naming requirements.
+@SectionId('PD00-TEC-BAS-PAT-COD-ENT-NAM')
 class CodingStandardEntryNaming {
   @Form([
     Field('namingConvention', String, 'Naming Convention',
@@ -2127,6 +2225,7 @@ class CodingStandardEntryNaming {
 }
 
 /// Formatting requirements.
+@SectionId('PD00-TEC-BAS-PAT-COD-ENT-FMT')
 class CodingStandardEntryFormatting {
   @Form([
     Field('indentation', String, 'Indentation',
@@ -2139,6 +2238,7 @@ class CodingStandardEntryFormatting {
 }
 
 /// Enforcement details.
+@SectionId('PD00-TEC-BAS-PAT-COD-ENT-ENF')
 class CodingStandardEntryEnforcement {
   @Form([
     Field('linterRule', String, 'Linter Rule',
@@ -2190,6 +2290,7 @@ class DevelopmentConventionEntry {
 }
 
 /// Background and workflow.
+@SectionId('PD00-TEC-BAS-PAT-CON-ENT-OVW')
 class DevelopmentConventionEntryOverview {
   @Form([
     Field('rationale', String, 'Rationale',
@@ -2201,6 +2302,7 @@ class DevelopmentConventionEntryOverview {
 }
 
 /// Version control requirements.
+@SectionId('PD00-TEC-BAS-PAT-CON-ENT-VCS')
 class DevelopmentConventionEntryVersionControl {
   @Form([
     Field('branchingStrategy', String, 'Branching Strategy',
@@ -2216,6 +2318,7 @@ class DevelopmentConventionEntryVersionControl {
 }
 
 /// Code review expectations.
+@SectionId('PD00-TEC-BAS-PAT-CON-ENT-REV')
 class DevelopmentConventionEntryReview {
   @Form([
     Field('reviewRequirements', String, 'Review Requirements',
@@ -2227,6 +2330,7 @@ class DevelopmentConventionEntryReview {
 }
 
 /// Automation integration.
+@SectionId('PD00-TEC-BAS-PAT-CON-ENT-AUT')
 class DevelopmentConventionEntryAutomation {
   @Form([
     Field('automationIntegration', String, 'Automation Integration',
@@ -2238,6 +2342,7 @@ class DevelopmentConventionEntryAutomation {
 }
 
 /// Enforcement and exceptions.
+@SectionId('PD00-TEC-BAS-PAT-CON-ENT-ENF')
 class DevelopmentConventionEntryEnforcement {
   @Form([
     Field('enforcementLevel', String, 'Enforcement Level',
@@ -2290,6 +2395,7 @@ class IndustryStandardEntry {
 }
 
 /// Scope details.
+@SectionId('PD00-TEC-BAS-PAT-IND-ENT-SCO')
 class IndustryStandardEntryScope {
   @Form([
     Field('applicableAreas', String, 'Applicable Areas',
@@ -2299,6 +2405,7 @@ class IndustryStandardEntryScope {
 }
 
 /// Requirement applicability.
+@SectionId('PD00-TEC-BAS-PAT-IND-ENT-COM')
 class IndustryStandardEntryCompliance {
   @Form([
     Field('applicableRequirements', String, 'Applicable Requirements',
@@ -2310,6 +2417,7 @@ class IndustryStandardEntryCompliance {
 }
 
 /// Certification details.
+@SectionId('PD00-TEC-BAS-PAT-IND-ENT-CER')
 class IndustryStandardEntryCertification {
   @Form([
     Field('certificationRequired', bool, 'Certification Required',
@@ -2325,6 +2433,7 @@ class IndustryStandardEntryCertification {
 }
 
 /// Verification settings.
+@SectionId('PD00-TEC-BAS-PAT-IND-ENT-VER')
 class IndustryStandardEntryVerification {
   @Form([
     Field('auditFrequency', String, 'Audit Frequency',
@@ -2338,6 +2447,7 @@ class IndustryStandardEntryVerification {
 }
 
 /// Reference metadata.
+@SectionId('PD00-TEC-BAS-PAT-IND-ENT-REF')
 class IndustryStandardEntryReference {
   @Form([
     Field('referenceUrl', String, 'Reference URL',
@@ -2348,6 +2458,7 @@ class IndustryStandardEntryReference {
 }
 
 /// Code quality metrics and thresholds.
+@SectionId('PD00-TEC-BAS-PAT-MET')
 class CodeQualityMetrics {
   @Form([
     Field('testCoverageMinimum', String, 'Test Coverage Minimum',
@@ -2378,6 +2489,7 @@ class CodeQualityMetrics {
 }
 
 /// Complexity limits.
+@SectionId('PD00-TEC-BAS-PAT-MET-CPX')
 class CodeQualityMetricsComplexity {
   @Form([
     Field('cyclomaticComplexityMax', String, 'Cyclomatic Complexity Max',
@@ -2393,6 +2505,7 @@ class CodeQualityMetricsComplexity {
 }
 
 /// Coupling metrics.
+@SectionId('PD00-TEC-BAS-PAT-MET-COU')
 class CodeQualityMetricsCoupling {
   @Form([
     Field('afferentCouplingMax', String, 'Afferent Coupling Max',
@@ -2406,6 +2519,7 @@ class CodeQualityMetricsCoupling {
 }
 
 /// Duplication thresholds.
+@SectionId('PD00-TEC-BAS-PAT-MET-DUP')
 class CodeQualityMetricsDuplication {
   @Form([
     Field('duplicationMax', String, 'Code Duplication Max',
@@ -2417,6 +2531,7 @@ class CodeQualityMetricsDuplication {
 }
 
 /// Static analysis thresholds.
+@SectionId('PD00-TEC-BAS-PAT-MET-STA')
 class CodeQualityMetricsStaticAnalysis {
   @Form([
     Field('warningsAllowed', String, 'Warnings Allowed',
@@ -2430,6 +2545,7 @@ class CodeQualityMetricsStaticAnalysis {
 }
 
 /// Tooling and reporting.
+@SectionId('PD00-TEC-BAS-PAT-MET-TOL')
 class CodeQualityMetricsTooling {
   @Form([
     Field('analysisTools', String, 'Analysis Tools',
@@ -2444,6 +2560,7 @@ class CodeQualityMetricsTooling {
 }
 
 /// Documentation standards and requirements.
+@SectionId('PD00-TEC-BAS-PAT-DOC')
 class DocumentationStandards {
   @Form([
     Field('publicApiDocRequired', bool, 'Public API Doc Required',
@@ -2475,6 +2592,7 @@ class DocumentationStandards {
 }
 
 /// Code documentation requirements.
+@SectionId('PD00-TEC-BAS-PAT-DOC-COD')
 class DocumentationStandardsCodeDocs {
   @Form([
     Field('returnDocRequired', bool, 'Return Doc Required',
@@ -2486,6 +2604,7 @@ class DocumentationStandardsCodeDocs {
 }
 
 /// Content requirements.
+@SectionId('PD00-TEC-BAS-PAT-DOC-CON')
 class DocumentationStandardsContent {
   @Form([
     Field('minimumDescription', String, 'Minimum Description',
@@ -2499,6 +2618,7 @@ class DocumentationStandardsContent {
 }
 
 /// Architecture documentation requirements.
+@SectionId('PD00-TEC-BAS-PAT-DOC-ARC')
 class DocumentationStandardsArchitecture {
   @Form([
     Field('architectureDocRequired', bool, 'Architecture Doc Required',
@@ -2512,6 +2632,7 @@ class DocumentationStandardsArchitecture {
 }
 
 /// Changelog and versioning requirements.
+@SectionId('PD00-TEC-BAS-PAT-DOC-VER')
 class DocumentationStandardsVersioning {
   @Form([
     Field('changelogRequired', bool, 'Changelog Required',
@@ -2525,6 +2646,7 @@ class DocumentationStandardsVersioning {
 }
 
 /// Review and publication settings.
+@SectionId('PD00-TEC-BAS-PAT-DOC-PRC')
 class DocumentationStandardsProcess {
   @Form([
     Field('docReviewRequired', bool, 'Doc Review Required',
@@ -2542,6 +2664,7 @@ class DocumentationStandardsProcess {
 }
 
 /// Error handling and exception patterns.
+@SectionId('PD00-TEC-BAS-PAT-ERR')
 class ErrorHandlingStandards {
   @Form([
     Field('errorPhilosophy', String, 'Error Handling Philosophy',
@@ -2575,6 +2698,7 @@ class ErrorHandlingStandards {
 }
 
 /// Exception type conventions.
+@SectionId('PD00-TEC-BAS-PAT-ERR-EXC')
 class ErrorHandlingStandardsExceptions {
   @Form([
     Field('exceptionHierarchy', String, 'Exception Hierarchy',
@@ -2588,6 +2712,7 @@ class ErrorHandlingStandardsExceptions {
 }
 
 /// Handling pattern defaults.
+@SectionId('PD00-TEC-BAS-PAT-ERR-PAT')
 class ErrorHandlingStandardsPatterns {
   @Form([
     Field('catchAllPolicy', String, 'Catch-All Policy',
@@ -2601,6 +2726,7 @@ class ErrorHandlingStandardsPatterns {
 }
 
 /// Reporting standards.
+@SectionId('PD00-TEC-BAS-PAT-ERR-REP')
 class ErrorHandlingStandardsReporting {
   @Form([
     Field('errorLogging', String, 'Error Logging',
@@ -2614,6 +2740,7 @@ class ErrorHandlingStandardsReporting {
 }
 
 /// User-facing communication rules.
+@SectionId('PD00-TEC-BAS-PAT-ERR-USR')
 class ErrorHandlingStandardsUserCommunication {
   @Form([
     Field('userErrorMessages', String, 'User Error Messages',
@@ -2627,6 +2754,7 @@ class ErrorHandlingStandardsUserCommunication {
 }
 
 /// Recovery guidance.
+@SectionId('PD00-TEC-BAS-PAT-ERR-REC')
 class ErrorHandlingStandardsRecovery {
   @Form([
     Field('recoveryStrategies', String, 'Recovery Strategies',
@@ -2640,6 +2768,7 @@ class ErrorHandlingStandardsRecovery {
 }
 
 /// Testing standards and requirements.
+@SectionId('PD00-TEC-BAS-PAT-TST')
 class TestingStandards {
   @Form([
     Field('unitTestRequired', bool, 'Unit Test Required',
@@ -2665,6 +2794,7 @@ class TestingStandards {
 }
 
 /// Additional test types and organization.
+@SectionId('PD00-TEC-BAS-PAT-TST-ORG')
 class TestingStandardsOrganization {
   @Form([
     Field('performanceTestRequired', bool, 'Performance Test Required',
@@ -2680,6 +2810,7 @@ class TestingStandardsOrganization {
 }
 
 /// Preferred testing patterns.
+@SectionId('PD00-TEC-BAS-PAT-TST-PAT')
 class TestingStandardsPatterns {
   @Form([
     Field('arrangActAssert', bool, 'Arrange-Act-Assert',
@@ -2695,6 +2826,7 @@ class TestingStandardsPatterns {
 }
 
 /// Quality requirements for tests.
+@SectionId('PD00-TEC-BAS-PAT-TST-QUA')
 class TestingStandardsQuality {
   @Form([
     Field('testIsolation', String, 'Test Isolation',
@@ -2708,6 +2840,7 @@ class TestingStandardsQuality {
 }
 
 /// Testing tools and CI integration.
+@SectionId('PD00-TEC-BAS-PAT-TST-TOL')
 class TestingStandardsTooling {
   @Form([
     Field('testFramework', String, 'Test Framework',
@@ -2913,6 +3046,7 @@ class SoftwareLayerEntry {
 }
 
 /// Responsibilities and constraints.
+@SectionId('PD00-TEC-SOF-LAY-LYR-ENT-RES')
 class SoftwareLayerEntryResponsibilities {
   @Form([
     Field('purpose', String, 'Purpose',
@@ -2926,6 +3060,7 @@ class SoftwareLayerEntryResponsibilities {
 }
 
 /// Typical components and organization.
+@SectionId('PD00-TEC-SOF-LAY-LYR-ENT-CMP')
 class SoftwareLayerEntryComponents {
   @Form([
     Field('typicalComponents', String, 'Typical Components',
@@ -2939,6 +3074,7 @@ class SoftwareLayerEntryComponents {
 }
 
 /// Dependency rules.
+@SectionId('PD00-TEC-SOF-LAY-LYR-ENT-DEP')
 class SoftwareLayerEntryDependencies {
   @Form([
     Field('allowedDependencies', String, 'Allowed Dependencies',
@@ -2952,6 +3088,7 @@ class SoftwareLayerEntryDependencies {
 }
 
 /// Technology and testing notes.
+@SectionId('PD00-TEC-SOF-LAY-LYR-ENT-TEC')
 class SoftwareLayerEntryTechnology {
   @Form([
     Field('frameworksUsed', String, 'Frameworks Used',
@@ -2966,6 +3103,7 @@ class SoftwareLayerEntryTechnology {
 }
 
 /// Layer communication rules and constraints.
+@SectionId('PD00-TEC-SOF-LAY-COM')
 class LayerCommunicationRules {
   @Form([
     Field('communicationDirection', String, 'Communication Direction',
@@ -2990,6 +3128,7 @@ class LayerCommunicationRules {
 }
 
 /// Interface requirements between layers.
+@SectionId('PD00-TEC-SOF-LAY-COM-INT')
 class LayerCommunicationRulesInterfaces {
   @Form([
   Field('interfaceRequirements', String, 'Interface Requirements',
@@ -3003,6 +3142,7 @@ class LayerCommunicationRulesInterfaces {
 }
 
 /// Cross-layer event and exception flow.
+@SectionId('PD00-TEC-SOF-LAY-COM-FLW')
 class LayerCommunicationRulesFlow {
   @Form([
   Field('eventPropagation', String, 'Event Propagation',
@@ -3016,6 +3156,7 @@ class LayerCommunicationRulesFlow {
 }
 
 /// Boundary enforcement and validation rules.
+@SectionId('PD00-TEC-SOF-LAY-COM-GOV')
 class LayerCommunicationRulesGovernance {
   @Form([
   Field('validationResponsibility', String, 'Validation Responsibility',
@@ -3058,6 +3199,7 @@ class BoundedContextEntry {
 }
 
 /// Scope and language definitions.
+@SectionId('PD00-TEC-SOF-LAY-CTX-ENT-SCO')
 class BoundedContextEntryScope {
   @Form([
     Field('purpose', String, 'Purpose', hint: 'Why this context exists'),
@@ -3072,6 +3214,7 @@ class BoundedContextEntryScope {
 }
 
 /// Boundary relationships.
+@SectionId('PD00-TEC-SOF-LAY-CTX-ENT-BND')
 class BoundedContextEntryBoundaries {
   @Form([
     Field('boundaryType', String, 'Boundary Type',
@@ -3087,6 +3230,7 @@ class BoundedContextEntryBoundaries {
 }
 
 /// Implementation footprint.
+@SectionId('PD00-TEC-SOF-LAY-CTX-ENT-IMP')
 class BoundedContextEntryImplementation {
   @Form([
     Field('repositoryNamespace', String, 'Repository/Namespace',
@@ -3102,6 +3246,7 @@ class BoundedContextEntryImplementation {
 }
 
 /// Integration and notes.
+@SectionId('PD00-TEC-SOF-LAY-CTX-ENT-INT')
 class BoundedContextEntryIntegration {
   @Form([
     Field('apiEndpoints', String, 'API Endpoints',
@@ -3114,6 +3259,7 @@ class BoundedContextEntryIntegration {
 }
 
 /// Package organization and naming structure.
+@SectionId('PD00-TEC-SOF-LAY-PKG')
 class PackageOrganization {
   @Form([
     Field('namingConvention', String, 'Naming Convention',
@@ -3141,6 +3287,7 @@ class PackageOrganization {
 }
 
 /// Repository and directory structure.
+@SectionId('PD00-TEC-SOF-LAY-PKG-STR')
 class PackageOrganizationStructure {
   @Form([
     Field('monorepoVsPolyrepo', String, 'Monorepo vs Polyrepo',
@@ -3154,6 +3301,7 @@ class PackageOrganizationStructure {
 }
 
 /// Package categorization.
+@SectionId('PD00-TEC-SOF-LAY-PKG-TYP')
 class PackageOrganizationTypes {
   @Form([
     Field('corePackages', String, 'Core Packages',
@@ -3169,6 +3317,7 @@ class PackageOrganizationTypes {
 }
 
 /// Dependency management rules.
+@SectionId('PD00-TEC-SOF-LAY-PKG-DEP')
 class PackageOrganizationDependencies {
   @Form([
     Field('dependencyManagement', String, 'Dependency Management',
@@ -3184,6 +3333,7 @@ class PackageOrganizationDependencies {
 }
 
 /// Documentation expectations.
+@SectionId('PD00-TEC-SOF-LAY-PKG-DOC')
 class PackageOrganizationDocumentation {
   @Form([
     Field('packageDocumentation', String, 'Package Documentation',
@@ -3223,6 +3373,7 @@ class ModuleEntry {
 }
 
 /// Purpose and API.
+@SectionId('PD00-TEC-SOF-LAY-MOD-ENT-DES')
 class ModuleEntryDescription {
   @Form([
     Field('purpose', String, 'Purpose',
@@ -3238,6 +3389,7 @@ class ModuleEntryDescription {
 }
 
 /// Dependency information.
+@SectionId('PD00-TEC-SOF-LAY-MOD-ENT-DEP')
 class ModuleEntryDependencies {
   @Form([
     Field('requiredModules', String, 'Required Modules',
@@ -3253,6 +3405,7 @@ class ModuleEntryDependencies {
 }
 
 /// Ownership information.
+@SectionId('PD00-TEC-SOF-LAY-MOD-ENT-OWN')
 class ModuleEntryOwnership {
   @Form([
     Field('owningContext', String, 'Owning Context',
@@ -3265,6 +3418,7 @@ class ModuleEntryOwnership {
 }
 
 /// Configuration settings.
+@SectionId('PD00-TEC-SOF-LAY-MOD-ENT-CFG')
 class ModuleEntryConfiguration {
   @Form([
     Field('configurationOptions', String, 'Configuration Options',
@@ -3278,6 +3432,7 @@ class ModuleEntryConfiguration {
 }
 
 /// Testing and notes.
+@SectionId('PD00-TEC-SOF-LAY-MOD-ENT-TST')
 class ModuleEntryTesting {
   @Form([
     Field('testCoverage', String, 'Test Coverage',
@@ -3311,6 +3466,7 @@ class SharedLibraryEntry {
 }
 
 /// Description and usage.
+@SectionId('PD00-TEC-SOF-LAY-LIB-ENT-DES')
 class SharedLibraryEntryDescription {
   @Form([
   Field('purpose', String, 'Purpose',
@@ -3324,6 +3480,7 @@ class SharedLibraryEntryDescription {
 }
 
 /// API details.
+@SectionId('PD00-TEC-SOF-LAY-LIB-ENT-API')
 class SharedLibraryEntryApi {
   @Form([
   Field('publicClasses', String, 'Public Classes',
@@ -3337,6 +3494,7 @@ class SharedLibraryEntryApi {
 }
 
 /// Constraints and lifecycle.
+@SectionId('PD00-TEC-SOF-LAY-LIB-ENT-LIF')
 class SharedLibraryEntryLifecycle {
   @Form([
   Field('compatibilityRequirements', String, 'Compatibility Requirements',
@@ -3355,6 +3513,7 @@ class SharedLibraryEntryLifecycle {
 }
 
 /// Dependency injection structure and configuration.
+@SectionId('PD00-TEC-SOF-LAY-DIS')
 class DependencyInjectionStructure {
   @Form([
     Field('diFramework', String, 'DI Framework',
@@ -3384,6 +3543,7 @@ class DependencyInjectionStructure {
 }
 
 /// Registration organization.
+@SectionId('PD00-TEC-SOF-LAY-DIS-REG')
 class DependencyInjectionStructureRegistration {
   @Form([
     Field('moduleRegistration', String, 'Module Registration',
@@ -3397,6 +3557,7 @@ class DependencyInjectionStructureRegistration {
 }
 
 /// Interface binding rules.
+@SectionId('PD00-TEC-SOF-LAY-DIS-BND')
 class DependencyInjectionStructureBinding {
   @Form([
     Field('interfaceBindingRule', String, 'Interface Binding Rule',
@@ -3410,6 +3571,7 @@ class DependencyInjectionStructureBinding {
 }
 
 /// Environment-specific configuration.
+@SectionId('PD00-TEC-SOF-LAY-DIS-CFG')
 class DependencyInjectionStructureConfiguration {
   @Form([
     Field('environmentConfiguration', String, 'Environment Configuration',
@@ -3423,6 +3585,7 @@ class DependencyInjectionStructureConfiguration {
 }
 
 /// Troubleshooting support.
+@SectionId('PD00-TEC-SOF-LAY-DIS-TRB')
 class DependencyInjectionStructureTroubleshooting {
   @Form([
     Field('debugSupport', String, 'Debug Support',
@@ -3435,6 +3598,7 @@ class DependencyInjectionStructureTroubleshooting {
 }
 
 /// Cross-cutting concerns organization.
+@SectionId('PD00-TEC-SOF-LAY-CCC')
 class CrossCuttingConcerns {
   @Form([
     Field('loggingStrategy', String, 'Logging Strategy',
@@ -3463,6 +3627,7 @@ class CrossCuttingConcerns {
 }
 
 /// Error handling concerns.
+@SectionId('PD00-TEC-SOF-LAY-CCC-ERR')
 class CrossCuttingConcernsErrors {
   @Form([
     Field('errorHandlingStrategy', String, 'Error Handling Strategy',
@@ -3476,6 +3641,7 @@ class CrossCuttingConcernsErrors {
 }
 
 /// Security concerns.
+@SectionId('PD00-TEC-SOF-LAY-CCC-SEC')
 class CrossCuttingConcernsSecurity {
   @Form([
     Field('securityConcerns', String, 'Security Concerns',
@@ -3489,6 +3655,7 @@ class CrossCuttingConcernsSecurity {
 }
 
 /// Caching approach.
+@SectionId('PD00-TEC-SOF-LAY-CCC-CAC')
 class CrossCuttingConcernsCaching {
   @Form([
     Field('cachingStrategy', String, 'Caching Strategy',
@@ -3502,6 +3669,7 @@ class CrossCuttingConcernsCaching {
 }
 
 /// Observability capabilities.
+@SectionId('PD00-TEC-SOF-LAY-CCC-OBS')
 class CrossCuttingConcernsObservability {
   @Form([
     Field('metricsCollection', String, 'Metrics Collection',
@@ -3514,6 +3682,7 @@ class CrossCuttingConcernsObservability {
 }
 
 /// Other shared capabilities.
+@SectionId('PD00-TEC-SOF-LAY-CCC-SHR')
 class CrossCuttingConcernsShared {
   @Form([
     Field('localization', String, 'Localization',
@@ -3556,6 +3725,7 @@ class FeatureModuleEntry {
 }
 
 /// Purpose and value.
+@SectionId('PD00-TEC-SOF-LAY-FEA-ENT-DES')
 class FeatureModuleEntryDescription {
   @Form([
     Field('purpose', String, 'Purpose', hint: 'What the feature provides'),
@@ -3568,6 +3738,7 @@ class FeatureModuleEntryDescription {
 }
 
 /// Structural scope.
+@SectionId('PD00-TEC-SOF-LAY-FEA-ENT-STR')
 class FeatureModuleEntryStructure {
   @Form([
     Field('uiComponents', String, 'UI Components',
@@ -3583,6 +3754,7 @@ class FeatureModuleEntryStructure {
 }
 
 /// Dependencies.
+@SectionId('PD00-TEC-SOF-LAY-FEA-ENT-DEP')
 class FeatureModuleEntryDependencies {
   @Form([
     Field('sharedDependencies', String, 'Shared Dependencies',
@@ -3596,6 +3768,7 @@ class FeatureModuleEntryDependencies {
 }
 
 /// Feature configuration.
+@SectionId('PD00-TEC-SOF-LAY-FEA-ENT-CFG')
 class FeatureModuleEntryConfiguration {
   @Form([
     Field('featureFlags', String, 'Feature Flags',
@@ -3609,6 +3782,7 @@ class FeatureModuleEntryConfiguration {
 }
 
 /// Navigation and notes.
+@SectionId('PD00-TEC-SOF-LAY-FEA-ENT-NAV')
 class FeatureModuleEntryNavigation {
   @Form([
     Field('routeDefinitions', String, 'Route Definitions',
@@ -3621,6 +3795,7 @@ class FeatureModuleEntryNavigation {
 }
 
 /// Module versioning and compatibility strategy.
+@SectionId('PD00-TEC-SOF-LAY-MVS')
 class ModuleVersioningStrategy {
   @Form([
     Field('versioningScheme', String, 'Versioning Scheme',
@@ -3652,6 +3827,7 @@ class ModuleVersioningStrategy {
 }
 
 /// Compatibility policy.
+@SectionId('PD00-TEC-SOF-LAY-MVS-COM')
 class ModuleVersioningStrategyCompatibility {
   @Form([
     Field('backwardsCompatibility', String, 'Backwards Compatibility',
@@ -3665,6 +3841,7 @@ class ModuleVersioningStrategyCompatibility {
 }
 
 /// Release management process.
+@SectionId('PD00-TEC-SOF-LAY-MVS-REL')
 class ModuleVersioningStrategyReleaseManagement {
   @Form([
     Field('releaseProcess', String, 'Release Process',
@@ -3678,6 +3855,7 @@ class ModuleVersioningStrategyReleaseManagement {
 }
 
 /// Dependency versioning rules.
+@SectionId('PD00-TEC-SOF-LAY-MVS-DEP')
 class ModuleVersioningStrategyDependencies {
   @Form([
     Field('dependencyVersioning', String, 'Dependency Versioning',
@@ -3691,6 +3869,7 @@ class ModuleVersioningStrategyDependencies {
 }
 
 /// Cross-module coordination.
+@SectionId('PD00-TEC-SOF-LAY-MVS-COO')
 class ModuleVersioningStrategyCoordination {
   @Form([
     Field('crossModuleCoordination', String, 'Cross-Module Coordination',
@@ -3828,6 +4007,7 @@ class IdeRequirementEntry {
 }
 
 /// Extension and workspace configuration.
+@SectionId('PD00-TEC-SOF-DEV-IDE-ENT-CFG')
 class IdeRequirementEntryConfiguration {
   @Form([
   Field('requiredExtensions', String, 'Required Extensions',
@@ -3843,6 +4023,7 @@ class IdeRequirementEntryConfiguration {
 }
 
 /// Debugger, linting, and formatting integration.
+@SectionId('PD00-TEC-SOF-DEV-IDE-ENT-INT')
 class IdeRequirementEntryIntegration {
   @Form([
   Field('debuggerSupport', String, 'Debugger Support',
@@ -3858,6 +4039,7 @@ class IdeRequirementEntryIntegration {
 }
 
 /// Shared team standardization settings.
+@SectionId('PD00-TEC-SOF-DEV-IDE-ENT-STD')
 class IdeRequirementEntryStandardization {
   @Form([
   Field('sharedConfigLocation', String, 'Shared Config Location',
@@ -3870,6 +4052,7 @@ class IdeRequirementEntryStandardization {
 }
 
 /// Build tools configuration.
+@SectionId('PD00-TEC-SOF-DEV-BTC')
 class BuildToolsConfiguration {
   @Form([
     Field('packageManager', String, 'Package Manager',
@@ -3898,6 +4081,7 @@ class BuildToolsConfiguration {
 }
 
 /// Build system settings.
+@SectionId('PD00-TEC-SOF-DEV-BTC-SYS')
 class BuildToolsConfigurationBuildSystem {
   @Form([
     Field('buildSystem', String, 'Build System',
@@ -3911,6 +4095,7 @@ class BuildToolsConfigurationBuildSystem {
 }
 
 /// Compilation settings.
+@SectionId('PD00-TEC-SOF-DEV-BTC-COM')
 class BuildToolsConfigurationCompilation {
   @Form([
     Field('compilerVersion', String, 'Compiler/SDK Version',
@@ -3924,6 +4109,7 @@ class BuildToolsConfigurationCompilation {
 }
 
 /// Script integration.
+@SectionId('PD00-TEC-SOF-DEV-BTC-SCR')
 class BuildToolsConfigurationScripts {
   @Form([
     Field('buildScripts', String, 'Build Scripts',
@@ -3937,6 +4123,7 @@ class BuildToolsConfigurationScripts {
 }
 
 /// Artifact management.
+@SectionId('PD00-TEC-SOF-DEV-BTC-ART')
 class BuildToolsConfigurationArtifacts {
   @Form([
     Field('artifactLocation', String, 'Artifact Location',
@@ -3951,6 +4138,7 @@ class BuildToolsConfigurationArtifacts {
 }
 
 /// Version control configuration.
+@SectionId('PD00-TEC-SOF-DEV-VCC')
 class VersionControlConfiguration {
   @Form([
     Field('vcsSystem', String, 'VCS System', hint: 'Git, Mercurial, SVN'),
@@ -3978,6 +4166,7 @@ class VersionControlConfiguration {
 }
 
 /// Repository structure settings.
+@SectionId('PD00-TEC-SOF-DEV-VCC-REP')
 class VersionControlConfigurationRepository {
   @Form([
     Field('repositoryStructure', String, 'Repository Structure',
@@ -3991,6 +4180,7 @@ class VersionControlConfigurationRepository {
 }
 
 /// Branching policy.
+@SectionId('PD00-TEC-SOF-DEV-VCC-BRN')
 class VersionControlConfigurationBranching {
   @Form([
     Field('branchingStrategy', String, 'Branching Strategy',
@@ -4008,6 +4198,7 @@ class VersionControlConfigurationBranching {
 }
 
 /// Commit and merge policy.
+@SectionId('PD00-TEC-SOF-DEV-VCC-CMT')
 class VersionControlConfigurationCommits {
   @Form([
     Field('commitMessageFormat', String, 'Commit Message Format',
@@ -4021,6 +4212,7 @@ class VersionControlConfigurationCommits {
 }
 
 /// Tagging and file attribute settings.
+@SectionId('PD00-TEC-SOF-DEV-VCC-MET')
 class VersionControlConfigurationMetadata {
   @Form([
     Field('tagNamingConvention', String, 'Tag Naming Convention',
@@ -4037,6 +4229,7 @@ class VersionControlConfigurationMetadata {
 }
 
 /// CI/CD pipeline configuration.
+@SectionId('PD00-TEC-SOF-DEV-CIC')
 class CiCdPipelineConfiguration {
   @Form([
     // Platform
@@ -4087,6 +4280,7 @@ class PipelineStageEntry {
 }
 
 /// Triggering conditions and approval gates.
+@SectionId('PD00-TEC-SOF-DEV-CIC-STG-ENT-TRG')
 class PipelineStageEntryTrigger {
   @Form([
     Field('triggers', String, 'Triggers',
@@ -4100,6 +4294,7 @@ class PipelineStageEntryTrigger {
 }
 
 /// Execution environment and job strategy.
+@SectionId('PD00-TEC-SOF-DEV-CIC-STG-ENT-EXE')
 class PipelineStageEntryExecution {
   @Form([
     Field('runnerRequirements', String, 'Runner Requirements',
@@ -4113,6 +4308,7 @@ class PipelineStageEntryExecution {
 }
 
 /// Artifact flow between stages.
+@SectionId('PD00-TEC-SOF-DEV-CIC-STG-ENT-ART')
 class PipelineStageEntryArtifacts {
   @Form([
     Field('inputArtifacts', String, 'Input Artifacts',
@@ -4124,6 +4320,7 @@ class PipelineStageEntryArtifacts {
 }
 
 /// Failure handling and retry behavior.
+@SectionId('PD00-TEC-SOF-DEV-CIC-STG-ENT-FAL')
 class PipelineStageEntryFailure {
   @Form([
     Field('failureBehavior', String, 'Failure Behavior',
@@ -4158,6 +4355,7 @@ class PipelineJobEntry {
 }
 
 /// Execution environment.
+@SectionId('PD00-TEC-SOF-DEV-CIC-JOB-ENT-ENV')
 class PipelineJobEntryEnvironment {
     @Form([
         Field('runnerType', String, 'Runner Type',
@@ -4171,6 +4369,7 @@ class PipelineJobEntryEnvironment {
 }
 
 /// Job steps.
+@SectionId('PD00-TEC-SOF-DEV-CIC-JOB-ENT-STP')
 class PipelineJobEntrySteps {
     @Form([
         Field('setupSteps', String, 'Setup Steps',
@@ -4182,6 +4381,7 @@ class PipelineJobEntrySteps {
 }
 
 /// Job dependencies.
+@SectionId('PD00-TEC-SOF-DEV-CIC-JOB-ENT-DEP')
 class PipelineJobEntryDependencies {
     @Form([
         Field('dependsOn', String, 'Depends On', hint: 'Other jobs this depends on'),
@@ -4192,6 +4392,7 @@ class PipelineJobEntryDependencies {
 }
 
 /// Outputs and notes.
+@SectionId('PD00-TEC-SOF-DEV-CIC-JOB-ENT-OUT')
 class PipelineJobEntryOutputs {
     @Form([
         Field('testReports', String, 'Test Reports', hint: 'Test report locations'),
@@ -4233,6 +4434,7 @@ class DeploymentEnvironmentEntry {
 }
 
 /// Deployment method and rollback controls.
+@SectionId('PD00-TEC-SOF-DEV-CIC-ENV-ENT-DEP')
 class DeploymentEnvironmentEntryDeployment {
   @Form([
   Field('deploymentMethod', String, 'Deployment Method',
@@ -4246,6 +4448,7 @@ class DeploymentEnvironmentEntryDeployment {
 }
 
 /// Approval and protection rules.
+@SectionId('PD00-TEC-SOF-DEV-CIC-ENV-ENT-PRO')
 class DeploymentEnvironmentEntryProtection {
   @Form([
   Field('protectionRules', String, 'Protection Rules',
@@ -4259,6 +4462,7 @@ class DeploymentEnvironmentEntryProtection {
 }
 
 /// Configuration and secrets sourcing.
+@SectionId('PD00-TEC-SOF-DEV-CIC-ENV-ENT-CFG')
 class DeploymentEnvironmentEntryConfiguration {
   @Form([
   Field('secretsScope', String, 'Secrets Scope',
@@ -4270,6 +4474,7 @@ class DeploymentEnvironmentEntryConfiguration {
 }
 
 /// Health verification and environment notes.
+@SectionId('PD00-TEC-SOF-DEV-CIC-ENV-ENT-MON')
 class DeploymentEnvironmentEntryMonitoring {
   @Form([
   Field('healthCheckUrl', String, 'Health Check URL',
@@ -4282,6 +4487,7 @@ class DeploymentEnvironmentEntryMonitoring {
 }
 
 /// Code review process configuration.
+@SectionId('PD00-TEC-SOF-DEV-CRP')
 class CodeReviewProcess {
   @Form([
     Field('prRequired', bool, 'PR Required', hint: 'All changes via PR'),
@@ -4307,6 +4513,7 @@ class CodeReviewProcess {
 }
 
 /// Reviewer requirements.
+@SectionId('PD00-TEC-SOF-DEV-CRP-REQ')
 class CodeReviewProcessRequirements {
   @Form([
     Field('minimumReviewers', String, 'Minimum Reviewers',
@@ -4320,6 +4527,7 @@ class CodeReviewProcessRequirements {
 }
 
 /// Review workflow.
+@SectionId('PD00-TEC-SOF-DEV-CRP-WFL')
 class CodeReviewProcessWorkflow {
   @Form([
     Field('reviewChecklist', String, 'Review Checklist',
@@ -4335,6 +4543,7 @@ class CodeReviewProcessWorkflow {
 }
 
 /// Automation requirements.
+@SectionId('PD00-TEC-SOF-DEV-CRP-AUT')
 class CodeReviewProcessAutomation {
   @Form([
     Field('automatedChecks', String, 'Automated Checks',
@@ -4349,6 +4558,7 @@ class CodeReviewProcessAutomation {
 }
 
 /// Merge policy.
+@SectionId('PD00-TEC-SOF-DEV-CRP-MRG')
 class CodeReviewProcessMerge {
   @Form([
     Field('mergeStrategy', String, 'Merge Strategy',
@@ -4363,6 +4573,7 @@ class CodeReviewProcessMerge {
 }
 
 /// Local development setup configuration.
+@SectionId('PD00-TEC-SOF-DEV-LDS')
 class LocalDevelopmentSetup {
   @Form([
     Field('systemRequirements', String, 'System Requirements',
@@ -4393,6 +4604,7 @@ class LocalDevelopmentSetup {
 }
 
 /// Setup workflow.
+@SectionId('PD00-TEC-SOF-DEV-LDS-WFL')
 class LocalDevelopmentSetupWorkflow {
   @Form([
     Field('cloneInstructions', String, 'Clone Instructions',
@@ -4408,6 +4620,7 @@ class LocalDevelopmentSetupWorkflow {
 }
 
 /// Dependencies and local services.
+@SectionId('PD00-TEC-SOF-DEV-LDS-DEP')
 class LocalDevelopmentSetupDependencies {
   @Form([
     Field('dependencyInstallation', String, 'Dependency Installation',
@@ -4421,6 +4634,7 @@ class LocalDevelopmentSetupDependencies {
 }
 
 /// Running configuration.
+@SectionId('PD00-TEC-SOF-DEV-LDS-RUN')
 class LocalDevelopmentSetupRunning {
   @Form([
     Field('runCommands', String, 'Run Commands',
@@ -4434,6 +4648,7 @@ class LocalDevelopmentSetupRunning {
 }
 
 /// Test setup.
+@SectionId('PD00-TEC-SOF-DEV-LDS-TST')
 class LocalDevelopmentSetupTesting {
   @Form([
     Field('runTestsLocally', String, 'Run Tests Locally',
@@ -4447,6 +4662,7 @@ class LocalDevelopmentSetupTesting {
 }
 
 /// Troubleshooting details.
+@SectionId('PD00-TEC-SOF-DEV-LDS-TRB')
 class LocalDevelopmentSetupTroubleshooting {
   @Form([
     Field('commonIssues', String, 'Common Issues',
@@ -4459,6 +4675,7 @@ class LocalDevelopmentSetupTroubleshooting {
 }
 
 /// Debugging configuration.
+@SectionId('PD00-TEC-SOF-DEV-DBG')
 class DebuggingConfiguration {
   @Form([
     Field('debuggerTool', String, 'Debugger Tool',
@@ -4489,6 +4706,7 @@ class DebuggingConfiguration {
 }
 
 /// Breakpoint and watch setup.
+@SectionId('PD00-TEC-SOF-DEV-DBG-BRK')
 class DebuggingConfigurationBreakpoints {
   @Form([
     Field('breakpointTypes', String, 'Breakpoint Types',
@@ -4501,6 +4719,7 @@ class DebuggingConfigurationBreakpoints {
 }
 
 /// Logging setup for debugging.
+@SectionId('PD00-TEC-SOF-DEV-DBG-LOG')
 class DebuggingConfigurationLogging {
   @Form([
     Field('loggingConfiguration', String, 'Logging Configuration',
@@ -4514,6 +4733,7 @@ class DebuggingConfigurationLogging {
 }
 
 /// State and runtime inspection.
+@SectionId('PD00-TEC-SOF-DEV-DBG-INS')
 class DebuggingConfigurationInspection {
   @Form([
     Field('stateInspection', String, 'State Inspection',
@@ -4527,6 +4747,7 @@ class DebuggingConfigurationInspection {
 }
 
 /// Flutter-specific tooling.
+@SectionId('PD00-TEC-SOF-DEV-DBG-FLT')
 class DebuggingConfigurationFlutter {
   @Form([
     Field('widgetInspector', String, 'Widget Inspector',
@@ -4540,6 +4761,7 @@ class DebuggingConfigurationFlutter {
 }
 
 /// Error tracking details.
+@SectionId('PD00-TEC-SOF-DEV-DBG-ERR')
 class DebuggingConfigurationErrors {
   @Form([
     Field('errorTrackingSetup', String, 'Error Tracking Setup',
@@ -4552,6 +4774,7 @@ class DebuggingConfigurationErrors {
 }
 
 /// Environment management configuration.
+@SectionId('PD00-TEC-SOF-DEV-ENM')
 class EnvironmentManagement {
   @Form([
     Field('environmentTypes', String, 'Environment Types',
@@ -4578,6 +4801,7 @@ class EnvironmentManagement {
 }
 
 /// Configuration settings.
+@SectionId('PD00-TEC-SOF-DEV-ENM-CFG')
 class EnvironmentManagementConfiguration {
   @Form([
     Field('configurationMethod', String, 'Configuration Method',
@@ -4591,6 +4815,7 @@ class EnvironmentManagementConfiguration {
 }
 
 /// Secrets handling.
+@SectionId('PD00-TEC-SOF-DEV-ENM-SEC')
 class EnvironmentManagementSecrets {
   @Form([
     Field('localSecretsManagement', String, 'Local Secrets Management',
@@ -4604,6 +4829,7 @@ class EnvironmentManagementSecrets {
 }
 
 /// Environment switching.
+@SectionId('PD00-TEC-SOF-DEV-ENM-SWT')
 class EnvironmentManagementSwitching {
   @Form([
     Field('switchingMechanism', String, 'Switching Mechanism',
@@ -4617,6 +4843,7 @@ class EnvironmentManagementSwitching {
 }
 
 /// Parity and notes.
+@SectionId('PD00-TEC-SOF-DEV-ENM-PAR')
 class EnvironmentManagementParity {
   @Form([
     Field('devProdParity', String, 'Dev-Prod Parity',
@@ -4632,6 +4859,7 @@ class EnvironmentManagementParity {
 }
 
 /// Developer onboarding requirements.
+@SectionId('PD00-TEC-SOF-DEV-ONB')
 class DeveloperOnboarding {
   @Form([
     Field('onboardingGuide', String, 'Onboarding Guide',
@@ -4661,6 +4889,7 @@ class DeveloperOnboarding {
 }
 
 /// Setup expectations.
+@SectionId('PD00-TEC-SOF-DEV-ONB-SET')
 class DeveloperOnboardingSetup {
   @Form([
     Field('estimatedSetupTime', String, 'Estimated Setup Time',
@@ -4674,6 +4903,7 @@ class DeveloperOnboardingSetup {
 }
 
 /// Access provisioning.
+@SectionId('PD00-TEC-SOF-DEV-ONB-ACC')
 class DeveloperOnboardingAccess {
   @Form([
     Field('requiredAccess', String, 'Required Access',
@@ -4687,6 +4917,7 @@ class DeveloperOnboardingAccess {
 }
 
 /// Learning support.
+@SectionId('PD00-TEC-SOF-DEV-ONB-LRN')
 class DeveloperOnboardingLearning {
   @Form([
     Field('requiredReading', String, 'Required Reading',
@@ -4700,6 +4931,7 @@ class DeveloperOnboardingLearning {
 }
 
 /// Early task expectations.
+@SectionId('PD00-TEC-SOF-DEV-ONB-TSK')
 class DeveloperOnboardingFirstTasks {
   @Form([
     Field('starterTasks', String, 'Starter Tasks',
@@ -4713,6 +4945,7 @@ class DeveloperOnboardingFirstTasks {
 }
 
 /// Completion verification.
+@SectionId('PD00-TEC-SOF-DEV-ONB-VER')
 class DeveloperOnboardingVerification {
   @Form([
     Field('onboardingChecklist', String, 'Onboarding Checklist',
@@ -4725,6 +4958,7 @@ class DeveloperOnboardingVerification {
 }
 
 /// Development quality gates and metrics.
+@SectionId('PD00-TEC-SOF-DEV-QGT')
 class DevelopmentQualityGates {
   @Form([
     Field('staticAnalysis', String, 'Static Analysis',
@@ -4758,6 +4992,7 @@ class DevelopmentQualityGates {
 }
 
 /// Coverage requirements.
+@SectionId('PD00-TEC-SOF-DEV-QGT-COV')
 class DevelopmentQualityGatesCoverage {
   @Form([
     Field('unitTestCoverageMinimum', String, 'Unit Test Coverage Minimum',
@@ -4771,6 +5006,7 @@ class DevelopmentQualityGatesCoverage {
 }
 
 /// Complexity thresholds.
+@SectionId('PD00-TEC-SOF-DEV-QGT-CPX')
 class DevelopmentQualityGatesComplexity {
   @Form([
     Field('complexityThresholds', String, 'Complexity Thresholds',
@@ -4784,6 +5020,7 @@ class DevelopmentQualityGatesComplexity {
 }
 
 /// Security checks.
+@SectionId('PD00-TEC-SOF-DEV-QGT-SEC')
 class DevelopmentQualityGatesSecurity {
   @Form([
     Field('dependencyScanning', String, 'Dependency Scanning',
@@ -4797,6 +5034,7 @@ class DevelopmentQualityGatesSecurity {
 }
 
 /// Documentation requirements.
+@SectionId('PD00-TEC-SOF-DEV-QGT-DOC')
 class DevelopmentQualityGatesDocumentation {
   @Form([
     Field('apiDocumentation', String, 'API Documentation',
@@ -4810,6 +5048,7 @@ class DevelopmentQualityGatesDocumentation {
 }
 
 /// Performance checks.
+@SectionId('PD00-TEC-SOF-DEV-QGT-PER')
 class DevelopmentQualityGatesPerformance {
   @Form([
     Field('performanceBudgets', String, 'Performance Budgets',
@@ -4918,6 +5157,7 @@ Provide an overview of the reusability strategy and component library.
 }
 
 /// Reusability principles and guidelines.
+@SectionId('PD00-TEC-SOF-REU-PRI')
 class ReusabilityPrinciples {
   @Form([
     Field('reuseFirstPolicy', String, 'Reuse-First Policy',
@@ -4945,6 +5185,7 @@ class ReusabilityPrinciples {
 }
 
 /// Abstraction rules.
+@SectionId('PD00-TEC-SOF-REU-PRI-ABS')
 class ReusabilityPrinciplesAbstraction {
   @Form([
   Field('abstractionLevel', String, 'Abstraction Level',
@@ -4958,6 +5199,7 @@ class ReusabilityPrinciplesAbstraction {
 }
 
 /// Quality expectations.
+@SectionId('PD00-TEC-SOF-REU-PRI-QUA')
 class ReusabilityPrinciplesQuality {
   @Form([
   Field('documentationRequirements', String, 'Documentation Requirements',
@@ -4971,6 +5213,7 @@ class ReusabilityPrinciplesQuality {
 }
 
 /// Versioning policy.
+@SectionId('PD00-TEC-SOF-REU-PRI-VER')
 class ReusabilityPrinciplesVersioning {
   @Form([
   Field('versioningPolicy', String, 'Versioning Policy',
@@ -4984,6 +5227,7 @@ class ReusabilityPrinciplesVersioning {
 }
 
 /// Ownership and contribution.
+@SectionId('PD00-TEC-SOF-REU-PRI-OWN')
 class ReusabilityPrinciplesOwnership {
   @Form([
   Field('ownershipModel', String, 'Ownership Model',
@@ -5024,6 +5268,7 @@ class SharedLibraryComponentEntry {
 }
 
 /// Purpose and consumers for shared library component.
+@SectionId('PD00-TEC-SOF-REU-LIB-ENT-DES')
 class SharedLibraryComponentEntryDescription {
   @Form([
     Field('packageName', String, 'Package/Module Name',
@@ -5040,6 +5285,7 @@ class SharedLibraryComponentEntryDescription {
 }
 
 /// Technical API details for shared library component.
+@SectionId('PD00-TEC-SOF-REU-LIB-ENT-TEC')
 class SharedLibraryComponentEntryTechnical {
   @Form([
     Field('publicApi', String, 'Public API',
@@ -5055,6 +5301,7 @@ class SharedLibraryComponentEntryTechnical {
 }
 
 /// Quality and documentation for shared library component.
+@SectionId('PD00-TEC-SOF-REU-LIB-ENT-QUA')
 class SharedLibraryComponentEntryQuality {
   @Form([
     Field('testCoverage', String, 'Test Coverage', hint: 'Current coverage'),
@@ -5067,6 +5314,7 @@ class SharedLibraryComponentEntryQuality {
 }
 
 /// Ownership and lifecycle for shared library component.
+@SectionId('PD00-TEC-SOF-REU-LIB-ENT-OWN')
 class SharedLibraryComponentEntryOwnership {
   @Form([
     Field('owner', String, 'Owner', hint: 'Team/person responsible'),
@@ -5112,6 +5360,7 @@ class ReusableUiComponentEntry {
 }
 
 /// Description and use cases for UI component.
+@SectionId('PD00-TEC-SOF-REU-UIC-ENT-DES')
 class ReusableUiComponentEntryDescription {
   @Form([
     Field('version', String, 'Version', hint: 'Component version'),
@@ -5126,6 +5375,7 @@ class ReusableUiComponentEntryDescription {
 }
 
 /// Design specifications for UI component.
+@SectionId('PD00-TEC-SOF-REU-UIC-ENT-DSG')
 class ReusableUiComponentEntryDesign {
   @Form([
     Field('designTokens', String, 'Design Tokens Used',
@@ -5141,6 +5391,7 @@ class ReusableUiComponentEntryDesign {
 }
 
 /// Interaction and accessibility for UI component.
+@SectionId('PD00-TEC-SOF-REU-UIC-ENT-INT')
 class ReusableUiComponentEntryInteraction {
   @Form([
     Field('interactionPatterns', String, 'Interaction Patterns',
@@ -5154,6 +5405,7 @@ class ReusableUiComponentEntryInteraction {
 }
 
 /// Component API for UI component.
+@SectionId('PD00-TEC-SOF-REU-UIC-ENT-API')
 class ReusableUiComponentEntryApi {
   @Form([
     Field('requiredProperties', String, 'Required Properties',
@@ -5169,6 +5421,7 @@ class ReusableUiComponentEntryApi {
 }
 
 /// Implementation details for UI component.
+@SectionId('PD00-TEC-SOF-REU-UIC-ENT-IMP')
 class ReusableUiComponentEntryImplementation {
   @Form([
     Field('flutterWidget', String, 'Flutter Widget Class',
@@ -5214,6 +5467,7 @@ class BusinessComponentEntry {
 }
 
 /// Purpose and business rules.
+@SectionId('PD00-TEC-SOF-REU-BUS-ENT-DES')
 class BusinessComponentEntryDescription {
   @Form([
     Field('purpose', String, 'Purpose',
@@ -5227,6 +5481,7 @@ class BusinessComponentEntryDescription {
 }
 
 /// Public interface details.
+@SectionId('PD00-TEC-SOF-REU-BUS-ENT-INT')
 class BusinessComponentEntryInterface {
   @Form([
     Field('publicInterface', String, 'Public Interface',
@@ -5240,6 +5495,7 @@ class BusinessComponentEntryInterface {
 }
 
 /// Dependency mapping.
+@SectionId('PD00-TEC-SOF-REU-BUS-ENT-DEP')
 class BusinessComponentEntryDependencies {
   @Form([
     Field('requiredServices', String, 'Required Services',
@@ -5253,6 +5509,7 @@ class BusinessComponentEntryDependencies {
 }
 
 /// Testing details.
+@SectionId('PD00-TEC-SOF-REU-BUS-ENT-TST')
 class BusinessComponentEntryTesting {
   @Form([
     Field('testStrategy', String, 'Test Strategy',
@@ -5266,6 +5523,7 @@ class BusinessComponentEntryTesting {
 }
 
 /// Reuse and customization notes.
+@SectionId('PD00-TEC-SOF-REU-BUS-ENT-RSE')
 class BusinessComponentEntryReuse {
   @Form([
     Field('reuseScenarios', String, 'Reuse Scenarios',
@@ -5311,6 +5569,7 @@ class InfrastructureComponentEntry {
 }
 
 /// Purpose and technology choices.
+@SectionId('PD00-TEC-SOF-REU-INF-ENT-DES')
 class InfrastructureComponentEntryDescription {
   @Form([
     Field('purpose', String, 'Purpose',
@@ -5324,6 +5583,7 @@ class InfrastructureComponentEntryDescription {
 }
 
 /// Configuration requirements.
+@SectionId('PD00-TEC-SOF-REU-INF-ENT-CFG')
 class InfrastructureComponentEntryConfiguration {
   @Form([
     Field('configurationOptions', String, 'Configuration Options',
@@ -5336,6 +5596,7 @@ class InfrastructureComponentEntryConfiguration {
 }
 
 /// Integration lifecycle.
+@SectionId('PD00-TEC-SOF-REU-INF-ENT-INT')
 class InfrastructureComponentEntryIntegration {
   @Form([
     Field('serviceInterface', String, 'Service Interface',
@@ -5349,6 +5610,7 @@ class InfrastructureComponentEntryIntegration {
 }
 
 /// Operational behavior.
+@SectionId('PD00-TEC-SOF-REU-INF-ENT-OPS')
 class InfrastructureComponentEntryOperations {
   @Form([
     Field('monitoring', String, 'Monitoring',
@@ -5362,6 +5624,7 @@ class InfrastructureComponentEntryOperations {
 }
 
 /// Resiliency behavior.
+@SectionId('PD00-TEC-SOF-REU-INF-ENT-RES')
 class InfrastructureComponentEntryResiliency {
   @Form([
     Field('failureHandling', String, 'Failure Handling',
@@ -5408,6 +5671,7 @@ class ThirdPartyLibraryEntry {
 }
 
 /// Evaluation and selection.
+@SectionId('PD00-TEC-SOF-REU-3RD-ENT-EVL')
 class ThirdPartyLibraryEntryEvaluation {
   @Form([
     Field('homepage', String, 'Homepage', hint: 'Library homepage URL'),
@@ -5421,6 +5685,7 @@ class ThirdPartyLibraryEntryEvaluation {
 }
 
 /// Licensing details.
+@SectionId('PD00-TEC-SOF-REU-3RD-ENT-LIC')
 class ThirdPartyLibraryEntryLicense {
   @Form([
     Field('license', String, 'License',
@@ -5434,6 +5699,7 @@ class ThirdPartyLibraryEntryLicense {
 }
 
 /// Risk profile.
+@SectionId('PD00-TEC-SOF-REU-3RD-ENT-RSK')
 class ThirdPartyLibraryEntryRisk {
   @Form([
     Field('maintenanceStatus', String, 'Maintenance Status',
@@ -5449,6 +5715,7 @@ class ThirdPartyLibraryEntryRisk {
 }
 
 /// Usage and upgrade strategy.
+@SectionId('PD00-TEC-SOF-REU-3RD-ENT-USE')
 class ThirdPartyLibraryEntryUsage {
   @Form([
     Field('usageScope', String, 'Usage Scope',
@@ -5462,6 +5729,7 @@ class ThirdPartyLibraryEntryUsage {
 }
 
 /// Monitoring and notes.
+@SectionId('PD00-TEC-SOF-REU-3RD-ENT-MON')
 class ThirdPartyLibraryEntryMonitoring {
   @Form([
     Field('updateNotifications', String, 'Update Notifications',
@@ -5474,6 +5742,7 @@ class ThirdPartyLibraryEntryMonitoring {
 }
 
 /// Component governance and maintenance policies.
+@SectionId('PD00-TEC-SOF-REU-GOV')
 class ComponentGovernance {
   @Form([
     Field('ownershipModel', String, 'Ownership Model',
@@ -5500,6 +5769,7 @@ class ComponentGovernance {
 }
 
 /// Contribution governance.
+@SectionId('PD00-TEC-SOF-REU-GOV-CON')
 class ComponentGovernanceContribution {
   @Form([
     Field('contributionGuidelines', String, 'Contribution Guidelines',
@@ -5513,6 +5783,7 @@ class ComponentGovernanceContribution {
 }
 
 /// Quality expectations.
+@SectionId('PD00-TEC-SOF-REU-GOV-QUA')
 class ComponentGovernanceQuality {
   @Form([
     Field('qualityStandards', String, 'Quality Standards',
@@ -5526,6 +5797,7 @@ class ComponentGovernanceQuality {
 }
 
 /// Lifecycle policies.
+@SectionId('PD00-TEC-SOF-REU-GOV-LIF')
 class ComponentGovernanceLifecycle {
   @Form([
     Field('promotionProcess', String, 'Promotion Process',
@@ -5539,6 +5811,7 @@ class ComponentGovernanceLifecycle {
 }
 
 /// Metrics and notes.
+@SectionId('PD00-TEC-SOF-REU-GOV-MET')
 class ComponentGovernanceMetrics {
   @Form([
     Field('adoptionMetrics', String, 'Adoption Metrics',
@@ -5553,6 +5826,7 @@ class ComponentGovernanceMetrics {
 }
 
 /// Component discovery and registry configuration.
+@SectionId('PD00-TEC-SOF-REU-REG')
 class ComponentRegistry {
   @Form([
     Field('registryType', String, 'Registry Type',
@@ -5579,6 +5853,7 @@ class ComponentRegistry {
 }
 
 /// Metadata requirements.
+@SectionId('PD00-TEC-SOF-REU-REG-MET')
 class ComponentRegistryMetadata {
   @Form([
     Field('requiredMetadata', String, 'Required Metadata',
@@ -5592,6 +5867,7 @@ class ComponentRegistryMetadata {
 }
 
 /// Discovery workflow.
+@SectionId('PD00-TEC-SOF-REU-REG-DIS')
 class ComponentRegistryDiscovery {
   @Form([
     Field('discoveryProcess', String, 'Discovery Process',
@@ -5605,6 +5881,7 @@ class ComponentRegistryDiscovery {
 }
 
 /// Documentation requirements.
+@SectionId('PD00-TEC-SOF-REU-REG-DOC')
 class ComponentRegistryDocumentation {
   @Form([
     Field('documentationFormat', String, 'Documentation Format',
@@ -5618,6 +5895,7 @@ class ComponentRegistryDocumentation {
 }
 
 /// Update communication.
+@SectionId('PD00-TEC-SOF-REU-REG-UPD')
 class ComponentRegistryUpdates {
   @Form([
     Field('updateNotifications', String, 'Update Notifications',
@@ -5822,6 +6100,7 @@ class OsCompatibilityEntry {
 }
 
 /// Support level and prioritization.
+@SectionId('PD00-TEC-STA-COM-OS-ENT-SUP')
 class OsCompatibilityEntrySupport {
   @Form([
     Field('supportLevel', String, 'Support Level',
@@ -5835,6 +6114,7 @@ class OsCompatibilityEntrySupport {
 }
 
 /// Platform requirements.
+@SectionId('PD00-TEC-STA-COM-OS-ENT-REQ')
 class OsCompatibilityEntryRequirements {
   @Form([
     Field('architectures', String, 'Architectures',
@@ -5850,6 +6130,7 @@ class OsCompatibilityEntryRequirements {
 }
 
 /// Testing expectations.
+@SectionId('PD00-TEC-STA-COM-OS-ENT-TST')
 class OsCompatibilityEntryTesting {
   @Form([
     Field('testEnvironment', String, 'Test Environment',
@@ -5863,6 +6144,7 @@ class OsCompatibilityEntryTesting {
 }
 
 /// Lifecycle notes.
+@SectionId('PD00-TEC-STA-COM-OS-ENT-LIF')
 class OsCompatibilityEntryLifecycle {
   @Form([
     Field('specialConsiderations', String, 'Special Considerations',
@@ -5902,6 +6184,7 @@ class BrowserCompatibilityEntry {
 }
 
 /// Support level and priority.
+@SectionId('PD00-TEC-STA-COM-BRW-ENT-SUP')
 class BrowserCompatibilityEntrySupport {
   @Form([
     Field('supportLevel', String, 'Support Level',
@@ -5915,6 +6198,7 @@ class BrowserCompatibilityEntrySupport {
 }
 
 /// Feature support requirements.
+@SectionId('PD00-TEC-STA-COM-BRW-ENT-FEA')
 class BrowserCompatibilityEntryFeatures {
   @Form([
     Field('requiredFeatures', String, 'Required Features',
@@ -5928,6 +6212,7 @@ class BrowserCompatibilityEntryFeatures {
 }
 
 /// Mobile and PWA support.
+@SectionId('PD00-TEC-STA-COM-BRW-ENT-MOB')
 class BrowserCompatibilityEntryMobile {
   @Form([
     Field('mobileSupport', String, 'Mobile Support',
@@ -5941,6 +6226,7 @@ class BrowserCompatibilityEntryMobile {
 }
 
 /// Testing notes.
+@SectionId('PD00-TEC-STA-COM-BRW-ENT-TST')
 class BrowserCompatibilityEntryTesting {
   @Form([
     Field('testPlatforms', String, 'Test Platforms',
@@ -5987,6 +6273,7 @@ class DatabaseCompatibilityEntry {
 }
 
 /// Support options.
+@SectionId('PD00-TEC-STA-COM-DB-ENT-SUP')
 class DatabaseCompatibilityEntrySupport {
   @Form([
     Field('supportLevel', String, 'Support Level',
@@ -5998,6 +6285,7 @@ class DatabaseCompatibilityEntrySupport {
 }
 
 /// Feature requirements.
+@SectionId('PD00-TEC-STA-COM-DB-ENT-FEA')
 class DatabaseCompatibilityEntryFeatures {
   @Form([
     Field('requiredFeatures', String, 'Required Features',
@@ -6011,6 +6299,7 @@ class DatabaseCompatibilityEntryFeatures {
 }
 
 /// Connection requirements.
+@SectionId('PD00-TEC-STA-COM-DB-ENT-CON')
 class DatabaseCompatibilityEntryConnection {
   @Form([
     Field('connectionDriver', String, 'Connection Driver',
@@ -6024,6 +6313,7 @@ class DatabaseCompatibilityEntryConnection {
 }
 
 /// Performance and notes.
+@SectionId('PD00-TEC-STA-COM-DB-ENT-PER')
 class DatabaseCompatibilityEntryPerformance {
   @Form([
     Field('performanceNotes', String, 'Performance Notes',
@@ -6068,6 +6358,7 @@ class EnterpriseSystemCompatibilityEntry {
 }
 
 /// Integration details.
+@SectionId('PD00-TEC-STA-COM-ENT-ENT-INT')
 class EnterpriseSystemCompatibilityEntryIntegration {
   @Form([
     Field('integrationMethod', String, 'Integration Method',
@@ -6083,6 +6374,7 @@ class EnterpriseSystemCompatibilityEntryIntegration {
 }
 
 /// Authentication and access.
+@SectionId('PD00-TEC-STA-COM-ENT-ENT-SEC')
 class EnterpriseSystemCompatibilityEntrySecurity {
   @Form([
     Field('authentication', String, 'Authentication',
@@ -6096,6 +6388,7 @@ class EnterpriseSystemCompatibilityEntrySecurity {
 }
 
 /// Setup requirements.
+@SectionId('PD00-TEC-STA-COM-ENT-ENT-REQ')
 class EnterpriseSystemCompatibilityEntryRequirements {
   @Form([
     Field('prerequisites', String, 'Prerequisites',
@@ -6109,6 +6402,7 @@ class EnterpriseSystemCompatibilityEntryRequirements {
 }
 
 /// Testing and notes.
+@SectionId('PD00-TEC-STA-COM-ENT-ENT-TST')
 class EnterpriseSystemCompatibilityEntryTesting {
   @Form([
     Field('testEnvironment', String, 'Test Environment',
@@ -6149,6 +6443,7 @@ class ApiCompatibilityEntry {
 }
 
 /// Compatibility policy.
+@SectionId('PD00-TEC-STA-COM-API-ENT-POL')
 class ApiCompatibilityEntryPolicy {
   @Form([
     Field('versioningStrategy', String, 'Versioning Strategy',
@@ -6162,6 +6457,7 @@ class ApiCompatibilityEntryPolicy {
 }
 
 /// Data-format requirements.
+@SectionId('PD00-TEC-STA-COM-API-ENT-FMT')
 class ApiCompatibilityEntryFormat {
   @Form([
     Field('dataFormat', String, 'Data Format',
@@ -6175,6 +6471,7 @@ class ApiCompatibilityEntryFormat {
 }
 
 /// Transport requirements.
+@SectionId('PD00-TEC-STA-COM-API-ENT-TRS')
 class ApiCompatibilityEntryTransport {
   @Form([
     Field('transport', String, 'Transport',
@@ -6188,6 +6485,7 @@ class ApiCompatibilityEntryTransport {
 }
 
 /// Specification references.
+@SectionId('PD00-TEC-STA-COM-API-ENT-SPC')
 class ApiCompatibilityEntrySpecification {
   @Form([
     Field('specificationUrl', String, 'Specification URL',
@@ -6230,6 +6528,7 @@ class LegacyCompatibilityEntry {
 }
 
 /// Integration approach.
+@SectionId('PD00-TEC-STA-COM-LEG-ENT-INT')
 class LegacyCompatibilityEntryIntegration {
   @Form([
   Field('integrationApproach', String, 'Integration Approach',
@@ -6243,6 +6542,7 @@ class LegacyCompatibilityEntryIntegration {
 }
 
 /// Constraints and limitations.
+@SectionId('PD00-TEC-STA-COM-LEG-ENT-CON')
 class LegacyCompatibilityEntryConstraints {
   @Form([
   Field('constraints', String, 'Constraints',
@@ -6256,6 +6556,7 @@ class LegacyCompatibilityEntryConstraints {
 }
 
 /// Migration planning.
+@SectionId('PD00-TEC-STA-COM-LEG-ENT-MIG')
 class LegacyCompatibilityEntryMigration {
   @Form([
   Field('migrationPath', String, 'Migration Path',
@@ -6269,6 +6570,7 @@ class LegacyCompatibilityEntryMigration {
 }
 
 /// Risk management.
+@SectionId('PD00-TEC-STA-COM-LEG-ENT-RSK')
 class LegacyCompatibilityEntryRisk {
   @Form([
   Field('riskAssessment', String, 'Risk Assessment',
@@ -6310,6 +6612,7 @@ class MobileCompatibilityEntry {
 }
 
 /// Supported devices.
+@SectionId('PD00-TEC-STA-COM-MOB-ENT-DEV')
 class MobileCompatibilityEntryDevices {
   @Form([
     Field('deviceTypes', String, 'Device Types',
@@ -6323,6 +6626,7 @@ class MobileCompatibilityEntryDevices {
 }
 
 /// Hardware requirements.
+@SectionId('PD00-TEC-STA-COM-MOB-ENT-HWR')
 class MobileCompatibilityEntryHardware {
   @Form([
     Field('minRam', String, 'Minimum RAM', hint: 'Minimum device RAM'),
@@ -6335,6 +6639,7 @@ class MobileCompatibilityEntryHardware {
 }
 
 /// Platform capabilities.
+@SectionId('PD00-TEC-STA-COM-MOB-ENT-CAP')
 class MobileCompatibilityEntryCapabilities {
   @Form([
     Field('permissions', String, 'Permissions Required',
@@ -6350,6 +6655,7 @@ class MobileCompatibilityEntryCapabilities {
 }
 
 /// Distribution details.
+@SectionId('PD00-TEC-STA-COM-MOB-ENT-DST')
 class MobileCompatibilityEntryDistribution {
   @Form([
     Field('appStore', String, 'App Store', hint: 'Distribution channels'),
@@ -6391,6 +6697,7 @@ class ThirdPartyCompatibilityEntry {
 }
 
 /// Compatibility characteristics.
+@SectionId('PD00-TEC-STA-COM-3RD-ENT-COM')
 class ThirdPartyCompatibilityEntryCompatibility {
   @Form([
     Field('compatibilityLevel', String, 'Compatibility Level',
@@ -6404,6 +6711,7 @@ class ThirdPartyCompatibilityEntryCompatibility {
 }
 
 /// Integration characteristics.
+@SectionId('PD00-TEC-STA-COM-3RD-ENT-INT')
 class ThirdPartyCompatibilityEntryIntegration {
   @Form([
     Field('integrationPoints', String, 'Integration Points',
@@ -6417,6 +6725,7 @@ class ThirdPartyCompatibilityEntryIntegration {
 }
 
 /// Testing and certification details.
+@SectionId('PD00-TEC-STA-COM-3RD-ENT-TST')
 class ThirdPartyCompatibilityEntryTesting {
   @Form([
     Field('testMatrix', String, 'Test Matrix',
@@ -6430,6 +6739,7 @@ class ThirdPartyCompatibilityEntryTesting {
 }
 
 /// Support and escalation.
+@SectionId('PD00-TEC-STA-COM-3RD-ENT-SUP')
 class ThirdPartyCompatibilityEntrySupport {
   @Form([
     Field('supportArrangement', String, 'Support Arrangement',
@@ -6443,6 +6753,7 @@ class ThirdPartyCompatibilityEntrySupport {
 }
 
 /// Data format and encoding compatibility.
+@SectionId('PD00-TEC-STA-COM-DFC')
 class DataFormatCompatibility {
   @Form([
     Field('defaultEncoding', String, 'Default Encoding',
@@ -6468,6 +6779,7 @@ class DataFormatCompatibility {
 }
 
 /// Data format compatibility.
+@SectionId('PD00-TEC-STA-COM-DFC-FMT')
 class DataFormatCompatibilityFormats {
   @Form([
     Field('primaryFormat', String, 'Primary Data Format',
@@ -6481,6 +6793,7 @@ class DataFormatCompatibilityFormats {
 }
 
 /// Date and time formatting.
+@SectionId('PD00-TEC-STA-COM-DFC-DTM')
 class DataFormatCompatibilityDateTime {
   @Form([
     Field('dateFormat', String, 'Date Format',
@@ -6494,6 +6807,7 @@ class DataFormatCompatibilityDateTime {
 }
 
 /// Numeric formatting.
+@SectionId('PD00-TEC-STA-COM-DFC-NUM')
 class DataFormatCompatibilityNumbers {
   @Form([
     Field('numberFormat', String, 'Number Format',
@@ -6507,6 +6821,7 @@ class DataFormatCompatibilityNumbers {
 }
 
 /// Locale settings.
+@SectionId('PD00-TEC-STA-COM-DFC-LOC')
 class DataFormatCompatibilityLocale {
   @Form([
     Field('localeSupport', String, 'Locale Support',
@@ -6522,6 +6837,7 @@ class DataFormatCompatibilityLocale {
 }
 
 /// Backwards compatibility requirements.
+@SectionId('PD00-TEC-STA-COM-BCR')
 class BackwardsCompatibilityRequirements {
   @Form([
     Field('compatibilityPolicy', String, 'Compatibility Policy',
@@ -6551,6 +6867,7 @@ class BackwardsCompatibilityRequirements {
 }
 
 /// Data compatibility requirements.
+@SectionId('PD00-TEC-STA-COM-BCR-DAT')
 class BackwardsCompatibilityRequirementsData {
   @Form([
     Field('dataCompatibility', String, 'Data Compatibility',
@@ -6564,6 +6881,7 @@ class BackwardsCompatibilityRequirementsData {
 }
 
 /// API compatibility requirements.
+@SectionId('PD00-TEC-STA-COM-BCR-API')
 class BackwardsCompatibilityRequirementsApi {
   @Form([
     Field('apiVersioning', String, 'API Versioning',
@@ -6577,6 +6895,7 @@ class BackwardsCompatibilityRequirementsApi {
 }
 
 /// Database compatibility requirements.
+@SectionId('PD00-TEC-STA-COM-BCR-DB')
 class BackwardsCompatibilityRequirementsDatabase {
   @Form([
     Field('schemaEvolution', String, 'Schema Evolution',
@@ -6590,6 +6909,7 @@ class BackwardsCompatibilityRequirementsDatabase {
 }
 
 /// Communication and support requirements.
+@SectionId('PD00-TEC-STA-COM-BCR-COM')
 class BackwardsCompatibilityRequirementsCommunication {
   @Form([
     Field('changeNotification', String, 'Change Notification',
@@ -6605,6 +6925,7 @@ class BackwardsCompatibilityRequirementsCommunication {
 }
 
 /// System interoperability requirements.
+@SectionId('PD00-TEC-STA-COM-IOR')
 class InteroperabilityRequirements {
   @Form([
     Field('interopStrategy', String, 'Interoperability Strategy',
@@ -6634,6 +6955,7 @@ class InteroperabilityRequirements {
 }
 
 /// Data-exchange definitions.
+@SectionId('PD00-TEC-STA-COM-IOR-DAT')
 class InteroperabilityRequirementsDataExchange {
   @Form([
     Field('dataExchangeFormats', String, 'Data Exchange Formats',
@@ -6647,6 +6969,7 @@ class InteroperabilityRequirementsDataExchange {
 }
 
 /// Standards and certifications.
+@SectionId('PD00-TEC-STA-COM-IOR-STD')
 class InteroperabilityRequirementsStandards {
   @Form([
     Field('industryStandards', String, 'Industry Standards',
@@ -6660,6 +6983,7 @@ class InteroperabilityRequirementsStandards {
 }
 
 /// Interoperability testing.
+@SectionId('PD00-TEC-STA-COM-IOR-TST')
 class InteroperabilityRequirementsTesting {
   @Form([
     Field('interopTesting', String, 'Interoperability Testing',
@@ -6673,6 +6997,7 @@ class InteroperabilityRequirementsTesting {
 }
 
 /// Governance and fallback behavior.
+@SectionId('PD00-TEC-STA-COM-IOR-GOV')
 class InteroperabilityRequirementsGovernance {
   @Form([
     Field('changeManagement', String, 'Change Management',
@@ -6825,6 +7150,7 @@ class ItStandardComplianceEntry {
 }
 
 /// Applicability and priority.
+@SectionId('PD00-TEC-STA-STD-IT-ENT-SCO')
 class ItStandardComplianceEntryScope {
   @Form([
     Field('applicabilityScope', String, 'Applicability Scope',
@@ -6838,6 +7164,7 @@ class ItStandardComplianceEntryScope {
 }
 
 /// Control requirements.
+@SectionId('PD00-TEC-STA-STD-IT-ENT-REQ')
 class ItStandardComplianceEntryRequirements {
   @Form([
     Field('controlsApplicable', String, 'Applicable Controls',
@@ -6851,6 +7178,7 @@ class ItStandardComplianceEntryRequirements {
 }
 
 /// Compliance timeline.
+@SectionId('PD00-TEC-STA-STD-IT-ENT-TML')
 class ItStandardComplianceEntryTimeline {
   @Form([
     Field('targetDate', String, 'Target Compliance Date',
@@ -6864,6 +7192,7 @@ class ItStandardComplianceEntryTimeline {
 }
 
 /// Ownership and support.
+@SectionId('PD00-TEC-STA-STD-IT-ENT-OWN')
 class ItStandardComplianceEntryOwnership {
   @Form([
     Field('complianceOwner', String, 'Compliance Owner',
@@ -6875,6 +7204,7 @@ class ItStandardComplianceEntryOwnership {
 }
 
 /// Evidence and notes.
+@SectionId('PD00-TEC-STA-STD-IT-ENT-EVD')
 class ItStandardComplianceEntryEvidence {
   @Form([
     Field('evidenceRequired', String, 'Evidence Required',
@@ -6917,6 +7247,7 @@ class IndustryProtocolComplianceEntry {
 }
 
 /// Compliance scope and features.
+@SectionId('PD00-TEC-STA-STD-PRO-ENT-SCO')
 class IndustryProtocolComplianceEntryScope {
   @Form([
     Field('complianceScope', String, 'Compliance Scope',
@@ -6932,6 +7263,7 @@ class IndustryProtocolComplianceEntryScope {
 }
 
 /// Implementation details.
+@SectionId('PD00-TEC-STA-STD-PRO-ENT-IMP')
 class IndustryProtocolComplianceEntryImplementation {
   @Form([
     Field('implementationLibrary', String, 'Implementation Library',
@@ -6945,6 +7277,7 @@ class IndustryProtocolComplianceEntryImplementation {
 }
 
 /// Testing details.
+@SectionId('PD00-TEC-STA-STD-PRO-ENT-TST')
 class IndustryProtocolComplianceEntryTesting {
   @Form([
     Field('conformanceTest', String, 'Conformance Testing',
@@ -6958,6 +7291,7 @@ class IndustryProtocolComplianceEntryTesting {
 }
 
 /// Interoperability notes.
+@SectionId('PD00-TEC-STA-STD-PRO-ENT-IOP')
 class IndustryProtocolComplianceEntryInteroperability {
   @Form([
     Field('interopPartners', String, 'Interop Partners',
@@ -7000,6 +7334,7 @@ class InterfaceSpecificationEntry {
 }
 
 /// Definition storage and validation.
+@SectionId('PD00-TEC-STA-STD-INT-ENT-DEF')
 class InterfaceSpecificationEntryDefinition {
   @Form([
     Field('definitionFormat', String, 'Definition Format',
@@ -7013,6 +7348,7 @@ class InterfaceSpecificationEntryDefinition {
 }
 
 /// Interface conventions.
+@SectionId('PD00-TEC-STA-STD-INT-ENT-CON')
 class InterfaceSpecificationEntryConventions {
   @Form([
     Field('namingConventions', String, 'Naming Conventions',
@@ -7028,6 +7364,7 @@ class InterfaceSpecificationEntryConventions {
 }
 
 /// Documentation expectations.
+@SectionId('PD00-TEC-STA-STD-INT-ENT-DOC')
 class InterfaceSpecificationEntryDocumentation {
   @Form([
     Field('documentationFormat', String, 'Documentation Format',
@@ -7041,6 +7378,7 @@ class InterfaceSpecificationEntryDocumentation {
 }
 
 /// Tooling and notes.
+@SectionId('PD00-TEC-STA-STD-INT-ENT-TOL')
 class InterfaceSpecificationEntryTooling {
   @Form([
     Field('generatedClients', String, 'Generated Clients',
@@ -7087,6 +7425,7 @@ class RegulatoryComplianceEntry {
 }
 
 /// Applicability analysis.
+@SectionId('PD00-TEC-STA-STD-REG-ENT-APP')
 class RegulatoryComplianceEntryApplicability {
   @Form([
     Field('applicabilityReason', String, 'Why Applicable',
@@ -7102,6 +7441,7 @@ class RegulatoryComplianceEntryApplicability {
 }
 
 /// Compliance requirements.
+@SectionId('PD00-TEC-STA-STD-REG-ENT-REQ')
 class RegulatoryComplianceEntryRequirements {
   @Form([
     Field('keyRequirements', String, 'Key Requirements',
@@ -7117,6 +7457,7 @@ class RegulatoryComplianceEntryRequirements {
 }
 
 /// Penalties and reporting.
+@SectionId('PD00-TEC-STA-STD-REG-ENT-PEN')
 class RegulatoryComplianceEntryPenalties {
   @Form([
     Field('penaltiesForNonCompliance', String, 'Penalties',
@@ -7128,6 +7469,7 @@ class RegulatoryComplianceEntryPenalties {
 }
 
 /// Ownership and review.
+@SectionId('PD00-TEC-STA-STD-REG-ENT-OWN')
 class RegulatoryComplianceEntryOwnership {
   @Form([
     Field('dpo', String, 'DPO/Compliance Officer',
@@ -7171,6 +7513,7 @@ class SecurityStandardComplianceEntry {
 }
 
 /// Scope details.
+@SectionId('PD00-TEC-STA-STD-SEC-ENT-SCO')
 class SecurityStandardComplianceEntryScope {
   @Form([
     Field('systemsInScope', String, 'Systems in Scope',
@@ -7184,6 +7527,7 @@ class SecurityStandardComplianceEntryScope {
 }
 
 /// Control definitions.
+@SectionId('PD00-TEC-STA-STD-SEC-ENT-CTR')
 class SecurityStandardComplianceEntryControls {
   @Form([
     Field('controlFramework', String, 'Control Framework',
@@ -7199,6 +7543,7 @@ class SecurityStandardComplianceEntryControls {
 }
 
 /// Assessment schedule.
+@SectionId('PD00-TEC-STA-STD-SEC-ENT-ASS')
 class SecurityStandardComplianceEntryAssessment {
   @Form([
     Field('assessmentFrequency', String, 'Assessment Frequency',
@@ -7214,6 +7559,7 @@ class SecurityStandardComplianceEntryAssessment {
 }
 
 /// Overall status.
+@SectionId('PD00-TEC-STA-STD-SEC-ENT-STA')
 class SecurityStandardComplianceEntryStatus {
   @Form([
     Field('complianceStatus', String, 'Compliance Status',
@@ -7253,6 +7599,7 @@ class AccessibilityStandardEntry {
 }
 
 /// Scope and affected users.
+@SectionId('PD00-TEC-STA-STD-ACC-ENT-SCO')
 class AccessibilityStandardEntryScope {
   @Form([
     Field('applicableContent', String, 'Applicable Content',
@@ -7266,6 +7613,7 @@ class AccessibilityStandardEntryScope {
 }
 
 /// Conformance requirements.
+@SectionId('PD00-TEC-STA-STD-ACC-ENT-REQ')
 class AccessibilityStandardEntryRequirements {
   @Form([
     Field('perceivableRequirements', String, 'Perceivable Requirements',
@@ -7281,6 +7629,7 @@ class AccessibilityStandardEntryRequirements {
 }
 
 /// Testing approach.
+@SectionId('PD00-TEC-STA-STD-ACC-ENT-TST')
 class AccessibilityStandardEntryTesting {
   @Form([
     Field('testingApproach', String, 'Testing Approach',
@@ -7294,6 +7643,7 @@ class AccessibilityStandardEntryTesting {
 }
 
 /// Documentation artifacts.
+@SectionId('PD00-TEC-STA-STD-ACC-ENT-DOC')
 class AccessibilityStandardEntryDocumentation {
   @Form([
     Field('vpat', String, 'VPAT/ACR',
@@ -7336,6 +7686,7 @@ class QualityStandardEntry {
 }
 
 /// Process coverage.
+@SectionId('PD00-TEC-STA-STD-QUA-ENT-PRC')
 class QualityStandardEntryProcesses {
   @Form([
     Field('processAreas', String, 'Process Areas',
@@ -7349,6 +7700,7 @@ class QualityStandardEntryProcesses {
 }
 
 /// Improvement implementation.
+@SectionId('PD00-TEC-STA-STD-QUA-ENT-IMP')
 class QualityStandardEntryImplementation {
   @Form([
     Field('currentLevel', String, 'Current Level',
@@ -7364,6 +7716,7 @@ class QualityStandardEntryImplementation {
 }
 
 /// Certification status.
+@SectionId('PD00-TEC-STA-STD-QUA-ENT-CER')
 class QualityStandardEntryCertification {
   @Form([
     Field('certificationBody', String, 'Certification Body',
@@ -7377,6 +7730,7 @@ class QualityStandardEntryCertification {
 }
 
 /// Maintenance expectations.
+@SectionId('PD00-TEC-STA-STD-QUA-ENT-MAI')
 class QualityStandardEntryMaintenance {
   @Form([
     Field('auditFrequency', String, 'Audit Frequency',
@@ -7390,6 +7744,7 @@ class QualityStandardEntryMaintenance {
 }
 
 /// Documentation standards section.
+@SectionId('PD00-TEC-STA-STD-DSS')
 class DocumentationStandardsSection {
   @Form([
     Field('documentationPolicy', String, 'Documentation Policy',
@@ -7420,6 +7775,7 @@ class DocumentationStandardsSection {
 }
 
 /// Technical documentation standards.
+@SectionId('PD00-TEC-STA-STD-DSS-TEC')
 class DocumentationStandardsSectionTechnical {
   @Form([
     Field('technicalDocFormat', String, 'Technical Doc Format',
@@ -7435,6 +7791,7 @@ class DocumentationStandardsSectionTechnical {
 }
 
 /// User documentation standards.
+@SectionId('PD00-TEC-STA-STD-DSS-USR')
 class DocumentationStandardsSectionUser {
   @Form([
     Field('userDocFormat', String, 'User Doc Format',
@@ -7448,6 +7805,7 @@ class DocumentationStandardsSectionUser {
 }
 
 /// Documentation process rules.
+@SectionId('PD00-TEC-STA-STD-DSS-PRC')
 class DocumentationStandardsSectionProcess {
   @Form([
     Field('reviewProcess', String, 'Review Process',
@@ -7461,6 +7819,7 @@ class DocumentationStandardsSectionProcess {
 }
 
 /// Documentation quality rules.
+@SectionId('PD00-TEC-STA-STD-DSS-QUA')
 class DocumentationStandardsSectionQuality {
   @Form([
     Field('spellCheckRequired', bool, 'Spell Check Required',
@@ -7474,6 +7833,7 @@ class DocumentationStandardsSectionQuality {
 }
 
 /// Coding standards section.
+@SectionId('PD00-TEC-STA-STD-CSS')
 class CodingStandardsSection {
   @Form([
     Field('primaryLanguages', String, 'Primary Languages',
@@ -7504,6 +7864,7 @@ class CodingStandardsSection {
 }
 
 /// Formatting and layout rules.
+@SectionId('PD00-TEC-STA-STD-CSS-FMT')
 class CodingStandardsSectionFormatting {
   @Form([
     Field('indentation', String, 'Indentation',
@@ -7517,6 +7878,7 @@ class CodingStandardsSectionFormatting {
 }
 
 /// Naming and structure rules.
+@SectionId('PD00-TEC-STA-STD-CSS-NAM')
 class CodingStandardsSectionNaming {
   @Form([
     Field('namingConventions', String, 'Naming Conventions',
@@ -7530,6 +7892,7 @@ class CodingStandardsSectionNaming {
 }
 
 /// Static quality checks.
+@SectionId('PD00-TEC-STA-STD-CSS-QUA')
 class CodingStandardsSectionQuality {
   @Form([
     Field('staticAnalysis', String, 'Static Analysis',
@@ -7541,6 +7904,7 @@ class CodingStandardsSectionQuality {
 }
 
 /// Development practices.
+@SectionId('PD00-TEC-STA-STD-CSS-PRC')
 class CodingStandardsSectionPractices {
   @Form([
     Field('errorHandling', String, 'Error Handling',
@@ -7556,6 +7920,7 @@ class CodingStandardsSectionPractices {
 }
 
 /// Review expectations.
+@SectionId('PD00-TEC-STA-STD-CSS-REV')
 class CodingStandardsSectionReview {
   @Form([
     Field('codeReviewChecklist', String, 'Code Review Checklist',
@@ -7569,6 +7934,7 @@ class CodingStandardsSectionReview {
 }
 
 /// Certification requirements section.
+@SectionId('PD00-TEC-STA-STD-CRS')
 class CertificationRequirementsSection {
   @Form([
     Field('requiredCertifications', String, 'Required Certifications',
@@ -7598,6 +7964,7 @@ class CertificationRequirementsSection {
 }
 
 /// Certification process.
+@SectionId('PD00-TEC-STA-STD-CRS-PRC')
 class CertificationRequirementsSectionProcess {
   @Form([
     Field('certificationProcess', String, 'Certification Process',
@@ -7613,6 +7980,7 @@ class CertificationRequirementsSectionProcess {
 }
 
 /// Timeline requirements.
+@SectionId('PD00-TEC-STA-STD-CRS-TML')
 class CertificationRequirementsSectionTimeline {
   @Form([
     Field('certificationTimeline', String, 'Certification Timeline',
@@ -7626,6 +7994,7 @@ class CertificationRequirementsSectionTimeline {
 }
 
 /// Cost requirements.
+@SectionId('PD00-TEC-STA-STD-CRS-CST')
 class CertificationRequirementsSectionCosts {
   @Form([
     Field('certificationBudget', String, 'Certification Budget',
@@ -7639,6 +8008,7 @@ class CertificationRequirementsSectionCosts {
 }
 
 /// Marketing and notes.
+@SectionId('PD00-TEC-STA-STD-CRS-MKT')
 class CertificationRequirementsSectionMarketing {
   @Form([
     Field('certificationDisplay', String, 'Certification Display',
@@ -7652,6 +8022,7 @@ class CertificationRequirementsSectionMarketing {
 }
 
 /// Compliance verification section.
+@SectionId('PD00-TEC-STA-STD-CVS')
 class ComplianceVerificationSection {
   @Form([
     Field('verificationStrategy', String, 'Verification Strategy',
@@ -7685,6 +8056,7 @@ class ComplianceVerificationSection {
 }
 
 /// Manual review procedures.
+@SectionId('PD00-TEC-STA-STD-CVS-REV')
 class ComplianceVerificationSectionReview {
   @Form([
     Field('manualReviews', String, 'Manual Reviews',
@@ -7694,6 +8066,7 @@ class ComplianceVerificationSectionReview {
 }
 
 /// Tooling and dashboards.
+@SectionId('PD00-TEC-STA-STD-CVS-TOL')
 class ComplianceVerificationSectionTools {
   @Form([
     Field('complianceTools', String, 'Compliance Tools',
@@ -7707,6 +8080,7 @@ class ComplianceVerificationSectionTools {
 }
 
 /// Audit procedures.
+@SectionId('PD00-TEC-STA-STD-CVS-AUD')
 class ComplianceVerificationSectionAuditing {
   @Form([
     Field('internalAuditProcess', String, 'Internal Audit Process',
@@ -7722,6 +8096,7 @@ class ComplianceVerificationSectionAuditing {
 }
 
 /// Reporting requirements.
+@SectionId('PD00-TEC-STA-STD-CVS-REP')
 class ComplianceVerificationSectionReporting {
   @Form([
     Field('complianceReporting', String, 'Compliance Reporting',
@@ -7735,6 +8110,7 @@ class ComplianceVerificationSectionReporting {
 }
 
 /// Continuous monitoring and improvement.
+@SectionId('PD00-TEC-STA-STD-CVS-CON')
 class ComplianceVerificationSectionContinuous {
   @Form([
     Field('continuousMonitoring', String, 'Continuous Monitoring',
@@ -7934,6 +8310,7 @@ class ServerEnvironmentEntry {
 }
 
 /// Location details.
+@SectionId('PD00-TEC-HAR-SRV-ENV-ENT-LOC')
 class ServerEnvironmentEntryLocation {
   @Form([
     Field('region', String, 'Region',
@@ -7949,6 +8326,7 @@ class ServerEnvironmentEntryLocation {
 }
 
 /// Scale expectations.
+@SectionId('PD00-TEC-HAR-SRV-ENV-ENT-SCL')
 class ServerEnvironmentEntryScale {
   @Form([
     Field('serverCount', int, 'Server Count',
@@ -7962,6 +8340,7 @@ class ServerEnvironmentEntryScale {
 }
 
 /// Access rules.
+@SectionId('PD00-TEC-HAR-SRV-ENV-ENT-ACC')
 class ServerEnvironmentEntryAccess {
   @Form([
     Field('accessRestrictions', String, 'Access Restrictions',
@@ -7975,6 +8354,7 @@ class ServerEnvironmentEntryAccess {
 }
 
 /// Lifecycle rules.
+@SectionId('PD00-TEC-HAR-SRV-ENV-ENT-LIF')
 class ServerEnvironmentEntryLifecycle {
   @Form([
     Field('refreshSchedule', String, 'Refresh Schedule',
@@ -8013,6 +8393,7 @@ class ServerRoleEntry {
 }
 
 /// Software stack details.
+@SectionId('PD00-TEC-HAR-SRV-ROL-ENT-SFT')
 class ServerRoleEntrySoftware {
   @Form([
     Field('softwareStack', String, 'Software Stack',
@@ -8026,6 +8407,7 @@ class ServerRoleEntrySoftware {
 }
 
 /// Capacity requirements.
+@SectionId('PD00-TEC-HAR-SRV-ROL-ENT-CAP')
 class ServerRoleEntryCapacity {
   @Form([
     Field('cpuArchitecture', String, 'CPU Architecture',
@@ -8039,6 +8421,7 @@ class ServerRoleEntryCapacity {
 }
 
 /// Storage requirements.
+@SectionId('PD00-TEC-HAR-SRV-ROL-ENT-STO')
 class ServerRoleEntryStorage {
   @Form([
     Field('storageType', String, 'Storage Type',
@@ -8052,6 +8435,7 @@ class ServerRoleEntryStorage {
 }
 
 /// Networking requirements.
+@SectionId('PD00-TEC-HAR-SRV-ROL-ENT-NET')
 class ServerRoleEntryNetworking {
   @Form([
     Field('networkBandwidth', String, 'Network Bandwidth',
@@ -8064,6 +8448,7 @@ class ServerRoleEntryNetworking {
 }
 
 /// Compute resource requirements.
+@SectionId('PD00-TEC-HAR-SRV-CRR')
 class ComputeResourceRequirements {
   @Form([
     Field('minCpuCores', String, 'Minimum CPU Cores',
@@ -8092,6 +8477,7 @@ class ComputeResourceRequirements {
 }
 
 /// Memory requirements.
+@SectionId('PD00-TEC-HAR-SRV-CRR-MEM')
 class ComputeResourceRequirementsMemory {
   @Form([
     Field('minMemoryGb', String, 'Minimum Memory (GB)',
@@ -8107,6 +8493,7 @@ class ComputeResourceRequirementsMemory {
 }
 
 /// GPU requirements.
+@SectionId('PD00-TEC-HAR-SRV-CRR-GPU')
 class ComputeResourceRequirementsGpu {
   @Form([
     Field('gpuRequired', bool, 'GPU Required',
@@ -8122,6 +8509,7 @@ class ComputeResourceRequirementsGpu {
 }
 
 /// Special hardware requirements.
+@SectionId('PD00-TEC-HAR-SRV-CRR-SPC')
 class ComputeResourceRequirementsSpecial {
   @Form([
     Field('tpmRequired', bool, 'TPM Required',
@@ -8135,6 +8523,7 @@ class ComputeResourceRequirementsSpecial {
 }
 
 /// Server storage requirements.
+@SectionId('PD00-TEC-HAR-SRV-SSR')
 class ServerStorageRequirements {
   @Form([
     Field('primaryStorageType', String, 'Primary Storage Type',
@@ -8165,6 +8554,7 @@ class ServerStorageRequirements {
 }
 
 /// Database storage requirements.
+@SectionId('PD00-TEC-HAR-SRV-SSR-DB')
 class ServerStorageRequirementsDatabase {
   @Form([
     Field('databaseStorageType', String, 'Database Storage Type',
@@ -8177,6 +8567,7 @@ class ServerStorageRequirementsDatabase {
 }
 
 /// File storage requirements.
+@SectionId('PD00-TEC-HAR-SRV-SSR-FIL')
 class ServerStorageRequirementsFileStorage {
   @Form([
     Field('fileStorageType', String, 'File Storage Type',
@@ -8190,6 +8581,7 @@ class ServerStorageRequirementsFileStorage {
 }
 
 /// Backup storage requirements.
+@SectionId('PD00-TEC-HAR-SRV-SSR-BAK')
 class ServerStorageRequirementsBackup {
   @Form([
     Field('backupStorageType', String, 'Backup Storage Type',
@@ -8203,6 +8595,7 @@ class ServerStorageRequirementsBackup {
 }
 
 /// Performance requirements and notes.
+@SectionId('PD00-TEC-HAR-SRV-SSR-PER')
 class ServerStorageRequirementsPerformance {
   @Form([
     Field('throughputRequired', String, 'Throughput Required',
@@ -8215,6 +8608,7 @@ class ServerStorageRequirementsPerformance {
 }
 
 /// Load profile requirements.
+@SectionId('PD00-TEC-HAR-SRV-LPR')
 class LoadProfileRequirements {
   @Form([
     Field('peakConcurrentUsers', String, 'Peak Concurrent Users',
@@ -8241,6 +8635,7 @@ class LoadProfileRequirements {
 }
 
 /// Request volume assumptions.
+@SectionId('PD00-TEC-HAR-SRV-LPR-REQ')
 class LoadProfileRequirementsRequestLoad {
   @Form([
     Field('peakRequestsPerSecond', String, 'Peak Requests/Second',
@@ -8256,6 +8651,7 @@ class LoadProfileRequirementsRequestLoad {
 }
 
 /// Temporal and seasonal patterns.
+@SectionId('PD00-TEC-HAR-SRV-LPR-PAT')
 class LoadProfileRequirementsPatterns {
   @Form([
     Field('peakHours', String, 'Peak Hours', hint: 'Time of day for peak load'),
@@ -8269,6 +8665,7 @@ class LoadProfileRequirementsPatterns {
 }
 
 /// Performance target metrics.
+@SectionId('PD00-TEC-HAR-SRV-LPR-PER')
 class LoadProfileRequirementsPerformanceTargets {
   @Form([
     Field('responseTimeP50', String, 'Response Time P50',
@@ -8284,6 +8681,7 @@ class LoadProfileRequirementsPerformanceTargets {
 }
 
 /// Scaling requirements.
+@SectionId('PD00-TEC-HAR-SRV-SCR')
 class ScalingRequirements {
   @Form([
     Field('scalingStrategy', String, 'Scaling Strategy',
@@ -8311,6 +8709,7 @@ class ScalingRequirements {
 }
 
 /// Horizontal scaling configuration.
+@SectionId('PD00-TEC-HAR-SRV-SCR-HOR')
 class ScalingRequirementsHorizontal {
   @Form([
     Field('minInstances', int, 'Minimum Instances',
@@ -8326,6 +8725,7 @@ class ScalingRequirementsHorizontal {
 }
 
 /// Vertical scaling configuration.
+@SectionId('PD00-TEC-HAR-SRV-SCR-VER')
 class ScalingRequirementsVertical {
   @Form([
     Field('canVerticallyScale', bool, 'Can Vertically Scale',
@@ -8339,6 +8739,7 @@ class ScalingRequirementsVertical {
 }
 
 /// Auto-scaling thresholds.
+@SectionId('PD00-TEC-HAR-SRV-SCR-AUT')
 class ScalingRequirementsAutoScaling {
   @Form([
     Field('cpuThresholdScale', String, 'CPU Scale Threshold',
@@ -8354,6 +8755,7 @@ class ScalingRequirementsAutoScaling {
 }
 
 /// Budget and timing constraints.
+@SectionId('PD00-TEC-HAR-SRV-SCR-CON')
 class ScalingRequirementsConstraints {
   @Form([
     Field('budgetConstraint', String, 'Budget Constraint',
@@ -8366,6 +8768,7 @@ class ScalingRequirementsConstraints {
 }
 
 /// High availability requirements.
+@SectionId('PD00-TEC-HAR-SRV-HAV')
 class HighAvailabilityRequirements {
   @Form([
     Field('availabilityTarget', String, 'Availability Target',
@@ -8395,6 +8798,7 @@ class HighAvailabilityRequirements {
 }
 
 /// Redundancy model.
+@SectionId('PD00-TEC-HAR-SRV-HAV-RED')
 class HighAvailabilityRequirementsRedundancy {
   @Form([
     Field('redundancyLevel', String, 'Redundancy Level',
@@ -8410,6 +8814,7 @@ class HighAvailabilityRequirementsRedundancy {
 }
 
 /// Failover behavior.
+@SectionId('PD00-TEC-HAR-SRV-HAV-FAL')
 class HighAvailabilityRequirementsFailover {
   @Form([
     Field('failoverType', String, 'Failover Type',
@@ -8425,6 +8830,7 @@ class HighAvailabilityRequirementsFailover {
 }
 
 /// Load balancing behavior.
+@SectionId('PD00-TEC-HAR-SRV-HAV-LBL')
 class HighAvailabilityRequirementsLoadBalancing {
   @Form([
     Field('loadBalancerType', String, 'Load Balancer Type',
@@ -8438,6 +8844,7 @@ class HighAvailabilityRequirementsLoadBalancing {
 }
 
 /// Disaster recovery alignment.
+@SectionId('PD00-TEC-HAR-SRV-HAV-DRC')
 class HighAvailabilityRequirementsDisasterRecovery {
   @Form([
     Field('drSite', String, 'DR Site',
@@ -8450,6 +8857,7 @@ class HighAvailabilityRequirementsDisasterRecovery {
 }
 
 /// Virtualization and containerization requirements.
+@SectionId('PD00-TEC-HAR-SRV-VIR')
 class VirtualizationRequirements {
   @Form([
     Field('deploymentModel', String, 'Deployment Model',
@@ -8478,6 +8886,7 @@ class VirtualizationRequirements {
 }
 
 /// VM requirements.
+@SectionId('PD00-TEC-HAR-SRV-VIR-VM')
 class VirtualizationRequirementsVm {
   @Form([
     Field('hypervisorType', String, 'Hypervisor Type',
@@ -8491,6 +8900,7 @@ class VirtualizationRequirementsVm {
 }
 
 /// Container requirements.
+@SectionId('PD00-TEC-HAR-SRV-VIR-CNT')
 class VirtualizationRequirementsContainer {
   @Form([
     Field('containerRuntime', String, 'Container Runtime',
@@ -8506,6 +8916,7 @@ class VirtualizationRequirementsContainer {
 }
 
 /// Kubernetes requirements.
+@SectionId('PD00-TEC-HAR-SRV-VIR-K8S')
 class VirtualizationRequirementsKubernetes {
   @Form([
     Field('k8sVersion', String, 'Kubernetes Version',
@@ -8521,6 +8932,7 @@ class VirtualizationRequirementsKubernetes {
 }
 
 /// Networking requirements.
+@SectionId('PD00-TEC-HAR-SRV-VIR-NET')
 class VirtualizationRequirementsNetworking {
   @Form([
     Field('serviceMesh', String, 'Service Mesh',
@@ -8534,6 +8946,7 @@ class VirtualizationRequirementsNetworking {
 }
 
 /// Cloud provider requirements.
+@SectionId('PD00-TEC-HAR-SRV-CPR')
 class CloudProviderRequirements {
   @Form([
     Field('primaryProvider', String, 'Primary Cloud Provider',
@@ -8563,6 +8976,7 @@ class CloudProviderRequirements {
 }
 
 /// Account-structure requirements.
+@SectionId('PD00-TEC-HAR-SRV-CPR-ACC')
 class CloudProviderRequirementsAccounts {
   @Form([
     Field('accountStructure', String, 'Account Structure',
@@ -8576,6 +8990,7 @@ class CloudProviderRequirementsAccounts {
 }
 
 /// Service requirements.
+@SectionId('PD00-TEC-HAR-SRV-CPR-SVC')
 class CloudProviderRequirementsServices {
   @Form([
     Field('computeServices', String, 'Compute Services',
@@ -8591,6 +9006,7 @@ class CloudProviderRequirementsServices {
 }
 
 /// Compliance requirements.
+@SectionId('PD00-TEC-HAR-SRV-CPR-COM')
 class CloudProviderRequirementsCompliance {
   @Form([
     Field('dataSovereigntyRequirements', String, 'Data Sovereignty',
@@ -8604,6 +9020,7 @@ class CloudProviderRequirementsCompliance {
 }
 
 /// Governance requirements.
+@SectionId('PD00-TEC-HAR-SRV-CPR-GOV')
 class CloudProviderRequirementsGovernance {
   @Form([
     Field('taggingStrategy', String, 'Tagging Strategy',
@@ -8617,6 +9034,7 @@ class CloudProviderRequirementsGovernance {
 }
 
 /// Server operating system requirements.
+@SectionId('PD00-TEC-HAR-SRV-OSR')
 class ServerOsRequirements {
   @Form([
     Field('primaryOs', String, 'Primary OS',
@@ -8644,6 +9062,7 @@ class ServerOsRequirements {
 }
 
 /// Hardening requirements.
+@SectionId('PD00-TEC-HAR-SRV-OSR-HRD')
 class ServerOsRequirementsHardening {
   @Form([
     Field('hardeningStandard', String, 'Hardening Standard',
@@ -8657,6 +9076,7 @@ class ServerOsRequirementsHardening {
 }
 
 /// Security controls.
+@SectionId('PD00-TEC-HAR-SRV-OSR-SEC')
 class ServerOsRequirementsSecurity {
   @Form([
     Field('firewallConfiguration', String, 'Firewall Configuration',
@@ -8672,6 +9092,7 @@ class ServerOsRequirementsSecurity {
 }
 
 /// Monitoring setup.
+@SectionId('PD00-TEC-HAR-SRV-OSR-MON')
 class ServerOsRequirementsMonitoring {
   @Form([
     Field('loggingConfiguration', String, 'Logging Configuration',
@@ -8685,6 +9106,7 @@ class ServerOsRequirementsMonitoring {
 }
 
 /// Licensing details.
+@SectionId('PD00-TEC-HAR-SRV-OSR-LIC')
 class ServerOsRequirementsLicensing {
   @Form([
     Field('licensingModel', String, 'Licensing Model',
@@ -8826,6 +9248,7 @@ class BrowserRequirementEntry {
 }
 
 /// Support level and user share.
+@SectionId('PD00-TEC-HAR-CLI-BRW-ENT-SUP')
 class BrowserRequirementEntrySupport {
   @Form([
     Field('supportLevel', String, 'Support Level',
@@ -8839,6 +9262,7 @@ class BrowserRequirementEntrySupport {
 }
 
 /// Required and optional features.
+@SectionId('PD00-TEC-HAR-CLI-BRW-ENT-FEA')
 class BrowserRequirementEntryFeatures {
   @Form([
     Field('requiredFeatures', String, 'Required Features',
@@ -8854,6 +9278,7 @@ class BrowserRequirementEntryFeatures {
 }
 
 /// Testing strategy.
+@SectionId('PD00-TEC-HAR-CLI-BRW-ENT-TST')
 class BrowserRequirementEntryTesting {
   @Form([
     Field('testPlatform', String, 'Test Platform',
@@ -8867,6 +9292,7 @@ class BrowserRequirementEntryTesting {
 }
 
 /// Known issues and workarounds.
+@SectionId('PD00-TEC-HAR-CLI-BRW-ENT-ISS')
 class BrowserRequirementEntryIssues {
   @Form([
     Field('knownLimitations', String, 'Known Limitations',
@@ -8910,6 +9336,7 @@ class DesktopOsRequirementEntry {
 }
 
 /// Support prioritization.
+@SectionId('PD00-TEC-HAR-CLI-DSK-ENT-SUP')
 class DesktopOsRequirementEntrySupport {
   @Form([
     Field('supportLevel', String, 'Support Level',
@@ -8923,6 +9350,7 @@ class DesktopOsRequirementEntrySupport {
 }
 
 /// Hardware and display requirements.
+@SectionId('PD00-TEC-HAR-CLI-DSK-ENT-REQ')
 class DesktopOsRequirementEntryRequirements {
   @Form([
     Field('architecture', String, 'Architecture',
@@ -8938,6 +9366,7 @@ class DesktopOsRequirementEntryRequirements {
 }
 
 /// Software prerequisites.
+@SectionId('PD00-TEC-HAR-CLI-DSK-ENT-SFT')
 class DesktopOsRequirementEntrySoftware {
   @Form([
     Field('runtimeDependencies', String, 'Runtime Dependencies',
@@ -8949,6 +9378,7 @@ class DesktopOsRequirementEntrySoftware {
 }
 
 /// Testing and known issues.
+@SectionId('PD00-TEC-HAR-CLI-DSK-ENT-TST')
 class DesktopOsRequirementEntryTesting {
   @Form([
     Field('testEnvironment', String, 'Test Environment',
@@ -8993,6 +9423,7 @@ class MobileDeviceRequirementEntry {
 }
 
 /// Support prioritization.
+@SectionId('PD00-TEC-HAR-CLI-MOB-ENT-SUP')
 class MobileDeviceRequirementEntrySupport {
   @Form([
     Field('supportLevel', String, 'Support Level',
@@ -9006,6 +9437,7 @@ class MobileDeviceRequirementEntrySupport {
 }
 
 /// Device coverage.
+@SectionId('PD00-TEC-HAR-CLI-MOB-ENT-DEV')
 class MobileDeviceRequirementEntryDevices {
   @Form([
     Field('deviceTypes', String, 'Device Types',
@@ -9019,6 +9451,7 @@ class MobileDeviceRequirementEntryDevices {
 }
 
 /// Hardware expectations.
+@SectionId('PD00-TEC-HAR-CLI-MOB-ENT-HWR')
 class MobileDeviceRequirementEntryHardware {
   @Form([
     Field('minRam', String, 'Minimum RAM',
@@ -9034,6 +9467,7 @@ class MobileDeviceRequirementEntryHardware {
 }
 
 /// Capability requirements.
+@SectionId('PD00-TEC-HAR-CLI-MOB-ENT-CAP')
 class MobileDeviceRequirementEntryCapabilities {
   @Form([
     Field('permissionsRequired', String, 'Permissions Required',
@@ -9049,6 +9483,7 @@ class MobileDeviceRequirementEntryCapabilities {
 }
 
 /// Display and screen requirements.
+@SectionId('PD00-TEC-HAR-CLI-DIS')
 class DisplayRequirements {
   @Form([
     Field('minResolution', String, 'Minimum Resolution',
@@ -9075,6 +9510,7 @@ class DisplayRequirements {
 }
 
 /// Aspect ratio and layout support.
+@SectionId('PD00-TEC-HAR-CLI-DIS-LAY')
 class DisplayRequirementsLayout {
   @Form([
     Field('supportedAspectRatios', String, 'Supported Aspect Ratios',
@@ -9088,6 +9524,7 @@ class DisplayRequirementsLayout {
 }
 
 /// DPI and scaling support.
+@SectionId('PD00-TEC-HAR-CLI-DIS-SCL')
 class DisplayRequirementsScaling {
   @Form([
     Field('minDpi', String, 'Minimum DPI',
@@ -9103,6 +9540,7 @@ class DisplayRequirementsScaling {
 }
 
 /// Color and contrast support.
+@SectionId('PD00-TEC-HAR-CLI-DIS-COL')
 class DisplayRequirementsColor {
   @Form([
     Field('colorDepth', String, 'Color Depth',
@@ -9118,6 +9556,7 @@ class DisplayRequirementsColor {
 }
 
 /// Multi-display support.
+@SectionId('PD00-TEC-HAR-CLI-DIS-MUL')
 class DisplayRequirementsMultiDisplay {
   @Form([
     Field('multiMonitorSupport', bool, 'Multi-Monitor Support',
@@ -9131,6 +9570,7 @@ class DisplayRequirementsMultiDisplay {
 }
 
 /// Client network requirements.
+@SectionId('PD00-TEC-HAR-CLI-CNR')
 class ClientNetworkRequirements {
   @Form([
     Field('minDownloadSpeed', String, 'Minimum Download Speed',
@@ -9160,6 +9600,7 @@ class ClientNetworkRequirements {
 }
 
 /// Latency requirements.
+@SectionId('PD00-TEC-HAR-CLI-CNR-LAT')
 class ClientNetworkRequirementsLatency {
   @Form([
     Field('maxLatency', String, 'Maximum Latency',
@@ -9173,6 +9614,7 @@ class ClientNetworkRequirementsLatency {
 }
 
 /// Connection-type requirements.
+@SectionId('PD00-TEC-HAR-CLI-CNR-CON')
 class ClientNetworkRequirementsConnection {
   @Form([
     Field('connectionTypes', String, 'Connection Types',
@@ -9186,6 +9628,7 @@ class ClientNetworkRequirementsConnection {
 }
 
 /// Protocol requirements.
+@SectionId('PD00-TEC-HAR-CLI-CNR-PRO')
 class ClientNetworkRequirementsProtocols {
   @Form([
     Field('requiredProtocols', String, 'Required Protocols',
@@ -9199,6 +9642,7 @@ class ClientNetworkRequirementsProtocols {
 }
 
 /// Proxy and firewall requirements.
+@SectionId('PD00-TEC-HAR-CLI-CNR-PRX')
 class ClientNetworkRequirementsProxy {
   @Form([
     Field('proxySupport', String, 'Proxy Support',
@@ -9212,6 +9656,7 @@ class ClientNetworkRequirementsProxy {
 }
 
 /// Client hardware requirements.
+@SectionId('PD00-TEC-HAR-CLI-CHR')
 class ClientHardwareRequirements {
   @Form([
     Field('minCpuCores', String, 'Minimum CPU Cores',
@@ -9242,6 +9687,7 @@ class ClientHardwareRequirements {
 }
 
 /// Memory requirements.
+@SectionId('PD00-TEC-HAR-CLI-CHR-MEM')
 class ClientHardwareRequirementsMemory {
   @Form([
     Field('minRam', String, 'Minimum RAM',
@@ -9255,6 +9701,7 @@ class ClientHardwareRequirementsMemory {
 }
 
 /// Storage requirements.
+@SectionId('PD00-TEC-HAR-CLI-CHR-STO')
 class ClientHardwareRequirementsStorage {
   @Form([
     Field('minFreeSpace', String, 'Minimum Free Space',
@@ -9270,6 +9717,7 @@ class ClientHardwareRequirementsStorage {
 }
 
 /// Graphics requirements.
+@SectionId('PD00-TEC-HAR-CLI-CHR-GFX')
 class ClientHardwareRequirementsGraphics {
   @Form([
     Field('gpuRequired', bool, 'GPU Required',
@@ -9283,6 +9731,7 @@ class ClientHardwareRequirementsGraphics {
 }
 
 /// Peripheral requirements.
+@SectionId('PD00-TEC-HAR-CLI-CHR-PER')
 class ClientHardwareRequirementsPeripherals {
   @Form([
     Field('inputDevices', String, 'Input Devices',
@@ -9296,6 +9745,7 @@ class ClientHardwareRequirementsPeripherals {
 }
 
 /// Client accessibility requirements.
+@SectionId('PD00-TEC-HAR-CLI-CAR')
 class ClientAccessibilityRequirements {
   @Form([
     Field('screenReaderSupport', String, 'Screen Reader Support',
@@ -9325,6 +9775,7 @@ class ClientAccessibilityRequirements {
 }
 
 /// Visual accessibility support.
+@SectionId('PD00-TEC-HAR-CLI-CAR-VIS')
 class ClientAccessibilityRequirementsVisual {
   @Form([
     Field('colorBlindSupport', bool, 'Color Blind Support',
@@ -9340,6 +9791,7 @@ class ClientAccessibilityRequirementsVisual {
 }
 
 /// Motor accessibility support.
+@SectionId('PD00-TEC-HAR-CLI-CAR-MOT')
 class ClientAccessibilityRequirementsMotor {
   @Form([
     Field('keyboardNavigation', bool, 'Keyboard Navigation',
@@ -9355,6 +9807,7 @@ class ClientAccessibilityRequirementsMotor {
 }
 
 /// Cognitive accessibility support.
+@SectionId('PD00-TEC-HAR-CLI-CAR-COG')
 class ClientAccessibilityRequirementsCognitive {
   @Form([
     Field('simplifiedMode', bool, 'Simplified Mode',
@@ -9368,6 +9821,7 @@ class ClientAccessibilityRequirementsCognitive {
 }
 
 /// Standards and notes.
+@SectionId('PD00-TEC-HAR-CLI-CAR-STD')
 class ClientAccessibilityRequirementsStandards {
   @Form([
     Field('wcagLevel', String, 'WCAG Conformance',
@@ -9381,6 +9835,7 @@ class ClientAccessibilityRequirementsStandards {
 }
 
 /// Progressive Web App (PWA) requirements.
+@SectionId('PD00-TEC-HAR-CLI-PWA')
 class PwaRequirements {
   @Form([
     Field('pwaEnabled', bool, 'PWA Enabled',
@@ -9410,6 +9865,7 @@ class PwaRequirements {
 }
 
 /// Icon requirements.
+@SectionId('PD00-TEC-HAR-CLI-PWA-ICN')
 class PwaRequirementsIcons {
   @Form([
     Field('iconSizes', String, 'Icon Sizes',
@@ -9423,6 +9879,7 @@ class PwaRequirementsIcons {
 }
 
 /// Installation behavior.
+@SectionId('PD00-TEC-HAR-CLI-PWA-INS')
 class PwaRequirementsInstallation {
   @Form([
     Field('installPrompt', String, 'Install Prompt',
@@ -9436,6 +9893,7 @@ class PwaRequirementsInstallation {
 }
 
 /// Offline support.
+@SectionId('PD00-TEC-HAR-CLI-PWA-OFL')
 class PwaRequirementsOffline {
   @Form([
     Field('serviceWorkerStrategy', String, 'Service Worker Strategy',
@@ -9449,6 +9907,7 @@ class PwaRequirementsOffline {
 }
 
 /// Update handling.
+@SectionId('PD00-TEC-HAR-CLI-PWA-UPD')
 class PwaRequirementsUpdates {
   @Form([
     Field('updateStrategy', String, 'Update Strategy',
@@ -9462,6 +9921,7 @@ class PwaRequirementsUpdates {
 }
 
 /// Native app requirements.
+@SectionId('PD00-TEC-HAR-CLI-NAR')
 class NativeAppRequirements {
   @Form([
     Field('appStoreDistribution', bool, 'App Store Distribution',
@@ -9488,6 +9948,7 @@ class NativeAppRequirements {
 }
 
 /// Store presence requirements.
+@SectionId('PD00-TEC-HAR-CLI-NAR-STO')
 class NativeAppRequirementsStores {
   @Form([
     Field('appleAppStore', bool, 'Apple App Store',
@@ -9501,6 +9962,7 @@ class NativeAppRequirementsStores {
 }
 
 /// SDK and version requirements.
+@SectionId('PD00-TEC-HAR-CLI-NAR-VER')
 class NativeAppRequirementsVersions {
   @Form([
     Field('minSdkVersion', String, 'Minimum SDK Version',
@@ -9514,6 +9976,7 @@ class NativeAppRequirementsVersions {
 }
 
 /// Size and performance requirements.
+@SectionId('PD00-TEC-HAR-CLI-NAR-PER')
 class NativeAppRequirementsPerformance {
   @Form([
     Field('maxAppSize', String, 'Maximum App Size',
@@ -9526,6 +9989,7 @@ class NativeAppRequirementsPerformance {
 }
 
 /// Deep-linking support.
+@SectionId('PD00-TEC-HAR-CLI-NAR-LNK')
 class NativeAppRequirementsLinking {
   @Form([
     Field('deepLinking', bool, 'Deep Linking', hint: 'Deep link support'),
@@ -9539,6 +10003,7 @@ class NativeAppRequirementsLinking {
 }
 
 /// Client security requirements.
+@SectionId('PD00-TEC-HAR-CLI-CSR')
 class ClientSecurityRequirements {
   @Form([
     Field('localDataEncryption', bool, 'Local Data Encryption',
@@ -9567,6 +10032,7 @@ class ClientSecurityRequirements {
 }
 
 /// Authentication requirements.
+@SectionId('PD00-TEC-HAR-CLI-CSR-AUT')
 class ClientSecurityRequirementsAuthentication {
   @Form([
     Field('biometricAuth', bool, 'Biometric Authentication',
@@ -9582,6 +10048,7 @@ class ClientSecurityRequirementsAuthentication {
 }
 
 /// Device security controls.
+@SectionId('PD00-TEC-HAR-CLI-CSR-DEV')
 class ClientSecurityRequirementsDevice {
   @Form([
     Field('jailbreakDetection', bool, 'Jailbreak Detection',
@@ -9597,6 +10064,7 @@ class ClientSecurityRequirementsDevice {
 }
 
 /// Network security controls.
+@SectionId('PD00-TEC-HAR-CLI-CSR-NET')
 class ClientSecurityRequirementsNetwork {
   @Form([
     Field('httpsOnly', bool, 'HTTPS Only',
@@ -9610,6 +10078,7 @@ class ClientSecurityRequirementsNetwork {
 }
 
 /// Code protection controls.
+@SectionId('PD00-TEC-HAR-CLI-CSR-COD')
 class ClientSecurityRequirementsCodeProtection {
   @Form([
     Field('codeObfuscation', bool, 'Code Obfuscation',
@@ -9728,6 +10197,7 @@ Provide an overview of network strategy and architecture.
 }
 
 /// Internal network requirements.
+@SectionId('PD00-TEC-HAR-NET-INT')
 class InternalNetworkRequirements {
   @Form([
     Field('networkTopology', String, 'Network Topology',
@@ -9759,6 +10229,7 @@ class InternalNetworkRequirements {
 }
 
 /// Segmentation and isolation.
+@SectionId('PD00-TEC-HAR-NET-INT-SEG')
 class InternalNetworkRequirementsSegmentation {
   @Form([
     Field('networkSegmentation', String, 'Network Segmentation',
@@ -9772,6 +10243,7 @@ class InternalNetworkRequirementsSegmentation {
 }
 
 /// Routing and service discovery.
+@SectionId('PD00-TEC-HAR-NET-INT-ROU')
 class InternalNetworkRequirementsRouting {
   @Form([
     Field('routingProtocol', String, 'Routing Protocol',
@@ -9785,6 +10257,7 @@ class InternalNetworkRequirementsRouting {
 }
 
 /// Inter-service communication controls.
+@SectionId('PD00-TEC-HAR-NET-INT-SVC')
 class InternalNetworkRequirementsInterService {
   @Form([
     Field('interServiceCommunication', String, 'Inter-Service Communication',
@@ -9798,6 +10271,7 @@ class InternalNetworkRequirementsInterService {
 }
 
 /// Monitoring and notes.
+@SectionId('PD00-TEC-HAR-NET-INT-MON')
 class InternalNetworkRequirementsMonitoring {
   @Form([
     Field('networkMonitoring', String, 'Network Monitoring',
@@ -9810,6 +10284,7 @@ class InternalNetworkRequirementsMonitoring {
 }
 
 /// External network requirements.
+@SectionId('PD00-TEC-HAR-NET-EXT')
 class ExternalNetworkRequirements {
   @Form([
     Field('internetAccess', String, 'Internet Access',
@@ -9840,6 +10315,7 @@ class ExternalNetworkRequirements {
 }
 
 /// Public endpoint requirements.
+@SectionId('PD00-TEC-HAR-NET-EXT-PUB')
 class ExternalNetworkRequirementsPublic {
   @Form([
     Field('publicEndpoints', String, 'Public Endpoints',
@@ -9855,6 +10331,7 @@ class ExternalNetworkRequirementsPublic {
 }
 
 /// Third-party connectivity.
+@SectionId('PD00-TEC-HAR-NET-EXT-PAR')
 class ExternalNetworkRequirementsPartners {
   @Form([
     Field('partnerConnectivity', String, 'Partner Connectivity',
@@ -9868,6 +10345,7 @@ class ExternalNetworkRequirementsPartners {
 }
 
 /// Cloud connectivity.
+@SectionId('PD00-TEC-HAR-NET-EXT-CLD')
 class ExternalNetworkRequirementsCloud {
   @Form([
     Field('cloudConnect', String, 'Cloud Direct Connect',
@@ -9879,6 +10357,7 @@ class ExternalNetworkRequirementsCloud {
 }
 
 /// Security controls.
+@SectionId('PD00-TEC-HAR-NET-EXT-SEC')
 class ExternalNetworkRequirementsSecurity {
   @Form([
     Field('ddosProtection', String, 'DDoS Protection',
@@ -9892,6 +10371,7 @@ class ExternalNetworkRequirementsSecurity {
 }
 
 /// Bandwidth requirements.
+@SectionId('PD00-TEC-HAR-NET-BWR')
 class BandwidthRequirements {
   @Form([
     Field('totalBandwidth', String, 'Total Bandwidth Required',
@@ -9919,6 +10399,7 @@ class BandwidthRequirements {
 }
 
 /// Directional bandwidth requirements.
+@SectionId('PD00-TEC-HAR-NET-BWR-DIR')
 class BandwidthRequirementsDirection {
   @Form([
     Field('ingressBandwidth', String, 'Ingress Bandwidth',
@@ -9932,6 +10413,7 @@ class BandwidthRequirementsDirection {
 }
 
 /// Per-connection bandwidth requirements.
+@SectionId('PD00-TEC-HAR-NET-BWR-CON')
 class BandwidthRequirementsConnection {
   @Form([
     Field('perConnectionBandwidth', String, 'Per-Connection Bandwidth',
@@ -9945,6 +10427,7 @@ class BandwidthRequirementsConnection {
 }
 
 /// Traffic-pattern requirements.
+@SectionId('PD00-TEC-HAR-NET-BWR-TRF')
 class BandwidthRequirementsTraffic {
   @Form([
     Field('trafficPatterns', String, 'Traffic Patterns',
@@ -9958,6 +10441,7 @@ class BandwidthRequirementsTraffic {
 }
 
 /// QoS requirements.
+@SectionId('PD00-TEC-HAR-NET-BWR-QOS')
 class BandwidthRequirementsQos {
   @Form([
     Field('qosRequirements', String, 'QoS Requirements',
@@ -9971,6 +10455,7 @@ class BandwidthRequirementsQos {
 }
 
 /// Network latency requirements.
+@SectionId('PD00-TEC-HAR-NET-NLR')
 class NetworkLatencyRequirements {
   @Form([
     Field('maxLatency', String, 'Maximum Latency',
@@ -10002,6 +10487,7 @@ class NetworkLatencyRequirements {
 }
 
 /// Segment-level latency budgets.
+@SectionId('PD00-TEC-HAR-NET-NLR-SEG')
 class NetworkLatencyRequirementsSegments {
   @Form([
     Field('clientToEdge', String, 'Client to Edge Latency',
@@ -10017,6 +10503,7 @@ class NetworkLatencyRequirementsSegments {
 }
 
 /// Geographic latency budgets.
+@SectionId('PD00-TEC-HAR-NET-NLR-GEO')
 class NetworkLatencyRequirementsGeographic {
   @Form([
     Field('regionalLatency', String, 'Regional Latency',
@@ -10030,6 +10517,7 @@ class NetworkLatencyRequirementsGeographic {
 }
 
 /// Stability tolerances.
+@SectionId('PD00-TEC-HAR-NET-NLR-STA')
 class NetworkLatencyRequirementsStability {
   @Form([
     Field('jitterTolerance', String, 'Jitter Tolerance',
@@ -10043,6 +10531,7 @@ class NetworkLatencyRequirementsStability {
 }
 
 /// Optimization strategies.
+@SectionId('PD00-TEC-HAR-NET-NLR-OPT')
 class NetworkLatencyRequirementsOptimization {
   @Form([
     Field('latencyOptimization', String, 'Latency Optimization',
@@ -10053,6 +10542,7 @@ class NetworkLatencyRequirementsOptimization {
 }
 
 /// Network availability requirements.
+@SectionId('PD00-TEC-HAR-NET-NAR')
 class NetworkAvailabilityRequirements {
   @Form([
     Field('availabilityTarget', String, 'Availability Target',
@@ -10082,6 +10572,7 @@ class NetworkAvailabilityRequirements {
 }
 
 /// Redundancy configuration.
+@SectionId('PD00-TEC-HAR-NET-NAR-RED')
 class NetworkAvailabilityRequirementsRedundancy {
   @Form([
     Field('pathRedundancy', String, 'Path Redundancy',
@@ -10097,6 +10588,7 @@ class NetworkAvailabilityRequirementsRedundancy {
 }
 
 /// Failover configuration.
+@SectionId('PD00-TEC-HAR-NET-NAR-FAL')
 class NetworkAvailabilityRequirementsFailover {
   @Form([
     Field('failoverMechanism', String, 'Failover Mechanism',
@@ -10112,6 +10604,7 @@ class NetworkAvailabilityRequirementsFailover {
 }
 
 /// Recovery objectives.
+@SectionId('PD00-TEC-HAR-NET-NAR-REC')
 class NetworkAvailabilityRequirementsRecovery {
   @Form([
     Field('rpo', String, 'Recovery Point Objective',
@@ -10125,6 +10618,7 @@ class NetworkAvailabilityRequirementsRecovery {
 }
 
 /// Testing and notes.
+@SectionId('PD00-TEC-HAR-NET-NAR-TST')
 class NetworkAvailabilityRequirementsTesting {
   @Form([
     Field('failoverTesting', String, 'Failover Testing',
@@ -10164,6 +10658,7 @@ class VpnRequirementEntry {
 }
 
 /// Endpoint configuration.
+@SectionId('PD00-TEC-HAR-NET-VPN-ENT-END')
 class VpnRequirementEntryEndpoints {
   @Form([
     Field('localEndpoint', String, 'Local Endpoint',
@@ -10177,6 +10672,7 @@ class VpnRequirementEntryEndpoints {
 }
 
 /// Protocol and cryptography.
+@SectionId('PD00-TEC-HAR-NET-VPN-ENT-PRO')
 class VpnRequirementEntryProtocol {
   @Form([
     Field('protocol', String, 'Protocol',
@@ -10192,6 +10688,7 @@ class VpnRequirementEntryProtocol {
 }
 
 /// Performance expectations.
+@SectionId('PD00-TEC-HAR-NET-VPN-ENT-PER')
 class VpnRequirementEntryPerformance {
   @Form([
     Field('bandwidth', String, 'Bandwidth',
@@ -10205,6 +10702,7 @@ class VpnRequirementEntryPerformance {
 }
 
 /// Availability and notes.
+@SectionId('PD00-TEC-HAR-NET-VPN-ENT-AVL')
 class VpnRequirementEntryAvailability {
   @Form([
     Field('availability', String, 'Availability',
@@ -10217,6 +10715,7 @@ class VpnRequirementEntryAvailability {
 }
 
 /// Firewall requirements.
+@SectionId('PD00-TEC-HAR-NET-FWR')
 class FirewallRequirements {
   @Form([
     Field('firewallArchitecture', String, 'Firewall Architecture',
@@ -10242,6 +10741,7 @@ class FirewallRequirements {
 }
 
 /// Rule definitions.
+@SectionId('PD00-TEC-HAR-NET-FWR-RUL')
 class FirewallRequirementsRules {
   @Form([
     Field('defaultPolicy', String, 'Default Policy',
@@ -10257,6 +10757,7 @@ class FirewallRequirementsRules {
 }
 
 /// Port requirements.
+@SectionId('PD00-TEC-HAR-NET-FWR-PRT')
 class FirewallRequirementsPorts {
   @Form([
     Field('requiredPorts', String, 'Required Ports',
@@ -10270,6 +10771,7 @@ class FirewallRequirementsPorts {
 }
 
 /// Advanced inspection features.
+@SectionId('PD00-TEC-HAR-NET-FWR-ADV')
 class FirewallRequirementsAdvanced {
   @Form([
     Field('intrusionDetection', bool, 'Intrusion Detection',
@@ -10285,6 +10787,7 @@ class FirewallRequirementsAdvanced {
 }
 
 /// Logging and alerts.
+@SectionId('PD00-TEC-HAR-NET-FWR-LOG')
 class FirewallRequirementsLogging {
   @Form([
     Field('loggingRequirements', String, 'Logging Requirements',
@@ -10298,6 +10801,7 @@ class FirewallRequirementsLogging {
 }
 
 /// Geographic distribution requirements.
+@SectionId('PD00-TEC-HAR-NET-GDR')
 class GeographicDistributionRequirements {
   @Form([
     Field('primaryRegion', String, 'Primary Region',
@@ -10329,6 +10833,7 @@ class GeographicDistributionRequirements {
 }
 
 /// CDN requirements.
+@SectionId('PD00-TEC-HAR-NET-GDR-CDN')
 class GeographicDistributionRequirementsCdn {
   @Form([
     Field('cdnRequired', bool, 'CDN Required',
@@ -10345,6 +10850,7 @@ class GeographicDistributionRequirementsCdn {
 }
 
 /// Traffic routing requirements.
+@SectionId('PD00-TEC-HAR-NET-GDR-ROU')
 class GeographicDistributionRequirementsRouting {
   @Form([
     Field('routingStrategy', String, 'Routing Strategy',
@@ -10358,6 +10864,7 @@ class GeographicDistributionRequirementsRouting {
 }
 
 /// Anycast and global load balancing.
+@SectionId('PD00-TEC-HAR-NET-GDR-ANY')
 class GeographicDistributionRequirementsAnycast {
   @Form([
     Field('anycastIp', bool, 'Anycast IP', hint: 'Anycast addressing'),
@@ -10368,6 +10875,7 @@ class GeographicDistributionRequirementsAnycast {
 }
 
 /// Performance considerations.
+@SectionId('PD00-TEC-HAR-NET-GDR-PER')
 class GeographicDistributionRequirementsPerformance {
   @Form([
     Field('edgeCaching', String, 'Edge Caching',
@@ -10379,6 +10887,7 @@ class GeographicDistributionRequirementsPerformance {
 }
 
 /// DNS requirements.
+@SectionId('PD00-TEC-HAR-NET-DNS')
 class DnsRequirements {
   @Form([
     Field('dnsProvider', String, 'DNS Provider',
@@ -10404,6 +10913,7 @@ class DnsRequirements {
 }
 
 /// Zone requirements.
+@SectionId('PD00-TEC-HAR-NET-DNS-ZON')
 class DnsRequirementsZones {
   @Form([
     Field('publicZones', String, 'Public Zones',
@@ -10417,6 +10927,7 @@ class DnsRequirementsZones {
 }
 
 /// Record requirements.
+@SectionId('PD00-TEC-HAR-NET-DNS-REC')
 class DnsRequirementsRecords {
   @Form([
     Field('recordTypes', String, 'Record Types',
@@ -10430,6 +10941,7 @@ class DnsRequirementsRecords {
 }
 
 /// Availability requirements.
+@SectionId('PD00-TEC-HAR-NET-DNS-AVL')
 class DnsRequirementsAvailability {
   @Form([
     Field('dnsRedundancy', String, 'DNS Redundancy',
@@ -10443,6 +10955,7 @@ class DnsRequirementsAvailability {
 }
 
 /// Health-check settings.
+@SectionId('PD00-TEC-HAR-NET-DNS-HCK')
 class DnsRequirementsHealthChecks {
   @Form([
     Field('healthChecks', bool, 'Health Checks',
@@ -10458,6 +10971,7 @@ class DnsRequirementsHealthChecks {
 }
 
 /// Network load balancing requirements.
+@SectionId('PD00-TEC-HAR-NET-LBR')
 class NetworkLoadBalancingRequirements {
   @Form([
     Field('loadBalancerType', String, 'Load Balancer Type',
@@ -10487,6 +11001,7 @@ class NetworkLoadBalancingRequirements {
 }
 
 /// Routing strategy.
+@SectionId('PD00-TEC-HAR-NET-LBR-ROU')
 class NetworkLoadBalancingRequirementsRouting {
   @Form([
     Field('loadBalancingAlgorithm', String, 'Load Balancing Algorithm',
@@ -10500,6 +11015,7 @@ class NetworkLoadBalancingRequirementsRouting {
 }
 
 /// Health-check behavior.
+@SectionId('PD00-TEC-HAR-NET-LBR-HCK')
 class NetworkLoadBalancingRequirementsHealthChecks {
   @Form([
     Field('healthCheckProtocol', String, 'Health Check Protocol',
@@ -10517,6 +11033,7 @@ class NetworkLoadBalancingRequirementsHealthChecks {
 }
 
 /// TLS settings.
+@SectionId('PD00-TEC-HAR-NET-LBR-TLS')
 class NetworkLoadBalancingRequirementsTls {
   @Form([
     Field('sslTermination', String, 'SSL Termination',
@@ -10530,6 +11047,7 @@ class NetworkLoadBalancingRequirementsTls {
 }
 
 /// Availability settings.
+@SectionId('PD00-TEC-HAR-NET-LBR-AVL')
 class NetworkLoadBalancingRequirementsAvailability {
   @Form([
     Field('lbRedundancy', String, 'LB Redundancy',
@@ -10543,6 +11061,7 @@ class NetworkLoadBalancingRequirementsAvailability {
 }
 
 /// Network security requirements.
+@SectionId('PD00-TEC-HAR-NET-NSR')
 class NetworkSecurityRequirements {
   @Form([
     Field('encryptionInTransit', String, 'Encryption in Transit',
@@ -10572,6 +11091,7 @@ class NetworkSecurityRequirements {
 }
 
 /// Access-control settings.
+@SectionId('PD00-TEC-HAR-NET-NSR-ACC')
 class NetworkSecurityRequirementsAccess {
   @Form([
     Field('networkAcls', String, 'Network ACLs',
@@ -10587,6 +11107,7 @@ class NetworkSecurityRequirementsAccess {
 }
 
 /// Monitoring controls.
+@SectionId('PD00-TEC-HAR-NET-NSR-MON')
 class NetworkSecurityRequirementsMonitoring {
   @Form([
     Field('networkIdp', String, 'Network IDS/IPS',
@@ -10600,6 +11121,7 @@ class NetworkSecurityRequirementsMonitoring {
 }
 
 /// DDoS protection controls.
+@SectionId('PD00-TEC-HAR-NET-NSR-DOS')
 class NetworkSecurityRequirementsDdos {
   @Form([
     Field('ddosProtection', String, 'DDoS Protection',
@@ -10613,6 +11135,7 @@ class NetworkSecurityRequirementsDdos {
 }
 
 /// Compliance settings.
+@SectionId('PD00-TEC-HAR-NET-NSR-COM')
 class NetworkSecurityRequirementsCompliance {
   @Form([
     Field('pciDssCompliance', String, 'PCI-DSS Network Compliance',
@@ -10787,6 +11310,7 @@ Provide an overview of backup and recovery strategy.
 }
 
 /// Data classification for backup purposes.
+@SectionId('PD00-TEC-OPE-BAC-DCL')
 class BackupDataClassification {
   @Form([
     Field('criticalData', String, 'Critical Data',
@@ -10810,6 +11334,7 @@ class BackupDataClassification {
 }
 
 /// Included data categories for backup planning.
+@SectionId('PD00-TEC-OPE-BAC-DCL-CAT')
 class BackupDataClassificationCategories {
   @Form([
   Field('databaseData', String, 'Database Data',
@@ -10827,6 +11352,7 @@ class BackupDataClassificationCategories {
 }
 
 /// Exclusions and regeneration rules for backup planning.
+@SectionId('PD00-TEC-OPE-BAC-DCL-EXC')
 class BackupDataClassificationExclusions {
   @Form([
   Field('excludedData', String, 'Excluded Data',
@@ -10867,6 +11393,7 @@ class BackupPolicyEntry {
 }
 
 /// Backup type configuration.
+@SectionId('PD00-TEC-OPE-BAC-POL-ENT-TYP')
 class BackupPolicyEntryType {
   @Form([
     Field('backupType', String, 'Backup Type',
@@ -10882,6 +11409,7 @@ class BackupPolicyEntryType {
 }
 
 /// Schedule settings for backup policy.
+@SectionId('PD00-TEC-OPE-BAC-POL-ENT-SCH')
 class BackupPolicyEntrySchedule {
   @Form([
     Field('backupWindow', String, 'Backup Window',
@@ -10895,6 +11423,7 @@ class BackupPolicyEntrySchedule {
 }
 
 /// Retention policies for backup.
+@SectionId('PD00-TEC-OPE-BAC-POL-ENT-RET')
 class BackupPolicyEntryRetention {
   @Form([
     Field('retentionPeriod', String, 'Retention Period',
@@ -10912,6 +11441,7 @@ class BackupPolicyEntryRetention {
 }
 
 /// Storage configuration for backup policy.
+@SectionId('PD00-TEC-OPE-BAC-POL-ENT-STO')
 class BackupPolicyEntryStorage {
   @Form([
     Field('storageLocation', String, 'Storage Location',
@@ -10931,6 +11461,7 @@ class BackupPolicyEntryStorage {
 }
 
 /// RPO and RTO requirements.
+@SectionId('PD00-TEC-OPE-BAC-RPO')
 class RpoRtoRequirements {
   @Form([
     Field('overallRpo', String, 'Overall RPO',
@@ -10951,6 +11482,7 @@ class RpoRtoRequirements {
 }
 
 /// Tier-based targets.
+@SectionId('PD00-TEC-OPE-BAC-RPO-TIR')
 class RpoRtoRequirementsByTier {
   @Form([
     Field('criticalRpo', String, 'Critical Data RPO',
@@ -10974,6 +11506,7 @@ class RpoRtoRequirementsByTier {
 }
 
 /// System-specific recovery targets.
+@SectionId('PD00-TEC-OPE-BAC-RPO-SYS')
 class RpoRtoRequirementsSystems {
   @Form([
     Field('databaseRpo', String, 'Database RPO',
@@ -10989,6 +11522,7 @@ class RpoRtoRequirementsSystems {
 }
 
 /// Degraded-mode guidance.
+@SectionId('PD00-TEC-OPE-BAC-RPO-DEG')
 class RpoRtoRequirementsDegraded {
   @Form([
     Field('degradedOperationAllowed', bool, 'Degraded Operation Allowed',
@@ -11002,6 +11536,7 @@ class RpoRtoRequirementsDegraded {
 }
 
 /// Backup infrastructure requirements.
+@SectionId('PD00-TEC-OPE-BAC-INF')
 class BackupInfrastructure {
   @Form([
     Field('primaryStorage', String, 'Primary Backup Storage',
@@ -11027,6 +11562,7 @@ class BackupInfrastructure {
 }
 
 /// Performance and secondary storage.
+@SectionId('PD00-TEC-OPE-BAC-INF-STO')
 class BackupInfrastructureStorage {
   @Form([
     Field('storagePerformance', String, 'Storage Performance',
@@ -11044,6 +11580,7 @@ class BackupInfrastructureStorage {
 }
 
 /// Backup software configuration.
+@SectionId('PD00-TEC-OPE-BAC-INF-SFT')
 class BackupInfrastructureSoftware {
   @Form([
     Field('backupSoftware', String, 'Backup Software',
@@ -11059,6 +11596,7 @@ class BackupInfrastructureSoftware {
 }
 
 /// Network requirements.
+@SectionId('PD00-TEC-OPE-BAC-INF-NET')
 class BackupInfrastructureNetwork {
   @Form([
     Field('backupNetwork', String, 'Backup Network',
@@ -11072,6 +11610,7 @@ class BackupInfrastructureNetwork {
 }
 
 /// Security controls.
+@SectionId('PD00-TEC-OPE-BAC-INF-SEC')
 class BackupInfrastructureSecurity {
   @Form([
     Field('accessControl', String, 'Access Control',
@@ -11089,6 +11628,7 @@ class BackupInfrastructureSecurity {
 }
 
 /// Recovery procedures.
+@SectionId('PD00-TEC-OPE-BAC-REC')
 class RecoveryProcedures {
   @Form([
     Field('granularRecovery', String, 'Granular Recovery',
@@ -11116,6 +11656,7 @@ class RecoveryProcedures {
 }
 
 /// Database recovery behavior.
+@SectionId('PD00-TEC-OPE-BAC-REC-DB')
 class RecoveryProceduresDatabase {
   @Form([
     Field('databaseRecovery', String, 'Database Recovery',
@@ -11129,6 +11670,7 @@ class RecoveryProceduresDatabase {
 }
 
 /// Application recovery behavior.
+@SectionId('PD00-TEC-OPE-BAC-REC-APP')
 class RecoveryProceduresApplication {
   @Form([
     Field('applicationRecovery', String, 'Application Recovery',
@@ -11142,6 +11684,7 @@ class RecoveryProceduresApplication {
 }
 
 /// Recovery automation.
+@SectionId('PD00-TEC-OPE-BAC-REC-AUT')
 class RecoveryProceduresAutomation {
   @Form([
     Field('automatedRecovery', bool, 'Automated Recovery',
@@ -11155,6 +11698,7 @@ class RecoveryProceduresAutomation {
 }
 
 /// Validation after recovery.
+@SectionId('PD00-TEC-OPE-BAC-REC-VAL')
 class RecoveryProceduresValidation {
   @Form([
     Field('postRecoveryValidation', String, 'Post-Recovery Validation',
@@ -11170,6 +11714,7 @@ class RecoveryProceduresValidation {
 }
 
 /// Disaster recovery requirements.
+@SectionId('PD00-TEC-OPE-BAC-DRR')
 class DisasterRecoveryRequirements {
   @Form([
     Field('drStrategy', String, 'DR Strategy',
@@ -11199,6 +11744,7 @@ class DisasterRecoveryRequirements {
 }
 
 /// Failover execution.
+@SectionId('PD00-TEC-OPE-BAC-DRR-FAL')
 class DisasterRecoveryRequirementsFailover {
   @Form([
     Field('failoverType', String, 'Failover Type',
@@ -11212,6 +11758,7 @@ class DisasterRecoveryRequirementsFailover {
 }
 
 /// Failback procedure.
+@SectionId('PD00-TEC-OPE-BAC-DRR-FBK')
 class DisasterRecoveryRequirementsFailback {
   @Form([
     Field('failbackProcedure', String, 'Failback Procedure',
@@ -11225,6 +11772,7 @@ class DisasterRecoveryRequirementsFailback {
 }
 
 /// Replication requirements.
+@SectionId('PD00-TEC-OPE-BAC-DRR-REP')
 class DisasterRecoveryRequirementsReplication {
   @Form([
     Field('replicationMethod', String, 'Replication Method',
@@ -11238,6 +11786,7 @@ class DisasterRecoveryRequirementsReplication {
 }
 
 /// Continuity and coordination.
+@SectionId('PD00-TEC-OPE-BAC-DRR-CON')
 class DisasterRecoveryRequirementsContinuity {
   @Form([
     Field('businessContinuityPlan', String, 'Business Continuity Plan',
@@ -11255,6 +11804,7 @@ class DisasterRecoveryRequirementsContinuity {
 }
 
 /// Backup verification and testing.
+@SectionId('PD00-TEC-OPE-BAC-VER')
 class BackupVerification {
   @Form([
     Field('verificationFrequency', String, 'Verification Frequency',
@@ -11280,6 +11830,7 @@ class BackupVerification {
 }
 
 /// Recovery testing.
+@SectionId('PD00-TEC-OPE-BAC-VER-REC')
 class BackupVerificationRecovery {
   @Form([
     Field('recoveryTestFrequency', String, 'Recovery Test Frequency',
@@ -11295,6 +11846,7 @@ class BackupVerificationRecovery {
 }
 
 /// Test environment constraints.
+@SectionId('PD00-TEC-OPE-BAC-VER-ENV')
 class BackupVerificationEnvironment {
   @Form([
     Field('testEnvironment', String, 'Test Environment',
@@ -11308,6 +11860,7 @@ class BackupVerificationEnvironment {
 }
 
 /// Documentation and follow-up.
+@SectionId('PD00-TEC-OPE-BAC-VER-DOC')
 class BackupVerificationDocumentation {
   @Form([
     Field('testDocumentation', String, 'Test Documentation',
@@ -11323,6 +11876,7 @@ class BackupVerificationDocumentation {
 }
 
 /// Backup compliance requirements.
+@SectionId('PD00-TEC-OPE-BAC-COM')
 class BackupCompliance {
   @Form([
     Field('regulatoryRequirements', String, 'Regulatory Requirements',
@@ -11347,6 +11901,7 @@ class BackupCompliance {
 }
 
 /// Audit controls.
+@SectionId('PD00-TEC-OPE-BAC-COM-AUD')
 class BackupComplianceAudit {
   @Form([
     Field('auditTrail', bool, 'Audit Trail',
@@ -11362,6 +11917,7 @@ class BackupComplianceAudit {
 }
 
 /// Reporting obligations.
+@SectionId('PD00-TEC-OPE-BAC-COM-REP')
 class BackupComplianceReporting {
   @Form([
     Field('complianceReporting', String, 'Compliance Reporting',
@@ -11375,6 +11931,7 @@ class BackupComplianceReporting {
 }
 
 /// Legal hold support.
+@SectionId('PD00-TEC-OPE-BAC-COM-LEG')
 class BackupComplianceLegalHold {
   @Form([
     Field('legalHoldCapability', bool, 'Legal Hold Capability',
@@ -11482,6 +12039,7 @@ Provide an overview of deployment strategy and pipeline.
 }
 
 /// Deployment model requirements.
+@SectionId('PD00-TEC-OPE-DEP-DMR')
 class DeploymentModelRequirements {
   @Form([
     Field('deploymentModel', String, 'Deployment Model',
@@ -11513,6 +12071,7 @@ class DeploymentModelRequirements {
 }
 
 /// Container image policies.
+@SectionId('PD00-TEC-OPE-DEP-DMR-CNT')
 class DeploymentModelRequirementsContainer {
   @Form([
     Field('containerRegistry', String, 'Container Registry',
@@ -11528,6 +12087,7 @@ class DeploymentModelRequirementsContainer {
 }
 
 /// Resource allocation.
+@SectionId('PD00-TEC-OPE-DEP-DMR-RES')
 class DeploymentModelRequirementsResources {
   @Form([
     Field('resourceRequirements', String, 'Resource Requirements',
@@ -11541,6 +12101,7 @@ class DeploymentModelRequirementsResources {
 }
 
 /// Networking configuration.
+@SectionId('PD00-TEC-OPE-DEP-DMR-NET')
 class DeploymentModelRequirementsNetworking {
   @Form([
     Field('serviceDiscovery', String, 'Service Discovery',
@@ -11554,6 +12115,7 @@ class DeploymentModelRequirementsNetworking {
 }
 
 /// Storage configuration.
+@SectionId('PD00-TEC-OPE-DEP-DMR-STO')
 class DeploymentModelRequirementsStorage {
   @Form([
     Field('persistentStorage', String, 'Persistent Storage',
@@ -11567,6 +12129,7 @@ class DeploymentModelRequirementsStorage {
 }
 
 /// Environment strategy.
+@SectionId('PD00-TEC-OPE-DEP-ENV')
 class EnvironmentStrategy {
   @Form([
     Field('environmentTiers', String, 'Environment Tiers',
@@ -11595,6 +12158,7 @@ class EnvironmentStrategy {
 }
 
 /// Development environment setup.
+@SectionId('PD00-TEC-OPE-DEP-ENV-DEV')
 class EnvironmentStrategyDevelopment {
   @Form([
     Field('devEnvironment', String, 'Development Environment',
@@ -11608,6 +12172,7 @@ class EnvironmentStrategyDevelopment {
 }
 
 /// Test environment setup.
+@SectionId('PD00-TEC-OPE-DEP-ENV-TST')
 class EnvironmentStrategyTesting {
   @Form([
     Field('testEnvironment', String, 'Test Environment',
@@ -11621,6 +12186,7 @@ class EnvironmentStrategyTesting {
 }
 
 /// Staging configuration.
+@SectionId('PD00-TEC-OPE-DEP-ENV-STG')
 class EnvironmentStrategyStaging {
   @Form([
     Field('stagingEnvironment', String, 'Staging Environment',
@@ -11634,6 +12200,7 @@ class EnvironmentStrategyStaging {
 }
 
 /// Production configuration.
+@SectionId('PD00-TEC-OPE-DEP-ENV-PRD')
 class EnvironmentStrategyProduction {
   @Form([
     Field('productionEnvironment', String, 'Production Environment',
@@ -11647,6 +12214,7 @@ class EnvironmentStrategyProduction {
 }
 
 /// Ephemeral environment strategy.
+@SectionId('PD00-TEC-OPE-DEP-ENV-EPH')
 class EnvironmentStrategyEphemeral {
   @Form([
     Field('ephemeralEnvironments', bool, 'Ephemeral Environments',
@@ -11660,6 +12228,7 @@ class EnvironmentStrategyEphemeral {
 }
 
 /// CI/CD pipeline requirements.
+@SectionId('PD00-TEC-OPE-DEP-CIC')
 class CiCdPipelineRequirements {
   @Form([
     Field('cicdPlatform', String, 'CI/CD Platform',
@@ -11687,6 +12256,7 @@ class CiCdPipelineRequirements {
 }
 
 /// Build stage settings.
+@SectionId('PD00-TEC-OPE-DEP-CIC-BLD')
 class CiCdPipelineRequirementsBuild {
   @Form([
     Field('buildTriggers', String, 'Build Triggers',
@@ -11702,6 +12272,7 @@ class CiCdPipelineRequirementsBuild {
 }
 
 /// Quality gate settings.
+@SectionId('PD00-TEC-OPE-DEP-CIC-QUA')
 class CiCdPipelineRequirementsQuality {
   @Form([
     Field('codeQualityGates', String, 'Code Quality Gates',
@@ -11717,6 +12288,7 @@ class CiCdPipelineRequirementsQuality {
 }
 
 /// Deployment stage settings.
+@SectionId('PD00-TEC-OPE-DEP-CIC-DEP')
 class CiCdPipelineRequirementsDeployment {
   @Form([
     Field('deploymentStages', String, 'Deployment Stages',
@@ -11732,6 +12304,7 @@ class CiCdPipelineRequirementsDeployment {
 }
 
 /// Notification and escalation settings.
+@SectionId('PD00-TEC-OPE-DEP-CIC-NOT')
 class CiCdPipelineRequirementsNotifications {
   @Form([
     Field('pipelineNotifications', String, 'Pipeline Notifications',
@@ -11745,6 +12318,7 @@ class CiCdPipelineRequirementsNotifications {
 }
 
 /// Release strategy.
+@SectionId('PD00-TEC-OPE-DEP-REL')
 class ReleaseStrategy {
   @Form([
     Field('releaseMethodology', String, 'Release Methodology',
@@ -11770,6 +12344,7 @@ class ReleaseStrategy {
 }
 
 /// Blue-green deployment configuration.
+@SectionId('PD00-TEC-OPE-DEP-REL-BGR')
 class ReleaseStrategyBlueGreen {
   @Form([
     Field('releaseWindow', String, 'Release Window',
@@ -11787,6 +12362,7 @@ class ReleaseStrategyBlueGreen {
 }
 
 /// Canary deployment configuration.
+@SectionId('PD00-TEC-OPE-DEP-REL-CAN')
 class ReleaseStrategyCanary {
   @Form([
     Field('canaryEnabled', bool, 'Canary Enabled',
@@ -11806,6 +12382,7 @@ class ReleaseStrategyCanary {
 }
 
 /// Feature flags configuration.
+@SectionId('PD00-TEC-OPE-DEP-REL-FFL')
 class ReleaseStrategyFeatureFlags {
   @Form([
     Field('featureFlagsEnabled', bool, 'Feature Flags Enabled',
@@ -11819,6 +12396,7 @@ class ReleaseStrategyFeatureFlags {
 }
 
 /// Release management configuration.
+@SectionId('PD00-TEC-OPE-DEP-REL-MGT')
 class ReleaseStrategyManagement {
   @Form([
     Field('releaseNotes', String, 'Release Notes',
@@ -11834,6 +12412,7 @@ class ReleaseStrategyManagement {
 }
 
 /// Rollback strategy.
+@SectionId('PD00-TEC-OPE-DEP-ROL')
 class RollbackStrategy {
   @Form([
     Field('rollbackMethod', String, 'Rollback Method',
@@ -11860,6 +12439,7 @@ class RollbackStrategy {
 }
 
 /// Trigger and timing conditions.
+@SectionId('PD00-TEC-OPE-DEP-ROL-TRG')
 class RollbackStrategyTriggers {
   @Form([
     Field('rollbackTriggers', String, 'Rollback Triggers',
@@ -11871,6 +12451,7 @@ class RollbackStrategyTriggers {
 }
 
 /// Health-based rollback thresholds.
+@SectionId('PD00-TEC-OPE-DEP-ROL-HLT')
 class RollbackStrategyHealth {
   @Form([
     Field('healthCheckFailures', String, 'Health Check Failures',
@@ -11886,6 +12467,7 @@ class RollbackStrategyHealth {
 }
 
 /// Rollback target and artifact retention.
+@SectionId('PD00-TEC-OPE-DEP-ROL-TGT')
 class RollbackStrategyTargets {
   @Form([
     Field('rollbackTarget', String, 'Rollback Target',
@@ -11899,6 +12481,7 @@ class RollbackStrategyTargets {
 }
 
 /// Data rollback safeguards.
+@SectionId('PD00-TEC-OPE-DEP-ROL-DAT')
 class RollbackStrategyData {
   @Form([
     Field('dataRollbackStrategy', String, 'Data Rollback Strategy',
@@ -11912,6 +12495,7 @@ class RollbackStrategyData {
 }
 
 /// Manual procedure and follow-up.
+@SectionId('PD00-TEC-OPE-DEP-ROL-OPS')
 class RollbackStrategyOperations {
   @Form([
     Field('manualRollbackProcedure', String, 'Manual Rollback Procedure',
@@ -11927,6 +12511,7 @@ class RollbackStrategyOperations {
 }
 
 /// Configuration management.
+@SectionId('PD00-TEC-OPE-DEP-CFM')
 class ConfigurationManagement {
   @Form([
     Field('configStorage', String, 'Configuration Storage',
@@ -11958,6 +12543,7 @@ class ConfigurationManagement {
 }
 
 /// Environment-configuration rules.
+@SectionId('PD00-TEC-OPE-DEP-CFM-ENV')
 class ConfigurationManagementEnvironment {
   @Form([
     Field('envSpecificConfig', String, 'Environment-Specific Config',
@@ -11971,6 +12557,7 @@ class ConfigurationManagementEnvironment {
 }
 
 /// Configuration injection rules.
+@SectionId('PD00-TEC-OPE-DEP-CFM-INJ')
 class ConfigurationManagementInjection {
   @Form([
     Field('configInjectionMethod', String, 'Config Injection Method',
@@ -11984,6 +12571,7 @@ class ConfigurationManagementInjection {
 }
 
 /// Feature-configuration rules.
+@SectionId('PD00-TEC-OPE-DEP-CFM-FEA')
 class ConfigurationManagementFeatures {
   @Form([
     Field('featureToggles', String, 'Feature Toggles',
@@ -11997,6 +12585,7 @@ class ConfigurationManagementFeatures {
 }
 
 /// Security controls.
+@SectionId('PD00-TEC-OPE-DEP-CFM-SEC')
 class ConfigurationManagementSecurity {
   @Form([
     Field('secretRotation', String, 'Secret Rotation',
@@ -12010,6 +12599,7 @@ class ConfigurationManagementSecurity {
 }
 
 /// Infrastructure as Code requirements.
+@SectionId('PD00-TEC-OPE-DEP-IAC')
 class InfrastructureAsCode {
   @Form([
     Field('iacTool', String, 'IaC Tool',
@@ -12037,6 +12627,7 @@ class InfrastructureAsCode {
 }
 
 /// State management.
+@SectionId('PD00-TEC-OPE-DEP-IAC-STA')
 class InfrastructureAsCodeState {
   @Form([
     Field('stateStorage', String, 'State Storage',
@@ -12050,6 +12641,7 @@ class InfrastructureAsCodeState {
 }
 
 /// Execution governance.
+@SectionId('PD00-TEC-OPE-DEP-IAC-EXE')
 class InfrastructureAsCodeExecution {
   @Form([
     Field('planReview', String, 'Plan Review',
@@ -12063,6 +12655,7 @@ class InfrastructureAsCodeExecution {
 }
 
 /// Drift detection settings.
+@SectionId('PD00-TEC-OPE-DEP-IAC-DRF')
 class InfrastructureAsCodeDrift {
   @Form([
     Field('driftDetection', bool, 'Drift Detection',
@@ -12076,6 +12669,7 @@ class InfrastructureAsCodeDrift {
 }
 
 /// Security and policy controls.
+@SectionId('PD00-TEC-OPE-DEP-IAC-SEC')
 class InfrastructureAsCodeSecurity {
   @Form([
     Field('sensitiveValueHandling', String, 'Sensitive Value Handling',
@@ -12091,6 +12685,7 @@ class InfrastructureAsCodeSecurity {
 }
 
 /// Deployment security requirements.
+@SectionId('PD00-TEC-OPE-DEP-DSC')
 class DeploymentSecurity {
   @Form([
     Field('pipelineSecrets', String, 'Pipeline Secrets',
@@ -12115,6 +12710,7 @@ class DeploymentSecurity {
 }
 
 /// Supply-chain security.
+@SectionId('PD00-TEC-OPE-DEP-DSC-SUP')
 class DeploymentSecuritySupplyChain {
   @Form([
     Field('signedArtifacts', bool, 'Signed Artifacts',
@@ -12130,6 +12726,7 @@ class DeploymentSecuritySupplyChain {
 }
 
 /// Runtime security.
+@SectionId('PD00-TEC-OPE-DEP-DSC-RUN')
 class DeploymentSecurityRuntime {
   @Form([
     Field('podSecurityPolicy', String, 'Pod Security Policy',
@@ -12145,6 +12742,7 @@ class DeploymentSecurityRuntime {
 }
 
 /// Access control and audit.
+@SectionId('PD00-TEC-OPE-DEP-DSC-ACC')
 class DeploymentSecurityAccess {
   @Form([
     Field('deploymentApprovers', String, 'Deployment Approvers',
@@ -12265,6 +12863,7 @@ Provide an overview of monitoring and observability strategy.
 }
 
 /// Monitoring infrastructure requirements.
+@SectionId('PD00-TEC-OPE-MON-INF')
 class MonitoringInfrastructure {
   @Form([
     Field('monitoringPlatform', String, 'Monitoring Platform',
@@ -12291,6 +12890,7 @@ class MonitoringInfrastructure {
 }
 
 /// Deployment model.
+@SectionId('PD00-TEC-OPE-MON-INF-DEP')
 class MonitoringInfrastructureDeployment {
   @Form([
   Field('monitoringDeployment', String, 'Monitoring Deployment',
@@ -12306,6 +12906,7 @@ class MonitoringInfrastructureDeployment {
 }
 
 /// Collection model.
+@SectionId('PD00-TEC-OPE-MON-INF-COL')
 class MonitoringInfrastructureCollection {
   @Form([
   Field('collectionFrequency', String, 'Collection Frequency',
@@ -12319,6 +12920,7 @@ class MonitoringInfrastructureCollection {
 }
 
 /// Access and privacy controls.
+@SectionId('PD00-TEC-OPE-MON-INF-ACC')
 class MonitoringInfrastructureAccess {
   @Form([
   Field('accessControl', String, 'Access Control',
@@ -12334,6 +12936,7 @@ class MonitoringInfrastructureAccess {
 }
 
 /// Metrics collection requirements.
+@SectionId('PD00-TEC-OPE-MON-MCR')
 class MetricsCollectionRequirements {
   @Form([
     Field('cpuMetrics', bool, 'CPU Metrics',
@@ -12365,6 +12968,7 @@ class MetricsCollectionRequirements {
 }
 
 /// Container and cluster metrics.
+@SectionId('PD00-TEC-OPE-MON-MCR-CNT')
 class MetricsCollectionRequirementsContainer {
   @Form([
     Field('containerMetrics', bool, 'Container Metrics',
@@ -12380,6 +12984,7 @@ class MetricsCollectionRequirementsContainer {
 }
 
 /// Application metrics.
+@SectionId('PD00-TEC-OPE-MON-MCR-APP')
 class MetricsCollectionRequirementsApplication {
   @Form([
     Field('requestMetrics', bool, 'Request Metrics',
@@ -12393,6 +12998,7 @@ class MetricsCollectionRequirementsApplication {
 }
 
 /// Business metrics.
+@SectionId('PD00-TEC-OPE-MON-MCR-BUS')
 class MetricsCollectionRequirementsBusiness {
   @Form([
     Field('businessMetrics', String, 'Business Metrics',
@@ -12406,6 +13012,7 @@ class MetricsCollectionRequirementsBusiness {
 }
 
 /// Custom metrics settings.
+@SectionId('PD00-TEC-OPE-MON-MCR-CUS')
 class MetricsCollectionRequirementsCustom {
   @Form([
     Field('customMetricsRequired', bool, 'Custom Metrics Required',
@@ -12419,6 +13026,7 @@ class MetricsCollectionRequirementsCustom {
 }
 
 /// Application performance monitoring.
+@SectionId('PD00-TEC-OPE-MON-APM')
 class ApplicationPerformanceMonitoring {
   @Form([
     Field('apmPlatform', String, 'APM Platform',
@@ -12448,6 +13056,7 @@ class ApplicationPerformanceMonitoring {
 }
 
 /// Tracing settings.
+@SectionId('PD00-TEC-OPE-MON-APM-TRC')
 class ApplicationPerformanceMonitoringTracing {
   @Form([
     Field('distributedTracing', bool, 'Distributed Tracing',
@@ -12463,6 +13072,7 @@ class ApplicationPerformanceMonitoringTracing {
 }
 
 /// Profiling settings.
+@SectionId('PD00-TEC-OPE-MON-APM-PRF')
 class ApplicationPerformanceMonitoringProfiling {
   @Form([
     Field('continuousProfiling', bool, 'Continuous Profiling',
@@ -12478,6 +13088,7 @@ class ApplicationPerformanceMonitoringProfiling {
 }
 
 /// Error tracking settings.
+@SectionId('PD00-TEC-OPE-MON-APM-ERR')
 class ApplicationPerformanceMonitoringErrors {
   @Form([
     Field('errorTracking', bool, 'Error Tracking',
@@ -12493,6 +13104,7 @@ class ApplicationPerformanceMonitoringErrors {
 }
 
 /// User and synthetic monitoring settings.
+@SectionId('PD00-TEC-OPE-MON-APM-USG')
 class ApplicationPerformanceMonitoringUserSignals {
   @Form([
     Field('realUserMonitoring', bool, 'Real User Monitoring',
@@ -12506,6 +13118,7 @@ class ApplicationPerformanceMonitoringUserSignals {
 }
 
 /// Log management requirements.
+@SectionId('PD00-TEC-OPE-MON-LMR')
 class LogManagementRequirements {
   @Form([
     Field('logSources', String, 'Log Sources',
@@ -12537,6 +13150,7 @@ class LogManagementRequirements {
 }
 
 /// Collection method.
+@SectionId('PD00-TEC-OPE-MON-LMR-COL')
 class LogManagementRequirementsCollection {
   @Form([
     Field('collectionMethod', String, 'Collection Method',
@@ -12550,6 +13164,7 @@ class LogManagementRequirementsCollection {
 }
 
 /// Storage settings.
+@SectionId('PD00-TEC-OPE-MON-LMR-STO')
 class LogManagementRequirementsStorage {
   @Form([
     Field('logRetention', String, 'Log Retention',
@@ -12563,6 +13178,7 @@ class LogManagementRequirementsStorage {
 }
 
 /// Search and analysis.
+@SectionId('PD00-TEC-OPE-MON-LMR-ANL')
 class LogManagementRequirementsAnalysis {
   @Form([
     Field('fullTextSearch', bool, 'Full-Text Search',
@@ -12576,6 +13192,7 @@ class LogManagementRequirementsAnalysis {
 }
 
 /// Compliance settings.
+@SectionId('PD00-TEC-OPE-MON-LMR-COM')
 class LogManagementRequirementsCompliance {
   @Form([
     Field('piiHandling', String, 'PII Handling',
@@ -12591,6 +13208,7 @@ class LogManagementRequirementsCompliance {
 }
 
 /// Alerting requirements.
+@SectionId('PD00-TEC-OPE-MON-ALR')
 class AlertingRequirements {
   @Form([
     Field('alertChannels', String, 'Alert Channels',
@@ -12618,6 +13236,7 @@ class AlertingRequirements {
 }
 
 /// Routing rules.
+@SectionId('PD00-TEC-OPE-MON-ALR-ROU')
 class AlertingRequirementsRouting {
   @Form([
     Field('routingRules', String, 'Routing Rules',
@@ -12633,6 +13252,7 @@ class AlertingRequirementsRouting {
 }
 
 /// De-duplication behavior.
+@SectionId('PD00-TEC-OPE-MON-ALR-DED')
 class AlertingRequirementsDeduplication {
   @Form([
     Field('alertDeduplication', String, 'Alert De-duplication',
@@ -12646,6 +13266,7 @@ class AlertingRequirementsDeduplication {
 }
 
 /// Suppression rules.
+@SectionId('PD00-TEC-OPE-MON-ALR-SUP')
 class AlertingRequirementsSuppression {
   @Form([
     Field('maintenanceWindows', String, 'Maintenance Windows',
@@ -12659,6 +13280,7 @@ class AlertingRequirementsSuppression {
 }
 
 /// Response automation.
+@SectionId('PD00-TEC-OPE-MON-ALR-RES')
 class AlertingRequirementsResponse {
   @Form([
     Field('autoRemediation', bool, 'Auto-Remediation',
@@ -12699,6 +13321,7 @@ class AlertDefinitionEntry {
 }
 
 /// Trigger conditions.
+@SectionId('PD00-TEC-OPE-MON-ALR-ENT-CON')
 class AlertDefinitionEntryCondition {
   @Form([
     Field('metricName', String, 'Metric Name',
@@ -12716,6 +13339,7 @@ class AlertDefinitionEntryCondition {
 }
 
 /// Recovery conditions.
+@SectionId('PD00-TEC-OPE-MON-ALR-ENT-REC')
 class AlertDefinitionEntryRecovery {
   @Form([
     Field('recoveryThreshold', String, 'Recovery Threshold',
@@ -12729,6 +13353,7 @@ class AlertDefinitionEntryRecovery {
 }
 
 /// Notification details.
+@SectionId('PD00-TEC-OPE-MON-ALR-ENT-NOT')
 class AlertDefinitionEntryNotification {
   @Form([
     Field('notificationChannel', String, 'Notification Channel',
@@ -12744,6 +13369,7 @@ class AlertDefinitionEntryNotification {
 }
 
 /// Dashboard requirements.
+@SectionId('PD00-TEC-OPE-MON-DSH')
 class DashboardRequirements {
   @Form([
     Field('dashboardPlatform', String, 'Dashboard Platform',
@@ -12769,6 +13395,7 @@ class DashboardRequirements {
 }
 
 /// Standard dashboards.
+@SectionId('PD00-TEC-OPE-MON-DSH-STD')
 class DashboardRequirementsStandard {
   @Form([
     Field('systemOverview', bool, 'System Overview Dashboard',
@@ -12784,6 +13411,7 @@ class DashboardRequirementsStandard {
 }
 
 /// Access controls.
+@SectionId('PD00-TEC-OPE-MON-DSH-ACC')
 class DashboardRequirementsAccess {
   @Form([
     Field('publicDashboards', String, 'Public Dashboards',
@@ -12797,6 +13425,7 @@ class DashboardRequirementsAccess {
 }
 
 /// Feature requirements.
+@SectionId('PD00-TEC-OPE-MON-DSH-FEA')
 class DashboardRequirementsFeatures {
   @Form([
     Field('drillDown', bool, 'Drill-Down Capability',
@@ -12812,6 +13441,7 @@ class DashboardRequirementsFeatures {
 }
 
 /// Mobile support and notes.
+@SectionId('PD00-TEC-OPE-MON-DSH-MOB')
 class DashboardRequirementsMobile {
   @Form([
     Field('mobileAccess', bool, 'Mobile Access',
@@ -12823,6 +13453,7 @@ class DashboardRequirementsMobile {
 }
 
 /// On-call procedures.
+@SectionId('PD00-TEC-OPE-MON-OCP')
 class OnCallProcedures {
   @Form([
     Field('onCallTool', String, 'On-Call Tool',
@@ -12851,6 +13482,7 @@ class OnCallProcedures {
 }
 
 /// Team coverage.
+@SectionId('PD00-TEC-OPE-MON-OCP-TMS')
 class OnCallProceduresTeams {
   @Form([
     Field('onCallTeams', String, 'On-Call Teams',
@@ -12864,6 +13496,7 @@ class OnCallProceduresTeams {
 }
 
 /// Response SLAs.
+@SectionId('PD00-TEC-OPE-MON-OCP-SLA')
 class OnCallProceduresSlas {
   @Form([
     Field('ackSla', String, 'Acknowledgment SLA',
@@ -12877,6 +13510,7 @@ class OnCallProceduresSlas {
 }
 
 /// Escalation rules.
+@SectionId('PD00-TEC-OPE-MON-OCP-ESC')
 class OnCallProceduresEscalation {
   @Form([
     Field('escalationTimeout', String, 'Escalation Timeout',
@@ -12890,6 +13524,7 @@ class OnCallProceduresEscalation {
 }
 
 /// Documentation requirements.
+@SectionId('PD00-TEC-OPE-MON-OCP-DOC')
 class OnCallProceduresDocumentation {
   @Form([
     Field('runbooks', String, 'Runbooks',
@@ -12905,6 +13540,7 @@ class OnCallProceduresDocumentation {
 }
 
 /// Incident management requirements.
+@SectionId('PD00-TEC-OPE-MON-IMR')
 class IncidentManagementRequirements {
   @Form([
     Field('incidentProcess', String, 'Incident Process',
@@ -12934,6 +13570,7 @@ class IncidentManagementRequirements {
 }
 
 /// Communication requirements.
+@SectionId('PD00-TEC-OPE-MON-IMR-COM')
 class IncidentManagementRequirementsCommunication {
   @Form([
     Field('internalComms', String, 'Internal Communications',
@@ -12949,6 +13586,7 @@ class IncidentManagementRequirementsCommunication {
 }
 
 /// War room setup.
+@SectionId('PD00-TEC-OPE-MON-IMR-WAR')
 class IncidentManagementRequirementsWarRoom {
   @Form([
     Field('warRoomSetup', String, 'War Room Setup',
@@ -12962,6 +13600,7 @@ class IncidentManagementRequirementsWarRoom {
 }
 
 /// Post-incident expectations.
+@SectionId('PD00-TEC-OPE-MON-IMR-POST')
 class IncidentManagementRequirementsPostIncident {
   @Form([
     Field('postMortemRequired', bool, 'Post-Mortem Required',
@@ -12977,6 +13616,7 @@ class IncidentManagementRequirementsPostIncident {
 }
 
 /// Metrics and notes.
+@SectionId('PD00-TEC-OPE-MON-IMR-MET')
 class IncidentManagementRequirementsMetrics {
   @Form([
     Field('mttr', String, 'MTTR Target',
@@ -12990,6 +13630,7 @@ class IncidentManagementRequirementsMetrics {
 }
 
 /// SLA monitoring requirements.
+@SectionId('PD00-TEC-OPE-MON-SMR')
 class SlaMonitoringRequirements {
   @Form([
     Field('availabilitySla', String, 'Availability SLA',
@@ -13019,6 +13660,7 @@ class SlaMonitoringRequirements {
 }
 
 /// Monitoring mechanics.
+@SectionId('PD00-TEC-OPE-MON-SMR-MON')
 class SlaMonitoringRequirementsMonitoring {
   @Form([
     Field('slaTracking', String, 'SLA Tracking',
@@ -13034,6 +13676,7 @@ class SlaMonitoringRequirementsMonitoring {
 }
 
 /// Error-budget policy.
+@SectionId('PD00-TEC-OPE-MON-SMR-ERR')
 class SlaMonitoringRequirementsErrorBudget {
   @Form([
     Field('errorBudgetPolicy', String, 'Error Budget Policy',
@@ -13047,6 +13690,7 @@ class SlaMonitoringRequirementsErrorBudget {
 }
 
 /// Customer-specific SLA rules.
+@SectionId('PD00-TEC-OPE-MON-SMR-CUS')
 class SlaMonitoringRequirementsCustomer {
   @Form([
     Field('customerSlaTiers', String, 'Customer SLA Tiers',
@@ -13060,6 +13704,7 @@ class SlaMonitoringRequirementsCustomer {
 }
 
 /// Reporting and review.
+@SectionId('PD00-TEC-OPE-MON-SMR-REP')
 class SlaMonitoringRequirementsReporting {
   @Form([
     Field('slaReportRecipients', String, 'SLA Report Recipients',
@@ -13162,6 +13807,7 @@ Provide an overview of maintenance strategy and policies.
 }
 
 /// Scheduled maintenance policy.
+@SectionId('PD00-TEC-OPE-MAI-SMP')
 class ScheduledMaintenancePolicy {
   @Form([
     Field('maintenancePolicy', String, 'Maintenance Policy',
@@ -13190,6 +13836,7 @@ class ScheduledMaintenancePolicy {
 }
 
 /// Scheduling preferences.
+@SectionId('PD00-TEC-OPE-MAI-SMP-SCH')
 class ScheduledMaintenancePolicyScheduling {
   @Form([
     Field('preferredDay', String, 'Preferred Day',
@@ -13207,6 +13854,7 @@ class ScheduledMaintenancePolicyScheduling {
 }
 
 /// Duration constraints.
+@SectionId('PD00-TEC-OPE-MAI-SMP-DUR')
 class ScheduledMaintenancePolicyDuration {
   @Form([
     Field('maxDuration', String, 'Maximum Duration',
@@ -13220,6 +13868,7 @@ class ScheduledMaintenancePolicyDuration {
 }
 
 /// Notice requirements.
+@SectionId('PD00-TEC-OPE-MAI-SMP-NOT')
 class ScheduledMaintenancePolicyNotice {
   @Form([
     Field('standardNotice', String, 'Standard Notice Period',
@@ -13233,6 +13882,7 @@ class ScheduledMaintenancePolicyNotice {
 }
 
 /// Approval requirements.
+@SectionId('PD00-TEC-OPE-MAI-SMP-APR')
 class ScheduledMaintenancePolicyApproval {
   @Form([
     Field('approvalRequired', bool, 'Approval Required',
@@ -13273,6 +13923,7 @@ class MaintenanceWindowEntry {
 }
 
 /// Schedule details.
+@SectionId('PD00-TEC-OPE-MAI-WIN-ENT-SCH')
 class MaintenanceWindowEntrySchedule {
   @Form([
     Field('frequency', String, 'Frequency',
@@ -13290,6 +13941,7 @@ class MaintenanceWindowEntrySchedule {
 }
 
 /// Scope details.
+@SectionId('PD00-TEC-OPE-MAI-WIN-ENT-SCO')
 class MaintenanceWindowEntryScope {
   @Form([
     Field('affectedSystems', String, 'Affected Systems',
@@ -13303,6 +13955,7 @@ class MaintenanceWindowEntryScope {
 }
 
 /// Impact details.
+@SectionId('PD00-TEC-OPE-MAI-WIN-ENT-IMP')
 class MaintenanceWindowEntryImpact {
   @Form([
     Field('userImpact', String, 'User Impact',
@@ -13318,6 +13971,7 @@ class MaintenanceWindowEntryImpact {
 }
 
 /// Rollback details.
+@SectionId('PD00-TEC-OPE-MAI-WIN-ENT-ROL')
 class MaintenanceWindowEntryRollback {
   @Form([
     Field('rollbackPlan', String, 'Rollback Plan',
@@ -13331,6 +13985,7 @@ class MaintenanceWindowEntryRollback {
 }
 
 /// Emergency maintenance procedures.
+@SectionId('PD00-TEC-OPE-MAI-EMP')
 class EmergencyMaintenanceProcedures {
   @Form([
     Field('emergencyTriggers', String, 'Emergency Triggers',
@@ -13356,6 +14011,7 @@ class EmergencyMaintenanceProcedures {
 }
 
 /// Approval and documentation workflow for emergency maintenance.
+@SectionId('PD00-TEC-OPE-MAI-EMP-GOV')
 class EmergencyMaintenanceProceduresGovernance {
   @Form([
   Field('emergencyApproval', String, 'Emergency Approval',
@@ -13369,6 +14025,7 @@ class EmergencyMaintenanceProceduresGovernance {
 }
 
 /// Notification and stakeholder handling for emergency maintenance.
+@SectionId('PD00-TEC-OPE-MAI-EMP-COM')
 class EmergencyMaintenanceProceduresCommunication {
   @Form([
   Field('emergencyNotice', String, 'Emergency Notice',
@@ -13382,6 +14039,7 @@ class EmergencyMaintenanceProceduresCommunication {
 }
 
 /// Execution and follow-up details for emergency maintenance.
+@SectionId('PD00-TEC-OPE-MAI-EMP-EXE')
 class EmergencyMaintenanceProceduresExecution {
   @Form([
   Field('teamAssembly', String, 'Team Assembly',
@@ -13397,6 +14055,7 @@ class EmergencyMaintenanceProceduresExecution {
 }
 
 /// Change management for maintenance.
+@SectionId('PD00-TEC-OPE-MAI-MCM')
 class MaintenanceChangeManagement {
   @Form([
     // Change process
@@ -13426,6 +14085,7 @@ class MaintenanceChangeManagement {
 }
 
 /// CAB cadence and documentation prerequisites.
+@SectionId('PD00-TEC-OPE-MAI-MCM-GOV')
 class MaintenanceChangeManagementGovernance {
   @Form([
   Field('changeBoardSchedule', String, 'CAB Schedule',
@@ -13435,6 +14095,7 @@ class MaintenanceChangeManagementGovernance {
 }
 
 /// Required assessments and rollback planning.
+@SectionId('PD00-TEC-OPE-MAI-MCM-DOC')
 class MaintenanceChangeManagementDocumentation {
   @Form([
   Field('changeRequestRequired', bool, 'Change Request Required',
@@ -13450,6 +14111,7 @@ class MaintenanceChangeManagementDocumentation {
 }
 
 /// Testing and sign-off requirements.
+@SectionId('PD00-TEC-OPE-MAI-MCM-TST')
 class MaintenanceChangeManagementTesting {
   @Form([
   Field('preProdTesting', bool, 'Pre-Production Testing',
@@ -13463,6 +14125,7 @@ class MaintenanceChangeManagementTesting {
 }
 
 /// Logging and audit trail expectations.
+@SectionId('PD00-TEC-OPE-MAI-MCM-AUD')
 class MaintenanceChangeManagementAudit {
   @Form([
   Field('changeLogging', bool, 'Change Logging',
@@ -13476,6 +14139,7 @@ class MaintenanceChangeManagementAudit {
 }
 
 /// User impact and communication.
+@SectionId('PD00-TEC-OPE-MAI-MUI')
 class MaintenanceUserImpact {
   @Form([
     Field('advanceNotification', String, 'Advance Notification',
@@ -13503,6 +14167,7 @@ class MaintenanceUserImpact {
 }
 
 /// Communication during maintenance.
+@SectionId('PD00-TEC-OPE-MAI-MUI-DUR')
 class MaintenanceUserImpactDuring {
   @Form([
     Field('maintenancePage', String, 'Maintenance Page',
@@ -13518,6 +14183,7 @@ class MaintenanceUserImpactDuring {
 }
 
 /// Graceful-degradation strategy.
+@SectionId('PD00-TEC-OPE-MAI-MUI-GRD')
 class MaintenanceUserImpactGracefulDegradation {
   @Form([
     Field('gracefulDegradation', String, 'Graceful Degradation',
@@ -13531,6 +14197,7 @@ class MaintenanceUserImpactGracefulDegradation {
 }
 
 /// Post-maintenance communication.
+@SectionId('PD00-TEC-OPE-MAI-MUI-PST')
 class MaintenanceUserImpactPost {
   @Form([
     Field('completionNotice', bool, 'Completion Notice',
@@ -13546,6 +14213,7 @@ class MaintenanceUserImpactPost {
 }
 
 /// Post-maintenance validation.
+@SectionId('PD00-TEC-OPE-MAI-PMV')
 class PostMaintenanceValidation {
   @Form([
     Field('smokeTests', bool, 'Smoke Tests',
@@ -13569,6 +14237,7 @@ class PostMaintenanceValidation {
 }
 
 /// Monitoring requirements after maintenance.
+@SectionId('PD00-TEC-OPE-MAI-PMV-MON')
 class PostMaintenanceValidationMonitoring {
   @Form([
   Field('enhancedMonitoring', String, 'Enhanced Monitoring',
@@ -13584,6 +14253,7 @@ class PostMaintenanceValidationMonitoring {
 }
 
 /// Sign-off and reporting expectations.
+@SectionId('PD00-TEC-OPE-MAI-PMV-CLO')
 class PostMaintenanceValidationClosure {
   @Form([
   Field('validateSignoff', String, 'Validation Sign-Off',
@@ -13761,6 +14431,7 @@ class ProtocolEntry {
 }
 
 /// Authentication and serialization.
+@SectionId('PD00-TEC-COM-PRO-ENT-AUS')
 class ProtocolAuthSerialization {
   @Form([
     Field('authenticationMethod', String, 'Authentication Method',
@@ -13778,6 +14449,7 @@ class ProtocolAuthSerialization {
 }
 
 /// Performance settings.
+@SectionId('PD00-TEC-COM-PRO-ENT-PER')
 class ProtocolPerformance {
   @Form([
     Field('maxMessageSize', String, 'Max Message Size',
@@ -13795,6 +14467,7 @@ class ProtocolPerformance {
 }
 
 /// Reliability and delivery.
+@SectionId('PD00-TEC-COM-PRO-ENT-REL')
 class ProtocolReliability {
   @Form([
     Field('retryPolicy', String, 'Retry Policy',
@@ -13808,6 +14481,7 @@ class ProtocolReliability {
 }
 
 /// Usage and notes.
+@SectionId('PD00-TEC-COM-PRO-ENT-USE')
 class ProtocolUsage {
   @Form([
     Field('usedBy', String, 'Used By',
@@ -13821,6 +14495,7 @@ class ProtocolUsage {
 }
 
 /// TLS/SSL requirements.
+@SectionId('PD00-TEC-COM-PRO-TLS')
 class TlsRequirements {
   @Form([
     Field('minimumTlsVersion', String, 'Minimum TLS Version',
@@ -13847,6 +14522,7 @@ class TlsRequirements {
 }
 
 /// Cipher suite policy.
+@SectionId('PD00-TEC-COM-PRO-TLS-CIP')
 class TlsRequirementsCipherSuites {
   @Form([
     Field('allowedCipherSuites', String, 'Allowed Cipher Suites',
@@ -13860,6 +14536,7 @@ class TlsRequirementsCipherSuites {
 }
 
 /// Certificate validation rules.
+@SectionId('PD00-TEC-COM-PRO-TLS-CRT')
 class TlsRequirementsCertificateValidation {
   @Form([
     Field('certificatePinning', bool, 'Certificate Pinning',
@@ -13873,6 +14550,7 @@ class TlsRequirementsCertificateValidation {
 }
 
 /// Termination and internal encryption.
+@SectionId('PD00-TEC-COM-PRO-TLS-TRM')
 class TlsRequirementsTermination {
   @Form([
     Field('tlsTermination', String, 'TLS Termination',
@@ -13884,6 +14562,7 @@ class TlsRequirementsTermination {
 }
 
 /// Compliance and HSTS settings.
+@SectionId('PD00-TEC-COM-PRO-TLS-COM')
 class TlsRequirementsCompliance {
   @Form([
     Field('sslLabsTargetGrade', String, 'SSL Labs Target Grade',
@@ -13900,6 +14579,7 @@ class TlsRequirementsCompliance {
 }
 
 /// Certificate management.
+@SectionId('PD00-TEC-COM-PRO-CEM')
 class CertificateManagement {
   @Form([
     Field('certificateAuthority', String, 'Certificate Authority',
@@ -13924,6 +14604,7 @@ class CertificateManagement {
 }
 
 /// Key specifications.
+@SectionId('PD00-TEC-COM-PRO-CEM-KEY')
 class CertificateManagementKeys {
   @Form([
     Field('keyAlgorithm', String, 'Key Algorithm',
@@ -13937,6 +14618,7 @@ class CertificateManagementKeys {
 }
 
 /// Lifecycle management.
+@SectionId('PD00-TEC-COM-PRO-CEM-LIF')
 class CertificateManagementLifecycle {
   @Form([
     Field('validityPeriod', String, 'Validity Period',
@@ -13954,6 +14636,7 @@ class CertificateManagementLifecycle {
 }
 
 /// Storage and access controls.
+@SectionId('PD00-TEC-COM-PRO-CEM-STO')
 class CertificateManagementStorage {
   @Form([
     Field('storageMethod', String, 'Storage Method',
@@ -13967,6 +14650,7 @@ class CertificateManagementStorage {
 }
 
 /// Monitoring rules.
+@SectionId('PD00-TEC-COM-PRO-CEM-MON')
 class CertificateManagementMonitoring {
   @Form([
     Field('expiryMonitoring', bool, 'Expiry Monitoring',
@@ -13980,6 +14664,7 @@ class CertificateManagementMonitoring {
 }
 
 /// API versioning strategy.
+@SectionId('PD00-TEC-COM-PRO-AVS')
 class ApiVersioningStrategy {
   @Form([
     // Scheme
@@ -14005,6 +14690,7 @@ class ApiVersioningStrategy {
 }
 
 /// Supported versions and deprecation commitments.
+@SectionId('PD00-TEC-COM-PRO-AVS-SUP')
 class ApiVersioningStrategySupport {
   @Form([
   Field('supportedVersions', String, 'Supported Versions',
@@ -14020,6 +14706,7 @@ class ApiVersioningStrategySupport {
 }
 
 /// Compatibility guarantees and migration expectations.
+@SectionId('PD00-TEC-COM-PRO-AVS-COM')
 class ApiVersioningStrategyCompatibility {
   @Form([
   Field('backwardCompatibility', String, 'Backward Compatibility',
@@ -14033,6 +14720,7 @@ class ApiVersioningStrategyCompatibility {
 }
 
 /// Documentation and client generation practices.
+@SectionId('PD00-TEC-COM-PRO-AVS-DOC')
 class ApiVersioningStrategyDocumentation {
   @Form([
   Field('apiDocumentationFormat', String, 'API Documentation Format',
@@ -14048,6 +14736,7 @@ class ApiVersioningStrategyDocumentation {
 }
 
 /// Message format standards.
+@SectionId('PD00-TEC-COM-PRO-MFS')
 class MessageFormatStandards {
   @Form([
     Field('primaryFormat', String, 'Primary Format',
@@ -14074,6 +14763,7 @@ class MessageFormatStandards {
 }
 
 /// Schema standards.
+@SectionId('PD00-TEC-COM-PRO-MFS-SCH')
 class MessageFormatStandardsSchema {
   @Form([
     Field('schemaDefinition', String, 'Schema Definition',
@@ -14089,6 +14779,7 @@ class MessageFormatStandardsSchema {
 }
 
 /// Field conventions.
+@SectionId('PD00-TEC-COM-PRO-MFS-CON')
 class MessageFormatStandardsConventions {
   @Form([
     Field('dateTimeFormat', String, 'Date/Time Format',
@@ -14106,6 +14797,7 @@ class MessageFormatStandardsConventions {
 }
 
 /// Pagination and error envelopes.
+@SectionId('PD00-TEC-COM-PRO-MFS-RES')
 class MessageFormatStandardsResponses {
   @Form([
     Field('paginationFormat', String, 'Pagination Format',
@@ -14119,6 +14811,7 @@ class MessageFormatStandardsResponses {
 }
 
 /// Compression and negotiation.
+@SectionId('PD00-TEC-COM-PRO-MFS-TRS')
 class MessageFormatStandardsTransport {
   @Form([
     Field('compressionAlgorithm', String, 'Compression Algorithm',
@@ -14132,6 +14825,7 @@ class MessageFormatStandardsTransport {
 }
 
 /// Rate limiting and throttling.
+@SectionId('PD00-TEC-COM-PRO-RLP')
 class RateLimitingPolicy {
   @Form([
     Field('rateLimitingStrategy', String, 'Rate Limiting Strategy',
@@ -14152,6 +14846,7 @@ class RateLimitingPolicy {
 }
 
 /// Rate-limit ceilings and burst handling.
+@SectionId('PD00-TEC-COM-PRO-RLP-LIM')
 class RateLimitingPolicyLimits {
   @Form([
   Field('globalRateLimit', String, 'Global Rate Limit',
@@ -14167,6 +14862,7 @@ class RateLimitingPolicyLimits {
 }
 
 /// Runtime response behavior when limits are exceeded.
+@SectionId('PD00-TEC-COM-PRO-RLP-BEH')
 class RateLimitingPolicyBehavior {
   @Form([
   Field('throttlingBehavior', String, 'Throttling Behavior',
@@ -14180,6 +14876,7 @@ class RateLimitingPolicyBehavior {
 }
 
 /// Quota management and exceptions.
+@SectionId('PD00-TEC-COM-PRO-RLP-QUO')
 class RateLimitingPolicyQuotas {
   @Form([
   Field('quotaManagement', String, 'Quota Management',
@@ -14195,6 +14892,7 @@ class RateLimitingPolicyQuotas {
 }
 
 /// Protocol compliance requirements.
+@SectionId('PD00-TEC-COM-PRO-PCR')
 class ProtocolComplianceRequirements {
   @Form([
     Field('corsPolicy', String, 'CORS Policy',
@@ -14222,6 +14920,7 @@ class ProtocolComplianceRequirements {
 }
 
 /// Caching requirements.
+@SectionId('PD00-TEC-COM-PRO-PCR-CAC')
 class ProtocolComplianceRequirementsCaching {
   @Form([
   Field('cachingPolicy', String, 'Caching Policy',
@@ -14233,6 +14932,7 @@ class ProtocolComplianceRequirementsCaching {
 }
 
 /// Request logging and trace propagation rules.
+@SectionId('PD00-TEC-COM-PRO-PCR-OBS')
 class ProtocolComplianceRequirementsObservability {
   @Form([
   Field('requestLogging', String, 'Request Logging',
@@ -14246,6 +14946,7 @@ class ProtocolComplianceRequirementsObservability {
 }
 
 /// Webhook, event, and health endpoint standards.
+@SectionId('PD00-TEC-COM-PRO-PCR-EVT')
 class ProtocolComplianceRequirementsEvents {
   @Form([
   Field('webhookStandards', String, 'Webhook Standards',
@@ -14376,6 +15077,7 @@ class ExternalPartnerConnectionEntry {
 }
 
 /// Protocol and endpoint.
+@SectionId('PD00-TEC-COM-EXT-ENT-PRO')
 class ExternalPartnerProtocol {
   @Form([
     Field('protocol', String, 'Protocol',
@@ -14391,6 +15093,7 @@ class ExternalPartnerProtocol {
 }
 
 /// Authentication settings.
+@SectionId('PD00-TEC-COM-EXT-ENT-AUT')
 class ExternalPartnerAuthentication {
   @Form([
     Field('authenticationMethod', String, 'Authentication Method',
@@ -14404,6 +15107,7 @@ class ExternalPartnerAuthentication {
 }
 
 /// Network configuration.
+@SectionId('PD00-TEC-COM-EXT-ENT-NET')
 class ExternalPartnerNetwork {
   @Form([
     Field('networkRoute', String, 'Network Route',
@@ -14419,6 +15123,7 @@ class ExternalPartnerNetwork {
 }
 
 /// Reliability and SLA.
+@SectionId('PD00-TEC-COM-EXT-ENT-REL')
 class ExternalPartnerReliability {
   @Form([
     Field('sla', String, 'SLA',
@@ -14438,6 +15143,7 @@ class ExternalPartnerReliability {
 }
 
 /// Data handling.
+@SectionId('PD00-TEC-COM-EXT-ENT-DAT')
 class ExternalPartnerDataHandling {
   @Form([
     Field('dataClassification', String, 'Data Classification',
@@ -14451,6 +15157,7 @@ class ExternalPartnerDataHandling {
 }
 
 /// Operations and contacts.
+@SectionId('PD00-TEC-COM-EXT-ENT-OPS')
 class ExternalPartnerOperations {
   @Form([
     Field('contactPerson', String, 'Contact Person',
@@ -14466,6 +15173,7 @@ class ExternalPartnerOperations {
 }
 
 /// Cloud service integrations.
+@SectionId('PD00-TEC-COM-EXT-CSI')
 class CloudServiceIntegrations {
   @Form([
     Field('primaryCloudProvider', String, 'Primary Cloud Provider',
@@ -14489,6 +15197,7 @@ class CloudServiceIntegrations {
 }
 
 /// Managed services catalog.
+@SectionId('PD00-TEC-COM-EXT-CSI-SVC')
 class CloudServiceIntegrationsServices {
   @Form([
     Field('managedServices', String, 'Managed Services',
@@ -14510,6 +15219,7 @@ class CloudServiceIntegrationsServices {
 }
 
 /// Network connectivity.
+@SectionId('PD00-TEC-COM-EXT-CSI-NET')
 class CloudServiceIntegrationsNetworking {
   @Form([
     Field('vpcPeering', String, 'VPC Peering',
@@ -14523,6 +15233,7 @@ class CloudServiceIntegrationsNetworking {
 }
 
 /// Compliance and notes.
+@SectionId('PD00-TEC-COM-EXT-CSI-COM')
 class CloudServiceIntegrationsCompliance {
   @Form([
     Field('dataResidency', String, 'Data Residency',
@@ -14536,6 +15247,7 @@ class CloudServiceIntegrationsCompliance {
 }
 
 /// Third-party API integrations.
+@SectionId('PD00-TEC-COM-EXT-TPI')
 class ThirdPartyApiIntegrations {
   @Form([
     Field('paymentGateways', String, 'Payment Gateways',
@@ -14569,6 +15281,7 @@ class ThirdPartyApiIntegrations {
 }
 
 /// Analytics and monitoring providers.
+@SectionId('PD00-TEC-COM-EXT-TPI-ANL')
 class ThirdPartyApiIntegrationsAnalytics {
   @Form([
     Field('analyticsServices', String, 'Analytics Services',
@@ -14580,6 +15293,7 @@ class ThirdPartyApiIntegrationsAnalytics {
 }
 
 /// Communication providers.
+@SectionId('PD00-TEC-COM-EXT-TPI-COM')
 class ThirdPartyApiIntegrationsCommunication {
   @Form([
     Field('smsProviders', String, 'SMS Providers',
@@ -14593,6 +15307,7 @@ class ThirdPartyApiIntegrationsCommunication {
 }
 
 /// Mapping and location providers.
+@SectionId('PD00-TEC-COM-EXT-TPI-LOC')
 class ThirdPartyApiIntegrationsLocation {
   @Form([
     Field('mappingServices', String, 'Mapping Services',
@@ -14604,6 +15319,7 @@ class ThirdPartyApiIntegrationsLocation {
 }
 
 /// Document and media providers.
+@SectionId('PD00-TEC-COM-EXT-TPI-MED')
 class ThirdPartyApiIntegrationsMedia {
   @Form([
     Field('documentGeneration', String, 'Document Generation',
@@ -14617,6 +15333,7 @@ class ThirdPartyApiIntegrationsMedia {
 }
 
 /// AI and translation providers.
+@SectionId('PD00-TEC-COM-EXT-TPI-AI')
 class ThirdPartyApiIntegrationsAi {
   @Form([
     Field('aiServices', String, 'AI/ML Services',
@@ -14628,6 +15345,7 @@ class ThirdPartyApiIntegrationsAi {
 }
 
 /// Compliance and fallback controls.
+@SectionId('PD00-TEC-COM-EXT-TPI-OPS')
 class ThirdPartyApiIntegrationsOperations {
   @Form([
     Field('apiKeyManagement', String, 'API Key Management',
@@ -14643,6 +15361,7 @@ class ThirdPartyApiIntegrationsOperations {
 }
 
 /// Network security and access control.
+@SectionId('PD00-TEC-COM-EXT-NSP')
 class NetworkSecurityPolicy {
   @Form([
     Field('firewallType', String, 'Firewall Type',
@@ -14672,6 +15391,7 @@ class NetworkSecurityPolicy {
 }
 
 /// Firewall rule details.
+@SectionId('PD00-TEC-COM-EXT-NSP-FWL')
 class NetworkSecurityPolicyFirewall {
   @Form([
     Field('ingressRules', String, 'Ingress Rules',
@@ -14683,6 +15403,7 @@ class NetworkSecurityPolicyFirewall {
 }
 
 /// IP management controls.
+@SectionId('PD00-TEC-COM-EXT-NSP-IP')
 class NetworkSecurityPolicyIpManagement {
   @Form([
     Field('staticIpRequired', bool, 'Static IP Required',
@@ -14698,6 +15419,7 @@ class NetworkSecurityPolicyIpManagement {
 }
 
 /// VPN configuration.
+@SectionId('PD00-TEC-COM-EXT-NSP-VPN')
 class NetworkSecurityPolicyVpn {
   @Form([
     Field('vpnRequired', bool, 'VPN Required',
@@ -14713,6 +15435,7 @@ class NetworkSecurityPolicyVpn {
 }
 
 /// DDoS protections.
+@SectionId('PD00-TEC-COM-EXT-NSP-DOS')
 class NetworkSecurityPolicyDdos {
   @Form([
     Field('ddosProtection', String, 'DDoS Protection',
@@ -14724,6 +15447,7 @@ class NetworkSecurityPolicyDdos {
 }
 
 /// DNS controls and notes.
+@SectionId('PD00-TEC-COM-EXT-NSP-DNS')
 class NetworkSecurityPolicyDns {
   @Form([
     Field('dnsProvider', String, 'DNS Provider',
@@ -14739,6 +15463,7 @@ class NetworkSecurityPolicyDns {
 }
 
 /// Service mesh and API gateway.
+@SectionId('PD00-TEC-COM-EXT-SMG')
 class ServiceMeshAndGateway {
   @Form([
     Field('apiGateway', String, 'API Gateway',
@@ -14761,6 +15486,7 @@ class ServiceMeshAndGateway {
 }
 
 /// Service mesh configuration.
+@SectionId('PD00-TEC-COM-EXT-SMG-MSH')
 class ServiceMeshAndGatewayMesh {
   @Form([
   Field('serviceMesh', String, 'Service Mesh',
@@ -14776,6 +15502,7 @@ class ServiceMeshAndGatewayMesh {
 }
 
 /// Load balancing and termination rules.
+@SectionId('PD00-TEC-COM-EXT-SMG-LBL')
 class ServiceMeshAndGatewayLoadBalancing {
   @Form([
   Field('loadBalancerType', String, 'Load Balancer Type',
@@ -14793,6 +15520,7 @@ class ServiceMeshAndGatewayLoadBalancing {
 }
 
 /// Connectivity resilience requirements.
+@SectionId('PD00-TEC-COM-EXT-COR')
 class ConnectivityResilience {
   @Form([
     Field('failoverStrategy', String, 'Failover Strategy',
@@ -14817,6 +15545,7 @@ class ConnectivityResilience {
 }
 
 /// Circuit breaking and isolation strategy.
+@SectionId('PD00-TEC-COM-EXT-COR-PRO')
 class ConnectivityResilienceProtection {
   @Form([
   Field('circuitBreakerPattern', String, 'Circuit Breaker Pattern',
@@ -14830,6 +15559,7 @@ class ConnectivityResilienceProtection {
 }
 
 /// Offline and reconnection behavior.
+@SectionId('PD00-TEC-COM-EXT-COR-OFL')
 class ConnectivityResilienceOffline {
   @Form([
   Field('offlineCapability', String, 'Offline Capability',
@@ -14843,6 +15573,7 @@ class ConnectivityResilienceOffline {
 }
 
 /// Monitoring and alerting expectations.
+@SectionId('PD00-TEC-COM-EXT-COR-OPS')
 class ConnectivityResilienceOperations {
   @Form([
   Field('connectivityMonitoring', String, 'Connectivity Monitoring',
@@ -15067,6 +15798,7 @@ Provide an overview of administration requirements.
 }
 
 /// Admin interface requirements.
+@SectionId('PD00-TEC-SYS-ADM-AIR')
 class AdminInterfaceRequirements {
   @Form([
     Field('adminPortalType', String, 'Admin Portal Type',
@@ -15093,6 +15825,7 @@ class AdminInterfaceRequirements {
 }
 
 /// Dashboard widget requirements.
+@SectionId('PD00-TEC-SYS-ADM-AIR-DSH')
 class AdminInterfaceRequirementsDashboard {
   @Form([
     Field('dashboardOverview', String, 'Dashboard Overview',
@@ -15110,6 +15843,7 @@ class AdminInterfaceRequirementsDashboard {
 }
 
 /// Data management tooling.
+@SectionId('PD00-TEC-SYS-ADM-AIR-DAT')
 class AdminInterfaceRequirementsData {
   @Form([
     Field('dataExport', String, 'Data Export',
@@ -15125,6 +15859,7 @@ class AdminInterfaceRequirementsData {
 }
 
 /// Operational controls.
+@SectionId('PD00-TEC-SYS-ADM-AIR-OPS')
 class AdminInterfaceRequirementsOperations {
   @Form([
     Field('maintenanceModeToggle', bool, 'Maintenance Mode Toggle',
@@ -15140,6 +15875,7 @@ class AdminInterfaceRequirementsOperations {
 }
 
 /// System configuration management.
+@SectionId('PD00-TEC-SYS-ADM-SCM')
 class SystemConfigurationManagement {
   @Form([
     // Configuration sources
@@ -15166,6 +15902,7 @@ class SystemConfigurationManagement {
 }
 
 /// Dynamic configuration and rollback behavior.
+@SectionId('PD00-TEC-SYS-ADM-SCM-DYN')
 class SystemConfigurationManagementDynamic {
   @Form([
   Field('dynamicConfiguration', bool, 'Dynamic Configuration',
@@ -15181,6 +15918,7 @@ class SystemConfigurationManagementDynamic {
 }
 
 /// Environment overrides and secrets handling.
+@SectionId('PD00-TEC-SYS-ADM-SCM-ENV')
 class SystemConfigurationManagementEnvironment {
   @Form([
   Field('environmentOverrides', String, 'Environment Overrides',
@@ -15194,6 +15932,7 @@ class SystemConfigurationManagementEnvironment {
 }
 
 /// Validation, diffing, and audit controls.
+@SectionId('PD00-TEC-SYS-ADM-SCM-GOV')
 class SystemConfigurationManagementGovernance {
   @Form([
   Field('configValidation', String, 'Config Validation',
@@ -15209,6 +15948,7 @@ class SystemConfigurationManagementGovernance {
 }
 
 /// User provisioning and management tools.
+@SectionId('PD00-TEC-SYS-ADM-UPT')
 class UserProvisioningTools {
   @Form([
     Field('provisioningMethod', String, 'Provisioning Method',
@@ -15235,6 +15975,7 @@ class UserProvisioningTools {
 }
 
 /// Account lifecycle management.
+@SectionId('PD00-TEC-SYS-ADM-UPT-LIF')
 class UserProvisioningToolsLifecycle {
   @Form([
     Field('accountActivation', String, 'Account Activation',
@@ -15252,6 +15993,7 @@ class UserProvisioningToolsLifecycle {
 }
 
 /// Role management and reviews.
+@SectionId('PD00-TEC-SYS-ADM-UPT-ROL')
 class UserProvisioningToolsRoleManagement {
   @Form([
     Field('roleAssignment', String, 'Role Assignment',
@@ -15265,6 +16007,7 @@ class UserProvisioningToolsRoleManagement {
 }
 
 /// Directory integration settings.
+@SectionId('PD00-TEC-SYS-ADM-UPT-DIR')
 class UserProvisioningToolsDirectoryIntegration {
   @Form([
     Field('directoryIntegration', String, 'Directory Integration',
@@ -15280,6 +16023,7 @@ class UserProvisioningToolsDirectoryIntegration {
 }
 
 /// Batch job management.
+@SectionId('PD00-TEC-SYS-ADM-BJM')
 class BatchJobManagement {
   @Form([
     Field('schedulingEngine', String, 'Scheduling Engine',
@@ -15302,6 +16046,7 @@ class BatchJobManagement {
 }
 
 /// Supported job categories.
+@SectionId('PD00-TEC-SYS-ADM-BJM-TYP')
 class BatchJobManagementJobTypes {
   @Form([
     Field('dataProcessingJobs', String, 'Data Processing Jobs',
@@ -15319,6 +16064,7 @@ class BatchJobManagementJobTypes {
 }
 
 /// Execution controls.
+@SectionId('PD00-TEC-SYS-ADM-BJM-EXE')
 class BatchJobManagementExecution {
   @Form([
     Field('concurrencyControl', String, 'Concurrency Control',
@@ -15336,6 +16082,7 @@ class BatchJobManagementExecution {
 }
 
 /// Monitoring and manual controls.
+@SectionId('PD00-TEC-SYS-ADM-BJM-MON')
 class BatchJobManagementMonitoring {
   @Form([
     Field('jobDashboard', bool, 'Job Dashboard',
@@ -15355,6 +16102,7 @@ class BatchJobManagementMonitoring {
 }
 
 /// Administration environment management.
+@SectionId('PD00-TEC-SYS-ADM-AEM')
 class AdminEnvironmentManagement {
   @Form([
     // Environments
@@ -15387,6 +16135,7 @@ class AdminEnvironmentManagement {
 }
 
 /// System diagnostic tools.
+@SectionId('PD00-TEC-SYS-ADM-SDT')
 class SystemDiagnosticTools {
   @Form([
     Field('remoteDebugging', bool, 'Remote Debugging',
@@ -15412,6 +16161,7 @@ class SystemDiagnosticTools {
 }
 
 /// Trace and dependency inspection tools.
+@SectionId('PD00-TEC-SYS-ADM-SDT-TRC')
 class SystemDiagnosticToolsTracing {
   @Form([
   Field('requestTracing', String, 'Request Tracing',
@@ -15425,6 +16175,7 @@ class SystemDiagnosticToolsTracing {
 }
 
 /// Log analysis capabilities.
+@SectionId('PD00-TEC-SYS-ADM-SDT-LOG')
 class SystemDiagnosticToolsLogs {
   @Form([
   Field('logAggregation', String, 'Log Aggregation',
@@ -15438,6 +16189,7 @@ class SystemDiagnosticToolsLogs {
 }
 
 /// Self-service diagnostic entry points.
+@SectionId('PD00-TEC-SYS-ADM-SDT-SLF')
 class SystemDiagnosticToolsSelfService {
   @Form([
   Field('adminDiagnosticEndpoints', String, 'Diagnostic Endpoints',
@@ -15572,6 +16324,7 @@ class AlertingConfiguration {
 }
 
 /// Alert notification channels.
+@SectionId('PD00-TEC-SYS-MON-ALR-NTC')
 class AlertNotificationChannels {
   @Form([
     // Primary channels
@@ -15598,6 +16351,7 @@ class AlertNotificationChannels {
 }
 
 /// Secondary and escalation delivery methods.
+@SectionId('PD00-TEC-SYS-MON-ALR-NTC-DEL')
 class AlertNotificationChannelsDelivery {
   @Form([
   Field('emailNotification', String, 'Email Notification',
@@ -15611,6 +16365,7 @@ class AlertNotificationChannelsDelivery {
 }
 
 /// Severity-based channel routing.
+@SectionId('PD00-TEC-SYS-MON-ALR-NTC-ROU')
 class AlertNotificationChannelsRouting {
   @Form([
   Field('criticalAlertChannels', String, 'Critical Alert Channels',
@@ -15624,6 +16379,7 @@ class AlertNotificationChannelsRouting {
 }
 
 /// Message templates, enrichment, and grouping rules.
+@SectionId('PD00-TEC-SYS-MON-ALR-NTC-FMT')
 class AlertNotificationChannelsFormatting {
   @Form([
   Field('alertMessageFormat', String, 'Alert Message Format',
@@ -15663,6 +16419,7 @@ class AlertRuleEntry {
 }
 
 /// Trigger conditions.
+@SectionId('PD00-TEC-SYS-MON-ALR-ENT-TRG')
 class AlertRuleEntryTrigger {
   @Form([
     Field('metricOrCondition', String, 'Metric/Condition',
@@ -15678,6 +16435,7 @@ class AlertRuleEntryTrigger {
 }
 
 /// Response actions.
+@SectionId('PD00-TEC-SYS-MON-ALR-ENT-RES')
 class AlertRuleEntryResponse {
   @Form([
     Field('notificationChannels', String, 'Notification Channels',
@@ -15693,6 +16451,7 @@ class AlertRuleEntryResponse {
 }
 
 /// Ownership details.
+@SectionId('PD00-TEC-SYS-MON-ALR-ENT-OWN')
 class AlertRuleEntryOwnership {
   @Form([
     Field('ownerTeam', String, 'Owner Team'),
@@ -15703,6 +16462,7 @@ class AlertRuleEntryOwnership {
 }
 
 /// Alert escalation policies.
+@SectionId('PD00-TEC-SYS-MON-ALR-ESP')
 class AlertEscalationPolicies {
   @Form([
     // Escalation levels
@@ -15728,6 +16488,7 @@ class AlertEscalationPolicies {
 }
 
 /// Management escalation path and timing thresholds.
+@SectionId('PD00-TEC-SYS-MON-ALR-ESP-TIM')
 class AlertEscalationPoliciesTiming {
   @Form([
   Field('managementEscalation', String, 'Management Escalation',
@@ -15743,6 +16504,7 @@ class AlertEscalationPoliciesTiming {
 }
 
 /// Escalation control behavior.
+@SectionId('PD00-TEC-SYS-MON-ALR-ESP-BEH')
 class AlertEscalationPoliciesBehavior {
   @Form([
   Field('acknowledgeStopsEscalation', bool, 'Acknowledge Stops Escalation',
@@ -15756,6 +16518,7 @@ class AlertEscalationPoliciesBehavior {
 }
 
 /// Schedule-specific policy variants.
+@SectionId('PD00-TEC-SYS-MON-ALR-ESP-SCH')
 class AlertEscalationPoliciesSchedules {
   @Form([
   Field('businessHoursPolicy', String, 'Business Hours Policy',
@@ -15770,6 +16533,7 @@ class AlertEscalationPoliciesSchedules {
 }
 
 /// Alert suppression and maintenance windows.
+@SectionId('PD00-TEC-SYS-MON-ALR-ASR')
 class AlertSuppressionRules {
   @Form([
     // Maintenance windows
@@ -15799,6 +16563,7 @@ class AlertSuppressionRules {
 }
 
 /// On-call schedule configuration.
+@SectionId('PD00-TEC-SYS-MON-ALR-OCS')
 class OnCallScheduleConfig {
   @Form([
     Field('rotationSchedule', String, 'Rotation Schedule',
@@ -15821,6 +16586,7 @@ class OnCallScheduleConfig {
 }
 
 /// Override and coverage handling.
+@SectionId('PD00-TEC-SYS-MON-ALR-OCS-COV')
 class OnCallScheduleConfigCoverage {
   @Form([
   Field('scheduleOverrideProcess', String, 'Schedule Override Process',
@@ -15834,6 +16600,7 @@ class OnCallScheduleConfigCoverage {
 }
 
 /// Compensation and tooling support.
+@SectionId('PD00-TEC-SYS-MON-ALR-OCS-OPS')
 class OnCallScheduleConfigOperations {
   @Form([
   Field('onCallCompensation', String, 'On-Call Compensation',
@@ -15907,6 +16674,7 @@ class MetricsAndObservability {
 }
 
 /// Application metrics specification.
+@SectionId('PD00-TEC-SYS-MON-MET-AMS')
 class ApplicationMetricsSpec {
   @Form([
     Field('requestRate', bool, 'Request Rate',
@@ -15931,6 +16699,7 @@ class ApplicationMetricsSpec {
 }
 
 /// USE metrics.
+@SectionId('PD00-TEC-SYS-MON-MET-AMS-RES')
 class ApplicationMetricsSpecResources {
   @Form([
     Field('resourceUtilization', bool, 'Resource Utilization',
@@ -15944,6 +16713,7 @@ class ApplicationMetricsSpecResources {
 }
 
 /// Application-specific metrics.
+@SectionId('PD00-TEC-SYS-MON-MET-AMS-APP')
 class ApplicationMetricsSpecApplication {
   @Form([
     Field('cacheMetrics', bool, 'Cache Metrics',
@@ -15961,6 +16731,7 @@ class ApplicationMetricsSpecApplication {
 }
 
 /// Labeling guidance.
+@SectionId('PD00-TEC-SYS-MON-MET-AMS-LBL')
 class ApplicationMetricsSpecLabels {
   @Form([
     Field('standardLabels', String, 'Standard Labels',
@@ -15975,6 +16746,7 @@ class ApplicationMetricsSpecLabels {
 }
 
 /// Infrastructure metrics specification.
+@SectionId('PD00-TEC-SYS-MON-MET-IMS')
 class InfrastructureMetricsSpec {
   @Form([
     // Compute
@@ -16001,6 +16773,7 @@ class InfrastructureMetricsSpec {
 }
 
 /// Container and orchestration metrics.
+@SectionId('PD00-TEC-SYS-MON-MET-IMS-K8S')
 class InfrastructureMetricsSpecKubernetes {
   @Form([
   Field('containerMetrics', bool, 'Container Metrics',
@@ -16016,6 +16789,7 @@ class InfrastructureMetricsSpecKubernetes {
 }
 
 /// Cloud-managed services and edge metrics.
+@SectionId('PD00-TEC-SYS-MON-MET-IMS-CLD')
 class InfrastructureMetricsSpecCloud {
   @Form([
   Field('cloudProviderMetrics', bool, 'Cloud Provider Metrics',
@@ -16031,6 +16805,7 @@ class InfrastructureMetricsSpecCloud {
 }
 
 /// Cost attribution and notes.
+@SectionId('PD00-TEC-SYS-MON-MET-IMS-CST')
 class InfrastructureMetricsSpecCost {
   @Form([
   Field('costMetrics', bool, 'Cost Metrics',
@@ -16041,6 +16816,7 @@ class InfrastructureMetricsSpecCost {
 }
 
 /// Business metrics specification.
+@SectionId('PD00-TEC-SYS-MON-MET-BMS')
 class BusinessMetricsSpec {
   @Form([
     // User activity
@@ -16069,6 +16845,7 @@ class BusinessMetricsSpec {
 }
 
 /// Transaction and revenue metrics.
+@SectionId('PD00-TEC-SYS-MON-MET-BMS-TRX')
 class BusinessMetricsSpecTransactions {
   @Form([
   Field('transactionVolume', bool, 'Transaction Volume',
@@ -16082,6 +16859,7 @@ class BusinessMetricsSpecTransactions {
 }
 
 /// Feature adoption and engagement metrics.
+@SectionId('PD00-TEC-SYS-MON-MET-BMS-FEA')
 class BusinessMetricsSpecFeatureUsage {
   @Form([
   Field('featureAdoption', bool, 'Feature Adoption',
@@ -16093,6 +16871,7 @@ class BusinessMetricsSpecFeatureUsage {
 }
 
 /// KPI and customer outcome metrics.
+@SectionId('PD00-TEC-SYS-MON-MET-BMS-KPI')
 class BusinessMetricsSpecKpis {
   @Form([
   Field('conversionRate', bool, 'Conversion Rate'),
@@ -16106,6 +16885,7 @@ class BusinessMetricsSpecKpis {
 }
 
 /// Real-time dashboard and notes.
+@SectionId('PD00-TEC-SYS-MON-MET-BMS-OPS')
 class BusinessMetricsSpecOperations {
   @Form([
   Field('realTimeBusinessDashboard', bool, 'Real-Time Business Dashboard',
@@ -16116,6 +16896,7 @@ class BusinessMetricsSpecOperations {
 }
 
 /// Distributed tracing specification.
+@SectionId('PD00-TEC-SYS-MON-MET-DTS')
 class DistributedTracingSpec {
   @Form([
     Field('tracingBackend', String, 'Tracing Backend',
@@ -16139,6 +16920,7 @@ class DistributedTracingSpec {
 }
 
 /// Sampling strategy.
+@SectionId('PD00-TEC-SYS-MON-MET-DTS-SAM')
 class DistributedTracingSpecSampling {
   @Form([
   Field('headSamplingRate', String, 'Head Sampling Rate',
@@ -16154,6 +16936,7 @@ class DistributedTracingSpecSampling {
 }
 
 /// Span metadata.
+@SectionId('PD00-TEC-SYS-MON-MET-DTS-SPN')
 class DistributedTracingSpecSpans {
   @Form([
   Field('defaultSpanAttributes', String, 'Default Span Attributes',
@@ -16167,6 +16950,7 @@ class DistributedTracingSpecSpans {
 }
 
 /// Correlation and retention.
+@SectionId('PD00-TEC-SYS-MON-MET-DTS-OPS')
 class DistributedTracingSpecOperations {
   @Form([
   Field('logTraceCorrelation', bool, 'Log-Trace Correlation',
@@ -16272,6 +17056,7 @@ class DashboardEntry {
 }
 
 /// Refresh and data composition details.
+@SectionId('PD00-TEC-SYS-MON-DAS-ENT-CFG')
 class DashboardEntryConfiguration {
   @Form([
     Field('refreshInterval', String, 'Refresh Interval'),
@@ -16286,6 +17071,7 @@ class DashboardEntryConfiguration {
 }
 
 /// Alert ownership and notes.
+@SectionId('PD00-TEC-SYS-MON-DAS-ENT-OPS')
 class DashboardEntryOperations {
   @Form([
     Field('alertIntegration', String, 'Alert Integration',
@@ -16297,6 +17083,7 @@ class DashboardEntryOperations {
 }
 
 /// Dashboard templates specification.
+@SectionId('PD00-TEC-SYS-MON-DAS-TPL')
 class DashboardTemplates {
   @Form([
     // Service template
@@ -16372,6 +17159,7 @@ class SlaAndSloMonitoring {
 }
 
 /// Service Level Indicators.
+@SectionId('PD00-TEC-SYS-MON-SLA-SLI')
 class ServiceLevelIndicators {
   @Form([
     Field('availabilitySli', String, 'Availability SLI',
@@ -16394,6 +17182,7 @@ class ServiceLevelIndicators {
 }
 
 /// Latency and throughput indicators.
+@SectionId('PD00-TEC-SYS-MON-SLA-SLI-PER')
 class ServiceLevelIndicatorsPerformance {
   @Form([
   Field('latencySli', String, 'Latency SLI',
@@ -16407,6 +17196,7 @@ class ServiceLevelIndicatorsPerformance {
 }
 
 /// Error, correctness, and freshness indicators.
+@SectionId('PD00-TEC-SYS-MON-SLA-SLI-QUA')
 class ServiceLevelIndicatorsQuality {
   @Form([
   Field('errorRateSli', String, 'Error Rate SLI',
@@ -16422,6 +17212,7 @@ class ServiceLevelIndicatorsQuality {
 }
 
 /// Measurement method and location.
+@SectionId('PD00-TEC-SYS-MON-SLA-SLI-MEA')
 class ServiceLevelIndicatorsMeasurement {
   @Form([
   Field('measurementMethod', String, 'Measurement Method',
@@ -16451,6 +17242,7 @@ class SloEntry {
 }
 
 /// Objective target and budget definition.
+@SectionId('PD00-TEC-SYS-MON-SLA-ENT-TGT')
 class SloEntryTarget {
   @Form([
     Field('sliType', String, 'SLI Type',
@@ -16466,6 +17258,7 @@ class SloEntryTarget {
 }
 
 /// Alerting and ownership rules.
+@SectionId('PD00-TEC-SYS-MON-SLA-ENT-OPS')
 class SloEntryOperations {
   @Form([
     Field('alertThreshold', String, 'Alert Threshold',
@@ -16479,6 +17272,7 @@ class SloEntryOperations {
 }
 
 /// Error budget tracking.
+@SectionId('PD00-TEC-SYS-MON-SLA-EBT')
 class ErrorBudgetTracking {
   @Form([
     // Budget calculation
@@ -16502,6 +17296,7 @@ class ErrorBudgetTracking {
 }
 
 /// Burn-rate monitoring thresholds.
+@SectionId('PD00-TEC-SYS-MON-SLA-EBT-MON')
 class ErrorBudgetTrackingMonitoring {
   @Form([
   Field('budgetAlertThresholds', String, 'Budget Alert Thresholds',
@@ -16513,6 +17308,7 @@ class ErrorBudgetTrackingMonitoring {
 }
 
 /// Recovery policy and attribution rules.
+@SectionId('PD00-TEC-SYS-MON-SLA-EBT-GOV')
 class ErrorBudgetTrackingGovernance {
   @Form([
   Field('budgetExhaustionActions', String, 'Budget Exhaustion Actions',
@@ -16607,6 +17403,7 @@ Provide an overview of health check and diagnostics strategy.
 }
 
 /// Health check endpoint requirements.
+@SectionId('PD00-TEC-SYS-HEA-HCE')
 class HealthCheckEndpoints {
   @Form([
     Field('livenessEndpoint', String, 'Liveness Endpoint',
@@ -16635,6 +17432,7 @@ class HealthCheckEndpoints {
 }
 
 /// Response configuration.
+@SectionId('PD00-TEC-SYS-HEA-HCE-CFG')
 class HealthCheckEndpointsConfiguration {
   @Form([
     Field('healthCheckPort', int, 'Port',
@@ -16650,6 +17448,7 @@ class HealthCheckEndpointsConfiguration {
 }
 
 /// Timing thresholds.
+@SectionId('PD00-TEC-SYS-HEA-HCE-TIM')
 class HealthCheckEndpointsTiming {
   @Form([
     Field('checkInterval', String, 'Check Interval',
@@ -16665,6 +17464,7 @@ class HealthCheckEndpointsTiming {
 }
 
 /// Response content settings.
+@SectionId('PD00-TEC-SYS-HEA-HCE-CON')
 class HealthCheckEndpointsContent {
   @Form([
     Field('includeComponentStatus', bool, 'Include Component Status',
@@ -16684,6 +17484,7 @@ class HealthCheckEndpointsContent {
 }
 
 /// Application diagnostics.
+@SectionId('PD00-TEC-SYS-HEA-ADG')
 class ApplicationDiagnostics {
   @Form([
     // Runtime information
@@ -16709,6 +17510,7 @@ class ApplicationDiagnostics {
 }
 
 /// On-demand profiling and slow-request tracing.
+@SectionId('PD00-TEC-SYS-HEA-ADG-PER')
 class ApplicationDiagnosticsPerformance {
   @Form([
   Field('cpuProfiling', bool, 'CPU Profiling',
@@ -16724,6 +17526,7 @@ class ApplicationDiagnosticsPerformance {
 }
 
 /// Runtime queue and pool inspection.
+@SectionId('PD00-TEC-SYS-HEA-ADG-RUN')
 class ApplicationDiagnosticsRuntime {
   @Form([
   Field('connectionPoolStatus', bool, 'Connection Pool Status',
@@ -16737,6 +17540,7 @@ class ApplicationDiagnosticsRuntime {
 }
 
 /// Feature and resilience status indicators.
+@SectionId('PD00-TEC-SYS-HEA-ADG-FEA')
 class ApplicationDiagnosticsFeatureStatus {
   @Form([
   Field('featureFlagStatus', bool, 'Feature Flag Status',
@@ -16752,6 +17556,7 @@ class ApplicationDiagnosticsFeatureStatus {
 }
 
 /// Log aggregation and analysis requirements.
+@SectionId('PD00-TEC-SYS-HEA-LAR')
 class LogAggregationRequirements {
   @Form([
     Field('logPlatform', String, 'Log Platform',
@@ -16779,6 +17584,7 @@ class LogAggregationRequirements {
 }
 
 /// Dynamic configuration and collection settings.
+@SectionId('PD00-TEC-SYS-HEA-LAR-COL')
 class LogAggregationRequirementsCollection {
   @Form([
     Field('dynamicLogLevelChange', bool, 'Dynamic Log Level Change',
@@ -16796,6 +17602,7 @@ class LogAggregationRequirementsCollection {
 }
 
 /// Retention and archival settings.
+@SectionId('PD00-TEC-SYS-HEA-LAR-RET')
 class LogAggregationRequirementsRetention {
   @Form([
     Field('retentionPeriod', String, 'Retention Period',
@@ -16809,6 +17616,7 @@ class LogAggregationRequirementsRetention {
 }
 
 /// Search and analysis capabilities.
+@SectionId('PD00-TEC-SYS-HEA-LAR-ANL')
 class LogAggregationRequirementsAnalysis {
   @Form([
     Field('fullTextSearch', bool, 'Full-Text Search',
@@ -16828,6 +17636,7 @@ class LogAggregationRequirementsAnalysis {
 }
 
 /// Troubleshooting capabilities.
+@SectionId('PD00-TEC-SYS-HEA-TRC')
 class TroubleshootingCapabilities {
   @Form([
     Field('debugMode', String, 'Debug Mode',
@@ -16853,6 +17662,7 @@ class TroubleshootingCapabilities {
 }
 
 /// Runbook and remediation support.
+@SectionId('PD00-TEC-SYS-HEA-TRC-RBK')
 class TroubleshootingCapabilitiesRunbooks {
   @Form([
   Field('runbookIntegration', bool, 'Runbook Integration',
@@ -16866,6 +17676,7 @@ class TroubleshootingCapabilitiesRunbooks {
 }
 
 /// Break-glass and diagnostic access controls.
+@SectionId('PD00-TEC-SYS-HEA-TRC-ACC')
 class TroubleshootingCapabilitiesAccess {
   @Form([
   Field('productionShellAccess', String, 'Production Shell Access',
@@ -16879,6 +17690,7 @@ class TroubleshootingCapabilitiesAccess {
 }
 
 /// Incident communication and retrospective support.
+@SectionId('PD00-TEC-SYS-HEA-TRC-COM')
 class TroubleshootingCapabilitiesCommunication {
   @Form([
   Field('statusPageIntegration', String, 'Status Page Integration',
@@ -16894,6 +17706,7 @@ class TroubleshootingCapabilitiesCommunication {
 }
 
 /// Dependency health monitoring.
+@SectionId('PD00-TEC-SYS-HEA-DHM')
 class DependencyHealthMonitoring {
   @Form([
     // Database
@@ -16922,6 +17735,7 @@ class DependencyHealthMonitoring {
 }
 
 /// Cache subsystem checks.
+@SectionId('PD00-TEC-SYS-HEA-DHM-CAC')
 class DependencyHealthMonitoringCache {
   @Form([
   Field('cacheHealthCheck', String, 'Cache Health Check',
@@ -16933,6 +17747,7 @@ class DependencyHealthMonitoringCache {
 }
 
 /// Queue and dead-letter monitoring.
+@SectionId('PD00-TEC-SYS-HEA-DHM-QUE')
 class DependencyHealthMonitoringQueue {
   @Form([
   Field('messageQueueHealth', String, 'Message Queue Health',
@@ -16944,6 +17759,7 @@ class DependencyHealthMonitoringQueue {
 }
 
 /// External service and certificate checks.
+@SectionId('PD00-TEC-SYS-HEA-DHM-EXT')
 class DependencyHealthMonitoringExternal {
   @Form([
   Field('externalServicePing', bool, 'External Service Ping',
@@ -16957,6 +17773,7 @@ class DependencyHealthMonitoringExternal {
 }
 
 /// Thresholds and cascade protection settings.
+@SectionId('PD00-TEC-SYS-HEA-DHM-THR')
 class DependencyHealthMonitoringThresholds {
   @Form([
   Field('degradedThreshold', String, 'Degraded Threshold',
@@ -17057,6 +17874,7 @@ Provide an overview of capacity planning approach.
 }
 
 /// User growth projections.
+@SectionId('PD00-TEC-SYS-CAP-UGP')
 class UserGrowthProjections {
   @Form([
     // Current state
@@ -17082,6 +17900,7 @@ class UserGrowthProjections {
 }
 
 /// Growth-rate assumptions and time-based projections.
+@SectionId('PD00-TEC-SYS-CAP-UGP-FOR')
 class UserGrowthProjectionsForecast {
   @Form([
   Field('projectedGrowthRate', String, 'Projected Growth Rate',
@@ -17099,6 +17918,7 @@ class UserGrowthProjectionsForecast {
 }
 
 /// User segmentation and geographic patterns.
+@SectionId('PD00-TEC-SYS-CAP-UGP-SEG')
 class UserGrowthProjectionsSegmentation {
   @Form([
   Field('userSegments', String, 'User Segments',
@@ -17112,6 +17932,7 @@ class UserGrowthProjectionsSegmentation {
 }
 
 /// Capacity thresholds and planning notes.
+@SectionId('PD00-TEC-SYS-CAP-UGP-THR')
 class UserGrowthProjectionsThresholds {
   @Form([
   Field('softCapacityLimit', int, 'Soft Capacity Limit',
@@ -17125,6 +17946,7 @@ class UserGrowthProjectionsThresholds {
 }
 
 /// Data growth projections.
+@SectionId('PD00-TEC-SYS-CAP-DGP')
 class DataGrowthProjections {
   @Form([
     Field('currentDataVolume', String, 'Current Data Volume',
@@ -17152,6 +17974,7 @@ class DataGrowthProjections {
 }
 
 /// Growth-rate assumptions.
+@SectionId('PD00-TEC-SYS-CAP-DGP-GRW')
 class DataGrowthProjectionsGrowth {
   @Form([
     Field('dataGrowthRate', String, 'Data Growth Rate',
@@ -17165,6 +17988,7 @@ class DataGrowthProjectionsGrowth {
 }
 
 /// Volume projections.
+@SectionId('PD00-TEC-SYS-CAP-DGP-PRJ')
 class DataGrowthProjectionsProjections {
   @Form([
     Field('projectedVolume6Months', String, 'Projected Volume at 6 Months',
@@ -17178,6 +18002,7 @@ class DataGrowthProjectionsProjections {
 }
 
 /// Data lifecycle strategy.
+@SectionId('PD00-TEC-SYS-CAP-DGP-LIF')
 class DataGrowthProjectionsLifecycle {
   @Form([
     Field('dataRetentionPolicy', String, 'Data Retention Policy',
@@ -17193,6 +18018,7 @@ class DataGrowthProjectionsLifecycle {
 }
 
 /// Thresholds and notes.
+@SectionId('PD00-TEC-SYS-CAP-DGP-THR')
 class DataGrowthProjectionsThresholds {
   @Form([
     Field('storageAlertThreshold', String, 'Storage Alert Threshold',
@@ -17206,6 +18032,7 @@ class DataGrowthProjectionsThresholds {
 }
 
 /// Peak load patterns.
+@SectionId('PD00-TEC-SYS-CAP-PLP')
 class PeakLoadPatterns {
   @Form([
     Field('dailyPeakHours', String, 'Daily Peak Hours',
@@ -17230,6 +18057,7 @@ class PeakLoadPatterns {
 }
 
 /// Peak metrics.
+@SectionId('PD00-TEC-SYS-CAP-PLP-MET')
 class PeakLoadPatternsMetrics {
   @Form([
   Field('peakRequestsPerSecond', int, 'Peak Requests/Second',
@@ -17245,6 +18073,7 @@ class PeakLoadPatternsMetrics {
 }
 
 /// Load multipliers.
+@SectionId('PD00-TEC-SYS-CAP-PLP-CAP')
 class PeakLoadPatternsCapacity {
   @Form([
   Field('peakToAverageRatio', String, 'Peak-to-Average Ratio',
@@ -17258,6 +18087,7 @@ class PeakLoadPatternsCapacity {
 }
 
 /// Testing regime.
+@SectionId('PD00-TEC-SYS-CAP-PLP-TST')
 class PeakLoadPatternsTesting {
   @Form([
   Field('loadTestingFrequency', String, 'Load Testing Frequency',
@@ -17273,6 +18103,7 @@ class PeakLoadPatternsTesting {
 }
 
 /// Scaling triggers and thresholds.
+@SectionId('PD00-TEC-SYS-CAP-STT')
 class ScalingTriggersAndThresholds {
   @Form([
     Field('cpuScaleUpThreshold', String, 'CPU Scale-Up Threshold',
@@ -17299,6 +18130,7 @@ class ScalingTriggersAndThresholds {
 }
 
 /// Memory-based thresholds.
+@SectionId('PD00-TEC-SYS-CAP-STT-MEM')
 class ScalingTriggersAndThresholdsMemory {
   @Form([
     Field('memoryScaleUpThreshold', String, 'Memory Scale-Up Threshold',
@@ -17310,6 +18142,7 @@ class ScalingTriggersAndThresholdsMemory {
 }
 
 /// Request-based thresholds.
+@SectionId('PD00-TEC-SYS-CAP-STT-REQ')
 class ScalingTriggersAndThresholdsRequest {
   @Form([
     Field('requestRateScaleUpThreshold', String, 'Request Rate Scale-Up',
@@ -17323,6 +18156,7 @@ class ScalingTriggersAndThresholdsRequest {
 }
 
 /// Scaling behavior.
+@SectionId('PD00-TEC-SYS-CAP-STT-BEH')
 class ScalingTriggersAndThresholdsBehavior {
   @Form([
     Field('scalingCooldownPeriod', String, 'Scaling Cooldown Period',
@@ -17338,6 +18172,7 @@ class ScalingTriggersAndThresholdsBehavior {
 }
 
 /// Scaling types and providers.
+@SectionId('PD00-TEC-SYS-CAP-STT-TYP')
 class ScalingTriggersAndThresholdsType {
   @Form([
     Field('horizontalScaling', bool, 'Horizontal Scaling',
@@ -17355,6 +18190,7 @@ class ScalingTriggersAndThresholdsType {
 }
 
 /// Resource capacity baselines.
+@SectionId('PD00-TEC-SYS-CAP-RCB')
 class ResourceCapacityBaselines {
   @Form([
     // Compute
@@ -17382,6 +18218,7 @@ class ResourceCapacityBaselines {
 }
 
 /// Storage baselines.
+@SectionId('PD00-TEC-SYS-CAP-RCB-STO')
 class ResourceCapacityBaselinesStorage {
   @Form([
   Field('storageIOPSBaseline', String, 'Storage IOPS Baseline',
@@ -17393,6 +18230,7 @@ class ResourceCapacityBaselinesStorage {
 }
 
 /// Network baselines.
+@SectionId('PD00-TEC-SYS-CAP-RCB-NET')
 class ResourceCapacityBaselinesNetwork {
   @Form([
   Field('networkBandwidthBaseline', String, 'Network Bandwidth Baseline',
@@ -17404,6 +18242,7 @@ class ResourceCapacityBaselinesNetwork {
 }
 
 /// Database baselines.
+@SectionId('PD00-TEC-SYS-CAP-RCB-DB')
 class ResourceCapacityBaselinesDatabase {
   @Form([
   Field('databaseConnectionPoolBaseline', String,
@@ -17418,6 +18257,7 @@ class ResourceCapacityBaselinesDatabase {
 }
 
 /// Cost baselines and notes.
+@SectionId('PD00-TEC-SYS-CAP-RCB-CST')
 class ResourceCapacityBaselinesCost {
   @Form([
   Field('currentMonthlyCost', String, 'Current Monthly Cost',
@@ -17433,6 +18273,7 @@ class ResourceCapacityBaselinesCost {
 }
 
 /// Capacity review process.
+@SectionId('PD00-TEC-SYS-CAP-CRP')
 class CapacityReviewProcess {
   @Form([
     Field('reviewFrequency', String, 'Review Frequency',
@@ -17457,6 +18298,7 @@ class CapacityReviewProcess {
 }
 
 /// Monitoring and forecasting inputs for capacity review.
+@SectionId('PD00-TEC-SYS-CAP-CRP-MON')
 class CapacityReviewProcessMonitoring {
   @Form([
   Field('capacityDashboard', bool, 'Capacity Dashboard',
@@ -17470,6 +18312,7 @@ class CapacityReviewProcessMonitoring {
 }
 
 /// Escalation and emergency scaling decisions for capacity review.
+@SectionId('PD00-TEC-SYS-CAP-CRP-ESC')
 class CapacityReviewProcessEscalation {
   @Form([
   Field('capacityAlertThresholds', String, 'Capacity Alert Thresholds',
@@ -17483,6 +18326,7 @@ class CapacityReviewProcessEscalation {
 }
 
 /// Budgeting and rightsizing planning for capacity review.
+@SectionId('PD00-TEC-SYS-CAP-CRP-PLN')
 class CapacityReviewProcessPlanning {
   @Form([
   Field('budgetPlanningIntegration', bool, 'Budget Planning Integration',
@@ -17680,6 +18524,7 @@ class SecurityStandardEntry {
 }
 
 /// Applicability and regulatory scope.
+@SectionId('PD00-TEC-SEC-ITS-ENT-SCO')
 class SecurityStandardEntryScope {
   @Form([
     Field('applicabilityScope', String, 'Applicability Scope',
@@ -17693,6 +18538,7 @@ class SecurityStandardEntryScope {
 }
 
 /// Implementation status and planning.
+@SectionId('PD00-TEC-SEC-ITS-ENT-IMP')
 class SecurityStandardEntryImplementation {
   @Form([
     Field('implementationStatus', String, 'Implementation Status',
@@ -17708,6 +18554,7 @@ class SecurityStandardEntryImplementation {
 }
 
 /// Verification and ownership.
+@SectionId('PD00-TEC-SEC-ITS-ENT-VER')
 class SecurityStandardEntryVerification {
   @Form([
     Field('certificationRequired', bool, 'Certification Required',
@@ -17725,6 +18572,7 @@ class SecurityStandardEntryVerification {
 }
 
 /// Application security requirements (OWASP-based).
+@SectionId('PD00-TEC-SEC-ITS-ASR')
 class ApplicationSecurityRequirements {
   @Form([
     Field('owaspTop10Compliance', String, 'OWASP Top 10 Compliance',
@@ -17750,6 +18598,7 @@ class ApplicationSecurityRequirements {
 }
 
 /// Core protection controls.
+@SectionId('PD00-TEC-SEC-ITS-ASR-CTR')
 class ApplicationSecurityRequirementsControls {
   @Form([
     Field('sensitiveDataExposure', String, 'Sensitive Data Exposure',
@@ -17767,6 +18616,7 @@ class ApplicationSecurityRequirementsControls {
 }
 
 /// Input and output validation.
+@SectionId('PD00-TEC-SEC-ITS-ASR-VAL')
 class ApplicationSecurityRequirementsValidation {
   @Form([
     Field('inputValidationStrategy', String, 'Input Validation Strategy',
@@ -17780,6 +18630,7 @@ class ApplicationSecurityRequirementsValidation {
 }
 
 /// API and browser-facing protections.
+@SectionId('PD00-TEC-SEC-ITS-ASR-API')
 class ApplicationSecurityRequirementsApi {
   @Form([
     Field('apiSecurityStandard', String, 'API Security Standard',
@@ -17795,6 +18646,7 @@ class ApplicationSecurityRequirementsApi {
 }
 
 /// Infrastructure security hardening.
+@SectionId('PD00-TEC-SEC-ITS-ISH')
 class InfrastructureSecurityHardening {
   @Form([
     Field('osHardeningBaseline', String, 'OS Hardening Baseline',
@@ -17822,6 +18674,7 @@ class InfrastructureSecurityHardening {
 }
 
 /// Container security.
+@SectionId('PD00-TEC-SEC-ITS-ISH-CNT')
 class InfrastructureSecurityHardeningContainer {
   @Form([
   Field('containerBaseImages', String, 'Container Base Images',
@@ -17837,6 +18690,7 @@ class InfrastructureSecurityHardeningContainer {
 }
 
 /// Network hardening.
+@SectionId('PD00-TEC-SEC-ITS-ISH-NET')
 class InfrastructureSecurityHardeningNetwork {
   @Form([
   Field('networkSegmentation', String, 'Network Segmentation',
@@ -17850,6 +18704,7 @@ class InfrastructureSecurityHardeningNetwork {
 }
 
 /// Access hardening.
+@SectionId('PD00-TEC-SEC-ITS-ISH-ACC')
 class InfrastructureSecurityHardeningAccess {
   @Form([
   Field('sshAccessPolicy', String, 'SSH Access Policy',
@@ -17865,6 +18720,7 @@ class InfrastructureSecurityHardeningAccess {
 }
 
 /// Security development lifecycle.
+@SectionId('PD00-TEC-SEC-ITS-SDL')
 class SecurityDevelopmentLifecycle {
   @Form([
     Field('threatModeling', String, 'Threat Modeling',
@@ -17892,6 +18748,7 @@ class SecurityDevelopmentLifecycle {
 }
 
 /// Development-phase controls.
+@SectionId('PD00-TEC-SEC-ITS-SDL-DEV')
 class SecurityDevelopmentLifecycleDevelopment {
   @Form([
     Field('secureCodeTraining', String, 'Secure Code Training',
@@ -17909,6 +18766,7 @@ class SecurityDevelopmentLifecycleDevelopment {
 }
 
 /// Testing-phase controls.
+@SectionId('PD00-TEC-SEC-ITS-SDL-TST')
 class SecurityDevelopmentLifecycleTesting {
   @Form([
     Field('dynamicAnalysis', String, 'Dynamic Analysis (DAST)',
@@ -17924,6 +18782,7 @@ class SecurityDevelopmentLifecycleTesting {
 }
 
 /// Release-phase controls.
+@SectionId('PD00-TEC-SEC-ITS-SDL-REL')
 class SecurityDevelopmentLifecycleRelease {
   @Form([
     Field('preReleaseSecurityGate', bool, 'Pre-Release Security Gate',
@@ -17937,6 +18796,7 @@ class SecurityDevelopmentLifecycleRelease {
 }
 
 /// Vulnerability management policy.
+@SectionId('PD00-TEC-SEC-ITS-VMP')
 class VulnerabilityManagementPolicy {
   @Form([
     Field('vulnerabilityScanningTool', String, 'Vulnerability Scanning Tool',
@@ -17962,6 +18822,7 @@ class VulnerabilityManagementPolicy {
 }
 
 /// Severity classification.
+@SectionId('PD00-TEC-SEC-ITS-VMP-CLS')
 class VulnerabilityManagementPolicyClassification {
   @Form([
   Field('severityClassification', String, 'Severity Classification',
@@ -17979,6 +18840,7 @@ class VulnerabilityManagementPolicyClassification {
 }
 
 /// Remediation process.
+@SectionId('PD00-TEC-SEC-ITS-VMP-PRC')
 class VulnerabilityManagementPolicyProcess {
   @Form([
   Field('vulnerabilityTracking', String, 'Vulnerability Tracking',
@@ -17994,6 +18856,7 @@ class VulnerabilityManagementPolicyProcess {
 }
 
 /// Reporting and disclosure.
+@SectionId('PD00-TEC-SEC-ITS-VMP-REP')
 class VulnerabilityManagementPolicyReporting {
   @Form([
   Field('vulnerabilityReporting', String, 'Vulnerability Reporting',
@@ -18007,6 +18870,7 @@ class VulnerabilityManagementPolicyReporting {
 }
 
 /// Incident response plan.
+@SectionId('PD00-TEC-SEC-ITS-IRP')
 class IncidentResponsePlan {
   @Form([
     Field('incidentSeverityLevels', String, 'Incident Severity Levels',
@@ -18031,6 +18895,7 @@ class IncidentResponsePlan {
 }
 
 /// Response process.
+@SectionId('PD00-TEC-SEC-ITS-IRP-PRC')
 class IncidentResponsePlanProcess {
   @Form([
   Field('initialResponseSla', String, 'Initial Response SLA',
@@ -18046,6 +18911,7 @@ class IncidentResponsePlanProcess {
 }
 
 /// Communication requirements.
+@SectionId('PD00-TEC-SEC-ITS-IRP-COM')
 class IncidentResponsePlanCommunication {
   @Form([
   Field('notificationRequirements', String, 'Notification Requirements',
@@ -18061,6 +18927,7 @@ class IncidentResponsePlanCommunication {
 }
 
 /// Post-incident activities.
+@SectionId('PD00-TEC-SEC-ITS-IRP-PST')
 class IncidentResponsePlanPostIncident {
   @Form([
   Field('postIncidentReview', String, 'Post-Incident Review',
@@ -18177,6 +19044,7 @@ Provide an overview of data protection and privacy strategy.
 }
 
 /// Privacy regulation compliance requirements [PD00-TEC-SEC-PRI].
+@SectionId('PD00-TEC-SEC-PRI-PRC')
 class PrivacyRegulationCompliance {
   @Form([
     Field('applicableRegulations', String, 'Applicable Regulations',
@@ -18207,6 +19075,7 @@ class PrivacyRegulationCompliance {
 }
 
 /// GDPR-specific requirements.
+@SectionId('PD00-TEC-SEC-PRI-PRC-GDR')
 class PrivacyRegulationComplianceGdpr {
   @Form([
     Field('gdprLawfulBasis', String, 'GDPR Lawful Basis',
@@ -18225,6 +19094,7 @@ class PrivacyRegulationComplianceGdpr {
 }
 
 /// Data Protection Officer details.
+@SectionId('PD00-TEC-SEC-PRI-PRC-DPO')
 class PrivacyRegulationComplianceDpo {
   @Form([
     Field('dpoRequired', String, 'DPO Required',
@@ -18238,6 +19108,7 @@ class PrivacyRegulationComplianceDpo {
 }
 
 /// Records and documentation.
+@SectionId('PD00-TEC-SEC-PRI-PRC-REC')
 class PrivacyRegulationComplianceRecords {
   @Form([
     Field('recordsOfProcessing', String, 'Records of Processing Activities',
@@ -18252,6 +19123,7 @@ class PrivacyRegulationComplianceRecords {
 }
 
 /// Cross-border transfer controls.
+@SectionId('PD00-TEC-SEC-PRI-PRC-TRF')
 class PrivacyRegulationComplianceTransfers {
   @Form([
     Field('crossBorderTransferMechanism', String, 'Transfer Mechanism',
@@ -18266,6 +19138,7 @@ class PrivacyRegulationComplianceTransfers {
 }
 
 /// Data residency and sovereignty requirements [PD00-TEC-SEC-PRI].
+@SectionId('PD00-TEC-SEC-PRI-DRR')
 class DataResidencyRequirements {
   @Form([
     // Storage location
@@ -18292,6 +19165,7 @@ class DataResidencyRequirements {
 }
 
 /// Governing regulation and sovereignty constraints.
+@SectionId('PD00-TEC-SEC-PRI-DRR-SOV')
 class DataResidencyRequirementsSovereignty {
   @Form([
   Field('dataResidencyRegulation', String, 'Residency Regulation',
@@ -18310,6 +19184,7 @@ class DataResidencyRequirementsSovereignty {
 }
 
 /// Backup, replication, and CDN placement rules.
+@SectionId('PD00-TEC-SEC-PRI-DRR-REP')
 class DataResidencyRequirementsReplication {
   @Form([
   Field('backupDataResidency', String, 'Backup Data Residency',
@@ -18323,6 +19198,7 @@ class DataResidencyRequirementsReplication {
 }
 
 /// Verification and transparency requirements.
+@SectionId('PD00-TEC-SEC-PRI-DRR-VER')
 class DataResidencyRequirementsVerification {
   @Form([
   Field('residencyVerification', String, 'Residency Verification',
@@ -18339,6 +19215,7 @@ class DataResidencyRequirementsVerification {
 }
 
 /// Consent collection, tracking and management requirements [PD00-TEC-SEC-PRI].
+@SectionId('PD00-TEC-SEC-PRI-CMR')
 class ConsentManagementRequirements {
   @Form([
     Field('consentCollectionMethod', String, 'Collection Method',
@@ -18379,6 +19256,7 @@ class ConsentManagementRequirements {
 }
 
 /// Collection requirements.
+@SectionId('PD00-TEC-SEC-PRI-CMR-COL')
 class ConsentManagementRequirementsCollection {
   @Form([
     Field('consentLanguage', String, 'Consent Language',
@@ -18394,6 +19272,7 @@ class ConsentManagementRequirementsCollection {
 }
 
 /// Consent record storage rules.
+@SectionId('PD00-TEC-SEC-PRI-CMR-STO')
 class ConsentManagementRequirementsStorage {
   @Form([
     Field('consentVersioning', String, 'Consent Versioning',
@@ -18405,6 +19284,7 @@ class ConsentManagementRequirementsStorage {
 }
 
 /// Preference management workflow.
+@SectionId('PD00-TEC-SEC-PRI-CMR-MGT')
 class ConsentManagementRequirementsManagement {
   @Form([
     Field('consentPreferenceCenter', String, 'Preference Center',
@@ -18419,6 +19299,7 @@ class ConsentManagementRequirementsManagement {
 }
 
 /// Cookie and tracking rules.
+@SectionId('PD00-TEC-SEC-PRI-CMR-TRK')
 class ConsentManagementRequirementsTracking {
   @Form([
     Field('cookieConsentRequirements', String, 'Cookie Consent',
@@ -18434,6 +19315,7 @@ class ConsentManagementRequirementsTracking {
 }
 
 /// Compliance evidence and reporting.
+@SectionId('PD00-TEC-SEC-PRI-CMR-COM')
 class ConsentManagementRequirementsCompliance {
   @Form([
     Field('consentAuditTrail', String, 'Consent Audit Trail',
@@ -18450,6 +19332,7 @@ class ConsentManagementRequirementsCompliance {
 ///
 /// Covers GDPR Articles 15–22: right of access, rectification, erasure,
 /// restriction, portability, objection, and automated decision-making.
+@SectionId('PD00-TEC-SEC-PRI-DSR')
 class DataSubjectRightsManagement {
   @Form([
     Field('rightOfAccessProcess', String, 'Right of Access Process',
@@ -18490,6 +19373,7 @@ class DataSubjectRightsManagement {
 }
 
 /// Access and rectification handling.
+@SectionId('PD00-TEC-SEC-PRI-DSR-ACC')
 class DataSubjectRightsManagementAccess {
   @Form([
     Field('accessDataFormat', String, 'Access Data Format',
@@ -18505,6 +19389,7 @@ class DataSubjectRightsManagementAccess {
 }
 
 /// Erasure handling.
+@SectionId('PD00-TEC-SEC-PRI-DSR-ERS')
 class DataSubjectRightsManagementErasure {
   @Form([
     Field('erasureProcess', String, 'Right to Erasure Process',
@@ -18522,6 +19407,7 @@ class DataSubjectRightsManagementErasure {
 }
 
 /// Portability handling.
+@SectionId('PD00-TEC-SEC-PRI-DSR-PRT')
 class DataSubjectRightsManagementPortability {
   @Form([
     Field('portabilityProcess', String, 'Data Portability Process',
@@ -18536,6 +19422,7 @@ class DataSubjectRightsManagementPortability {
 }
 
 /// Restriction and objection handling.
+@SectionId('PD00-TEC-SEC-PRI-DSR-RST')
 class DataSubjectRightsManagementRestriction {
   @Form([
     Field('restrictionProcess', String, 'Restriction of Processing',
@@ -18548,6 +19435,7 @@ class DataSubjectRightsManagementRestriction {
 }
 
 /// Automated decision safeguards.
+@SectionId('PD00-TEC-SEC-PRI-DSR-AUT')
 class DataSubjectRightsManagementAutomation {
   @Form([
     Field('automatedDecisionMaking', String, 'Automated Decision-Making',
@@ -18560,6 +19448,7 @@ class DataSubjectRightsManagementAutomation {
 }
 
 /// Operational workflow and tracking.
+@SectionId('PD00-TEC-SEC-PRI-DSR-OPS')
 class DataSubjectRightsManagementOperations {
   @Form([
     Field('dsarWorkflow', String, 'DSAR Workflow',
@@ -18573,6 +19462,7 @@ class DataSubjectRightsManagementOperations {
 }
 
 /// Privacy impact assessment and DPIA process [PD00-TEC-SEC-PRI].
+@SectionId('PD00-TEC-SEC-PRI-PIA')
 class PrivacyImpactAssessmentProcess {
   @Form([
     Field('dpiaThreshold', String, 'DPIA Threshold',
@@ -18604,6 +19494,7 @@ class PrivacyImpactAssessmentProcess {
 }
 
 /// Assessment process inputs.
+@SectionId('PD00-TEC-SEC-PRI-PIA-ASS')
 class PrivacyImpactAssessmentProcessAssessment {
   @Form([
     Field('dpiaStakeholders', String, 'DPIA Stakeholders',
@@ -18619,6 +19510,7 @@ class PrivacyImpactAssessmentProcessAssessment {
 }
 
 /// Mitigation measures.
+@SectionId('PD00-TEC-SEC-PRI-PIA-MIT')
 class PrivacyImpactAssessmentProcessMitigation {
   @Form([
     Field('mitigationMeasures', String, 'Mitigation Measures',
@@ -18645,6 +19537,7 @@ class PrivacyImpactAssessmentProcessMitigation {
 }
 
 /// Review and approval workflow.
+@SectionId('PD00-TEC-SEC-PRI-PIA-REV')
 class PrivacyImpactAssessmentProcessReview {
   @Form([
     Field('dpiaApprovalProcess', String, 'Approval Process',
@@ -18660,6 +19553,7 @@ class PrivacyImpactAssessmentProcessReview {
 }
 
 /// Data processing agreement requirements [PD00-TEC-SEC-PRI].
+@SectionId('PD00-TEC-SEC-PRI-DPA')
 class DataProcessingAgreementRequirements {
   @Form([
     Field('dpaTemplate', String, 'DPA Template',
@@ -18696,6 +19590,7 @@ class DataProcessingAgreementRequirements {
 }
 
 /// Agreement-management details.
+@SectionId('PD00-TEC-SEC-PRI-DPA-MGT')
 class DataProcessingAgreementRequirementsManagement {
   @Form([
     Field('subProcessorManagement', String, 'Sub-Processor Management',
@@ -18708,6 +19603,7 @@ class DataProcessingAgreementRequirementsManagement {
 }
 
 /// Data-handling details.
+@SectionId('PD00-TEC-SEC-PRI-DPA-HDL')
 class DataProcessingAgreementRequirementsHandling {
   @Form([
     Field('dataRetentionInDpa', String, 'Retention in DPA',
@@ -18722,6 +19618,7 @@ class DataProcessingAgreementRequirementsHandling {
 }
 
 /// Security and audit details.
+@SectionId('PD00-TEC-SEC-PRI-DPA-SEC')
 class DataProcessingAgreementRequirementsSecurity {
   @Form([
     Field('securityMeasuresInDpa', String, 'Security Measures',
@@ -18737,6 +19634,7 @@ class DataProcessingAgreementRequirementsSecurity {
 }
 
 /// International-transfer details.
+@SectionId('PD00-TEC-SEC-PRI-DPA-TRF')
 class DataProcessingAgreementRequirementsTransfers {
   @Form([
     Field('internationalTransferClauses', String, 'International Transfer Clauses',
@@ -18756,6 +19654,7 @@ class DataProcessingAgreementRequirementsTransfers {
 ///
 /// Named DataProtectionClassification to avoid collision with
 /// DataClassification in business_data_model.dart.
+@SectionId('PD00-TEC-SEC-PRI-DPC')
 class DataProtectionClassification {
   @Form([
     Field('classificationLevels', String, 'Classification Levels',
@@ -18791,6 +19690,7 @@ class DataProtectionClassification {
 }
 
 /// Handling rules.
+@SectionId('PD00-TEC-SEC-PRI-DPC-HDL')
 class DataProtectionClassificationHandling {
   @Form([
     Field('encryptionAtRest', String, 'Encryption at Rest',
@@ -18807,6 +19707,7 @@ class DataProtectionClassificationHandling {
 }
 
 /// Retention and disposal rules.
+@SectionId('PD00-TEC-SEC-PRI-DPC-RET')
 class DataProtectionClassificationRetention {
   @Form([
     Field('retentionPolicyByCategory', String, 'Retention Policy',
@@ -18821,6 +19722,7 @@ class DataProtectionClassificationRetention {
 }
 
 /// Masking and de-identification rules.
+@SectionId('PD00-TEC-SEC-PRI-DPC-MSK')
 class DataProtectionClassificationMasking {
   @Form([
     Field('dataMaskingRules', String, 'Data Masking Rules',
@@ -18834,6 +19736,7 @@ class DataProtectionClassificationMasking {
 }
 
 /// Incident handling.
+@SectionId('PD00-TEC-SEC-PRI-DPC-INC')
 class DataProtectionClassificationIncident {
   @Form([
     Field('breachClassificationMatrix', String, 'Breach Classification',
@@ -18952,6 +19855,7 @@ Provide an overview of security audit strategy.
 }
 
 /// Penetration testing requirements and schedule [PD00-TEC-SEC-AUD].
+@SectionId('PD00-TEC-SEC-AUD-PTR')
 class PenetrationTestingRequirements {
   @Form([
     Field('pentestScope', String, 'Penetration Test Scope',
@@ -18982,6 +19886,7 @@ class PenetrationTestingRequirements {
 }
 
 /// Frequency and scheduling.
+@SectionId('PD00-TEC-SEC-AUD-PTR-SCH')
 class PenetrationTestingRequirementsScheduling {
   @Form([
     Field('pentestFrequency', String, 'Testing Frequency',
@@ -18997,6 +19902,7 @@ class PenetrationTestingRequirementsScheduling {
 }
 
 /// Execution rules.
+@SectionId('PD00-TEC-SEC-AUD-PTR-EXE')
 class PenetrationTestingRequirementsExecution {
   @Form([
     Field('testingEnvironment', String, 'Testing Environment',
@@ -19012,6 +19918,7 @@ class PenetrationTestingRequirementsExecution {
 }
 
 /// Reporting and remediation.
+@SectionId('PD00-TEC-SEC-AUD-PTR-REP')
 class PenetrationTestingRequirementsReporting {
   @Form([
     Field('findingSeverityScale', String, 'Finding Severity Scale',
@@ -19035,6 +19942,7 @@ class PenetrationTestingRequirementsReporting {
 /// Distinct from CodeReviewProcess (section 8.4) which covers general
 /// development code review. This section focuses specifically on
 /// security-oriented review requirements.
+@SectionId('PD00-TEC-SEC-AUD-SCR')
 class SecurityCodeReviewPolicy {
   @Form([
     Field('securityReviewTriggers', String, 'Security Review Triggers',
@@ -19063,6 +19971,7 @@ class SecurityCodeReviewPolicy {
 }
 
 /// Reviewer qualification and independence rules.
+@SectionId('PD00-TEC-SEC-AUD-SCR-REV')
 class SecurityCodeReviewPolicyReviewers {
   @Form([
   Field('securityReviewerRequirements', String, 'Reviewer Requirements',
@@ -19078,6 +19987,7 @@ class SecurityCodeReviewPolicyReviewers {
 }
 
 /// Review process guidance for security-focused code review.
+@SectionId('PD00-TEC-SEC-AUD-SCR-PRC')
 class SecurityCodeReviewPolicyProcess {
   @Form([
   Field('securityChecklist', String, 'Security Checklist',
@@ -19093,6 +20003,7 @@ class SecurityCodeReviewPolicyProcess {
 }
 
 /// Finding management and residual risk handling.
+@SectionId('PD00-TEC-SEC-AUD-SCR-FND')
 class SecurityCodeReviewPolicyFindings {
   @Form([
   Field('findingClassification', String, 'Finding Classification',
@@ -19108,6 +20019,7 @@ class SecurityCodeReviewPolicyFindings {
 }
 
 /// Dependency and supply-chain scanning requirements [PD00-TEC-SEC-AUD].
+@SectionId('PD00-TEC-SEC-AUD-DSR')
 class DependencyScanningRequirements {
   @Form([
     Field('scaScanningTool', String, 'SCA Scanning Tool',
@@ -19142,6 +20054,7 @@ class DependencyScanningRequirements {
 }
 
 /// Vulnerability-management rules.
+@SectionId('PD00-TEC-SEC-AUD-DSR-VUL')
 class DependencyScanningRequirementsVulnerabilities {
   @Form([
     Field('vulnerabilityDatabase', String, 'Vulnerability Database',
@@ -19155,6 +20068,7 @@ class DependencyScanningRequirementsVulnerabilities {
 }
 
 /// SBOM requirements.
+@SectionId('PD00-TEC-SEC-AUD-DSR-SBM')
 class DependencyScanningRequirementsSbom {
   @Form([
     Field('sbomGeneration', String, 'SBOM Generation',
@@ -19168,6 +20082,7 @@ class DependencyScanningRequirementsSbom {
 }
 
 /// License-compliance rules.
+@SectionId('PD00-TEC-SEC-AUD-DSR-LIC')
 class DependencyScanningRequirementsLicensing {
   @Form([
     Field('licensePolicy', String, 'License Policy',
@@ -19180,6 +20095,7 @@ class DependencyScanningRequirementsLicensing {
 }
 
 /// Supply-chain security rules.
+@SectionId('PD00-TEC-SEC-AUD-DSR-SUP')
 class DependencyScanningRequirementsSupplyChain {
   @Form([
     Field('dependencyPinning', String, 'Dependency Pinning',
@@ -19195,6 +20111,7 @@ class DependencyScanningRequirementsSupplyChain {
 }
 
 /// Security certification and compliance requirements [PD00-TEC-SEC-AUD].
+@SectionId('PD00-TEC-SEC-AUD-SCT')
 class SecurityCertificationRequirements {
   @Form([
     Field('targetCertifications', String, 'Target Certifications',
@@ -19226,6 +20143,7 @@ class SecurityCertificationRequirements {
 }
 
 /// ISO 27001 requirements.
+@SectionId('PD00-TEC-SEC-AUD-SCT-ISO')
 class SecurityCertificationRequirementsIso27001 {
   @Form([
     Field('iso27001Controls', String, 'ISO 27001 Controls',
@@ -19239,6 +20157,7 @@ class SecurityCertificationRequirementsIso27001 {
 }
 
 /// SOC 2 requirements.
+@SectionId('PD00-TEC-SEC-AUD-SCT-SOC')
 class SecurityCertificationRequirementsSoc2 {
   @Form([
     Field('soc2TrustServiceCriteria', String, 'SOC 2 Trust Criteria',
@@ -19252,6 +20171,7 @@ class SecurityCertificationRequirementsSoc2 {
 }
 
 /// Industry-specific requirements.
+@SectionId('PD00-TEC-SEC-AUD-SCT-IND')
 class SecurityCertificationRequirementsIndustry {
   @Form([
     Field('pciDssLevel', String, 'PCI DSS Level',
@@ -19265,6 +20185,7 @@ class SecurityCertificationRequirementsIndustry {
 }
 
 /// Maintenance and budget.
+@SectionId('PD00-TEC-SEC-AUD-SCT-MAI')
 class SecurityCertificationRequirementsMaintenance {
   @Form([
     Field('recertificationCycle', String, 'Recertification Cycle',
@@ -19280,6 +20201,7 @@ class SecurityCertificationRequirementsMaintenance {
 }
 
 /// Compliance audit planning and scheduling [PD00-TEC-SEC-AUD].
+@SectionId('PD00-TEC-SEC-AUD-CAS')
 class ComplianceAuditSchedule {
   @Form([
     // Audit types
@@ -19308,6 +20230,7 @@ class ComplianceAuditSchedule {
 }
 
 /// Annual planning and scoping rules.
+@SectionId('PD00-TEC-SEC-AUD-CAS-PLN')
 class ComplianceAuditSchedulePlanning {
   @Form([
   Field('annualAuditPlan', String, 'Annual Audit Plan',
@@ -19322,6 +20245,7 @@ class ComplianceAuditSchedulePlanning {
 }
 
 /// Audit execution and evidence collection.
+@SectionId('PD00-TEC-SEC-AUD-CAS-EXE')
 class ComplianceAuditScheduleExecution {
   @Form([
   Field('auditorQualifications', String, 'Auditor Qualifications',
@@ -19335,6 +20259,7 @@ class ComplianceAuditScheduleExecution {
 }
 
 /// Reporting and remediation follow-up.
+@SectionId('PD00-TEC-SEC-AUD-CAS-REP')
 class ComplianceAuditScheduleReporting {
   @Form([
   Field('auditReportingStructure', String, 'Reporting Structure',
@@ -19355,6 +20280,7 @@ class ComplianceAuditScheduleReporting {
 ///
 /// Requirements for SAST, DAST, IAST, and fuzzing integration
 /// into the CI/CD pipeline and development workflow.
+@SectionId('PD00-TEC-SEC-AUD-STA')
 class SecurityTestingAutomation {
   @Form([
     Field('sastTool', String, 'SAST Tool',
@@ -19392,6 +20318,7 @@ class SecurityTestingAutomation {
 }
 
 /// Dynamic analysis configuration.
+@SectionId('PD00-TEC-SEC-AUD-STA-DST')
 class SecurityTestingAutomationDast {
   @Form([
     Field('dastTool', String, 'DAST Tool',
@@ -19406,6 +20333,7 @@ class SecurityTestingAutomationDast {
 }
 
 /// Interactive analysis configuration.
+@SectionId('PD00-TEC-SEC-AUD-STA-IST')
 class SecurityTestingAutomationIast {
   @Form([
     Field('iastTool', String, 'IAST Tool',
@@ -19418,6 +20346,7 @@ class SecurityTestingAutomationIast {
 }
 
 /// Fuzzing configuration.
+@SectionId('PD00-TEC-SEC-AUD-STA-FUZ')
 class SecurityTestingAutomationFuzzing {
   @Form([
     Field('fuzzingRequirements', String, 'Fuzzing Requirements',
@@ -19429,6 +20358,7 @@ class SecurityTestingAutomationFuzzing {
 }
 
 /// Container and IaC scanning.
+@SectionId('PD00-TEC-SEC-AUD-STA-SCN')
 class SecurityTestingAutomationScanning {
   @Form([
     Field('containerScanning', String, 'Container Scanning',
@@ -19442,6 +20372,7 @@ class SecurityTestingAutomationScanning {
 }
 
 /// Governance and reporting.
+@SectionId('PD00-TEC-SEC-AUD-STA-GOV')
 class SecurityTestingAutomationGovernance {
   @Form([
     Field('falsePositiveProcess', String, 'False Positive Process',
@@ -19481,6 +20412,7 @@ class SecurityAuditEntry {
 }
 
 /// Audit schedule and cadence.
+@SectionId('PD00-TEC-SEC-AUD-ENT-SCH')
 class SecurityAuditEntryScheduling {
   @Form([
   Field('lastAuditDate', String, 'Last Audit Date',
@@ -19492,6 +20424,7 @@ class SecurityAuditEntryScheduling {
 }
 
 /// Scope, standards, and execution model.
+@SectionId('PD00-TEC-SEC-AUD-ENT-EXE')
 class SecurityAuditEntryExecution {
   @Form([
   Field('auditScope', String, 'Audit Scope',
@@ -19507,6 +20440,7 @@ class SecurityAuditEntryExecution {
 }
 
 /// Deliverables, ownership, and notes.
+@SectionId('PD00-TEC-SEC-AUD-ENT-FLW')
 class SecurityAuditEntryFollowUp {
   @Form([
   Field('expectedDeliverables', String, 'Expected Deliverables',

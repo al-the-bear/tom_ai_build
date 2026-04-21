@@ -3958,6 +3958,7 @@ class ErrorHandlingConceptOperations {
 /// 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
 ///
 /// Field validation error display and feedback mechanisms.
+@SectionId('PD00-USE-ERR-VAL')
 class ValidationFeedback {
   @Form([
     Field('validationTiming', String, 'Validation Timing',
@@ -4091,6 +4092,7 @@ class ValidationMessageTemplate {
 ///
 /// System error presentation including server errors, network issues,
 /// and timeouts.
+@SectionId('PD00-USE-ERR-SYS')
 class SystemErrorDisplay {
   // ─────────────────────────────────────────────────────────────────────────
   // System Error Handling
@@ -4253,6 +4255,7 @@ class SystemErrorCodeEntryOperations {
 ///
 /// Error recovery flows including data preservation, retry mechanisms,
 /// and guided recovery steps.
+@SectionId('PD00-USE-ERR-REC')
 class ErrorRecovery {
   // ─────────────────────────────────────────────────────────────────────────
   // Recovery Mechanisms
@@ -4493,6 +4496,7 @@ class HelpConceptInsights {
 }
 
 /// 10.8.1. Contextual Help [PD00-USE-HLP-CON].
+@SectionId('PD00-USE-HLP-CON')
 class ContextualHelp {
   @Form([
     Field('tooltipTrigger', String, 'Tooltip Trigger',
@@ -4604,6 +4608,7 @@ class FieldHelpEntry {
 }
 
 /// 10.8.2. Onboarding Help [PD00-USE-HLP-ONB].
+@SectionId('PD00-USE-HLP-ONB')
 class OnboardingHelp {
   @Form([
     Field('welcomeFlowEnabled', bool, 'Welcome Flow Enabled'),
@@ -4747,6 +4752,7 @@ class TourStepEntry {
 }
 
 /// 10.8.3. Support Access [PD00-USE-HLP-SUP].
+@SectionId('PD00-USE-HLP-SUP')
 class SupportAccess {
   @Form([
     Field('helpCenterAvailable', bool, 'Help Center Available'),
@@ -4954,6 +4960,7 @@ class AccessibilitySupport {
 }
 
 /// 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
+@SectionId('PD00-USE-ACC-WCA')
 class WcagCompliance {
   @Form([
     Field('textAlternatives', String, 'Text Alternatives (1.1)',
