@@ -723,13 +723,21 @@ class TranslationRequirements { ... }          // both annotations on the child
 
 ### 8.6. Mechanical invariants (validator can enforce)
 
+**Annotation coverage (this wave):**
+
 - Every class that appears in any §5 "Source" column has exactly one `@DetailedIn`.
 - Every seed class listed in §6 (the classes named in "Seed nodes") has exactly one `@MapsTo`.
 - For each target DocSpec `D`, the count of `@DetailedIn(D)` in the PD00 tree equals `D`'s "Total tops" column in §6.
 - No class carries `@DetailedIn` without either (a) also carrying `@MapsTo`, or (b) having an ancestor (not necessarily direct parent) that carries `@MapsTo` for the same target.
 - `@SecondLevelSectionId(D, ...)` on a class implies `@DetailedIn(D)` on the same class.
 
-These invariants are additions the outliner / validator can check once the annotations are applied.
+**Section-ID coverage and uniqueness (structural, not yet enforced):**
+
+- **Section-ID uniqueness.** Every string literal used as `@SectionId('…')` across the tree reachable from a given root (`ProjectDefinition` or any Phase 3 document root) must be unique. Duplicate IDs make the outline ambiguous and break traceability. Same rule applies to `@SectionIdPattern('…-xx')` within a scope.
+- **Section-ID coverage.** Every class reachable from a root is expected to carry a `@SectionId`, or — for list element classes — to be reached via a field with a `@SectionIdPattern`. Classes that exist in the model but aren't reachable from any root are not required to carry one.
+- **`@SecondLevelSectionId` uniqueness within a document.** For each target DocSpec `D`, all `@SecondLevelSectionId(D, 'XYZ-…')` string literals must be unique within `D`'s reachable tree.
+
+The existing validator at [tom_specs_clitool/lib/src/validator.dart](../../tom_specs_clitool/lib/src/validator.dart) today covers §6.1 field-type rules, `@ContentType` compatibility, and cycle detection from a given root. It does **not** yet enforce any of the invariants above — adding those checks is Step 20 below.
 
 ---
 
@@ -1002,16 +1010,24 @@ All Phase B steps follow the template in §9.1. Order per §9.2: smallest single
 
 #### Step 20 — Validator for §8.6 invariants (§8.6, tom_specs_clitool)
 
-**What:** Extend `tom_specs_clitool/lib/src/validator.dart` with:
+**What:** Extend [tom_specs_clitool/lib/src/validator.dart](../../tom_specs_clitool/lib/src/validator.dart) — currently covers §6.1 field-type rules, `@ContentType` compatibility, and cycle detection — with the following new checks:
+
+*Section-ID structural checks:*
+- **`@SectionId` uniqueness.** Collect every string literal used in `@SectionId('…')` across classes reachable from the given root. Assert no duplicates. Same for `@SectionIdPattern('…-xx')` within the same scope.
+- **`@SectionId` coverage.** Every class reachable from the root is expected to carry a `@SectionId` (list element classes are exempt when their containing field carries a `@SectionIdPattern`). Report any reachable class without either.
+- **`@SecondLevelSectionId` uniqueness per document.** For each target DocSpec `D`, collect all `@SecondLevelSectionId(D, 'XYZ-…')` literals and assert no duplicates within `D`'s reachable tree.
+
+*`@MapsTo` / `@DetailedIn` checks:*
 - **Detail-count check:** for each `@Document`-tagged class `D`, count `@DetailedIn(D)` occurrences; assert == §6 "Total tops" for that doc.
 - **Ancestor check:** every class carrying `@DetailedIn(D)` must carry `@MapsTo(D)` on itself or an ancestor.
 - **Map-uniqueness check:** no duplicate `@MapsTo` annotations per (class, doc) pair.
+- **`@SecondLevelSectionId` implies `@DetailedIn`:** any class with `@SecondLevelSectionId(D, ...)` must also carry `@DetailedIn(D)`.
 
-Wire the validator into a test in `tom_specs_clitool/test/`.
+Wire the validator into a test in `tom_specs_clitool/test/` so CI catches regressions as PD00 and the Phase 3 roots evolve.
 
-**Why:** mechanically enforces the annotation invariants defined in §8.6 so the annotations stay consistent as PD00 evolves.
+**Why:** mechanically enforces the invariants defined in §8.6 — both the pre-existing structural rules on `@SectionId` and the new annotation-graph rules introduced in this wave.
 
-**Exit:** validator passes against the fully-annotated model; test runs in CI.
+**Exit:** validator passes against the fully-annotated model; test runs in CI; any new class added without a `@SectionId`, or any duplicate ID, fails the check.
 
 #### Step 21 — Decide on `@SecondLevelSectionId` adoption (§8.4, §9.4)
 
