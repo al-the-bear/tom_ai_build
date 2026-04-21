@@ -11,6 +11,14 @@ dart run bin/outliner.dart --package ../tom_specs_model --root-type <ClassName> 
   -o ../tom_specs_model/doc/outlines/<ClassName>_outline.txt
 ```
 
+Add `--stop-at-detailed-in` (short: `-c`) to stop expansion at `@DetailedIn` boundaries and emit a compact outline:
+
+```
+dart run bin/outliner.dart --package ../tom_specs_model --root-type ProjectDefinition \
+  --stop-at-detailed-in \
+  -o ../tom_specs_model/doc/outlines/ProjectDefinition_compact_outline.txt
+```
+
 ---
 
 ## Document Outlines
@@ -18,6 +26,7 @@ dart run bin/outliner.dart --package ../tom_specs_model --root-type <ClassName> 
 | ID  | Document | Root Class | Description | Outline |
 |-----|----------|------------|-------------|---------|
 | PD  | Project Definition | `ProjectDefinition` | Comprehensive specification covering all aspects of the system: current state, organizational framework, business processes, data models, technical framework, security, and UI design. Master document — all others `basedOn` PD. | [outline](ProjectDefinition_outline.txt) |
+| PD  | Project Definition *(compact)* | `ProjectDefinition` | Same as above but tree traversal stops at `@DetailedIn` boundaries — each such section shows a `→ DocId` marker instead of expanding its sub-tree. 1,469 lines vs 6,324 for the full outline. | [outline](ProjectDefinition_compact_outline.txt) |
 | BSI | Business System Interactions | `BusinessSystemInteractions` | Complete specification of interactions between the target system and external systems — inventory, patterns, testing, dependencies, migration, operations, and error handling. | [outline](BusinessSystemInteractions_outline.txt) |
 | BP  | Business Processes | `BusinessProcesses` | Target business process specification — vision, design principles, catalog, diagrams, improvements, relationships, workflows, cross-process analysis, exceptions, and KPIs. | [outline](BusinessProcesses_outline.txt) |
 | BDM | Business Data Model | `BusinessDataModel` | Complete business data model — entities, relationships, data classification, business objects, functions, rules, dictionary, and validation/integrity constraints. | [outline](BusinessDataModel_outline.txt) |

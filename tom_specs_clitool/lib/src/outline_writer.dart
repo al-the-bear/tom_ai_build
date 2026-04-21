@@ -21,11 +21,17 @@ class OutlineWriter {
     'MaxLength',
   };
 
+  /// When true, tree traversal stops at classes annotated with `@DetailedIn`.
+  /// The section heading is still emitted with a `→ <DocId>` suffix so the
+  /// reader knows where to find the full expansion.
+  final bool stopAtDetailedIn;
+
   OutlineWriter({
     required this.classes,
     this.enums = const {},
     this.maxLineLength = 120,
     this.showSchemaAnnotations = false,
+    this.stopAtDetailedIn = false,
   });
 
   String generate(String rootTypeName) {
@@ -248,10 +254,21 @@ class OutlineWriter {
     // Trailing annotations
     _appendTrailingAnnotations(line, field, indent.length);
 
+    // Compact mode: stop at @DetailedIn boundaries — append → DocId suffix
+    var skipRecursion = false;
+    if (stopAtDetailedIn && childClass != null && !isReference) {
+      final docId = _detailedInDocId(childClass);
+      if (docId != null) {
+        _padToColumn(line, 50 + indent.length);
+        line.write('→ $docId');
+        skipRecursion = true;
+      }
+    }
+
     _buffer.writeln(line);
 
     // Recurse into child class — skip @Reference fields (§5.2)
-    if (childClass != null && !isReference && !ancestors.contains(typeName)) {
+    if (!skipRecursion && childClass != null && !isReference && !ancestors.contains(typeName)) {
       final newAncestors = {...ancestors, typeName};
       _writeClass(typeName, childClass, depth + 1, newAncestors);
     }
@@ -290,16 +307,44 @@ class OutlineWriter {
     // Trailing annotations
     _appendTrailingAnnotations(line, field, indent.length);
 
+    // Compact mode: stop at @DetailedIn boundaries — append → DocId suffix
+    var skipRecursion = false;
+    if (stopAtDetailedIn && field.listElementIsComplex) {
+      final childClass = classes[innerType];
+      if (childClass != null) {
+        final docId = _detailedInDocId(childClass);
+        if (docId != null) {
+          _padToColumn(line, 50 + indent.length);
+          line.write('→ $docId');
+          skipRecursion = true;
+        }
+      }
+    }
+
     _buffer.writeln(line);
 
     // Recurse into inner type if complex
-    if (field.listElementIsComplex) {
+    if (!skipRecursion && field.listElementIsComplex) {
       final childClass = classes[innerType];
       if (childClass != null) {
         final newAncestors = {...ancestors, innerType};
         _writeClass(innerType, childClass, depth + 1, newAncestors);
       }
     }
+  }
+
+  /// Returns the `@SectionId` of the document class named in the first
+  /// `@DetailedIn` annotation on [cls], or `null` if the class has no
+  /// `@DetailedIn`.  Falls back to the raw class name if the target document
+  /// class has no `@SectionId`.
+  String? _detailedInDocId(ModelClass cls) {
+    final anno = cls.getAnnotation('DetailedIn');
+    if (anno == null) return null;
+    final docClassName = anno.arguments['documentClass'] as String? ?? '';
+    if (docClassName.isEmpty) return null;
+    final docClass = classes[docClassName];
+    final sectionId = docClass?.getAnnotation('SectionId')?.arguments['id'] as String?;
+    return sectionId ?? docClassName;
   }
 
   void _appendTrailingAnnotations(
