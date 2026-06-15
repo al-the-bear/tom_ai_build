@@ -1194,8 +1194,8 @@ class CurrentWorkflowEntry {
   WorkflowTriggers triggers = WorkflowTriggers();
 
   /// Workflow steps in sequence.
-  @SectionId('WFST-LST')
-  @SectionIdPattern('WFST-xxx')
+  @SectionId('WSE-LST')
+  @SectionIdPattern('WSE-xxx')
   List<WorkflowStepEntry> steps = [];
 
   /// Workflow actors and responsibilities.
@@ -1490,8 +1490,8 @@ class ProcessMetrics {
   ProcessMetricCategory manualInterventionMetrics = ProcessMetricCategory();
 
   /// Individual metric entries.
-  @SectionId('PRME-LST')
-  @SectionIdPattern('PRME-xxx')
+  @SectionId('PME-LST')
+  @SectionIdPattern('PME-xxx')
   List<ProcessMetricEntry> items = [];
 
   /// Baseline comparison table [PD00-CUR-PRO-xx-MET-BAS].
