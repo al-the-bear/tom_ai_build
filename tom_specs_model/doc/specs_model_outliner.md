@@ -299,7 +299,7 @@ Every model class must have exactly one `@SectionId`. The ID is a **unique mnemo
 - Document root classes use their existing short IDs: `PD`, `BSI`, `CS`, `RC`, `BP`, `UC`, `BDM`, `AC`, `PPP`, `TR`, `UP`, `SR`, `BQP`.
 - Top-level section classes directly under a document root may use 3–4 letters: `SYOV`, `CURS`, `ORGA`, etc.
 - All other classes use up to 6 letters derived from the class name, e.g., `EXTSY` for `ExistingSystemEntry`.
-- IDs must be globally unique across all classes and all list field container IDs in the model.
+- Class-level IDs must be globally unique across all classes in the model. (List-field container IDs follow a separate, **type-scoped** rule — see *Field-level usage* below.)
 - When two class names would produce the same mnemonic, the class *higher up* in the document tree (closer to the root) takes priority for the more readable / shorter ID.
 
 ```dart
@@ -317,11 +317,16 @@ When applied to a `List<T>` field, `@SectionId` marks the **container section** 
 List<ExistingSystemEntry> systems = [];
 ```
 
-The `-LST` suffix uniquely identifies the container section in the global ID namespace.
+The `-LST` suffix marks the container section. Container IDs are **type-scoped**, *not* globally unique: when the same element type `T` appears in several `List<T>` fields, every one of those fields uses the **same** `'<elementId>-LST'` / `'<elementId>-xxx'` pair. This is intentional — the ID names the *element type's* container, not an individual field. For example, all four `List<DeliverableEntry>` fields share `@SectionId('DLVEN-LST')`.
 
-#### Uniqueness namespace
+#### Uniqueness namespaces
 
-All `@SectionId` values — whether class-level or field-level (`-LST`) — must be globally unique across the entire model. The validator checks this for both annotation targets in a single pass.
+Two separate rules apply, checked by two separate validator passes:
+
+- **Class-level `@SectionId`** values must be **globally unique** across the entire model (`validator.dart` §2).
+- **Field-level (`-LST`) container** values are **type-scoped** (`validator.dart` §2b): all `List<T>` fields with the same element type `T` share one `'<elementId>-LST'` ID. The validator only enforces that a given `-LST` ID maps to **exactly one** element type. Class-level and `-LST` IDs occupy *different* namespaces — a `-LST` ID is never compared against class-level IDs.
+
+Corollary: each element type uses exactly one `-LST` ID (the one derived from its class `@SectionId`). Do not give two list fields of the same element type different container IDs.
 
 ### 7.3 `@SectionIdPattern(String pattern)`
 
@@ -353,9 +358,9 @@ This means:
 
 Nested lists are naturally handled: each level has its own type ID and `-LST` container ID. Section type can always be derived from any instance ID by taking the prefix before `-xxx`.
 
-#### Pattern prefix uniqueness
+#### Pattern prefix — type-scoped, not field-unique
 
-Pattern prefixes (the part before `-xxx`) must be globally unique across all `@SectionIdPattern` annotations in the model. Because the prefix equals the element type's `@SectionId`, and class IDs are already globally unique, this constraint is automatically satisfied when the naming rules are followed.
+The pattern prefix (the part before `-xxx`) equals the element type's `@SectionId` and is therefore **type-scoped**: every `List<T>` field of the same element type carries the identical `'<elementId>-xxx'` pattern (e.g. all four `List<DeliverableEntry>` fields share `'DLVEN-xxx'`). Pattern-string and pattern-prefix uniqueness are deliberately **not** enforced. The only invariant is that each prefix maps to a single element type — automatically satisfied because the prefix is the element's globally-unique class ID.
 
 ### 7.4 `@Comment(String text)`
 
