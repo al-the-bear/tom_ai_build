@@ -936,9 +936,13 @@ class ProcessScopeSummary {
   String? content;
 
   /// Processes in scope.
+  @SectionId('PRSCEN-LST')
+  @SectionIdPattern('PRSCEN-xxx')
   List<ProcessScopeEntry> inScopeProcesses = [];
 
   /// Processes explicitly out of scope.
+  @SectionId('PRSCEN-LST')
+  @SectionIdPattern('PRSCEN-xxx')
   List<ProcessScopeEntry> outOfScopeProcesses = [];
 }
 
@@ -1014,6 +1018,8 @@ class ProcessPerformanceSummary {
   String? content;
 
   /// Key metrics summary.
+  @SectionId('PME-LST')
+  @SectionIdPattern('PME-xxx')
   List<ProcessMetricEntry> keyMetrics = [];
 }
 
@@ -1198,9 +1204,13 @@ class CurrentWorkflowEntry {
   List<WorkflowActorEntry> actors = [];
 
   /// Workflow inputs.
+  @SectionId('WOINEN-LST')
+  @SectionIdPattern('WOINEN-xxx')
   List<WorkflowInputEntry> inputs = [];
 
   /// Workflow outputs.
+  @SectionId('WOOUEN-LST')
+  @SectionIdPattern('WOOUEN-xxx')
   List<WorkflowOutputEntry> outputs = [];
 
   /// Decision points within the workflow.
@@ -1209,13 +1219,19 @@ class CurrentWorkflowEntry {
   List<WorkflowDecisionPoint> decisionPoints = [];
 
   /// Business rules governing the workflow.
+  @SectionId('WOBURU-LST')
+  @SectionIdPattern('WOBURU-xxx')
   List<WorkflowBusinessRule> businessRules = [];
 
   /// Manual steps requiring human intervention.
+  @SectionId('WSE-LST')
+  @SectionIdPattern('WSE-xxx')
   @ContentHelp('Identify steps that cannot be automated or require human judgment.')
   List<WorkflowStepEntry> manualSteps = [];
 
   /// Error-prone steps with high failure rates.
+  @SectionId('WSE-LST')
+  @SectionIdPattern('WSE-xxx')
   @ContentHelp('Identify steps with known issues, high error rates, or workarounds.')
   List<WorkflowStepEntry> errorProneSteps = [];
 
@@ -1283,12 +1299,18 @@ class WorkflowStepEntry {
   List<WorkflowStepSystem> systemsUsed = [];
 
   /// Step inputs.
+  @SectionId('WOINEN-LST')
+  @SectionIdPattern('WOINEN-xxx')
   List<WorkflowInputEntry> inputs = [];
 
   /// Step outputs.
+  @SectionId('WOOUEN-LST')
+  @SectionIdPattern('WOOUEN-xxx')
   List<WorkflowOutputEntry> outputs = [];
 
   /// Step-specific business rules.
+  @SectionId('WOBURU-LST')
+  @SectionIdPattern('WOBURU-xxx')
   List<WorkflowBusinessRule> businessRules = [];
 
   /// Known issues with this step.
@@ -1543,6 +1565,8 @@ class ProcessMetricCategory {
   String? content;
 
   /// Metrics in this category.
+  @SectionId('PME-LST')
+  @SectionIdPattern('PME-xxx')
   List<ProcessMetricEntry> metrics = [];
 }
 

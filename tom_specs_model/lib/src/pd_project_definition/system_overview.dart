@@ -390,6 +390,8 @@ class StakeholdersAndBeneficiaries {
   List<StakeholderEntry> primaryStakeholders = [];
 
   /// Secondary stakeholders — contains 0+× StakeholderEntry.
+  @SectionId('STKNT-LST')
+  @SectionIdPattern('STKNT-xxx')
   @ContentHelp('Secondary stakeholders are indirectly affected by the system.')
   List<StakeholderEntry> secondaryStakeholders = [];
 }
