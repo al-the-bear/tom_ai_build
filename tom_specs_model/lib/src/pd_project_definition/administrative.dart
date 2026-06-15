@@ -124,8 +124,8 @@ class GovernanceModel {
   String? content;
 
   /// Decision authority matrix.
-  @SectionId('DCAUT-DECISIONAUTHORITIES-LST')
-  @SectionIdPattern('DCAUT-DECISIONAUTHORITIES-xxx')
+  @SectionId('DCAUT-DECI-LST')
+  @SectionIdPattern('DCAUT-DECI-xxx')
   List<DecisionAuthorityEntry> decisionAuthorities = [];
 }
 
@@ -157,8 +157,8 @@ class SteeringCommittee {
   CommitteeCharter charter = CommitteeCharter();
 
   /// Steering committee members — contains 1+× Committee Member.
-  @SectionId('COMMB-MEMBERS-LST')
-  @SectionIdPattern('COMMB-MEMBERS-xxx')
+  @SectionId('COMMB-MEMB-LST')
+  @SectionIdPattern('COMMB-MEMB-xxx')
   @Min(1)
   List<CommitteeMemberEntry> members = [];
 }
@@ -197,8 +197,8 @@ class CommitteeMemberEntry {
   String? content;
 
   /// Specific responsibilities of this member.
-  @SectionId('COMRS-RESPONSIBILITIES-LST')
-  @SectionIdPattern('COMRS-RESPONSIBILITIES-xxx')
+  @SectionId('COMRS-RESP-LST')
+  @SectionIdPattern('COMRS-RESP-xxx')
   List<CommitteeResponsibilityEntry> responsibilities = [];
 }
 
@@ -233,14 +233,14 @@ class ProjectTeamStaffing {
   TeamStructureOverview teamStructure = TeamStructureOverview();
 
   /// Team members — contains 1+× Team Member.
-  @SectionId('TMMBE-MEMBERS-LST')
-  @SectionIdPattern('TMMBE-MEMBERS-xxx')
+  @SectionId('TMMBE-MEMB-LST')
+  @SectionIdPattern('TMMBE-MEMB-xxx')
   @Min(1)
   List<TeamMemberEntry> members = [];
 
   /// Resource requirements not yet filled.
-  @SectionId('RREQE-OPENREQUIREMENTS-LST')
-  @SectionIdPattern('RREQE-OPENREQUIREMENTS-xxx')
+  @SectionId('RREQE-OPEN-LST')
+  @SectionIdPattern('RREQE-OPEN-xxx')
   List<ResourceRequirementEntry> openRequirements = [];
 }
 
@@ -309,8 +309,8 @@ class TeamMemberEntry {
   TeamMemberAvailability availability = TeamMemberAvailability();
 
   /// Role-specific responsibilities.
-  @SectionId('TMMRP-RESPONSIBILITIES-LST')
-  @SectionIdPattern('TMMRP-RESPONSIBILITIES-xxx')
+  @SectionId('TMMRP-RESP-LST')
+  @SectionIdPattern('TMMRP-RESP-xxx')
   List<TeamMemberResponsibilityEntry> responsibilities = [];
 }
 
@@ -360,8 +360,8 @@ class TeamMemberSkills {
   String? content;
 
   /// Individual skill entries.
-  @SectionId('TMSKE-SKILLDETAILS-LST')
-  @SectionIdPattern('TMSKE-SKILLDETAILS-xxx')
+  @SectionId('TMSKE-SKIL-LST')
+  @SectionIdPattern('TMSKE-SKIL-xxx')
   List<TeamMemberSkillEntry> skillDetails = [];
 }
 
@@ -432,8 +432,8 @@ channels and frequency for different types of information.
   ExecutiveSummaryDistribution executiveSummary = ExecutiveSummaryDistribution();
 
   /// 3.3.3. Custom Distribution Groups [PD00-ADM-DIS-CUS] — contains 0+× Group.
-  @SectionId('CSDSGR-CUSTOMGROUPS-LST')
-  @SectionIdPattern('CSDSGR-CUSTOMGROUPS-xxx')
+  @SectionId('CSDSGR-CUST-LST')
+  @SectionIdPattern('CSDSGR-CUST-xxx')
   List<CustomDistributionGroup> customGroups = [];
 }
 
@@ -464,8 +464,8 @@ class CommunicationMatrix {
   String? communicationFlowDiagram;
 
   /// Communication types and their distribution rules.
-  @SectionId('COTY-COMMUNICATIONTYPES-LST')
-  @SectionIdPattern('COTY-COMMUNICATIONTYPES-xxx')
+  @SectionId('COTY-COMM-LST')
+  @SectionIdPattern('COTY-COMM-xxx')
   List<CommunicationTypeEntry> communicationTypes = [];
 }
 
@@ -513,8 +513,8 @@ class CustomDistributionGroup {
   String? content;
 
   /// Group members.
-  @SectionId('DSRC-MEMBERS-LST')
-  @SectionIdPattern('DSRC-MEMBERS-xxx')
+  @SectionId('DSRC-MEMB-LST')
+  @SectionIdPattern('DSRC-MEMB-xxx')
   List<DistributionRecipientEntry> members = [];
 }
 
@@ -534,8 +534,8 @@ full visibility into all project activities and decisions.
   DistributionGroupSummary groupSummary = DistributionGroupSummary();
 
   /// Contains 0+× DistributionRecipient.
-  @SectionId('DSRC-ITEMS-LST')
-  @SectionIdPattern('DSRC-ITEMS-xxx')
+  @SectionId('DSRC-ITEM-LST')
+  @SectionIdPattern('DSRC-ITEM-xxx')
   List<DistributionRecipientEntry> items = [];
 }
 
@@ -555,8 +555,8 @@ high-level progress updates without operational details.
   DistributionGroupSummary groupSummary = DistributionGroupSummary();
 
   /// Contains 0+× DistributionRecipient.
-  @SectionId('DSRC-ITEMS-LST')
-  @SectionIdPattern('DSRC-ITEMS-xxx')
+  @SectionId('DSRC-ITEM-LST')
+  @SectionIdPattern('DSRC-ITEM-xxx')
   List<DistributionRecipientEntry> items = [];
 }
 
@@ -727,8 +727,8 @@ are required, and how the process balances agility with governance needs.
   ChangeControlBoard changeControlBoard = ChangeControlBoard();
 
   /// 3.4.4. Change Categories [PD00-ADM-CHA-CAT] — contains 0+× Category.
-  @SectionId('CHCA-CHANGECATEGORIES-LST')
-  @SectionIdPattern('CHCA-CHANGECATEGORIES-xxx')
+  @SectionId('CHCA-CHAN-LST')
+  @SectionIdPattern('CHCA-CHAN-xxx')
   List<ChangeCategoryEntry> changeCategories = [];
 }
 
@@ -785,13 +785,13 @@ decision points, parallel activities, and notification triggers.
   FlowDiagramSection overviewDiagram = FlowDiagramSection();
 
   /// Process steps — ordered list of change process steps — contains 0+× ChangeStep.
-  @SectionId('CHST-STEPS-LST')
-  @SectionIdPattern('CHST-STEPS-xxx')
+  @SectionId('CHST-STEP-LST')
+  @SectionIdPattern('CHST-STEP-xxx')
   List<ChangeStepEntry> steps = [];
 
   /// Roles involved in the change process — contains 0+× ChangeRole.
-  @SectionId('CHRO-ROLES-LST')
-  @SectionIdPattern('CHRO-ROLES-xxx')
+  @SectionId('CHRO-ROLE-LST')
+  @SectionIdPattern('CHRO-ROLE-xxx')
   List<ChangeRoleEntry> roles = [];
 
   /// Decision criteria for change approval.
@@ -980,8 +980,8 @@ major, or critical, and the corresponding approval requirements.
   ImpactLevelDefinitions impactLevels = ImpactLevelDefinitions();
 
   /// Contains 0+× ChangeImpactCriterion.
-  @SectionId('CHIMCR-ITEMS-LST')
-  @SectionIdPattern('CHIMCR-ITEMS-xxx')
+  @SectionId('CHIMCR-ITEM-LST')
+  @SectionIdPattern('CHIMCR-ITEM-xxx')
   List<ChangeImpactCriterionEntry> items = [];
 }
 
@@ -1133,8 +1133,8 @@ and decision-making rules.
     ChangeControlBoardRecords records = ChangeControlBoardRecords();
 
   /// CCB members — contains 1+× CCB Member.
-  @SectionId('CCME-MEMBERS-LST')
-  @SectionIdPattern('CCME-MEMBERS-xxx')
+  @SectionId('CCME-MEMB-LST')
+  @SectionIdPattern('CCME-MEMB-xxx')
   @Min(1)
   List<CcbMemberEntry> members = [];
 }
@@ -1291,8 +1291,8 @@ class ReferenceDocuments {
   String? content;
 
   /// Reference document entries — contains 0+× Reference Document.
-  @SectionId('RFDOC-DOCUMENTS-LST')
-  @SectionIdPattern('RFDOC-DOCUMENTS-xxx')
+  @SectionId('RFDOC-DOCU-LST')
+  @SectionIdPattern('RFDOC-DOCU-xxx')
   List<ReferenceDocumentEntry> documents = [];
 }
 
@@ -1387,8 +1387,8 @@ class DocumentRelevantSections {
   String? content;
 
   /// Individual relevant section entries.
-  @SectionId('RESEEN-SECTIONS-LST')
-  @SectionIdPattern('RESEEN-SECTIONS-xxx')
+  @SectionId('RESEEN-SECT-LST')
+  @SectionIdPattern('RESEEN-SECT-xxx')
   List<RelevantSectionEntry> sections = [];
 }
 
@@ -1418,8 +1418,8 @@ class DocumentRelationships {
   String? content;
 
   /// Related document entries.
-  @SectionId('REDOEN-RELATEDDOCUMENTS-LST')
-  @SectionIdPattern('REDOEN-RELATEDDOCUMENTS-xxx')
+  @SectionId('REDOEN-RELA-LST')
+  @SectionIdPattern('REDOEN-RELA-xxx')
   List<RelatedDocumentEntry> relatedDocuments = [];
 }
 
@@ -1475,8 +1475,8 @@ class OtherAdministrativeRequirements {
       InsuranceLiabilityRequirements();
 
   /// 3.6.6. Other Agreements [PD00-ADM-OTH-AGR] — contains 0+× Agreement.
-  @SectionId('OTAGR-OTHERAGREEMENTS-LST')
-  @SectionIdPattern('OTAGR-OTHERAGREEMENTS-xxx')
+  @SectionId('OTAGR-OTHE-LST')
+  @SectionIdPattern('OTAGR-OTHE-xxx')
   List<OtherAgreementEntry> otherAgreements = [];
 }
 
@@ -1497,8 +1497,8 @@ class IntellectualPropertyRequirements {
   String? content;
 
   /// IP ownership details — contains 0+× IP Ownership Entry.
-  @SectionId('IPOWN-OWNERSHIPDETAILS-LST')
-  @SectionIdPattern('IPOWN-OWNERSHIPDETAILS-xxx')
+  @SectionId('IPOWN-OWNE-LST')
+  @SectionIdPattern('IPOWN-OWNE-xxx')
   List<IpOwnershipEntry> ownershipDetails = [];
 }
 
@@ -1531,8 +1531,8 @@ class ConfidentialityRequirements {
   String? content;
 
   /// Confidential information categories.
-  @SectionId('COINCA-CATEGORIES-LST')
-  @SectionIdPattern('COINCA-CATEGORIES-xxx')
+  @SectionId('COINCA-CATE-LST')
+  @SectionIdPattern('COINCA-CATE-xxx')
   List<ConfidentialInfoCategoryEntry> categories = [];
 
   /// Data handling procedures.
@@ -1576,13 +1576,13 @@ class RegulatoryComplianceRequirements {
   String? content;
 
   /// Regulatory requirements — contains 0+× Regulatory Requirement.
-  @SectionId('REGRQ-REQUIREMENTS-LST')
-  @SectionIdPattern('REGRQ-REQUIREMENTS-xxx')
+  @SectionId('REGRQ-REQU-LST')
+  @SectionIdPattern('REGRQ-REQU-xxx')
   List<RegulatoryRequirementEntry> requirements = [];
 
   /// Compliance milestones.
-  @SectionId('CPML-MILESTONES-LST')
-  @SectionIdPattern('CPML-MILESTONES-xxx')
+  @SectionId('CPML-MILE-LST')
+  @SectionIdPattern('CPML-MILE-xxx')
   List<ComplianceMilestoneEntry> milestones = [];
 }
 
@@ -1627,8 +1627,8 @@ class AuditRequirements {
   String? content;
 
   /// Planned audits — contains 0+× Audit Entry.
-  @SectionId('AUD-AUDITS-LST')
-  @SectionIdPattern('AUD-AUDITS-xxx')
+  @SectionId('AUD-AUDI-LST')
+  @SectionIdPattern('AUD-AUDI-xxx')
   List<AuditEntry> audits = [];
 
   /// Audit evidence requirements.
@@ -1662,8 +1662,8 @@ class AuditEvidenceRequirements {
   String? content;
 
   /// Evidence types required.
-  @SectionId('AUEVTY-EVIDENCETYPES-LST')
-  @SectionIdPattern('AUEVTY-EVIDENCETYPES-xxx')
+  @SectionId('AUEVTY-EVID-LST')
+  @SectionIdPattern('AUEVTY-EVID-xxx')
   List<AuditEvidenceTypeEntry> evidenceTypes = [];
 }
 
@@ -1690,8 +1690,8 @@ class InsuranceLiabilityRequirements {
   String? content;
 
   /// Insurance requirements — contains 0+× Insurance Entry.
-  @SectionId('INSURE-INSURANCEREQUIREMENTS-LST')
-  @SectionIdPattern('INSURE-INSURANCEREQUIREMENTS-xxx')
+  @SectionId('INSURE-INSU-LST')
+  @SectionIdPattern('INSURE-INSU-xxx')
   List<InsuranceEntry> insuranceRequirements = [];
 
   /// Liability limitations.

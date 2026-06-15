@@ -39,8 +39,8 @@ class ProjectPhasePlan {
   StageOverview stageOverview = StageOverview();
 
   /// Stages — PD00-SSP-STG (list).
-  @SectionId('STAGE-STAGES-LST')
-  @SectionIdPattern('STAGE-STAGES-xxx')
+  @SectionId('STAGE-STAG-LST')
+  @SectionIdPattern('STAGE-STAG-xxx')
   @Min(1)
   List<StageEntry> stages = [];
 

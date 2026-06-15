@@ -187,8 +187,8 @@ accessibility goals → semantic labels and focus management.
   TextSection overview = TextSection();
 
   /// Contains 0+× DesignGoal.
-  @SectionId('DGOEN-ITEMS-LST')
-  @SectionIdPattern('DGOEN-ITEMS-xxx')
+  @SectionId('DGOEN-ITEM-LST')
+  @SectionIdPattern('DGOEN-ITEM-xxx')
   List<DesignGoalEntry> items = [];
 }
 
@@ -256,8 +256,8 @@ Principles configure shared behaviors:
   TextSection overview = TextSection();
 
   /// Contains 0+× UiDesignPrinciple.
-  @SectionId('UDPEN-ITEMS-LST')
-  @SectionIdPattern('UDPEN-ITEMS-xxx')
+  @SectionId('UDPEN-ITEM-LST')
+  @SectionIdPattern('UDPEN-ITEM-xxx')
   List<UiDesignPrincipleEntry> items = [];
 }
 
@@ -328,8 +328,8 @@ Personas inform:
   TextSection overview = TextSection();
 
   /// Contains 1+× Persona.
-  @SectionId('PEREN-ITEMS-LST')
-  @SectionIdPattern('PEREN-ITEMS-xxx')
+  @SectionId('PEREN-ITEM-LST')
+  @SectionIdPattern('PEREN-ITEM-xxx')
   @Min(1)
   List<PersonaEntry> items = [];
 }
@@ -435,8 +435,8 @@ High-priority goals drive primary screen actions and dashboard widgets.
   String? content;
 
   /// Contains 0+× PersonaGoal.
-  @SectionId('PGOEN-ITEMS-LST')
-  @SectionIdPattern('PGOEN-ITEMS-xxx')
+  @SectionId('PGOEN-ITEM-LST')
+  @SectionIdPattern('PGOEN-ITEM-xxx')
   List<PersonaGoalEntry> items = [];
 }
 
@@ -482,8 +482,8 @@ High-severity pain points become design priorities:
   String? content;
 
   /// Contains 0+× PersonaPainPoint.
-  @SectionId('PPPEN-ITEMS-LST')
-  @SectionIdPattern('PPPEN-ITEMS-xxx')
+  @SectionId('PPPEN-ITEM-LST')
+  @SectionIdPattern('PPPEN-ITEM-xxx')
   List<PersonaPainPointEntry> items = [];
 }
 
@@ -533,8 +533,8 @@ Scenarios link to:
   String? content;
 
   /// Contains 0+× PersonaScenario.
-  @SectionId('PSCEN-ITEMS-LST')
-  @SectionIdPattern('PSCEN-ITEMS-xxx')
+  @SectionId('PSCEN-ITEM-LST')
+  @SectionIdPattern('PSCEN-ITEM-xxx')
   List<PersonaScenarioEntry> items = [];
 }
 
@@ -650,8 +650,8 @@ Screens generate TomScaffold configurations with:
   TextSection overview = TextSection();
 
   /// Contains 1+× Screen.
-  @SectionId('SCREN-ITEMS-LST')
-  @SectionIdPattern('SCREN-ITEMS-xxx')
+  @SectionId('SCREN-ITEM-LST')
+  @SectionIdPattern('SCREN-ITEM-xxx')
   @Min(1)
   List<ScreenEntry> items = [];
 }
@@ -697,18 +697,18 @@ class ScreenEntry {
   ScreenStates states = ScreenStates();
 
   /// Contains 0+× ScreenUserCategory.
-  @SectionId('SCRUSC-USERCATEGORIES-LST')
-  @SectionIdPattern('SCRUSC-USERCATEGORIES-xxx')
+  @SectionId('SCRUSC-USER-LST')
+  @SectionIdPattern('SCRUSC-USER-xxx')
   List<ScreenUserCategoryEntry> userCategories = [];
 
   /// Contains 0+× EntryPoint.
-  @SectionId('EPNT-ENTRYPOINTS-LST')
-  @SectionIdPattern('EPNT-ENTRYPOINTS-xxx')
+  @SectionId('EPNT-ENTR-LST')
+  @SectionIdPattern('EPNT-ENTR-xxx')
   List<EntryPointEntry> entryPoints = [];
 
   /// Contains 0+× ScreenResponsiveRule.
-  @SectionId('SRRE-RESPONSIVERULES-LST')
-  @SectionIdPattern('SRRE-RESPONSIVERULES-xxx')
+  @SectionId('SRRE-RESP-LST')
+  @SectionIdPattern('SRRE-RESP-xxx')
   List<ScreenResponsiveRuleEntry> responsiveRules = [];
 }
 
@@ -816,8 +816,8 @@ Sections map to Flutter layout widgets:
   String? content;
 
   /// Contains 0+× ScreenSection.
-  @SectionId('SCRSC-ITEMS-LST')
-  @SectionIdPattern('SCRSC-ITEMS-xxx')
+  @SectionId('SCRSC-ITEM-LST')
+  @SectionIdPattern('SCRSC-ITEM-xxx')
   List<ScreenSectionEntry> items = [];
 }
 
@@ -846,8 +846,8 @@ class ScreenSectionEntry {
   ScreenSectionEntryBehavior behavior = ScreenSectionEntryBehavior();
 
   /// Contains 0+× ScreenElement within this section.
-  @SectionId('SCREL-ELEMENTS-LST')
-  @SectionIdPattern('SCREL-ELEMENTS-xxx')
+  @SectionId('SCREL-ELEM-LST')
+  @SectionIdPattern('SCREL-ELEM-xxx')
   List<ScreenElementEntry> elements = [];
 }
 
@@ -923,8 +923,8 @@ class ScreenElementEntry {
   ScreenElementDataDisplay? dataDisplay;
 
   /// Contains 0+× ElementValidationRule.
-  @SectionId('EVRE-VALIDATIONRULES-LST')
-  @SectionIdPattern('EVRE-VALIDATIONRULES-xxx')
+  @SectionId('EVRE-VALI-LST')
+  @SectionIdPattern('EVRE-VALI-xxx')
   List<ElementValidationRuleEntry> validationRules = [];
 }
 
@@ -1269,8 +1269,8 @@ Actions integrate with `TomAction` system:
   String? content;
 
   /// Contains 0+× ScreenAction.
-  @SectionId('SCRAC-ITEMS-LST')
-  @SectionIdPattern('SCRAC-ITEMS-xxx')
+  @SectionId('SCRAC-ITEM-LST')
+  @SectionIdPattern('SCRAC-ITEM-xxx')
   List<ScreenActionEntry> items = [];
 }
 
@@ -1385,8 +1385,8 @@ empty states, and error displays.
   String? content;
 
   /// Contains 0+× ScreenState.
-  @SectionId('SCRST-ITEMS-LST')
-  @SectionIdPattern('SCRST-ITEMS-xxx')
+  @SectionId('SCRST-ITEM-LST')
+  @SectionIdPattern('SCRST-ITEM-xxx')
   List<ScreenStateEntry> items = [];
 }
 
@@ -1672,8 +1672,8 @@ Full navigation tree: groups and items.
   TextSection overview = TextSection();
 
   /// Contains 0+× NavigationGroup.
-  @SectionId('NAVGRP-GROUPS-LST')
-  @SectionIdPattern('NAVGRP-GROUPS-xxx')
+  @SectionId('NAVGRP-GROU-LST')
+  @SectionIdPattern('NAVGRP-GROU-xxx')
   List<NavigationGroupEntry> groups = [];
 }
 
@@ -1704,8 +1704,8 @@ class NavigationGroupEntry {
   NavigationGroupEntryStructure structure = NavigationGroupEntryStructure();
 
   /// Contains 0+× NavigationItem.
-  @SectionId('NAVIIT-ITEMS-LST')
-  @SectionIdPattern('NAVIIT-ITEMS-xxx')
+  @SectionId('NAVIIT-ITEM-LST')
+  @SectionIdPattern('NAVIIT-ITEM-xxx')
   List<NavigationItemEntry> items = [];
 }
 
@@ -1984,8 +1984,8 @@ Tab bars map to `TomTabBar` with:
   TextSection overview = TextSection();
 
   /// Contains 0+× TabBarDefinition.
-  @SectionId('TBDE-TABBARS-LST')
-  @SectionIdPattern('TBDE-TABBARS-xxx')
+  @SectionId('TBDE-TABB-LST')
+  @SectionIdPattern('TBDE-TABB-xxx')
   List<TabBarDefinitionEntry> tabBars = [];
 }
 
@@ -2112,8 +2112,8 @@ Dropdown/popup menus have nested items with:
   String? content;
 
   /// Contains 0+× UtilityNavigationItem.
-  @SectionId('UNIE-ITEMS-LST')
-  @SectionIdPattern('UNIE-ITEMS-xxx')
+  @SectionId('UNIE-ITEM-LST')
+  @SectionIdPattern('UNIE-ITEM-xxx')
   List<UtilityNavigationItemEntry> items = [];
 }
 
@@ -2144,8 +2144,8 @@ class UtilityNavigationItemEntry {
       UtilityNavigationItemEntryBehavior();
 
     /// Contains 0+× UtilityMenuItem.
-    @SectionId('UMIE-MENUITEMS-LST')
-    @SectionIdPattern('UMIE-MENUITEMS-xxx')
+    @SectionId('UMIE-MENU-LST')
+    @SectionIdPattern('UMIE-MENU-xxx')
     List<UtilityMenuItemEntry> menuItems = [];
 }
 
@@ -2338,8 +2338,8 @@ External entry points and shareable URLs.
   TextSection strategy = TextSection();
 
   /// Contains 0+× DeepLinkPattern.
-  @SectionId('DELNPT-PATTERNS-LST')
-  @SectionIdPattern('DELNPT-PATTERNS-xxx')
+  @SectionId('DELNPT-PATT-LST')
+  @SectionIdPattern('DELNPT-PATT-xxx')
   List<DeepLinkPatternEntry> patterns = [];
 }
 
@@ -2404,8 +2404,8 @@ Guards integrate with `TomRouter` middleware.
   TextSection overview = TextSection();
 
   /// Contains 0+× NavigationGuard.
-  @SectionId('NAVGRD-GUARDS-LST')
-  @SectionIdPattern('NAVGRD-GUARDS-xxx')
+  @SectionId('NAVGRD-GUAR-LST')
+  @SectionIdPattern('NAVGRD-GUAR-xxx')
   List<NavigationGuardEntry> guards = [];
 }
 
@@ -2499,19 +2499,19 @@ class PrintLayout {
   final PrintLayoutArchive archive = PrintLayoutArchive();
 
   /// 10.4.1. Reports [PD00-USE-PRI-REP] — contains 0+× Report.
-  @SectionId('REEN-REPORTS-LST')
-  @SectionIdPattern('REEN-REPORTS-xxx')
+  @SectionId('REEN-REPO-LST')
+  @SectionIdPattern('REEN-REPO-xxx')
   List<ReportEntry> reports = [];
 
   /// 10.4.2. Export Formats [PD00-USE-PRI-EXP] — contains 0+× Export Format.
-  @SectionId('EXFOEN-EXPORTFORMATS-LST')
-  @SectionIdPattern('EXFOEN-EXPORTFORMATS-xxx')
+  @SectionId('EXFOEN-EXPO-LST')
+  @SectionIdPattern('EXFOEN-EXPO-xxx')
   List<ExportFormatEntry> exportFormats = [];
 
   /// 10.4.3. Export Templates [PD00-USE-PRI-TPL] — contains 0+× Export
   /// Template.
-  @SectionId('EXTEEN-EXPORTTEMPLATES-LST')
-  @SectionIdPattern('EXTEEN-EXPORTTEMPLATES-xxx')
+  @SectionId('EXTEEN-EXPO-LST')
+  @SectionIdPattern('EXTEEN-EXPO-xxx')
   List<ExportTemplateEntry> exportTemplates = [];
 }
 
@@ -2656,28 +2656,28 @@ class ReportEntry {
   final ReportLifecycle lifecycle = ReportLifecycle();
 
   /// Contains 0+× Report Section.
-  @SectionId('RESEE1-SECTIONS-LST')
-  @SectionIdPattern('RESEE1-SECTIONS-xxx')
+  @SectionId('RESEE1-SECT-LST')
+  @SectionIdPattern('RESEE1-SECT-xxx')
   List<ReportSectionEntry> sections = [];
 
   /// Contains 0+× Report Filter.
-  @SectionId('REFIEN-FILTERS-LST')
-  @SectionIdPattern('REFIEN-FILTERS-xxx')
+  @SectionId('REFIEN-FILT-LST')
+  @SectionIdPattern('REFIEN-FILT-xxx')
   List<ReportFilterEntry> filters = [];
 
   /// Contains 0+× Report Schedule.
-  @SectionId('RESCEN-SCHEDULES-LST')
-  @SectionIdPattern('RESCEN-SCHEDULES-xxx')
+  @SectionId('RESCEN-SCHE-LST')
+  @SectionIdPattern('RESCEN-SCHE-xxx')
   List<ReportScheduleEntry> schedules = [];
 
   /// Contains 0+× Report Distribution.
-  @SectionId('REDIEN-DISTRIBUTIONS-LST')
-  @SectionIdPattern('REDIEN-DISTRIBUTIONS-xxx')
+  @SectionId('REDIEN-DIST-LST')
+  @SectionIdPattern('REDIEN-DIST-xxx')
   List<ReportDistributionEntry> distributions = [];
 
   /// Contains 0+× Recipient.
-  @SectionId('REREEN-RECIPIENTS-LST')
-  @SectionIdPattern('REREEN-RECIPIENTS-xxx')
+  @SectionId('REREEN-RECI-LST')
+  @SectionIdPattern('REREEN-RECI-xxx')
   List<ReportRecipientEntry> recipients = [];
 }
 
@@ -2881,13 +2881,13 @@ class ReportSectionEntry {
   final ReportSectionAggregation aggregation = ReportSectionAggregation();
 
   /// Contains 0+× Report Column.
-  @SectionId('RECOE1-COLUMNS-LST')
-  @SectionIdPattern('RECOE1-COLUMNS-xxx')
+  @SectionId('RECOE1-COLU-LST')
+  @SectionIdPattern('RECOE1-COLU-xxx')
   List<ReportColumnEntry> columns = [];
 
   /// Contains 0+× Report Chart.
-  @SectionId('RECHEN-CHARTS-LST')
-  @SectionIdPattern('RECHEN-CHARTS-xxx')
+  @SectionId('RECHEN-CHAR-LST')
+  @SectionIdPattern('RECHEN-CHAR-xxx')
   List<ReportChartEntry> charts = [];
 }
 
@@ -3587,8 +3587,8 @@ class ExportFormatEntry {
   final ExportAccess access = ExportAccess();
 
   /// Contains 0+× Export Field Mapping.
-  @SectionId('EFME-FIELDMAPPINGS-LST')
-  @SectionIdPattern('EFME-FIELDMAPPINGS-xxx')
+  @SectionId('EFME-FIEL-LST')
+  @SectionIdPattern('EFME-FIEL-xxx')
   List<ExportFieldMappingEntry> fieldMappings = [];
 }
 
@@ -4054,8 +4054,8 @@ class ValidationFeedback {
   TextSection validationNarrative = TextSection();
 
   /// Validation message templates.
-  @SectionId('VAMETE-MESSAGETEMPLATES-LST')
-  @SectionIdPattern('VAMETE-MESSAGETEMPLATES-xxx')
+  @SectionId('VAMETE-MESS-LST')
+  @SectionIdPattern('VAMETE-MESS-xxx')
   List<ValidationMessageTemplate> messageTemplates = [];
 
   /// Field validation rules by type.
@@ -4198,8 +4198,8 @@ class SystemErrorDisplay {
   TextSection errorPageDesigns = TextSection();
 
   /// Error codes catalog.
-  @SectionId('SECE-ERRORCODES-LST')
-  @SectionIdPattern('SECE-ERRORCODES-xxx')
+  @SectionId('SECE-ERRO-LST')
+  @SectionIdPattern('SECE-ERRO-xxx')
   List<SystemErrorCodeEntry> errorCodes = [];
 }
 
@@ -4368,8 +4368,8 @@ class ErrorRecovery {
   FlowDiagramSection recoveryFlows = FlowDiagramSection();
 
   /// Common recovery scenarios.
-  @SectionId('RCVSCN-RECOVERYSCENARIOS-LST')
-  @SectionIdPattern('RCVSCN-RECOVERYSCENARIOS-xxx')
+  @SectionId('RCVSCN-RECO-LST')
+  @SectionIdPattern('RCVSCN-RECO-xxx')
   List<RecoveryScenarioEntry> recoveryScenarios = [];
 }
 
@@ -4597,8 +4597,8 @@ class ContextualHelp {
   TextSection contextualHelpNarrative = TextSection();
 
   /// Field help catalog.
-  @SectionId('FLDHP-FIELDHELPCATALOG-LST')
-  @SectionIdPattern('FLDHP-FIELDHELPCATALOG-xxx')
+  @SectionId('FLDHP-FIEL-LST')
+  @SectionIdPattern('FLDHP-FIEL-xxx')
   List<FieldHelpEntry> fieldHelpCatalog = [];
 }
 
@@ -4710,8 +4710,8 @@ class OnboardingHelp {
   TextSection onboardingNarrative = TextSection();
 
   /// Feature tour definitions.
-  @SectionId('FTRTUR-FEATURETOURS-LST')
-  @SectionIdPattern('FTRTUR-FEATURETOURS-xxx')
+  @SectionId('FTRTUR-FEAT-LST')
+  @SectionIdPattern('FTRTUR-FEAT-xxx')
   List<FeatureTourEntry> featureTours = [];
 }
 
@@ -4802,8 +4802,8 @@ class FeatureTourEntry {
   String? content;
 
   /// Tour steps.
-  @SectionId('TURST-STEPS-LST')
-  @SectionIdPattern('TURST-STEPS-xxx')
+  @SectionId('TURST-STEP-LST')
+  @SectionIdPattern('TURST-STEP-xxx')
   List<TourStepEntry> steps = [];
 }
 
@@ -5062,8 +5062,8 @@ class WcagCompliance {
   TextSection wcagNarrative = TextSection();
 
   /// WCAG success criteria mapping.
-  @SectionId('WSCE-SUCCESSCRITERIA-LST')
-  @SectionIdPattern('WSCE-SUCCESSCRITERIA-xxx')
+  @SectionId('WSCE-SUCC-LST')
+  @SectionIdPattern('WSCE-SUCC-xxx')
   List<WcagSuccessCriterionEntry> successCriteria = [];
 }
 
@@ -5161,8 +5161,8 @@ class AccessibilityChecklist {
   TextSection checklistOverview = TextSection();
 
   /// Contains 0+× AccessibilityCheck.
-  @SectionId('ACCH-ITEMS-LST')
-  @SectionIdPattern('ACCH-ITEMS-xxx')
+  @SectionId('ACCH-ITEM-LST')
+  @SectionIdPattern('ACCH-ITEM-xxx')
   List<AccessibilityCheckEntry> items = [];
 }
 
@@ -5319,8 +5319,8 @@ class BreakpointConfiguration {
   String? breakpointOverview;
 
   /// Breakpoint entries.
-  @SectionId('BRE-BREAKPOINTS-LST')
-  @SectionIdPattern('BRE-BREAKPOINTS-xxx')
+  @SectionId('BRE-BREA-LST')
+  @SectionIdPattern('BRE-BREA-xxx')
   List<BreakpointEntry> breakpoints = [];
 }
 
@@ -5414,8 +5414,8 @@ class ResponsiveBehavior {
   TextSection behaviorNarrative = TextSection();
 
   /// Screen-specific responsive rules.
-  @SectionId('RESPSR-SCREENRULES-LST')
-  @SectionIdPattern('RESPSR-SCREENRULES-xxx')
+  @SectionId('RESPSR-SCRE-LST')
+  @SectionIdPattern('RESPSR-SCRE-xxx')
   List<ResponsiveScreenRuleEntry> screenRules = [];
 }
 
@@ -5531,13 +5531,13 @@ class UiComponents {
   ComponentLibrary componentLibrary = ComponentLibrary();
 
   /// 10.11.2. Component Specifications [PD00-USE-COM-SPE] — contains 0+×.
-  @SectionId('UICOEN-COMPONENTSPECS-LST')
-  @SectionIdPattern('UICOEN-COMPONENTSPECS-xxx')
+  @SectionId('UICOEN-COMP-LST')
+  @SectionIdPattern('UICOEN-COMP-xxx')
   List<UiComponentEntry> componentSpecs = [];
 
   /// 10.11.3. Component Families [PD00-USE-COM-FAM] — contains 0+×.
-  @SectionId('CMFA-COMPONENTFAMILIES-LST')
-  @SectionIdPattern('CMFA-COMPONENTFAMILIES-xxx')
+  @SectionId('CMFA-COMP-LST')
+  @SectionIdPattern('CMFA-COMP-xxx')
   List<ComponentFamilyEntry> componentFamilies = [];
 }
 
@@ -5623,13 +5623,13 @@ class ComponentLibrary {
   TextSection designTokenCatalog = TextSection();
 
   /// Color palette specification.
-  @SectionId('COPA-COLORPALETTES-LST')
-  @SectionIdPattern('COPA-COLORPALETTES-xxx')
+  @SectionId('COPA-COLO-LST')
+  @SectionIdPattern('COPA-COLO-xxx')
   List<ColorPaletteEntry> colorPalettes = [];
 
   /// Typography styles.
-  @SectionId('TYST-TYPOGRAPHYSTYLES-LST')
-  @SectionIdPattern('TYST-TYPOGRAPHYSTYLES-xxx')
+  @SectionId('TYST-TYPO-LST')
+  @SectionIdPattern('TYST-TYPO-xxx')
   List<TypographyStyleEntry> typographyStyles = [];
 }
 
@@ -5776,8 +5776,8 @@ class ComponentFamilyEntry {
   TextSection familyNarrative = TextSection();
 
   /// Components in this family.
-  @SectionId('FAMREF-COMPONENTS-LST')
-  @SectionIdPattern('FAMREF-COMPONENTS-xxx')
+  @SectionId('FAMREF-COMP-LST')
+  @SectionIdPattern('FAMREF-COMP-xxx')
   List<FamilyComponentRef> components = [];
 }
 
@@ -5988,28 +5988,28 @@ class UiComponentEntry {
   TextSection behaviorNarrative = TextSection();
 
   /// Contains 0+× ComponentState.
-  @SectionId('CMST-STATES-LST')
-  @SectionIdPattern('CMST-STATES-xxx')
+  @SectionId('CMST-STAT-LST')
+  @SectionIdPattern('CMST-STAT-xxx')
   List<ComponentStateEntry> states = [];
 
   /// Contains 0+× ComponentVariant.
-  @SectionId('CMVN-VARIANTS-LST')
-  @SectionIdPattern('CMVN-VARIANTS-xxx')
+  @SectionId('CMVN-VARI-LST')
+  @SectionIdPattern('CMVN-VARI-xxx')
   List<ComponentVariantEntry> variants = [];
 
   /// Contains 0+× ComponentAction.
-  @SectionId('CMAC-ACTIONS-LST')
-  @SectionIdPattern('CMAC-ACTIONS-xxx')
+  @SectionId('CMAC-ACTI-LST')
+  @SectionIdPattern('CMAC-ACTI-xxx')
   List<ComponentActionEntry> actions = [];
 
   /// Contains 0+× ComponentSlot.
-  @SectionId('CMSL-SLOTS-LST')
-  @SectionIdPattern('CMSL-SLOTS-xxx')
+  @SectionId('CMSL-SLOT-LST')
+  @SectionIdPattern('CMSL-SLOT-xxx')
   List<ComponentSlotEntry> slots = [];
 
   /// Contains 0+× ComponentProperty.
-  @SectionId('CMPR-PROPERTIES-LST')
-  @SectionIdPattern('CMPR-PROPERTIES-xxx')
+  @SectionId('CMPR-PROP-LST')
+  @SectionIdPattern('CMPR-PROP-xxx')
   List<ComponentPropertyEntry> properties = [];
 }
 
@@ -6396,8 +6396,8 @@ class MultiLanguageAndRollout {
   TranslationRequirements translationRequirements = TranslationRequirements();
 
   /// Supported locale entries.
-  @SectionId('SULOEN-SUPPORTEDLOCALES-LST')
-  @SectionIdPattern('SULOEN-SUPPORTEDLOCALES-xxx')
+  @SectionId('SULOEN-SUPP-LST')
+  @SectionIdPattern('SULOEN-SUPP-xxx')
   List<SupportedLocaleEntry> supportedLocales = [];
 }
 
@@ -6550,8 +6550,8 @@ class TranslationProcess {
   TextSection translationNarrative = TextSection();
 
   /// Translation vendor entries.
-  @SectionId('TRVEEN-VENDORS-LST')
-  @SectionIdPattern('TRVEEN-VENDORS-xxx')
+  @SectionId('TRVEEN-VEND-LST')
+  @SectionIdPattern('TRVEEN-VEND-xxx')
   List<TranslationVendorEntry> vendors = [];
 }
 
@@ -6690,8 +6690,8 @@ class DocumentationAndTraining {
   TextSection documentationNarrative = TextSection();
 
   /// Training module entries.
-  @SectionId('TRMOEN-TRAININGMODULES-LST')
-  @SectionIdPattern('TRMOEN-TRAININGMODULES-xxx')
+  @SectionId('TRMOEN-TRAI-LST')
+  @SectionIdPattern('TRMOEN-TRAI-xxx')
   List<TrainingModuleEntry> trainingModules = [];
 }
 
@@ -7115,8 +7115,8 @@ class PrototypeGoals {
   TextSection goalsNarrative = TextSection();
 
   /// Individual goal entries.
-  @SectionId('PRGOEN-GOALS-LST')
-  @SectionIdPattern('PRGOEN-GOALS-xxx')
+  @SectionId('PRGOEN-GOAL-LST')
+  @SectionIdPattern('PRGOEN-GOAL-xxx')
   List<PrototypeGoalEntry> goals = [];
 }
 
@@ -7199,8 +7199,8 @@ class PrototypeFeatureSubset {
   TextSection featureNarrative = TextSection();
 
   /// Prototype feature entries.
-  @SectionId('PRFEEN-FEATURES-LST')
-  @SectionIdPattern('PRFEEN-FEATURES-xxx')
+  @SectionId('PRFEEN-FEAT-LST')
+  @SectionIdPattern('PRFEEN-FEAT-xxx')
   List<PrototypeFeatureEntry> features = [];
 }
 

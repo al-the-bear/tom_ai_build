@@ -73,8 +73,8 @@ attributes, relationships, and constraints that represent core business data.
   String? content;
 
   /// 7.1.1. Entity Overview [PD00-BUS-DAT-ENT] — contains 1+× Data Entity.
-  @SectionId('DAENT-ENTITIES-LST')
-  @SectionIdPattern('DAENT-ENTITIES-xxx')
+  @SectionId('DAENT-ENTI-LST')
+  @SectionIdPattern('DAENT-ENTI-xxx')
   @Min(1)
   List<DataEntityEntry> entities = [];
 
@@ -238,28 +238,28 @@ class DataEntityEntry {
   String? technicalCharacteristics;
 
   /// Contains 0+× DataAttribute [PD00-BUS-DAT-ENT-nn-ATT].
-  @SectionId('DAATT-ATTRIBUTES-LST')
-  @SectionIdPattern('DAATT-ATTRIBUTES-xxx')
+  @SectionId('DAATT-ATTR-LST')
+  @SectionIdPattern('DAATT-ATTR-xxx')
   List<DataAttributeEntry> attributes = [];
 
   /// Contains 0+× KeyAttribute [PD00-BUS-DAT-ENT-nn-KEY].
-  @SectionId('KEATT-KEYATTRIBUTES-LST')
-  @SectionIdPattern('KEATT-KEYATTRIBUTES-xxx')
+  @SectionId('KEATT-KEYA-LST')
+  @SectionIdPattern('KEATT-KEYA-xxx')
   List<KeyAttributeEntry> keyAttributes = [];
 
   /// Contains 0+× EntityIndex [PD00-BUS-DAT-ENT-nn-IDX].
-  @SectionId('ENIDX-INDEXES-LST')
-  @SectionIdPattern('ENIDX-INDEXES-xxx')
+  @SectionId('ENIDX-INDE-LST')
+  @SectionIdPattern('ENIDX-INDE-xxx')
   List<EntityIndexEntry> indexes = [];
 
   /// Contains 0+× EntityConstraint [PD00-BUS-DAT-ENT-nn-CON].
-  @SectionId('ENCNS-CONSTRAINTS-LST')
-  @SectionIdPattern('ENCNS-CONSTRAINTS-xxx')
+  @SectionId('ENCNS-CONS-LST')
+  @SectionIdPattern('ENCNS-CONS-xxx')
   List<EntityConstraintEntry> constraints = [];
 
   /// Contains 0+× MigrationMapping [PD00-BUS-DAT-ENT-nn-MIG] for data migration planning.
-  @SectionId('MIGME-MIGRATIONMAPPINGS-LST')
-  @SectionIdPattern('MIGME-MIGRATIONMAPPINGS-xxx')
+  @SectionId('MIGME-MIGR-LST')
+  @SectionIdPattern('MIGME-MIGR-xxx')
   List<MigrationMappingEntry> migrationMappings = [];
 }
 
@@ -574,8 +574,8 @@ referential integrity rules, and navigation patterns.
   String? content;
 
   /// Contains 0+× EntityRelationship.
-  @SectionId('ENRLE-ITEMS-LST')
-  @SectionIdPattern('ENRLE-ITEMS-xxx')
+  @SectionId('ENRLE-ITEM-LST')
+  @SectionIdPattern('ENRLE-ITEM-xxx')
   List<EntityRelationshipEntry> items = [];
 }
 
@@ -712,8 +712,8 @@ class DataClassification {
   String? overview;
 
   /// Contains 0+× DataClassificationEntry [PD00-BUS-DAT-CLA-nn].
-  @SectionId('DCLSE-ITEMS-LST')
-  @SectionIdPattern('DCLSE-ITEMS-xxx')
+  @SectionId('DCLSE-ITEM-LST')
+  @SectionIdPattern('DCLSE-ITEM-xxx')
   List<DataClassificationEntry> items = [];
 }
 
@@ -806,13 +806,13 @@ class DataClassificationEntry {
   String? compliance;
 
   /// Contains 0+× HandlingRequirement [PD00-BUS-DAT-CLA-nn-HAN].
-  @SectionId('HNDRE-HANDLINGREQUIREMENTS-LST')
-  @SectionIdPattern('HNDRE-HANDLINGREQUIREMENTS-xxx')
+  @SectionId('HNDRE-HAND-LST')
+  @SectionIdPattern('HNDRE-HAND-xxx')
   List<HandlingRequirementEntry> handlingRequirements = [];
 
   /// Contains 0+× AccessRestriction [PD00-BUS-DAT-CLA-nn-ARE].
-  @SectionId('ACRSE-ACCESSRESTRICTIONS-LST')
-  @SectionIdPattern('ACRSE-ACCESSRESTRICTIONS-xxx')
+  @SectionId('ACRSE-ACCE-LST')
+  @SectionIdPattern('ACRSE-ACCE-xxx')
   List<AccessRestrictionEntry> accessRestrictions = [];
 }
 
@@ -895,8 +895,8 @@ Domain-Driven Design patterns for rich domain modeling.
   String? content;
 
   /// 7.2.1. Object Catalog [PD00-BUS-BUS-CAT] — contains 1+× Business Object.
-  @SectionId('BJOEN-OBJECTS-LST')
-  @SectionIdPattern('BJOEN-OBJECTS-xxx')
+  @SectionId('BJOEN-OBJE-LST')
+  @SectionIdPattern('BJOEN-OBJE-xxx')
   @Min(1)
   List<BusinessObjectEntry> objects = [];
 
@@ -1014,33 +1014,33 @@ class BusinessObjectEntry {
   String? integrationPoints;
 
   /// Contains 0+× BusinessObjectAttribute [PD00-BUS-BUS-CAT-nn-BOA].
-  @SectionId('BIOBAT-ATTRIBUTES-LST')
-  @SectionIdPattern('BIOBAT-ATTRIBUTES-xxx')
+  @SectionId('BIOBAT-ATTR-LST')
+  @SectionIdPattern('BIOBAT-ATTR-xxx')
   List<BusinessObjectAttributeEntry> attributes = [];
 
   /// Contains 0+× ObjectState [PD00-BUS-BUS-CAT-nn-STA].
-  @SectionId('OBST-KEYSTATES-LST')
-  @SectionIdPattern('OBST-KEYSTATES-xxx')
+  @SectionId('OBST-KEYS-LST')
+  @SectionIdPattern('OBST-KEYS-xxx')
   List<ObjectStateEntry> keyStates = [];
 
   /// Contains 0+× BusinessRuleReference [PD00-BUS-BUS-CAT-nn-BRR].
-  @SectionId('BIRURE-KEYBUSINESSRULES-LST')
-  @SectionIdPattern('BIRURE-KEYBUSINESSRULES-xxx')
+  @SectionId('BIRURE-KEYB-LST')
+  @SectionIdPattern('BIRURE-KEYB-xxx')
   List<BusinessRuleReferenceEntry> keyBusinessRules = [];
 
   /// Contains 0+× LifecycleTransition [PD00-BUS-BUS-CAT-nn-LIF].
-  @SectionId('LFTRS-LIFECYCLETRANSITIONS-LST')
-  @SectionIdPattern('LFTRS-LIFECYCLETRANSITIONS-xxx')
+  @SectionId('LFTRS-LIFE-LST')
+  @SectionIdPattern('LFTRS-LIFE-xxx')
   List<LifecycleTransitionEntry> lifecycleTransitions = [];
 
   /// Contains 0+× ObjectOperation [PD00-BUS-BUS-CAT-nn-OPR].
-  @SectionId('OBOP-OPERATIONS-LST')
-  @SectionIdPattern('OBOP-OPERATIONS-xxx')
+  @SectionId('OBOP-OPER-LST')
+  @SectionIdPattern('OBOP-OPER-xxx')
   List<ObjectOperationEntry> operations = [];
 
   /// Contains 0+× ObjectInvariant [PD00-BUS-BUS-CAT-nn-INV].
-  @SectionId('OBINV-INVARIANTS-LST')
-  @SectionIdPattern('OBINV-INVARIANTS-xxx')
+  @SectionId('OBINV-INVA-LST')
+  @SectionIdPattern('OBINV-INVA-xxx')
   List<ObjectInvariantEntry> invariants = [];
 }
 
@@ -1379,18 +1379,18 @@ class FunctionModel {
   String? matrixOverview;
 
   /// 7.3.1. Function Decomposition [PD00-BUS-FUN-DEC] — contains 0+× Function.
-  @SectionId('FUNCT-FUNCTIONS-LST')
-  @SectionIdPattern('FUNCT-FUNCTIONS-xxx')
+  @SectionId('FUNCT-FUNC-LST')
+  @SectionIdPattern('FUNCT-FUNC-xxx')
   List<FunctionEntry> functions = [];
 
   /// 7.3.2. Function-to-Data Matrix Entries [PD00-BUS-FUN-MAT] — contains 0+× MatrixEntry.
-  @SectionId('FNDMX-MATRIXENTRIES-LST')
-  @SectionIdPattern('FNDMX-MATRIXENTRIES-xxx')
+  @SectionId('FNDMX-MATR-LST')
+  @SectionIdPattern('FNDMX-MATR-xxx')
   List<FunctionDataMatrixEntry> matrixEntries = [];
 
   /// 7.3.3. Business Rules [PD00-BUS-FUN-RUL] — contains 1+× Business Rule.
-  @SectionId('BIRU-BUSINESSRULES-LST')
-  @SectionIdPattern('BIRU-BUSINESSRULES-xxx')
+  @SectionId('BIRU-BUSI-LST')
+  @SectionIdPattern('BIRU-BUSI-xxx')
   @Min(1)
   List<BusinessRuleEntry> businessRules = [];
 }
@@ -1422,8 +1422,8 @@ class FunctionEntry {
   FunctionEntryImplementation implementation = FunctionEntryImplementation();
 
   /// Sub-functions [PD00-BUS-FUN-DEC-nn-SUB] — contains 0+× SubFunction.
-  @SectionId('SUFN-SUBFUNCTIONS-LST')
-  @SectionIdPattern('SUFN-SUBFUNCTIONS-xxx')
+  @SectionId('SUFN-SUBF-LST')
+  @SectionIdPattern('SUFN-SUBF-xxx')
   List<SubFunctionEntry> subFunctions = [];
 }
 
@@ -1611,18 +1611,18 @@ class BusinessRuleEntry {
   String? governance;
 
   /// Contains 0+× AffectedObject [PD00-BUS-FUN-RUL-nn-AOB].
-  @SectionId('AFOB-AFFECTEDOBJECTS-LST')
-  @SectionIdPattern('AFOB-AFFECTEDOBJECTS-xxx')
+  @SectionId('AFOB-AFFE-LST')
+  @SectionIdPattern('AFOB-AFFE-xxx')
   List<AffectedObjectEntry> affectedObjects = [];
 
   /// Contains 0+× AffectedFunction [PD00-BUS-FUN-RUL-nn-AFU].
-  @SectionId('AFFN-AFFECTEDFUNCTIONS-LST')
-  @SectionIdPattern('AFFN-AFFECTEDFUNCTIONS-xxx')
+  @SectionId('AFFN-AFFE-LST')
+  @SectionIdPattern('AFFN-AFFE-xxx')
   List<AffectedFunctionEntry> affectedFunctions = [];
 
   /// Contains 0+× RuleExample [PD00-BUS-FUN-RUL-nn-EXA].
-  @SectionId('RULEXM-EXAMPLES-LST')
-  @SectionIdPattern('RULEXM-EXAMPLES-xxx')
+  @SectionId('RULEXM-EXAM-LST')
+  @SectionIdPattern('RULEXM-EXAM-xxx')
   List<RuleExampleEntry> examples = [];
 }
 

@@ -199,8 +199,8 @@ class QualityFramework {
   TextSection objectivesBreakdown = TextSection();
 
   /// 11.1.2. Quality Categories [PD00-SYQ-FRA-CAT] — contains 0+× QualityCategory.
-  @SectionId('QCATE-QUALITYCATEGORIES-LST')
-  @SectionIdPattern('QCATE-QUALITYCATEGORIES-xxx')
+  @SectionId('QCATE-QUAL-LST')
+  @SectionIdPattern('QCATE-QUAL-xxx')
   List<QualityCategoryEntry> qualityCategories = [];
 
   /// Quality dependencies map.
@@ -1261,8 +1261,8 @@ class ServiceLevelQuality {
   TextSection narrative = TextSection();
 
   /// Service Level Agreement entries.
-  @SectionId('SLAE-SLAENTRIES-LST')
-  @SectionIdPattern('SLAE-SLAENTRIES-xxx')
+  @SectionId('SLAE-SLAE-LST')
+  @SectionIdPattern('SLAE-SLAE-xxx')
   List<ServiceLevelAgreementEntry> slaEntries = [];
 }
 
@@ -1897,8 +1897,8 @@ class WeightedQualityMatrix {
   TextSection matrixNarrative = TextSection();
 
   /// Quality attribute weight entries.
-  @SectionId('QLWGT-WEIGHTS-LST')
-  @SectionIdPattern('QLWGT-WEIGHTS-xxx')
+  @SectionId('QLWGT-WEIG-LST')
+  @SectionIdPattern('QLWGT-WEIG-xxx')
   List<QualityWeightEntry> weights = [];
 
   /// Quality matrix visualization.
@@ -1949,8 +1949,8 @@ class TradeOffDecisions {
   TextSection tradeOffOverview = TextSection();
 
   /// Contains 0+× TradeOffDecision.
-  @SectionId('TODE-ITEMS-LST')
-  @SectionIdPattern('TODE-ITEMS-xxx')
+  @SectionId('TODE-ITEM-LST')
+  @SectionIdPattern('TODE-ITEM-xxx')
   List<TradeOffDecisionEntry> items = [];
 }
 
@@ -2134,8 +2134,8 @@ class MustPassCriteria {
   TextSection overview = TextSection();
 
   /// Contains 0+× MustPassCriterion.
-  @SectionId('MSTPCR-ITEMS-LST')
-  @SectionIdPattern('MSTPCR-ITEMS-xxx')
+  @SectionId('MSTPCR-ITEM-LST')
+  @SectionIdPattern('MSTPCR-ITEM-xxx')
   List<MustPassCriterionEntry> items = [];
 }
 
@@ -2260,8 +2260,8 @@ class QualityGateChecklist {
   TextSection overview = TextSection();
 
   /// Contains 0+× QualityGateCheck.
-  @SectionId('QGCHK-ITEMS-LST')
-  @SectionIdPattern('QGCHK-ITEMS-xxx')
+  @SectionId('QGCHK-ITEM-LST')
+  @SectionIdPattern('QGCHK-ITEM-xxx')
   List<QualityGateCheckEntry> items = [];
 }
 

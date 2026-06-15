@@ -78,8 +78,8 @@ configuration files, deployment artifacts. Define for each:
   String? content;
 
   /// Contains 0+× Deliverable.
-  @SectionId('DLVEN-ITEMS-LST')
-  @SectionIdPattern('DLVEN-ITEMS-xxx')
+  @SectionId('DLVEN-ITEM-LST')
+  @SectionIdPattern('DLVEN-ITEM-xxx')
   List<DeliverableEntry> items = [];
 }
 
@@ -95,8 +95,8 @@ delivery channel, language(s), and maintenance responsibility post-delivery.
   String? content;
 
   /// Contains 0+× Deliverable.
-  @SectionId('DLVEN-ITEMS-LST')
-  @SectionIdPattern('DLVEN-ITEMS-xxx')
+  @SectionId('DLVEN-ITEM-LST')
+  @SectionIdPattern('DLVEN-ITEM-xxx')
   List<DeliverableEntry> items = [];
 }
 
@@ -112,8 +112,8 @@ assessment criteria, and ongoing refresh schedule.
   String? content;
 
   /// Contains 0+× Deliverable.
-  @SectionId('DLVEN-ITEMS-LST')
-  @SectionIdPattern('DLVEN-ITEMS-xxx')
+  @SectionId('DLVEN-ITEM-LST')
+  @SectionIdPattern('DLVEN-ITEM-xxx')
   List<DeliverableEntry> items = [];
 }
 
@@ -129,8 +129,8 @@ response times, coverage period, and handover criteria.
   String? content;
 
   /// Contains 0+× Deliverable.
-  @SectionId('DLVEN-ITEMS-LST')
-  @SectionIdPattern('DLVEN-ITEMS-xxx')
+  @SectionId('DLVEN-ITEM-LST')
+  @SectionIdPattern('DLVEN-ITEM-xxx')
   List<DeliverableEntry> items = [];
 }
 
@@ -350,8 +350,8 @@ Each criterion must be:
   String? content;
 
   /// Contains 0+× DeliveryAcceptanceCriterion.
-  @SectionId('DACEN-ITEMS-LST')
-  @SectionIdPattern('DACEN-ITEMS-xxx')
+  @SectionId('DACEN-ITEM-LST')
+  @SectionIdPattern('DACEN-ITEM-xxx')
   List<DeliveryAcceptanceCriterionEntry> items = [];
 }
 
@@ -520,8 +520,8 @@ class AcceptanceProcess {
   TextSection processNarrative = TextSection();
 
   /// Contains 0+× AcceptanceStep.
-  @SectionId('ACST-STEPS-LST')
-  @SectionIdPattern('ACST-STEPS-xxx')
+  @SectionId('ACST-STEP-LST')
+  @SectionIdPattern('ACST-STEP-xxx')
   List<AcceptanceStepEntry> steps = [];
 }
 
@@ -731,13 +731,13 @@ class UserAcceptanceTesting {
   TextSection uatOverview = TextSection();
 
   /// Contains 0+× UatTestCycle.
-  @SectionId('UATCY-TESTCYCLES-LST')
-  @SectionIdPattern('UATCY-TESTCYCLES-xxx')
+  @SectionId('UATCY-TEST-LST')
+  @SectionIdPattern('UATCY-TEST-xxx')
   List<UatTestCycleEntry> testCycles = [];
 
   /// Contains 0+× TestScenario.
-  @SectionId('TSSC-TESTSCENARIOS-LST')
-  @SectionIdPattern('TSSC-TESTSCENARIOS-xxx')
+  @SectionId('TSSC-TEST-LST')
+  @SectionIdPattern('TSSC-TEST-xxx')
   List<TestScenarioEntry> testScenarios = [];
 }
 
@@ -1021,8 +1021,8 @@ class TestScenarioEntry {
   final TestScenarioNotes notes = TestScenarioNotes();
 
   /// Contains 0+× UatTestStep for this scenario.
-  @SectionId('UATSST-TESTSTEPS-LST')
-  @SectionIdPattern('UATSST-TESTSTEPS-xxx')
+  @SectionId('UATSST-TEST-LST')
+  @SectionIdPattern('UATSST-TEST-xxx')
   List<UatTestStepEntry> testSteps = [];
 }
 

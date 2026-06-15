@@ -53,8 +53,8 @@ class SystemStagePlan {
   StageOverview stageOverview = StageOverview();
 
   /// 13.3. Stages [PD00-SSP-STG] — contains 1+× Stage.
-  @SectionId('STAGE-STAGES-LST')
-  @SectionIdPattern('STAGE-STAGES-xxx')
+  @SectionId('STAGE-STAG-LST')
+  @SectionIdPattern('STAGE-STAG-xxx')
   @Min(1)
   List<StageEntry> stages = [];
 
@@ -509,8 +509,8 @@ class StageOverview {
 
   /// 13.2.1. Stage Summary [PD00-SSP-STA-SUM] — contains 1+× Stage
   /// Summary Entry.
-  @SectionId('STAGSE-STAGESUMMARIES-LST')
-  @SectionIdPattern('STAGSE-STAGESUMMARIES-xxx')
+  @SectionId('STAGSE-STAG-LST')
+  @SectionIdPattern('STAGSE-STAG-xxx')
   @Min(1)
   List<StageSummaryEntry> stageSummaries = [];
 
@@ -1005,8 +1005,8 @@ class StageEntry {
   TextSection featureScope = TextSection();
 
   /// Sub-stages and Milestones [PD00-SSP-STG-nn-SUB] — contains 0+× SubStage.
-  @SectionId('SUSST-SUBSTAGESANDMILESTONES-LST')
-  @SectionIdPattern('SUSST-SUBSTAGESANDMILESTONES-xxx')
+  @SectionId('SUSST-SUBS-LST')
+  @SectionIdPattern('SUSST-SUBS-xxx')
   List<SubStageEntry> subStagesAndMilestones = [];
 
   /// Timeline narrative.
@@ -1016,8 +1016,8 @@ class StageEntry {
   TextSection timelineNarrative = TextSection();
 
   /// Success Criteria [PD00-SSP-STG-nn-SUC] — contains 0+× StageSuccessCriterion.
-  @SectionId('STGSUC-SUCCESSCRITERIA-LST')
-  @SectionIdPattern('STGSUC-SUCCESSCRITERIA-xxx')
+  @SectionId('STGSUC-SUCC-LST')
+  @SectionIdPattern('STGSUC-SUCC-xxx')
   List<StageSuccessCriterionEntry> successCriteria = [];
 
   /// Rollout Plan narrative.
@@ -1639,8 +1639,8 @@ class MoscowAnalysis {
   TextSection moscowRationale = TextSection();
 
   /// Contains 0+× MoscowEntry.
-  @SectionId('MOEN-ITEMS-LST')
-  @SectionIdPattern('MOEN-ITEMS-xxx')
+  @SectionId('MOEN-ITEM-LST')
+  @SectionIdPattern('MOEN-ITEM-xxx')
   List<MoscowEntry> items = [];
 }
 
@@ -1784,8 +1784,8 @@ class FeatureStageMatrix {
   TextSection matrixNarrative = TextSection();
 
   /// Contains 0+× FeatureStageMapping.
-  @SectionId('FESTM1-ITEMS-LST')
-  @SectionIdPattern('FESTM1-ITEMS-xxx')
+  @SectionId('FESTM1-ITEM-LST')
+  @SectionIdPattern('FESTM1-ITEM-xxx')
   List<FeatureStageMapping> items = [];
 }
 
@@ -1915,8 +1915,8 @@ class FeaturePriorityRegister {
   String? content;
 
   /// Contains 1+× FeaturePriorityEntry.
-  @SectionId('FEPREN-ITEMS-LST')
-  @SectionIdPattern('FEPREN-ITEMS-xxx')
+  @SectionId('FEPREN-ITEM-LST')
+  @SectionIdPattern('FEPREN-ITEM-xxx')
   @Min(1)
   List<FeaturePriorityEntry> items = [];
 }
@@ -2200,8 +2200,8 @@ class FeatureDependencies {
   TextSection dependencyAnalysis = TextSection();
 
   /// Contains 0+× FeatureDependencyEntry.
-  @SectionId('FEDEEN-ITEMS-LST')
-  @SectionIdPattern('FEDEEN-ITEMS-xxx')
+  @SectionId('FEDEEN-ITEM-LST')
+  @SectionIdPattern('FEDEEN-ITEM-xxx')
   List<FeatureDependencyEntry> items = [];
 }
 
@@ -2635,8 +2635,8 @@ class MigrationPhases {
   TextSection phaseOverview = TextSection();
 
   /// Contains 1+× MigrationPhaseEntry.
-  @SectionId('MGPHS-ITEMS-LST')
-  @SectionIdPattern('MGPHS-ITEMS-xxx')
+  @SectionId('MGPHS-ITEM-LST')
+  @SectionIdPattern('MGPHS-ITEM-xxx')
   @Min(1)
   List<MigrationPhaseEntry> items = [];
 }
@@ -2978,8 +2978,8 @@ class StageMigrationRisks {
   TextSection riskSummary = TextSection();
 
   /// Contains 1+× StageMigrationRiskEntry.
-  @SectionId('STGMRS-ITEMS-LST')
-  @SectionIdPattern('STGMRS-ITEMS-xxx')
+  @SectionId('STGMRS-ITEM-LST')
+  @SectionIdPattern('STGMRS-ITEM-xxx')
   @Min(1)
   List<StageMigrationRiskEntry> items = [];
 }
@@ -3367,8 +3367,8 @@ class PhaseGateReviews {
   TextSection gateReviewNarrative = TextSection();
 
   /// Contains 0+× PhaseGateReviewEntry.
-  @SectionId('PGRE-ITEMS-LST')
-  @SectionIdPattern('PGRE-ITEMS-xxx')
+  @SectionId('PGRE-ITEM-LST')
+  @SectionIdPattern('PGRE-ITEM-xxx')
   List<PhaseGateReviewEntry> items = [];
 }
 
@@ -3468,8 +3468,8 @@ class PhaseGateReviewEntry {
   TextSection gateNarrative = TextSection();
 
   /// Contains 0+× ReviewCriterionEntry.
-  @SectionId('RVCRI-REVIEWCRITERIA-LST')
-  @SectionIdPattern('RVCRI-REVIEWCRITERIA-xxx')
+  @SectionId('RVCRI-REVI-LST')
+  @SectionIdPattern('RVCRI-REVI-xxx')
   List<ReviewCriterionEntry> reviewCriteria = [];
 }
 
@@ -3693,8 +3693,8 @@ class DecisionPoints {
   TextSection decisionFrameworkNarrative = TextSection();
 
   /// Contains 0+× DecisionPointEntry.
-  @SectionId('DEPOEN-ITEMS-LST')
-  @SectionIdPattern('DEPOEN-ITEMS-xxx')
+  @SectionId('DEPOEN-ITEM-LST')
+  @SectionIdPattern('DEPOEN-ITEM-xxx')
   List<DecisionPointEntry> items = [];
 }
 
@@ -3834,8 +3834,8 @@ class DecisionPointEntryResolution {
   TextSection decisionNarrative = TextSection();
 
   /// Contains 0+× DecisionOptionEntry.
-  @SectionId('DEOPEN-OPTIONS-LST')
-  @SectionIdPattern('DEOPEN-OPTIONS-xxx')
+  @SectionId('DEOPEN-OPTI-LST')
+  @SectionIdPattern('DEOPEN-OPTI-xxx')
   List<DecisionOptionEntry> options = [];
 }
 

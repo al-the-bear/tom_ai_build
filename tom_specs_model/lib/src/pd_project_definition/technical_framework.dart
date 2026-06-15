@@ -199,28 +199,28 @@ Provide a strategic overview of platform and technology selections.
   TextSection overview = TextSection();
 
   /// Target platforms (operating systems, runtimes, containers).
-  @SectionId('TGPLT-TARGETPLATFORMS-LST')
-  @SectionIdPattern('TGPLT-TARGETPLATFORMS-xxx')
+  @SectionId('TGPLT-TARG-LST')
+  @SectionIdPattern('TGPLT-TARG-xxx')
   List<TargetPlatformEntry> targetPlatforms = [];
 
   /// Programming language requirements.
-  @SectionId('PLGEN-PROGRAMMINGLANGUAGES-LST')
-  @SectionIdPattern('PLGEN-PROGRAMMINGLANGUAGES-xxx')
+  @SectionId('PLGEN-PROG-LST')
+  @SectionIdPattern('PLGEN-PROG-xxx')
   List<ProgrammingLanguageEntry> programmingLanguages = [];
 
   /// Framework and library requirements.
-  @SectionId('FWREN-FRAMEWORKS-LST')
-  @SectionIdPattern('FWREN-FRAMEWORKS-xxx')
+  @SectionId('FWREN-FRAM-LST')
+  @SectionIdPattern('FWREN-FRAM-xxx')
   List<FrameworkRequirementEntry> frameworks = [];
 
   /// Build toolchain requirements.
-  @SectionId('BTCEN-BUILDTOOLCHAIN-LST')
-  @SectionIdPattern('BTCEN-BUILDTOOLCHAIN-xxx')
+  @SectionId('BTCEN-BUIL-LST')
+  @SectionIdPattern('BTCEN-BUIL-xxx')
   List<BuildToolchainEntry> buildToolchain = [];
 
   /// Deployment target specifications.
-  @SectionId('DETAEN-DEPLOYMENTTARGETS-LST')
-  @SectionIdPattern('DETAEN-DEPLOYMENTTARGETS-xxx')
+  @SectionId('DETAEN-DEPL-LST')
+  @SectionIdPattern('DETAEN-DEPL-xxx')
   List<DeploymentTargetEntry> deploymentTargets = [];
 
   /// Dependency management requirements.
@@ -1041,16 +1041,16 @@ Provide the architectural vision and primary style selection rationale.
   ArchitectureOverview overview = ArchitectureOverview();
 
   /// Architecture principles guiding design decisions.
-  @SectionId('ARPR-PRINCIPLES-LST')
-  @SectionIdPattern('ARPR-PRINCIPLES-xxx')
+  @SectionId('ARPR-PRIN-LST')
+  @SectionIdPattern('ARPR-PRIN-xxx')
   List<ArchitecturePrincipleEntry> principles = [];
 
   /// System component organization and boundaries.
   ComponentOrganization componentOrganization = ComponentOrganization();
 
   /// Component/service catalog.
-  @SectionId('ARCM-COMPONENTS-LST')
-  @SectionIdPattern('ARCM-COMPONENTS-xxx')
+  @SectionId('ARCM-COMP-LST')
+  @SectionIdPattern('ARCM-COMP-xxx')
   List<ArchitectureComponentEntry> components = [];
 
   /// Communication patterns between components.
@@ -1069,8 +1069,8 @@ Provide the architectural vision and primary style selection rationale.
   DeploymentTopology deploymentTopology = DeploymentTopology();
 
   /// Architecture decision records.
-  @SectionId('ARDE-DECISIONRECORDS-LST')
-  @SectionIdPattern('ARDE-DECISIONRECORDS-xxx')
+  @SectionId('ARDE-DECI-LST')
+  @SectionIdPattern('ARDE-DECI-xxx')
   List<ArchitectureDecisionRecord> decisionRecords = [];
 }
 
@@ -2061,23 +2061,23 @@ Provide an overview of the design patterns and standards approach.
   TextSection overview = TextSection();
 
   /// Required design patterns catalog.
-  @SectionId('DSPT-DESIGNPATTERNS-LST')
-  @SectionIdPattern('DSPT-DESIGNPATTERNS-xxx')
+  @SectionId('DSPT-DESI-LST')
+  @SectionIdPattern('DSPT-DESI-xxx')
   List<DesignPatternEntry> designPatterns = [];
 
   /// Coding standards and style guidelines.
-  @SectionId('COSTEN-CODINGSTANDARDS-LST')
-  @SectionIdPattern('COSTEN-CODINGSTANDARDS-xxx')
+  @SectionId('COSTEN-CODI-LST')
+  @SectionIdPattern('COSTEN-CODI-xxx')
   List<CodingStandardEntry> codingStandards = [];
 
   /// Development conventions and best practices.
-  @SectionId('DECOEN-DEVELOPMENTCONVENTIONS-LST')
-  @SectionIdPattern('DECOEN-DEVELOPMENTCONVENTIONS-xxx')
+  @SectionId('DECOEN-DEVE-LST')
+  @SectionIdPattern('DECOEN-DEVE-xxx')
   List<DevelopmentConventionEntry> developmentConventions = [];
 
   /// Industry standards compliance requirements.
-  @SectionId('INSTEN-INDUSTRYSTANDARDS-LST')
-  @SectionIdPattern('INSTEN-INDUSTRYSTANDARDS-xxx')
+  @SectionId('INSTEN-INDU-LST')
+  @SectionIdPattern('INSTEN-INDU-xxx')
   List<IndustryStandardEntry> industryStandards = [];
 
   /// Code quality metrics and thresholds.
@@ -3003,29 +3003,29 @@ Provide an overview of the layering and modularization strategy.
   TextSection overview = TextSection();
 
   /// Software layer definitions.
-  @SectionId('SOLAEN-SOFTWARELAYERS-LST')
-  @SectionIdPattern('SOLAEN-SOFTWARELAYERS-xxx')
+  @SectionId('SOLAEN-SOFT-LST')
+  @SectionIdPattern('SOLAEN-SOFT-xxx')
   List<SoftwareLayerEntry> softwareLayers = [];
 
   /// Layer communication rules and constraints.
   LayerCommunicationRules layerCommunicationRules = LayerCommunicationRules();
 
   /// Bounded contexts (DDD) definitions.
-  @SectionId('BOCOEN-BOUNDEDCONTEXTS-LST')
-  @SectionIdPattern('BOCOEN-BOUNDEDCONTEXTS-xxx')
+  @SectionId('BOCOEN-BOUN-LST')
+  @SectionIdPattern('BOCOEN-BOUN-xxx')
   List<BoundedContextEntry> boundedContexts = [];
 
   /// Package organization and structure.
   PackageOrganization packageOrganization = PackageOrganization();
 
   /// Module catalog with dependency information.
-  @SectionId('MOEN1-MODULES-LST')
-  @SectionIdPattern('MOEN1-MODULES-xxx')
+  @SectionId('MOEN1-MODU-LST')
+  @SectionIdPattern('MOEN1-MODU-xxx')
   List<ModuleEntry> modules = [];
 
   /// Shared libraries and common code.
-  @SectionId('SHLIB-SHAREDLIBRARIES-LST')
-  @SectionIdPattern('SHLIB-SHAREDLIBRARIES-xxx')
+  @SectionId('SHLIB-SHAR-LST')
+  @SectionIdPattern('SHLIB-SHAR-xxx')
   List<SharedLibraryEntry> sharedLibraries = [];
 
   /// Dependency injection configuration.
@@ -3036,8 +3036,8 @@ Provide an overview of the layering and modularization strategy.
   CrossCuttingConcerns crossCuttingConcerns = CrossCuttingConcerns();
 
   /// Feature module definitions (vertical slices).
-  @SectionId('FTRMOD-FEATUREMODULES-LST')
-  @SectionIdPattern('FTRMOD-FEATUREMODULES-xxx')
+  @SectionId('FTRMOD-FEAT-LST')
+  @SectionIdPattern('FTRMOD-FEAT-xxx')
   List<FeatureModuleEntry> featureModules = [];
 
   /// Module versioning and compatibility strategy.
@@ -3983,8 +3983,8 @@ Provide an overview of the development environment philosophy.
   TextSection overview = TextSection();
 
   /// IDE and editor requirements.
-  @SectionId('IDREEN-IDEREQUIREMENTS-LST')
-  @SectionIdPattern('IDREEN-IDEREQUIREMENTS-xxx')
+  @SectionId('IDREEN-IDER-LST')
+  @SectionIdPattern('IDREEN-IDER-xxx')
   List<IdeRequirementEntry> ideRequirements = [];
 
   /// Build tools and automation.
@@ -4279,8 +4279,8 @@ class CiCdPipelineConfiguration {
   String? content;
 
   /// Pipeline stages.
-  @SectionId('PISTEN-STAGES-LST')
-  @SectionIdPattern('PISTEN-STAGES-xxx')
+  @SectionId('PISTEN-STAG-LST')
+  @SectionIdPattern('PISTEN-STAG-xxx')
   List<PipelineStageEntry> stages = [];
 
   /// Build jobs.
@@ -4289,8 +4289,8 @@ class CiCdPipelineConfiguration {
   List<PipelineJobEntry> jobs = [];
 
   /// Deployment environments.
-  @SectionId('DEENEN-ENVIRONMENTS-LST')
-  @SectionIdPattern('DEENEN-ENVIRONMENTS-xxx')
+  @SectionId('DEENEN-ENVI-LST')
+  @SectionIdPattern('DEENEN-ENVI-xxx')
   List<DeploymentEnvironmentEntry> environments = [];
 }
 
@@ -5172,28 +5172,28 @@ Provide an overview of the reusability strategy and component library.
   ReusabilityPrinciples principles = ReusabilityPrinciples();
 
   /// Shared component library catalog.
-  @SectionId('SHLCP-SHAREDLIBRARIES-LST')
-  @SectionIdPattern('SHLCP-SHAREDLIBRARIES-xxx')
+  @SectionId('SHLCP-SHAR-LST')
+  @SectionIdPattern('SHLCP-SHAR-xxx')
   List<SharedLibraryComponentEntry> sharedLibraries = [];
 
   /// UI component library entries.
-  @SectionId('RUICMP-UICOMPONENTS-LST')
-  @SectionIdPattern('RUICMP-UICOMPONENTS-xxx')
+  @SectionId('RUICMP-UICO-LST')
+  @SectionIdPattern('RUICMP-UICO-xxx')
     List<ReusableUiComponentEntry> uiComponents = [];
 
   /// Business logic components.
-  @SectionId('BUCOEN-BUSINESSCOMPONENTS-LST')
-  @SectionIdPattern('BUCOEN-BUSINESSCOMPONENTS-xxx')
+  @SectionId('BUCOEN-BUSI-LST')
+  @SectionIdPattern('BUCOEN-BUSI-xxx')
   List<BusinessComponentEntry> businessComponents = [];
 
   /// Infrastructure components.
-  @SectionId('INCOEN-INFRASTRUCTURECOMPONENTS-LST')
-  @SectionIdPattern('INCOEN-INFRASTRUCTURECOMPONENTS-xxx')
+  @SectionId('INCOEN-INFR-LST')
+  @SectionIdPattern('INCOEN-INFR-xxx')
   List<InfrastructureComponentEntry> infrastructureComponents = [];
 
   /// Third-party frameworks and libraries.
-  @SectionId('THPALI-THIRDPARTYLIBRARIES-LST')
-  @SectionIdPattern('THPALI-THIRDPARTYLIBRARIES-xxx')
+  @SectionId('THPALI-THIR-LST')
+  @SectionIdPattern('THPALI-THIR-xxx')
   List<ThirdPartyLibraryEntry> thirdPartyLibraries = [];
 
   /// Component governance and maintenance.
@@ -6081,43 +6081,43 @@ Provide an overview of compatibility requirements and testing strategy.
   TextSection overview = TextSection();
 
   /// Operating system compatibility requirements.
-  @SectionId('OSCOEN-OSCOMPATIBILITY-LST')
-  @SectionIdPattern('OSCOEN-OSCOMPATIBILITY-xxx')
+  @SectionId('OSCOEN-OSCO-LST')
+  @SectionIdPattern('OSCOEN-OSCO-xxx')
   List<OsCompatibilityEntry> osCompatibility = [];
 
   /// Browser compatibility requirements.
-  @SectionId('BRCOEN-BROWSERCOMPATIBILITY-LST')
-  @SectionIdPattern('BRCOEN-BROWSERCOMPATIBILITY-xxx')
+  @SectionId('BRCOEN-BROW-LST')
+  @SectionIdPattern('BRCOEN-BROW-xxx')
   List<BrowserCompatibilityEntry> browserCompatibility = [];
 
   /// Database compatibility requirements.
-  @SectionId('DACOEN-DATABASECOMPATIBILITY-LST')
-  @SectionIdPattern('DACOEN-DATABASECOMPATIBILITY-xxx')
+  @SectionId('DACOEN-DATA-LST')
+  @SectionIdPattern('DACOEN-DATA-xxx')
   List<DatabaseCompatibilityEntry> databaseCompatibility = [];
 
   /// Enterprise system compatibility requirements.
-  @SectionId('ESCE-ENTERPRISESYSTEMCOMPATIBILITY-LST')
-  @SectionIdPattern('ESCE-ENTERPRISESYSTEMCOMPATIBILITY-xxx')
+  @SectionId('ESCE-ENTE-LST')
+  @SectionIdPattern('ESCE-ENTE-xxx')
   List<EnterpriseSystemCompatibilityEntry> enterpriseSystemCompatibility = [];
 
   /// API and protocol compatibility requirements.
-  @SectionId('APCP-APICOMPATIBILITY-LST')
-  @SectionIdPattern('APCP-APICOMPATIBILITY-xxx')
+  @SectionId('APCP-APIC-LST')
+  @SectionIdPattern('APCP-APIC-xxx')
   List<ApiCompatibilityEntry> apiCompatibility = [];
 
   /// Legacy system compatibility requirements.
-  @SectionId('LECOEN-LEGACYCOMPATIBILITY-LST')
-  @SectionIdPattern('LECOEN-LEGACYCOMPATIBILITY-xxx')
+  @SectionId('LECOEN-LEGA-LST')
+  @SectionIdPattern('LECOEN-LEGA-xxx')
   List<LegacyCompatibilityEntry> legacyCompatibility = [];
 
   /// Mobile device compatibility requirements.
-  @SectionId('MOCOEN-MOBILECOMPATIBILITY-LST')
-  @SectionIdPattern('MOCOEN-MOBILECOMPATIBILITY-xxx')
+  @SectionId('MOCOEN-MOBI-LST')
+  @SectionIdPattern('MOCOEN-MOBI-xxx')
   List<MobileCompatibilityEntry> mobileCompatibility = [];
 
   /// Third-party software compatibility requirements.
-  @SectionId('TPCE-THIRDPARTYCOMPATIBILITY-LST')
-  @SectionIdPattern('TPCE-THIRDPARTYCOMPATIBILITY-xxx')
+  @SectionId('TPCE-THIR-LST')
+  @SectionIdPattern('TPCE-THIR-xxx')
   List<ThirdPartyCompatibilityEntry> thirdPartyCompatibility = [];
 
   /// Data format and encoding compatibility.
@@ -7141,38 +7141,38 @@ Provide an overview of standards compliance strategy and roadmap.
   TextSection overview = TextSection();
 
   /// IT standards compliance (ISO, IEEE, NIST).
-  @SectionId('ISCE-ITSTANDARDS-LST')
-  @SectionIdPattern('ISCE-ITSTANDARDS-xxx')
+  @SectionId('ISCE-ITST-LST')
+  @SectionIdPattern('ISCE-ITST-xxx')
   List<ItStandardComplianceEntry> itStandards = [];
 
   /// Industry protocols compliance.
-  @SectionId('IPCE-INDUSTRYPROTOCOLS-LST')
-  @SectionIdPattern('IPCE-INDUSTRYPROTOCOLS-xxx')
+  @SectionId('IPCE-INDU-LST')
+  @SectionIdPattern('IPCE-INDU-xxx')
   List<IndustryProtocolComplianceEntry> industryProtocols = [];
 
   /// Interface specification standards.
-  @SectionId('INSPEN-INTERFACESPECIFICATIONS-LST')
-  @SectionIdPattern('INSPEN-INTERFACESPECIFICATIONS-xxx')
+  @SectionId('INSPEN-INTE-LST')
+  @SectionIdPattern('INSPEN-INTE-xxx')
   List<InterfaceSpecificationEntry> interfaceSpecifications = [];
 
   /// Regulatory compliance requirements.
-  @SectionId('RECOEN-REGULATORYCOMPLIANCE-LST')
-  @SectionIdPattern('RECOEN-REGULATORYCOMPLIANCE-xxx')
+  @SectionId('RECOEN-REGU-LST')
+  @SectionIdPattern('RECOEN-REGU-xxx')
   List<RegulatoryComplianceEntry> regulatoryCompliance = [];
 
   /// Security standards compliance.
-  @SectionId('SSCE-SECURITYSTANDARDS-LST')
-  @SectionIdPattern('SSCE-SECURITYSTANDARDS-xxx')
+  @SectionId('SSCE-SECU-LST')
+  @SectionIdPattern('SSCE-SECU-xxx')
   List<SecurityStandardComplianceEntry> securityStandards = [];
 
   /// Accessibility standards compliance.
-  @SectionId('ACCSTD-ACCESSIBILITYSTANDARDS-LST')
-  @SectionIdPattern('ACCSTD-ACCESSIBILITYSTANDARDS-xxx')
+  @SectionId('ACCSTD-ACCE-LST')
+  @SectionIdPattern('ACCSTD-ACCE-xxx')
   List<AccessibilityStandardEntry> accessibilityStandards = [];
 
   /// Quality management standards.
-  @SectionId('QLSTD-QUALITYSTANDARDS-LST')
-  @SectionIdPattern('QLSTD-QUALITYSTANDARDS-xxx')
+  @SectionId('QLSTD-QUAL-LST')
+  @SectionIdPattern('QLSTD-QUAL-xxx')
   List<QualityStandardEntry> qualityStandards = [];
 
   /// Documentation standards.
@@ -8332,13 +8332,13 @@ Provide an overview of server infrastructure strategy.
   TextSection overview = TextSection();
 
   /// Server environment tiers (dev, staging, production, DR).
-  @SectionId('SEENEN-ENVIRONMENTS-LST')
-  @SectionIdPattern('SEENEN-ENVIRONMENTS-xxx')
+  @SectionId('SEENEN-ENVI-LST')
+  @SectionIdPattern('SEENEN-ENVI-xxx')
   List<ServerEnvironmentEntry> environments = [];
 
   /// Server role definitions (app server, db server, web server).
-  @SectionId('SEROEN-SERVERROLES-LST')
-  @SectionIdPattern('SEROEN-SERVERROLES-xxx')
+  @SectionId('SEROEN-SERV-LST')
+  @SectionIdPattern('SEROEN-SERV-xxx')
   List<ServerRoleEntry> serverRoles = [];
 
   /// Compute resource requirements.
@@ -9272,18 +9272,18 @@ Provide an overview of client requirements and support strategy.
   TextSection overview = TextSection();
 
   /// Web browser requirements.
-  @SectionId('BRREEN-BROWSERREQUIREMENTS-LST')
-  @SectionIdPattern('BRREEN-BROWSERREQUIREMENTS-xxx')
+  @SectionId('BRREEN-BROW-LST')
+  @SectionIdPattern('BRREEN-BROW-xxx')
   List<BrowserRequirementEntry> browserRequirements = [];
 
   /// Desktop operating system requirements.
-  @SectionId('DORE1-DESKTOPOSREQUIREMENTS-LST')
-  @SectionIdPattern('DORE1-DESKTOPOSREQUIREMENTS-xxx')
+  @SectionId('DORE1-DESK-LST')
+  @SectionIdPattern('DORE1-DESK-xxx')
   List<DesktopOsRequirementEntry> desktopOsRequirements = [];
 
   /// Mobile device requirements.
-  @SectionId('MDRE-MOBILEREQUIREMENTS-LST')
-  @SectionIdPattern('MDRE-MOBILEREQUIREMENTS-xxx')
+  @SectionId('MDRE-MOBI-LST')
+  @SectionIdPattern('MDRE-MOBI-xxx')
   List<MobileDeviceRequirementEntry> mobileRequirements = [];
 
   /// Display and screen requirements.
@@ -10267,8 +10267,8 @@ Provide an overview of network strategy and architecture.
       NetworkAvailabilityRequirements();
 
   /// VPN requirements.
-  @SectionId('VPREEN-VPNREQUIREMENTS-LST')
-  @SectionIdPattern('VPREEN-VPNREQUIREMENTS-xxx')
+  @SectionId('VPREEN-VPNR-LST')
+  @SectionIdPattern('VPREEN-VPNR-xxx')
   List<VpnRequirementEntry> vpnRequirements = [];
 
   /// Firewall rules and policies.
@@ -11381,8 +11381,8 @@ Provide an overview of backup and recovery strategy.
   BackupDataClassification dataClassification = BackupDataClassification();
 
   /// Backup policies by data type.
-  @SectionId('BAPOEN-BACKUPPOLICIES-LST')
-  @SectionIdPattern('BAPOEN-BACKUPPOLICIES-xxx')
+  @SectionId('BAPOEN-BACK-LST')
+  @SectionIdPattern('BAPOEN-BACK-xxx')
   List<BackupPolicyEntry> backupPolicies = [];
 
   /// RPO and RTO requirements.
@@ -12941,8 +12941,8 @@ Provide an overview of monitoring and observability strategy.
   AlertingRequirements alerting = AlertingRequirements();
 
   /// Alert definitions.
-  @SectionId('ALDEEN-ALERTDEFINITIONS-LST')
-  @SectionIdPattern('ALDEEN-ALERTDEFINITIONS-xxx')
+  @SectionId('ALDEEN-ALER-LST')
+  @SectionIdPattern('ALDEEN-ALER-xxx')
   List<AlertDefinitionEntry> alertDefinitions = [];
 
   /// Dashboard requirements.
@@ -13886,8 +13886,8 @@ Provide an overview of maintenance strategy and policies.
       ScheduledMaintenancePolicy();
 
   /// Maintenance window definitions.
-  @SectionId('MAWIEN-MAINTENANCEWINDOWS-LST')
-  @SectionIdPattern('MAWIEN-MAINTENANCEWINDOWS-xxx')
+  @SectionId('MAWIEN-MAIN-LST')
+  @SectionIdPattern('MAWIEN-MAIN-xxx')
   List<MaintenanceWindowEntry> maintenanceWindows = [];
 
   /// Emergency maintenance procedures.
@@ -14489,8 +14489,8 @@ Provide an overview of protocol and standards approach.
   TextSection overview = TextSection();
 
   /// Protocol catalog — contains 0+× Protocol.
-  @SectionId('PREN-PROTOCOLS-LST')
-  @SectionIdPattern('PREN-PROTOCOLS-xxx')
+  @SectionId('PREN-PROT-LST')
+  @SectionIdPattern('PREN-PROT-xxx')
   List<ProtocolEntry> protocols = [];
 
   /// TLS/SSL requirements.
@@ -15126,8 +15126,8 @@ Provide an overview of external connectivity landscape.
   TextSection overview = TextSection();
 
   /// External partner connections — contains 0+× ExternalPartnerConnection.
-  @SectionId('EPCE-PARTNERCONNECTIONS-LST')
-  @SectionIdPattern('EPCE-PARTNERCONNECTIONS-xxx')
+  @SectionId('EPCE-PART-LST')
+  @SectionIdPattern('EPCE-PART-xxx')
   List<ExternalPartnerConnectionEntry> partnerConnections = [];
 
   /// Cloud service integrations.
@@ -16409,8 +16409,8 @@ class AlertingConfiguration {
   AlertNotificationChannels notificationChannels = AlertNotificationChannels();
 
   /// Alert rules catalog.
-  @SectionId('ALRUEN-ALERTRULES-LST')
-  @SectionIdPattern('ALRUEN-ALERTRULES-xxx')
+  @SectionId('ALRUEN-ALER-LST')
+  @SectionIdPattern('ALRUEN-ALER-xxx')
   List<AlertRuleEntry> alertRules = [];
 
   /// Escalation policies.
@@ -16770,8 +16770,8 @@ class MetricsAndObservability {
   DistributedTracingSpec distributedTracing = DistributedTracingSpec();
 
   /// Custom metrics catalog.
-  @SectionId('CUMEEN-CUSTOMMETRICS-LST')
-  @SectionIdPattern('CUMEEN-CUSTOMMETRICS-xxx')
+  @SectionId('CUMEEN-CUST-LST')
+  @SectionIdPattern('CUMEEN-CUST-xxx')
   List<CustomMetricEntry> customMetrics = [];
 }
 
@@ -17132,8 +17132,8 @@ class MonitoringDashboards {
   TextSection overviewNarrative = TextSection();
 
   /// Dashboard catalog.
-  @SectionId('DAEN-DASHBOARDS-LST')
-  @SectionIdPattern('DAEN-DASHBOARDS-xxx')
+  @SectionId('DAEN-DASH-LST')
+  @SectionIdPattern('DAEN-DASH-xxx')
   List<DashboardEntry> dashboards = [];
 
   /// Dashboard template specifications.
@@ -18581,8 +18581,8 @@ Provide an overview of IT security standards approach.
   TextSection overview = TextSection();
 
   /// Security standards and frameworks — contains 0+× SecurityStandard.
-  @SectionId('SESTEN-STANDARDS-LST')
-  @SectionIdPattern('SESTEN-STANDARDS-xxx')
+  @SectionId('SESTEN-STAN-LST')
+  @SectionIdPattern('SESTEN-STAN-xxx')
   List<SecurityStandardEntry> standards = [];
 
   /// Application security requirements (OWASP).
@@ -19959,8 +19959,8 @@ Provide an overview of security audit strategy.
       SecurityTestingAutomation();
 
   /// Individual security audit requirement entries — contains 0+× SecurityAudit.
-  @SectionId('SEAUEN-AUDITENTRIES-LST')
-  @SectionIdPattern('SEAUEN-AUDITENTRIES-xxx')
+  @SectionId('SEAUEN-AUDI-LST')
+  @SectionIdPattern('SEAUEN-AUDI-xxx')
   List<SecurityAuditEntry> auditEntries = [];
 }
 

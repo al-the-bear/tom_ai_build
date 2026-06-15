@@ -208,8 +208,8 @@ class ProcessDesignPrinciples {
   DesignPrinciplesOverview overview = DesignPrinciplesOverview();
 
   /// Contains 0+× Design Principle.
-  @SectionId('PDPEN-PRINCIPLES-LST')
-  @SectionIdPattern('PDPEN-PRINCIPLES-xxx')
+  @SectionId('PDPEN-PRIN-LST')
+  @SectionIdPattern('PDPEN-PRIN-xxx')
   List<ProcessDesignPrincipleEntry> principles = [];
 }
 
@@ -264,8 +264,8 @@ class ProcessCatalog {
   ProcessClassification classification = ProcessClassification();
 
   /// Contains 1+× Business Process.
-  @SectionId('BPREN-PROCESSES-LST')
-  @SectionIdPattern('BPREN-PROCESSES-xxx')
+  @SectionId('BPREN-PROC-LST')
+  @SectionIdPattern('BPREN-PROC-xxx')
   @Min(1)
   List<BusinessProcessEntry> processes = [];
 }
@@ -466,13 +466,13 @@ class ProcessTriggers {
   TriggerOverview overview = TriggerOverview();
 
   /// Contains 0+× process trigger.
-  @SectionId('PTREN-TRIGGERS-LST')
-  @SectionIdPattern('PTREN-TRIGGERS-xxx')
+  @SectionId('PTREN-TRIG-LST')
+  @SectionIdPattern('PTREN-TRIG-xxx')
   List<ProcessTriggerEntry> triggers = [];
 
   /// Process end events (outcomes).
-  @SectionId('PEEVT-ENDEVENTS-LST')
-  @SectionIdPattern('PEEVT-ENDEVENTS-xxx')
+  @SectionId('PEEVT-ENDE-LST')
+  @SectionIdPattern('PEEVT-ENDE-xxx')
   List<ProcessEndEventEntry> endEvents = [];
 }
 
@@ -537,13 +537,13 @@ class ProcessInputsOutputs {
   InputsOutputsOverview overview = InputsOutputsOverview();
 
   /// Contains 0+× process input.
-  @SectionId('PCINP-INPUTS-LST')
-  @SectionIdPattern('PCINP-INPUTS-xxx')
+  @SectionId('PCINP-INPU-LST')
+  @SectionIdPattern('PCINP-INPU-xxx')
   List<ProcessInputEntry> inputs = [];
 
   /// Contains 0+× process output.
-  @SectionId('PCOUT-OUTPUTS-LST')
-  @SectionIdPattern('PCOUT-OUTPUTS-xxx')
+  @SectionId('PCOUT-OUTP-LST')
+  @SectionIdPattern('PCOUT-OUTP-xxx')
   List<ProcessOutputEntry> outputs = [];
 }
 
@@ -611,8 +611,8 @@ class ProcessRoles {
   ProcessRolesOverview overview = ProcessRolesOverview();
 
   /// Contains 0+× process role.
-  @SectionId('PCROL-ROLES-LST')
-  @SectionIdPattern('PCROL-ROLES-xxx')
+  @SectionId('PCROL-ROLE-LST')
+  @SectionIdPattern('PCROL-ROLE-xxx')
   List<ProcessRoleEntry> roles = [];
 }
 
@@ -788,8 +788,8 @@ class ProcessControls {
   ProcessControlsOverview overview = ProcessControlsOverview();
 
   /// Contains 0+× process control.
-  @SectionId('PCCTL-CONTROLS-LST')
-  @SectionIdPattern('PCCTL-CONTROLS-xxx')
+  @SectionId('PCCTL-CONT-LST')
+  @SectionIdPattern('PCCTL-CONT-xxx')
   List<ProcessControlEntry> controls = [];
 }
 
@@ -919,8 +919,8 @@ class ProcessExceptions {
   ProcessExceptionsOverview overview = ProcessExceptionsOverview();
 
   /// Contains 0+× exception scenario.
-  @SectionId('PCEXC-EXCEPTIONS-LST')
-  @SectionIdPattern('PCEXC-EXCEPTIONS-xxx')
+  @SectionId('PCEXC-EXCE-LST')
+  @SectionIdPattern('PCEXC-EXCE-xxx')
   List<ProcessExceptionEntry> exceptions = [];
 }
 
@@ -1033,8 +1033,8 @@ class ProcessImprovementSummary {
   ImprovementOverview overview = ImprovementOverview();
 
   /// Contains 0+× improvement item.
-  @SectionId('PCIMV-IMPROVEMENTS-LST')
-  @SectionIdPattern('PCIMV-IMPROVEMENTS-xxx')
+  @SectionId('PCIMV-IMPR-LST')
+  @SectionIdPattern('PCIMV-IMPR-xxx')
   List<ProcessImprovementEntry> improvements = [];
 
   /// Business case summary.
@@ -1143,8 +1143,8 @@ design and identifying optimization opportunities.
   String? content;
 
   /// Contains 0+× process relationship.
-  @SectionId('PCRLT-RELATIONSHIPS-LST')
-  @SectionIdPattern('PCRLT-RELATIONSHIPS-xxx')
+  @SectionId('PCRLT-RELA-LST')
+  @SectionIdPattern('PCRLT-RELA-xxx')
   List<ProcessRelationshipEntry> relationships = [];
 }
 
@@ -1424,8 +1424,8 @@ modeling conventions with Cockburn-style goal and scope annotations.
   ActorOverviewNarrative overview = ActorOverviewNarrative();
 
   /// Contains 1+× Actor.
-  @SectionId('ACEN-ACTORS-LST')
-  @SectionIdPattern('ACEN-ACTORS-xxx')
+  @SectionId('ACEN-ACTO-LST')
+  @SectionIdPattern('ACEN-ACTO-xxx')
   @Min(1)
   List<ActorEntry> actors = [];
 
@@ -1698,8 +1698,8 @@ following Cockburn's fully dressed use case template.
   InteractionCatalogOverview overview = InteractionCatalogOverview();
 
   /// Contains 1+× Interaction.
-  @SectionId('INEN-INTERACTIONS-LST')
-  @SectionIdPattern('INEN-INTERACTIONS-xxx')
+  @SectionId('INEN-INTE-LST')
+  @SectionIdPattern('INEN-INTE-xxx')
   @Min(1)
   List<InteractionEntry> interactions = [];
 
@@ -1903,8 +1903,8 @@ class MainSuccessScenario {
   String? content;
 
   /// Main scenario steps — contains 1+× Scenario Step.
-  @SectionId('MNSST-STEPS-LST')
-  @SectionIdPattern('MNSST-STEPS-xxx')
+  @SectionId('MNSST-STEP-LST')
+  @SectionIdPattern('MNSST-STEP-xxx')
   @Min(1)
   List<MainScenarioStepEntry> steps = [];
 }
@@ -1939,8 +1939,8 @@ class UseCaseExtensions {
   String? content;
 
   /// Extension entries — contains 0+× Extension.
-  @SectionId('EXTEN-EXTENSIONS-LST')
-  @SectionIdPattern('EXTEN-EXTENSIONS-xxx')
+  @SectionId('EXTEN-EXTE-LST')
+  @SectionIdPattern('EXTEN-EXTE-xxx')
   List<ExtensionEntry> extensions = [];
 }
 
@@ -1964,8 +1964,8 @@ class ExtensionEntry {
   String? content;
 
   /// Extension steps — contains 0+× Scenario Step.
-  @SectionId('EXTST-STEPS-LST')
-  @SectionIdPattern('EXTST-STEPS-xxx')
+  @SectionId('EXTST-STEP-LST')
+  @SectionIdPattern('EXTST-STEP-xxx')
   List<ExtensionStepEntry> steps = [];
 }
 
@@ -2142,8 +2142,8 @@ and places their first order."
   ScenarioOverview overview = ScenarioOverview();
 
   /// Contains 1+× Scenario.
-  @SectionId('SCNRY-SCENARIOS-LST')
-  @SectionIdPattern('SCNRY-SCENARIOS-xxx')
+  @SectionId('SCNRY-SCEN-LST')
+  @SectionIdPattern('SCNRY-SCEN-xxx')
   @Min(1)
   List<ScenarioEntry> scenarios = [];
 }
@@ -2177,14 +2177,14 @@ class ScenarioEntry {
   ScenarioContext context = ScenarioContext();
 
   /// Contains 1+× Scenario Step.
-  @SectionId('SCNST-STEPS-LST')
-  @SectionIdPattern('SCNST-STEPS-xxx')
+  @SectionId('SCNST-STEP-LST')
+  @SectionIdPattern('SCNST-STEP-xxx')
   @Min(1)
   List<ScenarioStepEntry> steps = [];
 
   /// Alternative flows — contains 0+× Alternative Flow.
-  @SectionId('ALFL-ALTERNATIVEFLOWS-LST')
-  @SectionIdPattern('ALFL-ALTERNATIVEFLOWS-xxx')
+  @SectionId('ALFL-ALTE-LST')
+  @SectionIdPattern('ALFL-ALTE-xxx')
   List<AlternativeFlowEntry> alternativeFlows = [];
 
   /// Scenario data.
@@ -2294,8 +2294,8 @@ class AlternativeFlowEntry {
   String? content;
 
   /// Contains 0+× Scenario Step.
-  @SectionId('ALST-STEPS-LST')
-  @SectionIdPattern('ALST-STEPS-xxx')
+  @SectionId('ALST-STEP-LST')
+  @SectionIdPattern('ALST-STEP-xxx')
   List<AlternativeStepEntry> steps = [];
 }
 

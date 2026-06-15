@@ -189,8 +189,8 @@ that all stakeholders can refer to.
   TaskArea taskArea = TaskArea();
 
   /// 4.1.4. User Categories [PD00-SYO-SYD-USR] — contains 1+× User Category.
-  @SectionId('USCA-USERCATEGORIES-LST')
-  @SectionIdPattern('USCA-USERCATEGORIES-xxx')
+  @SectionId('USCA-USER-LST')
+  @SectionIdPattern('USCA-USER-xxx')
   @Min(1)
   List<UserCategoryEntry> userCategories = [];
 
@@ -382,16 +382,16 @@ class StakeholdersAndBeneficiaries {
   String? content;
 
   /// Primary stakeholders — contains 1+× StakeholderEntry.
-  @SectionId('STKNT-PRIMARYSTAKEHOLDERS-LST')
-  @SectionIdPattern('STKNT-PRIMARYSTAKEHOLDERS-xxx')
+  @SectionId('STKNT-PRIM-LST')
+  @SectionIdPattern('STKNT-PRIM-xxx')
   @Min(1)
   @ContentHelp('Add one entry per primary stakeholder or stakeholder group. '
       'Primary stakeholders are those directly affected by the system.')
   List<StakeholderEntry> primaryStakeholders = [];
 
   /// Secondary stakeholders — contains 0+× StakeholderEntry.
-  @SectionId('STKNT-SECONDARYSTAKEHOLDERS-LST')
-  @SectionIdPattern('STKNT-SECONDARYSTAKEHOLDERS-xxx')
+  @SectionId('STKNT-SECO-LST')
+  @SectionIdPattern('STKNT-SECO-xxx')
   @ContentHelp('Secondary stakeholders are indirectly affected by the system.')
   List<StakeholderEntry> secondaryStakeholders = [];
 }
@@ -560,23 +560,23 @@ class ScopeBoundaries {
   String? content;
 
   /// In-Scope Items [PD00-SYO-SYD-PUR-SCO-IN] — contains 1+× ScopeItem.
-  @SectionId('SCITE-INSCOPEITEMS-LST')
-  @SectionIdPattern('SCITE-INSCOPEITEMS-xxx')
+  @SectionId('SCITE-INSC-LST')
+  @SectionIdPattern('SCITE-INSC-xxx')
   @Min(1)
   @ContentHelp('List all items that are explicitly in scope for this project. '
       'Be specific about features, processes, user groups, and systems.')
   List<ScopeItemEntry> inScopeItems = [];
 
   /// Out-of-Scope Items [PD00-SYO-SYD-PUR-SCO-OUT] — contains 0+× ScopeItem.
-  @SectionId('SCITE-OUTOFSCOPEITEMS-LST')
-  @SectionIdPattern('SCITE-OUTOFSCOPEITEMS-xxx')
+  @SectionId('SCITE-OUTO-LST')
+  @SectionIdPattern('SCITE-OUTO-xxx')
   @ContentHelp('List items explicitly excluded. This is as important as '
       'in-scope items to prevent misunderstandings and scope creep.')
   List<ScopeItemEntry> outOfScopeItems = [];
 
   /// Deferred Items [PD00-SYO-SYD-PUR-SCO-DEF] — contains 0+× ScopeItem.
-  @SectionId('DFSCP-DEFERREDITEMS-LST')
-  @SectionIdPattern('DFSCP-DEFERREDITEMS-xxx')
+  @SectionId('DFSCP-DEFE-LST')
+  @SectionIdPattern('DFSCP-DEFE-xxx')
   @ContentHelp('Items deferred to future phases. Include tentative timing.')
   List<DeferredScopeItemEntry> deferredItems = [];
 
@@ -732,8 +732,8 @@ class ExternalActors {
   String? content;
 
   /// Actor entries — contains 1+× ExternalActorEntry.
-  @SectionId('EAE-ACTORS-LST')
-  @SectionIdPattern('EAE-ACTORS-xxx')
+  @SectionId('EAE-ACTO-LST')
+  @SectionIdPattern('EAE-ACTO-xxx')
   @Min(1)
   @ContentHelp('Add one entry per external actor or actor category '
       'that interacts with the system.')
@@ -809,8 +809,8 @@ class ExternalSystemsContext {
   String? content;
 
   /// External system entries — contains 0+× ExternalSystemContextEntry.
-  @SectionId('ESCE1-SYSTEMS-LST')
-  @SectionIdPattern('ESCE1-SYSTEMS-xxx')
+  @SectionId('ESCE1-SYST-LST')
+  @SectionIdPattern('ESCE1-SYST-xxx')
   @ContentHelp('Add one entry per external system that this system '
       'integrates with.')
   List<ExternalSystemContextEntry> systems = [];
@@ -905,8 +905,8 @@ class TrustBoundaries {
   String? content;
 
   /// Trust boundary entries — contains 0+× TrustBoundaryEntry.
-  @SectionId('TRBN-BOUNDARIES-LST')
-  @SectionIdPattern('TRBN-BOUNDARIES-xxx')
+  @SectionId('TRBN-BOUN-LST')
+  @SectionIdPattern('TRBN-BOUN-xxx')
   @ContentHelp('Add one entry per trust boundary or security zone.')
   List<TrustBoundaryEntry> boundaries = [];
 }
@@ -943,8 +943,8 @@ class OrganizationalContext {
   String? content;
 
   /// Organizational unit entries — contains 0+× OrganizationalUnitContextEntry.
-  @SectionId('OUCE-ORGANIZATIONALUNITS-LST')
-  @SectionIdPattern('OUCE-ORGANIZATIONALUNITS-xxx')
+  @SectionId('OUCE-ORGA-LST')
+  @SectionIdPattern('OUCE-ORGA-xxx')
   @ContentHelp('Add one entry per organizational unit that uses or '
       'is affected by the system.')
   List<OrganizationalUnitContextEntry> organizationalUnits = [];
@@ -1024,8 +1024,8 @@ class RegulatoryContext {
   String? content;
 
   /// Applicable regulations — contains 0+× ApplicableRegulationEntry.
-  @SectionId('ARE-REGULATIONS-LST')
-  @SectionIdPattern('ARE-REGULATIONS-xxx')
+  @SectionId('ARE-REGU-LST')
+  @SectionIdPattern('ARE-REGU-xxx')
   @ContentHelp('Add one entry per applicable regulation or compliance '
       'requirement.')
   List<ApplicableRegulationEntry> regulations = [];
@@ -1155,8 +1155,8 @@ class DomainVocabulary {
   String? content;
 
   /// Vocabulary entries — contains 1+× DomainTermEntry.
-  @SectionId('DTE-TERMS-LST')
-  @SectionIdPattern('DTE-TERMS-xxx')
+  @SectionId('DTE-TERM-LST')
+  @SectionIdPattern('DTE-TERM-xxx')
   @Min(1)
   @ContentHelp('Add one entry per domain term. Include all business-specific '
       'terms that may be unfamiliar or have domain-specific meanings.')
@@ -1203,8 +1203,8 @@ class KeyConcepts {
   String? conceptualModelDiagram;
 
   /// Key concept entries — contains 1+× KeyConceptEntry.
-  @SectionId('KECON-CONCEPTS-LST')
-  @SectionIdPattern('KECON-CONCEPTS-xxx')
+  @SectionId('KECON-CONC-LST')
+  @SectionIdPattern('KECON-CONC-xxx')
   @Min(1)
   @ContentHelp('Add one entry per key business concept or entity.')
   List<KeyConceptEntry> concepts = [];
@@ -1276,8 +1276,8 @@ class DomainBoundaries {
   String? outsideScope;
 
   /// Domain interfaces — contains 0+× DomainInterfaceEntry.
-  @SectionId('DIE-INTERFACES-LST')
-  @SectionIdPattern('DIE-INTERFACES-xxx')
+  @SectionId('DIE-INTE-LST')
+  @SectionIdPattern('DIE-INTE-xxx')
   @ContentHelp('Define interfaces to adjacent domains - how this domain '
       'communicates with and shares data with other domains.')
   List<DomainInterfaceEntry> interfaces = [];
@@ -1319,8 +1319,8 @@ class DomainBusinessRules {
   String? content;
 
   /// Business rule entries — contains 0+× BusinessRuleEntry.
-  @SectionId('DOBIRU-RULES-LST')
-  @SectionIdPattern('DOBIRU-RULES-xxx')
+  @SectionId('DOBIRU-RULE-LST')
+  @SectionIdPattern('DOBIRU-RULE-xxx')
   @ContentHelp('Add one entry per business rule. Be specific and unambiguous.')
   List<DomainBusinessRuleEntry> rules = [];
 }
@@ -1397,8 +1397,8 @@ class DomainProcesses {
   String? processOverviewDiagram;
 
   /// Domain process entries — contains 0+× DomainProcessEntry.
-  @SectionId('DOPR-PROCESSES-LST')
-  @SectionIdPattern('DOPR-PROCESSES-xxx')
+  @SectionId('DOPR-PROC-LST')
+  @SectionIdPattern('DOPR-PROC-xxx')
   @ContentHelp('Add one entry per major business process in this domain.')
   List<DomainProcessEntry> processes = [];
 }
@@ -1474,8 +1474,8 @@ class DomainEvents {
   String? content;
 
   /// Domain event entries — contains 0+× DomainEventEntry.
-  @SectionId('DOEV-EVENTS-LST')
-  @SectionIdPattern('DOEV-EVENTS-xxx')
+  @SectionId('DOEV-EVEN-LST')
+  @SectionIdPattern('DOEV-EVEN-xxx')
   @ContentHelp('Add one entry per significant business event.')
   List<DomainEventEntry> events = [];
 }
@@ -1592,8 +1592,8 @@ class AccessChannels {
   String? channelDiagram;
 
   /// Channel entries — contains 1+× InteractionChannelEntry.
-  @SectionId('ICE-CHANNELS-LST')
-  @SectionIdPattern('ICE-CHANNELS-xxx')
+  @SectionId('ICE-CHAN-LST')
+  @SectionIdPattern('ICE-CHAN-xxx')
   @Min(1)
   @ContentHelp('Add one entry per access channel. Include both primary '
       'and secondary channels.')
@@ -1773,8 +1773,8 @@ class InteractionPatterns {
   String? content;
 
   /// Pattern entries — contains 1+× InteractionPatternEntry.
-  @SectionId('INPTN-PATTERNS-LST')
-  @SectionIdPattern('INPTN-PATTERNS-xxx')
+  @SectionId('INPTN-PATT-LST')
+  @SectionIdPattern('INPTN-PATT-xxx')
   @Min(1)
   @ContentHelp('Add one entry per interaction pattern used in the system.')
   List<InteractionPatternEntry> patterns = [];
@@ -1887,8 +1887,8 @@ class AccessLevels {
   String? accessLevelDiagram;
 
   /// Access level entries — contains 1+× AccessLevelEntry.
-  @SectionId('ACLV-LEVELS-LST')
-  @SectionIdPattern('ACLV-LEVELS-xxx')
+  @SectionId('ACLV-LEVE-LST')
+  @SectionIdPattern('ACLV-LEVE-xxx')
   @Min(1)
   @ContentHelp('Define each access level in the system.')
   List<AccessLevelEntry> levels = [];
@@ -2050,15 +2050,15 @@ class NotificationModel {
   String? content;
 
   /// Notification channel entries — contains 1+× NotificationChannelEntry.
-  @SectionId('NTFCH-CHANNELS-LST')
-  @SectionIdPattern('NTFCH-CHANNELS-xxx')
+  @SectionId('NTFCH-CHAN-LST')
+  @SectionIdPattern('NTFCH-CHAN-xxx')
   @Min(1)
   @ContentHelp('Define each notification channel.')
   List<NotificationChannelEntry> channels = [];
 
   /// Notification type entries — contains 1+× NotificationTypeEntry.
-  @SectionId('NTFTY-NOTIFICATIONTYPES-LST')
-  @SectionIdPattern('NTFTY-NOTIFICATIONTYPES-xxx')
+  @SectionId('NTFTY-NOTI-LST')
+  @SectionIdPattern('NTFTY-NOTI-xxx')
   @ContentHelp('Define each notification type.')
   List<NotificationTypeEntry> notificationTypes = [];
 
@@ -2204,8 +2204,8 @@ class UserCategories {
   String? userCategoryDiagram;
 
   /// User category entries — contains 1+× UserCategoryEntry.
-  @SectionId('USCA-CATEGORIES-LST')
-  @SectionIdPattern('USCA-CATEGORIES-xxx')
+  @SectionId('USCA-CATE-LST')
+  @SectionIdPattern('USCA-CATE-xxx')
   @Min(1)
   @ContentHelp('Add one entry per distinct user category. Categories should '
       'be mutually exclusive where possible, with clear distinguishing '
@@ -2243,8 +2243,8 @@ class UserCategoryEntry {
   UserCategoryRoleEntry? role;
 
   /// 4.1.4.n.3. System Tasks [PD00-SYO-SYD-USR-nn-TSK] — contains 1+× System Task.
-  @SectionId('SYTS-SYSTEMTASKS-LST')
-  @SectionIdPattern('SYTS-SYSTEMTASKS-xxx')
+  @SectionId('SYTS-SYST-LST')
+  @SectionIdPattern('SYTS-SYST-xxx')
   @Min(1)
   List<SystemTaskEntry> systemTasks = [];
 
@@ -2502,8 +2502,8 @@ class UserAccessPermissions {
       UserAccessPermissionsGovernance();
 
   /// Permission matrix entries — contains 0+× PermissionMatrixEntry.
-  @SectionId('PRMTX-PERMISSIONMATRIX-LST')
-  @SectionIdPattern('PRMTX-PERMISSIONMATRIX-xxx')
+  @SectionId('PRMTX-PERM-LST')
+  @SectionIdPattern('PRMTX-PERM-xxx')
   @ContentHelp('Define specific permission entries for fine-grained access.')
   List<PermissionMatrixEntry> permissionMatrix = [];
 }
@@ -2584,8 +2584,8 @@ class UserTrainingRequirements {
   String? trainingForm;
 
   /// Training topics — contains 0+× TrainingTopicEntry.
-  @SectionId('TRTP-TRAININGTOPICS-LST')
-  @SectionIdPattern('TRTP-TRAININGTOPICS-xxx')
+  @SectionId('TRTP-TRAI-LST')
+  @SectionIdPattern('TRTP-TRAI-xxx')
   @ContentHelp('Define specific training topics for this user category.')
   List<TrainingTopicEntry> trainingTopics = [];
 }
@@ -2652,8 +2652,8 @@ class UserJourney {
   String? journeyDiagram;
 
   /// Journey stage entries — contains 0+× JourneyStageEntry.
-  @SectionId('JRNST-STAGES-LST')
-  @SectionIdPattern('JRNST-STAGES-xxx')
+  @SectionId('JRNST-STAG-LST')
+  @SectionIdPattern('JRNST-STAG-xxx')
   @ContentHelp('Define each stage of the user journey.')
   List<JourneyStageEntry> stages = [];
 
@@ -2744,8 +2744,8 @@ class BusinessGoals {
   String? content;
 
   /// Business goals list — contains 1+× Business Goal.
-  @SectionId('BGE-GOALS-LST')
-  @SectionIdPattern('BGE-GOALS-xxx')
+  @SectionId('BGE-GOAL-LST')
+  @SectionIdPattern('BGE-GOAL-xxx')
   @Min(1)
   @ContentHelp('Add one entry per business goal. Goals should be mutually '
       'exclusive and collectively exhaustive for the project scope.')
@@ -2877,8 +2877,8 @@ class GoalKeyResults {
   String? content;
 
   /// Key result entries — contains 0+× KeyResultEntry.
-  @SectionId('KRE-ITEMS-LST')
-  @SectionIdPattern('KRE-ITEMS-xxx')
+  @SectionId('KRE-ITEM-LST')
+  @SectionIdPattern('KRE-ITEM-xxx')
   @ContentHelp('Add 3-5 key results per goal. Each should be specific '
       'and measurable.')
   List<KeyResultEntry> items = [];
@@ -2914,8 +2914,8 @@ class GoalMilestones {
   String? content;
 
   /// Milestone entries — contains 0+× GoalMilestoneEntry.
-  @SectionId('GOLMS-ITEMS-LST')
-  @SectionIdPattern('GOLMS-ITEMS-xxx')
+  @SectionId('GOLMS-ITEM-LST')
+  @SectionIdPattern('GOLMS-ITEM-xxx')
   List<GoalMilestoneEntry> items = [];
 }
 
@@ -2947,8 +2947,8 @@ class GoalDependencies {
   String? content;
 
   /// Dependency entries — contains 0+× GoalDependencyEntry.
-  @SectionId('GOLDE-ITEMS-LST')
-  @SectionIdPattern('GOLDE-ITEMS-xxx')
+  @SectionId('GOLDE-ITEM-LST')
+  @SectionIdPattern('GOLDE-ITEM-xxx')
   List<GoalDependencyEntry> items = [];
 }
 
@@ -2988,8 +2988,8 @@ class GoalRisks {
   String? content;
 
   /// Risk entries — contains 0+× GoalRiskEntry.
-  @SectionId('GOLRS-ITEMS-LST')
-  @SectionIdPattern('GOLRS-ITEMS-xxx')
+  @SectionId('GOLRS-ITEM-LST')
+  @SectionIdPattern('GOLRS-ITEM-xxx')
   List<GoalRiskEntry> items = [];
 }
 
@@ -3058,8 +3058,8 @@ class GoalResources {
   String? resourcesForm;
 
   /// Resource allocation entries — contains 0+× ResourceAllocationEntry.
-  @SectionId('REARS-ITEMS-LST')
-  @SectionIdPattern('REARS-ITEMS-xxx')
+  @SectionId('REARS-ITEM-LST')
+  @SectionIdPattern('REARS-ITEM-xxx')
   List<ResourceAllocationEntry> items = [];
 }
 
@@ -3101,8 +3101,8 @@ class TechnicalGoals {
   String? content;
 
   /// Technical goals list — contains 1+× Technical Goal.
-  @SectionId('TGE-GOALS-LST')
-  @SectionIdPattern('TGE-GOALS-xxx')
+  @SectionId('TGE-GOAL-LST')
+  @SectionIdPattern('TGE-GOAL-xxx')
   @Min(1)
   @ContentHelp('Add one entry per technical goal. Cover key quality '
       'attributes: performance, scalability, reliability, security, '
@@ -3200,8 +3200,8 @@ class QualityScenarios {
   String? content;
 
   /// Quality scenario entries — contains 0+× QualityScenarioEntry.
-  @SectionId('QLSCN-ITEMS-LST')
-  @SectionIdPattern('QLSCN-ITEMS-xxx')
+  @SectionId('QLSCN-ITEM-LST')
+  @SectionIdPattern('QLSCN-ITEM-xxx')
   List<QualityScenarioEntry> items = [];
 }
 
@@ -3255,8 +3255,8 @@ class TechnicalGoalTestCriteria {
   String? testCriteriaForm;
 
   /// Test case entries — contains 0+× TechnicalGoalTestCaseEntry.
-  @SectionId('TEGOTS-ITEMS-LST')
-  @SectionIdPattern('TEGOTS-ITEMS-xxx')
+  @SectionId('TEGOTS-ITEM-LST')
+  @SectionIdPattern('TEGOTS-ITEM-xxx')
   List<TechnicalGoalTestCaseEntry> items = [];
 }
 
@@ -3287,8 +3287,8 @@ class TechnicalGoalDependencies {
   String? content;
 
   /// Dependency entries — contains 0+× TechnicalDependencyEntry.
-  @SectionId('TEDE-ITEMS-LST')
-  @SectionIdPattern('TEDE-ITEMS-xxx')
+  @SectionId('TEDE-ITEM-LST')
+  @SectionIdPattern('TEDE-ITEM-xxx')
   List<TechnicalDependencyEntry> items = [];
 }
 
@@ -3322,8 +3322,8 @@ class TechnicalGoalConstraints {
   String? content;
 
   /// Constraint entries — contains 0+× TechnicalConstraintEntry.
-  @SectionId('TECN-ITEMS-LST')
-  @SectionIdPattern('TECN-ITEMS-xxx')
+  @SectionId('TECN-ITEM-LST')
+  @SectionIdPattern('TECN-ITEM-xxx')
   List<TechnicalConstraintEntry> items = [];
 }
 
@@ -3371,8 +3371,8 @@ class SuccessCriteria {
   SuccessCriteriaFramework framework = SuccessCriteriaFramework();
 
   /// Success criterion entries — contains 1+× SuccessCriterionEntry.
-  @SectionId('SCE-ITEMS-LST')
-  @SectionIdPattern('SCE-ITEMS-xxx')
+  @SectionId('SCE-ITEM-LST')
+  @SectionIdPattern('SCE-ITEM-xxx')
   @Min(1)
   @ContentHelp('Define individual success criteria. Include criteria for '
       'business outcomes, user satisfaction, technical quality, and '
@@ -3737,8 +3737,8 @@ class FunctionalRequirements {
   String? summaryForm;
 
   /// Functional requirements list — contains 1+× Functional Requirement.
-  @SectionId('FRE-REQUIREMENTS-LST')
-  @SectionIdPattern('FRE-REQUIREMENTS-xxx')
+  @SectionId('FRE-REQU-LST')
+  @SectionIdPattern('FRE-REQU-xxx')
   @Min(1)
   @ContentHelp('Add one entry per functional requirement. Group related '
       'requirements together. Each requirement should be atomic, testable, '
@@ -3907,8 +3907,8 @@ class RequirementAcceptanceCriteria {
   String? content;
 
   /// Acceptance criterion entries — contains 0+× AcceptanceCriterionEntry.
-  @SectionId('ACCR-CRITERIA-LST')
-  @SectionIdPattern('ACCR-CRITERIA-xxx')
+  @SectionId('ACCR-CRIT-LST')
+  @SectionIdPattern('ACCR-CRIT-xxx')
   @ContentHelp('Add one criterion per testable condition.')
   List<AcceptanceCriterionEntry> criteria = [];
 }
@@ -3947,8 +3947,8 @@ class RequirementBusinessRules {
   String? content;
 
     /// Business rule entries — contains 0+× RequirementBusinessRuleEntry.
-  @SectionId('RQBIRU-RULES-LST')
-  @SectionIdPattern('RQBIRU-RULES-xxx')
+  @SectionId('RQBIRU-RULE-LST')
+  @SectionIdPattern('RQBIRU-RULE-xxx')
     List<RequirementBusinessRuleEntry> rules = [];
 }
 
@@ -3986,8 +3986,8 @@ class RequirementDataRequirements {
   String? content;
 
   /// Data entity entries — contains 0+× DataEntityReferenceEntry.
-  @SectionId('DAENRE-ENTITIES-LST')
-  @SectionIdPattern('DAENRE-ENTITIES-xxx')
+  @SectionId('DAENRE-ENTI-LST')
+  @SectionIdPattern('DAENRE-ENTI-xxx')
   List<DataEntityReferenceEntry> entities = [];
 }
 
@@ -4048,20 +4048,20 @@ class RequirementUiSpecification {
   String? mockupDescription;
 
   /// Screen field entries — contains 0+× ScreenFieldEntry.
-  @SectionId('SCFLD-FIELDS-LST')
-  @SectionIdPattern('SCFLD-FIELDS-xxx')
+  @SectionId('SCFLD-FIEL-LST')
+  @SectionIdPattern('SCFLD-FIEL-xxx')
   @ContentHelp('Define each field in the UI.')
   List<ScreenFieldEntry> fields = [];
 
     /// Screen action entries — contains 0+× RequirementScreenActionEntry.
-  @SectionId('RQSCAC-ACTIONS-LST')
-  @SectionIdPattern('RQSCAC-ACTIONS-xxx')
+  @SectionId('RQSCAC-ACTI-LST')
+  @SectionIdPattern('RQSCAC-ACTI-xxx')
   @ContentHelp('Define actions available in the UI.')
     List<RequirementScreenActionEntry> actions = [];
 
   /// Screen behavior entries — contains 0+× ScreenBehaviorEntry.
-  @SectionId('SCBHV-BEHAVIORS-LST')
-  @SectionIdPattern('SCBHV-BEHAVIORS-xxx')
+  @SectionId('SCBHV-BEHA-LST')
+  @SectionIdPattern('SCBHV-BEHA-xxx')
   @ContentHelp('Define dynamic behaviors and interactions.')
   List<ScreenBehaviorEntry> behaviors = [];
 }
@@ -4092,8 +4092,8 @@ class ScreenFieldEntry {
   final ScreenFieldLayout layout = ScreenFieldLayout();
 
   /// Field validation rules — contains 0+× FieldValidationRule.
-  @SectionId('FLDVL-VALIDATIONRULES-LST')
-  @SectionIdPattern('FLDVL-VALIDATIONRULES-xxx')
+  @SectionId('FLDVL-VALI-LST')
+  @SectionIdPattern('FLDVL-VALI-xxx')
   List<FieldValidationRule> validationRules = [];
 }
 
@@ -4203,8 +4203,8 @@ class RequirementScreenActionEntry {
   String? content;
 
   /// Action parameters — contains 0+× ActionParameterEntry.
-  @SectionId('ACPR-PARAMETERS-LST')
-  @SectionIdPattern('ACPR-PARAMETERS-xxx')
+  @SectionId('ACPR-PARA-LST')
+  @SectionIdPattern('ACPR-PARA-xxx')
   List<ActionParameterEntry> parameters = [];
 }
 
@@ -4261,8 +4261,8 @@ class RequirementDependencies {
   String? content;
 
   /// Dependency entries — contains 0+× RequirementDependencyEntry.
-  @SectionId('RQDEP-ITEMS-LST')
-  @SectionIdPattern('RQDEP-ITEMS-xxx')
+  @SectionId('RQDEP-ITEM-LST')
+  @SectionIdPattern('RQDEP-ITEM-xxx')
   List<RequirementDependencyEntry> items = [];
 }
 
@@ -4344,8 +4344,8 @@ class RequirementTestCases {
   String? content;
 
   /// Test case entries — contains 0+× RequirementTestCaseEntry.
-  @SectionId('RQTSC-TESTCASES-LST')
-  @SectionIdPattern('RQTSC-TESTCASES-xxx')
+  @SectionId('RQTSC-TEST-LST')
+  @SectionIdPattern('RQTSC-TEST-xxx')
   List<RequirementTestCaseEntry> testCases = [];
 }
 
@@ -4430,8 +4430,8 @@ class TechnicalRequirements {
   String? summaryForm;
 
   /// Technical requirements list — contains 0+× Technical Requirement.
-  @SectionId('TERQ-REQUIREMENTS-LST')
-  @SectionIdPattern('TERQ-REQUIREMENTS-xxx')
+  @SectionId('TERQ-REQU-LST')
+  @SectionIdPattern('TERQ-REQU-xxx')
   @ContentHelp('Add one entry per technical requirement.')
   List<TechnicalRequirementEntry> requirements = [];
 }
@@ -4585,8 +4585,8 @@ class SecurityRequirements {
   String? summaryForm;
 
   /// Security requirements list — contains 0+× Security Requirement.
-  @SectionId('SECRQ-REQUIREMENTS-LST')
-  @SectionIdPattern('SECRQ-REQUIREMENTS-xxx')
+  @SectionId('SECRQ-REQU-LST')
+  @SectionIdPattern('SECRQ-REQU-xxx')
   @ContentHelp('Add one entry per security requirement.')
   List<SecurityRequirementEntry> requirements = [];
 }
@@ -4712,8 +4712,8 @@ class SecurityControls {
   String? content;
 
   /// Security control entries — contains 0+× SecurityControlEntry.
-  @SectionId('SECCT-CONTROLS-LST')
-  @SectionIdPattern('SECCT-CONTROLS-xxx')
+  @SectionId('SECCT-CONT-LST')
+  @SectionIdPattern('SECCT-CONT-xxx')
   List<SecurityControlEntry> controls = [];
 }
 
@@ -4797,8 +4797,8 @@ class OrganizationalRequirements {
   String? summaryForm;
 
   /// Organizational requirements list — contains 0+× Organizational Requirement.
-  @SectionId('ORRQ-REQUIREMENTS-LST')
-  @SectionIdPattern('ORRQ-REQUIREMENTS-xxx')
+  @SectionId('ORRQ-REQU-LST')
+  @SectionIdPattern('ORRQ-REQU-xxx')
   @ContentHelp('Add one entry per organizational requirement.')
   List<OrganizationalRequirementEntry> requirements = [];
 }
@@ -4919,8 +4919,8 @@ class OrgRequirementImplementationPlan {
   String? planForm;
 
   /// Implementation activities — contains 0+× OrgImplementationActivity.
-  @SectionId('ORGIM-ACTIVITIES-LST')
-  @SectionIdPattern('ORGIM-ACTIVITIES-xxx')
+  @SectionId('ORGIM-ACTI-LST')
+  @SectionIdPattern('ORGIM-ACTI-xxx')
   List<OrgImplementationActivity> activities = [];
 }
 
@@ -4990,8 +4990,8 @@ class ReplacementInventory {
   TextSection prioritizationCriteria = TextSection();
 
   /// Contains 0+× SystemToReplaceEntry.
-  @SectionId('SYTORE-SYSTEMS-LST')
-  @SectionIdPattern('SYTORE-SYSTEMS-xxx')
+  @SectionId('SYTORE-SYST-LST')
+  @SectionIdPattern('SYTORE-SYST-xxx')
   List<SystemToReplaceEntry> systems = [];
 }
 
@@ -5034,8 +5034,8 @@ class SystemToReplaceEntry {
   SystemDataScope dataScope = SystemDataScope();
 
     /// Contains 0+× ReplacementSystemDependencyEntry — integrations with other systems.
-  @SectionId('REPSDEP-DEPENDENCIES-LST')
-  @SectionIdPattern('REPSDEP-DEPENDENCIES-xxx')
+  @SectionId('REPSDEP-DEPE-LST')
+  @SectionIdPattern('REPSDEP-DEPE-xxx')
     List<ReplacementSystemDependencyEntry> dependencies = [];
 
   /// User impact and change management needs.
@@ -5170,13 +5170,13 @@ class SystemBusinessCriticality {
       SystemBusinessCriticalityGovernance();
 
   /// Business units and departments using this system.
-  @SectionId('SBUE-BUSINESSUNITS-LST')
-  @SectionIdPattern('SBUE-BUSINESSUNITS-xxx')
+  @SectionId('SBUE-BUSI-LST')
+  @SectionIdPattern('SBUE-BUSI-xxx')
   List<SystemBusinessUnitEntry> businessUnits = [];
 
   /// Business processes supported by this system.
-  @SectionId('SBPE-SUPPORTEDPROCESSES-LST')
-  @SectionIdPattern('SBPE-SUPPORTEDPROCESSES-xxx')
+  @SectionId('SBPE-SUPP-LST')
+  @SectionIdPattern('SBPE-SUPP-xxx')
   List<SystemBusinessProcessEntry> supportedProcesses = [];
 }
 
@@ -5254,8 +5254,8 @@ class SystemReplacementStrategy {
       SystemReplacementStrategyCutover();
 
   /// Replacement phases if phased approach.
-  @SectionId('REPPHS-PHASES-LST')
-  @SectionIdPattern('REPPHS-PHASES-xxx')
+  @SectionId('REPPHS-PHAS-LST')
+  @SectionIdPattern('REPPHS-PHAS-xxx')
   List<ReplacementPhaseEntry> phases = [];
 
   /// Predecessor systems that must be addressed first.
@@ -5321,8 +5321,8 @@ class SystemDataScope {
     SystemDataScopeMigration migration = SystemDataScopeMigration();
 
   /// Data entities to migrate.
-  @SectionId('DEME-ENTITIES-LST')
-  @SectionIdPattern('DEME-ENTITIES-xxx')
+  @SectionId('DEME-ENTI-LST')
+  @SectionIdPattern('DEME-ENTI-xxx')
   List<DataEntityMigrationEntry> entities = [];
 
   /// Data quality issues to address.
@@ -5417,8 +5417,8 @@ class SystemUserImpact {
     SystemUserImpactAdoption adoption = SystemUserImpactAdoption();
 
   /// User groups requiring specific handling.
-  @SectionId('UGIE-USERGROUPS-LST')
-  @SectionIdPattern('UGIE-USERGROUPS-xxx')
+  @SectionId('UGIE-USER-LST')
+  @SectionIdPattern('UGIE-USER-xxx')
   List<UserGroupImpactEntry> userGroups = [];
 }
 
@@ -5549,8 +5549,8 @@ class SystemMigrationPlan {
     SystemMigrationPlanCutover cutover = SystemMigrationPlanCutover();
 
   /// Contains 0+× MigrationRiskEntry — per-system migration risks.
-  @SectionId('SMRE-RISKS-LST')
-  @SectionIdPattern('SMRE-RISKS-xxx')
+  @SectionId('SMRE-RISK-LST')
+  @SectionIdPattern('SMRE-RISK-xxx')
   List<SystemMigrationRiskEntry> risks = [];
 
   /// Rollback strategy and procedures.
@@ -5662,8 +5662,8 @@ class MigrationConsiderations {
   TextSection timeline = TextSection();
 
   /// Migration milestones.
-  @SectionId('MGMLS-MILESTONES-LST')
-  @SectionIdPattern('MGMLS-MILESTONES-xxx')
+  @SectionId('MGMLS-MILE-LST')
+  @SectionIdPattern('MGMLS-MILE-xxx')
   List<MigrationMilestoneEntry> milestones = [];
 
   /// Cross-system data mapping considerations.
@@ -5793,8 +5793,8 @@ class MigrationRisks {
   GanttDiagramSection riskTimeline = GanttDiagramSection();
 
   /// Contains 0+× MigrationRiskEntry.
-  @SectionId('MGRSK-ITEMS-LST')
-  @SectionIdPattern('MGRSK-ITEMS-xxx')
+  @SectionId('MGRSK-ITEM-LST')
+  @SectionIdPattern('MGRSK-ITEM-xxx')
   List<MigrationRiskEntry> items = [];
 }
 
@@ -6210,8 +6210,8 @@ class ExternalInterfaces {
   TextSection governanceModel = TextSection();
 
   /// Contains 0+× ExternalInterfaceEntry.
-  @SectionId('EXINEN-INTERFACES-LST')
-  @SectionIdPattern('EXINEN-INTERFACES-xxx')
+  @SectionId('EXINEN-INTE-LST')
+  @SectionIdPattern('EXINEN-INTE-xxx')
   List<ExternalInterfaceEntry> interfaces = [];
 }
 
@@ -6312,8 +6312,8 @@ class InterfaceBusinessContext {
   String? content;
 
   /// Business processes that depend on this interface.
-  @SectionId('IBPE-DEPENDENTPROCESSES-LST')
-  @SectionIdPattern('IBPE-DEPENDENTPROCESSES-xxx')
+  @SectionId('IBPE-DEPE-LST')
+  @SectionIdPattern('IBPE-DEPE-xxx')
   List<InterfaceBusinessProcessEntry> dependentProcesses = [];
 }
 
@@ -6350,8 +6350,8 @@ class InterfaceTechnicalSpec {
       InterfaceTechnicalSpecEndpoints();
 
   /// API operations/methods exposed or consumed.
-  @SectionId('INOPEN-OPERATIONS-LST')
-  @SectionIdPattern('INOPEN-OPERATIONS-xxx')
+  @SectionId('INOPEN-OPER-LST')
+  @SectionIdPattern('INOPEN-OPER-xxx')
   List<InterfaceOperationEntry> operations = [];
 
   /// Webhook/callback configurations if applicable.
@@ -6440,8 +6440,8 @@ class InterfaceDataSpec {
   String? content;
 
   /// Data entities exchanged.
-  @SectionId('IDEE-DATAENTITIES-LST')
-  @SectionIdPattern('IDEE-DATAENTITIES-xxx')
+  @SectionId('IDEE-DATA-LST')
+  @SectionIdPattern('IDEE-DATA-xxx')
   List<InterfaceDataEntityEntry> dataEntities = [];
 
   /// Data mapping and transformation rules.
@@ -6709,8 +6709,8 @@ class InterfaceTesting {
     InterfaceTestingStrategy strategy = InterfaceTestingStrategy();
 
   /// Test scenarios.
-  @SectionId('ITSE1-TESTSCENARIOS-LST')
-  @SectionIdPattern('ITSE1-TESTSCENARIOS-xxx')
+  @SectionId('ITSE1-TEST-LST')
+  @SectionIdPattern('ITSE1-TEST-xxx')
   List<InterfaceTestScenarioEntry> testScenarios = [];
 }
 
@@ -6772,8 +6772,8 @@ class OutOfScope {
   TextSection scopePhilosophy = TextSection();
 
   /// Contains 0+× OutOfScopeEntry.
-  @SectionId('OOSE-ITEMS-LST')
-  @SectionIdPattern('OOSE-ITEMS-xxx')
+  @SectionId('OOSE-ITEM-LST')
+  @SectionIdPattern('OOSE-ITEM-xxx')
   List<OutOfScopeEntry> items = [];
 }
 
@@ -6840,8 +6840,8 @@ class BoundaryAssumptions {
   TextSection assumptionApproach = TextSection();
 
   /// Contains 0+× BoundaryAssumptionEntry.
-  @SectionId('BOASEN-ITEMS-LST')
-  @SectionIdPattern('BOASEN-ITEMS-xxx')
+  @SectionId('BOASEN-ITEM-LST')
+  @SectionIdPattern('BOASEN-ITEM-xxx')
   List<BoundaryAssumptionEntry> items = [];
 }
 
@@ -6970,8 +6970,8 @@ class OrganizationalEnvironment {
   TextSection structure = TextSection();
 
   /// Departments and business units affected.
-  @SectionId('AFDEEN-AFFECTEDDEPARTMENTS-LST')
-  @SectionIdPattern('AFDEEN-AFFECTEDDEPARTMENTS-xxx')
+  @SectionId('AFDEEN-AFFE-LST')
+  @SectionIdPattern('AFDEEN-AFFE-xxx')
   List<AffectedDepartmentEntry> affectedDepartments = [];
 
   // -------------------------------------------------------------------------
@@ -6985,8 +6985,8 @@ class OrganizationalEnvironment {
   TextSection decisionMaking = TextSection();
 
   /// Key decision makers and their roles.
-  @SectionId('DEMAEN-DECISIONMAKERS-LST')
-  @SectionIdPattern('DEMAEN-DECISIONMAKERS-xxx')
+  @SectionId('DEMAEN-DECI-LST')
+  @SectionIdPattern('DEMAEN-DECI-xxx')
   List<DecisionMakerEntry> decisionMakers = [];
 
   // -------------------------------------------------------------------------
@@ -7121,8 +7121,8 @@ class FunctionalResponsibilities {
   TextSection matrixOverview = TextSection();
 
   /// Contains 0+× Responsibility.
-  @SectionId('REEN1-ITEMS-LST')
-  @SectionIdPattern('REEN1-ITEMS-xxx')
+  @SectionId('REEN1-ITEM-LST')
+  @SectionIdPattern('REEN1-ITEM-xxx')
   List<ResponsibilityEntry> items = [];
 }
 
@@ -7318,8 +7318,8 @@ class TechnicalFrameworkConditions {
   TextSection standardsOverview = TextSection();
 
   /// Technology standards [PD00-SYO-RES-TEC-STD] — contains 0+× TechnologyStandard.
-  @SectionId('TESTEN-TECHNOLOGYSTANDARDS-LST')
-  @SectionIdPattern('TESTEN-TECHNOLOGYSTANDARDS-xxx')
+  @SectionId('TESTEN-TECH-LST')
+  @SectionIdPattern('TESTEN-TECH-xxx')
   List<TechnologyStandardEntry> technologyStandards = [];
 
   // -------------------------------------------------------------------------
@@ -7333,8 +7333,8 @@ class TechnicalFrameworkConditions {
   TextSection integrationOverview = TextSection();
 
   /// Integration constraints [PD00-SYO-RES-TEC-INT] — contains 0+× IntegrationConstraint.
-  @SectionId('INCOE1-INTEGRATIONCONSTRAINTS-LST')
-  @SectionIdPattern('INCOE1-INTEGRATIONCONSTRAINTS-xxx')
+  @SectionId('INCOE1-INTE-LST')
+  @SectionIdPattern('INCOE1-INTE-xxx')
   List<IntegrationConstraintEntry> integrationConstraints = [];
 
   // -------------------------------------------------------------------------
@@ -7720,8 +7720,8 @@ class Constraints {
   String? content;
 
   /// Contains 0+× Constraint.
-  @SectionId('COEN-ITEMS-LST')
-  @SectionIdPattern('COEN-ITEMS-xxx')
+  @SectionId('COEN-ITEM-LST')
+  @SectionIdPattern('COEN-ITEM-xxx')
   List<ConstraintEntry> items = [];
 
   /// Constraint Summary narrative.
@@ -7914,8 +7914,8 @@ class FrameworkDependencies {
       FrameworkDependenciesManagement();
 
   /// Contains 0+× FrameworkDependency.
-  @SectionId('FWRDP-ITEMS-LST')
-  @SectionIdPattern('FWRDP-ITEMS-xxx')
+  @SectionId('FWRDP-ITEM-LST')
+  @SectionIdPattern('FWRDP-ITEM-xxx')
   List<FrameworkDependencyEntry> items = [];
 
   /// Dependency Summary narrative.
@@ -8186,8 +8186,8 @@ class RisksAndAssumptions {
   RisksOverview overview = RisksOverview();
 
   /// 4.7.1. Key Risks [PD00-SYO-RIS-RIS] — contains 0+× Risk.
-  @SectionId('RIEN-KEYRISKS-LST')
-  @SectionIdPattern('RIEN-KEYRISKS-xxx')
+  @SectionId('RIEN-KEYR-LST')
+  @SectionIdPattern('RIEN-KEYR-xxx')
   List<RiskEntry> keyRisks = [];
 
   /// 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS] — contains 0+×.
@@ -8537,8 +8537,8 @@ class KeyAssumptions {
   AssumptionsOverview overview = AssumptionsOverview();
 
   /// Contains 0+× Assumption.
-  @SectionId('ASEN-ITEMS-LST')
-  @SectionIdPattern('ASEN-ITEMS-xxx')
+  @SectionId('ASEN-ITEM-LST')
+  @SectionIdPattern('ASEN-ITEM-xxx')
   List<AssumptionEntry> items = [];
 }
 

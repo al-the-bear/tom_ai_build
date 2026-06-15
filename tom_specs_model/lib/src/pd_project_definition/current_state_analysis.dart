@@ -80,8 +80,8 @@ class SystemInventory {
   String? content;
 
   /// Contains 1+× Existing System [PD00-CUR-SYS-INV-nn].
-  @SectionId('ESENT-SYSTEMS-LST')
-  @SectionIdPattern('ESENT-SYSTEMS-xxx')
+  @SectionId('ESENT-SYST-LST')
+  @SectionIdPattern('ESENT-SYST-xxx')
   @Min(1)
   @ContentHelp('Add one entry per existing system that is relevant to the '
       'project scope. Include all systems that will be replaced, integrated '
@@ -195,8 +195,8 @@ class ExistingSystemEntry {
   // -------------------------------------------------------------------------
 
   /// Contains 0+× Limitation [PD00-CUR-SYS-INV-nn-LIM-nn].
-  @SectionId('LIMET-KNOWNLIMITATIONS-LST')
-  @SectionIdPattern('LIMET-KNOWNLIMITATIONS-xxx')
+  @SectionId('LIMET-KNOW-LST')
+  @SectionIdPattern('LIMET-KNOW-xxx')
   @ContentHelp('Document each known limitation with its impact on current '
       'operations and any workarounds in place.')
   List<LimitationEntry> knownLimitations = [];
@@ -386,8 +386,8 @@ class InternalDependencies {
   String? content;
 
   /// Contains 0+× Internal System Dependency.
-  @SectionId('SYDE-ITEMS-LST')
-  @SectionIdPattern('SYDE-ITEMS-xxx')
+  @SectionId('SYDE-ITEM-LST')
+  @SectionIdPattern('SYDE-ITEM-xxx')
   List<SystemDependencyEntry> items = [];
 }
 
@@ -404,8 +404,8 @@ class ExternalServiceDependencies {
   String? content;
 
   /// Contains 0+× External Service Dependency.
-  @SectionId('EXSDE-ITEMS-LST')
-  @SectionIdPattern('EXSDE-ITEMS-xxx')
+  @SectionId('EXSDE-ITEM-LST')
+  @SectionIdPattern('EXSDE-ITEM-xxx')
   List<ExternalServiceDependencyEntry> items = [];
 }
 
@@ -505,8 +505,8 @@ class SharedInfrastructureDependencies {
   String? content;
 
   /// Contains 0+× Shared Infrastructure Component.
-  @SectionId('SHIEN-ITEMS-LST')
-  @SectionIdPattern('SHIEN-ITEMS-xxx')
+  @SectionId('SHIEN-ITEM-LST')
+  @SectionIdPattern('SHIEN-ITEM-xxx')
   List<SharedInfrastructureEntry> items = [];
 }
 
@@ -625,8 +625,8 @@ class Integrations {
   String? content;
 
   /// Contains 0+× SystemIntegration.
-  @SectionId('SYIN-ITEMS-LST')
-  @SectionIdPattern('SYIN-ITEMS-xxx')
+  @SectionId('SYIN-ITEM-LST')
+  @SectionIdPattern('SYIN-ITEM-xxx')
   List<SystemIntegrationEntry> items = [];
 }
 
@@ -915,8 +915,8 @@ class CurrentBusinessProcesses {
   ProcessPerformanceSummary? performanceSummary;
 
   /// 1.2.nn. Business Processes [PD00-CUR-PRO-nn] — contains 1+× Business Process.
-  @SectionId('CUBIPR-PROCESSES-LST')
-  @SectionIdPattern('CUBIPR-PROCESSES-xxx')
+  @SectionId('CUBIPR-PROC-LST')
+  @SectionIdPattern('CUBIPR-PROC-xxx')
   @Min(1)
   List<CurrentBusinessProcess> processes = [];
 }
@@ -936,13 +936,13 @@ class ProcessScopeSummary {
   String? content;
 
   /// Processes in scope.
-  @SectionId('PRSCEN-INSCOPEPROCESSES-LST')
-  @SectionIdPattern('PRSCEN-INSCOPEPROCESSES-xxx')
+  @SectionId('PRSCEN-INSC-LST')
+  @SectionIdPattern('PRSCEN-INSC-xxx')
   List<ProcessScopeEntry> inScopeProcesses = [];
 
   /// Processes explicitly out of scope.
-  @SectionId('PRSCEN-OUTOFSCOPEPROCESSES-LST')
-  @SectionIdPattern('PRSCEN-OUTOFSCOPEPROCESSES-xxx')
+  @SectionId('PRSCEN-OUTO-LST')
+  @SectionIdPattern('PRSCEN-OUTO-xxx')
   List<ProcessScopeEntry> outOfScopeProcesses = [];
 }
 
@@ -972,8 +972,8 @@ class ProcessInterdependencyMatrix {
   String? dependencyDiagram;
 
   /// Individual process dependencies.
-  @SectionId('PRDEEN-DEPENDENCIES-LST')
-  @SectionIdPattern('PRDEEN-DEPENDENCIES-xxx')
+  @SectionId('PRDEEN-DEPE-LST')
+  @SectionIdPattern('PRDEEN-DEPE-xxx')
   List<ProcessDependencyEntry> dependencies = [];
 }
 
@@ -1018,8 +1018,8 @@ class ProcessPerformanceSummary {
   String? content;
 
   /// Key metrics summary.
-  @SectionId('PME-KEYMETRICS-LST')
-  @SectionIdPattern('PME-KEYMETRICS-xxx')
+  @SectionId('PME-KEYM-LST')
+  @SectionIdPattern('PME-KEYM-xxx')
   List<ProcessMetricEntry> keyMetrics = [];
 }
 
@@ -1078,8 +1078,8 @@ class ProcessPainPoints {
   String? content;
 
   /// Process improvement opportunities.
-  @SectionId('CPIE-IMPROVEMENTS-LST')
-  @SectionIdPattern('CPIE-IMPROVEMENTS-xxx')
+  @SectionId('CPIE-IMPR-LST')
+  @SectionIdPattern('CPIE-IMPR-xxx')
     List<CurrentProcessImprovementEntry> improvements = [];
 }
 
@@ -1121,8 +1121,8 @@ class WorkflowDescriptions {
   WorkflowSummaryTable? summaryTable;
 
   /// Individual workflow entries.
-  @SectionId('CUWF-WORKFLOWS-LST')
-  @SectionIdPattern('CUWF-WORKFLOWS-xxx')
+  @SectionId('CUWF-WORK-LST')
+  @SectionIdPattern('CUWF-WORK-xxx')
   @Min(1)
   List<CurrentWorkflowEntry> workflows = [];
 }
@@ -1141,8 +1141,8 @@ class WorkflowSummaryTable {
   String? content;
 
   /// Summary entries per workflow.
-  @SectionId('WOSUEN-ENTRIES-LST')
-  @SectionIdPattern('WOSUEN-ENTRIES-xxx')
+  @SectionId('WOSUEN-ENTR-LST')
+  @SectionIdPattern('WOSUEN-ENTR-xxx')
   List<WorkflowSummaryEntry> entries = [];
 }
 
@@ -1194,44 +1194,44 @@ class CurrentWorkflowEntry {
   WorkflowTriggers triggers = WorkflowTriggers();
 
   /// Workflow steps in sequence.
-  @SectionId('WSE-STEPS-LST')
-  @SectionIdPattern('WSE-STEPS-xxx')
+  @SectionId('WSE-STEP-LST')
+  @SectionIdPattern('WSE-STEP-xxx')
   List<WorkflowStepEntry> steps = [];
 
   /// Workflow actors and responsibilities.
-  @SectionId('WFAC-ACTORS-LST')
-  @SectionIdPattern('WFAC-ACTORS-xxx')
+  @SectionId('WFAC-ACTO-LST')
+  @SectionIdPattern('WFAC-ACTO-xxx')
   List<WorkflowActorEntry> actors = [];
 
   /// Workflow inputs.
-  @SectionId('WOINEN-INPUTS-LST')
-  @SectionIdPattern('WOINEN-INPUTS-xxx')
+  @SectionId('WOINEN-INPU-LST')
+  @SectionIdPattern('WOINEN-INPU-xxx')
   List<WorkflowInputEntry> inputs = [];
 
   /// Workflow outputs.
-  @SectionId('WOOUEN-OUTPUTS-LST')
-  @SectionIdPattern('WOOUEN-OUTPUTS-xxx')
+  @SectionId('WOOUEN-OUTP-LST')
+  @SectionIdPattern('WOOUEN-OUTP-xxx')
   List<WorkflowOutputEntry> outputs = [];
 
   /// Decision points within the workflow.
-  @SectionId('WODEPO-DECISIONPOINTS-LST')
-  @SectionIdPattern('WODEPO-DECISIONPOINTS-xxx')
+  @SectionId('WODEPO-DECI-LST')
+  @SectionIdPattern('WODEPO-DECI-xxx')
   List<WorkflowDecisionPoint> decisionPoints = [];
 
   /// Business rules governing the workflow.
-  @SectionId('WOBURU-BUSINESSRULES-LST')
-  @SectionIdPattern('WOBURU-BUSINESSRULES-xxx')
+  @SectionId('WOBURU-BUSI-LST')
+  @SectionIdPattern('WOBURU-BUSI-xxx')
   List<WorkflowBusinessRule> businessRules = [];
 
   /// Manual steps requiring human intervention.
-  @SectionId('WSE-MANUALSTEPS-LST')
-  @SectionIdPattern('WSE-MANUALSTEPS-xxx')
+  @SectionId('WSE-MANU-LST')
+  @SectionIdPattern('WSE-MANU-xxx')
   @ContentHelp('Identify steps that cannot be automated or require human judgment.')
   List<WorkflowStepEntry> manualSteps = [];
 
   /// Error-prone steps with high failure rates.
-  @SectionId('WSE-ERRORPRONESTEPS-LST')
-  @SectionIdPattern('WSE-ERRORPRONESTEPS-xxx')
+  @SectionId('WSE-ERRO-LST')
+  @SectionIdPattern('WSE-ERRO-xxx')
   @ContentHelp('Identify steps with known issues, high error rates, or workarounds.')
   List<WorkflowStepEntry> errorProneSteps = [];
 
@@ -1249,8 +1249,8 @@ class WorkflowTriggers {
   String? content;
 
   /// Trigger entries.
-  @SectionId('WOTREN-TRIGGERS-LST')
-  @SectionIdPattern('WOTREN-TRIGGERS-xxx')
+  @SectionId('WOTREN-TRIG-LST')
+  @SectionIdPattern('WOTREN-TRIG-xxx')
   List<WorkflowTriggerEntry> triggers = [];
 }
 
@@ -1294,28 +1294,28 @@ class WorkflowStepEntry {
   String? content;
 
   /// Systems used in this step.
-  @SectionId('WOSTSY-SYSTEMSUSED-LST')
-  @SectionIdPattern('WOSTSY-SYSTEMSUSED-xxx')
+  @SectionId('WOSTSY-SYST-LST')
+  @SectionIdPattern('WOSTSY-SYST-xxx')
   List<WorkflowStepSystem> systemsUsed = [];
 
   /// Step inputs.
-  @SectionId('WOINEN-INPUTS-LST')
-  @SectionIdPattern('WOINEN-INPUTS-xxx')
+  @SectionId('WOINEN-INPU-LST')
+  @SectionIdPattern('WOINEN-INPU-xxx')
   List<WorkflowInputEntry> inputs = [];
 
   /// Step outputs.
-  @SectionId('WOOUEN-OUTPUTS-LST')
-  @SectionIdPattern('WOOUEN-OUTPUTS-xxx')
+  @SectionId('WOOUEN-OUTP-LST')
+  @SectionIdPattern('WOOUEN-OUTP-xxx')
   List<WorkflowOutputEntry> outputs = [];
 
   /// Step-specific business rules.
-  @SectionId('WOBURU-BUSINESSRULES-LST')
-  @SectionIdPattern('WOBURU-BUSINESSRULES-xxx')
+  @SectionId('WOBURU-BUSI-LST')
+  @SectionIdPattern('WOBURU-BUSI-xxx')
   List<WorkflowBusinessRule> businessRules = [];
 
   /// Known issues with this step.
-  @SectionId('WOSTIS-KNOWNISSUES-LST')
-  @SectionIdPattern('WOSTIS-KNOWNISSUES-xxx')
+  @SectionId('WOSTIS-KNOW-LST')
+  @SectionIdPattern('WOSTIS-KNOW-xxx')
   List<WorkflowStepIssue> knownIssues = [];
 }
 
@@ -1432,8 +1432,8 @@ class WorkflowExceptions {
   String? content;
 
   /// Exception entries.
-  @SectionId('WOEXEN-EXCEPTIONS-LST')
-  @SectionIdPattern('WOEXEN-EXCEPTIONS-xxx')
+  @SectionId('WOEXEN-EXCE-LST')
+  @SectionIdPattern('WOEXEN-EXCE-xxx')
   List<WorkflowExceptionEntry> exceptions = [];
 }
 
@@ -1490,8 +1490,8 @@ class ProcessMetrics {
   ProcessMetricCategory manualInterventionMetrics = ProcessMetricCategory();
 
   /// Individual metric entries.
-  @SectionId('PME-ITEMS-LST')
-  @SectionIdPattern('PME-ITEMS-xxx')
+  @SectionId('PME-ITEM-LST')
+  @SectionIdPattern('PME-ITEM-xxx')
   List<ProcessMetricEntry> items = [];
 
   /// Baseline comparison table [PD00-CUR-PRO-xx-MET-BAS].
@@ -1536,8 +1536,8 @@ class MetricsBaselineTable {
   String? content;
 
   /// Baseline entries.
-  @SectionId('MEBAEN-ENTRIES-LST')
-  @SectionIdPattern('MEBAEN-ENTRIES-xxx')
+  @SectionId('MEBAEN-ENTR-LST')
+  @SectionIdPattern('MEBAEN-ENTR-xxx')
   List<MetricsBaselineEntry> entries = [];
 }
 
@@ -1565,8 +1565,8 @@ class ProcessMetricCategory {
   String? content;
 
   /// Metrics in this category.
-  @SectionId('PME-METRICS-LST')
-  @SectionIdPattern('PME-METRICS-xxx')
+  @SectionId('PME-METR-LST')
+  @SectionIdPattern('PME-METR-xxx')
   List<ProcessMetricEntry> metrics = [];
 }
 
@@ -1713,8 +1713,8 @@ on specific systems or personnel.
   OperationalPainPointsSummary categorySummary = OperationalPainPointsSummary();
 
   /// Contains 0+× PainPoint.
-  @SectionId('PAPE-ITEMS-LST')
-  @SectionIdPattern('PAPE-ITEMS-xxx')
+  @SectionId('PAPE-ITEM-LST')
+  @SectionIdPattern('PAPE-ITEM-xxx')
   List<PainPointEntry> items = [];
 }
 
@@ -1753,8 +1753,8 @@ and competitive positioning concerns.
   BusinessPainPointsSummary categorySummary = BusinessPainPointsSummary();
 
   /// Contains 0+× PainPoint.
-  @SectionId('PAPE-ITEMS-LST')
-  @SectionIdPattern('PAPE-ITEMS-xxx')
+  @SectionId('PAPE-ITEM-LST')
+  @SectionIdPattern('PAPE-ITEM-xxx')
   List<PainPointEntry> items = [];
 }
 
@@ -1796,8 +1796,8 @@ integration complexity, and team capability constraints.
   TechnicalPainPointsSummary categorySummary = TechnicalPainPointsSummary();
 
   /// Contains 0+× PainPoint.
-  @SectionId('PAPE-ITEMS-LST')
-  @SectionIdPattern('PAPE-ITEMS-xxx')
+  @SectionId('PAPE-ITEM-LST')
+  @SectionIdPattern('PAPE-ITEM-xxx')
   List<PainPointEntry> items = [];
 }
 
@@ -2001,8 +2001,8 @@ underlying gaps that may not be explicitly documented.
 
   /// Tabular correlation data.
   @Min(1)
-  @SectionId('PPGCE-CORRELATIONENTRIES-LST')
-  @SectionIdPattern('PPGCE-CORRELATIONENTRIES-xxx')
+  @SectionId('PPGCE-CORR-LST')
+  @SectionIdPattern('PPGCE-CORR-xxx')
   List<PainPointGapCorrelationEntry> correlationEntries = [];
 }
 
@@ -2031,8 +2031,8 @@ class Gaps {
   String? content;
 
   /// Contains 0+× Gap.
-  @SectionId('GAPE-ITEMS-LST')
-  @SectionIdPattern('GAPE-ITEMS-xxx')
+  @SectionId('GAPE-ITEM-LST')
+  @SectionIdPattern('GAPE-ITEM-xxx')
   List<GapEntry> items = [];
 }
 
@@ -2244,8 +2244,8 @@ catalog data sources, coverage of the inventory, and any known gaps.
   String? dataSourceMapDiagram;
 
   /// Contains 0+× DataSource.
-  @SectionId('DASR-DATASOURCES-LST')
-  @SectionIdPattern('DASR-DATASOURCES-xxx')
+  @SectionId('DASR-DATA-LST')
+  @SectionIdPattern('DASR-DATA-xxx')
   List<DataSourceEntry> dataSources = [];
 }
 
@@ -2291,8 +2291,8 @@ class DataSourceEntry {
 
   /// Key data entities in this source.
   @Min(1)
-  @SectionId('DSEE-KEYENTITIES-LST')
-  @SectionIdPattern('DSEE-KEYENTITIES-xxx')
+  @SectionId('DSEE-KEYE-LST')
+  @SectionIdPattern('DSEE-KEYE-xxx')
     List<DataSourceEntityEntry> keyEntities = [];
 }
 
@@ -2472,14 +2472,14 @@ methodology, scope, key findings, and overall data quality posture.
   String? qualityIssuesSeverityChart;
 
   /// Data quality issues inventory.
-  @SectionId('DAQLIS-QUALITYISSUES-LST')
-  @SectionIdPattern('DAQLIS-QUALITYISSUES-xxx')
+  @SectionId('DAQLIS-QUAL-LST')
+  @SectionIdPattern('DAQLIS-QUAL-xxx')
   @Min(1)
   List<DataQualityIssueEntry> qualityIssues = [];
 
   /// Quality improvement initiatives in progress.
-  @SectionId('DQIE-IMPROVEMENTINITIATIVES-LST')
-  @SectionIdPattern('DQIE-IMPROVEMENTINITIATIVES-xxx')
+  @SectionId('DQIE-IMPR-LST')
+  @SectionIdPattern('DQIE-IMPR-xxx')
   List<DataQualityInitiativeEntry> improvementInitiatives = [];
 }
 
@@ -2627,8 +2627,8 @@ of duplication, its causes, impacts, and any ongoing deduplication efforts.
   String? duplicationDiagram;
 
   /// Individual duplication instances.
-  @SectionId('DADU-DUPLICATIONINSTANCES-LST')
-  @SectionIdPattern('DADU-DUPLICATIONINSTANCES-xxx')
+  @SectionId('DADU-DUPL-LST')
+  @SectionIdPattern('DADU-DUPL-xxx')
   List<DataDuplicationEntry> duplicationInstances = [];
 }
 
@@ -2747,8 +2747,8 @@ the ownership model, roles and responsibilities, and any gaps in accountability.
 
   /// Data ownership assignments by domain.
   @Min(1)
-  @SectionId('DAOWEN-OWNERSHIPASSIGNMENTS-LST')
-  @SectionIdPattern('DAOWEN-OWNERSHIPASSIGNMENTS-xxx')
+  @SectionId('DAOWEN-OWNE-LST')
+  @SectionIdPattern('DAOWEN-OWNE-xxx')
   List<DataOwnershipEntry> ownershipAssignments = [];
 }
 
@@ -2851,8 +2851,8 @@ and forecasting methodology.
 
   /// Volume details by data source.
   @Min(1)
-  @SectionId('DAVOEN-VOLUMEBYSOURCE-LST')
-  @SectionIdPattern('DAVOEN-VOLUMEBYSOURCE-xxx')
+  @SectionId('DAVOEN-VOLU-LST')
+  @SectionIdPattern('DAVOEN-VOLU-xxx')
   List<DataVolumeEntry> volumeBySource = [];
 }
 
@@ -2963,8 +2963,8 @@ policy framework, regulatory drivers, implementation status, and any gaps.
   RetentionPolicySummary policySummary = RetentionPolicySummary();
 
   /// Retention policies by data category.
-  @SectionId('REPOL-RETENTIONPOLICIES-LST')
-  @SectionIdPattern('REPOL-RETENTIONPOLICIES-xxx')
+  @SectionId('REPOL-RETE-LST')
+  @SectionIdPattern('REPOL-RETE-xxx')
   @Min(1)
   List<RetentionPolicyEntry> retentionPolicies = [];
 }
@@ -3082,8 +3082,8 @@ framework, organizational structure, policies, and current maturity level.
 
   /// Data governance policies.
   @Min(1)
-  @SectionId('DGPE-GOVERNANCEPOLICIES-LST')
-  @SectionIdPattern('DGPE-GOVERNANCEPOLICIES-xxx')
+  @SectionId('DGPE-GOVE-LST')
+  @SectionIdPattern('DGPE-GOVE-xxx')
   List<DataGovernancePolicyEntry> governancePolicies = [];
 }
 
@@ -3188,13 +3188,13 @@ coverage.
 
   /// Classification levels defined.
   @Min(1)
-  @SectionId('DCLE-CLASSIFICATIONLEVELS-LST')
-  @SectionIdPattern('DCLE-CLASSIFICATIONLEVELS-xxx')
+  @SectionId('DCLE-CLAS-LST')
+  @SectionIdPattern('DCLE-CLAS-xxx')
   List<DataClassificationLevelEntry> classificationLevels = [];
 
   /// Classification status by data domain.
-  @SectionId('DCSE-CLASSIFICATIONSTATUS-LST')
-  @SectionIdPattern('DCSE-CLASSIFICATIONSTATUS-xxx')
+  @SectionId('DCSE-CLAS-LST')
+  @SectionIdPattern('DCSE-CLAS-xxx')
   List<DataClassificationStatusEntry> classificationStatus = [];
 }
 
@@ -3293,8 +3293,8 @@ architecture, major data flows, technologies used, and integration challenges.
   String? dataFlowDiagram;
 
   /// Data integration points inventory.
-  @SectionId('DAIN-INTEGRATIONPOINTS-LST')
-  @SectionIdPattern('DAIN-INTEGRATIONPOINTS-xxx')
+  @SectionId('DAIN-INTE-LST')
+  @SectionIdPattern('DAIN-INTE-xxx')
   @Min(1)
   List<DataIntegrationEntry> integrationPoints = [];
 }
@@ -3437,8 +3437,8 @@ approach.
   MdmSummary mdmSummary = MdmSummary();
 
   /// Master data domains.
-  @SectionId('MSDDO-MASTERDATADOMAINS-LST')
-  @SectionIdPattern('MSDDO-MASTERDATADOMAINS-xxx')
+  @SectionId('MSDDO-MAST-LST')
+  @SectionIdPattern('MSDDO-MAST-xxx')
   @Min(1)
   List<MasterDataDomainEntry> masterDataDomains = [];
 }

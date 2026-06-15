@@ -122,8 +122,8 @@ relationships.
   String? content;
 
   /// Contains 0+× UserCategoryDefinition.
-  @SectionId('USCDF-ITEMS-LST')
-  @SectionIdPattern('USCDF-ITEMS-xxx')
+  @SectionId('USCDF-ITEM-LST')
+  @SectionIdPattern('USCDF-ITEM-xxx')
   List<UserCategoryDefinition> items = [];
 }
 
@@ -540,8 +540,8 @@ class UserLifecycleTransitions {
   DiagramSection lifecycleStateDiagram = DiagramSection();
 
   /// Contains 0+× UserLifecycleTransitionEntry.
-  @SectionId('ULTRE-ITEMS-LST')
-  @SectionIdPattern('ULTRE-ITEMS-xxx')
+  @SectionId('ULTRE-ITEM-LST')
+  @SectionIdPattern('ULTRE-ITEM-xxx')
   List<UserLifecycleTransitionEntry> items = [];
 }
 
@@ -757,8 +757,8 @@ compliance requirements.
   String? content;
 
   /// Contains 0+× UserAttribute.
-  @SectionId('USATE-ITEMS-LST')
-  @SectionIdPattern('USATE-ITEMS-xxx')
+  @SectionId('USATE-ITEM-LST')
+  @SectionIdPattern('USATE-ITEM-xxx')
   List<UserAttributeEntry> items = [];
 }
 
@@ -857,8 +857,8 @@ class Identification {
   String? content;
 
   /// Identity Sources — contains 0+× Identity Source.
-  @SectionId('IDTSR-IDENTITYSOURCES-LST')
-  @SectionIdPattern('IDTSR-IDENTITYSOURCES-xxx')
+  @SectionId('IDTSR-IDEN-LST')
+  @SectionIdPattern('IDTSR-IDEN-xxx')
   List<IdentitySourceEntry> identitySources = [];
 
   /// Identity Verification [PD00-ACC-IDE-IDN-VER].
@@ -866,8 +866,8 @@ class Identification {
       IdentityVerificationPolicy();
 
   /// Identity Providers — contains 0+× Identity Provider.
-  @SectionId('IDTPV-IDENTITYPROVIDERS-LST')
-  @SectionIdPattern('IDTPV-IDENTITYPROVIDERS-xxx')
+  @SectionId('IDTPV-IDEN-LST')
+  @SectionIdPattern('IDTPV-IDEN-xxx')
   List<IdentityProviderEntry> identityProviders = [];
 
   /// Single Sign-On [PD00-ACC-IDE-IDN-SSO].
@@ -877,8 +877,8 @@ class Identification {
   SelfRegistrationPolicy selfRegistration = SelfRegistrationPolicy();
 
   /// Attribute Mappings — contains 0+× Identity Attribute Mapping.
-  @SectionId('IDTAM-ATTRIBUTEMAPPINGS-LST')
-  @SectionIdPattern('IDTAM-ATTRIBUTEMAPPINGS-xxx')
+  @SectionId('IDTAM-ATTR-LST')
+  @SectionIdPattern('IDTAM-ATTR-xxx')
   List<IdentityAttributeMappingEntry> attributeMappings = [];
 }
 
@@ -1624,8 +1624,8 @@ applicability to different user categories and use cases.
   ApiKeyManagementPolicy apiKeyManagement = ApiKeyManagementPolicy();
 
   /// Contains 0+× AuthenticationMethod.
-  @SectionId('ATME-ITEMS-LST')
-  @SectionIdPattern('ATME-ITEMS-xxx')
+  @SectionId('ATME-ITEM-LST')
+  @SectionIdPattern('ATME-ITEM-xxx')
   List<AuthenticationMethodEntry> items = [];
 }
 
@@ -2042,8 +2042,8 @@ established session. Include sequence diagrams for clarity.
       StepUpAuthenticationPolicy();
 
   /// Contains 0+× Login Flow Step.
-  @SectionId('LGFLS-LOGINFLOWSTEPS-LST')
-  @SectionIdPattern('LGFLS-LOGINFLOWSTEPS-xxx')
+  @SectionId('LGFLS-LOGI-LST')
+  @SectionIdPattern('LGFLS-LOGI-xxx')
   List<LoginFlowStepEntry> loginFlowSteps = [];
 }
 
@@ -2506,8 +2506,8 @@ revision) emphasizes length over complexity and discourages forced rotation.
       ServiceAccountCredentialPolicy();
 
   /// Contains 0+× MFA Enforcement per User Category.
-  @SectionId('MFACRQ-MFACATEGORYREQUIREMENTS-LST')
-  @SectionIdPattern('MFACRQ-MFACATEGORYREQUIREMENTS-xxx')
+  @SectionId('MFACRQ-MFAC-LST')
+  @SectionIdPattern('MFACRQ-MFAC-xxx')
   List<MfaCategoryRequirementEntry> mfaCategoryRequirements = [];
 }
 
@@ -5172,25 +5172,25 @@ Aligned with Tom Core authorization model.
   AuthorizationModel authorizationModel = AuthorizationModel();
 
   /// 9.4.2. Authorization Groups [PD00-ACC-USA-GRP] — contains 0+× Group.
-  @SectionId('AZGR-GROUPS-LST')
-  @SectionIdPattern('AZGR-GROUPS-xxx')
+  @SectionId('AZGR-GROU-LST')
+  @SectionIdPattern('AZGR-GROU-xxx')
   List<AuthorizationGroupEntry> groups = [];
 
   /// 9.4.3. Role Definitions [PD00-ACC-USA-ROL] — contains 1+× Role.
-  @SectionId('AZRO-ROLEDEFINITIONS-LST')
-  @SectionIdPattern('AZRO-ROLEDEFINITIONS-xxx')
+  @SectionId('AZRO-ROLE-LST')
+  @SectionIdPattern('AZRO-ROLE-xxx')
   @Min(1)
   List<AuthorizationRoleEntry> roleDefinitions = [];
 
   /// 9.4.4. Entitlements [PD00-ACC-USA-ENT] — contains 1+× Entitlement.
-  @SectionId('ENT-ENTITLEMENTS-LST')
-  @SectionIdPattern('ENT-ENTITLEMENTS-xxx')
+  @SectionId('ENT-ENTI-LST')
+  @SectionIdPattern('ENT-ENTI-xxx')
   @Min(1)
   List<EntitlementEntry> entitlements = [];
 
   /// 9.4.5. Resource Keys [PD00-ACC-USA-RES] — contains 0+× Resource Key.
-  @SectionId('RESKEY-RESOURCEKEYS-LST')
-  @SectionIdPattern('RESKEY-RESOURCEKEYS-xxx')
+  @SectionId('RESKEY-RESO-LST')
+  @SectionIdPattern('RESKEY-RESO-xxx')
   List<ResourceKeyEntry> resourceKeys = [];
 
   /// 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH].
@@ -5250,18 +5250,18 @@ simplifies administration and ensures consistent access control.
   RoleHierarchyPolicy hierarchyPolicy = RoleHierarchyPolicy();
 
   /// Contains 0+× RoleInheritanceRule.
-  @SectionId('RLINH-INHERITANCERULES-LST')
-  @SectionIdPattern('RLINH-INHERITANCERULES-xxx')
+  @SectionId('RLINH-INHE-LST')
+  @SectionIdPattern('RLINH-INHE-xxx')
   List<RoleInheritanceRuleEntry> inheritanceRules = [];
 
   /// Contains 0+× RoleCombinationConstraint.
-  @SectionId('RLCMB-COMBINATIONCONSTRAINTS-LST')
-  @SectionIdPattern('RLCMB-COMBINATIONCONSTRAINTS-xxx')
+  @SectionId('RLCMB-COMB-LST')
+  @SectionIdPattern('RLCMB-COMB-xxx')
   List<RoleCombinationConstraintEntry> combinationConstraints = [];
 
   /// Contains 0+× GlobalRoleExclusion.
-  @SectionId('GBRLX-GLOBALEXCLUSIONS-LST')
-  @SectionIdPattern('GBRLX-GLOBALEXCLUSIONS-xxx')
+  @SectionId('GBRLX-GLOB-LST')
+  @SectionIdPattern('GBRLX-GLOB-xxx')
   List<GlobalRoleExclusionEntry> globalExclusions = [];
 
   /// Role Certification and Review.
@@ -5526,8 +5526,8 @@ Complements data-level tenant isolation (PD00-ACC-RES-DAT).
   CrossTenantAccessPolicy crossTenantAccessPolicy = CrossTenantAccessPolicy();
 
   /// Contains 0+× TenantCustomization.
-  @SectionId('TNCS-TENANTCUSTOMIZATIONS-LST')
-  @SectionIdPattern('TNCS-TENANTCUSTOMIZATIONS-xxx')
+  @SectionId('TNCS-TENA-LST')
+  @SectionIdPattern('TNCS-TENA-xxx')
   List<TenantCustomizationEntry> tenantCustomizations = [];
 
   /// Tenant Onboarding Policy.
@@ -5806,8 +5806,8 @@ class AuthorizationGroupEntry {
   String? content;
 
   /// Contains 0+× RoleReference.
-  @SectionId('ROLREF-CONTAINEDROLES-LST')
-  @SectionIdPattern('ROLREF-CONTAINEDROLES-xxx')
+  @SectionId('ROLREF-CONT-LST')
+  @SectionIdPattern('ROLREF-CONT-xxx')
   List<RoleReferenceEntry> containedRoles = [];
 }
 
@@ -5851,33 +5851,33 @@ class AuthorizationRoleEntry {
   AuthorizationRoleEntryStatus status = AuthorizationRoleEntryStatus();
 
   /// Contains 0+× ResponsibilityReference.
-  @SectionId('RSPREF-RESPONSIBILITIES-LST')
-  @SectionIdPattern('RSPREF-RESPONSIBILITIES-xxx')
+  @SectionId('RSPREF-RESP-LST')
+  @SectionIdPattern('RSPREF-RESP-xxx')
   List<ResponsibilityReferenceEntry> responsibilities = [];
 
   /// Contains 0+× EntitlementReference.
-  @SectionId('ENREFE-ENTITLEMENTREFERENCES-LST')
-  @SectionIdPattern('ENREFE-ENTITLEMENTREFERENCES-xxx')
+  @SectionId('ENREFE-ENTI-LST')
+  @SectionIdPattern('ENREFE-ENTI-xxx')
   List<EntitlementReferenceEntry> entitlementReferences = [];
 
   /// Contains 0+× RolePermission.
-  @SectionId('ROLPERM-DIRECTPERMISSIONS-LST')
-  @SectionIdPattern('ROLPERM-DIRECTPERMISSIONS-xxx')
+  @SectionId('ROLPERM-DIRE-LST')
+  @SectionIdPattern('ROLPERM-DIRE-xxx')
   List<RolePermissionEntry> directPermissions = [];
 
   /// Contains 0+× RoleDataScope.
-  @SectionId('ROLDSCP-DATASCOPES-LST')
-  @SectionIdPattern('ROLDSCP-DATASCOPES-xxx')
+  @SectionId('ROLDSCP-DATA-LST')
+  @SectionIdPattern('ROLDSCP-DATA-xxx')
   List<RoleDataScopeEntry> dataScopes = [];
 
   /// Contains 0+× RoleExclusion.
-  @SectionId('ROLEXC-MUTUALEXCLUSIONS-LST')
-  @SectionIdPattern('ROLEXC-MUTUALEXCLUSIONS-xxx')
+  @SectionId('ROLEXC-MUTU-LST')
+  @SectionIdPattern('ROLEXC-MUTU-xxx')
   List<RoleExclusionEntry> mutualExclusions = [];
 
   /// Contains 0+× RoleHolder.
-  @SectionId('ROLHLD-TYPICALHOLDERS-LST')
-  @SectionIdPattern('ROLHLD-TYPICALHOLDERS-xxx')
+  @SectionId('ROLHLD-TYPI-LST')
+  @SectionIdPattern('ROLHLD-TYPI-xxx')
   List<RoleHolderEntry> typicalHolders = [];
 }
 
@@ -6111,8 +6111,8 @@ class EntitlementEntry {
   String? content;
 
   /// Contains 0+× ResourceKeyReference.
-  @SectionId('RESKREF-RESOURCEKEYREFERENCES-LST')
-  @SectionIdPattern('RESKREF-RESOURCEKEYREFERENCES-xxx')
+  @SectionId('RESKREF-RESO-LST')
+  @SectionIdPattern('RESKREF-RESO-xxx')
   List<ResourceKeyReferenceEntry> resourceKeyReferences = [];
 }
 
@@ -6243,8 +6243,8 @@ data breaches, and physical media theft.
   EncryptionAtRestPolicy encryptionPolicy = EncryptionAtRestPolicy();
 
   /// Contains 0+× EncryptedDataCategory.
-  @SectionId('ENDACA-ENCRYPTEDDATACATEGORIES-LST')
-  @SectionIdPattern('ENDACA-ENCRYPTEDDATACATEGORIES-xxx')
+  @SectionId('ENDACA-ENCR-LST')
+  @SectionIdPattern('ENDACA-ENCR-xxx')
   List<EncryptedDataCategoryEntry> encryptedDataCategories = [];
 
   /// Database Encryption Policy.
@@ -6563,8 +6563,8 @@ Define how data is protected while moving over networks, both externally
       CertificateManagementPolicy();
 
   /// Contains 0+× CommunicationChannelEncryption.
-  @SectionId('COCHEN-COMMUNICATIONCHANNELS-LST')
-  @SectionIdPattern('COCHEN-COMMUNICATIONCHANNELS-xxx')
+  @SectionId('COCHEN-COMM-LST')
+  @SectionIdPattern('COCHEN-COMM-xxx')
   List<CommunicationChannelEncryptionEntry> communicationChannels = [];
 
   /// Mutual TLS Policy.
@@ -7220,8 +7220,8 @@ Balance comprehensive coverage with log volume management.
   AdministrativeEventPolicy administrativeEvents = AdministrativeEventPolicy();
 
   /// Custom Security Events — contains 0+× Security Event Entry.
-  @SectionId('SEVT-CUSTOMEVENTS-LST')
-  @SectionIdPattern('SEVT-CUSTOMEVENTS-xxx')
+  @SectionId('SEVT-CUST-LST')
+  @SectionIdPattern('SEVT-CUST-xxx')
   List<SecurityEventEntry> customEvents = [];
 }
 

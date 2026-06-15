@@ -309,15 +309,15 @@ class ExistingSystemEntry { ... }
 
 #### Field-level usage — list container section
 
-When applied to a `List<T>` field, `@SectionId` marks the **container section** for that list. It follows the pattern `'<elementId>-<FIELDSUFFIX>-LST'`, where `<elementId>` is the `@SectionId` of the element type `T` and `<FIELDSUFFIX>` is the **field name uppercased** (alphanumerics only — a single hyphen-free token):
+When applied to a `List<T>` field, `@SectionId` marks the **container section** for that list. It follows the pattern `'<elementId>-<FIELDSUFFIX>-LST'`, where `<elementId>` is the `@SectionId` of the element type `T` and `<FIELDSUFFIX>` is the **field name uppercased and truncated to its first 4 characters** (alphanumerics only — a single hyphen-free token of ≤4 chars, kept short like the class-level mnemonics so IDs stay compact, e.g. `systems` → `SYST`):
 
 ```dart
-@SectionId('EXTSY-SYSTEMS-LST')
-@SectionIdPattern('EXTSY-SYSTEMS-xxx')
+@SectionId('EXTSY-SYST-LST')
+@SectionIdPattern('EXTSY-SYST-xxx')
 List<ExistingSystemEntry> systems = [];
 ```
 
-The field name is part of the container ID because **a list is a distinct document section that must have its own ID**. Since Dart forbids duplicate field names within a class, the field-name suffix guarantees that two list fields in the same class — even of the *same* element type — get **distinct** container IDs. For example `ProcessScopeSummary` has two `List<ProcessScopeEntry>` fields that become `PRSCEN-INSCOPEPROCESSES-LST` and `PRSCEN-OUTOFSCOPEPROCESSES-LST` respectively, so the in-scope and out-of-scope sections no longer collide.
+The field name is part of the container ID because **a list is a distinct document section that must have its own ID**. Since Dart forbids duplicate field names within a class, the field-name suffix guarantees that two list fields in the same class — even of the *same* element type — get **distinct** container IDs. For example `ProcessScopeSummary` has two `List<ProcessScopeEntry>` fields (`inScopeProcesses`, `outOfScopeProcesses`) that become `PRSCEN-INSC-LST` and `PRSCEN-OUTO-LST` respectively, so the in-scope and out-of-scope sections no longer collide.
 
 The element *type* is still recoverable from any ID by taking the first token (before the first `-`): `EXTSY`.
 
@@ -329,7 +329,7 @@ Three rules apply, checked by `validator.dart` §2 / §2b:
 - **Container IDs are unique within a class** (§2b *per-class uniqueness*): no two list fields in one class may share a container `@SectionId`. The field-name suffix guarantees this by construction; the validator enforces it as a guard against hand-authored deviations.
 - **A container ID maps to exactly one element type** (§2b *type-consistency*).
 
-**Cross-class sharing is allowed.** Two *different* classes that each declare a list of the same element type *with the same field name* legitimately share one container ID (e.g. `CurrentWorkflowEntry.outputs` and `WorkflowStepEntry.outputs` both → `WOOUEN-OUTPUTS-LST`). Addressing is *parent-path + local container ID*, so these do not collide within a document. (Container IDs are unique among **siblings**, not globally.)
+**Cross-class sharing is allowed.** Two *different* classes that each declare a list of the same element type *with the same field name* legitimately share one container ID (e.g. `CurrentWorkflowEntry.outputs` and `WorkflowStepEntry.outputs` both → `WOOUEN-OUTP-LST`). Addressing is *parent-path + local container ID*, so these do not collide within a document. (Container IDs are unique among **siblings**, not globally.)
 
 ### 7.3 `@SectionIdPattern(String pattern)`
 
@@ -339,11 +339,11 @@ Declares the **section ID numbering template** for items in a `List<T>` field. T
 - Always used together with `@SectionId('<elementId>-<FIELDSUFFIX>-LST')` on the same field.
 - Pattern format: `'<elementId>-<FIELDSUFFIX>-xxx'` — it **mirrors** the container `@SectionId` with `-LST` replaced by `-xxx`. The validator enforces this pairing (§2b).
 - Effect: the field is a section, each list item becomes a numbered subsection. The section *type* is known from the element's own `@SectionId` (the first token); the numbering in the live document is derived from the pattern.
-- Example: `@SectionIdPattern('EXTSY-SYSTEMS-xxx')` → first item renders as `EXTSY-SYSTEMS-001`, second as `EXTSY-SYSTEMS-002`, etc.
+- Example: `@SectionIdPattern('EXTSY-SYST-xxx')` → first item renders as `EXTSY-SYST-001`, second as `EXTSY-SYST-002`, etc.
 
 ```dart
-@SectionId('EXTSY-SYSTEMS-LST')
-@SectionIdPattern('EXTSY-SYSTEMS-xxx')
+@SectionId('EXTSY-SYST-LST')
+@SectionIdPattern('EXTSY-SYST-xxx')
 List<ExistingSystemEntry> systems = [];
 ```
 
@@ -356,8 +356,8 @@ class ExistingSystemEntry { ... }
 
 This means:
 - `EXTSY` is the **type ID** of one existing-system entry section.
-- `EXTSY-SYSTEMS-LST` is the **container section** (the inventory of all systems on the `systems` field).
-- `EXTSY-SYSTEMS-xxx` is the **numbering template** (instances become `EXTSY-SYSTEMS-001`, `EXTSY-SYSTEMS-002`, …).
+- `EXTSY-SYST-LST` is the **container section** (the inventory of all systems on the `systems` field).
+- `EXTSY-SYST-xxx` is the **numbering template** (instances become `EXTSY-SYST-001`, `EXTSY-SYST-002`, …).
 
 Nested lists are naturally handled: each level has its own type ID and `<elementId>-<FIELDSUFFIX>-LST` container ID. The section type can always be derived from any instance ID by taking the **first** token (before the first `-`).
 
