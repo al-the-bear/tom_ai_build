@@ -968,6 +968,8 @@ class ProcessInterdependencyMatrix {
   String? dependencyDiagram;
 
   /// Individual process dependencies.
+  @SectionId('PRDEEN-LST')
+  @SectionIdPattern('PRDEEN-xxx')
   List<ProcessDependencyEntry> dependencies = [];
 }
 
@@ -1070,6 +1072,8 @@ class ProcessPainPoints {
   String? content;
 
   /// Process improvement opportunities.
+  @SectionId('CPIE-LST')
+  @SectionIdPattern('CPIE-xxx')
     List<CurrentProcessImprovementEntry> improvements = [];
 }
 
@@ -1131,6 +1135,8 @@ class WorkflowSummaryTable {
   String? content;
 
   /// Summary entries per workflow.
+  @SectionId('WOSUEN-LST')
+  @SectionIdPattern('WOSUEN-xxx')
   List<WorkflowSummaryEntry> entries = [];
 }
 
@@ -1198,6 +1204,8 @@ class CurrentWorkflowEntry {
   List<WorkflowOutputEntry> outputs = [];
 
   /// Decision points within the workflow.
+  @SectionId('WODEPO-LST')
+  @SectionIdPattern('WODEPO-xxx')
   List<WorkflowDecisionPoint> decisionPoints = [];
 
   /// Business rules governing the workflow.
@@ -1225,6 +1233,8 @@ class WorkflowTriggers {
   String? content;
 
   /// Trigger entries.
+  @SectionId('WOTREN-LST')
+  @SectionIdPattern('WOTREN-xxx')
   List<WorkflowTriggerEntry> triggers = [];
 }
 
@@ -1268,6 +1278,8 @@ class WorkflowStepEntry {
   String? content;
 
   /// Systems used in this step.
+  @SectionId('WOSTSY-LST')
+  @SectionIdPattern('WOSTSY-xxx')
   List<WorkflowStepSystem> systemsUsed = [];
 
   /// Step inputs.
@@ -1280,6 +1292,8 @@ class WorkflowStepEntry {
   List<WorkflowBusinessRule> businessRules = [];
 
   /// Known issues with this step.
+  @SectionId('WOSTIS-LST')
+  @SectionIdPattern('WOSTIS-xxx')
   List<WorkflowStepIssue> knownIssues = [];
 }
 
@@ -1396,6 +1410,8 @@ class WorkflowExceptions {
   String? content;
 
   /// Exception entries.
+  @SectionId('WOEXEN-LST')
+  @SectionIdPattern('WOEXEN-xxx')
   List<WorkflowExceptionEntry> exceptions = [];
 }
 
@@ -1498,6 +1514,8 @@ class MetricsBaselineTable {
   String? content;
 
   /// Baseline entries.
+  @SectionId('MEBAEN-LST')
+  @SectionIdPattern('MEBAEN-xxx')
   List<MetricsBaselineEntry> entries = [];
 }
 
@@ -1959,6 +1977,8 @@ underlying gaps that may not be explicitly documented.
 
   /// Tabular correlation data.
   @Min(1)
+  @SectionId('PPGCE-LST')
+  @SectionIdPattern('PPGCE-xxx')
   List<PainPointGapCorrelationEntry> correlationEntries = [];
 }
 
@@ -2247,6 +2267,8 @@ class DataSourceEntry {
 
   /// Key data entities in this source.
   @Min(1)
+  @SectionId('DSEE-LST')
+  @SectionIdPattern('DSEE-xxx')
     List<DataSourceEntityEntry> keyEntities = [];
 }
 
@@ -2699,6 +2721,8 @@ the ownership model, roles and responsibilities, and any gaps in accountability.
 
   /// Data ownership assignments by domain.
   @Min(1)
+  @SectionId('DAOWEN-LST')
+  @SectionIdPattern('DAOWEN-xxx')
   List<DataOwnershipEntry> ownershipAssignments = [];
 }
 
@@ -2801,6 +2825,8 @@ and forecasting methodology.
 
   /// Volume details by data source.
   @Min(1)
+  @SectionId('DAVOEN-LST')
+  @SectionIdPattern('DAVOEN-xxx')
   List<DataVolumeEntry> volumeBySource = [];
 }
 
@@ -3030,6 +3056,8 @@ framework, organizational structure, policies, and current maturity level.
 
   /// Data governance policies.
   @Min(1)
+  @SectionId('DGPE-LST')
+  @SectionIdPattern('DGPE-xxx')
   List<DataGovernancePolicyEntry> governancePolicies = [];
 }
 
@@ -3134,9 +3162,13 @@ coverage.
 
   /// Classification levels defined.
   @Min(1)
+  @SectionId('DCLE-LST')
+  @SectionIdPattern('DCLE-xxx')
   List<DataClassificationLevelEntry> classificationLevels = [];
 
   /// Classification status by data domain.
+  @SectionId('DCSE-LST')
+  @SectionIdPattern('DCSE-xxx')
   List<DataClassificationStatusEntry> classificationStatus = [];
 }
 
