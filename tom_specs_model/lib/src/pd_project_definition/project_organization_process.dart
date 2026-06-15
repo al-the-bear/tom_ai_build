@@ -97,8 +97,8 @@ the changes, and how role clarity is maintained despite deviations.
   String? roleComparisonDiagram;
 
   /// Contains 0+× RoleAdjustment.
-  @SectionId('RLAJE-LST')
-  @SectionIdPattern('RLAJE-xxx')
+  @SectionId('RLAJE-ITEMS-LST')
+  @SectionIdPattern('RLAJE-ITEMS-xxx')
   List<RoleAdjustmentEntry> items = [];
 }
 
@@ -265,8 +265,8 @@ how quality assurance is maintained despite deviations.
   String? gateFlowDiagram;
 
   /// Contains 0+× QualityGateAdjustment.
-  @SectionId('QGAJE-LST')
-  @SectionIdPattern('QGAJE-xxx')
+  @SectionId('QGAJE-ITEMS-LST')
+  @SectionIdPattern('QGAJE-ITEMS-xxx')
   List<QualityGateAdjustmentEntry> items = [];
 }
 
@@ -426,8 +426,8 @@ and how process integrity is maintained despite deviations.
   String? processFlowDiagram;
 
   /// Contains 0+× ProcessAdjustment.
-  @SectionId('PCAJE-LST')
-  @SectionIdPattern('PCAJE-xxx')
+  @SectionId('PCAJE-ITEMS-LST')
+  @SectionIdPattern('PCAJE-ITEMS-xxx')
   List<ProcessAdjustmentEntry> items = [];
 }
 
@@ -657,8 +657,8 @@ class Tooling {
   TextSection strategyNarrative = TextSection();
 
   /// Contains 0+× Tool.
-  @SectionId('TOLEN-LST')
-  @SectionIdPattern('TOLEN-xxx')
+  @SectionId('TOLEN-ITEMS-LST')
+  @SectionIdPattern('TOLEN-ITEMS-xxx')
   List<ToolEntry> items = [];
 }
 
@@ -1285,8 +1285,8 @@ class Environments {
   String? content;
 
   /// Contains 0+× Environment.
-  @SectionId('ENVEN-LST')
-  @SectionIdPattern('ENVEN-xxx')
+  @SectionId('ENVEN-ITEMS-LST')
+  @SectionIdPattern('ENVEN-ITEMS-xxx')
   List<EnvironmentEntry> items = [];
 }
 

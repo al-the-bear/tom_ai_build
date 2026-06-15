@@ -29,8 +29,8 @@ class OrganizationalFramework {
   JobDescriptionsAndStaffing jobDescriptions = JobDescriptionsAndStaffing();
 
   /// 5.3. Workplace Descriptions [PD00-ORG-WOR] — contains 1+× per user category.
-  @SectionId('WPDE-LST')
-  @SectionIdPattern('WPDE-xxx')
+  @SectionId('WPDE-WORKPLACEDESCRIPTIONS-LST')
+  @SectionIdPattern('WPDE-WORKPLACEDESCRIPTIONS-xxx')
   @Min(1)
   @Comment('per user category')
   List<WorkplaceDescriptionEntry> workplaceDescriptions = [];
@@ -105,8 +105,8 @@ class ChangesFromCurrentStructure {
   DiagramSection orgChartComparison = DiagramSection();
 
   /// Contains 0+× OrganizationalChange.
-  @SectionId('ORGCE-LST')
-  @SectionIdPattern('ORGCE-xxx')
+  @SectionId('ORGCE-ITEMS-LST')
+  @SectionIdPattern('ORGCE-ITEMS-xxx')
   List<OrganizationalChangeEntry> items = [];
 }
 
@@ -285,13 +285,13 @@ class OrganizationalTransitionTimeline {
   TransitionOverview overview = TransitionOverview();
 
   /// Transition phases with milestones and durations.
-  @SectionId('TRPHE-LST')
-  @SectionIdPattern('TRPHE-xxx')
+  @SectionId('TRPHE-PHASES-LST')
+  @SectionIdPattern('TRPHE-PHASES-xxx')
   List<TransitionPhaseEntry> phases = [];
 
   /// Key transition milestones and decision gates.
-  @SectionId('TRMIL-LST')
-  @SectionIdPattern('TRMIL-xxx')
+  @SectionId('TRMIL-MILESTONES-LST')
+  @SectionIdPattern('TRMIL-MILESTONES-xxx')
   List<TransitionMilestoneEntry> milestones = [];
 
   /// Change readiness assessment approach.
@@ -307,8 +307,8 @@ class OrganizationalTransitionTimeline {
   TransitionSuccessMetrics successMetrics = TransitionSuccessMetrics();
 
   /// Risks specific to the organizational transition.
-  @SectionId('TRRS-LST')
-  @SectionIdPattern('TRRS-xxx')
+  @SectionId('TRRS-TRANSITIONRISKS-LST')
+  @SectionIdPattern('TRRS-TRANSITIONRISKS-xxx')
   List<TransitionRiskEntry> transitionRisks = [];
 }
 
@@ -557,8 +557,8 @@ class ChangeReadinessAssessment {
   ChangeReadinessOverview overview = ChangeReadinessOverview();
 
   /// Readiness criteria per stakeholder group.
-  @SectionId('RDRCE-LST')
-  @SectionIdPattern('RDRCE-xxx')
+  @SectionId('RDRCE-READINESSCRITERIA-LST')
+  @SectionIdPattern('RDRCE-READINESSCRITERIA-xxx')
   List<ReadinessCriteriaEntry> readinessCriteria = [];
 }
 
@@ -616,8 +616,8 @@ class TransitionCommunicationPlan {
   TransitionCommunicationStrategy strategy = TransitionCommunicationStrategy();
 
   /// Specific communication events/activities.
-  @SectionId('COEV-LST')
-  @SectionIdPattern('COEV-xxx')
+  @SectionId('COEV-COMMUNICATIONEVENTS-LST')
+  @SectionIdPattern('COEV-COMMUNICATIONEVENTS-xxx')
   List<CommunicationEventEntry> communicationEvents = [];
 
   /// Communication channels and their use.
@@ -720,8 +720,8 @@ class TransitionSupportStructure {
   TransitionSupportOverview overview = TransitionSupportOverview();
 
   /// Support resources available.
-  @SectionId('TRSPRE-LST')
-  @SectionIdPattern('TRSPRE-xxx')
+  @SectionId('TRSPRE-SUPPORTRESOURCES-LST')
+  @SectionIdPattern('TRSPRE-SUPPORTRESOURCES-xxx')
   List<TransitionSupportResourceEntry> supportResources = [];
 
   /// Escalation paths for support.
@@ -797,8 +797,8 @@ class TransitionSuccessMetrics {
   TransitionMetricsOverview overview = TransitionMetricsOverview();
 
   /// Specific success metrics.
-  @SectionId('TRME-LST')
-  @SectionIdPattern('TRME-xxx')
+  @SectionId('TRME-METRICS-LST')
+  @SectionIdPattern('TRME-METRICS-xxx')
   List<TransitionMetricEntry> metrics = [];
 }
 
@@ -927,18 +927,18 @@ class JobDescriptionsAndStaffing {
   JobDescriptionsOverview overview = JobDescriptionsOverview();
 
   /// 5.2.1. New Roles [PD00-ORG-JOB-NEW] — contains 0+× New Role.
-  @SectionId('NWROL-LST')
-  @SectionIdPattern('NWROL-xxx')
+  @SectionId('NWROL-NEWROLES-LST')
+  @SectionIdPattern('NWROL-NEWROLES-xxx')
   List<NewRoleEntry> newRoles = [];
 
   /// 5.2.2. Changed Roles [PD00-ORG-JOB-CHA] — contains 0+× Changed Role.
-  @SectionId('CHAROL-LST')
-  @SectionIdPattern('CHAROL-xxx')
+  @SectionId('CHAROL-CHANGEDROLES-LST')
+  @SectionIdPattern('CHAROL-CHANGEDROLES-xxx')
   List<ChangedRoleEntry> changedRoles = [];
 
   /// 5.2.3. Removed Roles [PD00-ORG-JOB-REM] — contains 0+× role being eliminated.
-  @SectionId('REMROL-LST')
-  @SectionIdPattern('REMROL-xxx')
+  @SectionId('REMROL-REMOVEDROLES-LST')
+  @SectionIdPattern('REMROL-REMOVEDROLES-xxx')
   List<RemovedRoleEntry> removedRoles = [];
 
   /// 5.2.4. Staffing Plan [PD00-ORG-JOB-STA].
@@ -983,8 +983,8 @@ class StaffingPlan {
   StaffingBudget budget = StaffingBudget();
 
   /// Contains 0+× Staffing entry.
-  @SectionId('STFE-LST')
-  @SectionIdPattern('STFE-xxx')
+  @SectionId('STFE-ITEMS-LST')
+  @SectionIdPattern('STFE-ITEMS-xxx')
   List<StaffingEntry> items = [];
 
   /// Recruitment timeline.
@@ -1211,18 +1211,18 @@ class CompetencyFramework {
   CompetencyFrameworkOverview overview = CompetencyFrameworkOverview();
 
   /// Core competencies required across all roles.
-  @SectionId('COMPE-LST')
-  @SectionIdPattern('COMPE-xxx')
+  @SectionId('COMPE-CORECOMPETENCIES-LST')
+  @SectionIdPattern('COMPE-CORECOMPETENCIES-xxx')
   List<CompetencyEntry> coreCompetencies = [];
 
   /// Technical/functional competencies by role family.
-  @SectionId('COMPE-LST')
-  @SectionIdPattern('COMPE-xxx')
+  @SectionId('COMPE-TECHNICALCOMPETENCIES-LST')
+  @SectionIdPattern('COMPE-TECHNICALCOMPETENCIES-xxx')
   List<CompetencyEntry> technicalCompetencies = [];
 
   /// Leadership competencies for management roles.
-  @SectionId('COMPE-LST')
-  @SectionIdPattern('COMPE-xxx')
+  @SectionId('COMPE-LEADERSHIPCOMPETENCIES-LST')
+  @SectionIdPattern('COMPE-LEADERSHIPCOMPETENCIES-xxx')
   List<CompetencyEntry> leadershipCompetencies = [];
 }
 
@@ -1341,13 +1341,13 @@ class NewRoleOrganization {
 @SectionId('NERORE')
 class NewRoleResponsibilities {
   /// Primary responsibilities (key accountabilities).
-  @SectionId('RSPDT-LST')
-  @SectionIdPattern('RSPDT-xxx')
+  @SectionId('RSPDT-PRIMARYRESPONSIBILITIES-LST')
+  @SectionIdPattern('RSPDT-PRIMARYRESPONSIBILITIES-xxx')
   List<ResponsibilityDetailEntry> primaryResponsibilities = [];
 
   /// Secondary responsibilities (supporting duties).
-  @SectionId('RSPDT-LST')
-  @SectionIdPattern('RSPDT-xxx')
+  @SectionId('RSPDT-SECONDARYRESPONSIBILITIES-LST')
+  @SectionIdPattern('RSPDT-SECONDARYRESPONSIBILITIES-xxx')
   List<ResponsibilityDetailEntry> secondaryResponsibilities = [];
 
   /// Decision-making authority.
@@ -1419,8 +1419,8 @@ class NewRoleQualifications {
       NewRoleQualificationsScreening();
 
   /// Contains 0+× required competency.
-  @SectionId('ROLCP-LST')
-  @SectionIdPattern('ROLCP-xxx')
+  @SectionId('ROLCP-REQUIREDCOMPETENCIES-LST')
+  @SectionIdPattern('ROLCP-REQUIREDCOMPETENCIES-xxx')
   List<RoleCompetencyEntry> requiredCompetencies = [];
 }
 
@@ -1626,18 +1626,18 @@ class ChangedRoleIdentificationTransition {
 @SectionId('CHRORE')
 class ChangedRoleResponsibilities {
   /// Responsibilities being added.
-  @SectionId('RSPCH-LST')
-  @SectionIdPattern('RSPCH-xxx')
+  @SectionId('RSPCH-ADDEDRESPONSIBILITIES-LST')
+  @SectionIdPattern('RSPCH-ADDEDRESPONSIBILITIES-xxx')
   List<ResponsibilityChangeEntry> addedResponsibilities = [];
 
   /// Responsibilities being removed.
-  @SectionId('RSPCH-LST')
-  @SectionIdPattern('RSPCH-xxx')
+  @SectionId('RSPCH-REMOVEDRESPONSIBILITIES-LST')
+  @SectionIdPattern('RSPCH-REMOVEDRESPONSIBILITIES-xxx')
   List<ResponsibilityChangeEntry> removedResponsibilities = [];
 
   /// Responsibilities being modified.
-  @SectionId('RSPCH-LST')
-  @SectionIdPattern('RSPCH-xxx')
+  @SectionId('RSPCH-MODIFIEDRESPONSIBILITIES-LST')
+  @SectionIdPattern('RSPCH-MODIFIEDRESPONSIBILITIES-xxx')
   List<ResponsibilityChangeEntry> modifiedResponsibilities = [];
 
   /// Net impact summary.
@@ -1686,18 +1686,18 @@ class ResponsibilityImpactSummary {
 @SectionId('CHROCO')
 class ChangedRoleCompetencies {
   /// New competencies required.
-  @SectionId('ROLCP-LST')
-  @SectionIdPattern('ROLCP-xxx')
+  @SectionId('ROLCP-NEWCOMPETENCIES-LST')
+  @SectionIdPattern('ROLCP-NEWCOMPETENCIES-xxx')
   List<RoleCompetencyEntry> newCompetencies = [];
 
   /// Competencies no longer required.
-  @SectionId('ROLCP-LST')
-  @SectionIdPattern('ROLCP-xxx')
+  @SectionId('ROLCP-REMOVEDCOMPETENCIES-LST')
+  @SectionIdPattern('ROLCP-REMOVEDCOMPETENCIES-xxx')
   List<RoleCompetencyEntry> removedCompetencies = [];
 
   /// Competencies with changed proficiency levels.
-  @SectionId('COLVCH-LST')
-  @SectionIdPattern('COLVCH-xxx')
+  @SectionId('COLVCH-CHANGEDLEVELS-LST')
+  @SectionIdPattern('COLVCH-CHANGEDLEVELS-xxx')
   List<CompetencyLevelChangeEntry> changedLevels = [];
 
   /// Overall competency gap assessment.
@@ -2041,33 +2041,33 @@ class EquipmentRequirements {
   EquipmentOverview overview = EquipmentOverview();
 
   /// Primary computing equipment.
-  @SectionId('COEQ-LST')
-  @SectionIdPattern('COEQ-xxx')
+  @SectionId('COEQ-PRIMARYCOMPUTING-LST')
+  @SectionIdPattern('COEQ-PRIMARYCOMPUTING-xxx')
   List<ComputingEquipmentEntry> primaryComputing = [];
 
   /// Display and monitors.
-  @SectionId('DSEQ-LST')
-  @SectionIdPattern('DSEQ-xxx')
+  @SectionId('DSEQ-DISPLAYS-LST')
+  @SectionIdPattern('DSEQ-DISPLAYS-xxx')
   List<DisplayEquipmentEntry> displays = [];
 
   /// Input devices.
-  @SectionId('INPDE-LST')
-  @SectionIdPattern('INPDE-xxx')
+  @SectionId('INPDE-INPUTDEVICES-LST')
+  @SectionIdPattern('INPDE-INPUTDEVICES-xxx')
   List<InputDeviceEntry> inputDevices = [];
 
   /// Peripheral equipment.
-  @SectionId('PEREQ-LST')
-  @SectionIdPattern('PEREQ-xxx')
+  @SectionId('PEREQ-PERIPHERALS-LST')
+  @SectionIdPattern('PEREQ-PERIPHERALS-xxx')
   List<PeripheralEquipmentEntry> peripherals = [];
 
   /// Mobile devices.
-  @SectionId('MOBDE-LST')
-  @SectionIdPattern('MOBDE-xxx')
+  @SectionId('MOBDE-MOBILEDEVICES-LST')
+  @SectionIdPattern('MOBDE-MOBILEDEVICES-xxx')
   List<MobileDeviceEntry> mobileDevices = [];
 
   /// Specialized equipment.
-  @SectionId('SPEQ-LST')
-  @SectionIdPattern('SPEQ-xxx')
+  @SectionId('SPEQ-SPECIALIZEDEQUIPMENT-LST')
+  @SectionIdPattern('SPEQ-SPECIALIZEDEQUIPMENT-xxx')
   List<SpecializedEquipmentEntry> specializedEquipment = [];
 }
 
@@ -2513,23 +2513,23 @@ class TrainingRequirements {
   TrainingOverview overview = TrainingOverview();
 
   /// Initial/onboarding training.
-  @SectionId('INITR-LST')
-  @SectionIdPattern('INITR-xxx')
+  @SectionId('INITR-INITIALTRAINING-LST')
+  @SectionIdPattern('INITR-INITIALTRAINING-xxx')
   List<InitialTrainingEntry> initialTraining = [];
 
   /// Ongoing/refresher training.
-  @SectionId('ONGTR-LST')
-  @SectionIdPattern('ONGTR-xxx')
+  @SectionId('ONGTR-ONGOINGTRAINING-LST')
+  @SectionIdPattern('ONGTR-ONGOINGTRAINING-xxx')
   List<OngoingTrainingEntry> ongoingTraining = [];
 
   /// System-specific training.
-  @SectionId('SYTR-LST')
-  @SectionIdPattern('SYTR-xxx')
+  @SectionId('SYTR-SYSTEMTRAINING-LST')
+  @SectionIdPattern('SYTR-SYSTEMTRAINING-xxx')
   List<SystemTrainingEntry> systemTraining = [];
 
   /// Certification requirements.
-  @SectionId('CRT-LST')
-  @SectionIdPattern('CRT-xxx')
+  @SectionId('CRT-CERTIFICATIONS-LST')
+  @SectionIdPattern('CRT-CERTIFICATIONS-xxx')
   List<CertificationEntry> certifications = [];
 
   /// Training materials and resources.

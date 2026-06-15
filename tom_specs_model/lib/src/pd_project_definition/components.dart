@@ -50,8 +50,8 @@ Each component should specify:
     ComponentStrategy strategy = ComponentStrategy();
 
     /// 12.2. Component Catalog [PD00-COM-COM] — contains 0+× Component.
-    @SectionId('CMPNT-LST')
-    @SectionIdPattern('CMPNT-xxx')
+    @SectionId('CMPNT-COMPONENTCATALOG-LST')
+    @SectionIdPattern('CMPNT-COMPONENTCATALOG-xxx')
     List<ComponentEntry> componentCatalog = [];
 
     /// 12.3. Component Role In System [PD00-COM-ROL].
@@ -108,8 +108,8 @@ class ComponentStrategy {
     ComponentStrategyPlanning planning = ComponentStrategyPlanning();
 
     /// 12.1.1. Reuse Goals [PD00-COM-STR-GOA] — contains 0+× ReuseGoal.
-    @SectionId('RGUSE-LST')
-    @SectionIdPattern('RGUSE-xxx')
+    @SectionId('RGUSE-REUSEGOALS-LST')
+    @SectionIdPattern('RGUSE-REUSEGOALS-xxx')
     List<ReuseGoalEntry> reuseGoals = [];
 
     /// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
@@ -317,8 +317,8 @@ Each criterion includes:
   String? content;
 
   /// Contains 0+× EvaluationCriterion.
-  @SectionId('EVCEN-LST')
-  @SectionIdPattern('EVCEN-xxx')
+  @SectionId('EVCEN-ITEMS-LST')
+  @SectionIdPattern('EVCEN-ITEMS-xxx')
   List<EvaluationCriterionEntry> items = [];
 }
 
@@ -454,8 +454,8 @@ class ComponentEntry {
   final ComponentDocs docs = ComponentDocs();
 
   /// Interfaces [PD00-COM-COM-nn-INT] — contains 0+× ComponentInterface.
-  @SectionId('CMIF-LST')
-  @SectionIdPattern('CMIF-xxx')
+  @SectionId('CMIF-INTERFACES-LST')
+  @SectionIdPattern('CMIF-INTERFACES-xxx')
   List<ComponentInterfaceEntry> interfaces = [];
 
   /// Licensing [PD00-COM-COM-nn-LIC] (form).
@@ -945,8 +945,8 @@ strategy, and fallback alternatives.
   String? content;
 
   /// Contains 0+× Runtime Dependency.
-  @SectionId('RNDEP-LST')
-  @SectionIdPattern('RNDEP-xxx')
+  @SectionId('RNDEP-ITEMS-LST')
+  @SectionIdPattern('RNDEP-ITEMS-xxx')
   List<RuntimeDependencyEntry> items = [];
 }
 
@@ -979,8 +979,8 @@ Maintenance relationships and update coordination.
   String? content;
 
   /// Contains 0+× Maintenance Dependency.
-  @SectionId('MNDEP-LST')
-  @SectionIdPattern('MNDEP-xxx')
+  @SectionId('MNDEP-ITEMS-LST')
+  @SectionIdPattern('MNDEP-ITEMS-xxx')
   List<MaintenanceDependencyEntry> items = [];
 }
 
@@ -1219,8 +1219,8 @@ Each risk includes:
   String? content;
 
   /// 12.6.1. Component Risks [PD00-COM-RIS-RIS] — contains 0+× Risk.
-  @SectionId('CMRS-LST')
-  @SectionIdPattern('CMRS-xxx')
+  @SectionId('CMRS-RISKS-LST')
+  @SectionIdPattern('CMRS-RISKS-xxx')
   List<ComponentRiskEntry> risks = [];
 
   /// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
@@ -1255,8 +1255,8 @@ Document tools, access, and backups required to execute.
   String? content;
 
   /// Contains 0+× ContingencyPlan.
-  @SectionId('COPL-LST')
-  @SectionIdPattern('COPL-xxx')
+  @SectionId('COPL-ITEMS-LST')
+  @SectionIdPattern('COPL-ITEMS-xxx')
   List<ContingencyPlanEntry> items = [];
 }
 

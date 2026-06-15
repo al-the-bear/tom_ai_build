@@ -199,8 +199,8 @@ class QualityFramework {
   TextSection objectivesBreakdown = TextSection();
 
   /// 11.1.2. Quality Categories [PD00-SYQ-FRA-CAT] — contains 0+× QualityCategory.
-  @SectionId('QCATE-LST')
-  @SectionIdPattern('QCATE-xxx')
+  @SectionId('QCATE-QUALITYCATEGORIES-LST')
+  @SectionIdPattern('QCATE-QUALITYCATEGORIES-xxx')
   List<QualityCategoryEntry> qualityCategories = [];
 
   /// Quality dependencies map.
@@ -1261,8 +1261,8 @@ class ServiceLevelQuality {
   TextSection narrative = TextSection();
 
   /// Service Level Agreement entries.
-  @SectionId('SLAE-LST')
-  @SectionIdPattern('SLAE-xxx')
+  @SectionId('SLAE-SLAENTRIES-LST')
+  @SectionIdPattern('SLAE-SLAENTRIES-xxx')
   List<ServiceLevelAgreementEntry> slaEntries = [];
 }
 
@@ -1897,8 +1897,8 @@ class WeightedQualityMatrix {
   TextSection matrixNarrative = TextSection();
 
   /// Quality attribute weight entries.
-  @SectionId('QLWGT-LST')
-  @SectionIdPattern('QLWGT-xxx')
+  @SectionId('QLWGT-WEIGHTS-LST')
+  @SectionIdPattern('QLWGT-WEIGHTS-xxx')
   List<QualityWeightEntry> weights = [];
 
   /// Quality matrix visualization.
@@ -1949,8 +1949,8 @@ class TradeOffDecisions {
   TextSection tradeOffOverview = TextSection();
 
   /// Contains 0+× TradeOffDecision.
-  @SectionId('TODE-LST')
-  @SectionIdPattern('TODE-xxx')
+  @SectionId('TODE-ITEMS-LST')
+  @SectionIdPattern('TODE-ITEMS-xxx')
   List<TradeOffDecisionEntry> items = [];
 }
 
@@ -2134,8 +2134,8 @@ class MustPassCriteria {
   TextSection overview = TextSection();
 
   /// Contains 0+× MustPassCriterion.
-  @SectionId('MSTPCR-LST')
-  @SectionIdPattern('MSTPCR-xxx')
+  @SectionId('MSTPCR-ITEMS-LST')
+  @SectionIdPattern('MSTPCR-ITEMS-xxx')
   List<MustPassCriterionEntry> items = [];
 }
 
@@ -2260,8 +2260,8 @@ class QualityGateChecklist {
   TextSection overview = TextSection();
 
   /// Contains 0+× QualityGateCheck.
-  @SectionId('QGCHK-LST')
-  @SectionIdPattern('QGCHK-xxx')
+  @SectionId('QGCHK-ITEMS-LST')
+  @SectionIdPattern('QGCHK-ITEMS-xxx')
   List<QualityGateCheckEntry> items = [];
 }
 

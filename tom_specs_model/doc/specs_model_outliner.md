@@ -299,7 +299,7 @@ Every model class must have exactly one `@SectionId`. The ID is a **unique mnemo
 - Document root classes use their existing short IDs: `PD`, `BSI`, `CS`, `RC`, `BP`, `UC`, `BDM`, `AC`, `PPP`, `TR`, `UP`, `SR`, `BQP`.
 - Top-level section classes directly under a document root may use 3–4 letters: `SYOV`, `CURS`, `ORGA`, etc.
 - All other classes use up to 6 letters derived from the class name, e.g., `EXTSY` for `ExistingSystemEntry`.
-- Class-level IDs must be globally unique across all classes in the model. (List-field container IDs follow a separate, **type-scoped** rule — see *Field-level usage* below.)
+- Class-level IDs must be globally unique across all classes in the model. (List-field container IDs follow a separate, **field-suffixed** rule — see *Field-level usage* below.)
 - When two class names would produce the same mnemonic, the class *higher up* in the document tree (closer to the root) takes priority for the more readable / shorter ID.
 
 ```dart
@@ -309,38 +309,41 @@ class ExistingSystemEntry { ... }
 
 #### Field-level usage — list container section
 
-When applied to a `List<T>` field, `@SectionId` marks the **container section** for that list. It must follow the pattern `'<elementId>-LST'`, where `<elementId>` is the `@SectionId` of the element type `T`:
+When applied to a `List<T>` field, `@SectionId` marks the **container section** for that list. It follows the pattern `'<elementId>-<FIELDSUFFIX>-LST'`, where `<elementId>` is the `@SectionId` of the element type `T` and `<FIELDSUFFIX>` is the **field name uppercased** (alphanumerics only — a single hyphen-free token):
 
 ```dart
-@SectionId('EXTSY-LST')
-@SectionIdPattern('EXTSY-xxx')
+@SectionId('EXTSY-SYSTEMS-LST')
+@SectionIdPattern('EXTSY-SYSTEMS-xxx')
 List<ExistingSystemEntry> systems = [];
 ```
 
-The `-LST` suffix marks the container section. Container IDs are **type-scoped**, *not* globally unique: when the same element type `T` appears in several `List<T>` fields, every one of those fields uses the **same** `'<elementId>-LST'` / `'<elementId>-xxx'` pair. This is intentional — the ID names the *element type's* container, not an individual field. For example, all four `List<DeliverableEntry>` fields share `@SectionId('DLVEN-LST')`.
+The field name is part of the container ID because **a list is a distinct document section that must have its own ID**. Since Dart forbids duplicate field names within a class, the field-name suffix guarantees that two list fields in the same class — even of the *same* element type — get **distinct** container IDs. For example `ProcessScopeSummary` has two `List<ProcessScopeEntry>` fields that become `PRSCEN-INSCOPEPROCESSES-LST` and `PRSCEN-OUTOFSCOPEPROCESSES-LST` respectively, so the in-scope and out-of-scope sections no longer collide.
+
+The element *type* is still recoverable from any ID by taking the first token (before the first `-`): `EXTSY`.
 
 #### Uniqueness namespaces
 
-Two separate rules apply, checked by two separate validator passes:
+Three rules apply, checked by `validator.dart` §2 / §2b:
 
-- **Class-level `@SectionId`** values must be **globally unique** across the entire model (`validator.dart` §2).
-- **Field-level (`-LST`) container** values are **type-scoped** (`validator.dart` §2b): all `List<T>` fields with the same element type `T` share one `'<elementId>-LST'` ID. The validator only enforces that a given `-LST` ID maps to **exactly one** element type. Class-level and `-LST` IDs occupy *different* namespaces — a `-LST` ID is never compared against class-level IDs.
+- **Class-level `@SectionId`** values must be **globally unique** across the entire model (§2). Class-level and container IDs occupy *different* namespaces — a container ID is never compared against class-level IDs.
+- **Container IDs are unique within a class** (§2b *per-class uniqueness*): no two list fields in one class may share a container `@SectionId`. The field-name suffix guarantees this by construction; the validator enforces it as a guard against hand-authored deviations.
+- **A container ID maps to exactly one element type** (§2b *type-consistency*).
 
-Corollary: each element type uses exactly one `-LST` ID (the one derived from its class `@SectionId`). Do not give two list fields of the same element type different container IDs.
+**Cross-class sharing is allowed.** Two *different* classes that each declare a list of the same element type *with the same field name* legitimately share one container ID (e.g. `CurrentWorkflowEntry.outputs` and `WorkflowStepEntry.outputs` both → `WOOUEN-OUTPUTS-LST`). Addressing is *parent-path + local container ID*, so these do not collide within a document. (Container IDs are unique among **siblings**, not globally.)
 
 ### 7.3 `@SectionIdPattern(String pattern)`
 
 Declares the **section ID numbering template** for items in a `List<T>` field. The pattern always has exactly one `-xxx` placeholder suffix which is replaced with a zero-padded counter at document render time.
 
 - Applied to: `List<T>` fields.
-- Always used together with `@SectionId('<elementId>-LST')` on the same field.
-- Pattern format: `'<elementId>-xxx'` where `<elementId>` is the `@SectionId` of the element type `T`.
-- Effect: the field is a section, each list item becomes a numbered subsection. The section *type* is known from the element's own `@SectionId`; the numbering in the live document is derived from the pattern.
-- Example: `@SectionIdPattern('EXTSY-xxx')` → first item renders as `EXTSY-001`, second as `EXTSY-002`, etc.
+- Always used together with `@SectionId('<elementId>-<FIELDSUFFIX>-LST')` on the same field.
+- Pattern format: `'<elementId>-<FIELDSUFFIX>-xxx'` — it **mirrors** the container `@SectionId` with `-LST` replaced by `-xxx`. The validator enforces this pairing (§2b).
+- Effect: the field is a section, each list item becomes a numbered subsection. The section *type* is known from the element's own `@SectionId` (the first token); the numbering in the live document is derived from the pattern.
+- Example: `@SectionIdPattern('EXTSY-SYSTEMS-xxx')` → first item renders as `EXTSY-SYSTEMS-001`, second as `EXTSY-SYSTEMS-002`, etc.
 
 ```dart
-@SectionId('EXTSY-LST')
-@SectionIdPattern('EXTSY-xxx')
+@SectionId('EXTSY-SYSTEMS-LST')
+@SectionIdPattern('EXTSY-SYSTEMS-xxx')
 List<ExistingSystemEntry> systems = [];
 ```
 
@@ -353,14 +356,14 @@ class ExistingSystemEntry { ... }
 
 This means:
 - `EXTSY` is the **type ID** of one existing-system entry section.
-- `EXTSY-LST` is the **container section** (the inventory of all systems).
-- `EXTSY-xxx` is the **numbering template** (instances become `EXTSY-001`, `EXTSY-002`, …).
+- `EXTSY-SYSTEMS-LST` is the **container section** (the inventory of all systems on the `systems` field).
+- `EXTSY-SYSTEMS-xxx` is the **numbering template** (instances become `EXTSY-SYSTEMS-001`, `EXTSY-SYSTEMS-002`, …).
 
-Nested lists are naturally handled: each level has its own type ID and `-LST` container ID. Section type can always be derived from any instance ID by taking the prefix before `-xxx`.
+Nested lists are naturally handled: each level has its own type ID and `<elementId>-<FIELDSUFFIX>-LST` container ID. The section type can always be derived from any instance ID by taking the **first** token (before the first `-`).
 
-#### Pattern prefix — type-scoped, not field-unique
+#### Pattern uniqueness — per-class, mirrors the container ID
 
-The pattern prefix (the part before `-xxx`) equals the element type's `@SectionId` and is therefore **type-scoped**: every `List<T>` field of the same element type carries the identical `'<elementId>-xxx'` pattern (e.g. all four `List<DeliverableEntry>` fields share `'DLVEN-xxx'`). Pattern-string and pattern-prefix uniqueness are deliberately **not** enforced. The only invariant is that each prefix maps to a single element type — automatically satisfied because the prefix is the element's globally-unique class ID.
+The pattern always mirrors the field's container `@SectionId` (`-LST` ↔ `-xxx`), so it inherits the container's uniqueness properties: **unique within a class**, and shared across classes only when both the element type *and* the field name coincide. Global pattern-string uniqueness is deliberately **not** required (cross-class sharing is valid). The validator enforces (a) the pattern↔container pairing and (b) that a container ID maps to exactly one element type.
 
 ### 7.4 `@Comment(String text)`
 

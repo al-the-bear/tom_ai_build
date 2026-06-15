@@ -123,6 +123,25 @@ void main() {
       },
     );
 
+    test(
+      '§8.6: list container IDs are per-class unique and pattern-paired '
+      '(field-suffix scheme)',
+      () {
+        final result = validateStructuralInvariants(classes);
+        final lstErrors = result.errors
+            .where((e) =>
+                e.contains('§8.6 @SectionId per-class uniqueness') ||
+                e.contains('§8.6 @SectionId consistency') ||
+                e.contains('§8.6 @SectionId/@SectionIdPattern pairing'))
+            .toList();
+        // Every list field carries `<E>-<FIELDSUFFIX>-LST` + matching pattern;
+        // the field-name suffix makes sibling container IDs distinct, so the
+        // same-class same-type collisions (e.g. in/out-of-scope processes) are
+        // resolved. See field_suffix_list_id_plan.md.
+        expect(lstErrors, isEmpty, reason: lstErrors.join('\n'));
+      },
+    );
+
     test('outliner validates BusinessSystemInteractions root without errors', () {
       // BSI is a smoke-test root known to be clean of §6.1 ContentType issues.
       final result = validateModel(classes, 'BusinessSystemInteractions');
@@ -298,6 +317,137 @@ void main() {
           .where((e) => e.contains('§8.6 @SectionIdPattern list-coverage'))
           .toList();
       expect(listCoverageErrors, isEmpty);
+    });
+  });
+
+  group('unit: list container-ID (-LST) checks', () {
+    // Two sibling list fields of the same element type in one class, with the
+    // field-name suffix distinguishing their container IDs — the valid case.
+    Map<String, ModelClass> twoSiblingLists({
+      required String idA,
+      required String patA,
+      required String idB,
+      required String patB,
+    }) =>
+        {
+          'ProjectDefinition': _cls(
+            'ProjectDefinition',
+            [AnnotationData('SectionId', {'id': 'PD00'})],
+            [_field('scope', 'Scope')],
+          ),
+          'Scope': _cls(
+            'Scope',
+            [AnnotationData('SectionId', {'id': 'PD00-SCO'})],
+            [
+              _listField('inItems', 'Item', [
+                AnnotationData('SectionId', {'id': idA}),
+                AnnotationData('SectionIdPattern', {'pattern': patA}),
+              ]),
+              _listField('outItems', 'Item', [
+                AnnotationData('SectionId', {'id': idB}),
+                AnnotationData('SectionIdPattern', {'pattern': patB}),
+              ]),
+            ],
+          ),
+          'Item': _cls('Item', [AnnotationData('SectionId', {'id': 'ITM'})]),
+        };
+
+    test('passes when sibling lists carry distinct field-suffixed container IDs', () {
+      final result = validateStructuralInvariants(twoSiblingLists(
+        idA: 'ITM-INITEMS-LST',
+        patA: 'ITM-INITEMS-xxx',
+        idB: 'ITM-OUTITEMS-LST',
+        patB: 'ITM-OUTITEMS-xxx',
+      ));
+      final lstErrors = result.errors
+          .where((e) => e.contains('§8.6 @SectionId'))
+          .toList();
+      expect(lstErrors, isEmpty, reason: lstErrors.join('\n'));
+    });
+
+    test('errors when two sibling lists share a container ID (per-class uniqueness)', () {
+      final result = validateStructuralInvariants(twoSiblingLists(
+        idA: 'ITM-LST',
+        patA: 'ITM-xxx',
+        idB: 'ITM-LST',
+        patB: 'ITM-xxx',
+      ));
+      expect(
+        result.errors.any((e) =>
+            e.contains('§8.6 @SectionId per-class uniqueness') &&
+            e.contains('Scope.inItems') &&
+            e.contains('Scope.outItems')),
+        isTrue,
+        reason: 'Expected a per-class uniqueness error for the shared ITM-LST',
+      );
+    });
+
+    test('errors when one container ID maps to two element types (type-consistency)', () {
+      final classes = {
+        'ProjectDefinition': _cls(
+          'ProjectDefinition',
+          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [_field('a', 'AHolder'), _field('b', 'BHolder')],
+        ),
+        'AHolder': _cls(
+          'AHolder',
+          [AnnotationData('SectionId', {'id': 'PD00-AH'})],
+          [
+            _listField('xs', 'Alpha', [
+              AnnotationData('SectionId', {'id': 'SHARED-XS-LST'}),
+              AnnotationData('SectionIdPattern', {'pattern': 'SHARED-XS-xxx'}),
+            ]),
+          ],
+        ),
+        'BHolder': _cls(
+          'BHolder',
+          [AnnotationData('SectionId', {'id': 'PD00-BH'})],
+          [
+            _listField('xs', 'Beta', [
+              AnnotationData('SectionId', {'id': 'SHARED-XS-LST'}),
+              AnnotationData('SectionIdPattern', {'pattern': 'SHARED-XS-xxx'}),
+            ]),
+          ],
+        ),
+        'Alpha': _cls('Alpha', [AnnotationData('SectionId', {'id': 'ALP'})]),
+        'Beta': _cls('Beta', [AnnotationData('SectionId', {'id': 'BET'})]),
+      };
+      final result = validateStructuralInvariants(classes);
+      expect(
+        result.errors.any((e) => e.contains('§8.6 @SectionId consistency')),
+        isTrue,
+        reason: 'Expected a consistency error for SHARED-XS-LST → Alpha/Beta',
+      );
+    });
+
+    test('errors when @SectionIdPattern does not mirror the container ID (pairing)', () {
+      final classes = {
+        'ProjectDefinition': _cls(
+          'ProjectDefinition',
+          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [_field('h', 'Holder')],
+        ),
+        'Holder': _cls(
+          'Holder',
+          [AnnotationData('SectionId', {'id': 'PD00-H'})],
+          [
+            _listField('items', 'Item', [
+              AnnotationData('SectionId', {'id': 'ITM-ITEMS-LST'}),
+              // Mismatched pattern — should be ITM-ITEMS-xxx.
+              AnnotationData('SectionIdPattern', {'pattern': 'ITM-WRONG-xxx'}),
+            ]),
+          ],
+        ),
+        'Item': _cls('Item', [AnnotationData('SectionId', {'id': 'ITM'})]),
+      };
+      final result = validateStructuralInvariants(classes);
+      expect(
+        result.errors.any((e) =>
+            e.contains('§8.6 @SectionId/@SectionIdPattern pairing') &&
+            e.contains('Holder.items')),
+        isTrue,
+        reason: 'Expected a pairing error for Holder.items',
+      );
     });
   });
 

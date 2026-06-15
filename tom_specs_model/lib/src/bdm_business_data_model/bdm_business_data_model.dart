@@ -35,8 +35,8 @@ class BusinessDataModel {
   // ─── From PD00-BUS-DAT (Data Model) ──────────────────────────────────────
 
   /// Entity inventory — PD00-BUS-DAT-ENT (list).
-  @SectionId('DAENT-LST')
-  @SectionIdPattern('DAENT-xxx')
+  @SectionId('DAENT-ENTITIES-LST')
+  @SectionIdPattern('DAENT-ENTITIES-xxx')
   @Min(1)
   List<DataEntityEntry> entities = [];
 
@@ -52,8 +52,8 @@ class BusinessDataModel {
   // ─── From PD00-BUS-BUS (Business Object Model) ───────────────────────────
 
   /// Business object catalog — PD00-BUS-BUS-CAT (list).
-  @SectionId('BJOEN-LST')
-  @SectionIdPattern('BJOEN-xxx')
+  @SectionId('BJOEN-OBJECTCATALOG-LST')
+  @SectionIdPattern('BJOEN-OBJECTCATALOG-xxx')
   @Min(1)
   List<BusinessObjectEntry> objectCatalog = [];
 
@@ -63,18 +63,18 @@ class BusinessDataModel {
   // ─── From PD00-BUS-FUN (Function Model) ──────────────────────────────────
 
   /// Function decomposition — PD00-BUS-FUN-DEC (list).
-  @SectionId('FUNCT-LST')
-  @SectionIdPattern('FUNCT-xxx')
+  @SectionId('FUNCT-FUNCTIONDECOMPOSITION-LST')
+  @SectionIdPattern('FUNCT-FUNCTIONDECOMPOSITION-xxx')
   List<FunctionEntry> functionDecomposition = [];
 
   /// Function-to-data matrix — PD00-BUS-FUN-MAT (list).
-  @SectionId('FNDMX-LST')
-  @SectionIdPattern('FNDMX-xxx')
+  @SectionId('FNDMX-FUNCTIONTODATAMATRIX-LST')
+  @SectionIdPattern('FNDMX-FUNCTIONTODATAMATRIX-xxx')
   List<FunctionDataMatrixEntry> functionToDataMatrix = [];
 
   /// Business rules catalog — PD00-BUS-FUN-RUL (list).
-  @SectionId('BIRU-LST')
-  @SectionIdPattern('BIRU-xxx')
+  @SectionId('BIRU-BUSINESSRULES-LST')
+  @SectionIdPattern('BIRU-BUSINESSRULES-xxx')
   @Min(1)
   List<BusinessRuleEntry> businessRules = [];
 

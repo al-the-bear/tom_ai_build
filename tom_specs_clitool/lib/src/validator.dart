@@ -94,13 +94,19 @@ import 'model_reader.dart';
 /// - **`@SectionId` global uniqueness** — no two classes reachable from
 ///   `ProjectDefinition` may carry the same class-level `@SectionId` string.
 ///   Field-level `@SectionId` values (the `-LST` container IDs on list fields)
-///   occupy a *separate* namespace and are **not** required to be globally
-///   unique; they are type-scoped and checked independently (see the `-LST`
-///   consistency check below).
-/// - **Field-level `-LST` consistency** — `-LST` container IDs are
-///   type-scoped: all list fields containing the same element type share one
-///   `<E>-LST` ID, which is valid and expected. The only enforced invariant is
-///   that a given `-LST` ID always maps to exactly one element type.
+///   occupy a *separate* namespace and are checked independently (see the
+///   `-LST` checks below).
+/// - **Field-level `-LST` checks** — list container IDs follow the form
+///   `<E>-<FIELDSUFFIX>-LST`, where `<E>` is the element type's class-level
+///   `@SectionId` and `<FIELDSUFFIX>` is the field name uppercased. Two
+///   invariants hold: (i) *type-consistency* — a container ID always maps to
+///   exactly one element type; (ii) *per-class uniqueness* — within one class,
+///   no two list fields may share a container ID (the field-name suffix
+///   guarantees this; the check guards hand-authored deviations). Cross-class
+///   sharing of a container ID is allowed when both the element type and the
+///   field name coincide (interpretation X: addressing is parent-path + local
+///   ID). The `@SectionIdPattern` must mirror the container ID
+///   (`<E>-<FIELDSUFFIX>-xxx` ↔ `<E>-<FIELDSUFFIX>-LST`).
 /// - **`@SectionId` coverage** — every class reachable from
 ///   `ProjectDefinition` must carry a class-level `@SectionId`, unless it is
 ///   exempt by `@SectionIdPattern`. The exemption is transitive: a direct
@@ -157,14 +163,15 @@ void _validateStructuralInvariants(
 
   // --- 1. @SectionIdPattern coverage collection ----------------------------
   //
-  // Under the flat-ID scheme, multiple list fields containing the same element
-  // type INTENTIONALLY share the same @SectionIdPattern value (e.g. all
-  // List<DeliverableEntry> fields share '@SectionIdPattern("DLVEN-xxx")').
-  // Pattern-string and pattern-prefix uniqueness checks are therefore not
-  // performed.  What IS checked (in section 2b below) is "-LST" consistency:
-  // a given "-LST" container ID must always correspond to exactly one element
-  // type.  "-LST" IDs are type-scoped, NOT globally unique — multiple list
-  // fields of the same element type share one "-LST" ID by design.
+  // Under the field-suffixed ID scheme, every list field carries a container
+  // ID `<E>-<FIELDSUFFIX>-LST` and a matching pattern `<E>-<FIELDSUFFIX>-xxx`.
+  // Two different classes that each declare a list of the same element type
+  // with the same field name legitimately share one container/pattern pair
+  // (cross-class sharing). Global pattern-string uniqueness is therefore not
+  // required. What IS checked (in section 2b below) is: type-consistency (a
+  // container ID maps to exactly one element type), per-class uniqueness (no
+  // two list fields in one class share a container ID), and container/pattern
+  // pairing.
 
   // Direct element types of @SectionIdPattern list fields.
   final directPatternElements = <String>{};
@@ -260,20 +267,24 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- 2b. Field-level @SectionId ("-LST") consistency check ---------------
+  // --- 2b. Field-level @SectionId ("-LST") checks --------------------------
   //
-  // Field-level @SectionId values are type-scoped: all list fields containing
-  // the same element type share the same "-LST" ID.  The invariant to enforce
-  // is therefore consistency — a given "-LST" ID must always correspond to
-  // exactly one element type.  (Multiple fields of the same type sharing one
-  // "-LST" ID is valid and expected under the flat-ID scheme.)
+  // Container IDs follow `<E>-<FIELDSUFFIX>-LST`. Enforced invariants:
+  //   (i)   type-consistency  — a container ID maps to exactly one element type.
+  //   (ii)  per-class unique   — within one class, list fields have distinct
+  //                              container IDs (field-name suffix guarantees it).
+  //   (iii) pattern pairing    — @SectionIdPattern mirrors the container ID.
+  // Cross-class sharing of a container ID is allowed (same element type AND
+  // same field name) — interpretation X, parent-path addressing.
 
-  // lstId → element type name (first field seen wins)
+  // container id → element type name (first field seen wins)
   final lstIdToElementType = <String, String>{};
 
   for (final className in reachable) {
     final cls = classes[className];
     if (cls == null) continue;
+    // container id → field name, scoped to this class (for per-class uniqueness)
+    final seenInClass = <String, String>{};
     for (final field in cls.fields) {
       if (!field.isList || !field.listElementIsComplex) continue;
       final fieldSectionIdAnno = field.getAnnotation('SectionId');
@@ -281,17 +292,45 @@ void _validateStructuralInvariants(
       final lstId = fieldSectionIdAnno.arguments['id'] as String? ?? '';
       if (lstId.isEmpty) continue;
       final elementType = field.listElementTypeName ?? '';
+
+      // (i) type-consistency (global)
       if (lstIdToElementType.containsKey(lstId)) {
         final existing = lstIdToElementType[lstId]!;
         if (existing != elementType) {
           errors.add(
-            '§8.6 @SectionId consistency: "-LST" id "$lstId" used for both '
-            '$existing and $elementType — a "-LST" id must always correspond '
+            '§8.6 @SectionId consistency: container id "$lstId" used for both '
+            '$existing and $elementType — a container id must always correspond '
             'to exactly one element type',
           );
         }
       } else {
         lstIdToElementType[lstId] = elementType;
+      }
+
+      // (ii) per-class uniqueness
+      if (seenInClass.containsKey(lstId)) {
+        errors.add(
+          '§8.6 @SectionId per-class uniqueness: container id "$lstId" used by '
+          'both $className.${seenInClass[lstId]} and $className.${field.name} — '
+          'sibling list fields must carry distinct container IDs',
+        );
+      } else {
+        seenInClass[lstId] = field.name;
+      }
+
+      // (iii) container/pattern pairing
+      final patAnno = field.getAnnotation('SectionIdPattern');
+      final pattern = patAnno?.arguments['pattern'] as String? ?? '';
+      if (pattern.isNotEmpty && lstId.endsWith('-LST')) {
+        final expected =
+            '${lstId.substring(0, lstId.length - '-LST'.length)}-xxx';
+        if (pattern != expected) {
+          errors.add(
+            '§8.6 @SectionId/@SectionIdPattern pairing: '
+            '$className.${field.name} has container id "$lstId" but pattern '
+            '"$pattern" (expected "$expected")',
+          );
+        }
       }
     }
   }
