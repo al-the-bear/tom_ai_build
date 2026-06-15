@@ -197,6 +197,8 @@ class CommitteeMemberEntry {
   String? content;
 
   /// Specific responsibilities of this member.
+  @SectionId('COMRS-LST')
+  @SectionIdPattern('COMRS-xxx')
   List<CommitteeResponsibilityEntry> responsibilities = [];
 }
 
@@ -358,6 +360,8 @@ class TeamMemberSkills {
   String? content;
 
   /// Individual skill entries.
+  @SectionId('TMSKE-LST')
+  @SectionIdPattern('TMSKE-xxx')
   List<TeamMemberSkillEntry> skillDetails = [];
 }
 
@@ -1383,6 +1387,8 @@ class DocumentRelevantSections {
   String? content;
 
   /// Individual relevant section entries.
+  @SectionId('RESEEN-LST')
+  @SectionIdPattern('RESEEN-xxx')
   List<RelevantSectionEntry> sections = [];
 }
 
@@ -1412,6 +1418,8 @@ class DocumentRelationships {
   String? content;
 
   /// Related document entries.
+  @SectionId('REDOEN-LST')
+  @SectionIdPattern('REDOEN-xxx')
   List<RelatedDocumentEntry> relatedDocuments = [];
 }
 
