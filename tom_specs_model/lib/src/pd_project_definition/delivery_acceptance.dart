@@ -167,7 +167,9 @@ class DeliverableEntry {
   final DeliverableOwnership ownership = DeliverableOwnership();
 
   /// Dependencies.
-  final DeliverableDependencies dependencies = DeliverableDependencies();
+  @SectionId('DLVDP-DEPE-LST')
+  @SectionIdPattern('DLVDP-DEPE-xxx')
+  List<DeliverableDependencies> dependencies = [];
 
   /// Licensing and legal.
   final DeliverableLegal legal = DeliverableLegal();
@@ -1018,7 +1020,9 @@ class TestScenarioEntry {
   final TestScenarioPostExecution postExecution = TestScenarioPostExecution();
 
   /// Notes.
-  final TestScenarioNotes notes = TestScenarioNotes();
+  @SectionId('TESCNO-NOTE-LST')
+  @SectionIdPattern('TESCNO-NOTE-xxx')
+  List<TestScenarioNotes> notes = [];
 
   /// Contains 0+× UatTestStep for this scenario.
   @SectionId('UATSST-TEST-LST')
@@ -1476,7 +1480,9 @@ class WarrantyTerms {
   final WarrantyCoverage coverage = WarrantyCoverage();
 
   /// Service levels.
-  final WarrantyServiceLevels serviceLevels = WarrantyServiceLevels();
+  @SectionId('WASELE-SERV-LST')
+  @SectionIdPattern('WASELE-SERV-xxx')
+  List<WarrantyServiceLevels> serviceLevels = [];
 
   /// Process for defect handling.
   final WarrantyProcess process = WarrantyProcess();

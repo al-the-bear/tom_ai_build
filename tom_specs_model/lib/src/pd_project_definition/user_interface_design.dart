@@ -100,7 +100,9 @@ to pixel-perfect designs with exact typography and spacing.
   Prototype prototype = Prototype();
 
   /// 10.14. Wireframes and Mockups [PD00-USE-WIR]. Covers HBSG AS10-WIR.
-  WireframesAndMockups wireframesAndMockups = WireframesAndMockups();
+  @SectionId('WIANMO-WIRE-LST')
+  @SectionIdPattern('WIANMO-WIRE-xxx')
+  List<WireframesAndMockups> wireframesAndMockups = [];
 }
 
 // ---------------------------------------------------------------------------
@@ -1505,7 +1507,9 @@ Overall content organization and navigation structure.
   TextSection navigationStructure = TextSection();
 
   /// Global entry points.
-  TextSection globalEntryPoints = TextSection();
+  @SectionId('GLOBA-GLOB-LST')
+  @SectionIdPattern('GLOBA-GLOB-xxx')
+  List<GlobalEntryPointEntry> globalEntryPoints = [];
 
   /// 10.2.2.5. Information Architecture Diagram [PD00-USE-SCR-INF-DIA].
   FlowDiagramSection architectureDiagram = FlowDiagramSection();
@@ -3089,7 +3093,9 @@ class ReportChartEntry {
   String? content;
 
   /// Axes configuration.
-  final ReportChartAxes axes = ReportChartAxes();
+  @SectionId('RECHAX-AXES-LST')
+  @SectionIdPattern('RECHAX-AXES-xxx')
+  List<ReportChartAxes> axes = [];
 
   /// Series and colors.
   final ReportChartSeries series = ReportChartSeries();
@@ -3575,7 +3581,9 @@ class ExportFormatEntry {
   final ExportDataFormat dataFormat = ExportDataFormat();
 
   /// Size and splitting.
-  final ExportSizeSettings sizeSettings = ExportSizeSettings();
+  @SectionId('EXSISE-SIZE-LST')
+  @SectionIdPattern('EXSISE-SIZE-xxx')
+  List<ExportSizeSettings> sizeSettings = [];
 
   /// Security settings.
   final ExportSecurity security = ExportSecurity();
@@ -4059,9 +4067,9 @@ class ValidationFeedback {
   List<ValidationMessageTemplate> messageTemplates = [];
 
   /// Field validation rules by type.
-  @ContentHelp('Validation rules organized by field type: '
-      'text, email, phone, date, number, etc.')
-  TextSection fieldValidationRules = TextSection();
+  @SectionId('FIELD-FIEL-LST')
+  @SectionIdPattern('FIELD-FIEL-xxx')
+  List<FieldValidationRuleEntry> fieldValidationRules = [];
 }
 
 /// Display placement details.
@@ -4193,9 +4201,9 @@ class SystemErrorDisplay {
   TextSection systemErrorNarrative = TextSection();
 
   /// Error page designs.
-  @ContentHelp('Specifications for full-page error designs: '
-      '404, 500, 503, maintenance mode.')
-  TextSection errorPageDesigns = TextSection();
+  @SectionId('ERROR1-ERRO-LST')
+  @SectionIdPattern('ERROR1-ERRO-xxx')
+  List<ErrorPageDesignEntry> errorPageDesigns = [];
 
   /// Error codes catalog.
   @SectionId('SECE-ERRO-LST')
@@ -4364,8 +4372,9 @@ class ErrorRecovery {
   TextSection recoveryNarrative = TextSection();
 
   /// Recovery flow diagrams.
-  @ContentHelp('Flow diagrams showing error recovery paths.')
-  FlowDiagramSection recoveryFlows = FlowDiagramSection();
+  @SectionId('RECOV-RECO-LST')
+  @SectionIdPattern('RECOV-RECO-xxx')
+  List<RecoveryFlowEntry> recoveryFlows = [];
 
   /// Common recovery scenarios.
   @SectionId('RCVSCN-RECO-LST')
@@ -5588,14 +5597,9 @@ class UiComponentsCustomization {
 /// Design system and component catalog specification.
 @SectionId('COLI')
 class ComponentLibrary {
-  @Form([
-    Field('primaryColor', String, 'Primary Color',
-        hint: 'Primary brand color (hex or semantic name)'),
-    Field('fontFamilyPrimary', String, 'Primary Font Family'),
-    Field('spacingScale', String, 'Spacing Scale',
-        hint: '4px base, 8px base, custom scale'),
-  ])
-  String? designFoundations;
+  @SectionId('DESIG-DESI-LST')
+  @SectionIdPattern('DESIG-DESI-xxx')
+  List<DesignFoundationEntry> designFoundations = [];
 
   /// Color system.
   final ComponentLibraryColors colors = ComponentLibraryColors();
@@ -7507,5 +7511,46 @@ narrative-flow views.
 - Storyboard / user-journey visuals
 - Review and sign-off status per artifact
 ''')
+  String? content;
+}
+
+/// A single design foundation entry.
+@SectionId('DESIG')
+class DesignFoundationEntry {
+  @Form([
+    Field('primaryColor', String, 'Primary Color',
+        hint: 'Primary brand color (hex or semantic name)'),
+    Field('fontFamilyPrimary', String, 'Primary Font Family'),
+    Field('spacingScale', String, 'Spacing Scale',
+        hint: '4px base, 8px base, custom scale'),
+  ])
+  String? content;
+}
+
+/// A single recovery flow entry.
+@SectionId('RECOV')
+class RecoveryFlowEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single global entry point entry.
+@SectionId('GLOBA')
+class GlobalEntryPointEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single error page design entry.
+@SectionId('ERROR1')
+class ErrorPageDesignEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single field validation rule entry.
+@SectionId('FIELD')
+class FieldValidationRuleEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
   String? content;
 }

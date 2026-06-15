@@ -15177,7 +15177,9 @@ class ExternalPartnerConnectionEntry {
       ExternalPartnerDataHandling();
 
   /// Operations and contacts.
-  final ExternalPartnerOperations operations = ExternalPartnerOperations();
+  @SectionId('EXPAOP-OPER-LST')
+  @SectionIdPattern('EXPAOP-OPER-xxx')
+  List<ExternalPartnerOperations> operations = [];
 }
 
 /// Protocol and endpoint.
@@ -15813,7 +15815,9 @@ Provide an overview of system operation approach.
       AdministrationRequirementsSection();
 
   /// Maintenance Procedures.
-  TextSection maintenanceProcedures = TextSection();
+  @SectionId('MAINT-MAIN-LST')
+  @SectionIdPattern('MAINT-MAIN-xxx')
+  List<MaintenanceProcedureEntry> maintenanceProcedures = [];
 }
 
 /// 8.7.1.1. Administration Requirements [PD00-TEC-SYS-ADM].
@@ -16417,7 +16421,9 @@ class AlertingConfiguration {
   AlertEscalationPolicies escalationPolicies = AlertEscalationPolicies();
 
   /// Alert suppression and maintenance windows.
-  AlertSuppressionRules suppressionRules = AlertSuppressionRules();
+  @SectionId('ALSURU-SUPP-LST')
+  @SectionIdPattern('ALSURU-SUPP-xxx')
+  List<AlertSuppressionRules> suppressionRules = [];
 
   /// On-call schedule.
   OnCallScheduleConfig onCallSchedule = OnCallScheduleConfig();
@@ -17137,7 +17143,9 @@ class MonitoringDashboards {
   List<DashboardEntry> dashboards = [];
 
   /// Dashboard template specifications.
-  DashboardTemplates dashboardTemplates = DashboardTemplates();
+  @SectionId('DATE-DASH-LST')
+  @SectionIdPattern('DATE-DASH-xxx')
+  List<DashboardTemplates> dashboardTemplates = [];
 }
 
 /// A dashboard entry [PD00-TEC-SYS-MON-DAS-nn].
@@ -20595,5 +20603,12 @@ drivers / trade-offs.
 - Reference architecture diagrams (high-level + key views)
 - Technology-radar alignment (Adopt / Trial / Assess / Hold)
 ''')
+  String? content;
+}
+
+/// A single maintenance procedure entry.
+@SectionId('MAINT')
+class MaintenanceProcedureEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
   String? content;
 }

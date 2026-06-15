@@ -59,9 +59,9 @@ class SystemQualityGoals {
   TextSection qaStrategy = TextSection();
 
   /// Quality attribute interdependencies.
-  @ContentHelp('How quality attributes relate to and affect each other, '
-      'known tensions and resolution approaches.')
-  TextSection attributeInterdependencies = TextSection();
+  @SectionId('ATTRI-ATTR-LST')
+  @SectionIdPattern('ATTRI-ATTR-xxx')
+  List<AttributeInterdependencyEntry> attributeInterdependencies = [];
 
   /// Quality attribute priority radar.
   @ContentHelp('Visual showing relative importance of quality attributes.')
@@ -204,8 +204,9 @@ class QualityFramework {
   List<QualityCategoryEntry> qualityCategories = [];
 
   /// Quality dependencies map.
-  @ContentHelp('How quality categories depend on and influence each other.')
-  DiagramSection categoryDependencies = DiagramSection();
+  @SectionId('CATEG-CATE-LST')
+  @SectionIdPattern('CATEG-CATE-xxx')
+  List<CategoryDependencyEntry> categoryDependencies = [];
 }
 
 /// Quality objective structure and alignment.
@@ -2394,5 +2395,19 @@ criteria in PD00-SYQ-USE/TEC/OPE/DOC; this section integrates them.
 - Traceability from requirements to tests
 - Risk-based test prioritization
 ''')
+  String? content;
+}
+
+/// A single category dependency entry.
+@SectionId('CATEG')
+class CategoryDependencyEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single attribute interdependency entry.
+@SectionId('ATTRI')
+class AttributeInterdependencyEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
   String? content;
 }

@@ -169,7 +169,9 @@ class StagingStrategy {
   final StagingRationale rationale = StagingRationale();
 
   /// Key drivers and constraints.
-  final StagingDrivers drivers = StagingDrivers();
+  @SectionId('STAGDR-DRIV-LST')
+  @SectionIdPattern('STAGDR-DRIV-xxx')
+  List<StagingDrivers> drivers = [];
 
   /// Risk assessment.
   final StagingRiskAssessment riskAssessment = StagingRiskAssessment();
@@ -193,7 +195,9 @@ class StagingStrategy {
   final StagingFrameworkAlignment frameworkAlignment = StagingFrameworkAlignment();
 
   /// Dependencies and prerequisites.
-  final StagingDependencies dependencies = StagingDependencies();
+  @SectionId('STAGDP-DEPE-LST')
+  @SectionIdPattern('STAGDP-DEPE-xxx')
+  List<StagingDependencies> dependencies = [];
 
   /// Governance and approvals.
   final StagingGovernance governance = StagingGovernance();
@@ -213,18 +217,14 @@ class StagingStrategy {
   TextSection rationaleNarrative = TextSection();
 
   /// 13.1.3. Key Assumptions [PD00-SSP-STR-ASM].
-  @ContentHelp('Key assumptions underlying the staging strategy: '
-      'resource availability and skill mix, technology platform readiness, '
-      'stakeholder buy-in and support, data quality levels, '
-      'vendor commitment, infrastructure provisioning timelines.')
-  TextSection keyAssumptions = TextSection();
+  @SectionId('KEYAS-KEYA-LST')
+  @SectionIdPattern('KEYAS-KEYA-xxx')
+  List<KeyAssumptionEntry> keyAssumptions = [];
 
   /// 13.1.4. Constraints [PD00-SSP-STR-CON].
-  @ContentHelp('Constraints affecting the staging strategy: fixed '
-      'go-live dates, budget limits, resource caps, seasonal blackout '
-      'periods, regulatory compliance windows, vendor contract dates, '
-      'fiscal year boundaries, organizational freeze periods.')
-  TextSection constraints = TextSection();
+  @SectionId('STAGI-CONS-LST')
+  @SectionIdPattern('STAGI-CONS-xxx')
+  List<StagingStrategyConstraintEntry> constraints = [];
 }
 
 /// Approach selection for staging strategy.
@@ -820,10 +820,14 @@ class StageSummaryEntry {
   final StageSummaryScope scope = StageSummaryScope();
 
   /// Resources and budget.
-  final StageSummaryResources resources = StageSummaryResources();
+  @SectionId('STSURE-RESO-LST')
+  @SectionIdPattern('STSURE-RESO-xxx')
+  List<StageSummaryResources> resources = [];
 
   /// Dependencies and risks.
-  final StageSummaryDependencies dependencies = StageSummaryDependencies();
+  @SectionId('STSUDE-DEPE-LST')
+  @SectionIdPattern('STSUDE-DEPE-xxx')
+  List<StageSummaryDependencies> dependencies = [];
 
   /// Quality and acceptance.
   final StageSummaryQuality quality = StageSummaryQuality();
@@ -977,10 +981,14 @@ class StageEntry {
   final StageScope scope = StageScope();
 
   /// Dependencies.
-  final StageDependencies dependencies = StageDependencies();
+  @SectionId('STDE-DEPE-LST')
+  @SectionIdPattern('STDE-DEPE-xxx')
+  List<StageDependencies> dependencies = [];
 
   /// Resources and budget.
-  final StageResources resources = StageResources();
+  @SectionId('STRE-RESO-LST')
+  @SectionIdPattern('STRE-RESO-xxx')
+  List<StageResources> resources = [];
 
   /// Quality and governance.
   final StageQuality quality = StageQuality();
@@ -989,7 +997,9 @@ class StageEntry {
   final StageDeployment deployment = StageDeployment();
 
   /// Stakeholders and communication.
-  final StageStakeholders stakeholders = StageStakeholders();
+  @SectionId('STST-STAK-LST')
+  @SectionIdPattern('STST-STAK-xxx')
+  List<StageStakeholders> stakeholders = [];
 
   /// Risk.
   final StageRisk risk = StageRisk();
@@ -1960,7 +1970,9 @@ class FeaturePriorityEntry {
   final FeatureDependenciesInfo dependencies = FeatureDependenciesInfo();
 
   /// Stakeholders.
-  final FeatureStakeholders stakeholders = FeatureStakeholders();
+  @SectionId('FEST-STAK-LST')
+  @SectionIdPattern('FEST-STAK-xxx')
+  List<FeatureStakeholders> stakeholders = [];
 
   /// Traceability.
   final FeatureTraceability traceability = FeatureTraceability();
@@ -2289,7 +2301,9 @@ class DataMigrationStrategy {
   final MigrationScope scope = MigrationScope();
 
   /// Source and target system details.
-  final MigrationSystems systems = MigrationSystems();
+  @SectionId('MISY-SYST-LST')
+  @SectionIdPattern('MISY-SYST-xxx')
+  List<MigrationSystems> systems = [];
 
   /// Data quality strategy.
   final MigrationDataQuality dataQuality = MigrationDataQuality();
@@ -2298,7 +2312,9 @@ class DataMigrationStrategy {
   final MigrationTooling tooling = MigrationTooling();
 
   /// Environment strategy.
-  final MigrationEnvironments environments = MigrationEnvironments();
+  @SectionId('MIEN-ENVI-LST')
+  @SectionIdPattern('MIEN-ENVI-xxx')
+  List<MigrationEnvironments> environments = [];
 
   /// Cutover planning.
   final MigrationCutover cutover = MigrationCutover();
@@ -2313,10 +2329,14 @@ class DataMigrationStrategy {
   final MigrationMetrics metrics = MigrationMetrics();
 
   /// Stakeholder communication.
-  final MigrationStakeholders stakeholders = MigrationStakeholders();
+  @SectionId('MIST-STAK-LST')
+  @SectionIdPattern('MIST-STAK-xxx')
+  List<MigrationStakeholders> stakeholders = [];
 
   /// Budget and resources.
-    final StageMigrationResources resources = StageMigrationResources();
+    @SectionId('STMIRE-RESO-LST')
+  @SectionIdPattern('STMIRE-RESO-xxx')
+  List<StageMigrationResources> resources = [];
 
   /// Schedule overview.
   final MigrationSchedule schedule = MigrationSchedule();
@@ -2679,7 +2699,9 @@ class MigrationPhaseEntry {
   final MigrationPhaseSchedule schedule = MigrationPhaseSchedule();
 
   /// Dry runs.
-  final MigrationPhaseDryRuns dryRuns = MigrationPhaseDryRuns();
+  @SectionId('MPDR-DRYR-LST')
+  @SectionIdPattern('MPDR-DRYR-xxx')
+  List<MigrationPhaseDryRuns> dryRuns = [];
 
   /// Validation and reconciliation.
   final MigrationPhaseValidation validation = MigrationPhaseValidation();
@@ -2691,7 +2713,9 @@ class MigrationPhaseEntry {
   final MigrationPhaseRollback rollback = MigrationPhaseRollback();
 
   /// Resources.
-  final MigrationPhaseResources resources = MigrationPhaseResources();
+  @SectionId('MIPHRE-RESO-LST')
+  @SectionIdPattern('MIPHRE-RESO-xxx')
+  List<MigrationPhaseResources> resources = [];
 
   /// Status.
   final MigrationPhaseStatus status = MigrationPhaseStatus();
@@ -4020,5 +4044,19 @@ finishes. Provides the project-specific bridge to the static
 - Rollout strategy differences for upgrades vs. initial launch
 - Version and numbering scheme
 ''')
+  String? content;
+}
+
+/// A single key assumption entry.
+@SectionId('KEYAS')
+class KeyAssumptionEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single constraint entry.
+@SectionId('STAGI')
+class StagingStrategyConstraintEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
   String? content;
 }

@@ -312,7 +312,9 @@ class QualityGateAdjustmentEntry {
   String? content;
 
   /// Gate details.
-  final QualityGateAdjustmentDetails details = QualityGateAdjustmentDetails();
+  @SectionId('QGAED-DETA-LST')
+  @SectionIdPattern('QGAED-DETA-xxx')
+  List<QualityGateAdjustmentDetails> details = [];
 
   /// Rationale.
   final QualityGateAdjustmentRationale rationale =
@@ -480,7 +482,9 @@ class ProcessAdjustmentEntry {
   final ProcessAdjustmentIdentity identity = ProcessAdjustmentIdentity();
 
   /// Adjustment details.
-  final ProcessAdjustmentDetails details = ProcessAdjustmentDetails();
+  @SectionId('PCAED-DETA-LST')
+  @SectionIdPattern('PCAED-DETA-xxx')
+  List<ProcessAdjustmentDetails> details = [];
 
   /// Rationale.
   final ProcessAdjustmentRationale rationale = ProcessAdjustmentRationale();

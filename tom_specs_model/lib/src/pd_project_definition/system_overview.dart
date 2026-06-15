@@ -325,12 +325,12 @@ class ProblemStatement {
     Field('consequencesOfInaction', String,
         'Consequences of Inaction (what happens if not addressed)'),
   ])
-  String? problemDetails;
+  TextSection? problemDetails;
 
   /// Related pain points from Current State Analysis.
-  @ContentType('description', 'Cross-references to specific pain points '
-      'documented in the Current State Analysis section (PD00-CUR-PAI).')
-  String? relatedPainPoints;
+  @SectionId('RELAT1-RELA-LST')
+  @SectionIdPattern('RELAT1-RELA-xxx')
+  List<RelatedPainPointEntry> relatedPainPoints = [];
 }
 
 /// 4.1.1.2. Opportunity Statement [PD00-SYO-SYD-PUR-OPP].
@@ -365,7 +365,7 @@ class OpportunityStatement {
     Field('timeToValue', String,
         'Time to Value (when benefits will start being realized)'),
   ])
-  String? opportunityDetails;
+  TextSection? opportunityDetails;
 }
 
 /// 4.1.1.3. Stakeholders and Beneficiaries [PD00-SYO-SYD-PUR-STA].
@@ -469,7 +469,7 @@ class ValueProposition {
     Field('qualitativeBenefits', String,
         'Qualitative Benefits (non-quantifiable but important benefits)'),
   ])
-  String? valueDetails;
+  TextSection? valueDetails;
 
   /// Financial and efficiency benefits.
   ValuePropositionBenefits benefits = ValuePropositionBenefits();
@@ -479,9 +479,9 @@ class ValueProposition {
       ValuePropositionReturnProfile();
 
   /// Key Performance Indicators for value measurement.
-  @ContentType('description', 'KPIs that will be used to measure the '
-      'realization of the value proposition.')
-  String? kpis;
+  @SectionId('KPIEN-KPIS-LST')
+  @SectionIdPattern('KPIEN-KPIS-xxx')
+  List<KpiEntry> kpis = [];
 }
 
 /// Financial and efficiency benefits.
@@ -545,7 +545,7 @@ class StrategicAlignment {
     Field('strategicTimingRationale', String,
         'Strategic Timing (why this is the right time for this initiative)'),
   ])
-  String? alignmentDetails;
+  TextSection? alignmentDetails;
 }
 
 /// 4.1.1.6. Scope Boundaries [PD00-SYO-SYD-PUR-SCO].
@@ -581,9 +581,9 @@ class ScopeBoundaries {
   List<DeferredScopeItemEntry> deferredItems = [];
 
   /// Scope Assumptions.
-  @ContentType('description', 'Key assumptions that scope decisions are '
-      'based on. If assumptions change, scope may need revisiting.')
-  String? scopeAssumptions;
+  @SectionId('SCOPE-SCOP-LST')
+  @SectionIdPattern('SCOPE-SCOP-xxx')
+  List<ScopeAssumptionEntry> scopeAssumptions = [];
 }
 
 /// A scope item entry (in-scope or out-of-scope).
@@ -716,7 +716,7 @@ class ItLandscapePosition {
     Field('integrationPattern', String,
         'Primary Integration Pattern (API, Event, Batch, Real-time)'),
   ])
-  String? positionDetails;
+  TextSection? positionDetails;
 }
 
 /// 4.1.2.3. External Actors [PD00-SYO-SYD-CON-ACT].
@@ -761,9 +761,9 @@ class ExternalActorEntry {
   ExternalActorEntryContext context = ExternalActorEntryContext();
 
   /// Interaction scenarios for this actor.
-  @ContentType('description', 'Key interaction scenarios describing '
-      'typical workflows for this actor.')
-  String? interactionScenarios;
+  @SectionId('INTER-INTE-LST')
+  @SectionIdPattern('INTER-INTE-xxx')
+  List<InteractionScenarioEntry> interactionScenarios = [];
 }
 
 /// Interaction cadence and exchanged information.
@@ -1008,7 +1008,7 @@ class DeploymentContext {
     Field('environmentTypes', String,
         'Environment Types (Dev, Test, Staging, Production, DR)'),
   ])
-  String? deploymentDetails;
+  TextSection? deploymentDetails;
 }
 
 /// 4.1.2.8. Regulatory Context [PD00-SYO-SYD-CON-REG].
@@ -1059,9 +1059,9 @@ class ApplicableRegulationEntry {
   String? content;
 
   /// Specific compliance measures for this regulation.
-  @ContentType('description', 'Detailed compliance measures and controls '
-      'implemented for this regulation.')
-  String? complianceMeasures;
+  @SectionId('COMPL-COMP-LST')
+  @SectionIdPattern('COMPL-COMP-xxx')
+  List<ComplianceMeasureEntry> complianceMeasures = [];
 }
 
 // ---------------------------------------------------------------------------
@@ -1138,7 +1138,7 @@ class DomainOverview {
     Field('changeFrequency', String,
         'Change Frequency (how often this domain changes)'),
   ])
-  String? domainDetails;
+  TextSection? domainDetails;
 }
 
 /// 4.1.3.2. Domain Vocabulary [PD00-SYO-SYD-DES-VOC].
@@ -1237,14 +1237,10 @@ class KeyConceptEntry {
   String? content;
 
   /// Detailed attribute definitions for this concept.
-  @ContentType('description', 'Detailed description of attributes, '
-      'their types, constraints, and business meaning.')
-  String? attributeDetails;
+  TextSection? attributeDetails;
 
   /// Relationships to other concepts.
-  @ContentType('description', 'Detailed description of how this concept '
-      'relates to other concepts in the domain.')
-  String? relationshipDetails;
+  TextSection? relationshipDetails;
 }
 
 /// 4.1.3.4. Domain Boundaries [PD00-SYO-SYD-DES-BOU].
@@ -1423,9 +1419,7 @@ class DomainProcessEntry {
   DomainProcessEntryOperations operations = DomainProcessEntryOperations();
 
   /// Process flow details.
-  @ContentType('description', 'Detailed description of process steps, '
-      'decision points, and variations.')
-  String? processFlowDetails;
+  TextSection? processFlowDetails;
 }
 
 /// Inputs, outputs, and participant flow.
@@ -1634,7 +1628,9 @@ class InteractionChannelEntry {
   ChannelUxSpecification uxSpecification = ChannelUxSpecification();
 
   /// Channel-specific integration requirements.
-  ChannelIntegrations integrations = ChannelIntegrations();
+  @SectionId('CI-INTE-LST')
+  @SectionIdPattern('CI-INTE-xxx')
+  List<ChannelIntegrations> integrations = [];
 }
 
 /// Platform and targeting for interaction channel.
@@ -2063,7 +2059,9 @@ class NotificationModel {
   List<NotificationTypeEntry> notificationTypes = [];
 
   /// User notification preferences.
-  UserNotificationPreferences preferences = UserNotificationPreferences();
+  @SectionId('UNP-PREF-LST')
+  @SectionIdPattern('UNP-PREF-xxx')
+  List<UserNotificationPreferences> preferences = [];
 }
 
 /// A notification channel entry.
@@ -2326,9 +2324,9 @@ class UserPersonaDetails {
   String? visualRepresentation;
 
   /// Key quotes that represent this persona's mindset.
-  @ContentType('description', 'Representative quotes that capture this '
-      'persona\'s attitude, needs, or concerns.')
-  String? representativeQuotes;
+  @SectionId('REPRE-REPR-LST')
+  @SectionIdPattern('REPRE-REPR-xxx')
+  List<RepresentativeQuoteEntry> representativeQuotes = [];
 }
 
 /// Experience and work context.
@@ -2424,12 +2422,14 @@ class SystemTaskEntry {
   String? relatedUseCase;
 
   /// Task workflow steps.
-  @ContentType('description', 'Detailed steps for completing this task.')
-  String? workflowSteps;
+  @SectionId('SYSTE-WORK-LST')
+  @SectionIdPattern('SYSTE-WORK-xxx')
+  List<SystemTaskWorkflowStepEntry> workflowSteps = [];
 
   /// Variations and exceptions.
-  @ContentType('description', 'Alternative paths and exception handling.')
-  String? variationsAndExceptions;
+  @SectionId('VARIA-VARI-LST')
+  @SectionIdPattern('VARIA-VARI-xxx')
+  List<VariationsAndExceptionEntry> variationsAndExceptions = [];
 }
 
 /// Timing, complexity, and trigger details for a system task.
@@ -2658,14 +2658,14 @@ class UserJourney {
   List<JourneyStageEntry> stages = [];
 
   /// Key touchpoints.
-  @ContentType('description', 'List of key system touchpoints in '
-      'the user journey.')
-  String? keyTouchpoints;
+  @SectionId('KEYTO-KEYT-LST')
+  @SectionIdPattern('KEYTO-KEYT-xxx')
+  List<KeyTouchpointEntry> keyTouchpoints = [];
 
   /// Pain points in the journey.
-  @ContentType('description', 'Known or anticipated pain points in '
-      'the user journey that should be addressed.')
-  String? painPoints;
+  @SectionId('USERJ-PAIN-LST')
+  @SectionIdPattern('USERJ-PAIN-xxx')
+  List<UserJourneyPainPointEntry> painPoints = [];
 
   /// Opportunities for delight.
   @ContentType('description', 'Opportunities to exceed user expectations '
@@ -3509,8 +3509,9 @@ class SuccessCriterionEntry {
   final SuccessCriterionImportance importance = SuccessCriterionImportance();
 
   /// Relationships.
-  final SuccessCriterionRelationships relationships =
-      SuccessCriterionRelationships();
+  @SectionId('SUCRRE-RELA-LST')
+  @SectionIdPattern('SUCRRE-RELA-xxx')
+  List<SuccessCriterionRelationships> relationships = [];
 
   /// Status.
   final SuccessCriterionStatus status = SuccessCriterionStatus();
@@ -3698,8 +3699,9 @@ class RequirementsOverview {
       OrganizationalRequirements();
 
   /// 4.3.5. Requirement Relationships [PD00-SYO-REQ-REL].
-  RequirementRelationships requirementRelationships =
-      RequirementRelationships();
+  @SectionId('RERE-REQU-LST')
+  @SectionIdPattern('RERE-REQU-xxx')
+  List<RequirementRelationships> requirementRelationships = [];
 
   /// 4.3.6. Requirement Coverage [PD00-SYO-REQ-COV].
   RequirementCoverage requirementCoverage = RequirementCoverage();
@@ -5100,10 +5102,14 @@ class SystemTechnicalAssessment {
   SystemTechnicalAssessmentQuality quality = SystemTechnicalAssessmentQuality();
 
   /// Known technical issues and deficiencies.
-  TextSection knownIssues = TextSection();
+  @SectionId('KNOWN1-KNOW-LST')
+  @SectionIdPattern('KNOWN1-KNOW-xxx')
+  List<KnownIssueEntry> knownIssues = [];
 
   /// Security vulnerabilities and compliance gaps.
-  TextSection securityConcerns = TextSection();
+  @SectionId('SECUR-SECU-LST')
+  @SectionIdPattern('SECUR-SECU-xxx')
+  List<SecurityConcernEntry> securityConcerns = [];
 }
 
 /// Platform and age details.
@@ -5259,7 +5265,9 @@ class SystemReplacementStrategy {
   List<ReplacementPhaseEntry> phases = [];
 
   /// Predecessor systems that must be addressed first.
-  TextSection predecessorDependencies = TextSection();
+  @SectionId('PREDE-PRED-LST')
+  @SectionIdPattern('PREDE-PRED-xxx')
+  List<PredecessorDependencyEntry> predecessorDependencies = [];
 
   /// Success criteria for replacement completion.
   TextSection successCriteria = TextSection();
@@ -5326,7 +5334,9 @@ class SystemDataScope {
   List<DataEntityMigrationEntry> entities = [];
 
   /// Data quality issues to address.
-  TextSection knownQualityIssues = TextSection();
+  @SectionId('KNOWN-KNOW-LST')
+  @SectionIdPattern('KNOWN-KNOW-xxx')
+  List<KnownQualityIssueEntry> knownQualityIssues = [];
 }
 
 /// Data sensitivity and quality posture.
@@ -5492,7 +5502,9 @@ class SystemCostAnalysis {
   TextSection costBreakdown = TextSection();
 
   /// Non-financial benefits to include in ROI.
-  TextSection nonFinancialBenefits = TextSection();
+  @SectionId('NONFI-NONF-LST')
+  @SectionIdPattern('NONFI-NONF-xxx')
+  List<NonFinancialBenefitEntry> nonFinancialBenefits = [];
 }
 
 /// Current-state support and total annual cost.
@@ -5619,7 +5631,9 @@ class SystemKnowledgeTransfer {
   String? content;
 
   /// Critical knowledge areas to preserve.
-  TextSection criticalKnowledgeAreas = TextSection();
+  @SectionId('CRITI-CRIT-LST')
+  @SectionIdPattern('CRITI-CRIT-xxx')
+  List<CriticalKnowledgeAreaEntry> criticalKnowledgeAreas = [];
 
   /// Knowledge transfer plan if SME risk is high.
   TextSection knowledgeTransferPlan = TextSection();
@@ -5682,7 +5696,9 @@ class MigrationConsiderations {
   TextSection communicationPlan = TextSection();
 
   /// Escalation procedures during migration.
-  TextSection escalationProcedures = TextSection();
+  @SectionId('ESCAL-ESCA-LST')
+  @SectionIdPattern('ESCAL-ESCA-xxx')
+  List<EscalationProcedureEntry> escalationProcedures = [];
 }
 
 /// Migration resource requirements [PD00-SYO-SYR-MIG-RES].
@@ -5760,24 +5776,24 @@ class MigrationRisks {
   TextSection assessmentMethodology = TextSection();
 
   /// Risk categories and taxonomy.
-  @ContentHelp('Definition of risk categories used: technical, '
-      'organizational, schedule, budget, business, regulatory.')
-  TextSection riskCategories = TextSection();
+  @SectionId('RISKC-RISK-LST')
+  @SectionIdPattern('RISKC-RISK-xxx')
+  List<RiskCategoryEntry> riskCategories = [];
 
   /// Risk-based decision making criteria.
-  @ContentHelp('How risk scores influence Go/No-Go decisions, '
-      'resource allocation, and scheduling.')
-  TextSection riskBasedDecisions = TextSection();
+  @SectionId('RISKB-RISK-LST')
+  @SectionIdPattern('RISKB-RISK-xxx')
+  List<RiskBasedDecisionEntry> riskBasedDecisions = [];
 
   /// Risk monitoring and control procedures.
-  @ContentHelp('Ongoing risk monitoring activities, status reviews, '
-      'and control effectiveness assessments.')
-  TextSection monitoringProcedures = TextSection();
+  @SectionId('MONIT-MONI-LST')
+  @SectionIdPattern('MONIT-MONI-xxx')
+  List<MonitoringProcedureEntry> monitoringProcedures = [];
 
   /// Risk response strategies by category.
-  @ContentHelp('Standard response approaches: avoid, mitigate, '
-      'transfer, accept — with criteria for each.')
-  TextSection responseStrategies = TextSection();
+  @SectionId('RESPO-RESP-LST')
+  @SectionIdPattern('RESPO-RESP-xxx')
+  List<ResponseStrategyEntry> responseStrategies = [];
 
   /// Risk aggregation and portfolio view.
   @ContentHelp('How individual system risks roll up to program level, '
@@ -5895,7 +5911,9 @@ class MigrationRiskEntry {
   final MigrationRiskContingency contingency = MigrationRiskContingency();
 
   /// Risk indicators and monitoring.
-  final MigrationRiskIndicators indicators = MigrationRiskIndicators();
+  @SectionId('MIRIIN-INDI-LST')
+  @SectionIdPattern('MIRIIN-INDI-xxx')
+  List<MigrationRiskIndicators> indicators = [];
 
   /// Ownership and tracking.
   final MigrationRiskTracking tracking = MigrationRiskTracking();
@@ -6156,8 +6174,9 @@ class SystemBoundaries {
   SystemLandscapeInventory systemLandscapeInventory = SystemLandscapeInventory();
 
   /// 4.5.5. Boundary Interaction Patterns [PD00-SYO-SYB-PAT]. Covers BSI-PAT.
-  BoundaryInteractionPatterns boundaryInteractionPatterns =
-      BoundaryInteractionPatterns();
+  @SectionId('BOINPA-BOUN-LST')
+  @SectionIdPattern('BOINPA-BOUN-xxx')
+  List<BoundaryInteractionPatterns> boundaryInteractionPatterns = [];
 
   /// 4.5.6. Interaction Testing Strategy [PD00-SYO-SYB-TST]. Covers BSI-TST.
   InteractionTestingStrategy interactionTestingStrategy =
@@ -6168,11 +6187,14 @@ class SystemBoundaries {
       InteractionDependencyAnalysis();
 
   /// 4.5.8. Migration Interactions [PD00-SYO-SYB-MIG]. Covers BSI-MIG.
-  MigrationInteractions migrationInteractions = MigrationInteractions();
+  @SectionId('MIIN-MIGR-LST')
+  @SectionIdPattern('MIIN-MIGR-xxx')
+  List<MigrationInteractions> migrationInteractions = [];
 
   /// 4.5.9. Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE].
-  CrossBoundaryOperationalConsiderations operationalConsiderations =
-      CrossBoundaryOperationalConsiderations();
+  @SectionId('CBOC-OPER-LST')
+  @SectionIdPattern('CBOC-OPER-xxx')
+  List<CrossBoundaryOperationalConsiderations> operationalConsiderations = [];
 
   /// 4.5.10. Cross-Boundary Error Handling [PD00-SYO-SYB-ERR].
   CrossBoundaryErrorHandling crossBoundaryErrorHandling =
@@ -6445,10 +6467,14 @@ class InterfaceDataSpec {
   List<InterfaceDataEntityEntry> dataEntities = [];
 
   /// Data mapping and transformation rules.
-  TextSection mappingRules = TextSection();
+  @SectionId('MAPPI-MAPP-LST')
+  @SectionIdPattern('MAPPI-MAPP-xxx')
+  List<MappingRuleEntry> mappingRules = [];
 
   /// Data validation rules.
-  TextSection validationRules = TextSection();
+  @SectionId('VALID-VALI-LST')
+  @SectionIdPattern('VALID-VALI-xxx')
+  List<ValidationRuleEntry> validationRules = [];
 }
 
 /// Data entity exchanged [PD00-SYO-SYB-INT-nn-DAT-ENT-nn].
@@ -6548,7 +6574,9 @@ class InterfaceOperational {
     InterfaceOperationalSupport support = InterfaceOperationalSupport();
 
   /// Operational dependencies.
-  TextSection dependencies = TextSection();
+  @SectionId('DEPEN-DEPE-LST')
+  @SectionIdPattern('DEPEN-DEPE-xxx')
+  List<DependencyEntry> dependencies = [];
 }
 
 /// Rate limiting rules.
@@ -6607,7 +6635,9 @@ class InterfaceErrorHandling {
     InterfaceErrorHandlingTimeout timeout = InterfaceErrorHandlingTimeout();
 
   /// Error handling procedures.
-  TextSection errorProcedures = TextSection();
+  @SectionId('ERROR-ERRO-LST')
+  @SectionIdPattern('ERROR-ERRO-xxx')
+  List<ErrorProcedureEntry> errorProcedures = [];
 }
 
 /// Non-retryable errors and retry strategy.
@@ -6994,15 +7024,14 @@ class OrganizationalEnvironment {
   // -------------------------------------------------------------------------
 
   /// Cultural considerations and organizational dynamics.
-  @ContentHelp('Describe cultural factors: risk tolerance, innovation appetite, '
-      'collaboration patterns, communication preferences, and change '
-      'management considerations.')
-  TextSection culturalConsiderations = TextSection();
+  @SectionId('CULTU-CULT-LST')
+  @SectionIdPattern('CULTU-CULT-xxx')
+  List<CulturalConsiderationEntry> culturalConsiderations = [];
 
   /// Stakeholder communication preferences.
-  @ContentHelp('Describe stakeholder communication preferences: formal vs '
-      'informal, frequency, channels, and reporting expectations.')
-  TextSection communicationPreferences = TextSection();
+  @SectionId('COMMU-COMM-LST')
+  @SectionIdPattern('COMMU-COMM-xxx')
+  List<CommunicationPreferenceEntry> communicationPreferences = [];
 
   // -------------------------------------------------------------------------
   // Political Landscape
@@ -7014,9 +7043,9 @@ class OrganizationalEnvironment {
   TextSection politicalLandscape = TextSection();
 
   /// Change champions and sponsors.
-  @ContentHelp('Identify change champions, executive sponsors, and influential '
-      'stakeholders who can advocate for the project.')
-  TextSection changeAdvocates = TextSection();
+  @SectionId('CHANG-CHAN-LST')
+  @SectionIdPattern('CHANG-CHAN-xxx')
+  List<ChangeAdvocateEntry> changeAdvocates = [];
 }
 
 /// Organizational maturity indicators.
@@ -7144,17 +7173,22 @@ class ResponsibilityEntry {
   String? content;
 
   /// Function details and scope.
-  final ResponsibilityFunctionDetails functionDetails =
-      ResponsibilityFunctionDetails();
+  @SectionId('REFUDE-FUNC-LST')
+  @SectionIdPattern('REFUDE-FUNC-xxx')
+  List<ResponsibilityFunctionDetails> functionDetails = [];
 
   /// RACI assignment.
   final ResponsibilityRaci raci = ResponsibilityRaci();
 
   /// Key contacts.
-  final ResponsibilityContacts contacts = ResponsibilityContacts();
+  @SectionId('RECO-CONT-LST')
+  @SectionIdPattern('RECO-CONT-xxx')
+  List<ResponsibilityContacts> contacts = [];
 
   /// Related systems and data.
-  final ResponsibilitySystems systems = ResponsibilitySystems();
+  @SectionId('RESY-SYST-LST')
+  @SectionIdPattern('RESY-SYST-xxx')
+  List<ResponsibilitySystems> systems = [];
 
   /// Governance and transition.
   final ResponsibilityGovernance governance = ResponsibilityGovernance();
@@ -7299,9 +7333,9 @@ class TechnicalFrameworkConditions {
   TextSection existingInfrastructure = TextSection();
 
   /// Data center and hosting environment details.
-  @ContentHelp('Describe data center locations, capacity, connectivity, '
-      'disaster recovery setup, and hosting environment constraints.')
-  TextSection datacenters = TextSection();
+  @SectionId('DATAC-DATA-LST')
+  @SectionIdPattern('DATAC-DATA-xxx')
+  List<DatacenterEntry> datacenters = [];
 
   /// Network topology and connectivity constraints.
   @ContentHelp('Describe network topology, bandwidth constraints, latency '
@@ -7406,14 +7440,14 @@ class TechnicalFrameworkConditionsNetwork {
     String? content;
 
   /// DevOps and deployment standards.
-  @ContentHelp('Describe DevOps standards: CI/CD requirements, deployment '
-      'pipelines, environment management, and release processes.')
-  TextSection devopsStandards = TextSection();
+  @SectionId('DEVOP-DEVO-LST')
+  @SectionIdPattern('DEVOP-DEVO-xxx')
+  List<DevopsStandardEntry> devopsStandards = [];
 
   /// Monitoring and observability requirements.
-  @ContentHelp('Describe monitoring requirements: logging standards, '
-      'metrics collection, alerting, and observability platforms.')
-  TextSection observabilityRequirements = TextSection();
+  @SectionId('OBSER-OBSE-LST')
+  @SectionIdPattern('OBSER-OBSE-xxx')
+  List<ObservabilityRequirementEntry> observabilityRequirements = [];
 
   /// Disaster recovery and business continuity requirements.
   @ContentHelp('Describe DR/BC requirements: RTO, RPO, backup standards, '
@@ -7753,7 +7787,9 @@ class ConstraintEntry {
   final ConstraintClassification classification = ConstraintClassification();
 
   /// Details.
-  final ConstraintDetails details = ConstraintDetails();
+  @SectionId('CODE-DETA-LST')
+  @SectionIdPattern('CODE-DETA-xxx')
+  List<ConstraintDetails> details = [];
 
   /// Impact assessment.
   final ConstraintImpact impact = ConstraintImpact();
@@ -7765,7 +7801,9 @@ class ConstraintEntry {
   final ConstraintTracking tracking = ConstraintTracking();
 
   /// Linkages.
-  final ConstraintLinkages linkages = ConstraintLinkages();
+  @SectionId('COLI1-LINK-LST')
+  @SectionIdPattern('COLI1-LINK-xxx')
+  List<ConstraintLinkages> linkages = [];
 }
 
 /// Classification for constraint.
@@ -8016,7 +8054,9 @@ class FrameworkDependencyEntry {
   final DependencyTracking tracking = DependencyTracking();
 
   /// Linkages.
-  final DependencyLinkages linkages = DependencyLinkages();
+  @SectionId('DELI1-LINK-LST')
+  @SectionIdPattern('DELI1-LINK-xxx')
+  List<DependencyLinkages> linkages = [];
 }
 
 /// Dependency identity details.
@@ -8246,7 +8286,9 @@ class RiskEntry {
   RiskBusinessImpact businessImpact = RiskBusinessImpact();
 
   /// Relationships to other risks, assumptions, and project elements.
-  RiskRelationships relationships = RiskRelationships();
+  @SectionId('RIRE1-RELA-LST')
+  @SectionIdPattern('RIRE1-RELA-xxx')
+  List<RiskRelationships> relationships = [];
 }
 
 /// Risk identification details.
@@ -8574,7 +8616,9 @@ class AssumptionEntry {
   AssumptionImpact impact = AssumptionImpact();
 
   /// Relationships to other project elements.
-  AssumptionRelationships relationships = AssumptionRelationships();
+  @SectionId('ASRE-RELA-LST')
+  @SectionIdPattern('ASRE-RELA-xxx')
+  List<AssumptionRelationships> relationships = [];
 }
 
 /// Assumption identification details.
@@ -8913,5 +8957,222 @@ captures partner-specific logic.
 - Alerting thresholds per error class
 - Post-mortem and reconciliation procedures
 ''')
+  String? content;
+}
+
+/// A single compliance measure entry.
+@SectionId('COMPL')
+class ComplianceMeasureEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single interaction scenario entry.
+@SectionId('INTER')
+class InteractionScenarioEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single related pain point entry.
+@SectionId('RELAT1')
+class RelatedPainPointEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single scope assumption entry.
+@SectionId('SCOPE')
+class ScopeAssumptionEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single workflow step entry.
+@SectionId('SYSTE')
+class SystemTaskWorkflowStepEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single variations and exception entry.
+@SectionId('VARIA')
+class VariationsAndExceptionEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single key touchpoint entry.
+@SectionId('KEYTO')
+class KeyTouchpointEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single pain point entry.
+@SectionId('USERJ')
+class UserJourneyPainPointEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single representative quote entry.
+@SectionId('REPRE')
+class RepresentativeQuoteEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single kpi entry.
+@SectionId('KPIEN')
+class KpiEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single mapping rule entry.
+@SectionId('MAPPI')
+class MappingRuleEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single validation rule entry.
+@SectionId('VALID')
+class ValidationRuleEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single error procedure entry.
+@SectionId('ERROR')
+class ErrorProcedureEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single dependency entry.
+@SectionId('DEPEN')
+class DependencyEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single escalation procedure entry.
+@SectionId('ESCAL')
+class EscalationProcedureEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single risk category entry.
+@SectionId('RISKC')
+class RiskCategoryEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single risk based decision entry.
+@SectionId('RISKB')
+class RiskBasedDecisionEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single monitoring procedure entry.
+@SectionId('MONIT')
+class MonitoringProcedureEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single response strategy entry.
+@SectionId('RESPO')
+class ResponseStrategyEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single cultural consideration entry.
+@SectionId('CULTU')
+class CulturalConsiderationEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single communication preference entry.
+@SectionId('COMMU')
+class CommunicationPreferenceEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single change advocate entry.
+@SectionId('CHANG')
+class ChangeAdvocateEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single non financial benefit entry.
+@SectionId('NONFI')
+class NonFinancialBenefitEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single known quality issue entry.
+@SectionId('KNOWN')
+class KnownQualityIssueEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single critical knowledge area entry.
+@SectionId('CRITI')
+class CriticalKnowledgeAreaEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single predecessor dependency entry.
+@SectionId('PREDE')
+class PredecessorDependencyEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single known issue entry.
+@SectionId('KNOWN1')
+class KnownIssueEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single security concern entry.
+@SectionId('SECUR')
+class SecurityConcernEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single datacenter entry.
+@SectionId('DATAC')
+class DatacenterEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single devops standard entry.
+@SectionId('DEVOP')
+class DevopsStandardEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single observability requirement entry.
+@SectionId('OBSER')
+class ObservabilityRequirementEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
   String? content;
 }

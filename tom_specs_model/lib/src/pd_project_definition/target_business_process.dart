@@ -94,7 +94,9 @@ BP (Business Processes) document.
   ProcessRelationships processRelationships = ProcessRelationships();
 
   /// 6.1.7. Detailed Process Workflows [PD00-TAR-PRO-DET].
-  DetailedProcessWorkflows detailedWorkflows = DetailedProcessWorkflows();
+  @SectionId('DEPRWO-DETA-LST')
+  @SectionIdPattern('DEPRWO-DETA-xxx')
+  List<DetailedProcessWorkflows> detailedWorkflows = [];
 
   /// 6.1.8. Cross-Process Analysis [PD00-TAR-PRO-CRO].
   CrossProcessAnalysis crossProcessAnalysis = CrossProcessAnalysis();
@@ -103,7 +105,9 @@ BP (Business Processes) document.
   ProcessExceptionHandling exceptionHandling = ProcessExceptionHandling();
 
   /// 6.1.10. Process Metrics and KPIs [PD00-TAR-PRO-MET].
-  ProcessMetricsAndKpis processMetricsAndKpis = ProcessMetricsAndKpis();
+  @SectionId('PMAK-PROC-LST')
+  @SectionIdPattern('PMAK-PROC-xxx')
+  List<ProcessMetricsAndKpis> processMetricsAndKpis = [];
 }
 
 /// 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
@@ -120,7 +124,9 @@ class ProcessVision {
   TextSection visionNarrative = TextSection();
 
   /// Expected improvements over current state.
-  ExpectedImprovements expectedImprovements = ExpectedImprovements();
+  @SectionId('EXIPR-EXPE-LST')
+  @SectionIdPattern('EXIPR-EXPE-xxx')
+  List<ExpectedImprovements> expectedImprovements = [];
 
   /// Success criteria for process transformation.
   ProcessSuccessCriteria successCriteria = ProcessSuccessCriteria();
@@ -1218,7 +1224,9 @@ postconditions in the UC (Use Cases) document.
       ActorRelationshipDiagram();
 
   /// 6.2.4. End-to-End Test Scenarios [PD00-TAR-STP-E2E]. Covers HBSG AS24.
-  EndToEndTestScenarios endToEndTestScenarios = EndToEndTestScenarios();
+  @SectionId('ETETS-ENDT-LST')
+  @SectionIdPattern('ETETS-ENDT-xxx')
+  List<EndToEndTestScenarios> endToEndTestScenarios = [];
 
   /// 6.2.5. Use Case Traceability [PD00-TAR-STP-TRC].
   UseCaseTraceability useCaseTraceability = UseCaseTraceability();
@@ -1480,10 +1488,14 @@ class ActorEntry {
   ActorCharacteristics characteristics = ActorCharacteristics();
 
   /// Actor goals (Cockburn style).
-  ActorGoals goals = ActorGoals();
+  @SectionId('ACGO-GOAL-LST')
+  @SectionIdPattern('ACGO-GOAL-xxx')
+  List<ActorGoals> goals = [];
 
   /// Actor permissions and access.
-  ActorPermissions permissions = ActorPermissions();
+  @SectionId('ACPE-PERM-LST')
+  @SectionIdPattern('ACPE-PERM-xxx')
+  List<ActorPermissions> permissions = [];
 
   /// Actor technology profile.
   ActorTechnologyProfile technology = ActorTechnologyProfile();
@@ -1759,13 +1771,19 @@ class InteractionEntry {
   UseCaseScopeContext scopeContext = UseCaseScopeContext();
 
   /// Stakeholders and interests.
-  StakeholdersAndInterests stakeholders = StakeholdersAndInterests();
+  @SectionId('STANIN-STAK-LST')
+  @SectionIdPattern('STANIN-STAK-xxx')
+  List<StakeholdersAndInterests> stakeholders = [];
 
   /// Preconditions and triggers.
-  PreconditionsAndTriggers preconditions = PreconditionsAndTriggers();
+  @SectionId('PRANTR-PREC-LST')
+  @SectionIdPattern('PRANTR-PREC-xxx')
+  List<PreconditionsAndTriggers> preconditions = [];
 
   /// Postconditions and guarantees.
-  PostconditionsAndGuarantees postconditions = PostconditionsAndGuarantees();
+  @SectionId('POANGU-POST-LST')
+  @SectionIdPattern('POANGU-POST-xxx')
+  List<PostconditionsAndGuarantees> postconditions = [];
 
   /// Main success scenario (basic flow).
   MainSuccessScenario mainScenario = MainSuccessScenario();
@@ -1774,7 +1792,9 @@ class InteractionEntry {
   UseCaseExtensions extensions = UseCaseExtensions();
 
   /// Technology and data variations.
-  TechnologyDataVariations variations = TechnologyDataVariations();
+  @SectionId('TEDAVA-VARI-LST')
+  @SectionIdPattern('TEDAVA-VARI-xxx')
+  List<TechnologyDataVariations> variations = [];
 
   /// UI requirements preview.
   UIRequirementsPreview uiPreview = UIRequirementsPreview();
@@ -1786,7 +1806,9 @@ class InteractionEntry {
   InteractionSecurity security = InteractionSecurity();
 
   /// Business rules triggered.
-  InteractionBusinessRules businessRules = InteractionBusinessRules();
+  @SectionId('INBURU-BUSI-LST')
+  @SectionIdPattern('INBURU-BUSI-xxx')
+  List<InteractionBusinessRules> businessRules = [];
 
   /// Related elements and traceability.
   InteractionTraceability traceability = InteractionTraceability();

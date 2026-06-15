@@ -451,7 +451,9 @@ class ComponentEntry {
   final ComponentRisk risk = ComponentRisk();
 
   /// Documentation.
-  final ComponentDocs docs = ComponentDocs();
+  @SectionId('CODO-DOCS-LST')
+  @SectionIdPattern('CODO-DOCS-xxx')
+  List<ComponentDocs> docs = [];
 
   /// Interfaces [PD00-COM-COM-nn-INT] — contains 0+× ComponentInterface.
   @SectionId('CMIF-INTE-LST')
@@ -465,7 +467,9 @@ class ComponentEntry {
   TextSection usageRights = TextSection();
 
   /// Responsibilities [PD00-COM-COM-nn-RES] (form).
-  ComponentResponsibilitiesEntry? responsibilities;
+  @SectionId('COREEN-RESP-LST')
+  @SectionIdPattern('COREEN-RESP-xxx')
+  List<ComponentResponsibilitiesEntry> responsibilities = [];
 }
 
 /// Vendor for component.

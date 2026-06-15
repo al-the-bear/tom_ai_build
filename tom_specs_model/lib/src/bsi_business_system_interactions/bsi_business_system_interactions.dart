@@ -43,8 +43,9 @@ class BusinessSystemInteractions {
   SystemLandscapeInventory systemInventory = SystemLandscapeInventory();
 
   /// Boundary interaction patterns — PD00-SYO-SYB-PAT.
-  BoundaryInteractionPatterns interactionPatterns =
-      BoundaryInteractionPatterns();
+  @SectionId('BOINPA-INTE-LST')
+  @SectionIdPattern('BOINPA-INTE-xxx')
+  List<BoundaryInteractionPatterns> interactionPatterns = [];
 
   /// Interaction testing strategy — PD00-SYO-SYB-TST.
   InteractionTestingStrategy testingStrategy = InteractionTestingStrategy();
@@ -54,11 +55,14 @@ class BusinessSystemInteractions {
       InteractionDependencyAnalysis();
 
   /// Migration interactions — PD00-SYO-SYB-MIG.
-  MigrationInteractions migrationInteractions = MigrationInteractions();
+  @SectionId('MIIN-MIGR-LST')
+  @SectionIdPattern('MIIN-MIGR-xxx')
+  List<MigrationInteractions> migrationInteractions = [];
 
   /// Cross-boundary operational considerations — PD00-SYO-SYB-OPE.
-  CrossBoundaryOperationalConsiderations operationalConsiderations =
-      CrossBoundaryOperationalConsiderations();
+  @SectionId('CBOC-OPER-LST')
+  @SectionIdPattern('CBOC-OPER-xxx')
+  List<CrossBoundaryOperationalConsiderations> operationalConsiderations = [];
 
   /// Cross-boundary error handling — PD00-SYO-SYB-ERR.
   CrossBoundaryErrorHandling crossBoundaryErrorHandling =

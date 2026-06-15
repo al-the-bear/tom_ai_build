@@ -26,7 +26,9 @@ class OrganizationalFramework {
   NewOrganizationStructure organizationStructure = NewOrganizationStructure();
 
   /// 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
-  JobDescriptionsAndStaffing jobDescriptions = JobDescriptionsAndStaffing();
+  @SectionId('JDAS-JOBD-LST')
+  @SectionIdPattern('JDAS-JOBD-xxx')
+  List<JobDescriptionsAndStaffing> jobDescriptions = [];
 
   /// 5.3. Workplace Descriptions [PD00-ORG-WOR] — contains 1+× per user category.
   @SectionId('WPDE-WORK-LST')
@@ -142,7 +144,9 @@ class OrganizationalChangeEntry {
   final OrgChangeTransition transition = OrgChangeTransition();
 
   /// Risks and mitigations.
-  final OrgChangeRisks risks = OrgChangeRisks();
+  @SectionId('OCRSK-RISK-LST')
+  @SectionIdPattern('OCRSK-RISK-xxx')
+  List<OrgChangeRisks> risks = [];
 
   /// Status tracking.
   final OrgChangeStatus status = OrgChangeStatus();
@@ -372,10 +376,14 @@ class TransitionPhaseEntry {
       TransitionPhaseIdentification();
 
   /// Activities and deliverables for this phase.
-  TransitionPhaseActivities activities = TransitionPhaseActivities();
+  @SectionId('TPACT-ACTI-LST')
+  @SectionIdPattern('TPACT-ACTI-xxx')
+  List<TransitionPhaseActivities> activities = [];
 
   /// Stakeholder engagement for this phase.
-  TransitionPhaseStakeholders stakeholders = TransitionPhaseStakeholders();
+  @SectionId('TPSTK-STAK-LST')
+  @SectionIdPattern('TPSTK-STAK-xxx')
+  List<TransitionPhaseStakeholders> stakeholders = [];
 
   /// Exit criteria and phase completion conditions.
   TransitionPhaseExitCriteria exitCriteria = TransitionPhaseExitCriteria();
@@ -621,7 +629,9 @@ class TransitionCommunicationPlan {
   List<CommunicationEventEntry> communicationEvents = [];
 
   /// Communication channels and their use.
-  TransitionCommunicationChannels channels = TransitionCommunicationChannels();
+  @SectionId('TRCOCH-CHAN-LST')
+  @SectionIdPattern('TRCOCH-CHAN-xxx')
+  List<TransitionCommunicationChannels> channels = [];
 }
 
 /// Communication strategy overview.
@@ -725,7 +735,9 @@ class TransitionSupportStructure {
   List<TransitionSupportResourceEntry> supportResources = [];
 
   /// Escalation paths for support.
-  TransitionEscalationPaths escalationPaths = TransitionEscalationPaths();
+  @SectionId('TRESPA-ESCA-LST')
+  @SectionIdPattern('TRESPA-ESCA-xxx')
+  List<TransitionEscalationPaths> escalationPaths = [];
 }
 
 /// Support structure overview.
@@ -2363,8 +2375,9 @@ class TechnicalInfrastructure {
   RemoteAccessRequirements remoteAccess = RemoteAccessRequirements();
 
   /// Communication tools.
-  CommunicationToolsRequirements communicationTools =
-      CommunicationToolsRequirements();
+  @SectionId('COTORE-COMM-LST')
+  @SectionIdPattern('COTORE-COMM-xxx')
+  List<CommunicationToolsRequirements> communicationTools = [];
 }
 
 /// Network connectivity requirements.

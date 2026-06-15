@@ -67,5 +67,7 @@ class UiPrototype {
   Prototype prototype = Prototype();
 
   /// Wireframes and mockups — PD00-USE-WIR (new in Phase A, HBSG AS10-WIR).
-  WireframesAndMockups wireframesAndMockups = WireframesAndMockups();
+  @SectionId('WIANMO-WIRE-LST')
+  @SectionIdPattern('WIANMO-WIRE-xxx')
+  List<WireframesAndMockups> wireframesAndMockups = [];
 }

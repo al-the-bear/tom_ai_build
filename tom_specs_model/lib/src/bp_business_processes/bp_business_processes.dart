@@ -49,7 +49,9 @@ class BusinessProcesses {
   ProcessRelationships processRelationships = ProcessRelationships();
 
   /// Detailed process workflows — PD00-TAR-PRO-DET.
-  DetailedProcessWorkflows detailedWorkflows = DetailedProcessWorkflows();
+  @SectionId('DEPRWO-DETA-LST')
+  @SectionIdPattern('DEPRWO-DETA-xxx')
+  List<DetailedProcessWorkflows> detailedWorkflows = [];
 
   /// Cross-process analysis — PD00-TAR-PRO-CRO.
   CrossProcessAnalysis crossProcessAnalysis = CrossProcessAnalysis();
@@ -58,5 +60,7 @@ class BusinessProcesses {
   ProcessExceptionHandling exceptionHandling = ProcessExceptionHandling();
 
   /// Process metrics and KPIs — PD00-TAR-PRO-MET.
-  ProcessMetricsAndKpis processMetricsAndKpis = ProcessMetricsAndKpis();
+  @SectionId('PMAK-PROC-LST')
+  @SectionIdPattern('PMAK-PROC-xxx')
+  List<ProcessMetricsAndKpis> processMetricsAndKpis = [];
 }

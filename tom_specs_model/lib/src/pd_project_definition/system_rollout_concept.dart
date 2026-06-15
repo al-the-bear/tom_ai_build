@@ -34,16 +34,22 @@ PD00-USE-MUL localization/translation/documentation subtrees.
   MigrationPlan migrationPlan = MigrationPlan();
 
   /// 15.3. User Manuals [PD00-ROL-DOC].
-  UserManuals userManuals = UserManuals();
+  @SectionId('USRMAN-USER-LST')
+  @SectionIdPattern('USRMAN-USER-xxx')
+  List<UserManuals> userManuals = [];
 
   /// 15.4. Training Materials [PD00-ROL-TRN].
-  RolloutTrainingMaterials trainingMaterials = RolloutTrainingMaterials();
+  @SectionId('RLTTM-TRAI-LST')
+  @SectionIdPattern('RLTTM-TRAI-xxx')
+  List<RolloutTrainingMaterials> trainingMaterials = [];
 
   /// 15.5. Pilot Plan [PD00-ROL-PIL].
   PilotPlan pilotPlan = PilotPlan();
 
   /// 15.6. Cutover Procedures [PD00-ROL-CUT].
-  CutoverProcedures cutoverProcedures = CutoverProcedures();
+  @SectionId('CUTPRC-CUTO-LST')
+  @SectionIdPattern('CUTPRC-CUTO-xxx')
+  List<CutoverProcedures> cutoverProcedures = [];
 
   /// 15.7. Knowledge Transfer [PD00-ROL-KNO].
   KnowledgeTransfer knowledgeTransfer = KnowledgeTransfer();

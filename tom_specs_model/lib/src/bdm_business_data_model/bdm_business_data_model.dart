@@ -84,8 +84,12 @@ class BusinessDataModel {
   DataDictionary dataDictionary = DataDictionary();
 
   /// Validation constraints — PD00-BUS-DAT-VAL.
-  ValidationConstraints validationConstraints = ValidationConstraints();
+  @SectionId('VACO-VALI-LST')
+  @SectionIdPattern('VACO-VALI-xxx')
+  List<ValidationConstraints> validationConstraints = [];
 
   /// Integrity constraints — PD00-BUS-DAT-CON.
-  IntegrityConstraints integrityConstraints = IntegrityConstraints();
+  @SectionId('INCO-INTE-LST')
+  @SectionIdPattern('INCO-INTE-xxx')
+  List<IntegrityConstraints> integrityConstraints = [];
 }

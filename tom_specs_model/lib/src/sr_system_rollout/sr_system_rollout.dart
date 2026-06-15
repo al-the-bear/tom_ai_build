@@ -54,16 +54,22 @@ class SystemRollout {
   MigrationPlan migrationPlan = MigrationPlan();
 
   /// User manuals — PD00-ROL-DOC.
-  UserManuals userManuals = UserManuals();
+  @SectionId('USRMAN-USER-LST')
+  @SectionIdPattern('USRMAN-USER-xxx')
+  List<UserManuals> userManuals = [];
 
   /// Training materials — PD00-ROL-TRN.
-  RolloutTrainingMaterials trainingMaterials = RolloutTrainingMaterials();
+  @SectionId('RLTTM-TRAI-LST')
+  @SectionIdPattern('RLTTM-TRAI-xxx')
+  List<RolloutTrainingMaterials> trainingMaterials = [];
 
   /// Pilot plan — PD00-ROL-PIL.
   PilotPlan pilotPlan = PilotPlan();
 
   /// Cutover procedures — PD00-ROL-CUT.
-  CutoverProcedures cutoverProcedures = CutoverProcedures();
+  @SectionId('CUTPRC-CUTO-LST')
+  @SectionIdPattern('CUTPRC-CUTO-xxx')
+  List<CutoverProcedures> cutoverProcedures = [];
 
   /// Knowledge transfer — PD00-ROL-KNO.
   KnowledgeTransfer knowledgeTransfer = KnowledgeTransfer();

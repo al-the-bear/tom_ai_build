@@ -598,8 +598,9 @@ class DistributionRecipientEntry {
   final DistributionRecipientContact contact = DistributionRecipientContact();
 
   /// Distribution preferences.
-  final DistributionRecipientPreferences preferences =
-      DistributionRecipientPreferences();
+  @SectionId('DIREPR-PREF-LST')
+  @SectionIdPattern('DIREPR-PREF-xxx')
+  List<DistributionRecipientPreferences> preferences = [];
 
   /// Access and information scope.
   final DistributionRecipientAccess access = DistributionRecipientAccess();
@@ -798,7 +799,9 @@ decision points, parallel activities, and notification triggers.
   ChangeDecisionCriteria decisionCriteria = ChangeDecisionCriteria();
 
   /// Notification rules during change process.
-  ChangeNotificationRules notificationRules = ChangeNotificationRules();
+  @SectionId('CHNORU-NOTI-LST')
+  @SectionIdPattern('CHNORU-NOTI-xxx')
+  List<ChangeNotificationRules> notificationRules = [];
 }
 
 /// Decision criteria for evaluating change requests.
@@ -977,7 +980,9 @@ major, or critical, and the corresponding approval requirements.
   String? content;
 
   /// Impact level definitions.
-  ImpactLevelDefinitions impactLevels = ImpactLevelDefinitions();
+  @SectionId('IMLEDE-IMPA-LST')
+  @SectionIdPattern('IMLEDE-IMPA-xxx')
+  List<ImpactLevelDefinitions> impactLevels = [];
 
   /// Contains 0+× ChangeImpactCriterion.
   @SectionId('CHIMCR-ITEM-LST')
@@ -1695,7 +1700,9 @@ class InsuranceLiabilityRequirements {
   List<InsuranceEntry> insuranceRequirements = [];
 
   /// Liability limitations.
-  LiabilityLimitations liabilityLimitations = LiabilityLimitations();
+  @SectionId('LILI-LIAB-LST')
+  @SectionIdPattern('LILI-LIAB-xxx')
+  List<LiabilityLimitations> liabilityLimitations = [];
 }
 
 /// An insurance requirement entry.

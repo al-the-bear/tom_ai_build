@@ -36,7 +36,9 @@ document alongside the PD00-SYO-SYR replacement inventory.
   CurrentDataLandscape currentDataLandscape = CurrentDataLandscape();
 
   /// 1.5. Operational Metrics [PD00-CUR-MET].
-  CurrentOperationalMetrics operationalMetrics = CurrentOperationalMetrics();
+  @SectionId('CUOPME-OPER-LST')
+  @SectionIdPattern('CUOPME-OPER-xxx')
+  List<CurrentOperationalMetrics> operationalMetrics = [];
 
   /// 1.6. Current State Risks [PD00-CUR-RIS].
   CurrentStateRiskAssessment currentStateRisks = CurrentStateRiskAssessment();
@@ -110,14 +112,14 @@ class CurrentArchitecture {
   String? deploymentTopology;
 
   /// Integration patterns used [PD00-CUR-SYS-ARC-INT].
-  @ContentType('description', 'Description of integration patterns '
-      '(API, file transfer, message queue, etc.)')
-  String? integrationPatterns;
+  @SectionId('INTEG1-INTE-LST')
+  @SectionIdPattern('INTEG1-INTE-xxx')
+  List<IntegrationPatternEntry> integrationPatterns = [];
 
   /// Shared services inventory [PD00-CUR-SYS-ARC-SHR].
-  @ContentType('description', 'List and description of shared services '
-      'used across systems')
-  String? sharedServices;
+  @SectionId('SHARE-SHAR-LST')
+  @SectionIdPattern('SHARE-SHAR-xxx')
+  List<SharedServiceEntry> sharedServices = [];
 }
 
 /// An existing system entry [PD00-CUR-SYS-INV-nn] (form).
@@ -605,11 +607,9 @@ class IntegrationHealthSummary {
   String? content;
 
   /// Fragile integration points requiring attention [PD00-CUR-SYS-DEP-HEA-FRA].
-  @ContentType('description', 'Detailed list of fragile integration points '
-      'that pose risk to operations or project implementation.')
-  @ContentHelp('Document specific integration points that are fragile, '
-      'brittle, or at risk of failure. Include rationale and recommendations.')
-  String? fragilePoints;
+  @SectionId('FRAGI-FRAG-LST')
+  @SectionIdPattern('FRAGI-FRAG-xxx')
+  List<FragilePointEntry> fragilePoints = [];
 }
 
 /// 1.1.3.4. System Integrations [PD00-CUR-SYS-DEP-SYS].
@@ -1470,24 +1470,34 @@ class ProcessMetrics {
   MetricsDashboardSummary? dashboardSummary;
 
   /// Efficiency metrics [PD00-CUR-PRO-xx-MET-EFF].
+  @SectionId('PRMECA-EFFI-LST')
+  @SectionIdPattern('PRMECA-EFFI-xxx')
   @Comment('Throughput, cycle times, utilization')
-  ProcessMetricCategory efficiencyMetrics = ProcessMetricCategory();
+  List<ProcessMetricCategory> efficiencyMetrics = [];
 
   /// Quality metrics [PD00-CUR-PRO-xx-MET-QUA].
+  @SectionId('PRMECA-QUAL-LST')
+  @SectionIdPattern('PRMECA-QUAL-xxx')
   @Comment('Error rates, defect rates, rework rates')
-  ProcessMetricCategory qualityMetrics = ProcessMetricCategory();
+  List<ProcessMetricCategory> qualityMetrics = [];
 
   /// Volume metrics [PD00-CUR-PRO-xx-MET-VOL].
+  @SectionId('PRMECA-VOLU-LST')
+  @SectionIdPattern('PRMECA-VOLU-xxx')
   @Comment('Transaction counts, throughput volumes')
-  ProcessMetricCategory volumeMetrics = ProcessMetricCategory();
+  List<ProcessMetricCategory> volumeMetrics = [];
 
   /// Cost metrics [PD00-CUR-PRO-xx-MET-COS].
+  @SectionId('PRMECA-COST-LST')
+  @SectionIdPattern('PRMECA-COST-xxx')
   @Comment('Cost per transaction, resource costs')
-  ProcessMetricCategory costMetrics = ProcessMetricCategory();
+  List<ProcessMetricCategory> costMetrics = [];
 
   /// Manual intervention metrics [PD00-CUR-PRO-xx-MET-MAN].
+  @SectionId('PRMECA-MANU-LST')
+  @SectionIdPattern('PRMECA-MANU-xxx')
   @Comment('Manual steps, human intervention frequency')
-  ProcessMetricCategory manualInterventionMetrics = ProcessMetricCategory();
+  List<ProcessMetricCategory> manualInterventionMetrics = [];
 
   /// Individual metric entries.
   @SectionId('PME-ITEM-LST')
@@ -1859,7 +1869,9 @@ class PainPointEntry {
   final PainPointResolution resolution = PainPointResolution();
 
   /// Relationships.
-  final PainPointRelationships relationships = PainPointRelationships();
+  @SectionId('PAPOR1-RELA-LST')
+  @SectionIdPattern('PAPOR1-RELA-xxx')
+  List<PainPointRelationships> relationships = [];
 }
 
 /// Classification for pain point.
@@ -3598,3 +3610,24 @@ replacing them. Not to be confused with target-state risks (PD00-SYO-RIS).
   String? content;
 }
 
+
+/// A single integration pattern entry.
+@SectionId('INTEG1')
+class IntegrationPatternEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single shared service entry.
+@SectionId('SHARE')
+class SharedServiceEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single fragile point entry.
+@SectionId('FRAGI')
+class FragilePointEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}

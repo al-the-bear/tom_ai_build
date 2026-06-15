@@ -48,7 +48,9 @@ class CurrentSituation {
   CurrentDataLandscape currentDataLandscape = CurrentDataLandscape();
 
   /// Current operational metrics — PD00-CUR-MET.
-  CurrentOperationalMetrics operationalMetrics = CurrentOperationalMetrics();
+  @SectionId('CUOPME-OPER-LST')
+  @SectionIdPattern('CUOPME-OPER-xxx')
+  List<CurrentOperationalMetrics> operationalMetrics = [];
 
   /// Current-state risk assessment — PD00-CUR-RIS.
   CurrentStateRiskAssessment currentStateRisks = CurrentStateRiskAssessment();

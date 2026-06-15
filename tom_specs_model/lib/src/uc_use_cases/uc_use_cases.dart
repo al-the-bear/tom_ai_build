@@ -47,7 +47,9 @@ class UseCases {
       ActorRelationshipDiagram();
 
   /// End-to-end test scenarios — PD00-TAR-STP-E2E (covers HBSG AS24).
-  EndToEndTestScenarios endToEndTestScenarios = EndToEndTestScenarios();
+  @SectionId('ETETS-ENDT-LST')
+  @SectionIdPattern('ETETS-ENDT-xxx')
+  List<EndToEndTestScenarios> endToEndTestScenarios = [];
 
   /// Use case traceability — PD00-TAR-STP-TRC.
   UseCaseTraceability useCaseTraceability = UseCaseTraceability();

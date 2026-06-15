@@ -91,10 +91,14 @@ attributes, relationships, and constraints that represent core business data.
   DataDictionary dataDictionary = DataDictionary();
 
   /// 7.1.6. Validation Constraints [PD00-BUS-DAT-VAL].
-  ValidationConstraints validationConstraints = ValidationConstraints();
+  @SectionId('VACO-VALI-LST')
+  @SectionIdPattern('VACO-VALI-xxx')
+  List<ValidationConstraints> validationConstraints = [];
 
   /// 7.1.7. Integrity Constraints [PD00-BUS-DAT-CON].
-  IntegrityConstraints integrityConstraints = IntegrityConstraints();
+  @SectionId('INCO-INTE-LST')
+  @SectionIdPattern('INCO-INTE-xxx')
+  List<IntegrityConstraints> integrityConstraints = [];
 }
 
 /// A data entity entry [PD00-BUS-DAT-ENT-nn] (form).
@@ -145,21 +149,9 @@ class DataEntityEntry {
   // ---------------------------------------------------------------------------
   // Volume and Growth (6 fields)
   // ---------------------------------------------------------------------------
-  @Form([
-    Field('estimatedRecordCount', String, 'Estimated Record Count',
-        hint: 'Initial record count with source (e.g., 120,000 from migration)'),
-    Field('growthRate', String, 'Growth Rate',
-        hint: 'Expected growth rate (e.g., 10% annually, 5,000/month)'),
-    Field('peakTransactionVolume', String, 'Peak Transaction Volume',
-        hint: 'Maximum transactions per time period (e.g., 1,000 orders/hour)'),
-    Field('averageRecordSize', String, 'Average Record Size',
-        hint: 'Typical record size in bytes for storage planning'),
-    Field('storageEstimate', String, 'Storage Estimate',
-        hint: 'Projected storage requirements (e.g., 50GB initial, 10GB/year)'),
-    Field('partitioningStrategy', String, 'Partitioning Strategy',
-        hint: 'How data should be partitioned: ByDate | ByRange | ByHash | None'),
-  ])
-  String? volumeMetrics;
+  @SectionId('VOLUM-VOLU-LST')
+  @SectionIdPattern('VOLUM-VOLU-xxx')
+  List<VolumeMetricEntry> volumeMetrics = [];
 
   // ---------------------------------------------------------------------------
   // Lifecycle and Retention (8 fields)
@@ -187,21 +179,9 @@ class DataEntityEntry {
   // ---------------------------------------------------------------------------
   // Compliance and Security (6 fields)
   // ---------------------------------------------------------------------------
-  @Form([
-    Field('sensitivityLevel', String, 'Sensitivity Level',
-        hint: 'Data sensitivity: Public | Internal | Confidential | Restricted'),
-    Field('containsPii', String, 'Contains PII',
-        hint: 'Whether entity contains personally identifiable information: Yes | No'),
-    Field('containsPhi', String, 'Contains PHI',
-        hint: 'Whether entity contains protected health information: Yes | No'),
-    Field('complianceFrameworks', String, 'Compliance Frameworks',
-        hint: 'Applicable regulations: GDPR | HIPAA | SOX | PCI-DSS | CCPA'),
-    Field('encryptionRequirements', String, 'Encryption Requirements',
-        hint: 'AtRest | InTransit | Both | FieldLevel | None'),
-    Field('accessRestrictions', String, 'Access Restrictions',
-        hint: 'Who can access: AllUsers | AuthenticatedUsers | RoleRestricted | SystemOnly'),
-  ])
-  String? complianceRequirements;
+  @SectionId('COMPL1-COMP-LST')
+  @SectionIdPattern('COMPL1-COMP-xxx')
+  List<ComplianceRequirementEntry> complianceRequirements = [];
 
   // ---------------------------------------------------------------------------
   // Relationships Summary (4 fields)
@@ -221,21 +201,9 @@ class DataEntityEntry {
   // ---------------------------------------------------------------------------
   // Technical Characteristics (6 fields)
   // ---------------------------------------------------------------------------
-  @Form([
-    Field('indexingStrategy', String, 'Indexing Strategy',
-        hint: 'Primary index and secondary indexes planned'),
-    Field('cachingStrategy', String, 'Caching Strategy',
-        hint: 'Cache policy: NoCache | ReadThrough | WriteThrough | CacheAside'),
-    Field('consistencyRequirements', String, 'Consistency Requirements',
-        hint: 'Strong | Eventual | ReadYourWrites'),
-    Field('replicationStrategy', String, 'Replication Strategy',
-        hint: 'How data is replicated across regions or nodes'),
-    Field('backupRequirements', String, 'Backup Requirements',
-        hint: 'Backup frequency and recovery point objective'),
-    Field('scalingApproach', String, 'Scaling Approach',
-        hint: 'How entity scales: Vertical | Horizontal | Sharding'),
-  ])
-  String? technicalCharacteristics;
+  @SectionId('TECHN-TECH-LST')
+  @SectionIdPattern('TECHN-TECH-xxx')
+  List<TechnicalCharacteristicEntry> technicalCharacteristics = [];
 
   /// Contains 0+× DataAttribute [PD00-BUS-DAT-ENT-nn-ATT].
   @SectionId('DAATT-ATTR-LST')
@@ -311,25 +279,9 @@ class DataAttributeEntry {
   // ---------------------------------------------------------------------------
   // Constraints and Validation (8 fields)
   // ---------------------------------------------------------------------------
-  @Form([
-    Field('mandatory', String, 'Mandatory',
-        hint: 'Whether attribute is required: Required | Optional | ConditionallyRequired'),
-    Field('nullable', String, 'Nullable',
-        hint: 'Whether database allows NULL: Yes | No'),
-    Field('unique', String, 'Unique',
-        hint: 'Uniqueness constraint: Unique | UniqueWithinParent | NotUnique'),
-    Field('defaultValue', String, 'Default Value',
-        hint: 'Default value or expression (e.g., NOW(), 0, "Draft")'),
-    Field('validationRules', String, 'Validation Rules',
-        hint: 'Business validation rules (e.g., must be positive, max 100)'),
-    Field('constraintExpression', String, 'Constraint Expression',
-        hint: 'CHECK constraint (e.g., amount > 0, status IN ("Draft","Active"))'),
-    Field('allowedValues', String, 'Allowed Values',
-        hint: 'Enumerated values if applicable'),
-    Field('patternRegex', String, 'Pattern/Regex',
-        hint: r'Regex for validation (e.g., ^[A-Z]{2}-\d{6}$ for order IDs)'),
-  ])
-  String? constraints;
+  @SectionId('DATAA-CONS-LST')
+  @SectionIdPattern('DATAA-CONS-xxx')
+  List<DataAttributeConstraintEntry> constraints = [];
 
   // ---------------------------------------------------------------------------
   // Computed and Derived (4 fields)
@@ -383,17 +335,9 @@ class DataAttributeEntry {
   // ---------------------------------------------------------------------------
   // UI and Display (4 fields)
   // ---------------------------------------------------------------------------
-  @Form([
-    Field('displayLabel', String, 'Display Label',
-        hint: 'User-friendly label for UI'),
-    Field('displayOrder', String, 'Display Order',
-        hint: 'Order when displaying in forms/tables'),
-    Field('displayGroup', String, 'Display Group',
-        hint: 'Grouping for UI layout'),
-    Field('helpText', String, 'Help Text',
-        hint: 'User assistance text for forms'),
-  ])
-  String? displayProperties;
+  @SectionId('DISPL-DISP-LST')
+  @SectionIdPattern('DISPL-DISP-xxx')
+  List<DisplayPropertyEntry> displayProperties = [];
 }
 
 /// A key attribute entry (form) [PD00-BUS-DAT-ENT-nn-KEY-nn].
@@ -604,17 +548,9 @@ class EntityRelationshipEntry {
   // ---------------------------------------------------------------------------
   // Participating Entities (4 fields)
   // ---------------------------------------------------------------------------
-  @Form([
-    Field('sourceEntityName', String, 'Source Entity',
-        hint: 'Name of the source/parent entity'),
-    Field('sourceRole', String, 'Source Role',
-        hint: 'Role name on the source end (e.g., "placer" in Customer places Order)'),
-    Field('targetEntityName', String, 'Target Entity',
-        hint: 'Name of the target/child entity'),
-    Field('targetRole', String, 'Target Role',
-        hint: 'Role name on the target end (e.g., "placed" in Customer places Order)'),
-  ])
-  String? participants;
+  @SectionId('PARTI-PART-LST')
+  @SectionIdPattern('PARTI-PART-xxx')
+  List<ParticipantEntry> participants = [];
 
   // ---------------------------------------------------------------------------
   // Cardinality and Participation (6 fields)
@@ -674,15 +610,9 @@ class EntityRelationshipEntry {
   // ---------------------------------------------------------------------------
   // Relationship Attributes (3 fields) — for relationships with properties
   // ---------------------------------------------------------------------------
-  @Form([
-    Field('hasRelationshipAttributes', String, 'Has Relationship Attributes',
-        hint: 'Whether the relationship has its own attributes: Yes | No'),
-    Field('relationshipAttributes', String, 'Relationship Attributes',
-        hint: 'Attributes on the relationship itself (e.g., quantity on OrderItem)'),
-    Field('temporalAspects', String, 'Temporal Aspects',
-        hint: 'Effective dates, versioning: None | EffectiveDates | FullHistory'),
-  ])
-  String? relationshipAttributes;
+  @SectionId('RELAT-RELA-LST')
+  @SectionIdPattern('RELAT-RELA-xxx')
+  List<RelationshipAttributeEntry> relationshipAttributes = [];
 
   @Reference('sourceEntityName')
   String? sourceEntityRef;
@@ -967,19 +897,9 @@ class BusinessObjectEntry {
   // ---------------------------------------------------------------------------
   // Behavior and Rules (5 fields)
   // ---------------------------------------------------------------------------
-  @Form([
-    Field('keyBusinessRules', String, 'Key Business Rules',
-        hint: 'Primary business rules governing this object'),
-    Field('invariants', String, 'Invariants',
-        hint: 'Conditions that must always be true'),
-    Field('keyOperations', String, 'Key Operations',
-        hint: 'Main operations/behaviors (e.g., Submit, Approve, Cancel)'),
-    Field('validationRules', String, 'Validation Rules',
-        hint: 'Rules for validating object state'),
-    Field('calculatedProperties', String, 'Calculated Properties',
-        hint: 'Derived/calculated attributes (e.g., orderTotal, age)'),
-  ])
-  String? behaviorRules;
+  @SectionId('BEHAV-BEHA-LST')
+  @SectionIdPattern('BEHAV-BEHA-xxx')
+  List<BehaviorRuleEntry> behaviorRules = [];
 
   // ---------------------------------------------------------------------------
   // Ownership and Versioning (5 fields)
@@ -1001,17 +921,9 @@ class BusinessObjectEntry {
   // ---------------------------------------------------------------------------
   // Integration Points (4 fields)
   // ---------------------------------------------------------------------------
-  @Form([
-    Field('exposedInApis', String, 'Exposed In APIs',
-        hint: 'Which APIs expose this object: Internal | Public | Partner'),
-    Field('eventPublished', String, 'Events Published',
-        hint: 'Domain events this object publishes'),
-    Field('eventSubscribed', String, 'Events Subscribed',
-        hint: 'Events this object reacts to'),
-    Field('externalSystemMapping', String, 'External System Mapping',
-        hint: 'How this maps to external systems'),
-  ])
-  String? integrationPoints;
+  @SectionId('INTEG-INTE-LST')
+  @SectionIdPattern('INTEG-INTE-xxx')
+  List<IntegrationPointEntry> integrationPoints = [];
 
   /// Contains 0+× BusinessObjectAttribute [PD00-BUS-BUS-CAT-nn-BOA].
   @SectionId('BIOBAT-ATTR-LST')
@@ -1768,5 +1680,169 @@ integrity constraints must hold in every persistent state.
 - Temporal constraints (effective-from ≤ effective-to)
 - Conservation rules (sums / counts that must balance)
 ''')
+  String? content;
+}
+
+/// A single behavior rule entry.
+@SectionId('BEHAV')
+class BehaviorRuleEntry {
+  @Form([
+    Field('keyBusinessRules', String, 'Key Business Rules',
+        hint: 'Primary business rules governing this object'),
+    Field('invariants', String, 'Invariants',
+        hint: 'Conditions that must always be true'),
+    Field('keyOperations', String, 'Key Operations',
+        hint: 'Main operations/behaviors (e.g., Submit, Approve, Cancel)'),
+    Field('validationRules', String, 'Validation Rules',
+        hint: 'Rules for validating object state'),
+    Field('calculatedProperties', String, 'Calculated Properties',
+        hint: 'Derived/calculated attributes (e.g., orderTotal, age)'),
+  ])
+  String? content;
+}
+
+/// A single integration point entry.
+@SectionId('INTEG')
+class IntegrationPointEntry {
+  @Form([
+    Field('exposedInApis', String, 'Exposed In APIs',
+        hint: 'Which APIs expose this object: Internal | Public | Partner'),
+    Field('eventPublished', String, 'Events Published',
+        hint: 'Domain events this object publishes'),
+    Field('eventSubscribed', String, 'Events Subscribed',
+        hint: 'Events this object reacts to'),
+    Field('externalSystemMapping', String, 'External System Mapping',
+        hint: 'How this maps to external systems'),
+  ])
+  String? content;
+}
+
+/// A single constraint entry.
+@SectionId('DATAA')
+class DataAttributeConstraintEntry {
+  @Form([
+    Field('mandatory', String, 'Mandatory',
+        hint: 'Whether attribute is required: Required | Optional | ConditionallyRequired'),
+    Field('nullable', String, 'Nullable',
+        hint: 'Whether database allows NULL: Yes | No'),
+    Field('unique', String, 'Unique',
+        hint: 'Uniqueness constraint: Unique | UniqueWithinParent | NotUnique'),
+    Field('defaultValue', String, 'Default Value',
+        hint: 'Default value or expression (e.g., NOW(), 0, "Draft")'),
+    Field('validationRules', String, 'Validation Rules',
+        hint: 'Business validation rules (e.g., must be positive, max 100)'),
+    Field('constraintExpression', String, 'Constraint Expression',
+        hint: 'CHECK constraint (e.g., amount > 0, status IN ("Draft","Active"))'),
+    Field('allowedValues', String, 'Allowed Values',
+        hint: 'Enumerated values if applicable'),
+    Field('patternRegex', String, 'Pattern/Regex',
+        hint: r'Regex for validation (e.g., ^[A-Z]{2}-\d{6}$ for order IDs)'),
+  ])
+  String? content;
+}
+
+/// A single display property entry.
+@SectionId('DISPL')
+class DisplayPropertyEntry {
+  @Form([
+    Field('displayLabel', String, 'Display Label',
+        hint: 'User-friendly label for UI'),
+    Field('displayOrder', String, 'Display Order',
+        hint: 'Order when displaying in forms/tables'),
+    Field('displayGroup', String, 'Display Group',
+        hint: 'Grouping for UI layout'),
+    Field('helpText', String, 'Help Text',
+        hint: 'User assistance text for forms'),
+  ])
+  String? content;
+}
+
+/// A single volume metric entry.
+@SectionId('VOLUM')
+class VolumeMetricEntry {
+  @Form([
+    Field('estimatedRecordCount', String, 'Estimated Record Count',
+        hint: 'Initial record count with source (e.g., 120,000 from migration)'),
+    Field('growthRate', String, 'Growth Rate',
+        hint: 'Expected growth rate (e.g., 10% annually, 5,000/month)'),
+    Field('peakTransactionVolume', String, 'Peak Transaction Volume',
+        hint: 'Maximum transactions per time period (e.g., 1,000 orders/hour)'),
+    Field('averageRecordSize', String, 'Average Record Size',
+        hint: 'Typical record size in bytes for storage planning'),
+    Field('storageEstimate', String, 'Storage Estimate',
+        hint: 'Projected storage requirements (e.g., 50GB initial, 10GB/year)'),
+    Field('partitioningStrategy', String, 'Partitioning Strategy',
+        hint: 'How data should be partitioned: ByDate | ByRange | ByHash | None'),
+  ])
+  String? content;
+}
+
+/// A single compliance requirement entry.
+@SectionId('COMPL1')
+class ComplianceRequirementEntry {
+  @Form([
+    Field('sensitivityLevel', String, 'Sensitivity Level',
+        hint: 'Data sensitivity: Public | Internal | Confidential | Restricted'),
+    Field('containsPii', String, 'Contains PII',
+        hint: 'Whether entity contains personally identifiable information: Yes | No'),
+    Field('containsPhi', String, 'Contains PHI',
+        hint: 'Whether entity contains protected health information: Yes | No'),
+    Field('complianceFrameworks', String, 'Compliance Frameworks',
+        hint: 'Applicable regulations: GDPR | HIPAA | SOX | PCI-DSS | CCPA'),
+    Field('encryptionRequirements', String, 'Encryption Requirements',
+        hint: 'AtRest | InTransit | Both | FieldLevel | None'),
+    Field('accessRestrictions', String, 'Access Restrictions',
+        hint: 'Who can access: AllUsers | AuthenticatedUsers | RoleRestricted | SystemOnly'),
+  ])
+  String? content;
+}
+
+/// A single technical characteristic entry.
+@SectionId('TECHN')
+class TechnicalCharacteristicEntry {
+  @Form([
+    Field('indexingStrategy', String, 'Indexing Strategy',
+        hint: 'Primary index and secondary indexes planned'),
+    Field('cachingStrategy', String, 'Caching Strategy',
+        hint: 'Cache policy: NoCache | ReadThrough | WriteThrough | CacheAside'),
+    Field('consistencyRequirements', String, 'Consistency Requirements',
+        hint: 'Strong | Eventual | ReadYourWrites'),
+    Field('replicationStrategy', String, 'Replication Strategy',
+        hint: 'How data is replicated across regions or nodes'),
+    Field('backupRequirements', String, 'Backup Requirements',
+        hint: 'Backup frequency and recovery point objective'),
+    Field('scalingApproach', String, 'Scaling Approach',
+        hint: 'How entity scales: Vertical | Horizontal | Sharding'),
+  ])
+  String? content;
+}
+
+/// A single participant entry.
+@SectionId('PARTI')
+class ParticipantEntry {
+  @Form([
+    Field('sourceEntityName', String, 'Source Entity',
+        hint: 'Name of the source/parent entity'),
+    Field('sourceRole', String, 'Source Role',
+        hint: 'Role name on the source end (e.g., "placer" in Customer places Order)'),
+    Field('targetEntityName', String, 'Target Entity',
+        hint: 'Name of the target/child entity'),
+    Field('targetRole', String, 'Target Role',
+        hint: 'Role name on the target end (e.g., "placed" in Customer places Order)'),
+  ])
+  String? content;
+}
+
+/// A single relationship attribute entry.
+@SectionId('RELAT')
+class RelationshipAttributeEntry {
+  @Form([
+    Field('hasRelationshipAttributes', String, 'Has Relationship Attributes',
+        hint: 'Whether the relationship has its own attributes: Yes | No'),
+    Field('relationshipAttributes', String, 'Relationship Attributes',
+        hint: 'Attributes on the relationship itself (e.g., quantity on OrderItem)'),
+    Field('temporalAspects', String, 'Temporal Aspects',
+        hint: 'Effective dates, versioning: None | EffectiveDates | FullHistory'),
+  ])
   String? content;
 }

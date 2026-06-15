@@ -54,8 +54,9 @@ class RequirementsCatalog {
   String? traceabilityMatrix;
 
   /// Requirement relationships — PD00-SYO-REQ-REL.
-  RequirementRelationships requirementRelationships =
-      RequirementRelationships();
+  @SectionId('RERE-REQU-LST')
+  @SectionIdPattern('RERE-REQU-xxx')
+  List<RequirementRelationships> requirementRelationships = [];
 
   /// Requirement coverage — PD00-SYO-REQ-COV.
   RequirementCoverage requirementCoverage = RequirementCoverage();

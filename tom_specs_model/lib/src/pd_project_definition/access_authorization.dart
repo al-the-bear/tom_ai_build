@@ -198,7 +198,9 @@ and compliance with data retention requirements.
   SelfServiceAccountManagement selfService = SelfServiceAccountManagement();
 
   /// 9.1.2.9. Service Account Lifecycle.
-  ServiceAccountLifecycle serviceAccounts = ServiceAccountLifecycle();
+  @SectionId('SACLC-SERV-LST')
+  @SectionIdPattern('SACLC-SERV-xxx')
+  List<ServiceAccountLifecycle> serviceAccounts = [];
 }
 
 /// 9.1.2.1. Account States (form).
@@ -1126,10 +1128,14 @@ class IdentityProviderEntry {
   String? content;
 
   /// Provider details.
-  final IdentityProviderDetails details = IdentityProviderDetails();
+  @SectionId('IDPRDE-DETA-LST')
+  @SectionIdPattern('IDPRDE-DETA-xxx')
+  List<IdentityProviderDetails> details = [];
 
   /// Endpoint configuration.
-  final IdentityProviderEndpoints endpoints = IdentityProviderEndpoints();
+  @SectionId('IDPREN-ENDP-LST')
+  @SectionIdPattern('IDPREN-ENDP-xxx')
+  List<IdentityProviderEndpoints> endpoints = [];
 
   /// Attribute mapping.
   final IdentityProviderMapping mapping = IdentityProviderMapping();
@@ -1673,7 +1679,9 @@ class MfaConfiguration {
   String? content;
 
   /// MFA Implementation Details (text).
-  TextSection mfaDetails = TextSection();
+  @SectionId('MFADE-MFAD-LST')
+  @SectionIdPattern('MFADE-MFAD-xxx')
+  List<MfaDetailEntry> mfaDetails = [];
 }
 
 /// Single Sign-On (SSO) policy (form).
@@ -2356,7 +2364,9 @@ class StepUpAuthenticationPolicy {
   String? content;
 
   /// Step-Up Authentication Details (text).
-  TextSection stepUpDetails = TextSection();
+  @SectionId('STEPU-STEP-LST')
+  @SectionIdPattern('STEPU-STEP-xxx')
+  List<StepUpDetailEntry> stepUpDetails = [];
 }
 
 /// A login flow step entry (form) [PD00-ACC-IDE-FLO-nn].
@@ -7794,5 +7804,19 @@ compliance frameworks the project must satisfy.
 - Gap analysis and remediation plan
 - Certification targets and timelines
 ''')
+  String? content;
+}
+
+/// A single mfa detail entry.
+@SectionId('MFADE')
+class MfaDetailEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  String? content;
+}
+
+/// A single step up detail entry.
+@SectionId('STEPU')
+class StepUpDetailEntry {
+  @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
   String? content;
 }
