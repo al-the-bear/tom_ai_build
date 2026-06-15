@@ -233,7 +233,7 @@ Cycles **must not exist** in the model. If a cycle is detected during tree walki
 
 ## 6. Model Design Rules
 
-These are the rules for how model classes must be designed. The generator **validates** all of them and **fails with a clear error message** for any violation. There are no warnings — every violation is a hard error.
+These are the rules for how model classes must be designed. The validator checks all of them, classifying each violation as either an **error** (prevents output) or a **warning** (reported but does not block generation). Most rules below are hard errors; the exception is the `content: String?` rule (§6.1), which is a warning.
 
 ### 6.1 Type Constraints
 
@@ -241,7 +241,7 @@ These are the rules for how model classes must be designed. The generator **vali
 |------|-------------|
 | **No `List<String>`** | All list fields must use complex types. `List<String>` or `List<basicType>` is an error. |
 | **No primitive non-String scalars** | Leaf fields must be `String`, `String?`, or an enum type. No `int`, `double`, `bool`, `num`, `DateTime`. Dates and numbers are represented as `String?` and annotated with `@Type()`. |
-| **`content: String?` expected** | Every model class must have a `content: String?` field. Missing = error. |
+| **`content: String?` expected** | Every model class should have a `content: String?` field. Missing = **warning** (not an error) — generation proceeds. |
 
 ### 6.2 Class Style
 

@@ -92,13 +92,21 @@ import 'model_reader.dart';
 /// independent of the `rootTypeName` passed to [validateModel]:
 ///
 /// - **`@SectionId` global uniqueness** — no two classes reachable from
-///   `ProjectDefinition` may carry the same `@SectionId` string.  Field-level
-///   `@SectionId` values (the `-LST` container IDs on list fields) are included
-///   in the same uniqueness namespace.
+///   `ProjectDefinition` may carry the same class-level `@SectionId` string.
+///   Field-level `@SectionId` values (the `-LST` container IDs on list fields)
+///   occupy a *separate* namespace and are **not** required to be globally
+///   unique; they are type-scoped and checked independently (see the `-LST`
+///   consistency check below).
+/// - **Field-level `-LST` consistency** — `-LST` container IDs are
+///   type-scoped: all list fields containing the same element type share one
+///   `<E>-LST` ID, which is valid and expected. The only enforced invariant is
+///   that a given `-LST` ID always maps to exactly one element type.
 /// - **`@SectionId` coverage** — every class reachable from
-///   `ProjectDefinition` must carry a class-level `@SectionId`, unless it
-///   is a list-element type reached via a field annotated with
-///   `@SectionIdPattern`.
+///   `ProjectDefinition` must carry a class-level `@SectionId`, unless it is
+///   exempt by `@SectionIdPattern`. The exemption is transitive: a direct
+///   list-element type reached via a `@SectionIdPattern` field is exempt, and
+///   so is the entire subtree reachable from that element type (those nested
+///   classes are template sub-sections that inherit the pattern's instance ID).
 /// - **`@SecondLevelSectionId` implies `@DetailedIn`** — any class carrying
 ///   `@SecondLevelSectionId(D, …)` must also carry `@DetailedIn(D)`.
 /// - **`@DetailedIn` → ancestor `@MapsTo` check** — for every class
@@ -148,8 +156,10 @@ void _validateStructuralInvariants(
   // type INTENTIONALLY share the same @SectionIdPattern value (e.g. all
   // List<DeliverableEntry> fields share '@SectionIdPattern("DLVEN-xxx")').
   // Pattern-string and pattern-prefix uniqueness checks are therefore not
-  // performed.  What IS checked is that field-level @SectionId values ("-LST"
-  // IDs) are globally unique — that check happens in section 2 below.
+  // performed.  What IS checked (in section 2b below) is "-LST" consistency:
+  // a given "-LST" container ID must always correspond to exactly one element
+  // type.  "-LST" IDs are type-scoped, NOT globally unique — multiple list
+  // fields of the same element type share one "-LST" ID by design.
 
   // Direct element types of @SectionIdPattern list fields.
   final directPatternElements = <String>{};
