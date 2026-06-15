@@ -26,11 +26,15 @@ class FormFieldInfo {
   final String description;
   final bool required;
 
+  /// Optional hint text guiding valid values/formats for this form field.
+  final String hint;
+
   FormFieldInfo({
     required this.name,
     required this.typeName,
     this.description = '',
     this.required = false,
+    this.hint = '',
   });
 }
 
@@ -59,6 +63,9 @@ class ModelField {
   /// Form fields extracted from a `@Form` annotation on this field.
   final List<FormFieldInfo> formFields;
 
+  /// The cleaned doc-comment text on the field declaration, if any.
+  final String docComment;
+
   ModelField({
     required this.name,
     required this.typeName,
@@ -72,6 +79,7 @@ class ModelField {
     this.isSectionType = false,
     this.sectionContentType,
     this.formFields = const [],
+    this.docComment = '',
   });
 
   bool get isComplex =>
@@ -112,10 +120,14 @@ class ModelClass {
   final List<ModelField> fields;
   final List<AnnotationData> annotations;
 
+  /// The cleaned doc-comment text on the class declaration, if any.
+  final String docComment;
+
   ModelClass({
     required this.name,
     this.fields = const [],
     this.annotations = const [],
+    this.docComment = '',
   });
 
   AnnotationData? getAnnotation(String name) {
@@ -220,7 +232,13 @@ class ModelReader {
           : const <FormFieldInfo>[];
 
       fields.add(
-        _buildModelField(fieldName, fieldType, fieldAnnotations, formFields),
+        _buildModelField(
+          fieldName,
+          fieldType,
+          fieldAnnotations,
+          formFields,
+          _cleanDocComment(field.documentationComment),
+        ),
       );
     }
 
@@ -228,7 +246,31 @@ class ModelReader {
       name: className,
       fields: fields,
       annotations: classAnnotations,
+      docComment: _cleanDocComment(element.documentationComment),
     );
+  }
+
+  /// Strips `///` / `/** */` markers from a raw doc comment, returning the
+  /// joined prose (single line breaks preserved).
+  static String _cleanDocComment(String? raw) {
+    if (raw == null || raw.isEmpty) return '';
+    final lines = raw.split('\n');
+    final cleaned = <String>[];
+    for (var line in lines) {
+      line = line.trimLeft();
+      if (line.startsWith('///')) {
+        line = line.substring(3);
+      } else if (line.startsWith('/**')) {
+        line = line.substring(3);
+      } else if (line.startsWith('*/')) {
+        line = line.substring(2);
+      } else if (line.startsWith('*')) {
+        line = line.substring(1);
+      }
+      if (line.startsWith(' ')) line = line.substring(1);
+      cleaned.add(line.trimRight());
+    }
+    return cleaned.join('\n').trim();
   }
 
   void _processEnum(EnumDeclaration node) {
@@ -253,6 +295,7 @@ class ModelReader {
     DartType type,
     List<AnnotationData> annotations, [
     List<FormFieldInfo> formFields = const [],
+    String docComment = '',
   ]) {
     final isNullable = type.nullabilitySuffix == NullabilitySuffix.question;
 
@@ -276,6 +319,7 @@ class ModelReader {
           listElementTypeName: innerTypeName,
           listElementIsComplex: innerIsComplex,
           annotations: annotations,
+          docComment: docComment,
         );
       }
     }
@@ -290,6 +334,7 @@ class ModelReader {
         isEnum: true,
         enumValues: enumValues,
         annotations: annotations,
+        docComment: docComment,
       );
     }
 
@@ -309,6 +354,7 @@ class ModelReader {
       isSectionType: sectionType != null,
       sectionContentType: sectionType,
       formFields: formFields,
+      docComment: docComment,
     );
   }
 
@@ -441,6 +487,7 @@ class ModelReader {
         final description =
             item.getField('description')?.toStringValue() ?? '';
         final required = item.getField('required')?.toBoolValue() ?? false;
+        final hint = item.getField('hint')?.toStringValue() ?? '';
 
         // Extract type name from the Type literal
         String typeName = 'String';
@@ -454,6 +501,7 @@ class ModelReader {
           typeName: typeName,
           description: description,
           required: required,
+          hint: hint,
         ));
       }
       return result;

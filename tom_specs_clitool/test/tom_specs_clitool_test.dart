@@ -557,4 +557,101 @@ void main() {
       expect(ancestorErrors, isEmpty);
     });
   });
+
+  group('unit: ModelJsonExporter', () {
+    test('emits roots from @Document classes, sorted by title', () {
+      final classes = <String, ModelClass>{
+        'Zeta': _cls('Zeta', [
+          AnnotationData('Document', {'name': 'Zeta Doc'}),
+          AnnotationData('SectionId', {'id': 'ZD00'}),
+        ]),
+        'Alpha': _cls('Alpha', [
+          AnnotationData('Document', {'name': 'Alpha Doc'}),
+          AnnotationData('SectionId', {'id': 'AL00'}),
+        ]),
+        'Plain': _cls('Plain', [
+          AnnotationData('SectionId', {'id': 'PL00'}),
+        ]),
+      };
+      final json = ModelJsonExporter(classes).export();
+      expect(json['classCount'], 3);
+      expect(json['rootCount'], 2);
+      final roots = json['roots'] as List;
+      expect(roots.map((r) => (r as Map)['title']),
+          ['Alpha Doc', 'Zeta Doc']);
+      expect((roots.first as Map)['sectionId'], 'AL00');
+    });
+
+    test('classifies field kinds and carries kind-specific data', () {
+      final classes = <String, ModelClass>{
+        'Doc': _cls('Doc', [
+          AnnotationData('SectionId', {'id': 'DC00'}),
+        ], [
+          ModelField(name: 'intro', typeName: 'String'),
+          ModelField(
+            name: 'diagram',
+            typeName: 'DiagramSection',
+            isSectionType: true,
+            sectionContentType: 'mermaid',
+          ),
+          ModelField(
+            name: 'state',
+            typeName: 'Status',
+            isEnum: true,
+            enumValues: const ['open', 'closed'],
+          ),
+          ModelField(name: 'count', typeName: 'int'),
+          ModelField(name: 'child', typeName: 'ChildClass'),
+          _listField('items', 'ItemEntry', [
+            AnnotationData('Min', {'count': 2}),
+          ]),
+          ModelField(
+            name: 'header',
+            typeName: 'TextSection',
+            formFields: [
+              FormFieldInfo(
+                name: 'title',
+                typeName: 'String',
+                description: 'Title',
+                required: true,
+                hint: 'short',
+              ),
+            ],
+          ),
+        ]),
+        'ChildClass': _cls('ChildClass', [
+          AnnotationData('SectionId', {'id': 'DC00-CHD'}),
+        ]),
+        'ItemEntry': _cls('ItemEntry', [
+          AnnotationData('SectionId', {'id': 'DC01'}),
+        ]),
+      };
+      final json = ModelJsonExporter(classes).export();
+      final doc = (json['classes'] as Map)['Doc'] as Map;
+      final fields = (doc['fields'] as List).cast<Map>();
+      final byName = {for (final f in fields) f['name'] as String: f};
+
+      expect(byName['intro']!['kind'], 'content');
+      expect(byName['diagram']!['kind'], 'section');
+      expect(byName['diagram']!['contentType'], 'mermaid');
+      expect(byName['state']!['kind'], 'enum');
+      expect(byName['state']!['enumValues'], ['open', 'closed']);
+      expect(byName['count']!['kind'], 'scalar');
+      expect(byName['count']!['type'], 'int');
+      expect(byName['child']!['kind'], 'complex');
+      expect(byName['child']!['type'], 'ChildClass');
+      expect(byName['items']!['kind'], 'list');
+      expect(byName['items']!['elementType'], 'ItemEntry');
+      expect(byName['items']!['elementIsComplex'], true);
+      expect(byName['items']!['min'], 2);
+
+      final form = byName['header']!;
+      expect(form['kind'], 'form');
+      final formFields = (form['formFields'] as List).cast<Map>();
+      expect(formFields.single['name'], 'title');
+      expect(formFields.single['label'], 'Title');
+      expect(formFields.single['hint'], 'short');
+      expect(formFields.single['required'], true);
+    });
+  });
 }
