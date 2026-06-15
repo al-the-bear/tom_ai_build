@@ -107,6 +107,11 @@ import 'model_reader.dart';
 ///   list-element type reached via a `@SectionIdPattern` field is exempt, and
 ///   so is the entire subtree reachable from that element type (those nested
 ///   classes are template sub-sections that inherit the pattern's instance ID).
+/// - **`@SectionIdPattern` list-coverage** — every reachable complex
+///   `List<T>` field must carry `@SectionIdPattern` (so its repeated elements
+///   get per-instance section IDs), unless the field is `@Reference`. This is
+///   the authoritative analyzer-based replacement for the heuristic
+///   `missing_pattern_scan.py`, which suffered line-proximity false negatives.
 /// - **`@SecondLevelSectionId` implies `@DetailedIn`** — any class carrying
 ///   `@SecondLevelSectionId(D, …)` must also carry `@DetailedIn(D)`.
 /// - **`@DetailedIn` → ancestor `@MapsTo` check** — for every class
@@ -287,6 +292,32 @@ void _validateStructuralInvariants(
         }
       } else {
         lstIdToElementType[lstId] = elementType;
+      }
+    }
+  }
+
+  // --- 2c. @SectionIdPattern list-coverage check ---------------------------
+  //
+  // Every reachable complex `List<T>` field must carry @SectionIdPattern so its
+  // elements receive per-instance section IDs under the flat-ID scheme. The
+  // only exemption is @Reference fields, which point at sections owned
+  // elsewhere and therefore do not introduce repeated sections of their own.
+  // This is the authoritative replacement for the buggy `missing_pattern_scan.py`
+  // heuristic (see section_id_pattern_plan O6.1): it walks the real reachable
+  // type graph via the analyzer and cannot suffer the scan's line-proximity
+  // false negatives.
+  for (final className in reachable) {
+    final cls = classes[className];
+    if (cls == null) continue;
+    for (final field in cls.fields) {
+      if (!field.isList || !field.listElementIsComplex) continue;
+      if (field.getAnnotation('Reference') != null) continue;
+      if (field.getAnnotation('SectionIdPattern') == null) {
+        errors.add(
+          '§8.6 @SectionIdPattern list-coverage: $className.${field.name} '
+          '(List<${field.listElementTypeName}>) has no @SectionIdPattern and '
+          'is not @Reference — repeated sections must carry a numbering pattern',
+        );
       }
     }
   }

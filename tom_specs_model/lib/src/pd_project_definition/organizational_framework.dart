@@ -1346,6 +1346,8 @@ class NewRoleResponsibilities {
   List<ResponsibilityDetailEntry> primaryResponsibilities = [];
 
   /// Secondary responsibilities (supporting duties).
+  @SectionId('RSPDT-LST')
+  @SectionIdPattern('RSPDT-xxx')
   List<ResponsibilityDetailEntry> secondaryResponsibilities = [];
 
   /// Decision-making authority.

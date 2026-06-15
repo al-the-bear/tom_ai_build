@@ -2478,6 +2478,8 @@ methodology, scope, key findings, and overall data quality posture.
   List<DataQualityIssueEntry> qualityIssues = [];
 
   /// Quality improvement initiatives in progress.
+  @SectionId('DQIE-LST')
+  @SectionIdPattern('DQIE-xxx')
   List<DataQualityInitiativeEntry> improvementInitiatives = [];
 }
 

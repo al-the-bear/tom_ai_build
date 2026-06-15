@@ -108,6 +108,21 @@ void main() {
       expect(detailCountWarnings, isEmpty, reason: detailCountWarnings.join('\n'));
     });
 
+    test(
+      '§8.6: no reachable complex List<T> field lacks @SectionIdPattern '
+      '(excluding @Reference)',
+      () {
+        final result = validateStructuralInvariants(classes);
+        final listCoverageErrors = result.errors
+            .where((e) => e.contains('§8.6 @SectionIdPattern list-coverage'))
+            .toList();
+        // Authoritative analyzer-based guard replacing missing_pattern_scan.py
+        // (section_id_pattern_plan O6.1). Every repeated section (complex
+        // List<T> field that is not @Reference) must carry a numbering pattern.
+        expect(listCoverageErrors, isEmpty, reason: listCoverageErrors.join('\n'));
+      },
+    );
+
     test('outliner validates BusinessSystemInteractions root without errors', () {
       // BSI is a smoke-test root known to be clean of §6.1 ContentType issues.
       final result = validateModel(classes, 'BusinessSystemInteractions');
@@ -201,6 +216,88 @@ void main() {
           .where((w) => w.contains('§8.6 @SectionId coverage'))
           .toList();
       expect(coverageWarnings, isEmpty);
+    });
+  });
+
+  group('unit: @SectionIdPattern list-coverage check', () {
+    test('errors when a complex List<T> field lacks @SectionIdPattern', () {
+      final classes = {
+        'ProjectDefinition': _cls(
+          'ProjectDefinition',
+          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [_field('container', 'Container')],
+        ),
+        'Container': _cls(
+          'Container',
+          [AnnotationData('SectionId', {'id': 'PD00-CON'})],
+          [
+            // List field with NO @SectionIdPattern and no @Reference.
+            _listField('items', 'ListItem'),
+          ],
+        ),
+        'ListItem': _cls('ListItem', [AnnotationData('SectionId', {'id': 'PD00-ITM'})]),
+      };
+      final result = validateStructuralInvariants(classes);
+      expect(
+        result.errors.any((e) =>
+            e.contains('§8.6 @SectionIdPattern list-coverage') &&
+            e.contains('Container.items')),
+        isTrue,
+        reason: 'Expected a list-coverage error for Container.items',
+      );
+    });
+
+    test('passes when the complex List<T> field carries @SectionIdPattern', () {
+      final classes = {
+        'ProjectDefinition': _cls(
+          'ProjectDefinition',
+          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [_field('container', 'Container')],
+        ),
+        'Container': _cls(
+          'Container',
+          [AnnotationData('SectionId', {'id': 'PD00-CON'})],
+          [
+            _listField('items', 'ListItem', [
+              AnnotationData('SectionId', {'id': 'ITM-LST'}),
+              AnnotationData('SectionIdPattern', {'pattern': 'ITM-xxx'}),
+            ]),
+          ],
+        ),
+        'ListItem': _cls('ListItem', [AnnotationData('SectionId', {'id': 'ITM'})]),
+      };
+      final result = validateStructuralInvariants(classes);
+      final listCoverageErrors = result.errors
+          .where((e) => e.contains('§8.6 @SectionIdPattern list-coverage'))
+          .toList();
+      expect(listCoverageErrors, isEmpty);
+    });
+
+    test('does not error for a @Reference list field without @SectionIdPattern', () {
+      final classes = {
+        'ProjectDefinition': _cls(
+          'ProjectDefinition',
+          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [_field('container', 'Container')],
+        ),
+        'Container': _cls(
+          'Container',
+          [AnnotationData('SectionId', {'id': 'PD00-CON'})],
+          [
+            // @Reference list fields point at sections owned elsewhere —
+            // they are exempt from the list-coverage requirement.
+            _listField('refs', 'ListItem', [
+              AnnotationData('Reference', {'label': 'Referenced Items'}),
+            ]),
+          ],
+        ),
+        'ListItem': _cls('ListItem', [AnnotationData('SectionId', {'id': 'ITM'})]),
+      };
+      final result = validateStructuralInvariants(classes);
+      final listCoverageErrors = result.errors
+          .where((e) => e.contains('§8.6 @SectionIdPattern list-coverage'))
+          .toList();
+      expect(listCoverageErrors, isEmpty);
     });
   });
 

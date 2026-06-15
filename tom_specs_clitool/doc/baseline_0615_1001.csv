@@ -1,0 +1,21 @@
+ID,Groups,Description,Baseline [06-15 10:01]
+,end-to-end: real tom_specs_model §8.6 structural invariants,§8.6: no duplicate @SectionId strings across ProjectDefinition tree,OK/OK
+,end-to-end: real tom_specs_model §8.6 structural invariants,§8.6: every reachable class has @SectionId (or is @SectionIdPattern-covered),OK/OK
+,end-to-end: real tom_specs_model §8.6 structural invariants,§8.6: no duplicate @SectionIdPattern strings,OK/OK
+,end-to-end: real tom_specs_model §8.6 structural invariants,§8.6: every @DetailedIn(D) class has @MapsTo(D) on itself or an ancestor,OK/OK
+,end-to-end: real tom_specs_model §8.6 structural invariants,§8.6: @SecondLevelSectionId implies @DetailedIn on the same class,OK/OK
+,end-to-end: real tom_specs_model §8.6 structural invariants,§8.6: every @Document class has at least one @DetailedIn entry in PD tree,OK/OK
+,end-to-end: real tom_specs_model §8.6 structural invariants,§8.6: no reachable complex List<T> field lacks @SectionIdPattern (excluding @Reference),OK/OK
+,end-to-end: real tom_specs_model §8.6 structural invariants,outliner validates BusinessSystemInteractions root without errors,OK/OK
+,unit: @SectionId uniqueness check,detects duplicate @SectionId across two sibling classes,OK/OK
+,unit: @SectionId uniqueness check,passes when all @SectionIds are distinct,OK/OK
+,unit: @SectionId coverage check,warns when a reachable class has no @SectionId and no @SectionIdPattern coverage,OK/OK
+,unit: @SectionId coverage check,does not warn for list-element types covered by @SectionIdPattern,OK/OK
+,unit: @SectionIdPattern list-coverage check,errors when a complex List<T> field lacks @SectionIdPattern,OK/OK
+,unit: @SectionIdPattern list-coverage check,passes when the complex List<T> field carries @SectionIdPattern,OK/OK
+,unit: @SectionIdPattern list-coverage check,does not error for a @Reference list field without @SectionIdPattern,OK/OK
+,unit: @SecondLevelSectionId implies @DetailedIn,errors when @SecondLevelSectionId exists without matching @DetailedIn,OK/OK
+,unit: @SecondLevelSectionId implies @DetailedIn,passes when @SecondLevelSectionId is accompanied by @DetailedIn,OK/OK
+,unit: @DetailedIn ancestor @MapsTo check,errors when @DetailedIn(D) has no @MapsTo(D) on self or ancestor,OK/OK
+,unit: @DetailedIn ancestor @MapsTo check,passes when @MapsTo(D) is on the same class as @DetailedIn(D),OK/OK
+,unit: @DetailedIn ancestor @MapsTo check,passes when @MapsTo(D) is on an ancestor of the @DetailedIn(D) class,OK/OK
