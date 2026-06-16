@@ -11,6 +11,13 @@ import 'review_controls.dart';
 /// decision targets the *structure*, not a particular rendered instance.
 const String kListItemSegment = '§item';
 
+/// Structural-path segment for a list section's own intro content.
+///
+/// In TomSpecs every list *is* a document section, so besides its repeated
+/// items it always carries an introductory content paragraph. This segment
+/// keys that paragraph for review, distinct from the list and its items.
+const String kSectionContentSegment = '§content';
+
 /// Shared tree-wide state read by every node via the element tree.
 ///
 /// Carries the two hand-off **cut** flags (2b/2d) and the in-tree
@@ -447,9 +454,53 @@ class _FieldNodeState extends State<_FieldNode> {
           path: widget.path,
           nodeLabel: '${f.name} (list)',
         ),
-        if (_expanded)
+        if (_expanded) ...[
+          // A list is itself a document section: show its intro content first.
+          _buildListContent(f),
           for (var i = 0; i < 3; i++)
             _buildListItem(f, cls, elementType, i, childOnPath),
+        ],
+      ],
+    );
+  }
+
+  /// The intro content paragraph that every list section carries, rendered as a
+  /// read-only three-line area with its own review path.
+  Widget _buildListContent(SpecField f) {
+    final contentPath = '${widget.path}/$kSectionContentSegment';
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _NodeRow(
+          depth: widget.depth + 1,
+          expandable: false,
+          expanded: false,
+          onToggle: null,
+          leadingIcon: Icons.notes,
+          iconColor: Colors.blue,
+          label: 'content',
+          typeLabel: 'content · text',
+          sectionId: null,
+          chips: const [],
+          doc: null,
+          store: widget.store,
+          path: contentPath,
+          nodeLabel: '${f.name} content',
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+              left: 16.0 * (widget.depth + 2) + 24, top: 2, bottom: 4, right: 8),
+          child: const TextField(
+            enabled: false,
+            minLines: 3,
+            maxLines: 3,
+            decoration: InputDecoration(
+              isDense: true,
+              border: OutlineInputBorder(),
+              hintText: 'Content (text)',
+            ),
+          ),
+        ),
       ],
     );
   }

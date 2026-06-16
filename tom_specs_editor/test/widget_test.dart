@@ -330,6 +330,37 @@ void main() {
     });
   });
 
+  group('List section content', () {
+    testWidgets('an expanded list shows its own intro content part',
+        (tester) async {
+      final file = _tempReviewFile('listcontent.yaml');
+      if (file.existsSync()) file.deleteSync();
+      final store = ReviewStore(file);
+      final model = _model();
+      final root = model.roots.single;
+
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: SpecTree(
+            model: model,
+            root: SpecRoot(type: root.type, title: root.title),
+            store: store,
+            onHandoffTap: (_, _) {},
+          ),
+        ),
+      ));
+      // The DemoDoc root is expanded by default; expand the `items` list.
+      await tester.tap(find.text('items'));
+      await tester.pumpAndSettle();
+
+      // The list now exposes a 'content' node for its section intro, alongside
+      // the three element instances.
+      expect(find.text('content'), findsOneWidget);
+      expect(find.text('Item 1'), findsWidgets);
+      if (file.existsSync()) file.deleteSync();
+    });
+  });
+
   group('StartPage widget', () {
     testWidgets('shows roots and renders a tree on selection', (tester) async {
       final file = _tempReviewFile('widget.yaml');
