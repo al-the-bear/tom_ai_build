@@ -22,4 +22,7 @@ class DocumentHeader with SpecNode {
 
   @override
   DocumentHeader cloneShallow() => DocumentHeader()..content = content;
+
+  @override
+  String? yamlScalar() => content;
 }

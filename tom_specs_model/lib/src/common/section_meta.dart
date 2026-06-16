@@ -21,4 +21,7 @@ class SectionMeta with SpecNode {
 
   @override
   SectionMeta cloneShallow() => SectionMeta()..content = content;
+
+  @override
+  String? yamlScalar() => content;
 }

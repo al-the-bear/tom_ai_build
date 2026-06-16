@@ -65,6 +65,19 @@ mixin SpecNode {
   /// references. The snapshotter rewrites the children (via [specSlots])
   /// afterwards, so `cloneShallow` must not deep-copy them itself.
   SpecNode cloneShallow();
+
+  /// This node's own scalar payload for serialization — its packed `@Form` /
+  /// intro `content` string — or `null` if the node owns no scalar of its own.
+  ///
+  /// Containers inherit the `null` default; content-bearing leaves override it
+  /// (typically `=> content`). Used by [SpecYaml] to emit each node's value;
+  /// children are walked separately through [specSlots], so this returns only
+  /// *this* node's scalar, never its descendants'.
+  ///
+  /// Declared as a method (not a getter) for the same reason as [specSlots]: a
+  /// getter would surface as a synthetic field in the analyzer element model
+  /// and pollute the reflected model.
+  String? yamlScalar() => null;
 }
 
 /// One child-node relationship of a [SpecNode] — either a single child or a
@@ -72,13 +85,19 @@ mixin SpecNode {
 /// walk and rewrite children without knowing field names or concrete types.
 class SpecSlot {
   final bool isList;
+
+  /// Stable serialization key for this slot (the model field name), or `null`
+  /// when the slot is only walked structurally (snapshotting ignores labels).
+  final String? label;
+
   final SpecNode? Function() _getNode;
   final void Function(SpecNode?) _setNode;
   final List<SpecNode> Function() _getList;
   final void Function(List<SpecNode>) _setList;
 
   /// A slot for a single (possibly null) child node.
-  SpecSlot.node(SpecNode? Function() get, void Function(SpecNode?) set)
+  SpecSlot.node(SpecNode? Function() get, void Function(SpecNode?) set,
+      {this.label})
       : isList = false,
         _getNode = get,
         _setNode = set,
@@ -88,7 +107,8 @@ class SpecSlot {
   /// A slot for a list of child nodes. The [set] closure receives a
   /// `List<SpecNode>` and is responsible for narrowing it back to the field's
   /// concrete element type (e.g. `(v) => _goals = v.cast<BusinessGoalEntry>()`).
-  SpecSlot.list(List<SpecNode> Function() get, void Function(List<SpecNode>) set)
+  SpecSlot.list(List<SpecNode> Function() get, void Function(List<SpecNode>) set,
+      {this.label})
       : isList = true,
         _getList = get,
         _setList = set,
