@@ -17,9 +17,15 @@ import 'model_reader.dart';
   // §6.5 — find reachable types from root
   final reachable = _findReachableTypes(classes, rootTypeName);
 
+  // The canonical container (V2, N9) is the structural tree root, not a content
+  // section: it owns no `content` and carries no `@SectionId`. Exempt it from
+  // the §6 per-class content/field checks when it is reachable (T1).
+  final containerRoot = findContainerRoot(classes);
+
   for (final className in reachable) {
     final cls = classes[className];
     if (cls == null) continue;
+    if (className == containerRoot) continue;
 
     // §6.1 — content: String? expected (warning, not error)
     final hasContent = cls.fields.any((f) => f.name == 'content');
@@ -439,6 +445,34 @@ void _validateStructuralInvariants(
       warnings.add(
         '§8.6 detail-count: @Document class $docClassName has no '
         '@DetailedIn($docClassName) entries in the ProjectDefinition tree',
+      );
+    }
+  }
+
+  // --- 6. Pure-projection invariant (T2, N12) ------------------------------
+  //
+  // The twelve Phase 3 roots are `@Document(basedOn: [ProjectDefinition])`
+  // *projections*: they aggregate PD00 sections and own no content of their own
+  // (§14). The single-tree model is sound only if a projection root contains
+  // **no content absent from the Project Definition** — otherwise the global
+  // `toYaml` could not emit each section exactly once, and the connect pass
+  // (§15.1) would have to invent or drop content.
+  //
+  // Check: every type reachable from a projection root (other than the root
+  // class itself) must also be reachable from ProjectDefinition. A reachable
+  // type with no PD counterpart is projection-local content — a violation.
+  // The unannotated container is structural, never a projection target, so it
+  // is excluded here.
+  for (final docClassName in documentClasses) {
+    if (docClassName == pdRoot) continue;
+    final projectionReachable = _findReachableTypes(classes, docClassName);
+    for (final type in projectionReachable) {
+      if (type == docClassName) continue; // the projection root class itself
+      if (reachable.contains(type)) continue; // has a PD counterpart
+      errors.add(
+        '§8.6 pure-projection: projection root $docClassName reaches "$type", '
+        'which is not present in the ProjectDefinition tree — a projection '
+        'root must contain no content without a PD counterpart (N12)',
       );
     }
   }

@@ -138,6 +138,32 @@ class ModelClass {
   }
 }
 
+/// Finds the canonical container root of the TomSpecs model (V2, N9).
+///
+/// The container is the **unannotated** top-level class that owns the
+/// `ProjectDefinition` store plus the twelve projection roots, giving the whole
+/// spec a single tree root for load/save/snapshot/undo. It is *not* a document
+/// node — it carries no `@Document` and no `@SectionId` — so the tooling must
+/// recognise it structurally rather than by annotation (T1).
+///
+/// Identification is by ownership: a non-`@Document` class that declares a
+/// (non-list) field whose type is `ProjectDefinition`. Only the container holds
+/// PD by value — the projection roots reference PD00 *sections*, not the PD root
+/// itself — so this is unambiguous. Returns the class name, or `null` if no
+/// container is present (e.g. a small synthetic model).
+String? findContainerRoot(Map<String, ModelClass> classes) {
+  for (final entry in classes.entries) {
+    final cls = entry.value;
+    if (cls.name == 'ProjectDefinition') continue;
+    if (cls.getAnnotation('Document') != null) continue;
+    final ownsProjectDefinition = cls.fields.any(
+      (f) => !f.isList && f.typeName.replaceAll('?', '') == 'ProjectDefinition',
+    );
+    if (ownsProjectDefinition) return entry.key;
+  }
+  return null;
+}
+
 /// A resolved enum type.
 class ModelEnum {
   final String name;

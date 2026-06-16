@@ -147,6 +147,31 @@ void main() {
       final result = validateModel(classes, 'BusinessSystemInteractions');
       expect(result.errors, isEmpty, reason: result.errors.join('\n'));
     });
+
+    test('T1: the canonical container is DocSpecsProject', () {
+      expect(findContainerRoot(classes), 'DocSpecsProject');
+    });
+
+    test('T1: model JSON export surfaces the container as the tree root', () {
+      final json = ModelJsonExporter(classes).export();
+      expect(json['containerRoot'], 'DocSpecsProject');
+      // The container is the tree root, not a navigator document.
+      final roots = (json['roots'] as List).cast<Map>();
+      expect(roots.any((r) => r['type'] == 'DocSpecsProject'), isFalse);
+      // It is still present in the class graph the editor walks.
+      expect((json['classes'] as Map).containsKey('DocSpecsProject'), isTrue);
+    });
+
+    test('T2: every projection root is a pure projection of the PD tree', () {
+      final result = validateStructuralInvariants(classes);
+      final pureProjectionErrors = result.errors
+          .where((e) => e.contains('§8.6 pure-projection'))
+          .toList();
+      // Each Phase 3 root aggregates PD00 sections only — no projection-local
+      // content without a PD counterpart (N12).
+      expect(pureProjectionErrors, isEmpty,
+          reason: pureProjectionErrors.join('\n'));
+    });
   });
 
   // ---------------------------------------------------------------------------
@@ -555,6 +580,114 @@ void main() {
       final ancestorErrors =
           result.errors.where((e) => e.contains('§8.6 @DetailedIn ancestor check')).toList();
       expect(ancestorErrors, isEmpty);
+    });
+  });
+
+  group('unit: canonical container root (T1)', () {
+    Map<String, ModelClass> modelWithContainer() => {
+          'DocSpecsProject': _cls('DocSpecsProject', [], [
+            _field('projectDefinition', 'ProjectDefinition'),
+            _field('businessProcesses', 'BusinessProcesses'),
+          ]),
+          'ProjectDefinition': _cls(
+            'ProjectDefinition',
+            [AnnotationData('SectionId', {'id': 'PD00'})],
+            [_field('shared', 'SharedSection')],
+          ),
+          'SharedSection':
+              _cls('SharedSection', [AnnotationData('SectionId', {'id': 'PD00-SHR'})]),
+          'BusinessProcesses': _cls('BusinessProcesses', [
+            AnnotationData('Document', {'name': 'Business Processes'}),
+            AnnotationData('SectionId', {'id': 'BP'}),
+          ], [
+            _field('shared', 'SharedSection'),
+          ]),
+        };
+
+    test('findContainerRoot detects the unannotated PD-owning class', () {
+      expect(findContainerRoot(modelWithContainer()), 'DocSpecsProject');
+    });
+
+    test('findContainerRoot returns null when no container is present', () {
+      final classes = {
+        'ProjectDefinition': _cls(
+          'ProjectDefinition',
+          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [_field('shared', 'SharedSection')],
+        ),
+        'SharedSection': _cls('SharedSection', []),
+      };
+      expect(findContainerRoot(classes), isNull);
+    });
+
+    test('the container is exempt from §6 content checks when it is the root', () {
+      final result = validateModel(modelWithContainer(), 'DocSpecsProject');
+      final containerWarnings = result.warnings
+          .where((w) => w.contains('DocSpecsProject') && w.contains('content'))
+          .toList();
+      expect(containerWarnings, isEmpty, reason: containerWarnings.join('\n'));
+    });
+
+    test('export surfaces containerRoot and keeps it out of roots', () {
+      final json = ModelJsonExporter(modelWithContainer()).export();
+      expect(json['containerRoot'], 'DocSpecsProject');
+      final roots = (json['roots'] as List).cast<Map>();
+      expect(roots.any((r) => r['type'] == 'DocSpecsProject'), isFalse);
+    });
+  });
+
+  group('unit: pure-projection invariant (T2)', () {
+    test('errors when a projection root reaches a non-PD (projection-local) type', () {
+      final classes = {
+        'ProjectDefinition': _cls(
+          'ProjectDefinition',
+          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [_field('shared', 'SharedSection')],
+        ),
+        'SharedSection':
+            _cls('SharedSection', [AnnotationData('SectionId', {'id': 'PD00-SHR'})]),
+        'BizProc': _cls('BizProc', [
+          AnnotationData('Document', {'name': 'Business Processes'}),
+          AnnotationData('SectionId', {'id': 'BP'}),
+        ], [
+          _field('shared', 'SharedSection'), // OK — has a PD counterpart
+          _field('local', 'ProjLocal'), // violation — no PD counterpart
+        ]),
+        'ProjLocal':
+            _cls('ProjLocal', [AnnotationData('SectionId', {'id': 'BP-LOC'})]),
+      };
+      final result = validateStructuralInvariants(classes);
+      expect(
+        result.errors.any((e) =>
+            e.contains('§8.6 pure-projection') &&
+            e.contains('BizProc') &&
+            e.contains('ProjLocal')),
+        isTrue,
+        reason: 'Expected a pure-projection error for BizProc → ProjLocal',
+      );
+    });
+
+    test('passes when a projection root reaches only PD-reachable types', () {
+      final classes = {
+        'ProjectDefinition': _cls(
+          'ProjectDefinition',
+          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [_field('shared', 'SharedSection')],
+        ),
+        'SharedSection':
+            _cls('SharedSection', [AnnotationData('SectionId', {'id': 'PD00-SHR'})]),
+        'BizProc': _cls('BizProc', [
+          AnnotationData('Document', {'name': 'Business Processes'}),
+          AnnotationData('SectionId', {'id': 'BP'}),
+        ], [
+          _field('shared', 'SharedSection'),
+        ]),
+      };
+      final result = validateStructuralInvariants(classes);
+      final pureProjectionErrors = result.errors
+          .where((e) => e.contains('§8.6 pure-projection'))
+          .toList();
+      expect(pureProjectionErrors, isEmpty);
     });
   });
 

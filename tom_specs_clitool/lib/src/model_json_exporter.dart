@@ -46,6 +46,12 @@ class ModelJsonExporter {
       'generatedAt': DateTime.now().toUtc().toIso8601String(),
       'classCount': classes.length,
       'rootCount': roots.length,
+      // The canonical container is the single true tree root (V2, N9): the
+      // editor loads/saves/snapshots the whole spec through it. It is not a
+      // document, so it stays out of `roots` (the navigator entry points) and
+      // is surfaced separately here. Null when the model has no container
+      // (e.g. a synthetic export).
+      'containerRoot': findContainerRoot(classes),
       'roots': roots,
       'classes': classMap,
     };

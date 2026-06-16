@@ -9,7 +9,8 @@ export 'src/model_reader.dart'
         ModelField,
         ModelEnum,
         AnnotationData,
-        FormFieldInfo;
+        FormFieldInfo,
+        findContainerRoot;
 export 'src/model_json_exporter.dart' show ModelJsonExporter;
 export 'src/outline_writer.dart' show OutlineWriter;
 export 'src/validator.dart' show validateModel, validateStructuralInvariants;
