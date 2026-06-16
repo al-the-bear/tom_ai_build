@@ -62,6 +62,39 @@ class _DocumentStructuresTab extends StatefulWidget {
 class _DocumentStructuresTabState extends State<_DocumentStructuresTab> {
   SpecRoot? _selected;
 
+  /// 2b: suppress subsections at hand-off points to other documents.
+  bool _cutAtHandoff = false;
+
+  /// 2c: class to reveal/scroll-to after a hand-off jump (cleared on manual
+  /// document selection).
+  String? _navTargetType;
+
+  void _selectRoot(SpecRoot root, {String? navTargetType}) {
+    setState(() {
+      _selected = root;
+      _navTargetType = navTargetType;
+    });
+  }
+
+  /// Handles a hand-off marker tap: switch to [targetRoot] and reveal
+  /// [targetType] within it.
+  void _onHandoffTap(String targetRoot, String targetType) {
+    SpecRoot? root;
+    for (final r in widget.model.roots) {
+      if (r.type == targetRoot) {
+        root = r;
+        break;
+      }
+    }
+    if (root == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('No document for "$targetRoot"')),
+      );
+      return;
+    }
+    _selectRoot(root, navTargetType: targetType);
+  }
+
   @override
   Widget build(BuildContext context) {
     final roots = widget.model.roots;
@@ -90,7 +123,7 @@ class _DocumentStructuresTabState extends State<_DocumentStructuresTab> {
                         : root.type,
                     style: const TextStyle(fontSize: 11),
                   ),
-                  onTap: () => setState(() => _selected = root),
+                  onTap: () => _selectRoot(root),
                 );
               },
             ),
@@ -98,15 +131,53 @@ class _DocumentStructuresTabState extends State<_DocumentStructuresTab> {
         ),
         const VerticalDivider(width: 1),
         Expanded(
-          child: _selected == null
-              ? const Center(
-                  child: Text('Select a document to browse its structure'))
-              : SpecTree(
-                  key: ValueKey(_selected!.type),
-                  model: widget.model,
-                  root: _selected!,
-                  store: widget.store,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Material(
+                elevation: 1,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  child: Row(
+                    children: [
+                      Switch(
+                        value: _cutAtHandoff,
+                        onChanged: (v) => setState(() => _cutAtHandoff = v),
+                      ),
+                      const SizedBox(width: 4),
+                      const Text('Cut at hand-offs',
+                          style: TextStyle(fontWeight: FontWeight.w600)),
+                      const SizedBox(width: 6),
+                      Flexible(
+                        child: Text(
+                          '(hide subsections detailed in other documents)',
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontSize: 11, color: Colors.grey.shade600),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
+              ),
+              Expanded(
+                child: _selected == null
+                    ? const Center(
+                        child:
+                            Text('Select a document to browse its structure'))
+                    : SpecTree(
+                        key: ValueKey(_selected!.type),
+                        model: widget.model,
+                        root: _selected!,
+                        store: widget.store,
+                        cutAtHandoff: _cutAtHandoff,
+                        navTargetType: _navTargetType,
+                        onHandoffTap: _onHandoffTap,
+                      ),
+              ),
+            ],
+          ),
         ),
       ],
     );

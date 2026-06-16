@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../model/review_store.dart';
@@ -10,39 +11,199 @@ import 'review_controls.dart';
 /// decision targets the *structure*, not a particular rendered instance.
 const String kListItemSegment = '§item';
 
+/// Shared tree-wide state read by every node via the element tree.
+///
+/// Carries the hand-off **cut** flag (2b) and the in-tree **navigation** target
+/// (2c). Navigation is expressed as a chain of class names ([navPathTypes])
+/// from the document root down to [navTargetType]; nodes on that chain
+/// auto-expand and the endpoint is tagged with [navTargetKey] so the tree can
+/// scroll it into view.
+class SpecTreeScope extends InheritedWidget {
+  /// When true, a class whose detail lives in *another* document is shown but
+  /// its descending subsections (list / complex fields) are suppressed.
+  final bool cutAtHandoff;
+
+  /// The root document type currently rendered (used to decide whether a
+  /// `@DetailedIn` marker points *away* from this document).
+  final String rootType;
+
+  /// Class names on the navigation chain root→target (empty when not
+  /// navigating).
+  final Set<String> navPathTypes;
+
+  /// The class the user navigated to, highlighted and scrolled into view.
+  final String? navTargetType;
+
+  /// Key attached to the single navigation-target row for `ensureVisible`.
+  final GlobalKey? navTargetKey;
+
+  /// Invoked when a hand-off marker is clicked: jump to [targetRoot] document
+  /// and reveal the [targetType] subsection within it.
+  final void Function(String targetRoot, String targetType) onHandoffTap;
+
+  const SpecTreeScope({
+    super.key,
+    required this.cutAtHandoff,
+    required this.rootType,
+    required this.navPathTypes,
+    required this.navTargetType,
+    required this.navTargetKey,
+    required this.onHandoffTap,
+    required super.child,
+  });
+
+  static SpecTreeScope of(BuildContext context) {
+    final scope = context.dependOnInheritedWidgetOfExactType<SpecTreeScope>();
+    assert(scope != null, 'SpecTreeScope not found in context');
+    return scope!;
+  }
+
+  @override
+  bool updateShouldNotify(SpecTreeScope old) =>
+      cutAtHandoff != old.cutAtHandoff ||
+      rootType != old.rootType ||
+      navTargetType != old.navTargetType ||
+      !setEquals(navPathTypes, old.navPathTypes);
+}
+
+/// Computes the shortest chain of class names from [rootType] to [targetType]
+/// by following `elementType` / `type` references (BFS over the class graph).
+///
+/// Returns the set of every class name on that path (inclusive). Empty when the
+/// target is unreachable.
+Set<String> pathToType(SpecModel model, String rootType, String targetType) {
+  if (rootType == targetType) return {rootType};
+  final parent = <String, String>{};
+  final visited = <String>{rootType};
+  final queue = <String>[rootType];
+  while (queue.isNotEmpty) {
+    final current = queue.removeAt(0);
+    final cls = model.classNamed(current);
+    if (cls == null) continue;
+    for (final field in cls.fields) {
+      for (final ref in [field.elementType, field.type]) {
+        if (ref == null ||
+            !model.classes.containsKey(ref) ||
+            visited.contains(ref)) {
+          continue;
+        }
+        visited.add(ref);
+        parent[ref] = current;
+        if (ref == targetType) {
+          final path = <String>{targetType};
+          var cur = targetType;
+          while (parent.containsKey(cur)) {
+            cur = parent[cur]!;
+            path.add(cur);
+          }
+          return path;
+        }
+        queue.add(ref);
+      }
+    }
+  }
+  return const {};
+}
+
 /// Renders the structure tree for a single document root.
-class SpecTree extends StatelessWidget {
+class SpecTree extends StatefulWidget {
   final SpecModel model;
   final SpecRoot root;
   final ReviewStore store;
+
+  /// Suppress subsections at hand-off points (2b).
+  final bool cutAtHandoff;
+
+  /// Class to reveal and scroll to within this document (2c).
+  final String? navTargetType;
+
+  /// Called when a hand-off marker is tapped, to switch documents.
+  final void Function(String targetRoot, String targetType) onHandoffTap;
 
   const SpecTree({
     super.key,
     required this.model,
     required this.root,
     required this.store,
+    required this.onHandoffTap,
+    this.cutAtHandoff = false,
+    this.navTargetType,
   });
 
   @override
-  Widget build(BuildContext context) {
-    final cls = model.classNamed(root.type);
-    if (cls == null) {
-      return Center(child: Text('Root type "${root.type}" not found in model'));
+  State<SpecTree> createState() => _SpecTreeState();
+}
+
+class _SpecTreeState extends State<SpecTree> {
+  final GlobalKey _targetKey = GlobalKey();
+  Set<String> _navPathTypes = const {};
+
+  @override
+  void initState() {
+    super.initState();
+    _recomputeNav();
+  }
+
+  @override
+  void didUpdateWidget(SpecTree old) {
+    super.didUpdateWidget(old);
+    if (old.navTargetType != widget.navTargetType ||
+        old.root.type != widget.root.type) {
+      _recomputeNav();
     }
-    return ListView(
-      padding: const EdgeInsets.all(8),
-      children: [
-        _ClassNode(
-          model: model,
-          store: store,
-          cls: cls,
-          path: root.type,
-          ancestors: {root.type},
-          depth: 0,
-          initiallyExpanded: true,
-          titleOverride: root.title,
-        ),
-      ],
+  }
+
+  void _recomputeNav() {
+    final target = widget.navTargetType;
+    _navPathTypes = target == null
+        ? const {}
+        : pathToType(widget.model, widget.root.type, target);
+    if (target != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final ctx = _targetKey.currentContext;
+        if (ctx != null) {
+          Scrollable.ensureVisible(
+            ctx,
+            duration: const Duration(milliseconds: 300),
+            alignment: 0.1,
+          );
+        }
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final cls = widget.model.classNamed(widget.root.type);
+    if (cls == null) {
+      return Center(
+          child: Text('Root type "${widget.root.type}" not found in model'));
+    }
+    final onNavPath = widget.navTargetType != null &&
+        _navPathTypes.contains(widget.root.type);
+    return SpecTreeScope(
+      cutAtHandoff: widget.cutAtHandoff,
+      rootType: widget.root.type,
+      navPathTypes: _navPathTypes,
+      navTargetType: widget.navTargetType,
+      navTargetKey: _targetKey,
+      onHandoffTap: widget.onHandoffTap,
+      child: ListView(
+        padding: const EdgeInsets.all(8),
+        children: [
+          _ClassNode(
+            model: widget.model,
+            store: widget.store,
+            cls: cls,
+            path: widget.root.type,
+            ancestors: {widget.root.type},
+            depth: 0,
+            initiallyExpanded: true,
+            titleOverride: widget.root.title,
+            onNavPath: onNavPath,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -58,6 +219,9 @@ class _ClassNode extends StatefulWidget {
   final bool initiallyExpanded;
   final String? titleOverride;
 
+  /// True when this node sits on the active navigation chain.
+  final bool onNavPath;
+
   const _ClassNode({
     super.key,
     required this.model,
@@ -68,6 +232,7 @@ class _ClassNode extends StatefulWidget {
     required this.depth,
     this.initiallyExpanded = false,
     this.titleOverride,
+    this.onNavPath = false,
   });
 
   @override
@@ -75,21 +240,49 @@ class _ClassNode extends StatefulWidget {
 }
 
 class _ClassNodeState extends State<_ClassNode> {
-  late bool _expanded = widget.initiallyExpanded;
+  bool? _expanded;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _expanded ??= widget.initiallyExpanded;
+    // Force-expand along the navigation chain so the target is revealed.
+    if (widget.onNavPath) _expanded = true;
+  }
 
   @override
   Widget build(BuildContext context) {
+    final scope = SpecTreeScope.of(context);
     final cls = widget.cls;
-    final hasFields = cls.fields.isNotEmpty;
+
+    // 2b: at a hand-off point pointing to *another* document, keep the section
+    // (its content/form/scalar/enum) but suppress the descending subsections.
+    final cut = scope.cutAtHandoff &&
+        cls.detailedIn != null &&
+        cls.detailedIn != scope.rootType;
+    final visibleFields = cut
+        ? cls.fields
+            .where((f) =>
+                f.kind != SpecFieldKind.list && f.kind != SpecFieldKind.complex)
+            .toList()
+        : cls.fields;
+    final hasFields = visibleFields.isNotEmpty;
+    final expanded = _expanded ?? widget.initiallyExpanded;
+
+    final isTarget =
+        widget.onNavPath && scope.navTargetType == cls.name;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _NodeRow(
+          rowKey: isTarget ? scope.navTargetKey : null,
+          highlight: isTarget,
           depth: widget.depth,
           expandable: hasFields,
-          expanded: _expanded,
-          onToggle: hasFields ? () => setState(() => _expanded = !_expanded) : null,
+          expanded: expanded,
+          onToggle:
+              hasFields ? () => setState(() => _expanded = !expanded) : null,
           leadingIcon: Icons.account_tree,
           iconColor: Colors.indigo,
           label: widget.titleOverride ?? cls.name,
@@ -98,15 +291,21 @@ class _ClassNodeState extends State<_ClassNode> {
           chips: [
             if (cls.mapsTo != null) _Chip('maps→ ${cls.mapsTo}', Colors.purple),
             if (cls.detailedIn != null)
-              _Chip('detail→ ${cls.detailedIn}', Colors.deepOrange),
+              _Chip(
+                'detail→ ${cls.detailedIn}',
+                Colors.deepOrange,
+                onTap: () =>
+                    scope.onHandoffTap(cls.detailedIn!, cls.name),
+              ),
+            if (cut) _Chip('cut', Colors.red),
           ],
           doc: cls.doc ?? cls.help,
           store: widget.store,
           path: widget.path,
           nodeLabel: cls.name,
         ),
-        if (_expanded)
-          for (final field in cls.fields)
+        if (expanded)
+          for (final field in visibleFields)
             _FieldNode(
               model: widget.model,
               store: widget.store,
@@ -114,6 +313,7 @@ class _ClassNodeState extends State<_ClassNode> {
               path: '${widget.path}/${field.name}',
               ancestors: widget.ancestors,
               depth: widget.depth + 1,
+              parentOnNavPath: widget.onNavPath,
             ),
       ],
     );
@@ -129,6 +329,11 @@ class _FieldNode extends StatefulWidget {
   final Set<String> ancestors;
   final int depth;
 
+  /// True when the *owning class* is on the navigation chain — a child class
+  /// reached through this field is on the chain iff its name is also in
+  /// [SpecTreeScope.navPathTypes].
+  final bool parentOnNavPath;
+
   const _FieldNode({
     required this.model,
     required this.store,
@@ -136,6 +341,7 @@ class _FieldNode extends StatefulWidget {
     required this.path,
     required this.ancestors,
     required this.depth,
+    this.parentOnNavPath = false,
   });
 
   @override
@@ -144,6 +350,30 @@ class _FieldNode extends StatefulWidget {
 
 class _FieldNodeState extends State<_FieldNode> {
   bool _expanded = false;
+
+  /// The complex class this field descends into, if any.
+  String? _childClassName() {
+    final f = widget.field;
+    if (f.kind == SpecFieldKind.complex) return f.type;
+    if (f.kind == SpecFieldKind.list && f.elementIsComplex) {
+      return f.elementType;
+    }
+    return null;
+  }
+
+  bool _childOnNavPath(SpecTreeScope scope) {
+    final child = _childClassName();
+    return widget.parentOnNavPath &&
+        child != null &&
+        scope.navPathTypes.contains(child);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Auto-expand the field when its child class is on the navigation chain.
+    if (_childOnNavPath(SpecTreeScope.of(context))) _expanded = true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -171,6 +401,7 @@ class _FieldNodeState extends State<_FieldNode> {
     final elementType = f.elementType;
     final cls =
         f.elementIsComplex ? widget.model.classNamed(elementType) : null;
+    final childOnPath = _childOnNavPath(SpecTreeScope.of(context));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -193,13 +424,13 @@ class _FieldNodeState extends State<_FieldNode> {
         ),
         if (_expanded)
           for (var i = 0; i < 3; i++)
-            _buildListItem(f, cls, elementType, i),
+            _buildListItem(f, cls, elementType, i, childOnPath),
       ],
     );
   }
 
-  Widget _buildListItem(
-      SpecField f, SpecClass? cls, String? elementType, int index) {
+  Widget _buildListItem(SpecField f, SpecClass? cls, String? elementType,
+      int index, bool childOnPath) {
     final itemPath = '${widget.path}/$kListItemSegment';
     if (cls != null) {
       // Complex element: identical substructure, one shared review path.
@@ -220,6 +451,8 @@ class _FieldNodeState extends State<_FieldNode> {
                   ? widget.ancestors
                   : {...widget.ancestors, cls.name},
               depth: widget.depth + 1,
+              // Only the first instance carries the nav target (single key).
+              onNavPath: childOnPath && index == 0,
             ),
           ],
         ),
@@ -266,6 +499,7 @@ class _FieldNodeState extends State<_FieldNode> {
       );
     }
     final recursive = widget.ancestors.contains(cls.name);
+    final childOnPath = _childOnNavPath(SpecTreeScope.of(context));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -296,6 +530,7 @@ class _FieldNodeState extends State<_FieldNode> {
                 : {...widget.ancestors, cls.name},
             depth: widget.depth + 1,
             initiallyExpanded: true,
+            onNavPath: childOnPath,
           ),
       ],
     );
@@ -323,7 +558,8 @@ class _FieldNodeState extends State<_FieldNode> {
           nodeLabel: '${f.name} (form)',
         ),
         Padding(
-          padding: EdgeInsets.only(left: 16.0 * (widget.depth + 1) + 24, top: 2, bottom: 4),
+          padding: EdgeInsets.only(
+              left: 16.0 * (widget.depth + 1) + 24, top: 2, bottom: 4),
           child: _FormPanel(
             fields: f.formFields,
             store: widget.store,
@@ -435,14 +671,19 @@ class _FieldNodeState extends State<_FieldNode> {
 }
 
 /// A small coloured chip used for annotations (mapsTo, recursive, …).
+///
+/// When [onTap] is set the chip becomes clickable (used for hand-off markers).
 class _Chip {
   final String text;
   final Color color;
-  const _Chip(this.text, this.color);
+  final VoidCallback? onTap;
+  const _Chip(this.text, this.color, {this.onTap});
 }
 
 /// The common single-line header used by every node kind.
 class _NodeRow extends StatelessWidget {
+  final Key? rowKey;
+  final bool highlight;
   final int depth;
   final bool expandable;
   final bool expanded;
@@ -459,6 +700,8 @@ class _NodeRow extends StatelessWidget {
   final String nodeLabel;
 
   const _NodeRow({
+    this.rowKey,
+    this.highlight = false,
     required this.depth,
     required this.expandable,
     required this.expanded,
@@ -477,88 +720,122 @@ class _NodeRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onToggle,
-      child: Padding(
-        padding: EdgeInsets.only(left: 16.0 * depth, top: 2, bottom: 2),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 24,
-              child: expandable
-                  ? Icon(
-                      expanded ? Icons.expand_more : Icons.chevron_right,
-                      size: 20,
-                    )
-                  : const SizedBox.shrink(),
-            ),
-            Icon(leadingIcon, size: 16, color: iconColor),
-            const SizedBox(width: 6),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    spacing: 6,
-                    runSpacing: 2,
-                    children: [
-                      Text(label,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 13)),
-                      ReviewControls(
-                          store: store, path: path, nodeLabel: nodeLabel),
-                      Text(typeLabel,
+    return Container(
+      key: rowKey,
+      color: highlight ? Colors.amber.withValues(alpha: 0.25) : null,
+      child: InkWell(
+        onTap: onToggle,
+        child: Padding(
+          padding: EdgeInsets.only(left: 16.0 * depth, top: 2, bottom: 2),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: 24,
+                child: expandable
+                    ? Icon(
+                        expanded ? Icons.expand_more : Icons.chevron_right,
+                        size: 20,
+                      )
+                    : const SizedBox.shrink(),
+              ),
+              Icon(leadingIcon, size: 16, color: iconColor),
+              const SizedBox(width: 6),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 6,
+                      runSpacing: 2,
+                      children: [
+                        Text(label,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 13)),
+                        ReviewControls(
+                            store: store, path: path, nodeLabel: nodeLabel),
+                        Text(typeLabel,
+                            style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.grey.shade600,
+                                fontFamily: 'monospace')),
+                        if (sectionId != null)
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 4, vertical: 1),
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade200,
+                              borderRadius: BorderRadius.circular(3),
+                            ),
+                            child: Text(sectionId!,
+                                style: const TextStyle(
+                                    fontSize: 10, fontFamily: 'monospace')),
+                          ),
+                        for (final chip in chips) _ChipWidget(chip),
+                      ],
+                    ),
+                    if (doc != null && doc!.trim().isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1),
+                        child: Text(
+                          doc!.trim(),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               fontSize: 11,
-                              color: Colors.grey.shade600,
-                              fontFamily: 'monospace')),
-                      if (sectionId != null)
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 4, vertical: 1),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                            borderRadius: BorderRadius.circular(3),
-                          ),
-                          child: Text(sectionId!,
-                              style: const TextStyle(
-                                  fontSize: 10, fontFamily: 'monospace')),
+                              color: Colors.grey.shade500,
+                              fontStyle: FontStyle.italic),
                         ),
-                      for (final chip in chips)
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 4, vertical: 1),
-                          decoration: BoxDecoration(
-                            color: chip.color.withValues(alpha: 0.15),
-                            borderRadius: BorderRadius.circular(3),
-                          ),
-                          child: Text(chip.text,
-                              style: TextStyle(
-                                  fontSize: 10, color: chip.color)),
-                        ),
-                    ],
-                  ),
-                  if (doc != null && doc!.trim().isNotEmpty)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 1),
-                      child: Text(
-                        doc!.trim(),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontSize: 11,
-                            color: Colors.grey.shade500,
-                            fontStyle: FontStyle.italic),
                       ),
-                    ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
+    );
+  }
+}
+
+/// Renders a single [_Chip], clickable when it carries an `onTap`.
+class _ChipWidget extends StatelessWidget {
+  final _Chip chip;
+  const _ChipWidget(this.chip);
+
+  @override
+  Widget build(BuildContext context) {
+    final body = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+      decoration: BoxDecoration(
+        color: chip.color.withValues(alpha: chip.onTap != null ? 0.22 : 0.15),
+        borderRadius: BorderRadius.circular(3),
+        border: chip.onTap != null
+            ? Border.all(color: chip.color.withValues(alpha: 0.6))
+            : null,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (chip.onTap != null) ...[
+            Icon(Icons.open_in_new, size: 10, color: chip.color),
+            const SizedBox(width: 2),
+          ],
+          Text(chip.text,
+              style: TextStyle(
+                  fontSize: 10,
+                  color: chip.color,
+                  fontWeight:
+                      chip.onTap != null ? FontWeight.w600 : FontWeight.normal)),
+        ],
+      ),
+    );
+    if (chip.onTap == null) return body;
+    return InkWell(
+      borderRadius: BorderRadius.circular(3),
+      onTap: chip.onTap,
+      child: body,
     );
   }
 }

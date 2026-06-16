@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tom_specs_editor/src/model/review_store.dart';
 import 'package:tom_specs_editor/src/model/spec_model.dart';
+import 'package:tom_specs_editor/src/ui/spec_tree.dart';
 import 'package:tom_specs_editor/src/ui/start_page.dart';
 
 /// A minimal hand-built model covering each render kind, so tests don't depend
@@ -49,6 +50,49 @@ const _sampleJson = '''
 
 SpecModel _model() =>
     SpecModel.fromJson(json.decode(_sampleJson) as Map<String, dynamic>);
+
+/// A two-document model with a hand-off: in `MainDoc`, `Handoff` is detailed in
+/// `OtherDoc`; `OtherDoc` reaches `Handoff` (whose subsections are the detail).
+const _handoffJson = '''
+{
+  "classCount": 4,
+  "rootCount": 2,
+  "roots": [
+    {"type": "MainDoc", "title": "Main", "sectionId": "MN00"},
+    {"type": "OtherDoc", "title": "Other", "sectionId": "OT00"}
+  ],
+  "classes": {
+    "MainDoc": {
+      "name": "MainDoc", "sectionId": "MN00",
+      "fields": [
+        {"name": "handoff", "kind": "complex", "type": "Handoff"}
+      ]
+    },
+    "Handoff": {
+      "name": "Handoff", "sectionId": "MN01", "detailedIn": "OtherDoc",
+      "fields": [
+        {"name": "summary", "kind": "content", "contentType": "text"},
+        {"name": "detail", "kind": "complex", "type": "Detail"}
+      ]
+    },
+    "Detail": {
+      "name": "Detail", "sectionId": "MN02",
+      "fields": [
+        {"name": "value", "kind": "scalar", "type": "String"}
+      ]
+    },
+    "OtherDoc": {
+      "name": "OtherDoc", "sectionId": "OT00",
+      "fields": [
+        {"name": "handoff", "kind": "complex", "type": "Handoff"}
+      ]
+    }
+  }
+}
+''';
+
+SpecModel _handoffModel() =>
+    SpecModel.fromJson(json.decode(_handoffJson) as Map<String, dynamic>);
 
 File _tempReviewFile(String name) {
   final dir = Directory(
@@ -142,6 +186,83 @@ void main() {
       final reloaded = ReviewStore(file)..load();
       expect(reloaded.entryFor('DemoDoc/intro')?.reviewed, isTrue);
       file.deleteSync();
+    });
+  });
+
+  group('pathToType (navigation chain)', () {
+    test('finds the shortest chain root→target', () {
+      final model = _handoffModel();
+      expect(pathToType(model, 'OtherDoc', 'Detail'),
+          {'OtherDoc', 'Handoff', 'Detail'});
+    });
+
+    test('returns just the root when target equals root', () {
+      final model = _handoffModel();
+      expect(pathToType(model, 'MainDoc', 'MainDoc'), {'MainDoc'});
+    });
+
+    test('returns empty when the target is unreachable', () {
+      final model = _handoffModel();
+      expect(pathToType(model, 'Detail', 'MainDoc'), isEmpty);
+    });
+  });
+
+  group('Hand-off cut (2b)', () {
+    testWidgets('hides detailed subsections but keeps the section content',
+        (tester) async {
+      final file = _tempReviewFile('cut.yaml');
+      if (file.existsSync()) file.deleteSync();
+      final store = ReviewStore(file);
+      final model = _handoffModel();
+      final mainRoot = model.roots.firstWhere((r) => r.type == 'MainDoc');
+
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: SpecTree(
+            model: model,
+            root: mainRoot,
+            store: store,
+            cutAtHandoff: true,
+            onHandoffTap: (_, _) {},
+          ),
+        ),
+      ));
+      // Expand the Handoff complex node.
+      await tester.tap(find.text('handoff'));
+      await tester.pumpAndSettle();
+
+      // The section's own content stays visible…
+      expect(find.text('summary'), findsOneWidget);
+      // …but the descending complex subsection is suppressed.
+      expect(find.text('detail'), findsNothing);
+      // The cut marker is shown.
+      expect(find.text('cut'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('shows subsections when cut is off', (tester) async {
+      final file = _tempReviewFile('nocut.yaml');
+      if (file.existsSync()) file.deleteSync();
+      final store = ReviewStore(file);
+      final model = _handoffModel();
+      final mainRoot = model.roots.firstWhere((r) => r.type == 'MainDoc');
+
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: SpecTree(
+            model: model,
+            root: mainRoot,
+            store: store,
+            onHandoffTap: (_, _) {},
+          ),
+        ),
+      ));
+      await tester.tap(find.text('handoff'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('summary'), findsOneWidget);
+      expect(find.text('detail'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
     });
   });
 
