@@ -66,12 +66,35 @@ class ReviewEntry {
   ReviewScope scope;
   bool stopHere;
   bool addDetails;
+
+  /// This node must be modelled as a list.
+  bool mustBeList;
+
+  /// This node is only a single entry and should *not* be a list.
+  bool singleEntry;
+
+  /// This node must be a plain content string, not a `@Form` field.
+  bool mustBeContentString;
+
+  /// A `@Form` field that should be lifted into its own content-string
+  /// subsection.
+  bool convertFormToContent;
+
+  /// The reviewer has checked this node off as reviewed (progress tracking).
+  /// Set via a dedicated checkmark control, independent of the flags above.
+  bool reviewed;
+
   String comment;
 
   ReviewEntry({
     this.scope = ReviewScope.none,
     this.stopHere = false,
     this.addDetails = false,
+    this.mustBeList = false,
+    this.singleEntry = false,
+    this.mustBeContentString = false,
+    this.convertFormToContent = false,
+    this.reviewed = false,
     this.comment = '',
   });
 
@@ -80,12 +103,22 @@ class ReviewEntry {
       scope == ReviewScope.none &&
       !stopHere &&
       !addDetails &&
+      !mustBeList &&
+      !singleEntry &&
+      !mustBeContentString &&
+      !convertFormToContent &&
+      !reviewed &&
       comment.trim().isEmpty;
 
   Map<String, Object?> toMap() => {
         'scope': scope.token,
         if (stopHere) 'stop_here': true,
         if (addDetails) 'add_details': true,
+        if (mustBeList) 'must_be_list': true,
+        if (singleEntry) 'single_entry': true,
+        if (mustBeContentString) 'must_be_content_string': true,
+        if (convertFormToContent) 'convert_form_to_content': true,
+        if (reviewed) 'reviewed': true,
         if (comment.trim().isNotEmpty) 'comment': comment.trim(),
       };
 
@@ -93,6 +126,11 @@ class ReviewEntry {
         scope: ReviewScope.parse(map['scope'] as String?),
         stopHere: map['stop_here'] == true,
         addDetails: map['add_details'] == true,
+        mustBeList: map['must_be_list'] == true,
+        singleEntry: map['single_entry'] == true,
+        mustBeContentString: map['must_be_content_string'] == true,
+        convertFormToContent: map['convert_form_to_content'] == true,
+        reviewed: map['reviewed'] == true,
         comment: (map['comment'] as String?) ?? '',
       );
 }
@@ -184,6 +222,15 @@ class ReviewStore extends ChangeNotifier {
       buffer.writeln('    scope: ${entry.scope.token}');
       if (entry.stopHere) buffer.writeln('    stop_here: true');
       if (entry.addDetails) buffer.writeln('    add_details: true');
+      if (entry.mustBeList) buffer.writeln('    must_be_list: true');
+      if (entry.singleEntry) buffer.writeln('    single_entry: true');
+      if (entry.mustBeContentString) {
+        buffer.writeln('    must_be_content_string: true');
+      }
+      if (entry.convertFormToContent) {
+        buffer.writeln('    convert_form_to_content: true');
+      }
+      if (entry.reviewed) buffer.writeln('    reviewed: true');
       if (entry.comment.trim().isNotEmpty) {
         buffer.writeln('    comment: ${_yamlString(entry.comment.trim())}');
       }

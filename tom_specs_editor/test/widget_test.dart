@@ -110,6 +110,39 @@ void main() {
       expect(store.count, 0);
       file.deleteSync();
     });
+
+    test('round-trips structure flags and the reviewed checkmark', () {
+      final file = _tempReviewFile('flags.yaml');
+      if (file.existsSync()) file.deleteSync();
+      final store = ReviewStore(file);
+      store.update('DemoDoc/items', (e) {
+        e.mustBeList = true;
+        e.singleEntry = true;
+        e.mustBeContentString = true;
+        e.convertFormToContent = true;
+        e.reviewed = true;
+      });
+
+      final reloaded = ReviewStore(file)..load();
+      final entry = reloaded.entryFor('DemoDoc/items')!;
+      expect(entry.mustBeList, isTrue);
+      expect(entry.singleEntry, isTrue);
+      expect(entry.mustBeContentString, isTrue);
+      expect(entry.convertFormToContent, isTrue);
+      expect(entry.reviewed, isTrue);
+      file.deleteSync();
+    });
+
+    test('reviewed-only entry is persisted (not treated as empty)', () {
+      final file = _tempReviewFile('reviewed_only.yaml');
+      if (file.existsSync()) file.deleteSync();
+      final store = ReviewStore(file);
+      store.update('DemoDoc/intro', (e) => e.reviewed = true);
+      expect(store.count, 1);
+      final reloaded = ReviewStore(file)..load();
+      expect(reloaded.entryFor('DemoDoc/intro')?.reviewed, isTrue);
+      file.deleteSync();
+    });
   });
 
   group('StartPage widget', () {

@@ -16,18 +16,19 @@ Color scopeColor(ReviewScope scope) {
   }
 }
 
-/// A compact, tappable review indicator shown on every tree node.
+/// Inline review controls shown on every tree node, immediately behind its
+/// headline.
 ///
-/// It reflects the current [ReviewEntry] for [path] (scope colour, a "stop"
-/// ring, an "add details" plus-badge, and a comment glyph) and opens the edit
-/// dialog when tapped. It listens to the store so edits made elsewhere on the
-/// same path update it live.
-class ReviewIndicator extends StatelessWidget {
+/// Layout: an **edit** button (scope dot + pencil — opens the flags/comment
+/// dialog), a separate **reviewed** checkmark toggle (progress tracking), and a
+/// compact **summary** of the comment and any checked boxes. All three reflect
+/// the live [ReviewEntry] for [path] and update when the store changes.
+class ReviewControls extends StatelessWidget {
   final ReviewStore store;
   final String path;
   final String nodeLabel;
 
-  const ReviewIndicator({
+  const ReviewControls({
     super.key,
     required this.store,
     required this.path,
@@ -41,33 +42,63 @@ class ReviewIndicator extends StatelessWidget {
       builder: (context, _) {
         final entry = store.entryFor(path);
         final scope = entry?.scope ?? ReviewScope.none;
-        final hasComment = (entry?.comment.trim().isNotEmpty) ?? false;
-        return Tooltip(
-          message: _tooltip(entry),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(4),
-            onTap: () => _openDialog(context),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _dot(scope, entry?.stopHere ?? false),
-                  if (entry?.addDetails ?? false)
-                    const Padding(
-                      padding: EdgeInsets.only(left: 2),
-                      child: Icon(Icons.add, size: 12, color: Colors.teal),
-                    ),
-                  if (hasComment)
-                    const Padding(
-                      padding: EdgeInsets.only(left: 2),
-                      child: Icon(Icons.chat_bubble,
-                          size: 11, color: Colors.brown),
-                    ),
-                ],
+        final reviewed = entry?.reviewed ?? false;
+        final summary = _summary(entry);
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Tooltip(
+              message: _tooltip(entry),
+              child: InkWell(
+                borderRadius: BorderRadius.circular(4),
+                onTap: () => _openDialog(context),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      _dot(scope, entry?.stopHere ?? false),
+                      const SizedBox(width: 2),
+                      Icon(Icons.edit_note,
+                          size: 16, color: Colors.grey.shade700),
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
+            Tooltip(
+              message:
+                  reviewed ? 'Reviewed — click to clear' : 'Mark as reviewed',
+              child: InkWell(
+                borderRadius: BorderRadius.circular(4),
+                onTap: () =>
+                    store.update(path, (e) => e.reviewed = !e.reviewed),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+                  child: Icon(
+                    reviewed
+                        ? Icons.check_circle
+                        : Icons.check_circle_outline,
+                    size: 17,
+                    color: reviewed
+                        ? Colors.green.shade600
+                        : Colors.grey.shade400,
+                  ),
+                ),
+              ),
+            ),
+            if (summary.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(left: 4),
+                child: Text(
+                  summary,
+                  style: TextStyle(
+                      fontSize: 11, color: Colors.blueGrey.shade700),
+                ),
+              ),
+          ],
         );
       },
     );
@@ -87,13 +118,30 @@ class ReviewIndicator extends StatelessWidget {
     );
   }
 
+  /// One-line summary of the comment and checked boxes, shown behind the
+  /// buttons.
+  String _summary(ReviewEntry? entry) {
+    if (entry == null || entry.isEmpty) return '';
+    final parts = <String>[];
+    if (entry.scope != ReviewScope.none) parts.add(entry.scope.label);
+    if (entry.stopHere) parts.add('stop');
+    if (entry.addDetails) parts.add('+details');
+    if (entry.mustBeList) parts.add('must-be-list');
+    if (entry.singleEntry) parts.add('single-entry');
+    if (entry.mustBeContentString) parts.add('content-not-form');
+    if (entry.convertFormToContent) parts.add('→content-subsection');
+    if (entry.comment.trim().isNotEmpty) {
+      var c = entry.comment.trim().replaceAll('\n', ' ');
+      if (c.length > 60) c = '${c.substring(0, 60)}…';
+      parts.add('“$c”');
+    }
+    return parts.join(' · ');
+  }
+
   String _tooltip(ReviewEntry? entry) {
     if (entry == null || entry.isEmpty) return 'Not reviewed — click to set';
-    final parts = <String>[entry.scope.label];
-    if (entry.stopHere) parts.add('stop here');
-    if (entry.addDetails) parts.add('add details');
-    if (entry.comment.trim().isNotEmpty) parts.add('“${entry.comment.trim()}”');
-    return parts.join(' · ');
+    final summary = _summary(entry);
+    return summary.isEmpty ? 'Edit review' : summary;
   }
 
   void _openDialog(BuildContext context) {
@@ -225,6 +273,58 @@ class _ReviewDialogState extends State<_ReviewDialog> {
                 onChanged: (value) {
                   widget.store.update(
                       widget.path, (e) => e.addDetails = value ?? false);
+                  setState(() {});
+                },
+              ),
+              const Divider(height: 20),
+              const Text('Structure',
+                  style: TextStyle(fontWeight: FontWeight.w600)),
+              CheckboxListTile(
+                dense: true,
+                contentPadding: EdgeInsets.zero,
+                controlAffinity: ListTileControlAffinity.leading,
+                value: entry.mustBeList,
+                title: const Text('Must be a list'),
+                onChanged: (value) {
+                  widget.store.update(
+                      widget.path, (e) => e.mustBeList = value ?? false);
+                  setState(() {});
+                },
+              ),
+              CheckboxListTile(
+                dense: true,
+                contentPadding: EdgeInsets.zero,
+                controlAffinity: ListTileControlAffinity.leading,
+                value: entry.singleEntry,
+                title: const Text('Is only a single entry (not a list)'),
+                onChanged: (value) {
+                  widget.store.update(
+                      widget.path, (e) => e.singleEntry = value ?? false);
+                  setState(() {});
+                },
+              ),
+              CheckboxListTile(
+                dense: true,
+                contentPadding: EdgeInsets.zero,
+                controlAffinity: ListTileControlAffinity.leading,
+                value: entry.mustBeContentString,
+                title: const Text('Must be a content string (not a form field)'),
+                onChanged: (value) {
+                  widget.store.update(widget.path,
+                      (e) => e.mustBeContentString = value ?? false);
+                  setState(() {});
+                },
+              ),
+              CheckboxListTile(
+                dense: true,
+                contentPadding: EdgeInsets.zero,
+                controlAffinity: ListTileControlAffinity.leading,
+                value: entry.convertFormToContent,
+                title: const Text(
+                    'Convert form field → content string subsection'),
+                onChanged: (value) {
+                  widget.store.update(widget.path,
+                      (e) => e.convertFormToContent = value ?? false);
                   setState(() {});
                 },
               ),

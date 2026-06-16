@@ -324,7 +324,11 @@ class _FieldNodeState extends State<_FieldNode> {
         ),
         Padding(
           padding: EdgeInsets.only(left: 16.0 * (widget.depth + 1) + 24, top: 2, bottom: 4),
-          child: _FormPanel(fields: f.formFields),
+          child: _FormPanel(
+            fields: f.formFields,
+            store: widget.store,
+            basePath: widget.path,
+          ),
         ),
       ],
     );
@@ -503,6 +507,8 @@ class _NodeRow extends StatelessWidget {
                       Text(label,
                           style: const TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 13)),
+                      ReviewControls(
+                          store: store, path: path, nodeLabel: nodeLabel),
                       Text(typeLabel,
                           style: TextStyle(
                               fontSize: 11,
@@ -550,8 +556,6 @@ class _NodeRow extends StatelessWidget {
                 ],
               ),
             ),
-            ReviewIndicator(
-                store: store, path: path, nodeLabel: nodeLabel),
           ],
         ),
       ),
@@ -580,9 +584,20 @@ class _ItemBanner extends StatelessWidget {
 }
 
 /// Renders all fields of a `@Form` content section so they are visible at once.
+///
+/// Each form field is independently reviewable: its [ReviewControls] use the
+/// structural path `<formPath>/<fieldName>`, so the reviewer can comment on and
+/// flag individual fields (e.g. "convert to content subsection").
 class _FormPanel extends StatelessWidget {
   final List<FormFieldSpec> fields;
-  const _FormPanel({required this.fields});
+  final ReviewStore store;
+  final String basePath;
+
+  const _FormPanel({
+    required this.fields,
+    required this.store,
+    required this.basePath,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -602,25 +617,29 @@ class _FormPanel extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
+                  Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    spacing: 6,
+                    runSpacing: 2,
                     children: [
                       Text(field.label,
                           style: const TextStyle(
                               fontSize: 12, fontWeight: FontWeight.w600)),
-                      const SizedBox(width: 6),
+                      ReviewControls(
+                        store: store,
+                        path: '$basePath/${field.name}',
+                        nodeLabel: 'form field: ${field.label}',
+                      ),
                       Text(field.type,
                           style: TextStyle(
                               fontSize: 10,
                               color: Colors.grey.shade600,
                               fontFamily: 'monospace')),
                       if (field.required)
-                        const Padding(
-                          padding: EdgeInsets.only(left: 4),
-                          child: Text('*',
-                              style: TextStyle(
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.bold)),
-                        ),
+                        const Text('*',
+                            style: TextStyle(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold)),
                     ],
                   ),
                   const SizedBox(height: 2),
