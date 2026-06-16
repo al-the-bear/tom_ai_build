@@ -361,6 +361,67 @@ void main() {
     });
   });
 
+  group('Merged complex node (collapse field + type)', () {
+    testWidgets('a complex field renders as a single node carrying the '
+        'variable name and the type, with one section id', (tester) async {
+      final file = _tempReviewFile('merged.yaml');
+      if (file.existsSync()) file.deleteSync();
+      final store = ReviewStore(file);
+      final model = _handoffModel();
+      final mainRoot = model.roots.firstWhere((r) => r.type == 'MainDoc');
+
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: SpecTree(
+            model: model,
+            root: mainRoot,
+            store: store,
+            onHandoffTap: (_, _) {},
+          ),
+        ),
+      ));
+      // MainDoc is expanded by default; its `handoff` complex field collapses
+      // with the Handoff class into one row.
+      // Variable (field) name appears exactly once — not duplicated by a
+      // separate class row.
+      expect(find.text('handoff'), findsOneWidget);
+      // The type name is shown alongside the variable name.
+      expect(find.text('Handoff'), findsOneWidget);
+      // The merged node carries a single section id (the field's id falling
+      // back to the class id), not two rows each showing it.
+      expect(find.text('MN01'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+  });
+
+  group('Section content injection', () {
+    testWidgets('a section with subsections but no content field gets an '
+        'injected content node', (tester) async {
+      final file = _tempReviewFile('inject.yaml');
+      if (file.existsSync()) file.deleteSync();
+      final store = ReviewStore(file);
+      final model = _handoffModel();
+      // MainDoc has only the `handoff` subsection and no content field, so an
+      // intro content part is injected.
+      final mainRoot = model.roots.firstWhere((r) => r.type == 'MainDoc');
+
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: SpecTree(
+            model: model,
+            root: mainRoot,
+            store: store,
+            onHandoffTap: (_, _) {},
+          ),
+        ),
+      ));
+      // Root expanded by default; the injected content node is visible while
+      // `handoff` is still collapsed (so no other 'content' label competes).
+      expect(find.text('content'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+  });
+
   group('StartPage widget', () {
     testWidgets('shows roots and renders a tree on selection', (tester) async {
       final file = _tempReviewFile('widget.yaml');

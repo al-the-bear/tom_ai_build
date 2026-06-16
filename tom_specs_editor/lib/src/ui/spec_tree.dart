@@ -246,7 +246,19 @@ class _ClassNode extends StatefulWidget {
   final Set<String> ancestors;
   final int depth;
   final bool initiallyExpanded;
+
+  /// Variable (field) name shown as the node label when this class is reached
+  /// through a field, collapsing the field row and the class row into one.
   final String? titleOverride;
+
+  /// Section id to prefer over the class's own (the owning field's id).
+  final String? sectionIdOverride;
+
+  /// Doc text to prefer over the class's own (the owning field's doc).
+  final String? docOverride;
+
+  /// Render a `recursive` marker (this class re-enters an ancestor type).
+  final bool recursive;
 
   /// True when this node sits on the active navigation chain.
   final bool onNavPath;
@@ -261,6 +273,9 @@ class _ClassNode extends StatefulWidget {
     required this.depth,
     this.initiallyExpanded = false,
     this.titleOverride,
+    this.sectionIdOverride,
+    this.docOverride,
+    this.recursive = false,
     this.onNavPath = false,
   });
 
@@ -294,11 +309,22 @@ class _ClassNodeState extends State<_ClassNode> {
                 f.kind != SpecFieldKind.list && f.kind != SpecFieldKind.complex)
             .toList()
         : cls.fields;
-    final hasFields = visibleFields.isNotEmpty;
+    // A section with subsections always has its own intro content. When the
+    // class does not model a `content` field explicitly, inject one (mirrors
+    // the list-section content part).
+    final hasContentField =
+        cls.fields.any((f) => f.kind == SpecFieldKind.content);
+    final hasSubsections = cls.fields.any((f) =>
+        f.kind == SpecFieldKind.list ||
+        f.kind == SpecFieldKind.complex ||
+        f.kind == SpecFieldKind.section);
+    final injectContent = !hasContentField && hasSubsections;
+
+    final hasChildren = visibleFields.isNotEmpty || injectContent;
     final expanded = _expanded ?? widget.initiallyExpanded;
 
-    final isTarget =
-        widget.onNavPath && scope.navTargetType == cls.name;
+    final isTarget = widget.onNavPath && scope.navTargetType == cls.name;
+    final label = widget.titleOverride ?? cls.name;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -307,15 +333,15 @@ class _ClassNodeState extends State<_ClassNode> {
           rowKey: isTarget ? scope.navTargetKey : null,
           highlight: isTarget,
           depth: widget.depth,
-          expandable: hasFields,
+          expandable: hasChildren,
           expanded: expanded,
           onToggle:
-              hasFields ? () => setState(() => _expanded = !expanded) : null,
+              hasChildren ? () => setState(() => _expanded = !expanded) : null,
           leadingIcon: Icons.account_tree,
           iconColor: Colors.indigo,
-          label: widget.titleOverride ?? cls.name,
+          label: label,
           typeLabel: cls.name,
-          sectionId: cls.sectionId,
+          sectionId: widget.sectionIdOverride ?? cls.sectionId,
           chips: [
             if (cls.mapsTo != null)
               _Chip(
@@ -329,14 +355,22 @@ class _ClassNodeState extends State<_ClassNode> {
                 Colors.deepOrange,
                 onTap: () => scope.onHandoffTap(cls.detailedIn!, cls.name),
               ),
+            if (widget.recursive) _Chip('recursive', Colors.red),
             if (cut) _Chip('cut', Colors.red),
           ],
-          doc: cls.doc ?? cls.help,
+          doc: widget.docOverride ?? cls.doc ?? cls.help,
           store: widget.store,
           path: widget.path,
           nodeLabel: cls.name,
         ),
-        if (expanded)
+        if (expanded) ...[
+          if (injectContent)
+            _SectionContent(
+              depth: widget.depth + 1,
+              path: '${widget.path}/$kSectionContentSegment',
+              nodeLabel: '$label content',
+              store: widget.store,
+            ),
           for (final field in visibleFields)
             _FieldNode(
               model: widget.model,
@@ -347,6 +381,7 @@ class _ClassNodeState extends State<_ClassNode> {
               depth: widget.depth + 1,
               parentOnNavPath: widget.onNavPath,
             ),
+        ],
       ],
     );
   }
@@ -456,51 +491,15 @@ class _FieldNodeState extends State<_FieldNode> {
         ),
         if (_expanded) ...[
           // A list is itself a document section: show its intro content first.
-          _buildListContent(f),
+          _SectionContent(
+            depth: widget.depth + 1,
+            path: '${widget.path}/$kSectionContentSegment',
+            nodeLabel: '${f.name} content',
+            store: widget.store,
+          ),
           for (var i = 0; i < 3; i++)
             _buildListItem(f, cls, elementType, i, childOnPath),
         ],
-      ],
-    );
-  }
-
-  /// The intro content paragraph that every list section carries, rendered as a
-  /// read-only three-line area with its own review path.
-  Widget _buildListContent(SpecField f) {
-    final contentPath = '${widget.path}/$kSectionContentSegment';
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _NodeRow(
-          depth: widget.depth + 1,
-          expandable: false,
-          expanded: false,
-          onToggle: null,
-          leadingIcon: Icons.notes,
-          iconColor: Colors.blue,
-          label: 'content',
-          typeLabel: 'content · text',
-          sectionId: null,
-          chips: const [],
-          doc: null,
-          store: widget.store,
-          path: contentPath,
-          nodeLabel: '${f.name} content',
-        ),
-        Padding(
-          padding: EdgeInsets.only(
-              left: 16.0 * (widget.depth + 2) + 24, top: 2, bottom: 4, right: 8),
-          child: const TextField(
-            enabled: false,
-            minLines: 3,
-            maxLines: 3,
-            decoration: InputDecoration(
-              isDense: true,
-              border: OutlineInputBorder(),
-              hintText: 'Content (text)',
-            ),
-          ),
-        ),
       ],
     );
   }
@@ -574,41 +573,24 @@ class _FieldNodeState extends State<_FieldNode> {
         nodeLabel: f.name,
       );
     }
+    // The field (variable) and the target class are the same element, so they
+    // collapse to a single node: the class node carries the field name as its
+    // label and the field's id/doc, and exposes the class's fields directly.
     final recursive = widget.ancestors.contains(cls.name);
     final childOnPath = _childOnNavPath(SpecTreeScope.of(context));
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _NodeRow(
-          depth: widget.depth,
-          expandable: true,
-          expanded: _expanded,
-          onToggle: () => setState(() => _expanded = !_expanded),
-          leadingIcon: Icons.account_tree_outlined,
-          iconColor: Colors.indigo,
-          label: f.name,
-          typeLabel: cls.name,
-          sectionId: f.sectionId,
-          chips: [if (recursive) _Chip('recursive', Colors.red)],
-          doc: f.doc ?? f.help,
-          store: widget.store,
-          path: widget.path,
-          nodeLabel: f.name,
-        ),
-        if (_expanded)
-          _ClassNode(
-            model: widget.model,
-            store: widget.store,
-            cls: cls,
-            path: widget.path,
-            ancestors: recursive
-                ? widget.ancestors
-                : {...widget.ancestors, cls.name},
-            depth: widget.depth + 1,
-            initiallyExpanded: true,
-            onNavPath: childOnPath,
-          ),
-      ],
+    return _ClassNode(
+      model: widget.model,
+      store: widget.store,
+      cls: cls,
+      path: widget.path,
+      ancestors:
+          recursive ? widget.ancestors : {...widget.ancestors, cls.name},
+      depth: widget.depth,
+      titleOverride: f.name,
+      sectionIdOverride: f.sectionId,
+      docOverride: f.doc ?? f.help,
+      recursive: recursive,
+      onNavPath: childOnPath,
     );
   }
 
@@ -932,6 +914,62 @@ class _ItemBanner extends StatelessWidget {
               fontWeight: FontWeight.bold,
               color: Colors.teal.shade300,
               letterSpacing: 0.5)),
+    );
+  }
+}
+
+/// The intro content paragraph that every list/subsection-bearing section
+/// carries. It renders a `content`-styled header row plus a disabled three-line
+/// text area, and is independently reviewable through its own `§content` path.
+class _SectionContent extends StatelessWidget {
+  final int depth;
+  final String path;
+  final String nodeLabel;
+  final ReviewStore store;
+
+  const _SectionContent({
+    required this.depth,
+    required this.path,
+    required this.nodeLabel,
+    required this.store,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _NodeRow(
+          depth: depth,
+          expandable: false,
+          expanded: false,
+          onToggle: null,
+          leadingIcon: Icons.notes,
+          iconColor: Colors.blue,
+          label: 'content',
+          typeLabel: 'content · text',
+          sectionId: null,
+          chips: const [],
+          doc: null,
+          store: store,
+          path: path,
+          nodeLabel: nodeLabel,
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+              left: 16.0 * (depth + 1) + 24, top: 2, bottom: 4, right: 8),
+          child: const TextField(
+            enabled: false,
+            minLines: 3,
+            maxLines: 3,
+            decoration: InputDecoration(
+              isDense: true,
+              border: OutlineInputBorder(),
+              hintText: 'Content (text)',
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
