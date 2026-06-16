@@ -1,3 +1,5 @@
+import 'dart:mirrors';
+
 import 'package:tom_specs_core/tom_specs_core.dart';
 import 'package:tom_specs_model/tom_specs_model.dart';
 import 'package:test/test.dart';
@@ -27,10 +29,13 @@ void main() {
     test('form entry classes use content with @Form', () {
       final goal = BusinessGoalEntry()
         ..content = 'BG-001 — Increase revenue';
-      final goals = Goals()..businessGoals = [goal];
+      final goals = Goals()..businessGoals = (BusinessGoals()..goals = [goal]);
       final overview = SystemOverview()..goals = goals;
-      expect(overview.goals.businessGoals, hasLength(1));
-      expect(overview.goals.businessGoals.first.content, contains('BG-001'));
+      expect(overview.goals.businessGoals.goals, hasLength(1));
+      expect(
+        overview.goals.businessGoals.goals.first.content,
+        contains('BG-001'),
+      );
     });
 
     test('stage entry uses content and TextSection fields', () {
@@ -40,6 +45,40 @@ void main() {
       expect(stage.content, contains('Foundation'));
       expect(stage.featureScope, isA<TextSection>());
       expect(stage.featureScope.content, isNotNull);
+    });
+  });
+
+  group('DocSpecsProject (canonical container root, V2/N9)', () {
+    test('default-constructs the full tree with all 13 document roots', () {
+      final spec = DocSpecsProject();
+
+      // Project Definition master + the 12 Phase 3 projection roots.
+      expect(spec.projectDefinition, isA<ProjectDefinition>());
+      expect(spec.authorizationConcept, isA<AuthorizationConcept>());
+      expect(spec.businessDataModel, isA<BusinessDataModel>());
+      expect(spec.businessProcesses, isA<BusinessProcesses>());
+      expect(spec.businessQualityPlan, isA<BusinessQualityPlan>());
+      expect(
+        spec.businessSystemInteractions,
+        isA<BusinessSystemInteractions>(),
+      );
+      expect(spec.currentSituation, isA<CurrentSituation>());
+      expect(spec.projectPhasePlan, isA<ProjectPhasePlan>());
+      expect(spec.requirementsCatalog, isA<RequirementsCatalog>());
+      expect(spec.systemRollout, isA<SystemRollout>());
+      expect(spec.technicalRequirementsSpec, isA<TechnicalRequirementsSpec>());
+      expect(spec.useCases, isA<UseCases>());
+      expect(spec.uiPrototype, isA<UiPrototype>());
+    });
+
+    test('is not a document node — carries no @Document / @SectionId (N9)', () {
+      // The container is the canonical tree root, not a 14th sibling document,
+      // so it must not be annotated. Tooling relies on this to exempt it from
+      // @SectionId coverage/uniqueness (T1).
+      final annotations =
+          reflectClass(DocSpecsProject).metadata.map((m) => m.reflectee);
+      expect(annotations.whereType<Document>(), isEmpty);
+      expect(annotations.whereType<SectionId>(), isEmpty);
     });
   });
 }
