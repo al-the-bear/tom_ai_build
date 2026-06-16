@@ -62,8 +62,11 @@ class _DocumentStructuresTab extends StatefulWidget {
 class _DocumentStructuresTabState extends State<_DocumentStructuresTab> {
   SpecRoot? _selected;
 
-  /// 2b: suppress subsections at hand-off points to other documents.
-  bool _cutAtHandoff = false;
+  /// 2b: suppress subsections at `@DetailedIn` hand-off points.
+  bool _cutAtDetails = false;
+
+  /// 2d: suppress subsections at `@MapsTo` hand-off points.
+  bool _cutAtMaps = false;
 
   /// 2c: class to reveal/scroll-to after a hand-off jump (cleared on manual
   /// document selection).
@@ -139,23 +142,22 @@ class _DocumentStructuresTabState extends State<_DocumentStructuresTab> {
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                  child: Row(
+                  child: Wrap(
+                    spacing: 16,
+                    runSpacing: 0,
+                    crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
-                      Switch(
-                        value: _cutAtHandoff,
-                        onChanged: (v) => setState(() => _cutAtHandoff = v),
+                      _CutToggle(
+                        label: 'Cut at detail hand-offs',
+                        value: _cutAtDetails,
+                        color: Colors.deepOrange,
+                        onChanged: (v) => setState(() => _cutAtDetails = v),
                       ),
-                      const SizedBox(width: 4),
-                      const Text('Cut at hand-offs',
-                          style: TextStyle(fontWeight: FontWeight.w600)),
-                      const SizedBox(width: 6),
-                      Flexible(
-                        child: Text(
-                          '(hide subsections detailed in other documents)',
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontSize: 11, color: Colors.grey.shade600),
-                        ),
+                      _CutToggle(
+                        label: 'Cut at maps hand-offs',
+                        value: _cutAtMaps,
+                        color: Colors.purple,
+                        onChanged: (v) => setState(() => _cutAtMaps = v),
                       ),
                     ],
                   ),
@@ -171,7 +173,8 @@ class _DocumentStructuresTabState extends State<_DocumentStructuresTab> {
                         model: widget.model,
                         root: _selected!,
                         store: widget.store,
-                        cutAtHandoff: _cutAtHandoff,
+                        cutAtDetails: _cutAtDetails,
+                        cutAtMaps: _cutAtMaps,
                         navTargetType: _navTargetType,
                         onHandoffTap: _onHandoffTap,
                       ),
@@ -179,6 +182,37 @@ class _DocumentStructuresTabState extends State<_DocumentStructuresTab> {
             ],
           ),
         ),
+      ],
+    );
+  }
+}
+
+/// A compact labelled switch used in the cut toolbar. The [color] dot ties the
+/// switch to its hand-off marker colour (orange = detail, purple = maps).
+class _CutToggle extends StatelessWidget {
+  final String label;
+  final bool value;
+  final Color color;
+  final ValueChanged<bool> onChanged;
+
+  const _CutToggle({
+    required this.label,
+    required this.value,
+    required this.color,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Switch(value: value, onChanged: onChanged, activeThumbColor: color),
+        const SizedBox(width: 4),
+        Container(width: 10, height: 10,
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+        const SizedBox(width: 4),
+        Text(label, style: const TextStyle(fontWeight: FontWeight.w600)),
       ],
     );
   }

@@ -84,7 +84,15 @@ const _handoffJson = '''
     "OtherDoc": {
       "name": "OtherDoc", "sectionId": "OT00",
       "fields": [
-        {"name": "handoff", "kind": "complex", "type": "Handoff"}
+        {"name": "handoff", "kind": "complex", "type": "Handoff"},
+        {"name": "mapped", "kind": "complex", "type": "Mapped"}
+      ]
+    },
+    "Mapped": {
+      "name": "Mapped", "sectionId": "OT01", "mapsTo": "MainDoc",
+      "fields": [
+        {"name": "summary", "kind": "content", "contentType": "text"},
+        {"name": "detail", "kind": "complex", "type": "Detail"}
       ]
     }
   }
@@ -222,7 +230,7 @@ void main() {
             model: model,
             root: mainRoot,
             store: store,
-            cutAtHandoff: true,
+            cutAtDetails: true,
             onHandoffTap: (_, _) {},
           ),
         ),
@@ -237,6 +245,62 @@ void main() {
       expect(find.text('detail'), findsNothing);
       // The cut marker is shown.
       expect(find.text('cut'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('the maps switch does not cut a detail-only hand-off',
+        (tester) async {
+      final file = _tempReviewFile('detailonly.yaml');
+      if (file.existsSync()) file.deleteSync();
+      final store = ReviewStore(file);
+      final model = _handoffModel();
+      final mainRoot = model.roots.firstWhere((r) => r.type == 'MainDoc');
+
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: SpecTree(
+            model: model,
+            root: mainRoot,
+            store: store,
+            cutAtMaps: true, // only maps; Handoff is a detail hand-off
+            onHandoffTap: (_, _) {},
+          ),
+        ),
+      ));
+      await tester.tap(find.text('handoff'));
+      await tester.pumpAndSettle();
+
+      // Detail hand-off is untouched by the maps switch.
+      expect(find.text('detail'), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('the maps switch cuts a @MapsTo hand-off (2d)',
+        (tester) async {
+      final file = _tempReviewFile('mapscut.yaml');
+      if (file.existsSync()) file.deleteSync();
+      final store = ReviewStore(file);
+      final model = _handoffModel();
+      // OtherDoc contains "Mapped" (mapsTo MainDoc) with a "detail" subsection.
+      final otherRoot = model.roots.firstWhere((r) => r.type == 'OtherDoc');
+
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: SpecTree(
+            model: model,
+            root: otherRoot,
+            store: store,
+            cutAtMaps: true,
+            onHandoffTap: (_, _) {},
+          ),
+        ),
+      ));
+      await tester.tap(find.text('mapped'));
+      await tester.pumpAndSettle();
+
+      // Section content stays, subsection is suppressed.
+      expect(find.text('summary'), findsOneWidget);
+      expect(find.text('detail'), findsNothing);
       if (file.existsSync()) file.deleteSync();
     });
 

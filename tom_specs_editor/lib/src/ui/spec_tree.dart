@@ -13,18 +13,25 @@ const String kListItemSegment = '§item';
 
 /// Shared tree-wide state read by every node via the element tree.
 ///
-/// Carries the hand-off **cut** flag (2b) and the in-tree **navigation** target
-/// (2c). Navigation is expressed as a chain of class names ([navPathTypes])
-/// from the document root down to [navTargetType]; nodes on that chain
-/// auto-expand and the endpoint is tagged with [navTargetKey] so the tree can
-/// scroll it into view.
+/// Carries the two hand-off **cut** flags (2b/2d) and the in-tree
+/// **navigation** target (2c). Navigation is expressed as a chain of class
+/// names ([navPathTypes]) from the document root down to [navTargetType];
+/// nodes on that chain auto-expand and the endpoint is tagged with
+/// [navTargetKey] so the tree can scroll it into view.
+///
+/// A class is a hand-off when it carries a `@DetailedIn` (detail lives in
+/// another document) or a `@MapsTo` (the whole section maps onto another
+/// document) marker pointing *away* from the current [rootType]. Cutting a
+/// hand-off shows the section but suppresses its descending subsections.
 class SpecTreeScope extends InheritedWidget {
-  /// When true, a class whose detail lives in *another* document is shown but
-  /// its descending subsections (list / complex fields) are suppressed.
-  final bool cutAtHandoff;
+  /// Cut at `@DetailedIn` hand-offs.
+  final bool cutAtDetails;
+
+  /// Cut at `@MapsTo` hand-offs.
+  final bool cutAtMaps;
 
   /// The root document type currently rendered (used to decide whether a
-  /// `@DetailedIn` marker points *away* from this document).
+  /// marker points *away* from this document).
   final String rootType;
 
   /// Class names on the navigation chain root→target (empty when not
@@ -43,7 +50,8 @@ class SpecTreeScope extends InheritedWidget {
 
   const SpecTreeScope({
     super.key,
-    required this.cutAtHandoff,
+    required this.cutAtDetails,
+    required this.cutAtMaps,
     required this.rootType,
     required this.navPathTypes,
     required this.navTargetType,
@@ -58,9 +66,18 @@ class SpecTreeScope extends InheritedWidget {
     return scope!;
   }
 
+  /// Whether [cls] is a cut point under the current switch settings: it carries
+  /// a marker pointing to a *different* document and that marker's switch is on.
+  bool isCut(SpecClass cls) {
+    final detailHandoff = cls.detailedIn != null && cls.detailedIn != rootType;
+    final mapsHandoff = cls.mapsTo != null && cls.mapsTo != rootType;
+    return (cutAtDetails && detailHandoff) || (cutAtMaps && mapsHandoff);
+  }
+
   @override
   bool updateShouldNotify(SpecTreeScope old) =>
-      cutAtHandoff != old.cutAtHandoff ||
+      cutAtDetails != old.cutAtDetails ||
+      cutAtMaps != old.cutAtMaps ||
       rootType != old.rootType ||
       navTargetType != old.navTargetType ||
       !setEquals(navPathTypes, old.navPathTypes);
@@ -111,8 +128,11 @@ class SpecTree extends StatefulWidget {
   final SpecRoot root;
   final ReviewStore store;
 
-  /// Suppress subsections at hand-off points (2b).
-  final bool cutAtHandoff;
+  /// Suppress subsections at `@DetailedIn` hand-off points (2b).
+  final bool cutAtDetails;
+
+  /// Suppress subsections at `@MapsTo` hand-off points (2d).
+  final bool cutAtMaps;
 
   /// Class to reveal and scroll to within this document (2c).
   final String? navTargetType;
@@ -126,7 +146,8 @@ class SpecTree extends StatefulWidget {
     required this.root,
     required this.store,
     required this.onHandoffTap,
-    this.cutAtHandoff = false,
+    this.cutAtDetails = false,
+    this.cutAtMaps = false,
     this.navTargetType,
   });
 
@@ -182,7 +203,8 @@ class _SpecTreeState extends State<SpecTree> {
     final onNavPath = widget.navTargetType != null &&
         _navPathTypes.contains(widget.root.type);
     return SpecTreeScope(
-      cutAtHandoff: widget.cutAtHandoff,
+      cutAtDetails: widget.cutAtDetails,
+      cutAtMaps: widget.cutAtMaps,
       rootType: widget.root.type,
       navPathTypes: _navPathTypes,
       navTargetType: widget.navTargetType,
@@ -255,11 +277,10 @@ class _ClassNodeState extends State<_ClassNode> {
     final scope = SpecTreeScope.of(context);
     final cls = widget.cls;
 
-    // 2b: at a hand-off point pointing to *another* document, keep the section
-    // (its content/form/scalar/enum) but suppress the descending subsections.
-    final cut = scope.cutAtHandoff &&
-        cls.detailedIn != null &&
-        cls.detailedIn != scope.rootType;
+    // 2b/2d: at a hand-off point pointing to *another* document, keep the
+    // section (its content/form/scalar/enum) but suppress the descending
+    // subsections.
+    final cut = scope.isCut(cls);
     final visibleFields = cut
         ? cls.fields
             .where((f) =>
@@ -289,13 +310,17 @@ class _ClassNodeState extends State<_ClassNode> {
           typeLabel: cls.name,
           sectionId: cls.sectionId,
           chips: [
-            if (cls.mapsTo != null) _Chip('maps→ ${cls.mapsTo}', Colors.purple),
+            if (cls.mapsTo != null)
+              _Chip(
+                'maps→ ${cls.mapsTo}',
+                Colors.purple,
+                onTap: () => scope.onHandoffTap(cls.mapsTo!, cls.name),
+              ),
             if (cls.detailedIn != null)
               _Chip(
                 'detail→ ${cls.detailedIn}',
                 Colors.deepOrange,
-                onTap: () =>
-                    scope.onHandoffTap(cls.detailedIn!, cls.name),
+                onTap: () => scope.onHandoffTap(cls.detailedIn!, cls.name),
               ),
             if (cut) _Chip('cut', Colors.red),
           ],
