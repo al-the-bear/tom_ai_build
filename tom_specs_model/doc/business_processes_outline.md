@@ -1,0 +1,124 @@
+# Business Processes Outline
+
+  - content
+  - header: `DocumentHeader`
+    - content @Form(documentId, project, version, date, author, status)
+  - `ProcessVision`
+    - visionNarrative @text
+    - overview: `ProcessVisionOverview`
+      - content @Form(visionStatement, strategicAlignment, transformationTheme, targetMaturityLevel, timeHorizon, keyEnabler, changeScope, stakeholderImpact)
+    - expectedImprovements: `ExpectedImprovements`
+      - content @Form(efficiencyGains, qualityImprovements, costReduction, automationRate, customerExperience, employeeExperience, complianceImprovement, visibilityGains, flexibilityGains, integrationBenefits)
+    - successCriteria: `ProcessSuccessCriteria`
+      - content @Form(kpiTargets, timeToValue, adoptionTargets, qualityTargets, performanceTargets, userSatisfaction, businessOutcomes, measurementApproach)
+  - designPrinciples: `ProcessDesignPrinciples`
+    - overview: `DesignPrinciplesOverview`
+      - content @Form(principlePhilosophy, priorityOrder, exceptionHandling, continuousImprovement)
+    - principles: `ProcessDesignPrincipleEntry`
+      - content @Form(principleId, principleName, category, statement, rationale, implications, examples, tradeoffs, priority, applicability)
+  - `ProcessCatalog`
+    - overview: `ProcessCatalogOverview`
+      - content @Form(totalProcessCount, scopeStatement, classificationFramework, namingConvention, idConvention, processOwnership, governanceModel, versioningApproach)
+    - classification: `ProcessClassification`
+      - content @Form(level1Categories, level2Breakdown, level3Detail, crossFunctional, customerFacing, valueDriving, supportProcesses, managementProcesses)
+    - [1,] processes: `BusinessProcessEntry`
+      - processFlowPreview @mermaid-flow
+      - identification: `ProcessIdentification`
+        - content @Form(processId, processName, processLevel)
+        - classification: `ProcessIdentificationClassification`
+          - content @Form(parentProcess, processCategory, processType)
+        - definition: `ProcessIdentificationDefinition`
+          - content @Form(description, purpose, scope)
+        - governance: `ProcessIdentificationGovernance`
+          - content @Form(processOwner, processManager, effectiveDate, version, status)
+      - characteristics: `ProcessCharacteristics`
+        - content @Form(complexity, frequency, averageDuration, variability)
+        - operations: `ProcessCharacteristicsOperations`
+          - content @Form(criticality, automationLevel, straightThroughRate, exceptionRate)
+        - business: `ProcessCharacteristicsBusiness`
+          - content @Form(volumeEstimate, seasonality, valueAdded, costDriver)
+      - triggers: `ProcessTriggers`
+        - overview: `TriggerOverview`
+          - content @Form(primaryTrigger, triggerChannel, triggerFrequency, peakTriggerTime, preTriggerState)
+        - triggers: `ProcessTriggerEntry`
+          - content @Form(triggerId, triggerName, triggerType, triggerSource, triggerCondition, triggerData, priority, validationRules, frequency)
+        - endEvents: `ProcessEndEventEntry`
+          - content @Form(endEventId, endEventName, endEventType, outcome, probability, postCondition, notificationAction, followOnAction)
+      - inputsOutputs: `ProcessInputsOutputs`
+        - overview: `InputsOutputsOverview`
+          - content @Form(inputSummary, outputSummary, dataFlowSummary)
+        - inputs: `ProcessInputEntry`
+          - content @Form(inputId, inputName, inputType, source, format, required, validationRules, defaultValue, exampleValue, securityClassification)
+        - outputs: `ProcessOutputEntry`
+          - content @Form(outputId, outputName, outputType, destination, format, qualityStandard, timingRequirement, retentionPeriod, securityClassification, dependentProcesses)
+      - roles: `ProcessRoles`
+        - overview: `ProcessRolesOverview`
+          - content @Form(primaryActor, processOwner, supportRoles, escalationPath, raciSummary)
+        - roles: `ProcessRoleEntry`
+          - content @Form(roleId, roleName, raciType, responsibilities)
+          - execution: `ProcessRoleEntryExecution`
+            - content @Form(stepsInvolved, decisionAuthority, skillsRequired, systemAccess)
+          - coordination: `ProcessRoleEntryCoordination`
+            - content @Form(availability, backupRole, handoffTo, handoffFrom)
+      - performance: `ProcessPerformance`
+        - overview: `ProcessPerformanceOverview`
+          - content @Form(targetCycleTime, targetThroughput, targetQuality, targetCost, targetCustomerSat, monitoringFrequency, dashboardLocation, improvementGoals)
+        - kpis: `ProcessKpiEntry`
+          - content @Form(kpiId, kpiName, category, definition)
+          - measurement: `ProcessKpiEntryMeasurement`
+            - content @Form(unit, targetValue, thresholds, dataSource)
+          - operations: `ProcessKpiEntryOperations`
+            - content @Form(calculationFrequency, reportingFrequency, owner, improvementLever)
+        - slas: `ProcessSlaEntry`
+          - content @Form(slaId, slaName, serviceDescription, targetLevel, measurementMethod, reportingPeriod, penaltyClause, escalationProcedure, exclusions, reviewFrequency)
+      - controls: `ProcessControls`
+        - overview: `ProcessControlsOverview`
+          - content @Form(controlFramework, riskLevel, complianceRequirements, auditFrequency, segregationOfDuties, approvalMatrix, documentationRequirements, retentionRequirements)
+        - controls: `ProcessControlEntry`
+          - content @Form(controlId, controlName, controlType, controlCategory)
+          - operation: `ProcessControlEntryOperation`
+            - content @Form(controlDescription, riskAddressed, controlOwner, frequency, automation)
+          - verification: `ProcessControlEntryVerification`
+            - content @Form(evidenceProduced, testingApproach, failureAction)
+      - technology: `ProcessTechnology`
+        - content @Form(primarySystem, supportingSystems, integrations, automationTools)
+        - information: `ProcessTechnologyInformation`
+          - content @Form(dataRepositories, reportingTools, communicationTools, documentManagement)
+        - experience: `ProcessTechnologyExperience`
+          - content @Form(mobileCapability, offlineCapability, analyticsCapability)
+      - exceptions: `ProcessExceptions`
+        - overview: `ProcessExceptionsOverview`
+          - content @Form(exceptionPhilosophy, exceptionRate, exceptionRouting, resolutionSla, escalationPath, rootCauseAnalysis, continuousImprovement)
+        - exceptions: `ProcessExceptionEntry`
+          - content @Form(exceptionId, exceptionName, exceptionType, triggerCondition)
+          - assessment: `ProcessExceptionEntryAssessment`
+            - content @Form(probability, impact, detectionMethod)
+          - response: `ProcessExceptionEntryResponse`
+            - content @Form(resolutionSteps, resolutionOwner, resolutionSla, preventionStrategy, workArounds)
+  - `ProcessOverviewDiagram`
+    - landscapeDiagram @mermaid-flow, hierarchyDiagram @mermaid-flow, valueChainDiagram @mermaid-flow
+    - overview: `ProcessDiagramOverview`
+      - content @Form(diagramPurpose, diagramScope, notation, readingGuide, legend)
+  - improvementSummary: `ProcessImprovementSummary`
+    - overview: `ImprovementOverview`
+      - content @Form(improvementTheme, baselineDate, targetDate, benefitRealizationPlan, changeEnablers)
+    - improvements: `ProcessImprovementEntry`
+      - content @Form(improvementId, improvementName, category, currentState)
+      - benefits: `ProcessImprovementEntryBenefits`
+        - content @Form(targetState, improvementPercent, monetaryBenefit, beneficiaries)
+      - delivery: `ProcessImprovementEntryDelivery`
+        - content @Form(enablers, dependencies, risks, measurementMethod)
+    - businessCase: `ImprovementBusinessCase`
+      - content @Form(totalInvestment, annualBenefits, paybackPeriod, roi, npv, intangibleBenefits, riskAdjustment)
+  - `ProcessRelationships`
+    - content
+    - relationships: `ProcessRelationshipEntry`
+      - content @Form(relationshipId, sourceProcess, targetProcess, relationshipType, dataExchanged, timingDependency, frequencyOfInteraction, criticality)
+  - detailedWorkflows: `DetailedProcessWorkflows`
+    - content
+  - `CrossProcessAnalysis`
+    - content
+  - exceptionHandling: `ProcessExceptionHandling`
+    - content
+  - processMetricsAndKpis: `ProcessMetricsAndKpis`
+    - content

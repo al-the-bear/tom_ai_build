@@ -1,0 +1,160 @@
+# Requirements Catalog Outline
+
+  - content, traceabilityMatrix
+  - header: `DocumentHeader`
+    - content @Form(documentId, project, version, date, author, status)
+  - `FunctionalRequirements`
+    - content, summaryForm
+    - [1,] requirements: `FunctionalRequirementEntry`
+      - content @Form(requirementId, title, status)
+      - details: `FunctionalRequirementEntryDetails`
+        - content @Form(description, requirementType, category)
+      - priority: `FunctionalRequirementEntryPriority`
+        - content @Form(priority, businessValue, effort, riskLevel)
+      - source: `FunctionalRequirementEntrySource`
+        - content @Form(source, requestDate, rationale)
+      - verification: `FunctionalRequirementEntryVerification`
+        - content @Form(fitCriterion, customerSatisfaction, customerDissatisfaction)
+      - constraints: `FunctionalRequirementEntryConstraints`
+        - content @Form(assumptions, constraints, conflictsWith)
+      - metadata: `FunctionalRequirementEntryMetadata`
+        - content @Form(version, lastModified, modifiedBy)
+      - acceptanceCriteria: `RequirementAcceptanceCriteria`
+        - content @description
+        - criteria: `AcceptanceCriterionEntry`
+          - content @Form(criterionId, criterionTitle, given, when, then, and, verificationMethod, testType, priority, status)
+      - businessRules: `RequirementBusinessRules`
+        - content @description
+        - rules: `RequirementBusinessRuleEntry`
+          - content @Form(ruleId, ruleName, ruleType, ruleStatement, source, effectiveDate, expirationDate, exceptions, enforcement, impact)
+      - dataRequirements: `RequirementDataRequirements`
+        - content @description
+        - entities: `DataEntityReferenceEntry`
+          - content @Form(entityName, crudOperations, attributes, volumeEstimate, dataQualityRules, dataOwner),
+            relatedEntity
+      - uiSpecification: `RequirementUiSpecification`
+        - content, uiForm, layoutCode, mockupDescription
+        - fields: `ScreenFieldEntry`
+          - content @Form(fieldId, fieldLabel, fieldType)
+          - dataBinding: `ScreenFieldDataBinding`
+            - content @Form(dataBinding, defaultValue, placeholder, helpText)
+          - conditions: `ScreenFieldConditions`
+            - content @Form(required, requiredCondition, readOnly, readOnlyCondition, visible, visibilityCondition)
+          - validation: `ScreenFieldValidation`
+            - content @Form(minLength, maxLength, minValue, maxValue, pattern, validationMessage)
+          - layout: `ScreenFieldLayout`
+            - content @Form(dropdownSource, dropdownValues, dependsOn, width, order, grouping)
+          - validationRules: `FieldValidationRule`
+            - content @Form(ruleType, ruleExpression, errorMessage, severity, triggerEvent)
+        - actions: `RequirementScreenActionEntry`
+          - content @Form(actionId, actionLabel, actionType, icon, iconPosition, buttonStyle, placement, keyboardShortcut, enabled, enabledCondition, visible, visibilityCondition, confirmationRequired, confirmationMessage, successMessage, errorMessage, navigationTarget, apiEndpoint, requiredPermission, auditLogging)
+          - parameters: `ActionParameterEntry`
+            - content @Form(parameterName, sourceType, sourceValue, required)
+        - behaviors: `ScreenBehaviorEntry`
+          - content @Form(behaviorId, behaviorName, behaviorType, triggerEvent, triggerField, condition, affectedFields, action, formula, description)
+      - dependencies: `RequirementDependencies`
+        - content @description
+        - items: `RequirementDependencyEntry`
+          - content @Form(dependencyType, description, impact), relatedRequirement
+      - traceability: `RequirementTraceability`
+        - content, traceabilityForm
+        - artifacts: `RequirementTraceabilityArtifacts`
+          - content @Form(relatedScreens, relatedDataEntities, relatedTestCases, relatedDocuments)
+        - implementation: `RequirementTraceabilityImplementation`
+          - content @Form(implementationComponent, implementationStatus, deploymentVersion)
+      - testCases: `RequirementTestCases`
+        - content @description
+        - testCases: `RequirementTestCaseEntry`
+          - content @Form(testCaseId, testCaseName, testType, testCategory, preconditions), relatedCriterion
+          - execution: `RequirementTestCaseEntryExecution`
+            - content @Form(testSteps, testData, expectedResult)
+          - automation: `RequirementTestCaseEntryAutomation`
+            - content @Form(automationStatus, automationScript, priority)
+  - `TechnicalRequirements`
+    - content, summaryForm
+    - requirements: `TechnicalRequirementEntry`
+      - content @Form(requirementId, title, status)
+      - details: `TechnicalRequirementEntryDetails`
+        - content @Form(description, category, subcategory, priority, source, rationale)
+      - measurement: `TechnicalRequirementEntryMeasurement`
+        - content @Form(metric, currentValue, targetValue, measurementMethod, measurementEnvironment, measurementFrequency)
+      - verification: `TechnicalRequirementEntryVerification`
+        - content @Form(verificationApproach, verificationTool, verificationTiming)
+      - impact: `TechnicalRequirementEntryImpact`
+        - content @Form(architectureImpact, estimatedEffort, riskIfNotMet)
+      - constraints: `TechnicalRequirementEntryConstraints`
+        - content @Form(assumptions, constraints)
+      - acceptanceCriteria: `RequirementAcceptanceCriteria`
+        - content @description
+        - criteria: `AcceptanceCriterionEntry`
+          - content @Form(criterionId, criterionTitle, given, when, then, and, verificationMethod, testType, priority, status)
+      - dependencies: `RequirementDependencies`
+        - content @description
+        - items: `RequirementDependencyEntry`
+          - content @Form(dependencyType, description, impact), relatedRequirement
+      - traceability: `RequirementTraceability`
+        - content, traceabilityForm
+        - artifacts: `RequirementTraceabilityArtifacts`
+          - content @Form(relatedScreens, relatedDataEntities, relatedTestCases, relatedDocuments)
+        - implementation: `RequirementTraceabilityImplementation`
+          - content @Form(implementationComponent, implementationStatus, deploymentVersion)
+  - `SecurityRequirements`
+    - content, summaryForm
+    - requirements: `SecurityRequirementEntry`
+      - content @Form(requirementId, title, description)
+      - classification: `SecurityRequirementEntryClassification`
+        - content @Form(category, subcategory, priority, source, rationale, threatMitigated, dataClassification)
+      - compliance: `SecurityRequirementEntryCompliance`
+        - content @Form(owaspCategory, cisControl, nistControl, iso27001Control, complianceReference)
+      - verification: `SecurityRequirementEntryVerification`
+        - content @Form(implementationApproach, verificationMethod, verificationFrequency)
+      - statusInfo: `SecurityRequirementEntryStatus`
+        - content @Form(residualRisk, riskOwner, status)
+      - acceptanceCriteria: `RequirementAcceptanceCriteria`
+        - content @description
+        - criteria: `AcceptanceCriterionEntry`
+          - content @Form(criterionId, criterionTitle, given, when, then, and, verificationMethod, testType, priority, status)
+      - controls: `SecurityControls`
+        - content @description
+        - controls: `SecurityControlEntry`
+          - content @Form(controlId, controlName, controlType, implementationType)
+          - implementation: `SecurityControlEntryImplementation`
+            - content @Form(description, implementationDetails, effectiveDate)
+          - verification: `SecurityControlEntryVerification`
+            - content @Form(testFrequency, lastTestDate, testResult, status)
+      - dependencies: `RequirementDependencies`
+        - content @description
+        - items: `RequirementDependencyEntry`
+          - content @Form(dependencyType, description, impact), relatedRequirement
+      - traceability: `RequirementTraceability`
+        - content, traceabilityForm
+        - artifacts: `RequirementTraceabilityArtifacts`
+          - content @Form(relatedScreens, relatedDataEntities, relatedTestCases, relatedDocuments)
+        - implementation: `RequirementTraceabilityImplementation`
+          - content @Form(implementationComponent, implementationStatus, deploymentVersion)
+  - `OrganizationalRequirements`
+    - content, summaryForm
+    - requirements: `OrganizationalRequirementEntry`
+      - content @Form(requirementId, title, description)
+      - classification: `OrganizationalRequirementEntryClassification`
+        - content @Form(category, subcategory, priority, source, rationale)
+      - impact: `OrganizationalRequirementEntryImpact`
+        - content @Form(impactedGroups, impactedUserCount, changeType, changeComplexity, resistance)
+      - planning: `OrganizationalRequirementEntryPlanning`
+        - content @Form(timeline, dependencies, owner, sponsor, successCriteria, measurementMethod, status)
+      - acceptanceCriteria: `RequirementAcceptanceCriteria`
+        - content @description
+        - criteria: `AcceptanceCriterionEntry`
+          - content @Form(criterionId, criterionTitle, given, when, then, and, verificationMethod, testType, priority, status)
+      - implementationPlan: `OrgRequirementImplementationPlan`
+        - content, planForm
+        - activities: `OrgImplementationActivity`
+          - content @Form(activityId, activityName, description, owner, startDate, endDate, deliverable, status)
+      - dependencies: `RequirementDependencies`
+        - content @description
+        - items: `RequirementDependencyEntry`
+          - content @Form(dependencyType, description, impact), relatedRequirement
+  - requirementRelationships: `RequirementRelationships`
+    - content
+  - `RequirementCoverage`
+    - content
