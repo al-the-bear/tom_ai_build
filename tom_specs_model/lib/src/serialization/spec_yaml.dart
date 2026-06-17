@@ -19,19 +19,18 @@
 ///    writing the root's own file ([SpecYaml.toYamlForProjection]). Connecting
 ///    before write — rather than wiring at load and keeping copies in sync —
 ///    means an individual write always reflects current PD content, and a
-///    section that is **null in PD is null in the projection too** (N12). The
-///    pure-projection invariant (§14, validated in step 7) guarantees the
-///    connect pass only re-points references and never invents or drops content.
+///    section that is **null in PD is null in the projection too** (N12).
 ///
 /// ## Why this shape
 ///
 /// Like the snapshot engine, this walks the model through the reflection-free
-/// [SpecNode] contract (`specSlots` for children, `yamlScalar` for a node's own
-/// content) so it adds no instance fields or getters to the model classes and
-/// runs on Flutter without `dart:mirrors`. The per-section YAML *keys* and the
-/// twelve per-root [SpecProjection.connect] bindings are emitted by the model
-/// codegen that adopts [SpecNode] across all roots; this file owns the engine
-/// and the contract they plug into.
+/// contract resolver (`specSlotsOf` for children, `yamlScalarOf` for a node's
+/// own content) so it adds no instance fields or getters to the model classes
+/// and runs on Flutter without `dart:mirrors`. A node supplies the contract
+/// either by mixing in `SpecNode` (the hand-written leaves) or by a registered
+/// `SpecClassOps` emitted by the spec-ops codegen (the ~3000 model classes).
+/// The connect binding follows the same dual path: [SpecProjection.connect] for
+/// the mixin leaves, or [SpecClassOps.connect] for registered projection roots.
 library;
 
 import '../snapshot/spec_node.dart';
@@ -39,18 +38,33 @@ import '../snapshot/spec_node.dart';
 /// A projection root that can bind its references onto a live source tree
 /// (the Project Definition) immediately before its individual file is written.
 ///
-/// The twelve Phase 3 roots mix this in. [connect] re-points the projection's
-/// slots onto the matching sections of [source]; after it runs, serializing the
-/// projection reflects current PD content, and any section absent from PD is
-/// left null (N12 — one shared tree, no divergence).
+/// Hand-written projections mix this in; generated projection roots supply the
+/// same binding through [SpecClassOps.connect]. [connect] re-points the
+/// projection's slots onto the matching sections of `source`; after it runs,
+/// serializing the projection reflects current PD content, and any section
+/// absent from PD is left null (N12 — one shared tree, no divergence).
 mixin SpecProjection on SpecNode {
   /// Binds this projection's references onto the live sections of [source]
   /// (the Project Definition root), in place. Called by
   /// [SpecYaml.toYamlForProjection] right before serialization.
-  void connect(SpecNode source);
+  void connect(Object source);
 }
 
-/// Serializes [SpecNode] trees to YAML and orchestrates the connect-before-write
+/// Resolves the connect binding of [projection] (mixin override or registered
+/// ops) and runs it against [source], or returns `false` when [projection] has
+/// no connect binding.
+bool connectProjection(Object projection, Object source) {
+  if (projection is SpecProjection) {
+    projection.connect(source);
+    return true;
+  }
+  final connect = SpecRegistry.opsFor(projection.runtimeType)?.connect;
+  if (connect == null) return false;
+  connect(projection, source);
+  return true;
+}
+
+/// Serializes node trees to YAML and orchestrates the connect-before-write
 /// pass for projection roots (N11, N12).
 abstract final class SpecYaml {
   /// The global `document:` pass: the YAML of [projectDefinitionRoot] alone.
@@ -59,7 +73,7 @@ abstract final class SpecYaml {
   /// save. Because the projection roots are views over the same sections, the
   /// PD tree contains every section exactly once, so the output never duplicates
   /// a subtree (§15.1).
-  static String toYaml(SpecNode projectDefinitionRoot) {
+  static String toYaml(Object projectDefinitionRoot) {
     final buffer = StringBuffer();
     _emit(projectDefinitionRoot, 0, buffer);
     return buffer.toString();
@@ -68,10 +82,10 @@ abstract final class SpecYaml {
   /// Connects [projection] onto the live [projectDefinitionRoot] (N11) and then
   /// serializes the projection — the per-root individual-file write (§15.2).
   static String toYamlForProjection(
-    SpecProjection projection,
-    SpecNode projectDefinitionRoot,
+    Object projection,
+    Object projectDefinitionRoot,
   ) {
-    projection.connect(projectDefinitionRoot);
+    connectProjection(projection, projectDefinitionRoot);
     return toYaml(projection);
   }
 
@@ -81,12 +95,12 @@ abstract final class SpecYaml {
   ///
   /// Useful for tests and for callers that want the tree as data rather than
   /// formatted YAML.
-  static Map<String, Object?> toMap(SpecNode node) {
+  static Map<String, Object?> toMap(Object node) {
     final map = <String, Object?>{};
-    final scalar = node.yamlScalar();
+    final scalar = yamlScalarOf(node);
     if (scalar != null) map['content'] = scalar;
 
-    final slots = node.specSlots();
+    final slots = specSlotsOf(node);
     for (var i = 0; i < slots.length; i++) {
       final slot = slots[i];
       final key = slot.label ?? (slot.isList ? 'list$i' : 'node$i');
@@ -102,13 +116,13 @@ abstract final class SpecYaml {
 
   // --- YAML emitter -------------------------------------------------------
 
-  static void _emit(SpecNode node, int indent, StringBuffer out) {
+  static void _emit(Object node, int indent, StringBuffer out) {
     final pad = '  ' * indent;
-    final scalar = node.yamlScalar();
+    final scalar = yamlScalarOf(node);
     if (scalar != null) {
       _emitScalar(pad, 'content', scalar, indent, out);
     }
-    final slots = node.specSlots();
+    final slots = specSlotsOf(node);
     for (var i = 0; i < slots.length; i++) {
       final slot = slots[i];
       final key = slot.label ?? (slot.isList ? 'list$i' : 'node$i');

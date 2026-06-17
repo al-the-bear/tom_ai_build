@@ -317,14 +317,14 @@ class QualityGateAdjustmentEntry {
   List<QualityGateAdjustmentDetails> details = [];
 
   /// Rationale.
-  final QualityGateAdjustmentRationale rationale =
+  QualityGateAdjustmentRationale rationale =
       QualityGateAdjustmentRationale();
 
   /// Impact assessment.
-  final QualityGateAdjustmentImpact impact = QualityGateAdjustmentImpact();
+  QualityGateAdjustmentImpact impact = QualityGateAdjustmentImpact();
 
   /// Governance.
-  final QualityGateAdjustmentGovernance governance =
+  QualityGateAdjustmentGovernance governance =
       QualityGateAdjustmentGovernance();
 }
 
@@ -479,7 +479,7 @@ class ProcessAdjustmentEntry {
   String? content;
 
   /// Identification details.
-  final ProcessAdjustmentIdentity identity = ProcessAdjustmentIdentity();
+  ProcessAdjustmentIdentity identity = ProcessAdjustmentIdentity();
 
   /// Adjustment details.
   @SectionId('PCAED-DETA-LST')
@@ -487,17 +487,17 @@ class ProcessAdjustmentEntry {
   List<ProcessAdjustmentDetails> details = [];
 
   /// Rationale.
-  final ProcessAdjustmentRationale rationale = ProcessAdjustmentRationale();
+  ProcessAdjustmentRationale rationale = ProcessAdjustmentRationale();
 
   /// Implementation.
-  final ProcessAdjustmentImplementation implementation =
+  ProcessAdjustmentImplementation implementation =
       ProcessAdjustmentImplementation();
 
   /// Risk and impact.
-  final ProcessAdjustmentRisk risk = ProcessAdjustmentRisk();
+  ProcessAdjustmentRisk risk = ProcessAdjustmentRisk();
 
   /// Governance.
-  final ProcessAdjustmentGovernance governance = ProcessAdjustmentGovernance();
+  ProcessAdjustmentGovernance governance = ProcessAdjustmentGovernance();
 }
 
 /// Identity for process adjustment.
@@ -742,46 +742,46 @@ class ToolEntry {
   String? content;
 
   /// Identity and classification details.
-  final ToolIdentity identity = ToolIdentity();
+  ToolIdentity identity = ToolIdentity();
 
   /// Licensing terms and compliance.
-  final ToolLicensing licensing = ToolLicensing();
+  ToolLicensing licensing = ToolLicensing();
 
   /// Version management and upgrade policies.
-  final ToolVersioning versioning = ToolVersioning();
+  ToolVersioning versioning = ToolVersioning();
 
   /// Access control and provisioning.
-  final ToolAccess access = ToolAccess();
+  ToolAccess access = ToolAccess();
 
   /// Integration with other tools and systems.
-  final ToolIntegration integration = ToolIntegration();
+  ToolIntegration integration = ToolIntegration();
 
   /// Vendor and internal support details.
-  final ToolSupport support = ToolSupport();
+  ToolSupport support = ToolSupport();
 
   /// Security and compliance requirements.
-  final ToolSecurity security = ToolSecurity();
+  ToolSecurity security = ToolSecurity();
 
   /// Usage patterns and adoption metrics.
-  final ToolUsage usage = ToolUsage();
+  ToolUsage usage = ToolUsage();
 
   /// Infrastructure and hosting details.
-  final ToolInfrastructure infrastructure = ToolInfrastructure();
+  ToolInfrastructure infrastructure = ToolInfrastructure();
 
   /// Lifecycle management and roadmap.
-  final ToolLifecycle lifecycle = ToolLifecycle();
+  ToolLifecycle lifecycle = ToolLifecycle();
 
   /// Cost structure and budget.
-  final ToolCost cost = ToolCost();
+  ToolCost cost = ToolCost();
 
   /// Configuration standards and policies.
-  final ToolConfiguration configuration = ToolConfiguration();
+  ToolConfiguration configuration = ToolConfiguration();
 
   /// Documentation resources.
-  final ToolDocumentation documentation = ToolDocumentation();
+  ToolDocumentation documentation = ToolDocumentation();
 
   /// Approval status and ownership.
-  final ToolApproval approval = ToolApproval();
+  ToolApproval approval = ToolApproval();
 
   /// Integration details narrative.
   TextSection integrationNotes = TextSection();
@@ -1315,40 +1315,40 @@ class EnvironmentEntry {
   String? content;
 
   /// Identity and classification details.
-  final EnvironmentIdentity identity = EnvironmentIdentity();
+  EnvironmentIdentity identity = EnvironmentIdentity();
 
   /// Infrastructure configuration.
-  final EnvironmentInfrastructure infrastructure = EnvironmentInfrastructure();
+  EnvironmentInfrastructure infrastructure = EnvironmentInfrastructure();
 
   /// Access and security configuration.
-  final EnvironmentSecurity security = EnvironmentSecurity();
+  EnvironmentSecurity security = EnvironmentSecurity();
 
   /// Data management policies.
-  final EnvironmentDataManagement dataManagement = EnvironmentDataManagement();
+  EnvironmentDataManagement dataManagement = EnvironmentDataManagement();
 
   /// Configuration and versions.
-  final EnvironmentConfiguration configuration = EnvironmentConfiguration();
+  EnvironmentConfiguration configuration = EnvironmentConfiguration();
 
   /// Availability and SLA targets.
-  final EnvironmentAvailability availability = EnvironmentAvailability();
+  EnvironmentAvailability availability = EnvironmentAvailability();
 
   /// Connectivity and network configuration.
-  final EnvironmentConnectivity connectivity = EnvironmentConnectivity();
+  EnvironmentConnectivity connectivity = EnvironmentConnectivity();
 
   /// Monitoring and observability.
-  final EnvironmentMonitoring monitoring = EnvironmentMonitoring();
+  EnvironmentMonitoring monitoring = EnvironmentMonitoring();
 
   /// Lifecycle and provisioning.
-  final EnvironmentLifecycle lifecycle = EnvironmentLifecycle();
+  EnvironmentLifecycle lifecycle = EnvironmentLifecycle();
 
   /// Ownership and support contacts.
-  final EnvironmentOwnership ownership = EnvironmentOwnership();
+  EnvironmentOwnership ownership = EnvironmentOwnership();
 
   /// Cost and billing.
-  final EnvironmentCost cost = EnvironmentCost();
+  EnvironmentCost cost = EnvironmentCost();
 
   /// Compliance and audit requirements.
-  final EnvironmentCompliance compliance = EnvironmentCompliance();
+  EnvironmentCompliance compliance = EnvironmentCompliance();
 }
 
 /// Identity and classification for environment entry.

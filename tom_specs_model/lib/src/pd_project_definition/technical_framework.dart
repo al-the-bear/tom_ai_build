@@ -435,22 +435,22 @@ class FrameworkRequirementEntry {
   String? content;
 
   /// Identity details.
-  final FrameworkIdentity identity = FrameworkIdentity();
+  FrameworkIdentity identity = FrameworkIdentity();
 
   /// Version requirements.
-  final FrameworkVersion version = FrameworkVersion();
+  FrameworkVersion version = FrameworkVersion();
 
   /// Scope and plugins.
-  final FrameworkScope scope = FrameworkScope();
+  FrameworkScope scope = FrameworkScope();
 
   /// Compatibility.
-  final FrameworkCompatibility compatibility = FrameworkCompatibility();
+  FrameworkCompatibility compatibility = FrameworkCompatibility();
 
   /// Support status.
-  final FrameworkSupport support = FrameworkSupport();
+  FrameworkSupport support = FrameworkSupport();
 
   /// Justification.
-  final FrameworkJustification justification = FrameworkJustification();
+  FrameworkJustification justification = FrameworkJustification();
 }
 
 /// Identity details.
@@ -15160,20 +15160,20 @@ class ExternalPartnerConnectionEntry {
   String? content;
 
   /// Protocol and endpoint.
-  final ExternalPartnerProtocol protocol = ExternalPartnerProtocol();
+  ExternalPartnerProtocol protocol = ExternalPartnerProtocol();
 
   /// Authentication settings.
-  final ExternalPartnerAuthentication authentication =
+  ExternalPartnerAuthentication authentication =
       ExternalPartnerAuthentication();
 
   /// Network configuration.
-  final ExternalPartnerNetwork network = ExternalPartnerNetwork();
+  ExternalPartnerNetwork network = ExternalPartnerNetwork();
 
   /// Reliability and SLA.
-  final ExternalPartnerReliability reliability = ExternalPartnerReliability();
+  ExternalPartnerReliability reliability = ExternalPartnerReliability();
 
   /// Data handling.
-  final ExternalPartnerDataHandling dataHandling =
+  ExternalPartnerDataHandling dataHandling =
       ExternalPartnerDataHandling();
 
   /// Operations and contacts.

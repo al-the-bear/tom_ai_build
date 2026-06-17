@@ -11,16 +11,20 @@ import 'package:path/path.dart' as p;
 ///   1. `buildkit :versioner` in `tom_specs_model` → the **version stamp**
 ///      (`TomSpecsModelVersionInfo`). This single stamp is the source for both
 ///      the bundled `spec_model.json` version and the schema version (B2/S2).
-///   2. Generate `spec_model.json` (`model_json.dart`), tagged with the stamp.
-///   3. Generate DocSpecs schemas (`docspecs_schema.dart`), versioned from the
+///   2. Regenerate `spec_ops.g.dart` (`spec_ops.dart`) — the reflection-free
+///      snapshot/serialization registry for every model class (OE-2). It is a
+///      committed model source artifact, regenerated here so it tracks the
+///      model the rest of the build runs against.
+///   3. Generate `spec_model.json` (`model_json.dart`), tagged with the stamp.
+///   4. Generate DocSpecs schemas (`docspecs_schema.dart`), versioned from the
 ///      stamp.
-///   4. Embed pre-generated `tom_dart_editor` analyzer **summaries** (B1) — the
+///   5. Embed pre-generated `tom_dart_editor` analyzer **summaries** (B1) — the
 ///      summaries are committed assets; the build copies them in (it never runs
 ///      the analyzer per-OS).
-///   5. Bundle assets (model json, schemas, embedded summaries).
-///   6. `flutter build {linux|windows|macos}`.
+///   6. Bundle assets (model json, schemas, embedded summaries).
+///   7. `flutter build {linux|windows|macos}`.
 ///
-/// `buildkit` drives step 1 (N8); steps 2–6 are dart/flutter script steps the
+/// `buildkit` drives step 1 (N8); steps 2–7 are dart/flutter script steps the
 /// orchestrator runs in dependency order. Cross-platform: `--os` selects the
 /// flutter target (defaults to the host OS).
 Future<void> main(List<String> arguments) async {
@@ -51,8 +55,8 @@ Future<void> main(List<String> arguments) async {
         help: 'Override the integer model-version stamp. '
             'Default: major component of the model pubspec version.')
     ..addFlag('no-flutter-build',
-        help: 'Run steps 1–5 (versioner, json, schemas, summaries, bundle) but '
-            'skip the final `flutter build` — asset generation only.',
+        help: 'Run steps 1–6 (versioner, spec-ops, json, schemas, summaries, '
+            'bundle) but skip the final `flutter build` — generation only.',
         negatable: false)
     ..addFlag('help', abbr: 'h', help: 'Show usage information.',
         negatable: false);
@@ -103,8 +107,25 @@ Future<void> main(List<String> arguments) async {
   }
   stdout.writeln('  → model version $modelVersion  (label: ${stamp.label})');
 
-  // ── Step 2: spec_model.json, stamped (B2) ─────────────────────────────────
-  _step(2, 'generate spec_model.json (stamped)');
+  // ── Step 2: regenerate spec_ops.g.dart registry (OE-2) ────────────────────
+  // The reflection-free snapshot/serialization ops for every model class. It is
+  // a committed source artifact inside the model package; regenerating it here
+  // keeps it in lock-step with the model the build compiles and ships.
+  _step(2, 'generate spec_ops.g.dart (snapshot/serialization registry)');
+  await _run(
+    'dart',
+    [
+      'run',
+      p.join('bin', 'spec_ops.dart'),
+      '--package', modelDir,
+      '--output',
+      p.join(modelDir, 'lib', 'src', 'generated', 'spec_ops.g.dart'),
+    ],
+    cwd: clitoolRoot,
+  );
+
+  // ── Step 3: spec_model.json, stamped (B2) ─────────────────────────────────
+  _step(3, 'generate spec_model.json (stamped)');
   final modelJsonOut = p.join(editorDir, 'assets', 'spec_model.json');
   await _run(
     'dart',
@@ -119,13 +140,13 @@ Future<void> main(List<String> arguments) async {
     cwd: clitoolRoot,
   );
 
-  // ── Step 3: DocSpecs schemas, versioned from the stamp (S2) ───────────────
+  // ── Step 4: DocSpecs schemas, versioned from the stamp (S2) ───────────────
   // Two destinations (§16/§17): the canonical `<id>/<id>.<ver>...` tree under
   // `.tom/docspecs-schema/` (the DocSpecs resolver layout) and a *flat* copy in
   // the asset dir. Flutter bundles a listed asset directory **non-recursively**,
   // so the nested resolver tree would be silently dropped — the flat copy is
   // what actually ships in the app bundle.
-  _step(3, 'generate DocSpecs schemas (versioned, → .tom tree + flat assets)');
+  _step(4, 'generate DocSpecs schemas (versioned, → .tom tree + flat assets)');
   final schemaTree = p.join(editorDir, '.tom', 'docspecs-schema');
   await _run(
     'dart',
@@ -154,8 +175,8 @@ Future<void> main(List<String> arguments) async {
   }
   stdout.writeln('  → flattened $flattened schema(s) into ${schemaOut.path}');
 
-  // ── Step 4: embed pre-generated summaries (B1) ────────────────────────────
-  _step(4, 'embed pre-generated Dart-editor summaries');
+  // ── Step 5: embed pre-generated summaries (B1) ────────────────────────────
+  _step(5, 'embed pre-generated Dart-editor summaries');
   final summaries = args.option('summaries');
   final summariesDest = Directory(p.join(editorDir, 'assets', 'summaries'));
   if (args.flag('generate-summaries')) {
@@ -200,8 +221,8 @@ Future<void> main(List<String> arguments) async {
     stdout.writeln('  → embedded $copied summary file(s)');
   }
 
-  // ── Step 5: bundle assets (verify they exist before the build) ────────────
-  _step(5, 'bundle assets');
+  // ── Step 6: bundle assets (verify they exist before the build) ────────────
+  _step(6, 'bundle assets');
   if (!File(modelJsonOut).existsSync()) {
     _fail('Expected $modelJsonOut after step 2.');
   }
@@ -215,11 +236,11 @@ Future<void> main(List<String> arguments) async {
   stdout.writeln('  → spec_model.json + $schemaCount bundled schema file(s) staged');
   await _run('flutter', ['pub', 'get'], cwd: editorDir);
 
-  // ── Step 6: flutter build ─────────────────────────────────────────────────
+  // ── Step 7: flutter build ─────────────────────────────────────────────────
   if (args.flag('no-flutter-build')) {
-    _step(6, 'flutter build — SKIPPED (--no-flutter-build)');
+    _step(7, 'flutter build — SKIPPED (--no-flutter-build)');
   } else {
-    _step(6, 'flutter build $os');
+    _step(7, 'flutter build $os');
     await _run('flutter', ['build', os], cwd: editorDir);
   }
 

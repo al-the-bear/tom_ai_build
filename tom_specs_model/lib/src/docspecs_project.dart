@@ -1,3 +1,6 @@
+import 'generated/spec_ops.g.dart';
+import 'serialization/spec_yaml.dart';
+
 import 'ac_authorization_concept/ac_authorization_concept.dart';
 import 'bdm_business_data_model/bdm_business_data_model.dart';
 import 'bp_business_processes/bp_business_processes.dart';
@@ -39,6 +42,13 @@ import 'up_ui_prototype/up_ui_prototype.dart';
 /// §15.1) and the projection connect pass (N11) are added in a later step; here
 /// the container simply wires the thirteen roots onto one tree.
 class DocSpecsProject {
+  /// Constructs the container and ensures the generated snapshot/serialization
+  /// ops are registered (idempotent), so [toYaml] / [toYamlForRoot] and the
+  /// snapshot engine can drive the model classes without `dart:mirrors` (OE-2).
+  DocSpecsProject() {
+    registerSpecOps();
+  }
+
   /// PD00 — the Project Definition master and source of truth for all shared
   /// content. Listed first in the root navigator (§14).
   ProjectDefinition projectDefinition = ProjectDefinition();
@@ -80,4 +90,24 @@ class DocSpecsProject {
 
   /// UP — UI Prototype (Phase 3 projection over PD00).
   UiPrototype uiPrototype = UiPrototype();
+
+  /// The global `document:` save (§15.1): serializes the [projectDefinition]
+  /// master alone. Because the twelve projection roots are views over the same
+  /// PD00 sections, the PD tree contains every section exactly once, so the
+  /// output never duplicates a subtree.
+  String toYaml() => SpecYaml.toYaml(projectDefinition);
+
+  /// Per-root save. For [projectDefinition] this is the global [toYaml]; for a
+  /// projection root it runs the connect pass first — re-pointing the
+  /// projection's references onto the live PD sections (§15.2) — when a connect
+  /// binding is registered for that root, then serializes it.
+  ///
+  /// The twelve per-root `connect` bindings are not yet generated (they require
+  /// resolving each projection's `@MapsTo` / `@DetailedIn` links onto PD field
+  /// paths); until then a projection serializes whatever references it already
+  /// holds. See the OE-2 questions note.
+  String toYamlForRoot(Object root) {
+    if (identical(root, projectDefinition)) return toYaml();
+    return SpecYaml.toYamlForProjection(root, projectDefinition);
+  }
 }

@@ -757,25 +757,25 @@ class SystemIntegrationEntry {
   String? content;
 
   /// Protocol and transport details.
-  final SystemIntegrationProtocol protocol = SystemIntegrationProtocol();
+  SystemIntegrationProtocol protocol = SystemIntegrationProtocol();
 
   /// Data exchange configuration.
-  final SystemIntegrationDataExchange dataExchange =
+  SystemIntegrationDataExchange dataExchange =
       SystemIntegrationDataExchange();
 
   /// Error handling and retry.
-  final SystemIntegrationErrorHandling errorHandling =
+  SystemIntegrationErrorHandling errorHandling =
       SystemIntegrationErrorHandling();
 
   /// Throughput and capacity.
-  final SystemIntegrationThroughput throughput = SystemIntegrationThroughput();
+  SystemIntegrationThroughput throughput = SystemIntegrationThroughput();
 
   /// Monitoring and failover.
-  final SystemIntegrationMonitoring monitoring =
+  SystemIntegrationMonitoring monitoring =
       SystemIntegrationMonitoring();
 
   /// Ownership and documentation.
-  final SystemIntegrationOwnership ownership = SystemIntegrationOwnership();
+  SystemIntegrationOwnership ownership = SystemIntegrationOwnership();
 
   @Reference('Source System')
   ExistingSystemEntry? sourceSystem;
@@ -1851,22 +1851,22 @@ class PainPointEntry {
   String? content;
 
   /// Classification.
-  final PainPointClassification classification = PainPointClassification();
+  PainPointClassification classification = PainPointClassification();
 
   /// Root cause analysis.
-  final PainPointRootCause rootCause = PainPointRootCause();
+  PainPointRootCause rootCause = PainPointRootCause();
 
   /// Impact assessment.
-  final PainPointImpact impact = PainPointImpact();
+  PainPointImpact impact = PainPointImpact();
 
   /// Evidence and validation.
-  final PainPointEvidence evidence = PainPointEvidence();
+  PainPointEvidence evidence = PainPointEvidence();
 
   /// Current state and workarounds.
-  final PainPointWorkaround workaround = PainPointWorkaround();
+  PainPointWorkaround workaround = PainPointWorkaround();
 
   /// Resolution planning.
-  final PainPointResolution resolution = PainPointResolution();
+  PainPointResolution resolution = PainPointResolution();
 
   /// Relationships.
   @SectionId('PAPOR1-RELA-LST')
@@ -2278,25 +2278,25 @@ class DataSourceEntry {
   String? content;
 
   /// Classification.
-  final DataSourceClassification classification = DataSourceClassification();
+  DataSourceClassification classification = DataSourceClassification();
 
   /// Technical details.
-  final DataSourceTechnical technical = DataSourceTechnical();
+  DataSourceTechnical technical = DataSourceTechnical();
 
   /// Volume and performance.
-  final DataSourceVolume volume = DataSourceVolume();
+  DataSourceVolume volume = DataSourceVolume();
 
   /// Quality and reliability.
-  final DataSourceQuality quality = DataSourceQuality();
+  DataSourceQuality quality = DataSourceQuality();
 
   /// Ownership and governance.
-  final DataSourceOwnership ownership = DataSourceOwnership();
+  DataSourceOwnership ownership = DataSourceOwnership();
 
   /// Integration.
-  final DataSourceIntegration integration = DataSourceIntegration();
+  DataSourceIntegration integration = DataSourceIntegration();
 
   /// Lifecycle.
-  final DataSourceLifecycle lifecycle = DataSourceLifecycle();
+  DataSourceLifecycle lifecycle = DataSourceLifecycle();
 
   /// Retention Policy for this data source.
   DataSourceRetentionPolicy retentionPolicy = DataSourceRetentionPolicy();

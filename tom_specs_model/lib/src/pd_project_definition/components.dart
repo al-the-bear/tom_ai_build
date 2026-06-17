@@ -427,28 +427,28 @@ class ComponentEntry {
   String? content;
 
   /// Vendor information.
-  final ComponentVendor vendor = ComponentVendor();
+  ComponentVendor vendor = ComponentVendor();
 
   /// Maturity and community.
-  final ComponentMaturity maturity = ComponentMaturity();
+  ComponentMaturity maturity = ComponentMaturity();
 
   /// Support.
-  final ComponentSupport support = ComponentSupport();
+  ComponentSupport support = ComponentSupport();
 
   /// Security and performance.
-  final ComponentPerformance performance = ComponentPerformance();
+  ComponentPerformance performance = ComponentPerformance();
 
   /// Deployment.
-  final ComponentDeployment deployment = ComponentDeployment();
+  ComponentDeployment deployment = ComponentDeployment();
 
   /// Cost.
-  final ComponentCost cost = ComponentCost();
+  ComponentCost cost = ComponentCost();
 
   /// Compliance and training.
-  final ComponentCompliance compliance = ComponentCompliance();
+  ComponentCompliance compliance = ComponentCompliance();
 
   /// Risk assessment.
-  final ComponentRisk risk = ComponentRisk();
+  ComponentRisk risk = ComponentRisk();
 
   /// Documentation.
   @SectionId('CODO-DOCS-LST')

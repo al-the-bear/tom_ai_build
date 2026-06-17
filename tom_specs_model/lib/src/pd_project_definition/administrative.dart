@@ -595,7 +595,7 @@ class DistributionRecipientEntry {
   String? content;
 
   /// Contact information.
-  final DistributionRecipientContact contact = DistributionRecipientContact();
+  DistributionRecipientContact contact = DistributionRecipientContact();
 
   /// Distribution preferences.
   @SectionId('DIREPR-PREF-LST')
@@ -603,14 +603,14 @@ class DistributionRecipientEntry {
   List<DistributionRecipientPreferences> preferences = [];
 
   /// Access and information scope.
-  final DistributionRecipientAccess access = DistributionRecipientAccess();
+  DistributionRecipientAccess access = DistributionRecipientAccess();
 
   /// Subscription period.
-  final DistributionRecipientSubscription subscription =
+  DistributionRecipientSubscription subscription =
       DistributionRecipientSubscription();
 
   /// Backup and delegation.
-  final DistributionRecipientBackup backup = DistributionRecipientBackup();
+  DistributionRecipientBackup backup = DistributionRecipientBackup();
 }
 
 /// Contact information.

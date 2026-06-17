@@ -35,7 +35,7 @@ class _Projection with SpecNode, SpecProjection {
   _PdSection? section;
 
   @override
-  void connect(SpecNode source) {
+  void connect(Object source) {
     section = (source as _PdRoot).section;
   }
 

@@ -8,41 +8,47 @@
 ///
 /// ## Why this shape
 ///
-/// The model is ~3000 flat data classes with no shared base and no code
-/// generation, and the editor runs on **Flutter** (no `dart:mirrors`). A
+/// The model is ~3000 flat data classes with no shared base and no hand-written
+/// snapshot support, and the editor runs on **Flutter** (no `dart:mirrors`). A
 /// generic deep operation on typed fields therefore needs either per-class
-/// support or reflection — reflection is unavailable, so this engine uses a
-/// tiny per-class contract that adds **no instance fields and no getters** to
-/// the model classes (so the analyzer-based `ModelReader` that builds
-/// `spec_model.json` and feeds the §8.6 validator sees the classes unchanged):
+/// support or reflection — reflection is unavailable, so this engine drives the
+/// model through a tiny per-class contract (slots / cloneShallow / yamlScalar).
 ///
-///  - mix in [SpecNode];
-///  - implement [SpecNode.cloneShallow] (copy scalars, share child references);
-///  - override [SpecNode.specSlots] to expose child-node relationships (leaf
-///    nodes inherit the empty default);
-///  - call [SpecNode.markDirty] after mutating a field. The editor routes every
-///    edit through the shared document controller (§8), which is the single
-///    place that marks nodes dirty.
+/// Two ways to supply that contract, resolved per node by [specSlotsOf] /
+/// [cloneShallowOf] / [yamlScalarOf]:
+///
+///  - **Mix in [SpecNode]** and override the methods directly. Used by the two
+///    real hand-written leaves ([DocumentHeader], [SectionMeta]) and by tests.
+///  - **Register a [SpecClassOps]** in [SpecRegistry] keyed by the concrete
+///    type. This is how the ~3000 generated model classes adopt the contract
+///    *without any edit to their source* (OE-2): Dart 3.11 has no augmentation
+///    support, so the contract cannot be mixed into hand-written classes from
+///    generated code. The spec-ops codegen instead emits one registry file that
+///    closes over each class's public fields. The model classes stay pristine
+///    and add **no instance fields and no getters**, so the analyzer-based
+///    `ModelReader` that builds `spec_model.json` and feeds the §8.6 validator
+///    sees them unchanged.
 ///
 /// Dirty state is held in a private [Expando] keyed by node identity rather than
 /// in an instance field, precisely so it cannot leak into the model's reflected
-/// field set.
+/// field set. It works for any [Object] node, registry-backed or not.
 library;
 
 /// Tracks, per node, whether it has changed since the last snapshot.
 ///
-/// Kept off the node (in an [Expando]) so [SpecNode] adds no instance field to
-/// adopting classes. A node with no recorded state is treated as **dirty** — a
-/// freshly constructed node has never been snapshotted, so the first snapshot
-/// must capture it.
+/// Kept off the node (in an [Expando]) so neither [SpecNode] nor the registry
+/// path adds an instance field to model classes. A node with no recorded state
+/// is treated as **dirty** — a freshly constructed node has never been
+/// snapshotted, so the first snapshot must capture it.
 final Expando<bool> _dirtySinceSnapshot = Expando<bool>('specNodeDirty');
 
-/// A model node that participates in copy-on-write snapshotting.
+/// A model node that participates in copy-on-write snapshotting by overriding
+/// the contract directly (the hand-written path; the generated path uses
+/// [SpecRegistry] instead).
 ///
-/// See the library doc for the adoption contract. Implementations must declare
-/// **every** child model object in [specSlots]; any mutable child object left
-/// out of the slots would be shared between the live tree and a snapshot and
-/// could later be corrupted by an in-place edit.
+/// Implementations must declare **every** child model object in [specSlots];
+/// any mutable child object left out of the slots would be shared between the
+/// live tree and a snapshot and could later be corrupted by an in-place edit.
 mixin SpecNode {
   /// Whether this node has been mutated since the last snapshot. New nodes
   /// report `true` (never snapshotted yet).
@@ -50,7 +56,8 @@ mixin SpecNode {
 
   /// Marks this node changed since the last snapshot, so the next snapshot
   /// clones it instead of sharing its predecessor's copy. The shared document
-  /// controller calls this after applying any field edit (§8).
+  /// controller calls this (or the module-level [markDirtyNode]) after applying
+  /// any field edit (§8).
   void markDirty() => _dirtySinceSnapshot[this] = true;
 
   /// The child-node relationships of this node, in a **stable order**. Leaf
@@ -70,19 +77,109 @@ mixin SpecNode {
   /// intro `content` string — or `null` if the node owns no scalar of its own.
   ///
   /// Containers inherit the `null` default; content-bearing leaves override it
-  /// (typically `=> content`). Used by [SpecYaml] to emit each node's value;
+  /// (typically `=> content`). Used by `SpecYaml` to emit each node's value;
   /// children are walked separately through [specSlots], so this returns only
   /// *this* node's scalar, never its descendants'.
   ///
-  /// Declared as a method (not a getter) for the same reason as [specSlots]: a
-  /// getter would surface as a synthetic field in the analyzer element model
-  /// and pollute the reflected model.
+  /// Declared as a method (not a getter) for the same reason as [specSlots].
   String? yamlScalar() => null;
 }
 
-/// One child-node relationship of a [SpecNode] — either a single child or a
-/// list of children — exposed as uniform get/set hooks so the snapshotter can
-/// walk and rewrite children without knowing field names or concrete types.
+/// The per-class snapshot/serialization contract for a model class that does
+/// **not** mix in [SpecNode] — supplied by the spec-ops codegen and registered
+/// in [SpecRegistry] (OE-2).
+///
+/// Each callback receives the live node as an [Object]; the generated body
+/// casts it to the concrete type and closes over its public fields. Mirrors the
+/// [SpecNode] methods one-to-one: [slots] ↔ `specSlots`, [cloneShallow] ↔
+/// `cloneShallow`, [yamlScalar] ↔ `yamlScalar`, plus the optional [connect]
+/// binding for projection roots (the registry equivalent of `SpecProjection`).
+class SpecClassOps {
+  final List<SpecSlot> Function(Object node) slots;
+  final Object Function(Object node) cloneShallow;
+  final String? Function(Object node)? yamlScalar;
+  final void Function(Object node, Object source)? connect;
+
+  const SpecClassOps({
+    required this.slots,
+    required this.cloneShallow,
+    this.yamlScalar,
+    this.connect,
+  });
+}
+
+/// Holds the generated [SpecClassOps] for every model class that adopts the
+/// snapshot/serialization contract via codegen rather than the [SpecNode]
+/// mixin. Populated once by the generated `registerSpecOps()` (OE-2).
+abstract final class SpecRegistry {
+  static final Map<Type, SpecClassOps> _ops = {};
+
+  /// Registers [ops] for the concrete [type]. Called from generated code.
+  static void register(Type type, SpecClassOps ops) => _ops[type] = ops;
+
+  /// The ops registered for [type], or `null` when [type] adopts the contract
+  /// via the [SpecNode] mixin (or is not a model node at all).
+  static SpecClassOps? opsFor(Type type) => _ops[type];
+
+  /// Whether any ops have been registered (the generated `registerSpecOps()`
+  /// has not run yet when this is `true`).
+  static bool get isEmpty => _ops.isEmpty;
+
+  /// Number of registered classes (diagnostics/tests).
+  static int get length => _ops.length;
+}
+
+// --- Reflection-free contract resolver ------------------------------------
+//
+// Every engine walk goes through these four functions instead of calling the
+// node directly, so [SpecNode] nodes and [SpecRegistry]-backed nodes are
+// handled uniformly. The `is SpecNode` fast-path keeps the hand-written leaves
+// and the existing tests working with zero registry lookups.
+
+/// The child slots of [node] (mixin override or registered ops; empty default).
+List<SpecSlot> specSlotsOf(Object node) {
+  if (node is SpecNode) return node.specSlots();
+  return SpecRegistry.opsFor(node.runtimeType)?.slots(node) ?? const [];
+}
+
+/// A shallow copy of [node] (mixin override or registered ops).
+Object cloneShallowOf(Object node) {
+  if (node is SpecNode) return node.cloneShallow();
+  final ops = SpecRegistry.opsFor(node.runtimeType);
+  if (ops == null) {
+    throw StateError(
+      'No SpecNode mixin or registered SpecClassOps for ${node.runtimeType}. '
+      'Call registerSpecOps() before snapshotting/serializing the model.',
+    );
+  }
+  return ops.cloneShallow(node);
+}
+
+/// [node]'s own scalar payload (mixin override or registered ops; `null`
+/// default for containers).
+String? yamlScalarOf(Object node) {
+  if (node is SpecNode) return node.yamlScalar();
+  return SpecRegistry.opsFor(node.runtimeType)?.yamlScalar?.call(node);
+}
+
+/// Whether [node] changed since the last snapshot. New/unrecorded nodes are
+/// dirty.
+bool isDirtySinceSnapshotOf(Object node) => _dirtySinceSnapshot[node] ?? true;
+
+/// Marks [node] changed since the last snapshot (works for any node, mixin or
+/// registry-backed). The shared document controller calls this on every edit.
+void markDirtyNode(Object node) => _dirtySinceSnapshot[node] = true;
+
+/// Clears [node]'s dirty flag (used by the snapshotter after folding it in).
+void markCleanNode(Object node) => _dirtySinceSnapshot[node] = false;
+
+/// One child-node relationship of a node — either a single child or a list of
+/// children — exposed as uniform get/set hooks so the snapshotter can walk and
+/// rewrite children without knowing field names or concrete types.
+///
+/// Children are typed as [Object] so list-element classes that adopt the
+/// contract via the registry (not the [SpecNode] mixin) fit without change; the
+/// engine never needs them to share a base type.
 class SpecSlot {
   final bool isList;
 
@@ -90,13 +187,13 @@ class SpecSlot {
   /// when the slot is only walked structurally (snapshotting ignores labels).
   final String? label;
 
-  final SpecNode? Function() _getNode;
-  final void Function(SpecNode?) _setNode;
-  final List<SpecNode> Function() _getList;
-  final void Function(List<SpecNode>) _setList;
+  final Object? Function() _getNode;
+  final void Function(Object?) _setNode;
+  final List<Object> Function() _getList;
+  final void Function(List<Object>) _setList;
 
   /// A slot for a single (possibly null) child node.
-  SpecSlot.node(SpecNode? Function() get, void Function(SpecNode?) set,
+  SpecSlot.node(Object? Function() get, void Function(Object?) set,
       {this.label})
       : isList = false,
         _getNode = get,
@@ -105,9 +202,9 @@ class SpecSlot {
         _setList = _ignoreList;
 
   /// A slot for a list of child nodes. The [set] closure receives a
-  /// `List<SpecNode>` and is responsible for narrowing it back to the field's
-  /// concrete element type (e.g. `(v) => _goals = v.cast<BusinessGoalEntry>()`).
-  SpecSlot.list(List<SpecNode> Function() get, void Function(List<SpecNode>) set,
+  /// `List<Object>` and is responsible for narrowing it back to the field's
+  /// concrete element type (e.g. `(v) => goals = v.cast<BusinessGoalEntry>()`).
+  SpecSlot.list(List<Object> Function() get, void Function(List<Object>) set,
       {this.label})
       : isList = true,
         _getList = get,
@@ -115,19 +212,19 @@ class SpecSlot {
         _getNode = _nullNode,
         _setNode = _ignoreNode;
 
-  SpecNode? get node => _getNode();
-  set node(SpecNode? value) => _setNode(value);
+  Object? get node => _getNode();
+  set node(Object? value) => _setNode(value);
 
-  List<SpecNode> get list => _getList();
-  set list(List<SpecNode> value) => _setList(value);
+  List<Object> get list => _getList();
+  set list(List<Object> value) => _setList(value);
 
-  static List<SpecNode> _emptyList() => const [];
-  static void _ignoreList(List<SpecNode> _) {}
-  static SpecNode? _nullNode() => null;
-  static void _ignoreNode(SpecNode? _) {}
+  static List<Object> _emptyList() => const [];
+  static void _ignoreList(List<Object> _) {}
+  static Object? _nullNode() => null;
+  static void _ignoreNode(Object? _) {}
 }
 
-/// Produces structurally-shared snapshots of a [SpecNode] tree.
+/// Produces structurally-shared snapshots of a node tree.
 abstract final class SpecSnapshotter {
   /// Captures the current state of [live] as an immutable snapshot.
   ///
@@ -139,22 +236,22 @@ abstract final class SpecSnapshotter {
   /// Pass `previous: null` for the very first snapshot (a full independent
   /// copy). Snapshots never alias nodes from the live tree, so the live tree
   /// may continue to be edited in place without corrupting any snapshot.
-  static SpecNode snapshot(SpecNode live, {SpecNode? previous}) =>
+  static Object snapshot(Object live, {Object? previous}) =>
       _snap(live, previous);
 
   /// An independent deep copy of [node] (used to restore a snapshot into a
   /// fresh, editable live tree). Shares nothing with [node].
-  static SpecNode restore(SpecNode node) => _deepCopy(node);
+  static Object restore(Object node) => _deepCopy(node);
 
-  static SpecNode _snap(SpecNode live, SpecNode? prev) {
-    final slots = live.specSlots();
+  static Object _snap(Object live, Object? prev) {
+    final slots = specSlotsOf(live);
     final prevSlots =
         (prev != null && prev.runtimeType == live.runtimeType)
-            ? prev.specSlots()
+            ? specSlotsOf(prev)
             : null;
 
     var changed = (_dirtySinceSnapshot[live] ?? true) || prevSlots == null;
-    final snappedChildren = <Object?>[]; // SpecNode? | List<SpecNode>
+    final snappedChildren = <Object?>[]; // Object? | List<Object>
 
     for (var i = 0; i < slots.length; i++) {
       final slot = slots[i];
@@ -164,7 +261,7 @@ abstract final class SpecSnapshotter {
         if (prevList == null || prevList.length != liveList.length) {
           changed = true;
         }
-        final out = <SpecNode>[];
+        final out = <Object>[];
         for (var j = 0; j < liveList.length; j++) {
           final prevChild =
               (prevList != null && j < prevList.length) ? prevList[j] : null;
@@ -191,24 +288,24 @@ abstract final class SpecSnapshotter {
       return prev; // wholly unchanged subtree → share predecessor by identity
     }
 
-    final copy = live.cloneShallow();
+    final copy = cloneShallowOf(live);
     _dirtySinceSnapshot[copy] = false;
-    final copySlots = copy.specSlots();
+    final copySlots = specSlotsOf(copy);
     for (var i = 0; i < slots.length; i++) {
       if (slots[i].isList) {
-        copySlots[i].list = snappedChildren[i] as List<SpecNode>;
+        copySlots[i].list = snappedChildren[i] as List<Object>;
       } else {
-        copySlots[i].node = snappedChildren[i] as SpecNode?;
+        copySlots[i].node = snappedChildren[i];
       }
     }
     return copy;
   }
 
-  static SpecNode _deepCopy(SpecNode node) {
-    final slots = node.specSlots();
-    final copy = node.cloneShallow();
+  static Object _deepCopy(Object node) {
+    final slots = specSlotsOf(node);
+    final copy = cloneShallowOf(node);
     _dirtySinceSnapshot[copy] = false;
-    final copySlots = copy.specSlots();
+    final copySlots = specSlotsOf(copy);
     for (var i = 0; i < slots.length; i++) {
       if (slots[i].isList) {
         copySlots[i].list = [for (final c in slots[i].list) _deepCopy(c)];

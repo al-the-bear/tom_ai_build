@@ -163,10 +163,10 @@ class StagingStrategy {
   String? content;
 
   /// Approach selection details.
-  final StagingApproachSelection approachSelection = StagingApproachSelection();
+  StagingApproachSelection approachSelection = StagingApproachSelection();
 
   /// Rationale and justification.
-  final StagingRationale rationale = StagingRationale();
+  StagingRationale rationale = StagingRationale();
 
   /// Key drivers and constraints.
   @SectionId('STAGDR-DRIV-LST')
@@ -174,25 +174,25 @@ class StagingStrategy {
   List<StagingDrivers> drivers = [];
 
   /// Risk assessment.
-  final StagingRiskAssessment riskAssessment = StagingRiskAssessment();
+  StagingRiskAssessment riskAssessment = StagingRiskAssessment();
 
   /// Complexity assessment.
-  final StagingComplexity complexity = StagingComplexity();
+  StagingComplexity complexity = StagingComplexity();
 
   /// Readiness and resources.
-  final StagingReadiness readiness = StagingReadiness();
+  StagingReadiness readiness = StagingReadiness();
 
   /// Rollback and cutover strategy.
-  final StagingCutover cutover = StagingCutover();
+  StagingCutover cutover = StagingCutover();
 
   /// Success criteria and metrics.
-  final StagingSuccessCriteria successCriteria = StagingSuccessCriteria();
+  StagingSuccessCriteria successCriteria = StagingSuccessCriteria();
 
   /// Communication and change management.
-  final StagingCommunication communication = StagingCommunication();
+  StagingCommunication communication = StagingCommunication();
 
   /// Framework alignment.
-  final StagingFrameworkAlignment frameworkAlignment = StagingFrameworkAlignment();
+  StagingFrameworkAlignment frameworkAlignment = StagingFrameworkAlignment();
 
   /// Dependencies and prerequisites.
   @SectionId('STAGDP-DEPE-LST')
@@ -200,7 +200,7 @@ class StagingStrategy {
   List<StagingDependencies> dependencies = [];
 
   /// Governance and approvals.
-  final StagingGovernance governance = StagingGovernance();
+  StagingGovernance governance = StagingGovernance();
 
   /// 13.1.1. Staging Approach [PD00-SSP-STR-APP].
   @ContentHelp('Detailed description of the staging approach: how stages '
@@ -475,37 +475,37 @@ class StageOverview {
   String? content;
 
   /// Summary metrics across all stages.
-  final StageOverviewMetrics metrics = StageOverviewMetrics();
+  StageOverviewMetrics metrics = StageOverviewMetrics();
 
   /// Planning baseline and revision history.
-  final StageOverviewBaseline baseline = StageOverviewBaseline();
+  StageOverviewBaseline baseline = StageOverviewBaseline();
 
   /// Cross-stage dependencies and critical path.
-  final StageOverviewDependencies dependencies = StageOverviewDependencies();
+  StageOverviewDependencies dependencies = StageOverviewDependencies();
 
   /// Resource allocation patterns.
-  final StageOverviewResources resources = StageOverviewResources();
+  StageOverviewResources resources = StageOverviewResources();
 
   /// Budget distribution across stages.
-  final StageOverviewBudget budget = StageOverviewBudget();
+  StageOverviewBudget budget = StageOverviewBudget();
 
   /// Schedule analytics and float.
-  final StageOverviewSchedule schedule = StageOverviewSchedule();
+  StageOverviewSchedule schedule = StageOverviewSchedule();
 
   /// Quality and compliance targets.
-  final StageOverviewQuality quality = StageOverviewQuality();
+  StageOverviewQuality quality = StageOverviewQuality();
 
   /// Risk profile summary.
-  final StageOverviewRisk risk = StageOverviewRisk();
+  StageOverviewRisk risk = StageOverviewRisk();
 
   /// Plan status and health indicators.
-  final StageOverviewStatus status = StageOverviewStatus();
+  StageOverviewStatus status = StageOverviewStatus();
 
   /// Stakeholder communication approach.
-  final StageOverviewCommunication communication = StageOverviewCommunication();
+  StageOverviewCommunication communication = StageOverviewCommunication();
 
   /// Assumptions and constraints.
-  final StageOverviewConstraints constraints = StageOverviewConstraints();
+  StageOverviewConstraints constraints = StageOverviewConstraints();
 
   /// 13.2.1. Stage Summary [PD00-SSP-STA-SUM] — contains 1+× Stage
   /// Summary Entry.
@@ -811,13 +811,13 @@ class StageSummaryEntry {
   String? content;
 
   /// Identity and theme.
-  final StageSummaryIdentity identity = StageSummaryIdentity();
+  StageSummaryIdentity identity = StageSummaryIdentity();
 
   /// Timeline.
-  final StageSummaryTimeline timeline = StageSummaryTimeline();
+  StageSummaryTimeline timeline = StageSummaryTimeline();
 
   /// Scope.
-  final StageSummaryScope scope = StageSummaryScope();
+  StageSummaryScope scope = StageSummaryScope();
 
   /// Resources and budget.
   @SectionId('STSURE-RESO-LST')
@@ -830,10 +830,10 @@ class StageSummaryEntry {
   List<StageSummaryDependencies> dependencies = [];
 
   /// Quality and acceptance.
-  final StageSummaryQuality quality = StageSummaryQuality();
+  StageSummaryQuality quality = StageSummaryQuality();
 
   /// Status.
-  final StageSummaryStatus status = StageSummaryStatus();
+  StageSummaryStatus status = StageSummaryStatus();
 }
 
 /// Identity for stage summary.
@@ -972,13 +972,13 @@ class StageEntry {
   String? content;
 
   /// Identity and classification.
-  final StageIdentity identity = StageIdentity();
+  StageIdentity identity = StageIdentity();
 
   /// Timeline and schedule.
-  final StageTimeline timeline = StageTimeline();
+  StageTimeline timeline = StageTimeline();
 
   /// Scope and features.
-  final StageScope scope = StageScope();
+  StageScope scope = StageScope();
 
   /// Dependencies.
   @SectionId('STDE-DEPE-LST')
@@ -991,10 +991,10 @@ class StageEntry {
   List<StageResources> resources = [];
 
   /// Quality and governance.
-  final StageQuality quality = StageQuality();
+  StageQuality quality = StageQuality();
 
   /// Deployment and rollout.
-  final StageDeployment deployment = StageDeployment();
+  StageDeployment deployment = StageDeployment();
 
   /// Stakeholders and communication.
   @SectionId('STST-STAK-LST')
@@ -1002,10 +1002,10 @@ class StageEntry {
   List<StageStakeholders> stakeholders = [];
 
   /// Risk.
-  final StageRisk risk = StageRisk();
+  StageRisk risk = StageRisk();
 
   /// Status and metrics.
-  final StageMetrics metrics = StageMetrics();
+  StageMetrics metrics = StageMetrics();
 
   /// Feature Scope narrative.
   @ContentHelp('Detailed feature scope for this stage: what is included '
@@ -1469,27 +1469,27 @@ class FeaturePrioritization {
   String? content;
 
   /// Methodology and scoring.
-  final FeaturePrioritizationMethodology methodology =
+  FeaturePrioritizationMethodology methodology =
       FeaturePrioritizationMethodology();
 
   /// Stakeholder involvement.
-  final FeaturePrioritizationStakeholder stakeholder =
+  FeaturePrioritizationStakeholder stakeholder =
       FeaturePrioritizationStakeholder();
 
   /// Cadence and triggers.
-  final FeaturePrioritizationCadence cadence =
+  FeaturePrioritizationCadence cadence =
       FeaturePrioritizationCadence();
 
   /// Capacity constraints.
-  final FeaturePrioritizationCapacity capacity =
+  FeaturePrioritizationCapacity capacity =
       FeaturePrioritizationCapacity();
 
   /// Backlog health.
-  final FeaturePrioritizationBacklog backlog =
+  FeaturePrioritizationBacklog backlog =
       FeaturePrioritizationBacklog();
 
   /// Traceability.
-  final FeaturePrioritizationTraceability traceability =
+  FeaturePrioritizationTraceability traceability =
       FeaturePrioritizationTraceability();
 
   /// Prioritization rationale narrative.
@@ -1952,22 +1952,22 @@ class FeaturePriorityEntry {
   String? content;
 
   /// Feature identity.
-  final FeatureIdentity identity = FeatureIdentity();
+  FeatureIdentity identity = FeatureIdentity();
 
   /// Business value.
-  final FeatureBusinessValue businessValue = FeatureBusinessValue();
+  FeatureBusinessValue businessValue = FeatureBusinessValue();
 
   /// Effort and complexity.
-  final FeatureEffort effort = FeatureEffort();
+  FeatureEffort effort = FeatureEffort();
 
   /// Priority scoring.
-  final FeaturePriorityScoring priorityScoring = FeaturePriorityScoring();
+  FeaturePriorityScoring priorityScoring = FeaturePriorityScoring();
 
   /// Stage assignment.
-  final FeatureStageAssignment stageAssignment = FeatureStageAssignment();
+  FeatureStageAssignment stageAssignment = FeatureStageAssignment();
 
   /// Dependencies.
-  final FeatureDependenciesInfo dependencies = FeatureDependenciesInfo();
+  FeatureDependenciesInfo dependencies = FeatureDependenciesInfo();
 
   /// Stakeholders.
   @SectionId('FEST-STAK-LST')
@@ -1975,10 +1975,10 @@ class FeaturePriorityEntry {
   List<FeatureStakeholders> stakeholders = [];
 
   /// Traceability.
-  final FeatureTraceability traceability = FeatureTraceability();
+  FeatureTraceability traceability = FeatureTraceability();
 
   /// Status.
-  final FeatureStatus status = FeatureStatus();
+  FeatureStatus status = FeatureStatus();
 }
 
 /// Feature identity for a feature priority entry.
@@ -2295,10 +2295,10 @@ class DataMigrationStrategy {
   String? content;
 
   /// Strategic approach details.
-  final MigrationApproach approach = MigrationApproach();
+  MigrationApproach approach = MigrationApproach();
 
   /// Scope and data landscape.
-  final MigrationScope scope = MigrationScope();
+  MigrationScope scope = MigrationScope();
 
   /// Source and target system details.
   @SectionId('MISY-SYST-LST')
@@ -2306,10 +2306,10 @@ class DataMigrationStrategy {
   List<MigrationSystems> systems = [];
 
   /// Data quality strategy.
-  final MigrationDataQuality dataQuality = MigrationDataQuality();
+  MigrationDataQuality dataQuality = MigrationDataQuality();
 
   /// Tooling and technology stack.
-  final MigrationTooling tooling = MigrationTooling();
+  MigrationTooling tooling = MigrationTooling();
 
   /// Environment strategy.
   @SectionId('MIEN-ENVI-LST')
@@ -2317,16 +2317,16 @@ class DataMigrationStrategy {
   List<MigrationEnvironments> environments = [];
 
   /// Cutover planning.
-  final MigrationCutover cutover = MigrationCutover();
+  MigrationCutover cutover = MigrationCutover();
 
   /// Rollback and recovery strategy.
-  final MigrationRollback rollback = MigrationRollback();
+  MigrationRollback rollback = MigrationRollback();
 
   /// Compliance and governance.
-  final MigrationCompliance compliance = MigrationCompliance();
+  MigrationCompliance compliance = MigrationCompliance();
 
   /// Success metrics.
-  final MigrationMetrics metrics = MigrationMetrics();
+  MigrationMetrics metrics = MigrationMetrics();
 
   /// Stakeholder communication.
   @SectionId('MIST-STAK-LST')
@@ -2339,7 +2339,7 @@ class DataMigrationStrategy {
   List<StageMigrationResources> resources = [];
 
   /// Schedule overview.
-  final MigrationSchedule schedule = MigrationSchedule();
+  MigrationSchedule schedule = MigrationSchedule();
 
   /// Migration strategy narrative.
   @ContentHelp('Overall data migration approach: migration methodology, '
@@ -2684,19 +2684,19 @@ class MigrationPhaseEntry {
   String? content;
 
   /// Phase identity details.
-  final MigrationPhaseIdentity identity = MigrationPhaseIdentity();
+  MigrationPhaseIdentity identity = MigrationPhaseIdentity();
 
   /// Data scope.
-  final MigrationPhaseDataScope dataScope = MigrationPhaseDataScope();
+  MigrationPhaseDataScope dataScope = MigrationPhaseDataScope();
 
   /// Migration method.
-  final MigrationPhaseMethod method = MigrationPhaseMethod();
+  MigrationPhaseMethod method = MigrationPhaseMethod();
 
   /// Transformation and mapping.
-  final MigrationPhaseTransformation transformation = MigrationPhaseTransformation();
+  MigrationPhaseTransformation transformation = MigrationPhaseTransformation();
 
   /// Schedule and dependencies.
-  final MigrationPhaseSchedule schedule = MigrationPhaseSchedule();
+  MigrationPhaseSchedule schedule = MigrationPhaseSchedule();
 
   /// Dry runs.
   @SectionId('MPDR-DRYR-LST')
@@ -2704,13 +2704,13 @@ class MigrationPhaseEntry {
   List<MigrationPhaseDryRuns> dryRuns = [];
 
   /// Validation and reconciliation.
-  final MigrationPhaseValidation validation = MigrationPhaseValidation();
+  MigrationPhaseValidation validation = MigrationPhaseValidation();
 
   /// Acceptance criteria.
-  final MigrationPhaseAcceptance acceptance = MigrationPhaseAcceptance();
+  MigrationPhaseAcceptance acceptance = MigrationPhaseAcceptance();
 
   /// Rollback.
-  final MigrationPhaseRollback rollback = MigrationPhaseRollback();
+  MigrationPhaseRollback rollback = MigrationPhaseRollback();
 
   /// Resources.
   @SectionId('MIPHRE-RESO-LST')
@@ -2718,7 +2718,7 @@ class MigrationPhaseEntry {
   List<MigrationPhaseResources> resources = [];
 
   /// Status.
-  final MigrationPhaseStatus status = MigrationPhaseStatus();
+  MigrationPhaseStatus status = MigrationPhaseStatus();
 }
 
 /// Phase identity for migration phase.
@@ -3030,32 +3030,32 @@ class StageMigrationRiskEntry {
   String? content;
 
   /// Risk identity and description.
-  final StageMigrationRiskIdentity identity = StageMigrationRiskIdentity();
+  StageMigrationRiskIdentity identity = StageMigrationRiskIdentity();
 
   /// Probability and impact assessment.
-  final StageMigrationRiskProbabilityImpact probabilityImpact =
+  StageMigrationRiskProbabilityImpact probabilityImpact =
       StageMigrationRiskProbabilityImpact();
 
   /// Mitigation planning.
-  final StageMigrationRiskMitigation mitigation =
+  StageMigrationRiskMitigation mitigation =
       StageMigrationRiskMitigation();
 
   /// Contingency actions.
-  final StageMigrationRiskContingency contingency =
+  StageMigrationRiskContingency contingency =
       StageMigrationRiskContingency();
 
   /// Monitoring and detection.
-  final StageMigrationRiskMonitoring monitoring =
+  StageMigrationRiskMonitoring monitoring =
       StageMigrationRiskMonitoring();
 
   /// Ownership and accountability.
-  final StageMigrationRiskOwnership ownership = StageMigrationRiskOwnership();
+  StageMigrationRiskOwnership ownership = StageMigrationRiskOwnership();
 
   /// Residual risk assessment.
-  final StageMigrationRiskResidual residual = StageMigrationRiskResidual();
+  StageMigrationRiskResidual residual = StageMigrationRiskResidual();
 
   /// Status and review.
-  final StageMigrationRiskStatus status = StageMigrationRiskStatus();
+  StageMigrationRiskStatus status = StageMigrationRiskStatus();
 }
 
 /// Risk identity and description.
@@ -3203,25 +3203,25 @@ class StageGovernance {
   String? content;
 
   /// Governance model details.
-  final StageGovernanceModel model = StageGovernanceModel();
+  StageGovernanceModel model = StageGovernanceModel();
 
   /// Authority and oversight.
-  final StageGovernanceAuthority authority = StageGovernanceAuthority();
+  StageGovernanceAuthority authority = StageGovernanceAuthority();
 
   /// Escalation paths and triggers.
-  final StageGovernanceEscalation escalation = StageGovernanceEscalation();
+  StageGovernanceEscalation escalation = StageGovernanceEscalation();
 
   /// Meeting cadence and process.
-  final StageGovernanceCadence cadence = StageGovernanceCadence();
+  StageGovernanceCadence cadence = StageGovernanceCadence();
 
   /// Compliance and audit requirements.
-  final StageGovernanceCompliance compliance = StageGovernanceCompliance();
+  StageGovernanceCompliance compliance = StageGovernanceCompliance();
 
   /// Metrics and reporting.
-  final StageGovernanceMetrics metrics = StageGovernanceMetrics();
+  StageGovernanceMetrics metrics = StageGovernanceMetrics();
 
   /// Stage transition rules.
-  final StageGovernanceTransition transition = StageGovernanceTransition();
+  StageGovernanceTransition transition = StageGovernanceTransition();
 
   /// Governance narrative and rationale.
   @ContentHelp('Stage governance philosophy: decision-making framework, '
@@ -3468,22 +3468,22 @@ class PhaseGateReviewEntry {
   String? content;
 
   /// Gate identity.
-  final PhaseGateIdentity identity = PhaseGateIdentity();
+  PhaseGateIdentity identity = PhaseGateIdentity();
 
   /// Authority and participants.
-  final PhaseGateAuthority authority = PhaseGateAuthority();
+  PhaseGateAuthority authority = PhaseGateAuthority();
 
   /// Schedule.
-  final PhaseGateSchedule schedule = PhaseGateSchedule();
+  PhaseGateSchedule schedule = PhaseGateSchedule();
 
   /// Entry conditions.
-  final PhaseGateEntry entry = PhaseGateEntry();
+  PhaseGateEntry entry = PhaseGateEntry();
 
   /// Evidence.
-  final PhaseGateEvidence evidence = PhaseGateEvidence();
+  PhaseGateEvidence evidence = PhaseGateEvidence();
 
   /// Exit conditions and outcome.
-  final PhaseGateExit exit = PhaseGateExit();
+  PhaseGateExit exit = PhaseGateExit();
 
   /// Gate-specific narrative and context.
   @ContentHelp('Context for this specific gate: strategic importance, '

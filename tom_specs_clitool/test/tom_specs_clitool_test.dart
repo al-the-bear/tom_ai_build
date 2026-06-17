@@ -803,4 +803,100 @@ void main() {
       expect(json['modelVersionLabel'], '1.0.0+3.abc1234');
     });
   });
+
+  group('unit: SpecOpsGenerator (OE-2)', () {
+    test('emits an idempotent registry with the section content leaves', () {
+      final src = SpecOpsGenerator(const <String, ModelClass>{}).generate();
+      // Header: idempotent guard + the two model package imports.
+      expect(src, contains('void registerSpecOps()'));
+      expect(src, contains('if (_registered) return;'));
+      expect(src,
+          contains("import 'package:tom_specs_core/tom_specs_core.dart';"));
+      expect(src,
+          contains("import 'package:tom_specs_model/tom_specs_model.dart';"));
+      // All ten tom_specs_core section content leaves are registered by hand.
+      for (final leaf in const [
+        'TextSection',
+        'DiagramSection',
+        'DartCodeSection',
+        'DdlCodeSection',
+      ]) {
+        expect(src, contains('SpecRegistry.register($leaf, SpecClassOps('),
+            reason: '$leaf content leaf must be registered');
+      }
+    });
+
+    test('classifies child-node, list and scalar fields into slot/clone/scalar',
+        () {
+      final classes = <String, ModelClass>{
+        'Doc': _cls('Doc', const [], [
+          _field('content', 'String'),
+          _field('child', 'ChildClass'),
+          ModelField(
+            name: 'maybeChild',
+            typeName: 'ChildClass?',
+            isNullable: true,
+          ),
+          _listField('items', 'ItemEntry'),
+          _field('intro', 'String'),
+        ]),
+        'ChildClass': _cls('ChildClass', const []),
+        'ItemEntry': _cls('ItemEntry', const []),
+      };
+      final src = SpecOpsGenerator(classes).generate();
+
+      // A single complex child → SpecSlot.node with a non-null cast.
+      expect(
+        src,
+        contains("SpecSlot.node(() => n.child, "
+            "(v) => n.child = v as ChildClass, label: 'child')"),
+      );
+      // A nullable complex child → nullable cast.
+      expect(
+        src,
+        contains("SpecSlot.node(() => n.maybeChild, "
+            "(v) => n.maybeChild = v as ChildClass?, label: 'maybeChild')"),
+      );
+      // A list-of-complex → SpecSlot.list with a narrowing .cast<Element>().
+      expect(
+        src,
+        contains("SpecSlot.list(() => n.items, "
+            "(v) => n.items = v.cast<ItemEntry>(), label: 'items')"),
+      );
+      // cloneShallow copies every field, including the scalars.
+      expect(src, contains('..content = n.content'));
+      expect(src, contains('..intro = n.intro'));
+      // yamlScalar prefers the canonical `content` field.
+      expect(src, contains('yamlScalar: (o) => (o as Doc).content,'));
+    });
+
+    test('omits yamlScalar for a multi-scalar class without a content field',
+        () {
+      final classes = <String, ModelClass>{
+        'Multi': _cls('Multi', const [], [
+          _field('alpha', 'String'),
+          _field('beta', 'String'),
+        ]),
+      };
+      final src = SpecOpsGenerator(classes).generate();
+      // Two scalars, neither named `content` → no yamlScalar emitted (deferred
+      // multi-scalar packing). cloneShallow still copies both.
+      final multiBlock = src.substring(src.indexOf('register(Multi,'));
+      expect(multiBlock, isNot(contains('yamlScalar:')));
+      expect(src, contains('..alpha = n.alpha'));
+      expect(src, contains('..beta = n.beta'));
+    });
+
+    test('skips the two hand-written SpecNode mixin leaves', () {
+      final classes = <String, ModelClass>{
+        'DocumentHeader': _cls('DocumentHeader', const []),
+        'SectionMeta': _cls('SectionMeta', const []),
+        'Other': _cls('Other', const []),
+      };
+      final src = SpecOpsGenerator(classes).generate();
+      expect(src, contains('SpecRegistry.register(Other,'));
+      expect(src, isNot(contains('SpecRegistry.register(DocumentHeader,')));
+      expect(src, isNot(contains('SpecRegistry.register(SectionMeta,')));
+    });
+  });
 }

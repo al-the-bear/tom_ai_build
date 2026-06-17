@@ -129,19 +129,19 @@ class OrganizationalChangeEntry {
   String? content;
 
   /// Change identification details.
-  final OrgChangeIdentification identification = OrgChangeIdentification();
+  OrgChangeIdentification identification = OrgChangeIdentification();
 
   /// Scope of the change.
-  final OrgChangeScope scope = OrgChangeScope();
+  OrgChangeScope scope = OrgChangeScope();
 
   /// Rationale for the change.
-  final OrgChangeRationale rationale = OrgChangeRationale();
+  OrgChangeRationale rationale = OrgChangeRationale();
 
   /// Impact assessment.
-  final OrgChangeImpact impact = OrgChangeImpact();
+  OrgChangeImpact impact = OrgChangeImpact();
 
   /// Transition planning.
-  final OrgChangeTransition transition = OrgChangeTransition();
+  OrgChangeTransition transition = OrgChangeTransition();
 
   /// Risks and mitigations.
   @SectionId('OCRSK-RISK-LST')
@@ -149,7 +149,7 @@ class OrganizationalChangeEntry {
   List<OrgChangeRisks> risks = [];
 
   /// Status tracking.
-  final OrgChangeStatus status = OrgChangeStatus();
+  OrgChangeStatus status = OrgChangeStatus();
 }
 
 /// Identification details for organizational change.
@@ -2591,19 +2591,19 @@ class InitialTrainingEntry {
   String? content;
 
   /// Target and prerequisites.
-  final InitialTrainingAudience audience = InitialTrainingAudience();
+  InitialTrainingAudience audience = InitialTrainingAudience();
 
   /// Learning content.
-  final InitialTrainingContent learningContent = InitialTrainingContent();
+  InitialTrainingContent learningContent = InitialTrainingContent();
 
   /// Delivery details.
-  final InitialTrainingDelivery delivery = InitialTrainingDelivery();
+  InitialTrainingDelivery delivery = InitialTrainingDelivery();
 
   /// Schedule information.
-  final InitialTrainingSchedule schedule = InitialTrainingSchedule();
+  InitialTrainingSchedule schedule = InitialTrainingSchedule();
 
   /// Assessment and certification.
-  final InitialTrainingAssessment assessment = InitialTrainingAssessment();
+  InitialTrainingAssessment assessment = InitialTrainingAssessment();
 }
 
 /// Target and prerequisites.

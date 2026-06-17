@@ -1138,13 +1138,13 @@ class IdentityProviderEntry {
   List<IdentityProviderEndpoints> endpoints = [];
 
   /// Attribute mapping.
-  final IdentityProviderMapping mapping = IdentityProviderMapping();
+  IdentityProviderMapping mapping = IdentityProviderMapping();
 
   /// Trust and security.
-  final IdentityProviderTrust trust = IdentityProviderTrust();
+  IdentityProviderTrust trust = IdentityProviderTrust();
 
   /// Certificates and encryption.
-  final IdentityProviderSecurity security = IdentityProviderSecurity();
+  IdentityProviderSecurity security = IdentityProviderSecurity();
 }
 
 /// Provider details.

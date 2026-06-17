@@ -88,6 +88,12 @@ pubspec.lock
 *.reflectable.dart
 reflectable.dart
 
+# Exception: the TomSpecs snapshot/serialization registry (OE-2) is committed
+# source — `DocSpecsProject` imports it, so the model must compile from a bare
+# checkout. Unlike build_runner outputs, nothing regenerates it on `pub get`;
+# `tom_specs_clitool/bin/spec_ops.dart` (build.dart step 2) keeps it fresh.
+!tom_specs_model/lib/src/generated/spec_ops.g.dart
+
 # Flutter build
 **/Flutter/ephemeral/
 **/Flutter/App.framework

@@ -3496,17 +3496,17 @@ class SuccessCriterionEntry {
   String? content;
 
   /// Identification details.
-  final SuccessCriterionIdentity identity = SuccessCriterionIdentity();
+  SuccessCriterionIdentity identity = SuccessCriterionIdentity();
 
   /// Measurement.
-  final SuccessCriterionMeasurement measurement = SuccessCriterionMeasurement();
+  SuccessCriterionMeasurement measurement = SuccessCriterionMeasurement();
 
   /// Verification.
-  final SuccessCriterionVerification verification =
+  SuccessCriterionVerification verification =
       SuccessCriterionVerification();
 
   /// Importance.
-  final SuccessCriterionImportance importance = SuccessCriterionImportance();
+  SuccessCriterionImportance importance = SuccessCriterionImportance();
 
   /// Relationships.
   @SectionId('SUCRRE-RELA-LST')
@@ -3514,7 +3514,7 @@ class SuccessCriterionEntry {
   List<SuccessCriterionRelationships> relationships = [];
 
   /// Status.
-  final SuccessCriterionStatus status = SuccessCriterionStatus();
+  SuccessCriterionStatus status = SuccessCriterionStatus();
 }
 
 /// Identity for success criterion.
@@ -4082,16 +4082,16 @@ class ScreenFieldEntry {
   String? content;
 
   /// Data binding and defaults.
-  final ScreenFieldDataBinding dataBinding = ScreenFieldDataBinding();
+  ScreenFieldDataBinding dataBinding = ScreenFieldDataBinding();
 
   /// Conditional behavior.
-  final ScreenFieldConditions conditions = ScreenFieldConditions();
+  ScreenFieldConditions conditions = ScreenFieldConditions();
 
   /// Validation rules.
-  final ScreenFieldValidation validation = ScreenFieldValidation();
+  ScreenFieldValidation validation = ScreenFieldValidation();
 
   /// UI and layout.
-  final ScreenFieldLayout layout = ScreenFieldLayout();
+  ScreenFieldLayout layout = ScreenFieldLayout();
 
   /// Field validation rules — contains 0+× FieldValidationRule.
   @SectionId('FLDVL-VALI-LST')
@@ -5891,24 +5891,24 @@ class MigrationRiskEntry {
   String? content;
 
   /// Risk identification details.
-  final MigrationRiskIdentification identification =
+  MigrationRiskIdentification identification =
       MigrationRiskIdentification();
 
   /// Probability assessment.
-  final MigrationRiskProbability probability = MigrationRiskProbability();
+  MigrationRiskProbability probability = MigrationRiskProbability();
 
   /// Impact assessment.
-  final MigrationRiskImpact impact = MigrationRiskImpact();
+  MigrationRiskImpact impact = MigrationRiskImpact();
 
   /// Risk quantification.
-  final MigrationRiskQuantification quantification =
+  MigrationRiskQuantification quantification =
       MigrationRiskQuantification();
 
   /// Mitigation strategy.
-  final MigrationRiskMitigation mitigation = MigrationRiskMitigation();
+  MigrationRiskMitigation mitigation = MigrationRiskMitigation();
 
   /// Contingency planning.
-  final MigrationRiskContingency contingency = MigrationRiskContingency();
+  MigrationRiskContingency contingency = MigrationRiskContingency();
 
   /// Risk indicators and monitoring.
   @SectionId('MIRIIN-INDI-LST')
@@ -5916,13 +5916,13 @@ class MigrationRiskEntry {
   List<MigrationRiskIndicators> indicators = [];
 
   /// Ownership and tracking.
-  final MigrationRiskTracking tracking = MigrationRiskTracking();
+  MigrationRiskTracking tracking = MigrationRiskTracking();
 
   /// Related items.
-  final MigrationRiskRelated related = MigrationRiskRelated();
+  MigrationRiskRelated related = MigrationRiskRelated();
 
   /// History and lessons learned.
-  final MigrationRiskHistory history = MigrationRiskHistory();
+  MigrationRiskHistory history = MigrationRiskHistory();
 
   /// Additional risk analysis narrative.
   @ContentHelp('Extended risk analysis, scenario modeling, '
@@ -7178,7 +7178,7 @@ class ResponsibilityEntry {
   List<ResponsibilityFunctionDetails> functionDetails = [];
 
   /// RACI assignment.
-  final ResponsibilityRaci raci = ResponsibilityRaci();
+  ResponsibilityRaci raci = ResponsibilityRaci();
 
   /// Key contacts.
   @SectionId('RECO-CONT-LST')
@@ -7191,7 +7191,7 @@ class ResponsibilityEntry {
   List<ResponsibilitySystems> systems = [];
 
   /// Governance and transition.
-  final ResponsibilityGovernance governance = ResponsibilityGovernance();
+  ResponsibilityGovernance governance = ResponsibilityGovernance();
 }
 
 /// Function details and scope.
@@ -7784,7 +7784,7 @@ class ConstraintEntry {
   String? content;
 
   /// Classification.
-  final ConstraintClassification classification = ConstraintClassification();
+  ConstraintClassification classification = ConstraintClassification();
 
   /// Details.
   @SectionId('CODE-DETA-LST')
@@ -7792,13 +7792,13 @@ class ConstraintEntry {
   List<ConstraintDetails> details = [];
 
   /// Impact assessment.
-  final ConstraintImpact impact = ConstraintImpact();
+  ConstraintImpact impact = ConstraintImpact();
 
   /// Mitigation and response.
-  final ConstraintMitigation mitigation = ConstraintMitigation();
+  ConstraintMitigation mitigation = ConstraintMitigation();
 
   /// Tracking and monitoring.
-  final ConstraintTracking tracking = ConstraintTracking();
+  ConstraintTracking tracking = ConstraintTracking();
 
   /// Linkages.
   @SectionId('COLI1-LINK-LST')
@@ -8030,28 +8030,28 @@ class FrameworkDependencyEntry {
   String? content;
 
   /// Dependency identity details.
-  final DependencyIdentity identity = DependencyIdentity();
+  DependencyIdentity identity = DependencyIdentity();
 
   /// Dependency classification.
-  final DependencyClassification classification = DependencyClassification();
+  DependencyClassification classification = DependencyClassification();
 
   /// External party details.
-  final DependencyExternalParty externalParty = DependencyExternalParty();
+  DependencyExternalParty externalParty = DependencyExternalParty();
 
   /// Deliverable details.
-  final DependencyDeliverable deliverable = DependencyDeliverable();
+  DependencyDeliverable deliverable = DependencyDeliverable();
 
   /// Timeline.
-  final DependencyTimeline timeline = DependencyTimeline();
+  DependencyTimeline timeline = DependencyTimeline();
 
   /// Risk assessment.
-  final DependencyRisk risk = DependencyRisk();
+  DependencyRisk risk = DependencyRisk();
 
   /// Mitigation and contingency.
-  final DependencyMitigation mitigation = DependencyMitigation();
+  DependencyMitigation mitigation = DependencyMitigation();
 
   /// Coordination and tracking.
-  final DependencyTracking tracking = DependencyTracking();
+  DependencyTracking tracking = DependencyTracking();
 
   /// Linkages.
   @SectionId('DELI1-LINK-LST')

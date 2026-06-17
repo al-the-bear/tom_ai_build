@@ -2488,19 +2488,19 @@ class PrintLayout {
   String? content;
 
   /// Page margins and setup.
-  final PrintLayoutPageSetup pageSetup = PrintLayoutPageSetup();
+  PrintLayoutPageSetup pageSetup = PrintLayoutPageSetup();
 
   /// Branding configuration.
-  final PrintLayoutBranding branding = PrintLayoutBranding();
+  PrintLayoutBranding branding = PrintLayoutBranding();
 
   /// Watermark and confidentiality.
-  final PrintLayoutWatermark watermark = PrintLayoutWatermark();
+  PrintLayoutWatermark watermark = PrintLayoutWatermark();
 
   /// Header and footer settings.
-  final PrintLayoutHeaderFooter headerFooter = PrintLayoutHeaderFooter();
+  PrintLayoutHeaderFooter headerFooter = PrintLayoutHeaderFooter();
 
   /// Archive and batch settings.
-  final PrintLayoutArchive archive = PrintLayoutArchive();
+  PrintLayoutArchive archive = PrintLayoutArchive();
 
   /// 10.4.1. Reports [PD00-USE-PRI-REP] — contains 0+× Report.
   @SectionId('REEN-REPO-LST')
@@ -2627,37 +2627,37 @@ class ReportEntry {
   String? content;
 
   /// Identity and context.
-  final ReportIdentity identity = ReportIdentity();
+  ReportIdentity identity = ReportIdentity();
 
   /// Data source configuration.
-  final ReportDataSource dataSource = ReportDataSource();
+  ReportDataSource dataSource = ReportDataSource();
 
   /// Output format options.
-  final ReportFormat format = ReportFormat();
+  ReportFormat format = ReportFormat();
 
   /// Page layout settings.
-  final ReportLayout layout = ReportLayout();
+  ReportLayout layout = ReportLayout();
 
   /// Header and footer templates.
-  final ReportHeaderFooter headerFooter = ReportHeaderFooter();
+  ReportHeaderFooter headerFooter = ReportHeaderFooter();
 
   /// Sorting and grouping.
-  final ReportGrouping grouping = ReportGrouping();
+  ReportGrouping grouping = ReportGrouping();
 
   /// Conditional formatting.
-  final ReportFormatting formatting = ReportFormatting();
+  ReportFormatting formatting = ReportFormatting();
 
   /// Interactivity and parameters.
-  final ReportInteractivity interactivity = ReportInteractivity();
+  ReportInteractivity interactivity = ReportInteractivity();
 
   /// Pagination settings.
-  final ReportPagination pagination = ReportPagination();
+  ReportPagination pagination = ReportPagination();
 
   /// Security and access.
-  final ReportSecurity security = ReportSecurity();
+  ReportSecurity security = ReportSecurity();
 
   /// Lifecycle and archiving.
-  final ReportLifecycle lifecycle = ReportLifecycle();
+  ReportLifecycle lifecycle = ReportLifecycle();
 
   /// Contains 0+× Report Section.
   @SectionId('RESEE1-SECT-LST')
@@ -2873,16 +2873,16 @@ class ReportSectionEntry {
   String? content;
 
   /// Data source configuration.
-  final ReportSectionData data = ReportSectionData();
+  ReportSectionData data = ReportSectionData();
 
   /// Layout and page settings.
-  final ReportSectionLayout layout = ReportSectionLayout();
+  ReportSectionLayout layout = ReportSectionLayout();
 
   /// Sorting and grouping.
-  final ReportSectionSorting sorting = ReportSectionSorting();
+  ReportSectionSorting sorting = ReportSectionSorting();
 
   /// Aggregation and limits.
-  final ReportSectionAggregation aggregation = ReportSectionAggregation();
+  ReportSectionAggregation aggregation = ReportSectionAggregation();
 
   /// Contains 0+× Report Column.
   @SectionId('RECOE1-COLU-LST')
@@ -2983,19 +2983,19 @@ class ReportColumnEntry {
   String? content;
 
   /// Data source and type.
-  final ReportColumnDataSource dataSource = ReportColumnDataSource();
+  ReportColumnDataSource dataSource = ReportColumnDataSource();
 
   /// Display formatting.
-  final ReportColumnFormatting formatting = ReportColumnFormatting();
+  ReportColumnFormatting formatting = ReportColumnFormatting();
 
   /// Aggregation settings.
-  final ReportColumnAggregation aggregation = ReportColumnAggregation();
+  ReportColumnAggregation aggregation = ReportColumnAggregation();
 
   /// Interaction options.
-  final ReportColumnInteraction interaction = ReportColumnInteraction();
+  ReportColumnInteraction interaction = ReportColumnInteraction();
 
   /// Visibility and layout.
-  final ReportColumnLayout layout = ReportColumnLayout();
+  ReportColumnLayout layout = ReportColumnLayout();
 }
 
 /// Data source and type.
@@ -3098,16 +3098,16 @@ class ReportChartEntry {
   List<ReportChartAxes> axes = [];
 
   /// Series and colors.
-  final ReportChartSeries series = ReportChartSeries();
+  ReportChartSeries series = ReportChartSeries();
 
   /// Display options.
-  final ReportChartDisplay display = ReportChartDisplay();
+  ReportChartDisplay display = ReportChartDisplay();
 
   /// Interaction.
-  final ReportChartInteraction interaction = ReportChartInteraction();
+  ReportChartInteraction interaction = ReportChartInteraction();
 
   /// Layout.
-  final ReportChartLayout layout = ReportChartLayout();
+  ReportChartLayout layout = ReportChartLayout();
 }
 
 /// Axes for report chart.
@@ -3569,16 +3569,16 @@ class ExportFormatEntry {
   String? content;
 
   /// Identity and data source.
-  final ExportIdentity identity = ExportIdentity();
+  ExportIdentity identity = ExportIdentity();
 
   /// File format settings.
-  final ExportFileFormat fileFormat = ExportFileFormat();
+  ExportFileFormat fileFormat = ExportFileFormat();
 
   /// Delimiter and quoting.
-  final ExportDelimiter delimiter = ExportDelimiter();
+  ExportDelimiter delimiter = ExportDelimiter();
 
   /// Data formatting.
-  final ExportDataFormat dataFormat = ExportDataFormat();
+  ExportDataFormat dataFormat = ExportDataFormat();
 
   /// Size and splitting.
   @SectionId('EXSISE-SIZE-LST')
@@ -3586,13 +3586,13 @@ class ExportFormatEntry {
   List<ExportSizeSettings> sizeSettings = [];
 
   /// Security settings.
-  final ExportSecurity security = ExportSecurity();
+  ExportSecurity security = ExportSecurity();
 
   /// Output and scheduling.
-  final ExportOutput output = ExportOutput();
+  ExportOutput output = ExportOutput();
 
   /// Access and audit.
-  final ExportAccess access = ExportAccess();
+  ExportAccess access = ExportAccess();
 
   /// Contains 0+× Export Field Mapping.
   @SectionId('EFME-FIEL-LST')
@@ -5602,19 +5602,19 @@ class ComponentLibrary {
   List<DesignFoundationEntry> designFoundations = [];
 
   /// Color system.
-  final ComponentLibraryColors colors = ComponentLibraryColors();
+  ComponentLibraryColors colors = ComponentLibraryColors();
 
   /// Typography system.
-  final ComponentLibraryTypography typography = ComponentLibraryTypography();
+  ComponentLibraryTypography typography = ComponentLibraryTypography();
 
   /// Spacing and elevation.
-  final ComponentLibrarySpacing spacing = ComponentLibrarySpacing();
+  ComponentLibrarySpacing spacing = ComponentLibrarySpacing();
 
   /// Borders and corners.
-  final ComponentLibraryBorders borders = ComponentLibraryBorders();
+  ComponentLibraryBorders borders = ComponentLibraryBorders();
 
   /// Icons and animation.
-  final ComponentLibraryVisuals visuals = ComponentLibraryVisuals();
+  ComponentLibraryVisuals visuals = ComponentLibraryVisuals();
 
   /// Design system narrative.
   @ContentHelp('Comprehensive description of the design system foundations, '

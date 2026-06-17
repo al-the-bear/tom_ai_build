@@ -194,6 +194,16 @@ class ModelReader {
 
   ModelReader(this._driver);
 
+  /// Subtrees of `lib/src` that hold the snapshot/serialization engine
+  /// (`SpecNode`, `SpecSlot`, `SpecSnapshotter`, `SpecYaml`, `SpecProjection`,
+  /// `SpecRegistry`) and its generated registry — *infrastructure*, not the
+  /// document model. They are excluded from the reflected model so the §8.6
+  /// validator, the outliner, and the JSON exporter never treat the engine's
+  /// own classes as document sections (OE-2). Real model leaves that adopt
+  /// `SpecNode` (`DocumentHeader`/`SectionMeta`) live under `common/` and are
+  /// still read.
+  static const _excludedSrcDirs = ['snapshot', 'serialization', 'generated'];
+
   /// Analyzes all .dart files under [packageLibPath] and collects
   /// model classes and enums.
   Future<void> analyzePackage(String packageLibPath) async {
@@ -206,6 +216,7 @@ class ModelReader {
         .listSync(recursive: true)
         .whereType<File>()
         .where((f) => f.path.endsWith('.dart'))
+        .where((f) => !_isExcludedInfraFile(srcDir.path, f.path))
         .toList();
 
     for (final file in dartFiles) {
@@ -218,6 +229,17 @@ class ModelReader {
         _processResolvedUnit(result);
       }
     }
+  }
+
+  /// Whether [filePath] is engine/generated infrastructure rather than document
+  /// model: it lives in one of the [_excludedSrcDirs] directly under `lib/src`,
+  /// or is a `*.versioner.dart` build-version artifact (a static-only class with
+  /// a private constructor — not a spec node, and not zero-arg constructible).
+  static bool _isExcludedInfraFile(String srcDirPath, String filePath) {
+    if (filePath.endsWith('.versioner.dart')) return true;
+    final rel = p.relative(filePath, from: srcDirPath);
+    final firstSegment = p.split(rel).first;
+    return _excludedSrcDirs.contains(firstSegment);
   }
 
   void _processResolvedUnit(ResolvedUnitResult result) {

@@ -152,19 +152,19 @@ class DeliverableEntry {
   String? content;
 
   /// Identification details.
-  final DeliverableIdentity identity = DeliverableIdentity();
+  DeliverableIdentity identity = DeliverableIdentity();
 
   /// Delivery logistics.
-  final DeliverableLogistics logistics = DeliverableLogistics();
+  DeliverableLogistics logistics = DeliverableLogistics();
 
   /// Version and compatibility.
-  final DeliverableVersion version = DeliverableVersion();
+  DeliverableVersion version = DeliverableVersion();
 
   /// Quality and acceptance.
-  final DeliverableQuality quality = DeliverableQuality();
+  DeliverableQuality quality = DeliverableQuality();
 
   /// Ownership and responsibility.
-  final DeliverableOwnership ownership = DeliverableOwnership();
+  DeliverableOwnership ownership = DeliverableOwnership();
 
   /// Dependencies.
   @SectionId('DLVDP-DEPE-LST')
@@ -172,10 +172,10 @@ class DeliverableEntry {
   List<DeliverableDependencies> dependencies = [];
 
   /// Licensing and legal.
-  final DeliverableLegal legal = DeliverableLegal();
+  DeliverableLegal legal = DeliverableLegal();
 
   /// Documentation.
-  final DeliverableDocumentation documentation = DeliverableDocumentation();
+  DeliverableDocumentation documentation = DeliverableDocumentation();
 }
 
 /// Identity for deliverable.
@@ -495,24 +495,24 @@ class AcceptanceProcess {
   String? content;
 
   /// Process overview.
-  final AcceptanceProcessOverview overview = AcceptanceProcessOverview();
+  AcceptanceProcessOverview overview = AcceptanceProcessOverview();
 
   /// Participants and governance.
-  final AcceptanceProcessParticipants participants =
+  AcceptanceProcessParticipants participants =
       AcceptanceProcessParticipants();
 
   /// Timeline and schedule.
-  final AcceptanceProcessTimeline timeline = AcceptanceProcessTimeline();
+  AcceptanceProcessTimeline timeline = AcceptanceProcessTimeline();
 
   /// Decision framework.
-  final AcceptanceProcessDecision decision = AcceptanceProcessDecision();
+  AcceptanceProcessDecision decision = AcceptanceProcessDecision();
 
   /// Escalation.
-  final AcceptanceProcessEscalation escalation =
+  AcceptanceProcessEscalation escalation =
       AcceptanceProcessEscalation();
 
   /// Documentation.
-  final AcceptanceProcessDocumentation documentation =
+  AcceptanceProcessDocumentation documentation =
       AcceptanceProcessDocumentation();
 
   /// Acceptance process narrative description.
@@ -695,37 +695,37 @@ class UserAcceptanceTesting {
   String? content;
 
   /// Scope and objectives.
-  final UatScope scope = UatScope();
+  UatScope scope = UatScope();
 
   /// Environment.
-  final UatEnvironment environment = UatEnvironment();
+  UatEnvironment environment = UatEnvironment();
 
   /// Test data.
-  final UatTestData testData = UatTestData();
+  UatTestData testData = UatTestData();
 
   /// Participants and governance.
-  final UatGovernance governance = UatGovernance();
+  UatGovernance governance = UatGovernance();
 
   /// Schedule and cycles.
-  final UatSchedule schedule = UatSchedule();
+  UatSchedule schedule = UatSchedule();
 
   /// Entry, exit, and suspension criteria.
-  final UatCriteria criteria = UatCriteria();
+  UatCriteria criteria = UatCriteria();
 
   /// Defect management.
-  final UatDefectManagement defectManagement = UatDefectManagement();
+  UatDefectManagement defectManagement = UatDefectManagement();
 
   /// Reporting.
-  final UatReporting reporting = UatReporting();
+  UatReporting reporting = UatReporting();
 
   /// Non-functional acceptance.
-  final UatNonFunctional nonFunctional = UatNonFunctional();
+  UatNonFunctional nonFunctional = UatNonFunctional();
 
   /// Sign-off.
-  final UatSignOff signOff = UatSignOff();
+  UatSignOff signOff = UatSignOff();
 
   /// Training and readiness.
-  final UatTraining training = UatTraining();
+  UatTraining training = UatTraining();
 
   /// Narrative overview of the UAT approach and philosophy.
   @ContentHelp('Describe the UAT philosophy, how it integrates with prior '
@@ -1002,22 +1002,22 @@ class TestScenarioEntry {
   String? content;
 
   /// Identification.
-  final TestScenarioIdentification identification = TestScenarioIdentification();
+  TestScenarioIdentification identification = TestScenarioIdentification();
 
   /// Business context.
-  final TestScenarioBusiness business = TestScenarioBusiness();
+  TestScenarioBusiness business = TestScenarioBusiness();
 
   /// Traceability.
-  final TestScenarioTraceability traceability = TestScenarioTraceability();
+  TestScenarioTraceability traceability = TestScenarioTraceability();
 
   /// Preconditions and setup.
-  final TestScenarioSetup setup = TestScenarioSetup();
+  TestScenarioSetup setup = TestScenarioSetup();
 
   /// Execution.
-  final TestScenarioExecution execution = TestScenarioExecution();
+  TestScenarioExecution execution = TestScenarioExecution();
 
   /// Post-execution.
-  final TestScenarioPostExecution postExecution = TestScenarioPostExecution();
+  TestScenarioPostExecution postExecution = TestScenarioPostExecution();
 
   /// Notes.
   @SectionId('TESCNO-NOTE-LST')
@@ -1474,10 +1474,10 @@ class WarrantyTerms {
   String? content;
 
   /// Duration and activation.
-  final WarrantyDuration duration = WarrantyDuration();
+  WarrantyDuration duration = WarrantyDuration();
 
   /// Scope of coverage.
-  final WarrantyCoverage coverage = WarrantyCoverage();
+  WarrantyCoverage coverage = WarrantyCoverage();
 
   /// Service levels.
   @SectionId('WASELE-SERV-LST')
@@ -1485,13 +1485,13 @@ class WarrantyTerms {
   List<WarrantyServiceLevels> serviceLevels = [];
 
   /// Process for defect handling.
-  final WarrantyProcess process = WarrantyProcess();
+  WarrantyProcess process = WarrantyProcess();
 
   /// Transition to support.
-  final WarrantyTransition transition = WarrantyTransition();
+  WarrantyTransition transition = WarrantyTransition();
 
   /// Financial terms.
-  final WarrantyFinancial financial = WarrantyFinancial();
+  WarrantyFinancial financial = WarrantyFinancial();
 
   /// Warranty terms narrative.
   @ContentHelp('Detailed warranty terms description: legal context, '
