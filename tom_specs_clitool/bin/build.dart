@@ -37,6 +37,13 @@ Future<void> main(List<String> arguments) async {
     ..addOption('summaries',
         help: 'Optional directory of pre-generated Dart-editor summary assets '
             'to embed (B1). Skipped with a notice when absent.')
+    ..addFlag('generate-summaries',
+        help: 'Generate the B1 analyzer summaries in-place via '
+            'bin/summaries.dart (against the editor\'s resolved deps) instead '
+            'of copying a pre-generated --summaries directory. This runs the '
+            'analyzer once on the build host; the per-OS build still only '
+            'copies the resulting committed assets.',
+        negatable: false)
     ..addOption('buildkit',
         help: 'buildkit executable (on PATH or absolute). Default: buildkit.',
         defaultsTo: 'buildkit')
@@ -150,20 +157,41 @@ Future<void> main(List<String> arguments) async {
   // ── Step 4: embed pre-generated summaries (B1) ────────────────────────────
   _step(4, 'embed pre-generated Dart-editor summaries');
   final summaries = args.option('summaries');
-  if (summaries == null) {
-    stdout.writeln('  (no --summaries given; nothing to embed — see Step 24 '
-        'deferral / CS-15: B1 summary pipeline not yet built)');
+  final summariesDest = Directory(p.join(editorDir, 'assets', 'summaries'));
+  if (args.flag('generate-summaries')) {
+    // Generate in-place into the editor's own asset dir. Needs the editor's
+    // resolved package_config, so ensure deps are present first.
+    if (summaries != null) {
+      _fail('--summaries and --generate-summaries are mutually exclusive.');
+    }
+    summariesDest.createSync(recursive: true);
+    await _run('flutter', ['pub', 'get'], cwd: editorDir);
+    await _run(
+      'dart',
+      [
+        'run',
+        p.join('bin', 'summaries.dart'),
+        '--package', editorDir,
+        '--out-dir', summariesDest.path,
+      ],
+      cwd: clitoolRoot,
+    );
+    stdout.writeln('  → generated summaries into ${summariesDest.path}');
+  } else if (summaries == null) {
+    stdout.writeln('  (no --summaries / --generate-summaries given; nothing to '
+        'embed. Pass --generate-summaries to build them on this host, or '
+        '--summaries <dir> to copy pre-generated assets. Code-typed fields '
+        'fall back to a plain text field when the .sum assets are absent.)');
   } else if (!Directory(summaries).existsSync()) {
     _fail('--summaries directory not found: $summaries');
   } else {
-    final dest = Directory(p.join(editorDir, 'assets', 'summaries'));
-    if (dest.existsSync()) dest.deleteSync(recursive: true);
-    dest.createSync(recursive: true);
+    if (summariesDest.existsSync()) summariesDest.deleteSync(recursive: true);
+    summariesDest.createSync(recursive: true);
     var copied = 0;
     for (final e in Directory(summaries).listSync(recursive: true)) {
       if (e is File) {
         final rel = p.relative(e.path, from: summaries);
-        final out = File(p.join(dest.path, rel));
+        final out = File(p.join(summariesDest.path, rel));
         out.parent.createSync(recursive: true);
         e.copySync(out.path);
         copied++;
