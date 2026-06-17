@@ -786,5 +786,21 @@ void main() {
       expect(formFields.single['hint'], 'short');
       expect(formFields.single['required'], true);
     });
+
+    test('an unstamped export reports modelVersion 0 and omits the label', () {
+      final json = ModelJsonExporter(const <String, ModelClass>{}).export();
+      expect(json['modelVersion'], 0);
+      expect(json.containsKey('modelVersionLabel'), isFalse);
+    });
+
+    test('a stamped export carries the model version and label (B2/§17)', () {
+      final json = ModelJsonExporter(
+        const <String, ModelClass>{},
+        modelVersion: 3,
+        modelVersionLabel: '1.0.0+3.abc1234',
+      ).export();
+      expect(json['modelVersion'], 3);
+      expect(json['modelVersionLabel'], '1.0.0+3.abc1234');
+    });
   });
 }

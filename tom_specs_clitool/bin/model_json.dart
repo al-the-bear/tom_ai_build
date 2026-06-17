@@ -20,6 +20,17 @@ Future<void> main(List<String> arguments) async {
       help: 'Output JSON file path.',
       mandatory: true,
     )
+    ..addOption(
+      'model-version',
+      help: 'S2 model-version counter to stamp into the JSON (integer). '
+          'Fed from the tom_specs_model version stamp by the build. Default: 0.',
+      defaultsTo: '0',
+    )
+    ..addOption(
+      'model-label',
+      help: 'Human-readable build label for the model version stamp '
+          '(e.g. TomSpecsModelVersionInfo.versionMedium).',
+    )
     ..addFlag('help', abbr: 'h', help: 'Show usage information.', negatable: false);
 
   final ArgResults results;
@@ -53,7 +64,13 @@ Future<void> main(List<String> arguments) async {
   stdout.writeln('Found ${reader.classes.length} classes, '
       '${reader.enums.length} enums.');
 
-  final json = ModelJsonExporter(reader.classes).export();
+  final modelVersion = int.tryParse(results.option('model-version') ?? '0') ?? 0;
+  final modelLabel = results.option('model-label');
+  final json = ModelJsonExporter(
+    reader.classes,
+    modelVersion: modelVersion,
+    modelVersionLabel: (modelLabel?.isNotEmpty ?? false) ? modelLabel : null,
+  ).export();
   final encoded = const JsonEncoder.withIndent('  ').convert(json);
 
   final outFile = File(outputPath);

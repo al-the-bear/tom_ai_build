@@ -15,7 +15,21 @@ import 'model_reader.dart';
 class ModelJsonExporter {
   final Map<String, ModelClass> classes;
 
-  ModelJsonExporter(this.classes);
+  /// The S2 model-version counter (counts up as the object model changes). The
+  /// build (§17) feeds this from the `tom_specs_model` version stamp so the
+  /// bundled `spec_model.json` records exactly which model version it was
+  /// generated against (B2). `0` marks an unstamped export (e.g. a manual run).
+  final int modelVersion;
+
+  /// A human-readable build label for the same stamp (e.g.
+  /// `TomSpecsModelVersionInfo.versionMedium`). Null when unstamped.
+  final String? modelVersionLabel;
+
+  ModelJsonExporter(
+    this.classes, {
+    this.modelVersion = 0,
+    this.modelVersionLabel,
+  });
 
   /// Builds the full JSON-ready map.
   Map<String, Object?> export() {
@@ -44,6 +58,8 @@ class ModelJsonExporter {
 
     return {
       'generatedAt': DateTime.now().toUtc().toIso8601String(),
+      'modelVersion': modelVersion,
+      if (modelVersionLabel != null) 'modelVersionLabel': modelVersionLabel,
       'classCount': classes.length,
       'rootCount': roots.length,
       // The canonical container is the single true tree root (V2, N9): the

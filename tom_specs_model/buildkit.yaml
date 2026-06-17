@@ -1,0 +1,11 @@
+# TomSpecs model — build configuration (§17, B2/N8).
+#
+# The model project is the single source of the **model version stamp**: the
+# tom_specs_editor build (tom_specs_clitool/bin/build.dart) runs
+# `buildkit :versioner` here first, then feeds the resulting version into the
+# generated `spec_model.json` and the DocSpecs schemas (S2) so a built app
+# reports exactly which model version it was generated against.
+versioner:
+  # → TomSpecsModelVersionInfo (lib/src/version.versioner.dart)
+  variable-prefix: tomSpecsModel
+  includeGitCommit: true

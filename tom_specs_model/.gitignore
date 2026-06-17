@@ -5,3 +5,9 @@
 # Avoid committing pubspec.lock for library packages; see
 # https://dart.dev/guides/libraries/private-files#pubspeclock.
 pubspec.lock
+
+# buildkit :versioner artifacts (regenerated each build; the build number churns
+# every run and nothing imports TomSpecsModelVersionInfo — the build orchestrator
+# parses the version textually). buildkit.yaml is the committed source of truth.
+lib/src/version.versioner.dart
+tom_build_state.json
