@@ -239,6 +239,11 @@ class _SchemaBuilder {
       // List-element (pattern) types are uncapped unless @Max bounds them;
       // single fields cap at 1.
       maxCountInDocument: maxCount ?? (pattern != null ? null : 1),
+      // Only @SectionIdPattern (list-element) types get an id pattern-check:
+      // their document ids are numbered (`<prefix>-001`), so the regex pins
+      // the prefix + numeric suffix. Single fields have a fixed id and need no
+      // pattern. (OE-21)
+      isPatternElement: pattern != null,
     );
   }
 
@@ -250,9 +255,18 @@ class _SchemaBuilder {
     bool? textRequired,
     int? minCountInDocument,
     int? maxCountInDocument,
+    bool isPatternElement = false,
   }) {
     final existing = _sectionTypes[id];
     final prefix = existing?.prefix ?? _prefixFor(id);
+    // Numbered list-element ids match `<prefix>-NNN`; DocSpecs resolves the
+    // section type by the prefix slug, so the regex is prefix-based (OE-21).
+    final patternCheckId = isPatternElement
+        ? PatternCheckDef(
+            pattern: '^${RegExp.escape(prefix)}-\\d+\$',
+            errorMessage: 'ID must match $prefix-NNN',
+          )
+        : existing?.patternCheckId;
     _sectionTypes[id] = SectionTypeDef(
       name: id,
       prefix: prefix,
@@ -263,6 +277,7 @@ class _SchemaBuilder {
       textRequired: textRequired ?? existing?.textRequired,
       minCountInDocument: minCountInDocument ?? existing?.minCountInDocument,
       maxCountInDocument: maxCountInDocument ?? existing?.maxCountInDocument,
+      patternCheckId: patternCheckId,
     );
   }
 

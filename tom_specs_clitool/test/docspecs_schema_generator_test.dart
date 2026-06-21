@@ -142,6 +142,54 @@ void main() {
           isTrue);
     });
 
+    test('OE-21: patterned list elements get a prefix-based pattern-check-id; '
+        'single fields get none', () {
+      final schema = gen.generateFor('DemoDoc');
+      // The @SectionIdPattern list element pins its numbered id form.
+      final itm = schema.sectionTypes['D00-ITM']!;
+      final check = itm.patternCheckId;
+      expect(check, isNotNull);
+      expect(check!.pattern, r'^d00_itm-\d+$');
+      // A real numbered id matches; a bare prefix does not.
+      expect(RegExp(check.pattern).hasMatch('d00_itm-001'), isTrue);
+      expect(RegExp(check.pattern).hasMatch('d00_itm-'), isFalse);
+      // Single (non-pattern) fields carry no id pattern-check.
+      expect(schema.sectionTypes['D00-OVR']!.patternCheckId, isNull);
+      expect(schema.sectionTypes['D00-HDR']!.patternCheckId, isNull);
+    });
+
+    test('OE-21: a malformed list-element id fails validation', () {
+      final schema = gen.generateFor('DemoDoc');
+      final reloaded = _writeAndReload(dir, schema);
+      final docPath = p.join(dir.path, 'bad_item_id.md');
+      File(docPath).writeAsStringSync('''
+<!-- docspec: ${reloaded.fullId} -->
+
+## [d00_ovr-001] Overview
+
+The system streamlines onboarding for new tenants.
+
+## [d00_det-001] Details
+
+Detailed behaviour, edge cases, and error handling are described here.
+
+## [d00_itm-x] Malformed item id
+''');
+      final factory = DocSpecsFactory(schema: reloaded);
+      final doc = DocScanner.scanDocumentSync(
+        filepath: docPath,
+        factory: factory,
+      );
+      final errors = DocSpecsValidator(schema: reloaded).validate(doc);
+      expect(errors, isNotEmpty);
+      expect(
+        errors.any((e) => e.toString().toLowerCase().contains('pattern') ||
+            e.toString().contains('d00_itm-NNN')),
+        isTrue,
+        reason: errors.join('\n'),
+      );
+    });
+
     test('document slots reference the field section-types and are optional',
         () {
       final schema = gen.generateFor('DemoDoc');
