@@ -16,3 +16,5 @@ export 'src/spec_ops_generator.dart' show SpecOpsGenerator;
 export 'src/docspecs_schema_generator.dart' show DocSpecsSchemaGenerator;
 export 'src/outline_writer.dart' show OutlineWriter;
 export 'src/validator.dart' show validateModel, validateStructuralInvariants;
+export 'src/summary_package_config.dart'
+    show readPackageRoots, mergePackageRootsForDirs, SummaryConfigException;

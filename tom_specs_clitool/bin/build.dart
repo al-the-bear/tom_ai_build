@@ -186,18 +186,36 @@ Future<void> main(List<String> arguments) async {
       _fail('--summaries and --generate-summaries are mutually exclusive.');
     }
     summariesDest.createSync(recursive: true);
+    // tom_flutter_ui lives at <container>/tom_ai/core/tom_flutter_ui. Its
+    // widgets are what the CodeSpecs phase's Dart-code fields reference, so its
+    // dependency closure is merged into packages.sum alongside the editor's
+    // (OE-25). The editor needs no Dart dependency on it — the bundle is loaded
+    // at runtime. Both configs must be resolved first.
+    final flutterUiDir =
+        p.join(p.dirname(aiBuild), 'core', 'tom_flutter_ui');
+    final summaryPackages = <String>[editorDir];
+    if (Directory(flutterUiDir).existsSync()) {
+      summaryPackages.add(flutterUiDir);
+    } else {
+      stdout.writeln('  (tom_flutter_ui not found at $flutterUiDir; '
+          'packages.sum will cover the editor closure only)');
+    }
     await _run('flutter', ['pub', 'get'], cwd: editorDir);
+    for (final dir in summaryPackages.skip(1)) {
+      await _run('flutter', ['pub', 'get'], cwd: dir);
+    }
     await _run(
       'dart',
       [
         'run',
         p.join('bin', 'summaries.dart'),
-        '--package', editorDir,
+        for (final dir in summaryPackages) ...['--package', dir],
         '--out-dir', summariesDest.path,
       ],
       cwd: clitoolRoot,
     );
-    stdout.writeln('  → generated summaries into ${summariesDest.path}');
+    stdout.writeln('  → generated summaries into ${summariesDest.path} '
+        '(covering ${summaryPackages.length} package closure(s))');
   } else if (summaries == null) {
     stdout.writeln('  (no --summaries / --generate-summaries given; nothing to '
         'embed. Pass --generate-summaries to build them on this host, or '

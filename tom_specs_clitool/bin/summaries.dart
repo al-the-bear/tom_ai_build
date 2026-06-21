@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_print
-import 'dart:convert';
 import 'dart:io' as io;
 
 import 'package:analyzer/dart/sdk/build_sdk_summary.dart';
@@ -22,6 +21,8 @@ import 'package:analyzer/src/generated/source.dart'
 import 'package:analyzer/src/util/sdk.dart';
 import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
+import 'package:tom_specs_clitool/tom_specs_clitool.dart'
+    show mergePackageRootsForDirs, SummaryConfigException;
 
 /// TomSpecs analyzer-summary generator (OE-1 / B1).
 ///
@@ -43,11 +44,14 @@ import 'package:path/path.dart' as p;
 /// `tom_dart_editor_test`; see its `package_summary_uri_resolution.md`.)
 Future<void> main(List<String> arguments) async {
   final parser = ArgParser()
-    ..addOption('package',
+    ..addMultiOption('package',
         help: 'Target package directory whose resolved '
             '.dart_tool/package_config.json drives package coverage. '
-            'Run `flutter pub get` / `dart pub get` there first.',
-        defaultsTo: '.')
+            'Run `flutter pub get` / `dart pub get` there first. '
+            'Repeatable: the bundle covers the UNION of every given '
+            'package\'s dependency closure (e.g. the editor plus '
+            'tom_flutter_ui for the CodeSpecs Flutter code fields).',
+        defaultsTo: const ['.'])
     ..addOption('out-dir',
         help: 'Directory to write sdk_summary.sum + packages.sum into.',
         defaultsTo: p.join('assets', 'summaries'))
@@ -70,7 +74,10 @@ Future<void> main(List<String> arguments) async {
     io.exit(0);
   }
 
-  final packageDir = p.normalize(p.absolute(args.option('package')!));
+  final packageDirs = args
+      .multiOption('package')
+      .map((d) => p.normalize(p.absolute(d)))
+      .toList();
   final outDir = p.normalize(p.absolute(args.option('out-dir')!));
   final sdkOnly = args.flag('sdk-only');
 
@@ -95,28 +102,17 @@ Future<void> main(List<String> arguments) async {
   }
 
   // ── packages.sum ──────────────────────────────────────────────────────────
-  final packageConfigFile =
-      io.File(p.join(packageDir, '.dart_tool', 'package_config.json'));
-  if (!packageConfigFile.existsSync()) {
-    io.stderr.writeln('ERROR: ${packageConfigFile.path} not found — run '
-        '`flutter pub get` / `dart pub get` in $packageDir first.');
+  // Merge every given package's resolved config so the bundle covers the union
+  // of their dependency closures (e.g. the editor + tom_flutter_ui).
+  final Map<String, String> packageRoots;
+  try {
+    packageRoots = mergePackageRootsForDirs(packageDirs);
+  } on SummaryConfigException catch (e) {
+    io.stderr.writeln('ERROR: ${e.message}');
     io.exit(1);
   }
-  final packageConfig =
-      jsonDecode(packageConfigFile.readAsStringSync()) as Map<String, dynamic>;
-  final packageList = packageConfig['packages'] as List<dynamic>;
-
-  final packageRoots = <String, String>{};
-  for (final pkg in packageList) {
-    final pkgMap = pkg as Map<String, dynamic>;
-    final name = pkgMap['name'] as String;
-    // rootUri may be relative to the package_config.json location.
-    final rootUri = pkgMap['rootUri'] as String;
-    final resolved = Uri.parse(packageConfigFile.uri.toString())
-        .resolve(rootUri.endsWith('/') ? rootUri : '$rootUri/');
-    packageRoots[name] = resolved.toFilePath();
-  }
-  print('\nFound ${packageRoots.length} packages in $packageDir config');
+  print('\nFound ${packageRoots.length} packages across '
+      '${packageDirs.length} config(s): ${packageDirs.join(', ')}');
 
   final packages = Packages({
     for (final entry in packageRoots.entries)
