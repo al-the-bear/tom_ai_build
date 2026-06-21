@@ -8,6 +8,31 @@ import 'package:tom_doc_specs/src/validation/validation_error.dart';
 import 'package:tom_doc_specs/src/validation/validator.dart';
 
 void main() {
+  group('SectionTypeDef YAML round-trip', () {
+    test('min-count-in-document survives toYaml/fromYaml', () {
+      const def = SectionTypeDef(
+        name: 'stage',
+        prefix: 'stage',
+        minCountInDocument: 1,
+        maxCountInDocument: 5,
+      );
+      final yaml = def.toYaml();
+      expect(yaml['min-count-in-document'], 1);
+      expect(yaml['max-count-in-document'], 5);
+
+      final back = SectionTypeDef.fromYaml('stage', yaml);
+      expect(back.minCountInDocument, 1);
+      expect(back.maxCountInDocument, 5);
+    });
+
+    test('min-count-in-document is omitted when unset', () {
+      const def = SectionTypeDef(name: 'note', prefix: 'note');
+      expect(def.toYaml().containsKey('min-count-in-document'), isFalse);
+      expect(SectionTypeDef.fromYaml('note', def.toYaml()).minCountInDocument,
+          isNull);
+    });
+  });
+
   group('DocSpecsValidator', () {
     DocSpecSchema makeSchema({
       Map<String, SectionTypeDef>? sectionTypes,

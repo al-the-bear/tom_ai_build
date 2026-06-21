@@ -91,6 +91,9 @@ class SectionTypeDef {
   /// Max occurrences in entire document (null = unlimited).
   final int? maxCountInDocument;
 
+  /// Min occurrences required in entire document (null = no minimum).
+  final int? minCountInDocument;
+
   /// Max nesting depth (null = unlimited, 0 = no children).
   final int? maxSubsectionLevels;
 
@@ -132,6 +135,7 @@ class SectionTypeDef {
     required this.name,
     this.prefix,
     this.maxCountInDocument,
+    this.minCountInDocument,
     this.maxSubsectionLevels,
     this.subsectionTypes,
     this.patternCheckId,
@@ -201,6 +205,7 @@ class SectionTypeDef {
       name: name,
       prefix: prefix,
       maxCountInDocument: yaml['max-count-in-document'] as int?,
+      minCountInDocument: yaml['min-count-in-document'] as int?,
       maxSubsectionLevels: yaml['max-subsection-levels'] as int?,
       subsectionTypes: subsectionTypes,
       patternCheckId: patternCheckId,
@@ -222,6 +227,8 @@ class SectionTypeDef {
       if (prefix != null) 'prefix': prefix,
       if (maxCountInDocument != null)
         'max-count-in-document': maxCountInDocument,
+      if (minCountInDocument != null)
+        'min-count-in-document': minCountInDocument,
       if (maxSubsectionLevels != null)
         'max-subsection-levels': maxSubsectionLevels,
       if (subsectionTypes != null)

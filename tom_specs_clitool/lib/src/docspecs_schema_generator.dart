@@ -224,13 +224,21 @@ class _SchemaBuilder {
     final textRequired =
         format == null && (f.isString || f.isSectionType) ? true : null;
 
+    // List cardinality: @Min(n)/@Max(n) on the (patterned) list field map to the
+    // document-level min/max-count of the element section-type. They only apply
+    // to list fields, so single (non-pattern) fields never carry them.
+    final minCount = f.getAnnotation('Min')?.arguments['count'] as int?;
+    final maxCount = f.getAnnotation('Max')?.arguments['count'] as int?;
+
     _putSectionType(
       typeId,
       description: description,
       format: format,
       textRequired: textRequired,
-      // List-element (pattern) types are uncapped; single fields cap at 1.
-      maxCountInDocument: pattern != null ? null : 1,
+      minCountInDocument: minCount,
+      // List-element (pattern) types are uncapped unless @Max bounds them;
+      // single fields cap at 1.
+      maxCountInDocument: maxCount ?? (pattern != null ? null : 1),
     );
   }
 
@@ -240,6 +248,7 @@ class _SchemaBuilder {
     String? description,
     String? format,
     bool? textRequired,
+    int? minCountInDocument,
     int? maxCountInDocument,
   }) {
     final existing = _sectionTypes[id];
@@ -252,6 +261,7 @@ class _SchemaBuilder {
           : existing?.description,
       format: format ?? existing?.format,
       textRequired: textRequired ?? existing?.textRequired,
+      minCountInDocument: minCountInDocument ?? existing?.minCountInDocument,
       maxCountInDocument: maxCountInDocument ?? existing?.maxCountInDocument,
     );
   }

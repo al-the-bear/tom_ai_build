@@ -427,6 +427,33 @@ void main() {
       expect(errorsOf(errors, ValidationErrorCategory.countLimit), isEmpty);
     });
 
+    test('reports below min-count-in-document', () {
+      final schema = makeSchema(sectionTypes: {
+        'note': const SectionTypeDef(
+            name: 'note', prefix: 'note', minCountInDocument: 2),
+      });
+      final doc = makeDocument(sections: [
+        makeSection(id: 'note-001', type: 'note'),
+      ]);
+
+      final errors = DocSpecsValidator(schema: schema).validate(doc);
+      expect(errorsOf(errors, ValidationErrorCategory.countLimit), isNotEmpty);
+    });
+
+    test('passes when within min-count-in-document', () {
+      final schema = makeSchema(sectionTypes: {
+        'note': const SectionTypeDef(
+            name: 'note', prefix: 'note', minCountInDocument: 1),
+      });
+      final doc = makeDocument(sections: [
+        makeSection(id: 'note-001', type: 'note'),
+        makeSection(id: 'note-002', type: 'note', index: 1),
+      ]);
+
+      final errors = DocSpecsValidator(schema: schema).validate(doc);
+      expect(errorsOf(errors, ValidationErrorCategory.countLimit), isEmpty);
+    });
+
     test('reports exceeding subsection max-count', () {
       final schema = makeSchema(sectionTypes: {
         'project': SectionTypeDef(

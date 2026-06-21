@@ -419,18 +419,23 @@ class DocSpecsValidator {
       }
     }
 
-    // Check max-count-in-document
+    // Check max-count-in-document / min-count-in-document
     for (final entry in schema.sectionTypes.entries) {
       final typeDef = entry.value;
+      final count = typeCounts[entry.key] ?? 0;
       final maxCount = typeDef.maxCountInDocument;
-      if (maxCount != null) {
-        final count = typeCounts[entry.key] ?? 0;
-        if (count > maxCount) {
-          errors.add(ValidationError(
-            message: "Section type '${entry.key}' appears $count times, but max-count-in-document is $maxCount",
-            category: ValidationErrorCategory.countLimit,
-          ));
-        }
+      if (maxCount != null && count > maxCount) {
+        errors.add(ValidationError(
+          message: "Section type '${entry.key}' appears $count times, but max-count-in-document is $maxCount",
+          category: ValidationErrorCategory.countLimit,
+        ));
+      }
+      final minCount = typeDef.minCountInDocument;
+      if (minCount != null && count < minCount) {
+        errors.add(ValidationError(
+          message: "Section type '${entry.key}' appears $count times, but min-count-in-document is $minCount",
+          category: ValidationErrorCategory.countLimit,
+        ));
       }
     }
 

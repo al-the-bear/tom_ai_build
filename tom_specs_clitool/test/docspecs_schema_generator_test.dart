@@ -49,7 +49,11 @@ Map<String, ModelClass> _demoModel() {
         isList: true,
         listElementTypeName: 'Item',
         listElementIsComplex: true,
-        annotations: [_a('SectionIdPattern', {'pattern': 'D00-ITM'})],
+        annotations: [
+          _a('SectionIdPattern', {'pattern': 'D00-ITM'}),
+          _a('Min', {'count': 1}),
+          _a('Max', {'count': 4}),
+        ],
       ),
     ],
   );
@@ -100,16 +104,33 @@ void main() {
       expect(schema.sectionTypes['D00-ITM-ROW']!.prefix, 'd00_itm_row');
     });
 
-    test('prose sections are text-required and carry no format; list elements '
-        'are uncapped', () {
+    test('prose sections are text-required, carry no format, and cap at one; '
+        'list elements take their @Min/@Max cardinality', () {
       final schema = gen.generateFor('DemoDoc');
       final ovr = schema.sectionTypes['D00-OVR']!;
       expect(ovr.textRequired, isTrue);
       expect(ovr.format, isNull);
       expect(ovr.maxCountInDocument, 1);
+      // A single field has no document-level minimum.
+      expect(ovr.minCountInDocument, isNull);
       expect(ovr.description, 'What the system does and why.');
-      // Patterned list element type is not capped at one occurrence.
-      expect(schema.sectionTypes['D00-ITM']!.maxCountInDocument, isNull);
+      // The patterned list element type maps @Min(1)/@Max(4) onto the
+      // document-level min/max-count-in-document.
+      final itm = schema.sectionTypes['D00-ITM']!;
+      expect(itm.minCountInDocument, 1);
+      expect(itm.maxCountInDocument, 4);
+    });
+
+    test('a patterned list with no @Min/@Max stays uncapped', () {
+      // Re-build the model without cardinality annotations on the list.
+      final bare = _demoModel();
+      final items = bare['DemoDoc']!.fields
+          .firstWhere((f) => f.name == 'items');
+      items.annotations.removeWhere((a) => a.name == 'Min' || a.name == 'Max');
+      final schema = DocSpecsSchemaGenerator(bare).generateFor('DemoDoc');
+      final itm = schema.sectionTypes['D00-ITM']!;
+      expect(itm.minCountInDocument, isNull);
+      expect(itm.maxCountInDocument, isNull);
     });
 
     test('@Form fields become a form-type and the section format', () {
@@ -155,7 +176,9 @@ void main() {
       final reloaded = _writeAndReload(dir, schema);
 
       // A known-good export: prose sections whose IDs use the generated
-      // prefixes, in document order.
+      // prefixes, in document order. The items list carries @Min(1), so at
+      // least one d00_itm section must be present to satisfy
+      // min-count-in-document.
       final docPath = p.join(dir.path, 'known_good.md');
       File(docPath).writeAsStringSync('''
 <!-- docspec: ${reloaded.fullId} -->
@@ -167,6 +190,8 @@ The system streamlines onboarding for new tenants.
 ## [d00_det-001] Details
 
 Detailed behaviour, edge cases, and error handling are described here.
+
+## [d00_itm-001] First item
 ''');
 
       final factory = DocSpecsFactory(schema: reloaded);
