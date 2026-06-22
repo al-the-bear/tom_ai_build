@@ -109,6 +109,9 @@ class SpecField {
   final String? sectionType;
 
   // enum
+  /// The Dart enum type name backing an `enum` field (e.g. `Probability`), or
+  /// `null` for non-enum fields. Mirrors the exporter's `enumType` key.
+  final String? enumType;
   final List<String> enumValues;
 
   // complex / scalar
@@ -132,6 +135,7 @@ class SpecField {
     this.min,
     this.contentType,
     this.sectionType,
+    this.enumType,
     this.enumValues = const [],
     this.type,
     this.formFields = const [],
@@ -151,6 +155,7 @@ class SpecField {
       min: j['min'] as int?,
       contentType: j['contentType'] as String?,
       sectionType: j['sectionType'] as String?,
+      enumType: j['enumType'] as String?,
       enumValues:
           (j['enumValues'] as List?)?.map((e) => e.toString()).toList() ??
               const [],

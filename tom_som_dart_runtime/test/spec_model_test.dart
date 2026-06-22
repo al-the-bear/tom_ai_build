@@ -40,6 +40,14 @@ void main() {
       expect(vision.kind, SpecFieldKind.content);
       expect(vision.isExpandable, isFalse);
     });
+
+    test('an enum field carries its Dart enum type name and values', () {
+      final prob =
+          fixtureModel().classNamed('Risk')!.fieldNamed('probability')!;
+      expect(prob.kind, SpecFieldKind.enumValue);
+      expect(prob.enumType, 'Probability');
+      expect(prob.enumValues, <String>['low', 'medium', 'high']);
+    });
   });
 
   group('SpecAnnotation', () {

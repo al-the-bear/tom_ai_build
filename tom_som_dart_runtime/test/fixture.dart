@@ -85,6 +85,7 @@ Map<String, dynamic> fixtureJson() => {
               'name': 'probability',
               'kind': 'enum',
               'sectionId': 'prob',
+              'enumType': 'Probability',
               'enumValues': ['low', 'medium', 'high'],
             },
           ],

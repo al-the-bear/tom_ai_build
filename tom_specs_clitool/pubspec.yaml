@@ -19,6 +19,10 @@ dependencies:
   # unpublished sibling tooling (NOT a pubspec override of a published dep).
   tom_doc_specs:
     path: ../tom_doc_specs
+  # The generic SOM runtime the Dart emitter targets — the emitter drives its
+  # SpecModel and the generated code extends its SomNode/SomList facade base.
+  tom_som_dart_runtime:
+    path: ../tom_som_dart_runtime
 
 dev_dependencies:
   lints: ^6.0.0

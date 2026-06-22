@@ -10,11 +10,15 @@
 ///     ("reflection") loaded from the exported spec-model meta-data;
 ///   * [SpecReflection] — value-free enumeration and path resolution over a
 ///     [SpecModel];
-///   * [validateDocument] — checks a document's values against the model.
+///   * [validateDocument] — checks a document's values against the model;
+///   * [SomNode] / [SomList] / [SomScalar] / [checkSomModelVersion] — the
+///     hand-written support the generated `tom_som_dart_v0` typed facade
+///     extends (editing layer + instantiation-time version check).
 ///
 /// Pure Dart, no Flutter dependency.
 library;
 
+export 'src/som_facade.dart';
 export 'src/spec_document.dart';
 export 'src/spec_document_markdown.dart';
 export 'src/spec_document_yaml.dart';
