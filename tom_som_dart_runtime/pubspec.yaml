@@ -1,0 +1,19 @@
+name: tom_som_dart_runtime
+description: >-
+  TomSpecs Specification Object Model — generic Dart runtime. The
+  language-independent, hand-written runtime shared by every generated typed
+  `tom_som_dart_v0` facade and the TomSpecs editor: the path-keyed in-memory
+  document representation, the meta-model ("reflection") classes that load the
+  exported spec-model meta-data, and the document validator. Pure Dart, no
+  Flutter dependency.
+version: 0.1.0
+# Internal runtime consumed by path from sibling packages (the editor and the
+# generated typed projects); never published to pub.dev.
+publish_to: none
+
+environment:
+  sdk: ^3.11.4
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.25.6

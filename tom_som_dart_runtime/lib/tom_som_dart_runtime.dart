@@ -1,0 +1,22 @@
+/// TomSpecs Specification Object Model — generic Dart runtime.
+///
+/// The language-independent, hand-written runtime shared by every generated
+/// typed `tom_som_dart_v0` facade and the TomSpecs editor:
+///
+///   * [SpecDocument] / [SpecDocumentState] — the sparse, path-keyed in-memory
+///     representation of a concrete document and its undo snapshots;
+///   * [SpecModel] and friends ([SpecRoot], [SpecClass], [SpecField],
+///     [SpecAnnotation], [FormFieldSpec], [SpecFieldKind]) — the meta-model
+///     ("reflection") loaded from the exported spec-model meta-data;
+///   * [SpecReflection] — value-free enumeration and path resolution over a
+///     [SpecModel];
+///   * [validateDocument] — checks a document's values against the model.
+///
+/// Pure Dart, no Flutter dependency.
+library;
+
+export 'src/spec_document.dart';
+export 'src/spec_model.dart';
+export 'src/spec_paths.dart';
+export 'src/spec_reflection.dart';
+export 'src/spec_validator.dart';
