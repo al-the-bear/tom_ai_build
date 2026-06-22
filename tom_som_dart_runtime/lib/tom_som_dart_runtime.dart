@@ -16,6 +16,8 @@
 library;
 
 export 'src/spec_document.dart';
+export 'src/spec_document_markdown.dart';
+export 'src/spec_document_yaml.dart';
 export 'src/spec_model.dart';
 export 'src/spec_paths.dart';
 export 'src/spec_reflection.dart';
