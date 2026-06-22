@@ -1,0 +1,118 @@
+[
+  {
+    "op": "isEmpty",
+    "expect": true
+  },
+  {
+    "op": "setContent",
+    "path": "A/x",
+    "value": "hi"
+  },
+  {
+    "op": "content",
+    "path": "A/x",
+    "expect": "hi"
+  },
+  {
+    "op": "isEmpty",
+    "expect": false
+  },
+  {
+    "op": "setContent",
+    "path": "A/x",
+    "value": ""
+  },
+  {
+    "op": "content",
+    "path": "A/x",
+    "expect": null
+  },
+  {
+    "op": "isEmpty",
+    "expect": true
+  },
+  {
+    "op": "setFormField",
+    "path": "A/f",
+    "field": "k",
+    "value": "v"
+  },
+  {
+    "op": "formField",
+    "path": "A/f",
+    "field": "k",
+    "expect": "v"
+  },
+  {
+    "op": "setFormField",
+    "path": "A/f",
+    "field": "k",
+    "value": ""
+  },
+  {
+    "op": "formField",
+    "path": "A/f",
+    "field": "k",
+    "expect": null
+  },
+  {
+    "op": "addListItem",
+    "listPath": "A/l",
+    "expect": "A/l-1"
+  },
+  {
+    "op": "addListItem",
+    "listPath": "A/l",
+    "expect": "A/l-2"
+  },
+  {
+    "op": "setContent",
+    "path": "A/l-1/c",
+    "value": "one"
+  },
+  {
+    "op": "listItems",
+    "listPath": "A/l",
+    "expect": [
+      "A/l-1",
+      "A/l-2"
+    ]
+  },
+  {
+    "op": "listItemCount",
+    "listPath": "A/l",
+    "expect": 2
+  },
+  {
+    "op": "hasValuesUnder",
+    "prefix": "A/l-1",
+    "expect": true
+  },
+  {
+    "op": "removeListItem",
+    "itemPath": "A/l-1",
+    "expect": true
+  },
+  {
+    "op": "hasValuesUnder",
+    "prefix": "A/l-1",
+    "expect": false
+  },
+  {
+    "op": "listItems",
+    "listPath": "A/l",
+    "expect": [
+      "A/l-2"
+    ]
+  },
+  {
+    "op": "addListItem",
+    "listPath": "A/l",
+    "expect": "A/l-3"
+  },
+  {
+    "op": "removeListItem",
+    "itemPath": "A/l-9",
+    "expect": false
+  }
+]

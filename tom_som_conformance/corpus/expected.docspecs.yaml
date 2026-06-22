@@ -1,0 +1,41 @@
+# TomSpecs document (*.docspecs.yaml).
+# `document:` holds the object-model values, sorted by section id; text
+# values use block scalars so multi-line content round-trips verbatim (§15.1).
+version: 1
+modelVersion: "1.0"
+document:
+  content:
+    "DEMO/count": |2-
+      3
+    "DEMO/items-1/label": |2-
+      First
+    "DEMO/items-1/status": |2-
+      open
+    "DEMO/items-2/label": |2-
+      Second line A
+      with ```triple``` ticks
+    "DEMO/items-2/status": |2-
+      done
+    "DEMO/meta/owner": |2-
+      alice
+    "DEMO/priority": |2-
+      high
+    "DEMO/summary": |2-
+      Line one
+      Line two
+
+      Line four
+    "DEMO/title": |2-
+      Hello
+  forms:
+    "DEMO/details":
+      "contact": |2-
+        bob@example.com
+      "owner": |2-
+        Bob
+  lists:
+    "DEMO/items":
+      seq: 2
+      items:
+        - "DEMO/items-1"
+        - "DEMO/items-2"

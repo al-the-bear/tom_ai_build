@@ -1,0 +1,138 @@
+[
+  {
+    "path": "DEMO",
+    "resolves": true,
+    "kind": "root",
+    "field": null,
+    "targetClass": "Demo",
+    "isValueLeaf": false
+  },
+  {
+    "path": "DEMO/title",
+    "resolves": true,
+    "kind": "content",
+    "field": "title",
+    "targetClass": null,
+    "isValueLeaf": true
+  },
+  {
+    "path": "DEMO/summary",
+    "resolves": true,
+    "kind": "content",
+    "field": "summary",
+    "targetClass": null,
+    "isValueLeaf": true
+  },
+  {
+    "path": "DEMO/priority",
+    "resolves": true,
+    "kind": "enumValue",
+    "field": "priority",
+    "targetClass": null,
+    "isValueLeaf": true
+  },
+  {
+    "path": "DEMO/count",
+    "resolves": true,
+    "kind": "scalar",
+    "field": "count",
+    "targetClass": null,
+    "isValueLeaf": true
+  },
+  {
+    "path": "DEMO/details",
+    "resolves": true,
+    "kind": "form",
+    "field": "details",
+    "targetClass": null,
+    "isValueLeaf": false
+  },
+  {
+    "path": "DEMO/items",
+    "resolves": true,
+    "kind": "list",
+    "field": "items",
+    "targetClass": null,
+    "isValueLeaf": false
+  },
+  {
+    "path": "DEMO/items-1",
+    "resolves": true,
+    "kind": "listItemComplex",
+    "field": "items",
+    "targetClass": "Item",
+    "isValueLeaf": false
+  },
+  {
+    "path": "DEMO/items-1/label",
+    "resolves": true,
+    "kind": "content",
+    "field": "label",
+    "targetClass": null,
+    "isValueLeaf": true
+  },
+  {
+    "path": "DEMO/items-1/status",
+    "resolves": true,
+    "kind": "enumValue",
+    "field": "status",
+    "targetClass": null,
+    "isValueLeaf": true
+  },
+  {
+    "path": "DEMO/meta",
+    "resolves": true,
+    "kind": "complex",
+    "field": "meta",
+    "targetClass": "Meta",
+    "isValueLeaf": false
+  },
+  {
+    "path": "DEMO/meta/owner",
+    "resolves": true,
+    "kind": "content",
+    "field": "owner",
+    "targetClass": null,
+    "isValueLeaf": true
+  },
+  {
+    "path": "DEMO/meta/tags",
+    "resolves": true,
+    "kind": "list",
+    "field": "tags",
+    "targetClass": null,
+    "isValueLeaf": false
+  },
+  {
+    "path": "DEMO/meta/tags-1",
+    "resolves": true,
+    "kind": "listItemScalar",
+    "field": "tags",
+    "targetClass": null,
+    "isValueLeaf": true
+  },
+  {
+    "path": "DEMO/ghost",
+    "resolves": false,
+    "kind": null,
+    "field": null,
+    "targetClass": null,
+    "isValueLeaf": false
+  },
+  {
+    "path": "DEMO/items-1/ghost",
+    "resolves": false,
+    "kind": null,
+    "field": null,
+    "targetClass": null,
+    "isValueLeaf": false
+  },
+  {
+    "path": "WRONG",
+    "resolves": false,
+    "kind": null,
+    "field": null,
+    "targetClass": null,
+    "isValueLeaf": false
+  }
+]

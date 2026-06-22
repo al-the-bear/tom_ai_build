@@ -1,0 +1,97 @@
+[
+  {
+    "name": "valid",
+    "state": {
+      "content": {
+        "DEMO/count": "3",
+        "DEMO/items-1/label": "First",
+        "DEMO/items-1/status": "open",
+        "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+        "DEMO/items-2/status": "done",
+        "DEMO/meta/owner": "alice",
+        "DEMO/priority": "high",
+        "DEMO/summary": "Line one\nLine two\n\nLine four",
+        "DEMO/title": "Hello"
+      },
+      "forms": {
+        "DEMO/details": {
+          "contact": "bob@example.com",
+          "owner": "Bob"
+        }
+      },
+      "lists": {
+        "DEMO/items": {
+          "seq": 2,
+          "items": [
+            "DEMO/items-1",
+            "DEMO/items-2"
+          ]
+        }
+      }
+    },
+    "errors": []
+  },
+  {
+    "name": "dangling",
+    "state": {
+      "content": {
+        "DEMO/ghost": "x"
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/ghost",
+        "code": "danglingPath"
+      }
+    ]
+  },
+  {
+    "name": "kindMismatch",
+    "state": {
+      "content": {
+        "DEMO/items": "x"
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/items",
+        "code": "kindMismatch"
+      }
+    ]
+  },
+  {
+    "name": "unknownFormField",
+    "state": {
+      "forms": {
+        "DEMO/details": {
+          "bogus": "v"
+        }
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/details",
+        "code": "unknownFormField"
+      }
+    ]
+  },
+  {
+    "name": "minItems",
+    "state": {
+      "lists": {
+        "DEMO/items": {
+          "seq": 1,
+          "items": [
+            "DEMO/items-1"
+          ]
+        }
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/items",
+        "code": "minItems"
+      }
+    ]
+  }
+]

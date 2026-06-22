@@ -1,0 +1,129 @@
+{
+  "metaSchemaVersion": 1,
+  "modelVersion": 1,
+  "modelVersionLabel": "demo-1.0",
+  "roots": [
+    {
+      "type": "Demo",
+      "title": "Demo Document",
+      "sectionId": "DEMO",
+      "description": "A compact conformance fixture."
+    }
+  ],
+  "classes": {
+    "Demo": {
+      "name": "Demo",
+      "sectionId": "DEMO",
+      "annotations": [
+        {
+          "name": "Document",
+          "arguments": {
+            "title": "Demo Document"
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "DEMO"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "title",
+          "kind": "content",
+          "contentType": "text"
+        },
+        {
+          "name": "summary",
+          "kind": "content",
+          "contentType": "markdown"
+        },
+        {
+          "name": "priority",
+          "kind": "enum",
+          "enumType": "Priority",
+          "enumValues": [
+            "low",
+            "high"
+          ]
+        },
+        {
+          "name": "count",
+          "kind": "scalar",
+          "type": "int"
+        },
+        {
+          "name": "details",
+          "kind": "form",
+          "formFields": [
+            {
+              "name": "owner",
+              "label": "Owner",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "contact",
+              "label": "Contact",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "items",
+          "kind": "list",
+          "elementType": "Item",
+          "elementIsComplex": true,
+          "min": 2,
+          "annotations": [
+            {
+              "name": "Min",
+              "arguments": {
+                "value": 2
+              }
+            }
+          ]
+        },
+        {
+          "name": "meta",
+          "kind": "complex",
+          "type": "Meta"
+        }
+      ]
+    },
+    "Item": {
+      "name": "Item",
+      "fields": [
+        {
+          "name": "label",
+          "kind": "content"
+        },
+        {
+          "name": "status",
+          "kind": "enum",
+          "enumType": "Status",
+          "enumValues": [
+            "open",
+            "done"
+          ]
+        }
+      ]
+    },
+    "Meta": {
+      "name": "Meta",
+      "fields": [
+        {
+          "name": "owner",
+          "kind": "content"
+        },
+        {
+          "name": "tags",
+          "kind": "list",
+          "elementType": "String",
+          "elementIsComplex": false
+        }
+      ]
+    }
+  }
+}

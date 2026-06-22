@@ -1,0 +1,28 @@
+{
+  "content": {
+    "DEMO/count": "3",
+    "DEMO/items-1/label": "First",
+    "DEMO/items-1/status": "open",
+    "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+    "DEMO/items-2/status": "done",
+    "DEMO/meta/owner": "alice",
+    "DEMO/priority": "high",
+    "DEMO/summary": "Line one\nLine two\n\nLine four",
+    "DEMO/title": "Hello"
+  },
+  "forms": {
+    "DEMO/details": {
+      "contact": "bob@example.com",
+      "owner": "Bob"
+    }
+  },
+  "lists": {
+    "DEMO/items": {
+      "seq": 2,
+      "items": [
+        "DEMO/items-1",
+        "DEMO/items-2"
+      ]
+    }
+  }
+}
