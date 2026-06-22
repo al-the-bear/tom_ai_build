@@ -1,0 +1,15 @@
+# Spec Object Model (SOM) generator configuration.
+#
+# Read by `bin/generate_som.dart` (see `doc/spec_object_model_config.md`).
+# `output-base` is resolved **relative to this file's directory**, so `..`
+# places the generated projects as siblings of `tom_specs_clitool` under
+# `tom_ai/ai_build/` — e.g. `tom_ai/ai_build/tom_som_dart_v0`.
+#
+# Phase B ships the Dart reference implementation only; the remaining eight
+# languages (Phase C) are added to `languages:` as their emitters land.
+tom-spec-object-model:
+  version-label: v0
+  output-base: ..
+  languages:
+    - dart
+  # document-roots: omitted ⇒ generate every document root (all 13).
