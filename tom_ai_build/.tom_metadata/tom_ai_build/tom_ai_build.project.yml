@@ -1,8 +1,0 @@
-# Project: Tom Ai Build
-name: tom_ai_build
-displayName: Tom Ai Build
-type: dart_console
-description: "AI-powered build and code generation tools."
-parts:
-  - bin
-  - lib
