@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:path/path.dart' as p;
@@ -801,6 +802,165 @@ void main() {
       ).export();
       expect(json['modelVersion'], 3);
       expect(json['modelVersionLabel'], '1.0.0+3.abc1234');
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // Step 1 (multiplatform_spec_model_plan §A.1): lossless annotations[] export.
+  // The exporter must carry EVERY annotation ModelReader captured — name + full
+  // argument set — on both classes and fields, alongside the curated render
+  // keys, so the generic runtime's meta-model loader (plan §B.3) is lossless.
+  // ---------------------------------------------------------------------------
+  group('unit: ModelJsonExporter lossless annotations[] (step 1)', () {
+    test('emits a lossless annotations[] block on classes and fields', () {
+      final classes = <String, ModelClass>{
+        'Doc': _cls('Doc', [
+          AnnotationData('SectionId', {'id': 'DC00'}),
+          AnnotationData('MapsTo', {'documentClass': 'BusinessDataModel'}),
+          AnnotationData('ContentHelp', {'guidance': 'help text'}),
+        ], [
+          ModelField(
+            name: 'count',
+            typeName: 'int',
+            annotations: [
+              AnnotationData('Min', {'count': 2}),
+              AnnotationData('Max', {'value': 100}),
+              AnnotationData('PatternCheck', {'pattern': r'\d+'}),
+              AnnotationData('ContentType', {'type': 'number'}),
+            ],
+          ),
+        ]),
+      };
+      final json = ModelJsonExporter(classes).export();
+      final doc = (json['classes'] as Map)['Doc'] as Map;
+
+      // Class-level: every annotation present with its arguments intact.
+      final classAnnos = (doc['annotations'] as List).cast<Map>();
+      final classByName = {for (final a in classAnnos) a['name'] as String: a};
+      expect(
+        classByName.keys,
+        containsAll(['SectionId', 'MapsTo', 'ContentHelp']),
+      );
+      expect((classByName['MapsTo']!['arguments'] as Map)['documentClass'],
+          'BusinessDataModel');
+      expect((classByName['SectionId']!['arguments'] as Map)['id'], 'DC00');
+
+      // Field-level: @Min/@Max/@PatternCheck/@ContentType round-trip in full.
+      final field = (doc['fields'] as List)
+          .cast<Map>()
+          .firstWhere((f) => f['name'] == 'count');
+      final fieldAnnos = (field['annotations'] as List).cast<Map>();
+      final fieldByName = {for (final a in fieldAnnos) a['name'] as String: a};
+      expect(
+        fieldByName.keys,
+        containsAll(['Min', 'Max', 'PatternCheck', 'ContentType']),
+      );
+      expect((fieldByName['Min']!['arguments'] as Map)['count'], 2);
+      expect((fieldByName['Max']!['arguments'] as Map)['value'], 100);
+      expect((fieldByName['PatternCheck']!['arguments'] as Map)['pattern'],
+          r'\d+');
+      expect((fieldByName['ContentType']!['arguments'] as Map)['type'],
+          'number');
+
+      // The whole export must stay JSON-serializable.
+      expect(() => jsonEncode(json), returnsNormally);
+    });
+
+    test('the annotations[] block drops no annotation the reader captured', () {
+      final classAnnos = [
+        AnnotationData('SectionId', {'id': 'DC00'}),
+        AnnotationData('Document', {'name': 'Doc'}),
+        AnnotationData(
+            'DetailedIn', {'documentClass': 'TechnicalRequirementsSpec'}),
+      ];
+      final fieldAnnos = [
+        AnnotationData('Min', {'count': 1}),
+        AnnotationData('ContentType', {'type': 'text'}),
+        AnnotationData('SectionId', {'id': 'DC00-F'}),
+      ];
+      final classes = <String, ModelClass>{
+        'Doc': _cls('Doc', classAnnos, [
+          ModelField(name: 'f', typeName: 'String', annotations: fieldAnnos),
+        ]),
+      };
+      final json = ModelJsonExporter(classes).export();
+      final doc = (json['classes'] as Map)['Doc'] as Map;
+
+      final exportedClassNames = (doc['annotations'] as List)
+          .cast<Map>()
+          .map((a) => a['name'])
+          .toSet();
+      expect(exportedClassNames, classAnnos.map((a) => a.name).toSet());
+
+      final field = (doc['fields'] as List).cast<Map>().single;
+      final exportedFieldNames = (field['annotations'] as List)
+          .cast<Map>()
+          .map((a) => a['name'])
+          .toSet();
+      expect(exportedFieldNames, fieldAnnos.map((a) => a.name).toSet());
+    });
+
+    test('preserves source declaration order of annotations (stable block)', () {
+      final ordered = [
+        AnnotationData('SectionId', {'id': 'DC00'}),
+        AnnotationData('MapsTo', {'documentClass': 'D'}),
+        AnnotationData('DetailedIn', {'documentClass': 'D'}),
+      ];
+      final classes = <String, ModelClass>{
+        'Doc': _cls('Doc', ordered),
+      };
+      final json = ModelJsonExporter(classes).export();
+      final doc = (json['classes'] as Map)['Doc'] as Map;
+      final names = (doc['annotations'] as List)
+          .cast<Map>()
+          .map((a) => a['name'])
+          .toList();
+      expect(names, ['SectionId', 'MapsTo', 'DetailedIn']);
+    });
+
+    test('omits the annotations key for a class/field with no annotations', () {
+      final classes = <String, ModelClass>{
+        'Bare': _cls('Bare', const [], [
+          ModelField(name: 'f', typeName: 'String'),
+        ]),
+      };
+      final json = ModelJsonExporter(classes).export();
+      final bare = (json['classes'] as Map)['Bare'] as Map;
+      expect(bare.containsKey('annotations'), isFalse);
+      final field = (bare['fields'] as List).cast<Map>().single;
+      expect(field.containsKey('annotations'), isFalse);
+    });
+
+    test('@Form field hints survive the export (formFields + annotations)', () {
+      final classes = <String, ModelClass>{
+        'Doc': _cls('Doc', [AnnotationData('SectionId', {'id': 'DC00'})], [
+          ModelField(
+            name: 'header',
+            typeName: 'TextSection',
+            annotations: [AnnotationData('Form', {})],
+            formFields: [
+              FormFieldInfo(
+                name: 'title',
+                typeName: 'String',
+                description: 'Title',
+                required: true,
+                hint: 'keep it short',
+              ),
+            ],
+          ),
+        ]),
+      };
+      final json = ModelJsonExporter(classes).export();
+      final doc = (json['classes'] as Map)['Doc'] as Map;
+      final field = (doc['fields'] as List).cast<Map>().single;
+      // Form hint round-trips via the curated formFields block …
+      expect(field['kind'], 'form');
+      final ff = (field['formFields'] as List).cast<Map>().single;
+      expect(ff['hint'], 'keep it short');
+      // … and the @Form annotation itself is present in the lossless block.
+      final names =
+          (field['annotations'] as List).cast<Map>().map((a) => a['name']);
+      expect(names, contains('Form'));
     });
   });
 

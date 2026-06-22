@@ -84,6 +84,8 @@ class ModelJsonExporter {
         'mapsTo': cls.getAnnotation('MapsTo')!.arguments['documentClass'],
       if (cls.getAnnotation('DetailedIn') != null)
         'detailedIn': cls.getAnnotation('DetailedIn')!.arguments['documentClass'],
+      if (cls.annotations.isNotEmpty)
+        'annotations': _exportAnnotations(cls.annotations),
       'fields': cls.fields.map(_exportField).toList(),
     };
   }
@@ -103,6 +105,10 @@ class ModelJsonExporter {
     final pattern =
         f.getAnnotation('SectionIdPattern')?.arguments['pattern'] as String?;
     if (pattern != null) out['sectionIdPattern'] = pattern;
+
+    if (f.annotations.isNotEmpty) {
+      out['annotations'] = _exportAnnotations(f.annotations);
+    }
 
     switch (out['kind']) {
       case 'list':
@@ -179,6 +185,24 @@ class ModelJsonExporter {
         typeName.endsWith('?') ? typeName.substring(0, typeName.length - 1) : typeName;
     return _primitiveTypes.contains(base);
   }
+
+  /// Emits the full, lossless annotation list for a class or field: **every**
+  /// annotation [ModelReader] captured, each as `{name, arguments}` with its
+  /// resolved argument map intact (plan §A.1 / spec §3.1). The curated keys
+  /// above (`sectionId`, `mapsTo`, `min`, `contentType`, …) are a redundant
+  /// projection of this same data, kept for existing consumers (the editor
+  /// tree); this block is the lossless source the generic runtime's meta-model
+  /// loader (plan §B.3) reads. Source declaration order is preserved so the
+  /// output is stable across runs. The argument values are the analyzer's
+  /// resolved constants (String/int/double/bool/Type-name/List), so the block
+  /// stays JSON-serializable.
+  List<Map<String, Object?>> _exportAnnotations(List<AnnotationData> annos) =>
+      annos
+          .map((a) => <String, Object?>{
+                'name': a.name,
+                if (a.arguments.isNotEmpty) 'arguments': a.arguments,
+              })
+          .toList();
 
   String? _sectionId(ModelClass cls) =>
       cls.getAnnotation('SectionId')?.arguments['id'] as String?;
