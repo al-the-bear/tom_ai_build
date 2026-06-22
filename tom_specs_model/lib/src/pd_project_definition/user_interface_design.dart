@@ -5048,7 +5048,7 @@ class WcagCompliance {
   @Form([
     Field('textAlternatives', String, 'Text Alternatives (1.1)',
         hint: 'Alt text for non-text content'),
-    Field('timeBased Media', String, 'Time-Based Media (1.2)',
+    Field('timeBasedMedia', String, 'Time-Based Media (1.2)',
         hint: 'Captions, audio descriptions'),
     Field('adaptableContent', String, 'Adaptable Content (1.3)',
         hint: 'Structure, sequence, sensory'),

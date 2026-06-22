@@ -99,6 +99,71 @@ Map<String, dynamic> _fixtureJson() => {
 
 SpecModel _fixtureModel() => SpecModel.fromJson(_fixtureJson());
 
+/// A spec-model where two distinct (class, form-field) pairs derive the same
+/// generated form-class name (`<class><Pascal(field)>Form`):
+///   - `MigrationRisks.governanceContent` → `MigrationRisksGovernanceContentForm`
+///   - `MigrationRisksGovernance.content`  → `MigrationRisksGovernanceContentForm`
+/// The emitter must disambiguate so the generated library has no duplicate
+/// class declarations.
+Map<String, dynamic> _formCollisionJson() => {
+      'modelVersion': 0,
+      'roots': [
+        {
+          'type': 'Root',
+          'title': 'Root',
+          'sectionId': 'ROOT',
+        },
+      ],
+      'classes': {
+        'Root': {
+          'name': 'Root',
+          'sectionId': 'ROOT',
+          'fields': [
+            {
+              'name': 'a',
+              'kind': 'complex',
+              'sectionId': 'a',
+              'type': 'MigrationRisks',
+            },
+            {
+              'name': 'b',
+              'kind': 'complex',
+              'sectionId': 'b',
+              'type': 'MigrationRisksGovernance',
+            },
+          ],
+        },
+        'MigrationRisks': {
+          'name': 'MigrationRisks',
+          'sectionId': 'MR00',
+          'fields': [
+            {
+              'name': 'governanceContent',
+              'kind': 'form',
+              'sectionId': 'gc',
+              'formFields': [
+                {'name': 'model', 'label': 'Model', 'type': 'String'},
+              ],
+            },
+          ],
+        },
+        'MigrationRisksGovernance': {
+          'name': 'MigrationRisksGovernance',
+          'sectionId': 'MRG0',
+          'fields': [
+            {
+              'name': 'content',
+              'kind': 'form',
+              'sectionId': 'c',
+              'formFields': [
+                {'name': 'escalation', 'label': 'Escalation', 'type': 'String'},
+              ],
+            },
+          ],
+        },
+      },
+    };
+
 void main() {
   final goldenPath = p.join(Directory.current.path, 'test', 'golden',
       'som_dart_v0_fixture.dart.golden');
@@ -184,6 +249,33 @@ dependencies:
     test('v1 label yields major 1', () {
       final emitter = SomDartEmitter(_fixtureModel(), versionLabel: 'v1');
       expect(emitter.modelVersionString, '1.0');
+    });
+
+    test('colliding form-class names are disambiguated (no duplicates)', () {
+      final source =
+          SomDartEmitter(SpecModel.fromJson(_formCollisionJson()))
+              .generateLibrary();
+      // Collect every emitted class declaration name.
+      final decls = RegExp(r'^class (\w+) extends SomNode', multiLine: true)
+          .allMatches(source)
+          .map((m) => m.group(1)!)
+          .toList();
+      final seen = <String>{};
+      final dupes = <String>[];
+      for (final name in decls) {
+        if (!seen.add(name)) dupes.add(name);
+      }
+      expect(dupes, isEmpty,
+          reason: 'duplicate class declarations: $dupes');
+      // The base name is used once; the colliding one gets a numeric suffix.
+      expect(source, contains('class MigrationRisksGovernanceContentForm '));
+      expect(source, contains('class MigrationRisksGovernanceContentForm2 '));
+      // Each form getter references a declared form class (no dangling type).
+      for (final m in RegExp(r'(\w+Form) get \w+ =>').allMatches(source)) {
+        final typeName = m.group(1)!;
+        expect(decls, contains(typeName),
+            reason: 'getter references undeclared form class $typeName');
+      }
     });
 
     test('documentRoots subsets the generated classes', () {

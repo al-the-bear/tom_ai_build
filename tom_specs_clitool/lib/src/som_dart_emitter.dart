@@ -55,8 +55,26 @@ class SomDartEmitter {
     return model.roots.where((r) => wanted.contains(r.type)).toList();
   }
 
+  /// Generated form-class names allocated so far in the current
+  /// [generateLibrary] run, used to keep them globally unique (two distinct
+  /// `(class, form-field)` pairs can derive the same base name). Reset at the
+  /// start of every run so output stays deterministic.
+  final Set<String> _usedFormNames = {};
+
+  /// Returns a unique form-class name for [base], appending the smallest
+  /// numeric suffix (`2`, `3`, …) that is not yet taken when [base] collides.
+  String _allocFormName(String base) {
+    if (_usedFormNames.add(base)) return base;
+    var n = 2;
+    while (!_usedFormNames.add('$base$n')) {
+      n++;
+    }
+    return '$base$n';
+  }
+
   /// Builds the complete generated library as a single source string.
   String generateLibrary() {
+    _usedFormNames.clear();
     final rootTypes = _selectedRoots.map((r) => r.type).toSet();
     final reachable = _reachableClasses(rootTypes);
     final enums = _reachableEnums(reachable);
@@ -268,7 +286,7 @@ class SomDartEmitter {
         }
         break;
       case SpecFieldKind.form:
-        final formName = '${cls.name}${_pascal(f.name)}Form';
+        final formName = _allocFormName('${cls.name}${_pascal(f.name)}Form');
         collectForm(_FormClass(formName, _emitFormClass(formName, f)));
         b.writeln('  $formName get ${f.name} => $formName(doc, $childPath);');
         break;
