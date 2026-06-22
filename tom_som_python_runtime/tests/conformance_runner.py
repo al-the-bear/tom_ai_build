@@ -164,6 +164,24 @@ def test_markdown_round_trip(model: SpecModel) -> None:
            _byte_diff("md.parse.reexport", actual, expected))
 
 
+def test_markdown_memory_landing(model: SpecModel) -> None:
+    """Plan item #9: the Markdown route must land a fixture document in the
+    *same* shared memory representation as the YAML route — parsing
+    ``expected.md`` and applying it must reproduce ``state.json`` exactly (§4.1
+    "both routes land in the same memory representation")."""
+    expected_md = _read("expected.md")
+    canonical = _read_json("state.json")
+    result = SpecDocumentMarkdown(model, SpecDocument()).parse(expected_md)
+    _check("md.land.clean", result.is_clean,
+           "; ".join(str(r) for r in result.rejections))
+    landed = SpecDocument()
+    landed.load_json(
+        {"content": result.content, "forms": result.forms, "lists": result.lists}
+    )
+    _check("md.land.memory", landed.to_json() == canonical,
+           _json_mismatch(landed.to_json(), canonical))
+
+
 def test_reflection(model: SpecModel) -> None:
     refl = SpecReflection(model)
     for case in _read_json("reflection_cases.json"):
@@ -244,6 +262,7 @@ def main() -> int:
     test_yaml_decode_round_trip()
     test_markdown_export(model)
     test_markdown_round_trip(model)
+    test_markdown_memory_landing(model)
     test_reflection(model)
     test_validation(model)
     test_operations()

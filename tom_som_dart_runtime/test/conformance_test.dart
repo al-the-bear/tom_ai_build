@@ -108,6 +108,27 @@ void main() {
         golden);
   });
 
+  // Plan item #9: the Markdown route must land a fixture document in the *same*
+  // shared memory representation as the canonical state — not merely re-export
+  // byte-stably. Parsing `expected.md` and applying it must reproduce
+  // `state.json` (the YAML-route memory) exactly, proving both formats converge
+  // on one in-memory document (§4.1 "both routes land in the same memory
+  // representation"). Every language port asserts the same against this corpus.
+  test('Markdown route lands in the shared memory representation', () {
+    final golden = read('expected.md');
+    final canonical = jsonDecode(read('state.json')) as Map<String, dynamic>;
+    final parsed = SpecDocumentMarkdown(model, doc).parse(golden);
+    expect(parsed.rejections, isEmpty, reason: parsed.rejections.join('\n'));
+    final landed = SpecDocument()
+      ..loadJson({
+        'content': parsed.content,
+        'forms': parsed.forms,
+        'lists': parsed.lists,
+      });
+    expect(landed.toJson(), canonical,
+        reason: 'Markdown→memory must equal the canonical state.json memory');
+  });
+
   test('reflection cases match the committed expectations', () {
     final cases = jsonDecode(read('reflection_cases.json')) as List;
     final refl = SpecReflection(model);
