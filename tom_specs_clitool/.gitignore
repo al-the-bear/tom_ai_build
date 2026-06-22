@@ -4,3 +4,6 @@
 
 # Generated SDK summary (regeneratable from SDK)
 assets/sdk_summary.sum
+
+# testkit baselines + raw run output (regeneratable from `testkit :test`)
+testlog/

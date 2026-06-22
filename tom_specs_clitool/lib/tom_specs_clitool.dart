@@ -17,6 +17,12 @@ export 'src/spec_model_meta_validator.dart'
         validateSpecModelMeta,
         specModelMetaSchemaVersion,
         requiredSpecModelMetaKeys;
+export 'src/spec_object_model_config.dart'
+    show
+        SpecObjectModelConfig,
+        SpecObjectModelConfigException,
+        SomLanguage,
+        SomLanguageTarget;
 export 'src/spec_ops_generator.dart' show SpecOpsGenerator;
 export 'src/docspecs_schema_generator.dart' show DocSpecsSchemaGenerator;
 export 'src/outline_writer.dart' show OutlineWriter;

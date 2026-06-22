@@ -14,6 +14,7 @@ dependencies:
   path: ^1.9.0
   pub_semver: ^2.2.0
   json2yaml: ^3.0.1
+  yaml: ^3.1.2
   # publish_to: none package — consumed by path per the workspace convention for
   # unpublished sibling tooling (NOT a pubspec override of a published dep).
   tom_doc_specs:
