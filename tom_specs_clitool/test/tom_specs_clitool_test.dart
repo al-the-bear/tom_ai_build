@@ -964,6 +964,85 @@ void main() {
     });
   });
 
+  // ---------------------------------------------------------------------------
+  // Step 2 (multiplatform_spec_model_plan §A.2): meta-data schema + version
+  // stamp. The exporter stamps the meta-data file with `metaSchemaVersion`
+  // (the file's own on-disk schema version) beside `modelVersion` /
+  // `modelVersionLabel`; `validateSpecModelMeta` rejects a meta-data map that
+  // is missing required keys or carries an unreadable schema version.
+  // ---------------------------------------------------------------------------
+  group('unit: meta-data schema + version stamp (step 2)', () {
+    Map<String, Object?> sampleMeta() {
+      final classes = <String, ModelClass>{
+        'Doc': _cls('Doc', [
+          AnnotationData('Document', {'name': 'Doc'}),
+          AnnotationData('SectionId', {'id': 'DC00'}),
+        ], [
+          ModelField(name: 'content', typeName: 'String'),
+        ]),
+      };
+      return ModelJsonExporter(
+        classes,
+        modelVersion: 7,
+        modelVersionLabel: 'v0.7',
+      ).export();
+    }
+
+    test('export() stamps the meta-data with metaSchemaVersion', () {
+      final meta = sampleMeta();
+      expect(meta['metaSchemaVersion'], specModelMetaSchemaVersion);
+      expect(meta['metaSchemaVersion'], isA<int>());
+      // The model-version stamp travels beside it untouched.
+      expect(meta['modelVersion'], 7);
+      expect(meta['modelVersionLabel'], 'v0.7');
+    });
+
+    test('validateSpecModelMeta accepts a freshly exported meta-data map', () {
+      expect(validateSpecModelMeta(sampleMeta()), isEmpty);
+    });
+
+    test('validateSpecModelMeta rejects meta-data missing required keys', () {
+      for (final key in const [
+        'metaSchemaVersion',
+        'modelVersion',
+        'generatedAt',
+        'classCount',
+        'rootCount',
+        'roots',
+        'classes',
+      ]) {
+        final meta = sampleMeta()..remove(key);
+        final errors = validateSpecModelMeta(meta);
+        expect(errors, isNotEmpty,
+            reason: 'removing "$key" must produce an error');
+        expect(errors.join('\n'), contains(key),
+            reason: 'the error must name the missing key "$key"');
+      }
+    });
+
+    test('validateSpecModelMeta rejects a non-object root', () {
+      expect(validateSpecModelMeta('not a map'), isNotEmpty);
+      expect(validateSpecModelMeta(<Object?>[]), isNotEmpty);
+    });
+
+    test('validateSpecModelMeta rejects a meta-schema newer than supported', () {
+      final meta = sampleMeta()
+        ..['metaSchemaVersion'] = specModelMetaSchemaVersion + 1;
+      final errors = validateSpecModelMeta(meta);
+      expect(errors, isNotEmpty);
+      expect(errors.join('\n'), contains('metaSchemaVersion'));
+    });
+
+    test('validateSpecModelMeta rejects wrong-typed required values', () {
+      final meta = sampleMeta()..['classes'] = 'should be a map';
+      expect(validateSpecModelMeta(meta), isNotEmpty);
+      final meta2 = sampleMeta()..['roots'] = 'should be a list';
+      expect(validateSpecModelMeta(meta2), isNotEmpty);
+      final meta3 = sampleMeta()..['modelVersion'] = 'should be an int';
+      expect(validateSpecModelMeta(meta3), isNotEmpty);
+    });
+  });
+
   group('unit: SpecOpsGenerator (OE-2)', () {
     test('emits an idempotent registry with the section content leaves', () {
       final src = SpecOpsGenerator(const <String, ModelClass>{}).generate();

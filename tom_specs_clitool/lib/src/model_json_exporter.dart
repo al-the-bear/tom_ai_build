@@ -1,4 +1,5 @@
 import 'model_reader.dart';
+import 'spec_model_meta_validator.dart';
 
 /// Serializes the resolved [ModelClass] graph into a JSON-ready map that a
 /// UI (e.g. the tom_specs_editor Flutter app) can expand lazily into a tree.
@@ -58,6 +59,9 @@ class ModelJsonExporter {
 
     return {
       'generatedAt': DateTime.now().toUtc().toIso8601String(),
+      // The file format's own version, distinct from `modelVersion` (which
+      // model version this was generated against). See [specModelMetaSchemaVersion].
+      'metaSchemaVersion': specModelMetaSchemaVersion,
       'modelVersion': modelVersion,
       if (modelVersionLabel != null) 'modelVersionLabel': modelVersionLabel,
       'classCount': classes.length,

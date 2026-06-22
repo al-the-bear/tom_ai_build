@@ -12,6 +12,11 @@ export 'src/model_reader.dart'
         FormFieldInfo,
         findContainerRoot;
 export 'src/model_json_exporter.dart' show ModelJsonExporter;
+export 'src/spec_model_meta_validator.dart'
+    show
+        validateSpecModelMeta,
+        specModelMetaSchemaVersion,
+        requiredSpecModelMetaKeys;
 export 'src/spec_ops_generator.dart' show SpecOpsGenerator;
 export 'src/docspecs_schema_generator.dart' show DocSpecsSchemaGenerator;
 export 'src/outline_writer.dart' show OutlineWriter;
