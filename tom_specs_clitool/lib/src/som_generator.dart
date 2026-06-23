@@ -195,6 +195,12 @@ environment:
 dependencies:
   tom_som_dart_runtime:
     path: ${runtimeRel.replaceAll(r'\\', '/')}
+
+dev_dependencies:
+  # So the hand-authored `test/` suite (preserved across regeneration — the
+  # generator only rewrites lib/, meta/, schemas/ and this pubspec) resolves
+  # under `dart test`. The typed facade itself carries no test-time code.
+  test: ^1.25.6
 ''';
 
 const String _analysisOptions = '''
