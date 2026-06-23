@@ -3,10 +3,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tom_specs_editor/src/model/review_store.dart';
-import 'package:tom_specs_editor/src/model/spec_model.dart';
-import 'package:tom_specs_editor/src/ui/spec_tree.dart';
-import 'package:tom_specs_editor/src/ui/start_page.dart';
+import 'package:tom_specs_reviewer/src/model/review_store.dart';
+import 'package:tom_specs_reviewer/src/model/spec_model.dart';
+import 'package:tom_specs_reviewer/src/ui/spec_tree.dart';
+import 'package:tom_specs_reviewer/src/ui/start_page.dart';
 
 /// A minimal hand-built model covering each render kind, so tests don't depend
 /// on the multi-megabyte generated asset.
@@ -104,7 +104,7 @@ SpecModel _handoffModel() =>
 
 File _tempReviewFile(String name) {
   final dir = Directory(
-      '${Directory.current.path}/.dart_tool/specs_editor_test');
+      '${Directory.current.path}/.dart_tool/specs_reviewer_test');
   dir.createSync(recursive: true);
   return File('${dir.path}/$name');
 }

@@ -18,7 +18,7 @@ class StartPage extends StatelessWidget {
       length: 1,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('TomSpecs Editor'),
+          title: const Text('TomSpecs Reviewer'),
           actions: [
             AnimatedBuilder(
               animation: store,

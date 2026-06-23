@@ -1,6 +1,6 @@
 {
-    "name": "tom_specs_editor",
-    "short_name": "tom_specs_editor",
+    "name": "tom_specs_reviewer",
+    "short_name": "tom_specs_reviewer",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

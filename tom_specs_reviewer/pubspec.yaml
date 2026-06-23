@@ -1,5 +1,5 @@
-name: tom_specs_editor
-description: "Tree browser and structure-review tool for the TomSpecs document model."
+name: tom_specs_reviewer
+description: "Tree browser and structure-review tool for the TomSpecs object model, used to gather observations for further development of tom_specs_model."
 publish_to: 'none'
 version: 1.0.0+1
 

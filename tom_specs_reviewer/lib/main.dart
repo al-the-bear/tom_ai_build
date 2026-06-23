@@ -12,20 +12,20 @@ Future<void> main() async {
   final raw = await rootBundle.loadString('assets/spec_model.json');
   final model = SpecModel.fromJson(json.decode(raw) as Map<String, dynamic>);
   final store = ReviewStore.resolveDefault()..load();
-  runApp(SpecsEditorApp(model: model, store: store));
+  runApp(SpecsReviewerApp(model: model, store: store));
 }
 
-/// Root application widget for the TomSpecs structure editor.
-class SpecsEditorApp extends StatelessWidget {
+/// Root application widget for the TomSpecs structure reviewer.
+class SpecsReviewerApp extends StatelessWidget {
   final SpecModel model;
   final ReviewStore store;
 
-  const SpecsEditorApp({super.key, required this.model, required this.store});
+  const SpecsReviewerApp({super.key, required this.model, required this.store});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TomSpecs Editor',
+      title: 'TomSpecs Reviewer',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
         useMaterial3: true,
