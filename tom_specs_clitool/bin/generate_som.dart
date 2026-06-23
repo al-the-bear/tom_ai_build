@@ -28,6 +28,9 @@ Future<void> main(List<String> arguments) async {
     ..addOption('runtime',
         help: 'Path to the tom_som_dart_runtime package (pubspec dep target). '
             'Default: <ai_build>/tom_som_dart_runtime.')
+    ..addOption('py-runtime',
+        help: 'Path to the tom_som_python_runtime package (manifest dep '
+            'target). Default: <ai_build>/tom_som_python_runtime.')
     ..addOption('model-version',
         help: 'Override the integer model-version stamp. '
             'Default: major component of the model version.')
@@ -57,6 +60,8 @@ Future<void> main(List<String> arguments) async {
       args.option('model') ?? p.join(aiBuild, 'tom_specs_model')));
   final runtimeDir = p.normalize(p.absolute(
       args.option('runtime') ?? p.join(aiBuild, 'tom_som_dart_runtime')));
+  final pyRuntimeDir = p.normalize(p.absolute(
+      args.option('py-runtime') ?? p.join(aiBuild, 'tom_som_python_runtime')));
   for (final dir in [modelDir, runtimeDir]) {
     if (!Directory(dir).existsSync()) _fail('Directory not found: $dir');
   }
@@ -83,28 +88,52 @@ Future<void> main(List<String> arguments) async {
       '${config.generatesAllRoots ? 'all' : config.documentRoots.join(', ')}');
 
   for (final target in config.languages) {
-    if (target.language != SomLanguage.dart) {
-      stdout.writeln('  (skipping ${target.language.slug}: '
-          'no emitter yet — Phase C)');
-      continue;
-    }
     final outputRoot = p.normalize(p.join(configDir, target.outputRoot));
-    stdout.writeln('\n── generating ${target.language.slug} → $outputRoot');
-    final result = await generateSomDartProject(
-      modelPackagePath: modelDir,
-      runtimePackagePath: runtimeDir,
-      outputRoot: outputRoot,
-      modelVersion: modelVersion,
-      modelLabel: stamp.label,
-      generatedAt: stamp.buildTime,
-      versionLabel: config.versionLabel,
-      documentRoots: config.documentRoots,
-    );
-    stdout.writeln('  classes: ${result.classCount}  '
-        'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}');
-    stdout.writeln('  meta:    ${result.metaJsonPath}');
-    stdout.writeln('  lib:     ${result.libPath}');
-    stdout.writeln('  pubspec: ${result.pubspecPath}');
+    switch (target.language) {
+      case SomLanguage.dart:
+        stdout.writeln('\n── generating ${target.language.slug} → $outputRoot');
+        final result = await generateSomDartProject(
+          modelPackagePath: modelDir,
+          runtimePackagePath: runtimeDir,
+          outputRoot: outputRoot,
+          modelVersion: modelVersion,
+          modelLabel: stamp.label,
+          generatedAt: stamp.buildTime,
+          versionLabel: config.versionLabel,
+          documentRoots: config.documentRoots,
+        );
+        stdout.writeln('  classes: ${result.classCount}  '
+            'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}');
+        stdout.writeln('  meta:    ${result.metaJsonPath}');
+        stdout.writeln('  lib:     ${result.libPath}');
+        stdout.writeln('  pubspec: ${result.pubspecPath}');
+      case SomLanguage.python:
+        stdout.writeln('\n── generating ${target.language.slug} → $outputRoot');
+        final result = await generateSomPythonProject(
+          modelPackagePath: modelDir,
+          runtimePackagePath: pyRuntimeDir,
+          outputRoot: outputRoot,
+          modelVersion: modelVersion,
+          modelLabel: stamp.label,
+          generatedAt: stamp.buildTime,
+          versionLabel: config.versionLabel,
+          documentRoots: config.documentRoots,
+        );
+        stdout.writeln('  classes: ${result.classCount}  '
+            'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}');
+        stdout.writeln('  meta:      ${result.metaJsonPath}');
+        stdout.writeln('  module:    ${result.modulePath}');
+        stdout.writeln('  pyproject: ${result.pyprojectPath}');
+      case SomLanguage.java:
+      case SomLanguage.javascript:
+      case SomLanguage.typescript:
+      case SomLanguage.go:
+      case SomLanguage.rust:
+      case SomLanguage.c:
+      case SomLanguage.cpp:
+        stdout.writeln('  (skipping ${target.language.slug}: '
+            'no emitter yet — Phase C)');
+    }
   }
 
   stdout.writeln('\nDone.');

@@ -25,7 +25,7 @@ def _parse_Probability(token):
     if not token:
         return None
     for v in Probability:
-        if v.name == token:
+        if v.value == token:
             return v
     return None
 
@@ -98,7 +98,7 @@ class Risk(SomNode):
 
     @probability.setter
     def probability(self, value):
-        self.doc.set_content(f"{self.path}/prob", value.name if value is not None else "")
+        self.doc.set_content(f"{self.path}/prob", value.value if value is not None else "")
 
 class ProjectDefinitionOwnerForm(SomNode):
     """Generated form facade for the `owner` @Form section."""

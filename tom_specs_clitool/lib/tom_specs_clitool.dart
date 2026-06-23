@@ -27,6 +27,11 @@ export 'src/som_dart_emitter.dart' show SomDartEmitter;
 export 'src/som_python_emitter.dart' show SomPythonEmitter;
 export 'src/som_generator.dart'
     show generateSomDartProject, writeSomDartProject, SomGenerationResult;
+export 'src/som_python_generator.dart'
+    show
+        generateSomPythonProject,
+        writeSomPythonProject,
+        SomPythonGenerationResult;
 export 'src/spec_ops_generator.dart' show SpecOpsGenerator;
 export 'src/docspecs_schema_generator.dart' show DocSpecsSchemaGenerator;
 export 'src/outline_writer.dart' show OutlineWriter;

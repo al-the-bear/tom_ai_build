@@ -185,7 +185,11 @@ class SomPythonEmitter {
       ..writeln('    """Generated enum for `${e.name}` values."""')
       ..writeln();
     for (final v in e.values) {
-      b.writeln('    $v = "${_pystr(v)}"');
+      // The member *value* carries the original token (the Dart constant name);
+      // the member *identifier* may be keyword-sanitised, so parsing/encoding
+      // round-trips through `.value`, not `.name` (keeps the stored token
+      // identical to the Dart path — see `_acc`).
+      b.writeln('    ${_acc(v)} = "${_pystr(v)}"');
     }
     b
       ..writeln()
@@ -195,7 +199,7 @@ class SomPythonEmitter {
       ..writeln('    if not token:')
       ..writeln('        return None')
       ..writeln('    for v in ${e.name}:')
-      ..writeln('        if v.name == token:')
+      ..writeln('        if v.value == token:')
       ..writeln('            return v')
       ..writeln('    return None');
     return b.toString();
@@ -254,26 +258,28 @@ class SomPythonEmitter {
   ) {
     final seg = _ref.fieldSegment(f);
     final childPath = 'f"{self.path}/${_fstr(seg)}"';
+    // Python-safe accessor identifier (the path segment above is untouched).
+    final acc = _acc(f.name);
     switch (f.kind) {
       case SpecFieldKind.content:
       case SpecFieldKind.scalar:
-        _emitStringProperty(b, f.name, childPath, f.doc);
+        _emitStringProperty(b, acc, childPath, f.doc);
         break;
       case SpecFieldKind.enumValue:
         if (f.enumType == null) {
-          _emitStringProperty(b, f.name, childPath, f.doc);
+          _emitStringProperty(b, acc, childPath, f.doc);
         } else {
           final et = f.enumType!;
           _writeComment(b, f.doc, '    ');
           b
             ..writeln('    @property')
-            ..writeln('    def ${f.name}(self):')
+            ..writeln('    def $acc(self):')
             ..writeln('        return _parse_$et(self.doc.content($childPath))')
             ..writeln()
-            ..writeln('    @${f.name}.setter')
-            ..writeln('    def ${f.name}(self, value):')
+            ..writeln('    @$acc.setter')
+            ..writeln('    def $acc(self, value):')
             ..writeln('        self.doc.set_content($childPath, '
-                'value.name if value is not None else "")');
+                'value.value if value is not None else "")');
         }
         break;
       case SpecFieldKind.complex:
@@ -283,12 +289,12 @@ class SomPythonEmitter {
         if (target == null) {
           b
             ..writeln('    @property')
-            ..writeln('    def ${f.name}(self):')
+            ..writeln('    def $acc(self):')
             ..writeln('        return None  # (skipped: no target type)');
         } else {
           b
             ..writeln('    @property')
-            ..writeln('    def ${f.name}(self):')
+            ..writeln('    def $acc(self):')
             ..writeln('        return $target(self.doc, $childPath)');
         }
         break;
@@ -298,13 +304,13 @@ class SomPythonEmitter {
           final et = f.elementType!;
           b
             ..writeln('    @property')
-            ..writeln('    def ${f.name}(self):')
+            ..writeln('    def $acc(self):')
             ..writeln('        return SomList(self.doc, $childPath, '
                 'lambda d, p: $et(d, p))');
         } else {
           b
             ..writeln('    @property')
-            ..writeln('    def ${f.name}(self):')
+            ..writeln('    def $acc(self):')
             ..writeln('        return SomList(self.doc, $childPath, '
                 'lambda d, p: SomScalar(d, p))');
         }
@@ -315,7 +321,7 @@ class SomPythonEmitter {
         _writeComment(b, f.doc, '    ');
         b
           ..writeln('    @property')
-          ..writeln('    def ${f.name}(self):')
+          ..writeln('    def $acc(self):')
           ..writeln('        return $formName(self.doc, $childPath)');
         break;
     }
@@ -344,14 +350,17 @@ class SomPythonEmitter {
       ..writeln('        super().__init__(doc, path)');
     for (final ff in f.formFields) {
       final field = '"${_pystr(ff.name)}"';
+      // The form-field key string ($field) is preserved; only the Python
+      // accessor identifier is keyword-sanitised.
+      final acc = _acc(ff.name);
       b
         ..writeln()
         ..writeln('    @property')
-        ..writeln('    def ${ff.name}(self):')
+        ..writeln('    def $acc(self):')
         ..writeln('        return self.doc.form_field(self.path, $field) or ""')
         ..writeln()
-        ..writeln('    @${ff.name}.setter')
-        ..writeln('    def ${ff.name}(self, value):')
+        ..writeln('    @$acc.setter')
+        ..writeln('    def $acc(self, value):')
         ..writeln('        self.doc.set_form_field(self.path, $field, value)');
     }
     return b.toString();
@@ -395,6 +404,26 @@ class SomPythonEmitter {
   /// Escapes a value for embedding inside a double-quoted Python f-string: the
   /// string escapes plus doubled braces so `{`/`}` are treated as literals.
   String _fstr(String s) => _pystr(s).replaceAll('{', '{{').replaceAll('}', '}}');
+
+  /// The Python 3 reserved keywords. Dart field and enum-constant names are
+  /// otherwise valid Python identifiers, so these are the only names that need
+  /// rewriting before they can appear as a `def`/`@property`/enum member.
+  static const Set<String> _pyKeywords = {
+    'False', 'None', 'True', 'and', 'as', 'assert', 'async', 'await', 'break',
+    'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally',
+    'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal',
+    'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield',
+  };
+
+  /// Returns a Python-safe identifier for [name].
+  ///
+  /// A Dart identifier that happens to be a Python keyword (`from`, `and`,
+  /// `class`, …) cannot be emitted as a `def`/`@property`/enum member, so PEP 8's
+  /// trailing-underscore convention is applied (`from` → `from_`). Only the
+  /// emitted Python identifier changes — the document path segment and the
+  /// stored enum token are derived independently and stay byte-identical to the
+  /// Dart facade, so cross-language documents remain compatible.
+  String _acc(String name) => _pyKeywords.contains(name) ? '${name}_' : name;
 
   String _pascal(String s) {
     final parts = s.split(RegExp(r'[_\s]+')).where((p) => p.isNotEmpty);

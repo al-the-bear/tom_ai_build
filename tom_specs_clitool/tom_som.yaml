@@ -5,11 +5,14 @@
 # places the generated projects as siblings of `tom_specs_clitool` under
 # `tom_ai/ai_build/` — e.g. `tom_ai/ai_build/tom_som_dart_v0`.
 #
-# Phase B ships the Dart reference implementation only; the remaining eight
-# languages (Phase C) are added to `languages:` as their emitters land.
+# Phase B shipped the Dart reference implementation; Phase C adds languages to
+# `languages:` as their emitters land. Dart + Python emitters exist today; the
+# remaining seven are added once their emitters (item #10) and toolchains
+# (item #12) are in place.
 tom-spec-object-model:
   version-label: v0
   output-base: ..
   languages:
     - dart
+    - python
   # document-roots: omitted ⇒ generate every document root (all 13).
