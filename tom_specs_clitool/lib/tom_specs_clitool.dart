@@ -24,6 +24,7 @@ export 'src/spec_object_model_config.dart'
         SomLanguage,
         SomLanguageTarget;
 export 'src/som_dart_emitter.dart' show SomDartEmitter;
+export 'src/som_python_emitter.dart' show SomPythonEmitter;
 export 'src/som_generator.dart'
     show generateSomDartProject, writeSomDartProject, SomGenerationResult;
 export 'src/spec_ops_generator.dart' show SpecOpsGenerator;

@@ -10,6 +10,13 @@ language-agnostic conformance corpus in ``tom_som_conformance/corpus``.
 
 from __future__ import annotations
 
+from .som_facade import (
+    SomList,
+    SomNode,
+    SomScalar,
+    SomVersionError,
+    check_som_model_version,
+)
 from .spec_document import SpecDocument
 from .spec_document_markdown import (
     SpecDocumentMarkdown,
@@ -56,6 +63,10 @@ __all__ = [
     "FormFieldSpec",
     "ListItemSegment",
     "SPEC_PATH_SEPARATOR",
+    "SomList",
+    "SomNode",
+    "SomScalar",
+    "SomVersionError",
     "SpecAnnotation",
     "SpecClass",
     "SpecDocument",
@@ -73,6 +84,7 @@ __all__ = [
     "SpecValidationCode",
     "SpecValidationError",
     "SpecYamlContents",
+    "check_som_model_version",
     "list_item_path",
     "spec_path_join",
     "spec_path_segments",
