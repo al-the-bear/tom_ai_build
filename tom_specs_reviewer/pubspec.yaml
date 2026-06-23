@@ -12,6 +12,11 @@ dependencies:
   cupertino_icons: ^1.0.8
   yaml: ^3.1.2
   path: ^1.9.0
+  # The official generic TomSpecs object-model runtime (spec §7). The reviewer
+  # consumes its meta-model access classes (SpecModel / SpecRoot / SpecClass /
+  # SpecField / FormFieldSpec / SpecFieldKind) instead of an in-tree copy.
+  tom_som_dart_runtime:
+    path: ../tom_som_dart_runtime
 
 dev_dependencies:
   flutter_test:

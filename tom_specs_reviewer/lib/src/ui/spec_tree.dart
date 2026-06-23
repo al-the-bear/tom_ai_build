@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
 import '../model/review_store.dart';
-import '../model/spec_model.dart';
 import 'review_controls.dart';
 
 /// Structural-path segment standing in for "any element of this list".

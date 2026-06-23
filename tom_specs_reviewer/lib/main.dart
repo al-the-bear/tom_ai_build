@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
 import 'src/model/review_store.dart';
-import 'src/model/spec_model.dart';
 import 'src/ui/start_page.dart';
 
 Future<void> main() async {

@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_specs_reviewer/src/model/review_store.dart';
-import 'package:tom_specs_reviewer/src/model/spec_model.dart';
 import 'package:tom_specs_reviewer/src/ui/spec_tree.dart';
 import 'package:tom_specs_reviewer/src/ui/start_page.dart';
 
