@@ -1,0 +1,37 @@
+# D4rt bridge generation for the TomSpecs SOM API (d4rt_and_llm_tools plan
+# step 5 / multiplatform item 7c, spec §13.1).
+#
+# The bridges are generated *here*, in the engine plane — NOT in the lean
+# pure-data `tom_som_dart_runtime` / `tom_som_dart_v0` packages — so those keep
+# their minimal footprint (the runtime stays `yaml`-only) while the scripting
+# plane, which already depends on `tom_d4rt`, owns the D4rt binding surface.
+#
+# Regenerate with (from the tom_d4rt_generator package):
+#   dart run bin/d4rtgen.dart --project=<path-to>/tom_spec_engine
+d4rtgen:
+  name: tom_spec_engine
+  helpersImport: package:tom_d4rt/tom_d4rt.dart
+  generateBarrel: true
+  barrelPath: lib/d4rt_bridges.b.dart
+  generateDartscript: true
+  dartscriptPath: lib/dartscript.b.dart
+  registrationClass: TomSomBridge
+  generateTestRunner: false
+  modules:
+    # The generic runtime: the path-keyed document, the meta-model/reflection
+    # classes, the query/cursor facility, the validator and the constrained
+    # node-creation gate. This is the core `spec`-scope surface (§5).
+    - name: som_runtime
+      barrelFiles:
+        - package:tom_som_dart_runtime/tom_som_dart_runtime.dart
+      barrelImport: package:tom_som_dart_runtime/tom_som_dart_runtime.dart
+      outputPath: lib/src/bridges/som_runtime_bridges.b.dart
+      followAllReExports: false
+    # The generated typed editing facade over the runtime — the ergonomic
+    # layer of the `spec` scope.
+    - name: som_v0
+      barrelFiles:
+        - package:tom_som_dart_v0/tom_som_dart_v0.dart
+      barrelImport: package:tom_som_dart_v0/tom_som_dart_v0.dart
+      outputPath: lib/src/bridges/som_v0_bridges.b.dart
+      followAllReExports: false

@@ -1,0 +1,6 @@
+project_id: TOM_SPEC_ENGINE
+name: tom_spec_engine
+description: >-
+  TomSpecs scripting/engine plane — D4rt scope host, file facade, search index,
+  RAG memory and agent substrate behind the TomSpecs editor.
+license: BSD-3-Clause

@@ -8,3 +8,6 @@ pubspec.lock
 
 # testkit baselines + raw run output (regeneratable from `testkit :test`)
 testlog/
+
+# tom_d4rt_generator analyzer summary cache (regenerated on every d4rtgen run)
+.tom/
