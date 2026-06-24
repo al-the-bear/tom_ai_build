@@ -18,8 +18,14 @@
 ///   * package metadata (`engine_meta.dart`);
 ///   * the **Tom Brain memory façade** (`memory/`) — `SpecMemory` /
 ///     `MemoryScope` over the embeddable, profile-isolated, in-process memory
-///     plane (plan step 2).
+///     plane (plan step 2);
+///   * the **D4rt scripting scope model** (`scope/`) — `ScriptScope` /
+///     `ScopeRegistry` / `RunEnvironment` / `ScopeProfile` and the reusable
+///     `tom_som` bridged-library block (plan step 6, §4).
 library;
 
 export 'src/engine_meta.dart';
 export 'src/memory/spec_memory.dart';
+export 'src/scope/scope.dart';
+export 'src/scope/scope_registry.dart';
+export 'src/scope/som_library.dart';
