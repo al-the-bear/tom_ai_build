@@ -20,18 +20,39 @@
 /// (plan steps 8, 12) carry the actual permission grants.
 library;
 
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart' show SpecModel;
+
 import 'scope.dart';
 import 'spec_api.dart';
 import 'spec_controller.dart';
+import 'spec_model_api.dart';
 
 /// The conventional name of the `spec` base scope.
 const String specScopeName = 'spec';
 
 /// Builds the `spec` scope bound to [controller].
 ///
+/// The scope always injects the controller-mediated editing facade ([SpecApi])
+/// as the `spec` global. When [model] is supplied it *additionally* injects the
+/// read-only reflection facade ([SpecModelApi]) as the `model` global (§4, §5;
+/// plan step 7; followup item 11, D96) — the typed-read / meta-model surface a
+/// script consults before editing.
+///
+/// [model] is a **lazy, null-tolerant** provider, not a value: it is queried
+/// each time the scope's registrar runs (once per interpreter build — i.e. on
+/// every `validate` and every `run`), so it sees the live document's current
+/// [SpecModel]. It returns `null` when the model is not yet loaded; in that case
+/// the `model` global is simply not injected for that build, so a synchronous
+/// `validate` against a not-yet-loaded controller degrades gracefully instead of
+/// throwing. A run binds it only after the model has loaded.
+///
 /// [name] defaults to [specScopeName]; override it only to register the same
 /// controller binding under an alternate scope label.
-ScriptScope specScope(SpecController controller, {String name = specScopeName}) {
+ScriptScope specScope(
+  SpecController controller, {
+  String name = specScopeName,
+  SpecModel? Function()? model,
+}) {
   final api = SpecApi(controller);
   return ScriptScope(
     name: name,
@@ -41,6 +62,15 @@ ScriptScope specScope(SpecController controller, {String name = specScopeName}) 
         interpreter.registerGlobalVariable(
             specApiGlobalName, api, specApiLibrary);
       }),
+      if (model != null)
+        BridgedLibrary(specModelApiLibraryName, (interpreter) {
+          final m = model();
+          if (m == null) return;
+          interpreter.registerBridgedClass(
+              specModelApiBridgedClass(), specModelApiLibrary);
+          interpreter.registerGlobalVariable(
+              specModelApiGlobalName, SpecModelApi(m), specModelApiLibrary);
+        }),
     ],
   );
 }

@@ -166,6 +166,7 @@ Object? _run(ScriptScope scope, String source) {
 }
 
 const _import = "import 'package:tom_spec_engine/spec_api.dart';";
+const _modelImport = "import 'package:tom_spec_engine/spec_model_api.dart';";
 
 void main() {
   group('specScope shape', () {
@@ -260,6 +261,67 @@ $_import
 main() => spec.content('PD00/PD00-VIS');
 ''');
       expect(read, 'written by a tool');
+    });
+  });
+
+  group('the read-only `model` reflection global (followup item 11)', () {
+    ScriptScope reflectingScope(_RecordingController c) =>
+        specScope(c, model: () => c.model);
+
+    test('scope exposes spec_model_api only when a model provider is given', () {
+      final without = specScope(_controller());
+      expect(without.libraries.map((l) => l.name),
+          isNot(contains('spec_model_api')));
+
+      final with_ = reflectingScope(_controller());
+      expect(with_.libraries.map((l) => l.name), contains('spec_model_api'));
+    });
+
+    test('resolves / kindOf / classOf / sectionId reflect the meta-model', () {
+      final c = _controller();
+      final out = _run(reflectingScope(c), '''
+$_modelImport
+main() => [
+  model.resolves('PD00'),
+  model.resolves('PD00/PD00-NOPE'),
+  model.kindOf('PD00/PD00-VIS'),
+  model.classOf('PD00'),
+  model.sectionId('PD00/PD00-VIS'),
+];
+''');
+      expect(out, [true, false, 'content', 'ProjectDefinition', 'PD00-VIS']);
+    });
+
+    test('allowedChildren lists the model-permitted segments of a node', () {
+      final c = _controller();
+      final out = _run(reflectingScope(c), '''
+$_modelImport
+main() => [for (final ch in model.allowedChildren('PD00')) ch['segment']];
+''');
+      expect(out, containsAll(<String>['PD00-VIS', 'PD00-RISK', 'PD00-TAG']));
+    });
+
+    test('reflect returns the full JSON-friendly node descriptor', () {
+      final c = _controller();
+      final out = _run(reflectingScope(c), '''
+$_modelImport
+main() => model.reflect('PD00');
+''') as Map;
+      expect(out['resolved'], true);
+      expect(out['classId'], 'ProjectDefinition');
+      expect(out['sectionId'], 'PD00');
+    });
+
+    test('a null-returning provider injects no model global', () {
+      final c = _controller();
+      expect(
+        () => _run(specScope(c, model: () => null), '''
+$_modelImport
+main() => model.resolves('PD00');
+'''),
+        throwsA(anything),
+      );
+      expect(c.log, isEmpty);
     });
   });
 }

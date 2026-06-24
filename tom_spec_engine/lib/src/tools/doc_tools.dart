@@ -251,6 +251,40 @@ final class DocReflection {
         annotations = const [],
         allowedChildren = const [];
 
+  /// Reflects the node at [path] against [model] — the read-only meta-model
+  /// facts the path addresses: its kind/class, structural facets
+  /// (`@SectionId` / `@MapsTo` / `@DetailedIn`), the class annotations, and the
+  /// model-permitted children (the segments a `doc_add_node` accepts). Returns an
+  /// [DocReflection.unresolved] when the path does not resolve against the model.
+  ///
+  /// This is the single reflection builder shared by the `doc_reflect` MCP tool
+  /// ([DocTools.reflect]) and the in-script `model` reflection facade
+  /// (`SpecModelApi`, followup item 11) — both read the same meta-model facts
+  /// from the live controller's model, with no document (LLM) calls.
+  factory DocReflection.resolve(SpecModel model, String path) {
+    final res = SpecReflection(model).resolve(path);
+    if (res == null) return DocReflection.unresolved(path);
+    final cls = res.targetClass;
+    return DocReflection(
+      path: path,
+      resolved: true,
+      kind: res.kind,
+      classId: cls?.name,
+      sectionId: res.field?.sectionId ?? cls?.sectionId ?? res.root.sectionId,
+      mapsTo: cls?.mapsTo,
+      detailedIn: cls?.detailedIn,
+      headline: res.field?.doc ??
+          cls?.doc ??
+          (res.kind == SpecNodeKind.root ? res.root.description : null),
+      annotations: cls == null
+          ? const []
+          : [for (final a in cls.annotations) DocAnnotation._from(a)],
+      allowedChildren: cls == null
+          ? const []
+          : [for (final f in cls.fields) DocAllowedChild._from(f)],
+    );
+  }
+
   /// A compact JSON view for the MCP tool result.
   Map<String, Object?> toJson() => {
         'path': path,
@@ -345,32 +379,10 @@ final class DocTools {
   /// `doc_reflect` — the meta-model facts the node at [path] addresses: its
   /// kind/class, structural facets (`@SectionId` / `@MapsTo` / `@DetailedIn`),
   /// the class annotations, and the model-permitted children (allowed
-  /// `doc_add_node` segments + their types).
-  DocReflection reflect(String path) {
-    final reflection = SpecReflection(engine.model);
-    final res = reflection.resolve(path);
-    if (res == null) return DocReflection.unresolved(path);
-    final cls = res.targetClass;
-    return DocReflection(
-      path: path,
-      resolved: true,
-      kind: res.kind,
-      classId: cls?.name,
-      sectionId:
-          res.field?.sectionId ?? cls?.sectionId ?? res.root.sectionId,
-      mapsTo: cls?.mapsTo,
-      detailedIn: cls?.detailedIn,
-      headline: res.field?.doc ??
-          cls?.doc ??
-          (res.kind == SpecNodeKind.root ? res.root.description : null),
-      annotations: cls == null
-          ? const []
-          : [for (final a in cls.annotations) DocAnnotation._from(a)],
-      allowedChildren: cls == null
-          ? const []
-          : [for (final f in cls.fields) DocAllowedChild._from(f)],
-    );
-  }
+  /// `doc_add_node` segments + their types). Delegates to the shared
+  /// [DocReflection.resolve] builder the in-script `model` facade also uses.
+  DocReflection reflect(String path) =>
+      DocReflection.resolve(engine.model, path);
 
   /// `doc_add_node` — the §5 meta-model-validated creation of child
   /// [childSegment] under [parentPath], routed through [controller] so it lands
