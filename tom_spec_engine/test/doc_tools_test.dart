@@ -241,5 +241,51 @@ void main() {
       expect(result.toJson()['ok'], isFalse);
       expect(controller.log, isEmpty);
     });
+
+    test('an initial content payload populates the new leaf in one burst '
+        '(item 17)', () {
+      final result = tools.addNode('PD00', 'RSK', content: 'initial risk text');
+      expect(result.ok, isTrue);
+      expect(result.path, 'PD00/RSK-1');
+      // The list item's title leaf is set on creation? No — content lands on the
+      // created node path itself. The created node is the list item; its content
+      // value is recorded in the same change-log burst as the add.
+      expect(doc.content('PD00/RSK-1'), 'initial risk text');
+      expect(controller.log, [
+        const _Change('add', 'PD00/RSK-1'),
+        const _Change('content', 'PD00/RSK-1'),
+      ]);
+    });
+
+    test('an empty initial content payload is not applied (no-op leaf)', () {
+      final result = tools.addNode('PD00', 'RSK', content: '');
+      expect(result.ok, isTrue);
+      // Only the add lands; an empty content is skipped rather than recorded.
+      expect(controller.log, [const _Change('add', 'PD00/RSK-1')]);
+    });
+
+    test('an initial fields payload sets each form field in the one change log '
+        '(item 17)', () {
+      final result = tools.addNode(
+        'PD00',
+        'RSK',
+        fields: const {'severity': 'high', 'owner': 'platform'},
+      );
+      expect(result.ok, isTrue);
+      expect(result.path, 'PD00/RSK-1');
+      expect(doc.formField('PD00/RSK-1', 'severity'), 'high');
+      expect(doc.formField('PD00/RSK-1', 'owner'), 'platform');
+      expect(controller.log, [
+        const _Change('add', 'PD00/RSK-1'),
+        const _Change('form:severity', 'PD00/RSK-1'),
+        const _Change('form:owner', 'PD00/RSK-1'),
+      ]);
+    });
+
+    test('an illegal add never applies the initial payload', () {
+      final result = tools.addNode('PD00', 'NOPE', content: 'ignored');
+      expect(result.ok, isFalse);
+      expect(controller.log, isEmpty);
+    });
   });
 }

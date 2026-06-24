@@ -392,14 +392,34 @@ final class DocTools {
   /// [childSegment] under [parentPath], routed through [controller] so it lands
   /// in the one change log. A model violation is returned as a coded failed
   /// result, never thrown.
+  ///
+  /// An optional **initial payload** populates the new node in the same call,
+  /// instead of leaving it empty (followup item 17): [content] sets a leaf's
+  /// content value and [fields] sets a form section's named fields. Each
+  /// populated value routes through the same [controller] mutation port, so the
+  /// create + its initial values land in the **one change log** as a coherent
+  /// burst (an `add` entry followed by one `content`/`form` entry per applied
+  /// value). The create runs first to obtain the path; a populate failure
+  /// surfaces as a failed result, leaving the legally-created (empty) node in
+  /// place — recoverable via the controller's undo stack.
   DocAddNodeResult addNode(
     String parentPath,
     String childSegment, {
     String? itemId,
+    String? content,
+    Map<String, String>? fields,
   }) {
     try {
       final path =
           controller.addChild(parentPath, childSegment, itemId: itemId);
+      if (content != null && content.isNotEmpty) {
+        controller.setContent(path, content);
+      }
+      if (fields != null) {
+        for (final entry in fields.entries) {
+          controller.setFormField(path, entry.key, entry.value);
+        }
+      }
       return DocAddNodeResult(ok: true, path: path);
     } on SpecCreationError catch (e) {
       return DocAddNodeResult(ok: false, error: e.message, code: e.code.name);
