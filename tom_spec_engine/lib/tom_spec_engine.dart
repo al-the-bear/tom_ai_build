@@ -63,7 +63,17 @@
 ///     (`FileScriptStore` persists `*.d4rt.dart` under `agent/scripts/`): author
 ///     a named script recording its scopes, validate it against the granted
 ///     scope without running, and run it under named scopes capturing stdout +
-///     the auto-awaited `main()` return + error/stack (plan step 13, §8.1).
+///     the auto-awaited `main()` return + error/stack (plan step 13, §8.1);
+///   * the **in-memory read/write/search tools** (`tools/`) — the engine logic
+///     behind the §8.2 `doc_*` / `mem_*` / `file_*` MCP tools (plan step 14):
+///     `DocTools` (`doc_search` + `doc_search_iterate` over the §6 cursor,
+///     `doc_reflect` meta-model facts, and `doc_add_node` routed through the
+///     `SpecController` so it lands in the one change log), `MemoryTools`
+///     (`mem_recall` over the fused `SpecRecall` with an optional per-mode
+///     filter, `mem_refresh` over an injected re-index callback), and
+///     `FileTools` (`file_read` / `file_find` / `file_write` over the audited
+///     `SpecFileFacade`). Every result is a typed value with a compact `toJson`
+///     (plan step 14, §8.2).
 library;
 
 export 'src/engine_meta.dart';
@@ -81,5 +91,8 @@ export 'src/scope/spec_api.dart';
 export 'src/scope/spec_controller.dart';
 export 'src/scope/spec_file_facade.dart';
 export 'src/scope/spec_scope.dart';
+export 'src/tools/doc_tools.dart';
+export 'src/tools/file_tools.dart';
+export 'src/tools/memory_tools.dart';
 export 'src/tools/script_store.dart';
 export 'src/tools/script_tools.dart';
