@@ -120,6 +120,7 @@ export 'src/agent/agent_tools_api.dart';
 export 'src/agent/brain_agent_substrate.dart';
 export 'src/agent/brain_session_envelope.dart';
 export 'src/agent/direct_agent_substrate.dart';
+export 'src/agent/spec_brain_envelope.dart';
 export 'src/engine_meta.dart';
 export 'src/memory/spec_memory.dart';
 export 'src/memory/spec_rag_graph.dart';

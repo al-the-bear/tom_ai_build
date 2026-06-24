@@ -21,6 +21,81 @@ library;
 import 'agent_substrate.dart';
 import '../memory/memory_scope.dart';
 
+/// The **effort metrics** of one agent run — the quantitative trail the run
+/// envelope records alongside each [BrainRunRecord].
+///
+/// These are the cheap, host-independent measures of "how much work the run
+/// did", derived purely from the wall-clock time the loop body took and the
+/// [AgentRunResult] it produced — no model token accounting (that lives at the
+/// conversational substrate, decision D72). Persisted as the run node's
+/// `payload` so the run trail is queryable: a later phase can ask "which runs
+/// in this document took longest / failed / produced no output".
+final class RunEffort {
+  /// Wall-clock time the loop body took.
+  final Duration wallClock;
+
+  /// Characters the run printed (the captured transcript length).
+  final int transcriptChars;
+
+  /// Lines the run printed (newline-delimited transcript lines; `0` for an
+  /// empty transcript).
+  final int transcriptLines;
+
+  /// Number of structured inputs the task carried.
+  final int inputCount;
+
+  /// Whether the run completed without throwing.
+  final bool ok;
+
+  /// Whether the run produced a non-null `main()` output.
+  final bool produced;
+
+  /// Creates an effort record from its measured components.
+  const RunEffort({
+    required this.wallClock,
+    required this.transcriptChars,
+    required this.transcriptLines,
+    required this.inputCount,
+    required this.ok,
+    required this.produced,
+  });
+
+  /// Measures the effort of [result] (the loop body's outcome) that took
+  /// [wallClock], for a task carrying [inputCount] inputs. Derives the
+  /// transcript char/line counts from the result's captured transcript.
+  factory RunEffort.measure({
+    required Duration wallClock,
+    required AgentRunResult result,
+    required int inputCount,
+  }) {
+    final transcript = result.transcript;
+    // The host builds the transcript with `writeln`, so every emitted line ends
+    // in a newline; counting newlines counts lines.
+    return RunEffort(
+      wallClock: wallClock,
+      transcriptChars: transcript.length,
+      transcriptLines: '\n'.allMatches(transcript).length,
+      inputCount: inputCount,
+      ok: result.ok,
+      produced: result.output != null,
+    );
+  }
+
+  /// A JSON-able view of the metrics — the run node's `payload`.
+  Map<String, Object?> toJson() => <String, Object?>{
+        'wallClockMs': wallClock.inMilliseconds,
+        'transcriptChars': transcriptChars,
+        'transcriptLines': transcriptLines,
+        'inputCount': inputCount,
+        'ok': ok,
+        'produced': produced,
+      };
+
+  @override
+  String toString() => 'RunEffort(${wallClock.inMilliseconds}ms, '
+      '$transcriptChars chars, ok: $ok)';
+}
+
 /// One recorded agent run inside a Tom Brain named memory (the run trail).
 final class BrainRunRecord {
   /// The Tom Brain addressing the run executed under.
@@ -32,11 +107,15 @@ final class BrainRunRecord {
   /// The run's captured result.
   final AgentRunResult result;
 
+  /// The run's effort metrics (wall-clock, transcript size, outcome).
+  final RunEffort effort;
+
   /// Creates a record.
   const BrainRunRecord({
     required this.scope,
     required this.task,
     required this.result,
+    required this.effort,
   });
 }
 
@@ -79,8 +158,19 @@ final class RecordingBrainEnvelope implements BrainSessionEnvelope {
     Future<AgentRunResult> Function() body,
   ) async {
     openedSessions.add(scope);
+    final stopwatch = Stopwatch()..start();
     final result = await body();
-    runs.add(BrainRunRecord(scope: scope, task: task, result: result));
+    stopwatch.stop();
+    runs.add(BrainRunRecord(
+      scope: scope,
+      task: task,
+      result: result,
+      effort: RunEffort.measure(
+        wallClock: stopwatch.elapsed,
+        result: result,
+        inputCount: task.inputs.length,
+      ),
+    ));
     return result;
   }
 }

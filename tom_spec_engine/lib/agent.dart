@@ -19,9 +19,10 @@
 ///
 /// It deliberately does **not** re-export the live **substrate runners**
 /// ([BrainAgentSubstrate] / [BrainSessionEnvelope] / `buildAgentSubstrate`):
-/// standing up the live `tom_brain_memory`-backed session envelope is a
-/// separate followup (item 8). This façade is the profile *binding* surface,
-/// not the run surface.
+/// those — plus the live `tom_brain_memory`-backed `SpecBrainSessionEnvelope`
+/// (followup item 8) — live in [`agent_runtime.dart`](agent_runtime.dart), the
+/// run surface, which pulls the memory plane. This façade is the profile
+/// *binding* surface, not the run surface.
 library;
 
 export 'src/agent/agent_context.dart';
