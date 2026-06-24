@@ -10,6 +10,9 @@
 ///     ("reflection") loaded from the exported spec-model meta-data;
 ///   * [SpecReflection] — value-free enumeration and path resolution over a
 ///     [SpecModel];
+///   * [SpecQueryEngine] / [SpecQueryCursor] — the lexical/structural grep-like
+///     query facility (find by text/regex, kind, class, id/path,
+///     `@MapsTo`/`@DetailedIn`, state) with lazy, edit-stable cursor iteration;
 ///   * [validateDocument] — checks a document's values against the model;
 ///   * [SomNode] / [SomList] / [SomScalar] / [checkSomModelVersion] — the
 ///     hand-written support the generated `tom_som_dart_v0` typed facade
@@ -24,5 +27,6 @@ export 'src/spec_document_markdown.dart';
 export 'src/spec_document_yaml.dart';
 export 'src/spec_model.dart';
 export 'src/spec_paths.dart';
+export 'src/spec_query.dart';
 export 'src/spec_reflection.dart';
 export 'src/spec_validator.dart';
