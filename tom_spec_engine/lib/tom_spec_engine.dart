@@ -26,14 +26,22 @@
 ///     controller port), the `SpecApi` script facade + its D4rt bridge, and the
 ///     `specScope()` factory that binds document editing to the live controller
 ///     so a script edit shares the change log + undo stack with a tool edit
-///     (plan step 7, §5).
+///     (plan step 7, §5);
+///   * the **`files` base scope** (`scope/`) — `SpecFileFacade` (the audited
+///     read-anywhere / write-whitelist file surface, default writable
+///     `agent/scratchpad`) plus the `filesScope()` factory that bridges only the
+///     facade (raw `dcli` / `dart:io` writes stay unbridged) and grants the D4rt
+///     permission system `read=any` + `write=<whitelist>` as a backstop
+///     (plan step 8, §7).
 library;
 
 export 'src/engine_meta.dart';
 export 'src/memory/spec_memory.dart';
+export 'src/scope/files_scope.dart';
 export 'src/scope/scope.dart';
 export 'src/scope/scope_registry.dart';
 export 'src/scope/som_library.dart';
 export 'src/scope/spec_api.dart';
 export 'src/scope/spec_controller.dart';
+export 'src/scope/spec_file_facade.dart';
 export 'src/scope/spec_scope.dart';
