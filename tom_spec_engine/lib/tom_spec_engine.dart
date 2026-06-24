@@ -124,6 +124,7 @@ export 'src/agent/direct_agent_substrate.dart';
 export 'src/agent/spec_brain_envelope.dart';
 export 'src/engine_meta.dart';
 export 'src/memory/incremental_indexer.dart';
+export 'src/memory/provider_embedder.dart';
 export 'src/memory/spec_memory.dart';
 export 'src/memory/spec_rag_graph.dart';
 export 'src/memory/spec_recall.dart';

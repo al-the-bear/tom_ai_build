@@ -36,16 +36,22 @@ dependencies:
   # graph the RAG memory (steps 10–12) is built on: SqliteTomBrainMemory +
   # SqliteMemoryProfileRegistry + the bundled sqlite-vec (vec0) vector index.
   # Adopted here behind a thin engine-side facade. publish_to: none → path
-  # (lives in the sibling tom_assistant repo). The LLM/embedding-provider plane
-  # (tom_brain_substrate) is deliberately NOT pulled in yet — the memory store
-  # takes an injected `RecallEmbedder`, so the heavy provider/router composition
-  # root is deferred to the agent steps (see d4rt_and_llm_tools_decisions.md D7).
+  # (lives in the sibling tom_assistant repo).
   tom_brain_memory:
     path: ../../../tom_assistant/tom_brain_memory
   # The wire-capable contracts (MemoryConfig, NodeDraft, Scope, Vec, recall
   # query/result types, MemoryProfileRegistry) the facade speaks in.
   tom_brain_shared:
     path: ../../../tom_assistant/tom_brain_shared
+  # The LLM/embedding-provider plane (step 15 / plan 11). Ends the D7 deferral:
+  # tier-2 RAG now embeds through the real provider-backed `EmbeddingService`
+  # (OllamaEmbeddingService, nomic-embed-text, 768 dims, L2-normalised) instead
+  # of the editor's deterministic hash placeholder. `SpecProviderEmbedder`
+  # (lib/src/memory/provider_embedder.dart) wraps it so the editor needs only
+  # tom_spec_engine. publish_to: none → path (see
+  # d4rt_and_llm_tools_decisions.md F15).
+  tom_brain_substrate:
+    path: ../../../tom_assistant/tom_brain_substrate
 
 dev_dependencies:
   lints: ^6.0.0

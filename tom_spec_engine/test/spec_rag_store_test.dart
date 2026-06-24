@@ -163,6 +163,75 @@ void main() {
       expect(hits, isEmpty);
     }, skip: skipNoBinary);
   });
+
+  // Step 15 (`d4rt_and_llm_tools_followup.md`) — a full-document index batch-
+  // embeds when a `SpecBatchEmbedder` is bound: one fan-out for all sections
+  // rather than one round-trip per section, and the batched vectors persist /
+  // recall identically to the per-section path.
+  group('SpecRagStore step-15 (batch embedding)', () {
+    test('indexDocument issues one batch embed for all sections, no per-section'
+        ' calls', () async {
+      final batchCalls = <List<String>>[];
+      var singleCalls = 0;
+
+      Future<List<Vec>> countingBatch(List<String> texts) async {
+        batchCalls.add(List<String>.of(texts));
+        return [for (final t in texts) await embedText(t)];
+      }
+
+      Future<Vec> countingSingle(String text) async {
+        singleCalls++;
+        return embedText(text);
+      }
+
+      final memory = SpecMemory(
+        memoryRoot: freshRoot(),
+        sqliteVecBinariesRoot: vecRoot!,
+        embedder: countingSingle,
+        batchEmbedder: countingBatch,
+      );
+      addTearDown(memory.close);
+
+      final graph = buildGraph();
+      final doc = await memory.openDocument(scopeFor('pd00-batch'));
+      final result = await doc.indexDocument(graph);
+
+      // One batch call carrying every section's text; zero per-section embeds.
+      expect(batchCalls, hasLength(1));
+      expect(batchCalls.single, hasLength(graph.nodes.length));
+      expect(batchCalls.single, containsAll(graph.nodes.map((n) => n.text)));
+      expect(singleCalls, 0);
+
+      // The batched vectors are real postings: recall still finds the section.
+      expect(result.nodeCount, graph.nodes.length);
+      final vis = graph.nodes.firstWhere((n) => n.path == 'PD00/VIS');
+      final hits = await doc.recallSections(vis.text);
+      expect(hits.map((h) => h.path), contains('PD00/VIS'));
+    }, skip: skipNoBinary);
+
+    test('with no batch embedder bound, indexDocument uses the per-section path',
+        () async {
+      var singleCalls = 0;
+      Future<Vec> countingSingle(String text) async {
+        singleCalls++;
+        return embedText(text);
+      }
+
+      final memory = SpecMemory(
+        memoryRoot: freshRoot(),
+        sqliteVecBinariesRoot: vecRoot!,
+        embedder: countingSingle,
+      );
+      addTearDown(memory.close);
+
+      final graph = buildGraph();
+      final doc = await memory.openDocument(scopeFor('pd00-no-batch'));
+      await doc.indexDocument(graph);
+
+      // One embed per section — the fallback path, unchanged from step 10.
+      expect(singleCalls, graph.nodes.length);
+    }, skip: skipNoBinary);
+  });
 }
 
 /// Locates `<workspace>/tom_binaries/sqlite_vec`, walking up from the cwd.

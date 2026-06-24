@@ -47,6 +47,15 @@ export 'memory_scope.dart';
 /// these, so persist-time and recall-time embeddings always agree.
 typedef SpecEmbedder = Future<Vec> Function(String text);
 
+/// Produces embeddings for a batch of [texts] in **one** call, returning a list
+/// whose order and length match the input (`result[i]` is the embedding of
+/// `texts[i]`). The provider-backed path (step 15) binds this to the
+/// substrate's concurrency-capped `embedBatch`, so a full-document index issues
+/// a single fan-out instead of one round-trip per section. Every vector it
+/// returns must share the identity the matching [SpecEmbedder] produces — the
+/// two are two surfaces of the same model, never two different models.
+typedef SpecBatchEmbedder = Future<List<Vec>> Function(List<String> texts);
+
 /// One item recalled from a document's memory.
 final class RememberedItem {
   /// The remembered text (the carrier node's `summary`).
@@ -157,6 +166,14 @@ final class SpecMemory {
   final String sqliteVecBinariesRoot;
 
   final SpecEmbedder _embedder;
+
+  /// Optional bulk-embedding surface. When supplied, [indexDocument] embeds all
+  /// of a document's sections in one fan-out instead of one call per section.
+  /// Absent (null) → the per-section [SpecEmbedder] path is used everywhere, so
+  /// the batch surface is a pure throughput optimisation, never a behavioural
+  /// change. Both surfaces must produce the same model's vectors.
+  final SpecBatchEmbedder? _batchEmbedder;
+
   final Map<String, SpecDocumentMemory> _open = <String, SpecDocumentMemory>{};
   bool _closed = false;
 
@@ -164,7 +181,9 @@ final class SpecMemory {
     required this.memoryRoot,
     required this.sqliteVecBinariesRoot,
     required SpecEmbedder embedder,
-  }) : _embedder = embedder;
+    SpecBatchEmbedder? batchEmbedder,
+  })  : _embedder = embedder,
+        _batchEmbedder = batchEmbedder;
 
   /// The façade's embedding surface (step 2). Delegates to the injected
   /// embedder; step 11 swaps in the Tom Brain substrate embedding API.
@@ -193,6 +212,7 @@ final class SpecMemory {
       scope: scope,
       store: store,
       embedder: _embedder,
+      batchEmbedder: _batchEmbedder,
     );
     _open[scope.profileName] = handle;
     return handle;
@@ -225,6 +245,7 @@ final class SpecDocumentMemory {
 
   final SqliteTomBrainMemory _store;
   final SpecEmbedder _embedder;
+  final SpecBatchEmbedder? _batchEmbedder;
 
   /// Section path → persisted node id, populated by [indexDocument]. Lets
   /// [edgesFrom] resolve a section path back to its Tom Brain node.
@@ -243,8 +264,10 @@ final class SpecDocumentMemory {
     required this.scope,
     required SqliteTomBrainMemory store,
     required SpecEmbedder embedder,
+    SpecBatchEmbedder? batchEmbedder,
   })  : _store = store,
-        _embedder = embedder;
+        _embedder = embedder,
+        _batchEmbedder = batchEmbedder;
 
   /// The producer stamp on every node this engine writes.
   static const Scope _producer = Scope(producer: 'tom_spec_engine');
@@ -312,14 +335,42 @@ final class SpecDocumentMemory {
   /// (`rag-node:<path>:<hash>`) and edges a **node-id-addressed** key, so
   /// re-indexing an unchanged document is a no-op that reuses the existing rows.
   Future<SpecRagIndexResult> indexDocument(SpecRagGraph graph) async {
-    for (final node in graph.nodes) {
-      await _persistSection(node);
+    // Full-document index: embed every section up front. When a batch embedder
+    // is bound (provider-backed, step 15) this is a single concurrency-capped
+    // fan-out; otherwise it falls back to the per-section path inside
+    // [_persistSection]. Either way persist-order is unchanged.
+    final nodes = graph.nodes;
+    final embeddings = await _batchEmbed(
+      nodes.map((n) => n.text).toList(growable: false),
+    );
+    for (var i = 0; i < nodes.length; i++) {
+      await _persistSection(nodes[i], embedding: embeddings?[i]);
     }
     final edgeCount = await _linkEdges(graph.edges);
     return SpecRagIndexResult(
-      nodeCount: graph.nodes.length,
+      nodeCount: nodes.length,
       edgeCount: edgeCount,
     );
+  }
+
+  /// Embeds [texts] through the bulk surface when one is bound, returning a
+  /// list aligned with [texts]. Returns `null` when no batch embedder is
+  /// available (or [texts] is empty), signalling callers to take the
+  /// per-section [SpecEmbedder] path. Asserts the provider honoured the
+  /// order-and-length contract so a misbehaving backend cannot silently
+  /// mis-align embeddings with their sections.
+  Future<List<Vec>?> _batchEmbed(List<String> texts) async {
+    final batch = _batchEmbedder;
+    if (batch == null || texts.isEmpty) return null;
+    final vecs = await batch(texts);
+    if (vecs.length != texts.length) {
+      throw StateError(
+        'SpecBatchEmbedder returned ${vecs.length} vectors for '
+        '${texts.length} texts; the batch surface must be order- and '
+        'length-preserving.',
+      );
+    }
+    return vecs;
   }
 
   /// Incrementally refreshes this document's RAG memory (plan step 11, §9.2):
@@ -391,9 +442,15 @@ final class SpecDocumentMemory {
 
   /// Embeds [node]'s text and persists it as a section node under a
   /// content-addressed idempotency key, updating the path/id/hash tracking.
-  Future<void> _persistSection(SpecRagNode node) async {
+  ///
+  /// [embedding], when supplied, is a precomputed vector for [node]'s text (the
+  /// bulk-embed path in [indexDocument] passes one); otherwise the per-section
+  /// [SpecEmbedder] is invoked. The two surfaces produce the same model's
+  /// vectors, so a precomputed vector is interchangeable with a freshly
+  /// embedded one.
+  Future<void> _persistSection(SpecRagNode node, {Vec? embedding}) async {
     final hash = _contentHash(node.text);
-    final embedding = await _embedder(node.text);
+    final vector = embedding ?? await _embedder(node.text);
     final id = await _store.persist(
       NodeDraft(
         typeName: _sectionType,
@@ -401,7 +458,7 @@ final class SpecDocumentMemory {
           'name': node.path,
           'description': node.text,
         },
-        embedding: embedding,
+        embedding: vector,
       ),
       scope: Scope(
         producer: _producer.producer,

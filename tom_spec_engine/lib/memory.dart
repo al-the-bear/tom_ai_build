@@ -16,8 +16,14 @@
 /// live conversational substrate into the editor is a separate followup (items
 /// 7–9). Keeping this façade to the memory plane lets the editor pull exactly
 /// the in-process memory surface — and its `tom_brain_memory` (sqlite3 FFI /
-/// `vec0`) dependency, which a Flutter **desktop** compile supports — without
-/// dragging in the substrate.
+/// `vec0`) dependency, which a Flutter **desktop** compile supports.
+///
+/// Step 15 adds one piece of the substrate to that surface: the provider-backed
+/// embedding adapter [SpecProviderEmbedder] (over `tom_brain_substrate`'s
+/// `EmbeddingService`), so tier-2 embeds through a real model instead of the
+/// editor's hash placeholder. This pulls in `tom_brain_substrate` (pure-Dart;
+/// desktop-compatible) but **not** the conversational agent substrate — the
+/// editor links only the embedding leg.
 ///
 /// [Vec] is re-exported (from `tom_brain_shared`) so a consumer can supply a
 /// [SpecEmbedder] without importing the shared package directly.
@@ -28,6 +34,7 @@ export 'package:tom_brain_shared/tom_brain_shared.dart' show Vec;
 export 'src/index/structural_lexical_index.dart';
 export 'src/memory/incremental_indexer.dart';
 export 'src/memory/memory_scope.dart';
+export 'src/memory/provider_embedder.dart';
 export 'src/memory/spec_memory.dart';
 export 'src/memory/spec_rag_graph.dart';
 export 'src/memory/spec_recall.dart';
