@@ -30,6 +30,13 @@
 /// Flushes are **serialized**: each [flush] chains after the previous so two
 /// tier-2 re-embeds never interleave, and each reads the pending set at the
 /// moment it actually runs.
+///
+/// The same serialized chain backs the **manual** refresh: [reindexAll] (item
+/// 16) reconciles an explicit path set (the document's current sections plus
+/// everything previously indexed) so a `mem_refresh` is just one more entry on
+/// the chain — it can never race an in-flight debounced flush, and both paths
+/// drive the one [SpecDocumentMemory.indexChangedSections] entrypoint rather
+/// than a parallel full rebuild.
 library;
 
 import 'dart:async';
@@ -152,19 +159,50 @@ final class SpecIncrementalIndexer {
   /// the re-index did. Safe to call concurrently: flushes serialize, and each
   /// reads the pending set at the moment it runs, so a flush invoked while
   /// another is in flight simply processes whatever remains (often nothing).
-  Future<SpecReindexResult> flush() {
+  Future<SpecReindexResult> flush() => _enqueue(() {
+        final dirty = Set<String>.from(_pending);
+        _pending.clear();
+        return dirty;
+      });
+
+  /// Forces a **full current-state reconcile** of [paths] (a manual
+  /// `mem_refresh`; item 16) through the **same serialized chain** as the
+  /// debounced [flush], so a manual refresh can never race an in-flight
+  /// incremental flush. Pass the union of the document's current section paths
+  /// and the paths previously indexed, so sections that disappeared since the
+  /// last index are reclassified as removals and dropped from both tiers. Any
+  /// touches still pending are folded into this reconcile and cleared — this
+  /// flush supersedes them. A no-op after [dispose].
+  ///
+  /// Unlike [flush] it does not depend on the pending set, so it returns the
+  /// reconcile's real outcome even when no edits were queued.
+  Future<SpecReindexResult> reindexAll(Iterable<String> paths) {
+    if (_disposed) {
+      return Future<SpecReindexResult>.value(const SpecReindexResult.empty());
+    }
+    final requested = Set<String>.from(paths);
+    return _enqueue(() {
+      final dirty = requested..addAll(_pending);
+      _pending.clear();
+      return dirty;
+    });
+  }
+
+  /// Chains a single re-index onto the serialization chain. [dirtySource] is
+  /// evaluated at the moment the chain reaches it (not at call time), so it
+  /// snapshots the work set against the live pending state. The debounce timer
+  /// is cancelled at call time so a queued auto-flush does not fire redundantly.
+  Future<SpecReindexResult> _enqueue(Set<String> Function() dirtySource) {
     _timer?.cancel();
     _timer = null;
-    final scheduled = _chain.then((_) => _runFlush());
+    final scheduled = _chain.then((_) => _runFlush(dirtySource()));
     // Advance the serialization chain, swallowing errors so one failed flush
     // does not poison every later flush.
     _chain = scheduled.then<void>((_) {}, onError: (_) {});
     return scheduled;
   }
 
-  Future<SpecReindexResult> _runFlush() async {
-    final dirty = Set<String>.from(_pending);
-    _pending.clear();
+  Future<SpecReindexResult> _runFlush(Set<String> dirty) async {
     if (dirty.isEmpty) return const SpecReindexResult.empty();
 
     final nodes = projections();

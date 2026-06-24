@@ -211,6 +211,85 @@ void main() {
     });
   });
 
+  group('reindexAll — manual full reconcile through the serialized chain '
+      '(item 16)', () {
+    test('reconciles every current section and drops paths now gone', () async {
+      final indexer = makeIndexer(tier2: recordingTier2());
+      // SUM disappeared; VIS rewritten. The caller passes the union of current
+      // paths and the previously-indexed set so the removal is caught.
+      current = [node('PD00/VIS', 'kubernetes operator platform')];
+
+      final result = await indexer.reindexAll(['PD00/VIS', 'PD00/SUM']);
+
+      expect(result.changedPaths, {'PD00/VIS'});
+      expect(result.removedPaths, {'PD00/SUM'});
+      // Tier 1 reconciled in place: the new term is findable, the removed
+      // section's terms are gone.
+      expect(searchPaths('kubernetes'), ['PD00/VIS']);
+      expect(searchPaths('summary'), isEmpty);
+      // Tier 2 got the same split + current graph.
+      expect(tier2Calls, hasLength(1));
+      expect(tier2Calls.single.changed, {'PD00/VIS'});
+      expect(tier2Calls.single.removed, {'PD00/SUM'});
+      expect(result.tier2, isNotNull);
+    });
+
+    test('returns the real outcome with nothing pending (unlike flush)',
+        () async {
+      final indexer = makeIndexer(tier2: recordingTier2());
+      // Nothing touched: a bare flush would be an empty no-op...
+      final empty = await indexer.flush();
+      expect(empty.isEmpty, isTrue);
+      // ...but reindexAll reconciles the explicit set regardless.
+      final result = await indexer.reindexAll(['PD00/VIS', 'PD00/SUM']);
+      expect(result.changedPaths, {'PD00/VIS', 'PD00/SUM'});
+      expect(result.tier2, isNotNull);
+    });
+
+    test('folds any pending touches into the reconcile and clears them',
+        () async {
+      final indexer = makeIndexer(tier2: recordingTier2());
+      indexer.touch(['PD00/VIS']);
+      expect(indexer.hasPending, isTrue);
+
+      final result = await indexer.reindexAll(['PD00/SUM']);
+
+      // Both the explicit SUM and the pending VIS were reconciled in one run.
+      expect(result.changedPaths, {'PD00/VIS', 'PD00/SUM'});
+      expect(indexer.hasPending, isFalse, reason: 'pending folded + cleared');
+    });
+
+    test('serializes with an in-flight flush — no interleave', () async {
+      final order = <String>[];
+      final indexer = makeIndexer(
+        tier2: recordingTier2(),
+        onReindexed: (r) => order.add(
+          r.removedPaths.isNotEmpty ? 'reindexAll' : 'flush',
+        ),
+      );
+      indexer.touch(['PD00/VIS']);
+      // Drop SUM so the reindexAll run carries a removal (its marker above).
+      current = [node('PD00/VIS', 'kubernetes operator platform')];
+
+      // Fire both without awaiting the first: they must run in chain order.
+      final f1 = indexer.flush();
+      final f2 = indexer.reindexAll(['PD00/VIS', 'PD00/SUM']);
+      await Future.wait([f1, f2]);
+
+      expect(order, ['flush', 'reindexAll']);
+      // Two distinct tier-2 calls, never interleaved.
+      expect(tier2Calls, hasLength(2));
+    });
+
+    test('after dispose, reindexAll is an empty no-op', () async {
+      final indexer = makeIndexer(tier2: recordingTier2());
+      indexer.dispose();
+      final result = await indexer.reindexAll(['PD00/VIS', 'PD00/SUM']);
+      expect(result.isEmpty, isTrue);
+      expect(tier2Calls, isEmpty);
+    });
+  });
+
   group('lifecycle', () {
     test('touching the same paths again is a no-op (no new arming)', () {
       final indexer = makeIndexer();
