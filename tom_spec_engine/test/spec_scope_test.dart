@@ -167,6 +167,7 @@ Object? _run(ScriptScope scope, String source) {
 
 const _import = "import 'package:tom_spec_engine/spec_api.dart';";
 const _modelImport = "import 'package:tom_spec_engine/spec_model_api.dart';";
+const _searchImport = "import 'package:tom_spec_engine/spec_search_api.dart';";
 
 void main() {
   group('specScope shape', () {
@@ -318,6 +319,91 @@ main() => model.reflect('PD00');
         () => _run(specScope(c, model: () => null), '''
 $_modelImport
 main() => model.resolves('PD00');
+'''),
+        throwsA(anything),
+      );
+      expect(c.log, isEmpty);
+    });
+  });
+
+  group('the read-only `search` grep global (followup item 12)', () {
+    SpecQueryEngine engineOf(_RecordingController c) =>
+        SpecQueryEngine(model: c.model, document: c.document);
+
+    ScriptScope searchingScope(_RecordingController c) =>
+        specScope(c, search: () => engineOf(c));
+
+    test('scope exposes spec_search_api only when a search provider is given',
+        () {
+      final without = specScope(_controller());
+      expect(without.libraries.map((l) => l.name),
+          isNot(contains('spec_search_api')));
+
+      final with_ = searchingScope(_controller());
+      expect(with_.libraries.map((l) => l.name), contains('spec_search_api'));
+    });
+
+    test('grep pages matches the live document carries as JSON maps', () {
+      final c = _controller()
+        ..setContent('PD00/PD00-VIS', 'a bold and clear vision');
+      final out = _run(searchingScope(c), '''
+$_searchImport
+main() {
+  final cur = search.grep('bold');
+  return cur.toList();
+}
+''') as List;
+      expect(out, hasLength(1));
+      final match = out.single as Map;
+      expect(match['path'], 'PD00/PD00-VIS');
+      expect(match['kind'], 'content');
+    });
+
+    test('query honours the full §6 dimensions (kinds + text)', () {
+      final c = _controller()
+        ..setContent('PD00/PD00-VIS', 'shared keyword here');
+      final out = _run(searchingScope(c), '''
+$_searchImport
+main() {
+  final cur = search.query({'text': 'keyword', 'kinds': ['content']});
+  return cur.count();
+}
+''');
+      expect(out, 1);
+    });
+
+    test('next + take page a cursor forward', () {
+      final c = _controller()
+        ..setContent('PD00/PD00-VIS', 'alpha beta gamma');
+      final out = _run(searchingScope(c), '''
+$_searchImport
+main() {
+  final cur = search.grep('alpha');
+  final first = cur.next();
+  final rest = cur.take(5);
+  return [first == null, rest.length];
+}
+''') as List;
+      expect(out, [false, 0]);
+    });
+
+    test('an unknown kind surfaces as a script error', () {
+      final c = _controller();
+      expect(
+        () => _run(searchingScope(c), '''
+$_searchImport
+main() => search.query({'kinds': ['nonsense']}).toList();
+'''),
+        throwsA(anything),
+      );
+    });
+
+    test('a null-returning provider injects no search global', () {
+      final c = _controller();
+      expect(
+        () => _run(specScope(c, search: () => null), '''
+$_searchImport
+main() => search.grep('x').toList();
 '''),
         throwsA(anything),
       );

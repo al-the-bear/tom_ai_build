@@ -33,6 +33,7 @@ export 'src/scope/spec_controller.dart';
 export 'src/scope/spec_file_facade.dart';
 export 'src/scope/spec_model_api.dart';
 export 'src/scope/spec_scope.dart';
+export 'src/scope/spec_search_api.dart';
 export 'src/tools/doc_tools.dart';
 export 'src/tools/file_tools.dart';
 export 'src/tools/script_store.dart';

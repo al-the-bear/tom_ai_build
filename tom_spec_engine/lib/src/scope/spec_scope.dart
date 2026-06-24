@@ -20,12 +20,14 @@
 /// (plan steps 8, 12) carry the actual permission grants.
 library;
 
-import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart' show SpecModel;
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
+    show SpecModel, SpecQueryEngine;
 
 import 'scope.dart';
 import 'spec_api.dart';
 import 'spec_controller.dart';
 import 'spec_model_api.dart';
+import 'spec_search_api.dart';
 
 /// The conventional name of the `spec` base scope.
 const String specScopeName = 'spec';
@@ -36,15 +38,19 @@ const String specScopeName = 'spec';
 /// as the `spec` global. When [model] is supplied it *additionally* injects the
 /// read-only reflection facade ([SpecModelApi]) as the `model` global (§4, §5;
 /// plan step 7; followup item 11, D96) — the typed-read / meta-model surface a
-/// script consults before editing.
+/// script consults before editing. When [search] is supplied it *also* injects
+/// the read-only §6 grep facade ([SpecSearchApi]) as the `search` global (plan
+/// steps 7, 19; followup item 12, D97) — the lexical/structural query cursor a
+/// script pages over the live document, mirroring the `doc_search` MCP tool.
 ///
-/// [model] is a **lazy, null-tolerant** provider, not a value: it is queried
-/// each time the scope's registrar runs (once per interpreter build — i.e. on
-/// every `validate` and every `run`), so it sees the live document's current
-/// [SpecModel]. It returns `null` when the model is not yet loaded; in that case
-/// the `model` global is simply not injected for that build, so a synchronous
-/// `validate` against a not-yet-loaded controller degrades gracefully instead of
-/// throwing. A run binds it only after the model has loaded.
+/// [model] and [search] are **lazy, null-tolerant** providers, not values: each
+/// is queried every time the scope's registrar runs (once per interpreter build
+/// — i.e. on every `validate` and every `run`), so they see the live document's
+/// current [SpecModel] / [SpecQueryEngine]. A provider returns `null` when its
+/// backing state is not yet loaded; in that case the corresponding global is
+/// simply not injected for that build, so a synchronous `validate` against a
+/// not-yet-loaded controller degrades gracefully instead of throwing. A run
+/// binds them only after the model has loaded.
 ///
 /// [name] defaults to [specScopeName]; override it only to register the same
 /// controller binding under an alternate scope label.
@@ -52,6 +58,7 @@ ScriptScope specScope(
   SpecController controller, {
   String name = specScopeName,
   SpecModel? Function()? model,
+  SpecQueryEngine? Function()? search,
 }) {
   final api = SpecApi(controller);
   return ScriptScope(
@@ -70,6 +77,17 @@ ScriptScope specScope(
               specModelApiBridgedClass(), specModelApiLibrary);
           interpreter.registerGlobalVariable(
               specModelApiGlobalName, SpecModelApi(m), specModelApiLibrary);
+        }),
+      if (search != null)
+        BridgedLibrary(specSearchApiLibraryName, (interpreter) {
+          final engine = search();
+          if (engine == null) return;
+          interpreter.registerBridgedClass(
+              specSearchApiBridgedClass(), specSearchApiLibrary);
+          interpreter.registerBridgedClass(
+              specSearchCursorBridgedClass(), specSearchApiLibrary);
+          interpreter.registerGlobalVariable(
+              specSearchApiGlobalName, SpecSearchApi(engine), specSearchApiLibrary);
         }),
     ],
   );

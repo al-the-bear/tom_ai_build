@@ -52,7 +52,11 @@ final class DocSearchMatch {
     this.matchSpans = const [],
   });
 
-  factory DocSearchMatch._from(SpecQueryMatch m) => DocSearchMatch(
+  /// Projects a §6 [SpecQueryMatch] to the compact `doc_*` match shape — the one
+  /// shared projection behind both the `doc_search` MCP tool ([DocTools]) and the
+  /// in-script `search` cursor facade (`SpecSearchCursor`, followup item 12), so
+  /// a tool match and a script match render identically.
+  factory DocSearchMatch.from(SpecQueryMatch m) => DocSearchMatch(
         path: m.path,
         kind: m.kind,
         classId: m.classId,
@@ -408,7 +412,7 @@ final class DocTools {
 
   DocSearchPage _page(String id, SpecQueryCursor cursor, int size) {
     final matches = [
-      for (final m in cursor.take(size)) DocSearchMatch._from(m),
+      for (final m in cursor.take(size)) DocSearchMatch.from(m),
     ];
     final remaining = cursor.count;
     final done = remaining == 0;
