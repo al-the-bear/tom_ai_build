@@ -88,19 +88,86 @@ final class StoredScript {
       {'name': name, 'path': path, 'scopes': scopes, 'source': source};
 }
 
-/// The result of `script_validate`: whether the script is acceptable and, if
-/// not, the diagnostics the agent can iterate on.
+/// The declared `main()` entrypoint contract a [ScriptValidation] surfaces.
+///
+/// This is the **richer argument contract** (plan step 13): rather than only
+/// reporting parse errors, validation introspects the script's entrypoint so
+/// the agent knows *how* the script must be called — how many positional
+/// arguments `main()` requires/accepts, its named parameters, and whether it is
+/// async. The same contract is what `script_run` enforces fail-fast when an
+/// `args` list is supplied.
+final class ScriptEntrypoint {
+  /// Whether a top-level `main` function is declared.
+  final bool exists;
+
+  /// Whether `main()` is declared `async` (the run auto-awaits either way).
+  final bool isAsync;
+
+  /// The number of **required** positional parameters `main()` declares.
+  final int requiredPositional;
+
+  /// The number of **total** positional parameters (required + optional).
+  final int maxPositional;
+
+  /// The names of `main()`'s named parameters, in declaration order.
+  final List<String> namedParameters;
+
+  ScriptEntrypoint({
+    required this.exists,
+    required this.isAsync,
+    required this.requiredPositional,
+    required this.maxPositional,
+    required List<String> namedParameters,
+  }) : namedParameters = List.unmodifiable(namedParameters);
+
+  /// The entrypoint contract when no `main()` is declared.
+  const ScriptEntrypoint.absent()
+      : exists = false,
+        isAsync = false,
+        requiredPositional = 0,
+        maxPositional = 0,
+        namedParameters = const [];
+
+  /// A compact JSON view for the MCP tool result.
+  Map<String, Object?> toJson() => {
+        'exists': exists,
+        if (exists) ...{
+          'isAsync': isAsync,
+          'requiredPositional': requiredPositional,
+          'maxPositional': maxPositional,
+          'namedParameters': namedParameters,
+        },
+      };
+}
+
+/// The result of `script_validate`: whether the script is acceptable, the
+/// diagnostics the agent can iterate on, and the introspected entrypoint
+/// contract (when analysis got far enough to read it).
 final class ScriptValidation {
-  /// Whether the script parsed and resolved against the granted scope.
+  /// Whether the script parsed, resolved against the granted scope, declared a
+  /// `main()` entrypoint, and (when `args` were supplied) satisfied its
+  /// argument contract.
   final bool ok;
 
   /// Human-readable diagnostics (empty when [ok]).
   final List<String> diagnostics;
 
-  const ScriptValidation({required this.ok, required this.diagnostics});
+  /// The declared `main()` contract, or `null` when the source failed to parse
+  /// / resolve before it could be introspected.
+  final ScriptEntrypoint? entrypoint;
+
+  const ScriptValidation({
+    required this.ok,
+    required this.diagnostics,
+    this.entrypoint,
+  });
 
   /// A compact JSON view for the MCP tool result.
-  Map<String, Object?> toJson() => {'ok': ok, 'diagnostics': diagnostics};
+  Map<String, Object?> toJson() => {
+        'ok': ok,
+        'diagnostics': diagnostics,
+        if (entrypoint != null) 'entrypoint': entrypoint!.toJson(),
+      };
 }
 
 /// The result of `script_run`: the three captured output channels.
@@ -198,21 +265,45 @@ final class ScriptTools {
   /// `script_validate` — parse / declaration-resolve [source] or the stored
   /// script [name] against the granted scope's bridged surface **without**
   /// running `main()`; returns diagnostics so the agent can iterate.
+  ///
+  /// Beyond the parse/resolve check, validation now performs deeper static
+  /// type-checking of the **entrypoint**: it confirms a `main()` is declared and
+  /// introspects its argument contract (required/total positional params, named
+  /// params, async). When [args] is supplied, it also checks them against that
+  /// contract — too few or too many positional arguments is a diagnostic — so an
+  /// agent can verify a planned `script_run` call statically. The introspected
+  /// contract is returned on [ScriptValidation.entrypoint] regardless.
   ScriptValidation validate({
     String? source,
     String? name,
     List<String>? scopes,
+    List<Object?>? args,
   }) {
     final resolved = _resolve(source: source, name: name);
     final env = registry.build(scopes ?? resolved.scopes ?? defaultScopes);
     final interpreter = D4rt();
     env.applyTo(interpreter);
+
+    final IntrospectionResult introspection;
     try {
-      interpreter.analyze(source: resolved.source);
-      return const ScriptValidation(ok: true, diagnostics: []);
+      introspection = interpreter.analyze(source: resolved.source);
     } catch (error) {
+      // Parse / resolution failure — too broken to introspect the entrypoint.
       return ScriptValidation(ok: false, diagnostics: _diagnosticsOf(error));
     }
+
+    final entrypoint = _entrypointOf(introspection);
+    final diagnostics = <String>[];
+    if (!entrypoint.exists) {
+      diagnostics.add('no `main()` entrypoint is declared');
+    } else if (args != null) {
+      diagnostics.addAll(_argDiagnostics(entrypoint, args));
+    }
+    return ScriptValidation(
+      ok: diagnostics.isEmpty,
+      diagnostics: diagnostics,
+      entrypoint: entrypoint,
+    );
   }
 
   /// `script_run` — executes [source] or the stored script [name] via
@@ -226,7 +317,25 @@ final class ScriptTools {
     List<Object?>? args,
   }) async {
     final resolved = _resolve(source: source, name: name);
-    final env = registry.build(scopes ?? resolved.scopes ?? defaultScopes);
+    final scopeNames = scopes ?? resolved.scopes ?? defaultScopes;
+    final env = registry.build(scopeNames);
+
+    // Richer argument contract (plan step 13): when an agent passes `args`,
+    // reject an entrypoint mismatch up front with the same diagnostics
+    // `validate` produces, instead of surfacing an opaque interpreter arity
+    // error deep inside the run.
+    if (args != null) {
+      final contract =
+          validate(source: resolved.source, scopes: scopeNames, args: args);
+      if (!contract.ok) {
+        return ScriptRunResult(
+          stdout: '',
+          result: null,
+          error: contract.diagnostics.join('; '),
+          stack: null,
+        );
+      }
+    }
 
     final out = StringBuffer();
     Object? result;
@@ -309,6 +418,45 @@ final class ScriptTools {
       if (trimmed.isNotEmpty && !trimmed.startsWith('//')) break;
     }
     return null;
+  }
+
+  /// Introspects the `main()` entrypoint contract from an [analysis] result.
+  /// Returns [ScriptEntrypoint.absent] when no top-level `main` is declared.
+  static ScriptEntrypoint _entrypointOf(IntrospectionResult analysis) {
+    for (final fn in analysis.functions) {
+      if (fn.name == 'main') {
+        return ScriptEntrypoint(
+          exists: true,
+          isAsync: fn.isAsync,
+          requiredPositional: fn.arity,
+          maxPositional: fn.parameterNames.length,
+          namedParameters: fn.namedParameterNames,
+        );
+      }
+    }
+    return const ScriptEntrypoint.absent();
+  }
+
+  /// Checks supplied positional [args] against the entrypoint's positional
+  /// contract, returning a diagnostic per violation (empty when they fit).
+  static List<String> _argDiagnostics(
+    ScriptEntrypoint entrypoint,
+    List<Object?> args,
+  ) {
+    final n = args.length;
+    if (n < entrypoint.requiredPositional) {
+      return [
+        'main() requires at least ${entrypoint.requiredPositional} positional '
+            'argument(s) but $n were provided',
+      ];
+    }
+    if (n > entrypoint.maxPositional) {
+      return [
+        'main() accepts at most ${entrypoint.maxPositional} positional '
+            'argument(s) but $n were provided',
+      ];
+    }
+    return const [];
   }
 
   static List<String> _diagnosticsOf(Object error) {

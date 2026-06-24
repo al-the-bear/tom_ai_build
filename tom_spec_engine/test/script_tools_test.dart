@@ -182,6 +182,74 @@ main() { spec.setContent('PD00/VIS', 'should not happen'); }
     });
   });
 
+  group('script_validate (deeper type-checking — F19)', () {
+    test('reports a missing main() entrypoint', () {
+      final v = tools.validate(source: 'int answer() => 42;', scopes: ['spec']);
+      expect(v.ok, isFalse);
+      expect(v.diagnostics.single, contains('no `main()`'));
+      expect(v.entrypoint, isNotNull);
+      expect(v.entrypoint!.exists, isFalse);
+      expect(v.toJson()['entrypoint'], {'exists': false});
+    });
+
+    test('introspects the entrypoint argument contract', () {
+      final v = tools.validate(
+        source: 'main(String topic, [int depth = 1]) {}',
+        scopes: ['spec'],
+      );
+      expect(v.ok, isTrue);
+      final ep = v.entrypoint!;
+      expect(ep.exists, isTrue);
+      expect(ep.requiredPositional, 1);
+      expect(ep.maxPositional, 2);
+      final json = v.toJson()['entrypoint'] as Map<String, Object?>;
+      expect(json['requiredPositional'], 1);
+      expect(json['maxPositional'], 2);
+    });
+
+    test('flags an async entrypoint in the contract', () {
+      final v = tools.validate(source: 'main() async => 1;', scopes: ['spec']);
+      expect(v.entrypoint!.isAsync, isTrue);
+    });
+
+    test('rejects too few positional args against the contract', () {
+      final v = tools.validate(
+        source: 'main(String topic) {}',
+        scopes: ['spec'],
+        args: const [],
+      );
+      expect(v.ok, isFalse);
+      expect(v.diagnostics.single, contains('at least 1'));
+    });
+
+    test('rejects too many positional args against the contract', () {
+      final v = tools.validate(
+        source: 'main() {}',
+        scopes: ['spec'],
+        args: const ['extra'],
+      );
+      expect(v.ok, isFalse);
+      expect(v.diagnostics.single, contains('at most 0'));
+    });
+
+    test('accepts args that fit the optional-positional contract', () {
+      final v = tools.validate(
+        source: 'main(String topic, [int depth = 1]) {}',
+        scopes: ['spec'],
+        args: const ['rollout', 3],
+      );
+      expect(v.ok, isTrue);
+      expect(v.diagnostics, isEmpty);
+    });
+
+    test('a syntactically broken script yields a null entrypoint', () {
+      final v = tools.validate(source: 'main( {', scopes: ['spec']);
+      expect(v.ok, isFalse);
+      expect(v.entrypoint, isNull);
+      expect(v.toJson().containsKey('entrypoint'), isFalse);
+    });
+  });
+
   group('script_run (captures three channels)', () {
     test('captures stdout and the auto-awaited main() return value', () async {
       final run = await tools.run(
@@ -229,6 +297,31 @@ main() { spec.setContent('PD00/VIS', 'via script'); }
       expect(run.error, isNull);
       expect(controller.log, contains('setContent PD00/VIS=via script'));
       expect(controller.content('PD00/VIS'), 'via script');
+    });
+
+    test('passes positional args to main() when the contract fits', () async {
+      final run = await tools.run(
+        source: 'main(String topic) => topic.toUpperCase();',
+        scopes: ['spec'],
+        args: const ['rollout'],
+      );
+      expect(run.error, isNull);
+      expect(run.result, 'ROLLOUT');
+    });
+
+    test('fails fast on an arg-contract mismatch instead of an opaque error',
+        () async {
+      final run = await tools.run(
+        source: 'main() {}',
+        scopes: ['spec'],
+        args: const ['unexpected'],
+      );
+      expect(run.ok, isFalse);
+      expect(run.error, contains('at most 0'));
+      expect(run.stack, isNull);
+      expect(run.result, isNull);
+      // The contract is checked before execution — nothing reached stdout.
+      expect(run.stdout, isEmpty);
     });
 
     test('run by name uses the script\'s recorded scopes', () async {
