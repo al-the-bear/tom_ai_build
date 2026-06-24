@@ -81,14 +81,29 @@
 ///     D4rt script over the §8 tools) through a search → recall → edit → verify
 ///     loop. The procedure reaches the toolsets through one bridged `agent`
 ///     global (`AgentToolsApi`, the `agent` scope), so every edit lands in the
-///     one change log and every step returns compact JSON. Mode (b)
-///     (Agent-SDK-through-`tom_brain`) is plan step 16 (plan step 15, §10).
+///     one change log and every step returns compact JSON (plan step 15, §10);
+///   * **mode (b)** (`agent/`) — `BrainAgentSubstrate`, the
+///     **Agent-SDK-through-`tom_brain`** substrate: it drives the *same*
+///     procedure through the *same* host (`runAgentProcedure`, now shared with
+///     mode (a)) but wraps each run in a Tom Brain **session envelope**
+///     (`BrainSessionEnvelope`) — a profile (application) + named session
+///     (phase/task) + named memory (document) addressed by a `MemoryScope`,
+///     recording the run into that named memory. `buildAgentSubstrate` +
+///     `AgentSubstrateMode` are the selector the application uses to pick a mode
+///     behind the one `AgentSubstrate` interface; the headless
+///     `RecordingBrainEnvelope` keeps the "same loop test" host-independent
+///     while the live `tom_brain_memory`-backed envelope is wired in the editor
+///     (plan step 16, §10).
 library;
 
 export 'src/agent/agent_procedure.dart';
+export 'src/agent/agent_procedure_host.dart';
 export 'src/agent/agent_scope.dart';
 export 'src/agent/agent_substrate.dart';
+export 'src/agent/agent_substrate_factory.dart';
 export 'src/agent/agent_tools_api.dart';
+export 'src/agent/brain_agent_substrate.dart';
+export 'src/agent/brain_session_envelope.dart';
 export 'src/agent/direct_agent_substrate.dart';
 export 'src/engine_meta.dart';
 export 'src/memory/spec_memory.dart';

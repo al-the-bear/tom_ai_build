@@ -11,15 +11,14 @@
 /// host; what mode (a) contributes here is the headless **procedure host** that
 /// actually drives the loop — the same execution machinery the §8.1 `script_*`
 /// tools use (a permission-scoped `D4rt`, a print-intercepting `Zone`, the
-/// auto-awaited `main()` return). Mode (b) (plan step 16) will run the *same*
-/// procedure wrapped by `tom_brain`; both satisfy [AgentSubstrate].
+/// auto-awaited `main()` return). Mode (b) ([BrainAgentSubstrate], plan step 16)
+/// runs the *same* procedure through the *same* host wrapped by a `tom_brain`
+/// session envelope; both satisfy [AgentSubstrate] and share
+/// [runAgentProcedure].
 library;
 
-import 'dart:async';
-
-import 'package:tom_d4rt/tom_d4rt.dart';
-
 import 'agent_procedure.dart';
+import 'agent_procedure_host.dart';
 import 'agent_scope.dart';
 import 'agent_tools_api.dart';
 import 'agent_substrate.dart';
@@ -52,43 +51,10 @@ final class DirectAgentSubstrate implements AgentSubstrate {
   String get mode => 'direct';
 
   @override
-  Future<AgentRunResult> run(AgentTask task) async {
-    final env = _registry.build([_scopeName]);
-    // The procedure's single Map argument: the goal plus the structured inputs.
-    final taskArg = <String, Object?>{'goal': task.goal, ...task.inputs};
-
-    final out = StringBuffer();
-    Object? output;
-    Object? error;
-    StackTrace? stack;
-
-    await runZoned(
-      () async {
-        final interpreter = D4rt();
-        env.applyTo(interpreter);
-        try {
-          final returned = interpreter.execute(
-            source: _procedure.source,
-            positionalArgs: [taskArg],
-          );
-          output = returned is Future ? await returned : returned;
-        } catch (e, s) {
-          error = e;
-          stack = s;
-        }
-      },
-      zoneSpecification: ZoneSpecification(
-        print: (self, parent, zone, line) => out.writeln(line),
-      ),
-    );
-
-    final failed = error != null;
-    return AgentRunResult(
-      ok: !failed,
-      output: failed ? null : output,
-      transcript: out.toString(),
-      error: failed ? error.toString() : null,
-      stack: failed ? stack?.toString() : null,
-    );
-  }
+  Future<AgentRunResult> run(AgentTask task) => runAgentProcedure(
+        registry: _registry,
+        scopeNames: [_scopeName],
+        procedure: _procedure,
+        task: task,
+      );
 }
