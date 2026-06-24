@@ -11,8 +11,10 @@
 /// It exposes exactly the context *value* surface: [AgentContext],
 /// [AgentToolGroup], the canonical application names
 /// ([docSpecsApplication] / [codeSpecsApplication] /
-/// [implementationApplication] / [tomSpecsApplications]),
-/// [docSpecsGuidelinesName], [docSpecsAgentContext], and the
+/// [implementationApplication] / [tomSpecsApplications]), the per-application
+/// guidelines names and context factories ([docSpecsAgentContext] /
+/// [codeSpecsAgentContext] / [implementationAgentContext], plus
+/// [tomSpecsContextRegistry] holding all three), and the
 /// [AgentContextRegistry] application switch. The agent-context types are pure
 /// Dart (`tom_d4rt` + `tom_som_dart_runtime` only — no `tom_brain_*`), so the
 /// editor links this façade in-process without pulling new dependencies.
