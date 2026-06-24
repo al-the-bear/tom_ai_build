@@ -26,6 +26,7 @@ library;
 export 'package:tom_brain_shared/tom_brain_shared.dart' show Vec;
 
 export 'src/index/structural_lexical_index.dart';
+export 'src/memory/incremental_indexer.dart';
 export 'src/memory/memory_scope.dart';
 export 'src/memory/spec_memory.dart';
 export 'src/memory/spec_rag_graph.dart';
