@@ -163,6 +163,23 @@ class StructuralLexicalIndex {
   /// The number of indexed sections.
   int get sectionCount => _sections.length;
 
+  /// The distinct lexical terms indexed for the section at [path] (empty when
+  /// the path is not indexed). Exposed so a fused-recall diversity pass (MMR)
+  /// can measure lexical overlap between two candidate sections without
+  /// re-tokenising their text — the index already holds the term sets.
+  Set<String> termsOf(String path) {
+    final section = _sections[path];
+    if (section == null) return const <String>{};
+    return section.termFreqs.keys.toSet();
+  }
+
+  /// The indexed hit (kind / class / headline, zero score) for the section at
+  /// [path], or `null` when the path is not indexed. A direct O(1) lookup so a
+  /// fused recall can attach structural facets to candidates that other tiers
+  /// (vector, GraphWalk) surfaced without re-running [search].
+  IndexHit? lookup(String path) =>
+      _sections.containsKey(path) ? _hit(path, 0.0) : null;
+
   /// Replaces the entire index with [nodes] (a full rebuild).
   void rebuild(Iterable<SpecNodeProjection> nodes) {
     _sections.clear();

@@ -44,12 +44,20 @@
 ///     `SpecDocumentMemory.indexDocument` / `recallSections` / `edgesFrom`,
 ///     which persist that graph as `Concept` nodes + `part_of` / `mentions`
 ///     edges into the document's profile-isolated Tom Brain named memory and
-///     recall it back, all in-process (plan step 10, §9.1).
+///     recall it back, all in-process (plan step 10, §9.1);
+///   * the **fused two-tier recall** (`memory/`) — `SpecRecall.recall`, which
+///     combines the tier-1 lexical (BM25) + symbolic (facet) modes with the
+///     tier-2 vector mode and an optional GraphWalk via weighted Reciprocal
+///     Rank Fusion + MMR, degrading gracefully to tier 1 while tier 2 warms;
+///     plus `SpecDocumentMemory.indexChangedSections`, the incremental
+///     embed-changed-only refresh (content-addressed nodes, forget-on-update /
+///     forget-on-remove) that feeds it (plan step 11, §9.2 / §9.3).
 library;
 
 export 'src/engine_meta.dart';
 export 'src/memory/spec_memory.dart';
 export 'src/memory/spec_rag_graph.dart';
+export 'src/memory/spec_recall.dart';
 export 'src/index/structural_lexical_index.dart';
 export 'src/scope/files_scope.dart';
 export 'src/scope/scope.dart';

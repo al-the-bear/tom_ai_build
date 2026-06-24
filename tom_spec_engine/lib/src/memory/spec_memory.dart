@@ -25,6 +25,7 @@ import 'package:tom_brain_shared/tom_brain_shared.dart'
         DiversityStrategy,
         EdgeDirection,
         EdgeType,
+        ForgetReason,
         MemoryConfig,
         MultiRecallQuery,
         NodeDraft,
@@ -74,6 +75,36 @@ final class SpecRagIndexResult {
   @override
   String toString() =>
       'SpecRagIndexResult(nodes: $nodeCount, edges: $edgeCount)';
+}
+
+/// What [SpecDocumentMemory.indexChangedSections] did: how many sections were
+/// re-embedded, how many edges were re-linked, and how many sections were
+/// dropped. The headline figure is [embedded] — the **embed-changed-only**
+/// guarantee of §9.2: a changed section whose content hash is unchanged is
+/// skipped, so [embedded] counts only the sections that actually moved.
+final class SpecRagRefreshResult {
+  /// Sections re-embedded and re-persisted (content actually changed).
+  final int embedded;
+
+  /// Sections skipped because their content hash was unchanged.
+  final int unchanged;
+
+  /// Edges (re-)linked for the touched sections.
+  final int edgeCount;
+
+  /// Sections forgotten (removed from memory).
+  final int removed;
+
+  const SpecRagRefreshResult({
+    required this.embedded,
+    required this.unchanged,
+    required this.edgeCount,
+    required this.removed,
+  });
+
+  @override
+  String toString() => 'SpecRagRefreshResult(embedded: $embedded, '
+      'unchanged: $unchanged, edges: $edgeCount, removed: $removed)';
 }
 
 /// One section recalled from a document's RAG memory.
@@ -203,6 +234,11 @@ final class SpecDocumentMemory {
   /// [_nodeIdByPath], so a read-back edge's endpoints map to section paths.
   final Map<String, String> _pathByNodeId = <String, String>{};
 
+  /// Section path → the content hash last embedded for it. Lets
+  /// [indexChangedSections] honour the **embed-changed-only** rule (§9.2): a
+  /// section whose content hash is unchanged is skipped, never re-embedded.
+  final Map<String, String> _contentHashByPath = <String, String>{};
+
   SpecDocumentMemory._({
     required this.scope,
     required SqliteTomBrainMemory store,
@@ -272,36 +308,132 @@ final class SpecDocumentMemory {
   /// embedded so it is recoverable by vector recall, then each [SpecRagEdge] is
   /// linked (`part_of` for the tree, `mentions` for projections).
   ///
-  /// Idempotent: nodes and edges carry deterministic idempotency keys derived
-  /// from the section path, so re-indexing an unchanged document is a no-op
-  /// that reuses the existing rows.
+  /// Idempotent: nodes carry a **content-addressed** idempotency key
+  /// (`rag-node:<path>:<hash>`) and edges a **node-id-addressed** key, so
+  /// re-indexing an unchanged document is a no-op that reuses the existing rows.
   Future<SpecRagIndexResult> indexDocument(SpecRagGraph graph) async {
     for (final node in graph.nodes) {
-      final embedding = await _embedder(node.text);
-      final id = await _store.persist(
-        NodeDraft(
-          typeName: _sectionType,
-          values: <String, Object?>{
-            'name': node.path,
-            'description': node.text,
-          },
-          embedding: embedding,
-        ),
-        scope: Scope(
-          producer: _producer.producer,
-          idempotencyKey: 'rag-node:${node.path}',
-        ),
-      );
-      _nodeIdByPath[node.path] = id;
-      _pathByNodeId[id.toString()] = node.path;
+      await _persistSection(node);
+    }
+    final edgeCount = await _linkEdges(graph.edges);
+    return SpecRagIndexResult(
+      nodeCount: graph.nodes.length,
+      edgeCount: edgeCount,
+    );
+  }
+
+  /// Incrementally refreshes this document's RAG memory (plan step 11, §9.2):
+  /// re-embeds **only** the sections in [changedPaths] whose content actually
+  /// moved, forgets the sections in [removedPaths], and re-links the edges that
+  /// touch any of them.
+  ///
+  /// This is the **embed-changed-only** path that feeds the tier-2 vector store
+  /// after each prompt: a changed section whose rendered text hashes to the same
+  /// value it last embedded is skipped (no model/embedding call), a section
+  /// whose content moved is forgotten and re-persisted under a fresh
+  /// content-addressed key, and a removed section is forgotten outright. Never a
+  /// full re-embed — sections not named here are left exactly as they are.
+  ///
+  /// [graph] is the document's *current* RAG graph (post-edit); it supplies the
+  /// new node text for the changed sections and the edge set to re-link. A
+  /// `changedPath` absent from [graph] is treated as a removal.
+  Future<SpecRagRefreshResult> indexChangedSections(
+    SpecRagGraph graph, {
+    Iterable<String> changedPaths = const <String>[],
+    Iterable<String> removedPaths = const <String>[],
+  }) async {
+    final nodeByPath = <String, SpecRagNode>{
+      for (final node in graph.nodes) node.path: node,
+    };
+
+    var removed = 0;
+    for (final path in removedPaths) {
+      if (await _forgetSection(path)) removed++;
     }
 
+    final touched = <String>{};
+    var embedded = 0;
+    var unchanged = 0;
+    for (final path in changedPaths) {
+      final node = nodeByPath[path];
+      if (node == null) {
+        // Named as changed but gone from the current graph — treat as a removal.
+        if (await _forgetSection(path)) removed++;
+        continue;
+      }
+      if (_contentHashByPath[path] == _contentHash(node.text)) {
+        unchanged++;
+        continue;
+      }
+      // Content moved: drop the stale row, then persist a fresh one. The fresh
+      // node id makes every edge that touches this section re-link below.
+      await _forgetSection(path);
+      await _persistSection(node);
+      touched.add(path);
+      embedded++;
+    }
+
+    // Re-link only the edges that touch a section whose node id just changed;
+    // edges between untouched sections keep their node ids and so their keys.
+    final edgeCount = await _linkEdges(
+      graph.edges.where(
+        (e) => touched.contains(e.fromPath) || touched.contains(e.toPath),
+      ),
+    );
+
+    return SpecRagRefreshResult(
+      embedded: embedded,
+      unchanged: unchanged,
+      edgeCount: edgeCount,
+      removed: removed,
+    );
+  }
+
+  /// Embeds [node]'s text and persists it as a section node under a
+  /// content-addressed idempotency key, updating the path/id/hash tracking.
+  Future<void> _persistSection(SpecRagNode node) async {
+    final hash = _contentHash(node.text);
+    final embedding = await _embedder(node.text);
+    final id = await _store.persist(
+      NodeDraft(
+        typeName: _sectionType,
+        values: <String, Object?>{
+          'name': node.path,
+          'description': node.text,
+        },
+        embedding: embedding,
+      ),
+      scope: Scope(
+        producer: _producer.producer,
+        idempotencyKey: 'rag-node:${node.path}:$hash',
+      ),
+    );
+    _nodeIdByPath[node.path] = id;
+    _pathByNodeId[id.toString()] = node.path;
+    _contentHashByPath[node.path] = hash;
+  }
+
+  /// Forgets the section at [path] (the only row-deletion path), dropping its
+  /// path/id/hash tracking. Returns whether a tracked node was forgotten.
+  Future<bool> _forgetSection(String path) async {
+    final id = _nodeIdByPath.remove(path);
+    _contentHashByPath.remove(path);
+    if (id == null) return false;
+    _pathByNodeId.remove(id.toString());
+    await _store.forget(id, ForgetReason.userRequested);
+    return true;
+  }
+
+  /// Links each [edges] entry whose endpoints are both currently tracked, under
+  /// a node-id-addressed idempotency key (so unchanged edges no-op and edges
+  /// touching a re-persisted node get a fresh key). Returns the count linked.
+  Future<int> _linkEdges(Iterable<SpecRagEdge> edges) async {
     var edgeCount = 0;
-    for (final edge in graph.edges) {
+    for (final edge in edges) {
       final from = _nodeIdByPath[edge.fromPath];
       final to = _nodeIdByPath[edge.toPath];
-      // Both endpoints were just persisted; a missing one would be a builder
-      // bug, so skip defensively rather than throw mid-index.
+      // A missing endpoint means the section was not (re-)persisted; skip
+      // defensively rather than throw mid-link.
       if (from == null || to == null) continue;
       await _store.edge(
         from,
@@ -309,17 +441,24 @@ final class SpecDocumentMemory {
         to,
         scope: Scope(
           producer: _producer.producer,
-          idempotencyKey:
-              'rag-edge:${edge.kind.name}:${edge.fromPath}->${edge.toPath}',
+          idempotencyKey: 'rag-edge:${edge.kind.name}:$from->$to',
         ),
       );
       edgeCount++;
     }
+    return edgeCount;
+  }
 
-    return SpecRagIndexResult(
-      nodeCount: graph.nodes.length,
-      edgeCount: edgeCount,
-    );
+  /// A stable 63-bit FNV-1a content hash (hex) for the embed-changed-only
+  /// guard. Content-addresses a section node so unchanged content reuses its
+  /// row while a content edit yields a fresh key.
+  static String _contentHash(String text) {
+    var hash = 0xcbf29ce484222325; // FNV-1a 64-bit offset basis.
+    const prime = 0x100000001b3;
+    for (final unit in text.codeUnits) {
+      hash = (hash ^ unit) * prime;
+    }
+    return (hash & 0x7fffffffffffffff).toRadixString(16);
   }
 
   /// Recalls the sections most relevant to [query] from this document's RAG
