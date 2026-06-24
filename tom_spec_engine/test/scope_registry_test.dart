@@ -168,6 +168,20 @@ void main() {
       final env = registry.buildProfile(docSpecs);
       expect(env.scopeNames, ['spec', 'files', 'memory']);
     });
+
+    test('a profile carries opt-in asset dirs; default is empty (item 18)', () {
+      final bare = ScopeProfile(name: 'bare', scopeNames: ['files']);
+      expect(bare.assetDirs, isEmpty);
+
+      final withAssets = ScopeProfile(
+        name: 'docspecs',
+        scopeNames: ['files'],
+        assetDirs: const ['templates', 'schemas'],
+      );
+      expect(withAssets.assetDirs, ['templates', 'schemas']);
+      // The list is unmodifiable, like scopeNames.
+      expect(() => withAssets.assetDirs.add('x'), throwsUnsupportedError);
+    });
   });
 
   group('applyTo — real interpreter integration', () {

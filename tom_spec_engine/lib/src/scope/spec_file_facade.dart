@@ -44,23 +44,38 @@ final class SpecFileFacade {
   /// The canonicalised directories writes are permitted under.
   final List<String> writableRoots;
 
-  SpecFileFacade._(this.workspaceRoot, this.writableRoots);
+  /// The canonicalised opt-in **asset directories** a profile declares as
+  /// extra read-only search roots (§7; plan step 8 deferral, followup item 18).
+  ///
+  /// Reads are permitted anywhere already, so these matter only for discovery:
+  /// a [find] with `includeAssets: true` walks the workspace search root **plus**
+  /// every asset directory, so a `ScopeProfile`'s declared template / schema /
+  /// example directories become enumerable without the agent having to know
+  /// their absolute paths. Empty by default (a profile opts in).
+  final List<String> assetDirs;
+
+  SpecFileFacade._(this.workspaceRoot, this.writableRoots, this.assetDirs);
 
   /// Creates a facade rooted at [workspaceRoot].
   ///
   /// [writableDirs] are the directories writes may target, relative to the
   /// workspace root (absolute paths are honoured as-is); the default is the
-  /// single `agent/scratchpad` directory. Roots are canonicalised once here so
-  /// later checks compare resolved paths.
+  /// single `agent/scratchpad` directory. [assetDirs] are the opt-in read-only
+  /// search roots a `ScopeProfile` declares (default none). Both are
+  /// canonicalised once here so later checks/searches compare resolved paths.
   factory SpecFileFacade({
     required String workspaceRoot,
     List<String> writableDirs = const ['agent/scratchpad'],
+    List<String> assetDirs = const [],
   }) {
     final root = _canonicalize(workspaceRoot, workspaceRoot);
     final roots = [
       for (final dir in writableDirs) _canonicalize(dir, root),
     ];
-    return SpecFileFacade._(root, roots);
+    final assets = [
+      for (final dir in assetDirs) _canonicalize(dir, root),
+    ];
+    return SpecFileFacade._(root, roots, assets);
   }
 
   // --- read (any path) ----------------------------------------------------
@@ -104,15 +119,40 @@ final class SpecFileFacade {
   }
 
   /// The paths of entries under directory [dir] (recursively), optionally
-  /// filtered to basenames matching the `*` [glob]. Read-only exploration.
-  List<String> find(String dir, {String? glob}) {
-    final base = Directory(_resolve(dir));
-    if (!base.existsSync()) return const [];
+  /// filtered by [glob]. Read-only exploration.
+  ///
+  /// Glob semantics (richer than the original `*`-only basename walk, followup
+  /// item 18):
+  ///   * a glob **without** a `/` matches against each entry's **basename**
+  ///     (backward-compatible) — `*.md`, `risk?.txt`, `[abc].dart`;
+  ///   * a glob **with** a `/` matches against each entry's path **relative to
+  ///     the search root** — `sub/*.txt`, `**/*.md`;
+  ///   * `*` matches within a path segment, `**` matches across segments
+  ///     (including `/`), `?` matches one non-`/` char, `[...]` is a character
+  ///     class (`[!...]` negates), and `{a,b}` is alternation.
+  ///
+  /// With [includeAssets] the search also walks every declared [assetDirs] root
+  /// and returns the de-duplicated union (workspace root first), so a profile's
+  /// opt-in asset directories are discoverable in one call.
+  List<String> find(String dir, {String? glob, bool includeAssets = false}) {
+    final roots = <String>[_resolve(dir)];
+    if (includeAssets) roots.addAll(assetDirs);
+    final usePath = glob != null && glob.contains('/');
     final re = glob == null ? null : _globToRegExp(glob);
-    return [
-      for (final e in base.listSync(recursive: true))
-        if (re == null || re.hasMatch(_basename(e.path))) e.path,
-    ];
+    final seen = <String>{};
+    final out = <String>[];
+    for (final rootPath in roots) {
+      final base = Directory(rootPath);
+      if (!base.existsSync()) continue;
+      for (final e in base.listSync(recursive: true)) {
+        final candidate =
+            usePath ? _relative(e.path, rootPath) : _basename(e.path);
+        if (re == null || re.hasMatch(candidate)) {
+          if (seen.add(e.path)) out.add(e.path);
+        }
+      }
+    }
+    return out;
   }
 
   // --- write (whitelist only) ---------------------------------------------
@@ -196,11 +236,57 @@ final class SpecFileFacade {
     return i < 0 ? path : path.substring(i + 1);
   }
 
+  /// [path] relative to [root] (both absolute), `/`-separated; falls back to the
+  /// full `/`-separated path when [path] is not under [root].
+  static String _relative(String path, String root) {
+    final p = path.replaceAll(Platform.pathSeparator, _sep);
+    final r = root.replaceAll(Platform.pathSeparator, _sep);
+    if (p.startsWith('$r$_sep')) return p.substring(r.length + 1);
+    return p;
+  }
+
+  /// Translates a glob to an anchored [RegExp]: `**/` → `(?:.*/)?` (zero or more
+  /// leading path segments, so a top-level file still matches `**/x`), a bare
+  /// `**` → `.*` (crosses `/`), `*` → `[^/]*`, `?` → `[^/]`, `[...]`/`[!...]` → a
+  /// (negated) character class, and `{a,b}` → `(a|b)` alternation. Any other
+  /// character is matched literally.
   static RegExp _globToRegExp(String glob) {
     final sb = StringBuffer('^');
-    for (final ch in glob.split('')) {
+    for (var i = 0; i < glob.length; i++) {
+      final ch = glob[i];
       if (ch == '*') {
-        sb.write('[^/]*');
+        if (i + 1 < glob.length && glob[i + 1] == '*') {
+          if (i + 2 < glob.length && glob[i + 2] == '/') {
+            sb.write('(?:.*/)?');
+            i += 2;
+          } else {
+            sb.write('.*');
+            i++;
+          }
+        } else {
+          sb.write('[^/]*');
+        }
+      } else if (ch == '?') {
+        sb.write('[^/]');
+      } else if (ch == '[') {
+        final close = glob.indexOf(']', i + 1);
+        if (close < 0) {
+          sb.write(r'\[');
+        } else {
+          var cls = glob.substring(i + 1, close);
+          if (cls.startsWith('!')) cls = '^${cls.substring(1)}';
+          sb.write('[$cls]');
+          i = close;
+        }
+      } else if (ch == '{') {
+        final close = glob.indexOf('}', i + 1);
+        if (close < 0) {
+          sb.write(r'\{');
+        } else {
+          final alts = glob.substring(i + 1, close).split(',');
+          sb.write('(${alts.map(RegExp.escape).join('|')})');
+          i = close;
+        }
       } else {
         sb.write(RegExp.escape(ch));
       }

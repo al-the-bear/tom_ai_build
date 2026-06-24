@@ -186,5 +186,30 @@ main() { files.writeText('outside.txt', 'x'); }
       );
       expect(File('${ws.path}/outside.txt').existsSync(), isFalse);
     });
+
+    test('a script find can include the declared asset dirs (item 18)', () {
+      // An out-of-workspace asset dir the profile declares.
+      File('${outside.path}/template.md').writeAsStringSync('# tmpl');
+      final assetFacade = SpecFileFacade(
+        workspaceRoot: ws.path,
+        assetDirs: [outside.path],
+      );
+      File('${ws.path}/local.md').writeAsStringSync('# local');
+
+      Object? runWith(String source) {
+        final env =
+            (ScopeRegistry()..register(filesScope(assetFacade))).build(['files']);
+        final d4rt = D4rt();
+        env.applyTo(d4rt);
+        return d4rt.execute(source: source);
+      }
+
+      final found = runWith('''
+$importFiles
+main() => files.find('.', glob: '*.md', includeAssets: true);
+''') as List;
+      final names = found.map((p) => (p as String).split('/').last).toSet();
+      expect(names, containsAll(['local.md', 'template.md']));
+    });
   });
 }

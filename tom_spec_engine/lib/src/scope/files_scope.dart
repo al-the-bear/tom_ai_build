@@ -83,7 +83,8 @@ BridgedClass specFileFacadeBridgedClass() => BridgedClass(
             (target as SpecFileFacade).stat(positionalArgs[0] as String),
         'find': (visitor, target, positionalArgs, namedArgs, _) =>
             (target as SpecFileFacade).find(positionalArgs[0] as String,
-                glob: namedArgs['glob'] as String?),
+                glob: namedArgs['glob'] as String?,
+                includeAssets: (namedArgs['includeAssets'] as bool?) ?? false),
         // write — whitelist only
         'writeText': (visitor, target, positionalArgs, namedArgs, _) {
           (target as SpecFileFacade).writeText(

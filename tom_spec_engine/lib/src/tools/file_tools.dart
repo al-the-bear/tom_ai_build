@@ -94,10 +94,17 @@ final class FileTools {
     );
   }
 
-  /// `file_find` — the paths under [dir] whose basename matches [glob]
-  /// (read-only exploration; `dir` defaults to the workspace root).
-  FileFindResult find(String glob, {String dir = '.'}) =>
-      FileFindResult(glob: glob, matches: facade.find(dir, glob: glob));
+  /// `file_find` — the paths under [dir] matching [glob] (read-only
+  /// exploration; `dir` defaults to the workspace root). The glob supports
+  /// `*` / `**` / `?` / `[...]` / `{a,b}`; a glob containing `/` matches the
+  /// path relative to the search root, otherwise the basename (see
+  /// [SpecFileFacade.find]). With [includeAssets] the search also walks the
+  /// profile's declared asset directories and returns the de-duplicated union.
+  FileFindResult find(String glob, {String dir = '.', bool includeAssets = false}) =>
+      FileFindResult(
+        glob: glob,
+        matches: facade.find(dir, glob: glob, includeAssets: includeAssets),
+      );
 
   /// `file_write` — writes [content] to [path] (whitelist-checked). A path
   /// outside the writable whitelist returns a failed result carrying the

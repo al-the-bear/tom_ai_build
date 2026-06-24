@@ -25,9 +25,23 @@ final class ScopeProfile {
   /// The names of the scopes this profile enables, in priority order.
   final List<String> scopeNames;
 
-  /// Creates a profile over an unmodifiable copy of [scopeNames].
-  ScopeProfile({required this.name, required List<String> scopeNames})
-      : scopeNames = List.unmodifiable(scopeNames);
+  /// Opt-in **asset directories** this profile declares as extra read-only
+  /// search roots (template / schema / example dirs), relative to the spec
+  /// workspace root or absolute (followup item 18; plan step 8 deferral).
+  ///
+  /// Pure data, like [scopeNames]: a host wires these onto the `files` scope's
+  /// [SpecFileFacade] so a `file_find` with `includeAssets` can enumerate them.
+  /// Empty by default.
+  final List<String> assetDirs;
+
+  /// Creates a profile over an unmodifiable copy of [scopeNames] (and the
+  /// optional [assetDirs]).
+  ScopeProfile({
+    required this.name,
+    required List<String> scopeNames,
+    List<String> assetDirs = const [],
+  })  : scopeNames = List.unmodifiable(scopeNames),
+        assetDirs = List.unmodifiable(assetDirs);
 
   @override
   String toString() => 'ScopeProfile($name: ${scopeNames.join(', ')})';
