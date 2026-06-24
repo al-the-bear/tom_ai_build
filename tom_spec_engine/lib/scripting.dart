@@ -14,6 +14,15 @@
 /// in-process **without** pulling the memory plane into the Flutter compile.
 /// Everything reachable from here depends only on `tom_d4rt` +
 /// `tom_som_dart_runtime` (both already on the editor's resolved graph).
+///
+/// Beyond the scripting surface it also re-exports the **memory-free §8 tool
+/// classes** the editor's `AgentToolsModule` registers as MCP tools (plan step 5
+/// of `d4rt_and_llm_tools_followup.md`): [DocTools] (the §6 `doc_*` search /
+/// reflect / add-node logic over a [SpecController]) and [FileTools] (the audited
+/// `file_*` surface over a [SpecFileFacade]). The `mem_*` `MemoryTools` are
+/// **not** re-exported here — they depend on the server-only memory plane
+/// (`tom_brain_memory`), so they stay out of the Flutter compile until the
+/// embeddable memory plane is wired into the editor (followup item 6).
 library;
 
 export 'src/scope/scope.dart'
@@ -21,6 +30,9 @@ export 'src/scope/scope.dart'
 export 'src/scope/scope_registry.dart';
 export 'src/scope/spec_api.dart';
 export 'src/scope/spec_controller.dart';
+export 'src/scope/spec_file_facade.dart';
 export 'src/scope/spec_scope.dart';
+export 'src/tools/doc_tools.dart';
+export 'src/tools/file_tools.dart';
 export 'src/tools/script_store.dart';
 export 'src/tools/script_tools.dart';
