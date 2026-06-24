@@ -1,0 +1,265 @@
+import 'package:test/test.dart';
+import 'package:tom_d4rt/tom_d4rt.dart';
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
+import 'package:tom_spec_engine/tom_spec_engine.dart';
+
+/// Step 7 (`d4rt_and_llm_tools_plan.md`) / §5: the `spec` base scope binds the
+/// document editing API to the **live controller**, so a script mutation is
+/// indistinguishable from a tool mutation — it produces the *same* change-log
+/// entry and undo snapshot.
+///
+/// The live controller is the Flutter `SpecDocumentController`, which the engine
+/// cannot depend on. Step 7 therefore defines the engine-side [SpecController]
+/// port the real controller will satisfy, and proves the binding against a
+/// [_RecordingController] stub that records exactly what the real controller
+/// records (a change-log entry + an undo snapshot per non-no-op mutation).
+
+/// A self-contained model: a single-valued `content` leaf (`vision`), a complex
+/// list with a `@SectionIdPattern` (`risks`), and a scalar list (`tags`).
+SpecModel _model() {
+  final risk = SpecClass(
+    name: 'Risk',
+    fields: [
+      SpecField(name: 'title', kind: SpecFieldKind.content, sectionId: 'RISK-TITLE'),
+    ],
+  );
+  final pd = SpecClass(
+    name: 'ProjectDefinition',
+    sectionId: 'PD00',
+    fields: [
+      SpecField(name: 'vision', kind: SpecFieldKind.content, sectionId: 'PD00-VIS'),
+      SpecField(
+        name: 'risks',
+        kind: SpecFieldKind.list,
+        sectionId: 'PD00-RISK',
+        sectionIdPattern: r'PD00-RISK-\d+',
+        elementType: 'Risk',
+        elementIsComplex: true,
+      ),
+      SpecField(
+        name: 'tags',
+        kind: SpecFieldKind.list,
+        sectionId: 'PD00-TAG',
+        elementType: 'String',
+      ),
+    ],
+  );
+  return SpecModel(
+    roots: [SpecRoot(type: 'ProjectDefinition', title: 'PD', sectionId: 'PD00')],
+    classes: {'ProjectDefinition': pd, 'Risk': risk},
+  );
+}
+
+/// One recorded change-log entry — the subset of the real controller's
+/// `ChangeEntry` that the done-criterion compares (path, kind, before, after).
+class _Change {
+  final String kind;
+  final String path;
+  final String? before;
+  final String? after;
+  const _Change(this.kind, this.path, this.before, this.after);
+
+  @override
+  bool operator ==(Object other) =>
+      other is _Change &&
+      other.kind == kind &&
+      other.path == path &&
+      other.before == before &&
+      other.after == after;
+
+  @override
+  int get hashCode => Object.hash(kind, path, before, after);
+
+  @override
+  String toString() => '_Change($kind, $path, $before -> $after)';
+}
+
+/// A faithful stand-in for the live `SpecDocumentController`: it wraps a
+/// [SpecModel] + [SpecDocument] and, on every *effective* mutation, records a
+/// change-log entry **and** pushes the before-snapshot onto an undo stack —
+/// exactly the `_commit` discipline the real controller uses.
+class _RecordingController implements SpecController {
+  _RecordingController(this.model, this.document);
+
+  final SpecModel model;
+  final SpecDocument document;
+
+  final List<_Change> log = [];
+  final List<SpecDocumentState> undo = [];
+
+  void _commit(SpecDocumentState before, _Change Function() entry) {
+    final after = document.captureState();
+    if (before.fingerprint == after.fingerprint) return;
+    undo.add(before);
+    log.add(entry());
+  }
+
+  @override
+  String? content(String path) => document.content(path);
+
+  @override
+  String? formField(String path, String field) =>
+      document.formField(path, field);
+
+  @override
+  List<String> listItems(String listPath) => document.listItems(listPath);
+
+  @override
+  void setContent(String path, String value) {
+    final before = document.captureState();
+    final beforeVal = document.content(path);
+    document.setContent(path, value);
+    _commit(before,
+        () => _Change('content', path, beforeVal, value.isEmpty ? null : value));
+  }
+
+  @override
+  void setFormField(String path, String field, String value) {
+    final before = document.captureState();
+    final beforeVal = document.formField(path, field);
+    document.setFormField(path, field, value);
+    _commit(
+        before,
+        () => _Change('form:$field', path, beforeVal,
+            value.isEmpty ? null : value));
+  }
+
+  @override
+  String addListItem(String listPath) {
+    final before = document.captureState();
+    final itemPath = document.addListItem(listPath);
+    _commit(before, () => _Change('listAdd', itemPath, null, itemPath));
+    return itemPath;
+  }
+
+  @override
+  bool removeListItem(String itemPath) {
+    final before = document.captureState();
+    final removed = document.removeListItem(itemPath);
+    if (removed) {
+      _commit(before, () => _Change('listRemove', itemPath, itemPath, null));
+    }
+    return removed;
+  }
+
+  @override
+  String addChild(String parentPath, String childSegment, {String? itemId}) {
+    final before = document.captureState();
+    final childPath = SpecNodeCreator(model, document)
+        .add(parentPath, childSegment, itemId: itemId);
+    _commit(before, () => _Change('add', childPath, null, childPath));
+    return childPath;
+  }
+}
+
+/// Builds a controller over a fresh model + empty document.
+_RecordingController _controller() =>
+    _RecordingController(_model(), SpecDocument());
+
+/// Runs [source] in a fresh interpreter granted [scope].
+Object? _run(ScriptScope scope, String source) {
+  final registry = ScopeRegistry()..register(scope);
+  final env = registry.build([scope.name]);
+  final d4rt = D4rt();
+  env.applyTo(d4rt);
+  return d4rt.execute(source: source);
+}
+
+const _import = "import 'package:tom_spec_engine/spec_api.dart';";
+
+void main() {
+  group('specScope shape', () {
+    test('is a scope named "spec" exposing the spec_api library', () {
+      final scope = specScope(_controller());
+      expect(scope.name, 'spec');
+      expect(scope.libraries.map((l) => l.name), contains('spec_api'));
+    });
+  });
+
+  group('a script mutation equals a tool mutation', () {
+    test('setContent: same change-log entry and undo snapshot', () {
+      // Tool path: call the controller directly.
+      final tool = _controller();
+      tool.setContent('PD00/PD00-VIS', 'a clear vision');
+
+      // Script path: a sandboxed script under the spec scope does the same.
+      final scripted = _controller();
+      _run(specScope(scripted), '''
+$_import
+main() {
+  spec.setContent('PD00/PD00-VIS', 'a clear vision');
+}
+''');
+
+      expect(scripted.log, equals(tool.log));
+      expect(scripted.document.content('PD00/PD00-VIS'), 'a clear vision');
+      expect(scripted.undo, hasLength(tool.undo.length));
+      expect(scripted.undo.single.fingerprint, tool.undo.single.fingerprint);
+    });
+
+    test('addListItem: same entry and the script sees the new item path', () {
+      final tool = _controller();
+      final toolPath = tool.addListItem('PD00/PD00-TAG');
+
+      final scripted = _controller();
+      final result = _run(specScope(scripted), '''
+$_import
+main() => spec.addListItem('PD00/PD00-TAG');
+''');
+
+      expect(result, toolPath);
+      expect(scripted.log, equals(tool.log));
+      expect(scripted.listItems('PD00/PD00-TAG'), [toolPath]);
+    });
+
+    test('a no-op edit records nothing, exactly like the tool path', () {
+      final tool = _controller()..setContent('PD00/PD00-VIS', '');
+      final scripted = _controller();
+      _run(specScope(scripted), '''
+$_import
+main() { spec.setContent('PD00/PD00-VIS', ''); }
+''');
+      expect(tool.log, isEmpty);
+      expect(scripted.log, isEmpty);
+      expect(scripted.undo, isEmpty);
+    });
+  });
+
+  group('constrained node creation routes through the controller', () {
+    test('a legal complex-list add records one entry', () {
+      final scripted = _controller();
+      final childPath = _run(specScope(scripted), '''
+$_import
+main() => spec.addChild('PD00', 'PD00-RISK');
+''');
+      expect(childPath, 'PD00/PD00-RISK-1');
+      expect(scripted.log, [const _Change('add', 'PD00/PD00-RISK-1', null, 'PD00/PD00-RISK-1')]);
+      expect(scripted.listItems('PD00/PD00-RISK'), ['PD00/PD00-RISK-1']);
+    });
+
+    test('an illegal add surfaces as a script error and mutates nothing', () {
+      final scripted = _controller();
+      expect(
+        () => _run(specScope(scripted), '''
+$_import
+main() => spec.addChild('PD00', 'PD00-NOPE');
+'''),
+        throwsA(anything),
+      );
+      expect(scripted.log, isEmpty);
+      expect(scripted.document.listItems('PD00/PD00-RISK'), isEmpty);
+    });
+  });
+
+  group('read-back through the facade', () {
+    test('a script reads a value a prior tool edit wrote', () {
+      final controller = _controller()
+        ..setContent('PD00/PD00-VIS', 'written by a tool');
+      final read = _run(specScope(controller), '''
+$_import
+main() => spec.content('PD00/PD00-VIS');
+''');
+      expect(read, 'written by a tool');
+    });
+  });
+}

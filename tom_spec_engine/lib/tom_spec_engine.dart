@@ -21,7 +21,12 @@
 ///     plane (plan step 2);
 ///   * the **D4rt scripting scope model** (`scope/`) — `ScriptScope` /
 ///     `ScopeRegistry` / `RunEnvironment` / `ScopeProfile` and the reusable
-///     `tom_som` bridged-library block (plan step 6, §4).
+///     `tom_som` bridged-library block (plan step 6, §4);
+///   * the **`spec` base scope** (`scope/`) — `SpecController` (the live-document
+///     controller port), the `SpecApi` script facade + its D4rt bridge, and the
+///     `specScope()` factory that binds document editing to the live controller
+///     so a script edit shares the change log + undo stack with a tool edit
+///     (plan step 7, §5).
 library;
 
 export 'src/engine_meta.dart';
@@ -29,3 +34,6 @@ export 'src/memory/spec_memory.dart';
 export 'src/scope/scope.dart';
 export 'src/scope/scope_registry.dart';
 export 'src/scope/som_library.dart';
+export 'src/scope/spec_api.dart';
+export 'src/scope/spec_controller.dart';
+export 'src/scope/spec_scope.dart';
