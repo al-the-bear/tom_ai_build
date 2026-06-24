@@ -24,6 +24,28 @@ ScopeRegistry _registryWith(Iterable<String> names) {
 }
 
 void main() {
+  group('canonical application mapping (Q1 / F1)', () {
+    test('the three applications are the phase-ordered profile names', () {
+      expect(docSpecsApplication, 'docspecs');
+      expect(codeSpecsApplication, 'codespecs');
+      expect(implementationApplication, 'implementation');
+      expect(tomSpecsApplications, [
+        docSpecsApplication,
+        codeSpecsApplication,
+        implementationApplication,
+      ]);
+    });
+
+    test('the application names are distinct', () {
+      expect(tomSpecsApplications.toSet(), hasLength(3));
+    });
+
+    test('DocSpecs is the reference application and binds its profile name', () {
+      expect(docSpecsAgentContext().application, docSpecsApplication);
+      expect(docSpecsAgentContext().profileName, docSpecsApplication);
+    });
+  });
+
   group('docSpecsAgentContext', () {
     test('binds the DocSpecs guidelines, all four tool groups, and the three '
         'base scopes', () {

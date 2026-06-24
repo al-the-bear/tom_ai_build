@@ -60,6 +60,37 @@ enum AgentToolGroup {
   final String requiredScope;
 }
 
+/// The three canonical TomSpecs **applications** — each one Tom Brain
+/// **profile** under the confirmed Q1 mapping (decision F1, §11):
+///
+///   * **one profile per application** — these three names;
+///   * **one named session per phase/task** — [MemoryScope.session];
+///   * **one named memory per open document** — [MemoryScope.document].
+///
+/// The names are fixed here so the mapping — *which* applications exist and
+/// that each addresses exactly one profile — is authoritative in code. Only
+/// [docSpecsApplication] has a fully-authored context today
+/// ([docSpecsAgentContext]); authoring the CodeSpecs and Implementation
+/// contexts (their guidelines prompts, toolsets, and scope profiles) is a later
+/// follow-up — see `d4rt_and_llm_tools_followup.md` item 10.
+const String docSpecsApplication = 'docspecs';
+
+/// The CodeSpecs application profile name (Q1 / F1). Context not yet authored.
+const String codeSpecsApplication = 'codespecs';
+
+/// The Implementation application profile name (Q1 / F1). Context not yet
+/// authored.
+const String implementationApplication = 'implementation';
+
+/// The canonical application set in phase order
+/// (DocSpecs → CodeSpecs → Implementation), each → one Tom Brain profile
+/// (Q1 / F1).
+const List<String> tomSpecsApplications = [
+  docSpecsApplication,
+  codeSpecsApplication,
+  implementationApplication,
+];
+
 /// The DocSpecs application's guidelines document — the agent briefing prompt
 /// the DocSpecs profile binds (§11, plan step 19).
 const String docSpecsGuidelinesName = 'guidelines_specification.md';
@@ -155,7 +186,7 @@ final class AgentContext {
 /// **three base scopes** (`spec` / `files` / `memory`) — the full TomSpecs
 /// editing surface.
 AgentContext docSpecsAgentContext() => AgentContext(
-      application: 'docspecs',
+      application: docSpecsApplication,
       guidelinesName: docSpecsGuidelinesName,
       toolset: {
         AgentToolGroup.doc,
