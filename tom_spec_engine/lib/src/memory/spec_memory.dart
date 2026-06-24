@@ -23,15 +23,19 @@ import 'package:tom_brain_shared/tom_brain_shared.dart'
     show
         DiversityPolicy,
         DiversityStrategy,
+        EdgeDirection,
+        EdgeType,
         MemoryConfig,
         MultiRecallQuery,
         NodeDraft,
+        NodeId,
         RecallMode,
         RecallSeed,
         Scope,
         Vec;
 
 import 'memory_scope.dart';
+import 'spec_rag_graph.dart';
 
 export 'package:tom_brain_shared/tom_brain_shared.dart' show Vec;
 
@@ -54,6 +58,56 @@ final class RememberedItem {
 
   static String _preview(String s) =>
       s.length <= 48 ? s : '${s.substring(0, 45)}...';
+}
+
+/// What [SpecDocumentMemory.indexDocument] wrote: the section nodes persisted
+/// and the tree/projection edges linked.
+final class SpecRagIndexResult {
+  /// Section nodes persisted (one per [SpecRagNode]).
+  final int nodeCount;
+
+  /// Edges linked (tree + resolved projections).
+  final int edgeCount;
+
+  const SpecRagIndexResult({required this.nodeCount, required this.edgeCount});
+
+  @override
+  String toString() =>
+      'SpecRagIndexResult(nodes: $nodeCount, edges: $edgeCount)';
+}
+
+/// One section recalled from a document's RAG memory.
+final class SpecRagHit {
+  /// The section-id path of the recalled section.
+  final String path;
+
+  /// The rendered section text (metadata header + content).
+  final String text;
+
+  const SpecRagHit({required this.path, required this.text});
+
+  @override
+  String toString() => 'SpecRagHit($path)';
+}
+
+/// One persisted RAG edge, read back with its endpoints mapped to section
+/// paths. The closed-alphabet [EdgeType] collapses to [partOf] (`part_of`,
+/// the tree) versus a `mentions` projection — the original
+/// `@MapsTo`/`@DetailedIn` distinction is not separable on read-back, since
+/// both project to the same `mentions` label.
+final class SpecRagStoredEdge {
+  /// The destination section's path.
+  final String toPath;
+
+  /// Whether the edge is a `part_of` tree edge (`false` = a `mentions`
+  /// projection edge).
+  final bool partOf;
+
+  const SpecRagStoredEdge({required this.toPath, required this.partOf});
+
+  @override
+  String toString() =>
+      'SpecRagStoredEdge(--${partOf ? 'part_of' : 'mentions'}--> $toPath)';
 }
 
 /// In-process, profile-isolated Tom Brain memory for the TomSpecs engine.
@@ -141,6 +195,14 @@ final class SpecDocumentMemory {
   final SqliteTomBrainMemory _store;
   final SpecEmbedder _embedder;
 
+  /// Section path → persisted node id, populated by [indexDocument]. Lets
+  /// [edgesFrom] resolve a section path back to its Tom Brain node.
+  final Map<String, NodeId> _nodeIdByPath = <String, NodeId>{};
+
+  /// Persisted node id (string form) → section path — the inverse of
+  /// [_nodeIdByPath], so a read-back edge's endpoints map to section paths.
+  final Map<String, String> _pathByNodeId = <String, String>{};
+
   SpecDocumentMemory._({
     required this.scope,
     required SqliteTomBrainMemory store,
@@ -150,6 +212,13 @@ final class SpecDocumentMemory {
 
   /// The producer stamp on every node this engine writes.
   static const Scope _producer = Scope(producer: 'tom_spec_engine');
+
+  /// The built-in Tom Brain node type used for a spec section. `Concept`
+  /// already permits exactly the edges §9.1 needs — `part_of` (the tree) and
+  /// `mentions` (the `@MapsTo`/`@DetailedIn` projections) — on both its
+  /// `allowedOutgoing` and `allowedIncoming` sets, so no custom node type has
+  /// to be registered.
+  static const String _sectionType = 'Concept';
 
   /// Embeds [text] through the same embedder the store recalls with.
   Future<Vec> embed(String text) => _embedder(text);
@@ -196,4 +265,107 @@ final class SpecDocumentMemory {
         .map((node) => RememberedItem(text: node.values['summary'] as String))
         .toList(growable: false);
   }
+
+  /// Indexes a document's section-level RAG [graph] into this document's named
+  /// memory (plan step 10, §9.1): each [SpecRagNode] is persisted as a
+  /// [_sectionType] node (`name` = section path, `description` = rendered text),
+  /// embedded so it is recoverable by vector recall, then each [SpecRagEdge] is
+  /// linked (`part_of` for the tree, `mentions` for projections).
+  ///
+  /// Idempotent: nodes and edges carry deterministic idempotency keys derived
+  /// from the section path, so re-indexing an unchanged document is a no-op
+  /// that reuses the existing rows.
+  Future<SpecRagIndexResult> indexDocument(SpecRagGraph graph) async {
+    for (final node in graph.nodes) {
+      final embedding = await _embedder(node.text);
+      final id = await _store.persist(
+        NodeDraft(
+          typeName: _sectionType,
+          values: <String, Object?>{
+            'name': node.path,
+            'description': node.text,
+          },
+          embedding: embedding,
+        ),
+        scope: Scope(
+          producer: _producer.producer,
+          idempotencyKey: 'rag-node:${node.path}',
+        ),
+      );
+      _nodeIdByPath[node.path] = id;
+      _pathByNodeId[id.toString()] = node.path;
+    }
+
+    var edgeCount = 0;
+    for (final edge in graph.edges) {
+      final from = _nodeIdByPath[edge.fromPath];
+      final to = _nodeIdByPath[edge.toPath];
+      // Both endpoints were just persisted; a missing one would be a builder
+      // bug, so skip defensively rather than throw mid-index.
+      if (from == null || to == null) continue;
+      await _store.edge(
+        from,
+        _edgeTypeOf(edge.kind),
+        to,
+        scope: Scope(
+          producer: _producer.producer,
+          idempotencyKey:
+              'rag-edge:${edge.kind.name}:${edge.fromPath}->${edge.toPath}',
+        ),
+      );
+      edgeCount++;
+    }
+
+    return SpecRagIndexResult(
+      nodeCount: graph.nodes.length,
+      edgeCount: edgeCount,
+    );
+  }
+
+  /// Recalls the sections most relevant to [query] from this document's RAG
+  /// memory via the vector index (the store embeds [query] through the shared
+  /// embedder). Returns at most [k] sections, highest-ranked first.
+  Future<List<SpecRagHit>> recallSections(String query, {int k = 10}) async {
+    final result = await _store.recallMulti(
+      MultiRecallQuery(
+        seeds: <RecallSeed>[
+          RecallSeed(mode: RecallMode.vector, text: query, k: k),
+        ],
+        k: k,
+        diversity: const DiversityPolicy(strategy: DiversityStrategy.off),
+      ),
+    );
+    return result.nodes
+        .where((node) => node.typeName == _sectionType)
+        .map((node) => SpecRagHit(
+              path: node.values['name'] as String,
+              text: node.values['description'] as String,
+            ))
+        .toList(growable: false);
+  }
+
+  /// Returns the outgoing RAG edges of the section at [path] (the edges this
+  /// section *emits*), with endpoints mapped back to section paths. Returns an
+  /// empty list when [path] was not indexed.
+  Future<List<SpecRagStoredEdge>> edgesFrom(String path) async {
+    final id = _nodeIdByPath[path];
+    if (id == null) return const <SpecRagStoredEdge>[];
+    final edges = await _store.edgesOf(id, direction: EdgeDirection.outgoing);
+    final out = <SpecRagStoredEdge>[];
+    for (final edge in edges) {
+      final toPath = _pathByNodeId[edge.to.toString()];
+      if (toPath == null) continue;
+      out.add(SpecRagStoredEdge(
+        toPath: toPath,
+        partOf: edge.type == EdgeType.partOf,
+      ));
+    }
+    return out;
+  }
+
+  static EdgeType _edgeTypeOf(SpecRagEdgeKind kind) => switch (kind) {
+        SpecRagEdgeKind.tree => EdgeType.partOf,
+        SpecRagEdgeKind.mapsTo => EdgeType.mentions,
+        SpecRagEdgeKind.detailedIn => EdgeType.mentions,
+      };
 }

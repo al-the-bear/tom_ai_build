@@ -37,11 +37,19 @@
 ///     `StructuralLexicalIndex`, an inverted BM25 text index + structural facets
 ///     built directly from the object model (`SpecNodeProjection`s), with zero
 ///     model calls and incremental per-section refresh, backing the §6 search
-///     facility (plan step 9, §9.2).
+///     facility (plan step 9, §9.2);
+///   * the **section-level RAG store** (`memory/`) — the pure `SpecRagGraph`
+///     builder (section nodes + tree/`@MapsTo`/`@DetailedIn` edges from a
+///     document's projections, zero I/O / zero model calls) plus
+///     `SpecDocumentMemory.indexDocument` / `recallSections` / `edgesFrom`,
+///     which persist that graph as `Concept` nodes + `part_of` / `mentions`
+///     edges into the document's profile-isolated Tom Brain named memory and
+///     recall it back, all in-process (plan step 10, §9.1).
 library;
 
 export 'src/engine_meta.dart';
 export 'src/memory/spec_memory.dart';
+export 'src/memory/spec_rag_graph.dart';
 export 'src/index/structural_lexical_index.dart';
 export 'src/scope/files_scope.dart';
 export 'src/scope/scope.dart';
