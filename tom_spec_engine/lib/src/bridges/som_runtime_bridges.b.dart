@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 10 files
-// Generated: 2026-06-24T15:53:12.085378
+// Generated: 2026-06-25T01:10:19.204129
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -47,6 +47,7 @@ class SomRuntimeBridge {
       _createSpecCreationErrorBridge(),
       _createSpecNodeCreatorBridge(),
       _createSpecMatchSpanBridge(),
+      _createSpecNodeProjectionBridge(),
       _createSpecQueryMatchBridge(),
       _createSpecQueryBridge(),
       _createSpecQueryEngineBridge(),
@@ -83,6 +84,7 @@ class SomRuntimeBridge {
       'SpecCreationError': _createSpecCreationErrorBridge,
       'SpecNodeCreator': _createSpecNodeCreatorBridge,
       'SpecMatchSpan': _createSpecMatchSpanBridge,
+      'SpecNodeProjection': _createSpecNodeProjectionBridge,
       'SpecQueryMatch': _createSpecQueryMatchBridge,
       'SpecQuery': _createSpecQueryBridge,
       'SpecQueryEngine': _createSpecQueryEngineBridge,
@@ -118,6 +120,7 @@ class SomRuntimeBridge {
       'SpecCreationError': $tom_som_dart_runtime_6.SpecCreationError,
       'SpecNodeCreator': $tom_som_dart_runtime_6.SpecNodeCreator,
       'SpecMatchSpan': $tom_som_dart_runtime_8.SpecMatchSpan,
+      'SpecNodeProjection': $tom_som_dart_runtime_8.SpecNodeProjection,
       'SpecQueryMatch': $tom_som_dart_runtime_8.SpecQueryMatch,
       'SpecQuery': $tom_som_dart_runtime_8.SpecQuery,
       'SpecQueryEngine': $tom_som_dart_runtime_8.SpecQueryEngine,
@@ -154,6 +157,7 @@ class SomRuntimeBridge {
       'SpecCreationError': 'package:tom_som_dart_runtime/src/spec_node_creation.dart',
       'SpecNodeCreator': 'package:tom_som_dart_runtime/src/spec_node_creation.dart',
       'SpecMatchSpan': 'package:tom_som_dart_runtime/src/spec_query.dart',
+      'SpecNodeProjection': 'package:tom_som_dart_runtime/src/spec_query.dart',
       'SpecQueryMatch': 'package:tom_som_dart_runtime/src/spec_query.dart',
       'SpecQuery': 'package:tom_som_dart_runtime/src/spec_query.dart',
       'SpecQueryEngine': 'package:tom_som_dart_runtime/src/spec_query.dart',
@@ -262,6 +266,16 @@ class SomRuntimeBridge {
   static List<({String source, String target, Set<String>? show, Set<String>? hide})>
   bridgeReExports() {
     return [
+      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/som_facade.dart', show: null, hide: null),
+      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_document.dart', show: null, hide: null),
+      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_document_markdown.dart', show: null, hide: null),
+      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_document_yaml.dart', show: null, hide: null),
+      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_model.dart', show: null, hide: null),
+      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_node_creation.dart', show: null, hide: null),
+      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_paths.dart', show: null, hide: null),
+      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_query.dart', show: null, hide: null),
+      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_reflection.dart', show: null, hide: null),
+      (source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart', target: 'package:tom_som_dart_runtime/src/spec_validator.dart', show: null, hide: null),
     ];
   }
 
@@ -307,6 +321,11 @@ class SomRuntimeBridge {
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
       interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);
+    }
+
+    // GEN-107: Register library re-exports
+    for (final r in bridgeReExports()) {
+      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
     }
   }
 
@@ -1612,6 +1631,68 @@ BridgedClass _createSpecMatchSpanBridge() {
 }
 
 // =============================================================================
+// SpecNodeProjection Bridge
+// =============================================================================
+
+BridgedClass _createSpecNodeProjectionBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_8.SpecNodeProjection,
+    name: 'SpecNodeProjection',
+    isAssignable: (v) => v is $tom_som_dart_runtime_8.SpecNodeProjection,
+    constructors: {
+      '': (visitor, positional, named) {
+        final path = D4.getRequiredNamedArg<String>(named, 'path', 'SpecNodeProjection');
+        final kind = D4.getRequiredNamedArg<$tom_som_dart_runtime_9.SpecNodeKind>(named, 'kind', 'SpecNodeProjection');
+        final classId = D4.getOptionalNamedArg<String?>(named, 'classId');
+        final sectionId = D4.getOptionalNamedArg<String?>(named, 'sectionId');
+        final mapsTo = D4.getOptionalNamedArg<String?>(named, 'mapsTo');
+        final detailedIn = D4.getOptionalNamedArg<String?>(named, 'detailedIn');
+        final headline = D4.getOptionalNamedArg<String?>(named, 'headline');
+        final searchableStrings = named.containsKey('searchableStrings') && named['searchableStrings'] != null
+            ? D4.coerceList<String>(named['searchableStrings'], 'searchableStrings')
+            : const <String>[];
+        final hasValue = D4.getNamedArgWithDefault<bool>(named, 'hasValue', false);
+        return $tom_som_dart_runtime_8.SpecNodeProjection(path: path, kind: kind, classId: classId, sectionId: sectionId, mapsTo: mapsTo, detailedIn: detailedIn, headline: headline, searchableStrings: searchableStrings, hasValue: hasValue);
+      },
+    },
+    getters: {
+      'path': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_8.SpecNodeProjection>(target, 'SpecNodeProjection').path,
+      'kind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_8.SpecNodeProjection>(target, 'SpecNodeProjection').kind,
+      'classId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_8.SpecNodeProjection>(target, 'SpecNodeProjection').classId,
+      'sectionId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_8.SpecNodeProjection>(target, 'SpecNodeProjection').sectionId,
+      'mapsTo': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_8.SpecNodeProjection>(target, 'SpecNodeProjection').mapsTo,
+      'detailedIn': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_8.SpecNodeProjection>(target, 'SpecNodeProjection').detailedIn,
+      'headline': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_8.SpecNodeProjection>(target, 'SpecNodeProjection').headline,
+      'searchableStrings': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_8.SpecNodeProjection>(target, 'SpecNodeProjection').searchableStrings,
+      'hasValue': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_8.SpecNodeProjection>(target, 'SpecNodeProjection').hasValue,
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecNodeProjection>(target, 'SpecNodeProjection');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const SpecNodeProjection({required String path, required SpecNodeKind kind, String? classId, String? sectionId, String? mapsTo, String? detailedIn, String? headline, List<String> searchableStrings = const [], bool hasValue = false})',
+    },
+    methodSignatures: {
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'path': 'String get path',
+      'kind': 'SpecNodeKind get kind',
+      'classId': 'String? get classId',
+      'sectionId': 'String? get sectionId',
+      'mapsTo': 'String? get mapsTo',
+      'detailedIn': 'String? get detailedIn',
+      'headline': 'String? get headline',
+      'searchableStrings': 'List<String> get searchableStrings',
+      'hasValue': 'bool get hasValue',
+    },
+  );
+}
+
+// =============================================================================
 // SpecQueryMatch Bridge
 // =============================================================================
 
@@ -1748,12 +1829,24 @@ BridgedClass _createSpecQueryEngineBridge() {
         final query = D4.getRequiredArg<$tom_som_dart_runtime_8.SpecQuery>(positional, 0, 'query', 'query');
         return t.query(query);
       },
+      'projectNodes': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecQueryEngine>(target, 'SpecQueryEngine');
+        return t.projectNodes();
+      },
+      'projectNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_8.SpecQueryEngine>(target, 'SpecQueryEngine');
+        D4.requireMinArgs(positional, 1, 'projectNode');
+        final path = D4.getRequiredArg<String>(positional, 0, 'path', 'projectNode');
+        return t.projectNode(path);
+      },
     },
     constructorSignatures: {
       '': 'SpecQueryEngine({required SpecModel model, required SpecDocument document})',
     },
     methodSignatures: {
       'query': 'SpecQueryCursor query(SpecQuery query)',
+      'projectNodes': 'Iterable<SpecNodeProjection> projectNodes()',
+      'projectNode': 'SpecNodeProjection? projectNode(String path)',
     },
     getterSignatures: {
       'model': 'SpecModel get model',
