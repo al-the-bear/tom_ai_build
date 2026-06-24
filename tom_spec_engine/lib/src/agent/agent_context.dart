@@ -1,0 +1,212 @@
+/// The per-application **AgentContext** — `{guidelines doc, tool set, scope
+/// profile}` realised over Tom Brain profiles/sessions/memory
+/// (`d4rt_and_llm_tools.md` §11, plan step 17).
+///
+/// §11 makes the *application* the unit of agent configuration: each
+/// application (DocSpecs / CodeSpecs / Implementation …) is a Tom Brain
+/// **profile** whose prompt is its guidelines document, whose tools are its
+/// toolset, and whose enabled D4rt scripting surfaces are its scope profile.
+/// A **named session** isolates one phase/task run and a **named memory**
+/// isolates one document. Switching application therefore swaps, in one move,
+/// the guidelines + tools + scopes + memory an agent runs under.
+///
+/// [AgentContext] is that datum, pure engine-plane value data:
+///
+///   * [application] → the Tom Brain **profile** name ([profileName]);
+///   * [guidelinesName] → the profile **prompt** (the agent briefing document,
+///     e.g. `guidelines_specification.md`);
+///   * [toolset] → the [AgentToolGroup]s the profile exposes;
+///   * [scopeProfile] → the D4rt [ScopeProfile] the profile enables.
+///
+/// [memoryScope] layers the per-run session + per-document memory on top,
+/// yielding the [MemoryScope] the step-16 mode-(b) substrate runs under;
+/// [brainSubstrate] is the bridge that builds that substrate. The
+/// **toolset ⊆ scopes** invariant is checked at construction so a context can
+/// never expose a tool whose required scope its profile omits — the guarantee
+/// that makes switching application safe.
+library;
+
+import 'agent_procedure.dart';
+import 'agent_scope.dart';
+import 'agent_tools_api.dart';
+import 'brain_agent_substrate.dart';
+import 'brain_session_envelope.dart';
+import '../memory/memory_scope.dart';
+import '../scope/scope_registry.dart';
+
+/// The four agent toolset families (§8) an [AgentContext] can expose.
+///
+/// Each group needs a specific base scope to operate; [requiredScope] names it.
+/// A context's [AgentContext.toolset] must be covered by its
+/// [AgentContext.scopeProfile] — the construction-time invariant that keeps a
+/// tool from being exposed without its backing scope.
+enum AgentToolGroup {
+  /// The `doc_*` tools (search / iterate / reflect / add_node) — need `spec`.
+  doc(requiredScope: 'spec'),
+
+  /// The `mem_*` tools (recall / refresh) — need `memory`.
+  memory(requiredScope: 'memory'),
+
+  /// The `file_*` tools (read / find / write) — need `files`.
+  file(requiredScope: 'files'),
+
+  /// The `script_*` tools (author / validate / run / list / get) — author and
+  /// run scripts against the live document, so they need `spec`.
+  script(requiredScope: 'spec');
+
+  const AgentToolGroup({required this.requiredScope});
+
+  /// The base-scope name this tool family needs to operate.
+  final String requiredScope;
+}
+
+/// The DocSpecs application's guidelines document — the agent briefing prompt
+/// the DocSpecs profile binds (§11, plan step 19).
+const String docSpecsGuidelinesName = 'guidelines_specification.md';
+
+/// The per-application agent context: guidelines + toolset + scope profile,
+/// addressed as a Tom Brain profile (§11).
+final class AgentContext {
+  /// The application name — the Tom Brain **profile** ([profileName]).
+  final String application;
+
+  /// The guidelines document that is the profile's **prompt** (agent briefing).
+  final String guidelinesName;
+
+  /// The [AgentToolGroup]s this profile exposes.
+  final Set<AgentToolGroup> toolset;
+
+  /// The D4rt scope profile this application enables.
+  final ScopeProfile scopeProfile;
+
+  /// Creates a context, validating that every tool in [toolset] has its
+  /// [AgentToolGroup.requiredScope] present in [scopeProfile] — a context that
+  /// exposed a tool without its backing scope would be unsafe (the tool could
+  /// be invoked with no capability to back it). Throws [ArgumentError]
+  /// otherwise.
+  AgentContext({
+    required this.application,
+    required this.guidelinesName,
+    required Set<AgentToolGroup> toolset,
+    required this.scopeProfile,
+  }) : toolset = Set.unmodifiable(toolset) {
+    final scopes = scopeProfile.scopeNames.toSet();
+    for (final group in toolset) {
+      if (!scopes.contains(group.requiredScope)) {
+        throw ArgumentError(
+          'tool group "${group.name}" needs scope '
+          '"${group.requiredScope}", which application "$application" does not '
+          'enable (${scopeProfile.scopeNames.join(', ')})',
+        );
+      }
+    }
+  }
+
+  /// The Tom Brain profile this application binds to — the [application] itself.
+  String get profileName => application;
+
+  /// Addresses one run: the application profile + a per-run [session] (named
+  /// session) + a per-document [document] (named memory).
+  MemoryScope memoryScope({required String session, required String document}) =>
+      MemoryScope(
+        application: application,
+        session: session,
+        document: document,
+      );
+
+  /// Builds the [RunEnvironment] for this application's scope profile against
+  /// [registry] — the union of its base scopes' libraries, globals, and grants.
+  RunEnvironment buildEnvironment(ScopeRegistry registry) =>
+      registry.buildProfile(scopeProfile);
+
+  /// Builds the §10 **mode (b)** ([BrainAgentSubstrate]) for this application:
+  /// the same agent procedure, wrapped in a Tom Brain session [envelope]
+  /// addressed by this context's [memoryScope] for [session] + [document].
+  ///
+  /// [procedure] defaults to [AgentProcedure.searchRecallEditVerify];
+  /// [scopeName] is the label the `agent` scope is registered under.
+  BrainAgentSubstrate brainSubstrate({
+    required AgentToolsApi tools,
+    required BrainSessionEnvelope envelope,
+    required String session,
+    required String document,
+    AgentProcedure? procedure,
+    String scopeName = agentScopeName,
+  }) =>
+      BrainAgentSubstrate(
+        tools: tools,
+        envelope: envelope,
+        scope: memoryScope(session: session, document: document),
+        procedure: procedure,
+        scopeName: scopeName,
+      );
+
+  @override
+  String toString() =>
+      'AgentContext($application: guidelines=$guidelinesName, '
+      'tools=${toolset.map((g) => g.name).join('/')}, '
+      'scopes=${scopeProfile.scopeNames.join(', ')})';
+}
+
+/// The DocSpecs application context (§11, plan step 17 done-criterion).
+///
+/// The DocSpecs profile is the reference application: it briefs the agent with
+/// [docSpecsGuidelinesName], exposes **all four** tool groups, and enables the
+/// **three base scopes** (`spec` / `files` / `memory`) — the full TomSpecs
+/// editing surface.
+AgentContext docSpecsAgentContext() => AgentContext(
+      application: 'docspecs',
+      guidelinesName: docSpecsGuidelinesName,
+      toolset: {
+        AgentToolGroup.doc,
+        AgentToolGroup.memory,
+        AgentToolGroup.file,
+        AgentToolGroup.script,
+      },
+      scopeProfile: ScopeProfile(
+        name: 'docspecs',
+        scopeNames: ['spec', 'files', 'memory'],
+      ),
+    );
+
+/// Holds the application [AgentContext]s and resolves the active one by name —
+/// the §11 **application switch** (plan step 17).
+///
+/// Registering DocSpecs / CodeSpecs / Implementation contexts and resolving by
+/// application name is how *the application selects its profile*: one
+/// [context] call swaps guidelines + tools + scopes + memory together.
+final class AgentContextRegistry {
+  final Map<String, AgentContext> _contexts = {};
+
+  /// Registers [context] under its [AgentContext.application] name. Throws
+  /// [ArgumentError] if an application of that name is already registered.
+  void register(AgentContext context) {
+    if (_contexts.containsKey(context.application)) {
+      throw ArgumentError.value(
+        context.application,
+        'application',
+        'an agent context is already registered for this application',
+      );
+    }
+    _contexts[context.application] = context;
+  }
+
+  /// Whether an application named [application] is registered.
+  bool has(String application) => _contexts.containsKey(application);
+
+  /// The context for [application]. Throws [ArgumentError] if unknown.
+  AgentContext context(String application) {
+    final context = _contexts[application];
+    if (context == null) {
+      throw ArgumentError.value(
+        application,
+        'application',
+        'no agent context registered',
+      );
+    }
+    return context;
+  }
+
+  /// The names of all registered applications.
+  Iterable<String> get applications => _contexts.keys;
+}

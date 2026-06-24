@@ -94,8 +94,21 @@
 ///     `RecordingBrainEnvelope` keeps the "same loop test" host-independent
 ///     while the live `tom_brain_memory`-backed envelope is wired in the editor
 ///     (plan step 16, §10).
+///   * the **per-application AgentContext** (`agent/`) — the §11
+///     [AgentContext] (`{guidelines doc, tool set, scope profile}`) realised as
+///     a Tom Brain profile (`application` → profile, `guidelinesName` →
+///     prompt, `toolset` → [AgentToolGroup]s, `scopeProfile` → enabled base
+///     scopes) with a named session per phase/task and a named memory per
+///     document via [AgentContext.memoryScope]. The **toolset ⊆ scopes**
+///     invariant is enforced at construction; [AgentContext.brainSubstrate]
+///     bridges to step-16's mode (b); [docSpecsAgentContext] is the reference
+///     application (all four tool groups + the three base scopes); and
+///     [AgentContextRegistry] is the application switch — one `context(name)`
+///     call swaps guidelines + tools + scopes + memory together (plan step 17,
+///     §11).
 library;
 
+export 'src/agent/agent_context.dart';
 export 'src/agent/agent_procedure.dart';
 export 'src/agent/agent_procedure_host.dart';
 export 'src/agent/agent_scope.dart';
