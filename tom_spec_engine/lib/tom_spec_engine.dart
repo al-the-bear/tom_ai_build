@@ -32,11 +32,17 @@
 ///     `agent/scratchpad`) plus the `filesScope()` factory that bridges only the
 ///     facade (raw `dcli` / `dart:io` writes stay unbridged) and grants the D4rt
 ///     permission system `read=any` + `write=<whitelist>` as a backstop
-///     (plan step 8, §7).
+///     (plan step 8, §7);
+///   * the **tier-1 structural/lexical index** (`index/`) —
+///     `StructuralLexicalIndex`, an inverted BM25 text index + structural facets
+///     built directly from the object model (`SpecNodeProjection`s), with zero
+///     model calls and incremental per-section refresh, backing the §6 search
+///     facility (plan step 9, §9.2).
 library;
 
 export 'src/engine_meta.dart';
 export 'src/memory/spec_memory.dart';
+export 'src/index/structural_lexical_index.dart';
 export 'src/scope/files_scope.dart';
 export 'src/scope/scope.dart';
 export 'src/scope/scope_registry.dart';

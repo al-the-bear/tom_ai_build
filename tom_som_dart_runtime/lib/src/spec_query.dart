@@ -58,6 +58,65 @@ class SpecMatchSpan {
   String toString() => 'SpecMatchSpan($start, $end)';
 }
 
+/// A flat, value-bearing projection of one document node — everything the
+/// tier-1 structural/lexical index (`d4rt_and_llm_tools.md` §9.2) needs to index
+/// a section **without re-walking the model itself**: its path, kind, class, the
+/// structural facets (section id, `@MapsTo` / `@DetailedIn`), the doc-comment
+/// headline, the searchable strings (stored values + headline), and whether it
+/// currently holds a value.
+///
+/// Produced by [SpecQueryEngine.projectNodes] / [SpecQueryEngine.projectNode],
+/// which reuse the same structural-closure walk and value-extraction the live
+/// query uses — so the index and the live §6 search agree on what a node is and
+/// what text it carries — with no model (LLM) calls.
+class SpecNodeProjection {
+  /// The globally-unique section-id path the node lives at.
+  final String path;
+
+  /// What kind of node the path lands on.
+  final SpecNodeKind kind;
+
+  /// The model class the node *is* (`null` for value leaves and list
+  /// containers).
+  final String? classId;
+
+  /// The node's `@SectionId` (field, class, or root), `null` when none.
+  final String? sectionId;
+
+  /// The `@MapsTo` target on the node's class, `null` when none.
+  final String? mapsTo;
+
+  /// The `@DetailedIn` target on the node's class, `null` when none.
+  final String? detailedIn;
+
+  /// The node's doc-comment / label headline, `null` when none.
+  final String? headline;
+
+  /// The strings a text search indexes for this node: stored values (content,
+  /// scalar item, every form-field value) followed by the headline. Empty for a
+  /// container node that carries no direct value and has no headline.
+  final List<String> searchableStrings;
+
+  /// Whether the node (or anything beneath it) currently holds a value — the
+  /// `state` facet (empty vs non-empty).
+  final bool hasValue;
+
+  const SpecNodeProjection({
+    required this.path,
+    required this.kind,
+    this.classId,
+    this.sectionId,
+    this.mapsTo,
+    this.detailedIn,
+    this.headline,
+    this.searchableStrings = const [],
+    this.hasValue = false,
+  });
+
+  @override
+  String toString() => 'SpecNodeProjection($path, $kind)';
+}
+
 /// One node matched by a [SpecQuery] (the §6 cursor record).
 class SpecQueryMatch {
   /// The globally-unique section-ID path the node lives at.
@@ -175,6 +234,39 @@ class SpecQueryEngine {
       engine: this,
       query: query,
       candidatePaths: candidates,
+    );
+  }
+
+  // --- flat node projection (tier-1 index source) -------------------------
+
+  /// Projects every indexable node of the live document (the §6 structural
+  /// closure) as a flat [SpecNodeProjection], in document order. Reuses the same
+  /// walk and value extraction the query uses, so the index built from these
+  /// projections and the live §6 search agree on what a node is and what text it
+  /// carries. Pure object-model traversal — no model (LLM) calls.
+  Iterable<SpecNodeProjection> projectNodes() sync* {
+    for (final path in _enumeratePaths()) {
+      final projection = projectNode(path);
+      if (projection != null) yield projection;
+    }
+  }
+
+  /// Projects the single node at [path], or `null` when the path no longer
+  /// resolves against the model. Used for the index's incremental refresh: a
+  /// caller re-projects only the changed section paths.
+  SpecNodeProjection? projectNode(String path) {
+    final resolution = _reflection.resolve(path);
+    if (resolution == null) return null;
+    return SpecNodeProjection(
+      path: path,
+      kind: resolution.kind,
+      classId: resolution.targetClass?.name,
+      sectionId: _sectionIdOf(resolution),
+      mapsTo: resolution.targetClass?.mapsTo,
+      detailedIn: resolution.targetClass?.detailedIn,
+      headline: _headlineOf(resolution),
+      searchableStrings: _searchableStrings(resolution).toList(growable: false),
+      hasValue: document.hasValuesUnder(path),
     );
   }
 
