@@ -18,24 +18,44 @@ import 'direct_agent_substrate.dart';
 import '../memory/memory_scope.dart';
 
 /// The two §10 agent substrate modes the application chooses between.
+///
+/// **Mode (b) ([tomBrain]) is the default** ([defaultAgentSubstrateMode],
+/// decision F2): it gives the per-application **profile / named session / named
+/// memory** isolation for free, which is exactly what the multi-application /
+/// multi-phase goal (Q1 / F1) needs. **Mode (a) ([direct]) is opt-in** for the
+/// lightest single-application use, where the Tom Brain session envelope would
+/// be overhead.
 enum AgentSubstrateMode {
   /// Mode (a) — the direct Agent SDK substrate ([DirectAgentSubstrate]).
+  /// **Opt-in** (the lightest single-application use); see [tomBrain] for the
+  /// default.
   direct,
 
   /// Mode (b) — the Agent-SDK-through-`tom_brain` substrate
-  /// ([BrainAgentSubstrate]).
+  /// ([BrainAgentSubstrate]). **The default** ([defaultAgentSubstrateMode]).
   tomBrain,
 }
 
+/// The default §10 substrate mode (decision F2): mode (b),
+/// Agent-SDK-through-`tom_brain`. The application gets the profile / session /
+/// memory isolation unless it explicitly opts into [AgentSubstrateMode.direct].
+const AgentSubstrateMode defaultAgentSubstrateMode = AgentSubstrateMode.tomBrain;
+
 /// Builds the [AgentSubstrate] for [mode] over the shared [tools].
 ///
+/// [mode] defaults to [defaultAgentSubstrateMode] — **mode (b)** (F2) — so an
+/// application that does not explicitly choose gets the Tom Brain
+/// profile/session/memory isolation; pass [AgentSubstrateMode.direct] to opt
+/// into the lighter mode (a).
+///
 /// [procedure] (default [AgentProcedure.searchRecallEditVerify]) and [scopeName]
-/// apply to both modes. Mode (b) additionally requires a Tom Brain [envelope]
-/// and [scope]; supplying neither for [AgentSubstrateMode.tomBrain] is an
-/// [ArgumentError] — the mode's defining feature is the envelope, so a silent
-/// fall-through to a bare run would be wrong.
-AgentSubstrate buildAgentSubstrate(
-  AgentSubstrateMode mode, {
+/// apply to both modes. Mode (b) — the default — additionally requires a Tom
+/// Brain [envelope] and [scope]; supplying neither is an [ArgumentError]: the
+/// mode's defining feature is the envelope, so a silent fall-through to a bare
+/// run would be wrong. (This is also why the default mode is *not* a silent
+/// catch-all — a default-mode build still has to provide its envelope + scope.)
+AgentSubstrate buildAgentSubstrate({
+  AgentSubstrateMode mode = defaultAgentSubstrateMode,
   required AgentToolsApi tools,
   AgentProcedure? procedure,
   BrainSessionEnvelope? envelope,

@@ -21,7 +21,7 @@ void main() {
   Future<void> assertSameLoop(AgentSubstrateMode mode) async {
     final fixture = buildAgentFixture();
     final substrate = buildAgentSubstrate(
-      mode,
+      mode: mode,
       tools: fixture.tools,
       envelope: RecordingBrainEnvelope(),
       scope: MemoryScope(
@@ -73,11 +73,11 @@ void main() {
   group('the selector (application selects the mode)', () {
     test('builds both modes behind the one AgentSubstrate interface', () {
       final direct = buildAgentSubstrate(
-        AgentSubstrateMode.direct,
+        mode: AgentSubstrateMode.direct,
         tools: fixture.tools,
       );
       final brain = buildAgentSubstrate(
-        AgentSubstrateMode.tomBrain,
+        mode: AgentSubstrateMode.tomBrain,
         tools: fixture.tools,
         envelope: envelope,
         scope: scope,
@@ -91,11 +91,41 @@ void main() {
     test('rejects mode (b) without a Tom Brain envelope + scope', () {
       expect(
         () => buildAgentSubstrate(
-          AgentSubstrateMode.tomBrain,
+          mode: AgentSubstrateMode.tomBrain,
           tools: fixture.tools,
         ),
         throwsArgumentError,
       );
+    });
+  });
+
+  group('mode (b) is the default (F2)', () {
+    test('defaultAgentSubstrateMode is tomBrain', () {
+      expect(defaultAgentSubstrateMode, AgentSubstrateMode.tomBrain);
+    });
+
+    test('omitting mode builds the tom_brain substrate', () {
+      final substrate = buildAgentSubstrate(
+        tools: fixture.tools,
+        envelope: envelope,
+        scope: scope,
+      );
+      expect(substrate.mode, 'tom_brain');
+    });
+
+    test('the default still requires its Tom Brain envelope + scope', () {
+      // Proof the default is mode (b): omitting both mode *and* the envelope
+      // throws exactly as an explicit mode-(b) build would.
+      expect(
+        () => buildAgentSubstrate(tools: fixture.tools),
+        throwsArgumentError,
+      );
+    });
+
+    test('opting into mode (a) needs no envelope', () {
+      final direct =
+          buildAgentSubstrate(mode: AgentSubstrateMode.direct, tools: fixture.tools);
+      expect(direct.mode, 'direct');
     });
   });
 
