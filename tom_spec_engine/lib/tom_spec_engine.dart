@@ -51,7 +51,12 @@
 ///     Rank Fusion + MMR, degrading gracefully to tier 1 while tier 2 warms;
 ///     plus `SpecDocumentMemory.indexChangedSections`, the incremental
 ///     embed-changed-only refresh (content-addressed nodes, forget-on-update /
-///     forget-on-remove) that feeds it (plan step 11, §9.2 / §9.3).
+///     forget-on-remove) that feeds it (plan step 11, §9.2 / §9.3);
+///   * the **`memory` base scope** (`scope/`) — `MemoryApi` (the read-only
+///     recall facade over `SpecRecall`) + its D4rt bridge, and the
+///     `memoryScope()` factory that injects a single recall-bound `memory`
+///     global and grants no permission, so a sandboxed script can recall but
+///     has no mutation path at all (plan step 12, §4 / §9).
 library;
 
 export 'src/engine_meta.dart';
@@ -60,6 +65,8 @@ export 'src/memory/spec_rag_graph.dart';
 export 'src/memory/spec_recall.dart';
 export 'src/index/structural_lexical_index.dart';
 export 'src/scope/files_scope.dart';
+export 'src/scope/memory_api.dart';
+export 'src/scope/memory_scope.dart';
 export 'src/scope/scope.dart';
 export 'src/scope/scope_registry.dart';
 export 'src/scope/som_library.dart';
