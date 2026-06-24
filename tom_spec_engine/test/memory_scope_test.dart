@@ -110,6 +110,129 @@ main() async => await memory.recallPaths('platform', k: 1);
     });
   });
 
+  group('richer recall knobs via the options map (followup item 13)', () {
+    test('options["k"] overrides the k argument', () async {
+      final result = await run(memoryScope(recall), '''
+$memImport
+main() async =>
+    await memory.recallPaths('platform', k: 10, options: {'k': 1});
+''');
+      expect((result as List), hasLength(1));
+    });
+
+    test('a facet filter narrows the recall to the matching section', () async {
+      // 'platform' lexically matches PD00/VIS and PD00/SUM; the sectionIdExact
+      // facet restricts the recall to the SUM node only.
+      final result = await run(memoryScope(recall), '''
+$memImport
+main() async => await memory.recallPaths(
+  'platform',
+  options: {'sectionIdExact': 'SUM'},
+);
+''');
+      expect((result as List).cast<String>(), ['PD00/SUM']);
+    });
+
+    test('per-mode weights tune fusion without error', () async {
+      final result = await run(memoryScope(recall), '''
+$memImport
+main() async => await memory.recallPaths(
+  'resilient rollout platform',
+  options: {'weights': {'lexical': 2.0, 'symbolic': 0.1}, 'rrfK': 40},
+);
+''');
+      expect((result as List).cast<String>(), contains('PD00/VIS'));
+    });
+
+    test('the MMR diversity pass can be disabled', () async {
+      final result = await run(memoryScope(recall), '''
+$memImport
+main() async => await memory.recallPaths(
+  'platform',
+  options: {'diversify': false, 'mmrLambda': 0.3},
+);
+''');
+      expect((result as List).cast<String>(), contains('PD00/VIS'));
+    });
+
+    test('an unknown facet kind surfaces as a script error', () async {
+      expect(
+        () => run(memoryScope(recall), '''
+$memImport
+main() async =>
+    await memory.recallPaths('platform', options: {'kinds': ['nonsense']});
+'''),
+        throwsA(anything),
+      );
+    });
+
+    test('an unknown weight mode surfaces as a script error', () async {
+      expect(
+        () => run(memoryScope(recall), '''
+$memImport
+main() async => await memory.recallPaths(
+  'platform',
+  options: {'weights': {'nonsense': 1.0}},
+);
+'''),
+        throwsA(anything),
+      );
+    });
+  });
+
+  group('specRecallQueryFromArgs (the shared builder)', () {
+    test('an empty options map keeps every SpecRecallQuery default', () {
+      final q = specRecallQueryFromArgs('hello', null);
+      expect(q.text, 'hello');
+      expect(q.k, 10);
+      expect(q.perModeK, 64);
+      expect(q.rrfK, 60);
+      expect(q.weights, isEmpty);
+      expect(q.graphWalk, isFalse);
+      expect(q.graphWalkDepth, 1);
+      expect(q.diversify, isTrue);
+      expect(q.mmrLambda, closeTo(0.7, 1e-9));
+    });
+
+    test('every knob is read from the options map', () {
+      final q = specRecallQueryFromArgs('hello', {
+        'k': 3,
+        'perModeK': 20,
+        'rrfK': 40,
+        'weights': {'lexical': 2.0, 'vector': 0.5},
+        'graphWalk': true,
+        'graphWalkDepth': 2,
+        'diversify': false,
+        'mmrLambda': 0.4,
+        'kinds': ['content'],
+        'sectionIdPrefix': 'PD00',
+        'state': 'nonEmpty',
+      });
+      expect(q.k, 3);
+      expect(q.perModeK, 20);
+      expect(q.rrfK, 40);
+      expect(q.weightOf(SpecRecallMode.lexical), 2.0);
+      expect(q.weightOf(SpecRecallMode.vector), 0.5);
+      expect(q.graphWalk, isTrue);
+      expect(q.graphWalkDepth, 2);
+      expect(q.diversify, isFalse);
+      expect(q.mmrLambda, closeTo(0.4, 1e-9));
+      expect(q.facets.kinds, {SpecNodeKind.content});
+      expect(q.facets.sectionIdPrefix, 'PD00');
+      expect(q.facets.state, IndexStateFilter.nonEmpty);
+    });
+
+    test('options["k"] wins over the k argument', () {
+      expect(specRecallQueryFromArgs('x', {'k': 2}, k: 99).k, 2);
+      expect(specRecallQueryFromArgs('x', const {}, k: 99).k, 99);
+    });
+
+    test('an unknown state throws ArgumentError', () {
+      expect(() => specRecallQueryFromArgs('x', {'state': 'nope'}),
+          throwsArgumentError);
+    });
+  });
+
   group('a script cannot mutate', () {
     test('the memory global exposes no mutating method', () async {
       // `setContent` is the spec-editing surface; it must not exist on `memory`.
