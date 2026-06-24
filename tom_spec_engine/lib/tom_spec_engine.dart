@@ -56,7 +56,14 @@
 ///     recall facade over `SpecRecall`) + its D4rt bridge, and the
 ///     `memoryScope()` factory that injects a single recall-bound `memory`
 ///     global and grants no permission, so a sandboxed script can recall but
-///     has no mutation path at all (plan step 12, §4 / §9).
+///     has no mutation path at all (plan step 12, §4 / §9);
+///   * the **script tools** (`tools/`) — `ScriptTools` (the engine logic behind
+///     the `script_author` / `script_validate` / `script_run` / `script_list` /
+///     `script_get` MCP tools) over a `ScopeRegistry` + a `ScriptStore`
+///     (`FileScriptStore` persists `*.d4rt.dart` under `agent/scripts/`): author
+///     a named script recording its scopes, validate it against the granted
+///     scope without running, and run it under named scopes capturing stdout +
+///     the auto-awaited `main()` return + error/stack (plan step 13, §8.1).
 library;
 
 export 'src/engine_meta.dart';
@@ -74,3 +81,5 @@ export 'src/scope/spec_api.dart';
 export 'src/scope/spec_controller.dart';
 export 'src/scope/spec_file_facade.dart';
 export 'src/scope/spec_scope.dart';
+export 'src/tools/script_store.dart';
+export 'src/tools/script_tools.dart';
