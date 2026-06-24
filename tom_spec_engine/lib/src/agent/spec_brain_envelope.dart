@@ -39,6 +39,9 @@ final class SpecBrainSessionEnvelope implements BrainSessionEnvelope {
   final List<BrainRunRecord> runs = <BrainRunRecord>[];
 
   @override
+  List<BrainRunRecord> get recordedRuns => runs;
+
+  @override
   Future<AgentRunResult> runInSession(
     MemoryScope scope,
     AgentTask task,

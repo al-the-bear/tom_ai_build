@@ -133,6 +133,11 @@ abstract interface class BrainSessionEnvelope {
     AgentTask task,
     Future<AgentRunResult> Function() body,
   );
+
+  /// The runs recorded so far, in order — the run trail. Read-only; a consumer
+  /// (e.g. the editor's `agent_trail` MCP tool) reads back the per-run
+  /// [RunEffort] without depending on the concrete envelope.
+  List<BrainRunRecord> get recordedRuns;
 }
 
 /// An in-memory [BrainSessionEnvelope] that records the sessions it opens and
@@ -150,6 +155,9 @@ final class RecordingBrainEnvelope implements BrainSessionEnvelope {
 
   /// The runs recorded into named memory, in order (the run trail).
   final List<BrainRunRecord> runs = [];
+
+  @override
+  List<BrainRunRecord> get recordedRuns => runs;
 
   @override
   Future<AgentRunResult> runInSession(
