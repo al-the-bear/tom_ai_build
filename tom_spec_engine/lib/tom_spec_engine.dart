@@ -73,9 +73,23 @@
 ///     filter, `mem_refresh` over an injected re-index callback), and
 ///     `FileTools` (`file_read` / `file_find` / `file_write` over the audited
 ///     `SpecFileFacade`). Every result is a typed value with a compact `toJson`
-///     (plan step 14, §8.2).
+///     (plan step 14, §8.2);
+///   * the **agent substrate** (`agent/`) — the §10 pluggable [AgentSubstrate]
+///     (`AgentTask` / `AgentRunResult`) and its **mode (a)** implementation
+///     `DirectAgentSubstrate`: a headless procedure host that drives the
+///     **complex agent procedure** (`AgentProcedure.searchRecallEditVerify`, a
+///     D4rt script over the §8 tools) through a search → recall → edit → verify
+///     loop. The procedure reaches the toolsets through one bridged `agent`
+///     global (`AgentToolsApi`, the `agent` scope), so every edit lands in the
+///     one change log and every step returns compact JSON. Mode (b)
+///     (Agent-SDK-through-`tom_brain`) is plan step 16 (plan step 15, §10).
 library;
 
+export 'src/agent/agent_procedure.dart';
+export 'src/agent/agent_scope.dart';
+export 'src/agent/agent_substrate.dart';
+export 'src/agent/agent_tools_api.dart';
+export 'src/agent/direct_agent_substrate.dart';
 export 'src/engine_meta.dart';
 export 'src/memory/spec_memory.dart';
 export 'src/memory/spec_rag_graph.dart';
