@@ -14,7 +14,12 @@
 /// It is factored as its own pure-Dart project so it stays reusable headless
 /// (CLI, tests), and is linked **in-process** by the Flutter editor.
 ///
-/// This is the Phase-A scaffold: only the package metadata is exported so far.
+/// Phase A is landing step by step. Exported so far:
+///   * package metadata (`engine_meta.dart`);
+///   * the **Tom Brain memory façade** (`memory/`) — `SpecMemory` /
+///     `MemoryScope` over the embeddable, profile-isolated, in-process memory
+///     plane (plan step 2).
 library;
 
 export 'src/engine_meta.dart';
+export 'src/memory/spec_memory.dart';

@@ -32,6 +32,20 @@ dependencies:
   # the `spec` scope. publish_to: none → path dependency.
   tom_som_dart_v0:
     path: ../tom_som_dart_v0
+  # Tom Brain memory plane (step 2). The in-process, profile-isolated property
+  # graph the RAG memory (steps 10–12) is built on: SqliteTomBrainMemory +
+  # SqliteMemoryProfileRegistry + the bundled sqlite-vec (vec0) vector index.
+  # Adopted here behind a thin engine-side facade. publish_to: none → path
+  # (lives in the sibling tom_assistant repo). The LLM/embedding-provider plane
+  # (tom_brain_substrate) is deliberately NOT pulled in yet — the memory store
+  # takes an injected `RecallEmbedder`, so the heavy provider/router composition
+  # root is deferred to the agent steps (see d4rt_and_llm_tools_decisions.md D7).
+  tom_brain_memory:
+    path: ../../../tom_assistant/tom_brain_memory
+  # The wire-capable contracts (MemoryConfig, NodeDraft, Scope, Vec, recall
+  # query/result types, MemoryProfileRegistry) the facade speaks in.
+  tom_brain_shared:
+    path: ../../../tom_assistant/tom_brain_shared
 
 dev_dependencies:
   lints: ^6.0.0
