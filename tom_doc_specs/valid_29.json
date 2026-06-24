@@ -1,0 +1,32 @@
+{
+  "index": 0,
+  "lineNumber": 1,
+  "rawHeadline": "# <!--[doc] schema=test/1.0--> Test Document",
+  "name": "Test Document",
+  "id": "doc",
+  "text": "",
+  "fields": {
+    "schema": "test/1.0"
+  },
+  "sections": [
+    {
+      "index": 0,
+      "lineNumber": 3,
+      "rawHeadline": "## <!--[note-001]--> Overview",
+      "name": "Overview",
+      "id": "note-001",
+      "text": "This is a valid document."
+    }
+  ],
+  "filenameWithPath": "/srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/ai_build/tom_doc_specs/test/fixtures/valid.md",
+  "loadTimestamp": "2026-06-21T21:59:43.299441",
+  "filename": "valid.md",
+  "fullPath": "/srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/ai_build/tom_doc_specs/test/fixtures",
+  "workspacePath": "test/fixtures/valid.md",
+  "project": "test",
+  "projectPath": "fixtures/valid.md",
+  "workspaceRoot": "/srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/ai_build/tom_doc_specs",
+  "projectRoot": "/srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/ai_build/tom_doc_specs/test",
+  "hierarchyDepth": 2,
+  "schemaId": "test/1.0"
+}
