@@ -23,7 +23,7 @@ together with the versions in use and how each toolchain is obtained.
 | **TypeScript** | `tsc` (via npm) | not installed; `npx` `10.9.8` present | no (emitter pending #10) | n/a | `npm i -g typescript` **or** project-local `npm i -D typescript` |
 | **C** | GCC | `gcc 13.3.0` | no (emitter pending #10) | compiles + runs ✓ | apt `build-essential` |
 | **C++** | GCC / Clang | `g++ 13.3.0`, `clang++ 18.1.3` | no (emitter pending #10) | compiles + runs ✓ | apt `build-essential` / `clang` |
-| **Java** | JDK | **JRE 21.0.11 only — `javac` missing** | no (emitter pending #10) | runtime ✓, **cannot compile** | needs full JDK: apt `openjdk-21-jdk` |
+| **Java** | JDK | `javac 21.0.11` (JDK 21.0.11+10) | no (emitter pending #10) | **compiles + runs ✓** | apt `openjdk-21-jdk-headless` (compiler only, no AWT/X11; followup item 1) |
 | **Go** | Go toolchain | **missing** | no (emitter pending #10) | — | `apt install golang-go` **or** the official tarball to `~/go` |
 | **Rust** | rustc / cargo | **missing** | no (emitter pending #10) | — | `rustup` (per-user, `~/.cargo`) — preferred over apt |
 
@@ -52,10 +52,17 @@ delivery is therefore:
 1. **Verify + record** the two toolchains that have projects (Dart, Python) — done.
 2. **Inventory + smoke-verify** the toolchains already present (Node, GCC, Clang,
    JRE) and document their versions/provenance — done.
-3. **Document the install path** for the missing toolchains (JDK compiler, Go,
-   Rust) so installation is a one-liner the moment the corresponding emitter
-   (item #10) produces a `v0` project to build. Installation itself is deferred
-   to that point.
+3. **Document the install path** for the missing toolchains (Go, Rust) so
+   installation is a one-liner the moment the corresponding emitter (item #10)
+   produces a `v0` project to build. Installation itself is deferred to that
+   point.
+
+> **Update (followup item 1).** The **Java** compiler has since been installed on
+> `bomber` (`openjdk-21-jdk-headless`, `javac 21.0.11`) ahead of its `v0`
+> project, per follow-up item 1 of `multiplatform_spec_model_followup.md`. This
+> deliberately moves ahead of the D25 "install only when there is code to build"
+> posture for Java only; see `multiplatform_spec_model_decisions.md`. Go and Rust
+> remain deferred to their own follow-up items (2, 3).
 
 ## Verification commands
 
@@ -76,13 +83,20 @@ node -e "console.log(1+1)"
 echo 'int main(){return 0;}' | gcc   -x c   - -o /tmp/a && /tmp/a
 echo 'int main(){return 0;}' | g++   -x c++ - -o /tmp/a && /tmp/a
 echo 'int main(){return 0;}' | clang++ -x c++ - -o /tmp/a && /tmp/a
+
+# Java — javac present (compiler smoke: compile + run)
+javac -version
+printf 'public class S{public static void main(String[] a){System.out.println("ok");}}\n' > S.java \
+  && javac S.java && java S && rm -f S.java S.class
 ```
 
 ## Installing the missing toolchains (when their emitter lands)
 
 ```bash
-# Java — full JDK (adds javac; JRE 21 already present)
-sudo apt-get install -y openjdk-21-jdk
+# Java — JDK compiler (adds javac; JRE 21 already present)
+#   headless = compiler only, no AWT/X11 — the right choice for a build host.
+#   Installed on bomber via the root admin path (sudo needs a password here).
+sudo apt-get install -y openjdk-21-jdk-headless   # or openjdk-21-jdk for the full GUI JDK
 
 # Go — apt (system) or the official tarball (per-user, newer)
 sudo apt-get install -y golang-go
