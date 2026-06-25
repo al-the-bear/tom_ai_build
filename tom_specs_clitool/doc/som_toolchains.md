@@ -24,7 +24,7 @@ together with the versions in use and how each toolchain is obtained.
 | **C** | GCC | `gcc 13.3.0` | no (emitter pending #10) | compiles + runs ✓ | apt `build-essential` |
 | **C++** | GCC / Clang | `g++ 13.3.0`, `clang++ 18.1.3` | no (emitter pending #10) | compiles + runs ✓ | apt `build-essential` / `clang` |
 | **Java** | JDK | `javac 21.0.11` (JDK 21.0.11+10) | no (emitter pending #10) | **compiles + runs ✓** | apt `openjdk-21-jdk-headless` (compiler only, no AWT/X11; followup item 1) |
-| **Go** | Go toolchain | **missing** | no (emitter pending #10) | — | `apt install golang-go` **or** the official tarball to `~/go` |
+| **Go** | Go toolchain | `1.26.4` (official tarball) | no (emitter pending #10) | **builds + runs ✓** (`go run`) | official tarball → `~/.local/go` (per-user, sha256-verified; PATH from `.bashrc`/`.profile`) — followup item 3 |
 | **Rust** | rustc / cargo | `1.96.0` (stable; rustfmt `1.9.0`) | no (emitter pending #10) | **builds + runs ✓** (`cargo new`+`run`) | `rustup` (per-user, `~/.cargo`; `~/.cargo/env` sourced from `.bashrc`/`.profile`) — followup item 2 |
 
 ### Reading the matrix
@@ -52,19 +52,20 @@ delivery is therefore:
 1. **Verify + record** the two toolchains that have projects (Dart, Python) — done.
 2. **Inventory + smoke-verify** the toolchains already present (Node, GCC, Clang,
    JRE) and document their versions/provenance — done.
-3. **Document the install path** for the remaining missing toolchain (Go) so
-   installation is a one-liner the moment the corresponding emitter (item #10)
-   produces a `v0` project to build. Installation itself is deferred to that
-   point.
+3. **Document the install path** for each toolchain so a rebuild is a one-liner.
+   All language compilers/runtimes are now present on `bomber`; **TypeScript** is
+   the only outstanding piece, and it is a project-local `tsc` install that lands
+   with the TS `v0` project (followup item 4), not a host toolchain.
 
-> **Update (followup items 1, 2).** The **Java** compiler
-> (`openjdk-21-jdk-headless`, `javac 21.0.11`) and the **Rust** toolchain
-> (`rustup` stable, `rustc`/`cargo` `1.96.0`) have since been installed on
-> `bomber` ahead of their `v0` projects, per follow-up items 1 and 2 of
+> **Update (followup items 1, 2, 3).** The **Java** compiler
+> (`openjdk-21-jdk-headless`, `javac 21.0.11`), the **Rust** toolchain
+> (`rustup` stable, `rustc`/`cargo` `1.96.0`), and the **Go** toolchain
+> (official tarball, `go 1.26.4`) have all since been installed on `bomber` ahead
+> of their `v0` projects, per follow-up items 1–3 of
 > `multiplatform_spec_model_followup.md`. This deliberately moves ahead of the
-> D25 "install only when there is code to build" posture for those two languages;
-> see `multiplatform_spec_model_decisions.md`. **Go** remains deferred to its own
-> follow-up item (3).
+> D25 "install only when there is code to build" posture for those languages;
+> see `multiplatform_spec_model_decisions.md`. The only remaining toolchain gap is
+> **TypeScript**'s project-local `tsc` (followup item 4).
 
 ## Verification commands
 
@@ -95,6 +96,12 @@ printf 'public class S{public static void main(String[] a){System.out.println("o
 . "$HOME/.cargo/env"      # rustup is per-user; not on PATH until env is sourced
 rustc --version && cargo --version
 cargo new --quiet --bin rust_smoke && (cd rust_smoke && cargo run --quiet) && rm -rf rust_smoke
+
+# Go — toolchain present (go smoke: build + run)
+export PATH="$HOME/.local/go/bin:$PATH"   # per-user SDK; PATH set from .bashrc/.profile
+go version
+mkdir go_smoke && cd go_smoke && printf 'package main\nimport "fmt"\nfunc main(){fmt.Println("ok")}\n' > main.go \
+  && go mod init smoke >/dev/null && go run . && cd .. && rm -rf go_smoke
 ```
 
 ## Installing the missing toolchains (when their emitter lands)
@@ -105,9 +112,15 @@ cargo new --quiet --bin rust_smoke && (cd rust_smoke && cargo run --quiet) && rm
 #   Installed on bomber via the root admin path (sudo needs a password here).
 sudo apt-get install -y openjdk-21-jdk-headless   # or openjdk-21-jdk for the full GUI JDK
 
-# Go — apt (system) or the official tarball (per-user, newer)
-sudo apt-get install -y golang-go
-#   or: curl -fsSL https://go.dev/dl/goX.Y.Z.linux-amd64.tar.gz | tar -C ~/ -xz
+# Go — official tarball, per-user (newer than apt's 1.22; no root). Installed on
+#   bomber to ~/.local/go (NOT ~/go, which is the default GOPATH), sha256-verified
+#   against go.dev's published checksum, with PATH wired in .bashrc/.profile.
+GOVER=go1.26.4; T=${GOVER}.linux-amd64.tar.gz
+curl -fsSLO "https://go.dev/dl/${T}"          # verify sha256 vs go.dev/dl/?mode=json
+rm -rf ~/.local/go && tar -C ~/.local -xzf "$T" && rm -f "$T"
+printf '\nexport PATH="$HOME/.local/go/bin:$PATH"\n' >> ~/.bashrc
+printf '\nexport PATH="$HOME/.local/go/bin:$PATH"\n' >> ~/.profile
+#   apt alternative (older 1.22, system-wide, needs root): sudo apt-get install -y golang-go
 
 # Rust — rustup (per-user, recommended; installs into ~/.cargo). Installed on
 #   bomber with --no-modify-path, then `. "$HOME/.cargo/env"` was appended to
