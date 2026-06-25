@@ -20,7 +20,7 @@ together with the versions in use and how each toolchain is obtained.
 | **Dart** | Dart SDK | `3.11.4 (stable)` | **yes** (`tom_som_dart_v0`) | **builds + analyzes clean** | Dart SDK on `PATH` (fleet-managed) |
 | **Python** | CPython | `3.12.3` | **yes** (`tom_som_python_v0`) | **compiles + imports against runtime** | system `python3` (apt, Ubuntu 24.04) |
 | **JavaScript** | Node.js | `22.22.3` (npm `10.9.8`) | no (emitter pending #10) | runtime smoke ✓ | system `node`/`npm` |
-| **TypeScript** | `tsc` (via npm) | not installed; `npx` `10.9.8` present | no (emitter pending #10) | n/a | `npm i -g typescript` **or** project-local `npm i -D typescript` |
+| **TypeScript** | `tsc` (project-local npm) | **pinned `6.0.3`** (Node 22.22.3 / npm 10.9.8) | no (emitter pending #10) | **project-local route compiles + runs ✓** (fixture) | project-local `npm i -D typescript@6.0.3` — followup item 4 |
 | **C** | GCC | `gcc 13.3.0` | no (emitter pending #10) | compiles + runs ✓ | apt `build-essential` |
 | **C++** | GCC / Clang | `g++ 13.3.0`, `clang++ 18.1.3` | no (emitter pending #10) | compiles + runs ✓ | apt `build-essential` / `clang` |
 | **Java** | JDK | `javac 21.0.11` (JDK 21.0.11+10) | no (emitter pending #10) | **compiles + runs ✓** | apt `openjdk-21-jdk-headless` (compiler only, no AWT/X11; followup item 1) |
@@ -53,19 +53,23 @@ delivery is therefore:
 2. **Inventory + smoke-verify** the toolchains already present (Node, GCC, Clang,
    JRE) and document their versions/provenance — done.
 3. **Document the install path** for each toolchain so a rebuild is a one-liner.
-   All language compilers/runtimes are now present on `bomber`; **TypeScript** is
-   the only outstanding piece, and it is a project-local `tsc` install that lands
-   with the TS `v0` project (followup item 4), not a host toolchain.
+   All language compilers/runtimes are now present on `bomber`, and **TypeScript**'s
+   project-local `tsc` route is pinned (`typescript@6.0.3`) and fixture-verified
+   (followup item 4). TypeScript stays a project-local devDependency that lands
+   with the TS `v0` project, not a host toolchain — so no host gaps remain.
 
-> **Update (followup items 1, 2, 3).** The **Java** compiler
+> **Update (followup items 1, 2, 3, 4).** The **Java** compiler
 > (`openjdk-21-jdk-headless`, `javac 21.0.11`), the **Rust** toolchain
 > (`rustup` stable, `rustc`/`cargo` `1.96.0`), and the **Go** toolchain
 > (official tarball, `go 1.26.4`) have all since been installed on `bomber` ahead
 > of their `v0` projects, per follow-up items 1–3 of
 > `multiplatform_spec_model_followup.md`. This deliberately moves ahead of the
 > D25 "install only when there is code to build" posture for those languages;
-> see `multiplatform_spec_model_decisions.md`. The only remaining toolchain gap is
-> **TypeScript**'s project-local `tsc` (followup item 4).
+> see `multiplatform_spec_model_decisions.md`. **TypeScript** (followup item 4) is
+> the one toolchain that is intentionally **not** a host install: its `tsc` is a
+> project-local devDependency pinned to `typescript@6.0.3`, verified via the
+> fixture smoke below. With that, **every target language's build path is
+> accounted for** — eight host toolchains plus TypeScript's project-local `tsc`.
 
 ## Verification commands
 
@@ -102,6 +106,15 @@ export PATH="$HOME/.local/go/bin:$PATH"   # per-user SDK; PATH set from .bashrc/
 go version
 mkdir go_smoke && cd go_smoke && printf 'package main\nimport "fmt"\nfunc main(){fmt.Println("ok")}\n' > main.go \
   && go mod init smoke >/dev/null && go run . && cd .. && rm -rf go_smoke
+
+# TypeScript — project-local tsc (no host install; the v0 project will own the
+#   devDependency). Smoke: install pinned tsc into a throwaway project, compile a
+#   fixture exercising interfaces + generics + classes, run the emitted JS.
+mkdir ts_smoke && cd ts_smoke && npm init -y >/dev/null \
+  && npm i -D typescript@6.0.3 >/dev/null \
+  && printf 'interface SomNode { id: string }\nclass SomScalar<T> implements SomNode {\n  constructor(public id: string, public value: T) {}\n}\nconst n = new SomScalar<string>("PD", "hello");\nconsole.log(`ts OK: ${n.id}/content=${n.value}`);\n' > probe.ts \
+  && ./node_modules/.bin/tsc --strict --target ES2020 --module commonjs probe.ts \
+  && node probe.js && cd .. && rm -rf ts_smoke
 ```
 
 ## Installing the missing toolchains (when their emitter lands)
@@ -131,9 +144,11 @@ curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs \
 printf '\n. "$HOME/.cargo/env"\n' >> ~/.bashrc
 printf '\n. "$HOME/.cargo/env"\n' >> ~/.profile
 
-# TypeScript — project-local dev dependency (preferred) or global
-npm i -D typescript      # in the tom_som_typescript_* project
-#   or: npm i -g typescript
+# TypeScript — project-local dev dependency (the route used; NOT a host install).
+#   The version is pinned so every host compiles the v0 project identically.
+npm i -D typescript@6.0.3   # in the tom_som_typescript_v0 project (when emitter lands)
+#   global (npm i -g typescript) is deliberately avoided — it leaks a host-wide,
+#   unpinned tsc that the generated project would not control.
 ```
 
 After installing, re-run the relevant verification command above, update this
