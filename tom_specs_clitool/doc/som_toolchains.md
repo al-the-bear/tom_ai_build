@@ -25,7 +25,7 @@ together with the versions in use and how each toolchain is obtained.
 | **C++** | GCC / Clang | `g++ 13.3.0`, `clang++ 18.1.3` | no (emitter pending #10) | compiles + runs ✓ | apt `build-essential` / `clang` |
 | **Java** | JDK | `javac 21.0.11` (JDK 21.0.11+10) | no (emitter pending #10) | **compiles + runs ✓** | apt `openjdk-21-jdk-headless` (compiler only, no AWT/X11; followup item 1) |
 | **Go** | Go toolchain | **missing** | no (emitter pending #10) | — | `apt install golang-go` **or** the official tarball to `~/go` |
-| **Rust** | rustc / cargo | **missing** | no (emitter pending #10) | — | `rustup` (per-user, `~/.cargo`) — preferred over apt |
+| **Rust** | rustc / cargo | `1.96.0` (stable; rustfmt `1.9.0`) | no (emitter pending #10) | **builds + runs ✓** (`cargo new`+`run`) | `rustup` (per-user, `~/.cargo`; `~/.cargo/env` sourced from `.bashrc`/`.profile`) — followup item 2 |
 
 ### Reading the matrix
 
@@ -52,17 +52,19 @@ delivery is therefore:
 1. **Verify + record** the two toolchains that have projects (Dart, Python) — done.
 2. **Inventory + smoke-verify** the toolchains already present (Node, GCC, Clang,
    JRE) and document their versions/provenance — done.
-3. **Document the install path** for the missing toolchains (Go, Rust) so
+3. **Document the install path** for the remaining missing toolchain (Go) so
    installation is a one-liner the moment the corresponding emitter (item #10)
    produces a `v0` project to build. Installation itself is deferred to that
    point.
 
-> **Update (followup item 1).** The **Java** compiler has since been installed on
-> `bomber` (`openjdk-21-jdk-headless`, `javac 21.0.11`) ahead of its `v0`
-> project, per follow-up item 1 of `multiplatform_spec_model_followup.md`. This
-> deliberately moves ahead of the D25 "install only when there is code to build"
-> posture for Java only; see `multiplatform_spec_model_decisions.md`. Go and Rust
-> remain deferred to their own follow-up items (2, 3).
+> **Update (followup items 1, 2).** The **Java** compiler
+> (`openjdk-21-jdk-headless`, `javac 21.0.11`) and the **Rust** toolchain
+> (`rustup` stable, `rustc`/`cargo` `1.96.0`) have since been installed on
+> `bomber` ahead of their `v0` projects, per follow-up items 1 and 2 of
+> `multiplatform_spec_model_followup.md`. This deliberately moves ahead of the
+> D25 "install only when there is code to build" posture for those two languages;
+> see `multiplatform_spec_model_decisions.md`. **Go** remains deferred to its own
+> follow-up item (3).
 
 ## Verification commands
 
@@ -88,6 +90,11 @@ echo 'int main(){return 0;}' | clang++ -x c++ - -o /tmp/a && /tmp/a
 javac -version
 printf 'public class S{public static void main(String[] a){System.out.println("ok");}}\n' > S.java \
   && javac S.java && java S && rm -f S.java S.class
+
+# Rust — toolchain present (cargo smoke: build + run)
+. "$HOME/.cargo/env"      # rustup is per-user; not on PATH until env is sourced
+rustc --version && cargo --version
+cargo new --quiet --bin rust_smoke && (cd rust_smoke && cargo run --quiet) && rm -rf rust_smoke
 ```
 
 ## Installing the missing toolchains (when their emitter lands)
@@ -102,8 +109,14 @@ sudo apt-get install -y openjdk-21-jdk-headless   # or openjdk-21-jdk for the fu
 sudo apt-get install -y golang-go
 #   or: curl -fsSL https://go.dev/dl/goX.Y.Z.linux-amd64.tar.gz | tar -C ~/ -xz
 
-# Rust — rustup (per-user, recommended; installs into ~/.cargo)
-curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs | sh -s -- -y
+# Rust — rustup (per-user, recommended; installs into ~/.cargo). Installed on
+#   bomber with --no-modify-path, then `. "$HOME/.cargo/env"` was appended to
+#   ~/.bashrc and ~/.profile so the wiring is explicit/auditable rather than a
+#   rustup-injected block.
+curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs \
+  | sh -s -- -y --no-modify-path --default-toolchain stable --profile default
+printf '\n. "$HOME/.cargo/env"\n' >> ~/.bashrc
+printf '\n. "$HOME/.cargo/env"\n' >> ~/.profile
 
 # TypeScript — project-local dev dependency (preferred) or global
 npm i -D typescript      # in the tom_som_typescript_* project
