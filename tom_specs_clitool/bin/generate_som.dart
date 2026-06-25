@@ -31,6 +31,9 @@ Future<void> main(List<String> arguments) async {
     ..addOption('py-runtime',
         help: 'Path to the tom_som_python_runtime package (manifest dep '
             'target). Default: <ai_build>/tom_som_python_runtime.')
+    ..addOption('java-runtime',
+        help: 'Path to the tom_som_java_runtime package (manifest dep '
+            'target). Default: <ai_build>/tom_som_java_runtime.')
     ..addOption('model-version',
         help: 'Override the integer model-version stamp. '
             'Default: major component of the model version.')
@@ -62,6 +65,8 @@ Future<void> main(List<String> arguments) async {
       args.option('runtime') ?? p.join(aiBuild, 'tom_som_dart_runtime')));
   final pyRuntimeDir = p.normalize(p.absolute(
       args.option('py-runtime') ?? p.join(aiBuild, 'tom_som_python_runtime')));
+  final javaRuntimeDir = p.normalize(p.absolute(
+      args.option('java-runtime') ?? p.join(aiBuild, 'tom_som_java_runtime')));
   for (final dir in [modelDir, runtimeDir]) {
     if (!Directory(dir).existsSync()) _fail('Directory not found: $dir');
   }
@@ -125,6 +130,22 @@ Future<void> main(List<String> arguments) async {
         stdout.writeln('  module:    ${result.modulePath}');
         stdout.writeln('  pyproject: ${result.pyprojectPath}');
       case SomLanguage.java:
+        stdout.writeln('\n── generating ${target.language.slug} → $outputRoot');
+        final result = await generateSomJavaProject(
+          modelPackagePath: modelDir,
+          runtimePackagePath: javaRuntimeDir,
+          outputRoot: outputRoot,
+          modelVersion: modelVersion,
+          modelLabel: stamp.label,
+          generatedAt: stamp.buildTime,
+          versionLabel: config.versionLabel,
+          documentRoots: config.documentRoots,
+        );
+        stdout.writeln('  classes: ${result.classCount}  '
+            'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}');
+        stdout.writeln('  meta:     ${result.metaJsonPath}');
+        stdout.writeln('  source:   ${result.sourcePath}');
+        stdout.writeln('  manifest: ${result.manifestPath}');
       case SomLanguage.javascript:
       case SomLanguage.typescript:
       case SomLanguage.go:

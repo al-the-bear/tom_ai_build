@@ -25,6 +25,7 @@ export 'src/spec_object_model_config.dart'
         SomLanguageTarget;
 export 'src/som_dart_emitter.dart' show SomDartEmitter;
 export 'src/som_python_emitter.dart' show SomPythonEmitter;
+export 'src/som_java_emitter.dart' show SomJavaEmitter;
 export 'src/som_generator.dart'
     show generateSomDartProject, writeSomDartProject, SomGenerationResult;
 export 'src/som_python_generator.dart'
@@ -32,6 +33,11 @@ export 'src/som_python_generator.dart'
         generateSomPythonProject,
         writeSomPythonProject,
         SomPythonGenerationResult;
+export 'src/som_java_generator.dart'
+    show
+        generateSomJavaProject,
+        writeSomJavaProject,
+        SomJavaGenerationResult;
 export 'src/spec_ops_generator.dart' show SpecOpsGenerator;
 export 'src/docspecs_schema_generator.dart' show DocSpecsSchemaGenerator;
 export 'src/outline_writer.dart' show OutlineWriter;
