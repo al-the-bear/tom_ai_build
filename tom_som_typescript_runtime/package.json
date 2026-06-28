@@ -1,0 +1,22 @@
+{
+  "name": "tom_som_typescript_runtime",
+  "version": "0.1.0",
+  "description": "TypeScript port of the generic TomSpecs object-model runtime (paths, model, reflection, document, validator, YAML/Markdown codecs). Zero external runtime dependencies (Node built-ins only); typescript is a dev dependency.",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "npm run build && node dist/tests/conformance_runner.js",
+    "conformance": "node dist/tests/conformance_runner.js"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3",
+    "@types/node": "^22"
+  },
+  "license": "UNLICENSED",
+  "private": true
+}

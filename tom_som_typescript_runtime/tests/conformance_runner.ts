@@ -1,0 +1,364 @@
+#!/usr/bin/env node
+/**
+ * Shared-corpus conformance runner for the TypeScript generic runtime.
+ *
+ * Loads the language-agnostic conformance corpus produced from the Dart reference
+ * (`tom_som_conformance/corpus`) and asserts the TypeScript port reproduces every
+ * golden byte-for-byte and matches every behavioural case:
+ *
+ *   * model meta-data loads (root + class structure);
+ *   * `state.json` loads and re-serialises identically;
+ *   * YAML encode == `expected.docspecs.yaml` (byte-for-byte);
+ *   * YAML decode → memory → encode is byte-stable + preserves the stamp;
+ *   * Markdown export == `expected.md` (byte-for-byte);
+ *   * Markdown parse → memory → export is clean + byte-stable;
+ *   * the Markdown route lands the fixture in the same memory as the YAML route;
+ *   * reflection resolution cases;
+ *   * validation cases;
+ *   * the imperative operations script.
+ *
+ * Build with `tsc`, then run `node dist/tests/conformance_runner.js`. Exit code
+ * 0 == all green.
+ */
+
+import * as fs from 'fs';
+import * as path from 'path';
+
+import {
+  SpecDocument,
+  SpecDocumentMarkdown,
+  SpecModel,
+  SpecReflection,
+  validateDocument,
+  yamlDecode,
+  yamlEncode,
+} from '../src/index';
+
+const _HERE = __dirname; // dist/tests
+const _PKG_ROOT = path.dirname(path.dirname(_HERE)); // tom_som_typescript_runtime
+const _CORPUS = path.normalize(
+  path.join(_PKG_ROOT, '..', 'tom_som_conformance', 'corpus'),
+);
+
+const _MODEL_VERSION = '1.0';
+
+let _passed = 0;
+const _failed: string[] = [];
+
+function _check(name: string, condition: boolean, detail = ''): void {
+  if (condition) {
+    _passed += 1;
+  } else {
+    _failed.push(`${name}${detail ? ': ' + detail : ''}`);
+  }
+}
+
+function _read(name: string): string {
+  return fs.readFileSync(path.join(_CORPUS, name), 'utf8');
+}
+
+function _readJson(name: string): any {
+  return JSON.parse(_read(name));
+}
+
+function _byteDiff(label: string, actual: string, expected: string): string {
+  if (actual === expected) {
+    return '';
+  }
+  const aLines = actual.split('\n');
+  const eLines = expected.split('\n');
+  const max = Math.max(aLines.length, eLines.length);
+  for (let idx = 0; idx < max; idx++) {
+    const a = idx < aLines.length ? aLines[idx] : '<EOF>';
+    const e = idx < eLines.length ? eLines[idx] : '<EOF>';
+    if (a !== e) {
+      return `${label}: first diff at line ${idx + 1}: got ${JSON.stringify(a)} want ${JSON.stringify(e)}`;
+    }
+  }
+  return `${label}: differ (len got ${actual.length} want ${expected.length})`;
+}
+
+function _deepEqual(a: any, b: any): boolean {
+  if (a === b) {
+    return true;
+  }
+  if (Array.isArray(a) && Array.isArray(b)) {
+    if (a.length !== b.length) {
+      return false;
+    }
+    for (let i = 0; i < a.length; i++) {
+      if (!_deepEqual(a[i], b[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
+  if (a && b && typeof a === 'object' && typeof b === 'object') {
+    const ak = Object.keys(a);
+    const bk = Object.keys(b);
+    if (ak.length !== bk.length) {
+      return false;
+    }
+    for (const k of ak) {
+      if (!Object.prototype.hasOwnProperty.call(b, k)) {
+        return false;
+      }
+      if (!_deepEqual(a[k], b[k])) {
+        return false;
+      }
+    }
+    return true;
+  }
+  return false;
+}
+
+function _jsonMismatch(actual: any, expected: any): string {
+  if (_deepEqual(actual, expected)) {
+    return '';
+  }
+  return `got ${JSON.stringify(actual)} want ${JSON.stringify(expected)}`;
+}
+
+function _loadModel(): SpecModel {
+  return SpecModel.fromJson(_readJson('model.meta.json'));
+}
+
+function _documentFromState(state: any): SpecDocument {
+  const doc = new SpecDocument();
+  doc.loadJson(state);
+  return doc;
+}
+
+function testModelMeta(model: SpecModel): void {
+  const root = model.roots[0];
+  _check('model.root.sectionId', root.sectionId === 'DEMO', String(root.sectionId));
+  _check('model.root.type', root.type === 'Demo', root.type);
+  _check('model.classCount', model.classes.size === 3, String(model.classes.size));
+  const demo = model.classNamed('Demo');
+  _check('model.Demo.found', demo !== null);
+  if (demo !== null) {
+    const names = demo.fields.map((f) => f.name);
+    _check(
+      'model.Demo.fields',
+      _deepEqual(names, [
+        'title',
+        'summary',
+        'priority',
+        'count',
+        'details',
+        'items',
+        'meta',
+      ]),
+      String(names),
+    );
+  }
+}
+
+function testStateRoundTrip(): void {
+  const state = _readJson('state.json');
+  const doc = _documentFromState(state);
+  _check(
+    'state.toJson',
+    _deepEqual(doc.toJson(), state),
+    _jsonMismatch(doc.toJson(), state),
+  );
+}
+
+function testYamlEncode(): void {
+  const doc = _documentFromState(_readJson('state.json'));
+  const expected = _read('expected.docspecs.yaml');
+  const actual = yamlEncode(doc, _MODEL_VERSION);
+  _check('yaml.encode', actual === expected, _byteDiff('yaml.encode', actual, expected));
+}
+
+function testYamlDecodeRoundTrip(): void {
+  const expected = _read('expected.docspecs.yaml');
+  const contents = yamlDecode(expected);
+  _check(
+    'yaml.decode.stamp',
+    contents.modelVersion === _MODEL_VERSION,
+    String(contents.modelVersion),
+  );
+  const doc = new SpecDocument();
+  doc.loadJson(contents.document);
+  const actual = yamlEncode(doc, contents.modelVersion || _MODEL_VERSION);
+  _check(
+    'yaml.decode.reencode',
+    actual === expected,
+    _byteDiff('yaml.decode.reencode', actual, expected),
+  );
+}
+
+function testMarkdownExport(model: SpecModel): void {
+  const doc = _documentFromState(_readJson('state.json'));
+  const expected = _read('expected.md');
+  const actual = new SpecDocumentMarkdown(model, doc).exportRoot(model.roots[0]);
+  _check('md.export', actual === expected, _byteDiff('md.export', actual, expected));
+}
+
+function testMarkdownRoundTrip(model: SpecModel): void {
+  const expected = _read('expected.md');
+  const codec = new SpecDocumentMarkdown(model, new SpecDocument());
+  const result = codec.parse(expected);
+  _check(
+    'md.parse.clean',
+    result.isClean,
+    result.rejections.map((r) => r.toString()).join('; '),
+  );
+  const applied = new SpecDocument();
+  applied.loadJson({
+    content: result.content,
+    forms: result.forms,
+    lists: result.lists,
+  });
+  const actual = new SpecDocumentMarkdown(model, applied).exportRoot(
+    model.roots[0],
+  );
+  _check(
+    'md.parse.reexport',
+    actual === expected,
+    _byteDiff('md.parse.reexport', actual, expected),
+  );
+}
+
+function testMarkdownMemoryLanding(model: SpecModel): void {
+  // Plan item #9: the Markdown route must land a fixture document in the *same*
+  // shared memory representation as the YAML route — parsing `expected.md` and
+  // applying it must reproduce `state.json` exactly (§4.1 "both routes land in
+  // the same memory representation").
+  const expectedMd = _read('expected.md');
+  const canonical = _readJson('state.json');
+  const result = new SpecDocumentMarkdown(model, new SpecDocument()).parse(
+    expectedMd,
+  );
+  _check(
+    'md.land.clean',
+    result.isClean,
+    result.rejections.map((r) => r.toString()).join('; '),
+  );
+  const landed = new SpecDocument();
+  landed.loadJson({
+    content: result.content,
+    forms: result.forms,
+    lists: result.lists,
+  });
+  _check(
+    'md.land.memory',
+    _deepEqual(landed.toJson(), canonical),
+    _jsonMismatch(landed.toJson(), canonical),
+  );
+}
+
+function testReflection(model: SpecModel): void {
+  const refl = new SpecReflection(model);
+  for (const c of _readJson('reflection_cases.json')) {
+    const p = c.path;
+    const res = refl.resolve(p);
+    if (!c.resolves) {
+      _check(`reflect[${p}].none`, res === null, 'expected no resolution');
+      continue;
+    }
+    if (res === null) {
+      _check(`reflect[${p}].some`, false, 'expected resolution, got null');
+      continue;
+    }
+    _check(`reflect[${p}].kind`, res.kind === c.kind, `${res.kind} != ${c.kind}`);
+    const fieldName = res.field !== null ? res.field.name : null;
+    _check(`reflect[${p}].field`, fieldName === c.field, `${fieldName} != ${c.field}`);
+    const target = res.targetClass !== null ? res.targetClass.name : null;
+    _check(
+      `reflect[${p}].target`,
+      target === c.targetClass,
+      `${target} != ${c.targetClass}`,
+    );
+    _check(
+      `reflect[${p}].leaf`,
+      res.isValueLeaf === c.isValueLeaf,
+      `${res.isValueLeaf} != ${c.isValueLeaf}`,
+    );
+  }
+}
+
+function testValidation(model: SpecModel): void {
+  for (const c of _readJson('validation_cases.json')) {
+    const name = c.name;
+    const doc = _documentFromState(c.state);
+    const errors = validateDocument(model, doc);
+    const got = errors.map((e) => [e.path, e.code]);
+    const want = c.errors.map((e: any) => [e.path, e.code]);
+    _check(
+      `validate[${name}]`,
+      _deepEqual(got, want),
+      `${JSON.stringify(got)} != ${JSON.stringify(want)}`,
+    );
+  }
+}
+
+function testOperations(): void {
+  const doc = new SpecDocument();
+  const cases = _readJson('operations_cases.json');
+  for (let n = 0; n < cases.length; n++) {
+    const op = cases[n];
+    const kind = op.op;
+    if (kind === 'isEmpty') {
+      _check(`op[${n}].isEmpty`, doc.isEmpty === op.expect);
+    } else if (kind === 'setContent') {
+      doc.setContent(op.path, op.value);
+    } else if (kind === 'content') {
+      _check(`op[${n}].content`, doc.content(op.path) === op.expect, String(doc.content(op.path)));
+    } else if (kind === 'setFormField') {
+      doc.setFormField(op.path, op.field, op.value);
+    } else if (kind === 'formField') {
+      _check(`op[${n}].formField`, doc.formField(op.path, op.field) === op.expect);
+    } else if (kind === 'addListItem') {
+      _check(`op[${n}].addListItem`, doc.addListItem(op.listPath) === op.expect);
+    } else if (kind === 'listItems') {
+      _check(
+        `op[${n}].listItems`,
+        _deepEqual(doc.listItems(op.listPath), op.expect),
+        String(doc.listItems(op.listPath)),
+      );
+    } else if (kind === 'listItemCount') {
+      _check(`op[${n}].listItemCount`, doc.listItemCount(op.listPath) === op.expect);
+    } else if (kind === 'hasValuesUnder') {
+      _check(`op[${n}].hasValuesUnder`, doc.hasValuesUnder(op.prefix) === op.expect);
+    } else if (kind === 'removeListItem') {
+      _check(`op[${n}].removeListItem`, doc.removeListItem(op.itemPath) === op.expect);
+    } else {
+      _check(`op[${n}].unknown`, false, kind);
+    }
+  }
+}
+
+export function main(): number {
+  if (!fs.existsSync(_CORPUS) || !fs.statSync(_CORPUS).isDirectory()) {
+    process.stderr.write(`corpus not found at ${_CORPUS}\n`);
+    return 2;
+  }
+  const model = _loadModel();
+  testModelMeta(model);
+  testStateRoundTrip();
+  testYamlEncode();
+  testYamlDecodeRoundTrip();
+  testMarkdownExport(model);
+  testMarkdownRoundTrip(model);
+  testMarkdownMemoryLanding(model);
+  testReflection(model);
+  testValidation(model);
+  testOperations();
+
+  const total = _passed + _failed.length;
+  if (_failed.length > 0) {
+    process.stdout.write(`FAIL: ${_failed.length}/${total} checks failed\n`);
+    for (const f of _failed) {
+      process.stdout.write(`  - ${f}\n`);
+    }
+    return 1;
+  }
+  process.stdout.write(`OK: ${total} checks passed\n`);
+  return 0;
+}
+
+if (require.main === module) {
+  process.exit(main());
+}
