@@ -1,0 +1,1210 @@
+# Generated from the TomSpecs object model — do not edit.
+# Schema: current-situation/1.0
+
+section-types:
+  REPSDEP-DEPE-LST:
+    prefix: repsdep_depe_lst
+    pattern-check-id:
+      pattern: ^repsdep_depe_lst-\d+$
+      error-message: ID must match repsdep_depe_lst-NNN
+    description: Contains 0+× ReplacementSystemDependencyEntry — integrations with other systems.
+  CUBIPR-PROC-LST:
+    prefix: cubipr_proc_lst
+    min-count-in-document: 1
+    pattern-check-id:
+      pattern: ^cubipr_proc_lst-\d+$
+      error-message: ID must match cubipr_proc_lst-NNN
+    description: "1.2.nn. Business Processes [PD00-CUR-PRO-nn] — contains 1+× Business Process."
+  CUOPME-OPER-LST:
+    prefix: cuopme_oper_lst
+    pattern-check-id:
+      pattern: ^cuopme_oper_lst-\d+$
+      error-message: ID must match cuopme_oper_lst-NNN
+    description: Current operational metrics — PD00-CUR-MET.
+  DAOWEN-OWNE-LST:
+    prefix: daowen_owne_lst
+    min-count-in-document: 1
+    pattern-check-id:
+      pattern: ^daowen_owne_lst-\d+$
+      error-message: ID must match daowen_owne_lst-NNN
+    description: Data ownership assignments by domain.
+  DAQLIS-QUAL-LST:
+    prefix: daqlis_qual_lst
+    min-count-in-document: 1
+    pattern-check-id:
+      pattern: ^daqlis_qual_lst-\d+$
+      error-message: ID must match daqlis_qual_lst-NNN
+    description: Data quality issues inventory.
+  DAVOEN-VOLU-LST:
+    prefix: davoen_volu_lst
+    min-count-in-document: 1
+    pattern-check-id:
+      pattern: ^davoen_volu_lst-\d+$
+      error-message: ID must match davoen_volu_lst-NNN
+    description: Volume details by data source.
+  INTEG1-INTE-LST:
+    prefix: integ1_inte_lst
+    pattern-check-id:
+      pattern: ^integ1_inte_lst-\d+$
+      error-message: ID must match integ1_inte_lst-NNN
+    description: "Integration patterns used [PD00-CUR-SYS-ARC-INT]."
+  KNOWN1-KNOW-LST:
+    prefix: known1_know_lst
+    pattern-check-id:
+      pattern: ^known1_know_lst-\d+$
+      error-message: ID must match known1_know_lst-NNN
+    description: Known technical issues and deficiencies.
+  MEBAEN-ENTR-LST:
+    prefix: mebaen_entr_lst
+    pattern-check-id:
+      pattern: ^mebaen_entr_lst-\d+$
+      error-message: ID must match mebaen_entr_lst-NNN
+    description: Baseline entries.
+  MIRIIN-INDI-LST:
+    prefix: miriin_indi_lst
+    pattern-check-id:
+      pattern: ^miriin_indi_lst-\d+$
+      error-message: ID must match miriin_indi_lst-NNN
+    description: Risk indicators and monitoring.
+  PAPOR1-RELA-LST:
+    prefix: papor1_rela_lst
+    pattern-check-id:
+      pattern: ^papor1_rela_lst-\d+$
+      error-message: ID must match papor1_rela_lst-NNN
+    description: Relationships.
+  PRDEEN-DEPE-LST:
+    prefix: prdeen_depe_lst
+    pattern-check-id:
+      pattern: ^prdeen_depe_lst-\d+$
+      error-message: ID must match prdeen_depe_lst-NNN
+    description: Individual process dependencies.
+  PRMECA-COST-LST:
+    prefix: prmeca_cost_lst
+    pattern-check-id:
+      pattern: ^prmeca_cost_lst-\d+$
+      error-message: ID must match prmeca_cost_lst-NNN
+    description: "Cost metrics [PD00-CUR-PRO-xx-MET-COS]."
+  PRMECA-EFFI-LST:
+    prefix: prmeca_effi_lst
+    pattern-check-id:
+      pattern: ^prmeca_effi_lst-\d+$
+      error-message: ID must match prmeca_effi_lst-NNN
+    description: "Efficiency metrics [PD00-CUR-PRO-xx-MET-EFF]."
+  PRMECA-MANU-LST:
+    prefix: prmeca_manu_lst
+    pattern-check-id:
+      pattern: ^prmeca_manu_lst-\d+$
+      error-message: ID must match prmeca_manu_lst-NNN
+    description: "Manual intervention metrics [PD00-CUR-PRO-xx-MET-MAN]."
+  PRMECA-QUAL-LST:
+    prefix: prmeca_qual_lst
+    pattern-check-id:
+      pattern: ^prmeca_qual_lst-\d+$
+      error-message: ID must match prmeca_qual_lst-NNN
+    description: "Quality metrics [PD00-CUR-PRO-xx-MET-QUA]."
+  PRMECA-VOLU-LST:
+    prefix: prmeca_volu_lst
+    pattern-check-id:
+      pattern: ^prmeca_volu_lst-\d+$
+      error-message: ID must match prmeca_volu_lst-NNN
+    description: "Volume metrics [PD00-CUR-PRO-xx-MET-VOL]."
+  PRSCEN-INSC-LST:
+    prefix: prscen_insc_lst
+    pattern-check-id:
+      pattern: ^prscen_insc_lst-\d+$
+      error-message: ID must match prscen_insc_lst-NNN
+    description: Processes in scope.
+  PRSCEN-OUTO-LST:
+    prefix: prscen_outo_lst
+    pattern-check-id:
+      pattern: ^prscen_outo_lst-\d+$
+      error-message: ID must match prscen_outo_lst-NNN
+    description: Processes explicitly out of scope.
+  REPPHS-PHAS-LST:
+    prefix: repphs_phas_lst
+    pattern-check-id:
+      pattern: ^repphs_phas_lst-\d+$
+      error-message: ID must match repphs_phas_lst-NNN
+    description: Replacement phases if phased approach.
+  SYTORE-SYST-LST:
+    prefix: sytore_syst_lst
+    pattern-check-id:
+      pattern: ^sytore_syst_lst-\d+$
+      error-message: ID must match sytore_syst_lst-NNN
+    description: Contains 0+× SystemToReplaceEntry.
+  WOBURU-BUSI-LST:
+    prefix: woburu_busi_lst
+    pattern-check-id:
+      pattern: ^woburu_busi_lst-\d+$
+      error-message: ID must match woburu_busi_lst-NNN
+    description: Business rules governing the workflow.
+  WODEPO-DECI-LST:
+    prefix: wodepo_deci_lst
+    pattern-check-id:
+      pattern: ^wodepo_deci_lst-\d+$
+      error-message: ID must match wodepo_deci_lst-NNN
+    description: Decision points within the workflow.
+  WOEXEN-EXCE-LST:
+    prefix: woexen_exce_lst
+    pattern-check-id:
+      pattern: ^woexen_exce_lst-\d+$
+      error-message: ID must match woexen_exce_lst-NNN
+    description: Exception entries.
+  WOINEN-INPU-LST:
+    prefix: woinen_inpu_lst
+    pattern-check-id:
+      pattern: ^woinen_inpu_lst-\d+$
+      error-message: ID must match woinen_inpu_lst-NNN
+    description: Workflow inputs.
+  WOOUEN-OUTP-LST:
+    prefix: woouen_outp_lst
+    pattern-check-id:
+      pattern: ^woouen_outp_lst-\d+$
+      error-message: ID must match woouen_outp_lst-NNN
+    description: Workflow outputs.
+  WOSTIS-KNOW-LST:
+    prefix: wostis_know_lst
+    pattern-check-id:
+      pattern: ^wostis_know_lst-\d+$
+      error-message: ID must match wostis_know_lst-NNN
+    description: Known issues with this step.
+  WOSTSY-SYST-LST:
+    prefix: wostsy_syst_lst
+    pattern-check-id:
+      pattern: ^wostsy_syst_lst-\d+$
+      error-message: ID must match wostsy_syst_lst-NNN
+    description: Systems used in this step.
+  WOSUEN-ENTR-LST:
+    prefix: wosuen_entr_lst
+    pattern-check-id:
+      pattern: ^wosuen_entr_lst-\d+$
+      error-message: ID must match wosuen_entr_lst-NNN
+    description: Summary entries per workflow.
+  WOTREN-TRIG-LST:
+    prefix: wotren_trig_lst
+    pattern-check-id:
+      pattern: ^wotren_trig_lst-\d+$
+      error-message: ID must match wotren_trig_lst-NNN
+    description: Trigger entries.
+  CRITI-CRIT-LST:
+    prefix: criti_crit_lst
+    pattern-check-id:
+      pattern: ^criti_crit_lst-\d+$
+      error-message: ID must match criti_crit_lst-NNN
+    description: Critical knowledge areas to preserve.
+  ESCAL-ESCA-LST:
+    prefix: escal_esca_lst
+    pattern-check-id:
+      pattern: ^escal_esca_lst-\d+$
+      error-message: ID must match escal_esca_lst-NNN
+    description: Escalation procedures during migration.
+  ESENT-SYST-LST:
+    prefix: esent_syst_lst
+    min-count-in-document: 1
+    pattern-check-id:
+      pattern: ^esent_syst_lst-\d+$
+      error-message: ID must match esent_syst_lst-NNN
+    description: "Add one entry per existing system that is relevant to the project scope. Include all systems that will be replaced, integrated with, or affected by the new system."
+  EXSDE-ITEM-LST:
+    prefix: exsde_item_lst
+    pattern-check-id:
+      pattern: ^exsde_item_lst-\d+$
+      error-message: ID must match exsde_item_lst-NNN
+    description: Contains 0+× External Service Dependency.
+  FRAGI-FRAG-LST:
+    prefix: fragi_frag_lst
+    pattern-check-id:
+      pattern: ^fragi_frag_lst-\d+$
+      error-message: ID must match fragi_frag_lst-NNN
+    description: "Fragile integration points requiring attention [PD00-CUR-SYS-DEP-HEA-FRA]."
+  KNOWN-KNOW-LST:
+    prefix: known_know_lst
+    pattern-check-id:
+      pattern: ^known_know_lst-\d+$
+      error-message: ID must match known_know_lst-NNN
+    description: Data quality issues to address.
+  LIMET-KNOW-LST:
+    prefix: limet_know_lst
+    pattern-check-id:
+      pattern: ^limet_know_lst-\d+$
+      error-message: ID must match limet_know_lst-NNN
+    description: Document each known limitation with its impact on current operations and any workarounds in place.
+  MGMLS-MILE-LST:
+    prefix: mgmls_mile_lst
+    pattern-check-id:
+      pattern: ^mgmls_mile_lst-\d+$
+      error-message: ID must match mgmls_mile_lst-NNN
+    description: Migration milestones.
+  MGRSK-ITEM-LST:
+    prefix: mgrsk_item_lst
+    pattern-check-id:
+      pattern: ^mgrsk_item_lst-\d+$
+      error-message: ID must match mgrsk_item_lst-NNN
+    description: Contains 0+× MigrationRiskEntry.
+  MONIT-MONI-LST:
+    prefix: monit_moni_lst
+    pattern-check-id:
+      pattern: ^monit_moni_lst-\d+$
+      error-message: ID must match monit_moni_lst-NNN
+    description: Risk monitoring and control procedures.
+  MSDDO-MAST-LST:
+    prefix: msddo_mast_lst
+    min-count-in-document: 1
+    pattern-check-id:
+      pattern: ^msddo_mast_lst-\d+$
+      error-message: ID must match msddo_mast_lst-NNN
+    description: Master data domains.
+  NONFI-NONF-LST:
+    prefix: nonfi_nonf_lst
+    pattern-check-id:
+      pattern: ^nonfi_nonf_lst-\d+$
+      error-message: ID must match nonfi_nonf_lst-NNN
+    description: Non-financial benefits to include in ROI.
+  PPGCE-CORR-LST:
+    prefix: ppgce_corr_lst
+    min-count-in-document: 1
+    pattern-check-id:
+      pattern: ^ppgce_corr_lst-\d+$
+      error-message: ID must match ppgce_corr_lst-NNN
+    description: Tabular correlation data.
+  PREDE-PRED-LST:
+    prefix: prede_pred_lst
+    pattern-check-id:
+      pattern: ^prede_pred_lst-\d+$
+      error-message: ID must match prede_pred_lst-NNN
+    description: Predecessor systems that must be addressed first.
+  REPOL-RETE-LST:
+    prefix: repol_rete_lst
+    min-count-in-document: 1
+    pattern-check-id:
+      pattern: ^repol_rete_lst-\d+$
+      error-message: ID must match repol_rete_lst-NNN
+    description: Retention policies by data category.
+  RESPO-RESP-LST:
+    prefix: respo_resp_lst
+    pattern-check-id:
+      pattern: ^respo_resp_lst-\d+$
+      error-message: ID must match respo_resp_lst-NNN
+    description: Risk response strategies by category.
+  RISKB-RISK-LST:
+    prefix: riskb_risk_lst
+    pattern-check-id:
+      pattern: ^riskb_risk_lst-\d+$
+      error-message: ID must match riskb_risk_lst-NNN
+    description: Risk-based decision making criteria.
+  RISKC-RISK-LST:
+    prefix: riskc_risk_lst
+    pattern-check-id:
+      pattern: ^riskc_risk_lst-\d+$
+      error-message: ID must match riskc_risk_lst-NNN
+    description: Risk categories and taxonomy.
+  SECUR-SECU-LST:
+    prefix: secur_secu_lst
+    pattern-check-id:
+      pattern: ^secur_secu_lst-\d+$
+      error-message: ID must match secur_secu_lst-NNN
+    description: Security vulnerabilities and compliance gaps.
+  SHARE-SHAR-LST:
+    prefix: share_shar_lst
+    pattern-check-id:
+      pattern: ^share_shar_lst-\d+$
+      error-message: ID must match share_shar_lst-NNN
+    description: "Shared services inventory [PD00-CUR-SYS-ARC-SHR]."
+  SHIEN-ITEM-LST:
+    prefix: shien_item_lst
+    pattern-check-id:
+      pattern: ^shien_item_lst-\d+$
+      error-message: ID must match shien_item_lst-NNN
+    description: Contains 0+× Shared Infrastructure Component.
+  CPIE-IMPR-LST:
+    prefix: cpie_impr_lst
+    pattern-check-id:
+      pattern: ^cpie_impr_lst-\d+$
+      error-message: ID must match cpie_impr_lst-NNN
+    description: Process improvement opportunities.
+  CUWF-WORK-LST:
+    prefix: cuwf_work_lst
+    min-count-in-document: 1
+    pattern-check-id:
+      pattern: ^cuwf_work_lst-\d+$
+      error-message: ID must match cuwf_work_lst-NNN
+    description: Individual workflow entries.
+  DADU-DUPL-LST:
+    prefix: dadu_dupl_lst
+    pattern-check-id:
+      pattern: ^dadu_dupl_lst-\d+$
+      error-message: ID must match dadu_dupl_lst-NNN
+    description: Individual duplication instances.
+  DAIN-INTE-LST:
+    prefix: dain_inte_lst
+    min-count-in-document: 1
+    pattern-check-id:
+      pattern: ^dain_inte_lst-\d+$
+      error-message: ID must match dain_inte_lst-NNN
+    description: Data integration points inventory.
+  DASR-DATA-LST:
+    prefix: dasr_data_lst
+    pattern-check-id:
+      pattern: ^dasr_data_lst-\d+$
+      error-message: ID must match dasr_data_lst-NNN
+    description: Contains 0+× DataSource.
+  DCLE-CLAS-LST:
+    prefix: dcle_clas_lst
+    min-count-in-document: 1
+    pattern-check-id:
+      pattern: ^dcle_clas_lst-\d+$
+      error-message: ID must match dcle_clas_lst-NNN
+    description: Classification levels defined.
+  DCSE-CLAS-LST:
+    prefix: dcse_clas_lst
+    pattern-check-id:
+      pattern: ^dcse_clas_lst-\d+$
+      error-message: ID must match dcse_clas_lst-NNN
+    description: Classification status by data domain.
+  DEME-ENTI-LST:
+    prefix: deme_enti_lst
+    pattern-check-id:
+      pattern: ^deme_enti_lst-\d+$
+      error-message: ID must match deme_enti_lst-NNN
+    description: Data entities to migrate.
+  DGPE-GOVE-LST:
+    prefix: dgpe_gove_lst
+    min-count-in-document: 1
+    pattern-check-id:
+      pattern: ^dgpe_gove_lst-\d+$
+      error-message: ID must match dgpe_gove_lst-NNN
+    description: Data governance policies.
+  DQIE-IMPR-LST:
+    prefix: dqie_impr_lst
+    pattern-check-id:
+      pattern: ^dqie_impr_lst-\d+$
+      error-message: ID must match dqie_impr_lst-NNN
+    description: Quality improvement initiatives in progress.
+  DSEE-KEYE-LST:
+    prefix: dsee_keye_lst
+    min-count-in-document: 1
+    pattern-check-id:
+      pattern: ^dsee_keye_lst-\d+$
+      error-message: ID must match dsee_keye_lst-NNN
+    description: Key data entities in this source.
+  GAPE-ITEM-LST:
+    prefix: gape_item_lst
+    pattern-check-id:
+      pattern: ^gape_item_lst-\d+$
+      error-message: ID must match gape_item_lst-NNN
+    description: Contains 0+× Gap.
+  PAPE-ITEM-LST:
+    prefix: pape_item_lst
+    pattern-check-id:
+      pattern: ^pape_item_lst-\d+$
+      error-message: ID must match pape_item_lst-NNN
+    description: Contains 0+× PainPoint.
+  SBPE-SUPP-LST:
+    prefix: sbpe_supp_lst
+    pattern-check-id:
+      pattern: ^sbpe_supp_lst-\d+$
+      error-message: ID must match sbpe_supp_lst-NNN
+    description: Business processes supported by this system.
+  SBUE-BUSI-LST:
+    prefix: sbue_busi_lst
+    pattern-check-id:
+      pattern: ^sbue_busi_lst-\d+$
+      error-message: ID must match sbue_busi_lst-NNN
+    description: Business units and departments using this system.
+  SMRE-RISK-LST:
+    prefix: smre_risk_lst
+    pattern-check-id:
+      pattern: ^smre_risk_lst-\d+$
+      error-message: ID must match smre_risk_lst-NNN
+    description: Contains 0+× MigrationRiskEntry — per-system migration risks.
+  SYDE-ITEM-LST:
+    prefix: syde_item_lst
+    pattern-check-id:
+      pattern: ^syde_item_lst-\d+$
+      error-message: ID must match syde_item_lst-NNN
+    description: Contains 0+× Internal System Dependency.
+  SYIN-ITEM-LST:
+    prefix: syin_item_lst
+    pattern-check-id:
+      pattern: ^syin_item_lst-\d+$
+      error-message: ID must match syin_item_lst-NNN
+    description: Contains 0+× SystemIntegration.
+  UGIE-USER-LST:
+    prefix: ugie_user_lst
+    pattern-check-id:
+      pattern: ^ugie_user_lst-\d+$
+      error-message: ID must match ugie_user_lst-NNN
+    description: User groups requiring specific handling.
+  WFAC-ACTO-LST:
+    prefix: wfac_acto_lst
+    pattern-check-id:
+      pattern: ^wfac_acto_lst-\d+$
+      error-message: ID must match wfac_acto_lst-NNN
+    description: Workflow actors and responsibilities.
+  PME-ITEM-LST:
+    prefix: pme_item_lst
+    pattern-check-id:
+      pattern: ^pme_item_lst-\d+$
+      error-message: ID must match pme_item_lst-NNN
+    description: Individual metric entries.
+  PME-KEYM-LST:
+    prefix: pme_keym_lst
+    pattern-check-id:
+      pattern: ^pme_keym_lst-\d+$
+      error-message: ID must match pme_keym_lst-NNN
+    description: Key metrics summary.
+  PME-METR-LST:
+    prefix: pme_metr_lst
+    pattern-check-id:
+      pattern: ^pme_metr_lst-\d+$
+      error-message: ID must match pme_metr_lst-NNN
+    description: Metrics in this category.
+  WSE-ERRO-LST:
+    prefix: wse_erro_lst
+    pattern-check-id:
+      pattern: ^wse_erro_lst-\d+$
+      error-message: ID must match wse_erro_lst-NNN
+    description: "Identify steps with known issues, high error rates, or workarounds."
+  WSE-MANU-LST:
+    prefix: wse_manu_lst
+    pattern-check-id:
+      pattern: ^wse_manu_lst-\d+$
+      error-message: ID must match wse_manu_lst-NNN
+    description: Identify steps that cannot be automated or require human judgment.
+  WSE-STEP-LST:
+    prefix: wse_step_lst
+    pattern-check-id:
+      pattern: ^wse_step_lst-\d+$
+      error-message: ID must match wse_step_lst-NNN
+    description: Workflow steps in sequence.
+  REPSDEP:
+    prefix: repsdep
+    description: "A system dependency entry [PD00-SYO-SYR-INV-nn-DEP-nn]."
+  BUPAPO:
+    prefix: bupapo
+    description: "1.3.2. Business Pain Points [PD00-CUR-PAI-BUS]."
+  CUBIPR:
+    prefix: cubipr
+    description: "Document each business process that the project will impact. Include process maps (BPMN recommended), actor descriptions, and quantitative metrics. Identify manual steps and error-prone areas."
+  CUBUPR:
+    prefix: cubupr
+    description: "1.2. Current Business Processes [PD00-CUR-PRO]."
+  CUDACL:
+    prefix: cudacl
+    description: "1.4.8. Data Classification [PD00-CUR-DAT-CLA]."
+  CUDALA:
+    prefix: cudala
+    description: "1.4. Current Data Landscape [PD00-CUR-DAT]."
+  CUOPME:
+    prefix: cuopme
+    description: "1.5. Operational Metrics [PD00-CUR-MET]."
+  DACLSU:
+    prefix: daclsu
+    description: Summary of data classification framework.
+  DADUAN:
+    prefix: daduan
+    description: "1.4.3. Data Duplication Analysis [PD00-CUR-DAT-DUP]."
+  DADUSU:
+    prefix: dadusu
+    description: Summary of data duplication findings.
+  DAGOMA:
+    prefix: dagoma
+    description: Data governance maturity assessment.
+  DAINPO:
+    prefix: dainpo
+    description: "1.4.9. Data Integration Points [PD00-CUR-DAT-INT]."
+  DAINSU:
+    prefix: dainsu
+    description: Summary of data integration landscape.
+  DALASU:
+    prefix: dalasu
+    description: Summary statistics and health indicators for data landscape.
+  DAOWEN:
+    prefix: daowen
+    description: Data ownership assignment for a domain or asset.
+  DAOWSU:
+    prefix: daowsu
+    description: Summary of data ownership model.
+  DAQLIS:
+    prefix: daqlis
+    description: A data quality issue entry (form).
+  DAQUAS:
+    prefix: daquas
+    description: "1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA]."
+  DAREPO:
+    prefix: darepo
+    description: "1.4.6. Retention Policies [PD00-CUR-DAT-RET]."
+  DASOCL:
+    prefix: dasocl
+    description: Classification for data source.
+  DASOI1:
+    prefix: dasoi1
+    description: Integration for data source.
+  DASOIN:
+    prefix: dasoin
+    description: "1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC]."
+  DASOLI:
+    prefix: dasoli
+    description: Lifecycle for data source.
+  DASOOW:
+    prefix: dasoow
+    description: Ownership and governance for data source.
+  DASOQU:
+    prefix: dasoqu
+    description: Quality and reliability for data source.
+  DASOTE:
+    prefix: dasote
+    description: Technical details for data source.
+  DASOVO:
+    prefix: dasovo
+    description: Volume and performance for data source.
+  DAVOEN:
+    prefix: davoen
+    description: Volume details for a specific data source.
+  DAVOSU:
+    prefix: davosu
+    description: Summary of data volumes and growth trends.
+  GAENDE:
+    prefix: gaende
+    description: Gap description and business impact.
+  GAENDI:
+    prefix: gaendi
+    description: Discovery and validation for gap.
+  GAENRE:
+    prefix: gaenre
+    description: Resolution planning for gap.
+  GAENWO:
+    prefix: gaenwo
+    description: Current workarounds for gap.
+  INHESU:
+    prefix: inhesu
+    description: "1.1.3.5. Integration Health Summary [PD00-CUR-SYS-DEP-HEA]."
+  INTEG1:
+    prefix: integ1
+    description: A single integration pattern entry.
+  INTEGR:
+    prefix: integr
+    description: "1.1.3.4. System Integrations [PD00-CUR-SYS-DEP-SYS]."
+  KNOWN1:
+    prefix: known1
+    description: A single known issue entry.
+  MADAMA:
+    prefix: madama
+    description: "1.4.10. Master Data Management [PD00-CUR-DAT-MDM]."
+  MEBAEN:
+    prefix: mebaen
+    description: A baseline entry for tracking metric changes.
+  MEBATA:
+    prefix: mebata
+    description: Baseline table for tracking metrics over time.
+  MEDASU:
+    prefix: medasu
+    description: Metrics dashboard summary for executive overview.
+  MIRIAS:
+    prefix: mirias
+    description: Assessment methodology settings.
+  MIRICO:
+    prefix: mirico
+    description: Contingency planning for migration risk.
+  MIRIGO:
+    prefix: mirigo
+    description: Governance and decision authority.
+  MIRIHI:
+    prefix: mirihi
+    description: History and lessons learned for migration risk.
+  MIRIID:
+    prefix: miriid
+    description: Risk identification details.
+  MIRIIM:
+    prefix: miriim
+    description: Impact assessment for migration risk.
+  MIRIIN:
+    prefix: miriin
+    description: Risk indicators and monitoring.
+  MIRIMI:
+    prefix: mirimi
+    description: Mitigation strategy for migration risk.
+  MIRIPR:
+    prefix: miripr
+    description: Probability assessment for migration risk.
+  MIRIQU:
+    prefix: miriqu
+    description: Risk quantification for migration risk.
+  MIRIR1:
+    prefix: mirir1
+    description: Related items for migration risk.
+  MIRIRE:
+    prefix: mirire
+    description: Reporting settings.
+  MIRITH:
+    prefix: mirith
+    description: Threshold and trigger settings.
+  MIRITR:
+    prefix: miritr
+    description: Ownership and tracking for migration risk.
+  OPPAPO:
+    prefix: oppapo
+    description: "1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE]."
+  PAPOCL:
+    prefix: papocl
+    description: Classification for pain point.
+  PAPOEV:
+    prefix: papoev
+    description: Evidence for pain point.
+  PAPOIM:
+    prefix: papoim
+    description: Impact assessment for pain point.
+  PAPOR1:
+    prefix: papor1
+    description: Relationships for pain point.
+  PAPORE:
+    prefix: papore
+    description: Resolution for pain point.
+  PAPOSU:
+    prefix: paposu
+    description: Summary statistics and metrics for all pain points.
+  PAPOWO:
+    prefix: papowo
+    description: Workaround for pain point.
+  PRDEEN:
+    prefix: prdeen
+    description: A single process dependency entry.
+  PRINMA:
+    prefix: prinma
+    description: Process interdependency matrix showing how processes interact.
+  PRMECA:
+    prefix: prmeca
+    description: A category of process metrics.
+  PRPAPO:
+    prefix: prpapo
+    description: Process-specific pain points and improvement opportunities.
+  PRPESU:
+    prefix: prpesu
+    description: Process performance summary with high-level metrics.
+  PRSCEN:
+    prefix: prscen
+    description: A process scope entry indicating in/out of scope status.
+  PRSCSU:
+    prefix: prscsu
+    description: Process scope summary defining in-scope and out-of-scope processes.
+  REPOSU:
+    prefix: reposu
+    description: Summary of retention policy framework.
+  REPPHS:
+    prefix: repphs
+    description: "A replacement phase entry [PD00-SYO-SYR-INV-nn-STR-PH-nn]."
+  SYBUCR:
+    prefix: sybucr
+    description: "Business criticality assessment [PD00-SYO-SYR-INV-nn-BUS]."
+  SYCOAN:
+    prefix: sycoan
+    description: "Cost analysis for replacement [PD00-SYO-SYR-INV-nn-CST]."
+  SYDASC:
+    prefix: sydasc
+    description: "Data scope and migration assessment [PD00-SYO-SYR-INV-nn-DAT]."
+  SYINMO:
+    prefix: syinmo
+    description: Monitoring and failover.
+  SYINOW:
+    prefix: syinow
+    description: Ownership and documentation.
+  SYINPR:
+    prefix: syinpr
+    description: Protocol and transport details.
+  SYINTH:
+    prefix: syinth
+    description: Throughput and capacity.
+  SYKNTR:
+    prefix: sykntr
+    description: "Knowledge transfer status [PD00-SYO-SYR-INV-nn-KNW]."
+  SYMIPL:
+    prefix: symipl
+    description: "Per-system migration plan [PD00-SYO-SYR-INV-nn-MIG]."
+  SYREST:
+    prefix: syrest
+    description: "Replacement strategy details [PD00-SYO-SYR-INV-nn-STR]."
+  SYTEAS:
+    prefix: syteas
+    description: "Technical assessment for a system to replace [PD00-SYO-SYR-INV-nn-TEC]."
+  SYTORE:
+    prefix: sytore
+    description: "A system to replace entry [PD00-SYO-SYR-INV-nn] (form)."
+  SYUSIM:
+    prefix: syusim
+    description: "User impact assessment [PD00-SYO-SYR-INV-nn-USR]."
+  TEPAPO:
+    prefix: tepapo
+    description: "1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC]."
+  WOBURU:
+    prefix: woburu
+    description: A business rule governing workflow behavior.
+  WODEPO:
+    prefix: wodepo
+    description: A decision point within a workflow.
+  WOEXEN:
+    prefix: woexen
+    description: A workflow exception type.
+  WOINEN:
+    prefix: woinen
+    description: A workflow input.
+  WOOUEN:
+    prefix: woouen
+    description: A workflow output.
+  WOSTIS:
+    prefix: wostis
+    description: Known issue with a workflow step.
+  WOSTSY:
+    prefix: wostsy
+    description: A system used in a workflow step.
+  WOSUEN:
+    prefix: wosuen
+    description: Summary entry for a single workflow.
+  WOSUTA:
+    prefix: wosuta
+    description: Summary table of all workflows for quick reference.
+  WOTREN:
+    prefix: wotren
+    description: A single workflow trigger.
+  CARCH:
+    prefix: carch
+    description: "1.1.2. Current Architecture [PD00-CUR-SYS-ARC]."
+  CRITI:
+    prefix: criti
+    description: A single critical knowledge area entry.
+  CSRA1:
+    prefix: csra1
+    description: "1.6. Current State Risks [PD00-CUR-RIS]."
+  DDES1:
+    prefix: ddes1
+    description: Synchronization and consistency details.
+  DEME1:
+    prefix: deme1
+    description: "A data entity migration entry [PD00-SYO-SYR-INV-nn-DAT-ENT-nn]."
+  DEPNT:
+    prefix: depnt
+    description: "1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP]."
+  DGPEG:
+    prefix: dgpeg
+    description: "Ownership, enforcement, and compliance status."
+  DGPEL:
+    prefix: dgpel
+    description: Policy lifecycle and applicability.
+  DOCHD:
+    prefix: dochd
+    description: Standard document header present at the top of every TomSpecs document.
+  DOES1:
+    prefix: does1
+    description: Stewardship and custodianship assignments.
+  DQIEC:
+    prefix: dqiec
+    description: Classification and severity.
+  DQIEI:
+    prefix: dqiei
+    description: Business impact and diagnostics.
+  DQIER:
+    prefix: dqier
+    description: Resolution planning.
+  ESBCT:
+    prefix: esbct
+    description: Business context for an existing system.
+  ESCAL:
+    prefix: escal
+    description: A single escalation procedure entry.
+  ESENT:
+    prefix: esent
+    description: "An existing system entry [PD00-CUR-SYS-INV-nn] (form)."
+  ESINF:
+    prefix: esinf
+    description: Infrastructure details for an existing system.
+  ESINT:
+    prefix: esint
+    description: Integration profile for an existing system.
+  ESLAN:
+    prefix: eslan
+    description: "1.1. Existing Systems Landscape [PD00-CUR-SYS]."
+  ESLCY:
+    prefix: eslcy
+    description: Lifecycle information for an existing system.
+  ESQUA:
+    prefix: esqua
+    description: Quality and risk assessment for an existing system.
+  ESTEC:
+    prefix: estec
+    description: Technology stack details for an existing system.
+  ESUSG:
+    prefix: esusg
+    description: Usage metrics for an existing system.
+  EXSDE:
+    prefix: exsde
+    description: "An external service dependency entry (form) [PD00-CUR-SYS-DEP-EXT-nn]."
+  EXSOP:
+    prefix: exsop
+    description: Availability and data handling details.
+  EXSRK:
+    prefix: exsrk
+    description: Risk and fallback considerations.
+  EXSRL:
+    prefix: exsrl
+    description: Internal dependency and contract details.
+  EXTDP:
+    prefix: extdp
+    description: "1.1.3.2. External Service Dependencies [PD00-CUR-SYS-DEP-EXT]."
+  FRAGI:
+    prefix: fragi
+    description: A single fragile point entry.
+  INTDP:
+    prefix: intdp
+    description: "1.1.3.1. Internal Dependencies [PD00-CUR-SYS-DEP-INT]."
+  KNOWN:
+    prefix: known
+    description: A single known quality issue entry.
+  LIMET:
+    prefix: limet
+    description: "A known limitation of an existing system (form) [PD00-CUR-SYS-INV-nn-LIM-nn]."
+  MDDEG:
+    prefix: mddeg
+    description: Ownership and improvement planning for a master data domain.
+  MDDEQ:
+    prefix: mddeq
+    description: Volume and quality indicators for a master data domain.
+  MDDEU:
+    prefix: mddeu
+    description: Downstream usage and cadence for a master data domain.
+  MGMLS:
+    prefix: mgmls
+    description: "A migration milestone entry [PD00-SYO-SYR-MIG-MIL-nn]."
+  MGRSK:
+    prefix: mgrsk
+    description: "A migration risk entry (form) [PD00-SYO-SYR-MIG-RIS-nn]."
+  MICO1:
+    prefix: mico1
+    description: "4.4.2. Migration Considerations [PD00-SYO-SYR-MIG] (global)."
+  MONIT:
+    prefix: monit
+    description: A single monitoring procedure entry.
+  MSDDO:
+    prefix: msddo
+    description: Master data domain entry.
+  NONFI:
+    prefix: nonfi
+    description: A single non financial benefit entry.
+  PPGCE:
+    prefix: ppgce
+    description: Individual pain point to gap correlation entry.
+  PREDE:
+    prefix: prede
+    description: A single predecessor dependency entry.
+  REIN1:
+    prefix: rein1
+    description: "Container for systems to replace [PD00-SYO-SYR-INV]."
+  REPOL:
+    prefix: repol
+    description: Retention policy for a specific data category.
+  RESPO:
+    prefix: respo
+    description: A single response strategy entry.
+  RISKB:
+    prefix: riskb
+    description: A single risk based decision entry.
+  RISKC:
+    prefix: riskc
+    description: A single risk category entry.
+  SBPE1:
+    prefix: sbpe1
+    description: "Business process supported [PD00-SYO-SYR-INV-nn-BUS-BP-nn]."
+  SBUE1:
+    prefix: sbue1
+    description: "Business unit using the system [PD00-SYO-SYR-INV-nn-BUS-BU-nn]."
+  SCACC:
+    prefix: scacc
+    description: Current-state support and total annual cost.
+  SDEDE:
+    prefix: sdede
+    description: Data exchange characteristics for system dependency.
+  SDSM1:
+    prefix: sdsm1
+    description: Migration preparation and archive handling.
+  SECUR:
+    prefix: secur
+    description: A single security concern entry.
+  SHARE:
+    prefix: share
+    description: A single shared service entry.
+  SHDEP:
+    prefix: shdep
+    description: "1.1.3.3. Shared Infrastructure Dependencies [PD00-CUR-SYS-DEP-SHR]."
+  SHIEN:
+    prefix: shien
+    description: "A shared infrastructure entry (form) [PD00-CUR-SYS-DEP-SHR-nn]."
+  SMRE1:
+    prefix: smre1
+    description: "A system migration risk entry [PD00-SYO-SYR-INV-nn-MIG-RSK-nn]."
+  STREP:
+    prefix: strep
+    description: Classification and ownership details.
+  STREV:
+    prefix: strev
+    description: Vendor and contract status.
+  SUICP:
+    prefix: suicp
+    description: User-facing change profile for system replacement.
+  SYINV:
+    prefix: syinv
+    description: "1.1.1. System Inventory [PD00-CUR-SYS-INV]."
+  UGIE1:
+    prefix: ugie1
+    description: "User group impact entry [PD00-SYO-SYR-INV-nn-USR-GR-nn]."
+  BPPS:
+    prefix: bpps
+    description: Summary specific to business pain points.
+  CPIE:
+    prefix: cpie
+    description: A process improvement opportunity.
+  CUWF:
+    prefix: cuwf
+    description: Document each workflow with enough detail to understand the current state and identify improvement opportunities. Include swim-lane diagrams for complex workflows with multiple actors.
+  DADU:
+    prefix: dadu
+    description: A data duplication instance entry.
+  DAGO:
+    prefix: dago
+    description: "1.4.7. Data Governance [PD00-CUR-DAT-GOV]."
+  DAIN:
+    prefix: dain
+    description: A data integration point entry.
+  DAOW:
+    prefix: daow
+    description: "1.4.4. Data Ownership and Stewardship [PD00-CUR-DAT-OWN]."
+  DASR:
+    prefix: dasr
+    description: "A data source entry (form) [PD00-CUR-DAT-SRC-nn]."
+  DCLE:
+    prefix: dcle
+    description: A data classification level definition.
+  DCSE:
+    prefix: dcse
+    description: Classification status for a data domain.
+  DDEG:
+    prefix: ddeg
+    description: Business impact and resolution guidance.
+  DDES:
+    prefix: ddes
+    description: Sources and duplication shape.
+  DGPE:
+    prefix: dgpe
+    description: Data governance policy entry.
+  DIEE:
+    prefix: diee
+    description: Endpoints and type for data integration.
+  DIEO:
+    prefix: dieo
+    description: Ownership and issues for data integration.
+  DIER:
+    prefix: dier
+    description: Reliability and monitoring for data integration.
+  DIET:
+    prefix: diet
+    description: Volume and transport for data integration.
+  DOEG:
+    prefix: doeg
+    description: Access and coverage governance.
+  DQDS:
+    prefix: dqds
+    description: Summary of data quality across standard dimensions.
+  DQIE:
+    prefix: dqie
+    description: Data quality improvement initiative entry.
+  DSEE:
+    prefix: dsee
+    description: Key data entity within a data source.
+  DSRP:
+    prefix: dsrp
+    description: Retention policy specific to a data source.
+  DVAG:
+    prefix: dvag
+    description: "1.4.5. Data Volumes and Growth [PD00-CUR-DAT-VOL]."
+  DVSC:
+    prefix: dvsc
+    description: Capacity pressure and cost impact.
+  DVSG:
+    prefix: dvsg
+    description: Historical growth behavior.
+  DVSP:
+    prefix: dvsp
+    description: Forward-looking forecasts and utilization.
+  GAPE:
+    prefix: gape
+    description: "A gap entry (form) — a missing capability or feature [PD00-CUR-PAI-GAP-nn]."
+  GAPS:
+    prefix: gaps
+    description: "1.3.4. Gaps [PD00-CUR-PAI-GAP]."
+  MDSU:
+    prefix: mdsu
+    description: Summary of MDM status and maturity.
+  MIRE:
+    prefix: mire
+    description: "Migration resource requirements [PD00-SYO-SYR-MIG-RES]."
+  MIRI:
+    prefix: miri
+    description: "Migration risks [PD00-SYO-SYR-MIG-RIS] — program-level risks."
+  OPPS:
+    prefix: opps
+    description: Summary specific to operational pain points.
+  PAPE:
+    prefix: pape
+    description: "A pain point entry (form) [PD00-CUR-PAI-nn]."
+  PMEM:
+    prefix: pmem
+    description: Measurement collection details.
+  PMET:
+    prefix: pmet
+    description: Target setting and benchmarking context.
+  PPAG:
+    prefix: ppag
+    description: "1.3. Pain Points and Gaps [PD00-CUR-PAI]."
+  PPGC:
+    prefix: ppgc
+    description: Cross-reference analysis between pain points and gaps.
+  PPRC:
+    prefix: pprc
+    description: Root cause for pain point.
+  RPEG:
+    prefix: rpeg
+    description: Compliance and accountability status.
+  RPEL:
+    prefix: rpel
+    description: Archival and deletion lifecycle handling.
+  RPER:
+    prefix: rper
+    description: Retention timing and legal basis.
+  SBCG:
+    prefix: sbcg
+    description: Delivery and compliance constraints.
+  SBCO:
+    prefix: sbco
+    description: Usage scale and commercial impact.
+  SCAB:
+    prefix: scab
+    description: Target-state cost and ROI indicators.
+  SCAM:
+    prefix: scam
+    description: One-time migration and transition investments.
+  SDEM:
+    prefix: sdem
+    description: Mechanism and coupling for system dependency.
+  SDEO:
+    prefix: sdeo
+    description: Operations and documentation for system dependency.
+  SDER:
+    prefix: sder
+    description: Reliability and SLA for system dependency.
+  SDSG:
+    prefix: sdsg
+    description: Data sensitivity and quality posture.
+  SIDE:
+    prefix: side
+    description: Data exchange configuration.
+  SIEC:
+    prefix: siec
+    description: Capacity constraints.
+  SIEH:
+    prefix: sieh
+    description: Error handling and retry.
+  SIEO:
+    prefix: sieo
+    description: Ownership and maintenance.
+  SIER:
+    prefix: sier
+    description: Criticality and resilience.
+  SMPC:
+    prefix: smpc
+    description: Cutover window and business fallback.
+  SMPE:
+    prefix: smpe
+    description: Migration execution and validation details.
+  SRSC:
+    prefix: srsc
+    description: Cutover and rollback profile.
+  SRST:
+    prefix: srst
+    description: Replacement timeline milestones.
+  STAL:
+    prefix: stal
+    description: Support and lifecycle details.
+  STAP:
+    prefix: stap
+    description: Platform and age details.
+  STAQ:
+    prefix: staq
+    description: Technical quality indicators.
+  SUIA:
+    prefix: suia
+    description: Communication and adoption support for impacted users.
+  SUIE:
+    prefix: suie
+    description: Training and enablement plan for impacted users.
+  SYDE:
+    prefix: syde
+    description: "A system dependency entry (form) [PD00-CUR-SYS-DEP-INT-nn]."
+  SYIN:
+    prefix: syin
+    description: "A system integration entry (form) [PD00-CUR-SYS-DEP-INT-nn]."
+  TPPS:
+    prefix: tpps
+    description: Summary specific to technical pain points.
+  WODE:
+    prefix: wode
+    description: "1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR]."
+  WOEX:
+    prefix: woex
+    description: Workflow exception handling.
+  WOTI:
+    prefix: woti
+    description: Workflow timing and performance characteristics.
+  WOTR:
+    prefix: wotr
+    description: Workflow triggers and initiation conditions.
+  PME:
+    prefix: pme
+    description: "Define each metric clearly with current baseline values, measurement methodology, and target values if known."
+  WAE:
+    prefix: wae
+    description: "Document all actors including their roles, responsibilities, authorization levels, and involvement pattern."
+  WSE:
+    prefix: wse
+    description: "Document each step with enough detail for process analysis and system design. Include responsible actors, inputs, outputs, and timing."
+  PC:
+    prefix: pc
+    description: "Describe why this process exists, what business value it delivers, and how it fits into the overall organizational workflow."
+  PM:
+    prefix: pm
+    description: "Document current process performance including throughput, cycle times, error rates, and manual intervention frequency. These become the baseline against which improvements are measured."
+document:
+  sections:
+    header:
+      section-type: DOCHD
+      optional: true
+    existingsystemslandscape:
+      section-type: ESLAN
+      optional: true
+    currentbusinessprocesses:
+      section-type: CUBUPR
+      optional: true
+    painpointsandgaps:
+      section-type: PPAG
+      optional: true
+    currentdatalandscape:
+      section-type: CUDALA
+      optional: true
+    operationalmetrics:
+      section-type: CUOPME-OPER-LST
+      optional: true
+    currentstaterisks:
+      section-type: CSRA1
+      optional: true
+    replacementinventory:
+      section-type: REIN1
+      optional: true
+    migrationconsiderations:
+      section-type: MICO1
+      optional: true
