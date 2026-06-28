@@ -19,7 +19,7 @@ together with the versions in use and how each toolchain is obtained.
 | --- | --- | --- | --- | --- | --- |
 | **Dart** | Dart SDK | `3.11.4 (stable)` | **yes** (`tom_som_dart_v0`) | **builds + analyzes clean** | Dart SDK on `PATH` (fleet-managed) |
 | **Python** | CPython | `3.12.3` | **yes** (`tom_som_python_v0`) | **compiles + imports against runtime** | system `python3` (apt, Ubuntu 24.04) |
-| **JavaScript** | Node.js | `22.22.3` (npm `10.9.8`) | no (emitter pending #10) | runtime smoke ✓ | system `node`/`npm` |
+| **JavaScript** | Node.js | `22.22.3` (npm `10.9.8`) | **yes** (`tom_som_javascript_v0`) | **builds + runs generated `v0` ✓** (3079 classes load; behavioural + samples pass) | system `node`/`npm` |
 | **TypeScript** | `tsc` (project-local npm) | **pinned `6.0.3`** (Node 22.22.3 / npm 10.9.8) | no (emitter pending #10) | **project-local route compiles + runs ✓** (fixture) | project-local `npm i -D typescript@6.0.3` — followup item 4 |
 | **C** | GCC | `gcc 13.3.0` | no (emitter pending #10) | compiles + runs ✓ | apt `build-essential` |
 | **C++** | GCC / Clang | `g++ 13.3.0`, `clang++ 18.1.3` | no (emitter pending #10) | compiles + runs ✓ | apt `build-essential` / `clang` |

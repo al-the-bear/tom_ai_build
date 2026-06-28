@@ -34,6 +34,9 @@ Future<void> main(List<String> arguments) async {
     ..addOption('java-runtime',
         help: 'Path to the tom_som_java_runtime package (manifest dep '
             'target). Default: <ai_build>/tom_som_java_runtime.')
+    ..addOption('js-runtime',
+        help: 'Path to the tom_som_javascript_runtime package (manifest dep '
+            'target). Default: <ai_build>/tom_som_javascript_runtime.')
     ..addOption('model-version',
         help: 'Override the integer model-version stamp. '
             'Default: major component of the model version.')
@@ -67,6 +70,8 @@ Future<void> main(List<String> arguments) async {
       args.option('py-runtime') ?? p.join(aiBuild, 'tom_som_python_runtime')));
   final javaRuntimeDir = p.normalize(p.absolute(
       args.option('java-runtime') ?? p.join(aiBuild, 'tom_som_java_runtime')));
+  final jsRuntimeDir = p.normalize(p.absolute(args.option('js-runtime') ??
+      p.join(aiBuild, 'tom_som_javascript_runtime')));
   for (final dir in [modelDir, runtimeDir]) {
     if (!Directory(dir).existsSync()) _fail('Directory not found: $dir');
   }
@@ -147,6 +152,22 @@ Future<void> main(List<String> arguments) async {
         stdout.writeln('  source:   ${result.sourcePath}');
         stdout.writeln('  manifest: ${result.manifestPath}');
       case SomLanguage.javascript:
+        stdout.writeln('\n── generating ${target.language.slug} → $outputRoot');
+        final result = await generateSomJavaScriptProject(
+          modelPackagePath: modelDir,
+          runtimePackagePath: jsRuntimeDir,
+          outputRoot: outputRoot,
+          modelVersion: modelVersion,
+          modelLabel: stamp.label,
+          generatedAt: stamp.buildTime,
+          versionLabel: config.versionLabel,
+          documentRoots: config.documentRoots,
+        );
+        stdout.writeln('  classes: ${result.classCount}  '
+            'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}');
+        stdout.writeln('  meta:     ${result.metaJsonPath}');
+        stdout.writeln('  module:   ${result.modulePath}');
+        stdout.writeln('  package:  ${result.packageJsonPath}');
       case SomLanguage.typescript:
       case SomLanguage.go:
       case SomLanguage.rust:
