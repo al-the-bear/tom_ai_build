@@ -25,35 +25,36 @@ together with the versions in use and how each toolchain is obtained.
 | **C++** | GCC / Clang | `g++ 13.3.0`, `clang++ 18.1.3` | no (emitter pending #10) | compiles + runs ✓ | apt `build-essential` / `clang` |
 | **Java** | JDK | `javac 21.0.11` (JDK 21.0.11+10) | **yes** (`tom_som_java_v0`) | **builds + runs generated `v0` ✓** (3079 classes compile; behavioural + samples pass) | apt `openjdk-21-jdk-headless` (compiler only, no AWT/X11; followup item 1) |
 | **Go** | Go toolchain | `1.26.4` (official tarball) | **yes** (`tom_som_go_v0`) | **builds + runs generated `v0` ✓** (3079 classes compile; behavioural + samples pass) | official tarball → `~/.local/go` (per-user, sha256-verified; PATH from `.bashrc`/`.profile`) — followup items 3 + 8 |
-| **Rust** | rustc / cargo | `1.96.0` (stable; rustfmt `1.9.0`) | no (emitter pending #10) | **builds + runs ✓** (`cargo new`+`run`) | `rustup` (per-user, `~/.cargo`; `~/.cargo/env` sourced from `.bashrc`/`.profile`) — followup item 2 |
+| **Rust** | rustc / cargo | `1.96.0` (stable; rustfmt `1.9.0`) | **yes** (`tom_som_rust_v0`) | **builds + runs generated `v0` ✓** (3079 classes compile; behavioural + samples pass) | `rustup` (per-user, `~/.cargo`; `~/.cargo/env` sourced from `.bashrc`/`.profile`) — followup items 2 + 9 |
 
 ### Reading the matrix
 
 - **"Verified"** is the strongest check actually run:
   - *builds + analyzes / compiles + imports / builds + runs generated `v0`* — the
     real `v0` project was built and exercised (**Dart**, **Python**, **Java**,
-    **JavaScript**, **TypeScript**, and **Go** have `v0` projects today; the other
-    three are emitter-pending, per D24/D32/D33/D34/D35).
+    **JavaScript**, **TypeScript**, **Go**, and **Rust** have `v0` projects today;
+    the other two (C, C++) are emitter-pending, per D24/D32/D33/D34/D35/D36).
   - *compiles + runs ✓ / runtime smoke ✓* — a trivial hello-world was compiled
     and/or run to confirm the toolchain works, even though no SOM `v0` project
     exists for that language yet.
 - **"`v0` project exists?"** tracks plan item #10 (typed emitters). Dart, Python,
-  Java, JavaScript, TypeScript, and Go emitters exist; the other three are **blocked
-  on their emitter**, not on the toolchain. The toolchain column is therefore the
-  *forward* requirement: it records what will be needed the moment each emitter lands.
+  Java, JavaScript, TypeScript, Go, and Rust emitters exist; the other two (C, C++)
+  are **blocked on their emitter**, not on the toolchain. The toolchain column is
+  therefore the *forward* requirement: it records what will be needed the moment
+  each emitter lands.
 
-## Why only Dart + Python + Java + JavaScript + TypeScript + Go are "Done"
+## Why only Dart + Python + Java + JavaScript + TypeScript + Go + Rust are "Done"
 
 Step 12's done-condition — *each toolchain builds its `v0` project and runs its
 tests* — can only be satisfied where a `v0` project exists. Per
-**D24/D32/D33/D34/D35** that is Dart, Python, Java, JavaScript, TypeScript, and Go
-(the Java `v0` landed with follow-up item 5, JavaScript with item 6, TypeScript
-with item 7, Go with item 8). The other three remain emitter-pending: installing
+**D24/D32/D33/D34/D35/D36** that is Dart, Python, Java, JavaScript, TypeScript, Go,
+and Rust (the Java `v0` landed with follow-up item 5, JavaScript with item 6,
+TypeScript with item 7, Go with item 8, Rust with item 9). The other two remain
+emitter-pending: installing
 toolchains with no
 generated code for them to build would be speculative — nothing to compile, no
 tests to run, on a shared
-fleet host (though Go and Rust were nonetheless provisioned ahead of their `v0`
-under follow-up items 2–3). The honest delivery is therefore:
+fleet host. The honest delivery is therefore:
 
 1. **Verify + record** the two toolchains that have projects (Dart, Python) — done.
 2. **Inventory + smoke-verify** the toolchains already present (Node, GCC, Clang,

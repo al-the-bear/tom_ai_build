@@ -1,0 +1,14 @@
+[package]
+name = "tom_som_rust_v0"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+tom_som_rust_runtime = { path = "../tom_som_rust_runtime" }
+
+[dev-dependencies]
+tom_som_rust_runtime = { path = "../tom_som_rust_runtime" }

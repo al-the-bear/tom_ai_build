@@ -1,0 +1,815 @@
+# Generated from the TomSpecs object model — do not edit.
+# Schema: authorization-concept/1.0
+
+section-types:
+  RESKREF-RESO-LST:
+    prefix: reskref_reso_lst
+    pattern-check-id:
+      pattern: ^reskref_reso_lst-\d+$
+      error-message: ID must match reskref_reso_lst-NNN
+    description: Contains 0+× ResourceKeyReference.
+  ROLDSCP-DATA-LST:
+    prefix: roldscp_data_lst
+    pattern-check-id:
+      pattern: ^roldscp_data_lst-\d+$
+      error-message: ID must match roldscp_data_lst-NNN
+    description: Contains 0+× RoleDataScope.
+  ROLPERM-DIRE-LST:
+    prefix: rolperm_dire_lst
+    pattern-check-id:
+      pattern: ^rolperm_dire_lst-\d+$
+      error-message: ID must match rolperm_dire_lst-NNN
+    description: Contains 0+× RolePermission.
+  COCHEN-COMM-LST:
+    prefix: cochen_comm_lst
+    pattern-check-id:
+      pattern: ^cochen_comm_lst-\d+$
+      error-message: ID must match cochen_comm_lst-NNN
+    description: Contains 0+× CommunicationChannelEncryption.
+  ENDACA-ENCR-LST:
+    prefix: endaca_encr_lst
+    pattern-check-id:
+      pattern: ^endaca_encr_lst-\d+$
+      error-message: ID must match endaca_encr_lst-NNN
+    description: Contains 0+× EncryptedDataCategory.
+  ENREFE-ENTI-LST:
+    prefix: enrefe_enti_lst
+    pattern-check-id:
+      pattern: ^enrefe_enti_lst-\d+$
+      error-message: ID must match enrefe_enti_lst-NNN
+    description: Contains 0+× EntitlementReference.
+  IDPRDE-DETA-LST:
+    prefix: idprde_deta_lst
+    pattern-check-id:
+      pattern: ^idprde_deta_lst-\d+$
+      error-message: ID must match idprde_deta_lst-NNN
+    description: Provider details.
+  IDPREN-ENDP-LST:
+    prefix: idpren_endp_lst
+    pattern-check-id:
+      pattern: ^idpren_endp_lst-\d+$
+      error-message: ID must match idpren_endp_lst-NNN
+    description: Endpoint configuration.
+  MFACRQ-MFAC-LST:
+    prefix: mfacrq_mfac_lst
+    pattern-check-id:
+      pattern: ^mfacrq_mfac_lst-\d+$
+      error-message: ID must match mfacrq_mfac_lst-NNN
+    description: Contains 0+× MFA Enforcement per User Category.
+  RESKEY-RESO-LST:
+    prefix: reskey_reso_lst
+    pattern-check-id:
+      pattern: ^reskey_reso_lst-\d+$
+      error-message: ID must match reskey_reso_lst-NNN
+    description: "9.4.5. Resource Keys [PD00-ACC-USA-RES] — contains 0+× Resource Key."
+  ROLEXC-MUTU-LST:
+    prefix: rolexc_mutu_lst
+    pattern-check-id:
+      pattern: ^rolexc_mutu_lst-\d+$
+      error-message: ID must match rolexc_mutu_lst-NNN
+    description: Contains 0+× RoleExclusion.
+  ROLHLD-TYPI-LST:
+    prefix: rolhld_typi_lst
+    pattern-check-id:
+      pattern: ^rolhld_typi_lst-\d+$
+      error-message: ID must match rolhld_typi_lst-NNN
+    description: Contains 0+× RoleHolder.
+  ROLREF-CONT-LST:
+    prefix: rolref_cont_lst
+    pattern-check-id:
+      pattern: ^rolref_cont_lst-\d+$
+      error-message: ID must match rolref_cont_lst-NNN
+    description: Contains 0+× RoleReference.
+  RSPREF-RESP-LST:
+    prefix: rspref_resp_lst
+    pattern-check-id:
+      pattern: ^rspref_resp_lst-\d+$
+      error-message: ID must match rspref_resp_lst-NNN
+    description: Contains 0+× ResponsibilityReference.
+  GBRLX-GLOB-LST:
+    prefix: gbrlx_glob_lst
+    pattern-check-id:
+      pattern: ^gbrlx_glob_lst-\d+$
+      error-message: ID must match gbrlx_glob_lst-NNN
+    description: Contains 0+× GlobalRoleExclusion.
+  IDTAM-ATTR-LST:
+    prefix: idtam_attr_lst
+    pattern-check-id:
+      pattern: ^idtam_attr_lst-\d+$
+      error-message: ID must match idtam_attr_lst-NNN
+    description: Attribute Mappings — contains 0+× Identity Attribute Mapping.
+  IDTPV-IDEN-LST:
+    prefix: idtpv_iden_lst
+    pattern-check-id:
+      pattern: ^idtpv_iden_lst-\d+$
+      error-message: ID must match idtpv_iden_lst-NNN
+    description: Identity Providers — contains 0+× Identity Provider.
+  IDTSR-IDEN-LST:
+    prefix: idtsr_iden_lst
+    pattern-check-id:
+      pattern: ^idtsr_iden_lst-\d+$
+      error-message: ID must match idtsr_iden_lst-NNN
+    description: Identity Sources — contains 0+× Identity Source.
+  LGFLS-LOGI-LST:
+    prefix: lgfls_logi_lst
+    pattern-check-id:
+      pattern: ^lgfls_logi_lst-\d+$
+      error-message: ID must match lgfls_logi_lst-NNN
+    description: Contains 0+× Login Flow Step.
+  MFADE-MFAD-LST:
+    prefix: mfade_mfad_lst
+    pattern-check-id:
+      pattern: ^mfade_mfad_lst-\d+$
+      error-message: ID must match mfade_mfad_lst-NNN
+    description: MFA Implementation Details (text).
+  RLCMB-COMB-LST:
+    prefix: rlcmb_comb_lst
+    pattern-check-id:
+      pattern: ^rlcmb_comb_lst-\d+$
+      error-message: ID must match rlcmb_comb_lst-NNN
+    description: Contains 0+× RoleCombinationConstraint.
+  RLINH-INHE-LST:
+    prefix: rlinh_inhe_lst
+    pattern-check-id:
+      pattern: ^rlinh_inhe_lst-\d+$
+      error-message: ID must match rlinh_inhe_lst-NNN
+    description: Contains 0+× RoleInheritanceRule.
+  SACLC-SERV-LST:
+    prefix: saclc_serv_lst
+    pattern-check-id:
+      pattern: ^saclc_serv_lst-\d+$
+      error-message: ID must match saclc_serv_lst-NNN
+    description: 9.1.2.9. Service Account Lifecycle.
+  STEPU-STEP-LST:
+    prefix: stepu_step_lst
+    pattern-check-id:
+      pattern: ^stepu_step_lst-\d+$
+      error-message: ID must match stepu_step_lst-NNN
+    description: Step-Up Authentication Details (text).
+  ULTRE-ITEM-LST:
+    prefix: ultre_item_lst
+    pattern-check-id:
+      pattern: ^ultre_item_lst-\d+$
+      error-message: ID must match ultre_item_lst-NNN
+    description: Contains 0+× UserLifecycleTransitionEntry.
+  USATE-ITEM-LST:
+    prefix: usate_item_lst
+    pattern-check-id:
+      pattern: ^usate_item_lst-\d+$
+      error-message: ID must match usate_item_lst-NNN
+    description: Contains 0+× UserAttribute.
+  USCDF-ITEM-LST:
+    prefix: uscdf_item_lst
+    pattern-check-id:
+      pattern: ^uscdf_item_lst-\d+$
+      error-message: ID must match uscdf_item_lst-NNN
+    description: Contains 0+× UserCategoryDefinition.
+  ATME-ITEM-LST:
+    prefix: atme_item_lst
+    pattern-check-id:
+      pattern: ^atme_item_lst-\d+$
+      error-message: ID must match atme_item_lst-NNN
+    description: Contains 0+× AuthenticationMethod.
+  AZGR-GROU-LST:
+    prefix: azgr_grou_lst
+    pattern-check-id:
+      pattern: ^azgr_grou_lst-\d+$
+      error-message: ID must match azgr_grou_lst-NNN
+    description: "9.4.2. Authorization Groups [PD00-ACC-USA-GRP] — contains 0+× Group."
+  AZRO-ROLE-LST:
+    prefix: azro_role_lst
+    min-count-in-document: 1
+    pattern-check-id:
+      pattern: ^azro_role_lst-\d+$
+      error-message: ID must match azro_role_lst-NNN
+    description: "9.4.3. Role Definitions [PD00-ACC-USA-ROL] — contains 1+× Role."
+  SEVT-CUST-LST:
+    prefix: sevt_cust_lst
+    pattern-check-id:
+      pattern: ^sevt_cust_lst-\d+$
+      error-message: ID must match sevt_cust_lst-NNN
+    description: Custom Security Events — contains 0+× Security Event Entry.
+  TNCS-TENA-LST:
+    prefix: tncs_tena_lst
+    pattern-check-id:
+      pattern: ^tncs_tena_lst-\d+$
+      error-message: ID must match tncs_tena_lst-NNN
+    description: Contains 0+× TenantCustomization.
+  ENT-ENTI-LST:
+    prefix: ent_enti_lst
+    min-count-in-document: 1
+    pattern-check-id:
+      pattern: ^ent_enti_lst-\d+$
+      error-message: ID must match ent_enti_lst-NNN
+    description: "9.4.4. Entitlements [PD00-ACC-USA-ENT] — contains 1+× Entitlement."
+  RESKREF:
+    prefix: reskref
+    description: "A resource key reference entry (form) [PD00-ACC-USA-ENT-nn-RKR-nn]."
+  ROLDSCP:
+    prefix: roldscp
+    description: "A data scope entry for a role (form) [PD00-ACC-USA-ROL-nn-DAS-nn]."
+  ROLPERM:
+    prefix: rolperm
+    description: "A direct permission entry for a role (form) [PD00-ACC-USA-ROL-nn-PRM-nn]."
+  ACCOPO:
+    prefix: accopo
+    description: Access Constraint Policies (form).
+  ADEVPO:
+    prefix: adevpo
+    description: Administrative event policy (form).
+  ANDEPO:
+    prefix: andepo
+    description: Anomaly detection policy (form).
+  APABPR:
+    prefix: apabpr
+    description: "API abuse protection — rate limiting, bot detection, brute force"
+  APCOSE:
+    prefix: apcose
+    description: API CORS security — Cross-Origin Resource Sharing policy from a security
+  APSEMO:
+    prefix: apsemo
+    description: "API security monitoring — logging, anomaly detection, inventory"
+  AUANLO:
+    prefix: auanlo
+    description: "9.6. Audit and Logging [PD00-ACC-AUD]."
+  AUEVP1:
+    prefix: auevp1
+    description: Authorization event policy (form).
+  AUEVPO:
+    prefix: auevpo
+    description: Authentication event policy (form).
+  AULOFO:
+    prefix: aulofo
+    description: "9.6.2. Audit Log Format [PD00-ACC-AUD-FMT]."
+  AUTHEN:
+    prefix: authen
+    description: "9.2.2. Authentication [PD00-ACC-IDE-AUT]."
+  BAENPO:
+    prefix: baenpo
+    description: Backup Encryption Policy (form).
+  CEMAPO:
+    prefix: cemapo
+    description: Certificate Management Policy (form).
+  COCHEN:
+    prefix: cochen
+    description: A communication channel encryption entry (form)
+  COSCPO:
+    prefix: coscpo
+    description: Content scanning policy — how uploaded and stored files are scanned for
+  DAENPO:
+    prefix: daenpo
+    description: Database Encryption Policy (form).
+  DALESE:
+    prefix: dalese
+    description: "9.3.1. Data-Level Security [PD00-ACC-RES-DAT]."
+  ENATRE:
+    prefix: enatre
+    description: "9.5.1. Encryption At Rest [PD00-ACC-SEN-RES]."
+  ENDACA:
+    prefix: endaca
+    description: "An encrypted data category entry (form) [PD00-ACC-SEN-RES-CAT-nn]."
+  ENINTR:
+    prefix: enintr
+    description: "9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA]."
+  ENREFE:
+    prefix: enrefe
+    description: "An entitlement reference entry (form) [PD00-ACC-USA-ROL-nn-ENT-nn]."
+  EVATPO:
+    prefix: evatpo
+    description: Event attribute policy (form).
+  IDPRDE:
+    prefix: idprde
+    description: Provider details.
+  IDPREN:
+    prefix: idpren
+    description: Endpoint configuration.
+  IDPRMA:
+    prefix: idprma
+    description: Attribute mapping.
+  IDPRSE:
+    prefix: idprse
+    description: Certificates and encryption.
+  IDPRTR:
+    prefix: idprtr
+    description: Trust and security.
+  IDVEPO:
+    prefix: idvepo
+    description: "Identity verification/proofing policy (form) [PD00-ACC-IDE-IDN-VER]."
+  KEGEPO:
+    prefix: kegepo
+    description: Key generation policy (form).
+  KEROPO:
+    prefix: keropo
+    description: Key rotation policy (form).
+  KESTPO:
+    prefix: kestpo
+    description: Key storage policy (form).
+  LOPRPO:
+    prefix: loprpo
+    description: Log protection policy (form).
+  LOREPO:
+    prefix: lorepo
+    description: Log retention policy (form).
+  LOSTPO:
+    prefix: lostpo
+    description: Log storage policy (form).
+  MFACRQ:
+    prefix: mfacrq
+    description: "An MFA enforcement per user category entry (form) [PD00-ACC-IDE-POL-nn]."
+  MUTLPO:
+    prefix: mutlpo
+    description: Mutual TLS Policy (form).
+  PECOST:
+    prefix: pecost
+    description: Permission Composition Strategy (form).
+  PEEVBE:
+    prefix: peevbe
+    description: Permission Evaluation Behavior (form).
+  PEGRPO:
+    prefix: pegrpo
+    description: Permission Granularity Policy (form).
+  PEREPO:
+    prefix: perepo
+    description: Periodic review policy (form).
+  PRUSRE:
+    prefix: prusre
+    description: Privilege usage reporting (form).
+  REAUSU:
+    prefix: reausu
+    description: Regulatory audit support (form).
+  RESKEY:
+    prefix: reskey
+    description: "A resource key entry [PD00-ACC-USA-RES-nn] (form)."
+  ROCEPO:
+    prefix: rocepo
+    description: Role Certification Policy (form).
+  ROHIPO:
+    prefix: rohipo
+    description: Role Hierarchy Policy (form).
+  ROLEXC:
+    prefix: rolexc
+    description: "A role exclusion entry (form) [PD00-ACC-USA-ROL-nn-EXC-nn]."
+  ROLHLD:
+    prefix: rolhld
+    description: "A role holder entry (form) [PD00-ACC-USA-ROL-nn-HOL-nn]."
+  ROLREF:
+    prefix: rolref
+    description: "A role reference entry (form) [PD00-ACC-USA-GRP-nn-ROL-nn]."
+  RSPREF:
+    prefix: rspref
+    description: "A responsibility reference entry (form) [PD00-ACC-USA-ROL-nn-RSP-nn]."
+  SEDAEN:
+    prefix: sedaen
+    description: "9.5. Sensitive Data Encryption [PD00-ACC-SEN]."
+  SEEVDE:
+    prefix: seevde
+    description: "9.6.1. Security Events [PD00-ACC-AUD-EVE]."
+  SEREPO:
+    prefix: serepo
+    description: "Self-registration policy (form) [PD00-ACC-IDE-IDN-REG]."
+  STENPO:
+    prefix: stenpo
+    description: Storage encryption policy — how files and storage volumes are encrypted
+  STLIPO:
+    prefix: stlipo
+    description: "Storage lifecycle policy — retention, archiving, versioning, and"
+  TECOPO:
+    prefix: tecopo
+    description: Tenant Context Policy (form).
+  TEONPO:
+    prefix: teonpo
+    description: Tenant Onboarding Policy (form).
+  TLPRPO:
+    prefix: tlprpo
+    description: TLS Protocol Policy (form).
+  TRSEPO:
+    prefix: trsepo
+    description: HSTS and Transport Security Policy (form).
+  ACACT:
+    prefix: acact
+    description: 9.1.2.3. Account Activation (form).
+  ACDEA:
+    prefix: acdea
+    description: 9.1.2.5. Account Deactivation (form).
+  ACDEL:
+    prefix: acdel
+    description: 9.1.2.6. Account Deletion and Data Retention (form).
+  ACMOD:
+    prefix: acmod
+    description: 9.1.2.4. Account Modification (form).
+  ARES1:
+    prefix: ares1
+    description: Data access and role status flags.
+  AUSCT:
+    prefix: ausct
+    description: "9.1.1. User Categories [PD00-ACC-USE-CAT]."
+  COFR1:
+    prefix: cofr1
+    description: "9.8. Compliance Framework [PD00-ACC-CMP]."
+  CORE2:
+    prefix: core2
+    description: "9.6.3. Compliance Reporting [PD00-ACC-AUD-COM]."
+  DOCHD:
+    prefix: dochd
+    description: Standard document header present at the top of every TomSpecs document.
+  GBRLX:
+    prefix: gbrlx
+    description: "A global role exclusion entry (form) [PD00-ACC-USA-ROH-GEX-nn]."
+  IAMEG:
+    prefix: iameg
+    description: "Validation, classification, and purpose."
+  IAMES:
+    prefix: iames
+    description: Synchronization and conflict handling.
+  IAMET:
+    prefix: iamet
+    description: Transformation and defaulting behavior.
+  IDAUT:
+    prefix: idaut
+    description: "9.2. Identification and Authentication [PD00-ACC-IDE]."
+  IDENT:
+    prefix: ident
+    description: "9.2.1. Identification [PD00-ACC-IDE-IDN]."
+  IDTAM:
+    prefix: idtam
+    description: "An identity attribute mapping entry (form) [PD00-ACC-IDE-IDN-MAP-nn]."
+  IDTPV:
+    prefix: idtpv
+    description: "An identity provider entry (form) [PD00-ACC-IDE-IDN-IDP-nn]."
+  IDTSR:
+    prefix: idtsr
+    description: "An identity source entry (form) [PD00-ACC-IDE-IDN-SRC-nn]."
+  ISEC3:
+    prefix: isec3
+    description: Connectivity and trust details.
+  KEABP:
+    prefix: keabp
+    description: Key escrow and backup policy (form).
+  LFSEB:
+    prefix: lfseb
+    description: Outcomes and optional execution rules.
+  LFSEP:
+    prefix: lfsep
+    description: Protocol-level and descriptive details.
+  LFSEV:
+    prefix: lfsev
+    description: Inputs and validation behavior.
+  LGFLS:
+    prefix: lgfls
+    description: "A login flow step entry (form) [PD00-ACC-IDE-FLO-nn]."
+  MCREA:
+    prefix: mcrea
+    description: Allowed authenticators and phishing-resistance rules.
+  MCREO:
+    prefix: mcreo
+    description: "Fallback, timeouts, and rationale."
+  MCRET:
+    prefix: mcret
+    description: Enrollment and remembered-device timing.
+  MFADE:
+    prefix: mfade
+    description: A single mfa detail entry.
+  REPR2:
+    prefix: repr2
+    description: "9.3. Resource Protection [PD00-ACC-RES]."
+  RLCMB:
+    prefix: rlcmb
+    description: "A role combination constraint entry (form) [PD00-ACC-USA-ROH-CMB-nn]."
+  RLINH:
+    prefix: rlinh
+    description: "A role inheritance rule entry (form) [PD00-ACC-USA-ROH-INH-nn]."
+  SACLC:
+    prefix: saclc
+    description: 9.1.2.9. Service Account Lifecycle (form).
+  SRPBP:
+    prefix: srpbp
+    description: Bot protection settings for self-registration.
+  SSACM:
+    prefix: ssacm
+    description: 9.1.2.8. Self-Service Account Management (form).
+  SSOPA:
+    prefix: ssopa
+    description: Access and consent behavior.
+  SSOPF:
+    prefix: ssopf
+    description: Gateway and federation setup.
+  SSOPO:
+    prefix: ssopo
+    description: Platform integration and monitoring.
+  SSOPS:
+    prefix: ssops
+    description: Session and logout behavior.
+  STEPU:
+    prefix: stepu
+    description: A single step up detail entry.
+  UACST:
+    prefix: uacst
+    description: 9.1.2.1. Account States (form).
+  ULTAP:
+    prefix: ultap
+    description: Approval requirements.
+  ULTAU:
+    prefix: ultau
+    description: Reversal and automation.
+  ULTEF:
+    prefix: ultef
+    description: Side effects and notifications.
+  ULTRE:
+    prefix: ultre
+    description: "A lifecycle transition entry (form) [PD00-ACC-USE-LIF-nn]."
+  ULTRS:
+    prefix: ultrs
+    description: 9.1.2.7. Lifecycle Transitions and Approvals (form).
+  URREG:
+    prefix: urreg
+    description: 9.1.2.2. Registration Process (form).
+  USATE:
+    prefix: usate
+    description: "A user attribute entry (form) [PD00-ACC-USE-ATT-nn]."
+  USATT:
+    prefix: usatt
+    description: "9.1.3. User Attributes [PD00-ACC-USE-ATT]."
+  USCDF:
+    prefix: uscdf
+    description: "A user category definition (form) [PD00-ACC-USE-CAT-nn]."
+  USLCS:
+    prefix: uslcs
+    description: "9.1.2. User Lifecycle [PD00-ACC-USE-LIF]."
+  USMGT:
+    prefix: usmgt
+    description: "9.1. User Management [PD00-ACC-USE]."
+  AAP1:
+    prefix: aap1
+    description: API authorization policy — how API access decisions are made.
+  ACMS:
+    prefix: acms
+    description: Access Control Model Selection (form).
+  AKMP:
+    prefix: akmp
+    description: API key management policy (form).
+  AMEA:
+    prefix: amea
+    description: Usage scope of the authentication method.
+  AMEE:
+    prefix: amee
+    description: Enrollment and activation workflow.
+  AMEO:
+    prefix: ameo
+    description: Operational controls and lifecycle settings.
+  AMES:
+    prefix: ames
+    description: Security posture of the authentication method.
+  APSE:
+    prefix: apse
+    description: "9.3.2. API Security [PD00-ACC-RES-API]."
+  AREG:
+    prefix: areg
+    description: Risk and activation controls.
+  AREL:
+    prefix: arel
+    description: Provisioning and review settings.
+  ARES:
+    prefix: ares
+    description: Scope and inheritance metadata.
+  ARVP:
+    prefix: arvp
+    description: "API request validation policy — input validation, schema enforcement,"
+  ATME:
+    prefix: atme
+    description: "An authentication method entry (form) [PD00-ACC-IDE-AUT-MET-nn]."
+  AUFL:
+    prefix: aufl
+    description: "9.2.2.2. Authentication Flow [PD00-ACC-IDE-FLO]."
+  AUME:
+    prefix: aume
+    description: "9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET]."
+  AUMO:
+    prefix: aumo
+    description: "9.4.1. Authorization Model [PD00-ACC-USA-MOD]."
+  AZGR:
+    prefix: azgr
+    description: "An authorization group entry [PD00-ACC-USA-GRP-nn] (form)."
+  AZRO:
+    prefix: azro
+    description: "An authorization role entry [PD00-ACC-USA-ROL-nn] (form)."
+  CCDP:
+    prefix: ccdp
+    description: Credential compromise detection policy (form).
+  CLSP:
+    prefix: clsp
+    description: Column-level security policy (form).
+  CTAP:
+    prefix: ctap
+    description: Cross-Tenant Access Policy (form).
+  DAAP:
+    prefix: daap
+    description: Data access audit policy (form).
+  DAEP:
+    prefix: daep
+    description: Data access event policy (form).
+  EARP:
+    prefix: earp
+    description: Encryption At Rest Policy (form).
+  FACP:
+    prefix: facp
+    description: "File access control policy — who can access, modify, share, and delete"
+  FASS:
+    prefix: fass
+    description: "9.3.3. File and Storage Security [PD00-ACC-RES-FIL]."
+  FDSP:
+    prefix: fdsp
+    description: "File download security policy — how file downloads are protected,"
+  FSEP:
+    prefix: fsep
+    description: File and Storage Encryption Policy (form).
+  FUVP:
+    prefix: fuvp
+    description: File upload validation policy — how uploaded files are validated before
+  ISEL:
+    prefix: isel
+    description: Synchronization and provisioning details.
+  ISEM:
+    prefix: isem
+    description: Attribute mapping details.
+  ISEO:
+    prefix: iseo
+    description: Operational behavior.
+  IVPD:
+    prefix: ivpd
+    description: Required proofing artifacts.
+  IVPF:
+    prefix: ivpf
+    description: Failure handling rules.
+  IVPL:
+    prefix: ivpl
+    description: Reverification and retention settings.
+  IVPM:
+    prefix: ivpm
+    description: Contact and provider verification.
+  IVPW:
+    prefix: ivpw
+    description: Workflow and approval settings.
+  KCRP:
+    prefix: kcrp
+    description: Key compromise and recovery policy (form).
+  KEMA:
+    prefix: kema
+    description: "9.5.3. Key Management [PD00-ACC-SEN-KEY]."
+  PACP:
+    prefix: pacp
+    description: "9.2.3. Password and Credential Policy [PD00-ACC-IDE-POL]."
+  RLSP:
+    prefix: rlsp
+    description: Row-level security policy (form).
+  ROHI:
+    prefix: rohi
+    description: "9.4.6. Role Hierarchy [PD00-ACC-USA-ROH]."
+  ROMA:
+    prefix: roma
+    description: "9.7. Role Matrix [PD00-ACC-ROL]."
+  SACP:
+    prefix: sacp
+    description: Service account and API credential policy (form).
+  SELP:
+    prefix: selp
+    description: Security event logging policy (form).
+  SEMA:
+    prefix: sema
+    description: "9.2.4. Session Management [PD00-ACC-IDE-SES]."
+  SEVT:
+    prefix: sevt
+    description: "A custom security event entry (form) [PD00-ACC-AUD-EVE-nn]."
+  SRPA:
+    prefix: srpa
+    description: Approval workflow for self-registration.
+  SRPF:
+    prefix: srpf
+    description: Field configuration for self-registration.
+  SRPS:
+    prefix: srps
+    description: Security restrictions for self-registration.
+  SRPV:
+    prefix: srpv
+    description: Verification requirements for self-registration.
+  SSOP:
+    prefix: ssop
+    description: "Single Sign-On policy (form) [PD00-ACC-IDE-IDN-SSO]."
+  SUAP:
+    prefix: suap
+    description: Step-up and adaptive authentication policy (form).
+  TBEP:
+    prefix: tbep
+    description: Tenant Boundary Enforcement Policy (form).
+  TDIP:
+    prefix: tdip
+    description: Tenant data isolation policy (form).
+  TEIS:
+    prefix: teis
+    description: "9.4.7. Tenant Isolation [PD00-ACC-USA-TEN]."
+  TNCS:
+    prefix: tncs
+    description: "A tenant customization entry (form) [PD00-ACC-USA-TEN-CUS-nn]."
+  USAU:
+    prefix: usau
+    description: "9.4. User Authorization [PD00-ACC-USA]."
+  AAP:
+    prefix: aap
+    description: API authentication policy — how API consumers prove their identity.
+  AEH:
+    prefix: aeh
+    description: Authentication error handling (form).
+  ALP:
+    prefix: alp
+    description: Account lockout and throttling policy (form).
+  BAP:
+    prefix: bap
+    description: Biometric authentication policy (form).
+  CAP:
+    prefix: cap
+    description: Certificate-based authentication policy (form).
+  CRP:
+    prefix: crp
+    description: Credential recovery policy (form).
+  CSP:
+    prefix: csp
+    description: Concurrent session policy (form).
+  DAP:
+    prefix: dap
+    description: Database access policy (form).
+  DMP:
+    prefix: dmp
+    description: Data masking policy (form).
+  ENT:
+    prefix: ent
+    description: "An entitlement entry [PD00-ACC-USA-ENT-nn] (form)."
+  LFC:
+    prefix: lfc
+    description: Login flow configuration (form).
+  PLP:
+    prefix: plp
+    description: Password lifecycle policy (form).
+  PRP:
+    prefix: prp
+    description: Password requirements policy (form).
+  PSP:
+    prefix: psp
+    description: Password storage and verification policy (form).
+  RHP:
+    prefix: rhp
+    description: Redirect and callback handling policy (form).
+  RMP:
+    prefix: rmp
+    description: Remember-me and persistent session policy (form).
+  SCP:
+    prefix: scp
+    description: Session creation policy (form).
+  SLM:
+    prefix: slm
+    description: Session lifecycle monitoring (form).
+  SRP:
+    prefix: srp
+    description: Session revocation policy (form).
+  SSP:
+    prefix: ssp
+    description: Session security hardening policy (form).
+  STP:
+    prefix: stp
+    description: Session timeout policy (form).
+  TMP:
+    prefix: tmp
+    description: Token management policy (form).
+  MC:
+    prefix: mc
+    description: Multi-Factor Authentication (MFA) configuration (form).
+  SP:
+    prefix: sp
+    description: Single Sign-On (SSO) policy (form).
+document:
+  sections:
+    header:
+      section-type: DOCHD
+      optional: true
+    usermanagement:
+      section-type: USMGT
+      optional: true
+    identificationandauthentication:
+      section-type: IDAUT
+      optional: true
+    resourceprotection:
+      section-type: REPR2
+      optional: true
+    userauthorization:
+      section-type: USAU
+      optional: true
+    sensitivedataencryption:
+      section-type: SEDAEN
+      optional: true
+    auditandlogging:
+      section-type: AUANLO
+      optional: true
+    rolematrix:
+      section-type: ROMA
+      optional: true
+    complianceframework:
+      section-type: COFR1
+      optional: true

@@ -1,0 +1,19 @@
+# tom_som_rust_runtime — the generic, value-free, generated-code-free half of
+# the multi-platform TomSpecs object-model runtime, ported faithfully from the
+# Dart reference (tom_som_dart_runtime) and the Go/Python/Java/JS/TS ports.
+#
+# Zero external dependencies: the Rust standard library only. JSON and YAML are
+# both hand-rolled (no serde / serde_yaml) so the crate compiles standalone and
+# every byte of output is under our control (see jsJSONString parity).
+[package]
+name = "tom_som_rust_runtime"
+version = "0.0.0"
+edition = "2021"
+description = "Generic TomSpecs object-model runtime (Rust port)."
+publish = false
+
+[lib]
+name = "tom_som_rust_runtime"
+path = "src/lib.rs"
+
+[dependencies]

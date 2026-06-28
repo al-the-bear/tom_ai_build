@@ -29,6 +29,7 @@ export 'src/som_java_emitter.dart' show SomJavaEmitter;
 export 'src/som_javascript_emitter.dart' show SomJavaScriptEmitter;
 export 'src/som_typescript_emitter.dart' show SomTypeScriptEmitter;
 export 'src/som_go_emitter.dart' show SomGoEmitter;
+export 'src/som_rust_emitter.dart' show SomRustEmitter;
 export 'src/som_generator.dart'
     show generateSomDartProject, writeSomDartProject, SomGenerationResult;
 export 'src/som_python_generator.dart'
@@ -53,6 +54,8 @@ export 'src/som_typescript_generator.dart'
         SomTypeScriptGenerationResult;
 export 'src/som_go_generator.dart'
     show generateSomGoProject, writeSomGoProject, SomGoGenerationResult;
+export 'src/som_rust_generator.dart'
+    show generateSomRustProject, writeSomRustProject, SomRustGenerationResult;
 export 'src/spec_ops_generator.dart' show SpecOpsGenerator;
 export 'src/docspecs_schema_generator.dart' show DocSpecsSchemaGenerator;
 export 'src/outline_writer.dart' show OutlineWriter;

@@ -43,6 +43,9 @@ Future<void> main(List<String> arguments) async {
     ..addOption('go-runtime',
         help: 'Path to the tom_som_go_runtime module (go.mod replace '
             'target). Default: <ai_build>/tom_som_go_runtime.')
+    ..addOption('rust-runtime',
+        help: 'Path to the tom_som_rust_runtime crate (Cargo.toml path dep '
+            'target). Default: <ai_build>/tom_som_rust_runtime.')
     ..addOption('model-version',
         help: 'Override the integer model-version stamp. '
             'Default: major component of the model version.')
@@ -82,6 +85,8 @@ Future<void> main(List<String> arguments) async {
       p.join(aiBuild, 'tom_som_typescript_runtime')));
   final goRuntimeDir = p.normalize(p.absolute(args.option('go-runtime') ??
       p.join(aiBuild, 'tom_som_go_runtime')));
+  final rustRuntimeDir = p.normalize(p.absolute(args.option('rust-runtime') ??
+      p.join(aiBuild, 'tom_som_rust_runtime')));
   for (final dir in [modelDir, runtimeDir]) {
     if (!Directory(dir).existsSync()) _fail('Directory not found: $dir');
   }
@@ -214,6 +219,22 @@ Future<void> main(List<String> arguments) async {
         stdout.writeln('  module:   ${result.modulePath}');
         stdout.writeln('  go.mod:   ${result.goModPath}');
       case SomLanguage.rust:
+        stdout.writeln('\n── generating ${target.language.slug} → $outputRoot');
+        final result = await generateSomRustProject(
+          modelPackagePath: modelDir,
+          runtimePackagePath: rustRuntimeDir,
+          outputRoot: outputRoot,
+          modelVersion: modelVersion,
+          modelLabel: stamp.label,
+          generatedAt: stamp.buildTime,
+          versionLabel: config.versionLabel,
+          documentRoots: config.documentRoots,
+        );
+        stdout.writeln('  classes: ${result.classCount}  '
+            'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}');
+        stdout.writeln('  meta:     ${result.metaJsonPath}');
+        stdout.writeln('  lib:      ${result.libPath}');
+        stdout.writeln('  Cargo:    ${result.cargoTomlPath}');
       case SomLanguage.c:
       case SomLanguage.cpp:
         stdout.writeln('  (skipping ${target.language.slug}: '
