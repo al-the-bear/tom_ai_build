@@ -49,6 +49,9 @@ Future<void> main(List<String> arguments) async {
     ..addOption('c-runtime',
         help: 'Path to the tom_som_c_runtime project (Makefile RUNTIME_DIR '
             'target). Default: <ai_build>/tom_som_c_runtime.')
+    ..addOption('cpp-runtime',
+        help: 'Path to the tom_som_cpp_runtime project (Makefile RUNTIME_DIR '
+            'target). Default: <ai_build>/tom_som_cpp_runtime.')
     ..addOption('model-version',
         help: 'Override the integer model-version stamp. '
             'Default: major component of the model version.')
@@ -92,6 +95,8 @@ Future<void> main(List<String> arguments) async {
       p.join(aiBuild, 'tom_som_rust_runtime')));
   final cRuntimeDir = p.normalize(p.absolute(args.option('c-runtime') ??
       p.join(aiBuild, 'tom_som_c_runtime')));
+  final cppRuntimeDir = p.normalize(p.absolute(args.option('cpp-runtime') ??
+      p.join(aiBuild, 'tom_som_cpp_runtime')));
   for (final dir in [modelDir, runtimeDir]) {
     if (!Directory(dir).existsSync()) _fail('Directory not found: $dir');
   }
@@ -259,8 +264,23 @@ Future<void> main(List<String> arguments) async {
         stdout.writeln('  source:   ${result.sourcePath}');
         stdout.writeln('  Makefile: ${result.makefilePath}');
       case SomLanguage.cpp:
-        stdout.writeln('  (skipping ${target.language.slug}: '
-            'no emitter yet — Phase C)');
+        stdout.writeln('\n── generating ${target.language.slug} → $outputRoot');
+        final result = await generateSomCppProject(
+          modelPackagePath: modelDir,
+          runtimePackagePath: cppRuntimeDir,
+          outputRoot: outputRoot,
+          modelVersion: modelVersion,
+          modelLabel: stamp.label,
+          generatedAt: stamp.buildTime,
+          versionLabel: config.versionLabel,
+          documentRoots: config.documentRoots,
+        );
+        stdout.writeln('  classes: ${result.classCount}  '
+            'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}');
+        stdout.writeln('  meta:     ${result.metaJsonPath}');
+        stdout.writeln('  header:   ${result.headerPath}');
+        stdout.writeln('  source:   ${result.sourcePath}');
+        stdout.writeln('  Makefile: ${result.makefilePath}');
     }
   }
 

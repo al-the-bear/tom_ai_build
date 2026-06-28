@@ -1,0 +1,38 @@
+# tom_som_cpp_runtime — generic TomSpecs SOM runtime in idiomatic C++ (C++17).
+#
+# `make`         builds the static library build/libtom_som_cpp_runtime.a
+# `make test`    builds + runs the conformance harness against the shared corpus
+# `make clean`   removes build artefacts
+
+CXX      ?= g++
+CXXFLAGS ?= -std=c++17 -Wall -Wextra -O2
+INCLUDE  := -Iinclude
+
+SRC := $(wildcard src/*.cpp)
+OBJ := $(patsubst src/%.cpp,build/%.o,$(SRC))
+
+LIB     := build/libtom_som_cpp_runtime.a
+HARNESS := build/conformance
+CORPUS  ?= ../tom_som_conformance/corpus
+
+.PHONY: all test clean
+
+all: $(LIB)
+
+build:
+	mkdir -p build
+
+build/%.o: src/%.cpp | build
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -o $@
+
+$(LIB): $(OBJ)
+	ar rcs $@ $(OBJ)
+
+$(HARNESS): tests/conformance.cpp $(LIB)
+	$(CXX) $(CXXFLAGS) $(INCLUDE) tests/conformance.cpp $(LIB) -o $@
+
+test: $(HARNESS)
+	$(HARNESS) $(CORPUS)
+
+clean:
+	rm -rf build

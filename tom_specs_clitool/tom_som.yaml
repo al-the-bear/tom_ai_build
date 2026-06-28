@@ -6,9 +6,8 @@
 # `tom_ai/ai_build/` — e.g. `tom_ai/ai_build/tom_som_dart_v0`.
 #
 # Phase B shipped the Dart reference implementation; Phase C adds languages to
-# `languages:` as their emitters land. Dart + Python + Java + JavaScript +
-# TypeScript + Go + Rust + C emitters exist today; the remaining one (C++) is
-# added once its emitter (item #10) and toolchain (item #12) are in place.
+# `languages:` as their emitters land. All nine emitters now exist: Dart +
+# Python + Java + JavaScript + TypeScript + Go + Rust + C + C++.
 tom-spec-object-model:
   version-label: v0
   output-base: ..
@@ -21,4 +20,5 @@ tom-spec-object-model:
     - go
     - rust
     - c
+    - cpp
   # document-roots: omitted ⇒ generate every document root (all 13).

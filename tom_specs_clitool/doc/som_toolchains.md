@@ -22,7 +22,7 @@ together with the versions in use and how each toolchain is obtained.
 | **JavaScript** | Node.js | `22.22.3` (npm `10.9.8`) | **yes** (`tom_som_javascript_v0`) | **builds + runs generated `v0` ✓** (3079 classes load; behavioural + samples pass) | system `node`/`npm` |
 | **TypeScript** | `tsc` (project-local npm) | **pinned `6.0.3`** (Node 22.22.3 / npm 10.9.8) | **yes** (`tom_som_typescript_v0`) | **builds + runs generated `v0` ✓** (3079 classes compile; behavioural + samples pass) | project-local `npm i -D typescript@6.0.3` — followup items 4 + 7 |
 | **C** | GCC | `gcc 13.3.0` | **yes** (`tom_som_c_v0`) | **builds + runs generated `v0` ✓** (3079 classes compile; behavioural + samples pass) | apt `build-essential` — followup item 10 |
-| **C++** | GCC / Clang | `g++ 13.3.0`, `clang++ 18.1.3` | no (emitter pending #10) | compiles + runs ✓ | apt `build-essential` / `clang` |
+| **C++** | GCC / Clang | `g++ 13.3.0`, `clang++ 18.1.3` | **yes** (`tom_som_cpp_v0`) | **builds + runs generated `v0` ✓** (3079 classes compile; behavioural + samples pass) | apt `build-essential` / `clang` — followup item 11 |
 | **Java** | JDK | `javac 21.0.11` (JDK 21.0.11+10) | **yes** (`tom_som_java_v0`) | **builds + runs generated `v0` ✓** (3079 classes compile; behavioural + samples pass) | apt `openjdk-21-jdk-headless` (compiler only, no AWT/X11; followup item 1) |
 | **Go** | Go toolchain | `1.26.4` (official tarball) | **yes** (`tom_som_go_v0`) | **builds + runs generated `v0` ✓** (3079 classes compile; behavioural + samples pass) | official tarball → `~/.local/go` (per-user, sha256-verified; PATH from `.bashrc`/`.profile`) — followup items 3 + 8 |
 | **Rust** | rustc / cargo | `1.96.0` (stable; rustfmt `1.9.0`) | **yes** (`tom_som_rust_v0`) | **builds + runs generated `v0` ✓** (3079 classes compile; behavioural + samples pass) | `rustup` (per-user, `~/.cargo`; `~/.cargo/env` sourced from `.bashrc`/`.profile`) — followup items 2 + 9 |
@@ -31,31 +31,24 @@ together with the versions in use and how each toolchain is obtained.
 
 - **"Verified"** is the strongest check actually run:
   - *builds + analyzes / compiles + imports / builds + runs generated `v0`* — the
-    real `v0` project was built and exercised (**Dart**, **Python**, **Java**,
-    **JavaScript**, **TypeScript**, **Go**, **Rust**, and **C** have `v0` projects
-    today; the remaining one (C++) is emitter-pending, per
-    D24/D32/D33/D34/D35/D36/D37).
+    real `v0` project was built and exercised. **All nine languages** (Dart,
+    Python, Java, JavaScript, TypeScript, Go, Rust, C, C++) now have `v0`
+    projects (D24/D32/D33/D34/D35/D36/D37/D38).
   - *compiles + runs ✓ / runtime smoke ✓* — a trivial hello-world was compiled
     and/or run to confirm the toolchain works, even though no SOM `v0` project
     exists for that language yet.
-- **"`v0` project exists?"** tracks plan item #10 (typed emitters). Dart, Python,
-  Java, JavaScript, TypeScript, Go, Rust, and C emitters exist; the remaining one
-  (C++) is **blocked on its emitter**, not on the toolchain. The toolchain column is
-  therefore the *forward* requirement: it records what will be needed the moment
-  each emitter lands.
+- **"`v0` project exists?"** tracks plan item #10 (typed emitters). All nine
+  emitters now exist (Dart, Python, Java, JavaScript, TypeScript, Go, Rust, C,
+  C++); no language remains emitter-pending.
 
-## Why only Dart + Python + Java + JavaScript + TypeScript + Go + Rust + C are "Done"
+## All nine languages are "Done"
 
 Step 12's done-condition — *each toolchain builds its `v0` project and runs its
-tests* — can only be satisfied where a `v0` project exists. Per
-**D24/D32/D33/D34/D35/D36/D37** that is Dart, Python, Java, JavaScript, TypeScript,
-Go, Rust, and C (the Java `v0` landed with follow-up item 5, JavaScript with item 6,
-TypeScript with item 7, Go with item 8, Rust with item 9, C with item 10). The
-remaining one (C++) is emitter-pending: installing
-toolchains with no
-generated code for them to build would be speculative — nothing to compile, no
-tests to run, on a shared
-fleet host. The honest delivery is therefore:
+tests* — is now satisfied for **all nine languages**. Per
+**D24/D32/D33/D34/D35/D36/D37/D38** the `v0` projects landed one per follow-up
+item: Java (item 5), JavaScript (6), TypeScript (7), Go (8), Rust (9), C (10),
+and C++ (11), alongside the Dart + Python references. No language remains
+emitter-pending. The historical honest-delivery sequence was:
 
 1. **Verify + record** the two toolchains that have projects (Dart, Python) — done.
 2. **Inventory + smoke-verify** the toolchains already present (Node, GCC, Clang,
