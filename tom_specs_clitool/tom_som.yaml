@@ -7,8 +7,8 @@
 #
 # Phase B shipped the Dart reference implementation; Phase C adds languages to
 # `languages:` as their emitters land. Dart + Python + Java + JavaScript +
-# TypeScript + Go + Rust emitters exist today; the remaining two (C, C++) are
-# added once their emitters (item #10) and toolchains (item #12) are in place.
+# TypeScript + Go + Rust + C emitters exist today; the remaining one (C++) is
+# added once its emitter (item #10) and toolchain (item #12) are in place.
 tom-spec-object-model:
   version-label: v0
   output-base: ..
@@ -20,4 +20,5 @@ tom-spec-object-model:
     - typescript
     - go
     - rust
+    - c
   # document-roots: omitted ⇒ generate every document root (all 13).
