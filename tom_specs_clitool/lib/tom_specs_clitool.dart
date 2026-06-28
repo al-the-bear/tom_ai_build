@@ -64,6 +64,8 @@ export 'src/som_cpp_generator.dart'
     show generateSomCppProject, writeSomCppProject, SomCppGenerationResult;
 export 'src/spec_ops_generator.dart' show SpecOpsGenerator;
 export 'src/docspecs_schema_generator.dart' show DocSpecsSchemaGenerator;
+export 'src/docspecs_yaml_schema_generator.dart'
+    show DocspecsYamlSchemaGenerator;
 export 'src/outline_writer.dart' show OutlineWriter;
 export 'src/validator.dart' show validateModel, validateStructuralInvariants;
 export 'src/summary_package_config.dart'

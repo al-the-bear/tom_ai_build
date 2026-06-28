@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://tom.ai/schemas/yaml/docspecs-document.schema.json",
+  "title": "TomSpecs Document (*.docspecs.yaml)",
+  "description": "Structural schema for the generic on-disk TomSpecs document wire format written by SpecDocumentYaml.encode (format version 1). Validates the file envelope and pass value-types, independently of any per-root DocSpecs schema.",
+  "type": "object",
+  "required": [
+    "version"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "const": 1,
+      "description": "On-disk format version (independent of the model stamp)."
+    },
+    "modelVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$",
+      "description": "Authoring object-model version (major.minor) the content was last written against."
+    },
+    "document": {
+      "$ref": "#/$defs/document"
+    },
+    "review": {
+      "type": "object",
+      "description": "Optional editor structural-review pass; opaque to the runtime, so its inner shape is unconstrained.",
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "document": {
+      "type": "object",
+      "description": "The live object-model values, keyed by full section path. Any missing pass decodes as empty.",
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "$ref": "#/$defs/contentMap"
+        },
+        "forms": {
+          "$ref": "#/$defs/formsMap"
+        },
+        "lists": {
+          "$ref": "#/$defs/listsMap"
+        }
+      }
+    },
+    "contentMap": {
+      "type": "object",
+      "description": "Content/scalar leaves: section path -> text value.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "formsMap": {
+      "type": "object",
+      "description": "@Form sections: section path -> (field name -> text value).",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      }
+    },
+    "listsMap": {
+      "type": "object",
+      "description": "Lists: list path -> ordered item entry.",
+      "additionalProperties": {
+        "$ref": "#/$defs/listEntry"
+      }
+    },
+    "listEntry": {
+      "type": "object",
+      "description": "A list pass entry: a monotonic sequence counter and the ordered item paths.",
+      "required": [
+        "seq",
+        "items"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "seq": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Per-list monotonic counter; never reused (item paths are <listPath>-<seq>)."
+        },
+        "items": {
+          "type": "array",
+          "description": "Ordered item paths in the list.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
