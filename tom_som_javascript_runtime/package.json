@@ -1,0 +1,15 @@
+{
+  "name": "tom_som_runtime",
+  "version": "0.1.0",
+  "description": "JavaScript port of the generic TomSpecs object-model runtime (paths, model, reflection, document, validator, YAML/Markdown codecs). Zero external dependencies (Node built-ins only).",
+  "main": "tom_som_runtime/index.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node tests/conformance_runner.js"
+  },
+  "license": "UNLICENSED",
+  "private": true
+}
