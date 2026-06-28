@@ -1,0 +1,4 @@
+# Build artefacts
+build/
+*.o
+*.a
