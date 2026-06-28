@@ -1,0 +1,282 @@
+#include "spec_model.h"
+
+#include <stdlib.h>
+#include <string.h>
+
+const char *spec_parse_field_kind(const char *raw) {
+  if (raw == NULL) {
+    return SPEC_FIELD_KIND_SCALAR;
+  }
+  const char *known[] = {SPEC_FIELD_KIND_LIST,    SPEC_FIELD_KIND_FORM,
+                         SPEC_FIELD_KIND_SECTION, SPEC_FIELD_KIND_CONTENT,
+                         SPEC_FIELD_KIND_ENUM,    SPEC_FIELD_KIND_COMPLEX,
+                         SPEC_FIELD_KIND_SCALAR};
+  for (size_t i = 0; i < sizeof(known) / sizeof(known[0]); i++) {
+    if (strcmp(raw, known[i]) == 0) {
+      return known[i];
+    }
+  }
+  return SPEC_FIELD_KIND_SCALAR;
+}
+
+const SomJson *spec_annotation_argument(const SpecAnnotation *ann, const char *key) {
+  return som_json_get(ann->arguments, key);
+}
+
+int spec_field_is_expandable(const SpecField *f) {
+  return strcmp(f->kind, SPEC_FIELD_KIND_LIST) == 0 ||
+         strcmp(f->kind, SPEC_FIELD_KIND_COMPLEX) == 0;
+}
+
+const SpecField *spec_class_field_named(const SpecClass *cls, const char *name) {
+  for (size_t i = 0; i < cls->fields_len; i++) {
+    if (strcmp(cls->fields[i].name, name) == 0) {
+      return &cls->fields[i];
+    }
+  }
+  return NULL;
+}
+
+const SpecClass *spec_model_class_named(const SpecModel *m, const char *name) {
+  if (name == NULL || name[0] == '\0') {
+    return NULL;
+  }
+  size_t lo = 0, hi = m->classes_len;
+  while (lo < hi) {
+    size_t mid = lo + (hi - lo) / 2;
+    int cmp = strcmp(m->classes[mid].name, name);
+    if (cmp == 0) {
+      return m->classes[mid].cls;
+    }
+    if (cmp < 0) {
+      lo = mid + 1;
+    } else {
+      hi = mid;
+    }
+  }
+  return NULL;
+}
+
+/* ---- decoding ----------------------------------------------------------- */
+
+static char *str_or_dup(const SomJson *v, const char *key) {
+  return som_strdup(som_json_str_or(v, key));
+}
+
+static SpecAnnotationList annotations_from_json(const SomJson *v) {
+  SpecAnnotationList out;
+  out.items = NULL;
+  out.len = 0;
+  size_t n = som_json_array_len(v);
+  if (n == 0) {
+    return out;
+  }
+  out.items = (SpecAnnotation *)calloc(n, sizeof(SpecAnnotation));
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *a = som_json_array_at(v, i);
+    out.items[i].name = str_or_dup(a, "name");
+    const SomJson *args = som_json_get(a, "arguments");
+    out.items[i].arguments =
+        (args != NULL && args->type == SOM_JSON_OBJECT) ? args : NULL;
+  }
+  out.len = n;
+  return out;
+}
+
+static void field_from_json(const SomJson *f, SpecField *out) {
+  memset(out, 0, sizeof(*out));
+  som_strlist_init(&out->enum_values);
+
+  out->name = str_or_dup(f, "name");
+  out->kind = som_strdup(spec_parse_field_kind(som_json_str_or(f, "kind")));
+  out->doc = str_or_dup(f, "doc");
+  out->help = str_or_dup(f, "help");
+  out->section_id = str_or_dup(f, "sectionId");
+  out->section_id_pattern = str_or_dup(f, "sectionIdPattern");
+  out->element_type = str_or_dup(f, "elementType");
+  out->element_is_complex = som_json_bool_or(f, "elementIsComplex");
+
+  long long min;
+  if (som_json_as_i64(som_json_get(f, "min"), &min)) {
+    out->has_min = 1;
+    out->min = min;
+  }
+  out->content_type = str_or_dup(f, "contentType");
+  out->section_type = str_or_dup(f, "sectionType");
+  out->enum_type = str_or_dup(f, "enumType");
+
+  const SomJson *evs = som_json_get(f, "enumValues");
+  size_t en = som_json_array_len(evs);
+  for (size_t i = 0; i < en; i++) {
+    const char *s = som_json_as_str(som_json_array_at(evs, i));
+    if (s != NULL) {
+      som_strlist_push_copy(&out->enum_values, s);
+    }
+  }
+
+  out->type = str_or_dup(f, "type");
+
+  const SomJson *ffs = som_json_get(f, "formFields");
+  size_t fn = som_json_array_len(ffs);
+  if (fn > 0) {
+    out->form_fields = (FormFieldSpec *)calloc(fn, sizeof(FormFieldSpec));
+    for (size_t i = 0; i < fn; i++) {
+      const SomJson *ff = som_json_array_at(ffs, i);
+      const char *type = som_json_str_or(ff, "type");
+      out->form_fields[i].type = som_strdup(type[0] != '\0' ? type : "String");
+      const char *fname = som_json_str_or(ff, "name");
+      const char *label = som_json_str_or(ff, "label");
+      out->form_fields[i].name = som_strdup(fname);
+      out->form_fields[i].label = som_strdup(label[0] != '\0' ? label : fname);
+      out->form_fields[i].hint = str_or_dup(ff, "hint");
+      out->form_fields[i].required = som_json_bool_or(ff, "required");
+    }
+    out->form_fields_len = fn;
+  }
+
+  out->annotations = annotations_from_json(som_json_get(f, "annotations"));
+}
+
+static void class_from_json(const char *name, const SomJson *cls, SpecClass *out) {
+  memset(out, 0, sizeof(*out));
+  const char *cname = som_json_str_or(cls, "name");
+  out->name = som_strdup(cname[0] != '\0' ? cname : name);
+  out->section_id = str_or_dup(cls, "sectionId");
+  out->doc = str_or_dup(cls, "doc");
+  out->help = str_or_dup(cls, "help");
+  out->maps_to = str_or_dup(cls, "mapsTo");
+  out->detailed_in = str_or_dup(cls, "detailedIn");
+
+  const SomJson *fields = som_json_get(cls, "fields");
+  size_t n = som_json_array_len(fields);
+  if (n > 0) {
+    out->fields = (SpecField *)calloc(n, sizeof(SpecField));
+    for (size_t i = 0; i < n; i++) {
+      field_from_json(som_json_array_at(fields, i), &out->fields[i]);
+    }
+    out->fields_len = n;
+  }
+  out->annotations = annotations_from_json(som_json_get(cls, "annotations"));
+}
+
+static int class_entry_cmp(const void *a, const void *b) {
+  const SpecClassEntry *ea = (const SpecClassEntry *)a;
+  const SpecClassEntry *eb = (const SpecClassEntry *)b;
+  return strcmp(ea->name, eb->name);
+}
+
+SpecModel *spec_model_from_json_str(const char *data, char **err) {
+  SomJson *root = som_json_parse(data, err);
+  if (root == NULL) {
+    return NULL;
+  }
+  SpecModel *m = (SpecModel *)calloc(1, sizeof(SpecModel));
+  m->source = root;
+
+  const SomJson *roots = som_json_get(root, "roots");
+  size_t rn = som_json_array_len(roots);
+  if (rn > 0) {
+    m->roots = (SpecRoot *)calloc(rn, sizeof(SpecRoot));
+    for (size_t i = 0; i < rn; i++) {
+      const SomJson *r = som_json_array_at(roots, i);
+      m->roots[i].type = str_or_dup(r, "type");
+      m->roots[i].title = str_or_dup(r, "title");
+      m->roots[i].section_id = str_or_dup(r, "sectionId");
+      m->roots[i].description = str_or_dup(r, "description");
+      m->roots[i].doc = str_or_dup(r, "doc");
+    }
+    m->roots_len = rn;
+  }
+
+  const SomJson *classes = som_json_get(root, "classes");
+  if (classes != NULL && classes->type == SOM_JSON_OBJECT) {
+    size_t cn = classes->as.object.len;
+    if (cn > 0) {
+      m->classes = (SpecClassEntry *)calloc(cn, sizeof(SpecClassEntry));
+      for (size_t i = 0; i < cn; i++) {
+        const SomJsonMember *mem = &classes->as.object.members[i];
+        SpecClass *cls = (SpecClass *)calloc(1, sizeof(SpecClass));
+        class_from_json(mem->key, mem->value, cls);
+        m->classes[i].name = som_strdup(mem->key);
+        m->classes[i].cls = cls;
+      }
+      m->classes_len = cn;
+      qsort(m->classes, cn, sizeof(SpecClassEntry), class_entry_cmp);
+    }
+  }
+
+  long long mv = 0;
+  som_json_as_i64(som_json_get(root, "modelVersion"), &mv);
+  m->model_version = mv;
+  m->model_version_label = str_or_dup(root, "modelVersionLabel");
+  return m;
+}
+
+/* ---- teardown ----------------------------------------------------------- */
+
+static void annotations_free(SpecAnnotationList *a) {
+  for (size_t i = 0; i < a->len; i++) {
+    free(a->items[i].name);
+  }
+  free(a->items);
+}
+
+static void field_free(SpecField *f) {
+  free(f->name);
+  free(f->kind);
+  free(f->doc);
+  free(f->help);
+  free(f->section_id);
+  free(f->section_id_pattern);
+  free(f->element_type);
+  free(f->content_type);
+  free(f->section_type);
+  free(f->enum_type);
+  som_strlist_free(&f->enum_values);
+  free(f->type);
+  for (size_t i = 0; i < f->form_fields_len; i++) {
+    free(f->form_fields[i].name);
+    free(f->form_fields[i].label);
+    free(f->form_fields[i].type);
+    free(f->form_fields[i].hint);
+  }
+  free(f->form_fields);
+  annotations_free(&f->annotations);
+}
+
+static void class_free(SpecClass *c) {
+  free(c->name);
+  free(c->section_id);
+  free(c->doc);
+  free(c->help);
+  free(c->maps_to);
+  free(c->detailed_in);
+  for (size_t i = 0; i < c->fields_len; i++) {
+    field_free(&c->fields[i]);
+  }
+  free(c->fields);
+  annotations_free(&c->annotations);
+  free(c);
+}
+
+void spec_model_free(SpecModel *m) {
+  if (m == NULL) {
+    return;
+  }
+  for (size_t i = 0; i < m->roots_len; i++) {
+    free(m->roots[i].type);
+    free(m->roots[i].title);
+    free(m->roots[i].section_id);
+    free(m->roots[i].description);
+    free(m->roots[i].doc);
+  }
+  free(m->roots);
+  for (size_t i = 0; i < m->classes_len; i++) {
+    free(m->classes[i].name);
+    class_free(m->classes[i].cls);
+  }
+  free(m->classes);
+  free(m->model_version_label);
+  som_json_free(m->source);
+  free(m);
+}

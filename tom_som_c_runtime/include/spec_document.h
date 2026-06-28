@@ -1,0 +1,123 @@
+/* spec_document — a sparse, live instance of a TomSpecs document, a faithful port
+ * of the Rust `spec_document.rs`.
+ *
+ * The structure is defined by the SpecModel class graph; this holds only the
+ * values actually set, keyed by the globally-unique section-ID path. Nothing is
+ * materialised until written, so an untouched document is empty (the
+ * "empty = no value" rule).
+ *
+ * Three sparse stores cover the writable field kinds:
+ *   - content     — content/scalar leaves: path → string value;
+ *   - forms       — `@Form` sections: path → (form-field name → value);
+ *   - list_items  — lists: list path → ordered item paths.
+ *
+ * List item paths are `<listPath>-<seq>` where seq is a per-list monotonic
+ * counter that never reuses a number. Every store is kept byte-sorted by key so
+ * iteration order matches the Rust BTreeMap (the byte-stable codecs rely on it).
+ *
+ * Ownership: a document owns its whole store contents; free with
+ * `spec_document_free`. A `DocumentJson` likewise owns its contents
+ * (`document_json_free`).
+ */
+#ifndef SPEC_DOCUMENT_H
+#define SPEC_DOCUMENT_H
+
+#include "som_json.h"
+#include "som_util.h"
+
+/* ---- DocumentJson — plain-data view for persistence --------------------- */
+
+typedef struct {
+  char *key;     /* form path, owned */
+  SomMap fields; /* form-field name → value */
+} DocFormEntry;
+
+typedef struct {
+  char *key; /* list path, owned */
+  long long seq;
+  SomStrList items;
+} DocListEntry;
+
+typedef struct {
+  SomMap content; /* path → string */
+  DocFormEntry *forms;
+  size_t forms_len;
+  size_t forms_cap;
+  DocListEntry *lists;
+  size_t lists_len;
+  size_t lists_cap;
+} DocumentJson;
+
+void document_json_init(DocumentJson *d);
+void document_json_free(DocumentJson *d);
+
+/* Builds a DocumentJson from a parsed `{content,forms,lists}` JSON value. */
+void document_json_from_json(const SomJson *v, DocumentJson *out);
+
+/* Renders a deterministic canonical JSON string (byte-sorted keys, fixed field
+ * order content/forms/lists, omitting empty stores). Owned result. */
+char *document_json_to_canonical_json(const DocumentJson *d);
+
+/* Builder helpers: return the (created if absent) form field map / list entry
+ * for `key`, keeping the store byte-sorted. Used by codecs that decode into a
+ * DocumentJson. The returned pointer is valid until the next insert. */
+SomMap *document_json_form_fields(DocumentJson *d, const char *key);
+DocListEntry *document_json_list_entry(DocumentJson *d, const char *key);
+
+/* ---- SpecDocument — the live sparse document ---------------------------- */
+
+typedef struct {
+  char *key;
+  SomStrList items;
+} DocListItems;
+
+typedef struct {
+  SomMap content;
+  DocFormEntry *forms;
+  size_t forms_len;
+  size_t forms_cap;
+  DocListItems *list_items;
+  size_t list_items_len;
+  size_t list_items_cap;
+  SomMap list_seq; /* list path → decimal seq counter */
+} SpecDocument;
+
+void spec_document_init(SpecDocument *d);
+void spec_document_free(SpecDocument *d);
+
+/* content: returns the value at `path` or NULL; set with empty value to clear. */
+const char *spec_document_content(const SpecDocument *d, const char *path);
+void spec_document_set_content(SpecDocument *d, const char *path,
+                               const char *value);
+
+/* forms: returns form `field_name` at `path` or NULL; empty value clears it. */
+const char *spec_document_form_field(const SpecDocument *d, const char *path,
+                                     const char *field_name);
+void spec_document_set_form_field(SpecDocument *d, const char *path,
+                                  const char *field_name, const char *value);
+
+/* lists: borrowed item list at `list_path` (NULL when none). */
+const SomStrList *spec_document_list_items(const SpecDocument *d,
+                                           const char *list_path);
+/* Appends a new item and returns its stable path (owned). */
+char *spec_document_add_list_item(SpecDocument *d, const char *list_path);
+/* Removes `item_path` and everything nested beneath it; 1 if removed. */
+int spec_document_remove_list_item(SpecDocument *d, const char *item_path);
+
+int spec_document_is_empty(const SpecDocument *d);
+int spec_document_has_values_under(const SpecDocument *d, const char *prefix);
+
+/* Enumerations (all byte-sorted) written into `out` (initialised by callee). */
+void spec_document_content_paths(const SpecDocument *d, SomStrList *out);
+void spec_document_form_paths(const SpecDocument *d, SomStrList *out);
+void spec_document_list_paths(const SpecDocument *d, SomStrList *out);
+void spec_document_form_field_names(const SpecDocument *d, const char *path,
+                                    SomStrList *out);
+size_t spec_document_list_item_count(const SpecDocument *d,
+                                     const char *list_path);
+
+/* Persistence: plain-data view / replace-all from a plain-data view. */
+void spec_document_to_json(const SpecDocument *d, DocumentJson *out);
+void spec_document_load_json(SpecDocument *d, const DocumentJson *j);
+
+#endif /* SPEC_DOCUMENT_H */
