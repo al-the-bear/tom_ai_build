@@ -68,5 +68,8 @@ export 'src/docspecs_yaml_schema_generator.dart'
     show DocspecsYamlSchemaGenerator;
 export 'src/outline_writer.dart' show OutlineWriter;
 export 'src/validator.dart' show validateModel, validateStructuralInvariants;
-export 'src/summary_package_config.dart'
+// Summary package-config helpers now live in tom_analyzer_shared (the base-first
+// home for analyzer-summary infrastructure). Re-exported here so existing
+// consumers (and tests) keep the same import surface.
+export 'package:tom_analyzer_shared/tom_analyzer_shared.dart'
     show readPackageRoots, mergePackageRootsForDirs, SummaryConfigException;

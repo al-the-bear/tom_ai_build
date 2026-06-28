@@ -15,6 +15,11 @@ dependencies:
   pub_semver: ^2.2.0
   json2yaml: ^3.0.1
   yaml: ^3.1.2
+  # Base-first home of the analyzer-summary infrastructure: the grouped
+  # packages.sum builder (GroupedPackageBundleBuilder) and the package-config
+  # helpers (readPackageRoots / mergePackageRootsForDirs / SummaryConfigException)
+  # consumed by bin/summaries.dart. Published — version constraint, not a path.
+  tom_analyzer_shared: ^0.5.0
   # publish_to: none package — consumed by path per the workspace convention for
   # unpublished sibling tooling (NOT a pubspec override of a published dep).
   tom_doc_specs:
