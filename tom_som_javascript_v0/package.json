@@ -1,0 +1,13 @@
+{
+  "name": "tom_som_javascript_v0",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Generated typed TomSpecs object model (v0). An editing facade over the generic tom_som_javascript_runtime; see the meta-data file and DocSpecs schemas in this package. Regenerate with tom_specs_clitool/bin/generate_som.dart.",
+  "main": "tom_som_javascript_v0.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "tomSom": {
+    "runtimePath": "../tom_som_javascript_runtime"
+  }
+}
